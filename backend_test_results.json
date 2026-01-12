@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-12T12:09:39.312094",
+  "timestamp": "2026-01-12T12:51:56.577774",
   "total_tests": 19,
   "passed_tests": 17,
   "success_rate": 89.47368421052632,
@@ -17,7 +17,7 @@
       "success": true,
       "details": "Status: 200, Parsed name: , Skills count: 0",
       "response_data": {
-        "id": "8728c3b9-63fd-4f86-b62c-e1b046765984",
+        "id": "248dcab4-de1e-456a-906b-bdaefdfae699",
         "full_name": "",
         "email": "",
         "phone": "",
@@ -26,8 +26,8 @@
         "education": [],
         "summary": "",
         "raw_text": "",
-        "created_at": "2026-01-12T12:08:40.418036Z",
-        "updated_at": "2026-01-12T12:08:40.418039Z"
+        "created_at": "2026-01-12T12:50:57.107458Z",
+        "updated_at": "2026-01-12T12:50:57.107462Z"
       }
     },
     {
@@ -35,7 +35,7 @@
       "success": true,
       "details": "Status: 200, Resume found for: ",
       "response_data": {
-        "id": "8728c3b9-63fd-4f86-b62c-e1b046765984",
+        "id": "248dcab4-de1e-456a-906b-bdaefdfae699",
         "full_name": "",
         "email": "",
         "phone": "",
@@ -44,8 +44,8 @@
         "education": [],
         "summary": "",
         "raw_text": "",
-        "created_at": "2026-01-12T12:08:40.418036+00:00",
-        "updated_at": "2026-01-12T12:08:40.418039+00:00"
+        "created_at": "2026-01-12T12:50:57.107458+00:00",
+        "updated_at": "2026-01-12T12:50:57.107462+00:00"
       }
     },
     {
@@ -2083,7 +2083,7 @@
       "details": "Status: 200, Jobs found: 2, Sample job: Platform & Automation Engineer",
       "response_data": [
         {
-          "id": "him_365c7144-11f4-4a0a-95f8-207d47da8509",
+          "id": "him_d60e9b72-4d40-4a60-bca7-422db64d4d72",
           "title": "Platform & Automation Engineer",
           "company": "Braze",
           "location": "Canada",
@@ -2104,7 +2104,7 @@
           "posted_at": 1768161620
         },
         {
-          "id": "him_3660a4b0-3605-427d-bf0e-dbd33bece8c9",
+          "id": "him_ef98df55-d3d8-41b1-afa3-c582992a36fd",
           "title": "Principal Mechanical Engineer - Bulk Handling Systems",
           "company": "Sedron Technologies",
           "location": "United States",
@@ -2125,7 +2125,7 @@
     {
       "test": "Job Search with Filters",
       "success": true,
-      "details": "Status: 200, Jobs found with filters: 5, Jobs with posted dates: 5",
+      "details": "Status: 200, Jobs found with filters: 44, Jobs with posted dates: 5",
       "response_data": [
         {
           "id": "rem_1956455",
@@ -2202,7 +2202,7 @@
           "posted_at": 1768146130
         },
         {
-          "id": "him_e36f56d4-1d30-4747-91ee-4cbdc8a5bffe",
+          "id": "him_2c5d3b6d-d27e-4886-9b2a-c5a202ebfd9c",
           "title": "CHI Quality Systems Specialist",
           "company": "Lonza",
           "location": "United States",
@@ -2217,13 +2217,481 @@
           ],
           "source": "Himalayas",
           "posted_at": 1768161621
+        },
+        {
+          "id": "gcse_7515326742921935098",
+          "title": "Quality Jobs, Employment | Indeed",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "In Office 5 days / week in Miami, FL, USA. Candidates should have an understanding of the FDA requirements for stem cell\u2026 Quality Assurance Specialist I. LGC\u00a0...",
+          "url": "https://www.indeed.com/q-quality-jobs.html",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_7999609255309951692",
+          "title": "Quality Enterprises USA, INC. Careers and Employment",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Quality Enterprises USA, Inc. (QE) is a leading construction firm in Naples, FL that focuses on major civil, building, and specialized construction.",
+          "url": "https://www.indeed.com/cmp/Quality-Enterprises-Usa,-Inc.",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_8061195857838692545",
+          "title": "Quality Engineer Jobs, Employment | Indeed",
+          "company": "... quality of components, sub",
+          "location": "usa",
+          "description": "... quality of components, sub-assemblies, and\u2026 Next page. People also searched: usa \u00b7 staff quality engineer \u00b7 principal quality engineer \u00b7 manufacturing engineer.",
+          "url": "https://www.indeed.com/q-quality-engineer-jobs.html",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_4281122365205229050",
+          "title": "Food Quality Assurance Jobs, Employment | Indeed",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "... quality problems/issues to supervisor or\u2026 Nutritionist Product Quality Assurance Specialist. Easily apply. Almased USA Inc. Hybrid remote in Wellington, FL\u00a0...",
+          "url": "https://www.indeed.com/q-food-quality-assurance-jobs.html",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_1179366545303342655",
+          "title": "Working at Quality Enterprises USA, INC.: Employee Reviews ...",
+          "company": "Apr 26, 2025 ... Reviews from Quality Enterprises ",
+          "location": "usa",
+          "description": "Apr 26, 2025 ... Reviews from Quality Enterprises USA, INC. employees about Quality Enterprises USA, INC. culture, salaries, benefits, work-life balance,\u00a0...",
+          "url": "https://www.indeed.com/cmp/Quality-Enterprises-Usa,-Inc./reviews",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_8743663713334746330",
+          "title": "Cqa Certified Quality Auditor Jobs, Employment | Indeed",
+          "company": "25",
+          "location": "usa",
+          "description": "Quality Assurance Technician/Out of Box Auditor. Limtronik USA Inc. Aurora, CO 80011. $25 - $28an hour.",
+          "url": "https://www.indeed.com/q-cqa-certified-quality-auditor-jobs.html",
+          "salary": "$25 - $28",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_4307739379128239122",
+          "title": "Data Quality Analyst Jobs, Employment | Indeed",
+          "company": "This position",
+          "location": "usa",
+          "description": "This position is responsible for maintaining and improving the quality\u2026 Quality Data Analyst. FEUER-USA. Tunica Resorts, MS 38664. Pay information not provided.",
+          "url": "https://www.indeed.com/q-data-quality-analyst-jobs.html",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_7424223235044388643",
+          "title": "Hoffmann Quality Tools USA, Inc. Careers and Employment | Indeed ...",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Find out what works well at Hoffmann Quality Tools USA, Inc. from the people who know best. Get the inside scoop on jobs, salaries, top office locations,\u00a0...",
+          "url": "https://www.indeed.com/cmp/Hoffmann-Quality-Tools-Usa,-Inc.",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_1168893047242037664",
+          "title": "Quality Enterprises USA, INC. careers in Naples, FL",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Learn about working at Quality Enterprises USA, INC. in Naples, FL. See jobs, salaries, employee reviews and more for Naples, FL location.",
+          "url": "https://www.indeed.com/cmp/Quality-Enterprises-Usa,-Inc./locations/FL/Naples",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_5940505892393532482",
+          "title": "Quality Control Engineer Jobs, Employment | Indeed",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Work with Quality Manager to develop and implement quality assurance and quality control procedures. ... Expert Process Engineer (TAG). New. Nestl\u00e9 USA. Solon, OH\u00a0...",
+          "url": "https://www.indeed.com/q-quality-control-engineer-jobs.html",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_1948495064976809295",
+          "title": "1,000+ Vice President Quality Assurance jobs in United States (42 ...",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Wurth USA jobs \u00b7 Vice President Ecommerce jobs \u00b7 Conroy Simberg jobs \u00b7 Head of ... Sign in to create your job alert for Vice President Quality Assurance jobs in\u00a0...",
+          "url": "https://www.linkedin.com/jobs/vice-president-quality-assurance-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_5232792691504088266",
+          "title": "4,000+ Quality System Engineer jobs in United States (366 new)",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Quality Assurance Auditor jobs \u00b7 TPC Group jobs \u00b7 Application Services Manager jobs \u00b7 Catholic Charities USA jobs \u00b7 Senior Director Quality jobs \u00b7 Lozier\u00a0...",
+          "url": "https://www.linkedin.com/jobs/quality-system-engineer-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_1146078320355205909",
+          "title": "1,000+ Qa Automation Engineer jobs in United States",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Senior Quality Assurance Automation Engineer jobs \u00b7 Software Automation ... Tech USA jobs \u00b7 Functional Tester jobs. LinkedIn \u00a9 2026; About \u00b7 Accessibility \u00b7 User\u00a0...",
+          "url": "https://www.linkedin.com/jobs/qa-automation-engineer-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_1003659185236136905",
+          "title": "8,000+ Quality Assurance Supervisor jobs in United States (521 new)",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "8,000+ Quality Assurance Supervisor Jobs in United States (521 new) ; JBS USA. Memphis, TN ; Harba Solutions Inc. Indianapolis, IN. Actively Hiring +4 benefits.",
+          "url": "https://www.linkedin.com/jobs/quality-assurance-supervisor-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_2612768487223728302",
+          "title": "1,000+ Chief Quality Officer jobs in United States (79 new)",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Wurth USA jobs \u00b7 Professor of Nursing jobs \u00b7 Management Representative jobs \u00b7 Vice ... Sign in to create your job alert for Chief Quality Officer jobs in United\u00a0...",
+          "url": "https://www.linkedin.com/jobs/chief-quality-officer-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_7579980514833926384",
+          "title": "38,000+ Quality Improvement Specialist jobs in United States",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "... Quality Improvement Specialist jobs added daily ... Wurth USA jobs. LinkedIn \u00a9 2026; About \u00b7 Accessibility \u00b7 User Agreement \u00b7 Privacy\u00a0...",
+          "url": "https://www.linkedin.com/jobs/quality-improvement-specialist-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_1891509927819464660",
+          "title": "159 Milliporesigma jobs in United States (13 new)",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "CAE USA jobs \u00b7 Cooper Machinery Services jobs \u00b7 Clinical Data Specialist jobs ... Director of Quality Control jobs \u00b7 Nascentia Health jobs \u00b7 Director Site\u00a0...",
+          "url": "https://www.linkedin.com/jobs/milliporesigma-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_508338044682497685",
+          "title": "EAE USA hiring Quality Manager - Electrical in Adairsville, GA ...",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Posted 11:11:42 PM. At EAE USA Inc., we're shaping the future of electrical power distribution\u2014and we need a Quality\u2026See this and similar jobs on LinkedIn.",
+          "url": "https://www.linkedin.com/jobs/view/quality-manager-electrical-at-eae-usa-4324292792",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_5447244701356847965",
+          "title": "Sunshine Enterprise USA hiring IT - SCDHHS - Quality Assurance ...",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Dec 17, 2025 ... See who Sunshine Enterprise USA has hired for this role. No longer ... Software Quality Assurance Analyst jobs. 7,696 open jobs \u00b7 Software\u00a0...",
+          "url": "https://www.linkedin.com/jobs/view/it-scdhhs-quality-assurance-analyst-%E2%80%93-consultant-at-sunshine-enterprise-usa-4343919789",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_6447712580180979097",
+          "title": "Alpek Polyester USA hiring QUALITY SPECIALIST JOB GASTON ...",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "QUALITY SPECIALIST JOB GASTON, SC. Alpek Polyester USA Gaston, SC. 2 months ago Be among the first 25 applicants.",
+          "url": "https://www.linkedin.com/jobs/view/quality-specialist-job%0Agaston-sc-at-alpek-polyester-usa-4316053412",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_2049811388336941903",
+          "title": "Magna Steyr USA Inc. hiring Quality Intern Job in Mesa, AZ",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Quality Intern jobs in Mesa, AZ \u00b7 Jobs at Magna Steyr USA Inc. in Mesa, AZ \u00b7 Quality Intern salaries in Mesa, AZ \u00b7 Reviews at Magna Steyr USA Inc. Interviews at\u00a0...",
+          "url": "https://www.glassdoor.com/job-listing/quality-intern-magna-international-JV_IC1133897_KO0,14_KE15,34.htm?jl=1009650390737",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_6051223282149435268",
+          "title": "SML, USA INC. hiring Manager - Quality Management Job in Garner ...",
+          "company": "Use AI to find out how well the skills on your res",
+          "location": "usa",
+          "description": "Use AI to find out how well the skills on your resume fit this job description. ... Manager - Quality Management jobs in Garner, NC \u00b7 Jobs at SML, USA INC. in\u00a0...",
+          "url": "https://www.glassdoor.com/job-listing/manager-quality-management-sml-usa-inc-JV_IC1138950_KO0,26_KE27,38.htm?jl=1009944222583",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_2687412266848497486",
+          "title": "Arvato USA LLC hiring Quality Assurance Inspector Job in Valencia ...",
+          "company": "Job expiredThis job from Nov 23, 2024",
+          "location": "usa",
+          "description": "Job expiredThis job from Nov 23, 2024 is no ... Related pages. Quality Assurance Inspector jobs in Valencia, CA \u00b7 Jobs at Arvato USA LLC in Valencia, CA.",
+          "url": "https://www.glassdoor.com/job-listing/quality-assurance-inspector-arvato-usa-llc-JV_IC1146899_KO0,27_KE28,42.htm?jl=1009097956438",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_9085130444234673404",
+          "title": "VAM USA hiring Quality Manager Job in Houston, TX",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Job Summary: The Quality Manager oversees all aspects of the business ... Related pages. Quality Manager jobs in Houston, TX \u00b7 Jobs at VAM USA in Houston, TX.",
+          "url": "https://www.glassdoor.com/job-listing/quality-manager-vam-usa-JV_IC1140171_KO0,15_KE16,23.htm?jl=1009876730839",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_1411846046088393491",
+          "title": "SEMCORP Manufacturing USA, LLC hiring Quality Inspector Job in ...",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Job Summary:The Quality Technician supports the ... Related pages. Quality Inspector jobs in Sidney, OH \u00b7 Jobs at SEMCORP Manufacturing USA, LLC in Sidney, OH.",
+          "url": "https://www.glassdoor.com/job-listing/quality-inspector-semcorp-manufacturing-usa-llc-JV_IC1146170_KO0,17_KE18,47.htm?jl=1009864483652",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_7043988698982384035",
+          "title": "Isotopia USA hiring Quality Assurance Specialist Job in Westfield, IN ...",
+          "company": "Job expiredThis job from Nov 28, 2024",
+          "location": "usa",
+          "description": "Job expiredThis job from Nov 28, 2024 is no ... Related pages. Quality Assurance Specialist jobs in Westfield, IN \u00b7 Jobs at Isotopia USA in Westfield, IN.",
+          "url": "https://www.glassdoor.com/job-listing/quality-assurance-specialist-isotopia-usa-JV_IC1145044_KO0,28_KE29,41.htm?jl=1009457441143",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_6001704160269249412",
+          "title": "Wet USA hiring Quality Control Job in Arcadia, CA",
+          "company": "Job expiredThis job from Aug 27, 2025",
+          "location": "usa",
+          "description": "Job expiredThis job from Aug 27, 2025 is no longer available for applications. Wet USA. Quality Control. Arcadia, CA. Is your resume a good match? Use AI to\u00a0...",
+          "url": "https://www.glassdoor.com/job-listing/quality-control-wet-usa-JV_IC1146744_KO0,15_KE16,23.htm?jl=1009856331773",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_2196410699034498892",
+          "title": "MAK Pharma USA hiring Pharmaceutical Quality Assurance Job in ...",
+          "company": "Job expiredThis job from Sep 8, 2025",
+          "location": "usa",
+          "description": "Job expiredThis job from Sep 8, 2025 is no longer available for applications. MAK Pharma USA. Pharmaceutical Quality Assurance. Randolph, NJ. Is your resume a\u00a0...",
+          "url": "https://www.glassdoor.com/job-listing/pharmaceutical-quality-assurance-mak-pharma-usa-JV_IC1126954_KO0,32_KE33,47.htm?jl=1009869600073",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_2808886610820632986",
+          "title": "National Quality Assurance hiring NQA USA Associate Auditors Job ...",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Related pages. NQA USA Associate Auditors jobs in Fullerton, CA \u00b7 Jobs at National Quality Assurance in Fullerton, CA \u00b7 NQA USA Associate Auditors salaries in\u00a0...",
+          "url": "https://www.glassdoor.com/job-listing/nqa-usa-associate-auditors-national-quality-assurance-JV_IC1146784_KO0,26_KE27,53.htm?jl=1006901840669",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_5671843772591687446",
+          "title": "Treatt USA hiring Quality Control Analyst - Laboratory Job in ...",
+          "company": "The objective of this role ... Related pages. Qual",
+          "location": "usa",
+          "description": "Job Description:The objective of this role ... Related pages. Quality Control Analyst - Laboratory jobs in Lakeland, FL \u00b7 Jobs at Treatt USA in Lakeland, FL.",
+          "url": "https://www.glassdoor.com/job-listing/quality-control-analyst-laboratory-treatt-usa-JV_IC1154143_KO0,34_KE35,45.htm?jl=1009855200423",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_3112795903679995593",
+          "title": "Job Announcement - USAJOBS",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "... quality of work performed or to protect the quality of life or healthcare services, ... Opens in a new windowUSA.gov \u00b7 Opens in a new windowVote.gov.",
+          "url": "https://www.ziprecruiter.com/job-redirect?match_token=eyJKb2JLZXkiOnsibGlzdGluZ19rZXkiOiJESkc5UGd3Mm0wSmNvMkVTcXF6MkZnIiwibWF0Y2hfaWQiOiIwMTlhYmQ3MC1kMzgxLTcxZmUtOTE3Zi0xYzUwNGRjODk0ZjEifSwiRGVzdGluYXRpb24iOjIsIkV4dGVybmFsQXBwbHlVcmwiOiJodHRwczovL3d3dy51c2Fqb2JzLmdvdjo0NDMvam9iLzg0ODMzNjIwMD91dG1fc291cmNlPXppcHJlY3J1aXRlciIsIlBsYWNlbWVudElkIjo4NzY4Nn0%3D",
+          "salary": "",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_7809279778552060775",
+          "title": "QUALITY ENTERPRISES USA Jobs (Now Hiring) Near Me Jan 2026",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "Looking to work for Quality Enterprises Usa? ZipRecruiter has 20 Quality Enterprises Usa jobs. Start your career at Quality Enterprises Usa Today.",
+          "url": "https://www.ziprecruiter.com/co/Quality-Enterprises-Usa?id=MMeyJr_lYyTKkyShDN6RfAv5bFk=?uuid=MMeyJr%2FlYyTKkyShDN6RfAv5bFk%3D",
+          "salary": "",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_6223292790103649497",
+          "title": "Quality Assurance Professional Salary: Hourly Rate (USA)",
+          "company": "Average hourly salary for a Quality Assurance Prof",
+          "location": "usa",
+          "description": "How much do Quality Assurance Professional jobs pay per hour? Average hourly salary for a Quality Assurance Professional job in the US is $15.14.",
+          "url": "https://www.ziprecruiter.com/Salaries/Quality-Assurance-Professional-Salary",
+          "salary": "$15",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_8594163868448446211",
+          "title": "Quality Control Salary: Hourly Rate January 2026 USA",
+          "company": "The average hourly pay for a Quality Control job i",
+          "location": "usa",
+          "description": "How much do Quality Control jobs pay per hour? The average hourly pay for a Quality Control job in the US is $21.48. Hourly salary range is $11.78 to\u00a0...",
+          "url": "https://www.ziprecruiter.com/Salaries/Quality-Control-Salary",
+          "salary": "$21",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_50336374127687802",
+          "title": "Quality Technician Salary: Hourly Rate January 2026 USA",
+          "company": "Unknown",
+          "location": "usa",
+          "description": "If you're qualified, finding work as a Plumber Usa may help you make more money than that of the average Quality Technician position. Job Title, Annual Salary\u00a0...",
+          "url": "https://www.ziprecruiter.com/Salaries/Quality-Technician-Salary",
+          "salary": "",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_5807371574390768759",
+          "title": "Quality Engineering Job in Reno, NV at Cimpress Usa (Hiring)",
+          "company": "Dec 11, 2025 ... Easy 1",
+          "location": "usa",
+          "description": "Dec 11, 2025 ... Easy 1-Click Apply Cimpress Usa Quality Engineering ($71800 - $92700) job opening hiring now in Reno, NV 89506. Posted: Dec 10, 2025.",
+          "url": "https://www.ziprecruiter.com/c/Cimpress-Usa/Job/Quality-Engineering/-in-Reno,NV?jid=0deaa9ad540de871",
+          "salary": "$71800 - $92700",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_1689523017467514452",
+          "title": "JBS USA Jobs (Now Hiring) Near Me Jan 2026",
+          "company": "JBS Sanitation Hourly 2nd & 3rd ... JBS USA",
+          "location": "usa",
+          "description": "Description Position at JBS USA Job Title: JBS Sanitation Hourly 2nd & 3rd ... JBS USA is a leading global provider of diversified, high-quality food\u00a0...",
+          "url": "https://www.ziprecruiter.com/co/Jbs-Usa/Jobs",
+          "salary": "",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_7769504079102518768",
+          "title": "Quality Inspector Salary: Hourly Rate January 2026 USA",
+          "company": "Average hourly pay for a Quality Inspector job in ",
+          "location": "usa",
+          "description": "How much do Quality Inspector jobs pay per hour? Average hourly pay for a Quality Inspector job in the US is $20.39. Salary range is $12.26 to $32.21.",
+          "url": "https://www.ziprecruiter.com/Salaries/Quality-Inspector-Salary",
+          "salary": "$20",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_2189136975848816889",
+          "title": "Illuminate Usa Customer Quality Specialist (CQS) Job Pataskala",
+          "company": "Easy 1",
+          "location": "usa",
+          "description": "Easy 1-Click Apply Illuminate Usa Customer Quality Specialist (CQS) Full-Time ($16 - $22) job opening hiring now in Pataskala, OH. Don't wait - apply now!",
+          "url": "https://www.ziprecruiter.com/c/Illuminate-USA/Job/Customer-Quality-Specialist-(CQS)/-in-Pataskala,OH?jid=3b347e5d5c073061",
+          "salary": "$16 - $22",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
         }
       ]
     },
     {
       "test": "Job Search - All Sources",
       "success": true,
-      "details": "Status: 200, Total jobs found: 70, Sources: {'RemoteOK': 30, 'Remotive': 15, 'Arbeitnow': 24, 'Himalayas': 1}",
+      "details": "Status: 200, Total jobs found: 110, Sources: {'RemoteOK': 30, 'Remotive': 15, 'Arbeitnow': 24, 'Himalayas': 1, 'Indeed (Google)': 10, 'LinkedIn (Google)': 10, 'Glassdoor (Google)': 10, 'ZipRecruiter (Google)': 10}",
       "response_data": [
         {
           "id": "rok_1129504",
@@ -3639,7 +4107,7 @@
           "posted_at": 1768117514
         },
         {
-          "id": "him_e99b9798-77dc-463c-97c3-37f2ec1afc1c",
+          "id": "him_3c2f227a-d5c4-4631-9840-70cda8b5a379",
           "title": "Pre-sales Business Analyst - Insurance (Fully Remote)",
           "company": "CoverGo",
           "location": "India",
@@ -3655,6 +4123,486 @@
           ],
           "source": "Himalayas",
           "posted_at": 1768161473
+        },
+        {
+          "id": "gcse_5682867837071844393",
+          "title": "Flexible Jobs \u2013 Apply Today to Work From Home in Remote ...",
+          "company": "Browse 116704 job openings from Remote. Discover f",
+          "location": "Remote",
+          "description": "Browse 116704 job openings from Remote. Discover flexible, work-from-home opportunities on Indeed in fields like tech, admin, and customer service.",
+          "url": "https://www.indeed.com/l-remote-jobs.html",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_7441709491972492531",
+          "title": "Flexible Remote Jobs \u2013 Apply Today to Work From Home (January ...",
+          "company": "Browse 149925 Remote job openings. Discover flexib",
+          "location": "Remote",
+          "description": "Browse 149925 Remote job openings. Discover flexible, work-from-home opportunities on Indeed in fields like tech, admin, and customer service.",
+          "url": "https://www.indeed.com/q-remote-jobs.html",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_1785753485416429611",
+          "title": "Flexible Remote Job Jobs \u2013 Apply Today to Work From Home in ...",
+          "company": "Browse 385 Remote Job job openings from New Haven,",
+          "location": "Remote",
+          "description": "Browse 385 Remote Job job openings from New Haven, CT. Discover flexible, work-from-home opportunities on Indeed in fields like tech, admin, and customer\u00a0...",
+          "url": "https://www.indeed.com/q-remote-job-l-new-haven,-ct-jobs.html",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_6742099793918633977",
+          "title": "Flexible Psychology Remote Remote Jobs \u2013 Apply Today to Work ...",
+          "company": "Browse 231 Psychology Remote Remote job openings f",
+          "location": "Remote",
+          "description": "Browse 231 Psychology Remote Remote job openings from Texas. Discover flexible, work-from-home opportunities on Indeed in fields like tech, admin,\u00a0...",
+          "url": "https://www.indeed.com/q-psychology-remote-remote-l-texas-jobs.html",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_5996526846111744446",
+          "title": "33 of the Best Remote Jobs (With Tips)",
+          "company": "Dec 10, 2025 ... Remote opportunities offer job se",
+          "location": "Remote",
+          "description": "Dec 10, 2025 ... Remote opportunities offer job seekers flexibility, cost savings and often a better work-life balance. When hiring remote workers, employers can\u00a0...",
+          "url": "https://www.indeed.com/career-advice/finding-a-job/best-remote-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_6778776654613113642",
+          "title": "Remote Job Postings on Indeed: A Guide for Employers",
+          "company": "Posting remote jobs on Indeed",
+          "location": "Remote",
+          "description": "Apr 1, 2025 ... Looking to hire remote or hybrid remote candidates? Posting remote jobs on Indeed is easy. In this guide, we'll cover how to create remote\u00a0...",
+          "url": "https://www.indeed.com/hire/resources/howtohub/remote-job-postings",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_6430169421880403624",
+          "title": "Flexible Remote Work From Home Jobs \u2013 Apply Today to Work ...",
+          "company": "Browse 446 Remote Work From Home job openings from",
+          "location": "Remote",
+          "description": "Browse 446 Remote Work From Home job openings from Sacramento, CA. Discover flexible, work-from-home opportunities on Indeed in fields like tech, admin,\u00a0...",
+          "url": "https://www.indeed.com/q-remote-work-from-home-l-sacramento,-ca-jobs.html",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_4380595776553470237",
+          "title": "Flexible Remote Remote Jobs \u2013 Apply Today to Work From Home in ...",
+          "company": "Browse 117 Remote Remote job openings from Hornell",
+          "location": "Remote",
+          "description": "Browse 117 Remote Remote job openings from Hornell, NY. Discover flexible, work-from-home opportunities on Indeed in fields like tech, admin, and customer\u00a0...",
+          "url": "https://www.indeed.com/q-remote-remote-l-hornell,-ny-jobs.html",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_5042324955792348394",
+          "title": "Flexible Remote Remote Jobs \u2013 Apply Today to Work From Home in ...",
+          "company": "Browse 189 Remote Remote job openings from Spring ",
+          "location": "Remote",
+          "description": "Browse 189 Remote Remote job openings from Spring Hill, FL. Discover flexible, work-from-home opportunities on Indeed in fields like tech, admin,\u00a0...",
+          "url": "https://www.indeed.com/q-remote-remote-l-spring-hill,-fl-jobs.html",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_8816809753725526983",
+          "title": "Flexible Virtual Remote Jobs \u2013 Apply Today to Work From Home in ...",
+          "company": "Browse 661 Virtual Remote job openings from Orland",
+          "location": "Remote",
+          "description": "Browse 661 Virtual Remote job openings from Orlando, FL. Discover flexible, work-from-home opportunities on Indeed in fields like tech, admin, and customer\u00a0...",
+          "url": "https://www.indeed.com/q-virtual-remote-l-orlando,-fl-jobs.html",
+          "salary": "",
+          "tags": [],
+          "source": "Indeed (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_5604828547303523040",
+          "title": "289,000+ Remote jobs in United States (7,199 new)",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Today's top 289000+ Remote jobs in United States. Leverage your professional network, and get hired. New Remote jobs added daily.",
+          "url": "https://www.linkedin.com/jobs/remote-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_6424798356018591873",
+          "title": "820 Salesforce Architect Remote jobs in United States (100 new)",
+          "company": "Salesforce Solutions Architect",
+          "location": "Remote",
+          "description": "820 Salesforce Architect Remote Jobs in United States (100 new) \u00b7 Salesforce Solutions Architect - Revenue Cloud \u00b7 Salesforce Developer | Salt Lake City.",
+          "url": "https://www.linkedin.com/jobs/salesforce-architect-remote-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_7759357595629415025",
+          "title": "26,000+ Data Analyst Remote jobs in United States (652 new)",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Today's top 26000+ Data Analyst Remote jobs in United States. Leverage your professional network, and get hired. New Data Analyst Remote jobs added daily.",
+          "url": "https://www.linkedin.com/jobs/data-analyst-remote-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_4657439322881304361",
+          "title": "6,000+ Remote jobs in Dallas, Texas, United States (457 new)",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Today's top 6000+ Remote jobs in Dallas, Texas, United States. Leverage your professional network, and get hired. New Remote jobs added daily.",
+          "url": "https://www.linkedin.com/jobs/remote-jobs-dallas-tx",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_7786591350854518072",
+          "title": "134,000+ Marketing Remote jobs in United States",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "134,000+ Marketing Remote Jobs in United States \u00b7 Social Media Manager \u00b7 Executive / Personal Assistant to Founder of Creative Community \u00b7 Executive Assistant.",
+          "url": "https://www.linkedin.com/jobs/marketing-remote-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_6489120546697780982",
+          "title": "110 Remote Remote jobs in Ocala, Florida, United States (7 new)",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Today's top 110 Remote Remote jobs in Ocala, Florida, United States. Leverage your professional network, and get hired. New Remote Remote jobs added daily.",
+          "url": "https://www.linkedin.com/jobs/remote-remote-jobs-ocala-fl",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_8646998062962579086",
+          "title": "48,000+ Java Remote jobs in United States (1,126 new)",
+          "company": "Java",
+          "location": "Remote",
+          "description": "48,000+ Java Remote Jobs in United States (1,126 new) \u00b7 Junior Software Engineer (Remote) \u00b7 Software Engineer II (Java-Backend) \u00b7 Sr Java Developer - Remote \u00b7 JAVA\u00a0...",
+          "url": "https://www.linkedin.com/jobs/java-remote-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_622553403437186540",
+          "title": "3,000+ Part Time Remote jobs in Washington DC-Baltimore Area ...",
+          "company": "HR Administrator Assistant",
+          "location": "Remote",
+          "description": "Administrative Assistant \u00b7 HR Administrator Assistant - Part Time/Full Time - Remote \u00b7 Safe Helpline Staffer 7:00 AM-11:00 AM EST Wednesday-Saturday (Part-Time).",
+          "url": "https://www.linkedin.com/jobs/part-time-remote-jobs-washington-dc-baltimore-area",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_4190775304770037804",
+          "title": "16,000+ Remote Human Resources jobs in United States",
+          "company": "Human Resources Assistants",
+          "location": "Remote",
+          "description": "Human Resources Assistants | $80/hr Remote \u00b7 People Specialist \u00b7 People Operations Generalist \u00b7 Sr HR Business Partner - U.S. Company Operations \u00b7 Human Resources\u00a0...",
+          "url": "https://www.linkedin.com/jobs/remote-human-resources-jobs",
+          "salary": "$80",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_5556198930521802874",
+          "title": "4,000+ Tableau Remote jobs in United States (366 new)",
+          "company": "",
+          "location": "Remote",
+          "description": "Business Intelligence Developer (Tableau & Power BI) - (1099 Independent Contractor - US - Remote) \u00b7 Marketing Data Analyst (Remote) \u00b7 Analytics & Insights\u00a0...",
+          "url": "https://www.linkedin.com/jobs/tableau-remote-jobs",
+          "salary": "",
+          "tags": [],
+          "source": "LinkedIn (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_990796970957057450",
+          "title": "101 compliance analyst Jobs in Remote, January 2026",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Search Compliance analyst jobs in Remote with company ratings & salaries. 101 open jobs for Compliance analyst in Remote.",
+          "url": "https://www.glassdoor.com/Job/remote-compliance-analyst-jobs-SRCH_IL.0,6_IS11047_KO7,25.htm",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_3682656627094696653",
+          "title": "149,618 Remote jobs in United States",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Search Remote jobs. Get the right Remote job with company ratings & salaries. 149618 open jobs for Remote.",
+          "url": "https://www.glassdoor.com/Job/remote-jobs-SRCH_KO0,6.htm",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_3315062493892040815",
+          "title": "3,636 project manager Jobs in Remote, January 2026",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Search Project manager jobs in Remote with company ratings & salaries. 3636 open jobs for Project manager in Remote.",
+          "url": "https://www.glassdoor.com/Job/remote-project-manager-jobs-SRCH_IL.0,6_IS11047_KO7,22.htm",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_2149026824991419669",
+          "title": "4,112 staff accountant Jobs in Remote, January 2026",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Search Staff accountant jobs in Remote with company ratings & salaries. 4112 open jobs for Staff accountant in Remote.",
+          "url": "https://www.glassdoor.com/Job/remote-staff-accountant-jobs-SRCH_IL.0,6_IS11047_KO7,23.htm",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_4742121187078258137",
+          "title": "348 marketing director Jobs in Remote, January 2026",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "in 8 days ... Search Marketing director jobs in Remote with company ratings & salaries. 348 open jobs for Marketing director in Remote.",
+          "url": "https://www.glassdoor.com/Job/remote-marketing-director-jobs-SRCH_IL.0,6_IS11047_KO7,25.htm",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_4513299622766316425",
+          "title": "Is it a bad idea to move to nyc with a remote job?... | Fishbowl",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Apr 19, 2025 ... It's not that much higher than SF. I actually am from the Bay and moved to NYC with a remote job. You'll be making one of the best decisions in\u00a0...",
+          "url": "https://www.glassdoor.com/Community/new-york-city/is-it-a-bad-idea-to-move-to-nyc-with-a-remote-job-have-lived-all-my-life-in-sf-and-just-got-a-remote-job-truly-remote-team-is-all",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_3638977616433954395",
+          "title": "58 sales analyst Jobs in Remote, January 2026",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Search Sales analyst jobs in Remote with company ratings & salaries. 58 open jobs for Sales analyst in Remote.",
+          "url": "https://www.glassdoor.com/Job/remote-sales-analyst-jobs-SRCH_IL.0,6_IS11047_KO7,20.htm",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_8077578925947928421",
+          "title": "984 business intelligence analyst Jobs in Remote, January 2026 ...",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Search Business intelligence analyst jobs in Remote with company ratings & salaries. 984 open jobs for Business intelligence analyst in Remote.",
+          "url": "https://www.glassdoor.com/Job/remote-business-intelligence-analyst-jobs-SRCH_IL.0,6_IS11047_KO7,36.htm",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_2261307481224379301",
+          "title": "322 accounts receivable specialist Jobs in Remote, January 2026 ...",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Search Accounts receivable specialist jobs in Remote with company ratings & salaries. 322 open jobs for Accounts receivable specialist in Remote.",
+          "url": "https://www.glassdoor.com/Job/remote-accounts-receivable-specialist-jobs-SRCH_IL.0,6_IS11047_KO7,37.htm",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_466279148981977911",
+          "title": "1,892 product owner Jobs in Remote, January 2026",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Search Product owner jobs in Remote with company ratings & salaries. 1892 open jobs for Product owner in Remote.",
+          "url": "https://www.glassdoor.com/Job/remote-product-owner-jobs-SRCH_IL.0,6_IS11047_KO7,20.htm",
+          "salary": "",
+          "tags": [],
+          "source": "Glassdoor (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_5516021848199485549",
+          "title": "$19-$192/hr Remote Jobs (NOW HIRING) Jan 2026",
+          "company": "19",
+          "location": "Remote",
+          "description": "Browse 60 REMOTE jobs ($19-$192/hr) from companies with openings that are hiring now. Find job postings near you and 1-click apply!",
+          "url": "https://www.ziprecruiter.com/Jobs/Remote",
+          "salary": "$19-$192",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_4295384468867103364",
+          "title": "$20-$30048/hr Remote Jobs in Roseville, CA (NOW HIRING) Jan 26",
+          "company": "with openings. Find job postings near you and 1",
+          "location": "Remote",
+          "description": "Browse 60 ROSEVILLE, CA REMOTE jobs from companies (hiring now) with openings. Find job postings near you and 1-click apply to your next opportunity!",
+          "url": "https://www.ziprecruiter.com/Jobs/Remote/-in-Roseville,CA",
+          "salary": "",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_3422455308446280171",
+          "title": "$22-$192/hr Remote Jobs in Oakland, CA (NOW HIRING) Jan 2026",
+          "company": "with openings. Find job postings near you and 1",
+          "location": "Remote",
+          "description": "Browse 60 OAKLAND, CA REMOTE jobs from companies (hiring now) with openings. Find job postings near you and 1-click apply to your next opportunity!",
+          "url": "https://www.ziprecruiter.com/Jobs/Remote/-in-Oakland,CA",
+          "salary": "",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_8731788667204120239",
+          "title": "$18-$61/hr Remote Jobs in Lewisville, TX (NOW HIRING) Jan 26",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Browse 60 LEWISVILLE, TX REMOTE jobs from companies (hiring now) with openings. Find job opportunities near you and apply!",
+          "url": "https://www.ziprecruiter.com/Jobs/Remote/-in-Lewisville,TX",
+          "salary": "",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_4716960678587576187",
+          "title": "Work at Samsara: Apply to open roles today",
+          "company": "Remote",
+          "location": "Remote",
+          "description": "Remote - AL(1 job); Remote - AR(1 job); Remote - AZ(5 jobs); Remote - Austin(1 job); Remote - CA(8 jobs); Remote - CO(4 jobs); Remote - CT(1 job); Remote -\u00a0...",
+          "url": "https://www.ziprecruiter.com/job-redirect?match_token=eyJKb2JLZXkiOnsibGlzdGluZ19rZXkiOiJ4UUJpaDJyLTlqMEppSmFnS18tT1l3IiwibWF0Y2hfaWQiOiIwMTlhYzM3Yi03MmNhLTdhMTAtYWI4Zi0wMjlkNGUwZGUxNGUifSwiRGVzdGluYXRpb24iOjIsIkV4dGVybmFsQXBwbHlVcmwiOiJodHRwczovL3d3dy5zYW1zYXJhLmNvbS9jb21wYW55L2NhcmVlcnMvcm9sZXMvNzM0NzM1OD9naF9qaWQ9NzM0NzM1OFx1MDAyNnV0bV9zb3VyY2U9emlwcmVjcnVpdGVyIiwiUGxhY2VtZW50SWQiOjg3Njg3fQ%3D%3D",
+          "salary": "",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_6278092453195066683",
+          "title": "$52k-$164k Remote Analyst Jobs (NOW HIRING) Jan 2026",
+          "company": "52k",
+          "location": "Remote",
+          "description": "Browse 60 REMOTE ANALYST jobs ($52k-$164k) from companies with openings that are hiring now. Find job postings near you and 1-click apply!",
+          "url": "https://www.ziprecruiter.com/Jobs/Remote-Analyst",
+          "salary": "$52k",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_4546438167458641011",
+          "title": "$19-$183/hr Remote Jobs in The Woodlands, TX (NOW HIRING)",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Browse 60 THE WOODLANDS, TX REMOTE jobs from companies (hiring now) with openings. Find job opportunities near you and apply!",
+          "url": "https://www.ziprecruiter.com/Jobs/Remote/-in-The-Woodlands,TX",
+          "salary": "",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_4537853009402378563",
+          "title": "$19-$192/hr Remote Jobs in Aurora, CO (NOW HIRING) Jan 2026",
+          "company": "with openings. Find job postings near you and 1",
+          "location": "Remote",
+          "description": "Browse 60 AURORA, CO REMOTE jobs from companies (hiring now) with openings. Find job postings near you and 1-click apply to your next opportunity!",
+          "url": "https://www.ziprecruiter.com/Jobs/Remote/-in-Aurora,CO",
+          "salary": "",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_7654124018163165710",
+          "title": "$22-$120/hr Remote Jobs in Santa Clara, CA (NOW HIRING)",
+          "company": "Unknown",
+          "location": "Remote",
+          "description": "Browse 60 SANTA CLARA, CA REMOTE jobs from companies (hiring now) with openings. Find job opportunities near you and apply!",
+          "url": "https://www.ziprecruiter.com/Jobs/Remote/-in-Santa-Clara,CA",
+          "salary": "",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
+        },
+        {
+          "id": "gcse_8967450377491868806",
+          "title": "$19-$105/hr Remote Jobs in Houston, TX (NOW HIRING) Jan 2026",
+          "company": "with openings. Find job postings near you and 1",
+          "location": "Remote",
+          "description": "Browse 60 HOUSTON, TX REMOTE jobs from companies (hiring now) with openings. Find job postings near you and 1-click apply to your next opportunity!",
+          "url": "https://www.ziprecruiter.com/Jobs/Remote/-in-Houston,TX",
+          "salary": "",
+          "tags": [],
+          "source": "ZipRecruiter (Google)",
+          "posted_at": ""
         }
       ]
     },
@@ -3667,10 +4615,10 @@
     {
       "test": "AI Job Analysis",
       "success": true,
-      "details": "Status: 200, Match Score: 5%, Analysis: The provided resume contains no listed skills or experience, so there\u2019s no evidence of the required ...",
+      "details": "Status: 200, Match Score: 1%, Analysis: The resume provided contains no listed skills or experience, so there is no evidence of fit for the ...",
       "response_data": {
-        "match_score": 5,
-        "analysis": "The provided resume contains no listed skills or experience, so there\u2019s no evidence of the required background in Kubernetes-based LLM inference deployment, vLLM/LLM-D, performance tuning (latency/throughput/TPOT), or GPU accelerator and networking troubleshooting. Without details demonstrating production engineering work in Python/Go/YAML, distributed systems, and customer-facing deployment/optimization, the match cannot be established. Supplying even a basic work history and technical skills section would be necessary to assess alignment."
+        "match_score": 1,
+        "analysis": "The resume provided contains no listed skills or experience, so there is no evidence of fit for the Forward Deployed Engineer AI Inference role. The job requires deep hands-on work deploying and optimizing vLLM/LLM-D on Kubernetes, performance tuning for GPU inference, and writing production code in Python/Go/YAML while debugging complex infra interactions. To assess accurately, the resume would need concrete experience with Kubernetes, distributed LLM inference/serving, GPU performance optimization, and customer-facing engineering work."
       }
     },
     {
@@ -3792,7 +4740,7 @@
       "success": true,
       "details": "Status: 200, Application created for: Forward Deployed Engineer AI Inference",
       "response_data": {
-        "id": "fac6b007-59b1-40a9-8c34-e24486205bb5",
+        "id": "d80dbe36-9b7b-4ce9-9396-06a2b10eaa40",
         "job": {
           "id": "rok_1129504",
           "title": "Forward Deployed Engineer AI Inference",
@@ -3826,15 +4774,15 @@
           "match_analysis": null
         },
         "status": "Applied",
-        "applied_at": "2026-01-12T12:09:15.525751Z",
-        "updated_at": "2026-01-12T12:09:15.525755Z",
+        "applied_at": "2026-01-12T12:51:34.251473Z",
+        "updated_at": "2026-01-12T12:51:34.251476Z",
         "notes": "Applied through company website"
       }
     },
     {
       "test": "Get Applications",
       "success": true,
-      "details": "Status: 200, Applications count: 8, Statuses: {'Applied', 'Interview'}",
+      "details": "Status: 200, Applications count: 9, Statuses: {'Applied', 'Interview'}",
       "response_data": [
         {
           "id": "87ac0570-0e0f-431c-a7bd-83bbbf656109",
@@ -3854,7 +4802,7 @@
           },
           "status": "Interview",
           "applied_at": "2026-01-12T01:23:42.014152+00:00",
-          "updated_at": "2026-01-12T12:01:45.739018+00:00",
+          "updated_at": "2026-01-12T12:09:15.593085+00:00",
           "notes": "Scheduled for next week"
         },
         {
@@ -4088,6 +5036,45 @@
           "status": "Applied",
           "applied_at": "2026-01-12T12:09:15.525751+00:00",
           "updated_at": "2026-01-12T12:09:15.525755+00:00",
+          "notes": "Applied through company website"
+        },
+        {
+          "id": "d80dbe36-9b7b-4ce9-9396-06a2b10eaa40",
+          "job": {
+            "id": "rok_1129504",
+            "title": "Forward Deployed Engineer AI Inference",
+            "company": "Red Hat, Inc.",
+            "location": "Remote US MA",
+            "description": "The vLLM and LLM-D Engineering team at Red Hat is looking for a customer obsessed developer to join our team as a Forward Deployed Engineer. In this role, you will not just build software; you will be the bridge between our cutting-edge inference platform (LLM-D, and vLLM) and our customers' most critical production environments. You will interface directly with the engineering teams at our customer to deploy, optimize, and scale distributed Large Language Model (LLM) inference systems. You will solve \"last mile\" infrastructure challenges that defy off-the-shelf solutions, ensuring that massive models run with low latency and high throughput on complex Kubernetes clusters. This is not a sales engineering role, you will be part of the core vLLM and LLM-D engineering team. What You Will Do Orchestrate Distributed Inference: Deploy and configure LLM-D and vLLM on Kubernetes clusters. You will set up and configure advanced deployment like disaggregated serving, KV-cache aware routing, KV Cache offloading etc to maximize hardware utilization. Optimize for Production: Go beyond standard deployments by running performance benchmarks, tuning vLLM parameters, and configuring intelligent inference routing policies to meet SLOs for latency and throughput. You care about Time Per Output Token (TPOT), GPU utilization, GPU networking optimizations, and Kubernetes scheduler efficiency. Code Side-by-Side: Work directly with customer engineers to write production-quality code (Python/Go/YAML) that integrates our inference engine into their existing Kubernetes ecosystem. Solve the \"Unsolvable\": Debug complex interaction effects between specific model architectures (e.g., MoE, large context windows), hardware accelerators (NVIDIA GPUs, AMD GPUs, TPUs), and Kubernetes networking (Envoy/ISTIO). Feedback Loop: Act as the \"Customer Zero\" for our core engineering teams. You will channel field learnings back to product development, influencing the roadmap for LLM-D and vLLM features. Travel only as needed to customers to present, demo, or help execute proof-of-concepts. What You Will Bring 8+ Years of Engineering Experience: You have a decade-long track record in Backend Systems, SRE, or Infrastructure Engineering. Customer Fluency: You speak both \"Systems Engineering\" and \"Business Value\". Bias for Action: You prefer rapid prototyping and iteration over theoretical perfection. You are comfortable operating in ambiguity and taking ownership of the outcome. Deep Kubernetes Expertise: You are fluent in K8s primitives, from defining custom resources (CRDs, Operators, Controllers) to configuring modern ingress via the Gateway API. You have deep experience with stateful workloads and high-performance networking, including the ability to tune scheduler logic (affinity/tolerations) for GPU workloads and troubleshoot complex CNI failures. AI Inference Proficiency: You understand how a LLM forward pass works. You know what KV Caching is, why prefill/decode disaggregation matters, why context length impacts performance, and how continuous batching works in vLLM. Systems Programming: Proficiency in Python (for model interfaces) and Go (for Kubernetes controllers/scheduler logic). Infrastructure as Code: Experience with Helm, Terraform, or similar tools for reproducible deployments. Cloud &amp; GPU Hardware Fluency: You are comfortable spinning up clusters and deploying LLMs on bare-metal and hyperscaler Kubernetes clusters Following is considered a plus Experience contributing to open-source AI infrastructure projects (e.g., KServe, vLLM, Kubernetes). Knowledge of Envoy Proxy or Inference Gateway (IGW). Familiarity with model optimization techniques like Quantization (AWQ, GPTQ) and Speculative Decoding. #AI-HIRING #LI-MD2 The salary range for this position is $189,600.00 - $312,730.00. Actual offer will be based on your qualifications. Pay Transparency Red Hat determines compensation based on several factors including but not limited to job location, experience, applicable skills and training, external market value, and internal pay equity. Annual salary is one component of Red Hat\u00e2\u0080\u0099s compensation package. This position may also be eligible for bonus, commission, and/or equity. For positions with Remote-US locations, the actual salary range for the position may differ based on location but will be commensurate with job duties and relevant work experience. About Red Hat Red Hat is the world\u00e2\u0080\u0099s leading provider of enterprise open source software solutions, using a community-powered approach to deliver high-performing Linux, cloud, container, and Kubernetes technologies. Spread across 40+ countries, our associates work flexibly across work environments, from in-office, to office-flex, to fully remote, depending on the requirements of their role. Red Hatters are encouraged to bring their best ideas, no matter their title or tenure. We're a leader in open source because of our open and inclusive environment. We hire creative, passionate people ready to contribute their ideas, help solve complex problems, and make an impact. Benefits \u00e2\u0097\u008f Comprehensive medical, dental, and vision coverage \u00e2\u0097\u008f Flexible Spending Account - healthcare and dependent care \u00e2\u0097\u008f Health Savings Account - high deductible medical plan \u00e2\u0097\u008f Retirement 401(k) with employer match \u00e2\u0097\u008f Paid time off and holidays \u00e2\u0097\u008f Paid parental leave plans for all new parents \u00e2\u0097\u008f Leave benefits including disability, paid family medical leave, and paid military leave \u00e2\u0097\u008f Additional benefits including employee stock purchase plan, family planning reimbursement, tuition reimbursement, transportation expense account, employee assistance program, and more! Note: These benefits are only applicable to full time, permanent associates at Red Hat located in the United States. Inclusion at Red Hat Red Hat\u00e2\u0080\u0099s culture is built on the open source principles of transparency, collaboration, and inclusion, where the best ideas can come from anywhere and anyone. When this is realized, it empowers people from different backgrounds, perspectives, and experiences to come together to share ideas, challenge the status quo, and drive innovation. Our aspiration is that everyone experiences this culture with equal opportunity and access, and that all voices are not only heard but also celebrated. We hope you will join our celebration, and we welcome and encourage applicants from all the beautiful dimensions that compose our global village. Equal Opportunity Policy (EEO) Red Hat is proud to be an equal opportunity workplace and an affirmative action employer. We review applications for employment without regard to their race, color, religion, sex, sexual orientation, gender identity, national origin, ancestry, citizenship, age, veteran status, genetic information, physical or mental disability, medical condition, marital status, or any other basis prohibited by law. Red Hat does not seek or accept unsolicited resumes or CVs from recruitment agencies. We are not responsible for, and will not pay, any fees, commissions, or any other payment related to unsolicited resumes or CVs except as required in a written contract between Red Hat and the recruitment agency or party requesting payment of a fee. Red Hat supports individuals with disabilities and provides reasonable accommodations to job applicants. If you need assistance completing our online job application, email application-assistance@redhat.com. General inquiries, such as those regarding the status of a job application, will not receive a reply. We\u00e2\u0080\u0099re the world\u00e2\u0080\u0099s leading provider of enterprise open source solutions\u00e2\u0080\u0094including Linux, cloud, container, and Kubernetes. We deliver hardened solutions that make it easier for enterprises to work across platforms and environments, from the core datacenter to the network edge. At Red Hat, our commitment to open source extends beyond technology into virtually everything we do. We collaborate and share ideas, create inclusive communities, and welcome diverse perspectives from all Red Hatters, no matter their role. It\u00e2\u0080\u0099s what makes us who we are. Some of the most knowledgeable and passionate people in the technology industry work here. Whether we\u00e2\u0080\u0099re building software, championing our products, or training new associates, we\u00e2\u0080\u0099re collaborating openly to make a difference in the world of open source and beyond.<br/><br/>Please mention the word **PROGRESSIVE** and tag RMzQuMTYuNTYuNjQ= when applying to show you read the job post completely (#RMzQuMTYuNTYuNjQ=). This is a beta feature to avoid spam applicants. Companies can search these words to find applicants that read this and see they're human.",
+            "url": "https://remoteOK.com/remote-jobs/remote-forward-deployed-engineer-ai-inference-red-hat-inc-1129504",
+            "salary": "",
+            "tags": [
+              "python",
+              "training",
+              "developer",
+              "software",
+              "code",
+              "travel",
+              "cloud",
+              "leader",
+              "sales",
+              "go",
+              "health",
+              "healthcare",
+              "engineer",
+              "engineering",
+              "recruitment",
+              "backend",
+              "digital nomad"
+            ],
+            "source": "RemoteOK",
+            "posted_at": "2026-01-10T20:00:01+00:00",
+            "match_score": null,
+            "match_analysis": null
+          },
+          "status": "Applied",
+          "applied_at": "2026-01-12T12:51:34.251473+00:00",
+          "updated_at": "2026-01-12T12:51:34.251476+00:00",
           "notes": "Applied through company website"
         }
       ]
