@@ -528,8 +528,8 @@ class MedMatchAPITester:
 
     def run_all_tests(self):
         """Run comprehensive test suite"""
-        print("🚀 Starting MedMatch API Test Suite")
-        print("=" * 50)
+        print("🚀 Starting MedMatch API Test Suite - New Features Testing")
+        print("=" * 60)
         
         # Test basic connectivity
         if not self.test_api_health():
@@ -541,14 +541,25 @@ class MedMatchAPITester:
         resume_uploaded, resume_data = self.test_resume_upload()
         self.test_resume_retrieval()
         
-        # Test job search functionality
-        print("\n🔍 Testing Job Search Features...")
-        self.test_job_search_remoteok()
-        self.test_job_search_remotive()
+        # Test NEW FEATURE: Quick search presets
+        print("\n🎯 Testing NEW FEATURE: Quick Search Presets...")
+        self.test_job_search_presets()
+        
+        # Test NEW FEATURE: All 5 job sources
+        print("\n🌐 Testing NEW FEATURE: All Job Sources (5 APIs)...")
+        self.test_all_job_sources()
+        
+        # Test NEW FEATURE: Job search with filters
+        print("\n🔍 Testing NEW FEATURE: Job Search with Filters...")
+        self.test_job_search_with_filters()
         _, all_jobs = self.test_job_search_all_sources()
         
+        # Test NEW FEATURE: AI enhanced search
+        print("\n🤖 Testing NEW FEATURE: AI Enhanced Search...")
+        self.test_ai_enhanced_search()
+        
         # Test AI analysis (only if resume was uploaded)
-        print("\n🤖 Testing AI Features...")
+        print("\n🧠 Testing AI Job Analysis...")
         if resume_uploaded:
             sample_job = None
             if all_jobs and len(all_jobs) > 0:
@@ -577,8 +588,12 @@ class MedMatchAPITester:
         if apps and len(apps) > 0:
             self.test_update_application_status(apps[0]['id'])
         
+        # Test NEW FEATURE: Email alert system
+        print("\n📧 Testing NEW FEATURE: Email Alert System...")
+        self.test_email_alert_system()
+        
         # Print summary
-        print("\n" + "=" * 50)
+        print("\n" + "=" * 60)
         print(f"📊 Test Results: {self.tests_passed}/{self.tests_run} passed")
         
         if self.tests_passed == self.tests_run:
