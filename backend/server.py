@@ -641,9 +641,10 @@ def filter_jobs_by_relevance(jobs: List[dict], keywords: List[str]) -> List[dict
         'quality', 'supplier', 'auditor', 'audit', 'iso', 'fda', 'medical device',
         'manufacturing', 'compliance', 'regulatory', 'qms', 'capa', 'ncr',
         'validation', 'verification', 'inspection', '13485', 'gmp', 'cgmp',
-        'pharmaceutical', 'healthcare', 'biotech', 'med tech'
+        'pharmaceutical', 'healthcare', 'biotech', 'med tech', 'qa', 'qc',
+        'director', 'manager', 'engineer', 'lead', 'senior', 'principal'
     ]
-    relevance_keywords.extend([k.lower() for k in keywords])
+    relevance_keywords.extend([k.lower() for k in keywords if k])
     
     scored_jobs = []
     for job in jobs:
@@ -660,11 +661,10 @@ def filter_jobs_by_relevance(jobs: List[dict], keywords: List[str]) -> List[dict
             if keyword in tags_lower:
                 score += 5
         
-        if score > 0:
-            job['relevance_score'] = score
-            scored_jobs.append(job)
+        job['relevance_score'] = min(score, 100)
+        scored_jobs.append(job)
     
-    # Sort by relevance score
+    # Sort by relevance score (highest first)
     scored_jobs.sort(key=lambda x: x.get('relevance_score', 0), reverse=True)
     return scored_jobs
 
