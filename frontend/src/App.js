@@ -507,17 +507,21 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
   const [source, setSource] = useState("all");
   const [location, setLocation] = useState("any");
   const [days, setDays] = useState("0");
-  const [presets, setPresets] = useState({ presets: [], locations: [] });
+  const [presets, setPresets] = useState({ presets: [], locations: [], quality_terms: [] });
   const [aiSearching, setAiSearching] = useState(false);
+  const [deepSearching, setDeepSearching] = useState(false);
+  const [searchStats, setSearchStats] = useState(null);
 
   useEffect(() => {
     // Fetch presets
     axios.get(`${API}/jobs/presets`).then(res => setPresets(res.data)).catch(() => {});
     searchJobs();
+    // eslint-disable-next-line
   }, []);
 
   const searchJobs = async (searchQuery = query) => {
     setLoading(true);
+    setSearchStats(null);
     try {
       const response = await axios.get(`${API}/jobs/search`, {
         params: { query: searchQuery, source, location: location === "any" ? "" : location, days: parseInt(days) }
@@ -529,18 +533,22 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
     setLoading(false);
   };
 
-  const aiSearch = async () => {
-    setAiSearching(true);
+  const deepSearch = async () => {
+    setDeepSearching(true);
+    setSearchStats(null);
     try {
-      const response = await axios.get(`${API}/jobs/ai-search`, { params: { query } });
+      const response = await axios.post(`${API}/jobs/deep-search`, { use_ai: true });
       setJobs(response.data.jobs || []);
-      if (response.data.suggestions?.related_titles?.length) {
-        toast.success(`AI found related roles: ${response.data.suggestions.related_titles.slice(0, 3).join(', ')}`);
-      }
+      setSearchStats({
+        total: response.data.total_found,
+        queries: response.data.queries_used,
+        strategy: response.data.search_strategy
+      });
+      toast.success(`AI Deep Search found ${response.data.total_found} relevant jobs!`);
     } catch (e) {
-      toast.error("AI search failed");
+      toast.error("Deep search failed");
     }
-    setAiSearching(false);
+    setDeepSearching(false);
   };
 
   const handlePresetClick = (presetQuery) => {
