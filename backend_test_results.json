@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-01-12T11:48:25.169775",
+  "timestamp": "2026-01-12T11:49:56.547706",
   "total_tests": 19,
   "passed_tests": 18,
   "success_rate": 94.73684210526315,
@@ -17,7 +17,7 @@
       "success": true,
       "details": "Status: 200, Parsed name: , Skills count: 0",
       "response_data": {
-        "id": "576c3723-4a01-44b4-a7a8-aa828353294f",
+        "id": "f3e0217c-3a00-4557-9c0e-a4d543181b89",
         "full_name": "",
         "email": "",
         "phone": "",
@@ -26,8 +26,8 @@
         "education": [],
         "summary": "",
         "raw_text": "",
-        "created_at": "2026-01-12T11:47:52.961875Z",
-        "updated_at": "2026-01-12T11:47:52.961878Z"
+        "created_at": "2026-01-12T11:49:04.344128Z",
+        "updated_at": "2026-01-12T11:49:04.344130Z"
       }
     },
     {
@@ -35,7 +35,7 @@
       "success": true,
       "details": "Status: 200, Resume found for: ",
       "response_data": {
-        "id": "576c3723-4a01-44b4-a7a8-aa828353294f",
+        "id": "f3e0217c-3a00-4557-9c0e-a4d543181b89",
         "full_name": "",
         "email": "",
         "phone": "",
@@ -44,8 +44,8 @@
         "education": [],
         "summary": "",
         "raw_text": "",
-        "created_at": "2026-01-12T11:47:52.961875+00:00",
-        "updated_at": "2026-01-12T11:47:52.961878+00:00"
+        "created_at": "2026-01-12T11:49:04.344128+00:00",
+        "updated_at": "2026-01-12T11:49:04.344130+00:00"
       }
     },
     {
@@ -2015,7 +2015,7 @@
       "details": "Status: 200, Jobs found: 2, Sample job: Platform & Automation Engineer",
       "response_data": [
         {
-          "id": "him_710cda37-334e-4c34-8d29-22cc12260c44",
+          "id": "him_2b0ef3ec-5509-4cd9-8656-5a19e5ea00f8",
           "title": "Platform & Automation Engineer",
           "company": "Braze",
           "location": "Canada",
@@ -2036,7 +2036,7 @@
           "posted_at": 1768161620
         },
         {
-          "id": "him_739e4e6f-3d9c-4b9e-9203-382ebf3ff66e",
+          "id": "him_347660c2-1da1-4105-9431-a11e31740516",
           "title": "Principal Mechanical Engineer - Bulk Handling Systems",
           "company": "Sedron Technologies",
           "location": "United States",
@@ -2134,7 +2134,7 @@
           "posted_at": 1768146130
         },
         {
-          "id": "him_ef235da1-62a6-4f64-bf9b-1e0c65af41bb",
+          "id": "him_331d47f6-cae7-485d-b719-1f6f89070280",
           "title": "CHI Quality Systems Specialist",
           "company": "Lonza",
           "location": "United States",
@@ -3500,7 +3500,7 @@
           "posted_at": 1768075311
         },
         {
-          "id": "him_a3b1d9f1-5b78-4252-a158-9cc0cfeb9cdc",
+          "id": "him_64d7cfc3-d8b5-4e75-a42d-5b7f0908974c",
           "title": "Pre-sales Business Analyst - Insurance (Fully Remote)",
           "company": "CoverGo",
           "location": "India",
@@ -3520,61 +3520,142 @@
       ]
     },
     {
-      "test": "AI Enhanced Search",
-      "success": false,
-      "details": "Status: 404, Error: {\"detail\":\"Not Found\"}",
-      "response_data": null
+      "test": "AI Deep Search",
+      "success": true,
+      "details": "Status: 200, AI Deep Search jobs found: 2, Total found: 2, AI strategy - Related titles: 10, Keywords: 15, Queries used: 8",
+      "response_data": {
+        "jobs": [
+          {
+            "id": "him_44253e51-ce50-4f08-99b6-f44fe7309b97",
+            "title": "CHI Quality Systems Specialist",
+            "company": "Lonza",
+            "location": "United States",
+            "description": "<p>Today, <a href=\"https://himalayas.app/companies/lonza\">Lonza</a> is a global leader in life sciences operating across five continents<b>.</b> While we work in science, there\u2019s no magic formula to how we do it. Our greatest scientific solution is talented people working together, devising ideas that help businesses to help people. In exchange, we let our people own their careers. Their ideas, big and small, genuinely improve the world. And that\u2019s the kind of work we want to be part of.</p><p>Based in Greenwood, SC, this remote role offers you the opportunity to shape and support the quality systems that drive <a href=\"https://himalayas.app/companies/lonza\">Lonza</a>\u2019s mission of improving lives. You\u2019ll collaborate across global teams, contribute to compliance excellence, and help ensure the integrity of products that impact millions worldwide.</p><h3>What you will get </h3><ul><li>An agile career and dynamic working culture.</li><li>An inclusive and ethical workplace.</li><li>Compensation programs that recognize high performance.</li><li>Medical, dental and vision insurance.</li><li>The full list of our global benefits can be also found on https://www.lonza.com/careers/benefits.</li></ul><h3>What you will do</h3><ul><li>Collect, analyze, and report key quality metrics to support global strategies and leadership reviews.</li><li>Maintain and update quality system records to ensure compliance and data integrity.</li><li>Coordinate supplier assessments and manage supplier documentation and certifications.</li><li>Support internal and external audits, including document preparation and follow-up.</li><li>Maintain and improve QMS databases and SharePoint tools.</li><li>Assist with product and site certification processes and third-party communications.</li><li>Prepare dashboards and presentations to visualize quality data for leadership.</li></ul><h3>What we are looking for</h3><ul><li>Bachelor\u2019s degree in a scientific discipline or equivalent experience.</li><li>2\u20135 years of experience in Quality Assurance or related GMP environment.</li><li>Knowledge of ISO 9001, GMP, and audit practices.</li><li>Strong organizational skills and ability to manage multiple priorities.</li><li>Proficiency in Microsoft Office; familiarity with SharePoint, Power BI, SAP, or Salesforce preferred.</li><li>Excellent communication skills for working with suppliers and cross-functional teams.</li><li>Detail-oriented with a continuous improvement mindset.</li><li>This role may require up to 10% domestic and/or international travel.</li></ul><p>Every day, <a href=\"https://himalayas.app/companies/lonza\">Lonza</a>\u2019s products and services have a positive impact on millions of people. For us, this is not only a great privilege, but also a great responsibility. How we achieve our business results is just as important as the achievements themselves. At <a href=\"https://himalayas.app/companies/lonza\">Lonza</a>, we respect and protect our people and our environment. Any success we achieve is no success at all if not achieved ethically.</p><p>People come to <a href=\"https://himalayas.app/companies/lonza\">Lonza</a> for the challenge and creativity of solving complex problems and developing new ideas in life sciences<b>.</b> In return, we offer the satisfaction that comes with improving lives all around the world. The satisfaction that comes with making a meaningful difference.</p><p><a href=\"https://himalayas.app/companies/lonza\">Lonza</a> is an equal opportunity employer. All qualified applicants will receive consideration for employment without regard to race, religion, color, national origin, sex, sexual orientation, gender identity, age, status as a qualified individual with disability, protected veteran status, or any other characteristic protected by law.</p><p>Originally posted on <a href=\"https://himalayas.app\">Himalayas</a></p>",
+            "url": "https://himalayas.app/companies/lonza/jobs/chi-quality-systems-specialist-3177874182",
+            "salary": "",
+            "tags": [
+              "Healthcare-Quality-Specialist",
+              "Quality-Improvement-Specialist",
+              "Healthcare-Quality-Assurance-Specialist",
+              "Quality-And-Safety-Systems-Manager"
+            ],
+            "source": "Himalayas",
+            "posted_at": 1768161621,
+            "relevance_score": 70
+          },
+          {
+            "id": "rok_1129398",
+            "title": "Staff Software Engineer",
+            "company": "Malt",
+            "location": "France",
+            "description": "<p><b><span style=\"font-size: 18px\">\u00f0\u009f\u00aa\u0090&nbsp;Discover our galaxy</span></b></p><p><br></p><p><span style=\"font-size: 12pt\">Join the Future of Work ! Malt is Europe's leading freelance marketplace, connecting over 850,000 talented freelancers with 90,000+ companies. Founded in 2013, we're transforming how work gets done through our tech-powered, human-centered platform.&nbsp;What makes us different:</span></p><p><br></p><p><span style=\"font-size: 12pt\">- A diverse team of 600 Malters across 6 European countries</span></p><p><span style=\"font-size: 12pt\">- A culture that champions equality (50% of our Comex are women) and inclusive growth</span></p><p><span style=\"font-size: 12pt\">- Backed by top investors including ISAI, Serena Capital, </span><span style=\"font-size: 16px\">Eurazeo Growth, </span><span style=\"font-size: 12pt\">Goldman Sachs, and BPI</span></p><p><span style=\"font-size: 12pt\">- A mission to give everyone the freedom to work differently</span></p><p><br></p><p><span style=\"font-size: 12pt\">Ready to help shape the future of work? Your next chapter starts here! \u00f0\u009f\u00aa\u0090</span></p><p><br></p><p><b style=\"font-size: 14pt;\">Explore your future career&nbsp; \u00f0\u009f\u0094\u00ad</b></p><p><br></p><p><span style=\"font-size: 16px;\">As a Staff Software Engineer at Malt, you play a pivotal role in shaping the company's technical direction, architecture, and execution. Staff Engineers are technical leaders who innovate to build solutions that will support the company's growth. This is achieved through individual contributions, applying technical skills to deliver products that will revolutionise the world of freelancing. Additionally, you provide technical leadership by addressing organization-wide design and architectural challenges and guiding their implementation. Finally, you play an active role in the lead engineering group, contributing to the definition and enhancement of company-wide software and systems engineering standards.</span></p>\\n<p></p><p><br></p><b>Key responsibilities \u00e2\u009c\u00a8</b><ul><li><b>Lead High-Impact Projects</b>: Lead, plan, and drive the execution of large, complex, and sometimes high-risk engineering projects that often span across multiple teams or systems.</li><li><b>Architectural Design</b>: Design, develop, and implement scalable, efficient, and robust software solutions and systems.&nbsp;</li><li><b>Set Technical Vision</b>: Define the short-term and long-term technical strategy and roadmap for a critical area, domain, or the organization's technology infrastructure.</li><li><b>Raise the Bar</b>: Drive the adoption of best practices, coding standards, and high-quality engineering processes, including conducting thorough code reviews. Provide architectural guidance and foster operational excellence.</li><li><b>Mentorship and Coaching</b>: Provide technical guidance, coaching, and mentorship to engineers, particularly Senior and mid-level engineers, to help them develop their skills and advance their careers.</li><li><b>Coordination and Alignment</b>: Act as a \"glue\" person, coordinating technical efforts and communication across multiple squads, departments, and stakeholders (e.g., Product Managers, Engineering Managers).</li><li><b>Influence Engineering Culture</b>: Champion and cultivate a robust engineering culture that prioritizes ownership, excellence, and speed.</li></ul><p><br></p><b>Our Tech Stack</b><ul><li>Frontend: TypeScript, Vue.js, Nuxt, Zeroheight</li><li>Backend: Kotlin, Java Spring Boot, Gradle, PostgreSQL, MongoDB, Elasticsearch, RabbitMQ, Redis</li><li>Platform: Google Cloud Platform, Kubernetes, Datadog Terraform, ArgoCD, Gitlab CI</li><li>Mobile: Flutter, Swift, Kotlin</li><li>Data: BigQuery, Looker, Spark, Python</li></ul><p><br></p><b>Life @Malt</b><ul><li><b>Remote Culture</b>: Strong remote culture with most of the team working full-remote throughout Europe.</li><li><b>Guild Days</b>: Technical guilds: Practice sharing, continuous training, experimentation and technology watch.</li><li><b>Tech Conferences</b>: Annual Malt Tech Days, organized and presented by Malt\u00e2\u0080\u0099s engineering team. Opportunity to attend major tech conferences.</li><li><b>Career Path</b>: Detailed career path allowing you to set achievable objectives and progress over time.</li></ul><p><br></p><b>About you \u00f0\u009f\u00a7\u0091\u00e2\u0080\u008d\u00f0\u009f\u009a\u0080</b><ul><li><b>Technical Expertise</b>: You have 10+ years of professional experience in software development, with a first experience in a product company (SaaS, fintech, marketplace\u00e2\u0080\u00a6). You're highly proficient in Java or Kotlin, and comfortable navigating complex backend architecture, APIs, and data models.</li><li><b>AI\u00e2\u0080\u0091Driven Innovator</b>: Passionate about AI topics, you regularly keep up to date with the latest developments. You have already worked on AI topics, whether for internal productivity or in a product.</li><li><b>Clear leadership</b>: You excel at working effectively in uncertain and evolving environments, managing the interaction between technical objectives and business priorities.</li><li><b>Technical Mentor</b>: You have strong technical and craft skills, enabling you to effectively disseminate best practices within the team and provide valuable coaching to \u00e2\u0080\u009cclassic\u00e2\u0080\u009d developers or ML engineers.&nbsp;</li><li><b>Product Mindset</b>: You think beyond the code. You\u00e2\u0080\u0099re curious about the \u00e2\u0080\u009cwhy\u00e2\u0080\u009d behind features, and you're proactive in proposing improvements and owning delivery from A to Z.</li><li><b>Resourceful</b>: You always find a way of getting things done, even under severe staffing constraints.</li><li><b>Impactful</b>: You demonstrate excellent ownership and problem-solving skills, with a high degree of agency in driving solutions.</li><li><b>Strong interpersonal abilities</b>: You possess excellent written and oral communication skills in English (French is a valuable bonus).</li></ul><p><br></p><b>How to join the mission? \u00f0\u009f\u009a\u0080</b><ul><li>First call with&nbsp;<a rel=\"noopener noreferrer\" class=\"postings-link\" href=\"https://www.linkedin.com/in/alexandre-hidasi-8792a2113/\">Alex</a>, our Talent Acquisition Business Partner, to better understand your background, aspirations, and answer any questions you may have. (45 minutes)</li><li>Interview with your future manager, <a rel=\"noopener noreferrer\" class=\"postings-link\" href=\"https://www.linkedin.com/in/micheljean/\">Jean</a> (VP engineering), to delve into your experience and the specifics of the role. (60 minutes)</li><li>Product case and debrief with PM, Design &amp; EM to explore how you collaborate with stakeholders, manage conflicts, delivery and innovation</li><li>Technical case and debrief with staff engineers to validate your mastery of technical and architectural subjects&nbsp;</li><li>Final interview with <a rel=\"noopener noreferrer\" class=\"postings-link\" href=\"https://www.linkedin.com/in/clairelebarz/\">Claire </a>(CTO) to discuss Malt\u00e2\u0080\u0099s long-term vision (interview at the Paris office)</li></ul><p><br></p><p></p>\\n<p><span style=\"font-size: 16px\"><i>At Malt, we are committed to fostering an inclusive and diverse workplace. We recruit based on skills, experience, and potential, without any form of discrimination related to age, gender, sexual orientation, ethnicity, religion, or disability. Our mission is to create a work environment where everyone feels valued, respected, and safe to thrive.</i></span></p><p><br></p><p><span style=\"font-size: 16px;\"><i>Your profile may be subject to background screening. For more information see our candidate privacy policy.</i></span></p><br/><br/>Please mention the word **DEFEATED** and tag RMTM1LjIzMi4xNzcuMTc2 when applying to show you read the job post completely (#RMTM1LjIzMi4xNzcuMTc2). This is a beta feature to avoid spam applicants. Companies can search these words to find applicants that read this and see they're human.",
+            "url": "https://remoteOK.com/remote-jobs/remote-staff-software-engineer-malt-1129398",
+            "salary": "",
+            "tags": [
+              "software",
+              "design",
+              "technical",
+              "support",
+              "code",
+              "java",
+              "cloud",
+              "strategy",
+              "lead",
+              "senior",
+              "operational",
+              "excel",
+              "engineer",
+              "engineering",
+              "backend",
+              "digital nomad"
+            ],
+            "source": "RemoteOK",
+            "posted_at": "2026-01-03T10:00:02+00:00",
+            "relevance_score": 39
+          }
+        ],
+        "total_found": 2,
+        "search_strategy": {
+          "search_queries": [
+            "Supplier Quality",
+            "Supplier Quality Engineer",
+            "Supplier Quality Manager",
+            "Quality Manager",
+            "Quality Engineer",
+            "Quality Systems",
+            "QMS Manager",
+            "ISO 13485",
+            "FDA Compliance",
+            "Regulatory Compliance",
+            "Medical Device Quality",
+            "Medical Device QA",
+            "Manufacturing Quality",
+            "Lead Auditor",
+            "Quality Auditor"
+          ],
+          "related_titles": [
+            "Supplier Quality Engineer",
+            "Supplier Quality Manager",
+            "Quality Systems Manager",
+            "Quality Assurance Manager",
+            "Quality Engineer",
+            "Senior Quality Engineer",
+            "Medical Device Quality Engineer",
+            "Lead Auditor",
+            "Quality Compliance Manager",
+            "Director of Quality"
+          ],
+          "industries": [
+            "Medical Devices",
+            "Manufacturing",
+            "Biotechnology",
+            "Pharmaceuticals",
+            "Diagnostics"
+          ],
+          "keywords": [
+            "quality",
+            "supplier",
+            "audit",
+            "auditor",
+            "compliance",
+            "regulatory",
+            "fda",
+            "iso",
+            "iso13485",
+            "qms",
+            "validation",
+            "capA",
+            "risk",
+            "manufacturing",
+            "medical"
+          ]
+        },
+        "queries_used": [
+          "Supplier Quality",
+          "Supplier Quality Engineer",
+          "Supplier Quality Manager",
+          "Quality Manager",
+          "Quality Engineer",
+          "Quality Systems",
+          "QMS Manager",
+          "ISO 13485"
+        ]
+      }
     },
     {
       "test": "AI Job Analysis",
       "success": true,
-      "details": "Status: 200, Match Score: 2%, Analysis: The resume contains no listed skills or experience, so there is no evidence of fit for deploying and...",
+      "details": "Status: 200, Match Score: 2%, Analysis: The resume provided contains no listed skills or experience, so there is no evidence of the required...",
       "response_data": {
         "match_score": 2,
-        "analysis": "The resume contains no listed skills or experience, so there is no evidence of fit for deploying and optimizing vLLM/LLM-D inference on Kubernetes, performance tuning, or customer-facing engineering. The role requires strong distributed systems/Kubernetes expertise, GPU/accelerator inference optimization, and coding in Python/Go/YAML in production environments, none of which can be validated from the provided resume. Supplying relevant project/work history (Kubernetes deployments, LLM inference, GPU performance work, vLLM/LLM-D exposure) would be necessary to assess a real match."
+        "analysis": "The resume provided contains no listed skills or experience, so there is no evidence of the required background in Kubernetes, distributed LLM inference (vLLM/LLM-D), GPU performance tuning, or Python/Go production engineering. The role also emphasizes customer-facing deployment/debugging in complex production environments and infrastructure optimization, but the resume lacks any details to demonstrate these capabilities. With more information (projects, Kubernetes/GPU/LLM inference experience, languages, and customer/field work), a more accurate match score could be assessed."
       }
     },
     {
       "test": "Save Job",
-      "success": true,
-      "details": "Status: 200, Saved job: Forward Deployed Engineer AI Inference",
-      "response_data": {
-        "id": "500f9b4f-c0ca-486e-9848-0f42406e8cc2",
-        "job": {
-          "id": "rok_1129504",
-          "title": "Forward Deployed Engineer AI Inference",
-          "company": "Red Hat, Inc.",
-          "location": "Remote US MA",
-          "description": "The vLLM and LLM-D Engineering team at Red Hat is looking for a customer obsessed developer to join our team as a Forward Deployed Engineer. In this role, you will not just build software; you will be the bridge between our cutting-edge inference platform (LLM-D, and vLLM) and our customers' most critical production environments. You will interface directly with the engineering teams at our customer to deploy, optimize, and scale distributed Large Language Model (LLM) inference systems. You will solve \"last mile\" infrastructure challenges that defy off-the-shelf solutions, ensuring that massive models run with low latency and high throughput on complex Kubernetes clusters. This is not a sales engineering role, you will be part of the core vLLM and LLM-D engineering team. What You Will Do Orchestrate Distributed Inference: Deploy and configure LLM-D and vLLM on Kubernetes clusters. You will set up and configure advanced deployment like disaggregated serving, KV-cache aware routing, KV Cache offloading etc to maximize hardware utilization. Optimize for Production: Go beyond standard deployments by running performance benchmarks, tuning vLLM parameters, and configuring intelligent inference routing policies to meet SLOs for latency and throughput. You care about Time Per Output Token (TPOT), GPU utilization, GPU networking optimizations, and Kubernetes scheduler efficiency. Code Side-by-Side: Work directly with customer engineers to write production-quality code (Python/Go/YAML) that integrates our inference engine into their existing Kubernetes ecosystem. Solve the \"Unsolvable\": Debug complex interaction effects between specific model architectures (e.g., MoE, large context windows), hardware accelerators (NVIDIA GPUs, AMD GPUs, TPUs), and Kubernetes networking (Envoy/ISTIO). Feedback Loop: Act as the \"Customer Zero\" for our core engineering teams. You will channel field learnings back to product development, influencing the roadmap for LLM-D and vLLM features. Travel only as needed to customers to present, demo, or help execute proof-of-concepts. What You Will Bring 8+ Years of Engineering Experience: You have a decade-long track record in Backend Systems, SRE, or Infrastructure Engineering. Customer Fluency: You speak both \"Systems Engineering\" and \"Business Value\". Bias for Action: You prefer rapid prototyping and iteration over theoretical perfection. You are comfortable operating in ambiguity and taking ownership of the outcome. Deep Kubernetes Expertise: You are fluent in K8s primitives, from defining custom resources (CRDs, Operators, Controllers) to configuring modern ingress via the Gateway API. You have deep experience with stateful workloads and high-performance networking, including the ability to tune scheduler logic (affinity/tolerations) for GPU workloads and troubleshoot complex CNI failures. AI Inference Proficiency: You understand how a LLM forward pass works. You know what KV Caching is, why prefill/decode disaggregation matters, why context length impacts performance, and how continuous batching works in vLLM. Systems Programming: Proficiency in Python (for model interfaces) and Go (for Kubernetes controllers/scheduler logic). Infrastructure as Code: Experience with Helm, Terraform, or similar tools for reproducible deployments. Cloud &amp; GPU Hardware Fluency: You are comfortable spinning up clusters and deploying LLMs on bare-metal and hyperscaler Kubernetes clusters Following is considered a plus Experience contributing to open-source AI infrastructure projects (e.g., KServe, vLLM, Kubernetes). Knowledge of Envoy Proxy or Inference Gateway (IGW). Familiarity with model optimization techniques like Quantization (AWQ, GPTQ) and Speculative Decoding. #AI-HIRING #LI-MD2 The salary range for this position is $189,600.00 - $312,730.00. Actual offer will be based on your qualifications. Pay Transparency Red Hat determines compensation based on several factors including but not limited to job location, experience, applicable skills and training, external market value, and internal pay equity. Annual salary is one component of Red Hat\u00e2\u0080\u0099s compensation package. This position may also be eligible for bonus, commission, and/or equity. For positions with Remote-US locations, the actual salary range for the position may differ based on location but will be commensurate with job duties and relevant work experience. About Red Hat Red Hat is the world\u00e2\u0080\u0099s leading provider of enterprise open source software solutions, using a community-powered approach to deliver high-performing Linux, cloud, container, and Kubernetes technologies. Spread across 40+ countries, our associates work flexibly across work environments, from in-office, to office-flex, to fully remote, depending on the requirements of their role. Red Hatters are encouraged to bring their best ideas, no matter their title or tenure. We're a leader in open source because of our open and inclusive environment. We hire creative, passionate people ready to contribute their ideas, help solve complex problems, and make an impact. Benefits \u00e2\u0097\u008f Comprehensive medical, dental, and vision coverage \u00e2\u0097\u008f Flexible Spending Account - healthcare and dependent care \u00e2\u0097\u008f Health Savings Account - high deductible medical plan \u00e2\u0097\u008f Retirement 401(k) with employer match \u00e2\u0097\u008f Paid time off and holidays \u00e2\u0097\u008f Paid parental leave plans for all new parents \u00e2\u0097\u008f Leave benefits including disability, paid family medical leave, and paid military leave \u00e2\u0097\u008f Additional benefits including employee stock purchase plan, family planning reimbursement, tuition reimbursement, transportation expense account, employee assistance program, and more! Note: These benefits are only applicable to full time, permanent associates at Red Hat located in the United States. Inclusion at Red Hat Red Hat\u00e2\u0080\u0099s culture is built on the open source principles of transparency, collaboration, and inclusion, where the best ideas can come from anywhere and anyone. When this is realized, it empowers people from different backgrounds, perspectives, and experiences to come together to share ideas, challenge the status quo, and drive innovation. Our aspiration is that everyone experiences this culture with equal opportunity and access, and that all voices are not only heard but also celebrated. We hope you will join our celebration, and we welcome and encourage applicants from all the beautiful dimensions that compose our global village. Equal Opportunity Policy (EEO) Red Hat is proud to be an equal opportunity workplace and an affirmative action employer. We review applications for employment without regard to their race, color, religion, sex, sexual orientation, gender identity, national origin, ancestry, citizenship, age, veteran status, genetic information, physical or mental disability, medical condition, marital status, or any other basis prohibited by law. Red Hat does not seek or accept unsolicited resumes or CVs from recruitment agencies. We are not responsible for, and will not pay, any fees, commissions, or any other payment related to unsolicited resumes or CVs except as required in a written contract between Red Hat and the recruitment agency or party requesting payment of a fee. Red Hat supports individuals with disabilities and provides reasonable accommodations to job applicants. If you need assistance completing our online job application, email application-assistance@redhat.com. General inquiries, such as those regarding the status of a job application, will not receive a reply. We\u00e2\u0080\u0099re the world\u00e2\u0080\u0099s leading provider of enterprise open source solutions\u00e2\u0080\u0094including Linux, cloud, container, and Kubernetes. We deliver hardened solutions that make it easier for enterprises to work across platforms and environments, from the core datacenter to the network edge. At Red Hat, our commitment to open source extends beyond technology into virtually everything we do. We collaborate and share ideas, create inclusive communities, and welcome diverse perspectives from all Red Hatters, no matter their role. It\u00e2\u0080\u0099s what makes us who we are. Some of the most knowledgeable and passionate people in the technology industry work here. Whether we\u00e2\u0080\u0099re building software, championing our products, or training new associates, we\u00e2\u0080\u0099re collaborating openly to make a difference in the world of open source and beyond.<br/><br/>Please mention the word **PROGRESSIVE** and tag RMTM1LjIzMi4xNzcuMTc2 when applying to show you read the job post completely (#RMTM1LjIzMi4xNzcuMTc2). This is a beta feature to avoid spam applicants. Companies can search these words to find applicants that read this and see they're human.",
-          "url": "https://remoteOK.com/remote-jobs/remote-forward-deployed-engineer-ai-inference-red-hat-inc-1129504",
-          "salary": "",
-          "tags": [
-            "python",
-            "training",
-            "developer",
-            "software",
-            "code",
-            "travel",
-            "cloud",
-            "leader",
-            "sales",
-            "go",
-            "health",
-            "healthcare",
-            "engineer",
-            "engineering",
-            "recruitment",
-            "backend",
-            "digital nomad"
-          ],
-          "source": "RemoteOK",
-          "posted_at": "2026-01-10T20:00:01+00:00",
-          "match_score": null,
-          "match_analysis": null
-        },
-        "saved_at": "2026-01-12T11:48:02.545999Z",
-        "notes": ""
-      }
+      "success": false,
+      "details": "Status: 400, Error: {\"detail\":\"Job already saved\"}",
+      "response_data": null
     },
     {
       "test": "Get Saved Jobs",
@@ -3689,7 +3770,7 @@
       "success": true,
       "details": "Status: 200, Application created for: Forward Deployed Engineer AI Inference",
       "response_data": {
-        "id": "8f575ad3-3543-410b-85dc-c93ed49ad38e",
+        "id": "6d52f819-0b1f-4bac-be30-2d26ede01208",
         "job": {
           "id": "rok_1129504",
           "title": "Forward Deployed Engineer AI Inference",
@@ -3723,15 +3804,15 @@
           "match_analysis": null
         },
         "status": "Applied",
-        "applied_at": "2026-01-12T11:48:02.614964Z",
-        "updated_at": "2026-01-12T11:48:02.614968Z",
+        "applied_at": "2026-01-12T11:49:32.364720Z",
+        "updated_at": "2026-01-12T11:49:32.364724Z",
         "notes": "Applied through company website"
       }
     },
     {
       "test": "Get Applications",
       "success": true,
-      "details": "Status: 200, Applications count: 5, Statuses: {'Interview', 'Applied'}",
+      "details": "Status: 200, Applications count: 6, Statuses: {'Applied', 'Interview'}",
       "response_data": [
         {
           "id": "87ac0570-0e0f-431c-a7bd-83bbbf656109",
@@ -3751,7 +3832,7 @@
           },
           "status": "Interview",
           "applied_at": "2026-01-12T01:23:42.014152+00:00",
-          "updated_at": "2026-01-12T01:50:37.897988+00:00",
+          "updated_at": "2026-01-12T11:48:02.680375+00:00",
           "notes": "Scheduled for next week"
         },
         {
@@ -3869,6 +3950,45 @@
           "applied_at": "2026-01-12T11:48:02.614964+00:00",
           "updated_at": "2026-01-12T11:48:02.614968+00:00",
           "notes": "Applied through company website"
+        },
+        {
+          "id": "6d52f819-0b1f-4bac-be30-2d26ede01208",
+          "job": {
+            "id": "rok_1129504",
+            "title": "Forward Deployed Engineer AI Inference",
+            "company": "Red Hat, Inc.",
+            "location": "Remote US MA",
+            "description": "The vLLM and LLM-D Engineering team at Red Hat is looking for a customer obsessed developer to join our team as a Forward Deployed Engineer. In this role, you will not just build software; you will be the bridge between our cutting-edge inference platform (LLM-D, and vLLM) and our customers' most critical production environments. You will interface directly with the engineering teams at our customer to deploy, optimize, and scale distributed Large Language Model (LLM) inference systems. You will solve \"last mile\" infrastructure challenges that defy off-the-shelf solutions, ensuring that massive models run with low latency and high throughput on complex Kubernetes clusters. This is not a sales engineering role, you will be part of the core vLLM and LLM-D engineering team. What You Will Do Orchestrate Distributed Inference: Deploy and configure LLM-D and vLLM on Kubernetes clusters. You will set up and configure advanced deployment like disaggregated serving, KV-cache aware routing, KV Cache offloading etc to maximize hardware utilization. Optimize for Production: Go beyond standard deployments by running performance benchmarks, tuning vLLM parameters, and configuring intelligent inference routing policies to meet SLOs for latency and throughput. You care about Time Per Output Token (TPOT), GPU utilization, GPU networking optimizations, and Kubernetes scheduler efficiency. Code Side-by-Side: Work directly with customer engineers to write production-quality code (Python/Go/YAML) that integrates our inference engine into their existing Kubernetes ecosystem. Solve the \"Unsolvable\": Debug complex interaction effects between specific model architectures (e.g., MoE, large context windows), hardware accelerators (NVIDIA GPUs, AMD GPUs, TPUs), and Kubernetes networking (Envoy/ISTIO). Feedback Loop: Act as the \"Customer Zero\" for our core engineering teams. You will channel field learnings back to product development, influencing the roadmap for LLM-D and vLLM features. Travel only as needed to customers to present, demo, or help execute proof-of-concepts. What You Will Bring 8+ Years of Engineering Experience: You have a decade-long track record in Backend Systems, SRE, or Infrastructure Engineering. Customer Fluency: You speak both \"Systems Engineering\" and \"Business Value\". Bias for Action: You prefer rapid prototyping and iteration over theoretical perfection. You are comfortable operating in ambiguity and taking ownership of the outcome. Deep Kubernetes Expertise: You are fluent in K8s primitives, from defining custom resources (CRDs, Operators, Controllers) to configuring modern ingress via the Gateway API. You have deep experience with stateful workloads and high-performance networking, including the ability to tune scheduler logic (affinity/tolerations) for GPU workloads and troubleshoot complex CNI failures. AI Inference Proficiency: You understand how a LLM forward pass works. You know what KV Caching is, why prefill/decode disaggregation matters, why context length impacts performance, and how continuous batching works in vLLM. Systems Programming: Proficiency in Python (for model interfaces) and Go (for Kubernetes controllers/scheduler logic). Infrastructure as Code: Experience with Helm, Terraform, or similar tools for reproducible deployments. Cloud &amp; GPU Hardware Fluency: You are comfortable spinning up clusters and deploying LLMs on bare-metal and hyperscaler Kubernetes clusters Following is considered a plus Experience contributing to open-source AI infrastructure projects (e.g., KServe, vLLM, Kubernetes). Knowledge of Envoy Proxy or Inference Gateway (IGW). Familiarity with model optimization techniques like Quantization (AWQ, GPTQ) and Speculative Decoding. #AI-HIRING #LI-MD2 The salary range for this position is $189,600.00 - $312,730.00. Actual offer will be based on your qualifications. Pay Transparency Red Hat determines compensation based on several factors including but not limited to job location, experience, applicable skills and training, external market value, and internal pay equity. Annual salary is one component of Red Hat\u00e2\u0080\u0099s compensation package. This position may also be eligible for bonus, commission, and/or equity. For positions with Remote-US locations, the actual salary range for the position may differ based on location but will be commensurate with job duties and relevant work experience. About Red Hat Red Hat is the world\u00e2\u0080\u0099s leading provider of enterprise open source software solutions, using a community-powered approach to deliver high-performing Linux, cloud, container, and Kubernetes technologies. Spread across 40+ countries, our associates work flexibly across work environments, from in-office, to office-flex, to fully remote, depending on the requirements of their role. Red Hatters are encouraged to bring their best ideas, no matter their title or tenure. We're a leader in open source because of our open and inclusive environment. We hire creative, passionate people ready to contribute their ideas, help solve complex problems, and make an impact. Benefits \u00e2\u0097\u008f Comprehensive medical, dental, and vision coverage \u00e2\u0097\u008f Flexible Spending Account - healthcare and dependent care \u00e2\u0097\u008f Health Savings Account - high deductible medical plan \u00e2\u0097\u008f Retirement 401(k) with employer match \u00e2\u0097\u008f Paid time off and holidays \u00e2\u0097\u008f Paid parental leave plans for all new parents \u00e2\u0097\u008f Leave benefits including disability, paid family medical leave, and paid military leave \u00e2\u0097\u008f Additional benefits including employee stock purchase plan, family planning reimbursement, tuition reimbursement, transportation expense account, employee assistance program, and more! Note: These benefits are only applicable to full time, permanent associates at Red Hat located in the United States. Inclusion at Red Hat Red Hat\u00e2\u0080\u0099s culture is built on the open source principles of transparency, collaboration, and inclusion, where the best ideas can come from anywhere and anyone. When this is realized, it empowers people from different backgrounds, perspectives, and experiences to come together to share ideas, challenge the status quo, and drive innovation. Our aspiration is that everyone experiences this culture with equal opportunity and access, and that all voices are not only heard but also celebrated. We hope you will join our celebration, and we welcome and encourage applicants from all the beautiful dimensions that compose our global village. Equal Opportunity Policy (EEO) Red Hat is proud to be an equal opportunity workplace and an affirmative action employer. We review applications for employment without regard to their race, color, religion, sex, sexual orientation, gender identity, national origin, ancestry, citizenship, age, veteran status, genetic information, physical or mental disability, medical condition, marital status, or any other basis prohibited by law. Red Hat does not seek or accept unsolicited resumes or CVs from recruitment agencies. We are not responsible for, and will not pay, any fees, commissions, or any other payment related to unsolicited resumes or CVs except as required in a written contract between Red Hat and the recruitment agency or party requesting payment of a fee. Red Hat supports individuals with disabilities and provides reasonable accommodations to job applicants. If you need assistance completing our online job application, email application-assistance@redhat.com. General inquiries, such as those regarding the status of a job application, will not receive a reply. We\u00e2\u0080\u0099re the world\u00e2\u0080\u0099s leading provider of enterprise open source solutions\u00e2\u0080\u0094including Linux, cloud, container, and Kubernetes. We deliver hardened solutions that make it easier for enterprises to work across platforms and environments, from the core datacenter to the network edge. At Red Hat, our commitment to open source extends beyond technology into virtually everything we do. We collaborate and share ideas, create inclusive communities, and welcome diverse perspectives from all Red Hatters, no matter their role. It\u00e2\u0080\u0099s what makes us who we are. Some of the most knowledgeable and passionate people in the technology industry work here. Whether we\u00e2\u0080\u0099re building software, championing our products, or training new associates, we\u00e2\u0080\u0099re collaborating openly to make a difference in the world of open source and beyond.<br/><br/>Please mention the word **PROGRESSIVE** and tag RMTM1LjIzMi4xNzcuMTc2 when applying to show you read the job post completely (#RMTM1LjIzMi4xNzcuMTc2). This is a beta feature to avoid spam applicants. Companies can search these words to find applicants that read this and see they're human.",
+            "url": "https://remoteOK.com/remote-jobs/remote-forward-deployed-engineer-ai-inference-red-hat-inc-1129504",
+            "salary": "",
+            "tags": [
+              "python",
+              "training",
+              "developer",
+              "software",
+              "code",
+              "travel",
+              "cloud",
+              "leader",
+              "sales",
+              "go",
+              "health",
+              "healthcare",
+              "engineer",
+              "engineering",
+              "recruitment",
+              "backend",
+              "digital nomad"
+            ],
+            "source": "RemoteOK",
+            "posted_at": "2026-01-10T20:00:01+00:00",
+            "match_score": null,
+            "match_analysis": null
+          },
+          "status": "Applied",
+          "applied_at": "2026-01-12T11:49:32.364720+00:00",
+          "updated_at": "2026-01-12T11:49:32.364724+00:00",
+          "notes": "Applied through company website"
         }
       ]
     },
@@ -3883,17 +4003,17 @@
     {
       "test": "Email Alert System",
       "success": true,
-      "details": "Status: 200, Job alert sent to cmuchina@outlook.com, Jobs sent: 1",
+      "details": "Status: 200, Job alert sent to cmuchina@outlook.com, Jobs sent: 2",
       "response_data": {
         "message": "Job alert sent to cmuchina@outlook.com",
-        "jobs_count": 1,
+        "jobs_count": 2,
         "queries_used": [
+          "Quality Manager",
+          "Quality Engineer",
           "Supplier Quality",
           "Supplier Quality Engineer",
-          "Quality Manager",
           "Quality Systems",
-          "QMS Manager",
-          "ISO 13485"
+          "QMS Manager"
         ]
       }
     }
