@@ -106,7 +106,7 @@ class TestSavedJobsEndpoints:
         print(f"✅ GET /api/jobs/saved - Status: {response.status_code}, Saved: {len(data)}")
 
     def test_save_job(self):
-        """Test POST /api/jobs/saved - save a job"""
+        """Test POST /api/jobs/save - save a job"""
         test_job = {
             "id": f"test_job_{int(time.time())}",
             "title": "TEST Quality Manager",
@@ -119,13 +119,13 @@ class TestSavedJobsEndpoints:
             "source": "Test"
         }
         response = requests.post(
-            f"{BASE_URL}/api/jobs/saved",
+            f"{BASE_URL}/api/jobs/save",  # Correct endpoint is /api/jobs/save
             json=test_job
         )
         assert response.status_code == 200
         data = response.json()
         assert "id" in data
-        print(f"✅ POST /api/jobs/saved - Status: {response.status_code}")
+        print(f"✅ POST /api/jobs/save - Status: {response.status_code}")
         return data.get("id")
 
     def test_delete_saved_job(self):
@@ -142,7 +142,7 @@ class TestSavedJobsEndpoints:
             "tags": [],
             "source": "Test"
         }
-        save_response = requests.post(f"{BASE_URL}/api/jobs/saved", json=test_job)
+        save_response = requests.post(f"{BASE_URL}/api/jobs/save", json=test_job)  # Correct endpoint
         assert save_response.status_code == 200
         saved_id = save_response.json().get("id")
         
