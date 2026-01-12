@@ -667,7 +667,7 @@ async def fetch_google_cse_jobs(query: str, location: str = "Remote", site: str 
                     result.append({
                         "id": f"gcse_{abs(hash(job_url))}",
                         "title": title.replace(" | Indeed.com", "").replace(" - LinkedIn", "").replace(" | Glassdoor", "").strip(),
-                        "company": company if company != "Unknown" else title.split(" at ")[-1].split(" - ")[0][:30] if " at " in title else "Unknown",
+                        "company": company,
                         "location": location,
                         "description": snippet,
                         "url": job_url,
