@@ -637,6 +637,10 @@ async def fetch_google_cse_jobs(query: str, location: str = "Remote", site: str 
                     if company_match:
                         company = company_match.group(1).strip()[:50]
                     
+                    # Try to extract company from title if not found
+                    if company == "Unknown" and " at " in title:
+                        company = title.split(" at ")[-1].split(" - ")[0].split(" | ")[0][:50]
+                    
                     # Extract salary from snippet
                     salary = ""
                     salary_match = re.search(r'\$[\d,]+(?:\s*[-–]\s*\$[\d,]+)?(?:\s*(?:a\s*year|per\s*year|annually|/yr|K))?', snippet, re.IGNORECASE)
