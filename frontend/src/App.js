@@ -8,7 +8,8 @@ import {
   Menu, X, Upload, ExternalLink, MapPin, Building2,
   TrendingUp, Clock, ChevronRight, Trash2, Filter,
   Bell, Mail, Globe, Calendar, ShieldCheck, Award,
-  CheckCircle, Code, HeartPulse, Sparkles, Send, Loader2
+  CheckCircle, Code, HeartPulse, Sparkles, Send, Loader2,
+  Settings, FileSearch
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
