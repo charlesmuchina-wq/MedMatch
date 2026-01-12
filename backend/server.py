@@ -605,9 +605,14 @@ async def fetch_google_cse_jobs(query: str, location: str = "Remote", site: str 
                 "num": min(num_results, 10),
             }
             
-            # Add CSE ID if configured
+            # Only add CSE ID if configured - otherwise Google will require one
+            # For this to work without CSE, user needs Programmable Search Engine
             if GOOGLE_CSE_ID:
                 params["cx"] = GOOGLE_CSE_ID
+            else:
+                # Cannot use Custom Search API without CSE ID
+                logging.warning("Google CSE ID not configured - skipping Google search")
+                return []
             
             response = await http_client.get(
                 "https://www.googleapis.com/customsearch/v1",
