@@ -1546,6 +1546,227 @@ async def send_job_alert_now(background_tasks: BackgroundTasks, data: EmailAlert
         "queries_used": search_queries[:6]
     }
 
+# ============== DAILY DIGEST ENDPOINTS ==============
+
+@api_router.post("/digest/settings")
+async def create_digest_settings(data: DigestSettingsCreate):
+    """Create or update digest settings for a user"""
+    # Check if settings already exist for this email
+    existing = await db.digest_settings.find_one({"email": data.email})
+    
+    if existing:
+        # Update existing settings
+        await db.digest_settings.update_one(
+            {"email": data.email},
+            {"$set": {
+                "frequency": data.frequency,
+                "search_queries": data.search_queries if data.search_queries else QUALITY_SEARCH_TERMS[:5],
+                "locations": data.locations,
+                "is_active": True
+            }}
+        )
+        return {"message": "Digest settings updated", "email": data.email}
+    
+    # Create new settings
+    settings = DigestSettings(
+        email=data.email,
+        frequency=data.frequency,
+        search_queries=data.search_queries if data.search_queries else QUALITY_SEARCH_TERMS[:5],
+        locations=data.locations
+    )
+    doc = settings.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    await db.digest_settings.insert_one(doc)
+    
+    return {"message": "Digest settings created", "email": data.email, "frequency": data.frequency}
+
+@api_router.get("/digest/settings")
+async def get_digest_settings():
+    """Get all digest settings"""
+    docs = await db.digest_settings.find({}, {"_id": 0}).to_list(100)
+    return docs
+
+@api_router.delete("/digest/settings/{email}")
+async def delete_digest_settings(email: str):
+    """Disable digest for an email"""
+    result = await db.digest_settings.update_one(
+        {"email": email},
+        {"$set": {"is_active": False}}
+    )
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Digest settings not found")
+    return {"message": "Digest disabled"}
+
+@api_router.post("/digest/send-daily")
+async def send_daily_digest(background_tasks: BackgroundTasks, data: EmailAlertRequest):
+    """
+    Send daily digest with jobs posted in the last 24 hours.
+    Eliminates duplicate emails for the same jobs.
+    """
+    resume_doc = await db.resumes.find_one({}, {"_id": 0})
+    user_name = resume_doc.get('full_name', 'Job Seeker').split()[0] if resume_doc else 'Job Seeker'
+    skills = resume_doc.get('skills', []) if resume_doc else []
+    
+    # Get search queries from AI or defaults
+    search_strategy = await ai_deep_crawl(skills)
+    search_queries = search_strategy.get('search_queries', QUALITY_SEARCH_TERMS)[:8]
+    
+    all_jobs = []
+    
+    # 1. Search Google CSE for major job boards
+    if GOOGLE_API_KEY:
+        for query in search_queries[:3]:
+            try:
+                google_results = await fetch_google_cse_all_sites(query, "Remote")
+                all_jobs.extend(google_results)
+            except Exception as e:
+                logging.error(f"Digest Google CSE error: {e}")
+    
+    # 2. Search free APIs
+    for query in search_queries[:5]:
+        tasks = [
+            fetch_remoteok_jobs(query, ""),
+            fetch_remotive_jobs(query, ""),
+            fetch_jobicy_jobs(query, ""),
+            fetch_arbeitnow_jobs(query, ""),
+            fetch_himalayas_jobs(query, ""),
+        ]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        for result in results:
+            if isinstance(result, list):
+                all_jobs.extend(result)
+    
+    # Filter to jobs posted in last 24 hours
+    jobs_24h = filter_jobs_by_date(all_jobs, days=1)
+    
+    # Deduplicate
+    seen = set()
+    unique_jobs = []
+    for job in jobs_24h:
+        key = f"{job['title'].lower()}_{job['company'].lower()}"
+        if key not in seen:
+            seen.add(key)
+            unique_jobs.append(job)
+    
+    # Filter out jobs already emailed to this user
+    new_jobs = await filter_new_jobs(unique_jobs, data.email)
+    
+    if not new_jobs:
+        return {
+            "message": "No new jobs in the last 24 hours (or all have been sent before)",
+            "jobs_count": 0,
+            "total_found": len(unique_jobs),
+            "already_sent": len(unique_jobs) - len(new_jobs)
+        }
+    
+    # Score by relevance
+    keywords = search_strategy.get('keywords', ['quality', 'auditor', 'medical', 'supplier'])
+    relevant_jobs = filter_jobs_by_relevance(new_jobs, keywords)[:15]
+    
+    # Generate and send email
+    query_summary = ", ".join(search_queries[:4])
+    html_content = generate_digest_email_html(relevant_jobs, user_name, query_summary)
+    
+    def send_digest_task():
+        success = send_email_gmail(
+            data.email,
+            f"📋 MedMatch Daily Digest: {len(relevant_jobs)} New Jobs Today",
+            html_content
+        )
+        if success:
+            # Mark all jobs as emailed (run in sync context)
+            import asyncio
+            loop = asyncio.new_event_loop()
+            for job in relevant_jobs:
+                loop.run_until_complete(mark_job_emailed(job, data.email))
+            loop.close()
+    
+    background_tasks.add_task(send_digest_task)
+    
+    # Update last_sent timestamp
+    await db.digest_settings.update_one(
+        {"email": data.email},
+        {"$set": {"last_sent": datetime.now(timezone.utc).isoformat()}}
+    )
+    
+    return {
+        "message": f"Daily digest sent to {data.email}",
+        "jobs_count": len(relevant_jobs),
+        "jobs_last_24h": len(jobs_24h),
+        "new_jobs": len(new_jobs),
+        "queries_used": search_queries[:5]
+    }
+
+@api_router.get("/digest/history")
+async def get_emailed_jobs_history(email: str):
+    """Get history of jobs emailed to a user"""
+    docs = await db.emailed_jobs.find({"email": email}, {"_id": 0}).sort("emailed_at", -1).to_list(100)
+    return {"email": email, "jobs_sent": len(docs), "history": docs}
+
+@api_router.delete("/digest/history/{email}")
+async def clear_emailed_history(email: str):
+    """Clear emailed jobs history to allow re-sending"""
+    result = await db.emailed_jobs.delete_many({"email": email})
+    return {"message": f"Cleared {result.deleted_count} emailed job records for {email}"}
+
+# ============== COVER LETTER GENERATOR ==============
+
+@api_router.post("/cover-letter/generate")
+async def generate_cover_letter(request: CoverLetterRequest):
+    """
+    Generate a personalized cover letter based on job requirements and resume skills.
+    Uses AI to identify transferable skills and create a compelling letter.
+    """
+    # Get resume data
+    resume_doc = await db.resumes.find_one({}, {"_id": 0})
+    if not resume_doc:
+        raise HTTPException(status_code=404, detail="Please upload your resume first")
+    
+    job_data = {
+        "job_title": request.job_title,
+        "company": request.company,
+        "job_description": request.job_description,
+        "job_url": request.job_url
+    }
+    
+    # Generate cover letter using AI
+    result = await generate_cover_letter_ai(resume_doc, job_data)
+    
+    # Save generated cover letter to database
+    cover_letter_doc = {
+        "id": str(uuid.uuid4()),
+        "job_title": request.job_title,
+        "company": request.company,
+        "cover_letter": result.get("cover_letter", ""),
+        "key_matches": result.get("key_matches", []),
+        "transferable_skills": result.get("transferable_skills", []),
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.cover_letters.insert_one(cover_letter_doc)
+    
+    return {
+        "cover_letter": result.get("cover_letter", ""),
+        "key_matches": result.get("key_matches", []),
+        "transferable_skills": result.get("transferable_skills", []),
+        "suggestions": result.get("suggestions", []),
+        "job_title": request.job_title,
+        "company": request.company
+    }
+
+@api_router.get("/cover-letter/history")
+async def get_cover_letter_history():
+    """Get history of generated cover letters"""
+    docs = await db.cover_letters.find({}, {"_id": 0}).sort("created_at", -1).to_list(50)
+    return docs
+
+@api_router.delete("/cover-letter/{letter_id}")
+async def delete_cover_letter(letter_id: str):
+    """Delete a saved cover letter"""
+    result = await db.cover_letters.delete_one({"id": letter_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Cover letter not found")
+    return {"message": "Cover letter deleted"}
+
 @api_router.post("/jobs/manual")
 async def create_manual_job(job: ManualJobCreate):
     new_job = Job(
