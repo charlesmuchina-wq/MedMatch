@@ -643,6 +643,7 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Sources</SelectItem>
+                  <SelectItem value="google">Google CSE</SelectItem>
                   <SelectItem value="remoteok">RemoteOK</SelectItem>
                   <SelectItem value="remotive">Remotive</SelectItem>
                   <SelectItem value="jobicy">Jobicy</SelectItem>
