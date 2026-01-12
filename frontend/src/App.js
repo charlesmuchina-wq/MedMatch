@@ -214,6 +214,18 @@ const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions = true 
                 </div>
               </div>
               {matchData && <MatchScoreRing score={matchData.match_score} />}
+              {!matchData && job.relevance_score > 0 && (
+                <div className="flex flex-col items-center">
+                  <span className="text-xs text-slate-400">Relevance</span>
+                  <span className={`text-lg font-semibold ${
+                    job.relevance_score >= 50 ? 'text-emerald-500' : 
+                    job.relevance_score >= 30 ? 'text-sky-500' : 
+                    job.relevance_score >= 10 ? 'text-amber-500' : 'text-slate-400'
+                  }`}>
+                    {Math.min(job.relevance_score, 100)}%
+                  </span>
+                </div>
+              )}
             </div>
             
             <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500 mb-3">
