@@ -724,7 +724,12 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
                 <span className="font-medium text-slate-900">AI Deep Search Results</span>
                 {searchStats.jobspy_enabled && (
                   <Badge variant="outline" className="text-xs bg-emerald-50 text-emerald-700 border-emerald-200">
-                    JobSpy Enabled
+                    JobSpy
+                  </Badge>
+                )}
+                {searchStats.google_cse_enabled && (
+                  <Badge variant="outline" className="text-xs bg-sky-50 text-sky-700 border-sky-200">
+                    Google CSE
                   </Badge>
                 )}
               </div>
