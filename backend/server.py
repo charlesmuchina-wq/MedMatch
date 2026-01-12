@@ -699,11 +699,12 @@ async def fetch_google_cse_all_sites(query: str, location: str = "Remote") -> Li
     """Search multiple job boards simultaneously using Google Custom Search"""
     all_jobs = []
     
-    # Search Indeed, LinkedIn, Glassdoor via Google
+    # Search Indeed, LinkedIn, Glassdoor, ZipRecruiter via Google
     sites_to_search = [
-        "indeed.com/viewjob",
-        "linkedin.com/jobs/view",
-        "glassdoor.com/job-listing"
+        "indeed.com",
+        "linkedin.com/jobs",
+        "glassdoor.com",
+        "ziprecruiter.com"
     ]
     
     tasks = [
