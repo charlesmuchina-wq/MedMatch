@@ -1,0 +1,127 @@
+import { useState, useCallback } from "react";
+import axios from "axios";
+import { toast } from "sonner";
+import { Upload } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useDropzone } from "react-dropzone";
+
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+
+const ResumePage = ({ resume, setResume }) => {
+  const [uploading, setUploading] = useState(false);
+
+  const onDrop = useCallback(async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    if (!file) return;
+    
+    if (!file.name.endsWith('.pdf')) {
+      toast.error("Please upload a PDF file");
+      return;
+    }
+
+    setUploading(true);
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await axios.post(`${API}/resume/upload`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      setResume(response.data);
+      toast.success("Resume uploaded and parsed successfully!");
+    } catch (e) {
+      toast.error(e.response?.data?.detail || "Failed to upload resume");
+    }
+    setUploading(false);
+  }, [setResume]);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: { 'application/pdf': ['.pdf'] },
+    maxFiles: 1
+  });
+
+  return (
+    <div className="p-6 md:p-8 lg:p-12 max-w-4xl mx-auto animate-fade-in" data-testid="resume-page">
+      <h1 className="text-3xl font-semibold text-slate-900 tracking-tight mb-8" style={{ fontFamily: 'IBM Plex Sans' }}>
+        My Resume
+      </h1>
+
+      <Card className="mb-8">
+        <CardContent className="p-6">
+          <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`} data-testid="resume-dropzone">
+            <input {...getInputProps()} data-testid="resume-input" />
+            <Upload className="w-10 h-10 text-slate-400 mx-auto mb-3" />
+            {uploading ? (
+              <p className="text-slate-600">Processing your resume...</p>
+            ) : (
+              <>
+                <p className="text-slate-700 font-medium">
+                  {isDragActive ? "Drop your resume here" : "Drag & drop your resume"}
+                </p>
+                <p className="text-slate-500 text-sm mt-1">or click to browse (PDF only)</p>
+              </>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+
+      {resume && (
+        <div className="space-y-6">
+          <Card>
+            <CardHeader><CardTitle style={{ fontFamily: 'IBM Plex Sans' }}>Profile</CardTitle></CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <label className="text-sm text-slate-500">Full Name</label>
+                  <p className="font-medium text-slate-900">{resume.full_name || '-'}</p>
+                </div>
+                <div>
+                  <label className="text-sm text-slate-500">Email</label>
+                  <p className="font-medium text-slate-900">{resume.email || '-'}</p>
+                </div>
+              </div>
+              {resume.summary && (
+                <div>
+                  <label className="text-sm text-slate-500">Summary</label>
+                  <p className="text-slate-700 mt-1">{resume.summary}</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle style={{ fontFamily: 'IBM Plex Sans' }}>Skills</CardTitle>
+              <CardDescription>These skills will be used for job matching</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-2">
+                {resume.skills?.map((skill, i) => (
+                  <Badge key={i} variant="secondary" className="bg-slate-100">{skill}</Badge>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {resume.experience?.length > 0 && (
+            <Card>
+              <CardHeader><CardTitle style={{ fontFamily: 'IBM Plex Sans' }}>Experience</CardTitle></CardHeader>
+              <CardContent className="space-y-4">
+                {resume.experience.map((exp, i) => (
+                  <div key={i} className="border-l-2 border-slate-200 pl-4">
+                    <h4 className="font-medium text-slate-900">{exp.title}</h4>
+                    <p className="text-sm text-slate-600">{exp.company} • {exp.duration}</p>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ResumePage;
