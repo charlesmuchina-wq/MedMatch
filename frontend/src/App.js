@@ -6,21 +6,32 @@ import { Toaster, toast } from "sonner";
 import { 
   Search, Briefcase, FileText, Bookmark, CheckSquare, 
   Menu, X, Upload, ExternalLink, MapPin, Building2,
-  TrendingUp, Clock, ChevronRight, Plus, Trash2, Filter
+  TrendingUp, Clock, ChevronRight, Trash2, Filter,
+  Bell, Mail, Globe, Calendar, ShieldCheck, Award,
+  CheckCircle, Code, HeartPulse, Sparkles, Send, Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDropzone } from "react-dropzone";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
+
+// Icon mapping for presets
+const PresetIcons = {
+  "shield-check": ShieldCheck,
+  "award": Award,
+  "check-circle": CheckCircle,
+  "file-text": FileText,
+  "code": Code,
+  "heart-pulse": HeartPulse
+};
 
 // Sidebar Component
 const Sidebar = ({ isOpen, setIsOpen }) => {
@@ -32,11 +43,11 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { path: "/search", icon: Search, label: "Job Search" },
     { path: "/saved", icon: Bookmark, label: "Saved Jobs" },
     { path: "/applications", icon: CheckSquare, label: "Applications" },
+    { path: "/alerts", icon: Bell, label: "Job Alerts" },
   ];
 
   return (
     <>
-      {/* Mobile overlay */}
       {isOpen && (
         <div 
           className="fixed inset-0 bg-black/20 z-40 lg:hidden"
@@ -44,7 +55,6 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         />
       )}
       
-      {/* Sidebar */}
       <aside className={`
         fixed top-0 left-0 z-50 h-full w-64 bg-white border-r border-slate-200
         transform transition-transform duration-200 ease-out
@@ -135,23 +145,11 @@ const MatchScoreRing = ({ score }) => {
   return (
     <div className="match-ring">
       <svg width="60" height="60">
+        <circle cx="30" cy="30" r={radius} fill="none" stroke="#E2E8F0" strokeWidth="4" />
         <circle
-          cx="30"
-          cy="30"
-          r={radius}
-          fill="none"
-          stroke="#E2E8F0"
-          strokeWidth="4"
-        />
-        <circle
-          cx="30"
-          cy="30"
-          r={radius}
-          fill="none"
-          stroke={getColor(score)}
-          strokeWidth="4"
-          strokeDasharray={circumference}
-          strokeDashoffset={offset}
+          cx="30" cy="30" r={radius} fill="none"
+          stroke={getColor(score)} strokeWidth="4"
+          strokeDasharray={circumference} strokeDashoffset={offset}
           strokeLinecap="round"
         />
       </svg>
@@ -181,6 +179,22 @@ const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions = true 
     setAnalyzing(false);
   };
 
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    try {
+      const date = new Date(dateStr);
+      const now = new Date();
+      const diffDays = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+      if (diffDays === 0) return 'Today';
+      if (diffDays === 1) return 'Yesterday';
+      if (diffDays < 7) return `${diffDays} days ago`;
+      if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+      return date.toLocaleDateString();
+    } catch {
+      return '';
+    }
+  };
+
   return (
     <Card className="job-card" data-testid={`job-card-${job.id}`}>
       <CardContent className="p-6">
@@ -204,6 +218,12 @@ const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions = true 
                 <MapPin className="w-4 h-4" />
                 {job.location}
               </span>
+              {job.posted_at && (
+                <span className="flex items-center gap-1">
+                  <Clock className="w-4 h-4" />
+                  {formatDate(job.posted_at)}
+                </span>
+              )}
               {job.salary && (
                 <span className="text-emerald-600 font-medium">{job.salary}</span>
               )}
@@ -230,13 +250,12 @@ const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions = true 
               <div className="flex flex-wrap items-center gap-2 pt-2">
                 {!matchData && (
                   <Button 
-                    variant="outline" 
-                    size="sm"
+                    variant="outline" size="sm"
                     onClick={handleAnalyze}
                     disabled={analyzing}
                     data-testid={`analyze-btn-${job.id}`}
                   >
-                    {analyzing ? "Analyzing..." : "Analyze Match"}
+                    {analyzing ? <><Loader2 className="w-4 h-4 mr-1 animate-spin" /> Analyzing...</> : "Analyze Match"}
                   </Button>
                 )}
                 <Button 
@@ -248,21 +267,12 @@ const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions = true 
                   <Bookmark className={`w-4 h-4 mr-1 ${isSaved ? 'fill-current' : ''}`} />
                   {isSaved ? "Saved" : "Save"}
                 </Button>
-                <Button 
-                  size="sm"
-                  onClick={() => onApply(job)}
-                  data-testid={`apply-btn-${job.id}`}
-                >
-                  Apply
-                  <ChevronRight className="w-4 h-4 ml-1" />
+                <Button size="sm" onClick={() => onApply(job)} data-testid={`apply-btn-${job.id}`}>
+                  Apply <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
                 {job.url && (
-                  <a 
-                    href={job.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm text-sky-600 hover:text-sky-700"
-                  >
+                  <a href={job.url} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-sm text-sky-600 hover:text-sky-700">
                     View Original <ExternalLink className="w-3 h-3" />
                   </a>
                 )}
@@ -295,7 +305,6 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate }) => {
         </p>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {stats.map(({ label, value, icon: Icon, color }) => (
           <Card key={label} className="border-slate-200">
@@ -327,7 +336,6 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate }) => {
         </Card>
       ) : (
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Skills Section */}
           <Card>
             <CardHeader>
               <CardTitle className="text-lg" style={{ fontFamily: 'IBM Plex Sans' }}>Your Skills</CardTitle>
@@ -336,9 +344,7 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate }) => {
             <CardContent>
               <div className="flex flex-wrap gap-2">
                 {resume.skills?.slice(0, 12).map((skill, i) => (
-                  <Badge key={i} variant="secondary" className="bg-slate-100">
-                    {skill}
-                  </Badge>
+                  <Badge key={i} variant="secondary" className="bg-slate-100">{skill}</Badge>
                 ))}
                 {resume.skills?.length > 12 && (
                   <Badge variant="outline">+{resume.skills.length - 12} more</Badge>
@@ -347,7 +353,6 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate }) => {
             </CardContent>
           </Card>
 
-          {/* Recent Applications */}
           <Card>
             <CardHeader>
               <CardTitle className="text-lg" style={{ fontFamily: 'IBM Plex Sans' }}>Recent Applications</CardTitle>
@@ -364,9 +369,7 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate }) => {
                         <p className="font-medium text-slate-900 text-sm">{app.job.title}</p>
                         <p className="text-xs text-slate-500">{app.job.company}</p>
                       </div>
-                      <Badge className={`status-${app.status.toLowerCase()}`}>
-                        {app.status}
-                      </Badge>
+                      <Badge className={`status-${app.status.toLowerCase()}`}>{app.status}</Badge>
                     </div>
                   ))}
                 </div>
@@ -420,14 +423,9 @@ const ResumePage = ({ resume, setResume }) => {
         My Resume
       </h1>
 
-      {/* Upload Section */}
       <Card className="mb-8">
         <CardContent className="p-6">
-          <div 
-            {...getRootProps()} 
-            className={`dropzone ${isDragActive ? 'active' : ''}`}
-            data-testid="resume-dropzone"
-          >
+          <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`} data-testid="resume-dropzone">
             <input {...getInputProps()} data-testid="resume-input" />
             <Upload className="w-10 h-10 text-slate-400 mx-auto mb-3" />
             {uploading ? (
@@ -444,13 +442,10 @@ const ResumePage = ({ resume, setResume }) => {
         </CardContent>
       </Card>
 
-      {/* Resume Data Display */}
       {resume && (
         <div className="space-y-6">
           <Card>
-            <CardHeader>
-              <CardTitle style={{ fontFamily: 'IBM Plex Sans' }}>Profile</CardTitle>
-            </CardHeader>
+            <CardHeader><CardTitle style={{ fontFamily: 'IBM Plex Sans' }}>Profile</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
@@ -460,10 +455,6 @@ const ResumePage = ({ resume, setResume }) => {
                 <div>
                   <label className="text-sm text-slate-500">Email</label>
                   <p className="font-medium text-slate-900">{resume.email || '-'}</p>
-                </div>
-                <div>
-                  <label className="text-sm text-slate-500">Phone</label>
-                  <p className="font-medium text-slate-900">{resume.phone || '-'}</p>
                 </div>
               </div>
               {resume.summary && (
@@ -483,9 +474,7 @@ const ResumePage = ({ resume, setResume }) => {
             <CardContent>
               <div className="flex flex-wrap gap-2">
                 {resume.skills?.map((skill, i) => (
-                  <Badge key={i} variant="secondary" className="bg-slate-100">
-                    {skill}
-                  </Badge>
+                  <Badge key={i} variant="secondary" className="bg-slate-100">{skill}</Badge>
                 ))}
               </div>
             </CardContent>
@@ -493,33 +482,12 @@ const ResumePage = ({ resume, setResume }) => {
 
           {resume.experience?.length > 0 && (
             <Card>
-              <CardHeader>
-                <CardTitle style={{ fontFamily: 'IBM Plex Sans' }}>Experience</CardTitle>
-              </CardHeader>
+              <CardHeader><CardTitle style={{ fontFamily: 'IBM Plex Sans' }}>Experience</CardTitle></CardHeader>
               <CardContent className="space-y-4">
                 {resume.experience.map((exp, i) => (
                   <div key={i} className="border-l-2 border-slate-200 pl-4">
                     <h4 className="font-medium text-slate-900">{exp.title}</h4>
                     <p className="text-sm text-slate-600">{exp.company} • {exp.duration}</p>
-                    {exp.description && (
-                      <p className="text-sm text-slate-500 mt-1">{exp.description}</p>
-                    )}
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-          )}
-
-          {resume.education?.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle style={{ fontFamily: 'IBM Plex Sans' }}>Education</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {resume.education.map((edu, i) => (
-                  <div key={i}>
-                    <h4 className="font-medium text-slate-900">{edu.degree}</h4>
-                    <p className="text-sm text-slate-600">{edu.institution} • {edu.year}</p>
                   </div>
                 ))}
               </CardContent>
@@ -531,18 +499,28 @@ const ResumePage = ({ resume, setResume }) => {
   );
 };
 
-// Job Search Page
+// Job Search Page with filters
 const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [source, setSource] = useState("all");
+  const [location, setLocation] = useState("");
+  const [days, setDays] = useState("0");
+  const [presets, setPresets] = useState({ presets: [], locations: [] });
+  const [aiSearching, setAiSearching] = useState(false);
 
-  const searchJobs = async () => {
+  useEffect(() => {
+    // Fetch presets
+    axios.get(`${API}/jobs/presets`).then(res => setPresets(res.data)).catch(() => {});
+    searchJobs();
+  }, []);
+
+  const searchJobs = async (searchQuery = query) => {
     setLoading(true);
     try {
       const response = await axios.get(`${API}/jobs/search`, {
-        params: { query, source }
+        params: { query: searchQuery, source, location, days: parseInt(days) }
       });
       setJobs(response.data);
     } catch (e) {
@@ -551,47 +529,127 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
     setLoading(false);
   };
 
-  useEffect(() => {
-    searchJobs();
-  }, []);
+  const aiSearch = async () => {
+    setAiSearching(true);
+    try {
+      const response = await axios.get(`${API}/jobs/ai-search`, { params: { query } });
+      setJobs(response.data.jobs || []);
+      if (response.data.suggestions?.related_titles?.length) {
+        toast.success(`AI found related roles: ${response.data.suggestions.related_titles.slice(0, 3).join(', ')}`);
+      }
+    } catch (e) {
+      toast.error("AI search failed");
+    }
+    setAiSearching(false);
+  };
+
+  const handlePresetClick = (presetQuery) => {
+    setQuery(presetQuery);
+    searchJobs(presetQuery);
+  };
 
   const savedJobIds = savedJobs.map(s => s.job.id);
 
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-6xl mx-auto animate-fade-in" data-testid="job-search-page">
-      <h1 className="text-3xl font-semibold text-slate-900 tracking-tight mb-8" style={{ fontFamily: 'IBM Plex Sans' }}>
+      <h1 className="text-3xl font-semibold text-slate-900 tracking-tight mb-6" style={{ fontFamily: 'IBM Plex Sans' }}>
         Find Remote Jobs
       </h1>
 
-      {/* Search Bar */}
+      {/* Quick Search Presets */}
+      <div className="mb-6">
+        <p className="text-sm text-slate-500 mb-3">Quick Search:</p>
+        <div className="flex flex-wrap gap-2">
+          {presets.presets?.map(preset => {
+            const Icon = PresetIcons[preset.icon] || Search;
+            return (
+              <Button
+                key={preset.id}
+                variant="outline"
+                size="sm"
+                onClick={() => handlePresetClick(preset.query)}
+                className="gap-2"
+                data-testid={`preset-${preset.id}`}
+              >
+                <Icon className="w-4 h-4" />
+                {preset.name}
+              </Button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Search Bar & Filters */}
       <Card className="mb-6">
         <CardContent className="p-4">
-          <div className="flex flex-col md:flex-row gap-3">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <Input
-                placeholder="Search jobs by title, company, or skills..."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && searchJobs()}
-                className="pl-10"
-                data-testid="job-search-input"
-              />
+          <div className="flex flex-col gap-4">
+            {/* Search input row */}
+            <div className="flex flex-col md:flex-row gap-3">
+              <div className="flex-1 relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Input
+                  placeholder="Search jobs by title, company, or skills..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && searchJobs()}
+                  className="pl-10"
+                  data-testid="job-search-input"
+                />
+              </div>
+              <Button onClick={() => searchJobs()} disabled={loading} data-testid="search-btn">
+                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Search"}
+              </Button>
+              <Button variant="secondary" onClick={aiSearch} disabled={aiSearching} data-testid="ai-search-btn">
+                <Sparkles className="w-4 h-4 mr-2" />
+                {aiSearching ? "Searching..." : "AI Search"}
+              </Button>
             </div>
-            <Select value={source} onValueChange={setSource}>
-              <SelectTrigger className="w-full md:w-40" data-testid="source-select">
-                <Filter className="w-4 h-4 mr-2" />
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Sources</SelectItem>
-                <SelectItem value="remoteok">RemoteOK</SelectItem>
-                <SelectItem value="remotive">Remotive</SelectItem>
-              </SelectContent>
-            </Select>
-            <Button onClick={searchJobs} disabled={loading} data-testid="search-btn">
-              {loading ? "Searching..." : "Search"}
-            </Button>
+
+            {/* Filters row */}
+            <div className="flex flex-wrap gap-3">
+              <Select value={source} onValueChange={setSource}>
+                <SelectTrigger className="w-36" data-testid="source-select">
+                  <Globe className="w-4 h-4 mr-2" />
+                  <SelectValue placeholder="Source" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Sources</SelectItem>
+                  <SelectItem value="remoteok">RemoteOK</SelectItem>
+                  <SelectItem value="remotive">Remotive</SelectItem>
+                  <SelectItem value="jobicy">Jobicy</SelectItem>
+                  <SelectItem value="arbeitnow">Arbeitnow</SelectItem>
+                  <SelectItem value="himalayas">Himalayas</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={location} onValueChange={setLocation}>
+                <SelectTrigger className="w-36" data-testid="location-select">
+                  <MapPin className="w-4 h-4 mr-2" />
+                  <SelectValue placeholder="Location" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">Any Location</SelectItem>
+                  {presets.locations?.map(loc => (
+                    <SelectItem key={loc} value={loc.toLowerCase()}>{loc}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select value={days} onValueChange={setDays}>
+                <SelectTrigger className="w-36" data-testid="date-select">
+                  <Calendar className="w-4 h-4 mr-2" />
+                  <SelectValue placeholder="Posted" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="0">Any Time</SelectItem>
+                  <SelectItem value="1">Last 24 hours</SelectItem>
+                  <SelectItem value="3">Last 3 days</SelectItem>
+                  <SelectItem value="7">Last 7 days</SelectItem>
+                  <SelectItem value="14">Last 2 weeks</SelectItem>
+                  <SelectItem value="30">Last 30 days</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -654,17 +712,9 @@ const SavedJobsPage = ({ savedJobs, onRemove, onApply, onAnalyze }) => {
         <div className="space-y-4">
           {savedJobs.map(saved => (
             <div key={saved.id} className="relative">
-              <JobCard
-                job={saved.job}
-                onSave={() => {}}
-                onApply={onApply}
-                onAnalyze={onAnalyze}
-                isSaved={true}
-                showActions={true}
-              />
+              <JobCard job={saved.job} onSave={() => {}} onApply={onApply} onAnalyze={onAnalyze} isSaved={true} />
               <Button
-                variant="ghost"
-                size="sm"
+                variant="ghost" size="sm"
                 className="absolute top-4 right-4 text-slate-400 hover:text-rose-500"
                 onClick={() => onRemove(saved.id)}
                 data-testid={`remove-saved-${saved.id}`}
@@ -682,20 +732,14 @@ const SavedJobsPage = ({ savedJobs, onRemove, onApply, onAnalyze }) => {
 // Applications Page
 const ApplicationsPage = ({ applications, onUpdateStatus, onDelete }) => {
   const [filter, setFilter] = useState("all");
-
-  const filteredApps = filter === "all" 
-    ? applications 
-    : applications.filter(a => a.status === filter);
-
+  const filteredApps = filter === "all" ? applications : applications.filter(a => a.status === filter);
   const statusOptions = ["Applied", "Interview", "Offer", "Rejected"];
 
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-6xl mx-auto animate-fade-in" data-testid="applications-page">
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-semibold text-slate-900 tracking-tight" style={{ fontFamily: 'IBM Plex Sans' }}>
-          Applications
-        </h1>
-      </div>
+      <h1 className="text-3xl font-semibold text-slate-900 tracking-tight mb-8" style={{ fontFamily: 'IBM Plex Sans' }}>
+        Applications
+      </h1>
 
       <Tabs value={filter} onValueChange={setFilter} className="mb-6">
         <TabsList>
@@ -730,10 +774,7 @@ const ApplicationsPage = ({ applications, onUpdateStatus, onDelete }) => {
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Select 
-                      value={app.status} 
-                      onValueChange={(value) => onUpdateStatus(app.id, value)}
-                    >
+                    <Select value={app.status} onValueChange={(value) => onUpdateStatus(app.id, value)}>
                       <SelectTrigger className="w-32" data-testid={`status-select-${app.id}`}>
                         <SelectValue />
                       </SelectTrigger>
@@ -744,8 +785,7 @@ const ApplicationsPage = ({ applications, onUpdateStatus, onDelete }) => {
                       </SelectContent>
                     </Select>
                     <Button 
-                      variant="ghost" 
-                      size="sm"
+                      variant="ghost" size="sm"
                       onClick={() => onDelete(app.id)}
                       className="text-slate-400 hover:text-rose-500"
                       data-testid={`delete-app-${app.id}`}
@@ -759,6 +799,105 @@ const ApplicationsPage = ({ applications, onUpdateStatus, onDelete }) => {
           ))}
         </div>
       )}
+    </div>
+  );
+};
+
+// Job Alerts Page
+const JobAlertsPage = ({ resume }) => {
+  const [alerts, setAlerts] = useState([]);
+  const [sending, setSending] = useState(false);
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    axios.get(`${API}/alerts`).then(res => setAlerts(res.data)).catch(() => {});
+    // Set default email from resume
+    if (resume?.email) setEmail(resume.email);
+  }, [resume]);
+
+  const sendAlertNow = async () => {
+    if (!email) {
+      toast.error("Please enter an email address");
+      return;
+    }
+    setSending(true);
+    try {
+      const response = await axios.post(`${API}/alerts/send-now`, { email });
+      toast.success(response.data.message);
+    } catch (e) {
+      toast.error("Failed to send alert");
+    }
+    setSending(false);
+  };
+
+  return (
+    <div className="p-6 md:p-8 lg:p-12 max-w-4xl mx-auto animate-fade-in" data-testid="alerts-page">
+      <h1 className="text-3xl font-semibold text-slate-900 tracking-tight mb-8" style={{ fontFamily: 'IBM Plex Sans' }}>
+        Job Alerts
+      </h1>
+
+      <Card className="mb-8">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2" style={{ fontFamily: 'IBM Plex Sans' }}>
+            <Mail className="w-5 h-5" />
+            Send Job Alert Email
+          </CardTitle>
+          <CardDescription>
+            Get an email with the latest jobs matching your profile
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Input
+              type="email"
+              placeholder="Enter email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="flex-1"
+              data-testid="alert-email-input"
+            />
+            <Button onClick={sendAlertNow} disabled={sending} data-testid="send-alert-btn">
+              {sending ? (
+                <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Sending...</>
+              ) : (
+                <><Send className="w-4 h-4 mr-2" /> Send Alert Now</>
+              )}
+            </Button>
+          </div>
+          <p className="text-sm text-slate-500 mt-3">
+            This will search for jobs matching your resume skills and send an email with up to 10 matching jobs.
+          </p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle style={{ fontFamily: 'IBM Plex Sans' }}>How Job Alerts Work</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center text-sky-600 font-medium">1</div>
+            <div>
+              <h4 className="font-medium text-slate-900">AI analyzes your resume</h4>
+              <p className="text-sm text-slate-500">We extract your top skills to find relevant jobs</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center text-sky-600 font-medium">2</div>
+            <div>
+              <h4 className="font-medium text-slate-900">Search 5+ job sources</h4>
+              <p className="text-sm text-slate-500">RemoteOK, Remotive, Jobicy, Arbeitnow, and more</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-full bg-sky-100 flex items-center justify-center text-sky-600 font-medium">3</div>
+            <div>
+              <h4 className="font-medium text-slate-900">Get matching jobs via email</h4>
+              <p className="text-sm text-slate-500">Receive top 10 jobs matching your profile</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
@@ -778,9 +917,7 @@ const ApplyDialog = ({ job, open, onClose, onConfirm }) => {
       <DialogContent>
         <DialogHeader>
           <DialogTitle style={{ fontFamily: 'IBM Plex Sans' }}>Track Application</DialogTitle>
-          <DialogDescription>
-            Add this job to your application tracker
-          </DialogDescription>
+          <DialogDescription>Add this job to your application tracker</DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div>
@@ -800,9 +937,7 @@ const ApplyDialog = ({ job, open, onClose, onConfirm }) => {
         </div>
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>Cancel</Button>
-          <Button onClick={handleConfirm} data-testid="confirm-apply">
-            Add to Applications
-          </Button>
+          <Button onClick={handleConfirm} data-testid="confirm-apply">Add to Applications</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
@@ -817,7 +952,6 @@ function App() {
   const [applications, setApplications] = useState([]);
   const [applyDialogJob, setApplyDialogJob] = useState(null);
 
-  // Fetch initial data
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -842,11 +976,8 @@ function App() {
       setSavedJobs([response.data, ...savedJobs]);
       toast.success("Job saved!");
     } catch (e) {
-      if (e.response?.status === 400) {
-        toast.info("Job already saved");
-      } else {
-        toast.error("Failed to save job");
-      }
+      if (e.response?.status === 400) toast.info("Job already saved");
+      else toast.error("Failed to save job");
     }
   };
 
@@ -860,19 +991,14 @@ function App() {
     }
   };
 
-  const handleApply = (job) => {
-    setApplyDialogJob(job);
-  };
+  const handleApply = (job) => setApplyDialogJob(job);
 
   const handleConfirmApply = async (job, notes) => {
     try {
       const response = await axios.post(`${API}/applications`, { job, notes });
       setApplications([response.data, ...applications]);
       toast.success("Application tracked!");
-      
-      if (job.url) {
-        window.open(job.url, '_blank');
-      }
+      if (job.url) window.open(job.url, '_blank');
     } catch (e) {
       toast.error("Failed to track application");
     }
@@ -881,9 +1007,7 @@ function App() {
   const handleUpdateStatus = async (appId, status) => {
     try {
       await axios.put(`${API}/applications/${appId}`, { status });
-      setApplications(applications.map(a => 
-        a.id === appId ? { ...a, status } : a
-      ));
+      setApplications(applications.map(a => a.id === appId ? { ...a, status } : a));
       toast.success("Status updated");
     } catch (e) {
       toast.error("Failed to update status");
@@ -913,9 +1037,7 @@ function App() {
     return response.data;
   };
 
-  const navigate = (path) => {
-    window.location.href = path;
-  };
+  const navigate = (path) => { window.location.href = path; };
 
   return (
     <BrowserRouter>
@@ -927,64 +1049,17 @@ function App() {
           
           <main className="flex-1">
             <Routes>
-              <Route 
-                path="/" 
-                element={
-                  <Dashboard 
-                    resume={resume} 
-                    savedJobs={savedJobs} 
-                    applications={applications}
-                    onNavigate={navigate}
-                  />
-                } 
-              />
-              <Route 
-                path="/resume" 
-                element={<ResumePage resume={resume} setResume={setResume} />} 
-              />
-              <Route 
-                path="/search" 
-                element={
-                  <JobSearchPage 
-                    savedJobs={savedJobs}
-                    onSave={handleSaveJob}
-                    onApply={handleApply}
-                    onAnalyze={handleAnalyzeJob}
-                  />
-                } 
-              />
-              <Route 
-                path="/saved" 
-                element={
-                  <SavedJobsPage 
-                    savedJobs={savedJobs}
-                    onRemove={handleRemoveSavedJob}
-                    onApply={handleApply}
-                    onAnalyze={handleAnalyzeJob}
-                  />
-                } 
-              />
-              <Route 
-                path="/applications" 
-                element={
-                  <ApplicationsPage 
-                    applications={applications}
-                    onUpdateStatus={handleUpdateStatus}
-                    onDelete={handleDeleteApplication}
-                  />
-                } 
-              />
+              <Route path="/" element={<Dashboard resume={resume} savedJobs={savedJobs} applications={applications} onNavigate={navigate} />} />
+              <Route path="/resume" element={<ResumePage resume={resume} setResume={setResume} />} />
+              <Route path="/search" element={<JobSearchPage savedJobs={savedJobs} onSave={handleSaveJob} onApply={handleApply} onAnalyze={handleAnalyzeJob} />} />
+              <Route path="/saved" element={<SavedJobsPage savedJobs={savedJobs} onRemove={handleRemoveSavedJob} onApply={handleApply} onAnalyze={handleAnalyzeJob} />} />
+              <Route path="/applications" element={<ApplicationsPage applications={applications} onUpdateStatus={handleUpdateStatus} onDelete={handleDeleteApplication} />} />
+              <Route path="/alerts" element={<JobAlertsPage resume={resume} />} />
             </Routes>
           </main>
         </div>
 
-        <ApplyDialog 
-          job={applyDialogJob}
-          open={!!applyDialogJob}
-          onClose={() => setApplyDialogJob(null)}
-          onConfirm={handleConfirmApply}
-        />
-
+        <ApplyDialog job={applyDialogJob} open={!!applyDialogJob} onClose={() => setApplyDialogJob(null)} onConfirm={handleConfirmApply} />
         <Toaster position="bottom-right" richColors />
       </div>
     </BrowserRouter>
