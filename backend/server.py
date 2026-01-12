@@ -564,53 +564,104 @@ async def fetch_adzuna_jobs(query: str = "", location: str = "") -> List[dict]:
 
 # NEW: Fetch from JSearch (RapidAPI free tier)
 async def fetch_jsearch_jobs(query: str = "", location: str = "") -> List[dict]:
-    try:
-        async with httpx.AsyncClient(timeout=15.0) as http_client:
-            # Public free endpoint simulation - in production would use RapidAPI
-            search_query = query or "quality manager"
-            url = f"https://jsearch.p.rapidapi.com/search"
-            # Note: This would require API key in production
-            return []  # Placeholder - would integrate with proper API key
-    except Exception as e:
-        logging.error(f"JSearch API error: {e}")
+    # Placeholder - would integrate with proper API key
     return []
 
-# NEW: Fetch from LinkedIn Jobs (via public RSS/scraping)
+# JOBSPY INTEGRATION - Scrape from LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter
+def fetch_jobspy_jobs_sync(query: str, location: str = "USA", sites: List[str] = None, results_wanted: int = 25, hours_old: int = 72) -> List[dict]:
+    """Synchronous JobSpy scraper - runs in thread pool"""
+    if not JOBSPY_AVAILABLE:
+        return []
+    
+    if sites is None:
+        sites = ["indeed", "linkedin", "glassdoor", "google", "zip_recruiter"]
+    
+    try:
+        # Use optimized search term for Quality/Medical Device roles
+        search_term = query or "quality manager"
+        
+        # Google needs special search term format
+        google_search_term = f"{search_term} jobs remote" if "google" in sites else None
+        
+        jobs_df = scrape_jobs(
+            site_name=sites,
+            search_term=search_term,
+            google_search_term=google_search_term,
+            location=location if location and location.lower() not in ['any', 'worldwide'] else "USA",
+            results_wanted=results_wanted,
+            hours_old=hours_old,
+            is_remote=True,
+            country_indeed='USA',
+            verbose=0
+        )
+        
+        if jobs_df is None or jobs_df.empty:
+            return []
+        
+        result = []
+        for _, row in jobs_df.iterrows():
+            # Build salary string
+            salary = ""
+            if row.get('min_amount') and row.get('max_amount'):
+                interval = row.get('interval', 'yearly')
+                salary = f"${int(row['min_amount']):,} - ${int(row['max_amount']):,}/{interval}"
+            elif row.get('min_amount'):
+                salary = f"${int(row['min_amount']):,}+"
+            
+            # Build location string
+            loc_parts = []
+            if row.get('city'):
+                loc_parts.append(str(row['city']))
+            if row.get('state'):
+                loc_parts.append(str(row['state']))
+            if row.get('is_remote'):
+                loc_parts.append("Remote")
+            location_str = ", ".join(loc_parts) if loc_parts else "Remote"
+            
+            job = {
+                "id": f"jspy_{row.get('site', 'unknown')}_{hash(str(row.get('job_url', '')))}",
+                "title": str(row.get('title', 'Unknown')),
+                "company": str(row.get('company', 'Unknown')),
+                "location": location_str,
+                "description": str(row.get('description', ''))[:5000],
+                "url": str(row.get('job_url', '')),
+                "salary": salary,
+                "tags": [str(row.get('job_type', ''))] if row.get('job_type') else [],
+                "source": f"JobSpy ({str(row.get('site', 'Unknown')).title()})",
+                "posted_at": str(row.get('date_posted', '')) if row.get('date_posted') else ''
+            }
+            result.append(job)
+        
+        return result
+    except Exception as e:
+        logging.error(f"JobSpy error: {e}")
+        return []
+
+async def fetch_jobspy_jobs(query: str, location: str = "USA", sites: List[str] = None, results_wanted: int = 25) -> List[dict]:
+    """Async wrapper for JobSpy - runs in thread pool to avoid blocking"""
+    loop = asyncio.get_event_loop()
+    with ThreadPoolExecutor() as executor:
+        result = await loop.run_in_executor(
+            executor,
+            fetch_jobspy_jobs_sync,
+            query,
+            location,
+            sites,
+            results_wanted,
+            72  # hours_old
+        )
+    return result
+
+# Placeholder functions for removed APIs
 async def fetch_linkedin_jobs(query: str = "", location: str = "") -> List[dict]:
-    # Note: LinkedIn requires authentication for API access
-    # This is a placeholder for future integration
+    # Now handled by JobSpy
     return []
 
-# NEW: Fetch from Indeed (via public endpoints)
 async def fetch_indeed_jobs(query: str = "", location: str = "") -> List[dict]:
-    # Note: Indeed API is deprecated, would need alternative
+    # Now handled by JobSpy
     return []
 
-# NEW: Free Jobs API
 async def fetch_freejobs_api(query: str = "", location: str = "") -> List[dict]:
-    try:
-        async with httpx.AsyncClient(timeout=15.0) as http_client:
-            params = {"query": query or "quality"}
-            response = await http_client.get("https://api.freejobs.com/jobs/search", params=params)
-            if response.status_code == 200:
-                data = response.json()
-                result = []
-                for job in data.get('jobs', [])[:50]:
-                    result.append({
-                        "id": f"fja_{job.get('id', uuid.uuid4())}",
-                        "title": job.get('title', 'Unknown'),
-                        "company": job.get('company', 'Unknown'),
-                        "location": job.get('location', 'Remote'),
-                        "description": job.get('description', ''),
-                        "url": job.get('url', ''),
-                        "salary": job.get('salary', ''),
-                        "tags": job.get('tags', []),
-                        "source": "FreeJobsAPI",
-                        "posted_at": job.get('posted_at', '')
-                    })
-                return result
-    except Exception as e:
-        logging.error(f"FreeJobs API error: {e}")
     return []
 
 def filter_jobs_by_date(jobs: List[dict], days: int) -> List[dict]:
