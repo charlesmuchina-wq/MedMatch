@@ -1,34 +1,116 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+/* App-specific styles */
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    color: #64748B;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+.sidebar-link:hover {
+    background-color: #F1F5F9;
+    color: #0F172A;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
+.sidebar-link.active {
+    background-color: #0F172A;
+    color: white;
+}
+
+.sidebar-link.active:hover {
+    background-color: #1E293B;
+}
+
+/* Status badges */
+.status-applied {
+    background-color: #DBEAFE;
+    color: #1E40AF;
+}
+
+.status-interview {
+    background-color: #FEF3C7;
+    color: #92400E;
+}
+
+.status-offer {
+    background-color: #D1FAE5;
+    color: #065F46;
+}
+
+.status-rejected {
+    background-color: #FEE2E2;
+    color: #991B1B;
+}
+
+/* Dropzone styles */
+.dropzone {
+    border: 2px dashed #CBD5E1;
+    border-radius: 0.75rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.dropzone:hover,
+.dropzone.active {
+    border-color: #0EA5E9;
+    background-color: #F0F9FF;
+}
+
+/* Tag badges */
+.tag-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 9999px;
+    background-color: #F1F5F9;
+    color: #475569;
+}
+
+/* Match score ring */
+.match-ring {
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.match-ring svg {
+    transform: rotate(-90deg);
+}
+
+.match-ring-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+/* Empty state */
+.empty-state {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+    padding: 4rem 2rem;
+    text-align: center;
 }
 
-.App-link {
-    color: #61dafb;
+/* Skeleton loading */
+.skeleton {
+    background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s infinite;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+@keyframes skeleton-loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
