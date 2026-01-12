@@ -19,6 +19,15 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import json
 import re
+from concurrent.futures import ThreadPoolExecutor
+
+# JobSpy - Powerful job scraper for LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter
+try:
+    from jobspy import scrape_jobs
+    JOBSPY_AVAILABLE = True
+except ImportError:
+    JOBSPY_AVAILABLE = False
+    logging.warning("JobSpy not available - using fallback APIs only")
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
