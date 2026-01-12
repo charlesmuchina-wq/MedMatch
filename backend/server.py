@@ -941,7 +941,9 @@ async def deep_search_jobs(request: DeepSearchRequest):
         "jobs": relevant_jobs[:300],
         "total_found": len(relevant_jobs),
         "search_strategy": search_strategy,
-        "queries_used": search_queries[:8]
+        "queries_used": search_queries[:6],
+        "sources_searched": list(set(sources_searched)),
+        "jobspy_enabled": JOBSPY_AVAILABLE
     }
 
 # Quick search presets - TheirStack inspired with technology and industry filters
