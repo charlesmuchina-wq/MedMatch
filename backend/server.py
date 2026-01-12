@@ -275,9 +275,24 @@ async def ai_deep_crawl(resume_skills: List[str] = []) -> dict:
         session_id=str(uuid.uuid4()),
         system_message="""You are a job search strategist specializing in Quality Assurance, Medical Devices, and Manufacturing roles.
         
-        Given a candidate's skills, generate comprehensive search queries to find ALL relevant jobs across the internet.
+        Generate SIMPLE search queries (1-3 words each) that job boards can understand.
         Focus on:
         - Supplier Quality (Manager, Director, Engineer)
+        - Medical Device Quality
+        - Lead Auditor roles
+        - Manufacturing Quality
+        - Quality Management Systems
+        - Regulatory Compliance (FDA, ISO)
+        
+        Return a JSON object with:
+        - search_queries: array of 15 SIMPLE search terms (1-3 words each, NO boolean operators)
+        - related_titles: array of 10 job titles
+        - industries: array of 5 target industries
+        - keywords: array of 15 single-word keywords
+        
+        Example search_queries: ["Quality Manager", "Supplier Quality", "Lead Auditor", "Medical Device", "ISO Auditor"]
+        
+        Return ONLY valid JSON."""
         - Medical Device Quality
         - Lead Auditor roles
         - Manufacturing Quality
