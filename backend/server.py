@@ -863,7 +863,7 @@ async def deep_search_jobs(request: DeepSearchRequest):
         "queries_used": search_queries[:8]
     }
 
-# Quick search presets
+# Quick search presets - TheirStack inspired with technology and industry filters
 @api_router.get("/jobs/presets")
 async def get_search_presets():
     return {
@@ -880,13 +880,23 @@ async def get_search_presets():
             {"id": "fda-compliance", "name": "FDA Compliance", "query": "FDA Compliance", "icon": "shield-check"},
         ],
         "locations": [
-            "Worldwide",
-            "USA",
-            "Europe", 
-            "UK",
-            "Canada",
-            "Germany",
-            "Remote"
+            "Worldwide", "USA", "Europe", "UK", "Canada", "Germany", "Remote"
+        ],
+        "industries": [
+            "Medical Devices", "Pharmaceutical", "Healthcare", "Biotechnology", 
+            "Manufacturing", "Automotive", "Aerospace", "Electronics", "Consumer Goods"
+        ],
+        "technologies": [
+            "ISO 13485", "ISO 9001", "FDA 21 CFR 820", "EU MDR", "GMP", "CGMP",
+            "Six Sigma", "Lean Manufacturing", "SAP", "Oracle", "Minitab",
+            "Quality Management Systems", "ERP", "MES"
+        ],
+        "salary_ranges": [
+            {"label": "Any", "min": 0, "max": 0},
+            {"label": "$50k-$80k", "min": 50000, "max": 80000},
+            {"label": "$80k-$120k", "min": 80000, "max": 120000},
+            {"label": "$120k-$150k", "min": 120000, "max": 150000},
+            {"label": "$150k+", "min": 150000, "max": 500000}
         ],
         "quality_terms": QUALITY_SEARCH_TERMS
     }
