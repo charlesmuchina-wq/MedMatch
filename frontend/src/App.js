@@ -31,7 +31,9 @@ const PresetIcons = {
   "check-circle": CheckCircle,
   "file-text": FileText,
   "code": Code,
-  "heart-pulse": HeartPulse
+  "heart-pulse": HeartPulse,
+  "settings": Settings,
+  "search": FileSearch
 };
 
 // Sidebar Component
