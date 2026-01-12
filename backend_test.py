@@ -468,11 +468,11 @@ class MedMatchAPITester:
         return all_success
 
     def test_ai_enhanced_search(self):
-        """Test AI-enhanced job search"""
+        """Test AI-enhanced job search (Deep Search)"""
         try:
-            response = requests.get(f"{self.api_url}/jobs/ai-search", 
-                                  params={"query": "quality assurance"}, 
-                                  timeout=30)
+            response = requests.post(f"{self.api_url}/jobs/deep-search", 
+                                   json={"use_ai": True}, 
+                                   timeout=30)
             success = response.status_code == 200
             details = f"Status: {response.status_code}"
             response_data = None
