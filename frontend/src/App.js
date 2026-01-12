@@ -607,9 +607,15 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
               <Button onClick={() => searchJobs()} disabled={loading} data-testid="search-btn">
                 {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Search"}
               </Button>
-              <Button variant="secondary" onClick={aiSearch} disabled={aiSearching} data-testid="ai-search-btn">
+              <Button 
+                variant="default" 
+                onClick={deepSearch} 
+                disabled={deepSearching}
+                className="bg-gradient-to-r from-sky-500 to-emerald-500 hover:from-sky-600 hover:to-emerald-600"
+                data-testid="deep-search-btn"
+              >
                 <Sparkles className="w-4 h-4 mr-2" />
-                {aiSearching ? "Searching..." : "AI Search"}
+                {deepSearching ? "Deep Searching..." : "AI Deep Search"}
               </Button>
             </div>
 
