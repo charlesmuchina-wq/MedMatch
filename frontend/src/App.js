@@ -667,6 +667,35 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
                 </SelectContent>
               </Select>
             </div>
+
+            {/* Advanced Filters - TheirStack inspired */}
+            <div className="pt-3 border-t border-slate-100">
+              <p className="text-xs text-slate-400 mb-2 flex items-center gap-1">
+                <Filter className="w-3 h-3" /> Advanced Filters (Industries & Technologies)
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {presets.industries?.slice(0, 5).map(industry => (
+                  <Badge 
+                    key={industry} 
+                    variant="outline" 
+                    className="cursor-pointer hover:bg-slate-100 text-xs"
+                    onClick={() => { setQuery(industry); searchJobs(industry); }}
+                  >
+                    {industry}
+                  </Badge>
+                ))}
+                {presets.technologies?.slice(0, 4).map(tech => (
+                  <Badge 
+                    key={tech} 
+                    variant="secondary" 
+                    className="cursor-pointer hover:bg-slate-200 text-xs"
+                    onClick={() => { setQuery(tech); searchJobs(tech); }}
+                  >
+                    {tech}
+                  </Badge>
+                ))}
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
