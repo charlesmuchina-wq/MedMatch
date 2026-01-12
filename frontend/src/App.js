@@ -520,7 +520,7 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
     setLoading(true);
     try {
       const response = await axios.get(`${API}/jobs/search`, {
-        params: { query: searchQuery, source, location, days: parseInt(days) }
+        params: { query: searchQuery, source, location: location === "any" ? "" : location, days: parseInt(days) }
       });
       setJobs(response.data);
     } catch (e) {
