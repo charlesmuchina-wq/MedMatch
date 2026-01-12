@@ -985,6 +985,10 @@ async def search_jobs(
     if source in ["all", "himalayas"]:
         tasks.append(fetch_himalayas_jobs(query, location))
     
+    # Google CSE sources
+    if source in ["all", "google"] and GOOGLE_API_KEY and query:
+        tasks.append(fetch_google_cse_all_sites(query, location or "Remote"))
+    
     results = await asyncio.gather(*tasks, return_exceptions=True)
     
     for result in results:
@@ -1004,6 +1008,29 @@ async def search_jobs(
             unique_jobs.append(job)
     
     return unique_jobs
+
+# Google CSE Direct Search endpoint - search specific job boards via Google
+@api_router.get("/jobs/google-search")
+async def google_search_jobs(
+    query: str = "Quality Manager",
+    location: str = "Remote",
+    site: str = "indeed.com/viewjob"
+):
+    """
+    Direct Google Custom Search for job boards.
+    Supports: indeed.com, linkedin.com, glassdoor.com, ziprecruiter.com, monster.com, dice.com
+    """
+    if not GOOGLE_API_KEY:
+        raise HTTPException(status_code=400, detail="Google API Key not configured")
+    
+    jobs = await fetch_google_cse_jobs(query, location, site, 10)
+    return {
+        "jobs": jobs,
+        "query": query,
+        "location": location,
+        "site": site,
+        "total": len(jobs)
+    }
 
 # Deep AI-powered search across ALL sources including JobSpy (LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter)
 @api_router.post("/jobs/deep-search")
