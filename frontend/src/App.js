@@ -47,6 +47,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { path: "/search", icon: Search, label: "Job Search" },
     { path: "/saved", icon: Bookmark, label: "Saved Jobs" },
     { path: "/applications", icon: CheckSquare, label: "Applications" },
+    { path: "/cover-letter", icon: PenTool, label: "Cover Letter" },
     { path: "/alerts", icon: Bell, label: "Job Alerts" },
   ];
 
