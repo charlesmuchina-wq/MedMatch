@@ -670,8 +670,34 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
 
       {/* Results */}
       <div className="space-y-4">
-        {loading ? (
+        {/* Search Stats from Deep Search */}
+        {searchStats && (
+          <Card className="bg-gradient-to-r from-sky-50 to-emerald-50 border-sky-200">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-5 h-5 text-sky-500" />
+                <span className="font-medium text-slate-900">AI Deep Search Results</span>
+              </div>
+              <p className="text-sm text-slate-600 mb-2">
+                Found <strong>{searchStats.total}</strong> relevant jobs across all sources
+              </p>
+              <div className="flex flex-wrap gap-1">
+                {searchStats.queries?.slice(0, 5).map((q, i) => (
+                  <Badge key={i} variant="secondary" className="text-xs bg-white">{q}</Badge>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+        
+        {loading || deepSearching ? (
           <div className="space-y-4">
+            <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg">
+              <Loader2 className="w-5 h-5 animate-spin text-sky-500" />
+              <span className="text-slate-600">
+                {deepSearching ? "AI is searching across all job boards for Quality, Medical Device, Lead Auditor roles..." : "Searching..."}
+              </span>
+            </div>
             {[1, 2, 3].map(i => (
               <Card key={i}>
                 <CardContent className="p-6">
@@ -686,7 +712,10 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
           <div className="empty-state">
             <Search className="w-12 h-12 text-slate-300 mb-4" />
             <h3 className="text-lg font-medium text-slate-700">No jobs found</h3>
-            <p className="text-slate-500">Try different keywords or filters</p>
+            <p className="text-slate-500 mb-4">Try AI Deep Search to find Quality & Medical Device jobs</p>
+            <Button onClick={deepSearch} className="bg-gradient-to-r from-sky-500 to-emerald-500">
+              <Sparkles className="w-4 h-4 mr-2" /> Run AI Deep Search
+            </Button>
           </div>
         ) : (
           <>
