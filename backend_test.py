@@ -371,6 +371,161 @@ class MedMatchAPITester:
             self.log_test("Update Application Status", False, f"Error: {str(e)}")
             return False, None
 
+    def test_job_search_presets(self):
+        """Test quick search presets for Supplier Quality roles"""
+        try:
+            response = requests.get(f"{self.api_url}/jobs/presets", timeout=10)
+            success = response.status_code == 200
+            details = f"Status: {response.status_code}"
+            response_data = None
+            
+            if success:
+                response_data = response.json()
+                presets = response_data.get('presets', [])
+                locations = response_data.get('locations', [])
+                
+                # Check for Supplier Quality presets
+                supplier_presets = [p for p in presets if 'supplier' in p.get('name', '').lower() or 'quality' in p.get('name', '').lower()]
+                details += f", Total presets: {len(presets)}, Supplier Quality presets: {len(supplier_presets)}"
+                details += f", Locations: {len(locations)}"
+                
+                # Verify specific presets exist
+                preset_names = [p.get('name', '') for p in presets]
+                if 'Supplier Quality Manager' in preset_names:
+                    details += ", ✓ Supplier Quality Manager preset found"
+                if 'Supplier Quality Director' in preset_names:
+                    details += ", ✓ Supplier Quality Director preset found"
+                    
+            else:
+                details += f", Error: {response.text}"
+                
+            self.log_test("Job Search Presets", success, details, response_data)
+            return success, response_data
+            
+        except Exception as e:
+            self.log_test("Job Search Presets", False, f"Error: {str(e)}")
+            return False, None
+
+    def test_job_search_with_filters(self):
+        """Test job search with location and date filters"""
+        try:
+            # Test with location filter
+            response = requests.get(f"{self.api_url}/jobs/search", 
+                                  params={"query": "quality", "location": "usa", "days": 7}, 
+                                  timeout=20)
+            success = response.status_code == 200
+            details = f"Status: {response.status_code}"
+            response_data = None
+            
+            if success:
+                response_data = response.json()
+                job_count = len(response_data)
+                details += f", Jobs found with filters: {job_count}"
+                
+                # Check if jobs have posted dates
+                jobs_with_dates = [j for j in response_data if j.get('posted_at')]
+                details += f", Jobs with posted dates: {len(jobs_with_dates)}"
+                
+            else:
+                details += f", Error: {response.text}"
+                
+            self.log_test("Job Search with Filters", success, details, response_data)
+            return success, response_data
+            
+        except Exception as e:
+            self.log_test("Job Search with Filters", False, f"Error: {str(e)}")
+            return False, None
+
+    def test_all_job_sources(self):
+        """Test all 5 job sources individually"""
+        sources = ["remoteok", "remotive", "jobicy", "arbeitnow", "himalayas"]
+        all_success = True
+        
+        for source in sources:
+            try:
+                response = requests.get(f"{self.api_url}/jobs/search", 
+                                      params={"query": "engineer", "source": source}, 
+                                      timeout=20)
+                success = response.status_code == 200
+                details = f"Status: {response.status_code}"
+                
+                if success:
+                    jobs = response.json()
+                    job_count = len(jobs)
+                    details += f", Jobs found: {job_count}"
+                    if job_count > 0:
+                        details += f", Sample job: {jobs[0].get('title', 'N/A')}"
+                else:
+                    details += f", Error: {response.text}"
+                    all_success = False
+                    
+                self.log_test(f"Job Source - {source.title()}", success, details, jobs if success else None)
+                
+            except Exception as e:
+                self.log_test(f"Job Source - {source.title()}", False, f"Error: {str(e)}")
+                all_success = False
+        
+        return all_success
+
+    def test_ai_enhanced_search(self):
+        """Test AI-enhanced job search"""
+        try:
+            response = requests.get(f"{self.api_url}/jobs/ai-search", 
+                                  params={"query": "quality assurance"}, 
+                                  timeout=30)
+            success = response.status_code == 200
+            details = f"Status: {response.status_code}"
+            response_data = None
+            
+            if success:
+                response_data = response.json()
+                jobs = response_data.get('jobs', [])
+                suggestions = response_data.get('suggestions', {})
+                
+                details += f", AI jobs found: {len(jobs)}"
+                if suggestions:
+                    related_titles = suggestions.get('related_titles', [])
+                    keywords = suggestions.get('keywords', [])
+                    details += f", AI suggestions - Related titles: {len(related_titles)}, Keywords: {len(keywords)}"
+                    
+            else:
+                details += f", Error: {response.text}"
+                
+            self.log_test("AI Enhanced Search", success, details, response_data)
+            return success, response_data
+            
+        except Exception as e:
+            self.log_test("AI Enhanced Search", False, f"Error: {str(e)}")
+            return False, None
+
+    def test_email_alert_system(self):
+        """Test email alert system"""
+        try:
+            # Test sending alert to the specified recipient
+            alert_data = {"email": "cmuchina@outlook.com"}
+            
+            response = requests.post(f"{self.api_url}/alerts/send-now", 
+                                   json=alert_data, 
+                                   timeout=30)
+            success = response.status_code == 200
+            details = f"Status: {response.status_code}"
+            response_data = None
+            
+            if success:
+                response_data = response.json()
+                message = response_data.get('message', '')
+                jobs_count = response_data.get('jobs_count', 0)
+                details += f", {message}, Jobs sent: {jobs_count}"
+            else:
+                details += f", Error: {response.text}"
+                
+            self.log_test("Email Alert System", success, details, response_data)
+            return success, response_data
+            
+        except Exception as e:
+            self.log_test("Email Alert System", False, f"Error: {str(e)}")
+            return False, None
+
     def run_all_tests(self):
         """Run comprehensive test suite"""
         print("🚀 Starting MedMatch API Test Suite")
