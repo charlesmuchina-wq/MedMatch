@@ -1008,7 +1008,7 @@ async def search_jobs(
 # Deep AI-powered search across ALL sources including JobSpy (LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter)
 @api_router.post("/jobs/deep-search")
 async def deep_search_jobs(request: DeepSearchRequest):
-    """AI-powered comprehensive search across ALL job sources including LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter"""
+    """AI-powered comprehensive search across ALL job sources including LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter + Google CSE"""
     resume_doc = await db.resumes.find_one({}, {"_id": 0})
     skills = resume_doc.get('skills', []) if resume_doc else []
     
@@ -1022,10 +1022,22 @@ async def deep_search_jobs(request: DeepSearchRequest):
     all_jobs = []
     sources_searched = []
     
-    # 1. First, use JobSpy to scrape from major job boards (LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter)
+    # 1. Use Google Custom Search API to search Indeed, LinkedIn, Glassdoor directly
+    if GOOGLE_API_KEY:
+        logging.info("Starting Google CSE job search...")
+        for query in search_queries[:3]:
+            try:
+                google_results = await fetch_google_cse_all_sites(query, "Remote")
+                all_jobs.extend(google_results)
+                if google_results:
+                    sources_searched.extend(["Indeed (Google)", "LinkedIn (Google)", "Glassdoor (Google)"])
+            except Exception as e:
+                logging.error(f"Google CSE error for '{query}': {e}")
+    
+    # 2. Use JobSpy to scrape from major job boards (LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter)
     if JOBSPY_AVAILABLE:
         logging.info("Starting JobSpy deep search...")
-        for query in search_queries[:3]:  # Limit JobSpy queries as it's slower
+        for query in search_queries[:3]:
             try:
                 jobspy_results = await fetch_jobspy_jobs(
                     query=query,
@@ -1035,11 +1047,11 @@ async def deep_search_jobs(request: DeepSearchRequest):
                 )
                 all_jobs.extend(jobspy_results)
                 if jobspy_results:
-                    sources_searched.extend(["LinkedIn", "Indeed", "Glassdoor", "ZipRecruiter"])
+                    sources_searched.extend(["LinkedIn (JobSpy)", "Indeed (JobSpy)", "Glassdoor (JobSpy)", "ZipRecruiter (JobSpy)"])
             except Exception as e:
                 logging.error(f"JobSpy search error for '{query}': {e}")
     
-    # 2. Then search free API sources in parallel
+    # 3. Search free API sources in parallel
     for query in search_queries[:6]:
         tasks = [
             fetch_remoteok_jobs(query, ""),
@@ -1076,7 +1088,8 @@ async def deep_search_jobs(request: DeepSearchRequest):
         "search_strategy": search_strategy,
         "queries_used": search_queries[:6],
         "sources_searched": list(set(sources_searched)),
-        "jobspy_enabled": JOBSPY_AVAILABLE
+        "jobspy_enabled": JOBSPY_AVAILABLE,
+        "google_cse_enabled": bool(GOOGLE_API_KEY)
     }
 
 # Quick search presets - TheirStack inspired with technology and industry filters
