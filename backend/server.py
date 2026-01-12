@@ -677,22 +677,6 @@ async def fetch_google_cse_jobs(query: str, location: str = "Remote", site: str 
     except Exception as e:
         logging.error(f"Google CSE error: {e}")
         return []
-                        "description": snippet,
-                        "url": job_url,
-                        "salary": salary,
-                        "tags": [],
-                        "source": source,
-                        "posted_at": ""
-                    })
-                
-                return result
-            else:
-                logging.error(f"Google CSE API error: {response.status_code} - {response.text}")
-                return []
-                
-    except Exception as e:
-        logging.error(f"Google CSE error: {e}")
-        return []
 
 # Fetch jobs from multiple job sites via Google CSE
 async def fetch_google_cse_all_sites(query: str, location: str = "Remote") -> List[dict]:
