@@ -495,7 +495,7 @@ class MedMatchAPITester:
             else:
                 details += f", Error: {response.text}"
                 
-            self.log_test("AI Enhanced Search", success, details, response_data)
+            self.log_test("AI Deep Search", success, details, response_data)
             return success, response_data
             
         except Exception as e:
