@@ -829,7 +829,7 @@ async def update_skills(data: SkillsUpdate):
         raise HTTPException(status_code=404, detail="Resume not found")
     return {"message": "Skills updated"}
 
-# Enhanced job search with multiple sources
+# Enhanced job search with multiple sources including JobSpy
 @api_router.get("/jobs/search")
 async def search_jobs(
     query: str = "",
@@ -840,6 +840,7 @@ async def search_jobs(
     jobs = []
     tasks = []
     
+    # Free API sources
     if source in ["all", "remoteok"]:
         tasks.append(fetch_remoteok_jobs(query, location))
     if source in ["all", "remotive"]:
@@ -871,10 +872,10 @@ async def search_jobs(
     
     return unique_jobs
 
-# Deep AI-powered search across all sources
+# Deep AI-powered search across ALL sources including JobSpy (LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter)
 @api_router.post("/jobs/deep-search")
 async def deep_search_jobs(request: DeepSearchRequest):
-    """AI-powered comprehensive search across all job sources"""
+    """AI-powered comprehensive search across ALL job sources including LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter"""
     resume_doc = await db.resumes.find_one({}, {"_id": 0})
     skills = resume_doc.get('skills', []) if resume_doc else []
     
@@ -883,12 +884,30 @@ async def deep_search_jobs(request: DeepSearchRequest):
     if request.use_ai:
         search_strategy = await ai_deep_crawl(skills)
     
-    search_queries = search_strategy.get('search_queries', QUALITY_SEARCH_TERMS)[:15]
+    search_queries = search_strategy.get('search_queries', QUALITY_SEARCH_TERMS)[:10]
     
     all_jobs = []
+    sources_searched = []
     
-    # Search with multiple queries in parallel
-    for query in search_queries[:8]:  # Limit to 8 queries for speed
+    # 1. First, use JobSpy to scrape from major job boards (LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter)
+    if JOBSPY_AVAILABLE:
+        logging.info("Starting JobSpy deep search...")
+        for query in search_queries[:3]:  # Limit JobSpy queries as it's slower
+            try:
+                jobspy_results = await fetch_jobspy_jobs(
+                    query=query,
+                    location="USA",
+                    sites=["indeed", "linkedin", "glassdoor", "zip_recruiter"],
+                    results_wanted=15
+                )
+                all_jobs.extend(jobspy_results)
+                if jobspy_results:
+                    sources_searched.extend(["LinkedIn", "Indeed", "Glassdoor", "ZipRecruiter"])
+            except Exception as e:
+                logging.error(f"JobSpy search error for '{query}': {e}")
+    
+    # 2. Then search free API sources in parallel
+    for query in search_queries[:6]:
         tasks = [
             fetch_remoteok_jobs(query, ""),
             fetch_remotive_jobs(query, ""),
@@ -902,6 +921,8 @@ async def deep_search_jobs(request: DeepSearchRequest):
         for result in results:
             if isinstance(result, list):
                 all_jobs.extend(result)
+    
+    sources_searched.extend(["RemoteOK", "Remotive", "Jobicy", "Arbeitnow", "Himalayas"])
     
     # Deduplicate
     seen = set()
@@ -917,7 +938,7 @@ async def deep_search_jobs(request: DeepSearchRequest):
     relevant_jobs = filter_jobs_by_relevance(unique_jobs, keywords)
     
     return {
-        "jobs": relevant_jobs[:200],
+        "jobs": relevant_jobs[:300],
         "total_found": len(relevant_jobs),
         "search_strategy": search_strategy,
         "queries_used": search_queries[:8]
