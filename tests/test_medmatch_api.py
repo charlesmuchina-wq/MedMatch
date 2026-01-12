@@ -88,8 +88,10 @@ class TestJobSearchEndpoints:
         )
         assert response.status_code == 200
         data = response.json()
-        assert isinstance(data, list)
-        print(f"✅ GET /api/jobs/google-search - Status: {response.status_code}, Jobs: {len(data)}")
+        # API returns {"jobs": [...], "query": ..., "location": ..., "site": ..., "total": ...}
+        assert "jobs" in data
+        assert "total" in data
+        print(f"✅ GET /api/jobs/google-search - Status: {response.status_code}, Jobs: {data.get('total', 0)}")
 
 
 class TestSavedJobsEndpoints:
