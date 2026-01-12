@@ -178,6 +178,47 @@ class EmailAlertRequest(BaseModel):
 class DeepSearchRequest(BaseModel):
     use_ai: bool = True
 
+# New models for scheduled digest and cover letter
+class EmailedJob(BaseModel):
+    """Track jobs that have been emailed to avoid duplicates"""
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    job_key: str  # Unique key: title_company hash
+    job_title: str
+    company: str
+    email: str
+    emailed_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class DigestSettings(BaseModel):
+    """User's digest preferences"""
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    email: str
+    is_active: bool = True
+    frequency: str = "daily"  # daily, weekly
+    search_queries: List[str] = []
+    locations: List[str] = []
+    last_sent: Optional[datetime] = None
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class DigestSettingsCreate(BaseModel):
+    email: str
+    frequency: str = "daily"
+    search_queries: List[str] = []
+    locations: List[str] = []
+
+class CoverLetterRequest(BaseModel):
+    job_title: str
+    company: str
+    job_description: str
+    job_url: str = ""
+
+class CoverLetterResponse(BaseModel):
+    cover_letter: str
+    key_matches: List[str]
+    transferable_skills: List[str]
+    suggestions: List[str]
+
 # Helper functions
 def extract_text_from_pdf(file_content: bytes) -> str:
     pdf_reader = PdfReader(io.BytesIO(file_content))
