@@ -628,7 +628,7 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
                   <SelectValue placeholder="Location" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">Any Location</SelectItem>
+                  <SelectItem value="any">Any Location</SelectItem>
                   {presets.locations?.map(loc => (
                     <SelectItem key={loc} value={loc.toLowerCase()}>{loc}</SelectItem>
                   ))}
