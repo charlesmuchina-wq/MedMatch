@@ -583,6 +583,123 @@ async def fetch_jsearch_jobs(query: str = "", location: str = "") -> List[dict]:
     # Placeholder - would integrate with proper API key
     return []
 
+# GOOGLE CUSTOM SEARCH API - Search job boards directly via Google
+async def fetch_google_cse_jobs(query: str, location: str = "Remote", site: str = "indeed.com/viewjob", num_results: int = 10) -> List[dict]:
+    """
+    Fetch jobs from any job board using Google Custom Search API
+    Based on the Google Sheets script approach for searching Indeed
+    """
+    if not GOOGLE_API_KEY:
+        logging.warning("Google API Key not configured")
+        return []
+    
+    # Use programmable search engine or fallback to site-restricted search
+    cse_id = GOOGLE_CSE_ID if GOOGLE_CSE_ID else None
+    
+    try:
+        async with httpx.AsyncClient(timeout=15.0) as http_client:
+            # Build search query like the Google Sheets script
+            search_query = f'site:{site} "{query}" "{location}"'
+            
+            params = {
+                "q": search_query,
+                "key": GOOGLE_API_KEY,
+                "num": min(num_results, 10),  # Max 10 per request
+            }
+            
+            # Add CSE ID if available, otherwise use general search
+            if cse_id:
+                params["cx"] = cse_id
+            
+            response = await http_client.get(
+                "https://www.googleapis.com/customsearch/v1",
+                params=params
+            )
+            
+            if response.status_code == 200:
+                data = response.json()
+                items = data.get("items", [])
+                
+                result = []
+                for item in items:
+                    job_url = item.get("link", "")
+                    title = item.get("title", "Unknown")
+                    snippet = item.get("snippet", "")
+                    
+                    # Extract company from snippet (pattern: "at Company -")
+                    company = "Unknown"
+                    company_match = re.search(r'at (.*?) [-–]', snippet)
+                    if company_match:
+                        company = company_match.group(1).strip()
+                    
+                    # Extract salary from snippet
+                    salary = ""
+                    salary_match = re.search(r'\$[\d,]+(?:\s*[-–]\s*\$[\d,]+)?(?:\s*(?:a\s*year|per\s*year|annually|/yr))?', snippet, re.IGNORECASE)
+                    if salary_match:
+                        salary = salary_match.group(0)
+                    
+                    # Determine source from URL
+                    source = "Google CSE"
+                    if "indeed.com" in job_url:
+                        source = "Indeed (Google)"
+                    elif "linkedin.com" in job_url:
+                        source = "LinkedIn (Google)"
+                    elif "glassdoor.com" in job_url:
+                        source = "Glassdoor (Google)"
+                    elif "ziprecruiter.com" in job_url:
+                        source = "ZipRecruiter (Google)"
+                    elif "monster.com" in job_url:
+                        source = "Monster (Google)"
+                    elif "dice.com" in job_url:
+                        source = "Dice (Google)"
+                    
+                    result.append({
+                        "id": f"gcse_{hash(job_url)}",
+                        "title": title.replace(" | Indeed.com", "").replace(" - LinkedIn", "").strip(),
+                        "company": company,
+                        "location": location,
+                        "description": snippet,
+                        "url": job_url,
+                        "salary": salary,
+                        "tags": [],
+                        "source": source,
+                        "posted_at": ""
+                    })
+                
+                return result
+            else:
+                logging.error(f"Google CSE API error: {response.status_code} - {response.text}")
+                return []
+                
+    except Exception as e:
+        logging.error(f"Google CSE error: {e}")
+        return []
+
+# Fetch jobs from multiple job sites via Google CSE
+async def fetch_google_cse_all_sites(query: str, location: str = "Remote") -> List[dict]:
+    """Search multiple job boards simultaneously using Google Custom Search"""
+    all_jobs = []
+    
+    # Search Indeed, LinkedIn, Glassdoor via Google
+    sites_to_search = [
+        "indeed.com/viewjob",
+        "linkedin.com/jobs/view",
+        "glassdoor.com/job-listing"
+    ]
+    
+    tasks = [
+        fetch_google_cse_jobs(query, location, site, 10)
+        for site in sites_to_search
+    ]
+    
+    results = await asyncio.gather(*tasks, return_exceptions=True)
+    
+    for result in results:
+        if isinstance(result, list):
+            all_jobs.extend(result)
+    
+    return all_jobs
+
 # JOBSPY INTEGRATION - Scrape from LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter
 def fetch_jobspy_jobs_sync(query: str, location: str = "USA", sites: List[str] = None, results_wanted: int = 25, hours_old: int = 72) -> List[dict]:
     """Synchronous JobSpy scraper - runs in thread pool"""
