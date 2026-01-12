@@ -293,25 +293,11 @@ async def ai_deep_crawl(resume_skills: List[str] = []) -> dict:
         Example search_queries: ["Quality Manager", "Supplier Quality", "Lead Auditor", "Medical Device", "ISO Auditor"]
         
         Return ONLY valid JSON."""
-        - Medical Device Quality
-        - Lead Auditor roles
-        - Manufacturing Quality
-        - Quality Management Systems
-        - Regulatory Compliance (FDA, ISO, EU MDR)
-        - Quality Assurance leadership
-        
-        Return a JSON object with:
-        - search_queries: array of 20 specific job search queries
-        - related_titles: array of 15 job titles to search
-        - industries: array of 5 target industries
-        - keywords: array of 20 keywords for filtering
-        
-        Return ONLY valid JSON."""
     ).with_model("openai", "gpt-5.2")
     
     skills_text = ', '.join(resume_skills[:20]) if resume_skills else 'Quality Management, ISO 13485, FDA, Supplier Quality'
     user_message = UserMessage(
-        text=f"Generate comprehensive job search strategy for a professional with these skills:\n{skills_text}\n\nFocus on remote Quality, Medical Device, and Manufacturing roles."
+        text=f"Generate simple job search terms for a professional with these skills:\n{skills_text}\n\nFocus on remote Quality, Medical Device, and Manufacturing roles."
     )
     
     try:
