@@ -499,7 +499,7 @@ class MedMatchAPITester:
             return success, response_data
             
         except Exception as e:
-            self.log_test("AI Enhanced Search", False, f"Error: {str(e)}")
+            self.log_test("AI Deep Search", False, f"Error: {str(e)}")
             return False, None
 
     def test_email_alert_system(self):
