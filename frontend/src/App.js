@@ -745,7 +745,7 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
             <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg">
               <Loader2 className="w-5 h-5 animate-spin text-sky-500" />
               <span className="text-slate-600">
-                {deepSearching ? "AI is searching across all job boards for Quality, Medical Device, Lead Auditor roles..." : "Searching..."}
+                {deepSearching ? "AI is searching LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter, and 5 more job boards..." : "Searching..."}
               </span>
             </div>
             {[1, 2, 3].map(i => (
