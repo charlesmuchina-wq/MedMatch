@@ -330,6 +330,176 @@ async def analyze_job_match(resume_data: dict, job: dict) -> dict:
     except:
         return {"match_score": 50, "analysis": "Unable to analyze match"}
 
+# AI-powered cover letter generator
+async def generate_cover_letter_ai(resume_data: dict, job: dict) -> dict:
+    """Generate a personalized cover letter using AI based on resume and job requirements"""
+    if not EMERGENT_LLM_KEY:
+        return {"error": "LLM key not configured"}
+    
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=str(uuid.uuid4()),
+        system_message="""You are an expert career coach and professional cover letter writer specializing in Quality Assurance, Medical Device, and Manufacturing industries.
+
+Your task is to write a compelling, personalized cover letter that:
+1. Highlights the candidate's most relevant transferable skills
+2. Directly addresses the job requirements
+3. Shows enthusiasm for the specific role and company
+4. Uses professional but engaging language
+5. Is concise (3-4 paragraphs, under 400 words)
+
+Return a JSON object with:
+- cover_letter: The full cover letter text (properly formatted with paragraphs)
+- key_matches: Array of 3-5 specific skills/experiences that match the job requirements
+- transferable_skills: Array of 3-5 transferable skills from the resume that apply to this role
+- suggestions: Array of 2-3 tips for the candidate to strengthen their application
+
+Return ONLY valid JSON, no markdown."""
+    ).with_model("openai", "gpt-5.2")
+    
+    # Build comprehensive resume context
+    experience_text = ""
+    for exp in resume_data.get('experience', [])[:3]:
+        experience_text += f"- {exp.get('title', '')} at {exp.get('company', '')} ({exp.get('duration', '')})\n"
+    
+    education_text = ""
+    for edu in resume_data.get('education', [])[:2]:
+        education_text += f"- {edu.get('degree', '')} from {edu.get('institution', '')}\n"
+    
+    resume_context = f"""
+CANDIDATE PROFILE:
+Name: {resume_data.get('full_name', 'Candidate')}
+Email: {resume_data.get('email', '')}
+
+PROFESSIONAL SUMMARY:
+{resume_data.get('summary', 'Experienced professional')}
+
+KEY SKILLS:
+{', '.join(resume_data.get('skills', [])[:20])}
+
+EXPERIENCE:
+{experience_text}
+
+EDUCATION:
+{education_text}
+"""
+    
+    job_context = f"""
+JOB DETAILS:
+Title: {job.get('job_title', job.get('title', ''))}
+Company: {job.get('company', '')}
+
+JOB DESCRIPTION:
+{job.get('job_description', job.get('description', ''))[:3000]}
+"""
+    
+    user_message = UserMessage(
+        text=f"{resume_context}\n\n{job_context}\n\nWrite a personalized cover letter for this candidate applying to this position."
+    )
+    
+    try:
+        response = await chat.send_message(user_message)
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        return json.loads(clean_response)
+    except Exception as e:
+        logging.error(f"Cover letter generation error: {e}")
+        return {
+            "cover_letter": "Unable to generate cover letter. Please try again.",
+            "key_matches": [],
+            "transferable_skills": [],
+            "suggestions": ["Ensure your resume is uploaded", "Try with a different job posting"]
+        }
+
+# Helper function to generate unique job key for deduplication
+def get_job_key(title: str, company: str) -> str:
+    """Generate a unique key for a job to track duplicates"""
+    key_string = f"{title.lower().strip()}_{company.lower().strip()}"
+    return str(abs(hash(key_string)))
+
+# Check if job was already emailed
+async def was_job_emailed(job_key: str, email: str) -> bool:
+    """Check if this job was already sent to this email"""
+    existing = await db.emailed_jobs.find_one({"job_key": job_key, "email": email})
+    return existing is not None
+
+# Mark job as emailed
+async def mark_job_emailed(job: dict, email: str):
+    """Record that this job was emailed to prevent duplicates"""
+    job_key = get_job_key(job.get('title', ''), job.get('company', ''))
+    doc = {
+        "id": str(uuid.uuid4()),
+        "job_key": job_key,
+        "job_title": job.get('title', ''),
+        "company": job.get('company', ''),
+        "email": email,
+        "emailed_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.emailed_jobs.insert_one(doc)
+
+# Filter out already-emailed jobs
+async def filter_new_jobs(jobs: List[dict], email: str) -> List[dict]:
+    """Filter out jobs that have already been emailed"""
+    new_jobs = []
+    for job in jobs:
+        job_key = get_job_key(job.get('title', ''), job.get('company', ''))
+        if not await was_job_emailed(job_key, email):
+            new_jobs.append(job)
+    return new_jobs
+
+# Generate daily digest email HTML
+def generate_digest_email_html(jobs: List[dict], user_name: str, query_summary: str) -> str:
+    job_items = ""
+    for job in jobs[:15]:
+        tags_html = ''.join([f'<span style="background:#E2E8F0;padding:2px 8px;border-radius:12px;font-size:11px;margin-right:4px;">{tag}</span>' for tag in job.get('tags', [])[:3]])
+        relevance = job.get('relevance_score', 0)
+        relevance_color = '#10B981' if relevance >= 50 else '#0EA5E9' if relevance >= 30 else '#F59E0B'
+        
+        job_items += f"""
+        <div style="border:1px solid #E2E8F0;border-radius:8px;padding:16px;margin-bottom:12px;background:white;">
+            <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px;">
+                <h3 style="margin:0;color:#0F172A;font-size:16px;">{job['title']}</h3>
+                <span style="background:{relevance_color};color:white;padding:2px 8px;border-radius:12px;font-size:11px;white-space:nowrap;">
+                    {min(relevance, 100)}% match
+                </span>
+            </div>
+            <p style="margin:0 0 8px 0;color:#64748B;font-size:14px;">{job['company']} • {job['location']}</p>
+            <p style="margin:0 0 8px 0;color:#94A3B8;font-size:12px;">Source: {job.get('source', 'Unknown')} • Posted: Last 24 hours</p>
+            {f'<p style="color:#10B981;font-weight:500;margin:0 0 8px 0;font-size:14px;">{job["salary"]}</p>' if job.get('salary') else ''}
+            <div style="margin-bottom:12px;">{tags_html}</div>
+            <a href="{job['url']}" style="display:inline-block;background:#0F172A;color:white;padding:8px 16px;border-radius:20px;text-decoration:none;font-size:13px;">View & Apply</a>
+        </div>
+        """
+    
+    return f"""
+    <!DOCTYPE html>
+    <html>
+    <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+    <body style="font-family:'Inter',Arial,sans-serif;background:#F8FAFC;padding:20px;margin:0;">
+        <div style="max-width:600px;margin:0 auto;background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+            <div style="background:linear-gradient(135deg,#0F172A 0%,#1E293B 100%);color:white;padding:24px;text-align:center;">
+                <h1 style="margin:0;font-size:24px;">📋 Your Daily Job Digest</h1>
+                <p style="margin:8px 0 0 0;opacity:0.9;font-size:14px;">Hi {user_name}! Here are today's new job matches</p>
+            </div>
+            <div style="padding:24px;background:#F8FAFC;">
+                <div style="background:linear-gradient(135deg,#0EA5E9 0%,#10B981 100%);color:white;padding:16px;border-radius:8px;margin-bottom:20px;">
+                    <p style="margin:0;font-size:14px;">🎯 <strong>{len(jobs)} NEW jobs</strong> posted in the last 24 hours matching:</p>
+                    <p style="margin:8px 0 0 0;font-size:13px;opacity:0.9;">{query_summary}</p>
+                </div>
+                {job_items}
+            </div>
+            <div style="background:#F1F5F9;padding:16px;text-align:center;color:#64748B;font-size:12px;">
+                <p style="margin:0;">You're receiving this daily digest from MedMatch.</p>
+                <p style="margin:8px 0 0 0;">Searched: Indeed, LinkedIn, Glassdoor, ZipRecruiter + 5 more sources</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+
 # AI-powered deep web crawler for comprehensive job discovery
 async def ai_deep_crawl(resume_skills: List[str] = []) -> dict:
     """Use AI to generate comprehensive search strategy"""
