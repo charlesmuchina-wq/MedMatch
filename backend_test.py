@@ -480,13 +480,17 @@ class MedMatchAPITester:
             if success:
                 response_data = response.json()
                 jobs = response_data.get('jobs', [])
-                suggestions = response_data.get('suggestions', {})
+                total_found = response_data.get('total_found', 0)
+                search_strategy = response_data.get('search_strategy', {})
+                queries_used = response_data.get('queries_used', [])
                 
-                details += f", AI jobs found: {len(jobs)}"
-                if suggestions:
-                    related_titles = suggestions.get('related_titles', [])
-                    keywords = suggestions.get('keywords', [])
-                    details += f", AI suggestions - Related titles: {len(related_titles)}, Keywords: {len(keywords)}"
+                details += f", AI Deep Search jobs found: {len(jobs)}"
+                details += f", Total found: {total_found}"
+                if search_strategy:
+                    related_titles = search_strategy.get('related_titles', [])
+                    keywords = search_strategy.get('keywords', [])
+                    details += f", AI strategy - Related titles: {len(related_titles)}, Keywords: {len(keywords)}"
+                details += f", Queries used: {len(queries_used)}"
                     
             else:
                 details += f", Error: {response.text}"
