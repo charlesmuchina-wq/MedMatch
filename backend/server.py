@@ -46,6 +46,22 @@ GMAIL_ADDRESS = os.environ.get('GMAIL_ADDRESS')
 GMAIL_APP_PASSWORD = os.environ.get('GMAIL_APP_PASSWORD')
 ALERT_RECIPIENT = os.environ.get('ALERT_RECIPIENT')
 
+# Google Custom Search API Configuration
+GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
+GOOGLE_CSE_ID = os.environ.get('GOOGLE_CSE_ID')
+
+# Job board sites to search via Google CSE
+GOOGLE_CSE_JOB_SITES = [
+    "indeed.com/viewjob",
+    "linkedin.com/jobs",
+    "glassdoor.com/job-listing",
+    "ziprecruiter.com/jobs",
+    "monster.com/job",
+    "careerbuilder.com/job",
+    "dice.com/jobs",
+    "simplyhired.com/job"
+]
+
 # Expanded search keywords for Quality/Medical Device professionals
 QUALITY_SEARCH_TERMS = [
     "Supplier Quality Manager",
