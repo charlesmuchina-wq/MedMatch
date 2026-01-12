@@ -309,7 +309,9 @@ class TestDigestEndpoints:
         )
         assert response.status_code == 200
         data = response.json()
-        assert "id" in data
+        # API returns {"message": "Digest settings created/updated", "email": ..., "frequency": ...}
+        assert "message" in data
+        assert "email" in data
         print(f"✅ POST /api/digest/settings - Status: {response.status_code}")
 
     def test_get_digest_history(self):
