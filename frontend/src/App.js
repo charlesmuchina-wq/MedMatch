@@ -721,15 +721,21 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles className="w-5 h-5 text-sky-500" />
                 <span className="font-medium text-slate-900">AI Deep Search Results</span>
+                {searchStats.jobspy_enabled && (
+                  <Badge variant="outline" className="text-xs bg-emerald-50 text-emerald-700 border-emerald-200">
+                    JobSpy Enabled
+                  </Badge>
+                )}
               </div>
               <p className="text-sm text-slate-600 mb-2">
-                Found <strong>{searchStats.total}</strong> relevant jobs across all sources
+                Found <strong>{searchStats.total}</strong> relevant jobs across <strong>{searchStats.sources_searched?.length || 9}</strong> sources
               </p>
-              <div className="flex flex-wrap gap-1">
-                {searchStats.queries?.slice(0, 5).map((q, i) => (
-                  <Badge key={i} variant="secondary" className="text-xs bg-white">{q}</Badge>
+              <div className="flex flex-wrap gap-1 mb-2">
+                {searchStats.sources_searched?.map((source, i) => (
+                  <Badge key={i} variant="outline" className="text-xs">{source}</Badge>
                 ))}
               </div>
+              <p className="text-xs text-slate-400">Searched: {searchStats.queries?.slice(0, 4).join(', ')}</p>
             </CardContent>
           </Card>
         )}
