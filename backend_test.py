@@ -558,8 +558,8 @@ class MedMatchAPITester:
         self.test_job_search_with_filters()
         _, all_jobs = self.test_job_search_all_sources()
         
-        # Test NEW FEATURE: AI enhanced search
-        print("\n🤖 Testing NEW FEATURE: AI Enhanced Search...")
+        # Test NEW FEATURE: AI deep search
+        print("\n🤖 Testing NEW FEATURE: AI Deep Search...")
         self.test_ai_enhanced_search()
         
         # Test AI analysis (only if resume was uploaded)
