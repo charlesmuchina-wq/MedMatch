@@ -505,7 +505,7 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [source, setSource] = useState("all");
-  const [location, setLocation] = useState("");
+  const [location, setLocation] = useState("any");
   const [days, setDays] = useState("0");
   const [presets, setPresets] = useState({ presets: [], locations: [] });
   const [aiSearching, setAiSearching] = useState(false);
