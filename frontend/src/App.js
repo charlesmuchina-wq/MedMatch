@@ -5,7 +5,7 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { 
   Search, Briefcase, FileText, Bookmark, CheckSquare, 
-  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun
+  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
@@ -21,6 +21,7 @@ import JobAlertsPage from "@/pages/JobAlertsPage";
 import CoverLetterPage from "@/pages/CoverLetterPage";
 import SuccessPredictorPage from "@/pages/SuccessPredictorPage";
 import InterviewPrepPage from "@/pages/InterviewPrepPage";
+import VoiceCoachPage from "@/pages/VoiceCoachPage";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
