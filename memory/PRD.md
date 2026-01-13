@@ -1,7 +1,7 @@
 # MedMatch - Remote Job Finder with AI Matching
 
 ## Original Problem Statement
-Create an application that uses the user's resume to find remote jobs that match their skills and experience. The app should parse resumes, search multiple job sources, use AI for matching, and provide features like email alerts, cover letter generation, and callback probability prediction.
+Create an application that uses the user's resume to find remote jobs that match their skills and experience. The app should parse resumes, search multiple job sources, use AI for matching, and provide features like email alerts, cover letter generation, callback probability prediction, and interview preparation.
 
 ## User Personas
 - **Job Seekers**: Professionals in Quality/Medical Device fields looking for remote positions
@@ -16,20 +16,21 @@ Create an application that uses the user's resume to find remote jobs that match
 - ✅ Save/bookmark jobs
 - ✅ Application tracking with status updates
 - ✅ Email alerts for matching jobs
-- ✅ Daily Digest - new jobs from last 24 hours only
-- ✅ **Automated Daily Digest Scheduler** (NEW)
-  - APScheduler integration
-  - Runs automatically at 8:00 AM UTC daily
-  - Subscription management (subscribe/unsubscribe)
-  - Shows next run time and scheduler status
+- ✅ Automated Daily Digest Scheduler (8 AM UTC)
 - ✅ AI Cover Letter Generator
 - ✅ Application Success Predictor
-  - Callback probability score (0-100%)
-  - Match breakdown (Skills, Experience, Education, Keywords)
-  - Competition level estimation
-  - Timing advice
-  - Strengths and gaps analysis
-  - Personalized recommendations
+- ✅ **Interview Preparation Feature** (NEW)
+  - AI-generated interview questions by role
+  - Personalized answer suggestions
+  - STAR method builder
+  - Mock interview mode with feedback
+  - Company research assistant
+  - Tips & tricks guide
+- ✅ **Dark Mode with Inverted Batik Theme** (NEW)
+  - Light/Dark mode toggle
+  - Inverted batik border patterns
+  - Turquoise accent colors
+  - Persistent theme preference
 
 ## Tech Stack
 - **Backend**: FastAPI (Python) with MongoDB (motor)
@@ -37,6 +38,7 @@ Create an application that uses the user's resume to find remote jobs that match
 - **AI**: Emergent LLM Key (GPT models via litellm)
 - **Email**: Gmail SMTP
 - **Scheduler**: APScheduler (AsyncIOScheduler)
+- **Theming**: CSS custom properties with localStorage persistence
 
 ## Architecture
 
@@ -47,8 +49,9 @@ Create an application that uses the user's resume to find remote jobs that match
 
 ### Frontend (`/app/frontend/src/`)
 ```
-├── App.js                         # Main routing (~300 lines)
-├── App.css                        # Global styles
+├── App.js                         # Main routing + Theme Provider (~340 lines)
+├── App.css                        # Component styles with dark mode
+├── index.css                      # Global styles + batik patterns
 ├── pages/
 │   ├── Dashboard.jsx              # Overview with stats
 │   ├── ResumePage.jsx             # Resume upload with dropzone
@@ -56,12 +59,13 @@ Create an application that uses the user's resume to find remote jobs that match
 │   ├── SavedJobsPage.jsx          # Saved jobs list
 │   ├── ApplicationsPage.jsx       # Application tracker
 │   ├── SuccessPredictorPage.jsx   # AI callback prediction
+│   ├── InterviewPrepPage.jsx      # Interview preparation (NEW)
 │   ├── CoverLetterPage.jsx        # AI cover letter generator
-│   └── JobAlertsPage.jsx          # Email alerts & automated scheduler
+│   └── JobAlertsPage.jsx          # Email alerts & scheduler
 └── components/
     ├── ui/                        # shadcn components
     └── shared/
-        └── JobCard.jsx            # Job card with quick probability badge
+        └── JobCard.jsx            # Job card with probability badge
 ```
 
 ## Key API Endpoints
@@ -72,45 +76,54 @@ Create an application that uses the user's resume to find remote jobs that match
 | `/api/jobs/search` | GET | Search jobs with filters |
 | `/api/jobs/deep-search` | POST | AI-powered comprehensive search |
 | `/api/jobs/predict-callback` | POST | Full AI callback prediction |
-| `/api/jobs/quick-probability` | POST | Quick probability for job cards |
-| `/api/digest/settings` | POST | Create/update digest subscription |
-| `/api/digest/scheduler-status` | GET | Get scheduler status and next run |
-| `/api/digest/trigger-now` | POST | Manually trigger scheduled digest |
-| `/api/digest/run-scheduled` | POST | Run digest for all subscribers |
+| `/api/interview/generate-questions` | POST | Generate interview questions |
+| `/api/interview/generate-answer` | POST | Generate answer suggestion |
+| `/api/interview/polish-star` | POST | Polish STAR method answer |
+| `/api/interview/research-company` | POST | Company research insights |
+| `/api/interview/mock-feedback` | POST | Mock interview feedback |
+| `/api/digest/scheduler-status` | GET | Get scheduler status |
 | `/api/cover-letter/generate` | POST | Generate AI cover letter |
 
-## Scheduler Configuration
-- **Engine**: APScheduler AsyncIOScheduler
-- **Schedule**: CronTrigger(hour=8, minute=0)
-- **Timezone**: UTC
-- **Job ID**: "daily_digest"
+## Design System - Batik B Theme
+
+### Color Palette
+**Light Mode:**
+- Background: #f8f8f8
+- Cards: #ffffff
+- Text: #1a1a1a - #6b6b6b
+- Batik pattern: Black → Grey → White → Turquoise
+
+**Dark Mode (Inverted):**
+- Background: #1a1a1a
+- Cards: #2d2d2d
+- Text: #f5f5f5 - #9a9a9a
+- Batik pattern: White → Grey → Black → Turquoise
+
+**Accent Color:**
+- Turquoise: #20b2aa (primary)
+- Turquoise Light: #40e0d0
+- Turquoise Dark: #008b8b
 
 ## Implementation Status
 
 ### Completed Features (January 2026)
-1. ✅ **Core MVP** - Resume upload, parsing, job search
-2. ✅ **Multi-source Integration** - 6+ job boards + Google CSE
-3. ✅ **AI Features** - Job matching, relevance scoring, cover letter generation, callback prediction
-4. ✅ **User Management** - Save jobs, track applications, status updates
-5. ✅ **Email Features** - Real-time alerts, daily digest (no duplicates)
-6. ✅ **Automated Scheduler** - APScheduler runs daily at 8 AM UTC
-7. ✅ **Code Refactoring** - App.js optimized, modular page structure
+1. ✅ Core MVP - Resume upload, parsing, job search
+2. ✅ Multi-source Integration - 6+ job boards + Google CSE
+3. ✅ AI Features - Job matching, cover letter, callback prediction
+4. ✅ User Management - Save jobs, track applications
+5. ✅ Email Features - Alerts, automated daily digest
+6. ✅ Interview Preparation - Questions, answers, mock interviews
+7. ✅ Dark Mode - Inverted batik theme with toggle
 
 ### Testing Status
 - **Backend**: All endpoints tested and working
-- **Frontend**: All 8 pages verified functional
-- **Scheduler**: Running and showing correct next run time
-
-## Configuration
-- Google CSE credentials in `backend/.env`
-- Gmail app password in `backend/.env`
-- Emergent LLM Key for AI features
-- APScheduler auto-starts with FastAPI app
+- **Frontend**: All 9 pages verified functional
+- **Dark Mode**: Toggle working, theme persists
 
 ## Future Enhancements (Backlog)
 - [ ] Multiple resume profiles
-- [ ] Interview preparation assistant
 - [ ] Salary insights and negotiation tips
 - [ ] LinkedIn profile sync
 - [ ] Job Application Dashboard Analytics
-- [ ] Batch prediction for saved jobs
+- [ ] Custom schedule options for digest (time/frequency)
+- [ ] Voice-based mock interview practice
