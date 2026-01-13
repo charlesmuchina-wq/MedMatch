@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route, NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { 
   Search, Briefcase, FileText, Bookmark, CheckSquare, 
-  Menu, X, TrendingUp, Bell, PenTool, Target
+  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
@@ -20,12 +20,39 @@ import ApplicationsPage from "@/pages/ApplicationsPage";
 import JobAlertsPage from "@/pages/JobAlertsPage";
 import CoverLetterPage from "@/pages/CoverLetterPage";
 import SuccessPredictorPage from "@/pages/SuccessPredictorPage";
+import InterviewPrepPage from "@/pages/InterviewPrepPage";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+
+// Theme Context
+const ThemeContext = createContext();
+
+export const useTheme = () => useContext(ThemeContext);
+
+const ThemeProvider = ({ children }) => {
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem('medmatch-theme');
+    return saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  });
+
+  useEffect(() => {
+    localStorage.setItem('medmatch-theme', isDark ? 'dark' : 'light');
+    document.documentElement.classList.toggle('dark', isDark);
+  }, [isDark]);
+
+  const toggleTheme = () => setIsDark(!isDark);
+
+  return (
+    <ThemeContext.Provider value={{ isDark, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
 
 // Sidebar Component
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const location = useLocation();
+  const { isDark } = useTheme();
   
   const links = [
     { path: "/", icon: TrendingUp, label: "Dashboard" },
@@ -34,6 +61,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { path: "/saved", icon: Bookmark, label: "Saved Jobs" },
     { path: "/applications", icon: CheckSquare, label: "Applications" },
     { path: "/predictor", icon: Target, label: "Success Predictor" },
+    { path: "/interview", icon: Mic, label: "Interview Prep" },
     { path: "/cover-letter", icon: PenTool, label: "Cover Letter" },
     { path: "/alerts", icon: Bell, label: "Job Alerts" },
   ];
@@ -42,28 +70,29 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     <>
       {isOpen && (
         <div 
-          className="fixed inset-0 bg-black/20 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}
       
       <aside className={`
-        fixed top-0 left-0 z-50 h-full w-64 bg-white border-r border-slate-200
-        transform transition-transform duration-200 ease-out
+        fixed top-0 left-0 z-50 h-full w-64 
+        ${isDark ? 'bg-batik-charcoal border-batik-dark-grey' : 'bg-white border-slate-200'}
+        border-r transform transition-transform duration-200 ease-out
         lg:translate-x-0 lg:static lg:z-auto
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
-        <div className="flex items-center justify-between p-6 border-b border-slate-100">
+        <div className={`flex items-center justify-between p-6 border-b ${isDark ? 'border-batik-dark-grey' : 'border-slate-100'}`}>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-slate-900 rounded-lg flex items-center justify-center">
-              <Briefcase className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 bg-gradient-to-br from-batik-black to-batik-charcoal rounded-lg flex items-center justify-center border-2 border-turquoise shadow-lg shadow-turquoise/20">
+              <Briefcase className="w-5 h-5 text-turquoise" />
             </div>
-            <span className="font-semibold text-lg text-slate-900" style={{ fontFamily: 'IBM Plex Sans' }}>
+            <span className={`font-semibold text-lg ${isDark ? 'text-white' : 'text-slate-900'}`} style={{ fontFamily: 'IBM Plex Sans' }}>
               MedMatch
             </span>
           </div>
           <button 
-            className="lg:hidden p-2 hover:bg-slate-100 rounded-md"
+            className={`lg:hidden p-2 rounded-md ${isDark ? 'hover:bg-batik-dark-grey text-slate-300' : 'hover:bg-slate-100'}`}
             onClick={() => setIsOpen(false)}
           >
             <X className="w-5 h-5" />
@@ -75,7 +104,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             <NavLink
               key={path}
               to={path}
-              className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`}
+              className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''} ${isDark ? 'dark' : ''}`}
               onClick={() => setIsOpen(false)}
               data-testid={`nav-${label.toLowerCase().replace(' ', '-')}`}
             >
@@ -89,41 +118,62 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   );
 };
 
-// Header Component
-const Header = ({ setIsOpen, resume }) => (
-  <header className="glass-header sticky top-0 z-30 border-b border-slate-200/50 px-6 py-4">
-    <div className="flex items-center justify-between">
-      <button 
-        className="lg:hidden p-2 hover:bg-slate-100 rounded-md"
-        onClick={() => setIsOpen(true)}
-        data-testid="mobile-menu-btn"
-      >
-        <Menu className="w-5 h-5" />
-      </button>
-      
-      <div className="flex-1" />
-      
-      <div className="flex items-center gap-4">
-        {resume && (
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-slate-100 rounded-full flex items-center justify-center">
-              <span className="text-sm font-medium text-slate-700">
-                {resume.full_name?.charAt(0) || 'U'}
+// Header Component with Dark Mode Toggle
+const Header = ({ setIsOpen, resume }) => {
+  const { isDark, toggleTheme } = useTheme();
+  
+  return (
+    <header className={`glass-header sticky top-0 z-30 px-6 py-4 ${isDark ? 'dark' : ''}`}>
+      <div className="flex items-center justify-between">
+        <button 
+          className={`lg:hidden p-2 rounded-md ${isDark ? 'hover:bg-batik-dark-grey text-slate-300' : 'hover:bg-slate-100'}`}
+          onClick={() => setIsOpen(true)}
+          data-testid="mobile-menu-btn"
+        >
+          <Menu className="w-5 h-5" />
+        </button>
+        
+        <div className="flex-1" />
+        
+        <div className="flex items-center gap-4">
+          {/* Dark Mode Toggle */}
+          <button
+            onClick={toggleTheme}
+            className={`p-2 rounded-lg transition-all ${
+              isDark 
+                ? 'bg-turquoise/20 text-turquoise hover:bg-turquoise/30' 
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+            data-testid="theme-toggle"
+            title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+
+          {resume && (
+            <div className="flex items-center gap-3">
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${
+                isDark ? 'bg-batik-dark-grey' : 'bg-slate-100'
+              }`}>
+                <span className={`text-sm font-medium ${isDark ? 'text-turquoise' : 'text-slate-700'}`}>
+                  {resume.full_name?.charAt(0) || 'U'}
+                </span>
+              </div>
+              <span className={`text-sm font-medium hidden sm:block ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                {resume.full_name || 'Upload Resume'}
               </span>
             </div>
-            <span className="text-sm font-medium text-slate-700 hidden sm:block">
-              {resume.full_name || 'Upload Resume'}
-            </span>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
-  </header>
-);
+    </header>
+  );
+};
 
 // Apply Dialog Component
 const ApplyDialog = ({ job, open, onClose, onConfirm }) => {
   const [notes, setNotes] = useState("");
+  const { isDark } = useTheme();
 
   const handleConfirm = () => {
     onConfirm(job, notes);
@@ -133,29 +183,29 @@ const ApplyDialog = ({ job, open, onClose, onConfirm }) => {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className={isDark ? 'bg-batik-charcoal border-batik-dark-grey text-white' : ''}>
         <DialogHeader>
           <DialogTitle style={{ fontFamily: 'IBM Plex Sans' }}>Track Application</DialogTitle>
-          <DialogDescription>Add this job to your application tracker</DialogDescription>
+          <DialogDescription className={isDark ? 'text-slate-400' : ''}>Add this job to your application tracker</DialogDescription>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div>
-            <p className="font-medium text-slate-900">{job?.title}</p>
-            <p className="text-sm text-slate-600">{job?.company}</p>
+            <p className={`font-medium ${isDark ? 'text-white' : 'text-slate-900'}`}>{job?.title}</p>
+            <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{job?.company}</p>
           </div>
           <div>
-            <label className="text-sm font-medium text-slate-700">Notes (optional)</label>
+            <label className={`text-sm font-medium ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Notes (optional)</label>
             <Textarea
               placeholder="Add any notes about this application..."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="mt-1"
+              className={`mt-1 ${isDark ? 'bg-batik-dark-grey border-batik-grey text-white' : ''}`}
               data-testid="apply-notes"
             />
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={onClose}>Cancel</Button>
+          <Button variant="outline" onClick={onClose} className={isDark ? 'border-batik-grey text-slate-300' : ''}>Cancel</Button>
           <Button onClick={handleConfirm} data-testid="confirm-apply">Add to Applications</Button>
         </DialogFooter>
       </DialogContent>
@@ -163,13 +213,14 @@ const ApplyDialog = ({ job, open, onClose, onConfirm }) => {
   );
 };
 
-// Main App Component
-function App() {
+// Main App Content Component
+function AppContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [resume, setResume] = useState(null);
   const [savedJobs, setSavedJobs] = useState([]);
   const [applications, setApplications] = useState([]);
   const [applyDialogJob, setApplyDialogJob] = useState(null);
+  const { isDark } = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -259,30 +310,40 @@ function App() {
   const navigate = (path) => { window.location.href = path; };
 
   return (
-    <BrowserRouter>
-      <div className="min-h-screen bg-slate-50 flex">
-        <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+    <div className={`min-h-screen flex ${isDark ? 'bg-batik-black text-white' : 'bg-slate-50'}`}>
+      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
+      
+      <div className="flex-1 flex flex-col min-w-0">
+        <Header setIsOpen={setSidebarOpen} resume={resume} />
         
-        <div className="flex-1 flex flex-col min-w-0">
-          <Header setIsOpen={setSidebarOpen} resume={resume} />
-          
-          <main className="flex-1">
-            <Routes>
-              <Route path="/" element={<Dashboard resume={resume} savedJobs={savedJobs} applications={applications} onNavigate={navigate} />} />
-              <Route path="/resume" element={<ResumePage resume={resume} setResume={setResume} />} />
-              <Route path="/search" element={<JobSearchPage savedJobs={savedJobs} onSave={handleSaveJob} onApply={handleApply} onAnalyze={handleAnalyzeJob} />} />
-              <Route path="/saved" element={<SavedJobsPage savedJobs={savedJobs} onRemove={handleRemoveSavedJob} onApply={handleApply} onAnalyze={handleAnalyzeJob} />} />
-              <Route path="/applications" element={<ApplicationsPage applications={applications} onUpdateStatus={handleUpdateStatus} onDelete={handleDeleteApplication} />} />
-              <Route path="/predictor" element={<SuccessPredictorPage resume={resume} />} />
-              <Route path="/cover-letter" element={<CoverLetterPage resume={resume} />} />
-              <Route path="/alerts" element={<JobAlertsPage resume={resume} />} />
-            </Routes>
-          </main>
-        </div>
-
-        <ApplyDialog job={applyDialogJob} open={!!applyDialogJob} onClose={() => setApplyDialogJob(null)} onConfirm={handleConfirmApply} />
-        <Toaster position="bottom-right" richColors />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<Dashboard resume={resume} savedJobs={savedJobs} applications={applications} onNavigate={navigate} />} />
+            <Route path="/resume" element={<ResumePage resume={resume} setResume={setResume} />} />
+            <Route path="/search" element={<JobSearchPage savedJobs={savedJobs} onSave={handleSaveJob} onApply={handleApply} onAnalyze={handleAnalyzeJob} />} />
+            <Route path="/saved" element={<SavedJobsPage savedJobs={savedJobs} onRemove={handleRemoveSavedJob} onApply={handleApply} onAnalyze={handleAnalyzeJob} />} />
+            <Route path="/applications" element={<ApplicationsPage applications={applications} onUpdateStatus={handleUpdateStatus} onDelete={handleDeleteApplication} />} />
+            <Route path="/predictor" element={<SuccessPredictorPage resume={resume} />} />
+            <Route path="/interview" element={<InterviewPrepPage resume={resume} />} />
+            <Route path="/cover-letter" element={<CoverLetterPage resume={resume} />} />
+            <Route path="/alerts" element={<JobAlertsPage resume={resume} />} />
+          </Routes>
+        </main>
       </div>
+
+      <ApplyDialog job={applyDialogJob} open={!!applyDialogJob} onClose={() => setApplyDialogJob(null)} onConfirm={handleConfirmApply} />
+      <Toaster position="bottom-right" richColors theme={isDark ? 'dark' : 'light'} />
+    </div>
+  );
+}
+
+// Main App Component with Theme Provider
+function App() {
+  return (
+    <BrowserRouter>
+      <ThemeProvider>
+        <AppContent />
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
