@@ -273,6 +273,7 @@ function App() {
               <Route path="/search" element={<JobSearchPage savedJobs={savedJobs} onSave={handleSaveJob} onApply={handleApply} onAnalyze={handleAnalyzeJob} />} />
               <Route path="/saved" element={<SavedJobsPage savedJobs={savedJobs} onRemove={handleRemoveSavedJob} onApply={handleApply} onAnalyze={handleAnalyzeJob} />} />
               <Route path="/applications" element={<ApplicationsPage applications={applications} onUpdateStatus={handleUpdateStatus} onDelete={handleDeleteApplication} />} />
+              <Route path="/predictor" element={<SuccessPredictorPage resume={resume} />} />
               <Route path="/cover-letter" element={<CoverLetterPage resume={resume} />} />
               <Route path="/alerts" element={<JobAlertsPage resume={resume} />} />
             </Routes>
