@@ -1856,6 +1856,33 @@ async def clear_emailed_history(email: str):
     result = await db.emailed_jobs.delete_many({"email": email})
     return {"message": f"Cleared {result.deleted_count} emailed job records for {email}"}
 
+@api_router.get("/digest/scheduler-status")
+async def get_scheduler_status():
+    """Get the status of the daily digest scheduler"""
+    jobs = scheduler.get_jobs()
+    job_info = []
+    for job in jobs:
+        next_run = job.next_run_time.isoformat() if job.next_run_time else None
+        job_info.append({
+            "id": job.id,
+            "name": job.name,
+            "next_run": next_run,
+            "trigger": str(job.trigger)
+        })
+    
+    return {
+        "scheduler_running": scheduler.running,
+        "scheduled_jobs": job_info,
+        "timezone": "UTC",
+        "digest_time": "8:00 AM UTC daily"
+    }
+
+@api_router.post("/digest/trigger-now")
+async def trigger_digest_now(background_tasks: BackgroundTasks):
+    """Manually trigger the scheduled digest (for testing)"""
+    background_tasks.add_task(scheduled_digest_task)
+    return {"message": "Digest triggered - running in background", "note": "Check logs for progress"}
+
 @api_router.post("/digest/run-scheduled")
 async def run_scheduled_digest(background_tasks: BackgroundTasks):
     """
