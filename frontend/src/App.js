@@ -327,6 +327,7 @@ function AppContent() {
             <Route path="/applications" element={<ApplicationsPage applications={applications} onUpdateStatus={handleUpdateStatus} onDelete={handleDeleteApplication} />} />
             <Route path="/predictor" element={<SuccessPredictorPage resume={resume} />} />
             <Route path="/interview" element={<InterviewPrepPage resume={resume} />} />
+            <Route path="/voice-coach" element={<VoiceCoachPage resume={resume} />} />
             <Route path="/cover-letter" element={<CoverLetterPage resume={resume} />} />
             <Route path="/alerts" element={<JobAlertsPage resume={resume} />} />
           </Routes>
