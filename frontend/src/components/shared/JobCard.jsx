@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { toast } from "sonner";
 import { 
   Bookmark, ExternalLink, MapPin, Building2, 
-  Clock, ChevronRight, Loader2 
+  Clock, ChevronRight, Loader2, TrendingUp, Target
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 // Match Score Ring Component
 export const MatchScoreRing = ({ score }) => {
@@ -39,8 +42,69 @@ export const MatchScoreRing = ({ score }) => {
   );
 };
 
+// Callback Probability Badge Component
+const CallbackBadge = ({ job }) => {
+  const [probability, setProbability] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetchProbability = async () => {
+    if (probability !== null || loading) return;
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API}/jobs/quick-probability`, {
+        job_title: job.title,
+        company: job.company,
+        job_description: job.description || "",
+        posted_at: job.posted_at || ""
+      });
+      setProbability(response.data);
+    } catch (e) {
+      // Silently fail - don't spam errors for quick probability
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    // Auto-fetch probability when component mounts
+    const timer = setTimeout(fetchProbability, 500);
+    return () => clearTimeout(timer);
+  }, [job.id]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center gap-1 text-xs text-slate-400">
+        <Loader2 className="w-3 h-3 animate-spin" />
+      </div>
+    );
+  }
+
+  if (!probability || probability.probability_label === "Upload Resume") {
+    return null;
+  }
+
+  const getLabelStyle = (label) => {
+    const styles = {
+      "Very High": "bg-emerald-100 text-emerald-700 border-emerald-200",
+      "High": "bg-sky-100 text-sky-700 border-sky-200",
+      "Medium": "bg-amber-100 text-amber-700 border-amber-200",
+      "Low": "bg-orange-100 text-orange-700 border-orange-200",
+      "Very Low": "bg-rose-100 text-rose-700 border-rose-200"
+    };
+    return styles[label] || "bg-slate-100 text-slate-700";
+  };
+
+  return (
+    <div className="flex items-center gap-1.5" title={`Callback Probability: ${probability.probability_score}%`}>
+      <Target className="w-3.5 h-3.5 text-violet-500" />
+      <Badge className={`${getLabelStyle(probability.probability_label)} text-xs px-1.5 py-0`}>
+        {probability.probability_score}%
+      </Badge>
+    </div>
+  );
+};
+
 // Job Card Component
-export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions = true }) => {
+export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions = true, showProbability = true }) => {
   const [analyzing, setAnalyzing] = useState(false);
   const [matchData, setMatchData] = useState(job.match_score ? { 
     match_score: job.match_score, 
@@ -89,19 +153,23 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
                   <span className="text-sm">{job.company}</span>
                 </div>
               </div>
-              {matchData && <MatchScoreRing score={matchData.match_score} />}
-              {!matchData && job.relevance_score > 0 && (
-                <div className="flex flex-col items-center">
-                  <span className="text-xs text-slate-400">Relevance</span>
-                  <span className={`text-lg font-semibold ${
-                    job.relevance_score >= 50 ? 'text-emerald-500' : 
-                    job.relevance_score >= 30 ? 'text-sky-500' : 
-                    job.relevance_score >= 10 ? 'text-amber-500' : 'text-slate-400'
-                  }`}>
-                    {Math.min(job.relevance_score, 100)}%
-                  </span>
-                </div>
-              )}
+              <div className="flex flex-col items-end gap-2">
+                {matchData && <MatchScoreRing score={matchData.match_score} />}
+                {!matchData && job.relevance_score > 0 && (
+                  <div className="flex flex-col items-center">
+                    <span className="text-xs text-slate-400">Relevance</span>
+                    <span className={`text-lg font-semibold ${
+                      job.relevance_score >= 50 ? 'text-emerald-500' : 
+                      job.relevance_score >= 30 ? 'text-sky-500' : 
+                      job.relevance_score >= 10 ? 'text-amber-500' : 'text-slate-400'
+                    }`}>
+                      {Math.min(job.relevance_score, 100)}%
+                    </span>
+                  </div>
+                )}
+                {/* Quick Callback Probability Badge */}
+                {showProbability && !matchData && <CallbackBadge job={job} />}
+              </div>
             </div>
             
             <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500 mb-3">
