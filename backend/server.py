@@ -471,20 +471,6 @@ Consider these factors:
 7. Location/remote compatibility
 8. Competition level for this role type"""
     )
-    "recommendations": ["<recommendation 1>", "<recommendation 2>", "<recommendation 3>"],
-    "interview_likelihood": "<percentage estimate like '60-70%'>",
-    "key_differentiators": ["<what makes this candidate stand out>"]
-}
-
-Consider these factors:
-1. Skills alignment (technical and soft skills match)
-2. Experience relevance and years
-3. Education requirements match
-4. Industry experience
-5. Job freshness (newer = better chances)
-6. Role seniority level match
-7. Location/remote compatibility
-8. Competition level for this role type""")
     
     # Build resume context
     skills_text = ", ".join(resume.get('skills', [])[:20])
