@@ -430,6 +430,134 @@ JOB DESCRIPTION:
             "suggestions": ["Ensure your resume is uploaded", "Try with a different job posting"]
         }
 
+# AI-powered callback probability prediction
+async def predict_callback_probability(resume: dict, job: dict) -> dict:
+    """Use AI to predict callback probability based on resume-job fit analysis"""
+    if not EMERGENT_LLM_KEY:
+        return {"error": "LLM key not configured"}
+    
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        model="openai/gpt-4o-mini"
+    )
+    
+    chat.add_system_message("""You are an expert HR analyst and career advisor. Analyze the candidate's resume against the job posting and predict their callback probability.
+
+Return ONLY valid JSON with this structure:
+{
+    "probability_score": <number 0-100>,
+    "probability_label": "<Very Low|Low|Medium|High|Very High>",
+    "match_breakdown": {
+        "skills_match": <0-100>,
+        "experience_match": <0-100>,
+        "education_match": <0-100>,
+        "keywords_match": <0-100>
+    },
+    "strengths": ["<strength 1>", "<strength 2>", "<strength 3>"],
+    "gaps": ["<gap 1>", "<gap 2>"],
+    "competition_estimate": "<Low|Moderate|High|Very High>",
+    "competition_reasoning": "<brief explanation>",
+    "timing_advice": "<advice about when to apply>",
+    "recommendations": ["<recommendation 1>", "<recommendation 2>", "<recommendation 3>"],
+    "interview_likelihood": "<percentage estimate like '60-70%'>",
+    "key_differentiators": ["<what makes this candidate stand out>"]
+}
+
+Consider these factors:
+1. Skills alignment (technical and soft skills match)
+2. Experience relevance and years
+3. Education requirements match
+4. Industry experience
+5. Job freshness (newer = better chances)
+6. Role seniority level match
+7. Location/remote compatibility
+8. Competition level for this role type""")
+    
+    # Build resume context
+    skills_text = ", ".join(resume.get('skills', [])[:20])
+    experience_text = "\n".join([
+        f"- {exp.get('title', '')} at {exp.get('company', '')} ({exp.get('duration', '')})"
+        for exp in resume.get('experience', [])[:5]
+    ])
+    education_text = "\n".join([
+        f"- {edu.get('degree', '')} from {edu.get('school', '')}"
+        for edu in resume.get('education', [])[:3]
+    ])
+    
+    resume_context = f"""
+CANDIDATE PROFILE:
+Name: {resume.get('full_name', 'Unknown')}
+Summary: {resume.get('summary', 'Not provided')}
+
+SKILLS:
+{skills_text}
+
+EXPERIENCE:
+{experience_text}
+
+EDUCATION:
+{education_text}
+"""
+    
+    # Calculate job freshness
+    posted_at = job.get('posted_at', '')
+    freshness_note = ""
+    if posted_at:
+        try:
+            posted_date = datetime.fromisoformat(posted_at.replace('Z', '+00:00'))
+            days_ago = (datetime.now(timezone.utc) - posted_date).days
+            if days_ago <= 1:
+                freshness_note = "VERY FRESH (posted within 24 hours - excellent timing!)"
+            elif days_ago <= 3:
+                freshness_note = f"Fresh (posted {days_ago} days ago - good timing)"
+            elif days_ago <= 7:
+                freshness_note = f"Recent (posted {days_ago} days ago - apply soon)"
+            elif days_ago <= 14:
+                freshness_note = f"Moderate (posted {days_ago} days ago - may have many applicants)"
+            else:
+                freshness_note = f"Older posting ({days_ago} days ago - high competition likely)"
+        except:
+            freshness_note = "Unknown posting date"
+    
+    job_context = f"""
+JOB DETAILS:
+Title: {job.get('job_title', job.get('title', ''))}
+Company: {job.get('company', '')}
+Location: {job.get('location', 'Not specified')}
+Posting Freshness: {freshness_note}
+
+JOB DESCRIPTION:
+{job.get('job_description', job.get('description', ''))[:4000]}
+"""
+    
+    user_message = UserMessage(
+        text=f"{resume_context}\n\n{job_context}\n\nAnalyze the candidate's fit for this position and predict callback probability."
+    )
+    
+    try:
+        response = await chat.send_message(user_message)
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        return json.loads(clean_response)
+    except Exception as e:
+        logging.error(f"Callback prediction error: {e}")
+        return {
+            "probability_score": 50,
+            "probability_label": "Medium",
+            "match_breakdown": {"skills_match": 50, "experience_match": 50, "education_match": 50, "keywords_match": 50},
+            "strengths": ["Unable to fully analyze"],
+            "gaps": ["Analysis incomplete"],
+            "competition_estimate": "Unknown",
+            "competition_reasoning": "Could not estimate competition",
+            "timing_advice": "Apply as soon as possible for best results",
+            "recommendations": ["Try again with more complete job description"],
+            "interview_likelihood": "Unknown",
+            "key_differentiators": []
+        }
+
 # Helper function to generate unique job key for deduplication
 def get_job_key(title: str, company: str) -> str:
     """Generate a unique key for a job to track duplicates"""
