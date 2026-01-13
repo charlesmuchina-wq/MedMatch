@@ -63,6 +63,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { path: "/applications", icon: CheckSquare, label: "Applications" },
     { path: "/predictor", icon: Target, label: "Success Predictor" },
     { path: "/interview", icon: Mic, label: "Interview Prep" },
+    { path: "/voice-coach", icon: Volume2, label: "Voice Coach" },
     { path: "/cover-letter", icon: PenTool, label: "Cover Letter" },
     { path: "/alerts", icon: Bell, label: "Job Alerts" },
   ];
