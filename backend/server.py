@@ -2195,6 +2195,139 @@ app.add_middleware(
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+# ============== SCHEDULED DIGEST TASK ==============
+scheduler = AsyncIOScheduler()
+
+async def scheduled_digest_task():
+    """Background task that runs the daily digest for all subscribers"""
+    logger.info("🕐 Running scheduled daily digest...")
+    
+    try:
+        # Get all active digest subscribers
+        subscribers = await db.digest_settings.find({"is_active": True}, {"_id": 0}).to_list(100)
+        
+        if not subscribers:
+            logger.info("No active subscribers for daily digest")
+            return
+        
+        # Get resume for context
+        resume_doc = await db.resumes.find_one({}, {"_id": 0})
+        user_name = resume_doc.get('full_name', 'Job Seeker').split()[0] if resume_doc else 'Job Seeker'
+        skills = resume_doc.get('skills', []) if resume_doc else []
+        
+        # Get search queries
+        search_strategy = await ai_deep_crawl(skills) if skills else {"search_queries": QUALITY_SEARCH_TERMS}
+        search_queries = search_strategy.get('search_queries', QUALITY_SEARCH_TERMS)[:8]
+        
+        # Fetch jobs
+        all_jobs = []
+        
+        # Search Google CSE
+        if GOOGLE_API_KEY:
+            for query in search_queries[:4]:
+                try:
+                    google_jobs = await fetch_google_cse_all_sites(query, "Remote")
+                    all_jobs.extend(google_jobs)
+                except Exception as e:
+                    logger.error(f"Google CSE error: {e}")
+        
+        # Search free APIs
+        try:
+            api_results = await asyncio.gather(
+                fetch_remoteok_jobs("quality", ""),
+                fetch_remotive_jobs("quality", ""),
+                fetch_jobicy_jobs("quality", ""),
+                fetch_arbeitnow_jobs("quality", ""),
+                fetch_himalayas_jobs("quality", ""),
+                return_exceptions=True
+            )
+            for result in api_results:
+                if isinstance(result, list):
+                    all_jobs.extend(result)
+        except Exception as e:
+            logger.error(f"API fetch error: {e}")
+        
+        # Filter to last 24 hours
+        recent_jobs = filter_jobs_by_date(all_jobs, days=1)
+        
+        # Deduplicate
+        seen = set()
+        unique_jobs = []
+        for job in recent_jobs:
+            key = f"{job.get('title', '').lower()}_{job.get('company', '').lower()}"
+            if key not in seen:
+                seen.add(key)
+                unique_jobs.append(job)
+        
+        sent_count = 0
+        
+        # Send to each subscriber
+        for subscriber in subscribers:
+            email = subscriber.get('email')
+            if not email:
+                continue
+            
+            # Filter out already-emailed jobs
+            new_jobs = await filter_new_jobs(unique_jobs, email)
+            
+            if not new_jobs:
+                logger.info(f"No new jobs for {email}")
+                continue
+            
+            # AI ranking
+            relevant_jobs = new_jobs[:20]
+            if skills and EMERGENT_LLM_KEY:
+                try:
+                    relevance_scores = await calculate_job_relevance_batch(new_jobs[:30], skills)
+                    for job, score in zip(new_jobs[:30], relevance_scores):
+                        job['relevance_score'] = score
+                    relevant_jobs = sorted(new_jobs[:30], key=lambda x: x.get('relevance_score', 0), reverse=True)[:20]
+                except Exception as e:
+                    logger.error(f"Ranking error: {e}")
+            
+            # Generate and send email
+            query_summary = ", ".join(search_queries[:3])
+            html_content = generate_digest_email_html(relevant_jobs, user_name, query_summary)
+            
+            # Mark jobs as emailed
+            for job in relevant_jobs:
+                await mark_job_emailed(job, email)
+            
+            success = send_email_gmail(
+                email,
+                f"🎯 MedMatch Daily Digest: {len(relevant_jobs)} New Quality Jobs",
+                html_content
+            )
+            
+            if success:
+                sent_count += 1
+                await db.digest_settings.update_one(
+                    {"email": email},
+                    {"$set": {"last_sent": datetime.now(timezone.utc).isoformat()}}
+                )
+                logger.info(f"✅ Sent digest to {email} ({len(relevant_jobs)} jobs)")
+            else:
+                logger.error(f"❌ Failed to send digest to {email}")
+        
+        logger.info(f"📧 Scheduled digest complete: {sent_count}/{len(subscribers)} emails sent")
+        
+    except Exception as e:
+        logger.error(f"Scheduled digest error: {e}")
+
+@app.on_event("startup")
+async def startup_event():
+    """Start the scheduler when the app starts"""
+    # Schedule daily digest at 8:00 AM UTC
+    scheduler.add_job(
+        scheduled_digest_task,
+        CronTrigger(hour=8, minute=0),
+        id="daily_digest",
+        replace_existing=True
+    )
+    scheduler.start()
+    logger.info("📅 Daily digest scheduler started - runs at 8:00 AM UTC")
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
+    scheduler.shutdown()
     client.close()
