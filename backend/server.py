@@ -2501,6 +2501,143 @@ Be constructive and specific in feedback."""
             "question_feedback": []
         }
 
+class VoiceFeedbackRequest(BaseModel):
+    question: str
+    answer: str
+    duration_seconds: int
+    job_title: str = ""
+
+@api_router.post("/interview/voice-feedback")
+async def get_voice_interview_feedback(request: VoiceFeedbackRequest):
+    """
+    Analyze a spoken interview answer and provide detailed feedback on:
+    - Content quality and relevance
+    - Delivery pace (words per minute)
+    - Confidence indicators
+    - Structure and organization
+    - Specific improvement suggestions
+    """
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="LLM not configured")
+    
+    # Calculate metrics
+    word_count = len(request.answer.split())
+    words_per_minute = round((word_count / max(request.duration_seconds, 1)) * 60) if request.duration_seconds > 0 else 0
+    
+    # Ideal pace is 120-150 WPM for interviews
+    if words_per_minute < 100:
+        pace_feedback = "too slow"
+        pace_score = max(50, 100 - (100 - words_per_minute))
+    elif words_per_minute > 180:
+        pace_feedback = "too fast"
+        pace_score = max(50, 100 - (words_per_minute - 180))
+    else:
+        pace_feedback = "good"
+        pace_score = min(100, 80 + (20 - abs(135 - words_per_minute) // 2))
+    
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=str(uuid.uuid4()),
+        system_message="""You are an expert interview coach analyzing a spoken interview answer. 
+Evaluate the content, structure, and delivery indicators from the transcribed speech.
+
+Return ONLY valid JSON with this structure:
+{
+    "overall_score": <0-100>,
+    "content_score": <0-100>,
+    "confidence_score": <0-100>,
+    "structure_score": <0-100>,
+    "strengths": ["<strength 1>", "<strength 2>"],
+    "improvements": ["<improvement 1>", "<improvement 2>"],
+    "delivery_tip": "<specific tip for spoken delivery>",
+    "confidence_indicators": {
+        "positive": ["<positive indicator>"],
+        "negative": ["<area needing confidence>"]
+    },
+    "suggested_additions": ["<what to add>"],
+    "filler_words_detected": <true/false>
+}
+
+Consider:
+1. Does the answer directly address the question?
+2. Are there specific examples or metrics?
+3. Is the structure clear (situation, action, result)?
+4. Are there confidence markers (decisive language, specific details)?
+5. Are there hesitation markers (filler words, vague language)?
+6. Is the length appropriate (1-2 minutes ideal)?"""
+    )
+    
+    # Get resume for context
+    resume_doc = await db.resumes.find_one({}, {"_id": 0})
+    skills_text = ", ".join(resume_doc.get('skills', [])[:10]) if resume_doc else "Not provided"
+    
+    user_message = UserMessage(
+        text=f"""Question: {request.question}
+
+Spoken Answer (transcribed):
+"{request.answer}"
+
+Metrics:
+- Word count: {word_count}
+- Duration: {request.duration_seconds} seconds
+- Speaking pace: {words_per_minute} words per minute
+- Pace assessment: {pace_feedback}
+
+Candidate's skills: {skills_text}
+Target role: {request.job_title or 'Not specified'}
+
+Analyze this spoken interview answer and provide detailed feedback."""
+    )
+    
+    try:
+        response = await chat.send_message(user_message)
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        
+        ai_feedback = json.loads(clean_response)
+        
+        # Combine AI feedback with calculated metrics
+        return {
+            "overall_score": ai_feedback.get("overall_score", 70),
+            "content_score": ai_feedback.get("content_score", 70),
+            "confidence_score": ai_feedback.get("confidence_score", 70),
+            "structure_score": ai_feedback.get("structure_score", 70),
+            "pace_score": pace_score,
+            "word_count": word_count,
+            "words_per_minute": words_per_minute,
+            "pace_feedback": pace_feedback,
+            "strengths": ai_feedback.get("strengths", []),
+            "improvements": ai_feedback.get("improvements", []),
+            "delivery_tip": ai_feedback.get("delivery_tip", "Practice speaking at a steady pace"),
+            "confidence_indicators": ai_feedback.get("confidence_indicators", {}),
+            "suggested_additions": ai_feedback.get("suggested_additions", []),
+            "filler_words_detected": ai_feedback.get("filler_words_detected", False),
+            "ideal_pace_range": "120-150 WPM"
+        }
+        
+    except Exception as e:
+        logging.error(f"Voice feedback error: {e}")
+        return {
+            "overall_score": 65,
+            "content_score": 65,
+            "confidence_score": 70,
+            "structure_score": 60,
+            "pace_score": pace_score,
+            "word_count": word_count,
+            "words_per_minute": words_per_minute,
+            "pace_feedback": pace_feedback,
+            "strengths": ["Completed the answer", "Spoke clearly"],
+            "improvements": ["Add more specific examples", "Include measurable outcomes"],
+            "delivery_tip": "Try to maintain a steady pace around 130-140 words per minute",
+            "confidence_indicators": {"positive": [], "negative": []},
+            "suggested_additions": [],
+            "filler_words_detected": False,
+            "ideal_pace_range": "120-150 WPM"
+        }
+
 # Include router
 app.include_router(api_router)
 
