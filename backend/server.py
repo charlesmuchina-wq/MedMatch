@@ -438,10 +438,8 @@ async def predict_callback_probability(resume: dict, job: dict) -> dict:
     
     chat = LlmChat(
         api_key=EMERGENT_LLM_KEY,
-        model="openai/gpt-4o-mini"
-    )
-    
-    chat.add_system_message("""You are an expert HR analyst and career advisor. Analyze the candidate's resume against the job posting and predict their callback probability.
+        session_id=str(uuid.uuid4()),
+        system_message="""You are an expert HR analyst and career advisor. Analyze the candidate's resume against the job posting and predict their callback probability.
 
 Return ONLY valid JSON with this structure:
 {
@@ -458,6 +456,21 @@ Return ONLY valid JSON with this structure:
     "competition_estimate": "<Low|Moderate|High|Very High>",
     "competition_reasoning": "<brief explanation>",
     "timing_advice": "<advice about when to apply>",
+    "recommendations": ["<recommendation 1>", "<recommendation 2>", "<recommendation 3>"],
+    "interview_likelihood": "<percentage estimate like '60-70%'>",
+    "key_differentiators": ["<what makes this candidate stand out>"]
+}
+
+Consider these factors:
+1. Skills alignment (technical and soft skills match)
+2. Experience relevance and years
+3. Education requirements match
+4. Industry experience
+5. Job freshness (newer = better chances)
+6. Role seniority level match
+7. Location/remote compatibility
+8. Competition level for this role type"""
+    )
     "recommendations": ["<recommendation 1>", "<recommendation 2>", "<recommendation 3>"],
     "interview_likelihood": "<percentage estimate like '60-70%'>",
     "key_differentiators": ["<what makes this candidate stand out>"]
