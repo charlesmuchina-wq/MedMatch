@@ -1,103 +1,10 @@
 /* ===============================================
-   MedMatch - Batik-Inspired Design System
-   Grey, White, Black with Turquoise Green Accents
+   MedMatch - App.css with Dark Mode Support
+   Batik B Theme (Grey, White, Black) + Turquoise
    =============================================== */
 
-/* CSS Variables */
-:root {
-  /* Batik Palette - Grey, White, Black */
-  --batik-black: #1a1a1a;
-  --batik-charcoal: #2d2d2d;
-  --batik-dark-grey: #404040;
-  --batik-grey: #6b6b6b;
-  --batik-mid-grey: #9a9a9a;
-  --batik-light-grey: #d4d4d4;
-  --batik-off-white: #f5f5f5;
-  --batik-white: #ffffff;
-  
-  /* Turquoise Green Accents */
-  --turquoise: #20b2aa;
-  --turquoise-light: #40e0d0;
-  --turquoise-dark: #008b8b;
-  --turquoise-glow: rgba(32, 178, 170, 0.15);
-  --turquoise-subtle: rgba(32, 178, 170, 0.08);
-  
-  /* Gradients */
-  --gradient-turquoise: linear-gradient(135deg, #20b2aa 0%, #40e0d0 100%);
-  --gradient-dark: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-  --gradient-batik: linear-gradient(135deg, #404040 0%, #2d2d2d 50%, #1a1a1a 100%);
-}
-
 /* ===============================================
-   Batik Pattern Borders & Decorations
-   =============================================== */
-
-/* Batik-inspired SVG pattern */
-.batik-border {
-  position: relative;
-}
-
-.batik-border::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--batik-black) 0px,
-    var(--batik-black) 8px,
-    var(--batik-grey) 8px,
-    var(--batik-grey) 12px,
-    var(--batik-white) 12px,
-    var(--batik-white) 14px,
-    var(--batik-grey) 14px,
-    var(--batik-grey) 18px,
-    var(--turquoise) 18px,
-    var(--turquoise) 22px,
-    var(--batik-grey) 22px,
-    var(--batik-grey) 26px,
-    var(--batik-white) 26px,
-    var(--batik-white) 28px,
-    var(--batik-grey) 28px,
-    var(--batik-grey) 32px
-  );
-}
-
-/* Decorative batik corner accents */
-.batik-corner {
-  position: relative;
-}
-
-.batik-corner::before,
-.batik-corner::after {
-  content: '';
-  position: absolute;
-  width: 24px;
-  height: 24px;
-  border: 2px solid var(--batik-grey);
-  opacity: 0.5;
-}
-
-.batik-corner::before {
-  top: -8px;
-  left: -8px;
-  border-right: none;
-  border-bottom: none;
-  border-top-color: var(--turquoise);
-}
-
-.batik-corner::after {
-  bottom: -8px;
-  right: -8px;
-  border-left: none;
-  border-top: none;
-  border-bottom-color: var(--turquoise);
-}
-
-/* ===============================================
-   Sidebar Styles with Batik Influence
+   Sidebar Styles
    =============================================== */
 
 .sidebar-link {
@@ -106,125 +13,62 @@
   gap: 0.75rem;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  color: var(--batik-grey);
+  color: #6b6b6b;
   transition: all 0.2s ease;
   position: relative;
   border-left: 3px solid transparent;
 }
 
+.sidebar-link.dark {
+  color: #9a9a9a;
+}
+
 .sidebar-link:hover {
-  background-color: var(--turquoise-subtle);
-  color: var(--batik-charcoal);
-  border-left-color: var(--turquoise);
+  background-color: rgba(32, 178, 170, 0.08);
+  color: #2d2d2d;
+  border-left-color: #20b2aa;
+}
+
+.sidebar-link.dark:hover {
+  background-color: rgba(32, 178, 170, 0.15);
+  color: #f5f5f5;
 }
 
 .sidebar-link.active {
-  background: var(--gradient-batik);
-  color: var(--batik-white);
-  border-left-color: var(--turquoise-light);
+  background: linear-gradient(135deg, #404040 0%, #2d2d2d 50%, #1a1a1a 100%);
+  color: #ffffff;
+  border-left-color: #40e0d0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
+.sidebar-link.active.dark {
+  background: linear-gradient(135deg, #20b2aa 0%, #008b8b 100%);
+  color: #1a1a1a;
+  border-left-color: #40e0d0;
+  box-shadow: 0 2px 12px rgba(32, 178, 170, 0.4);
+}
+
 .sidebar-link.active:hover {
-  background: var(--gradient-dark);
+  background: linear-gradient(135deg, #2d2d2d, #1a1a1a);
 }
 
-/* Sidebar batik decoration */
-aside {
-  border-right: 1px solid var(--batik-light-grey);
-  position: relative;
-}
-
-aside::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background: linear-gradient(
-    to top,
-    var(--turquoise-subtle) 0%,
-    transparent 100%
-  );
-  pointer-events: none;
+.sidebar-link.active.dark:hover {
+  background: linear-gradient(135deg, #40e0d0, #20b2aa);
 }
 
 /* ===============================================
-   Header with Batik Accent
-   =============================================== */
-
-.glass-header {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--batik-light-grey);
-  position: relative;
-}
-
-.glass-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: repeating-linear-gradient(
-    90deg,
-    transparent 0px,
-    transparent 20px,
-    var(--turquoise) 20px,
-    var(--turquoise) 24px,
-    transparent 24px,
-    transparent 44px,
-    var(--batik-grey) 44px,
-    var(--batik-grey) 46px,
-    transparent 46px,
-    transparent 66px
-  );
-  opacity: 0.6;
-}
-
-/* ===============================================
-   Cards with Batik Styling
-   =============================================== */
-
-.job-card {
-  border: 1px solid var(--batik-light-grey);
-  transition: all 0.25s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.job-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: var(--gradient-turquoise);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.job-card:hover {
-  border-color: var(--turquoise);
-  box-shadow: 0 4px 20px var(--turquoise-glow);
-  transform: translateY(-2px);
-}
-
-.job-card:hover::before {
-  opacity: 1;
-}
-
-/* ===============================================
-   Status Badges with Turquoise Accents
+   Status Badges
    =============================================== */
 
 .status-applied {
-  background: linear-gradient(135deg, var(--turquoise-subtle), rgba(32, 178, 170, 0.2));
-  color: var(--turquoise-dark);
-  border: 1px solid var(--turquoise);
+  background: linear-gradient(135deg, rgba(32, 178, 170, 0.1), rgba(32, 178, 170, 0.2));
+  color: #008b8b;
+  border: 1px solid #20b2aa;
+}
+
+html.dark .status-applied {
+  background: linear-gradient(135deg, rgba(64, 224, 208, 0.15), rgba(32, 178, 170, 0.25));
+  color: #40e0d0;
 }
 
 .status-interview {
@@ -233,10 +77,20 @@ aside::after {
   border: 1px solid #F59E0B;
 }
 
+html.dark .status-interview {
+  background-color: rgba(245, 158, 11, 0.2);
+  color: #FBBF24;
+}
+
 .status-offer {
   background-color: #D1FAE5;
   color: #065F46;
   border: 1px solid #10B981;
+}
+
+html.dark .status-offer {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #34D399;
 }
 
 .status-rejected {
@@ -245,12 +99,17 @@ aside::after {
   border: 1px solid #EF4444;
 }
 
+html.dark .status-rejected {
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #F87171;
+}
+
 /* ===============================================
-   Dropzone with Batik Pattern
+   Dropzone Styles
    =============================================== */
 
 .dropzone {
-  border: 2px dashed var(--batik-mid-grey);
+  border: 2px dashed #9a9a9a;
   border-radius: 0.75rem;
   padding: 2rem;
   text-align: center;
@@ -266,20 +125,35 @@ aside::after {
   position: relative;
 }
 
+html.dark .dropzone {
+  border-color: #6b6b6b;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(64, 224, 208, 0.03) 10px,
+    rgba(64, 224, 208, 0.03) 20px
+  );
+}
+
 .dropzone::before {
   content: '';
   position: absolute;
   inset: 4px;
-  border: 1px dashed var(--batik-light-grey);
+  border: 1px dashed #d4d4d4;
   border-radius: 0.5rem;
   pointer-events: none;
 }
 
+html.dark .dropzone::before {
+  border-color: #404040;
+}
+
 .dropzone:hover,
 .dropzone.active {
-  border-color: var(--turquoise);
-  background: linear-gradient(135deg, var(--turquoise-subtle), rgba(64, 224, 208, 0.1));
-  box-shadow: 0 0 20px var(--turquoise-glow);
+  border-color: #20b2aa;
+  background: linear-gradient(135deg, rgba(32, 178, 170, 0.05), rgba(64, 224, 208, 0.1));
+  box-shadow: 0 0 20px rgba(32, 178, 170, 0.15);
 }
 
 /* ===============================================
@@ -293,27 +167,42 @@ aside::after {
   font-size: 0.75rem;
   font-weight: 500;
   border-radius: 9999px;
-  background: linear-gradient(135deg, var(--batik-off-white), var(--batik-light-grey));
-  color: var(--batik-dark-grey);
-  border: 1px solid var(--batik-light-grey);
+  background: linear-gradient(135deg, #f5f5f5, #d4d4d4);
+  color: #404040;
+  border: 1px solid #d4d4d4;
   transition: all 0.2s ease;
 }
 
+html.dark .tag-badge {
+  background: linear-gradient(135deg, #404040, #2d2d2d);
+  color: #d4d4d4;
+  border-color: #6b6b6b;
+}
+
 .tag-badge:hover {
-  background: var(--turquoise-subtle);
-  border-color: var(--turquoise);
-  color: var(--turquoise-dark);
+  background: rgba(32, 178, 170, 0.1);
+  border-color: #20b2aa;
+  color: #008b8b;
+}
+
+html.dark .tag-badge:hover {
+  background: rgba(64, 224, 208, 0.15);
+  color: #40e0d0;
 }
 
 /* ===============================================
-   Match Score Ring with Turquoise Glow
+   Match Score Ring
    =============================================== */
 
 .match-ring {
   position: relative;
   width: 60px;
   height: 60px;
-  filter: drop-shadow(0 0 8px var(--turquoise-glow));
+  filter: drop-shadow(0 0 8px rgba(32, 178, 170, 0.2));
+}
+
+html.dark .match-ring {
+  filter: drop-shadow(0 0 12px rgba(64, 224, 208, 0.3));
 }
 
 .match-ring svg {
@@ -331,7 +220,7 @@ aside::after {
 }
 
 /* ===============================================
-   Empty State with Batik Decoration
+   Empty State
    =============================================== */
 
 .empty-state {
@@ -349,9 +238,13 @@ aside::after {
   position: absolute;
   width: 200px;
   height: 200px;
-  border: 2px solid var(--batik-light-grey);
+  border: 2px solid #d4d4d4;
   border-radius: 50%;
   opacity: 0.3;
+}
+
+html.dark .empty-state::before {
+  border-color: #404040;
 }
 
 .empty-state::after {
@@ -359,7 +252,7 @@ aside::after {
   position: absolute;
   width: 160px;
   height: 160px;
-  border: 1px dashed var(--turquoise);
+  border: 1px dashed #20b2aa;
   border-radius: 50%;
   opacity: 0.4;
   animation: rotate-slow 20s linear infinite;
@@ -371,19 +264,29 @@ aside::after {
 }
 
 /* ===============================================
-   Skeleton Loading with Turquoise Shimmer
+   Skeleton Loading
    =============================================== */
 
 .skeleton {
   background: linear-gradient(
     90deg,
-    var(--batik-off-white) 25%,
-    var(--turquoise-subtle) 50%,
-    var(--batik-off-white) 75%
+    #f5f5f5 25%,
+    rgba(32, 178, 170, 0.08) 50%,
+    #f5f5f5 75%
   );
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
   border-radius: 4px;
+}
+
+html.dark .skeleton {
+  background: linear-gradient(
+    90deg,
+    #2d2d2d 25%,
+    rgba(64, 224, 208, 0.1) 50%,
+    #2d2d2d 75%
+  );
+  background-size: 200% 100%;
 }
 
 @keyframes skeleton-loading {
@@ -392,10 +295,9 @@ aside::after {
 }
 
 /* ===============================================
-   Buttons with Turquoise Styling
+   Gradient Buttons
    =============================================== */
 
-/* Primary button turquoise gradient */
 button[class*="bg-gradient-to-r"] {
   position: relative;
   overflow: hidden;
@@ -422,90 +324,28 @@ button[class*="bg-gradient-to-r"]:hover::before {
 }
 
 /* ===============================================
-   Custom Scrollbar with Batik Colors
+   Cards with Dark Mode
    =============================================== */
 
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+html.dark [class*="Card"],
+html.dark .card {
+  background-color: #2d2d2d;
+  border-color: #404040;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--batik-off-white);
-  border-radius: 4px;
+html.dark [class*="CardHeader"] h3,
+html.dark [class*="CardTitle"] {
+  color: #f5f5f5;
 }
 
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--batik-grey), var(--batik-dark-grey));
-  border-radius: 4px;
-  border: 1px solid var(--batik-light-grey);
+html.dark [class*="CardDescription"] {
+  color: #9a9a9a;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gradient-turquoise);
-}
-
-/* ===============================================
-   Page Transitions & Animations
-   =============================================== */
-
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* ===============================================
-   Batik Decorative Dividers
-   =============================================== */
-
-.batik-divider {
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--batik-grey) 20%,
-    var(--turquoise) 50%,
-    var(--batik-grey) 80%,
-    transparent 100%
-  );
-  margin: 1.5rem 0;
-}
-
-/* ===============================================
-   Form Inputs with Batik Focus
-   =============================================== */
-
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: var(--turquoise) !important;
-  box-shadow: 0 0 0 3px var(--turquoise-glow) !important;
-  outline: none;
-}
-
-/* ===============================================
-   Cards with Batik Patterns
-   =============================================== */
-
-/* Feature cards with corner decoration */
-[class*="border-sky-200"],
-[class*="border-violet-200"],
-[class*="border-emerald-200"] {
-  position: relative;
-}
-
+/* Feature cards with batik corners */
 [class*="border-sky-200"]::after,
-[class*="border-violet-200"]::after {
+[class*="border-violet-200"]::after,
+[class*="border-turquoise-200"]::after {
   content: '';
   position: absolute;
   top: 0;
@@ -516,77 +356,31 @@ select:focus {
     -45deg,
     transparent,
     transparent 4px,
-    var(--turquoise-subtle) 4px,
-    var(--turquoise-subtle) 8px
+    rgba(32, 178, 170, 0.08) 4px,
+    rgba(32, 178, 170, 0.08) 8px
   );
   opacity: 0.5;
   border-radius: 0 8px 0 0;
 }
 
 /* ===============================================
-   Batik Pattern Background for Special Sections
-   =============================================== */
-
-.batik-bg {
-  background-color: var(--batik-off-white);
-  background-image: 
-    radial-gradient(circle at 25% 25%, var(--turquoise-subtle) 2px, transparent 2px),
-    radial-gradient(circle at 75% 75%, var(--batik-light-grey) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-
-/* ===============================================
-   Navigation Pills with Turquoise
-   =============================================== */
-
-[role="tablist"] button[data-state="active"] {
-  background: var(--gradient-turquoise) !important;
-  color: white !important;
-  box-shadow: 0 2px 8px var(--turquoise-glow);
-}
-
-/* ===============================================
-   Badge Enhancements
-   =============================================== */
-
-[class*="bg-emerald-100"] {
-  background: linear-gradient(135deg, #D1FAE5, var(--turquoise-subtle)) !important;
-  border: 1px solid var(--turquoise);
-}
-
-/* ===============================================
-   Tooltip Styles
-   =============================================== */
-
-[title]:hover::after {
-  background: var(--gradient-batik);
-  color: white;
-}
-
-/* ===============================================
-   Logo/Brand Accent
-   =============================================== */
-
-aside > div:first-child > div:first-child {
-  background: var(--gradient-batik) !important;
-  border: 2px solid var(--turquoise);
-  box-shadow: 0 0 15px var(--turquoise-glow);
-}
-
-/* ===============================================
-   Switch Component Turquoise
+   Switch Component
    =============================================== */
 
 [role="switch"][data-state="checked"] {
-  background-color: var(--turquoise) !important;
+  background-color: #20b2aa !important;
+}
+
+html.dark [role="switch"][data-state="checked"] {
+  background-color: #40e0d0 !important;
 }
 
 /* ===============================================
-   Progress Bars with Batik Pattern
+   Progress Bars
    =============================================== */
 
 [role="progressbar"] > div {
-  background: var(--gradient-turquoise) !important;
+  background: linear-gradient(90deg, #20b2aa, #40e0d0) !important;
   position: relative;
   overflow: hidden;
 }
@@ -610,3 +404,81 @@ aside > div:first-child > div:first-child {
 @keyframes shimmer {
   100% { left: 100%; }
 }
+
+/* ===============================================
+   Tabs with Dark Mode
+   =============================================== */
+
+[role="tablist"] button[data-state="active"] {
+  background: linear-gradient(135deg, #20b2aa, #40e0d0) !important;
+  color: white !important;
+  box-shadow: 0 2px 8px rgba(32, 178, 170, 0.3);
+}
+
+html.dark [role="tablist"] {
+  background-color: #2d2d2d;
+}
+
+/* ===============================================
+   Input Fields Dark Mode
+   =============================================== */
+
+html.dark input,
+html.dark textarea,
+html.dark select {
+  background-color: #2d2d2d;
+  border-color: #404040;
+  color: #f5f5f5;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #6b6b6b;
+}
+
+html.dark input:focus,
+html.dark textarea:focus,
+html.dark select:focus {
+  border-color: #40e0d0;
+  box-shadow: 0 0 0 3px rgba(64, 224, 208, 0.2);
+}
+
+/* ===============================================
+   Badge Enhancements
+   =============================================== */
+
+html.dark [class*="bg-emerald-100"] {
+  background: rgba(16, 185, 129, 0.2) !important;
+  color: #34D399;
+  border-color: #10B981;
+}
+
+html.dark [class*="bg-sky-100"] {
+  background: rgba(14, 165, 233, 0.2) !important;
+  color: #38BDF8;
+  border-color: #0EA5E9;
+}
+
+html.dark [class*="bg-violet-100"] {
+  background: rgba(139, 92, 246, 0.2) !important;
+  color: #A78BFA;
+  border-color: #8B5CF6;
+}
+
+html.dark [class*="bg-amber-100"] {
+  background: rgba(245, 158, 11, 0.2) !important;
+  color: #FBBF24;
+  border-color: #F59E0B;
+}
+
+/* ===============================================
+   Turquoise Accent Classes
+   =============================================== */
+
+.border-turquoise-200 { border-color: rgba(32, 178, 170, 0.3); }
+.border-turquoise-800 { border-color: rgba(0, 139, 139, 0.5); }
+.bg-turquoise-50 { background-color: rgba(32, 178, 170, 0.05); }
+.bg-turquoise-900\/20 { background-color: rgba(0, 139, 139, 0.2); }
+.text-turquoise-700 { color: #0d9488; }
+.text-turquoise-300 { color: #5eead4; }
+.text-turquoise-800 { color: #115e59; }
