@@ -219,6 +219,22 @@ class CoverLetterResponse(BaseModel):
     transferable_skills: List[str]
     suggestions: List[str]
 
+class CallbackPredictionRequest(BaseModel):
+    job_title: str
+    company: str
+    job_description: str
+    job_url: str = ""
+    posted_at: str = ""
+    location: str = ""
+
+class CallbackPredictionResponse(BaseModel):
+    probability_score: int  # 0-100
+    probability_label: str  # Low, Medium, High, Very High
+    factors: Dict[str, Any]
+    recommendations: List[str]
+    competition_estimate: str
+    timing_advice: str
+
 # Helper functions
 def extract_text_from_pdf(file_content: bytes) -> str:
     pdf_reader = PdfReader(io.BytesIO(file_content))
