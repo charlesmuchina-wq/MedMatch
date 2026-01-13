@@ -4,12 +4,20 @@
 
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
+/* ===============================================
+   MedMatch - Batik B Theme (Grey, White, Black)
+   with Turquoise Green Accents
+   =============================================== */
+
 body {
     margin: 0;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: #F8FAFC;
+    background-color: #f8f8f8;
+    background-image: 
+      radial-gradient(circle at 10% 20%, rgba(32, 178, 170, 0.03) 0%, transparent 20%),
+      radial-gradient(circle at 90% 80%, rgba(32, 178, 170, 0.03) 0%, transparent 20%);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -22,31 +30,44 @@ code {
 
 @layer base {
     :root {
-        --background: 210 40% 98%;
-        --foreground: 222 47% 11%;
+        --background: 0 0% 98%;
+        --foreground: 0 0% 10%;
         --card: 0 0% 100%;
-        --card-foreground: 222 47% 11%;
+        --card-foreground: 0 0% 10%;
         --popover: 0 0% 100%;
-        --popover-foreground: 222 47% 11%;
-        --primary: 222 47% 11%;
-        --primary-foreground: 210 40% 98%;
-        --secondary: 210 40% 96%;
-        --secondary-foreground: 222 47% 11%;
-        --muted: 210 40% 96%;
-        --muted-foreground: 215 16% 47%;
-        --accent: 199 89% 48%;
+        --popover-foreground: 0 0% 10%;
+        --primary: 0 0% 10%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 0 0% 96%;
+        --secondary-foreground: 0 0% 10%;
+        --muted: 0 0% 96%;
+        --muted-foreground: 0 0% 45%;
+        --accent: 174 72% 41%;
         --accent-foreground: 0 0% 100%;
         --destructive: 0 84% 60%;
         --destructive-foreground: 0 0% 98%;
-        --border: 214 32% 91%;
-        --input: 214 32% 91%;
-        --ring: 199 89% 48%;
-        --chart-1: 12 76% 61%;
-        --chart-2: 173 58% 39%;
-        --chart-3: 197 37% 24%;
-        --chart-4: 43 74% 66%;
-        --chart-5: 27 87% 67%;
+        --border: 0 0% 85%;
+        --input: 0 0% 85%;
+        --ring: 174 72% 41%;
+        --chart-1: 174 72% 41%;
+        --chart-2: 0 0% 40%;
+        --chart-3: 0 0% 25%;
+        --chart-4: 174 50% 50%;
+        --chart-5: 0 0% 60%;
         --radius: 0.5rem;
+        
+        /* Batik Theme Colors */
+        --batik-black: #1a1a1a;
+        --batik-charcoal: #2d2d2d;
+        --batik-dark-grey: #404040;
+        --batik-grey: #6b6b6b;
+        --batik-mid-grey: #9a9a9a;
+        --batik-light-grey: #d4d4d4;
+        --batik-off-white: #f5f5f5;
+        --batik-white: #ffffff;
+        --turquoise: #20b2aa;
+        --turquoise-light: #40e0d0;
+        --turquoise-dark: #008b8b;
     }
 }
 
@@ -59,26 +80,94 @@ code {
     }
 }
 
-/* Custom scrollbar */
+/* ===============================================
+   Batik Pattern Decorative Elements
+   =============================================== */
+
+/* Top page batik border */
+#root > div::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    #1a1a1a 0px,
+    #1a1a1a 10px,
+    #6b6b6b 10px,
+    #6b6b6b 14px,
+    #ffffff 14px,
+    #ffffff 16px,
+    #6b6b6b 16px,
+    #6b6b6b 20px,
+    #20b2aa 20px,
+    #20b2aa 26px,
+    #6b6b6b 26px,
+    #6b6b6b 30px,
+    #ffffff 30px,
+    #ffffff 32px,
+    #6b6b6b 32px,
+    #6b6b6b 36px,
+    #1a1a1a 36px,
+    #1a1a1a 46px
+  );
+  z-index: 9999;
+}
+
+/* Side batik accent */
+#root > div > aside::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 3px;
+  background: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 20px,
+    #20b2aa 20px,
+    #20b2aa 25px,
+    transparent 25px,
+    transparent 45px,
+    #6b6b6b 45px,
+    #6b6b6b 48px,
+    transparent 48px,
+    transparent 68px
+  );
+  opacity: 0.6;
+}
+
+/* ===============================================
+   Custom Scrollbar with Batik Style
+   =============================================== */
+
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #F1F5F9;
+    background: #f5f5f5;
+    border-left: 1px solid #d4d4d4;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #CBD5E1;
-    border-radius: 4px;
+    background: linear-gradient(180deg, #6b6b6b, #404040);
+    border-radius: 5px;
+    border: 2px solid #f5f5f5;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #94A3B8;
+    background: linear-gradient(180deg, #20b2aa, #008b8b);
 }
 
-/* Animations */
+/* ===============================================
+   Animations
+   =============================================== */
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
@@ -95,6 +184,11 @@ code {
     100% { transform: scale(0.95); opacity: 0.7; }
 }
 
+@keyframes batik-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
 .animate-fade-in {
     animation: fadeIn 0.4s ease-out forwards;
 }
@@ -103,27 +197,120 @@ code {
     animation: slideIn 0.3s ease-out forwards;
 }
 
-/* Match score colors */
-.match-excellent { color: #10B981; }
-.match-good { color: #0EA5E9; }
-.match-fair { color: #F59E0B; }
-.match-low { color: #F43F5E; }
+/* ===============================================
+   Match Score Colors
+   =============================================== */
 
-/* Card hover effects */
+.match-excellent { color: #20b2aa; }
+.match-good { color: #40e0d0; }
+.match-fair { color: #6b6b6b; }
+.match-low { color: #9a9a9a; }
+
+/* ===============================================
+   Card Effects
+   =============================================== */
+
 .job-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.25s ease;
+    border: 1px solid #e5e5e5;
+    position: relative;
+}
+
+.job-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(180deg, #20b2aa, #40e0d0);
+    transition: width 0.25s ease;
+    border-radius: 8px 0 0 8px;
 }
 
 .job-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px -5px rgba(32, 178, 170, 0.2);
+    border-color: #20b2aa;
 }
 
-/* Glass effect for header */
+.job-card:hover::before {
+    width: 4px;
+}
+
+/* ===============================================
+   Glass Header with Batik Accent
+   =============================================== */
+
 .glass-header {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.glass-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        #d4d4d4 10%,
+        #20b2aa 30%,
+        #20b2aa 70%,
+        #d4d4d4 90%,
+        transparent 100%
+    );
+    opacity: 0.5;
+}
+
+/* ===============================================
+   Selection Highlight
+   =============================================== */
+
+::selection {
+    background: rgba(32, 178, 170, 0.3);
+    color: #1a1a1a;
+}
+
+/* ===============================================
+   Focus States
+   =============================================== */
+
+*:focus-visible {
+    outline: 2px solid #20b2aa;
+    outline-offset: 2px;
+}
+
+/* ===============================================
+   Button Enhancements
+   =============================================== */
+
+button {
+    position: relative;
+    overflow: hidden;
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(32, 178, 170, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+button:active::after {
+    width: 200px;
+    height: 200px;
 }
 
 @layer base {
