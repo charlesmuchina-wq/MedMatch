@@ -1,99 +1,94 @@
-# MedMatch - AI-Powered Remote Job Finder PRD
+# MedMatch - Remote Job Finder with AI Matching
 
 ## Original Problem Statement
-Create an app that uses a resume to find remote jobs, with focus on Quality, Medical Device, Lead Auditor, and Manufacturing roles.
+Create an application that uses the user's resume to find remote jobs that match their skills and experience. The app should parse resumes, search multiple job sources, use AI for matching, and provide features like email alerts and cover letter generation.
 
-## User Profile
-- **Name**: Charles Muchina
-- **Role**: Quality Assurance / Supplier Quality Professional
-- **Industry**: Medical Device, Pharmaceutical, Manufacturing
+## User Personas
+- **Job Seekers**: Professionals in Quality/Medical Device fields looking for remote positions
+- **Target Roles**: Supplier Quality Manager, Quality Director, Lead Auditor, Medical Device professionals
 
-## Architecture
-- **Backend**: FastAPI + MongoDB + JobSpy + Google CSE
-- **Frontend**: React + Tailwind CSS + Shadcn UI
-- **AI**: OpenAI GPT-5.2 via Emergent integrations
+## Core Requirements
+- ✅ Resume upload and AI-powered parsing
+- ✅ Multi-source job search (RemoteOK, Remotive, Jobicy, Arbeitnow, Himalayas)
+- ✅ JobSpy integration for LinkedIn, Indeed, Glassdoor
+- ✅ Google Custom Search Engine integration
+- ✅ AI-powered job matching and relevance scoring
+- ✅ Save/bookmark jobs
+- ✅ Application tracking with status updates
+- ✅ Email alerts for matching jobs
+- ✅ Daily Digest - new jobs from last 24 hours only
+- ✅ AI Cover Letter Generator
+
+## Tech Stack
+- **Backend**: FastAPI (Python) with MongoDB (motor)
+- **Frontend**: React with shadcn/ui components
+- **AI**: Emergent LLM Key (GPT models via litellm)
 - **Email**: Gmail SMTP
 
-## Job Sources (12 Total!)
+## Architecture
 
-### Google Custom Search API
-1. Indeed (Google)
-2. LinkedIn (Google)
-3. Glassdoor (Google)
-4. ZipRecruiter (Google)
+### Backend (`/app/backend/server.py`)
+- FastAPI with APIRouter prefixed with `/api`
+- MongoDB collections: resumes, jobs, saved_jobs, applications, alerts, digest_settings, cover_letters
+- Async job fetching from multiple sources
 
-### JobSpy Scraper
-5. Indeed (JobSpy)
-6. LinkedIn (JobSpy)
-7. Glassdoor (JobSpy)
-8. ZipRecruiter (JobSpy)
+### Frontend (`/app/frontend/src/`)
+```
+├── App.js                    # Main routing (287 lines - refactored)
+├── App.css                   # Global styles
+├── pages/
+│   ├── Dashboard.jsx         # Overview with stats
+│   ├── ResumePage.jsx        # Resume upload with dropzone
+│   ├── JobSearchPage.jsx     # Job search with filters
+│   ├── SavedJobsPage.jsx     # Saved jobs list
+│   ├── ApplicationsPage.jsx  # Application tracker
+│   ├── JobAlertsPage.jsx     # Email alerts & daily digest
+│   └── CoverLetterPage.jsx   # AI cover letter generator
+└── components/
+    ├── ui/                   # shadcn components
+    └── shared/
+        └── JobCard.jsx       # Reusable job card component
+```
 
-### Free APIs
-9. RemoteOK
-10. Remotive
-11. Jobicy
-12. Arbeitnow
-13. Himalayas
+## Key API Endpoints
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/resume` | GET | Get user's resume |
+| `/api/resume/upload` | POST | Upload and parse resume |
+| `/api/jobs/search` | GET | Search jobs with filters |
+| `/api/jobs/deep-search` | POST | AI-powered comprehensive search |
+| `/api/jobs/google-search` | GET | Google CSE job search |
+| `/api/jobs/save` | POST | Save a job |
+| `/api/jobs/saved` | GET | Get saved jobs |
+| `/api/applications` | GET/POST | Manage applications |
+| `/api/applications/{id}` | PUT/DELETE | Update/delete application |
+| `/api/alerts/send-now` | POST | Send immediate job alert |
+| `/api/digest/send-daily` | POST | Send daily digest |
+| `/api/cover-letter/generate` | POST | Generate AI cover letter |
+| `/api/cover-letter/history` | GET | Get cover letter history |
 
-## Features Implemented (All ✅)
+## Implementation Status
 
-### Core Features
-- [x] Resume PDF upload with AI parsing (GPT-5.2)
-- [x] Skills extraction (37+ skills)
-- [x] AI-powered job matching with match scores
-- [x] Save/bookmark jobs
-- [x] Application tracking (Applied, Interview, Offer, Rejected)
-- [x] Email alerts via Gmail SMTP
+### Completed Features (January 2026)
+1. ✅ **Core MVP** - Resume upload, parsing, job search
+2. ✅ **Multi-source Integration** - 6+ job boards + Google CSE
+3. ✅ **AI Features** - Job matching, relevance scoring, cover letter generation
+4. ✅ **User Management** - Save jobs, track applications, status updates
+5. ✅ **Email Features** - Real-time alerts, daily digest (no duplicates)
+6. ✅ **Code Refactoring** - App.js reduced from 1491 to 287 lines
 
-### Search Features
-- [x] **10 Quick Search Presets**:
-  - Supplier Quality Manager/Director
-  - Quality Manager/Director
-  - Lead Auditor
-  - Medical Device
-  - Manufacturing Quality
-  - Regulatory Compliance
-  - ISO Auditor
-  - FDA Compliance
-- [x] **AI Deep Search** - GPT-5.2 generates optimized queries
-- [x] **Google CSE Integration** - Searches entire web for jobs
-- [x] **TheirStack-inspired Advanced Filters**:
-  - Industries: Medical Devices, Pharmaceutical, Healthcare, Biotechnology, Manufacturing
-  - Technologies: ISO 13485, ISO 9001, FDA 21 CFR 820, EU MDR
-
-### Filters
-- [x] Date posted (24h, 3d, 7d, 14d, 30d)
-- [x] Location (USA, Europe, UK, Canada, Germany, Remote, Worldwide)
-- [x] Source (All, Google CSE, RemoteOK, Remotive, Jobicy, etc.)
+### Testing Status
+- **Backend**: 22/22 tests passed (100%)
+- **Frontend**: All 7 pages verified functional
 
 ## Configuration
-```
-GOOGLE_API_KEY=AIzaSyDRwjq6_8sAGrSJEONa27SN9CSZWZtJMYE
-GOOGLE_CSE_ID=e77be7df731ff4fff
-GMAIL_ADDRESS=charles.muchina@gmail.com
-ALERT_RECIPIENT=cmuchina@outlook.com
-```
+- Google CSE credentials in `backend/.env`
+- Gmail app password in `backend/.env`
+- Emergent LLM Key for AI features
 
-## Test Results (Jan 12, 2026)
-- Backend: 89% (17/19)
-- Frontend: 100%
-- Integration: 100%
-- Google CSE: 100% ✅
-- **Overall: 98%**
-
-## Deep Search Results
-- **116+ jobs** found per search
-- **8 unique sources** in results
-- AI-generated search queries for Quality/Medical Device roles
-
-## Prioritized Backlog
-
-### P1 (Important)
-- Scheduled daily/weekly email digests
-- AI cover letter generator
-- Salary comparison tool
-
-### P2 (Nice to Have)
-- Multiple resume profiles
-- Job market trends dashboard
-- Interview preparation tips
+## Future Enhancements (Backlog)
+- [ ] Automated scheduled daily digest (cron job)
+- [ ] Multiple resume profiles
+- [ ] Interview preparation assistant
+- [ ] Salary insights and negotiation tips
+- [ ] LinkedIn profile sync
