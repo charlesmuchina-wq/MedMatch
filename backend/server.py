@@ -2208,6 +2208,299 @@ async def create_manual_job(job: ManualJobCreate):
     )
     return new_job
 
+# ============== INTERVIEW PREPARATION ENDPOINTS ==============
+
+class InterviewQuestionsRequest(BaseModel):
+    job_title: str
+    company: str = ""
+    resume_skills: List[str] = []
+
+class InterviewAnswerRequest(BaseModel):
+    question: str
+    job_title: str
+    company: str = ""
+
+class StarPolishRequest(BaseModel):
+    question: str
+    situation: str
+    task: str
+    action: str
+    result: str
+
+class CompanyResearchRequest(BaseModel):
+    company: str
+
+class MockFeedbackRequest(BaseModel):
+    answers: List[Dict[str, Any]]
+    job_title: str
+
+@api_router.post("/interview/generate-questions")
+async def generate_interview_questions(request: InterviewQuestionsRequest):
+    """Generate tailored interview questions based on job title and skills"""
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="LLM not configured")
+    
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=str(uuid.uuid4()),
+        system_message="""You are an expert interview coach. Generate realistic interview questions for the given job role.
+
+Return ONLY valid JSON array with this structure:
+[
+    {
+        "text": "<question text>",
+        "category": "<behavioral|technical|situational|company>",
+        "difficulty": "<easy|medium|hard>"
+    }
+]
+
+Generate 10-12 questions covering:
+- 3-4 behavioral questions (STAR method appropriate)
+- 3-4 technical/role-specific questions
+- 2-3 situational questions
+- 2 company fit questions
+
+Make questions specific to the role and industry."""
+    )
+    
+    skills_text = ", ".join(request.resume_skills[:15]) if request.resume_skills else "Not provided"
+    
+    user_message = UserMessage(
+        text=f"Generate interview questions for: {request.job_title}\nCompany: {request.company or 'General'}\nCandidate Skills: {skills_text}"
+    )
+    
+    try:
+        response = await chat.send_message(user_message)
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        questions = json.loads(clean_response)
+        return {"questions": questions}
+    except Exception as e:
+        logging.error(f"Question generation error: {e}")
+        # Return default questions
+        return {"questions": [
+            {"text": f"Tell me about your experience relevant to {request.job_title}.", "category": "behavioral", "difficulty": "easy"},
+            {"text": "Describe a challenging project you've worked on.", "category": "behavioral", "difficulty": "medium"},
+            {"text": "How do you prioritize tasks when facing multiple deadlines?", "category": "situational", "difficulty": "medium"},
+            {"text": "Where do you see yourself in 5 years?", "category": "company", "difficulty": "easy"},
+            {"text": "What's your greatest professional achievement?", "category": "behavioral", "difficulty": "medium"},
+        ]}
+
+@api_router.post("/interview/generate-answer")
+async def generate_interview_answer(request: InterviewAnswerRequest):
+    """Generate a suggested answer based on the question and context"""
+    resume_doc = await db.resumes.find_one({}, {"_id": 0})
+    if not resume_doc:
+        raise HTTPException(status_code=404, detail="Please upload your resume first")
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="LLM not configured")
+    
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=str(uuid.uuid4()),
+        system_message="""You are an expert interview coach. Generate a strong, personalized answer to the interview question using the candidate's background.
+
+Return ONLY valid JSON with this structure:
+{
+    "answer": "<2-3 paragraph answer>",
+    "key_points": ["<point 1>", "<point 2>", "<point 3>"],
+    "tips": "<one specific tip for delivery>"
+}
+
+Make the answer:
+- Specific and uses examples from their experience
+- Professional but conversational tone
+- Includes relevant metrics/outcomes where applicable
+- 1-2 minutes when spoken aloud"""
+    )
+    
+    skills_text = ", ".join(resume_doc.get('skills', [])[:15])
+    experience_text = "\n".join([
+        f"- {exp.get('title', '')} at {exp.get('company', '')}"
+        for exp in resume_doc.get('experience', [])[:3]
+    ])
+    
+    user_message = UserMessage(
+        text=f"""Question: {request.question}
+
+Role: {request.job_title}
+Company: {request.company or 'Not specified'}
+
+Candidate Background:
+Skills: {skills_text}
+Experience:
+{experience_text}
+Summary: {resume_doc.get('summary', 'Not provided')}"""
+    )
+    
+    try:
+        response = await chat.send_message(user_message)
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        return json.loads(clean_response)
+    except Exception as e:
+        logging.error(f"Answer generation error: {e}")
+        return {
+            "answer": "I would be happy to answer this question. Based on my experience...",
+            "key_points": ["Highlight relevant experience", "Use specific examples", "Show enthusiasm"],
+            "tips": "Practice this answer out loud to refine your delivery."
+        }
+
+@api_router.post("/interview/polish-star")
+async def polish_star_answer(request: StarPolishRequest):
+    """Polish a STAR method answer"""
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="LLM not configured")
+    
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=str(uuid.uuid4()),
+        system_message="""You are an expert interview coach. Take the candidate's STAR method components and create a polished, professional answer.
+
+Return ONLY valid JSON with this structure:
+{
+    "answer": "<polished 2-3 paragraph answer flowing naturally through S-T-A-R>",
+    "key_points": ["<strength 1>", "<strength 2>"],
+    "tips": "<delivery tip>"
+}
+
+Make it:
+- Flow naturally without explicitly saying "Situation, Task, Action, Result"
+- Sound conversational but professional
+- Include specific details and metrics where provided
+- Be 1-2 minutes when spoken"""
+    )
+    
+    user_message = UserMessage(
+        text=f"""Question: {request.question}
+
+Candidate's STAR Components:
+SITUATION: {request.situation}
+TASK: {request.task}
+ACTION: {request.action}
+RESULT: {request.result}
+
+Polish this into a compelling interview answer."""
+    )
+    
+    try:
+        response = await chat.send_message(user_message)
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        return json.loads(clean_response)
+    except Exception as e:
+        logging.error(f"STAR polish error: {e}")
+        return {
+            "answer": f"{request.situation} {request.task} {request.action} {request.result}",
+            "key_points": ["Good structure", "Add more specific details"],
+            "tips": "Practice delivering this naturally."
+        }
+
+@api_router.post("/interview/research-company")
+async def research_company(request: CompanyResearchRequest):
+    """Generate company research insights for interview prep"""
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="LLM not configured")
+    
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=str(uuid.uuid4()),
+        system_message="""You are an expert career coach. Provide helpful company research for interview preparation.
+
+Return ONLY valid JSON with this structure:
+{
+    "overview": "<2-3 sentence company overview>",
+    "culture": "<company culture insights>",
+    "interview_tips": ["<tip 1>", "<tip 2>", "<tip 3>"],
+    "questions_to_ask": ["<question 1>", "<question 2>", "<question 3>"],
+    "values": ["<value 1>", "<value 2>", "<value 3>"]
+}
+
+Be helpful and provide actionable insights for interview prep."""
+    )
+    
+    user_message = UserMessage(
+        text=f"Provide interview preparation research for: {request.company}"
+    )
+    
+    try:
+        response = await chat.send_message(user_message)
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        return json.loads(clean_response)
+    except Exception as e:
+        logging.error(f"Company research error: {e}")
+        return {
+            "overview": f"{request.company} is a notable company in their industry.",
+            "culture": "Research their website and LinkedIn for culture insights.",
+            "interview_tips": ["Research recent company news", "Understand their products/services", "Know their mission statement"],
+            "questions_to_ask": ["What does success look like in this role?", "How would you describe the team culture?", "What are the growth opportunities?"],
+            "values": ["Innovation", "Excellence", "Collaboration"]
+        }
+
+@api_router.post("/interview/mock-feedback")
+async def get_mock_interview_feedback(request: MockFeedbackRequest):
+    """Get AI feedback on mock interview answers"""
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="LLM not configured")
+    
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=str(uuid.uuid4()),
+        system_message="""You are an expert interview coach providing feedback on mock interview answers.
+
+Return ONLY valid JSON with this structure:
+{
+    "overall_score": <0-100>,
+    "strengths": ["<strength 1>", "<strength 2>", "<strength 3>"],
+    "improvements": ["<improvement 1>", "<improvement 2>", "<improvement 3>"],
+    "question_feedback": [
+        {"question_num": 1, "score": <0-100>, "feedback": "<brief feedback>"}
+    ]
+}
+
+Be constructive and specific in feedback."""
+    )
+    
+    answers_text = "\n\n".join([
+        f"Q{i+1}: {a['question'].get('text', a['question'])}\nAnswer: {a['answer']}"
+        for i, a in enumerate(request.answers)
+    ])
+    
+    user_message = UserMessage(
+        text=f"Role: {request.job_title}\n\nMock Interview Responses:\n{answers_text}\n\nProvide feedback."
+    )
+    
+    try:
+        response = await chat.send_message(user_message)
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        return json.loads(clean_response)
+    except Exception as e:
+        logging.error(f"Mock feedback error: {e}")
+        return {
+            "overall_score": 70,
+            "strengths": ["Completed all questions", "Showed effort"],
+            "improvements": ["Add more specific examples", "Practice STAR method", "Include metrics"],
+            "question_feedback": []
+        }
+
 # Include router
 app.include_router(api_router)
 
