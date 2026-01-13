@@ -1911,6 +1911,133 @@ async def delete_cover_letter(letter_id: str):
         raise HTTPException(status_code=404, detail="Cover letter not found")
     return {"message": "Cover letter deleted"}
 
+# ============== CALLBACK PREDICTION ENDPOINTS ==============
+
+@api_router.post("/jobs/predict-callback")
+async def predict_job_callback(request: CallbackPredictionRequest):
+    """
+    Predict callback probability for a job based on resume match.
+    Uses AI to analyze skills match, experience alignment, competition level, and timing.
+    """
+    # Get resume data
+    resume_doc = await db.resumes.find_one({}, {"_id": 0})
+    if not resume_doc:
+        raise HTTPException(status_code=404, detail="Please upload your resume first")
+    
+    job_data = {
+        "job_title": request.job_title,
+        "company": request.company,
+        "job_description": request.job_description,
+        "job_url": request.job_url,
+        "posted_at": request.posted_at,
+        "location": request.location
+    }
+    
+    # Get AI prediction
+    prediction = await predict_callback_probability(resume_doc, job_data)
+    
+    # Save prediction to history
+    prediction_doc = {
+        "id": str(uuid.uuid4()),
+        "job_title": request.job_title,
+        "company": request.company,
+        "probability_score": prediction.get("probability_score", 0),
+        "probability_label": prediction.get("probability_label", "Unknown"),
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.callback_predictions.insert_one(prediction_doc)
+    
+    return {
+        "probability_score": prediction.get("probability_score", 50),
+        "probability_label": prediction.get("probability_label", "Medium"),
+        "match_breakdown": prediction.get("match_breakdown", {}),
+        "strengths": prediction.get("strengths", []),
+        "gaps": prediction.get("gaps", []),
+        "competition_estimate": prediction.get("competition_estimate", "Unknown"),
+        "competition_reasoning": prediction.get("competition_reasoning", ""),
+        "timing_advice": prediction.get("timing_advice", ""),
+        "recommendations": prediction.get("recommendations", []),
+        "interview_likelihood": prediction.get("interview_likelihood", ""),
+        "key_differentiators": prediction.get("key_differentiators", []),
+        "job_title": request.job_title,
+        "company": request.company
+    }
+
+@api_router.get("/jobs/prediction-history")
+async def get_prediction_history():
+    """Get history of callback predictions"""
+    docs = await db.callback_predictions.find({}, {"_id": 0}).sort("created_at", -1).to_list(50)
+    return docs
+
+@api_router.delete("/jobs/prediction-history/{prediction_id}")
+async def delete_prediction(prediction_id: str):
+    """Delete a prediction from history"""
+    result = await db.callback_predictions.delete_one({"id": prediction_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Prediction not found")
+    return {"message": "Prediction deleted"}
+
+# Quick probability score endpoint (lighter weight for job cards)
+@api_router.post("/jobs/quick-probability")
+async def get_quick_probability(request: CallbackPredictionRequest):
+    """
+    Get a quick callback probability score for display on job cards.
+    Uses a simplified analysis for faster response.
+    """
+    resume_doc = await db.resumes.find_one({}, {"_id": 0})
+    if not resume_doc:
+        return {"probability_score": 0, "probability_label": "Upload Resume", "quick": True}
+    
+    # Calculate a quick score based on keyword matching
+    resume_skills = set([s.lower() for s in resume_doc.get('skills', [])])
+    job_text = f"{request.job_title} {request.job_description}".lower()
+    
+    # Count matching skills
+    matching_skills = sum(1 for skill in resume_skills if skill in job_text)
+    total_skills = len(resume_skills) if resume_skills else 1
+    
+    # Base score from skills match
+    skills_score = min((matching_skills / total_skills) * 100, 100) if total_skills > 0 else 30
+    
+    # Adjust for job freshness
+    freshness_bonus = 0
+    if request.posted_at:
+        try:
+            posted_date = datetime.fromisoformat(request.posted_at.replace('Z', '+00:00'))
+            days_ago = (datetime.now(timezone.utc) - posted_date).days
+            if days_ago <= 1:
+                freshness_bonus = 15
+            elif days_ago <= 3:
+                freshness_bonus = 10
+            elif days_ago <= 7:
+                freshness_bonus = 5
+            elif days_ago > 14:
+                freshness_bonus = -10
+        except:
+            pass
+    
+    # Calculate final score
+    final_score = int(min(max(skills_score + freshness_bonus, 10), 95))
+    
+    # Determine label
+    if final_score >= 75:
+        label = "Very High"
+    elif final_score >= 60:
+        label = "High"
+    elif final_score >= 40:
+        label = "Medium"
+    elif final_score >= 25:
+        label = "Low"
+    else:
+        label = "Very Low"
+    
+    return {
+        "probability_score": final_score,
+        "probability_label": label,
+        "matching_skills": matching_skills,
+        "quick": True
+    }
+
 @api_router.post("/jobs/manual")
 async def create_manual_job(job: ManualJobCreate):
     new_job = Job(
