@@ -5,7 +5,7 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { 
   Search, Briefcase, FileText, Bookmark, CheckSquare, 
-  Menu, X, TrendingUp, Bell, PenTool
+  Menu, X, TrendingUp, Bell, PenTool, Target
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
@@ -19,6 +19,7 @@ import SavedJobsPage from "@/pages/SavedJobsPage";
 import ApplicationsPage from "@/pages/ApplicationsPage";
 import JobAlertsPage from "@/pages/JobAlertsPage";
 import CoverLetterPage from "@/pages/CoverLetterPage";
+import SuccessPredictorPage from "@/pages/SuccessPredictorPage";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -32,6 +33,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { path: "/search", icon: Search, label: "Job Search" },
     { path: "/saved", icon: Bookmark, label: "Saved Jobs" },
     { path: "/applications", icon: CheckSquare, label: "Applications" },
+    { path: "/predictor", icon: Target, label: "Success Predictor" },
     { path: "/cover-letter", icon: PenTool, label: "Cover Letter" },
     { path: "/alerts", icon: Bell, label: "Job Alerts" },
   ];
