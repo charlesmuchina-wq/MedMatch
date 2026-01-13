@@ -21,6 +21,10 @@ import json
 import re
 from concurrent.futures import ThreadPoolExecutor
 
+# APScheduler for automated daily digest
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
+
 # JobSpy - Powerful job scraper for LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter
 try:
     from jobspy import scrape_jobs
