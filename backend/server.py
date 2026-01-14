@@ -298,6 +298,7 @@ class UserRegister(BaseModel):
     email: str
     password: str
     name: str = ""
+    role: str = "job_seeker"  # job_seeker or recruiter
 
 class UserLogin(BaseModel):
     email: str
@@ -305,6 +306,7 @@ class UserLogin(BaseModel):
 
 class PhoneLoginRequest(BaseModel):
     phone_number: str
+    role: str = "job_seeker"
 
 class PhoneVerifyRequest(BaseModel):
     phone_number: str
@@ -318,12 +320,42 @@ class UserResponse(BaseModel):
     email: str
     name: str
     auth_method: str
+    role: str = "job_seeker"
+    membership_status: str = "trial"  # trial, active, expired
+    trial_ends_at: Optional[str] = None
     created_at: str
 
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
     user: UserResponse
+
+# ============== MEMBERSHIP HELPERS ==============
+
+def get_trial_end_date():
+    """Calculate trial end date (15 days from now)"""
+    return (datetime.now(timezone.utc) + timedelta(days=FREE_TRIAL_DAYS)).isoformat()
+
+def check_membership_status(user: dict) -> str:
+    """Check user's membership status"""
+    # Recruiters always have active membership (free)
+    if user.get("role") == "recruiter":
+        return "active"
+    
+    # If user has paid, they have lifetime membership
+    if user.get("membership_status") == "active":
+        return "active"
+    
+    # Check trial period
+    trial_ends = user.get("trial_ends_at")
+    if trial_ends:
+        trial_end_date = datetime.fromisoformat(trial_ends.replace('Z', '+00:00'))
+        if trial_end_date.tzinfo is None:
+            trial_end_date = trial_end_date.replace(tzinfo=timezone.utc)
+        if datetime.now(timezone.utc) < trial_end_date:
+            return "trial"
+    
+    return "expired"
 
 # ============== AUTHENTICATION HELPERS ==============
 
@@ -346,18 +378,26 @@ def create_session_token() -> str:
     """Create a secure session token"""
     return secrets.token_urlsafe(32)
 
-async def get_or_create_user(email: str, name: str, auth_method: str) -> dict:
+async def get_or_create_user(email: str, name: str, auth_method: str, role: str = "job_seeker") -> dict:
     """Get existing user or create new one"""
     existing = await db.users.find_one({"email": email}, {"_id": 0})
     if existing:
         return existing
     
     user_id = f"user_{uuid.uuid4().hex[:12]}"
+    
+    # Recruiters get free active membership, job seekers get trial
+    membership_status = "active" if role == "recruiter" else "trial"
+    trial_ends_at = None if role == "recruiter" else get_trial_end_date()
+    
     user = {
         "user_id": user_id,
         "email": email,
         "name": name,
         "auth_method": auth_method,
+        "role": role,
+        "membership_status": membership_status,
+        "trial_ends_at": trial_ends_at,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "updated_at": datetime.now(timezone.utc).isoformat()
     }
