@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "sonner";
-import { PenTool, Copy, Download, History, ChevronRight, Sparkles, Loader2 } from "lucide-react";
+import { PenTool, Copy, Download, History, ChevronRight, Sparkles, Loader2, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
