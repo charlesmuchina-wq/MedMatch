@@ -194,6 +194,14 @@ const VoiceCoachPage = ({ resume }) => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [isSessionActive, setIsSessionActive] = useState(false);
   const timerRef = useRef(null);
+  
+  // Audio recording state
+  const [audioURL, setAudioURL] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [recordingHistory, setRecordingHistory] = useState([]);
+  const mediaRecorderRef = useRef(null);
+  const audioChunksRef = useRef([]);
+  const audioRef = useRef(null);
 
   // Load questions on mount
   useEffect(() => {
