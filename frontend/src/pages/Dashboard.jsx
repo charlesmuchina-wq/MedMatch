@@ -77,14 +77,14 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate }) => {
             </CardHeader>
             <CardContent>
               {applications.length === 0 ? (
-                <p className="text-slate-500 text-sm">No applications yet</p>
+                <p className="text-slate-500 dark:text-slate-400 text-sm">No applications yet</p>
               ) : (
                 <div className="space-y-3">
                   {applications.slice(0, 3).map((app) => (
                     <div key={app.id} className="flex items-center justify-between">
                       <div>
-                        <p className="font-medium text-slate-900 text-sm">{app.job.title}</p>
-                        <p className="text-xs text-slate-500">{app.job.company}</p>
+                        <p className="font-medium text-slate-900 dark:text-slate-100 text-sm">{app.job.title}</p>
+                        <p className="text-xs text-slate-500 dark:text-slate-400">{app.job.company}</p>
                       </div>
                       <Badge className={`status-${app.status.toLowerCase()}`}>{app.status}</Badge>
                     </div>
