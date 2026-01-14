@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { useTheme } from "@/App";
 import { 
   Mail, Phone, Lock, User, Loader2, ArrowRight, Eye, EyeOff,
-  Chrome, Apple, Smartphone
+  Smartphone
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
