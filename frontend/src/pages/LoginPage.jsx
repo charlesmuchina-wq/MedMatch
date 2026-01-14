@@ -90,8 +90,33 @@ const LoginPage = ({ onAuthSuccess }) => {
     window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
   };
 
-  const handleAppleLogin = () => {
-    toast.info("Apple Sign-In requires additional setup. Contact support for Apple Developer credentials.");
+  const handleAppleLogin = async () => {
+    try {
+      // Load Apple Sign In configuration
+      const configResponse = await axios.get(`${API}/api/auth/apple/config`);
+      const config = configResponse.data;
+      
+      // Build Apple authorization URL
+      const params = new URLSearchParams({
+        client_id: config.client_id,
+        redirect_uri: `${window.location.origin}/login`,
+        response_type: config.response_type,
+        response_mode: config.response_mode,
+        scope: config.scope,
+        state: Math.random().toString(36).substring(7)
+      });
+      
+      // Open Apple Sign In in popup or redirect
+      const appleAuthUrl = `https://appleid.apple.com/auth/authorize?${params.toString()}`;
+      window.location.href = appleAuthUrl;
+      
+    } catch (e) {
+      if (e.response?.status === 500) {
+        toast.error("Apple Sign-In not configured. Contact admin.");
+      } else {
+        toast.error("Failed to start Apple Sign-In");
+      }
+    }
   };
 
   const handleEmailSubmit = async (e) => {
