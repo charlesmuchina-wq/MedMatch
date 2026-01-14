@@ -1173,6 +1173,35 @@ async def get_recruiter_jobs(request: Request):
     
     return jobs
 
+@api_router.put("/recruiter/jobs/{job_id}")
+async def update_job_posting(job_id: str, job: JobPosting, request: Request):
+    """Update a job posting"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if user.get("role") != "recruiter":
+        raise HTTPException(status_code=403, detail="Only recruiters can update jobs")
+    
+    result = await db.posted_jobs.update_one(
+        {"id": job_id, "recruiter_id": user["user_id"]},
+        {"$set": {
+            "title": job.title,
+            "company": job.company,
+            "location": job.location,
+            "description": job.description,
+            "salary": job.salary,
+            "url": job.url,
+            "tags": job.tags,
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        }}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Job not found or not authorized")
+    
+    return {"message": "Job updated successfully"}
+
 @api_router.delete("/recruiter/jobs/{job_id}")
 async def delete_job_posting(job_id: str, request: Request):
     """Delete a job posting"""
