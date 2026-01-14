@@ -274,14 +274,16 @@ function AppContent() {
     
     const fetchData = async () => {
       try {
-        const [resumeRes, savedRes, appsRes] = await Promise.all([
+        const [resumeRes, savedRes, appsRes, membershipRes] = await Promise.all([
           axios.get(`${API}/resume`),
           axios.get(`${API}/jobs/saved`),
-          axios.get(`${API}/applications`)
+          axios.get(`${API}/applications`),
+          axios.get(`${API}/membership/status`, { withCredentials: true })
         ]);
         if (resumeRes.data) setResume(resumeRes.data);
         setSavedJobs(savedRes.data);
         setApplications(appsRes.data);
+        setMembership(membershipRes.data);
       } catch (e) {
         console.error("Failed to fetch data:", e);
       }
