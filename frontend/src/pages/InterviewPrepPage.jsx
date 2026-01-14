@@ -214,6 +214,43 @@ const InterviewPrepPage = ({ resume }) => {
     toast.success("Copied to clipboard!");
   };
 
+  const exportToPDF = async () => {
+    if (questions.length === 0) {
+      toast.error("Generate questions first");
+      return;
+    }
+    
+    try {
+      toast.info("Generating PDF...");
+      const response = await axios.post(`${API}/export/interview-prep-html`, {
+        job_title: jobTitle,
+        company: company || "General",
+        questions: questions.map(q => ({
+          text: q.text || q,
+          category: q.category || "General",
+          difficulty: q.difficulty || "medium",
+          suggested_answer: generatedAnswer?.answer || ""
+        })),
+        candidate_name: resume?.full_name || '',
+        notes: ""
+      });
+      
+      // Open HTML in new window and trigger print (save as PDF)
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(response.data.html);
+      printWindow.document.close();
+      printWindow.focus();
+      
+      setTimeout(() => {
+        printWindow.print();
+      }, 500);
+      
+      toast.success("PDF ready! Use 'Save as PDF' in the print dialog.");
+    } catch (e) {
+      toast.error("Failed to generate PDF");
+    }
+  };
+
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-6xl mx-auto animate-fade-in" data-testid="interview-prep-page">
       <div className="mb-8">
