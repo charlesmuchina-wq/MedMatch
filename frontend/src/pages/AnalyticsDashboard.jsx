@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "sonner";
+import { useTheme } from "@/App";
 import { 
   BarChart3, TrendingUp, TrendingDown, Calendar, Target, 
   CheckCircle2, XCircle, Clock, Building2, Briefcase,
