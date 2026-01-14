@@ -236,9 +236,38 @@ function AppContent() {
   const [savedJobs, setSavedJobs] = useState([]);
   const [applications, setApplications] = useState([]);
   const [applyDialogJob, setApplyDialogJob] = useState(null);
+  const [user, setUser] = useState(null);
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
   const { isDark } = useTheme();
+  const location = useLocation();
+
+  // Check for OAuth callback (session_id in hash) 
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash && hash.includes('session_id=')) {
+      // Don't check auth yet, let the login page handle it
+      setIsAuthChecking(false);
+      return;
+    }
+    
+    // Check authentication
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get(`${API}/auth/me`, { withCredentials: true });
+        if (response.data?.user_id) {
+          setUser(response.data);
+        }
+      } catch (e) {
+        // Not authenticated
+      }
+      setIsAuthChecking(false);
+    };
+    checkAuth();
+  }, []);
 
   useEffect(() => {
+    if (!user) return;
+    
     const fetchData = async () => {
       try {
         const [resumeRes, savedRes, appsRes] = await Promise.all([
@@ -254,7 +283,24 @@ function AppContent() {
       }
     };
     fetchData();
-  }, []);
+  }, [user]);
+
+  const handleAuthSuccess = (userData) => {
+    setUser(userData);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(`${API}/auth/logout`, {}, { withCredentials: true });
+    } catch (e) {
+      // Continue logout anyway
+    }
+    setUser(null);
+    setResume(null);
+    setSavedJobs([]);
+    setApplications([]);
+    toast.success("Signed out successfully");
+  };
 
   const handleSaveJob = async (job) => {
     try {
