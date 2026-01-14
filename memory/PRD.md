@@ -139,12 +139,23 @@ Create a comprehensive job search application where users can upload their resum
 ✅ PremiumGate component - blocks expired users from premium features
 ✅ Onboarding Tour - guides first-time users through features
 ✅ Recruiter Job Posting UI - fully functional
+✅ Quick Actions Widget - personalized dashboard shortcuts
+✅ PWA Support - installable as desktop/mobile app
+✅ Cloud Storage Upload - Google Drive, Dropbox, OneDrive integration (UI ready)
+
+## New Features (Jan 14, 2026)
+- **Quick Actions Widget** - Smart dashboard shortcuts based on user activity
+- **PWA/Desktop App** - App is installable on Windows/Mac/Mobile with offline support
+- **Cloud Storage Import** - Resume upload from Google Drive, Dropbox, OneDrive
+- **Contextual Tooltips** - Helpful tips for first-time users
+- **Install Prompt** - Encourages users to install the app
 
 ## Upcoming Tasks
-- [ ] User onboarding improvements (contextual tooltips)
+- [ ] Configure cloud storage API keys (Google, Dropbox, OneDrive)
+- [ ] Native Windows widget (requires Electron/MSIX packaging)
+- [ ] Complete server.py refactoring (guide created)
 
 ## Future Tasks / Backlog
 - [ ] Salary insights and negotiation tips
 - [ ] LinkedIn profile sync
-- [ ] Refactor server.py into modular routes
 - [ ] PayPal integration (deprioritized)
