@@ -306,6 +306,21 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
                     {analyzing ? <><Loader2 className="w-4 h-4 mr-1 animate-spin" /> Analyzing...</> : "Analyze Match"}
                   </Button>
                 )}
+                {job.url && !verifiedStatus && (
+                  <Button
+                    variant="outline" size="sm"
+                    onClick={handleVerifyStatus}
+                    disabled={verifyingStatus}
+                    data-testid={`verify-status-btn-${job.id}`}
+                    className="text-slate-600 dark:text-slate-300"
+                  >
+                    {verifyingStatus ? (
+                      <><Loader2 className="w-4 h-4 mr-1 animate-spin" /> Checking...</>
+                    ) : (
+                      <><CheckCircle2 className="w-4 h-4 mr-1" /> Verify Status</>
+                    )}
+                  </Button>
+                )}
                 <Button 
                   variant={isSaved ? "secondary" : "outline"}
                   size="sm"
@@ -320,7 +335,7 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
                 </Button>
                 {job.url && (
                   <a href={job.url} target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm text-sky-600 hover:text-sky-700">
+                    className="inline-flex items-center gap-1 text-sm text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300">
                     View Original <ExternalLink className="w-3 h-3" />
                   </a>
                 )}
