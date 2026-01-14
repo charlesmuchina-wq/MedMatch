@@ -2889,6 +2889,78 @@ async def update_job_status(app_id: str, job_status: str):
         raise HTTPException(status_code=404, detail="Application not found")
     return {"message": "Job status updated"}
 
+@api_router.post("/jobs/verify-status")
+async def verify_job_status(data: dict):
+    """Verify if a job posting is still available by checking the URL"""
+    job_url = data.get("url", "")
+    if not job_url:
+        return {"status": "Unknown", "reason": "No URL provided"}
+    
+    # Keywords that indicate a job is closed
+    closed_indicators = [
+        "job has been filled",
+        "position has been filled",
+        "no longer accepting",
+        "this job is closed",
+        "job is no longer available",
+        "expired",
+        "this position has been filled",
+        "job posting has expired",
+        "application closed",
+        "we are no longer accepting applications",
+        "this role has been filled",
+        "position is no longer open",
+        "job removed",
+        "listing has expired",
+        "this job has been removed"
+    ]
+    
+    # Keywords that indicate job is still active
+    active_indicators = [
+        "apply now",
+        "submit application",
+        "apply for this job",
+        "easy apply",
+        "apply on company site"
+    ]
+    
+    try:
+        async with httpx.AsyncClient(timeout=15.0, follow_redirects=True) as client:
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+            }
+            response = await client.get(job_url, headers=headers)
+            
+            # Check for 404 or other error status codes
+            if response.status_code == 404:
+                return {"status": "Closed", "reason": "Page not found (404)"}
+            if response.status_code >= 400:
+                return {"status": "Unknown", "reason": f"HTTP error: {response.status_code}"}
+            
+            # Check page content for indicators
+            content_lower = response.text.lower()
+            
+            # Check for closed indicators
+            for indicator in closed_indicators:
+                if indicator in content_lower:
+                    return {"status": "Closed", "reason": f"Found: '{indicator}'"}
+            
+            # Check for active indicators
+            for indicator in active_indicators:
+                if indicator in content_lower:
+                    return {"status": "Active", "reason": f"Found: '{indicator}'"}
+            
+            # If page loads but no clear indicators, assume active
+            return {"status": "Active", "reason": "Page accessible, no closed indicators found"}
+            
+    except httpx.TimeoutException:
+        return {"status": "Unknown", "reason": "Request timed out"}
+    except httpx.ConnectError:
+        return {"status": "Unknown", "reason": "Could not connect to server"}
+    except Exception as e:
+        logging.error(f"Error verifying job status: {e}")
+        return {"status": "Unknown", "reason": str(e)}
+
 @api_router.delete("/applications/{app_id}")
 async def delete_application(app_id: str):
     result = await db.applications.delete_one({"id": app_id})
