@@ -145,10 +145,10 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-4 mb-3">
               <div>
-                <h3 className="font-semibold text-slate-900 text-lg leading-tight" style={{ fontFamily: 'IBM Plex Sans' }}>
+                <h3 className="font-semibold text-slate-900 dark:text-slate-100 text-lg leading-tight" style={{ fontFamily: 'IBM Plex Sans' }}>
                   {job.title}
                 </h3>
-                <div className="flex items-center gap-2 mt-1 text-slate-600">
+                <div className="flex items-center gap-2 mt-1 text-slate-600 dark:text-slate-400">
                   <Building2 className="w-4 h-4" />
                   <span className="text-sm">{job.company}</span>
                 </div>
@@ -157,7 +157,7 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
                 {matchData && <MatchScoreRing score={matchData.match_score} />}
                 {!matchData && job.relevance_score > 0 && (
                   <div className="flex flex-col items-center">
-                    <span className="text-xs text-slate-400">Relevance</span>
+                    <span className="text-xs text-slate-400 dark:text-slate-500">Relevance</span>
                     <span className={`text-lg font-semibold ${
                       job.relevance_score >= 50 ? 'text-emerald-500' : 
                       job.relevance_score >= 30 ? 'text-sky-500' : 
@@ -172,7 +172,7 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
               </div>
             </div>
             
-            <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500 mb-3">
+            <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
               <span className="flex items-center gap-1">
                 <MapPin className="w-4 h-4" />
                 {job.location}
