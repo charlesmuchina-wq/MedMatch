@@ -460,6 +460,13 @@ async def register_user(user_data: UserRegister, response: Response):
     if existing:
         raise HTTPException(status_code=400, detail="Email already registered")
     
+    # Validate role
+    role = user_data.role if user_data.role in ["job_seeker", "recruiter"] else "job_seeker"
+    
+    # Recruiters get free active membership, job seekers get 15-day trial
+    membership_status = "active" if role == "recruiter" else "trial"
+    trial_ends_at = None if role == "recruiter" else get_trial_end_date()
+    
     # Create user
     user_id = f"user_{uuid.uuid4().hex[:12]}"
     user = {
@@ -468,6 +475,9 @@ async def register_user(user_data: UserRegister, response: Response):
         "name": user_data.name or user_data.email.split('@')[0],
         "password_hash": hash_password(user_data.password),
         "auth_method": "email",
+        "role": role,
+        "membership_status": membership_status,
+        "trial_ends_at": trial_ends_at,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "updated_at": datetime.now(timezone.utc).isoformat()
     }
@@ -496,6 +506,9 @@ async def register_user(user_data: UserRegister, response: Response):
             "email": user_data.email,
             "name": user["name"],
             "auth_method": "email",
+            "role": role,
+            "membership_status": membership_status,
+            "trial_ends_at": trial_ends_at,
             "created_at": user["created_at"]
         }
     }
