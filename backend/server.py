@@ -60,6 +60,15 @@ TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
 TWILIO_VERIFY_SERVICE = os.environ.get('TWILIO_VERIFY_SERVICE')
 
+# Payment Configuration
+STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY')
+PAYPAL_CLIENT_ID = os.environ.get('PAYPAL_CLIENT_ID')
+PAYPAL_SECRET = os.environ.get('PAYPAL_SECRET')
+
+# Membership Configuration
+MEMBERSHIP_PRICE = 1.00  # $1 USD lifetime membership
+FREE_TRIAL_DAYS = 15  # 15 days free trial for job seekers
+
 # Google Custom Search API Configuration
 GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
 GOOGLE_CSE_ID = os.environ.get('GOOGLE_CSE_ID')
