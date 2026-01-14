@@ -1,11 +1,11 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route, NavLink, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, NavLink, useLocation, Navigate } from "react-router-dom";
 import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { 
   Search, Briefcase, FileText, Bookmark, CheckSquare, 
-  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3, Users, Video
+  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3, Users, Video, LogOut
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
@@ -25,6 +25,7 @@ import VoiceCoachPage from "@/pages/VoiceCoachPage";
 import AnalyticsDashboard from "@/pages/AnalyticsDashboard";
 import ResumeProfilesPage from "@/pages/ResumeProfilesPage";
 import VideoInterviewPage from "@/pages/VideoInterviewPage";
+import LoginPage from "@/pages/LoginPage";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
