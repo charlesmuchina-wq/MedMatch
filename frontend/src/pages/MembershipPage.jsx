@@ -74,14 +74,20 @@ const MembershipPage = ({ user }) => {
     setProcessing(false);
   };
 
-  const handleUpgrade = async () => {
+  const handleUpgrade = async (provider = 'stripe') => {
     setProcessing(true);
     try {
-      const response = await axios.post(`${API}/api/payments/create-checkout`, {
+      const endpoint = provider === 'paypal' 
+        ? `${API}/api/payments/paypal/create`
+        : `${API}/api/payments/create-checkout`;
+      
+      const response = await axios.post(endpoint, {
         origin_url: window.location.origin
       }, { withCredentials: true });
       
-      if (response.data.checkout_url) {
+      if (provider === 'paypal' && response.data.approval_url) {
+        window.location.href = response.data.approval_url;
+      } else if (response.data.checkout_url) {
         window.location.href = response.data.checkout_url;
       } else if (response.data.membership_status === 'active') {
         toast.success("You already have lifetime membership!");
@@ -89,6 +95,37 @@ const MembershipPage = ({ user }) => {
       }
     } catch (e) {
       toast.error(e.response?.data?.detail || "Failed to start checkout");
+    }
+    setProcessing(false);
+  };
+
+  // Handle PayPal return
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentId = urlParams.get('paymentId');
+    const payerId = urlParams.get('PayerID');
+    const provider = urlParams.get('provider');
+    
+    if (provider === 'paypal' && paymentId && payerId) {
+      executePayPalPayment(paymentId, payerId);
+    }
+  }, []);
+
+  const executePayPalPayment = async (paymentId, payerId) => {
+    setProcessing(true);
+    try {
+      const response = await axios.post(`${API}/api/payments/paypal/execute`, {
+        paymentId,
+        PayerID: payerId
+      }, { withCredentials: true });
+      
+      if (response.data.status === 'success') {
+        toast.success("🎉 Payment successful! Welcome to MedMatch Premium!");
+        fetchMembershipStatus();
+        navigate('/membership', { replace: true });
+      }
+    } catch (e) {
+      toast.error("Payment failed. Please try again.");
     }
     setProcessing(false);
   };
