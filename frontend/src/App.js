@@ -414,7 +414,7 @@ function AppContent() {
         
         <main className="flex-1">
           <Routes>
-            <Route path="/" element={<Dashboard resume={resume} savedJobs={savedJobs} applications={applications} onNavigate={navigate} />} />
+            <Route path="/" element={<Dashboard resume={resume} savedJobs={savedJobs} applications={applications} onNavigate={navigate} user={user} />} />
             <Route path="/login" element={<LoginPage onAuthSuccess={handleAuthSuccess} />} />
             <Route path="/resume" element={<ResumePage resume={resume} setResume={setResume} />} />
             <Route path="/resume-profiles" element={<ResumeProfilesPage />} />
