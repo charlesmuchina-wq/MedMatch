@@ -128,7 +128,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 };
 
 // Header Component with Dark Mode Toggle
-const Header = ({ setIsOpen, resume, user, onLogout }) => {
+const Header = ({ onMenuClick, resume, user, onLogout }) => {
   const { isDark, toggleTheme } = useTheme();
   
   return (
@@ -136,7 +136,7 @@ const Header = ({ setIsOpen, resume, user, onLogout }) => {
       <div className="flex items-center justify-between">
         <button 
           className={`lg:hidden p-2 rounded-md ${isDark ? 'hover:bg-batik-dark-grey text-slate-300' : 'hover:bg-slate-100'}`}
-          onClick={() => setIsOpen(true)}
+          onClick={onMenuClick}
           data-testid="mobile-menu-btn"
         >
           <Menu className="w-5 h-5" />
