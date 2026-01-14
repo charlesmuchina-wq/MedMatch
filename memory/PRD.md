@@ -1,7 +1,7 @@
 # MedMatch - Remote Job Finder with AI Matching
 
 ## Original Problem Statement
-Create an application that uses the user's resume to find remote jobs that match their skills and experience. The app should parse resumes, search multiple job sources, use AI for matching, and provide features like email alerts, cover letter generation, callback probability prediction, and interview preparation.
+Create an application that uses the user's resume to find remote jobs that match their skills and experience. Features include job search, AI matching, email alerts, cover letter generation, callback prediction, interview preparation, and voice coaching.
 
 ## User Personas
 - **Job Seekers**: Professionals in Quality/Medical Device fields looking for remote positions
@@ -19,23 +19,22 @@ Create an application that uses the user's resume to find remote jobs that match
 - ✅ Automated Daily Digest Scheduler (8 AM UTC)
 - ✅ AI Cover Letter Generator
 - ✅ Application Success Predictor
-- ✅ **Interview Preparation Feature** (NEW)
-  - AI-generated interview questions by role
-  - Personalized answer suggestions
-  - STAR method builder
-  - Mock interview mode with feedback
-  - Company research assistant
-  - Tips & tricks guide
-- ✅ **Dark Mode with Inverted Batik Theme** (NEW)
-  - Light/Dark mode toggle
-  - Inverted batik border patterns
-  - Turquoise accent colors
-  - Persistent theme preference
+- ✅ Interview Preparation Feature
+- ✅ **AI Interview Coach with Voice** (NEW)
+  - Browser-based speech recognition (Web Speech API)
+  - Real-time transcription of spoken answers
+  - AI analysis of content quality, confidence, and structure
+  - Delivery pace feedback (WPM analysis)
+  - Confidence indicators detection
+  - Improvement suggestions
+  - Session statistics tracking
+- ✅ Dark Mode with Inverted Batik Theme
 
 ## Tech Stack
 - **Backend**: FastAPI (Python) with MongoDB (motor)
 - **Frontend**: React with shadcn/ui components
 - **AI**: Emergent LLM Key (GPT models via litellm)
+- **Voice**: Web Speech API (SpeechRecognition)
 - **Email**: Gmail SMTP
 - **Scheduler**: APScheduler (AsyncIOScheduler)
 - **Theming**: CSS custom properties with localStorage persistence
@@ -49,7 +48,7 @@ Create an application that uses the user's resume to find remote jobs that match
 
 ### Frontend (`/app/frontend/src/`)
 ```
-├── App.js                         # Main routing + Theme Provider (~340 lines)
+├── App.js                         # Main routing + Theme Provider
 ├── App.css                        # Component styles with dark mode
 ├── index.css                      # Global styles + batik patterns
 ├── pages/
@@ -59,7 +58,8 @@ Create an application that uses the user's resume to find remote jobs that match
 │   ├── SavedJobsPage.jsx          # Saved jobs list
 │   ├── ApplicationsPage.jsx       # Application tracker
 │   ├── SuccessPredictorPage.jsx   # AI callback prediction
-│   ├── InterviewPrepPage.jsx      # Interview preparation (NEW)
+│   ├── InterviewPrepPage.jsx      # Interview preparation
+│   ├── VoiceCoachPage.jsx         # Voice interview coach (NEW)
 │   ├── CoverLetterPage.jsx        # AI cover letter generator
 │   └── JobAlertsPage.jsx          # Email alerts & scheduler
 └── components/
@@ -78,11 +78,25 @@ Create an application that uses the user's resume to find remote jobs that match
 | `/api/jobs/predict-callback` | POST | Full AI callback prediction |
 | `/api/interview/generate-questions` | POST | Generate interview questions |
 | `/api/interview/generate-answer` | POST | Generate answer suggestion |
-| `/api/interview/polish-star` | POST | Polish STAR method answer |
-| `/api/interview/research-company` | POST | Company research insights |
-| `/api/interview/mock-feedback` | POST | Mock interview feedback |
+| `/api/interview/voice-feedback` | POST | AI voice interview feedback |
 | `/api/digest/scheduler-status` | GET | Get scheduler status |
 | `/api/cover-letter/generate` | POST | Generate AI cover letter |
+
+## Voice Coach Features
+- **Speech Recognition**: Browser-native Web Speech API (Chrome, Edge, Safari)
+- **Live Transcription**: Real-time display of spoken words
+- **AI Analysis**:
+  - Content quality score (0-100)
+  - Confidence score (0-100)
+  - Structure score (0-100)
+  - Pace score with ideal range (120-150 WPM)
+- **Feedback Types**:
+  - Strengths identification
+  - Areas for improvement
+  - Delivery tips
+  - Confidence indicators (positive/negative)
+  - Suggested content additions
+- **Session Tracking**: Questions answered, average score, total time
 
 ## Design System - Batik B Theme
 
@@ -113,17 +127,26 @@ Create an application that uses the user's resume to find remote jobs that match
 4. ✅ User Management - Save jobs, track applications
 5. ✅ Email Features - Alerts, automated daily digest
 6. ✅ Interview Preparation - Questions, answers, mock interviews
-7. ✅ Dark Mode - Inverted batik theme with toggle
+7. ✅ Voice Coach - Speech-to-text with AI feedback
+8. ✅ Dark Mode - Inverted batik theme with toggle
 
-### Testing Status
-- **Backend**: All endpoints tested and working
-- **Frontend**: All 9 pages verified functional
-- **Dark Mode**: Toggle working, theme persists
+### Pages (10 Total)
+1. Dashboard
+2. My Resume
+3. Job Search
+4. Saved Jobs
+5. Applications
+6. Success Predictor
+7. Interview Prep
+8. Voice Coach
+9. Cover Letter
+10. Job Alerts
 
 ## Future Enhancements (Backlog)
 - [ ] Multiple resume profiles
 - [ ] Salary insights and negotiation tips
 - [ ] LinkedIn profile sync
 - [ ] Job Application Dashboard Analytics
-- [ ] Custom schedule options for digest (time/frequency)
-- [ ] Voice-based mock interview practice
+- [ ] Custom schedule options for digest
+- [ ] Voice recording playback
+- [ ] Interview video recording mode
