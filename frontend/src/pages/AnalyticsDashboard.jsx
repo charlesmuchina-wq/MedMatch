@@ -112,6 +112,7 @@ const AnalyticsDashboard = () => {
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState('30'); // days
+  const { isDark } = useTheme();
 
   useEffect(() => {
     fetchAnalytics();
