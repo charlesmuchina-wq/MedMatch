@@ -421,19 +421,51 @@ function AppContent() {
             <Route path="/search" element={<JobSearchPage savedJobs={savedJobs} onSave={handleSaveJob} onApply={handleApply} onAnalyze={handleAnalyzeJob} />} />
             <Route path="/saved" element={<SavedJobsPage savedJobs={savedJobs} onRemove={handleRemoveSavedJob} onApply={handleApply} onAnalyze={handleAnalyzeJob} />} />
             <Route path="/applications" element={<ApplicationsPage applications={applications} onUpdateStatus={handleUpdateStatus} onDelete={handleDeleteApplication} />} />
-            <Route path="/predictor" element={<SuccessPredictorPage resume={resume} />} />
-            <Route path="/interview" element={<InterviewPrepPage resume={resume} />} />
-            <Route path="/voice-coach" element={<VoiceCoachPage resume={resume} />} />
-            <Route path="/video-interview" element={<VideoInterviewPage resume={resume} />} />
-            <Route path="/cover-letter" element={<CoverLetterPage resume={resume} />} />
-            <Route path="/alerts" element={<JobAlertsPage resume={resume} />} />
-            <Route path="/analytics" element={<AnalyticsDashboard />} />
+            {/* Premium Features - wrapped with PremiumGate */}
+            <Route path="/predictor" element={
+              <PremiumGate feature="success_predictor">
+                <SuccessPredictorPage resume={resume} />
+              </PremiumGate>
+            } />
+            <Route path="/interview" element={
+              <PremiumGate feature="interview_prep">
+                <InterviewPrepPage resume={resume} />
+              </PremiumGate>
+            } />
+            <Route path="/voice-coach" element={
+              <PremiumGate feature="voice_coach">
+                <VoiceCoachPage resume={resume} />
+              </PremiumGate>
+            } />
+            <Route path="/video-interview" element={
+              <PremiumGate feature="video_interview">
+                <VideoInterviewPage resume={resume} />
+              </PremiumGate>
+            } />
+            <Route path="/cover-letter" element={
+              <PremiumGate feature="ai_cover_letter">
+                <CoverLetterPage resume={resume} />
+              </PremiumGate>
+            } />
+            <Route path="/alerts" element={
+              <PremiumGate feature="email_alerts">
+                <JobAlertsPage resume={resume} />
+              </PremiumGate>
+            } />
+            <Route path="/analytics" element={
+              <PremiumGate feature="analytics">
+                <AnalyticsDashboard />
+              </PremiumGate>
+            } />
             <Route path="/membership" element={<MembershipPage user={user} />} />
             <Route path="/payment-success" element={<MembershipPage user={user} />} />
             <Route path="/recruiter/jobs" element={<RecruiterJobsPage user={user} />} />
           </Routes>
         </main>
       </div>
+
+      {/* Onboarding Tour for first-time users */}
+      {showTour && user && <OnboardingTour onComplete={completeTour} user={user} />}
 
       <ApplyDialog job={applyDialogJob} open={!!applyDialogJob} onClose={() => setApplyDialogJob(null)} onConfirm={handleConfirmApply} />
       <Toaster position="bottom-right" richColors theme={isDark ? 'dark' : 'light'} />
