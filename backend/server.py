@@ -727,6 +727,257 @@ async def logout_user(request: Request, response: Response):
     response.delete_cookie(key="session_token", path="/")
     return {"message": "Logged out successfully"}
 
+# ============== PAYMENT ENDPOINTS (STRIPE) ==============
+
+class CreateCheckoutRequest(BaseModel):
+    origin_url: str
+
+@api_router.post("/payments/create-checkout")
+async def create_checkout_session(checkout_request: CreateCheckoutRequest, request: Request):
+    """Create Stripe checkout session for $1 lifetime membership"""
+    from emergentintegrations.payments.stripe.checkout import StripeCheckout, CheckoutSessionRequest
+    
+    if not STRIPE_API_KEY:
+        raise HTTPException(status_code=500, detail="Payment not configured")
+    
+    # Get current user
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Check if user is a recruiter (free membership)
+    if user.get("role") == "recruiter":
+        return {"message": "Recruiters have free membership", "membership_status": "active"}
+    
+    # Check if already has active membership
+    if user.get("membership_status") == "active":
+        return {"message": "You already have lifetime membership", "membership_status": "active"}
+    
+    # Create Stripe checkout
+    host_url = str(request.base_url).rstrip('/')
+    webhook_url = f"{host_url}/api/webhook/stripe"
+    stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
+    
+    success_url = f"{checkout_request.origin_url}/payment-success?session_id={{CHECKOUT_SESSION_ID}}"
+    cancel_url = f"{checkout_request.origin_url}/membership"
+    
+    checkout_req = CheckoutSessionRequest(
+        amount=MEMBERSHIP_PRICE,
+        currency="usd",
+        success_url=success_url,
+        cancel_url=cancel_url,
+        metadata={
+            "user_id": user["user_id"],
+            "email": user["email"],
+            "product": "lifetime_membership"
+        }
+    )
+    
+    session = await stripe_checkout.create_checkout_session(checkout_req)
+    
+    # Store payment transaction
+    await db.payment_transactions.insert_one({
+        "user_id": user["user_id"],
+        "email": user["email"],
+        "session_id": session.session_id,
+        "amount": MEMBERSHIP_PRICE,
+        "currency": "usd",
+        "payment_status": "pending",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    })
+    
+    return {"checkout_url": session.url, "session_id": session.session_id}
+
+@api_router.get("/payments/status/{session_id}")
+async def get_payment_status(session_id: str, request: Request):
+    """Check payment status and update membership"""
+    from emergentintegrations.payments.stripe.checkout import StripeCheckout
+    
+    if not STRIPE_API_KEY:
+        raise HTTPException(status_code=500, detail="Payment not configured")
+    
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    host_url = str(request.base_url).rstrip('/')
+    webhook_url = f"{host_url}/api/webhook/stripe"
+    stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
+    
+    status = await stripe_checkout.get_checkout_status(session_id)
+    
+    # Update payment transaction
+    await db.payment_transactions.update_one(
+        {"session_id": session_id},
+        {"$set": {
+            "payment_status": status.payment_status,
+            "status": status.status,
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        }}
+    )
+    
+    # If payment successful, activate membership
+    if status.payment_status == "paid":
+        # Check if already processed to avoid duplicate activations
+        existing = await db.payment_transactions.find_one({
+            "session_id": session_id,
+            "processed": True
+        })
+        
+        if not existing:
+            await db.users.update_one(
+                {"user_id": user["user_id"]},
+                {"$set": {
+                    "membership_status": "active",
+                    "membership_activated_at": datetime.now(timezone.utc).isoformat()
+                }}
+            )
+            await db.payment_transactions.update_one(
+                {"session_id": session_id},
+                {"$set": {"processed": True}}
+            )
+    
+    return {
+        "status": status.status,
+        "payment_status": status.payment_status,
+        "amount": status.amount_total / 100,  # Convert cents to dollars
+        "currency": status.currency
+    }
+
+@api_router.post("/webhook/stripe")
+async def stripe_webhook(request: Request):
+    """Handle Stripe webhooks"""
+    from emergentintegrations.payments.stripe.checkout import StripeCheckout
+    
+    if not STRIPE_API_KEY:
+        return {"status": "error", "message": "Not configured"}
+    
+    body = await request.body()
+    host_url = str(request.base_url).rstrip('/')
+    webhook_url = f"{host_url}/api/webhook/stripe"
+    stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
+    
+    try:
+        webhook_response = await stripe_checkout.handle_webhook(
+            body, 
+            request.headers.get("Stripe-Signature")
+        )
+        
+        if webhook_response.payment_status == "paid":
+            user_id = webhook_response.metadata.get("user_id")
+            if user_id:
+                await db.users.update_one(
+                    {"user_id": user_id},
+                    {"$set": {
+                        "membership_status": "active",
+                        "membership_activated_at": datetime.now(timezone.utc).isoformat()
+                    }}
+                )
+        
+        return {"status": "processed"}
+    except Exception as e:
+        logging.error(f"Webhook error: {e}")
+        return {"status": "error"}
+
+@api_router.get("/membership/status")
+async def get_membership_status(request: Request):
+    """Get current user's membership status"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Calculate current status
+    current_status = check_membership_status(user)
+    
+    # Calculate days remaining in trial
+    days_remaining = None
+    if current_status == "trial" and user.get("trial_ends_at"):
+        trial_end = datetime.fromisoformat(user["trial_ends_at"].replace('Z', '+00:00'))
+        if trial_end.tzinfo is None:
+            trial_end = trial_end.replace(tzinfo=timezone.utc)
+        days_remaining = max(0, (trial_end - datetime.now(timezone.utc)).days)
+    
+    return {
+        "role": user.get("role", "job_seeker"),
+        "membership_status": current_status,
+        "trial_ends_at": user.get("trial_ends_at"),
+        "days_remaining": days_remaining,
+        "price": MEMBERSHIP_PRICE if current_status != "active" else None
+    }
+
+# ============== RECRUITER JOB POSTING ==============
+
+class JobPosting(BaseModel):
+    title: str
+    company: str
+    location: str
+    description: str
+    salary: Optional[str] = None
+    url: Optional[str] = None
+    tags: List[str] = []
+
+@api_router.post("/recruiter/jobs")
+async def create_job_posting(job: JobPosting, request: Request):
+    """Recruiters can post jobs for free"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if user.get("role") != "recruiter":
+        raise HTTPException(status_code=403, detail="Only recruiters can post jobs")
+    
+    job_doc = {
+        "id": f"posted_{uuid.uuid4().hex[:12]}",
+        "recruiter_id": user["user_id"],
+        "title": job.title,
+        "company": job.company,
+        "location": job.location,
+        "description": job.description,
+        "salary": job.salary,
+        "url": job.url,
+        "tags": job.tags,
+        "source": "MedMatch",
+        "posted_at": datetime.now(timezone.utc).isoformat(),
+        "status": "active"
+    }
+    
+    await db.posted_jobs.insert_one(job_doc)
+    return {"message": "Job posted successfully", "job_id": job_doc["id"]}
+
+@api_router.get("/recruiter/jobs")
+async def get_recruiter_jobs(request: Request):
+    """Get jobs posted by current recruiter"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if user.get("role") != "recruiter":
+        raise HTTPException(status_code=403, detail="Only recruiters can view posted jobs")
+    
+    jobs = await db.posted_jobs.find(
+        {"recruiter_id": user["user_id"]},
+        {"_id": 0}
+    ).to_list(100)
+    
+    return jobs
+
+@api_router.delete("/recruiter/jobs/{job_id}")
+async def delete_job_posting(job_id: str, request: Request):
+    """Delete a job posting"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    result = await db.posted_jobs.delete_one({
+        "id": job_id,
+        "recruiter_id": user["user_id"]
+    })
+    
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Job not found")
+    
+    return {"message": "Job deleted"}
+
 # AI-powered resume parsing
 async def parse_resume_with_ai(raw_text: str) -> dict:
     if not EMERGENT_LLM_KEY:
