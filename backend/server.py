@@ -53,6 +53,13 @@ GMAIL_ADDRESS = os.environ.get('GMAIL_ADDRESS')
 GMAIL_APP_PASSWORD = os.environ.get('GMAIL_APP_PASSWORD')
 ALERT_RECIPIENT = os.environ.get('ALERT_RECIPIENT')
 
+# Authentication Configuration
+JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY', 'medmatch_default_secret_key_change_in_production')
+APPLE_TEAM_ID = os.environ.get('APPLE_TEAM_ID')
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
+TWILIO_VERIFY_SERVICE = os.environ.get('TWILIO_VERIFY_SERVICE')
+
 # Google Custom Search API Configuration
 GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
 GOOGLE_CSE_ID = os.environ.get('GOOGLE_CSE_ID')
