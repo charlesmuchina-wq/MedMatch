@@ -727,6 +727,9 @@ async def get_current_user_endpoint(request: Request):
         "email": user["email"],
         "name": user.get("name", ""),
         "auth_method": user.get("auth_method", ""),
+        "role": user.get("role", "job_seeker"),
+        "membership_status": check_membership_status(user),
+        "trial_ends_at": user.get("trial_ends_at"),
         "created_at": user.get("created_at", "")
     }
 
