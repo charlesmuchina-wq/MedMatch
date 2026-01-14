@@ -24,6 +24,7 @@ const LoginPage = ({ onAuthSuccess }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
+  const [selectedRole, setSelectedRole] = useState("job_seeker"); // job_seeker or recruiter
   
   // Email form
   const [email, setEmail] = useState("");
