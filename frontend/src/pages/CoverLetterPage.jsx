@@ -219,7 +219,10 @@ const CoverLetterPage = ({ resume }) => {
                       <Copy className="w-4 h-4 mr-1" /> Copy
                     </Button>
                     <Button variant="outline" size="sm" onClick={downloadAsTxt}>
-                      <Download className="w-4 h-4 mr-1" /> Download
+                      <Download className="w-4 h-4 mr-1" /> TXT
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={downloadAsPDF} className="text-turquoise border-turquoise hover:bg-turquoise/10" data-testid="download-pdf-btn">
+                      <FileText className="w-4 h-4 mr-1" /> PDF
                     </Button>
                   </div>
                 )}
