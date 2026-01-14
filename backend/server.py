@@ -2369,19 +2369,30 @@ def fetch_jobspy_jobs_sync(query: str, location: str = "USA", sites: List[str] =
         return []
 
 async def fetch_jobspy_jobs(query: str, location: str = "USA", sites: List[str] = None, results_wanted: int = 25) -> List[dict]:
-    """Async wrapper for JobSpy - runs in thread pool to avoid blocking"""
-    loop = asyncio.get_event_loop()
-    with ThreadPoolExecutor() as executor:
-        result = await loop.run_in_executor(
-            executor,
-            fetch_jobspy_jobs_sync,
-            query,
-            location,
-            sites,
-            results_wanted,
-            72  # hours_old
-        )
-    return result
+    """Async wrapper for JobSpy - runs in thread pool to avoid blocking with timeout"""
+    try:
+        loop = asyncio.get_event_loop()
+        with ThreadPoolExecutor() as executor:
+            # Add 30 second timeout to prevent hanging
+            result = await asyncio.wait_for(
+                loop.run_in_executor(
+                    executor,
+                    fetch_jobspy_jobs_sync,
+                    query,
+                    location,
+                    sites,
+                    results_wanted,
+                    72  # hours_old
+                ),
+                timeout=30.0
+            )
+        return result
+    except asyncio.TimeoutError:
+        logging.warning(f"JobSpy search timed out for query: {query}")
+        return []
+    except Exception as e:
+        logging.error(f"JobSpy async error: {e}")
+        return []
 
 # Placeholder functions for removed APIs
 async def fetch_linkedin_jobs(query: str = "", location: str = "") -> List[dict]:
