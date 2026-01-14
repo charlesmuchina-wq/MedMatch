@@ -28,6 +28,7 @@ import VideoInterviewPage from "@/pages/VideoInterviewPage";
 import LoginPage from "@/pages/LoginPage";
 import MembershipPage from "@/pages/MembershipPage";
 import RecruiterJobsPage from "@/pages/RecruiterJobsPage";
+import { UpgradeBanner } from "@/components/PremiumGate";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
