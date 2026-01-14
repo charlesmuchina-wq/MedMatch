@@ -1,11 +1,12 @@
-from fastapi import FastAPI, APIRouter, UploadFile, File, HTTPException, BackgroundTasks
+from fastapi import FastAPI, APIRouter, UploadFile, File, HTTPException, BackgroundTasks, Response, Request
+from fastapi.responses import RedirectResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List, Optional, Dict, Any
 import uuid
 from datetime import datetime, timezone, timedelta
@@ -20,6 +21,8 @@ from email.mime.multipart import MIMEMultipart
 import json
 import re
 from concurrent.futures import ThreadPoolExecutor
+import hashlib
+import secrets
 
 # APScheduler for automated daily digest
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
