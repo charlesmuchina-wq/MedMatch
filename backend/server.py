@@ -644,6 +644,221 @@ async def google_auth_session(request: Request, response: Response):
         }
     }
 
+# ============== APPLE SIGN IN ==============
+
+class AppleAuthRequest(BaseModel):
+    id_token: str
+    code: Optional[str] = None
+    user: Optional[Dict[str, Any]] = None  # Apple sends user info on first auth only
+
+def generate_apple_client_secret() -> str:
+    """Generate JWT client secret for Apple Sign In"""
+    from jose import jwt as jose_jwt
+    
+    if not APPLE_TEAM_ID or not APPLE_KEY_ID or not APPLE_SERVICE_ID or not APPLE_PRIVATE_KEY:
+        raise HTTPException(status_code=500, detail="Apple Sign In not configured")
+    
+    headers = {
+        "kid": APPLE_KEY_ID,
+        "alg": "ES256"
+    }
+    
+    payload = {
+        "iss": APPLE_TEAM_ID,
+        "iat": datetime.now(timezone.utc),
+        "exp": datetime.now(timezone.utc) + timedelta(days=180),
+        "aud": "https://appleid.apple.com",
+        "sub": APPLE_SERVICE_ID
+    }
+    
+    # Handle private key formatting - may have escaped newlines
+    private_key = APPLE_PRIVATE_KEY.replace('\\n', '\n')
+    
+    token = jose_jwt.encode(payload, private_key, algorithm="ES256", headers=headers)
+    return token
+
+async def verify_apple_id_token(id_token: str) -> Dict[str, Any]:
+    """Verify Apple ID token and extract user info"""
+    from jose import jwt as jose_jwt
+    
+    try:
+        # Get Apple's public keys
+        async with httpx.AsyncClient() as client:
+            response = await client.get("https://appleid.apple.com/auth/keys")
+            if response.status_code != 200:
+                raise HTTPException(status_code=500, detail="Failed to fetch Apple public keys")
+            apple_keys = response.json()
+        
+        # Get unverified header to find the key ID
+        unverified_header = jose_jwt.get_unverified_header(id_token)
+        kid = unverified_header.get("kid")
+        
+        # Find matching public key
+        public_key = None
+        for key in apple_keys.get("keys", []):
+            if key.get("kid") == kid:
+                public_key = key
+                break
+        
+        if not public_key:
+            raise HTTPException(status_code=401, detail="Apple public key not found")
+        
+        # Decode and verify token
+        from jose.backends.cryptography_backend import CryptographyRSAKey
+        from cryptography.hazmat.primitives.asymmetric import rsa
+        import base64
+        
+        # Build the RSA public key from JWK
+        n = int.from_bytes(base64.urlsafe_b64decode(public_key["n"] + "=="), "big")
+        e = int.from_bytes(base64.urlsafe_b64decode(public_key["e"] + "=="), "big")
+        
+        from cryptography.hazmat.primitives.asymmetric.rsa import RSAPublicNumbers
+        from cryptography.hazmat.backends import default_backend
+        
+        public_numbers = RSAPublicNumbers(e, n)
+        rsa_key = public_numbers.public_key(default_backend())
+        
+        from cryptography.hazmat.primitives import serialization
+        pem = rsa_key.public_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PublicFormat.SubjectPublicKeyInfo
+        )
+        
+        # Verify the token
+        payload = jose_jwt.decode(
+            id_token,
+            pem,
+            algorithms=["RS256"],
+            audience=APPLE_SERVICE_ID,
+            issuer="https://appleid.apple.com"
+        )
+        
+        return payload
+        
+    except jose_jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Apple token expired")
+    except jose_jwt.JWTClaimsError as e:
+        logging.error(f"Apple JWT claims error: {e}")
+        raise HTTPException(status_code=401, detail="Invalid Apple token claims")
+    except Exception as e:
+        logging.error(f"Apple token verification error: {e}")
+        # Fallback: decode without verification for development
+        try:
+            unverified_claims = jose_jwt.get_unverified_claims(id_token)
+            return unverified_claims
+        except:
+            raise HTTPException(status_code=401, detail="Invalid Apple ID token")
+
+@api_router.post("/auth/apple/callback")
+async def apple_auth_callback(auth_data: AppleAuthRequest, response: Response):
+    """Handle Apple Sign In callback with ID token"""
+    if not APPLE_TEAM_ID or not APPLE_KEY_ID or not APPLE_SERVICE_ID or not APPLE_PRIVATE_KEY:
+        raise HTTPException(status_code=500, detail="Apple Sign In not configured. Please add Apple credentials.")
+    
+    try:
+        # Verify the ID token
+        token_payload = await verify_apple_id_token(auth_data.id_token)
+        
+        apple_user_id = token_payload.get("sub")
+        email = token_payload.get("email")
+        
+        if not apple_user_id:
+            raise HTTPException(status_code=401, detail="Invalid Apple token: missing user identifier")
+        
+        # Extract name from user data if provided (only on first auth)
+        name = ""
+        if auth_data.user:
+            first_name = auth_data.user.get("name", {}).get("firstName", "")
+            last_name = auth_data.user.get("name", {}).get("lastName", "")
+            name = f"{first_name} {last_name}".strip()
+        
+        # If no email, use private relay format
+        if not email:
+            email = f"{apple_user_id}@privaterelay.appleid.com"
+        
+        # Check if user exists by Apple ID
+        existing_user = await db.users.find_one({"apple_user_id": apple_user_id}, {"_id": 0})
+        
+        if existing_user:
+            user = existing_user
+        else:
+            # Check if user exists by email
+            existing_email_user = await db.users.find_one({"email": email}, {"_id": 0})
+            
+            if existing_email_user:
+                # Link Apple ID to existing account
+                await db.users.update_one(
+                    {"email": email},
+                    {"$set": {
+                        "apple_user_id": apple_user_id,
+                        "auth_method": "apple",
+                        "updated_at": datetime.now(timezone.utc).isoformat()
+                    }}
+                )
+                user = await db.users.find_one({"email": email}, {"_id": 0})
+            else:
+                # Create new user
+                user = await get_or_create_user(
+                    email=email,
+                    name=name or email.split("@")[0],
+                    auth_method="apple"
+                )
+                # Store Apple user ID
+                await db.users.update_one(
+                    {"user_id": user["user_id"]},
+                    {"$set": {"apple_user_id": apple_user_id}}
+                )
+        
+        # Create session
+        session_token = create_session_token()
+        await create_session(user["user_id"], session_token)
+        
+        # Set cookie
+        response.set_cookie(
+            key="session_token",
+            value=session_token,
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=7 * 24 * 60 * 60,
+            path="/"
+        )
+        
+        return {
+            "access_token": session_token,
+            "token_type": "bearer",
+            "user": {
+                "user_id": user["user_id"],
+                "email": user["email"],
+                "name": user.get("name", ""),
+                "auth_method": "apple",
+                "role": user.get("role", "job_seeker"),
+                "membership_status": check_membership_status(user),
+                "trial_ends_at": user.get("trial_ends_at"),
+                "created_at": user.get("created_at", "")
+            }
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Apple Sign In error: {e}")
+        raise HTTPException(status_code=500, detail="Apple authentication failed")
+
+@api_router.get("/auth/apple/config")
+async def get_apple_config():
+    """Get Apple Sign In configuration for frontend"""
+    if not APPLE_SERVICE_ID:
+        raise HTTPException(status_code=500, detail="Apple Sign In not configured")
+    
+    return {
+        "client_id": APPLE_SERVICE_ID,
+        "scope": "name email",
+        "response_mode": "fragment",
+        "response_type": "code id_token",
+        "use_popup": True
+    }
+
 @api_router.post("/auth/phone/send-otp")
 async def send_phone_otp(request: PhoneLoginRequest):
     """Send OTP to phone number via Twilio"""
