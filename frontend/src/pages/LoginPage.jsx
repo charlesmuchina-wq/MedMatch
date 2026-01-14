@@ -250,21 +250,54 @@ const LoginPage = ({ onAuthSuccess }) => {
             <TabsContent value="email">
               <form onSubmit={handleEmailSubmit} className="space-y-4">
                 {isRegister && (
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Name</Label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
-                      <Input
-                        id="name"
-                        type="text"
-                        placeholder="Your name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="pl-10"
-                        data-testid="name-input"
-                      />
+                  <>
+                    {/* Role Selection */}
+                    <div className="space-y-2">
+                      <Label>I am a</Label>
+                      <div className="grid grid-cols-2 gap-3">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedRole("job_seeker")}
+                          className={`p-3 rounded-lg border-2 transition-all text-left ${
+                            selectedRole === "job_seeker"
+                              ? "border-turquoise bg-turquoise/10"
+                              : "border-slate-200 dark:border-slate-700 hover:border-slate-300"
+                          }`}
+                        >
+                          <div className="font-medium text-slate-900 dark:text-slate-100 text-sm">Job Seeker</div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400">$1 lifetime • 15-day trial</div>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedRole("recruiter")}
+                          className={`p-3 rounded-lg border-2 transition-all text-left ${
+                            selectedRole === "recruiter"
+                              ? "border-turquoise bg-turquoise/10"
+                              : "border-slate-200 dark:border-slate-700 hover:border-slate-300"
+                          }`}
+                        >
+                          <div className="font-medium text-slate-900 dark:text-slate-100 text-sm">Recruiter</div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400">Free forever</div>
+                        </button>
+                      </div>
                     </div>
-                  </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Name</Label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                        <Input
+                          id="name"
+                          type="text"
+                          placeholder="Your name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="pl-10"
+                          data-testid="name-input"
+                        />
+                      </div>
+                    </div>
+                  </>
                 )}
                 
                 <div className="space-y-2">
