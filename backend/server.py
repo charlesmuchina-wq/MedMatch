@@ -2317,37 +2317,51 @@ def fetch_jobspy_jobs_sync(query: str, location: str = "USA", sites: List[str] =
         
         result = []
         for _, row in jobs_df.iterrows():
-            # Build salary string
-            salary = ""
-            if row.get('min_amount') and row.get('max_amount'):
-                interval = row.get('interval', 'yearly')
-                salary = f"${int(row['min_amount']):,} - ${int(row['max_amount']):,}/{interval}"
-            elif row.get('min_amount'):
-                salary = f"${int(row['min_amount']):,}+"
-            
-            # Build location string
-            loc_parts = []
-            if row.get('city'):
-                loc_parts.append(str(row['city']))
-            if row.get('state'):
-                loc_parts.append(str(row['state']))
-            if row.get('is_remote'):
-                loc_parts.append("Remote")
-            location_str = ", ".join(loc_parts) if loc_parts else "Remote"
-            
-            job = {
-                "id": f"jspy_{row.get('site', 'unknown')}_{hash(str(row.get('job_url', '')))}",
-                "title": str(row.get('title', 'Unknown')),
-                "company": str(row.get('company', 'Unknown')),
-                "location": location_str,
-                "description": str(row.get('description', ''))[:5000],
-                "url": str(row.get('job_url', '')),
-                "salary": salary,
-                "tags": [str(row.get('job_type', ''))] if row.get('job_type') else [],
-                "source": f"JobSpy ({str(row.get('site', 'Unknown')).title()})",
-                "posted_at": str(row.get('date_posted', '')) if row.get('date_posted') else ''
-            }
-            result.append(job)
+            try:
+                # Build salary string - handle NaN values safely
+                salary = ""
+                min_amt = row.get('min_amount')
+                max_amt = row.get('max_amount')
+                
+                # Check for NaN using pandas-safe comparison
+                import math
+                min_valid = min_amt is not None and not (isinstance(min_amt, float) and math.isnan(min_amt))
+                max_valid = max_amt is not None and not (isinstance(max_amt, float) and math.isnan(max_amt))
+                
+                if min_valid and max_valid:
+                    interval = row.get('interval', 'yearly')
+                    salary = f"${int(min_amt):,} - ${int(max_amt):,}/{interval}"
+                elif min_valid:
+                    salary = f"${int(min_amt):,}+"
+                
+                # Build location string
+                loc_parts = []
+                city = row.get('city')
+                state = row.get('state')
+                if city and str(city) not in ['nan', 'None', '']:
+                    loc_parts.append(str(city))
+                if state and str(state) not in ['nan', 'None', '']:
+                    loc_parts.append(str(state))
+                if row.get('is_remote'):
+                    loc_parts.append("Remote")
+                location_str = ", ".join(loc_parts) if loc_parts else "Remote"
+                
+                job = {
+                    "id": f"jspy_{row.get('site', 'unknown')}_{hash(str(row.get('job_url', '')))}",
+                    "title": str(row.get('title', 'Unknown')),
+                    "company": str(row.get('company', 'Unknown')),
+                    "location": location_str,
+                    "description": str(row.get('description', ''))[:5000],
+                    "url": str(row.get('job_url', '')),
+                    "salary": salary,
+                    "tags": [str(row.get('job_type', ''))] if row.get('job_type') else [],
+                    "source": f"JobSpy ({str(row.get('site', 'Unknown')).title()})",
+                    "posted_at": str(row.get('date_posted', '')) if row.get('date_posted') else ''
+                }
+                result.append(job)
+            except Exception as row_err:
+                logging.warning(f"JobSpy row parse error: {row_err}")
+                continue
         
         return result
     except Exception as e:
