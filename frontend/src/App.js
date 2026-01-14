@@ -415,6 +415,8 @@ function AppContent() {
             <Route path="/cover-letter" element={<CoverLetterPage resume={resume} />} />
             <Route path="/alerts" element={<JobAlertsPage resume={resume} />} />
             <Route path="/analytics" element={<AnalyticsDashboard />} />
+            <Route path="/membership" element={<MembershipPage user={user} />} />
+            <Route path="/payment-success" element={<MembershipPage user={user} />} />
           </Routes>
         </main>
       </div>
