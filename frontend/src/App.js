@@ -418,6 +418,7 @@ function AppContent() {
             <Route path="/analytics" element={<AnalyticsDashboard />} />
             <Route path="/membership" element={<MembershipPage user={user} />} />
             <Route path="/payment-success" element={<MembershipPage user={user} />} />
+            <Route path="/recruiter/jobs" element={<RecruiterJobsPage user={user} />} />
           </Routes>
         </main>
       </div>
