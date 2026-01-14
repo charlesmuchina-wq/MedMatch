@@ -128,7 +128,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 };
 
 // Header Component with Dark Mode Toggle
-const Header = ({ setIsOpen, resume }) => {
+const Header = ({ setIsOpen, resume, user, onLogout }) => {
   const { isDark, toggleTheme } = useTheme();
   
   return (
@@ -159,18 +159,25 @@ const Header = ({ setIsOpen, resume }) => {
             {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
 
-          {resume && (
+          {user && (
             <div className="flex items-center gap-3">
               <div className={`w-9 h-9 rounded-full flex items-center justify-center ${
                 isDark ? 'bg-batik-dark-grey' : 'bg-slate-100'
               }`}>
                 <span className={`text-sm font-medium ${isDark ? 'text-turquoise' : 'text-slate-700'}`}>
-                  {resume.full_name?.charAt(0) || 'U'}
+                  {user.name?.charAt(0) || user.email?.charAt(0) || 'U'}
                 </span>
               </div>
               <span className={`text-sm font-medium hidden sm:block ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                {resume.full_name || 'Upload Resume'}
+                {user.name || user.email?.split('@')[0] || 'User'}
               </span>
+              <button
+                onClick={onLogout}
+                className={`p-2 rounded-lg ${isDark ? 'text-slate-400 hover:text-red-400 hover:bg-red-900/20' : 'text-slate-500 hover:text-red-500 hover:bg-red-50'}`}
+                title="Sign Out"
+              >
+                <LogOut className="w-4 h-4" />
+              </button>
             </div>
           )}
         </div>
