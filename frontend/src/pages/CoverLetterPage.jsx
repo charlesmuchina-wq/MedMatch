@@ -72,6 +72,35 @@ const CoverLetterPage = ({ resume }) => {
     }
   };
 
+  const downloadAsPDF = async () => {
+    if (!coverLetter?.cover_letter) return;
+    
+    try {
+      toast.info("Generating PDF...");
+      const response = await axios.post(`${API}/export/cover-letter-html`, {
+        cover_letter: coverLetter.cover_letter,
+        job_title: jobTitle,
+        company: company,
+        candidate_name: resume?.full_name || ''
+      });
+      
+      // Open HTML in new window and trigger print (save as PDF)
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(response.data.html);
+      printWindow.document.close();
+      printWindow.focus();
+      
+      // Wait for content to load then print
+      setTimeout(() => {
+        printWindow.print();
+      }, 500);
+      
+      toast.success("PDF ready! Use 'Save as PDF' in the print dialog.");
+    } catch (e) {
+      toast.error("Failed to generate PDF");
+    }
+  };
+
   const loadFromHistory = (item) => {
     setCoverLetter({
       cover_letter: item.cover_letter,
