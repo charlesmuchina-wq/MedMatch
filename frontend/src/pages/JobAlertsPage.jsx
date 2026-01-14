@@ -126,7 +126,7 @@ const JobAlertsPage = ({ resume }) => {
 
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-4xl mx-auto animate-fade-in" data-testid="alerts-page">
-      <h1 className="text-3xl font-semibold text-slate-900 tracking-tight mb-2" style={{ fontFamily: 'IBM Plex Sans' }}>
+      <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight mb-2" style={{ fontFamily: 'IBM Plex Sans' }}>
         Job Alerts & Daily Digest
       </h1>
       <p className="text-slate-500 mb-8">Automated job alerts delivered to your inbox</p>
@@ -158,7 +158,7 @@ const JobAlertsPage = ({ resume }) => {
               data-testid="digest-email-input"
             />
             <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-lg border">
-              <span className="text-sm font-medium text-slate-700">
+              <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
                 {isSubscribed ? "Subscribed" : "Subscribe"}
               </span>
               <Switch
@@ -176,13 +176,13 @@ const JobAlertsPage = ({ resume }) => {
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <p className="text-xs text-slate-500 mb-1">Schedule</p>
-                  <p className="text-sm font-medium text-slate-900">
+                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
                     {schedulerStatus.digest_time}
                   </p>
                 </div>
                 <div>
                   <p className="text-xs text-slate-500 mb-1">Next Run</p>
-                  <p className="text-sm font-medium text-slate-900">
+                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
                     {schedulerStatus.scheduled_jobs?.[0]?.next_run 
                       ? formatNextRun(schedulerStatus.scheduled_jobs[0].next_run)
                       : "Check scheduler status"}
@@ -267,28 +267,28 @@ const JobAlertsPage = ({ resume }) => {
           <div className="flex items-start gap-3">
             <div className="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center text-violet-600 font-medium">1</div>
             <div>
-              <h4 className="font-medium text-slate-900">Subscribe with your email</h4>
+              <h4 className="font-medium text-slate-900 dark:text-slate-100">Subscribe with your email</h4>
               <p className="text-sm text-slate-500">Toggle the subscription switch above to enable automatic emails</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
             <div className="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center text-violet-600 font-medium">2</div>
             <div>
-              <h4 className="font-medium text-slate-900">Daily at 8:00 AM UTC</h4>
+              <h4 className="font-medium text-slate-900 dark:text-slate-100">Daily at 8:00 AM UTC</h4>
               <p className="text-sm text-slate-500">Our scheduler automatically searches for new jobs every morning</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
             <div className="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center text-violet-600 font-medium">3</div>
             <div>
-              <h4 className="font-medium text-slate-900">Only fresh jobs, no duplicates</h4>
+              <h4 className="font-medium text-slate-900 dark:text-slate-100">Only fresh jobs, no duplicates</h4>
               <p className="text-sm text-slate-500">Jobs from the last 24 hours only - you'll never receive the same job twice</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
             <div className="w-8 h-8 rounded-full bg-violet-100 flex items-center justify-center text-violet-600 font-medium">4</div>
             <div>
-              <h4 className="font-medium text-slate-900">AI-powered matching</h4>
+              <h4 className="font-medium text-slate-900 dark:text-slate-100">AI-powered matching</h4>
               <p className="text-sm text-slate-500">Searches Indeed, LinkedIn, Glassdoor, ZipRecruiter + 5 more sources</p>
             </div>
           </div>

@@ -14,7 +14,7 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate }) => {
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-7xl mx-auto animate-fade-in" data-testid="dashboard">
       <div className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-semibold text-slate-900 tracking-tight" style={{ fontFamily: 'IBM Plex Sans' }}>
+        <h1 className="text-3xl md:text-4xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight" style={{ fontFamily: 'IBM Plex Sans' }}>
           {resume?.full_name ? `Welcome, ${resume.full_name.split(' ')[0]}` : 'Welcome to MedMatch'}
         </h1>
         <p className="text-slate-500 mt-2">

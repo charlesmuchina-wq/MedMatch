@@ -75,7 +75,7 @@ const MatchBar = ({ label, score, icon: Icon }) => {
           <Icon className="w-4 h-4" />
           {label}
         </div>
-        <span className="font-medium text-slate-900">{score}%</span>
+        <span className="font-medium text-slate-900 dark:text-slate-100">{score}%</span>
       </div>
       <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
         <div 
@@ -150,7 +150,7 @@ const SuccessPredictorPage = ({ resume }) => {
       "Low": "bg-orange-100 text-orange-700 border-orange-200",
       "Very Low": "bg-rose-100 text-rose-700 border-rose-200"
     };
-    return colors[label] || "bg-slate-100 text-slate-700";
+    return colors[label] || "bg-slate-100 text-slate-700 dark:text-slate-300";
   };
 
   const getCompetitionIcon = (level) => {
@@ -162,7 +162,7 @@ const SuccessPredictorPage = ({ resume }) => {
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-6xl mx-auto animate-fade-in" data-testid="success-predictor-page">
       <div className="mb-8">
-        <h1 className="text-3xl font-semibold text-slate-900 tracking-tight mb-2" style={{ fontFamily: 'IBM Plex Sans' }}>
+        <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight mb-2" style={{ fontFamily: 'IBM Plex Sans' }}>
           Application Success Predictor
         </h1>
         <p className="text-slate-500">AI-powered analysis of your callback probability based on resume-job fit</p>
@@ -183,7 +183,7 @@ const SuccessPredictorPage = ({ resume }) => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-slate-700">Job Title *</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Job Title *</label>
                 <Input
                   placeholder="e.g., Supplier Quality Manager"
                   value={jobTitle}
@@ -193,7 +193,7 @@ const SuccessPredictorPage = ({ resume }) => {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-700">Company *</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Company *</label>
                 <Input
                   placeholder="e.g., Medtronic"
                   value={company}
@@ -203,7 +203,7 @@ const SuccessPredictorPage = ({ resume }) => {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-700">Posted Date (optional)</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Posted Date (optional)</label>
                 <Input
                   type="date"
                   value={postedAt}
@@ -214,7 +214,7 @@ const SuccessPredictorPage = ({ resume }) => {
                 <p className="text-xs text-slate-400 mt-1">Newer postings typically have higher success rates</p>
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-700">Job Description *</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Job Description *</label>
                 <Textarea
                   placeholder="Paste the full job description here for accurate analysis..."
                   value={jobDescription}
@@ -330,7 +330,7 @@ const SuccessPredictorPage = ({ resume }) => {
                       <div className="p-4 bg-slate-50 rounded-lg">
                         <div className="flex items-center gap-2 mb-2">
                           {getCompetitionIcon(prediction.competition_estimate)}
-                          <span className="font-medium text-slate-900">Competition Level</span>
+                          <span className="font-medium text-slate-900 dark:text-slate-100">Competition Level</span>
                         </div>
                         <p className="text-lg font-semibold text-slate-800">{prediction.competition_estimate}</p>
                         {prediction.competition_reasoning && (
@@ -342,9 +342,9 @@ const SuccessPredictorPage = ({ resume }) => {
                       <div className="p-4 bg-sky-50 rounded-lg">
                         <div className="flex items-center gap-2 mb-2">
                           <Clock className="w-4 h-4 text-sky-500" />
-                          <span className="font-medium text-slate-900">Timing Advice</span>
+                          <span className="font-medium text-slate-900 dark:text-slate-100">Timing Advice</span>
                         </div>
-                        <p className="text-sm text-slate-700">{prediction.timing_advice}</p>
+                        <p className="text-sm text-slate-700 dark:text-slate-300">{prediction.timing_advice}</p>
                       </div>
                     )}
                   </div>
@@ -358,7 +358,7 @@ const SuccessPredictorPage = ({ resume }) => {
                       </h4>
                       <div className="space-y-2">
                         {prediction.strengths.map((strength, i) => (
-                          <div key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                          <div key={i} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
                             <span className="text-emerald-500 mt-0.5">✓</span>
                             {strength}
                           </div>
@@ -376,7 +376,7 @@ const SuccessPredictorPage = ({ resume }) => {
                       </h4>
                       <div className="space-y-2">
                         {prediction.gaps.map((gap, i) => (
-                          <div key={i} className="flex items-start gap-2 text-sm text-slate-700">
+                          <div key={i} className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
                             <span className="text-amber-500 mt-0.5">!</span>
                             {gap}
                           </div>

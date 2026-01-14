@@ -13,7 +13,7 @@ const ApplicationsPage = ({ applications, onUpdateStatus, onDelete }) => {
 
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-6xl mx-auto animate-fade-in" data-testid="applications-page">
-      <h1 className="text-3xl font-semibold text-slate-900 tracking-tight mb-8" style={{ fontFamily: 'IBM Plex Sans' }}>
+      <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight mb-8" style={{ fontFamily: 'IBM Plex Sans' }}>
         Applications
       </h1>
 
@@ -31,7 +31,7 @@ const ApplicationsPage = ({ applications, onUpdateStatus, onDelete }) => {
       {filteredApps.length === 0 ? (
         <div className="empty-state">
           <CheckSquare className="w-12 h-12 text-slate-300 mb-4" />
-          <h3 className="text-lg font-medium text-slate-700">No applications</h3>
+          <h3 className="text-lg font-medium text-slate-700 dark:text-slate-300">No applications</h3>
           <p className="text-slate-500">Start applying to jobs to track them here</p>
         </div>
       ) : (
@@ -41,7 +41,7 @@ const ApplicationsPage = ({ applications, onUpdateStatus, onDelete }) => {
               <CardContent className="p-6">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div className="flex-1">
-                    <h3 className="font-semibold text-slate-900" style={{ fontFamily: 'IBM Plex Sans' }}>
+                    <h3 className="font-semibold text-slate-900 dark:text-slate-100" style={{ fontFamily: 'IBM Plex Sans' }}>
                       {app.job.title}
                     </h3>
                     <p className="text-slate-600 text-sm">{app.job.company}</p>

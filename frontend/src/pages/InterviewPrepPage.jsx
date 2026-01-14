@@ -735,7 +735,7 @@ const MockInterviewMode = ({ question, questionNumber, totalQuestions, onSubmit,
       <CardHeader>
         <div className="flex items-center justify-between">
           <Badge variant="outline">Question {questionNumber} of {totalQuestions}</Badge>
-          <Badge className={timeLeft < 30 ? "bg-red-100 text-red-700" : "bg-slate-100 text-slate-700"}>
+          <Badge className={timeLeft < 30 ? "bg-red-100 text-red-700" : "bg-slate-100 text-slate-700 dark:text-slate-300"}>
             <Clock className="w-3 h-3 mr-1" />
             {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
           </Badge>

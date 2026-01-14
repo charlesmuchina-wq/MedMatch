@@ -53,7 +53,7 @@ const ProgressRing = ({ value, max, label, color }) => {
           <circle
             cx="50" cy="50" r={radius}
             fill="none" stroke="currentColor"
-            className="text-slate-200 dark:text-slate-700"
+            className="text-slate-200 dark:text-slate-700 dark:text-slate-300"
             strokeWidth="8"
           />
           <circle

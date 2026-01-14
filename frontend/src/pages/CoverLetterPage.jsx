@@ -113,7 +113,7 @@ const CoverLetterPage = ({ resume }) => {
 
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-5xl mx-auto animate-fade-in" data-testid="cover-letter-page">
-      <h1 className="text-3xl font-semibold text-slate-900 tracking-tight mb-2" style={{ fontFamily: 'IBM Plex Sans' }}>
+      <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight mb-2" style={{ fontFamily: 'IBM Plex Sans' }}>
         AI Cover Letter Generator
       </h1>
       <p className="text-slate-500 mb-8">Generate personalized cover letters based on your resume and job requirements</p>
@@ -130,7 +130,7 @@ const CoverLetterPage = ({ resume }) => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-slate-700">Job Title *</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Job Title *</label>
                 <Input
                   placeholder="e.g., Supplier Quality Manager"
                   value={jobTitle}
@@ -140,7 +140,7 @@ const CoverLetterPage = ({ resume }) => {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-700">Company *</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Company *</label>
                 <Input
                   placeholder="e.g., Medtronic"
                   value={company}
@@ -150,7 +150,7 @@ const CoverLetterPage = ({ resume }) => {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-700">Job Description *</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Job Description *</label>
                 <Textarea
                   placeholder="Paste the job description here..."
                   value={jobDescription}
@@ -195,7 +195,7 @@ const CoverLetterPage = ({ resume }) => {
                       onClick={() => loadFromHistory(item)}
                     >
                       <div>
-                        <p className="text-sm font-medium text-slate-900">{item.job_title}</p>
+                        <p className="text-sm font-medium text-slate-900 dark:text-slate-100">{item.job_title}</p>
                         <p className="text-xs text-slate-500">{item.company}</p>
                       </div>
                       <ChevronRight className="w-4 h-4 text-slate-400" />

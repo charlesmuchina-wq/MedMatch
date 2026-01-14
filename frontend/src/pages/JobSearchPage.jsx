@@ -86,7 +86,7 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
 
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-6xl mx-auto animate-fade-in" data-testid="job-search-page">
-      <h1 className="text-3xl font-semibold text-slate-900 tracking-tight mb-6" style={{ fontFamily: 'IBM Plex Sans' }}>
+      <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight mb-6" style={{ fontFamily: 'IBM Plex Sans' }}>
         Find Remote Jobs
       </h1>
 
@@ -232,7 +232,7 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles className="w-5 h-5 text-sky-500" />
-                <span className="font-medium text-slate-900">AI Deep Search Results</span>
+                <span className="font-medium text-slate-900 dark:text-slate-100">AI Deep Search Results</span>
                 {searchStats.jobspy_enabled && (
                   <Badge variant="outline" className="text-xs bg-emerald-50 text-emerald-700 border-emerald-200">
                     JobSpy
@@ -278,7 +278,7 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
         ) : jobs.length === 0 ? (
           <div className="empty-state">
             <Search className="w-12 h-12 text-slate-300 mb-4" />
-            <h3 className="text-lg font-medium text-slate-700">No jobs found</h3>
+            <h3 className="text-lg font-medium text-slate-700 dark:text-slate-300">No jobs found</h3>
             <p className="text-slate-500 mb-4">Try AI Deep Search to find Quality & Medical Device jobs</p>
             <Button onClick={deepSearch} className="bg-gradient-to-r from-sky-500 to-emerald-500">
               <Sparkles className="w-4 h-4 mr-2" /> Run AI Deep Search

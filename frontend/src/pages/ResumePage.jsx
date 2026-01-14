@@ -44,7 +44,7 @@ const ResumePage = ({ resume, setResume }) => {
 
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-4xl mx-auto animate-fade-in" data-testid="resume-page">
-      <h1 className="text-3xl font-semibold text-slate-900 tracking-tight mb-8" style={{ fontFamily: 'IBM Plex Sans' }}>
+      <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight mb-8" style={{ fontFamily: 'IBM Plex Sans' }}>
         My Resume
       </h1>
 
@@ -75,11 +75,11 @@ const ResumePage = ({ resume, setResume }) => {
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm text-slate-500">Full Name</label>
-                  <p className="font-medium text-slate-900">{resume.full_name || '-'}</p>
+                  <p className="font-medium text-slate-900 dark:text-slate-100">{resume.full_name || '-'}</p>
                 </div>
                 <div>
                   <label className="text-sm text-slate-500">Email</label>
-                  <p className="font-medium text-slate-900">{resume.email || '-'}</p>
+                  <p className="font-medium text-slate-900 dark:text-slate-100">{resume.email || '-'}</p>
                 </div>
               </div>
               {resume.summary && (
@@ -111,7 +111,7 @@ const ResumePage = ({ resume, setResume }) => {
               <CardContent className="space-y-4">
                 {resume.experience.map((exp, i) => (
                   <div key={i} className="border-l-2 border-slate-200 pl-4">
-                    <h4 className="font-medium text-slate-900">{exp.title}</h4>
+                    <h4 className="font-medium text-slate-900 dark:text-slate-100">{exp.title}</h4>
                     <p className="text-sm text-slate-600">{exp.company} • {exp.duration}</p>
                   </div>
                 ))}
