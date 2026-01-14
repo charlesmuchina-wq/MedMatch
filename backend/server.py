@@ -281,6 +281,368 @@ def send_email_gmail(to_email: str, subject: str, html_content: str) -> bool:
         logging.error(f"Failed to send email: {e}")
         return False
 
+# ============== AUTHENTICATION MODELS ==============
+
+class UserRegister(BaseModel):
+    email: str
+    password: str
+    name: str = ""
+
+class UserLogin(BaseModel):
+    email: str
+    password: str
+
+class PhoneLoginRequest(BaseModel):
+    phone_number: str
+
+class PhoneVerifyRequest(BaseModel):
+    phone_number: str
+    code: str
+
+class GoogleAuthCallback(BaseModel):
+    session_id: str
+
+class UserResponse(BaseModel):
+    user_id: str
+    email: str
+    name: str
+    auth_method: str
+    created_at: str
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    user: UserResponse
+
+# ============== AUTHENTICATION HELPERS ==============
+
+def hash_password(password: str) -> str:
+    """Hash password with salt"""
+    salt = secrets.token_hex(16)
+    hashed = hashlib.pbkdf2_hmac('sha256', password.encode(), salt.encode(), 100000)
+    return f"{salt}:{hashed.hex()}"
+
+def verify_password(password: str, stored_hash: str) -> bool:
+    """Verify password against stored hash"""
+    try:
+        salt, hashed = stored_hash.split(':')
+        new_hash = hashlib.pbkdf2_hmac('sha256', password.encode(), salt.encode(), 100000)
+        return new_hash.hex() == hashed
+    except:
+        return False
+
+def create_session_token() -> str:
+    """Create a secure session token"""
+    return secrets.token_urlsafe(32)
+
+async def get_or_create_user(email: str, name: str, auth_method: str) -> dict:
+    """Get existing user or create new one"""
+    existing = await db.users.find_one({"email": email}, {"_id": 0})
+    if existing:
+        return existing
+    
+    user_id = f"user_{uuid.uuid4().hex[:12]}"
+    user = {
+        "user_id": user_id,
+        "email": email,
+        "name": name,
+        "auth_method": auth_method,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.users.insert_one(user)
+    return {k: v for k, v in user.items() if k != "_id"}
+
+async def create_session(user_id: str, session_token: str):
+    """Create a user session"""
+    session = {
+        "user_id": user_id,
+        "session_token": session_token,
+        "expires_at": datetime.now(timezone.utc) + timedelta(days=7),
+        "created_at": datetime.now(timezone.utc)
+    }
+    await db.user_sessions.insert_one(session)
+
+async def get_session(session_token: str) -> Optional[dict]:
+    """Get session by token"""
+    session = await db.user_sessions.find_one({"session_token": session_token}, {"_id": 0})
+    if session:
+        expires_at = session.get("expires_at")
+        if isinstance(expires_at, datetime):
+            if expires_at.tzinfo is None:
+                expires_at = expires_at.replace(tzinfo=timezone.utc)
+            if expires_at < datetime.now(timezone.utc):
+                return None
+        return session
+    return None
+
+async def get_current_user(request: Request) -> Optional[dict]:
+    """Get current user from session cookie or auth header"""
+    # Check cookie first
+    session_token = request.cookies.get("session_token")
+    
+    # Check Authorization header as fallback
+    if not session_token:
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            session_token = auth_header[7:]
+    
+    if not session_token:
+        return None
+    
+    session = await get_session(session_token)
+    if not session:
+        return None
+    
+    user = await db.users.find_one({"user_id": session["user_id"]}, {"_id": 0})
+    return user
+
+# ============== AUTHENTICATION ENDPOINTS ==============
+
+# REMINDER: DO NOT HARDCODE THE URL, OR ADD ANY FALLBACKS OR REDIRECT URLS, THIS BREAKS THE AUTH
+
+@api_router.post("/auth/register")
+async def register_user(user_data: UserRegister, response: Response):
+    """Register with email and password"""
+    # Check if user exists
+    existing = await db.users.find_one({"email": user_data.email})
+    if existing:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    
+    # Create user
+    user_id = f"user_{uuid.uuid4().hex[:12]}"
+    user = {
+        "user_id": user_id,
+        "email": user_data.email,
+        "name": user_data.name or user_data.email.split('@')[0],
+        "password_hash": hash_password(user_data.password),
+        "auth_method": "email",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.users.insert_one(user)
+    
+    # Create session
+    session_token = create_session_token()
+    await create_session(user_id, session_token)
+    
+    # Set cookie
+    response.set_cookie(
+        key="session_token",
+        value=session_token,
+        httponly=True,
+        secure=True,
+        samesite="none",
+        max_age=7 * 24 * 60 * 60,
+        path="/"
+    )
+    
+    return {
+        "access_token": session_token,
+        "token_type": "bearer",
+        "user": {
+            "user_id": user_id,
+            "email": user_data.email,
+            "name": user["name"],
+            "auth_method": "email",
+            "created_at": user["created_at"]
+        }
+    }
+
+@api_router.post("/auth/login")
+async def login_user(login_data: UserLogin, response: Response):
+    """Login with email and password"""
+    user = await db.users.find_one({"email": login_data.email}, {"_id": 0})
+    if not user or not user.get("password_hash"):
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    
+    if not verify_password(login_data.password, user["password_hash"]):
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    
+    # Create session
+    session_token = create_session_token()
+    await create_session(user["user_id"], session_token)
+    
+    # Set cookie
+    response.set_cookie(
+        key="session_token",
+        value=session_token,
+        httponly=True,
+        secure=True,
+        samesite="none",
+        max_age=7 * 24 * 60 * 60,
+        path="/"
+    )
+    
+    return {
+        "access_token": session_token,
+        "token_type": "bearer",
+        "user": {
+            "user_id": user["user_id"],
+            "email": user["email"],
+            "name": user.get("name", ""),
+            "auth_method": user.get("auth_method", "email"),
+            "created_at": user.get("created_at", "")
+        }
+    }
+
+@api_router.post("/auth/google/session")
+async def google_auth_session(request: Request, response: Response):
+    """Process Google OAuth session from Emergent Auth"""
+    body = await request.json()
+    session_id = body.get("session_id")
+    
+    if not session_id:
+        raise HTTPException(status_code=400, detail="Session ID required")
+    
+    # Fetch user data from Emergent Auth
+    async with httpx.AsyncClient() as client:
+        auth_response = await client.get(
+            "https://demobackend.emergentagent.com/auth/v1/env/oauth/session-data",
+            headers={"X-Session-ID": session_id}
+        )
+        
+        if auth_response.status_code != 200:
+            raise HTTPException(status_code=401, detail="Invalid session")
+        
+        auth_data = auth_response.json()
+    
+    # Get or create user
+    user = await get_or_create_user(
+        email=auth_data["email"],
+        name=auth_data.get("name", ""),
+        auth_method="google"
+    )
+    
+    # Create our own session
+    session_token = create_session_token()
+    await create_session(user["user_id"], session_token)
+    
+    # Set cookie
+    response.set_cookie(
+        key="session_token",
+        value=session_token,
+        httponly=True,
+        secure=True,
+        samesite="none",
+        max_age=7 * 24 * 60 * 60,
+        path="/"
+    )
+    
+    return {
+        "access_token": session_token,
+        "token_type": "bearer",
+        "user": {
+            "user_id": user["user_id"],
+            "email": user["email"],
+            "name": user.get("name", ""),
+            "auth_method": "google",
+            "created_at": user.get("created_at", "")
+        }
+    }
+
+@api_router.post("/auth/phone/send-otp")
+async def send_phone_otp(request: PhoneLoginRequest):
+    """Send OTP to phone number via Twilio"""
+    if not TWILIO_ACCOUNT_SID or not TWILIO_AUTH_TOKEN or not TWILIO_VERIFY_SERVICE:
+        raise HTTPException(status_code=500, detail="Phone auth not configured. Please add Twilio credentials.")
+    
+    try:
+        from twilio.rest import Client
+        client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+        verification = client.verify.services(TWILIO_VERIFY_SERVICE).verifications.create(
+            to=request.phone_number,
+            channel="sms"
+        )
+        return {"status": verification.status, "message": "OTP sent"}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@api_router.post("/auth/phone/verify-otp")
+async def verify_phone_otp(request: PhoneVerifyRequest, response: Response):
+    """Verify phone OTP and login/register"""
+    if not TWILIO_ACCOUNT_SID or not TWILIO_AUTH_TOKEN or not TWILIO_VERIFY_SERVICE:
+        raise HTTPException(status_code=500, detail="Phone auth not configured")
+    
+    try:
+        from twilio.rest import Client
+        client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+        check = client.verify.services(TWILIO_VERIFY_SERVICE).verification_checks.create(
+            to=request.phone_number,
+            code=request.code
+        )
+        
+        if check.status != "approved":
+            raise HTTPException(status_code=401, detail="Invalid OTP")
+        
+        # Get or create user with phone
+        user = await get_or_create_user(
+            email=f"{request.phone_number}@phone.medmatch",
+            name=request.phone_number,
+            auth_method="phone"
+        )
+        
+        # Update user with phone number
+        await db.users.update_one(
+            {"user_id": user["user_id"]},
+            {"$set": {"phone_number": request.phone_number}}
+        )
+        
+        # Create session
+        session_token = create_session_token()
+        await create_session(user["user_id"], session_token)
+        
+        response.set_cookie(
+            key="session_token",
+            value=session_token,
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=7 * 24 * 60 * 60,
+            path="/"
+        )
+        
+        return {
+            "access_token": session_token,
+            "token_type": "bearer",
+            "user": {
+                "user_id": user["user_id"],
+                "email": user["email"],
+                "name": user.get("name", request.phone_number),
+                "auth_method": "phone",
+                "created_at": user.get("created_at", "")
+            }
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@api_router.get("/auth/me")
+async def get_current_user_endpoint(request: Request):
+    """Get current authenticated user"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    return {
+        "user_id": user["user_id"],
+        "email": user["email"],
+        "name": user.get("name", ""),
+        "auth_method": user.get("auth_method", ""),
+        "created_at": user.get("created_at", "")
+    }
+
+@api_router.post("/auth/logout")
+async def logout_user(request: Request, response: Response):
+    """Logout current user"""
+    session_token = request.cookies.get("session_token")
+    if session_token:
+        await db.user_sessions.delete_many({"session_token": session_token})
+    
+    response.delete_cookie(key="session_token", path="/")
+    return {"message": "Logged out successfully"}
+
 # AI-powered resume parsing
 async def parse_resume_with_ai(raw_text: str) -> dict:
     if not EMERGENT_LLM_KEY:
