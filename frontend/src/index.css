@@ -116,6 +116,20 @@ code {
     body {
         @apply bg-background text-foreground;
     }
+    
+    /* Ensure all text elements transition smoothly in dark mode */
+    h1, h2, h3, h4, h5, h6, p, span, a, label, li {
+        transition: color 0.3s ease;
+    }
+    
+    /* Dark mode text color defaults */
+    .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+        color: #f5f5f5;
+    }
+    
+    .dark p, .dark span, .dark label {
+        color: #d4d4d4;
+    }
 }
 
 /* ===============================================
