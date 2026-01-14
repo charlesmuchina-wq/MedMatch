@@ -49,9 +49,12 @@ const ResumePage = ({ resume, setResume }) => {
 
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-4xl mx-auto animate-fade-in" data-testid="resume-page">
-      <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight mb-8" style={{ fontFamily: 'IBM Plex Sans' }}>
-        My Resume
-      </h1>
+      <div className="flex items-center justify-between mb-8">
+        <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight" style={{ fontFamily: 'IBM Plex Sans' }}>
+          My Resume
+        </h1>
+        <CloudStorageUpload onFileSelected={handleFileUpload} isLoading={uploading} />
+      </div>
 
       <Card className="mb-8">
         <CardContent className="p-6">
@@ -59,13 +62,16 @@ const ResumePage = ({ resume, setResume }) => {
             <input {...getInputProps()} data-testid="resume-input" />
             <Upload className="w-10 h-10 text-slate-400 mx-auto mb-3" />
             {uploading ? (
-              <p className="text-slate-600">Processing your resume...</p>
+              <p className="text-slate-600 dark:text-slate-300">Processing your resume...</p>
             ) : (
               <>
-                <p className="text-slate-700 font-medium">
+                <p className="text-slate-700 dark:text-slate-200 font-medium">
                   {isDragActive ? "Drop your resume here" : "Drag & drop your resume"}
                 </p>
-                <p className="text-slate-500 text-sm mt-1">or click to browse (PDF only)</p>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">or click to browse (PDF only)</p>
+                <p className="text-slate-400 dark:text-slate-500 text-xs mt-3 flex items-center justify-center gap-1">
+                  <Cloud className="w-3 h-3" /> Or import from Google Drive, Dropbox, OneDrive
+                </p>
               </>
             )}
           </div>
