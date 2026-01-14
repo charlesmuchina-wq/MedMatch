@@ -277,20 +277,44 @@ const MembershipPage = ({ user }) => {
                   </li>
                 ))}
               </ul>
-              <Button 
-                onClick={handleUpgrade}
-                disabled={processing}
-                className="w-full mt-6 bg-gradient-to-r from-turquoise to-teal-600 hover:from-teal-600 hover:to-turquoise"
-                data-testid="upgrade-btn"
-              >
-                {processing ? (
-                  <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Processing...</>
-                ) : (
-                  <><CreditCard className="w-4 h-4 mr-2" /> Upgrade for $1</>
-                )}
-              </Button>
+              
+              {/* Payment Options */}
+              <div className="mt-6 space-y-3">
+                <Button 
+                  onClick={() => handleUpgrade('stripe')}
+                  disabled={processing}
+                  className="w-full bg-gradient-to-r from-turquoise to-teal-600 hover:from-teal-600 hover:to-turquoise"
+                  data-testid="upgrade-stripe-btn"
+                >
+                  {processing ? (
+                    <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Processing...</>
+                  ) : (
+                    <><CreditCard className="w-4 h-4 mr-2" /> Pay $1 with Card</>
+                  )}
+                </Button>
+                
+                <Button 
+                  onClick={() => handleUpgrade('paypal')}
+                  disabled={processing}
+                  variant="outline"
+                  className="w-full border-[#0070ba] text-[#0070ba] hover:bg-[#0070ba]/10"
+                  data-testid="upgrade-paypal-btn"
+                >
+                  {processing ? (
+                    <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Processing...</>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.77.77 0 0 1 .757-.629h6.153c2.046 0 3.667.468 4.736 1.371 1.006.85 1.468 2.076 1.338 3.548-.33 3.692-2.898 5.447-6.246 5.447h-1.83a.77.77 0 0 0-.758.628l-.87 5.507a.64.64 0 0 1-.632.54h-.516v1.205zm12.234-14.446c-.395 4.268-3.133 6.38-7.07 6.38h-1.315l-1.026 6.491h2.45l.714-4.515h1.315c3.936 0 6.673-2.112 7.07-6.38.096-1.04-.052-1.89-.427-2.578.34.327.597.738.758 1.238.156.485.234 1.057.234 1.713 0 .257-.012.521-.038.79-.233 2.55-1.553 4.41-3.615 5.346.826-.773 1.397-1.79 1.687-3.036.058-.248.102-.508.133-.779.026-.232.039-.455.039-.667 0-.555-.063-1.044-.187-1.47a3.283 3.283 0 0 0-.722-1.333z"/>
+                      </svg>
+                      Pay $1 with PayPal
+                    </>
+                  )}
+                </Button>
+              </div>
+              
               <p className="text-xs text-slate-500 text-center mt-3">
-                Secure payment via Stripe • All currencies accepted
+                Secure payment • All currencies accepted worldwide
               </p>
             </CardContent>
           </Card>
