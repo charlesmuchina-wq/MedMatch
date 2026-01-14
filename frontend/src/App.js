@@ -404,6 +404,9 @@ function AppContent() {
       <div className="flex-1 flex flex-col min-w-0">
         <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} resume={resume} user={user} onLogout={handleLogout} />
         
+        {/* Upgrade Banner for trial/expired users */}
+        <UpgradeBanner membership={membership} />
+        
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Dashboard resume={resume} savedJobs={savedJobs} applications={applications} onNavigate={navigate} />} />
