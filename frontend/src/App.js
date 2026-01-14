@@ -247,6 +247,9 @@ function AppContent() {
   const [isAuthChecking, setIsAuthChecking] = useState(true);
   const { isDark } = useTheme();
   const location = useLocation();
+  
+  // Onboarding tour state
+  const { showTour, completeTour } = useOnboardingTour();
 
   // Check for OAuth callback (session_id in hash) 
   useEffect(() => {
