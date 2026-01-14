@@ -37,12 +37,25 @@ const LoginPage = ({ onAuthSuccess }) => {
   const [otpSent, setOtpSent] = useState(false);
 
   // Check for Google OAuth callback (session_id in URL hash)
+  // Also check for Apple Sign In callback (id_token in URL hash)
   useEffect(() => {
     const hash = location.hash;
-    if (hash && hash.includes('session_id=')) {
-      const sessionId = hash.split('session_id=')[1]?.split('&')[0];
-      if (sessionId) {
-        handleGoogleCallback(sessionId);
+    if (hash) {
+      // Google callback
+      if (hash.includes('session_id=')) {
+        const sessionId = hash.split('session_id=')[1]?.split('&')[0];
+        if (sessionId) {
+          handleGoogleCallback(sessionId);
+        }
+      }
+      // Apple callback (fragment response mode)
+      else if (hash.includes('id_token=')) {
+        const params = new URLSearchParams(hash.substring(1));
+        const idToken = params.get('id_token');
+        const code = params.get('code');
+        if (idToken) {
+          handleAppleCallback(idToken, code);
+        }
       }
     }
   }, [location]);
@@ -64,6 +77,25 @@ const LoginPage = ({ onAuthSuccess }) => {
     };
     checkAuth();
   }, []);
+
+  const handleAppleCallback = async (idToken, code) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(`${API}/api/auth/apple/callback`,
+        { id_token: idToken, code: code },
+        { withCredentials: true }
+      );
+      
+      toast.success("Logged in with Apple!");
+      onAuthSuccess(response.data.user);
+      navigate('/');
+    } catch (e) {
+      toast.error(e.response?.data?.detail || "Apple login failed");
+    }
+    setIsLoading(false);
+    // Clear the hash
+    window.history.replaceState(null, '', window.location.pathname);
+  };
 
   const handleGoogleCallback = async (sessionId) => {
     setIsLoading(true);
