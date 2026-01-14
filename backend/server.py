@@ -1949,13 +1949,60 @@ async def remove_saved_job(job_id: str):
 # Applications
 @api_router.post("/applications")
 async def create_application(data: ApplicationCreate):
-    app_doc = Application(job=data.job, notes=data.notes)
+    """Create application and auto-mark as applied"""
+    # Check if already applied to this job (by URL)
+    if data.job.url:
+        existing = await db.applications.find_one({"job.url": data.job.url}, {"_id": 0})
+        if existing:
+            return {"message": "Already applied to this job", "application": existing, "already_applied": True}
+    
+    app_doc = Application(
+        job=data.job, 
+        notes=data.notes,
+        external_url=data.job.url,
+        job_status="Active"
+    )
     doc = app_doc.model_dump()
     doc['applied_at'] = doc['applied_at'].isoformat()
     doc['updated_at'] = doc['updated_at'].isoformat()
     
     await db.applications.insert_one(doc)
-    return app_doc
+    return {"application": app_doc, "already_applied": False}
+
+@api_router.post("/applications/quick-apply")
+async def quick_apply_job(data: ApplicationCreate):
+    """Quick apply - mark job as applied and return the external URL to redirect user"""
+    # Check if already applied
+    if data.job.url:
+        existing = await db.applications.find_one({"job.url": data.job.url}, {"_id": 0})
+        if existing:
+            return {
+                "redirect_url": data.job.url,
+                "message": "Already applied - redirecting to job posting",
+                "already_applied": True,
+                "application_id": existing.get("id")
+            }
+    
+    # Create application
+    app_doc = Application(
+        job=data.job,
+        notes="Quick applied via MedMatch",
+        external_url=data.job.url,
+        job_status="Active",
+        status="Applied"
+    )
+    doc = app_doc.model_dump()
+    doc['applied_at'] = doc['applied_at'].isoformat()
+    doc['updated_at'] = doc['updated_at'].isoformat()
+    
+    await db.applications.insert_one(doc)
+    
+    return {
+        "redirect_url": data.job.url,
+        "message": "Application recorded - redirecting to job posting",
+        "already_applied": False,
+        "application_id": app_doc.id
+    }
 
 @api_router.get("/applications")
 async def get_applications():
@@ -1967,6 +2014,18 @@ async def get_applications():
             doc['updated_at'] = datetime.fromisoformat(doc['updated_at'])
     return docs
 
+@api_router.get("/applications/check/{job_url:path}")
+async def check_if_applied(job_url: str):
+    """Check if user has already applied to a job by URL"""
+    # URL decode
+    import urllib.parse
+    decoded_url = urllib.parse.unquote(job_url)
+    
+    existing = await db.applications.find_one({"job.url": decoded_url}, {"_id": 0})
+    if existing:
+        return {"applied": True, "application": existing}
+    return {"applied": False}
+
 @api_router.put("/applications/{app_id}")
 async def update_application(app_id: str, data: ApplicationStatusUpdate):
     update_data = {"status": data.status, "updated_at": datetime.now(timezone.utc).isoformat()}
@@ -1977,6 +2036,19 @@ async def update_application(app_id: str, data: ApplicationStatusUpdate):
     if result.modified_count == 0:
         raise HTTPException(status_code=404, detail="Application not found")
     return {"message": "Application updated"}
+
+@api_router.put("/applications/{app_id}/job-status")
+async def update_job_status(app_id: str, job_status: str):
+    """Update the job posting status (Active, Closed, Filled)"""
+    valid_statuses = ["Active", "Closed", "Filled", "Unknown", "Still Accepting"]
+    if job_status not in valid_statuses:
+        raise HTTPException(status_code=400, detail=f"Invalid status. Must be one of: {valid_statuses}")
+    
+    update_data = {"job_status": job_status, "updated_at": datetime.now(timezone.utc).isoformat()}
+    result = await db.applications.update_one({"id": app_id}, {"$set": update_data})
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Application not found")
+    return {"message": "Job status updated"}
 
 @api_router.delete("/applications/{app_id}")
 async def delete_application(app_id: str):
