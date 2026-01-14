@@ -2954,6 +2954,376 @@ async def delete_video_recording(recording_id: str):
         raise HTTPException(status_code=404, detail="Recording not found")
     return {"message": "Recording deleted"}
 
+# ============== AI VIDEO ANALYSIS WITH VISION ==============
+
+class VideoFrameAnalysisRequest(BaseModel):
+    frame_base64: str  # Base64 encoded image frame from video
+    question: str = ""
+    context: str = ""  # Additional context like "behavioral interview", "technical interview"
+
+class VideoAnalysisResponse(BaseModel):
+    eye_contact_score: int  # 0-100
+    posture_score: int  # 0-100
+    confidence_score: int  # 0-100
+    facial_expression: str
+    body_language_tips: List[str]
+    overall_assessment: str
+    strengths: List[str]
+    improvements: List[str]
+
+@api_router.post("/interview/analyze-video-frame")
+async def analyze_video_frame(request: VideoFrameAnalysisRequest):
+    """
+    Analyze a video frame using AI Vision to provide body language feedback.
+    Uses OpenAI Vision API via Emergent LLM Key.
+    """
+    from emergentintegrations.llm.chat import LlmChat, UserMessage, ImageContent
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="LLM key not configured")
+    
+    try:
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=str(uuid.uuid4()),
+            system_message="""You are an expert interview coach and body language analyst. 
+            Analyze the interview candidate's video frame and provide detailed feedback on:
+            1. Eye contact (are they looking at camera/interviewer)
+            2. Posture (sitting upright, confident stance)
+            3. Facial expression (friendly, confident, nervous)
+            4. Body language (open vs closed, hand gestures)
+            5. Professional appearance (lighting, background, attire)
+            
+            Return a JSON object with:
+            - eye_contact_score: 0-100
+            - posture_score: 0-100
+            - confidence_score: 0-100
+            - facial_expression: string description
+            - body_language_tips: array of specific tips
+            - overall_assessment: 2-3 sentence summary
+            - strengths: array of positive observations
+            - improvements: array of areas to work on
+            
+            Be encouraging but honest. Return ONLY valid JSON."""
+        ).with_model("openai", "gpt-5.2")
+        
+        # Create image content from base64
+        image_content = ImageContent(image_base64=request.frame_base64)
+        
+        context_text = f"Interview context: {request.context}" if request.context else ""
+        question_text = f"The candidate is answering: '{request.question}'" if request.question else ""
+        
+        user_message = UserMessage(
+            text=f"Analyze this interview candidate's body language and presentation. {context_text} {question_text}",
+            file_contents=[image_content]
+        )
+        
+        response = await chat.send_message(user_message)
+        
+        # Parse JSON response
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        
+        analysis = json.loads(clean_response)
+        
+        return {
+            "eye_contact_score": analysis.get("eye_contact_score", 50),
+            "posture_score": analysis.get("posture_score", 50),
+            "confidence_score": analysis.get("confidence_score", 50),
+            "facial_expression": analysis.get("facial_expression", "neutral"),
+            "body_language_tips": analysis.get("body_language_tips", []),
+            "overall_assessment": analysis.get("overall_assessment", ""),
+            "strengths": analysis.get("strengths", []),
+            "improvements": analysis.get("improvements", [])
+        }
+        
+    except json.JSONDecodeError:
+        return {
+            "eye_contact_score": 50,
+            "posture_score": 50,
+            "confidence_score": 50,
+            "facial_expression": "Unable to analyze",
+            "body_language_tips": ["Ensure good lighting", "Face the camera directly"],
+            "overall_assessment": "Could not fully analyze the frame. Please ensure clear video quality.",
+            "strengths": [],
+            "improvements": ["Improve video quality for better analysis"]
+        }
+    except Exception as e:
+        logging.error(f"Video frame analysis error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+# ============== PDF EXPORT ==============
+
+class CoverLetterExportRequest(BaseModel):
+    cover_letter: str
+    job_title: str
+    company: str
+    candidate_name: str = ""
+
+class InterviewPrepExportRequest(BaseModel):
+    job_title: str
+    company: str
+    questions: List[Dict[str, Any]]
+    candidate_name: str = ""
+    notes: str = ""
+
+@api_router.post("/export/cover-letter-html")
+async def export_cover_letter_html(request: CoverLetterExportRequest):
+    """
+    Generate HTML for cover letter that can be converted to PDF on frontend.
+    """
+    resume = await db.resumes.find_one({}, {"_id": 0})
+    candidate_name = request.candidate_name or resume.get('full_name', 'Candidate') if resume else 'Candidate'
+    candidate_email = resume.get('email', '') if resume else ''
+    
+    # Format cover letter paragraphs
+    paragraphs = request.cover_letter.split('\n\n')
+    formatted_paragraphs = ''.join([f'<p style="margin-bottom: 16px; line-height: 1.6;">{p}</p>' for p in paragraphs if p.strip()])
+    
+    html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Cover Letter - {request.job_title} at {request.company}</title>
+        <style>
+            body {{
+                font-family: 'Georgia', 'Times New Roman', serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 40px;
+                color: #1a1a1a;
+                line-height: 1.6;
+            }}
+            .header {{
+                margin-bottom: 40px;
+                border-bottom: 2px solid #20b2aa;
+                padding-bottom: 20px;
+            }}
+            .header h1 {{
+                color: #20b2aa;
+                font-size: 28px;
+                margin: 0;
+            }}
+            .header p {{
+                color: #666;
+                margin: 5px 0;
+            }}
+            .date {{
+                text-align: right;
+                color: #666;
+                margin-bottom: 30px;
+            }}
+            .recipient {{
+                margin-bottom: 30px;
+            }}
+            .content {{
+                margin-bottom: 40px;
+            }}
+            .signature {{
+                margin-top: 40px;
+            }}
+            .footer {{
+                margin-top: 60px;
+                padding-top: 20px;
+                border-top: 1px solid #eee;
+                font-size: 12px;
+                color: #999;
+                text-align: center;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>{candidate_name}</h1>
+            <p>{candidate_email}</p>
+        </div>
+        
+        <div class="date">
+            {datetime.now().strftime('%B %d, %Y')}
+        </div>
+        
+        <div class="recipient">
+            <p><strong>RE: {request.job_title}</strong></p>
+            <p>{request.company}</p>
+        </div>
+        
+        <div class="content">
+            {formatted_paragraphs}
+        </div>
+        
+        <div class="signature">
+            <p>Sincerely,</p>
+            <p><strong>{candidate_name}</strong></p>
+        </div>
+        
+        <div class="footer">
+            Generated with MedMatch - AI-Powered Job Search Assistant
+        </div>
+    </body>
+    </html>
+    """
+    
+    return {"html": html, "filename": f"Cover_Letter_{request.company.replace(' ', '_')}.pdf"}
+
+@api_router.post("/export/interview-prep-html")
+async def export_interview_prep_html(request: InterviewPrepExportRequest):
+    """
+    Generate HTML for interview preparation notes that can be converted to PDF.
+    """
+    resume = await db.resumes.find_one({}, {"_id": 0})
+    candidate_name = request.candidate_name or resume.get('full_name', 'Candidate') if resume else 'Candidate'
+    
+    # Format questions
+    questions_html = ""
+    for i, q in enumerate(request.questions, 1):
+        question_text = q.get('text', q.get('question', ''))
+        category = q.get('category', 'General')
+        difficulty = q.get('difficulty', 'medium')
+        suggested_answer = q.get('suggested_answer', q.get('answer', ''))
+        
+        questions_html += f"""
+        <div class="question-card">
+            <div class="question-header">
+                <span class="question-number">Q{i}</span>
+                <span class="category">{category}</span>
+                <span class="difficulty {difficulty}">{difficulty.capitalize()}</span>
+            </div>
+            <h3 class="question-text">{question_text}</h3>
+            {f'<div class="suggested-answer"><strong>Suggested Approach:</strong><p>{suggested_answer}</p></div>' if suggested_answer else ''}
+        </div>
+        """
+    
+    html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Interview Prep - {request.job_title} at {request.company}</title>
+        <style>
+            body {{
+                font-family: 'Arial', sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 40px;
+                color: #1a1a1a;
+            }}
+            .header {{
+                background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+                color: white;
+                padding: 30px;
+                border-radius: 12px;
+                margin-bottom: 30px;
+            }}
+            .header h1 {{
+                margin: 0 0 10px 0;
+                font-size: 24px;
+            }}
+            .header .subtitle {{
+                color: #20b2aa;
+                font-size: 18px;
+                margin: 0;
+            }}
+            .header .meta {{
+                color: #999;
+                font-size: 14px;
+                margin-top: 15px;
+            }}
+            .section-title {{
+                color: #20b2aa;
+                border-bottom: 2px solid #20b2aa;
+                padding-bottom: 10px;
+                margin: 30px 0 20px;
+            }}
+            .question-card {{
+                background: #f8f8f8;
+                border-radius: 8px;
+                padding: 20px;
+                margin-bottom: 20px;
+                border-left: 4px solid #20b2aa;
+            }}
+            .question-header {{
+                display: flex;
+                gap: 10px;
+                margin-bottom: 10px;
+            }}
+            .question-number {{
+                background: #20b2aa;
+                color: white;
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-size: 12px;
+                font-weight: bold;
+            }}
+            .category {{
+                background: #e2e8f0;
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-size: 12px;
+            }}
+            .difficulty {{
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-size: 12px;
+            }}
+            .difficulty.easy {{ background: #d1fae5; color: #065f46; }}
+            .difficulty.medium {{ background: #fef3c7; color: #92400e; }}
+            .difficulty.hard {{ background: #fee2e2; color: #991b1b; }}
+            .question-text {{
+                margin: 0 0 15px 0;
+                font-size: 16px;
+            }}
+            .suggested-answer {{
+                background: white;
+                padding: 15px;
+                border-radius: 6px;
+                font-size: 14px;
+                color: #555;
+            }}
+            .notes-section {{
+                background: #fef3c7;
+                padding: 20px;
+                border-radius: 8px;
+                margin-top: 30px;
+            }}
+            .notes-section h3 {{
+                color: #92400e;
+                margin: 0 0 10px;
+            }}
+            .footer {{
+                margin-top: 40px;
+                padding-top: 20px;
+                border-top: 1px solid #eee;
+                font-size: 12px;
+                color: #999;
+                text-align: center;
+            }}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Interview Preparation Guide</h1>
+            <p class="subtitle">{request.job_title} at {request.company}</p>
+            <p class="meta">Prepared for: {candidate_name} | Generated: {datetime.now().strftime('%B %d, %Y')}</p>
+        </div>
+        
+        <h2 class="section-title">Practice Questions ({len(request.questions)})</h2>
+        {questions_html}
+        
+        {f'<div class="notes-section"><h3>Personal Notes</h3><p>{request.notes}</p></div>' if request.notes else ''}
+        
+        <div class="footer">
+            Generated with MedMatch - AI-Powered Job Search Assistant
+        </div>
+    </body>
+    </html>
+    """
+    
+    return {"html": html, "filename": f"Interview_Prep_{request.company.replace(' ', '_')}.pdf"}
+
 # Include router
 app.include_router(api_router)
 
