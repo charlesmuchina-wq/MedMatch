@@ -335,6 +335,7 @@ function AppContent() {
             <Route path="/predictor" element={<SuccessPredictorPage resume={resume} />} />
             <Route path="/interview" element={<InterviewPrepPage resume={resume} />} />
             <Route path="/voice-coach" element={<VoiceCoachPage resume={resume} />} />
+            <Route path="/video-interview" element={<VideoInterviewPage resume={resume} />} />
             <Route path="/cover-letter" element={<CoverLetterPage resume={resume} />} />
             <Route path="/alerts" element={<JobAlertsPage resume={resume} />} />
             <Route path="/analytics" element={<AnalyticsDashboard />} />
