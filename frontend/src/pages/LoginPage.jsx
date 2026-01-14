@@ -36,6 +36,45 @@ const LoginPage = ({ onAuthSuccess }) => {
   const [otpCode, setOtpCode] = useState("");
   const [otpSent, setOtpSent] = useState(false);
 
+  // Callback handlers defined with useCallback
+  const handleGoogleCallback = useCallback(async (sessionId) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(`${API}/api/auth/google/session`, 
+        { session_id: sessionId },
+        { withCredentials: true }
+      );
+      
+      toast.success("Logged in with Google!");
+      onAuthSuccess(response.data.user);
+      navigate('/');
+    } catch (e) {
+      toast.error("Google login failed");
+    }
+    setIsLoading(false);
+    // Clear the hash
+    window.history.replaceState(null, '', window.location.pathname);
+  }, [onAuthSuccess, navigate]);
+
+  const handleAppleCallback = useCallback(async (idToken, code) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(`${API}/api/auth/apple/callback`,
+        { id_token: idToken, code: code },
+        { withCredentials: true }
+      );
+      
+      toast.success("Logged in with Apple!");
+      onAuthSuccess(response.data.user);
+      navigate('/');
+    } catch (e) {
+      toast.error(e.response?.data?.detail || "Apple login failed");
+    }
+    setIsLoading(false);
+    // Clear the hash
+    window.history.replaceState(null, '', window.location.pathname);
+  }, [onAuthSuccess, navigate]);
+
   // Check for Google OAuth callback (session_id in URL hash)
   // Also check for Apple Sign In callback (id_token in URL hash)
   useEffect(() => {
@@ -58,7 +97,7 @@ const LoginPage = ({ onAuthSuccess }) => {
         }
       }
     }
-  }, [location]);
+  }, [location, handleGoogleCallback, handleAppleCallback]);
 
   // Check if already authenticated
   useEffect(() => {
@@ -76,45 +115,7 @@ const LoginPage = ({ onAuthSuccess }) => {
       }
     };
     checkAuth();
-  }, []);
-
-  const handleAppleCallback = async (idToken, code) => {
-    setIsLoading(true);
-    try {
-      const response = await axios.post(`${API}/api/auth/apple/callback`,
-        { id_token: idToken, code: code },
-        { withCredentials: true }
-      );
-      
-      toast.success("Logged in with Apple!");
-      onAuthSuccess(response.data.user);
-      navigate('/');
-    } catch (e) {
-      toast.error(e.response?.data?.detail || "Apple login failed");
-    }
-    setIsLoading(false);
-    // Clear the hash
-    window.history.replaceState(null, '', window.location.pathname);
-  };
-
-  const handleGoogleCallback = async (sessionId) => {
-    setIsLoading(true);
-    try {
-      const response = await axios.post(`${API}/api/auth/google/session`, 
-        { session_id: sessionId },
-        { withCredentials: true }
-      );
-      
-      toast.success("Logged in with Google!");
-      onAuthSuccess(response.data.user);
-      navigate('/');
-    } catch (e) {
-      toast.error("Google login failed");
-    }
-    setIsLoading(false);
-    // Clear the hash
-    window.history.replaceState(null, '', window.location.pathname);
-  };
+  }, [onAuthSuccess, navigate]);
 
   // REMINDER: DO NOT HARDCODE THE URL, OR ADD ANY FALLBACKS OR REDIRECT URLS, THIS BREAKS THE AUTH
   const handleGoogleLogin = () => {
