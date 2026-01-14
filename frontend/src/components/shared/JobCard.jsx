@@ -34,39 +34,79 @@ const JobStatusBadge = ({ status, postedAt }) => {
     if (status) {
       const statusLower = status.toLowerCase();
       if (statusLower === 'active' || statusLower === 'open') {
-        return { label: 'Active', icon: CheckCircle2, color: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400', iconColor: 'text-emerald-500' };
+        return { 
+          label: 'Active', 
+          icon: CheckCircle2, 
+          color: 'bg-emerald-500/20 text-emerald-600 dark:bg-emerald-500/30 dark:text-emerald-300 border border-emerald-500/30', 
+          iconColor: 'text-emerald-500 dark:text-emerald-400' 
+        };
       }
       if (statusLower === 'closed' || statusLower === 'filled' || statusLower === 'expired') {
-        return { label: 'Closed', icon: XCircle, color: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400', iconColor: 'text-red-500' };
+        return { 
+          label: 'Closed', 
+          icon: XCircle, 
+          color: 'bg-red-500/20 text-red-600 dark:bg-red-500/30 dark:text-red-300 border border-red-500/30', 
+          iconColor: 'text-red-500 dark:text-red-400' 
+        };
       }
       if (statusLower === 'paused' || statusLower === 'on hold') {
-        return { label: 'Paused', icon: AlertCircle, color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400', iconColor: 'text-amber-500' };
+        return { 
+          label: 'Paused', 
+          icon: AlertCircle, 
+          color: 'bg-amber-500/20 text-amber-600 dark:bg-amber-500/30 dark:text-amber-300 border border-amber-500/30', 
+          iconColor: 'text-amber-500 dark:text-amber-400' 
+        };
       }
     }
 
     // Infer status from age if no explicit status
     if (daysSincePosted !== null) {
       if (daysSincePosted <= 7) {
-        return { label: 'New', icon: CheckCircle2, color: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400', iconColor: 'text-emerald-500' };
+        return { 
+          label: 'New', 
+          icon: CheckCircle2, 
+          color: 'bg-emerald-500/20 text-emerald-600 dark:bg-emerald-500/30 dark:text-emerald-300 border border-emerald-500/30', 
+          iconColor: 'text-emerald-500 dark:text-emerald-400' 
+        };
       }
       if (daysSincePosted <= 30) {
-        return { label: 'Active', icon: CheckCircle2, color: 'bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400', iconColor: 'text-sky-500' };
+        return { 
+          label: 'Active', 
+          icon: CheckCircle2, 
+          color: 'bg-sky-500/20 text-sky-600 dark:bg-sky-500/30 dark:text-sky-300 border border-sky-500/30', 
+          iconColor: 'text-sky-500 dark:text-sky-400' 
+        };
       }
       if (daysSincePosted <= 60) {
-        return { label: 'May be closed', icon: AlertCircle, color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400', iconColor: 'text-amber-500' };
+        return { 
+          label: 'May be closed', 
+          icon: AlertCircle, 
+          color: 'bg-amber-500/20 text-amber-600 dark:bg-amber-500/30 dark:text-amber-300 border border-amber-500/30', 
+          iconColor: 'text-amber-500 dark:text-amber-400' 
+        };
       }
-      return { label: 'Likely closed', icon: XCircle, color: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400', iconColor: 'text-red-500' };
+      return { 
+        label: 'Likely closed', 
+        icon: XCircle, 
+        color: 'bg-red-500/20 text-red-600 dark:bg-red-500/30 dark:text-red-300 border border-red-500/30', 
+        iconColor: 'text-red-500 dark:text-red-400' 
+      };
     }
 
     // Unknown status
-    return { label: 'Unknown', icon: HelpCircle, color: 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300', iconColor: 'text-slate-400' };
+    return { 
+      label: 'Unknown', 
+      icon: HelpCircle, 
+      color: 'bg-slate-500/20 text-slate-600 dark:bg-slate-500/30 dark:text-slate-300 border border-slate-500/30', 
+      iconColor: 'text-slate-500 dark:text-slate-400' 
+    };
   };
 
   const statusInfo = getStatusInfo();
   const StatusIcon = statusInfo.icon;
 
   return (
-    <Badge className={`${statusInfo.color} text-xs px-2 py-0.5 flex items-center gap-1`} data-testid="job-status-badge">
+    <Badge className={`${statusInfo.color} text-xs px-2 py-0.5 flex items-center gap-1 font-medium`} data-testid="job-status-badge">
       <StatusIcon className={`w-3 h-3 ${statusInfo.iconColor}`} />
       {statusInfo.label}
     </Badge>
