@@ -2756,6 +2756,19 @@ Make questions specific to the role and industry."""
             if clean_response.startswith("json"):
                 clean_response = clean_response[4:]
         questions = json.loads(clean_response)
+        
+        # Store questions in database for Voice/Video Coach to use
+        await db.cached_questions.update_one(
+            {"type": "interview_questions"},
+            {"$set": {
+                "questions": questions,
+                "job_title": request.job_title,
+                "company": request.company,
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            }},
+            upsert=True
+        )
+        
         return {"questions": questions}
     except Exception as e:
         logging.error(f"Question generation error: {e}")
@@ -2767,6 +2780,14 @@ Make questions specific to the role and industry."""
             {"text": "Where do you see yourself in 5 years?", "category": "company", "difficulty": "easy"},
             {"text": "What's your greatest professional achievement?", "category": "behavioral", "difficulty": "medium"},
         ]}
+
+@api_router.get("/interview/cached-questions")
+async def get_cached_questions():
+    """Get previously generated interview questions for Voice/Video Coach"""
+    cached = await db.cached_questions.find_one({"type": "interview_questions"}, {"_id": 0})
+    if cached and cached.get("questions"):
+        return {"questions": cached["questions"], "job_title": cached.get("job_title", ""), "company": cached.get("company", "")}
+    return {"questions": [], "job_title": "", "company": ""}
 
 @api_router.post("/interview/generate-answer")
 async def generate_interview_answer(request: InterviewAnswerRequest):
