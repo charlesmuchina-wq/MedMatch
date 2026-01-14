@@ -24,6 +24,7 @@ import InterviewPrepPage from "@/pages/InterviewPrepPage";
 import VoiceCoachPage from "@/pages/VoiceCoachPage";
 import AnalyticsDashboard from "@/pages/AnalyticsDashboard";
 import ResumeProfilesPage from "@/pages/ResumeProfilesPage";
+import VideoInterviewPage from "@/pages/VideoInterviewPage";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
