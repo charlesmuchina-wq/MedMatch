@@ -2638,6 +2638,322 @@ Analyze this spoken interview answer and provide detailed feedback."""
             "ideal_pace_range": "120-150 WPM"
         }
 
+# ============== ANALYTICS ENDPOINTS ==============
+
+@api_router.get("/analytics/dashboard")
+async def get_analytics_dashboard(days: int = 30):
+    """
+    Get comprehensive analytics for the job application dashboard.
+    """
+    # Calculate date range
+    end_date = datetime.now(timezone.utc)
+    start_date = end_date - timedelta(days=days)
+    previous_start = start_date - timedelta(days=days)
+    
+    # Get all applications
+    all_apps = await db.applications.find({}, {"_id": 0}).to_list(1000)
+    
+    # Filter by date range
+    recent_apps = []
+    previous_apps = []
+    for app in all_apps:
+        app_date = app.get('applied_at')
+        if app_date:
+            if isinstance(app_date, str):
+                try:
+                    app_date = datetime.fromisoformat(app_date.replace('Z', '+00:00'))
+                except:
+                    continue
+            if app_date >= start_date:
+                recent_apps.append(app)
+            elif app_date >= previous_start:
+                previous_apps.append(app)
+    
+    # Calculate metrics
+    total = len(recent_apps)
+    interviews = len([a for a in recent_apps if a.get('status') == 'Interview'])
+    offers = len([a for a in recent_apps if a.get('status') == 'Offer'])
+    rejections = len([a for a in recent_apps if a.get('status') == 'Rejected'])
+    pending = len([a for a in recent_apps if a.get('status') == 'Applied'])
+    
+    # Response rate = (interviews + offers + rejections) / total
+    responses = interviews + offers + rejections
+    response_rate = round((responses / total) * 100) if total > 0 else 0
+    interview_rate = round((interviews / total) * 100) if total > 0 else 0
+    offer_rate = round((offers / total) * 100) if total > 0 else 0
+    
+    # Top companies
+    company_counts = {}
+    for app in recent_apps:
+        company = app.get('job', {}).get('company', 'Unknown')
+        company_counts[company] = company_counts.get(company, 0) + 1
+    top_companies = sorted(
+        [{"name": k, "count": v} for k, v in company_counts.items()],
+        key=lambda x: x['count'],
+        reverse=True
+    )[:5]
+    
+    # Applications by source
+    source_counts = {}
+    for app in recent_apps:
+        source = app.get('job', {}).get('source', 'Unknown')
+        source_counts[source] = source_counts.get(source, 0) + 1
+    
+    # Recent activity
+    recent_activity = []
+    for app in sorted(recent_apps, key=lambda x: x.get('applied_at', ''), reverse=True)[:10]:
+        recent_activity.append({
+            "date": app.get('applied_at', ''),
+            "job_title": app.get('job', {}).get('title', 'Unknown'),
+            "company": app.get('job', {}).get('company', 'Unknown'),
+            "status": app.get('status', 'Applied')
+        })
+    
+    return {
+        "total_applications": total,
+        "interviews": interviews,
+        "offers": offers,
+        "rejections": rejections,
+        "pending": pending,
+        "response_rate": response_rate,
+        "interview_rate": interview_rate,
+        "offer_rate": offer_rate,
+        "avg_response_days": 7,  # Placeholder
+        "applications_by_source": source_counts,
+        "applications_by_status": {
+            "Applied": pending,
+            "Interview": interviews,
+            "Offer": offers,
+            "Rejected": rejections
+        },
+        "top_companies": top_companies,
+        "recent_activity": recent_activity,
+        "weekly_comparison": {
+            "current": len(recent_apps),
+            "previous": len(previous_apps)
+        }
+    }
+
+# ============== MULTIPLE RESUME PROFILES ==============
+
+class ResumeProfile(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str  # Profile name like "Tech Resume", "Management Resume"
+    full_name: str = ""
+    email: str = ""
+    phone: str = ""
+    skills: List[str] = []
+    experience: List[Dict[str, Any]] = []
+    education: List[Dict[str, Any]] = []
+    summary: str = ""
+    raw_text: str = ""
+    is_default: bool = False
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+@api_router.get("/resume/profiles")
+async def get_all_resume_profiles():
+    """Get all resume profiles"""
+    profiles = await db.resume_profiles.find({}, {"_id": 0}).to_list(20)
+    return profiles
+
+@api_router.post("/resume/profiles")
+async def create_resume_profile(profile: ResumeProfile):
+    """Create a new resume profile"""
+    # If this is the first profile or marked as default, set as default
+    existing = await db.resume_profiles.find({}).to_list(20)
+    if not existing or profile.is_default:
+        # Unset any existing default
+        await db.resume_profiles.update_many({}, {"$set": {"is_default": False}})
+        profile.is_default = True
+    
+    profile_dict = profile.model_dump()
+    profile_dict['created_at'] = profile_dict['created_at'].isoformat()
+    profile_dict['updated_at'] = profile_dict['updated_at'].isoformat()
+    
+    await db.resume_profiles.insert_one(profile_dict)
+    return profile_dict
+
+@api_router.put("/resume/profiles/{profile_id}")
+async def update_resume_profile(profile_id: str, updates: Dict[str, Any]):
+    """Update a resume profile"""
+    updates['updated_at'] = datetime.now(timezone.utc).isoformat()
+    
+    # Handle default switching
+    if updates.get('is_default'):
+        await db.resume_profiles.update_many({}, {"$set": {"is_default": False}})
+    
+    result = await db.resume_profiles.update_one(
+        {"id": profile_id},
+        {"$set": updates}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    
+    return {"message": "Profile updated"}
+
+@api_router.delete("/resume/profiles/{profile_id}")
+async def delete_resume_profile(profile_id: str):
+    """Delete a resume profile"""
+    result = await db.resume_profiles.delete_one({"id": profile_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    return {"message": "Profile deleted"}
+
+@api_router.post("/resume/profiles/{profile_id}/set-default")
+async def set_default_profile(profile_id: str):
+    """Set a profile as the default"""
+    # Unset all defaults
+    await db.resume_profiles.update_many({}, {"$set": {"is_default": False}})
+    # Set the new default
+    result = await db.resume_profiles.update_one(
+        {"id": profile_id},
+        {"$set": {"is_default": True}}
+    )
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Profile not found")
+    
+    # Also update the main resume collection with this profile
+    profile = await db.resume_profiles.find_one({"id": profile_id}, {"_id": 0})
+    if profile:
+        await db.resumes.delete_many({})
+        await db.resumes.insert_one(profile)
+    
+    return {"message": "Default profile set"}
+
+@api_router.post("/resume/profiles/upload")
+async def upload_resume_to_profile(file: UploadFile = File(...), profile_name: str = "Default"):
+    """Upload and parse a resume into a new or existing profile"""
+    if not file.filename.endswith('.pdf'):
+        raise HTTPException(status_code=400, detail="Only PDF files are supported")
+    
+    content = await file.read()
+    
+    # Extract text from PDF
+    pdf_reader = PdfReader(io.BytesIO(content))
+    raw_text = ""
+    for page in pdf_reader.pages:
+        raw_text += page.extract_text() + "\n"
+    
+    if not raw_text.strip():
+        raise HTTPException(status_code=400, detail="Could not extract text from PDF")
+    
+    # Parse with AI
+    parsed = await parse_resume_with_ai(raw_text)
+    
+    # Check if profile exists
+    existing = await db.resume_profiles.find_one({"name": profile_name}, {"_id": 0})
+    
+    profile_id = existing.get('id') if existing else str(uuid.uuid4())
+    is_default = existing.get('is_default', False) if existing else True
+    
+    if not existing:
+        # If first profile, make it default
+        count = await db.resume_profiles.count_documents({})
+        is_default = count == 0
+    
+    profile_doc = {
+        "id": profile_id,
+        "name": profile_name,
+        "full_name": parsed.get('full_name', ''),
+        "email": parsed.get('email', ''),
+        "phone": parsed.get('phone', ''),
+        "skills": parsed.get('skills', []),
+        "experience": parsed.get('experience', []),
+        "education": parsed.get('education', []),
+        "summary": parsed.get('summary', ''),
+        "raw_text": raw_text,
+        "is_default": is_default,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    if existing:
+        await db.resume_profiles.update_one({"id": profile_id}, {"$set": profile_doc})
+    else:
+        await db.resume_profiles.insert_one(profile_doc)
+    
+    # If default, also update main resume
+    if is_default:
+        await db.resumes.delete_many({})
+        await db.resumes.insert_one(profile_doc)
+    
+    return profile_doc
+
+# ============== VIDEO RECORDING ENDPOINTS ==============
+
+class VideoRecordingMeta(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    question: str
+    duration_seconds: int
+    transcript: str = ""
+    feedback: Dict[str, Any] = {}
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+@api_router.post("/interview/video-feedback")
+async def analyze_video_recording(request: Dict[str, Any]):
+    """
+    Analyze a video interview recording.
+    Accepts transcript and metadata, returns AI feedback.
+    (Video file storage would require additional cloud storage integration)
+    """
+    question = request.get('question', '')
+    transcript = request.get('transcript', '')
+    duration = request.get('duration_seconds', 0)
+    
+    if not transcript:
+        raise HTTPException(status_code=400, detail="Transcript is required")
+    
+    # Get voice feedback (reuse existing logic)
+    voice_feedback_request = VoiceFeedbackRequest(
+        question=question,
+        answer=transcript,
+        duration_seconds=duration,
+        job_title=request.get('job_title', '')
+    )
+    
+    feedback = await get_voice_interview_feedback(voice_feedback_request)
+    
+    # Add video-specific feedback
+    feedback['video_tips'] = [
+        "Maintain eye contact with the camera",
+        "Keep your background professional and uncluttered",
+        "Ensure good lighting on your face",
+        "Sit up straight and use confident body language",
+        "Dress professionally from head to toe"
+    ]
+    
+    # Save recording metadata
+    recording_doc = {
+        "id": str(uuid.uuid4()),
+        "question": question,
+        "transcript": transcript,
+        "duration_seconds": duration,
+        "feedback": feedback,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.video_recordings.insert_one(recording_doc)
+    
+    return {
+        **feedback,
+        "recording_id": recording_doc['id']
+    }
+
+@api_router.get("/interview/video-recordings")
+async def get_video_recordings():
+    """Get all video recording sessions"""
+    recordings = await db.video_recordings.find({}, {"_id": 0}).sort("created_at", -1).to_list(50)
+    return recordings
+
+@api_router.delete("/interview/video-recordings/{recording_id}")
+async def delete_video_recording(recording_id: str):
+    """Delete a video recording"""
+    result = await db.video_recordings.delete_one({"id": recording_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Recording not found")
+    return {"message": "Recording deleted"}
+
 # Include router
 app.include_router(api_router)
 
