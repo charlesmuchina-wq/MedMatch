@@ -184,9 +184,9 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
                 </span>
               )}
               {job.salary && (
-                <span className="text-emerald-600 font-medium">{job.salary}</span>
+                <span className="text-emerald-600 dark:text-emerald-400 font-medium">{job.salary}</span>
               )}
-              <Badge variant="secondary" className="text-xs">
+              <Badge variant="secondary" className="text-xs dark:bg-slate-700 dark:text-slate-200">
                 {job.source}
               </Badge>
             </div>
@@ -194,13 +194,13 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
             {job.tags?.length > 0 && (
               <div className="flex flex-wrap gap-2 mb-3">
                 {job.tags.slice(0, 5).map((tag, i) => (
-                  <span key={i} className="tag-badge">{tag}</span>
+                  <span key={i} className="tag-badge dark:bg-slate-700 dark:text-slate-200">{tag}</span>
                 ))}
               </div>
             )}
             
             {matchData?.analysis && (
-              <p className="text-sm text-slate-600 bg-slate-50 p-3 rounded-lg mb-3">
+              <p className="text-sm text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 p-3 rounded-lg mb-3">
                 {matchData.analysis}
               </p>
             )}
