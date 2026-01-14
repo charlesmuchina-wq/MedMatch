@@ -726,6 +726,64 @@ const VoiceCoachPage = ({ resume }) => {
         </div>
       )}
 
+      {/* Recording History */}
+      {recordingHistory.length > 0 && (
+        <Card className="mt-6">
+          <CardHeader>
+            <CardTitle className="text-lg flex items-center gap-2" style={{ fontFamily: 'IBM Plex Sans' }}>
+              <Volume2 className="w-5 h-5 text-turquoise" />
+              Recording History ({recordingHistory.length})
+            </CardTitle>
+            <CardDescription>Replay your practice recordings from this session</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {recordingHistory.map((recording, idx) => (
+                <div 
+                  key={recording.id} 
+                  className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-lg"
+                >
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-medium text-slate-900 dark:text-slate-100 text-sm truncate">
+                      Q{idx + 1}: {typeof recording.question === 'string' ? recording.question.slice(0, 60) : 'Practice Response'}...
+                    </h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                      Duration: {formatTime(recording.duration)} • {recording.transcript?.split(' ').length || 0} words
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 ml-4">
+                    <audio 
+                      id={`audio-history-${recording.id}`}
+                      src={recording.url} 
+                      className="hidden"
+                    />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        const audio = document.getElementById(`audio-history-${recording.id}`);
+                        if (audio) {
+                          if (audio.paused) {
+                            audio.play();
+                          } else {
+                            audio.pause();
+                            audio.currentTime = 0;
+                          }
+                        }
+                      }}
+                      className="border-turquoise text-turquoise hover:bg-turquoise/10"
+                      data-testid={`play-recording-${idx}`}
+                    >
+                      <Play className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Tips Section */}
       <Card className="mt-6">
         <CardHeader>
