@@ -141,10 +141,12 @@ class Application(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     job: Job
-    status: str = "Applied"
+    status: str = "Applied"  # Applied, Interview, Offer, Rejected, Closed
+    job_status: str = "Active"  # Active, Closed, Filled, Unknown
     applied_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     notes: str = ""
+    external_url: str = ""  # Original job posting URL
 
 class JobAlert(BaseModel):
     model_config = ConfigDict(extra="ignore")
