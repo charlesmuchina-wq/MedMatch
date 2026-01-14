@@ -5,7 +5,7 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { 
   Search, Briefcase, FileText, Bookmark, CheckSquare, 
-  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2
+  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
@@ -22,6 +22,7 @@ import CoverLetterPage from "@/pages/CoverLetterPage";
 import SuccessPredictorPage from "@/pages/SuccessPredictorPage";
 import InterviewPrepPage from "@/pages/InterviewPrepPage";
 import VoiceCoachPage from "@/pages/VoiceCoachPage";
+import AnalyticsDashboard from "@/pages/AnalyticsDashboard";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -66,6 +67,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { path: "/voice-coach", icon: Volume2, label: "Voice Coach" },
     { path: "/cover-letter", icon: PenTool, label: "Cover Letter" },
     { path: "/alerts", icon: Bell, label: "Job Alerts" },
+    { path: "/analytics", icon: BarChart3, label: "Analytics" },
   ];
 
   return (
@@ -330,6 +332,7 @@ function AppContent() {
             <Route path="/voice-coach" element={<VoiceCoachPage resume={resume} />} />
             <Route path="/cover-letter" element={<CoverLetterPage resume={resume} />} />
             <Route path="/alerts" element={<JobAlertsPage resume={resume} />} />
+            <Route path="/analytics" element={<AnalyticsDashboard />} />
           </Routes>
         </main>
       </div>
