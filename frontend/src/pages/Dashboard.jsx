@@ -61,10 +61,10 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate }) => {
             <CardContent>
               <div className="flex flex-wrap gap-2">
                 {resume.skills?.slice(0, 12).map((skill, i) => (
-                  <Badge key={i} variant="secondary" className="bg-slate-100">{skill}</Badge>
+                  <Badge key={i} variant="secondary" className="bg-slate-100 dark:bg-slate-700 dark:text-slate-200">{skill}</Badge>
                 ))}
                 {resume.skills?.length > 12 && (
-                  <Badge variant="outline">+{resume.skills.length - 12} more</Badge>
+                  <Badge variant="outline" className="dark:border-slate-600 dark:text-slate-300">+{resume.skills.length - 12} more</Badge>
                 )}
               </div>
             </CardContent>
