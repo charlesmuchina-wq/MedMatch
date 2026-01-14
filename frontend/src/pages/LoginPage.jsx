@@ -101,12 +101,15 @@ const LoginPage = ({ onAuthSuccess }) => {
     try {
       const endpoint = isRegister ? `${API}/api/auth/register` : `${API}/api/auth/login`;
       const payload = isRegister 
-        ? { email, password, name }
+        ? { email, password, name, role: selectedRole }
         : { email, password };
       
       const response = await axios.post(endpoint, payload, { withCredentials: true });
       
-      toast.success(isRegister ? "Account created!" : "Logged in!");
+      const roleMessage = response.data.user?.role === 'recruiter' 
+        ? "Welcome, Recruiter!" 
+        : isRegister ? "Account created! 15-day free trial started." : "Logged in!";
+      toast.success(roleMessage);
       onAuthSuccess(response.data.user);
       navigate('/');
     } catch (e) {
