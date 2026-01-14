@@ -1,135 +1,109 @@
-# MedMatch - Remote Job Finder with AI Matching
+# MedMatch - AI-Powered Remote Job Search Application
 
 ## Original Problem Statement
-Create an application that uses the user's resume to find remote jobs that match their skills and experience. Features include job search, AI matching, email alerts, cover letter generation, callback prediction, interview preparation, voice coaching, and video interview practice.
+Create a comprehensive job search application where users can upload their resume, search for matching jobs, and apply directly. The app should support multiple authentication methods and automatically track applications.
 
-## User Personas
-- **Job Seekers**: Professionals in Quality/Medical Device fields looking for remote positions
-- **Target Roles**: Supplier Quality Manager, Quality Director, Lead Auditor, Medical Device professionals
+## Core Features
 
-## Core Requirements
+### Authentication (NEW)
+- ✅ **Google Login** - Emergent-managed OAuth
+- ⚙️ **Apple Login** - Requires Apple Developer credentials (Team ID: 96879J9FZY configured)
+- ✅ **Email/Password** - Traditional registration and login with secure hashing
+- ⚙️ **Phone/SMS** - Requires Twilio credentials (endpoints ready)
+
+### Job Search
 - ✅ Resume upload and AI-powered parsing
 - ✅ Multi-source job search (RemoteOK, Remotive, Jobicy, Arbeitnow, Himalayas)
 - ✅ JobSpy integration for LinkedIn, Indeed, Glassdoor
 - ✅ Google Custom Search Engine integration
 - ✅ AI-powered job matching and relevance scoring
-- ✅ Save/bookmark jobs
-- ✅ Application tracking with status updates
-- ✅ Email alerts for matching jobs
-- ✅ Automated Daily Digest Scheduler (8 AM UTC)
+
+### Application Tracking
+- ✅ **Quick Apply** - Click apply → Opens job URL → Auto-marks as "Applied"
+- ✅ Application status tracking (Applied, Interview, Offer, Rejected)
+- ✅ Job status tracking (Active, Closed, Filled, Still Accepting)
+- ✅ Duplicate detection - Won't re-apply to same job URL
+
+### AI Features
 - ✅ AI Cover Letter Generator with PDF Export
 - ✅ Application Success Predictor
 - ✅ Interview Preparation with PDF Export
-- ✅ AI Interview Coach with Voice + Recording Playback
-- ✅ **Video Interview Practice with AI Body Language Analysis** (NEW - Jan 2026)
-- ✅ Dark Mode with Inverted Batik Theme
-- ✅ Job Application Analytics Dashboard
-- ✅ Multiple Resume Profiles
+- ✅ Voice Interview Coach with Recording Playback
+- ✅ Video Interview Practice with AI Body Language Analysis
+
+### User Management
+- ✅ Save/bookmark jobs
+- ✅ Multiple resume profiles
+- ✅ Email alerts for matching jobs
+- ✅ Automated daily digest (8 AM UTC)
+- ✅ Job application analytics dashboard
 
 ## Tech Stack
-- **Backend**: FastAPI (Python) with MongoDB (motor)
-- **Frontend**: React with shadcn/ui components
-- **AI**: Emergent LLM Key (GPT models via emergentintegrations)
-- **Vision AI**: OpenAI Vision API for body language analysis
-- **Voice**: Web Speech API + MediaRecorder API
-- **Video**: MediaRecorder API with canvas frame capture
+- **Backend**: FastAPI (Python) with MongoDB
+- **Frontend**: React with shadcn/ui
+- **AI**: Emergent LLM Key (GPT models)
+- **Auth**: Emergent Google OAuth, Email/Password, Twilio SMS (optional)
 - **Email**: Gmail SMTP
-- **Scheduler**: APScheduler (AsyncIOScheduler)
-- **Theming**: CSS custom properties with localStorage persistence
 
-## Architecture
+## API Endpoints
 
-### Backend (`/app/backend/server.py`)
-- FastAPI with APIRouter prefixed with `/api`
-- APScheduler for automated daily digest
-- AI Vision integration for video frame analysis
-- PDF export endpoints for Cover Letters and Interview Prep
-
-### Frontend Pages (13 Total)
-```
-├── pages/
-│   ├── Dashboard.jsx              # Overview with stats
-│   ├── ResumePage.jsx             # Resume upload
-│   ├── ResumeProfilesPage.jsx     # Multiple resume profiles
-│   ├── JobSearchPage.jsx          # Job search with filters
-│   ├── SavedJobsPage.jsx          # Saved jobs list
-│   ├── ApplicationsPage.jsx       # Application tracker
-│   ├── SuccessPredictorPage.jsx   # AI callback prediction
-│   ├── InterviewPrepPage.jsx      # Interview prep + PDF export
-│   ├── VoiceCoachPage.jsx         # Voice coach + playback
-│   ├── VideoInterviewPage.jsx     # Video practice + AI analysis (NEW)
-│   ├── CoverLetterPage.jsx        # Cover letter + PDF export
-│   ├── JobAlertsPage.jsx          # Email alerts & scheduler
-│   └── AnalyticsDashboard.jsx     # Application analytics
-```
-
-## Key API Endpoints
+### Authentication
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/resume` | GET | Get user's resume |
-| `/api/resume/upload` | POST | Upload and parse resume |
-| `/api/resume/profiles` | GET/POST | Get/create resume profiles |
-| `/api/jobs/search` | GET | Search jobs with filters |
-| `/api/jobs/deep-search` | POST | AI-powered comprehensive search |
-| `/api/analytics/dashboard` | GET | Get application analytics |
-| `/api/interview/generate-questions` | POST | Generate interview questions |
-| `/api/interview/voice-feedback` | POST | AI voice interview feedback |
-| `/api/interview/analyze-video-frame` | POST | AI body language analysis (NEW) |
-| `/api/cover-letter/generate` | POST | Generate AI cover letter |
-| `/api/export/cover-letter-html` | POST | Export cover letter to PDF |
-| `/api/export/interview-prep-html` | POST | Export interview prep to PDF |
+| `/api/auth/register` | POST | Register with email/password |
+| `/api/auth/login` | POST | Login with email/password |
+| `/api/auth/google/session` | POST | Process Google OAuth callback |
+| `/api/auth/phone/send-otp` | POST | Send OTP via Twilio |
+| `/api/auth/phone/verify-otp` | POST | Verify OTP and login |
+| `/api/auth/me` | GET | Get current user |
+| `/api/auth/logout` | POST | Logout and clear session |
 
-## Video Interview Features (NEW)
-- **Webcam Recording**: Record practice interviews with MediaRecorder
-- **AI Body Language Analysis**: Using OpenAI Vision API
-  - Eye Contact Score (0-100)
-  - Posture Score (0-100)
-  - Confidence Score (0-100)
-  - Facial Expression Analysis
-  - Improvement Tips
-- **Video Playback**: Review recorded responses
-- **Session History**: Track previous practice sessions
+### Applications
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/applications` | GET/POST | List/create applications |
+| `/api/applications/quick-apply` | POST | Apply and get redirect URL |
+| `/api/applications/check/{url}` | GET | Check if already applied |
+| `/api/applications/{id}/job-status` | PUT | Update job posting status |
 
-## PDF Export Features (NEW)
-- **Cover Letter Export**: Professional PDF with candidate info, date, formatted letter
-- **Interview Prep Export**: PDF with all questions, categories, difficulty levels
+## Pages (14 Total)
+1. **Login** - Google, Apple, Email, Phone options
+2. **Dashboard** - Overview with stats
+3. **My Resume** - Upload and view resume
+4. **Resume Profiles** - Multiple resume management
+5. **Job Search** - Search with filters
+6. **Saved Jobs** - Bookmarked jobs
+7. **Applications** - Application tracker
+8. **Success Predictor** - AI callback prediction
+9. **Interview Prep** - Questions with PDF export
+10. **Voice Coach** - Voice practice with playback
+11. **Video Practice** - Video interview with AI analysis
+12. **Cover Letter** - AI generator with PDF export
+13. **Job Alerts** - Email alerts setup
+14. **Analytics** - Application analytics dashboard
 
-## Design System - Batik B Theme
+## Configuration Required
 
-### Color Palette
-**Light Mode:**
-- Background: #f8f8f8
-- Cards: #ffffff
-- Accent: Turquoise #20b2aa
+### Already Configured
+- `MONGO_URL` - MongoDB connection
+- `EMERGENT_LLM_KEY` - AI features
+- `GMAIL_ADDRESS` / `GMAIL_APP_PASSWORD` - Email alerts
+- `GOOGLE_API_KEY` / `GOOGLE_CSE_ID` - Web search
+- `JWT_SECRET_KEY` - Session encryption
+- `APPLE_TEAM_ID` - Apple Developer ID
 
-**Dark Mode (Inverted):**
-- Background: #1a1a1a
-- Cards: #2d2d2d
-- Accent: Turquoise #20b2aa
-
-## Implementation Status
-
-### Completed Features (January 2026)
-1. ✅ Core MVP - Resume upload, parsing, job search
-2. ✅ Multi-source Integration - 6+ job boards + Google CSE
-3. ✅ AI Features - Job matching, cover letter, callback prediction
-4. ✅ User Management - Save jobs, track applications
-5. ✅ Email Features - Alerts, automated daily digest
-6. ✅ Interview Preparation - Questions, answers, mock interviews
-7. ✅ Voice Coach - Speech-to-text with AI feedback + playback
-8. ✅ Video Interview Practice - AI body language analysis
-9. ✅ Dark Mode - Inverted batik theme with toggle
-10. ✅ Analytics Dashboard - Application analytics with charts
-11. ✅ Multiple Resume Profiles - Manage different resumes
-12. ✅ PDF Export - Cover letters and interview prep
-
-## Future Enhancements (Backlog)
-- [ ] Real-time video analysis during recording
-- [ ] Salary insights and negotiation tips
-- [ ] LinkedIn profile sync
-- [ ] Custom schedule options for digest
+### Needs Configuration (for Phone Login)
+- `TWILIO_ACCOUNT_SID` - Twilio account
+- `TWILIO_AUTH_TOKEN` - Twilio auth
+- `TWILIO_VERIFY_SERVICE` - Twilio Verify service ID
 
 ## Test Reports
-- `/app/test_reports/iteration_5.json` - Frontend refactor tests
-- `/app/test_reports/iteration_6.json` - Analytics, Profiles, Voice Playback
-- `/app/test_reports/iteration_7.json` - Video Interview, PDF Export (100% pass)
+- `/app/test_reports/iteration_8.json` - Auth system tests (100% pass)
+- `/app/tests/test_auth.py` - Auth test suite
+
+## Deployment Ready
+✅ Backend: FastAPI on port 8001
+✅ Frontend: React on port 3000
+✅ Database: MongoDB
+✅ Authentication: Session-based with secure cookies
+✅ All core features tested and working
