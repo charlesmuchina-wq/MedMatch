@@ -246,20 +246,70 @@ const VoiceCoachPage = ({ resume }) => {
     setIsSessionActive(true);
     setQuestionIndex(0);
     setFeedback(null);
+    setAudioURL(null);
+    setRecordingHistory([]);
     setSessionStats({ questionsAnswered: 0, averageScore: 0, totalTime: 0 });
     if (questions.length > 0) {
       setCurrentQuestion(questions[0]);
     }
   };
 
-  const handleStartRecording = () => {
+  // Start audio recording with MediaRecorder
+  const startAudioRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorderRef.current = new MediaRecorder(stream);
+      audioChunksRef.current = [];
+
+      mediaRecorderRef.current.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          audioChunksRef.current.push(event.data);
+        }
+      };
+
+      mediaRecorderRef.current.onstop = () => {
+        const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
+        const url = URL.createObjectURL(audioBlob);
+        setAudioURL(url);
+        
+        // Add to recording history
+        setRecordingHistory(prev => [...prev, {
+          id: Date.now(),
+          url,
+          question: currentQuestion?.text || currentQuestion,
+          transcript,
+          duration: elapsedTime,
+          timestamp: new Date().toISOString()
+        }]);
+        
+        // Stop all tracks
+        stream.getTracks().forEach(track => track.stop());
+      };
+
+      mediaRecorderRef.current.start();
+    } catch (err) {
+      console.error('Failed to start audio recording:', err);
+    }
+  };
+
+  // Stop audio recording
+  const stopAudioRecording = () => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+      mediaRecorderRef.current.stop();
+    }
+  };
+
+  const handleStartRecording = async () => {
     setElapsedTime(0);
     setFeedback(null);
+    setAudioURL(null);
     startListening();
+    await startAudioRecording();
   };
 
   const handleStopRecording = async () => {
     stopListening();
+    stopAudioRecording();
     
     if (transcript.trim().length < 10) {
       toast.error("Please speak a longer answer");
@@ -291,6 +341,25 @@ const VoiceCoachPage = ({ resume }) => {
     }
     setIsAnalyzing(false);
   };
+
+  // Playback controls
+  const togglePlayback = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  // Handle audio ended
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.onended = () => setIsPlaying(false);
+    }
+  }, [audioURL]);
 
   const nextQuestion = () => {
     const newIndex = questionIndex + 1;
