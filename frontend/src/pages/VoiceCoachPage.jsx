@@ -559,6 +559,34 @@ const VoiceCoachPage = ({ resume }) => {
                   </div>
                 )}
 
+                {/* Audio Playback */}
+                {audioURL && (
+                  <div className="mt-4 p-4 bg-turquoise/10 dark:bg-turquoise/20 rounded-lg">
+                    <h4 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
+                      <Volume2 className="w-4 h-4 text-turquoise" /> Recording Playback
+                    </h4>
+                    <div className="flex items-center gap-4">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={togglePlayback}
+                        className="border-turquoise text-turquoise hover:bg-turquoise/10"
+                        data-testid="playback-toggle"
+                      >
+                        {isPlaying ? (
+                          <><Pause className="w-4 h-4 mr-2" /> Pause</>
+                        ) : (
+                          <><Play className="w-4 h-4 mr-2" /> Play Recording</>
+                        )}
+                      </Button>
+                      <audio ref={audioRef} src={audioURL} className="hidden" />
+                      <span className="text-sm text-slate-500 dark:text-slate-400">
+                        Duration: {formatTime(elapsedTime)}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
                 {isAnalyzing && (
                   <div className="mt-4 p-4 bg-violet-50 dark:bg-violet-900/20 rounded-lg text-center">
                     <Loader2 className="w-8 h-8 animate-spin text-violet-500 mx-auto mb-2" />
