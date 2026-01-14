@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { toast } from "sonner";
+import { useTheme } from "@/App";
 import { 
   FileText, Plus, Trash2, Check, Upload, Star, StarOff,
   Edit3, Save, X, Loader2, ChevronRight, User, Briefcase
