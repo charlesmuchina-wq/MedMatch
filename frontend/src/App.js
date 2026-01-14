@@ -468,6 +468,9 @@ function AppContent() {
       {/* Onboarding Tour for first-time users */}
       {showTour && user && <OnboardingTour onComplete={completeTour} user={user} />}
 
+      {/* PWA Install Prompt */}
+      <InstallPrompt />
+
       <ApplyDialog job={applyDialogJob} open={!!applyDialogJob} onClose={() => setApplyDialogJob(null)} onConfirm={handleConfirmApply} />
       <Toaster position="bottom-right" richColors theme={isDark ? 'dark' : 'light'} />
     </div>
