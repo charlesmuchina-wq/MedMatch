@@ -5,7 +5,7 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { 
   Search, Briefcase, FileText, Bookmark, CheckSquare, 
-  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3
+  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3, Users
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
@@ -23,6 +23,7 @@ import SuccessPredictorPage from "@/pages/SuccessPredictorPage";
 import InterviewPrepPage from "@/pages/InterviewPrepPage";
 import VoiceCoachPage from "@/pages/VoiceCoachPage";
 import AnalyticsDashboard from "@/pages/AnalyticsDashboard";
+import ResumeProfilesPage from "@/pages/ResumeProfilesPage";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -59,6 +60,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const links = [
     { path: "/", icon: TrendingUp, label: "Dashboard" },
     { path: "/resume", icon: FileText, label: "My Resume" },
+    { path: "/resume-profiles", icon: Users, label: "Resume Profiles" },
     { path: "/search", icon: Search, label: "Job Search" },
     { path: "/saved", icon: Bookmark, label: "Saved Jobs" },
     { path: "/applications", icon: CheckSquare, label: "Applications" },
@@ -324,6 +326,7 @@ function AppContent() {
           <Routes>
             <Route path="/" element={<Dashboard resume={resume} savedJobs={savedJobs} applications={applications} onNavigate={navigate} />} />
             <Route path="/resume" element={<ResumePage resume={resume} setResume={setResume} />} />
+            <Route path="/resume-profiles" element={<ResumeProfilesPage />} />
             <Route path="/search" element={<JobSearchPage savedJobs={savedJobs} onSave={handleSaveJob} onApply={handleApply} onAnalyze={handleAnalyzeJob} />} />
             <Route path="/saved" element={<SavedJobsPage savedJobs={savedJobs} onRemove={handleRemoveSavedJob} onApply={handleApply} onAnalyze={handleAnalyzeJob} />} />
             <Route path="/applications" element={<ApplicationsPage applications={applications} onUpdateStatus={handleUpdateStatus} onDelete={handleDeleteApplication} />} />
