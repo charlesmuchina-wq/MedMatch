@@ -235,6 +235,9 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
             </div>
             
             <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
+              {/* Job Status Badge */}
+              <JobStatusBadge status={job.status || job.job_status} postedAt={job.posted_at} />
+              
               <span className="flex items-center gap-1">
                 <MapPin className="w-4 h-4" />
                 {job.location}
