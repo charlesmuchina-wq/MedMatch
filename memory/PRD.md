@@ -113,10 +113,10 @@ Create a comprehensive job search application where users can upload their resum
 - `APPLE_SERVICE_ID` - com.medmatch.signin.web
 - `APPLE_PRIVATE_KEY` - Configured
 
-### Apple Sign In Setup (Action Required)
-To complete Apple Sign In, register redirect URL in Apple Developer Console:
+### Apple Sign In Setup ✅ COMPLETED
 - Services ID: `com.medmatch.signin.web`
 - Redirect URL: `https://remotematch.preview.emergentagent.com/login`
+- Domain registered in Apple Developer Console
 
 ### Optional Configuration (for Phone Login)
 - `TWILIO_ACCOUNT_SID` - Twilio account
