@@ -1,18 +1,18 @@
 import { useState, useCallback } from "react";
 import axios from "axios";
 import { toast } from "sonner";
-import { Upload } from "lucide-react";
+import { Upload, Cloud } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useDropzone } from "react-dropzone";
+import CloudStorageUpload from "@/components/CloudStorageUpload";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const ResumePage = ({ resume, setResume }) => {
   const [uploading, setUploading] = useState(false);
 
-  const onDrop = useCallback(async (acceptedFiles) => {
-    const file = acceptedFiles[0];
+  const handleFileUpload = useCallback(async (file) => {
     if (!file) return;
     
     if (!file.name.endsWith('.pdf')) {
@@ -35,6 +35,11 @@ const ResumePage = ({ resume, setResume }) => {
     }
     setUploading(false);
   }, [setResume]);
+
+  const onDrop = useCallback(async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    handleFileUpload(file);
+  }, [handleFileUpload]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
