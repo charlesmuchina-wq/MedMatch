@@ -371,16 +371,36 @@ function AppContent() {
 
   const navigate = (path) => { window.location.href = path; };
 
+  // Show loading while checking auth
+  if (isAuthChecking) {
+    return (
+      <div className={`min-h-screen flex items-center justify-center ${isDark ? 'bg-batik-black' : 'bg-slate-50'}`}>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-turquoise"></div>
+      </div>
+    );
+  }
+
+  // Show login page if not authenticated (but allow hash with session_id to pass through)
+  if (!user && !window.location.hash.includes('session_id')) {
+    return <LoginPage onAuthSuccess={handleAuthSuccess} />;
+  }
+
+  // If we have a session_id in hash, show login page to process it
+  if (window.location.hash.includes('session_id')) {
+    return <LoginPage onAuthSuccess={handleAuthSuccess} />;
+  }
+
   return (
     <div className={`min-h-screen flex ${isDark ? 'bg-batik-black text-white' : 'bg-slate-50'}`}>
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
       
       <div className="flex-1 flex flex-col min-w-0">
-        <Header setIsOpen={setSidebarOpen} resume={resume} />
+        <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} resume={resume} user={user} onLogout={handleLogout} />
         
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Dashboard resume={resume} savedJobs={savedJobs} applications={applications} onNavigate={navigate} />} />
+            <Route path="/login" element={<LoginPage onAuthSuccess={handleAuthSuccess} />} />
             <Route path="/resume" element={<ResumePage resume={resume} setResume={setResume} />} />
             <Route path="/resume-profiles" element={<ResumeProfilesPage />} />
             <Route path="/search" element={<JobSearchPage savedJobs={savedJobs} onSave={handleSaveJob} onApply={handleApply} onAnalyze={handleAnalyzeJob} />} />
