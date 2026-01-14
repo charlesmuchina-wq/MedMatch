@@ -129,17 +129,20 @@ const LoginPage = ({ onAuthSuccess }) => {
       const configResponse = await axios.get(`${API}/api/auth/apple/config`);
       const config = configResponse.data;
       
+      // For form_post mode, redirect to backend endpoint that will handle the POST
+      const redirectUri = `${API}/api/auth/apple/redirect`;
+      
       // Build Apple authorization URL
       const params = new URLSearchParams({
         client_id: config.client_id,
-        redirect_uri: `${window.location.origin}/login`,
+        redirect_uri: redirectUri,
         response_type: config.response_type,
         response_mode: config.response_mode,
         scope: config.scope,
         state: Math.random().toString(36).substring(7)
       });
       
-      // Open Apple Sign In in popup or redirect
+      // Redirect to Apple Sign In
       const appleAuthUrl = `https://appleid.apple.com/auth/authorize?${params.toString()}`;
       window.location.href = appleAuthUrl;
       
