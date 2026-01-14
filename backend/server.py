@@ -854,10 +854,51 @@ async def get_apple_config():
     return {
         "client_id": APPLE_SERVICE_ID,
         "scope": "name email",
-        "response_mode": "fragment",
+        "response_mode": "form_post",
         "response_type": "code id_token",
-        "use_popup": True
+        "use_popup": False
     }
+
+@api_router.post("/auth/apple/redirect")
+async def apple_auth_redirect(request: Request, response: Response):
+    """Handle Apple Sign In form_post redirect - receives POST data from Apple"""
+    form_data = await request.form()
+    
+    id_token = form_data.get("id_token")
+    code = form_data.get("code")
+    state = form_data.get("state")
+    user_data = form_data.get("user")  # JSON string with user info (first login only)
+    error = form_data.get("error")
+    
+    if error:
+        # Redirect back to login with error
+        return RedirectResponse(
+            url=f"/login?error={error}",
+            status_code=303
+        )
+    
+    if not id_token:
+        return RedirectResponse(
+            url="/login?error=missing_token",
+            status_code=303
+        )
+    
+    # Parse user data if provided
+    user_info = None
+    if user_data:
+        try:
+            user_info = json.loads(user_data)
+        except:
+            pass
+    
+    # Redirect to frontend with tokens in hash (to be processed by frontend)
+    redirect_url = f"/login#id_token={id_token}"
+    if code:
+        redirect_url += f"&code={code}"
+    if state:
+        redirect_url += f"&state={state}"
+    
+    return RedirectResponse(url=redirect_url, status_code=303)
 
 @api_router.post("/auth/phone/send-otp")
 async def send_phone_otp(request: PhoneLoginRequest):
