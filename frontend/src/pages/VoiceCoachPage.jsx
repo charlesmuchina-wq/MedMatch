@@ -227,9 +227,23 @@ const VoiceCoachPage = ({ resume }) => {
   }, [isListening]);
 
   const generateQuestions = async () => {
+    // First try to load cached questions from Interview Prep
+    try {
+      const cachedResponse = await axios.get(`${API}/interview/cached-questions`);
+      if (cachedResponse.data.questions?.length > 0) {
+        setQuestions(cachedResponse.data.questions);
+        setCurrentQuestion(cachedResponse.data.questions[0]);
+        toast.success("Loaded questions from Interview Prep");
+        return;
+      }
+    } catch (e) {
+      console.log("No cached questions, generating new ones");
+    }
+    
+    // If no cached questions, generate new ones
     try {
       const response = await axios.post(`${API}/interview/generate-questions`, {
-        job_title: "Quality Manager", // Default or from context
+        job_title: "Quality Manager",
         company: "",
         resume_skills: resume?.skills || []
       });
