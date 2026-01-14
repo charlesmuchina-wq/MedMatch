@@ -918,6 +918,205 @@ async def get_membership_status(request: Request):
         "price": MEMBERSHIP_PRICE if current_status != "active" else None
     }
 
+# ============== PAYPAL PAYMENT ENDPOINTS ==============
+
+@api_router.post("/payments/paypal/create")
+async def create_paypal_payment(checkout_request: CreateCheckoutRequest, request: Request):
+    """Create PayPal payment for $1 lifetime membership"""
+    import paypalrestsdk
+    
+    if not PAYPAL_CLIENT_ID or not PAYPAL_SECRET:
+        raise HTTPException(status_code=500, detail="PayPal not configured. Please add PAYPAL_CLIENT_ID and PAYPAL_SECRET.")
+    
+    # Get current user
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Check if already has active membership
+    if user.get("membership_status") == "active" or user.get("role") == "recruiter":
+        return {"message": "You already have active membership", "membership_status": "active"}
+    
+    # Configure PayPal
+    paypalrestsdk.configure({
+        "mode": "sandbox",  # Change to "live" for production
+        "client_id": PAYPAL_CLIENT_ID,
+        "client_secret": PAYPAL_SECRET
+    })
+    
+    # Create payment
+    payment = paypalrestsdk.Payment({
+        "intent": "sale",
+        "payer": {"payment_method": "paypal"},
+        "redirect_urls": {
+            "return_url": f"{checkout_request.origin_url}/payment-success?provider=paypal",
+            "cancel_url": f"{checkout_request.origin_url}/membership"
+        },
+        "transactions": [{
+            "item_list": {
+                "items": [{
+                    "name": "MedMatch Lifetime Membership",
+                    "sku": "medmatch_lifetime",
+                    "price": str(MEMBERSHIP_PRICE),
+                    "currency": "USD",
+                    "quantity": 1
+                }]
+            },
+            "amount": {
+                "total": str(MEMBERSHIP_PRICE),
+                "currency": "USD"
+            },
+            "description": "MedMatch Lifetime Membership - One-time payment for unlimited access"
+        }]
+    })
+    
+    if payment.create():
+        # Store payment info
+        await db.payment_transactions.insert_one({
+            "user_id": user["user_id"],
+            "email": user["email"],
+            "payment_id": payment.id,
+            "provider": "paypal",
+            "amount": MEMBERSHIP_PRICE,
+            "currency": "USD",
+            "payment_status": "pending",
+            "created_at": datetime.now(timezone.utc).isoformat()
+        })
+        
+        # Get approval URL
+        for link in payment.links:
+            if link.rel == "approval_url":
+                return {"approval_url": link.href, "payment_id": payment.id}
+        
+        raise HTTPException(status_code=500, detail="Could not get PayPal approval URL")
+    else:
+        raise HTTPException(status_code=400, detail=payment.error)
+
+@api_router.post("/payments/paypal/execute")
+async def execute_paypal_payment(request: Request):
+    """Execute PayPal payment after user approval"""
+    import paypalrestsdk
+    
+    if not PAYPAL_CLIENT_ID or not PAYPAL_SECRET:
+        raise HTTPException(status_code=500, detail="PayPal not configured")
+    
+    body = await request.json()
+    payment_id = body.get("paymentId")
+    payer_id = body.get("PayerID")
+    
+    if not payment_id or not payer_id:
+        raise HTTPException(status_code=400, detail="Missing paymentId or PayerID")
+    
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Configure PayPal
+    paypalrestsdk.configure({
+        "mode": "sandbox",
+        "client_id": PAYPAL_CLIENT_ID,
+        "client_secret": PAYPAL_SECRET
+    })
+    
+    # Execute the payment
+    payment = paypalrestsdk.Payment.find(payment_id)
+    
+    if payment.execute({"payer_id": payer_id}):
+        # Update payment transaction
+        await db.payment_transactions.update_one(
+            {"payment_id": payment_id},
+            {"$set": {
+                "payment_status": "paid",
+                "payer_id": payer_id,
+                "processed": True,
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            }}
+        )
+        
+        # Activate membership
+        await db.users.update_one(
+            {"user_id": user["user_id"]},
+            {"$set": {
+                "membership_status": "active",
+                "membership_activated_at": datetime.now(timezone.utc).isoformat(),
+                "payment_provider": "paypal"
+            }}
+        )
+        
+        return {"status": "success", "message": "Payment successful! Membership activated."}
+    else:
+        raise HTTPException(status_code=400, detail=payment.error)
+
+# ============== MEMBERSHIP ENFORCEMENT ==============
+
+async def require_active_membership(request: Request, feature: str = "premium"):
+    """
+    Middleware helper to check if user has active membership or is in trial.
+    Recruiters always have access. Job seekers need trial or active membership.
+    """
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Recruiters have free access
+    if user.get("role") == "recruiter":
+        return user
+    
+    # Check membership status
+    status = check_membership_status(user)
+    
+    if status == "expired":
+        raise HTTPException(
+            status_code=403, 
+            detail=f"Your trial has expired. Upgrade to lifetime membership ($1) to access {feature}."
+        )
+    
+    return user
+
+@api_router.get("/membership/check-access/{feature}")
+async def check_feature_access(feature: str, request: Request):
+    """Check if user can access a specific premium feature"""
+    user = await get_current_user(request)
+    if not user:
+        return {"has_access": False, "reason": "Not authenticated"}
+    
+    # Recruiters have limited features
+    recruiter_features = ["post_jobs", "view_candidates", "dashboard"]
+    if user.get("role") == "recruiter":
+        has_access = feature in recruiter_features or feature == "basic"
+        return {
+            "has_access": has_access,
+            "role": "recruiter",
+            "reason": "Recruiter account" if has_access else "Feature not available for recruiters"
+        }
+    
+    # Job seekers - check membership
+    status = check_membership_status(user)
+    
+    # Features available during trial
+    trial_features = ["resume_upload", "job_search_limited", "save_jobs_limited", "dashboard", "basic"]
+    
+    # Premium features (need active membership)
+    premium_features = ["ai_cover_letter", "interview_prep", "voice_coach", "video_interview", 
+                        "analytics", "email_alerts", "unlimited_search", "success_predictor"]
+    
+    if status == "active":
+        return {"has_access": True, "membership_status": "active", "role": "job_seeker"}
+    elif status == "trial":
+        has_access = feature in trial_features or feature not in premium_features
+        return {
+            "has_access": has_access,
+            "membership_status": "trial",
+            "days_remaining": user.get("trial_days_remaining"),
+            "reason": "Trial access" if has_access else "Premium feature - upgrade to access"
+        }
+    else:
+        return {
+            "has_access": False,
+            "membership_status": "expired",
+            "reason": "Trial expired - upgrade for $1 lifetime access"
+        }
+
 # ============== RECRUITER JOB POSTING ==============
 
 class JobPosting(BaseModel):
