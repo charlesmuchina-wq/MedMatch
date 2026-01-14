@@ -72,6 +72,7 @@ packaging==25.0
 pandas==2.3.3
 passlib==1.7.4
 pathspec==0.12.1
+paypalrestsdk==1.13.3
 pillow==12.1.0
 platformdirs==4.5.1
 pluggy==1.6.0
@@ -88,6 +89,7 @@ pyflakes==3.4.0
 Pygments==2.19.2
 PyJWT==2.10.1
 pymongo==4.5.0
+pyOpenSSL==25.3.0
 pyparsing==3.3.1
 PyPDF2==3.0.1
 pytest==9.0.2
