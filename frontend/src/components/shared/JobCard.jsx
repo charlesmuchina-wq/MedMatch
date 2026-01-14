@@ -168,6 +168,8 @@ const CallbackBadge = ({ job }) => {
 // Job Card Component
 export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions = true, showProbability = true }) => {
   const [analyzing, setAnalyzing] = useState(false);
+  const [verifyingStatus, setVerifyingStatus] = useState(false);
+  const [verifiedStatus, setVerifiedStatus] = useState(null);
   const [matchData, setMatchData] = useState(job.match_score ? { 
     match_score: job.match_score, 
     analysis: job.match_analysis 
@@ -182,6 +184,28 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
       toast.error("Failed to analyze job match");
     }
     setAnalyzing(false);
+  };
+
+  const handleVerifyStatus = async () => {
+    if (!job.url) {
+      toast.error("No job URL available to verify");
+      return;
+    }
+    setVerifyingStatus(true);
+    try {
+      const response = await axios.post(`${API}/jobs/verify-status`, { url: job.url });
+      setVerifiedStatus(response.data.status);
+      if (response.data.status === "Closed") {
+        toast.warning(`Job appears to be closed: ${response.data.reason}`);
+      } else if (response.data.status === "Active") {
+        toast.success("Job appears to still be active!");
+      } else {
+        toast.info(`Job status: ${response.data.status}`);
+      }
+    } catch (e) {
+      toast.error("Failed to verify job status");
+    }
+    setVerifyingStatus(false);
   };
 
   const formatDate = (dateStr) => {
