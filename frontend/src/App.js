@@ -240,6 +240,7 @@ function AppContent() {
   const [applications, setApplications] = useState([]);
   const [applyDialogJob, setApplyDialogJob] = useState(null);
   const [user, setUser] = useState(null);
+  const [membership, setMembership] = useState(null);
   const [isAuthChecking, setIsAuthChecking] = useState(true);
   const { isDark } = useTheme();
   const location = useLocation();
