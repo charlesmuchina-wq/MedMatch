@@ -284,7 +284,7 @@ const InterviewPrepPage = ({ resume }) => {
                 data-testid="interview-company"
               />
             </div>
-            <div className="flex items-end">
+            <div className="flex items-end gap-2">
               <Button 
                 onClick={generateQuestions}
                 disabled={generatingQuestions || !jobTitle}
@@ -297,6 +297,16 @@ const InterviewPrepPage = ({ resume }) => {
                   <><Sparkles className="w-4 h-4 mr-2" /> Generate Questions</>
                 )}
               </Button>
+              {questions.length > 0 && (
+                <Button 
+                  variant="outline"
+                  onClick={exportToPDF}
+                  className="text-turquoise border-turquoise hover:bg-turquoise/10"
+                  data-testid="export-pdf-btn"
+                >
+                  <FileText className="w-4 h-4 mr-2" /> Export PDF
+                </Button>
+              )}
             </div>
           </div>
         </CardContent>
