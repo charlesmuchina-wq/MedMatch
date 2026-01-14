@@ -7,7 +7,7 @@ Create a comprehensive job search application where users can upload their resum
 
 ### Authentication
 - ✅ **Google Login** - Emergent-managed OAuth (working)
-- ✅ **Apple Login** - Apple Sign In implemented (Backend complete, requires Apple Developer Console URL registration)
+- ✅ **Apple Login** - Fully configured and working (Apple Developer Console setup complete)
 - ✅ **Email/Password** - Traditional registration and login with secure hashing
 - ⚙️ **Phone/SMS** - Requires Twilio credentials (endpoints ready)
 
