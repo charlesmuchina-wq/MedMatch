@@ -1164,6 +1164,17 @@ async def get_membership_status(request: Request):
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
+    # Admin users have full access
+    if user.get("is_admin") or user.get("email") == "admin@medmatch.com":
+        return {
+            "role": "admin",
+            "membership_status": "admin",
+            "is_admin": True,
+            "trial_ends_at": None,
+            "days_remaining": None,
+            "price": None
+        }
+    
     # Calculate current status
     current_status = check_membership_status(user)
     
