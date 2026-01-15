@@ -265,7 +265,7 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
   };
 
   return (
-    <Card className="job-card" data-testid={`job-card-${job.id}`}>
+    <Card className="job-card bg-white dark:bg-slate-800 dark:border-slate-700" data-testid={`job-card-${job.id}`}>
       <CardContent className="p-6">
         <div className="flex gap-4">
           <div className="flex-1 min-w-0">
