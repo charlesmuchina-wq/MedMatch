@@ -259,14 +259,14 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
         
         {loading || deepSearching ? (
           <div className="space-y-4">
-            <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg">
+            <div className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
               <Loader2 className="w-5 h-5 animate-spin text-sky-500" />
-              <span className="text-slate-600">
+              <span className="text-slate-600 dark:text-slate-300">
                 {deepSearching ? "AI is searching LinkedIn, Indeed, Glassdoor, Google, ZipRecruiter, and 5 more job boards..." : "Searching..."}
               </span>
             </div>
             {[1, 2, 3].map(i => (
-              <Card key={i}>
+              <Card key={i} className="dark:bg-slate-800 dark:border-slate-700">
                 <CardContent className="p-6">
                   <div className="skeleton h-6 w-48 rounded mb-3" />
                   <div className="skeleton h-4 w-32 rounded mb-4" />
