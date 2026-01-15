@@ -136,7 +136,13 @@ export const useFeatureAccess = (feature) => {
 export const UpgradeBanner = ({ membership }) => {
   const navigate = useNavigate();
 
-  if (!membership || membership.membership_status === 'active' || membership.role === 'recruiter') {
+  // Don't show banner for admin, active members, or recruiters
+  if (!membership || 
+      membership.membership_status === 'active' || 
+      membership.membership_status === 'admin' ||
+      membership.role === 'recruiter' ||
+      membership.role === 'admin' ||
+      membership.is_admin) {
     return null;
   }
 
