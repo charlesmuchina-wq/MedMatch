@@ -1345,6 +1345,15 @@ async def check_feature_access(feature: str, request: Request):
     if not user:
         return {"has_access": False, "reason": "Not authenticated"}
     
+    # Admin users have full access to everything
+    if user.get("is_admin") or user.get("email") == "admin@medmatch.com":
+        return {
+            "has_access": True,
+            "membership_status": "admin",
+            "role": "admin",
+            "reason": "Admin access - all features unlocked"
+        }
+    
     # Recruiters have limited features
     recruiter_features = ["post_jobs", "view_candidates", "dashboard"]
     if user.get("role") == "recruiter":
