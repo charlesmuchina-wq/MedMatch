@@ -79,6 +79,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { path: "/video-interview", icon: Video, label: "Video Practice" },
     { path: "/cover-letter", icon: PenTool, label: "Cover Letter" },
     { path: "/alerts", icon: Bell, label: "Job Alerts" },
+    { path: "/salary-insights", icon: DollarSign, label: "Salary Insights" },
     { path: "/analytics", icon: BarChart3, label: "Analytics" },
     { path: "/membership", icon: Crown, label: "Membership" },
   ];
