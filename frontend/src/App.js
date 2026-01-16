@@ -28,6 +28,7 @@ import VideoInterviewPage from "@/pages/VideoInterviewPage";
 import LoginPage from "@/pages/LoginPage";
 import MembershipPage from "@/pages/MembershipPage";
 import RecruiterJobsPage from "@/pages/RecruiterJobsPage";
+import SalaryInsightsPage from "@/pages/SalaryInsightsPage";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
