@@ -460,6 +460,11 @@ function AppContent() {
                 <AnalyticsDashboard />
               </PremiumGate>
             } />
+            <Route path="/salary-insights" element={
+              <PremiumGate feature="salary_insights">
+                <SalaryInsightsPage resume={resume} />
+              </PremiumGate>
+            } />
             <Route path="/membership" element={<MembershipPage user={user} />} />
             <Route path="/payment-success" element={<MembershipPage user={user} />} />
             <Route path="/recruiter/jobs" element={<RecruiterJobsPage user={user} />} />
