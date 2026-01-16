@@ -7,7 +7,7 @@ Create a comprehensive job search application where users can upload their resum
 
 ### Authentication
 - ✅ **Google Login** - Emergent-managed OAuth (working)
-- ✅ **Apple Login** - Fully configured and working (Apple Developer Console setup complete)
+- ✅ **Apple Login** - Configured (requires Apple Developer Console redirect URL setup)
 - ✅ **Email/Password** - Traditional registration and login with secure hashing
 - ⚙️ **Phone/SMS** - Requires Twilio credentials (endpoints ready)
 
@@ -30,6 +30,7 @@ Create a comprehensive job search application where users can upload their resum
 - ✅ Interview Preparation with PDF Export
 - ✅ Voice Interview Coach with Recording Playback
 - ✅ Video Interview Practice with AI Body Language Analysis
+- ✅ Salary Insights and Negotiation Tips
 
 ### User Management
 - ✅ Save/bookmark jobs
@@ -44,6 +45,11 @@ Create a comprehensive job search application where users can upload their resum
 - ✅ Stripe payment integration
 - ⏸️ PayPal integration (deprioritized, backend ready)
 
+### Cloud Storage Integration
+- ✅ **Google Drive** - Fully integrated with OAuth Picker API
+- ⚙️ **Dropbox** - UI ready, requires API key
+- ⚙️ **OneDrive** - UI ready, requires API key
+
 ## Tech Stack
 - **Backend**: FastAPI (Python) with MongoDB
 - **Frontend**: React with shadcn/ui
@@ -51,6 +57,26 @@ Create a comprehensive job search application where users can upload their resum
 - **Auth**: Emergent Google OAuth, Apple Sign In, Email/Password, Twilio SMS (optional)
 - **Payments**: Stripe
 - **Email**: Gmail SMTP
+- **Cloud Storage**: Google Drive API
+
+## Bug Fixes (Jan 16, 2026)
+
+### ✅ Session Expiration Bug (P0) - FIXED
+**Problem**: Sessions were expiring rapidly during testing, causing repeated logouts.
+
+**Root Cause**: 
+1. Many axios API calls were missing `withCredentials: true`
+2. CORS was configured with wildcard `*` which doesn't work with credentials
+
+**Fix Applied**:
+1. Added `axios.defaults.withCredentials = true` globally in `/app/frontend/src/index.js`
+2. Updated `CORS_ORIGINS` in `/app/backend/.env` to specific domains instead of wildcard
+
+**Files Modified**:
+- `/app/frontend/src/index.js` - Added axios.defaults.withCredentials = true
+- `/app/backend/.env` - Changed CORS_ORIGINS to specific domains
+
+**Test Results**: 100% pass rate (10/10 backend tests, all frontend tests passed)
 
 ## API Endpoints
 
@@ -67,6 +93,11 @@ Create a comprehensive job search application where users can upload their resum
 | `/api/auth/me` | GET | Get current user |
 | `/api/auth/logout` | POST | Logout and clear session |
 
+### Cloud Storage
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/cloud/google-drive/download` | POST | Download file from Google Drive (proxy) |
+
 ### Applications
 | Endpoint | Method | Description |
 |----------|--------|-------------|
@@ -82,23 +113,6 @@ Create a comprehensive job search application where users can upload their resum
 | `/api/payments/status/{session_id}` | GET | Check payment status |
 | `/api/membership/status` | GET | Get current membership status |
 
-## Pages (14 Total)
-1. **Login** - Google, Apple, Email, Phone options
-2. **Dashboard** - Overview with stats
-3. **My Resume** - Upload and view resume
-4. **Resume Profiles** - Multiple resume management
-5. **Job Search** - Search with filters
-6. **Saved Jobs** - Bookmarked jobs
-7. **Applications** - Application tracker
-8. **Success Predictor** - AI callback prediction
-9. **Interview Prep** - Questions with PDF export
-10. **Voice Coach** - Voice practice with playback
-11. **Video Practice** - Video interview with AI analysis
-12. **Cover Letter** - AI generator with PDF export
-13. **Job Alerts** - Email alerts setup
-14. **Analytics** - Application analytics dashboard
-15. **Membership** - Subscription management
-
 ## Configuration
 
 ### Already Configured
@@ -106,56 +120,57 @@ Create a comprehensive job search application where users can upload their resum
 - `EMERGENT_LLM_KEY` - AI features
 - `GMAIL_ADDRESS` / `GMAIL_APP_PASSWORD` - Email alerts
 - `GOOGLE_API_KEY` / `GOOGLE_CSE_ID` - Web search
+- `GOOGLE_OAUTH_CLIENT_ID` / `GOOGLE_OAUTH_CLIENT_SECRET` - Google Drive
 - `JWT_SECRET_KEY` - Session encryption
 - `STRIPE_API_KEY` - Payment processing
-- `APPLE_TEAM_ID` - 96879J9FZY
-- `APPLE_KEY_ID` - PJCYWKB3TU
-- `APPLE_SERVICE_ID` - com.medmatch.signin.web
-- `APPLE_PRIVATE_KEY` - Configured
+- `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_SERVICE_ID`, `APPLE_PRIVATE_KEY` - Apple Sign In
+- `CORS_ORIGINS` - https://job-finder-pro-4.preview.emergentagent.com,http://localhost:3000
 
-### Apple Sign In Setup ✅ COMPLETED
-- Services ID: `com.medmatch.signin.web`
-- Redirect URL: `https://job-finder-pro-4.preview.emergentagent.com/login`
-- Domain registered in Apple Developer Console
-
-### Optional Configuration (for Phone Login)
-- `TWILIO_ACCOUNT_SID` - Twilio account
-- `TWILIO_AUTH_TOKEN` - Twilio auth
-- `TWILIO_VERIFY_SERVICE` - Twilio Verify service ID
+### Optional Configuration
+- `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_VERIFY_SERVICE` - Phone login
+- `PAYPAL_CLIENT_ID`, `PAYPAL_SECRET` - PayPal payments
 
 ## Test Reports
-- `/app/test_reports/iteration_10.json` - Latest auth tests (100% pass - 14/14 tests)
-- `/app/tests/test_auth_apple.py` - Comprehensive auth test suite
+- `/app/test_reports/iteration_11.json` - Session persistence tests (100% pass)
+- `/app/test_reports/iteration_10.json` - Auth tests (100% pass)
+- `/app/tests/test_session_persistence.py` - Session persistence test suite
 
 ## What's Working
 ✅ Backend: FastAPI on port 8001
 ✅ Frontend: React on port 3000
 ✅ Database: MongoDB
-✅ All auth methods (Google, Apple, Email) - FULLY WORKING
+✅ All auth methods (Google, Email) - FULLY WORKING
+✅ Session persistence - FIXED (Jan 16, 2026)
 ✅ Membership system with roles
 ✅ Job search from multiple sources
 ✅ AI-powered features
 ✅ Payment processing (Stripe)
-✅ PremiumGate component - blocks expired users from premium features
-✅ Onboarding Tour - guides first-time users through features
-✅ Recruiter Job Posting UI - fully functional
-✅ Quick Actions Widget - personalized dashboard shortcuts
-✅ PWA Support - installable as desktop/mobile app
-✅ Cloud Storage Upload - Google Drive, Dropbox, OneDrive integration (UI ready)
+✅ PremiumGate component
+✅ Onboarding Tour
+✅ Recruiter Job Posting UI
+✅ Quick Actions Widget
+✅ PWA Support
+✅ Google Drive integration for resume upload
 
-## New Features (Jan 14, 2026)
-- **Quick Actions Widget** - Smart dashboard shortcuts based on user activity
-- **PWA/Desktop App** - App is installable on Windows/Mac/Mobile with offline support
-- **Cloud Storage Import** - Resume upload from Google Drive, Dropbox, OneDrive
-- **Contextual Tooltips** - Helpful tips for first-time users
-- **Install Prompt** - Encourages users to install the app
+## Pending / Blocked Items
+
+### Apple Sign In
+- **Status**: Backend configured, frontend ready
+- **Blocked**: Requires user to add redirect URL in Apple Developer Console
+- **Redirect URL**: `https://job-finder-pro-4.preview.emergentagent.com/api/auth/apple/redirect`
+
+### Android SHA-1 Fingerprint
+- **Status**: User requested keytool command execution
+- **Blocked**: Java/keytool not available in this environment
+- **Action**: User needs to run `keytool -keystore path-to-keystore -list -v` locally
 
 ## Upcoming Tasks
-- [ ] Configure cloud storage API keys (Google, Dropbox, OneDrive)
+- [ ] Complete server.py refactoring (guide at /app/memory/REFACTORING_GUIDE.md)
+- [ ] Dropbox integration (requires API key from user)
+- [ ] OneDrive integration (requires API key from user)
 - [ ] Native Windows widget (requires Electron/MSIX packaging)
-- [ ] Complete server.py refactoring (guide created)
+- [ ] Push notifications
 
-## Future Tasks / Backlog
-- [ ] Salary insights and negotiation tips
-- [ ] LinkedIn profile sync
-- [ ] PayPal integration (deprioritized)
+## Test Credentials
+- **Admin**: admin@medmatch.com / MedMatch2026!
+- **Recruiter**: recruiter@medmatch-test.com / test123
