@@ -1,7 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import axios from "axios";
 import "@/index.css";
 import App from "@/App";
+
+// Configure axios to always send credentials (cookies) with requests
+axios.defaults.withCredentials = true;
 
 // Register service worker for PWA
 if ('serviceWorker' in navigator) {
