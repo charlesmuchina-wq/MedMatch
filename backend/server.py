@@ -4532,6 +4532,7 @@ class SalaryInsightsRequest(BaseModel):
 @api_router.post("/salary/insights")
 async def get_salary_insights(request: SalaryInsightsRequest):
     """Get AI-powered salary insights and negotiation tips"""
+    from emergentintegrations.llm.chat import LlmChat, UserMessage
     
     prompt = f"""You are a salary negotiation expert and compensation analyst. Provide detailed salary insights for:
 
@@ -4579,13 +4580,13 @@ Be realistic with salary ranges based on current market data (2024-2025). Consid
 Return ONLY the JSON object, no additional text."""
 
     try:
-        response = chat(
-            model="gpt-4o-mini",
-            messages=[{"role": "user", "content": prompt}],
-            api_key=EMERGENT_LLM_KEY
+        llm = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            model="gpt-4o-mini"
         )
         
-        content = response.choices[0].message.content.strip()
+        response = await llm.chat([UserMessage(content=prompt)])
+        content = response.strip()
         
         # Clean up JSON response
         if content.startswith("```"):
