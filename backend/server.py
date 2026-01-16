@@ -4534,7 +4534,11 @@ async def get_salary_insights(request: SalaryInsightsRequest):
     """Get AI-powered salary insights and negotiation tips"""
     from emergentintegrations.llm.chat import LlmChat, UserMessage
     
-    prompt = f"""You are a salary negotiation expert and compensation analyst. Provide detailed salary insights for:
+    system_message = """You are a salary negotiation expert and compensation analyst. 
+You provide accurate salary data and actionable negotiation strategies.
+Always return responses as valid JSON only, no additional text."""
+    
+    prompt = f"""Provide detailed salary insights for:
 
 Job Title: {request.job_title}
 Location: {request.location}
@@ -4542,7 +4546,7 @@ Years of Experience: {request.years_experience}
 {f"Current Salary: ${request.current_salary:,}" if request.current_salary else "Current Salary: Not provided"}
 {f"Key Skills: {', '.join(request.skills[:10])}" if request.skills else ""}
 
-Provide a JSON response with the following structure:
+Return a JSON object with this exact structure:
 {{
     "job_title": "{request.job_title}",
     "location": "{request.location}",
@@ -4560,9 +4564,9 @@ Provide a JSON response with the following structure:
         "<tip 5>"
     ],
     "salary_factors": [
-        {{"factor": "<factor name>", "impact": "positive|negative|neutral", "description": "<how it affects salary>"}},
-        {{"factor": "<factor 2>", "impact": "positive|negative|neutral", "description": "<description>"}},
-        {{"factor": "<factor 3>", "impact": "positive|negative|neutral", "description": "<description>"}}
+        {{"factor": "<factor name>", "impact": "positive", "description": "<how it affects salary>"}},
+        {{"factor": "<factor 2>", "impact": "negative", "description": "<description>"}},
+        {{"factor": "<factor 3>", "impact": "neutral", "description": "<description>"}}
     ],
     "talk_scripts": [
         {{"scenario": "Initial Offer Response", "script": "<what to say when you receive an offer>"}},
@@ -4570,22 +4574,22 @@ Provide a JSON response with the following structure:
         {{"scenario": "Justifying Your Ask", "script": "<how to explain your value>"}}
     ],
     "skills_premium": [
-        {{"skill": "<high-value skill>", "premium": <percentage increase as integer>}},
+        {{"skill": "<high-value skill for this role>", "premium": <percentage increase as integer>}},
         {{"skill": "<skill 2>", "premium": <percentage>}},
         {{"skill": "<skill 3>", "premium": <percentage>}}
     ]
 }}
 
-Be realistic with salary ranges based on current market data (2024-2025). Consider remote work premiums and location-based cost of living adjustments.
-Return ONLY the JSON object, no additional text."""
+Be realistic with salary ranges based on current 2024-2025 market data."""
 
     try:
-        llm = LlmChat(
+        chat = LlmChat(
             api_key=EMERGENT_LLM_KEY,
-            model="gpt-4o-mini"
+            session_id=str(uuid.uuid4()),
+            system_message=system_message
         )
         
-        response = await llm.chat([UserMessage(content=prompt)])
+        response = await chat.chat([UserMessage(content=prompt)])
         content = response.strip()
         
         # Clean up JSON response
