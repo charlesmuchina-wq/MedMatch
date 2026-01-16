@@ -4589,7 +4589,7 @@ Be realistic with salary ranges based on current 2024-2025 market data."""
             system_message=system_message
         )
         
-        response = await chat.chat([UserMessage(content=prompt)])
+        response = await chat.send_message(prompt)
         content = response.strip()
         
         # Clean up JSON response
