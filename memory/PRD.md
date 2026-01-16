@@ -115,7 +115,7 @@ Create a comprehensive job search application where users can upload their resum
 
 ### Apple Sign In Setup ✅ COMPLETED
 - Services ID: `com.medmatch.signin.web`
-- Redirect URL: `https://remotematch.preview.emergentagent.com/login`
+- Redirect URL: `https://job-finder-pro-4.preview.emergentagent.com/login`
 - Domain registered in Apple Developer Console
 
 ### Optional Configuration (for Phone Login)

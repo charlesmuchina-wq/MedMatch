@@ -1,207 +1,201 @@
 <analysis>**original_problem_statement:**
-The user wants to create an application that uses their resume to find remote jobs that match their skills and experience.
+The user wants to create a comprehensive, AI-powered application named MedMatch to automate their remote job search. The application should parse a resume, find matching jobs from various sources, and provide tools to aid in the application process.
 
 **PRODUCT REQUIREMENTS:**
-- **Core Functionality:** Parse a user's resume (PDF) to extract skills, experience, and personal details.
-- **Job Sourcing:**
-    - Search for remote jobs using free APIs.
-    - Implement an AI-powered web crawler to search across various job boards (e.g., Indeed, LinkedIn, Glassdoor) and the entire internet.
-    - Integrate  to scrape major job boards.
-    - Integrate Google Custom Search Engine (CSE) to expand search capabilities.
-- **Job Matching & Filtering:**
-    - Use AI to analyze and match jobs against the user's resume.
-    - Provide filters for job location, date posted, and job source.
-    - Include quick search presets for specific job titles (e.g., 'Supplier Quality Manager/Director', 'Lead Auditor', 'Medical Devices').
-    - Implement advanced filters for 'Industry' and 'Technology'.
-- **User Features:**
-    - A dashboard to view job search results.
-    - Ability to save/bookmark jobs and track applications.
-    - **Email Alerts:** Send email alerts when new jobs matching the user's profile are posted.
-    - **Daily Digest:** Send a scheduled daily email digest of new jobs posted within the last 24 hours, avoiding duplicates.
-    - **AI Cover Letter Generator:** Generate cover letters based on the job requirements and the user's resume.
+- **Core Functionality:** Parse a user's resume (PDF) and use it to find matching jobs.
+- **Job Sourcing:** Aggregate jobs from various sources (, Google CSE).
+- **Authentication:** Simple login via Google, Apple, Email, or Telephone number (SMS).
+- **Membership & Payments:**
+    - Job Seeker:  lifetime membership with a 15-day free trial.
+    - Recruiter: Free membership to post jobs.
+    - Payment processing via Stripe and PayPal.
+- **AI-Powered Features:**
+    - AI Cover Letter Generator, Callback Probability Predictor, AI Interview Preparation, AI Voice Coach, AI Video Interview Practice.
+- **Job Application Flow:**
+    - Mark jobs as applied, track status (active, closed).
+- **UI/UX:**
+    - A custom, creative batik-inspired theme with turquoise green accents and a functional Dark Mode.
+    - An admin login bypass for easy testing.
+- **PWA/Desktop:**
+    - Installable as a PWA and a desktop widget.
 - **Integrations:**
-    - Use the Emergent LLM Key for AI functionalities.
-    - Integrate with Gmail for sending email alerts and digests.
+    - Resume upload from cloud storage (Google Drive, Dropbox, OneDrive).
 
 **User's preferred language**: English
 
 **what currently exists?**
-A full-stack job search application (MedMatch) has been developed.
-- **Backend (FastAPI):**
-  - Manages resume uploads, parsing, and data storage in MongoDB.
-  - Integrates multiple job sources: free APIs (RemoteOK, Remotive),  (for LinkedIn, Indeed, etc.), and Google Custom Search Engine (CSE).
-  - Features an AI-powered Deep Search that aggregates and ranks jobs from all sources.
-  - Endpoints for job search, filtering, saving jobs, application tracking, email alerts, daily digests, and AI cover letter generation.
-- **Frontend (React):**
-  - A single-page application with routing for a dashboard, resume management, job search, saved jobs, application tracking, and a new cover letter generator page.
-  - UI includes quick search presets, advanced filters (Industry, Technology), and source selection.
-  - Displays job listings with details and a relevance score.
-- **Integrations:**
-  - AI functionalities are powered by  using the Emergent LLM Key.
-  - Email is sent via SMTP using user-provided Gmail credentials.
-  - Google CSE is integrated using a user-provided API key and CSE ID.
+The MedMatch application is a nearly feature-complete full-stack app with a FastAPI backend and a React frontend.
+- **Backend ():** A monolithic server handles all logic, including authentication (Google, Apple, Email), job aggregation, a full suite of AI features (Salary Insights, Cover Letter, etc.), membership/payment logic, and recruiter functionalities. Google service account credentials have been added to the  file.
+- **Frontend ():** A responsive UI with a batik-inspired theme and dark mode. It includes a multi-step onboarding tour, a  component to restrict features for non-paying users, an admin bypass, a Quick Actions dashboard widget, PWA support (installable), and UI for uploading resumes from cloud storage.
+- **Authentication:** Google, Email, and Apple Sign-In are implemented. The Apple flow was updated to use  but requires an external configuration change by the user.
+- **Features:** Most features from the PRD are implemented, including Salary Insights, Job Status verification, and a functional recruiter dashboard.
 
 **Last working item**:
-- **Last item agent was working:** Implementation of the Daily Digest and AI Cover Letter Generator features. The agent wrote the necessary backend code and endpoints in  and added the corresponding frontend UI, components, and routing in .
-- **Status:** IN PROGRESS
-- **Agent Testing Done:** N
-- **Which testing method agent to use?** both
-    1.  **Manual Verification:**
-        - Restart backend/frontend services: backend: stopped
-frontend: stopped
-backend: started
-frontend: started.
-        - Check supervisor logs for startup errors.
-        - Use  to test the new backend endpoints (, ).
-        - Use the  to verify the new  page renders correctly.
-    2.  **Automated Testing:** After manual checks pass, use  to run a comprehensive test suite covering the new features and ensuring no regressions were introduced.
-- **User Testing Done:** N
+The agent was in the process of providing the user with comprehensive instructions for setting up Google OAuth Client IDs for various platforms (Android, iOS, Desktop). The user provided a  command to generate the SHA-1 certificate fingerprint required for the Android OAuth Client ID setup. The agent attempted to run this but the output is missing from the history.
+    - Last item agent was working: Generating the SHA-1 certificate fingerprint for the Android OAuth Client ID setup as requested by the user.
+    - Status: IN PROGRESS
+    - Agent Testing Done: N
+    - Which testing method agent to use? The agent needs to execute the  command provided by the user to generate the fingerprint.
+    - User Testing Done: N
 
 **All Pending/In progress Issue list**:
-- **Issue 1:** The  file has grown to over 1400 lines, containing multiple page components and complex logic. This makes it difficult to maintain and debug.
-  - **Priority:** P1
-
-  **Issues Detail:**
-  - **Issue 1:**  is a monolithic file.
-     - **Attempted fixes:** None. The agent continued to add new page components and logic directly into this file.
-     - **Next debug checklist:**
-        - Create a new directory .
-        - Refactor the code by moving page-level components (e.g., , , , ) from  into their own files within the new  directory.
-        - Update  to import these page components and handle routing only.
-     - **Why fix this issue and what will be achieved with the fix?** Refactoring will improve code readability, maintainability, and separation of concerns, making future development and debugging easier.
-     - **Status:** NOT STARTED
-     - **Is recurring issue?** Y
-     - **Should Test frontend/backend/both after fix?** frontend
-     - **Blocked on other issue:** None.
+- **Issue 1: Rapid Session Expiration (P0)**
+  - **Description:** During UI testing with the screenshot tool, the user session expires very quickly (often between two consecutive actions), forcing repeated logins. This severely hinders frontend testing and verification. The agent observed this multiple times but attributed it to the Playwright testing environment without investigating the root cause in the application's session management.
+  - **Status:** NOT STARTED
+- **Issue 2: Incomplete PayPal Integration (P2)**
+  - **Description:** The backend endpoints for PayPal exist, but the integration is non-functional as it lacks credentials. The user has deprioritized this in favor of Stripe.
+  - **Status:** BLOCKED
 
 **In progress Task List**:
-- **Task 1:** Finalize and test the Daily Digest and AI Cover Letter Generator features.
-  - **Priority:** P0
-
- **Task Detail:**
-  - **Task 1:**
-     - **Where to resume:** The code has been written. The immediate next step is to restart the backend and frontend services, as pointed out by the user in the final message.
-     - **What will be achieved with this?** The two latest user-requested features will be fully functional, tested, and ready for use.
-     - **Status:** IN PROGRESS
-     - **Should Test frontend/backend/both after fix?** both
-     - **Blocked on something:** No.
+- **Task 1: Finalize Cloud Storage Resume Upload (P1)**
+   - **Where to resume:** The UI () and backend credentials for Google Cloud are in place. The next step is to implement the client-side logic to use the Google Picker API with the configured OAuth Client ID to fetch files from Google Drive, and then handle the file upload to the backend. The same needs to be done for Dropbox and OneDrive once the user provides keys.
+   - **What will be achieved with this?** Users will be able to import their resumes directly from Google Drive, Dropbox, or OneDrive.
+   - **Status:** IN PROGRESS
+   - **Should Test frontend/backend/both after fix?** both
+   - **Blocked on something:** Requires API keys from the user for Dropbox and OneDrive. Google Drive is ready for implementation.
+- **Task 2: Finalize Apple Sign In Configuration (P1)**
+   - **Where to resume:** The agent has already provided instructions to the user. The integration is blocked until the user registers the new redirect URL in their Apple Developer Console: .
+   - **What will be achieved with this?** A fully functional Sign in with Apple button.
+   - **Status:** USER VERIFICATION PENDING
+   - **Should Test frontend/backend/both after fix?** both
+   - **Blocked on something:** User action required in the Apple Developer Console.
 
 **Upcoming and Future Tasks**
-There are no new feature requests from the user. The next phase should focus on stabilizing the current features, addressing the refactoring needs, and ensuring the application is robust.
+- **Upcoming Tasks:**
+  - **P1: Refactor  monolith:** The backend is a single 4800+ line file. A refactoring guide has been created at . The plan is to split the server logic into modular routers (e.g., , , ).
+  - **P2: Native Windows/Desktop Widget:** Implement a desktop widget, likely requiring packaging the PWA with a technology like Electron/Tauri and creating an MSIX installer.
+  - **P2: Push Notifications:** The PWA service worker is in place. The backend needs to be configured to send push notifications for job alerts.
+- **Future Tasks:**
+  - **LinkedIn Profile Sync:** Allow users to import their LinkedIn profile to populate resume data.
 
 **Completed work in this session**
-- **MedMatch MVP:** Initial version with resume upload and basic job search from free APIs.
-- **Advanced Search & Filtering:**
-    - Implemented filters for date, location, industry, and technology.
-    - Created quick search presets for specific job roles.
-- **Job Source Integrations:**
-    - **JobSpy:** Integrated to scrape major job boards like LinkedIn, Indeed, Glassdoor.
-    - **Google CSE:** Integrated Google Custom Search to query job sites directly.
-    - **AI Deep Search:** Created a feature to aggregate results from all integrated sources.
-- **User Features:**
-    - **Email Alerts:** Implemented real-time email alerts for new job postings.
-    - **Application Tracking:** Built a UI to track the status of job applications.
+- **Authentication & Authorization:**
+  - Implemented Apple Sign In, including fixing the  to .
+  - Implemented an admin bypass for the , giving admin accounts full access to all features.
+- **Feature Implementation:**
+  - **Salary Insights:** Created a new page and a corresponding backend endpoint () that uses an LLM to provide salary data and negotiation tips.
+  - **Job Status:** Added status badges (New, Active) to job cards and a Verify Status button that calls a backend endpoint () to check if the job URL is still live.
+  - **Onboarding & UX:**
+    - Created a multi-step user onboarding tour ().
+    - Added a Quick Actions widget to the dashboard.
+    - Integrated the  component into premium feature pages.
+- **PWA & Integrations:**
+  - Configured the app as a Progressive Web App (PWA) with a manifest, service worker, and install prompt.
+  - Created the UI for resume uploads from cloud storage ().
+  - Added Google API credentials to environment variables.
+  - Provided comprehensive guides for Google OAuth setup ().
+- **Bug Fixes:**
+  - Fixed the AI Deep Search feature, which was hanging due to NaN salary values and a lack of timeouts.
+  - Fixed the white blank blocks rendering issue by adding proper CSS for the skeleton loader in dark mode.
+  - Fixed contrast issues with status badges in dark mode.
 
 **Earlier issues found/mentioned but not fixed**
-None. The agent successfully debugged and resolved issues as they arose during development, such as the frontend rendering a blank page and the Google CSE integration returning zero results.
+   - **Issue 1: Rapid Session Expiration**
+     - **Debug checklist:** Investigate session cookie settings (, , ) in . Check if frontend API calls are correctly sending credentials (). Verify if any proxy or ingress configuration is stripping headers.
+     - **Why to solve this issue and what will be achieved with this?** Fixing this will make frontend testing reliable and dramatically improve the user experience by preventing frequent, unexpected logouts.
+     - **Should Test frontend/backend/both after fix:** both
+     - **Is recurring issue?** Y
 
 **Known issue recurrence from previous fork**
-N/A
+  N/A
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **Backend:** FastAPI, MongoDB (using ), Pydantic
-- **Frontend:** React, , , Shadcn UI
-- **Integrations:**
-  - **AI:**  with Emergent LLM Key for resume parsing, job matching, and cover letter generation.
-  - **Web Scraping:**  library.
-  - **External APIs:** Google Custom Search API, RemoteOK, Remotive, etc.
-- **Asynchronous Programming:**  and  for concurrent API calls in the backend.
+- **Backend:** FastAPI, MongoDB (), Pydantic, JWT for sessions,  for LLM calls.
+- **Frontend:** React, React Context API, , TailwindCSS, Shadcn UI.
+- **PWA:** Service Workers,  for installability and offline support.
+- **Authentication:** Google, Apple ( flow), Email/Password, JWT.
+- **Integrations:** Google Cloud (Drive/Picker API), Stripe, JobSpy.
 
 **key DB schema**
-- **resumes:** 
-- **jobs:** 
-- **saved_jobs:** 
-- **applications:** 
-- **alerts:** 
-- **daily_digests:** 
-- **cover_letters:** 
+  - **users:** 
+  - **jobs:** 
 
 **changes in tech stack**
-None. The stack has remained FastAPI, React, and MongoDB.
+- Google Cloud Platform credentials and APIs (Drive, Picker) were introduced for cloud storage integration.
 
 **All files of reference**
-- : The single source for all backend logic, API endpoints, and database models. Heavily modified throughout the session.
-- : The single source for all frontend components, pages, state management, and API calls. Heavily modified and needs refactoring.
-- : Updated with  and .
-- : Updated with , , , , and their dependencies.
-- : Updated with  and .
-- : Created and updated to document project progress and requirements.
-- : Contains JSON reports from the testing agent ( to ).
+- **Created:**
+  - : Page for the AI salary negotiation feature.
+  - : A multi-step tour for new users.
+  - : Component to encourage PWA installation.
+  - : UI for importing resumes from cloud services.
+  - , : Files for PWA functionality.
+  - : A guide for breaking down .
+  - : Instructions for setting up Google OAuth on multiple platforms.
+  - , , : Directory structure for future refactoring.
+- **Updated:**
+  - : Heavily modified to add Salary Insights, job status verification, admin access bypass, and fixes for AI deep search.
+  - : Integrated Onboarding Tour, PremiumGate, Salary Insights route, and Install Prompt.
+  - : Added the Quick Actions widget.
+  - : Added job status badges and improved dark mode contrast.
+  - : Updated Apple Sign In flow.
+  - : Added the Cloud Upload UI.
+  - , : Added Google API keys.
 
 **Areas that need refactoring**:
-- **:** This file is critically bloated (>1400 lines) and contains the logic for at least five distinct pages/views (Job Search, Saved Jobs, Applications, Alerts, Cover Letter Generator). It should be broken down into a proper component and page structure for maintainability. For example, create , , etc., and use  primarily for routing.
+-  is a 4800+ line monolith that urgently needs to be broken down into the prepared module structure (, ) as outlined in .
 
 **key api endpoints**
-- : Upload and parse resume.
-- : Perform a basic search on free APIs.
-- : Trigger the advanced AI search across all integrated sources (JobSpy, Google CSE, etc.).
-- : Save a job.
-- : Retrieve saved jobs.
-- : Subscribe to real-time email alerts.
-- : Generate an AI cover letter.
-- : Subscribe to the daily email digest.
+- : [POST] Generates salary data and negotiation tips for a job title.
+- : [POST] Verifies if a job posting URL is still active.
+- : [GET] Provides client-side configuration for Apple Sign In.
+- : [POST] New callback endpoint for the  Apple Sign In flow.
+- : [GET] Checks if the current user can access a premium feature.
+- : [POST] Initiates an AI-powered deep search for jobs.
 
 **Critical Info for New Agent**
-- **Immediate Task:** The last features implemented (Daily Digest, Cover Letter Generator) have not been tested. You must start by restarting the backend and frontend services and then thoroughly testing these new features.
-- ** Refactoring:** The frontend is becoming unmanageable due to the monolithic  file. Prioritize refactoring this file into smaller, reusable page components after the current task is verified.
-- **Credentials:** The necessary credentials for Google CSE and Gmail are stored in . Do not expose them. The Google CSE integration is sensitive to its configuration in the Google Cloud Console; it must be set to Search the entire web to function correctly.
+- **Your immediate task is to generate the Android SHA-1 fingerprint.** The user has provided the  command. You need to execute it correctly to provide the fingerprint needed for their Google OAuth setup. The file path  needs to be located or the user needs to be asked for it.
+- **The session expiration bug is a major hindrance.** Prioritize investigating and fixing the rapid session loss to enable effective UI testing.
+- The ** refactor** is the largest upcoming technical debt item. Following the guide in  is the recommended path.
+- Apple Sign In and Cloud Storage features are blocked by external user actions. Clearly communicate what is needed to unblock them.
 
 **documents and test reports created in this job**
-- 
-- 
-- 
-- 
-- 
+  - 
+  - 
+  - 
+  - 
 
 **Last 10 User Messages and any pending HUMAN messages**
-1.  **Request:** Add Google API key and implement a gap assessment based on provided Google Sheets script instructions. (Done)
-2.  **Input:** Provided Google CSE script tag containing the CSE ID. (Done)
-3.  **Input:** Confirmed Option A complete (presumably setting the CSE to Search the entire web). (Done)
-4.  **Request:** Develop scheduled daily email digests (new jobs only) and an AI cover letter generator. (In Progress)
-5.  **Instruction:** Implement: What agent forgot to execute. User pointed out that the agent did not restart or test the services after implementing the daily digest and cover letter features. (Pending - This is the immediate next step).
+1.  **User:** Requests Salary Insights feature and instructions for creating a Google Service account. (DONE)
+2.  **User:** Provides Google OAuth Client ID/Secret and a service account JSON file. Asks for instructions for other platforms (iOS, Android, etc.). (DONE)
+3.  **User:** Asks agent to provide the certificate fingerprint for the Android OAuth Client ID using a specific  command. (IN PROGRESS)
+4.  **User:** Admin account should have full access. (DONE)
+5.  **User:** Clear cache refresh and restart. (DONE)
+6.  **User:** Asks if there are any pending tasks. (DONE)
+7.  **User:** AI deep search spools and doesn’t generate results. (FIXED)
+8.  **User:** Reports contrast issues with status badges in dark mode. (FIXED)
+9.  **User:** Reports that some jobs shown are no longer available and requests a status indicator. (DONE)
+10. **User:** Run DeepSeek search tests as it renders white blank blocks. (FIXED)
 
 **Project Health Check:**
-- **Needs Refactoring:** 
-- **Broken:** None.
-- **Mocked:** None.
+- **Needs Refactoring:**  is a critical monolith.
+- **Broken:** The session management appears to be broken or unstable, causing rapid logouts during testing.
+- **Mocked:** PayPal integration is not functional. Cloud storage integrations (Dropbox, OneDrive) are UI-only pending API keys.
 
 **3rd Party Integrations**
-- **OpenAI (GPT Models):** Used for resume parsing, job matching, and cover letter generation via . — uses Emergent LLM Key.
-- **JobSpy:** Python library for scraping job boards (LinkedIn, Indeed, etc.).
-- **Google Custom Search API:** Used to query job sites like Indeed.com. — requires User API Key.
-- **Gmail (SMTP):** Used for sending email alerts and digests. — requires User-provided App Password.
+- **OpenAI (GPT Models)**: via  — uses Emergent LLM Key.
+- **Google Cloud Platform**:
+    - **Google Sign-In**: Authentication — uses User-provided OAuth Client ID.
+    - **Google Drive/Picker API**: File import — uses User-provided Service Account & OAuth Client ID.
+- **JobSpy**: Scrapes job boards.
+- **Twilio**: SMS authentication — requires User API Key.
+- **Stripe**: Payment processing — uses test key from environment.
+- **PayPal**: Payment processing — requires User API Key (Blocked).
+- **Apple Sign In**: Authentication — requires User API Key & configuration.
 
 **Testing status**
-- **Testing agent used after significant changes:** YES. The agent consistently used  after major feature integrations, with the last run for .
-- **Troubleshoot agent used after agent stuck in loop:** NO
-- **Test files created:**
-    - 
-    - 
-    - 
-    - 
-- **Known regressions:** None.
+  - Testing agent used after significant changes: YES ( was generated)
+  - Troubleshoot agent used after agent stuck in loop: NO
+  - Test files created: []
+  - Known regressions: The session expiration issue has become more prominent, hindering testing.
 
 **Credentials to test flow:**
-- **Google API Key:**  (stored in )
-- **Google CSE ID:**  (stored in )
-- **Gmail Credentials:**
-    - **Email:** 
-    - **App Password:** 
-    - **Recipient Email:** 
-    (All stored in )
+- **Admin:**  /  (Has full access to all features)
+- **Recruiter:**  /  (Created during session)
 
 **What agent forgot to execute**
-The agent did not restart the backend or frontend services after adding the code for the daily digest and cover letter features. Consequently, it also did not perform any testing (manual or automated) on these newly implemented features before the session ended. This is the most critical pending action.</analysis>
+- The agent never addressed the root cause of the rapid session expiration, despite it repeatedly derailing UI testing. It was acknowledged but not investigated or fixed.
+- The  refactoring was planned and then postponed in favor of other features, leaving significant technical debt.</analysis>
