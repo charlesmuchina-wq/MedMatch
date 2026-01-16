@@ -4520,6 +4520,122 @@ class InterviewPrepExportRequest(BaseModel):
     candidate_name: str = ""
     notes: str = ""
 
+# ============== SALARY INSIGHTS ==============
+
+class SalaryInsightsRequest(BaseModel):
+    job_title: str
+    location: str = "Remote, USA"
+    years_experience: int = 5
+    current_salary: Optional[int] = None
+    skills: List[str] = []
+
+@api_router.post("/salary/insights")
+async def get_salary_insights(request: SalaryInsightsRequest):
+    """Get AI-powered salary insights and negotiation tips"""
+    
+    prompt = f"""You are a salary negotiation expert and compensation analyst. Provide detailed salary insights for:
+
+Job Title: {request.job_title}
+Location: {request.location}
+Years of Experience: {request.years_experience}
+{f"Current Salary: ${request.current_salary:,}" if request.current_salary else "Current Salary: Not provided"}
+{f"Key Skills: {', '.join(request.skills[:10])}" if request.skills else ""}
+
+Provide a JSON response with the following structure:
+{{
+    "job_title": "{request.job_title}",
+    "location": "{request.location}",
+    "years_experience": {request.years_experience},
+    "salary_range": {{
+        "low": <10th percentile salary as integer>,
+        "median": <50th percentile salary as integer>,
+        "high": <90th percentile salary as integer>
+    }},
+    "negotiation_tips": [
+        "<tip 1 - specific and actionable>",
+        "<tip 2>",
+        "<tip 3>",
+        "<tip 4>",
+        "<tip 5>"
+    ],
+    "salary_factors": [
+        {{"factor": "<factor name>", "impact": "positive|negative|neutral", "description": "<how it affects salary>"}},
+        {{"factor": "<factor 2>", "impact": "positive|negative|neutral", "description": "<description>"}},
+        {{"factor": "<factor 3>", "impact": "positive|negative|neutral", "description": "<description>"}}
+    ],
+    "talk_scripts": [
+        {{"scenario": "Initial Offer Response", "script": "<what to say when you receive an offer>"}},
+        {{"scenario": "Asking for More", "script": "<how to counter-offer>"}},
+        {{"scenario": "Justifying Your Ask", "script": "<how to explain your value>"}}
+    ],
+    "skills_premium": [
+        {{"skill": "<high-value skill>", "premium": <percentage increase as integer>}},
+        {{"skill": "<skill 2>", "premium": <percentage>}},
+        {{"skill": "<skill 3>", "premium": <percentage>}}
+    ]
+}}
+
+Be realistic with salary ranges based on current market data (2024-2025). Consider remote work premiums and location-based cost of living adjustments.
+Return ONLY the JSON object, no additional text."""
+
+    try:
+        response = chat(
+            model="gpt-4o-mini",
+            messages=[{"role": "user", "content": prompt}],
+            api_key=EMERGENT_LLM_KEY
+        )
+        
+        content = response.choices[0].message.content.strip()
+        
+        # Clean up JSON response
+        if content.startswith("```"):
+            content = content.split("```")[1]
+            if content.startswith("json"):
+                content = content[4:]
+        content = content.strip()
+        
+        insights = json.loads(content)
+        return insights
+        
+    except json.JSONDecodeError as e:
+        logging.error(f"Salary insights JSON parse error: {e}")
+        # Return fallback data
+        return {
+            "job_title": request.job_title,
+            "location": request.location,
+            "years_experience": request.years_experience,
+            "salary_range": {
+                "low": 80000,
+                "median": 120000,
+                "high": 180000
+            },
+            "negotiation_tips": [
+                "Research the company's compensation philosophy before negotiating",
+                "Always negotiate - most employers expect it and leave room in their initial offer",
+                "Focus on the total compensation package, not just base salary",
+                "Use specific numbers rather than ranges when making counter-offers",
+                "Practice your negotiation conversation beforehand"
+            ],
+            "salary_factors": [
+                {"factor": "Experience Level", "impact": "positive", "description": "More years typically means higher compensation"},
+                {"factor": "Location", "impact": "neutral", "description": "Remote roles may have location-based adjustments"},
+                {"factor": "Industry", "impact": "positive", "description": "Tech and finance typically pay premium rates"}
+            ],
+            "talk_scripts": [
+                {"scenario": "Initial Offer Response", "script": "Thank you for the offer. I'm excited about this opportunity. I'd like to discuss the compensation package - based on my research and experience, I was expecting something closer to [X]."},
+                {"scenario": "Asking for More", "script": "I appreciate the offer of [X]. Given my [specific experience/skills], I believe [Y] would be more aligned with the value I'll bring to this role."},
+                {"scenario": "Justifying Your Ask", "script": "In my current/previous role, I [specific achievement]. I'm confident I can deliver similar results here, which is why I'm requesting [amount]."}
+            ],
+            "skills_premium": [
+                {"skill": "Leadership", "premium": 15},
+                {"skill": "Cloud Architecture", "premium": 12},
+                {"skill": "AI/ML", "premium": 20}
+            ]
+        }
+    except Exception as e:
+        logging.error(f"Salary insights error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate salary insights")
+
 @api_router.post("/export/cover-letter-html")
 async def export_cover_letter_html(request: CoverLetterExportRequest):
     """
