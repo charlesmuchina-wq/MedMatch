@@ -28,5 +28,11 @@ interview_questions = db.interview_questions
 resume_profiles = db.resume_profiles
 video_recordings = db.video_recordings
 recruiter_jobs = db.recruiter_jobs
+posted_jobs = db.posted_jobs
 sessions = db.sessions
 digest_history = db.digest_history
+
+# New collections for recruiter features
+job_applicants = db.job_applicants
+conversations = db.conversations
+messages = db.messages
