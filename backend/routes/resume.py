@@ -11,6 +11,7 @@ import logging
 import io
 
 from PyPDF2 import PdfReader
+from docx import Document as DocxDocument
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 from utils.database import db
@@ -42,20 +43,48 @@ class ResumeProfile(BaseModel):
 class SkillsUpdate(BaseModel):
     skills: List[str]
 
+# ============== Helper Functions ==============
+
+def extract_text_from_docx(file_content: bytes) -> str:
+    """Extract text from DOCX file"""
+    try:
+        doc = DocxDocument(io.BytesIO(file_content))
+        text_content = []
+        for para in doc.paragraphs:
+            text_content.append(para.text)
+        return "\n".join(text_content)
+    except Exception as e:
+        logging.error(f"Error extracting text from DOCX: {e}")
+        return ""
+
 # ============== Routes ==============
 
 @router.post("/resume/upload")
 async def upload_resume(file: UploadFile = File(...), request: Request = None):
-    """Upload and parse a resume PDF"""
-    if not file.filename.lower().endswith('.pdf'):
-        raise HTTPException(status_code=400, detail="Only PDF files are supported")
+    """Upload and parse a resume (PDF, DOC, DOCX)"""
+    filename_lower = file.filename.lower()
+    valid_extensions = ['.pdf', '.doc', '.docx']
+    
+    if not any(filename_lower.endswith(ext) for ext in valid_extensions):
+        raise HTTPException(status_code=400, detail="Only PDF, DOC, and DOCX files are supported")
     
     content = await file.read()
     
-    # Extract text from PDF
-    raw_text = extract_text_from_pdf(content)
+    # Extract text based on file type
+    if filename_lower.endswith('.pdf'):
+        raw_text = extract_text_from_pdf(content)
+    elif filename_lower.endswith('.docx'):
+        raw_text = extract_text_from_docx(content)
+    elif filename_lower.endswith('.doc'):
+        # .doc files (old Word format) are harder to parse without external tools
+        # For now, show a helpful message
+        raise HTTPException(
+            status_code=400, 
+            detail="Legacy .doc format is not supported. Please save your document as .docx or PDF and try again."
+        )
+    
     if not raw_text.strip():
-        raise HTTPException(status_code=400, detail="Could not extract text from PDF")
+        raise HTTPException(status_code=400, detail="Could not extract text from document")
     
     # Parse with AI
     resume_data = await parse_resume_with_ai(raw_text)
