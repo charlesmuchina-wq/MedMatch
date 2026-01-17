@@ -31,6 +31,7 @@ Create a comprehensive job search application where users can upload their resum
 - ✅ Voice Interview Coach with Recording Playback
 - ✅ Video Interview Practice with AI Body Language Analysis
 - ✅ Salary Insights and Negotiation Tips
+- ✅ **AI Prescreening** - Analyzes candidate vs job fit with transferable skills (NEW)
 
 ### User Management
 - ✅ Save/bookmark jobs
@@ -38,6 +39,7 @@ Create a comprehensive job search application where users can upload their resum
 - ✅ Email alerts for matching jobs
 - ✅ Automated daily digest (8 AM UTC)
 - ✅ Job application analytics dashboard
+- ✅ **In-App Messaging** - Recruiter ↔ Job Seeker communication (NEW)
 
 ### Membership System
 - ✅ Job Seekers: $1 lifetime membership with 15-day free trial
@@ -49,6 +51,15 @@ Create a comprehensive job search application where users can upload their resum
 - ✅ **Google Drive** - Fully integrated with OAuth Picker API
 - ⚙️ **Dropbox** - UI ready, requires API key
 - ⚙️ **OneDrive** - UI ready, requires API key
+
+### Recruiter Features (NEW - Jan 17, 2026)
+- ✅ **Applicant Tracking System** - View/manage applicants per job posting
+- ✅ **Applicant Status Pipeline** - new → reviewing → shortlisted → interviewing → offered → hired/rejected
+- ✅ **Applicant Notes** - Recruiters can add notes to applicants
+- ✅ **Candidate Search** - Search job seekers by skills, keywords
+- ✅ **AI Prescreening** - Match score, transferable skills, interview questions
+- ✅ **Recruiter Dashboard** - Stats, quick actions, recent applicants
+- ✅ **Role-Based Navigation** - Different sidebar for recruiters vs job seekers
 
 ## Tech Stack
 - **Backend**: FastAPI (Python) with MongoDB
