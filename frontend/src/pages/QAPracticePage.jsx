@@ -184,6 +184,205 @@ const VoiceRecorder = ({ onTranscript, disabled }) => {
   );
 };
 
+// Audio File Upload Component
+const AudioFileUpload = ({ onTranscript, disabled }) => {
+  const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const fileInputRef = useRef(null);
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const ext = '.' + file.name.split('.').pop().toLowerCase();
+    if (!SUPPORTED_AUDIO_FORMATS.includes(ext)) {
+      toast.error(`Unsupported format. Use: ${SUPPORTED_AUDIO_FORMATS.join(', ')}`);
+      return;
+    }
+
+    if (file.size > 25 * 1024 * 1024) {
+      toast.error("File too large. Maximum 25MB.");
+      return;
+    }
+
+    setUploading(true);
+    setProgress(10);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      setProgress(30);
+      const response = await axios.post(`${API}/qa-practice/transcribe-audio`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+        onUploadProgress: (e) => setProgress(30 + (e.loaded / e.total) * 40)
+      });
+      setProgress(90);
+      
+      if (response.data.transcript) {
+        onTranscript(response.data.transcript);
+        toast.success("Audio transcribed successfully!");
+      }
+      setProgress(100);
+    } catch (error) {
+      toast.error(error.response?.data?.detail || "Transcription failed");
+    } finally {
+      setUploading(false);
+      setProgress(0);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  return (
+    <div className="space-y-2">
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept={SUPPORTED_AUDIO_FORMATS.join(',')}
+        onChange={handleFileUpload}
+        className="hidden"
+        disabled={disabled || uploading}
+      />
+      <Button
+        variant="outline"
+        onClick={() => fileInputRef.current?.click()}
+        disabled={disabled || uploading}
+        className="w-full border-dashed"
+        data-testid="upload-audio-btn"
+      >
+        {uploading ? (
+          <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Transcribing {progress}%</>
+        ) : (
+          <><FileAudio className="w-4 h-4 mr-2" />Upload Audio File</>
+        )}
+      </Button>
+      {uploading && <Progress value={progress} className="h-1" />}
+      <p className="text-xs text-slate-400 text-center">MP3, WAV, M4A, WEBM (max 25MB)</p>
+    </div>
+  );
+};
+
+// PDF Export Function
+const exportToPDF = (data) => {
+  const doc = new jsPDF();
+  const pageWidth = doc.internal.pageSize.getWidth();
+  let y = 20;
+
+  // Header
+  doc.setFontSize(20);
+  doc.setTextColor(0, 166, 153); // Turquoise
+  doc.text("MedMatch Q&A Practice Session", pageWidth / 2, y, { align: "center" });
+  y += 10;
+
+  doc.setFontSize(10);
+  doc.setTextColor(100);
+  doc.text(`Generated: ${new Date().toLocaleString()}`, pageWidth / 2, y, { align: "center" });
+  y += 15;
+
+  // Job Context
+  if (data.jobContext?.job_title) {
+    doc.setFontSize(14);
+    doc.setTextColor(0);
+    doc.text("Job Context", 14, y);
+    y += 8;
+    doc.setFontSize(10);
+    doc.setTextColor(60);
+    if (data.jobContext.company_name) doc.text(`Company: ${data.jobContext.company_name}`, 14, y); y += 5;
+    doc.text(`Position: ${data.jobContext.job_title}`, 14, y); y += 10;
+  }
+
+  // Match Analysis
+  if (data.matchAnalysis) {
+    doc.setFontSize(14);
+    doc.setTextColor(0);
+    doc.text("Resume Match Analysis", 14, y);
+    y += 8;
+    doc.setFontSize(12);
+    doc.setTextColor(0, 166, 153);
+    doc.text(`Match Score: ${data.matchAnalysis.match_score || 0}%`, 14, y);
+    y += 10;
+  }
+
+  // Question & Answer
+  doc.setFontSize(14);
+  doc.setTextColor(0);
+  doc.text("Interview Question", 14, y);
+  y += 8;
+  doc.setFontSize(10);
+  doc.setTextColor(60);
+  const questionLines = doc.splitTextToSize(data.question || "N/A", pageWidth - 28);
+  doc.text(questionLines, 14, y);
+  y += questionLines.length * 5 + 10;
+
+  // AI Answer
+  if (data.aiAnswer?.suggested_answer) {
+    doc.setFontSize(14);
+    doc.setTextColor(0);
+    doc.text("AI-Generated Answer", 14, y);
+    y += 8;
+    doc.setFontSize(10);
+    doc.setTextColor(60);
+    const answerLines = doc.splitTextToSize(data.aiAnswer.suggested_answer, pageWidth - 28);
+    
+    // Check for page break
+    if (y + answerLines.length * 5 > doc.internal.pageSize.getHeight() - 20) {
+      doc.addPage();
+      y = 20;
+    }
+    doc.text(answerLines, 14, y);
+    y += answerLines.length * 5 + 10;
+
+    // Key Points
+    if (data.aiAnswer.key_points?.length > 0) {
+      if (y > doc.internal.pageSize.getHeight() - 40) { doc.addPage(); y = 20; }
+      doc.setFontSize(12);
+      doc.setTextColor(0);
+      doc.text("Key Points:", 14, y);
+      y += 6;
+      doc.setFontSize(10);
+      doc.setTextColor(60);
+      data.aiAnswer.key_points.forEach(point => {
+        const lines = doc.splitTextToSize(`• ${point}`, pageWidth - 32);
+        if (y + lines.length * 5 > doc.internal.pageSize.getHeight() - 20) { doc.addPage(); y = 20; }
+        doc.text(lines, 18, y);
+        y += lines.length * 5 + 2;
+      });
+      y += 5;
+    }
+  }
+
+  // User Feedback
+  if (data.feedback) {
+    if (y > doc.internal.pageSize.getHeight() - 60) { doc.addPage(); y = 20; }
+    doc.setFontSize(14);
+    doc.setTextColor(0);
+    doc.text(`Your Answer Feedback - Score: ${data.feedback.overall_score}/10`, 14, y);
+    y += 10;
+    
+    if (data.feedback.strengths?.length > 0) {
+      doc.setFontSize(10);
+      doc.setTextColor(0, 128, 0);
+      doc.text("Strengths:", 14, y); y += 5;
+      data.feedback.strengths.forEach(s => {
+        doc.text(`✓ ${s}`, 18, y); y += 5;
+      });
+      y += 5;
+    }
+  }
+
+  // Footer
+  const pageCount = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setFontSize(8);
+    doc.setTextColor(150);
+    doc.text(`Page ${i} of ${pageCount} | MedMatch Q&A Practice`, pageWidth / 2, doc.internal.pageSize.getHeight() - 10, { align: "center" });
+  }
+
+  doc.save(`medmatch-qa-${Date.now()}.pdf`);
+  toast.success("PDF exported successfully!");
+};
+
 // Match Analysis Display
 const MatchAnalysis = ({ analysis }) => {
   if (!analysis) return null;
