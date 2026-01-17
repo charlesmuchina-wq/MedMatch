@@ -52,7 +52,8 @@ from routes import (
     push_router,
     dragon_router,
     translation_router,
-    biometric_router
+    biometric_router,
+    qa_practice_router
 )
 
 # Register all routers with /api prefix
