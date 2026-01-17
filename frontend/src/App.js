@@ -35,6 +35,8 @@ import CandidateSearch from "@/pages/CandidateSearch";
 import MessagesPage from "@/pages/MessagesPage";
 import CompanyProfilePage from "@/pages/CompanyProfilePage";
 import SkillAssessmentsPage from "@/pages/SkillAssessmentsPage";
+import InterviewSchedulingPage from "@/pages/InterviewSchedulingPage";
+import CompaniesPage from "@/pages/CompaniesPage";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
