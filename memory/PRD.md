@@ -186,6 +186,37 @@ Full analysis at `/app/memory/GAP_ASSESSMENT.md`
 - ✅ Video Interview Practice (unique)
 - ✅ Callback Success Predictor (unique)
 - ✅ $1 Lifetime (vs $30+/month competitors)
+- ✅ **Skill Assessments with Badges** (NEW - competes with LinkedIn)
+- ✅ **Company Profiles & Reviews** (NEW - competes with Glassdoor)
+
+## New Features (Jan 17, 2026)
+
+### Skill Assessments & Certifications
+- ✅ 10 skill categories: Python, JavaScript, React, SQL, AWS, ML, Data Science, PM, Agile, Communication
+- ✅ AI-generated questions (GPT-5.2)
+- ✅ Timed assessments with progress tracking
+- ✅ Badge system for verified skills
+- ✅ Leaderboards per skill
+- ✅ Public badge verification endpoint
+
+### Company Profiles
+- ✅ Recruiter can create company profiles
+- ✅ Company info: description, industry, size, benefits, culture values
+- ✅ Follow companies for job alerts
+- ✅ Company reviews with star ratings
+- ✅ Pros/cons review format (Glassdoor-style)
+- ✅ Rating distribution and recommend percentage
+
+### Backend Refactoring Progress
+- ✅ Created modular route structure: `/app/backend/routes/`
+- ✅ auth.py - Authentication routes
+- ✅ messages.py - In-app messaging
+- ✅ recruiter.py - Recruiter features
+- ✅ cloud.py - Cloud storage integration
+- ✅ companies.py - Company profiles & reviews
+- ✅ skills.py - Skill assessments
+- ⚠️ Main server.py still contains legacy routes (5760 lines)
+- 📝 Full refactoring guide at `/app/memory/REFACTORING_GUIDE.md`
 
 ## Pending / Blocked Items
 
@@ -205,7 +236,8 @@ Full analysis at `/app/memory/GAP_ASSESSMENT.md`
 - [ ] OneDrive integration (requires API key from user)
 - [ ] Native Windows widget (requires Electron/MSIX packaging)
 - [ ] Push notifications
+- [ ] Interview scheduling with calendar integration
 
 ## Test Credentials
 - **Admin**: admin@medmatch.com / MedMatch2026!
-- **Recruiter**: recruiter@medmatch-test.com / test123
+- **Recruiter**: testrecruiter@medmatch.com / Test123!
