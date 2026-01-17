@@ -141,6 +141,7 @@ Create a comprehensive job search application where users can upload their resum
 ✅ Database: MongoDB
 ✅ All auth methods (Google, Email) - FULLY WORKING
 ✅ Session persistence - FIXED (Jan 16, 2026)
+✅ Last Login Tracking - Added (Jan 17, 2026)
 ✅ Membership system with roles
 ✅ Job search from multiple sources
 ✅ AI-powered features
@@ -151,6 +152,29 @@ Create a comprehensive job search application where users can upload their resum
 ✅ Quick Actions Widget
 ✅ PWA Support
 ✅ Google Drive integration for resume upload
+
+## Gap Assessment Summary
+Full analysis at `/app/memory/GAP_ASSESSMENT.md`
+
+### Critical Gaps (P0 - Need for Recruiter Value)
+- ❌ No Candidate Search/Database for Recruiters
+- ❌ No Applicant Tracking per Job Posting
+- ❌ No In-App Messaging
+- ❌ No Company Profiles/Pages
+
+### Important Gaps (P1)
+- ❌ No Skill Assessments/Certifications
+- ❌ No Company Reviews (like Glassdoor)
+- ❌ No Interview Scheduling/Calendar
+- ❌ No Native Mobile App (App Store)
+- ❌ No Job Feedback for AI Learning
+
+### MedMatch Strengths vs Competitors
+- ✅ AI Cover Letter Generator (unique)
+- ✅ Voice Interview Coach (unique)
+- ✅ Video Interview Practice (unique)
+- ✅ Callback Success Predictor (unique)
+- ✅ $1 Lifetime (vs $30+/month competitors)
 
 ## Pending / Blocked Items
 
