@@ -41,6 +41,7 @@ import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
 import InstallPrompt from "@/components/InstallPrompt";
+import KarauDragonAI, { DragonButton } from "@/components/KarauDragonAI";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
