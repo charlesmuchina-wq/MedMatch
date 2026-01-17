@@ -505,15 +505,24 @@ def generate_ics_event(interview: dict, job: dict, organizer: dict) -> str:
     title = f"Interview: {job.get('title', 'Job')} at {job.get('company', 'Company')}"
     location = interview.get("location") or interview.get("meeting_link") or ""
     
-    description = f"""
-Interview for {job.get('title', 'Position')} at {job.get('company', 'Company')}
-
-Type: {interview.get('interview_type', 'Video').title()}
-{f"Meeting Link: {interview.get('meeting_link')}" if interview.get('meeting_link') else ""}
-{f"Location: {interview.get('location')}" if interview.get('location') else ""}
-
-Notes: {interview.get('notes', '')}
-""".strip()
+    # Build description
+    desc_parts = [
+        f"Interview for {job.get('title', 'Position')} at {job.get('company', 'Company')}",
+        "",
+        f"Type: {interview.get('interview_type', 'Video').title()}"
+    ]
+    if interview.get('meeting_link'):
+        desc_parts.append(f"Meeting Link: {interview.get('meeting_link')}")
+    if interview.get('location'):
+        desc_parts.append(f"Location: {interview.get('location')}")
+    desc_parts.append("")
+    desc_parts.append(f"Notes: {interview.get('notes', '')}")
+    
+    newline = "\n"
+    description = newline.join(desc_parts).replace(newline, "\\n")
+    
+    organizer_name = organizer.get('name', 'Recruiter')
+    organizer_email = organizer.get('email', '')
     
     ics = f"""BEGIN:VCALENDAR
 VERSION:2.0
@@ -524,9 +533,9 @@ DTSTAMP:{now}
 DTSTART:{dtstart}
 DTEND:{dtend}
 SUMMARY:{title}
-DESCRIPTION:{description.replace(chr(10), '\\n')}
+DESCRIPTION:{description}
 LOCATION:{location}
-ORGANIZER;CN={organizer.get('name', 'Recruiter')}:mailto:{organizer.get('email', '')}
+ORGANIZER;CN={organizer_name}:mailto:{organizer_email}
 STATUS:CONFIRMED
 END:VEVENT
 END:VCALENDAR"""
