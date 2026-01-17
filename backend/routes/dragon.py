@@ -1,6 +1,7 @@
 """
 Dragon AI Routes
 Handles: KARAU DRAGON AI voice assistant commands, intent processing, web search
+Supports: Multi-language voice commands and responses
 """
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
@@ -24,10 +25,117 @@ router = APIRouter(prefix="/dragon", tags=["KARAU Dragon AI"])
 class DragonCommand(BaseModel):
     command: str
     user_context: Dict[str, Any] = {}
+    language: Optional[str] = "en"  # User's preferred language
 
 class WebSearchRequest(BaseModel):
     query: str
     num_results: int = 5
+
+# ============== Multi-Language Support ==============
+
+DRAGON_RESPONSES = {
+    "en": {
+        "greeting": "Hi {name}! I can help you with cover letters, job searches, interview prep, resume management, skill tests, and company research. What would you like to do?",
+        "cover_letter": "I'll help you create a cover letter{role}{company}. Taking you to the cover letter generator.",
+        "job_search": "Searching for {query}. Let me find the best opportunities for you.",
+        "interview_prep": "Let's prepare you for your interview{company}. I'll generate relevant questions.",
+        "resume": "Taking you to your resume. You can view, upload, or edit your professional profile.",
+        "companies": "Opening the companies directory{company}.",
+        "translate": "I'll help you translate that content.",
+    },
+    "es": {
+        "greeting": "¡Hola {name}! Puedo ayudarte con cartas de presentación, búsqueda de empleo, preparación de entrevistas, gestión de currículum, pruebas de habilidades e investigación de empresas. ¿Qué te gustaría hacer?",
+        "cover_letter": "Te ayudaré a crear una carta de presentación{role}{company}. Llevándote al generador de cartas.",
+        "job_search": "Buscando {query}. Déjame encontrar las mejores oportunidades para ti.",
+        "interview_prep": "Preparémonos para tu entrevista{company}. Generaré preguntas relevantes.",
+        "resume": "Llevándote a tu currículum. Puedes ver, subir o editar tu perfil profesional.",
+        "companies": "Abriendo el directorio de empresas{company}.",
+        "translate": "Te ayudaré a traducir ese contenido.",
+    },
+    "fr": {
+        "greeting": "Bonjour {name}! Je peux vous aider avec les lettres de motivation, la recherche d'emploi, la préparation aux entretiens, la gestion du CV, les tests de compétences et la recherche d'entreprises. Que souhaitez-vous faire?",
+        "cover_letter": "Je vais vous aider à créer une lettre de motivation{role}{company}. Direction le générateur de lettres.",
+        "job_search": "Recherche de {query}. Laissez-moi trouver les meilleures opportunités pour vous.",
+        "interview_prep": "Préparons votre entretien{company}. Je vais générer des questions pertinentes.",
+        "resume": "Direction votre CV. Vous pouvez consulter, télécharger ou modifier votre profil professionnel.",
+        "companies": "Ouverture du répertoire des entreprises{company}.",
+        "translate": "Je vais vous aider à traduire ce contenu.",
+    },
+    "de": {
+        "greeting": "Hallo {name}! Ich kann Ihnen bei Anschreiben, Jobsuche, Interviewvorbereitung, Lebenslaufverwaltung, Kompetenztests und Unternehmensrecherche helfen. Was möchten Sie tun?",
+        "cover_letter": "Ich helfe Ihnen beim Erstellen eines Anschreibens{role}{company}. Zum Anschreiben-Generator.",
+        "job_search": "Suche nach {query}. Lassen Sie mich die besten Möglichkeiten für Sie finden.",
+        "interview_prep": "Bereiten wir Sie auf Ihr Interview vor{company}. Ich werde relevante Fragen generieren.",
+        "resume": "Zu Ihrem Lebenslauf. Sie können Ihr berufliches Profil ansehen, hochladen oder bearbeiten.",
+        "companies": "Öffne das Unternehmensverzeichnis{company}.",
+        "translate": "Ich werde Ihnen bei der Übersetzung dieses Inhalts helfen.",
+    },
+    "zh": {
+        "greeting": "你好 {name}！我可以帮助您处理求职信、工作搜索、面试准备、简历管理、技能测试和公司研究。您想做什么？",
+        "cover_letter": "我将帮助您创建一封求职信{role}{company}。正在前往求职信生成器。",
+        "job_search": "正在搜索 {query}。让我为您找到最佳机会。",
+        "interview_prep": "让我们为您的面试做准备{company}。我将生成相关问题。",
+        "resume": "正在前往您的简历。您可以查看、上传或编辑您的专业资料。",
+        "companies": "正在打开公司目录{company}。",
+        "translate": "我将帮助您翻译该内容。",
+    },
+    "ja": {
+        "greeting": "こんにちは {name}さん！カバーレター、求人検索、面接準備、履歴書管理、スキルテスト、企業調査についてお手伝いできます。何をしますか？",
+        "cover_letter": "カバーレターの作成をお手伝いします{role}{company}。カバーレタージェネレーターに移動します。",
+        "job_search": "{query}を検索しています。最適な機会を見つけます。",
+        "interview_prep": "面接の準備をしましょう{company}。関連する質問を生成します。",
+        "resume": "履歴書に移動します。プロフィールの閲覧、アップロード、編集ができます。",
+        "companies": "企業ディレクトリを開いています{company}。",
+        "translate": "そのコンテンツの翻訳をお手伝いします。",
+    },
+    "pt": {
+        "greeting": "Olá {name}! Posso ajudá-lo com cartas de apresentação, busca de emprego, preparação para entrevistas, gestão de currículo, testes de habilidades e pesquisa de empresas. O que você gostaria de fazer?",
+        "cover_letter": "Vou ajudá-lo a criar uma carta de apresentação{role}{company}. Levando você ao gerador de cartas.",
+        "job_search": "Procurando {query}. Deixe-me encontrar as melhores oportunidades para você.",
+        "interview_prep": "Vamos preparar você para sua entrevista{company}. Vou gerar perguntas relevantes.",
+        "resume": "Levando você ao seu currículo. Você pode visualizar, enviar ou editar seu perfil profissional.",
+        "companies": "Abrindo o diretório de empresas{company}.",
+        "translate": "Vou ajudá-lo a traduzir esse conteúdo.",
+    },
+    "ar": {
+        "greeting": "مرحباً {name}! يمكنني مساعدتك في رسائل التغطية، البحث عن وظائف، التحضير للمقابلات، إدارة السيرة الذاتية، اختبارات المهارات، والبحث عن الشركات. ماذا تريد أن تفعل؟",
+        "cover_letter": "سأساعدك في إنشاء رسالة تغطية{role}{company}. جاري الانتقال إلى منشئ الرسائل.",
+        "job_search": "جاري البحث عن {query}. دعني أجد أفضل الفرص لك.",
+        "interview_prep": "دعنا نستعد لمقابلتك{company}. سأقوم بإنشاء أسئلة ذات صلة.",
+        "resume": "جاري الانتقال إلى سيرتك الذاتية. يمكنك عرض أو تحميل أو تعديل ملفك المهني.",
+        "companies": "جاري فتح دليل الشركات{company}.",
+        "translate": "سأساعدك في ترجمة هذا المحتوى.",
+    },
+    "hi": {
+        "greeting": "नमस्ते {name}! मैं कवर लेटर, नौकरी खोज, इंटरव्यू की तैयारी, रिज्यूमे प्रबंधन, स्किल टेस्ट और कंपनी रिसर्च में आपकी मदद कर सकता हूं। आप क्या करना चाहेंगे?",
+        "cover_letter": "मैं आपको कवर लेटर बनाने में मदद करूंगा{role}{company}। कवर लेटर जनरेटर पर ले जा रहा हूं।",
+        "job_search": "{query} खोज रहा हूं। मुझे आपके लिए सर्वोत्तम अवसर खोजने दें।",
+        "interview_prep": "आइए आपके इंटरव्यू की तैयारी करें{company}। मैं प्रासंगिक प्रश्न तैयार करूंगा।",
+        "resume": "आपके रिज्यूमे पर ले जा रहा हूं। आप अपना प्रोफेशनल प्रोफाइल देख, अपलोड या एडिट कर सकते हैं।",
+        "companies": "कंपनी डायरेक्टरी खोल रहा हूं{company}।",
+        "translate": "मैं उस सामग्री का अनुवाद करने में आपकी मदद करूंगा।",
+    },
+    "ko": {
+        "greeting": "안녕하세요 {name}님! 커버레터, 채용 검색, 면접 준비, 이력서 관리, 스킬 테스트, 회사 조사를 도와드릴 수 있습니다. 무엇을 하시겠습니까?",
+        "cover_letter": "커버레터 작성을 도와드리겠습니다{role}{company}. 커버레터 생성기로 이동합니다.",
+        "job_search": "{query}를 검색하고 있습니다. 최고의 기회를 찾아드리겠습니다.",
+        "interview_prep": "면접 준비를 도와드리겠습니다{company}. 관련 질문을 생성하겠습니다.",
+        "resume": "이력서로 이동합니다. 프로필을 보거나 업로드하거나 편집할 수 있습니다.",
+        "companies": "회사 디렉토리를 열고 있습니다{company}.",
+        "translate": "해당 콘텐츠 번역을 도와드리겠습니다.",
+    }
+}
+
+def get_response_text(intent: str, language: str, **kwargs) -> str:
+    """Get localized response text"""
+    lang_responses = DRAGON_RESPONSES.get(language, DRAGON_RESPONSES["en"])
+    template = lang_responses.get(intent, DRAGON_RESPONSES["en"].get(intent, ""))
+    
+    # Format template with kwargs
+    try:
+        return template.format(**kwargs)
+    except KeyError:
+        return template
 
 # ============== Dragon AI Intent Processing ==============
 
