@@ -498,6 +498,8 @@ function AppContent() {
             <Route path="/messages/new" element={<MessagesPage user={user} />} />
             <Route path="/companies/:companyId" element={<CompanyProfilePage user={user} />} />
             <Route path="/skill-assessments" element={<SkillAssessmentsPage user={user} />} />
+            <Route path="/companies" element={<CompaniesPage user={user} />} />
+            <Route path="/interviews" element={<InterviewSchedulingPage user={user} />} />
           </Routes>
         </main>
       </div>
