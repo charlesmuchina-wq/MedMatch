@@ -211,7 +211,7 @@ Create a comprehensive job search application where users can upload their resum
 - `JWT_SECRET_KEY` - Session encryption
 - `STRIPE_API_KEY` - Payment processing
 - `APPLE_TEAM_ID`, `APPLE_KEY_ID`, `APPLE_SERVICE_ID`, `APPLE_PRIVATE_KEY` - Apple Sign In
-- `CORS_ORIGINS` - https://jobai-3.preview.emergentagent.com,http://localhost:3000
+- `CORS_ORIGINS` - https://medmatch-job.preview.emergentagent.com,http://localhost:3000
 
 ### Optional Configuration
 - `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_VERIFY_SERVICE` - Phone login
@@ -242,7 +242,7 @@ Create a comprehensive job search application where users can upload their resum
 ### Apple Sign In
 - **Status**: Backend configured, frontend ready
 - **Blocked**: Requires user to add redirect URL in Apple Developer Console
-- **Redirect URL**: `https://jobai-3.preview.emergentagent.com/api/auth/apple/redirect`
+- **Redirect URL**: `https://medmatch-job.preview.emergentagent.com/api/auth/apple/redirect`
 
 ## Upcoming Tasks
 - [ ] Build Frontend for Company Profiles (backend done, placeholder exists)
