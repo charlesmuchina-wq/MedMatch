@@ -76,6 +76,7 @@ app.include_router(push_router, prefix="/api")
 app.include_router(dragon_router, prefix="/api")
 app.include_router(translation_router, prefix="/api")
 app.include_router(biometric_router, prefix="/api")
+app.include_router(qa_practice_router, prefix="/api")
 
 # ============== CORS Configuration ==============
 app.add_middleware(
