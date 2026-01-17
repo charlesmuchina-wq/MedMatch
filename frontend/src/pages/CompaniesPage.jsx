@@ -215,24 +215,24 @@ const CompaniesPage = ({ user }) => {
           />
         </div>
         
-        <Select value={selectedIndustry} onValueChange={setSelectedIndustry}>
+        <Select value={selectedIndustry || "all"} onValueChange={(v) => setSelectedIndustry(v === "all" ? "" : v)}>
           <SelectTrigger className="w-full md:w-48">
             <SelectValue placeholder="Industry" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Industries</SelectItem>
+            <SelectItem value="all">All Industries</SelectItem>
             {INDUSTRIES.map((ind) => (
               <SelectItem key={ind} value={ind}>{ind}</SelectItem>
             ))}
           </SelectContent>
         </Select>
         
-        <Select value={selectedSize} onValueChange={setSelectedSize}>
+        <Select value={selectedSize || "all"} onValueChange={(v) => setSelectedSize(v === "all" ? "" : v)}>
           <SelectTrigger className="w-full md:w-48">
             <SelectValue placeholder="Company Size" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Sizes</SelectItem>
+            <SelectItem value="all">All Sizes</SelectItem>
             {COMPANY_SIZES.map((size) => (
               <SelectItem key={size.value} value={size.value}>{size.label}</SelectItem>
             ))}
