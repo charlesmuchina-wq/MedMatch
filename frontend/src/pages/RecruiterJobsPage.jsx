@@ -246,6 +246,9 @@ const RecruiterJobsPage = ({ user }) => {
                       <span className="flex items-center gap-1">
                         <Clock className="w-4 h-4" /> {formatDate(job.posted_at)}
                       </span>
+                      <span className="flex items-center gap-1 text-violet-600 dark:text-violet-400 font-medium">
+                        <Users className="w-4 h-4" /> {job.applicant_count || 0} applicants
+                      </span>
                     </div>
 
                     <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 mb-3">
@@ -263,22 +266,33 @@ const RecruiterJobsPage = ({ user }) => {
                     )}
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-col items-end gap-2">
                     <Button
-                      variant="outline"
                       size="sm"
-                      onClick={() => handleOpenPostDialog(job)}
+                      onClick={() => navigate(`/recruiter/jobs/${job.id}/applicants`)}
+                      className="bg-gradient-to-r from-violet-500 to-purple-600"
+                      data-testid={`view-applicants-${job.id}`}
                     >
-                      <Edit3 className="w-4 h-4" />
+                      <Users className="w-4 h-4 mr-1" />
+                      View Applicants
                     </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleDelete(job.id)}
-                      className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleOpenPostDialog(job)}
+                      >
+                        <Edit3 className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleDelete(job.id)}
+                        className="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </CardContent>
