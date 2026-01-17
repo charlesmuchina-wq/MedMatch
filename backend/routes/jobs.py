@@ -168,7 +168,7 @@ async def create_application(app_data: ApplicationCreate, request: Request):
     existing = await db.applications.find_one({
         "user_id": user["user_id"],
         "job.url": app_data.job.url
-    })
+    }, {"_id": 0})
     
     if existing:
         return {"message": "Already applied", "application": existing, "duplicate": True}
