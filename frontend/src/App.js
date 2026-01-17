@@ -275,6 +275,7 @@ function AppContent() {
   const [user, setUser] = useState(null);
   const [membership, setMembership] = useState(null);
   const [isAuthChecking, setIsAuthChecking] = useState(true);
+  const [showDragonAI, setShowDragonAI] = useState(false);
   const { isDark } = useTheme();
   const location = useLocation();
   
