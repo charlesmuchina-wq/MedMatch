@@ -103,12 +103,12 @@ async def get_current_user(request: Request):
     if not session_token:
         return None
     
-    session = await db.sessions.find_one({"token": session_token}, {"_id": 0})
+    session = await db.user_sessions.find_one({"session_token": session_token}, {"_id": 0})
     if not session:
         return None
     
     if datetime.fromisoformat(session["expires_at"]) < datetime.now(timezone.utc):
-        await db.sessions.delete_one({"token": session_token})
+        await db.user_sessions.delete_one({"session_token": session_token})
         return None
     
     user = await db.users.find_one({"user_id": session["user_id"]}, {"_id": 0})
