@@ -21,19 +21,28 @@ router = APIRouter(prefix="/translate", tags=["Translation"])
 # ============== Supported Languages ==============
 
 SUPPORTED_LANGUAGES = {
+    # EFIGS Foundation (Core Global Reach)
     "en": {"name": "English", "native": "English", "flag": "🇺🇸"},
     "es": {"name": "Spanish", "native": "Español", "flag": "🇪🇸"},
     "fr": {"name": "French", "native": "Français", "flag": "🇫🇷"},
     "de": {"name": "German", "native": "Deutsch", "flag": "🇩🇪"},
     "it": {"name": "Italian", "native": "Italiano", "flag": "🇮🇹"},
-    "pt": {"name": "Portuguese", "native": "Português", "flag": "🇵🇹"},
-    "nl": {"name": "Dutch", "native": "Nederlands", "flag": "🇳🇱"},
-    "ru": {"name": "Russian", "native": "Русский", "flag": "🇷🇺"},
-    "zh": {"name": "Chinese", "native": "中文", "flag": "🇨🇳"},
+    
+    # CJK Growth Block (High Spend)
+    "zh": {"name": "Chinese (Simplified)", "native": "简体中文", "flag": "🇨🇳"},
+    "zh-TW": {"name": "Chinese (Traditional)", "native": "繁體中文", "flag": "🇹🇼"},
     "ja": {"name": "Japanese", "native": "日本語", "flag": "🇯🇵"},
     "ko": {"name": "Korean", "native": "한국어", "flag": "🇰🇷"},
-    "ar": {"name": "Arabic", "native": "العربية", "flag": "🇸🇦"},
+    
+    # Rapidly Expanding Markets
     "hi": {"name": "Hindi", "native": "हिन्दी", "flag": "🇮🇳"},
+    "pt-BR": {"name": "Portuguese (Brazilian)", "native": "Português (Brasil)", "flag": "🇧🇷"},
+    "pt": {"name": "Portuguese (European)", "native": "Português (Portugal)", "flag": "🇵🇹"},
+    "ar": {"name": "Arabic", "native": "العربية", "flag": "🇸🇦"},
+    
+    # Additional High-Value Languages
+    "nl": {"name": "Dutch", "native": "Nederlands", "flag": "🇳🇱"},
+    "ru": {"name": "Russian", "native": "Русский", "flag": "🇷🇺"},
     "bn": {"name": "Bengali", "native": "বাংলা", "flag": "🇧🇩"},
     "vi": {"name": "Vietnamese", "native": "Tiếng Việt", "flag": "🇻🇳"},
     "th": {"name": "Thai", "native": "ไทย", "flag": "🇹🇭"},
@@ -52,6 +61,14 @@ SUPPORTED_LANGUAGES = {
     "ro": {"name": "Romanian", "native": "Română", "flag": "🇷🇴"},
     "hu": {"name": "Hungarian", "native": "Magyar", "flag": "🇭🇺"},
     "el": {"name": "Greek", "native": "Ελληνικά", "flag": "🇬🇷"},
+    
+    # Additional Emerging Markets
+    "ta": {"name": "Tamil", "native": "தமிழ்", "flag": "🇮🇳"},
+    "te": {"name": "Telugu", "native": "తెలుగు", "flag": "🇮🇳"},
+    "mr": {"name": "Marathi", "native": "मराठी", "flag": "🇮🇳"},
+    "ur": {"name": "Urdu", "native": "اردو", "flag": "🇵🇰"},
+    "fa": {"name": "Persian (Farsi)", "native": "فارسی", "flag": "🇮🇷"},
+    "sw": {"name": "Swahili", "native": "Kiswahili", "flag": "🇰🇪"},
 }
 
 # ============== Models ==============
