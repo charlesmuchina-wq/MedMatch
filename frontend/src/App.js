@@ -85,14 +85,15 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/search", icon: Search, label: "Job Search" },
     { path: "/saved", icon: Bookmark, label: "Saved Jobs" },
     { path: "/applications", icon: CheckSquare, label: "Applications" },
+    { path: "/interviews", icon: Video, label: "My Interviews" },
     { path: "/predictor", icon: Target, label: "Success Predictor" },
     { path: "/interview", icon: Mic, label: "Interview Prep" },
     { path: "/voice-coach", icon: Volume2, label: "Voice Coach" },
-    { path: "/video-interview", icon: Video, label: "Video Practice" },
     { path: "/cover-letter", icon: PenTool, label: "Cover Letter" },
     { path: "/alerts", icon: Bell, label: "Job Alerts" },
     { path: "/salary-insights", icon: DollarSign, label: "Salary Insights" },
     { path: "/analytics", icon: BarChart3, label: "Analytics" },
+    { path: "/companies", icon: Briefcase, label: "Companies" },
     { path: "/messages", icon: MessageSquare, label: "Messages" },
     { path: "/membership", icon: Crown, label: "Membership" },
   ];
@@ -100,7 +101,9 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
   const recruiterLinks = [
     { path: "/recruiter/dashboard", icon: LayoutDashboard, label: "Dashboard" },
     { path: "/recruiter/jobs", icon: Briefcase, label: "My Job Postings" },
+    { path: "/interviews", icon: Video, label: "Interviews" },
     { path: "/recruiter/candidates", icon: UserSearch, label: "Search Candidates" },
+    { path: "/companies", icon: Briefcase, label: "Companies" },
     { path: "/messages", icon: MessageSquare, label: "Messages" },
     { path: "/membership", icon: Crown, label: "Membership" },
   ];
