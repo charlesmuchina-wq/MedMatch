@@ -244,9 +244,13 @@ async def get_quality_engineering_keywords():
         "popular_searches": [
             "Supplier Quality Manager Remote",
             "Quality Engineer Medical Device",
-            "ISO 13485 Quality Manager",
+            "Aerospace Quality Engineer",
+            "Automotive Quality Engineer IATF",
             "Six Sigma Black Belt Remote",
-            "FDA Compliance Manager"
+            "NDT Inspector Level II",
+            "AS9100 Lead Auditor",
+            "Manufacturing Engineer",
+            "Plant Quality Manager"
         ]
     }
 
