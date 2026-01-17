@@ -84,11 +84,51 @@ QUALITY_ENGINEERING_KEYWORDS = [
     "Validation Engineer",
     "Quality Validation",
     
-    # Automotive/Aerospace
+    # Aerospace
+    "Aerospace Quality Engineer",
+    "Aerospace Quality Manager",
+    "AS9100 Lead Auditor",
+    "AS9100 Quality",
+    "NADCAP Auditor",
+    "First Article Inspector",
+    "NDT Inspector",
+    "NDT Level II",
+    "NDT Level III",
+    "Configuration Manager",
+    "Flight Safety",
+    "Special Processes Engineer",
+    "Aerospace Manufacturing",
+    
+    # Automotive
+    "Automotive Quality Engineer",
+    "Automotive Quality Manager",
+    "IATF 16949 Auditor",
     "IATF 16949",
-    "AS9100",
-    "Automotive Quality",
-    "Aerospace Quality"
+    "APQP Engineer",
+    "PPAP Coordinator",
+    "VDA 6.3 Auditor",
+    "Automotive Supplier Quality",
+    "Tier 1 Quality",
+    "OEM Quality",
+    "Launch Quality",
+    "Warranty Analyst",
+    "NVH Engineer",
+    
+    # Industrial
+    "Industrial Engineer",
+    "Manufacturing Engineer",
+    "Production Manager",
+    "Plant Quality Manager",
+    "EHS Manager",
+    "Safety Manager",
+    "Environmental Manager",
+    "Maintenance Manager",
+    "TPM Coordinator",
+    "Production Planner",
+    "Industrial Quality",
+    "Welding Inspector",
+    "CWI",
+    "Automation Engineer"
 ]
 
 # ============== Models ==============
