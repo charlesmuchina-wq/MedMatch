@@ -15,9 +15,18 @@ const ResumePage = ({ resume, setResume }) => {
   const handleFileUpload = useCallback(async (file) => {
     if (!file) return;
     
-    if (!file.name.endsWith('.pdf')) {
-      toast.error("Please upload a PDF file");
+    const fileName = file.name.toLowerCase();
+    const validExtensions = ['.pdf', '.doc', '.docx'];
+    const isValid = validExtensions.some(ext => fileName.endsWith(ext));
+    
+    if (!isValid) {
+      toast.error("Please upload a PDF, DOC, or DOCX file");
       return;
+    }
+    
+    // For non-PDF files from cloud storage, show conversion notice
+    if (!fileName.endsWith('.pdf')) {
+      toast.info("Note: DOC/DOCX files will be processed. For best results, use PDF format.");
     }
 
     setUploading(true);
@@ -31,7 +40,13 @@ const ResumePage = ({ resume, setResume }) => {
       setResume(response.data);
       toast.success("Resume uploaded and parsed successfully!");
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Failed to upload resume");
+      const errorMsg = e.response?.data?.detail || "Failed to upload resume";
+      // If backend doesn't support DOC/DOCX yet, show helpful message
+      if (errorMsg.includes("PDF") && !fileName.endsWith('.pdf')) {
+        toast.error("Please convert your document to PDF format and try again");
+      } else {
+        toast.error(errorMsg);
+      }
     }
     setUploading(false);
   }, [setResume]);
