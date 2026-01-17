@@ -481,6 +481,11 @@ function AppContent() {
                 <InterviewPrepPage resume={resume} />
               </PremiumGate>
             } />
+            <Route path="/qa-practice" element={
+              <PremiumGate feature="interview_prep">
+                <QAPracticePage resume={resume} />
+              </PremiumGate>
+            } />
             <Route path="/voice-coach" element={
               <PremiumGate feature="voice_coach">
                 <VoiceCoachPage resume={resume} />
