@@ -18,6 +18,79 @@ from routes.auth import get_current_user
 
 router = APIRouter(tags=["Jobs"])
 
+# ============== Quality Engineering Search Terms ==============
+# Expanded search keywords for Quality/Medical Device professionals
+QUALITY_ENGINEERING_KEYWORDS = [
+    # Supplier Quality
+    "Supplier Quality Manager",
+    "Supplier Quality Engineer",
+    "Supplier Quality Director",
+    "Vendor Quality",
+    "Supply Chain Quality",
+    
+    # Manufacturing Quality
+    "Manufacturing Quality Engineer",
+    "Manufacturing Quality Manager",
+    "Production Quality",
+    "Process Quality Engineer",
+    "Quality Control Manager",
+    "QC Engineer",
+    
+    # Quality Management
+    "Quality Manager",
+    "Quality Director",
+    "VP of Quality",
+    "Head of Quality",
+    "Quality Assurance Manager",
+    "QA Manager",
+    "QA Engineer",
+    "Quality Systems Manager",
+    "QMS Manager",
+    
+    # Regulatory & Compliance
+    "Regulatory Compliance",
+    "Compliance Manager",
+    "FDA Compliance",
+    "ISO 13485",
+    "ISO 9001",
+    "GMP Quality",
+    "cGMP",
+    
+    # Medical Device
+    "Medical Device Quality",
+    "Medical Device QA",
+    "Design Quality Engineer",
+    "Post-Market Quality",
+    
+    # Auditing
+    "Lead Auditor",
+    "Quality Auditor",
+    "Internal Auditor",
+    "Audit Manager",
+    
+    # Six Sigma / Lean
+    "Six Sigma Black Belt",
+    "Six Sigma Green Belt",
+    "Lean Manufacturing",
+    "Continuous Improvement Manager",
+    "Process Improvement",
+    
+    # Specialized
+    "CAPA Manager",
+    "Corrective Action",
+    "Root Cause Analysis",
+    "Metrology Engineer",
+    "Calibration Manager",
+    "Validation Engineer",
+    "Quality Validation",
+    
+    # Automotive/Aerospace
+    "IATF 16949",
+    "AS9100",
+    "Automotive Quality",
+    "Aerospace Quality"
+]
+
 # ============== Models ==============
 
 class Job(BaseModel):
