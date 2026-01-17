@@ -372,6 +372,7 @@ async def create_job_alert(alert: JobAlertCreate, request: Request):
     }
     
     await db.job_alerts.insert_one(alert_doc)
+    alert_doc.pop("_id", None)
     return {"message": "Alert created", "alert": alert_doc}
 
 @router.delete("/job-alerts/{alert_id}")
