@@ -19,15 +19,7 @@ const RecruiterDashboard = ({ user }) => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (user?.role !== "recruiter") {
-      navigate("/");
-      return;
-    }
-    fetchStats();
-  }, [user, navigate]);
-
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
     try {
       const response = await axios.get(`${API}/api/recruiter/dashboard/stats`);
       setStats(response.data);
@@ -35,7 +27,15 @@ const RecruiterDashboard = ({ user }) => {
       console.error("Failed to fetch stats:", e);
     }
     setLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    if (user?.role !== "recruiter") {
+      navigate("/");
+      return;
+    }
+    fetchStats();
+  }, [user, navigate, fetchStats]);
 
   const getStatusColor = (status) => {
     const colors = {
