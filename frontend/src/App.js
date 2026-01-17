@@ -534,7 +534,9 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
-        <AppContent />
+        <LanguageProvider>
+          <AppContent />
+        </LanguageProvider>
       </ThemeProvider>
     </BrowserRouter>
   );
