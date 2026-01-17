@@ -1542,6 +1542,632 @@ async def delete_job_posting(job_id: str, request: Request):
     
     return {"message": "Job deleted"}
 
+# ============== APPLICANT TRACKING SYSTEM ==============
+
+class JobApplicationStatus(BaseModel):
+    status: str  # new, reviewing, shortlisted, interviewing, offered, rejected, hired
+
+class ApplicantNote(BaseModel):
+    note: str
+
+@api_router.post("/jobs/{job_id}/apply")
+async def apply_to_posted_job(job_id: str, request: Request):
+    """Job seeker applies to a recruiter-posted job"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Get the job posting
+    job = await db.posted_jobs.find_one({"id": job_id}, {"_id": 0})
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    
+    # Check if already applied
+    existing = await db.job_applicants.find_one({
+        "job_id": job_id,
+        "applicant_id": user["user_id"]
+    })
+    if existing:
+        raise HTTPException(status_code=400, detail="You have already applied to this job")
+    
+    # Get applicant's resume
+    resume = await db.resumes.find_one({}, {"_id": 0})  # Get default resume
+    
+    # Create application record
+    application = {
+        "id": f"app_{uuid.uuid4().hex[:12]}",
+        "job_id": job_id,
+        "job_title": job.get("title"),
+        "company": job.get("company"),
+        "recruiter_id": job.get("recruiter_id"),
+        "applicant_id": user["user_id"],
+        "applicant_name": user.get("name", ""),
+        "applicant_email": user.get("email", ""),
+        "resume_snapshot": {
+            "full_name": resume.get("full_name") if resume else user.get("name", ""),
+            "email": resume.get("email") if resume else user.get("email", ""),
+            "skills": resume.get("skills", []) if resume else [],
+            "summary": resume.get("summary", "") if resume else "",
+            "experience": resume.get("experience", []) if resume else []
+        },
+        "status": "new",
+        "applied_at": datetime.now(timezone.utc).isoformat(),
+        "notes": [],
+        "ai_analysis": None
+    }
+    
+    await db.job_applicants.insert_one(application)
+    
+    # Update job posting with applicant count
+    await db.posted_jobs.update_one(
+        {"id": job_id},
+        {"$inc": {"applicant_count": 1}}
+    )
+    
+    return {"message": "Application submitted successfully", "application_id": application["id"]}
+
+@api_router.get("/recruiter/jobs/{job_id}/applicants")
+async def get_job_applicants(job_id: str, request: Request):
+    """Recruiter views all applicants for a specific job"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if user.get("role") != "recruiter":
+        raise HTTPException(status_code=403, detail="Only recruiters can view applicants")
+    
+    # Verify the job belongs to this recruiter
+    job = await db.posted_jobs.find_one({
+        "id": job_id,
+        "recruiter_id": user["user_id"]
+    })
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    
+    # Get all applicants for this job
+    applicants = await db.job_applicants.find(
+        {"job_id": job_id},
+        {"_id": 0}
+    ).sort("applied_at", -1).to_list(500)
+    
+    return {
+        "job": {
+            "id": job["id"],
+            "title": job["title"],
+            "company": job["company"]
+        },
+        "applicants": applicants,
+        "total_count": len(applicants)
+    }
+
+@api_router.put("/recruiter/applicants/{application_id}/status")
+async def update_applicant_status(application_id: str, status_update: JobApplicationStatus, request: Request):
+    """Recruiter updates an applicant's status"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if user.get("role") != "recruiter":
+        raise HTTPException(status_code=403, detail="Only recruiters can update applicant status")
+    
+    valid_statuses = ["new", "reviewing", "shortlisted", "interviewing", "offered", "rejected", "hired"]
+    if status_update.status not in valid_statuses:
+        raise HTTPException(status_code=400, detail=f"Invalid status. Must be one of: {valid_statuses}")
+    
+    result = await db.job_applicants.update_one(
+        {"id": application_id, "recruiter_id": user["user_id"]},
+        {"$set": {
+            "status": status_update.status,
+            "status_updated_at": datetime.now(timezone.utc).isoformat()
+        }}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Application not found")
+    
+    return {"message": f"Status updated to {status_update.status}"}
+
+@api_router.post("/recruiter/applicants/{application_id}/notes")
+async def add_applicant_note(application_id: str, note_data: ApplicantNote, request: Request):
+    """Recruiter adds a note to an applicant"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if user.get("role") != "recruiter":
+        raise HTTPException(status_code=403, detail="Only recruiters can add notes")
+    
+    note = {
+        "id": f"note_{uuid.uuid4().hex[:8]}",
+        "text": note_data.note,
+        "created_by": user.get("name", user["email"]),
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    result = await db.job_applicants.update_one(
+        {"id": application_id, "recruiter_id": user["user_id"]},
+        {"$push": {"notes": note}}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Application not found")
+    
+    return {"message": "Note added", "note": note}
+
+@api_router.get("/recruiter/dashboard/stats")
+async def get_recruiter_dashboard_stats(request: Request):
+    """Get recruiter dashboard statistics"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if user.get("role") != "recruiter":
+        raise HTTPException(status_code=403, detail="Only recruiters can view dashboard")
+    
+    # Get job counts
+    total_jobs = await db.posted_jobs.count_documents({"recruiter_id": user["user_id"]})
+    active_jobs = await db.posted_jobs.count_documents({"recruiter_id": user["user_id"], "status": "active"})
+    
+    # Get applicant counts by status
+    pipeline = [
+        {"$match": {"recruiter_id": user["user_id"]}},
+        {"$group": {"_id": "$status", "count": {"$sum": 1}}}
+    ]
+    status_counts = await db.job_applicants.aggregate(pipeline).to_list(100)
+    
+    applicant_stats = {item["_id"]: item["count"] for item in status_counts}
+    total_applicants = sum(applicant_stats.values())
+    
+    # Get recent applicants
+    recent_applicants = await db.job_applicants.find(
+        {"recruiter_id": user["user_id"]},
+        {"_id": 0}
+    ).sort("applied_at", -1).limit(5).to_list(5)
+    
+    return {
+        "jobs": {
+            "total": total_jobs,
+            "active": active_jobs
+        },
+        "applicants": {
+            "total": total_applicants,
+            "by_status": applicant_stats,
+            "recent": recent_applicants
+        }
+    }
+
+# ============== CANDIDATE SEARCH ==============
+
+class CandidateSearchRequest(BaseModel):
+    keywords: Optional[List[str]] = []
+    skills: Optional[List[str]] = []
+    location: Optional[str] = None
+    experience_years: Optional[int] = None
+    limit: int = 20
+
+@api_router.post("/recruiter/candidates/search")
+async def search_candidates(search: CandidateSearchRequest, request: Request):
+    """Recruiter searches for candidates based on skills, keywords, location"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if user.get("role") != "recruiter":
+        raise HTTPException(status_code=403, detail="Only recruiters can search candidates")
+    
+    # Build search query
+    query = {"searchable": {"$ne": False}}  # Only searchable profiles
+    
+    if search.skills:
+        # Match any of the specified skills
+        query["skills"] = {"$in": [re.compile(skill, re.IGNORECASE) for skill in search.skills]}
+    
+    if search.keywords:
+        # Search in summary and raw_text
+        keyword_regex = "|".join(search.keywords)
+        query["$or"] = [
+            {"summary": {"$regex": keyword_regex, "$options": "i"}},
+            {"raw_text": {"$regex": keyword_regex, "$options": "i"}},
+            {"full_name": {"$regex": keyword_regex, "$options": "i"}}
+        ]
+    
+    # Get matching resumes
+    candidates = await db.resumes.find(
+        query,
+        {"_id": 0, "raw_text": 0}  # Exclude large raw_text field
+    ).limit(search.limit).to_list(search.limit)
+    
+    # Calculate relevance score for each candidate
+    results = []
+    for candidate in candidates:
+        score = 0
+        matched_skills = []
+        
+        candidate_skills = [s.lower() for s in candidate.get("skills", [])]
+        
+        for skill in search.skills or []:
+            if any(skill.lower() in cs for cs in candidate_skills):
+                score += 10
+                matched_skills.append(skill)
+        
+        for keyword in search.keywords or []:
+            if keyword.lower() in candidate.get("summary", "").lower():
+                score += 5
+        
+        results.append({
+            "id": candidate.get("id"),
+            "full_name": candidate.get("full_name", "Anonymous"),
+            "email": candidate.get("email", ""),  # For contacting
+            "skills": candidate.get("skills", [])[:15],
+            "summary": candidate.get("summary", "")[:300],
+            "experience": candidate.get("experience", [])[:3],
+            "relevance_score": score,
+            "matched_skills": matched_skills
+        })
+    
+    # Sort by relevance score
+    results.sort(key=lambda x: x["relevance_score"], reverse=True)
+    
+    return {
+        "candidates": results,
+        "total_found": len(results),
+        "search_criteria": {
+            "skills": search.skills,
+            "keywords": search.keywords
+        }
+    }
+
+@api_router.get("/recruiter/candidates/{candidate_id}")
+async def get_candidate_profile(candidate_id: str, request: Request):
+    """Recruiter views a specific candidate's full profile"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if user.get("role") != "recruiter":
+        raise HTTPException(status_code=403, detail="Only recruiters can view candidates")
+    
+    candidate = await db.resumes.find_one(
+        {"id": candidate_id},
+        {"_id": 0, "raw_text": 0}
+    )
+    
+    if not candidate:
+        raise HTTPException(status_code=404, detail="Candidate not found")
+    
+    return candidate
+
+# ============== IN-APP MESSAGING WITH AI PRESCREENING ==============
+
+class MessageCreate(BaseModel):
+    recipient_id: str
+    subject: Optional[str] = None
+    content: str
+    job_id: Optional[str] = None  # If messaging about a specific job
+
+class AIPreScreenRequest(BaseModel):
+    candidate_id: str
+    job_id: str
+
+@api_router.post("/messages/send")
+async def send_message(message: MessageCreate, request: Request):
+    """Send a message to another user (recruiter or job seeker)"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Verify recipient exists
+    recipient = await db.users.find_one({"user_id": message.recipient_id}, {"_id": 0})
+    if not recipient:
+        raise HTTPException(status_code=404, detail="Recipient not found")
+    
+    # Create or find existing conversation
+    conversation_participants = sorted([user["user_id"], message.recipient_id])
+    conversation_key = f"conv_{'_'.join(conversation_participants)}"
+    
+    existing_conv = await db.conversations.find_one({"conversation_key": conversation_key})
+    
+    if not existing_conv:
+        # Create new conversation
+        conversation = {
+            "id": f"conv_{uuid.uuid4().hex[:12]}",
+            "conversation_key": conversation_key,
+            "participants": [
+                {"user_id": user["user_id"], "name": user.get("name", ""), "email": user["email"]},
+                {"user_id": recipient["user_id"], "name": recipient.get("name", ""), "email": recipient["email"]}
+            ],
+            "job_id": message.job_id,
+            "subject": message.subject,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "last_message_at": datetime.now(timezone.utc).isoformat(),
+            "unread_count": {message.recipient_id: 1, user["user_id"]: 0}
+        }
+        await db.conversations.insert_one(conversation)
+        conv_id = conversation["id"]
+    else:
+        conv_id = existing_conv["id"]
+        # Update unread count for recipient
+        await db.conversations.update_one(
+            {"id": conv_id},
+            {
+                "$inc": {f"unread_count.{message.recipient_id}": 1},
+                "$set": {"last_message_at": datetime.now(timezone.utc).isoformat()}
+            }
+        )
+    
+    # Create the message
+    msg = {
+        "id": f"msg_{uuid.uuid4().hex[:12]}",
+        "conversation_id": conv_id,
+        "sender_id": user["user_id"],
+        "sender_name": user.get("name", user["email"]),
+        "recipient_id": message.recipient_id,
+        "content": message.content,
+        "sent_at": datetime.now(timezone.utc).isoformat(),
+        "read": False
+    }
+    
+    await db.messages.insert_one(msg)
+    
+    return {"message": "Message sent", "message_id": msg["id"], "conversation_id": conv_id}
+
+@api_router.get("/messages/conversations")
+async def get_conversations(request: Request):
+    """Get all conversations for current user"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Find all conversations where user is a participant
+    conversations = await db.conversations.find(
+        {"participants.user_id": user["user_id"]},
+        {"_id": 0}
+    ).sort("last_message_at", -1).to_list(100)
+    
+    # Get the last message for each conversation
+    for conv in conversations:
+        last_msg = await db.messages.find_one(
+            {"conversation_id": conv["id"]},
+            {"_id": 0}
+        )
+        conv["last_message"] = last_msg
+        conv["unread"] = conv.get("unread_count", {}).get(user["user_id"], 0)
+    
+    return conversations
+
+@api_router.get("/messages/conversations/{conversation_id}")
+async def get_conversation_messages(conversation_id: str, request: Request):
+    """Get all messages in a conversation"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Verify user is part of this conversation
+    conversation = await db.conversations.find_one({
+        "id": conversation_id,
+        "participants.user_id": user["user_id"]
+    }, {"_id": 0})
+    
+    if not conversation:
+        raise HTTPException(status_code=404, detail="Conversation not found")
+    
+    # Get messages
+    messages = await db.messages.find(
+        {"conversation_id": conversation_id},
+        {"_id": 0}
+    ).sort("sent_at", 1).to_list(500)
+    
+    # Mark messages as read
+    await db.messages.update_many(
+        {"conversation_id": conversation_id, "recipient_id": user["user_id"], "read": False},
+        {"$set": {"read": True}}
+    )
+    
+    # Reset unread count
+    await db.conversations.update_one(
+        {"id": conversation_id},
+        {"$set": {f"unread_count.{user['user_id']}": 0}}
+    )
+    
+    return {
+        "conversation": conversation,
+        "messages": messages
+    }
+
+@api_router.get("/messages/unread-count")
+async def get_unread_count(request: Request):
+    """Get total unread message count for current user"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Count unread messages
+    count = await db.messages.count_documents({
+        "recipient_id": user["user_id"],
+        "read": False
+    })
+    
+    return {"unread_count": count}
+
+# ============== AI PRESCREENING ==============
+
+@api_router.post("/recruiter/ai-prescreen")
+async def ai_prescreen_candidate(prescreen: AIPreScreenRequest, request: Request):
+    """AI-powered candidate prescreening based on resume vs job requirements"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if user.get("role") != "recruiter":
+        raise HTTPException(status_code=403, detail="Only recruiters can use AI prescreening")
+    
+    # Get candidate resume
+    candidate = await db.resumes.find_one({"id": prescreen.candidate_id}, {"_id": 0})
+    if not candidate:
+        raise HTTPException(status_code=404, detail="Candidate not found")
+    
+    # Get job posting
+    job = await db.posted_jobs.find_one({"id": prescreen.job_id}, {"_id": 0})
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="AI features not configured")
+    
+    # AI prescreening analysis
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=str(uuid.uuid4()),
+        system_message="""You are an expert HR recruiter and talent acquisition specialist. Analyze the candidate's resume against the job requirements and provide a comprehensive prescreening assessment.
+
+Return ONLY valid JSON with this structure:
+{
+    "overall_score": <0-100>,
+    "recommendation": "<Strong Match|Good Match|Potential Match|Weak Match|Not Recommended>",
+    "summary": "<2-3 sentence executive summary>",
+    "skills_analysis": {
+        "matched_skills": ["<skill1>", "<skill2>"],
+        "missing_skills": ["<skill1>", "<skill2>"],
+        "transferable_skills": ["<skill1 - how it transfers>", "<skill2 - how it transfers>"],
+        "skills_score": <0-100>
+    },
+    "experience_analysis": {
+        "relevant_experience": ["<experience1>", "<experience2>"],
+        "experience_gaps": ["<gap1>"],
+        "years_relevant": <number>,
+        "experience_score": <0-100>
+    },
+    "education_fit": {
+        "meets_requirements": <true/false>,
+        "relevant_education": ["<degree/cert>"],
+        "education_score": <0-100>
+    },
+    "culture_indicators": {
+        "strengths": ["<strength1>", "<strength2>"],
+        "potential_concerns": ["<concern1>"]
+    },
+    "interview_questions": [
+        "<suggested question 1 to explore specific area>",
+        "<suggested question 2>",
+        "<suggested question 3>"
+    ],
+    "red_flags": ["<any concerns>"],
+    "green_flags": ["<positive indicators>"],
+    "salary_expectation_fit": "<likely fit / may be overqualified / may be underqualified / unknown>"
+}"""
+    ).with_model("openai", "gpt-5.2")
+    
+    # Build context
+    candidate_context = f"""
+CANDIDATE PROFILE:
+Name: {candidate.get('full_name', 'Unknown')}
+
+SKILLS:
+{', '.join(candidate.get('skills', [])[:30])}
+
+PROFESSIONAL SUMMARY:
+{candidate.get('summary', 'Not provided')}
+
+EXPERIENCE:
+"""
+    for exp in candidate.get('experience', [])[:5]:
+        candidate_context += f"- {exp.get('title', '')} at {exp.get('company', '')} ({exp.get('duration', '')})\n  {exp.get('description', '')[:200]}\n"
+    
+    candidate_context += f"""
+EDUCATION:
+"""
+    for edu in candidate.get('education', [])[:3]:
+        candidate_context += f"- {edu.get('degree', '')} from {edu.get('institution', '')} ({edu.get('year', '')})\n"
+    
+    job_context = f"""
+JOB REQUIREMENTS:
+Title: {job.get('title', '')}
+Company: {job.get('company', '')}
+Location: {job.get('location', '')}
+Salary: {job.get('salary', 'Not specified')}
+
+DESCRIPTION:
+{job.get('description', '')[:3000]}
+
+REQUIRED TAGS/SKILLS:
+{', '.join(job.get('tags', []))}
+"""
+    
+    user_message = UserMessage(
+        text=f"{candidate_context}\n\n{job_context}\n\nProvide a comprehensive prescreening assessment."
+    )
+    
+    try:
+        response = await chat.send_message(user_message)
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        
+        analysis = json.loads(clean_response)
+        
+        # Store the analysis
+        await db.job_applicants.update_one(
+            {"job_id": prescreen.job_id, "applicant_id": candidate.get("user_id")},
+            {"$set": {"ai_analysis": analysis, "ai_analyzed_at": datetime.now(timezone.utc).isoformat()}}
+        )
+        
+        return {
+            "candidate_name": candidate.get('full_name', 'Unknown'),
+            "job_title": job.get('title', ''),
+            "analysis": analysis
+        }
+        
+    except Exception as e:
+        logging.error(f"AI prescreening error: {e}")
+        raise HTTPException(status_code=500, detail="AI analysis failed")
+
+@api_router.post("/recruiter/ai-bulk-prescreen")
+async def ai_bulk_prescreen(job_id: str, request: Request):
+    """AI prescreen all applicants for a job"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if user.get("role") != "recruiter":
+        raise HTTPException(status_code=403, detail="Only recruiters can use AI prescreening")
+    
+    # Get job
+    job = await db.posted_jobs.find_one({
+        "id": job_id,
+        "recruiter_id": user["user_id"]
+    })
+    if not job:
+        raise HTTPException(status_code=404, detail="Job not found")
+    
+    # Get all applicants without AI analysis
+    applicants = await db.job_applicants.find({
+        "job_id": job_id,
+        "ai_analysis": None
+    }, {"_id": 0}).to_list(50)
+    
+    if not applicants:
+        return {"message": "No new applicants to analyze", "analyzed": 0}
+    
+    # Note: In production, this would be a background task
+    analyzed_count = 0
+    for applicant in applicants[:10]:  # Limit to 10 at a time
+        try:
+            # Get candidate resume
+            candidate = await db.resumes.find_one({"id": applicant.get("resume_id")}, {"_id": 0})
+            if candidate:
+                # Trigger prescreening (simplified - would use the full function)
+                await ai_prescreen_candidate(
+                    AIPreScreenRequest(candidate_id=candidate["id"], job_id=job_id),
+                    request
+                )
+                analyzed_count += 1
+        except:
+            continue
+    
+    return {"message": f"Analyzed {analyzed_count} applicants", "analyzed": analyzed_count}
+
 # AI-powered resume parsing
 async def parse_resume_with_ai(raw_text: str) -> dict:
     if not EMERGENT_LLM_KEY:
