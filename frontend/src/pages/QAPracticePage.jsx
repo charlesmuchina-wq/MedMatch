@@ -1166,9 +1166,22 @@ const QAPracticePage = ({ resume }) => {
         <TabsContent value="history" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <History className="w-5 h-5" />
-                Practice History
+              <CardTitle className="flex items-center justify-between">
+                <span className="flex items-center gap-2">
+                  <History className="w-5 h-5" />
+                  Practice History
+                </span>
+                {history.length > 0 && (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => exportBatchToPDF(history)}
+                    data-testid="export-history-pdf-btn"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Export All to PDF
+                  </Button>
+                )}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -1184,9 +1197,16 @@ const QAPracticePage = ({ resume }) => {
                         <p className="font-medium text-slate-800 dark:text-slate-200 text-sm">
                           {item.question}
                         </p>
-                        <Badge variant="outline" className="text-xs shrink-0 ml-2">
-                          {item.type === "voice_recording" ? "Voice" : "Text"}
-                        </Badge>
+                        <div className="flex items-center gap-2 shrink-0 ml-2">
+                          <Badge variant="outline" className="text-xs">
+                            {item.type === "voice_recording" ? "Voice" : "Text"}
+                          </Badge>
+                          {item.feedback?.overall_score && (
+                            <Badge className="bg-turquoise/20 text-turquoise text-xs">
+                              {item.feedback.overall_score}/10
+                            </Badge>
+                          )}
+                        </div>
                       </div>
                       {item.job_context?.job_title && (
                         <p className="text-xs text-slate-500 mb-2">
