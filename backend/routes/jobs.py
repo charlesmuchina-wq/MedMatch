@@ -185,6 +185,8 @@ async def create_application(app_data: ApplicationCreate, request: Request):
     }
     
     await db.applications.insert_one(application)
+    # Remove MongoDB _id before returning
+    application.pop("_id", None)
     return {"message": "Application recorded", "application": application}
 
 @router.post("/applications/quick-apply")
