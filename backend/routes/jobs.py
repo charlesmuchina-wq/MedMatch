@@ -139,6 +139,7 @@ async def create_manual_job(job: ManualJobCreate, request: Request):
     }
     
     await db.manual_jobs.insert_one(job_doc)
+    job_doc.pop("_id", None)
     return {"message": "Job created", "job": job_doc}
 
 # ============== Applications Routes ==============
