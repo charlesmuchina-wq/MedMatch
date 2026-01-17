@@ -33,6 +33,8 @@ import RecruiterDashboard from "@/pages/RecruiterDashboard";
 import ApplicantTracker from "@/pages/ApplicantTracker";
 import CandidateSearch from "@/pages/CandidateSearch";
 import MessagesPage from "@/pages/MessagesPage";
+import CompanyProfilePage from "@/pages/CompanyProfilePage";
+import SkillAssessmentsPage from "@/pages/SkillAssessmentsPage";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
