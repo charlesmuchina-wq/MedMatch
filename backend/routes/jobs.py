@@ -200,7 +200,7 @@ async def quick_apply(data: QuickApplyRequest, request: Request):
     existing = await db.applications.find_one({
         "user_id": user["user_id"],
         "job.url": job_url
-    })
+    }, {"_id": 0})
     
     if existing:
         return {"redirect_url": job_url, "already_applied": True, "application_id": existing.get("id")}
@@ -231,7 +231,7 @@ async def check_application(url: str, request: Request):
     existing = await db.applications.find_one({
         "user_id": user["user_id"],
         "job.url": url
-    })
+    }, {"_id": 0})
     
     return {"applied": existing is not None, "application": existing if existing else None}
 
