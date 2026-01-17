@@ -28,8 +28,8 @@ from webauthn.helpers.structs import (
 from webauthn.helpers.cose import COSEAlgorithmIdentifier
 
 from utils.database import db
-from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user, create_access_token
+from utils.config import EMERGENT_LLM_KEY, JWT_SECRET_KEY
+from routes.auth import get_current_user
 
 router = APIRouter(prefix="/biometric", tags=["Biometric Authentication"])
 
@@ -37,6 +37,12 @@ router = APIRouter(prefix="/biometric", tags=["Biometric Authentication"])
 RP_ID = os.environ.get("WEBAUTHN_RP_ID", "localhost")
 RP_NAME = os.environ.get("WEBAUTHN_RP_NAME", "MedMatch")
 ORIGIN = os.environ.get("REACT_APP_BACKEND_URL", "http://localhost:3000")
+
+# ============== Helper: Create Session Token ==============
+def create_session_token(user_id: str, email: str) -> str:
+    """Create a session token for the user"""
+    import secrets
+    return secrets.token_urlsafe(32)
 
 # ============== Models ==============
 
