@@ -243,7 +243,7 @@ async def set_default_profile(profile_id: str, request: Request):
 
 @router.post("/resume/profiles/upload")
 async def upload_resume_to_profile(file: UploadFile = File(...), profile_name: str = "Default", request: Request = None):
-    """Upload resume to a specific profile"""
+    """Upload resume to a specific profile (PDF, DOC, DOCX)"""
     user = None
     if request:
         user = await get_current_user(request)
@@ -251,14 +251,27 @@ async def upload_resume_to_profile(file: UploadFile = File(...), profile_name: s
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
-    if not file.filename.lower().endswith('.pdf'):
-        raise HTTPException(status_code=400, detail="Only PDF files are supported")
+    filename_lower = file.filename.lower()
+    valid_extensions = ['.pdf', '.doc', '.docx']
+    
+    if not any(filename_lower.endswith(ext) for ext in valid_extensions):
+        raise HTTPException(status_code=400, detail="Only PDF, DOC, and DOCX files are supported")
     
     content = await file.read()
-    raw_text = extract_text_from_pdf(content)
+    
+    # Extract text based on file type
+    if filename_lower.endswith('.pdf'):
+        raw_text = extract_text_from_pdf(content)
+    elif filename_lower.endswith('.docx'):
+        raw_text = extract_text_from_docx(content)
+    elif filename_lower.endswith('.doc'):
+        raise HTTPException(
+            status_code=400, 
+            detail="Legacy .doc format is not supported. Please save as .docx or PDF."
+        )
     
     if not raw_text.strip():
-        raise HTTPException(status_code=400, detail="Could not extract text from PDF")
+        raise HTTPException(status_code=400, detail="Could not extract text from document")
     
     resume_data = await parse_resume_with_ai(raw_text)
     
