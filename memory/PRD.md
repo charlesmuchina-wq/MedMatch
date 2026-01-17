@@ -31,7 +31,7 @@ Create a comprehensive job search application where users can upload their resum
 - ✅ Voice Interview Coach with Recording Playback
 - ✅ Video Interview Practice with AI Body Language Analysis
 - ✅ Salary Insights and Negotiation Tips
-- ✅ **AI Prescreening** - Analyzes candidate vs job fit with transferable skills (NEW)
+- ✅ **AI Prescreening** - Analyzes candidate vs job fit with transferable skills
 
 ### User Management
 - ✅ Save/bookmark jobs
@@ -39,7 +39,7 @@ Create a comprehensive job search application where users can upload their resum
 - ✅ Email alerts for matching jobs
 - ✅ Automated daily digest (8 AM UTC)
 - ✅ Job application analytics dashboard
-- ✅ **In-App Messaging** - Recruiter ↔ Job Seeker communication (NEW)
+- ✅ **In-App Messaging** - Recruiter ↔ Job Seeker communication
 
 ### Membership System
 - ✅ Job Seekers: $1 lifetime membership with 15-day free trial
@@ -52,7 +52,7 @@ Create a comprehensive job search application where users can upload their resum
 - ⚙️ **Dropbox** - UI ready, requires API key
 - ⚙️ **OneDrive** - UI ready, requires API key
 
-### Recruiter Features (NEW - Jan 17, 2026)
+### Recruiter Features
 - ✅ **Applicant Tracking System** - View/manage applicants per job posting
 - ✅ **Applicant Status Pipeline** - new → reviewing → shortlisted → interviewing → offered → hired/rejected
 - ✅ **Applicant Notes** - Recruiters can add notes to applicants
@@ -60,6 +60,18 @@ Create a comprehensive job search application where users can upload their resum
 - ✅ **AI Prescreening** - Match score, transferable skills, interview questions
 - ✅ **Recruiter Dashboard** - Stats, quick actions, recent applicants
 - ✅ **Role-Based Navigation** - Different sidebar for recruiters vs job seekers
+
+### Interview Scheduling (NEW - Jan 17, 2026)
+- ✅ **Schedule Interviews** - Recruiters can schedule interviews with candidates
+- ✅ **Calendar Integration** - ICS file export and Google Calendar URL generation
+- ✅ **Candidate Response** - Accept, decline, or request reschedule
+- ✅ **Availability Management** - Recruiters set available time slots
+- ✅ **Notifications** - In-app notifications for interview updates
+
+### Push Notifications (NEW - Jan 17, 2026)
+- ✅ **Web Push Subscriptions** - Subscribe to push notifications
+- ✅ **Notification Preferences** - Customize which notifications to receive
+- ✅ **Admin Bulk Send** - Admin can send notifications to users
 
 ## Tech Stack
 - **Backend**: FastAPI (Python) with MongoDB
@@ -70,24 +82,43 @@ Create a comprehensive job search application where users can upload their resum
 - **Email**: Gmail SMTP
 - **Cloud Storage**: Google Drive API
 
-## Bug Fixes (Jan 16, 2026)
+## Major Refactoring (Jan 17, 2026)
 
-### ✅ Session Expiration Bug (P0) - FIXED
-**Problem**: Sessions were expiring rapidly during testing, causing repeated logouts.
+### ✅ Backend Modularization - COMPLETE
+**Before**: `server.py` was a 5,766 line monolith containing all route logic
+**After**: `server.py` reduced to 211 lines with 16 modular route files
 
-**Root Cause**: 
-1. Many axios API calls were missing `withCredentials: true`
-2. CORS was configured with wildcard `*` which doesn't work with credentials
+#### New Architecture:
+```
+/app/backend/
+├── server.py (211 lines) - App config, middleware, scheduler only
+├── routes/
+│   ├── __init__.py - Route exports
+│   ├── auth.py (589 lines) - Authentication, sessions
+│   ├── jobs.py (580 lines) - Job search, applications, saved jobs
+│   ├── resume.py (329 lines) - Resume upload, profiles
+│   ├── interview.py (529 lines) - Interview prep, questions
+│   ├── ai_features.py (500 lines) - Cover letter, predictions
+│   ├── analytics.py (262 lines) - Dashboard stats
+│   ├── digest.py (333 lines) - Email digests
+│   ├── messages.py (165 lines) - In-app messaging
+│   ├── recruiter.py (498 lines) - Recruiter features
+│   ├── cloud.py (58 lines) - Cloud storage
+│   ├── companies.py (346 lines) - Company profiles
+│   ├── skills.py (432 lines) - Skill assessments
+│   ├── payments.py (235 lines) - Stripe, membership
+│   ├── scheduling.py (543 lines) - Interview scheduling
+│   └── push.py (336 lines) - Push notifications
+└── utils/
+    ├── config.py - Environment variables
+    └── database.py - MongoDB connection
+```
 
-**Fix Applied**:
-1. Added `axios.defaults.withCredentials = true` globally in `/app/frontend/src/index.js`
-2. Updated `CORS_ORIGINS` in `/app/backend/.env` to specific domains instead of wildcard
-
-**Files Modified**:
-- `/app/frontend/src/index.js` - Added axios.defaults.withCredentials = true
-- `/app/backend/.env` - Changed CORS_ORIGINS to specific domains
-
-**Test Results**: 100% pass rate (10/10 backend tests, all frontend tests passed)
+### Test Results (iteration_13.json)
+- **22/22 tests passed** (100% pass rate)
+- Fixed MongoDB ObjectId serialization bug in jobs.py
+- Session persistence verified across requests
+- All critical endpoints functional
 
 ## API Endpoints
 
@@ -104,25 +135,41 @@ Create a comprehensive job search application where users can upload their resum
 | `/api/auth/me` | GET | Get current user |
 | `/api/auth/logout` | POST | Logout and clear session |
 
-### Cloud Storage
+### Jobs
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/cloud/google-drive/download` | POST | Download file from Google Drive (proxy) |
-
-### Applications
-| Endpoint | Method | Description |
-|----------|--------|-------------|
+| `/api/jobs/search` | GET | Search jobs across multiple sources |
+| `/api/jobs/manual` | POST | Create manual job entry |
 | `/api/applications` | GET/POST | List/create applications |
 | `/api/applications/quick-apply` | POST | Apply and get redirect URL |
-| `/api/applications/check/{url}` | GET | Check if already applied |
-| `/api/applications/{id}/job-status` | PUT | Update job posting status |
+| `/api/saved-jobs` | GET/POST | List/save jobs |
+| `/api/job-alerts` | GET/POST | Manage job alerts |
 
-### Payments
+### AI Features
 | Endpoint | Method | Description |
 |----------|--------|-------------|
-| `/api/payments/create-checkout` | POST | Create Stripe checkout session |
-| `/api/payments/status/{session_id}` | GET | Check payment status |
-| `/api/membership/status` | GET | Get current membership status |
+| `/api/cover-letter/generate` | POST | Generate AI cover letter |
+| `/api/jobs/predict-callback` | POST | Predict callback probability |
+| `/api/jobs/analyze` | POST | Analyze job posting |
+| `/api/salary/insights` | POST | Get salary insights |
+
+### Interview Prep
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/interview/generate-questions` | POST | Generate interview questions |
+| `/api/interview/generate-answer` | POST | Generate sample answer |
+| `/api/interview/mock-feedback` | POST | Get mock interview feedback |
+| `/api/interview/voice-feedback` | POST | Analyze voice recording |
+| `/api/interview/video-feedback` | POST | Analyze video recording |
+
+### Scheduling (NEW)
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/interviews/schedule` | POST | Schedule interview |
+| `/api/interviews/recruiter/upcoming` | GET | Get recruiter's interviews |
+| `/api/interviews/candidate/upcoming` | GET | Get candidate's interviews |
+| `/api/interviews/{id}/respond` | POST | Candidate responds to invite |
+| `/api/interviews/{id}/calendar` | GET | Get calendar event (ICS/Google) |
 
 ## Configuration
 
@@ -140,83 +187,26 @@ Create a comprehensive job search application where users can upload their resum
 ### Optional Configuration
 - `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, `TWILIO_VERIFY_SERVICE` - Phone login
 - `PAYPAL_CLIENT_ID`, `PAYPAL_SECRET` - PayPal payments
+- `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` - Push notifications
 
-## Test Reports
-- `/app/test_reports/iteration_11.json` - Session persistence tests (100% pass)
-- `/app/test_reports/iteration_10.json` - Auth tests (100% pass)
-- `/app/tests/test_session_persistence.py` - Session persistence test suite
+## Test Credentials
+- **Admin**: admin@medmatch.com / MedMatch2026!
+- **Recruiter**: testrecruiter@medmatch.com / Test123!
 
 ## What's Working
-✅ Backend: FastAPI on port 8001
+✅ Backend: FastAPI on port 8001 (modular architecture)
 ✅ Frontend: React on port 3000
 ✅ Database: MongoDB
 ✅ All auth methods (Google, Email) - FULLY WORKING
-✅ Session persistence - FIXED (Jan 16, 2026)
-✅ Last Login Tracking - Added (Jan 17, 2026)
+✅ Session persistence - WORKING
 ✅ Membership system with roles
 ✅ Job search from multiple sources
 ✅ AI-powered features
 ✅ Payment processing (Stripe)
-✅ PremiumGate component
-✅ Onboarding Tour
-✅ Recruiter Job Posting UI
-✅ Quick Actions Widget
-✅ PWA Support
+✅ Recruiter features (ATS, Candidate Search, Messaging)
+✅ Interview Scheduling
+✅ Push Notifications (backend ready)
 ✅ Google Drive integration for resume upload
-
-## Gap Assessment Summary
-Full analysis at `/app/memory/GAP_ASSESSMENT.md`
-
-### Critical Gaps (P0 - Need for Recruiter Value)
-- ❌ No Candidate Search/Database for Recruiters
-- ❌ No Applicant Tracking per Job Posting
-- ❌ No In-App Messaging
-- ❌ No Company Profiles/Pages
-
-### Important Gaps (P1)
-- ❌ No Skill Assessments/Certifications
-- ❌ No Company Reviews (like Glassdoor)
-- ❌ No Interview Scheduling/Calendar
-- ❌ No Native Mobile App (App Store)
-- ❌ No Job Feedback for AI Learning
-
-### MedMatch Strengths vs Competitors
-- ✅ AI Cover Letter Generator (unique)
-- ✅ Voice Interview Coach (unique)
-- ✅ Video Interview Practice (unique)
-- ✅ Callback Success Predictor (unique)
-- ✅ $1 Lifetime (vs $30+/month competitors)
-- ✅ **Skill Assessments with Badges** (NEW - competes with LinkedIn)
-- ✅ **Company Profiles & Reviews** (NEW - competes with Glassdoor)
-
-## New Features (Jan 17, 2026)
-
-### Skill Assessments & Certifications
-- ✅ 10 skill categories: Python, JavaScript, React, SQL, AWS, ML, Data Science, PM, Agile, Communication
-- ✅ AI-generated questions (GPT-5.2)
-- ✅ Timed assessments with progress tracking
-- ✅ Badge system for verified skills
-- ✅ Leaderboards per skill
-- ✅ Public badge verification endpoint
-
-### Company Profiles
-- ✅ Recruiter can create company profiles
-- ✅ Company info: description, industry, size, benefits, culture values
-- ✅ Follow companies for job alerts
-- ✅ Company reviews with star ratings
-- ✅ Pros/cons review format (Glassdoor-style)
-- ✅ Rating distribution and recommend percentage
-
-### Backend Refactoring Progress
-- ✅ Created modular route structure: `/app/backend/routes/`
-- ✅ auth.py - Authentication routes
-- ✅ messages.py - In-app messaging
-- ✅ recruiter.py - Recruiter features
-- ✅ cloud.py - Cloud storage integration
-- ✅ companies.py - Company profiles & reviews
-- ✅ skills.py - Skill assessments
-- ⚠️ Main server.py still contains legacy routes (5760 lines)
-- 📝 Full refactoring guide at `/app/memory/REFACTORING_GUIDE.md`
 
 ## Pending / Blocked Items
 
@@ -225,19 +215,18 @@ Full analysis at `/app/memory/GAP_ASSESSMENT.md`
 - **Blocked**: Requires user to add redirect URL in Apple Developer Console
 - **Redirect URL**: `https://jobai-3.preview.emergentagent.com/api/auth/apple/redirect`
 
-### Android SHA-1 Fingerprint
-- **Status**: User requested keytool command execution
-- **Blocked**: Java/keytool not available in this environment
-- **Action**: User needs to run `keytool -keystore path-to-keystore -list -v` locally
-
 ## Upcoming Tasks
-- [ ] Complete server.py refactoring (guide at /app/memory/REFACTORING_GUIDE.md)
-- [ ] Dropbox integration (requires API key from user)
-- [ ] OneDrive integration (requires API key from user)
-- [ ] Native Windows widget (requires Electron/MSIX packaging)
-- [ ] Push notifications
-- [ ] Interview scheduling with calendar integration
+- [ ] Build Frontend for Company Profiles (backend done)
+- [ ] Build Frontend for Skill Assessments (backend done)
+- [ ] Finalize Cloud Storage Resume Upload (connect picker to backend)
+- [ ] Dropbox/OneDrive integration (requires API keys)
 
-## Test Credentials
-- **Admin**: admin@medmatch.com / MedMatch2026!
-- **Recruiter**: testrecruiter@medmatch.com / Test123!
+## Future Tasks
+- [ ] Native Windows/Desktop Widget
+- [ ] LinkedIn Profile Sync
+- [ ] Job feedback for AI learning
+- [ ] PWA enhancements
+
+## Test Reports
+- `/app/test_reports/iteration_13.json` - Backend refactoring verification (22/22 passed)
+- `/app/tests/test_refactored_backend.py` - Comprehensive test suite
