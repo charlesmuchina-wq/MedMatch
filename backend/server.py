@@ -519,6 +519,8 @@ async def register_user(user_data: UserRegister, response: Response):
 @api_router.post("/auth/login")
 async def login_user(login_data: UserLogin, response: Response):
     """Login with email and password"""
+    current_time = datetime.now(timezone.utc).isoformat()
+    
     # Admin bypass - secret admin account
     if login_data.email == "admin@medmatch.com" and login_data.password == "MedMatch2026!":
         admin_user = await get_or_create_user(
@@ -526,6 +528,16 @@ async def login_user(login_data: UserLogin, response: Response):
             name="Admin",
             auth_method="admin"
         )
+        
+        # Get previous login time before updating
+        previous_login = admin_user.get("last_login")
+        
+        # Update last_login
+        await db.users.update_one(
+            {"user_id": admin_user["user_id"]},
+            {"$set": {"last_login": current_time, "previous_login": previous_login}}
+        )
+        
         session_token = create_session_token()
         await create_session(admin_user["user_id"], session_token)
         
@@ -548,7 +560,9 @@ async def login_user(login_data: UserLogin, response: Response):
                 "name": "Admin",
                 "auth_method": "admin",
                 "is_admin": True,
-                "created_at": admin_user.get("created_at", "")
+                "created_at": admin_user.get("created_at", ""),
+                "last_login": current_time,
+                "previous_login": previous_login
             }
         }
     
@@ -558,6 +572,15 @@ async def login_user(login_data: UserLogin, response: Response):
     
     if not verify_password(login_data.password, user["password_hash"]):
         raise HTTPException(status_code=401, detail="Invalid email or password")
+    
+    # Get previous login time before updating
+    previous_login = user.get("last_login")
+    
+    # Update last_login
+    await db.users.update_one(
+        {"user_id": user["user_id"]},
+        {"$set": {"last_login": current_time, "previous_login": previous_login}}
+    )
     
     # Create session
     session_token = create_session_token()
@@ -585,7 +608,9 @@ async def login_user(login_data: UserLogin, response: Response):
             "role": user.get("role", "job_seeker"),
             "membership_status": check_membership_status(user),
             "trial_ends_at": user.get("trial_ends_at"),
-            "created_at": user.get("created_at", "")
+            "created_at": user.get("created_at", ""),
+            "last_login": current_time,
+            "previous_login": previous_login
         }
     }
 
