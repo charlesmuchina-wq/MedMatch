@@ -514,6 +514,10 @@ function AppContent() {
       {/* PWA Install Prompt */}
       <InstallPrompt />
 
+      {/* KARAU Dragon AI */}
+      <DragonButton onClick={() => setShowDragonAI(true)} />
+      <KarauDragonAI user={user} isOpen={showDragonAI} onClose={() => setShowDragonAI(false)} />
+
       <ApplyDialog job={applyDialogJob} open={!!applyDialogJob} onClose={() => setApplyDialogJob(null)} onConfirm={handleConfirmApply} />
       <Toaster position="bottom-right" richColors theme={isDark ? 'dark' : 'light'} />
     </div>
