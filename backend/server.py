@@ -5611,6 +5611,12 @@ async def download_google_drive_file(request: GoogleDriveDownloadRequest):
 # Include router
 app.include_router(api_router)
 
+# Include modular routers
+from routes.companies import router as companies_router
+from routes.skills import router as skills_router
+app.include_router(companies_router, prefix="/api")
+app.include_router(skills_router, prefix="/api")
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
