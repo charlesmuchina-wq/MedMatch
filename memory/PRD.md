@@ -73,6 +73,35 @@ Create a comprehensive job search application where users can upload their resum
 - ✅ **Notification Preferences** - Customize which notifications to receive
 - ✅ **Admin Bulk Send** - Admin can send notifications to users
 
+### Skill Assessments
+- ✅ **30 skill assessments** across multiple categories
+- ✅ **20 Quality Engineering assessments** (NEW - Jan 17, 2026):
+  - Supplier Quality Management
+  - Manufacturing Quality
+  - ISO 13485 (Medical Devices)
+  - ISO 9001
+  - FDA 21 CFR Part 820
+  - Six Sigma (Green Belt & Black Belt)
+  - Root Cause Analysis
+  - Statistical Process Control (SPC)
+  - Measurement System Analysis (MSA)
+  - FMEA
+  - APQP/PPAP
+  - Lead Auditor
+  - GD&T
+  - Lean Manufacturing
+  - CAPA Management
+  - Risk Management (ISO 14971)
+  - Metrology & Calibration
+  - AS9100 (Aerospace)
+  - IATF 16949 (Automotive)
+- ✅ AI-generated questions (GPT-5.2)
+- ✅ Timed assessments with progress tracking
+- ✅ Badge system for verified skills
+- ✅ Leaderboards per skill
+
+### Job Search for Quality Professionals
+
 ## Tech Stack
 - **Backend**: FastAPI (Python) with MongoDB
 - **Frontend**: React with shadcn/ui
