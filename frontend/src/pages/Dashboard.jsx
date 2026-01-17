@@ -196,6 +196,33 @@ const ContextualTip = ({ id, children, position = "bottom" }) => {
 const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
   const navigate = useNavigate();
   
+  // Format date for display
+  const formatLastLogin = (dateString) => {
+    if (!dateString) return null;
+    try {
+      const date = new Date(dateString);
+      const now = new Date();
+      const diffMs = now - date;
+      const diffMins = Math.floor(diffMs / 60000);
+      const diffHours = Math.floor(diffMs / 3600000);
+      const diffDays = Math.floor(diffMs / 86400000);
+      
+      if (diffMins < 1) return 'Just now';
+      if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+      if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+      if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+      
+      return date.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    } catch {
+      return null;
+    }
+  };
+  
   const stats = [
     { label: "Saved Jobs", value: savedJobs.length, icon: Bookmark, color: "text-sky-500", path: "/saved" },
     { label: "Applications", value: applications.length, icon: CheckSquare, color: "text-emerald-500", path: "/applications" },
@@ -213,6 +240,19 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
         <p className="text-slate-500 dark:text-slate-400 mt-2">
           {resume ? 'Your personalized remote job dashboard' : 'Upload your resume to get started'}
         </p>
+        
+        {/* Last Login Info */}
+        {user?.previous_login && (
+          <div className="mt-3 flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500" data-testid="last-login-info">
+            <Clock className="w-3 h-3" />
+            <span>Last login: {formatLastLogin(user.previous_login)}</span>
+            {user.is_admin && (
+              <span className="ml-2 px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-full text-xs font-medium">
+                Admin
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Quick Actions Widget */}
