@@ -87,7 +87,7 @@ const ResumePage = ({ resume, setResume }) => {
                 <p className="text-slate-700 dark:text-slate-200 font-medium">
                   {isDragActive ? "Drop your resume here" : "Drag & drop your resume"}
                 </p>
-                <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">or click to browse (PDF only)</p>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">or click to browse (PDF, DOC, DOCX)</p>
                 <p className="text-slate-400 dark:text-slate-500 text-xs mt-3 flex items-center justify-center gap-1">
                   <Cloud className="w-3 h-3" /> Or import from Google Drive, Dropbox, OneDrive
                 </p>
