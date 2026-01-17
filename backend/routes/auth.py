@@ -107,9 +107,20 @@ async def get_current_user(request: Request):
     if not session:
         return None
     
-    if datetime.fromisoformat(session["expires_at"]) < datetime.now(timezone.utc):
-        await db.user_sessions.delete_one({"session_token": session_token})
-        return None
+    # Check expiration
+    expires_at = session.get("expires_at")
+    if expires_at:
+        try:
+            if isinstance(expires_at, str):
+                expires_dt = datetime.fromisoformat(expires_at.replace('Z', '+00:00'))
+            else:
+                expires_dt = expires_at
+            
+            if expires_dt < datetime.now(timezone.utc):
+                await db.user_sessions.delete_one({"session_token": session_token})
+                return None
+        except Exception as e:
+            logging.warning(f"Session expiry check error: {e}")
     
     user = await db.users.find_one({"user_id": session["user_id"]}, {"_id": 0})
     return user
