@@ -508,3 +508,125 @@ async def delete_qa_record(record_id: str, request: Request):
         raise HTTPException(status_code=404, detail="Record not found")
     
     return {"message": "Record deleted successfully"}
+
+
+# ============== Audio Transcription Endpoints ==============
+
+@router.post("/transcribe-audio")
+async def transcribe_audio_file(
+    file: UploadFile = File(...),
+    language: Optional[str] = Form(None),
+    request: Request = None
+):
+    """
+    Transcribe an uploaded audio file to text using OpenAI Whisper.
+    Supports: MP3, MP4, MPEG, MPGA, M4A, WAV, WEBM
+    Max size: 25MB
+    """
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Validate file extension
+    filename = file.filename.lower()
+    file_ext = os.path.splitext(filename)[1]
+    if file_ext not in SUPPORTED_AUDIO_FORMATS:
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Unsupported audio format. Supported: {', '.join(SUPPORTED_AUDIO_FORMATS)}"
+        )
+    
+    # Read file content
+    content = await file.read()
+    
+    # Validate file size
+    if len(content) > MAX_AUDIO_SIZE:
+        raise HTTPException(
+            status_code=400,
+            detail=f"File too large. Maximum size is 25MB. Your file: {len(content) / (1024*1024):.1f}MB"
+        )
+    
+    try:
+        # Initialize Whisper STT
+        stt = OpenAISpeechToText(api_key=EMERGENT_LLM_KEY)
+        
+        # Create a temporary file for the audio
+        with tempfile.NamedTemporaryFile(delete=False, suffix=file_ext) as temp_file:
+            temp_file.write(content)
+            temp_path = temp_file.name
+        
+        try:
+            # Transcribe
+            with open(temp_path, "rb") as audio_file:
+                transcribe_params = {
+                    "file": audio_file,
+                    "model": "whisper-1",
+                    "response_format": "verbose_json"
+                }
+                
+                # Add language if specified
+                if language:
+                    transcribe_params["language"] = language
+                
+                response = await stt.transcribe(**transcribe_params)
+            
+            # Extract transcript
+            transcript_text = response.text if hasattr(response, 'text') else str(response)
+            
+            # Get duration and segments if available
+            duration = getattr(response, 'duration', None)
+            segments = []
+            if hasattr(response, 'segments'):
+                segments = [
+                    {
+                        "start": seg.start if hasattr(seg, 'start') else seg.get('start'),
+                        "end": seg.end if hasattr(seg, 'end') else seg.get('end'),
+                        "text": seg.text if hasattr(seg, 'text') else seg.get('text')
+                    }
+                    for seg in response.segments
+                ]
+            
+            # Store transcription record
+            record = {
+                "id": str(uuid.uuid4()),
+                "user_id": user.get("user_id"),
+                "filename": file.filename,
+                "transcript": transcript_text,
+                "duration": duration,
+                "language": language or "auto-detected",
+                "created_at": datetime.now(timezone.utc).isoformat()
+            }
+            await db.audio_transcriptions.insert_one(record)
+            
+            return {
+                "success": True,
+                "transcript": transcript_text,
+                "duration": duration,
+                "segments": segments[:20] if segments else [],  # Limit segments
+                "record_id": record["id"],
+                "detected_language": getattr(response, 'language', language)
+            }
+            
+        finally:
+            # Clean up temp file
+            if os.path.exists(temp_path):
+                os.unlink(temp_path)
+                
+    except Exception as e:
+        logging.error(f"Audio transcription error: {e}")
+        raise HTTPException(status_code=500, detail=f"Transcription failed: {str(e)}")
+
+@router.get("/transcriptions")
+async def get_transcription_history(request: Request, limit: int = 10):
+    """Get user's audio transcription history"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    transcriptions = await db.audio_transcriptions.find(
+        {"user_id": user.get("user_id")},
+        {"_id": 0}
+    ).sort("created_at", -1).limit(limit).to_list(length=limit)
+    
+    return {"transcriptions": transcriptions}
+
