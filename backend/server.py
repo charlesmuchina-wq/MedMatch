@@ -1017,7 +1017,10 @@ async def get_current_user_endpoint(request: Request):
         "role": user.get("role", "job_seeker"),
         "membership_status": check_membership_status(user),
         "trial_ends_at": user.get("trial_ends_at"),
-        "created_at": user.get("created_at", "")
+        "created_at": user.get("created_at", ""),
+        "last_login": user.get("last_login"),
+        "previous_login": user.get("previous_login"),
+        "is_admin": user.get("is_admin", False) or user.get("email") == "admin@medmatch.com"
     }
 
 @api_router.post("/auth/logout")
