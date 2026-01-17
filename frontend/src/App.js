@@ -66,11 +66,14 @@ const ThemeProvider = ({ children }) => {
 };
 
 // Sidebar Component
-const Sidebar = ({ isOpen, setIsOpen }) => {
+const Sidebar = ({ isOpen, setIsOpen, user }) => {
   const location = useLocation();
   const { isDark } = useTheme();
   
-  const links = [
+  // Different navigation for recruiters vs job seekers
+  const isRecruiter = user?.role === "recruiter";
+  
+  const jobSeekerLinks = [
     { path: "/", icon: TrendingUp, label: "Dashboard" },
     { path: "/resume", icon: FileText, label: "My Resume" },
     { path: "/resume-profiles", icon: Users, label: "Resume Profiles" },
@@ -85,8 +88,19 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { path: "/alerts", icon: Bell, label: "Job Alerts" },
     { path: "/salary-insights", icon: DollarSign, label: "Salary Insights" },
     { path: "/analytics", icon: BarChart3, label: "Analytics" },
+    { path: "/messages", icon: MessageSquare, label: "Messages" },
     { path: "/membership", icon: Crown, label: "Membership" },
   ];
+  
+  const recruiterLinks = [
+    { path: "/recruiter/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+    { path: "/recruiter/jobs", icon: Briefcase, label: "My Job Postings" },
+    { path: "/recruiter/candidates", icon: UserSearch, label: "Search Candidates" },
+    { path: "/messages", icon: MessageSquare, label: "Messages" },
+    { path: "/membership", icon: Crown, label: "Membership" },
+  ];
+  
+  const links = isRecruiter ? recruiterLinks : jobSeekerLinks;
 
   return (
     <>
