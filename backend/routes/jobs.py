@@ -284,6 +284,26 @@ async def get_quality_engineering_keywords():
             "Plant Quality Manager", "EHS Manager", "Safety Manager",
             "Maintenance Manager", "TPM Coordinator", "Welding Inspector", "CWI"
         ],
+        "Pharmaceuticals": [
+            "Pharmaceutical Quality", "cGMP Quality", "Validation Engineer Pharma",
+            "QC Analyst", "QA Specialist Pharma", "Sterile Manufacturing",
+            "Pharmaceutical Packaging", "Drug Product Development", "Pharmacovigilance"
+        ],
+        "Biologics & Biotech": [
+            "Biologics Quality", "Cell Culture Scientist", "Upstream Process Engineer",
+            "Downstream Process Engineer", "Gene Therapy", "Cell Therapy",
+            "Vaccine Manufacturing", "Bioinformatics", "NGS Scientist"
+        ],
+        "Software Engineering": [
+            "Software Engineer", "Full Stack Developer", "Backend Engineer",
+            "Frontend Developer", "DevOps Engineer", "Cloud Engineer AWS",
+            "Data Engineer", "QA Engineer Software", "SRE"
+        ],
+        "AI & Machine Learning": [
+            "Machine Learning Engineer", "AI Engineer", "Data Scientist",
+            "NLP Engineer", "Computer Vision Engineer", "MLOps Engineer",
+            "Deep Learning Engineer", "Generative AI Engineer", "LLM Engineer"
+        ],
         "Auditing": [
             "Lead Auditor", "Quality Auditor", "Internal Auditor", "Audit Manager",
             "AS9100 Auditor", "IATF Auditor", "VDA Auditor"
@@ -306,11 +326,11 @@ async def get_quality_engineering_keywords():
             "Quality Engineer Medical Device",
             "Aerospace Quality Engineer",
             "Automotive Quality Engineer IATF",
-            "Six Sigma Black Belt Remote",
-            "NDT Inspector Level II",
-            "AS9100 Lead Auditor",
-            "Manufacturing Engineer",
-            "Plant Quality Manager"
+            "Machine Learning Engineer Remote",
+            "Data Scientist",
+            "cGMP Quality Engineer",
+            "Cell Therapy Manufacturing",
+            "Full Stack Developer Remote"
         ]
     }
 
