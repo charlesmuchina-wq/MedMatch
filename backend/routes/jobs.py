@@ -321,6 +321,7 @@ async def save_job(job: Job, request: Request):
     }
     
     await db.saved_jobs.insert_one(saved_job)
+    saved_job.pop("_id", None)
     return {"message": "Job saved", "saved_job": saved_job}
 
 @router.delete("/saved-jobs/{job_id}")
