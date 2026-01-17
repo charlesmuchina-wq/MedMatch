@@ -808,6 +808,12 @@ const QAPracticePage = ({ resume }) => {
                   disabled={generating}
                 />
                 
+                {/* Audio File Upload */}
+                <AudioFileUpload 
+                  onTranscript={handleVoiceTranscript}
+                  disabled={generating}
+                />
+                
                 {/* Text Answer */}
                 <Textarea 
                   placeholder="Type your answer here, or use voice recording above..."
