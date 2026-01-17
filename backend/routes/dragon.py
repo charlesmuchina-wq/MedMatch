@@ -235,13 +235,20 @@ async def process_dragon_command(data: DragonCommand, request: Request):
     
     return result
 
-async def ai_intent_detection(command: str, user_context: Dict) -> Dict:
-    """Use AI to detect intent and generate response"""
+async def ai_intent_detection(command: str, user_context: Dict, language: str = "en") -> Dict:
+    """Use AI to detect intent and generate response (multi-language support)"""
+    
+    # Language-aware system message
+    lang_instruction = ""
+    if language != "en":
+        lang_instruction = f"\nIMPORTANT: The user may be speaking in a language other than English. Detect the language and respond in the SAME language as the user's input. If they speak Spanish, respond in Spanish. If Chinese, respond in Chinese, etc."
+    
     chat = LlmChat(
         api_key=EMERGENT_LLM_KEY,
         session_id=str(uuid.uuid4()),
-        system_message="""You are KARAU DRAGON AI, an intelligent job search assistant. 
-Analyze the user's command and determine the intent.
+        system_message=f"""You are KARAU DRAGON AI, an intelligent multilingual job search assistant. 
+Analyze the user's command in ANY language and determine the intent.
+{lang_instruction}
 
 Available intents:
 - cover_letter: Generate or help with cover letters
@@ -255,20 +262,23 @@ Available intents:
 - analytics: View job search analytics
 - salary: Get salary insights
 - messages: Check messages
+- translate: Translate content between languages
 - web_search: Search the internet for information
 
 Return ONLY valid JSON:
-{
+{{
     "intent": "<intent_name>",
-    "speech": "<friendly response to speak to user>",
-    "params": {
+    "speech": "<friendly response in the SAME language as user's input>",
+    "detected_language": "<ISO 639-1 code of user's language>",
+    "params": {{
         "company": "<company name if mentioned>",
         "role": "<job role if mentioned>",
-        "query": "<search query if needed>"
-    },
+        "query": "<search query if needed>",
+        "target_language": "<target language if translation requested>"
+    }},
     "requires_web": <true if web search needed, false otherwise>,
     "confidence": <0.0-1.0>
-}"""
+}}"""
     ).with_model("openai", "gpt-5.2")
 
     user_name = user_context.get("user_name", "there")
