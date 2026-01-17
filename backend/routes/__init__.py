@@ -28,6 +28,7 @@ from routes.push import router as push_router
 from routes.dragon import router as dragon_router
 from routes.translation import router as translation_router
 from routes.biometric import router as biometric_router
+from routes.qa_practice import router as qa_practice_router
 
 __all__ = [
     # Core routes
