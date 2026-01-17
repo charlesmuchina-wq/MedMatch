@@ -5,7 +5,7 @@ import {
   Mic, MicOff, Play, Pause, Square, Send, Sparkles, Loader2,
   MessageSquare, Target, Users, Lightbulb, Building2, CheckCircle2,
   AlertCircle, RefreshCw, Copy, ChevronRight, Star, Award, TrendingUp,
-  FileText, Volume2, Trash2, History, Plus, ArrowRight
+  FileText, Volume2, Trash2, History, Plus, ArrowRight, Upload, Download, FileAudio
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,8 +16,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import TranslationWidget from "@/components/TranslationWidget";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+
+// Supported audio formats
+const SUPPORTED_AUDIO_FORMATS = ['.mp3', '.mp4', '.mpeg', '.mpga', '.m4a', '.wav', '.webm'];
 
 // Question type options
 const QUESTION_TYPES = [
