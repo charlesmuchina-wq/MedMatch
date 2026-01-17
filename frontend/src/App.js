@@ -42,6 +42,7 @@ import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
 import InstallPrompt from "@/components/InstallPrompt";
 import KarauDragonAI, { DragonButton } from "@/components/KarauDragonAI";
+import GlobalLanguageSelector, { LanguageProvider } from "@/components/GlobalLanguageSelector";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
