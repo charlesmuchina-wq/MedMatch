@@ -3,6 +3,7 @@ Authentication Routes
 Handles: register, login, Google/Apple OAuth, phone OTP, session management
 """
 from fastapi import APIRouter, HTTPException, Response, Request
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel, EmailStr
 from typing import Optional, Dict, Any
 from datetime import datetime, timezone, timedelta
@@ -12,6 +13,7 @@ import uuid
 import logging
 import jwt
 import httpx
+import os
 
 from utils.database import db
 from utils.config import (
