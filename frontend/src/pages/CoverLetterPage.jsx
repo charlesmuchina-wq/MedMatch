@@ -215,7 +215,7 @@ const CoverLetterPage = ({ resume }) => {
               <div className="flex items-center justify-between">
                 <CardTitle style={{ fontFamily: 'IBM Plex Sans' }}>Generated Cover Letter</CardTitle>
                 {coverLetter && (
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 flex-wrap">
                     <Button variant="outline" size="sm" onClick={copyToClipboard}>
                       <Copy className="w-4 h-4 mr-1" /> Copy
                     </Button>
@@ -225,6 +225,12 @@ const CoverLetterPage = ({ resume }) => {
                     <Button variant="outline" size="sm" onClick={downloadAsPDF} className="text-turquoise border-turquoise hover:bg-turquoise/10" data-testid="download-pdf-btn">
                       <FileText className="w-4 h-4 mr-1" /> PDF
                     </Button>
+                    <TranslationWidget 
+                      text={coverLetter.cover_letter} 
+                      onTranslate={(translated) => setCoverLetter({...coverLetter, cover_letter: translated})}
+                      compact={true}
+                      context="cover_letter"
+                    />
                   </div>
                 )}
               </div>
