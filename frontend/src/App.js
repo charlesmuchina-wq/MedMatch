@@ -182,6 +182,9 @@ const Header = ({ onMenuClick, resume, user, onLogout }) => {
         <div className="flex-1" />
         
         <div className="flex items-center gap-4">
+          {/* Global Language Selector */}
+          <GlobalLanguageSelector compact={true} />
+          
           {/* Dark Mode Toggle */}
           <button
             onClick={toggleTheme}
