@@ -67,6 +67,9 @@ __all__ = [
     # Biometric Authentication
     'biometric_router',
     
+    # Q&A Practice
+    'qa_practice_router',
+    
     # Helper functions
     'get_current_user',
     'check_membership_status'
