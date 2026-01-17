@@ -141,8 +141,9 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
         border-r transform transition-transform duration-200 ease-out
         lg:translate-x-0 lg:static lg:z-auto
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        flex flex-col
       `}>
-        <div className={`flex items-center justify-between p-6 border-b ${isDark ? 'border-batik-dark-grey' : 'border-slate-100'}`}>
+        <div className={`flex items-center justify-between p-6 border-b ${isDark ? 'border-batik-dark-grey' : 'border-slate-100'} shrink-0`}>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-batik-black to-batik-charcoal rounded-lg flex items-center justify-center border-2 border-turquoise shadow-lg shadow-turquoise/20">
               <Briefcase className="w-5 h-5 text-turquoise" />
@@ -159,7 +160,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
           </button>
         </div>
         
-        <nav className="p-4 space-y-1">
+        <nav className="p-4 space-y-1 flex-1 overflow-y-auto">
           {links.map(({ path, icon: Icon, label }) => (
             <NavLink
               key={path}
