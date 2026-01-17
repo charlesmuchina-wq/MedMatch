@@ -383,6 +383,176 @@ const exportToPDF = (data) => {
   toast.success("PDF exported successfully!");
 };
 
+// Batch PDF Export Function for Practice History
+const exportBatchToPDF = (historyItems) => {
+  if (!historyItems || historyItems.length === 0) {
+    toast.error("No practice sessions to export");
+    return;
+  }
+
+  const doc = new jsPDF();
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  let y = 20;
+
+  // Cover Page
+  doc.setFontSize(24);
+  doc.setTextColor(0, 166, 153); // Turquoise
+  doc.text("MedMatch", pageWidth / 2, y, { align: "center" });
+  y += 12;
+  
+  doc.setFontSize(18);
+  doc.setTextColor(60);
+  doc.text("Q&A Practice History Report", pageWidth / 2, y, { align: "center" });
+  y += 15;
+
+  doc.setFontSize(10);
+  doc.setTextColor(100);
+  doc.text(`Generated: ${new Date().toLocaleString()}`, pageWidth / 2, y, { align: "center" });
+  doc.text(`Total Sessions: ${historyItems.length}`, pageWidth / 2, y + 6, { align: "center" });
+  y += 20;
+
+  // Summary Table
+  doc.setFontSize(14);
+  doc.setTextColor(0);
+  doc.text("Practice Summary", 14, y);
+  y += 10;
+
+  // Create summary data
+  const summaryData = historyItems.slice(0, 20).map((item, idx) => [
+    idx + 1,
+    item.question?.substring(0, 40) + (item.question?.length > 40 ? '...' : '') || 'N/A',
+    item.job_context?.job_title?.substring(0, 20) || 'N/A',
+    item.feedback?.overall_score ? `${item.feedback.overall_score}/10` : '-',
+    new Date(item.created_at).toLocaleDateString()
+  ]);
+
+  doc.autoTable({
+    startY: y,
+    head: [['#', 'Question', 'Job Title', 'Score', 'Date']],
+    body: summaryData,
+    theme: 'striped',
+    headStyles: { fillColor: [0, 166, 153] },
+    styles: { fontSize: 8, cellPadding: 2 },
+    columnStyles: {
+      0: { cellWidth: 10 },
+      1: { cellWidth: 70 },
+      2: { cellWidth: 40 },
+      3: { cellWidth: 20 },
+      4: { cellWidth: 25 }
+    }
+  });
+
+  // Detailed Sessions
+  historyItems.slice(0, 10).forEach((item, index) => {
+    doc.addPage();
+    y = 20;
+
+    // Session Header
+    doc.setFontSize(16);
+    doc.setTextColor(0, 166, 153);
+    doc.text(`Session ${index + 1}`, 14, y);
+    y += 8;
+
+    doc.setFontSize(9);
+    doc.setTextColor(100);
+    doc.text(`Date: ${new Date(item.created_at).toLocaleString()}`, 14, y);
+    y += 12;
+
+    // Job Context
+    if (item.job_context?.job_title) {
+      doc.setFontSize(11);
+      doc.setTextColor(0);
+      doc.text("Job Context", 14, y);
+      y += 6;
+      doc.setFontSize(9);
+      doc.setTextColor(60);
+      if (item.job_context.company_name) {
+        doc.text(`Company: ${item.job_context.company_name}`, 14, y);
+        y += 5;
+      }
+      doc.text(`Position: ${item.job_context.job_title}`, 14, y);
+      y += 10;
+    }
+
+    // Question
+    doc.setFontSize(11);
+    doc.setTextColor(0);
+    doc.text("Question", 14, y);
+    y += 6;
+    doc.setFontSize(9);
+    doc.setTextColor(60);
+    const questionLines = doc.splitTextToSize(item.question || 'N/A', pageWidth - 28);
+    doc.text(questionLines, 14, y);
+    y += questionLines.length * 4 + 8;
+
+    // AI Answer
+    if (item.ai_answer?.suggested_answer) {
+      if (y > pageHeight - 60) { doc.addPage(); y = 20; }
+      doc.setFontSize(11);
+      doc.setTextColor(0);
+      doc.text("AI-Generated Answer", 14, y);
+      y += 6;
+      doc.setFontSize(9);
+      doc.setTextColor(60);
+      const answerLines = doc.splitTextToSize(item.ai_answer.suggested_answer, pageWidth - 28);
+      const maxLines = Math.min(answerLines.length, 20);
+      doc.text(answerLines.slice(0, maxLines), 14, y);
+      y += maxLines * 4 + 8;
+    }
+
+    // User Answer
+    if (item.user_answer || item.transcript) {
+      if (y > pageHeight - 40) { doc.addPage(); y = 20; }
+      doc.setFontSize(11);
+      doc.setTextColor(0);
+      doc.text("Your Answer", 14, y);
+      y += 6;
+      doc.setFontSize(9);
+      doc.setTextColor(60);
+      const userLines = doc.splitTextToSize(item.user_answer || item.transcript || 'N/A', pageWidth - 28);
+      const maxUserLines = Math.min(userLines.length, 15);
+      doc.text(userLines.slice(0, maxUserLines), 14, y);
+      y += maxUserLines * 4 + 8;
+    }
+
+    // Feedback Score
+    if (item.feedback?.overall_score) {
+      if (y > pageHeight - 30) { doc.addPage(); y = 20; }
+      doc.setFontSize(11);
+      doc.setTextColor(0);
+      doc.text(`Feedback Score: ${item.feedback.overall_score}/10`, 14, y);
+      y += 8;
+      
+      if (item.feedback.strengths?.length > 0) {
+        doc.setFontSize(9);
+        doc.setTextColor(0, 128, 0);
+        item.feedback.strengths.slice(0, 3).forEach(s => {
+          doc.text(`✓ ${s}`, 18, y);
+          y += 4;
+        });
+      }
+    }
+  });
+
+  // Footer on all pages
+  const pageCount = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= pageCount; i++) {
+    doc.setPage(i);
+    doc.setFontSize(8);
+    doc.setTextColor(150);
+    doc.text(
+      `Page ${i} of ${pageCount} | MedMatch Q&A Practice History`, 
+      pageWidth / 2, 
+      pageHeight - 10, 
+      { align: "center" }
+    );
+  }
+
+  doc.save(`medmatch-qa-history-${Date.now()}.pdf`);
+  toast.success(`Exported ${Math.min(historyItems.length, 10)} practice sessions to PDF`);
+};
+
 // Match Analysis Display
 const MatchAnalysis = ({ analysis }) => {
   if (!analysis) return null;
