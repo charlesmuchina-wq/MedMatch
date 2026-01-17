@@ -245,8 +245,9 @@ Create a comprehensive job search application where users can upload their resum
 - **Redirect URL**: `https://jobai-3.preview.emergentagent.com/api/auth/apple/redirect`
 
 ## Upcoming Tasks
-- [ ] Build Frontend for Company Profiles (backend done)
-- [ ] Build Frontend for Skill Assessments (backend done)
+- [ ] Build Frontend for Company Profiles (backend done, placeholder exists)
+- [ ] Interview Scheduling UI (backend done)
+- [ ] Push Notifications Frontend
 - [ ] Finalize Cloud Storage Resume Upload (connect picker to backend)
 - [ ] Dropbox/OneDrive integration (requires API keys)
 
