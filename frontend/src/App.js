@@ -5,7 +5,7 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { 
   Search, Briefcase, FileText, Bookmark, CheckSquare, 
-  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3, Users, Video, LogOut, Crown, DollarSign
+  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3, Users, Video, LogOut, Crown, DollarSign, MessageSquare, UserSearch, LayoutDashboard
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
@@ -29,6 +29,10 @@ import LoginPage from "@/pages/LoginPage";
 import MembershipPage from "@/pages/MembershipPage";
 import RecruiterJobsPage from "@/pages/RecruiterJobsPage";
 import SalaryInsightsPage from "@/pages/SalaryInsightsPage";
+import RecruiterDashboard from "@/pages/RecruiterDashboard";
+import ApplicantTracker from "@/pages/ApplicantTracker";
+import CandidateSearch from "@/pages/CandidateSearch";
+import MessagesPage from "@/pages/MessagesPage";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
