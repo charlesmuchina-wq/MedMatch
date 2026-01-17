@@ -511,6 +511,567 @@ SKILL_ASSESSMENTS = {
         "description": "ANSI/ESD S20.20, EPA requirements, grounding, ionization, packaging"
     },
     
+    # ============== Pharmaceuticals ==============
+    "cGMP (Current Good Manufacturing Practice)": {
+        "category": "Pharmaceuticals",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "💊",
+        "badge_color": "#1565C0",
+        "description": "FDA 21 CFR Parts 210/211, manufacturing controls, documentation"
+    },
+    "FDA 21 CFR Part 11": {
+        "category": "Pharmaceuticals",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 80,
+        "badge_icon": "💻",
+        "badge_color": "#0D47A1",
+        "description": "Electronic records, electronic signatures, audit trails, validation"
+    },
+    "Pharmaceutical Validation (IQ/OQ/PQ)": {
+        "category": "Pharmaceuticals",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "✓",
+        "badge_color": "#1976D2",
+        "description": "Equipment qualification, process validation, cleaning validation"
+    },
+    "Sterile Manufacturing": {
+        "category": "Pharmaceuticals",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 85,
+        "badge_icon": "🧫",
+        "badge_color": "#00897B",
+        "description": "Aseptic processing, cleanroom operations, media fills, environmental monitoring"
+    },
+    "Pharmaceutical Quality Control": {
+        "category": "Pharmaceuticals",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🔬",
+        "badge_color": "#7B1FA2",
+        "description": "Analytical testing, release testing, stability studies, OOS investigations"
+    },
+    "GxP Compliance": {
+        "category": "Pharmaceuticals",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "📋",
+        "badge_color": "#C62828",
+        "description": "GLP, GCP, GDP, GMP fundamentals, regulatory inspections"
+    },
+    "Pharmaceutical Packaging": {
+        "category": "Pharmaceuticals",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "📦",
+        "badge_color": "#5D4037",
+        "description": "Primary/secondary packaging, serialization, anti-counterfeiting, labeling"
+    },
+    "Drug Product Development": {
+        "category": "Pharmaceuticals",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🧪",
+        "badge_color": "#6A1B9A",
+        "description": "Formulation development, scale-up, tech transfer, CMC documentation"
+    },
+    "Pharmacovigilance": {
+        "category": "Pharmaceuticals",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 80,
+        "badge_icon": "⚠️",
+        "badge_color": "#E65100",
+        "description": "Adverse event reporting, signal detection, risk management, PSUR/PBRER"
+    },
+    "Data Integrity (ALCOA+)": {
+        "category": "Pharmaceuticals",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 85,
+        "badge_icon": "🔒",
+        "badge_color": "#37474F",
+        "description": "Attributable, Legible, Contemporaneous, Original, Accurate principles"
+    },
+    
+    # ============== Medical Devices ==============
+    "ISO 13485 QMS": {
+        "category": "Medical Devices",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🏥",
+        "badge_color": "#1565C0",
+        "description": "Medical device quality management system requirements"
+    },
+    "FDA 21 CFR Part 820 (QSR)": {
+        "category": "Medical Devices",
+        "questions": 15,
+        "time_limit": 35,
+        "passing_score": 80,
+        "badge_icon": "📜",
+        "badge_color": "#0D47A1",
+        "description": "Quality System Regulation, design controls, production controls"
+    },
+    "Medical Device Design Controls": {
+        "category": "Medical Devices",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "📐",
+        "badge_color": "#1976D2",
+        "description": "Design inputs/outputs, verification, validation, design transfer"
+    },
+    "ISO 14971 Risk Management": {
+        "category": "Medical Devices",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "⚖️",
+        "badge_color": "#C62828",
+        "description": "Risk analysis, risk evaluation, risk control, residual risk"
+    },
+    "IEC 62304 (Software Lifecycle)": {
+        "category": "Medical Devices",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "💻",
+        "badge_color": "#7B1FA2",
+        "description": "Medical device software development, safety classification, maintenance"
+    },
+    "EU MDR (Medical Device Regulation)": {
+        "category": "Medical Devices",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🇪🇺",
+        "badge_color": "#283593",
+        "description": "European medical device regulation, clinical evaluation, UDI, EUDAMED"
+    },
+    "510(k) & PMA Submissions": {
+        "category": "Medical Devices",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "📄",
+        "badge_color": "#00838F",
+        "description": "FDA premarket submissions, substantial equivalence, clinical data"
+    },
+    "Medical Device Sterilization": {
+        "category": "Medical Devices",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 80,
+        "badge_icon": "☢️",
+        "badge_color": "#FF6F00",
+        "description": "EtO, gamma, steam sterilization, sterility assurance level, validation"
+    },
+    "Biocompatibility (ISO 10993)": {
+        "category": "Medical Devices",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 80,
+        "badge_icon": "🧬",
+        "badge_color": "#2E7D32",
+        "description": "Biological evaluation, cytotoxicity, sensitization, implantation testing"
+    },
+    "Medical Device CAPA": {
+        "category": "Medical Devices",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 80,
+        "badge_icon": "🛠️",
+        "badge_color": "#D84315",
+        "description": "Corrective and preventive actions, root cause, effectiveness verification"
+    },
+    "Post-Market Surveillance": {
+        "category": "Medical Devices",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 80,
+        "badge_icon": "📊",
+        "badge_color": "#5D4037",
+        "description": "Complaint handling, MDR/MAUDE reporting, field actions, trending"
+    },
+    "Clinical Evaluation Reports": {
+        "category": "Medical Devices",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "📝",
+        "badge_color": "#455A64",
+        "description": "Literature review, clinical data, benefit-risk analysis, PMCF"
+    },
+    
+    # ============== Biologics ==============
+    "Biologics Manufacturing": {
+        "category": "Biologics",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🧬",
+        "badge_color": "#1565C0",
+        "description": "Cell culture, fermentation, purification, formulation, fill-finish"
+    },
+    "Cell & Gene Therapy": {
+        "category": "Biologics",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🔬",
+        "badge_color": "#7B1FA2",
+        "description": "CAR-T, gene therapy manufacturing, viral vectors, chain of custody"
+    },
+    "Vaccine Manufacturing": {
+        "category": "Biologics",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "💉",
+        "badge_color": "#00897B",
+        "description": "Antigen production, adjuvants, cold chain, potency testing"
+    },
+    "Monoclonal Antibodies": {
+        "category": "Biologics",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🧪",
+        "badge_color": "#C62828",
+        "description": "mAb development, CHO cell culture, downstream processing, characterization"
+    },
+    "Biosimilars Development": {
+        "category": "Biologics",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "🔄",
+        "badge_color": "#0D47A1",
+        "description": "Analytical similarity, PK/PD studies, immunogenicity, regulatory pathway"
+    },
+    "Biologic Analytical Testing": {
+        "category": "Biologics",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "📊",
+        "badge_color": "#6A1B9A",
+        "description": "Potency assays, identity testing, purity, glycan analysis, mass spec"
+    },
+    "Upstream Processing": {
+        "category": "Biologics",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "🏭",
+        "badge_color": "#2E7D32",
+        "description": "Cell banking, bioreactor operation, fed-batch, perfusion, scale-up"
+    },
+    "Downstream Processing": {
+        "category": "Biologics",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "⚗️",
+        "badge_color": "#E65100",
+        "description": "Chromatography, filtration, viral clearance, buffer preparation"
+    },
+    "Biologics Cold Chain": {
+        "category": "Biologics",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 80,
+        "badge_icon": "❄️",
+        "badge_color": "#0277BD",
+        "description": "Temperature control, shipping validation, excursion management"
+    },
+    
+    # ============== Biotech ==============
+    "Biotechnology Fundamentals": {
+        "category": "Biotech",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🧬",
+        "badge_color": "#1565C0",
+        "description": "Molecular biology, genetics, protein expression, recombinant DNA"
+    },
+    "CRISPR & Gene Editing": {
+        "category": "Biotech",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "✂️",
+        "badge_color": "#7B1FA2",
+        "description": "Gene editing technologies, guide RNA design, delivery methods, applications"
+    },
+    "PCR & Molecular Diagnostics": {
+        "category": "Biotech",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🔬",
+        "badge_color": "#C62828",
+        "description": "qPCR, RT-PCR, digital PCR, assay development, validation"
+    },
+    "Next-Generation Sequencing": {
+        "category": "Biotech",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "📈",
+        "badge_color": "#00897B",
+        "description": "NGS platforms, library prep, data analysis, variant calling"
+    },
+    "Protein Engineering": {
+        "category": "Biotech",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "🔧",
+        "badge_color": "#E65100",
+        "description": "Protein design, directed evolution, expression optimization"
+    },
+    "Bioinformatics": {
+        "category": "Biotech",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "💻",
+        "badge_color": "#0D47A1",
+        "description": "Sequence analysis, structural biology, genomics, proteomics"
+    },
+    "Bioprocess Development": {
+        "category": "Biotech",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "⚙️",
+        "badge_color": "#2E7D32",
+        "description": "Process development, optimization, scale-up, tech transfer"
+    },
+    "Regulatory Affairs (Biotech)": {
+        "category": "Biotech",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "📋",
+        "badge_color": "#455A64",
+        "description": "IND/BLA submissions, regulatory strategy, CMC documentation"
+    },
+    
+    # ============== Software Engineering ==============
+    "Software Development Lifecycle": {
+        "category": "Software Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🔄",
+        "badge_color": "#1565C0",
+        "description": "SDLC methodologies, Agile, Waterfall, DevOps, CI/CD"
+    },
+    "Python Programming": {
+        "category": "Software Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🐍",
+        "badge_color": "#3776AB",
+        "description": "Python syntax, data structures, OOP, libraries, best practices"
+    },
+    "JavaScript/TypeScript": {
+        "category": "Software Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "📜",
+        "badge_color": "#F7DF1E",
+        "description": "Modern JS, ES6+, TypeScript, async programming, Node.js"
+    },
+    "React Development": {
+        "category": "Software Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "⚛️",
+        "badge_color": "#61DAFB",
+        "description": "React hooks, state management, component design, performance"
+    },
+    "Backend Development": {
+        "category": "Software Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🖥️",
+        "badge_color": "#68A063",
+        "description": "REST APIs, databases, authentication, server architecture"
+    },
+    "Database Design (SQL)": {
+        "category": "Software Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🗄️",
+        "badge_color": "#336791",
+        "description": "SQL, normalization, indexing, query optimization, transactions"
+    },
+    "Cloud Architecture (AWS)": {
+        "category": "Software Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "☁️",
+        "badge_color": "#FF9900",
+        "description": "AWS services, EC2, S3, Lambda, architecture patterns"
+    },
+    "Cloud Architecture (Azure)": {
+        "category": "Software Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "☁️",
+        "badge_color": "#0078D4",
+        "description": "Azure services, VMs, Blob Storage, Functions, DevOps"
+    },
+    "Docker & Kubernetes": {
+        "category": "Software Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🐳",
+        "badge_color": "#2496ED",
+        "description": "Containerization, orchestration, microservices, deployment"
+    },
+    "Software Testing & QA": {
+        "category": "Software Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🧪",
+        "badge_color": "#4CAF50",
+        "description": "Unit testing, integration testing, TDD, automation frameworks"
+    },
+    "System Design": {
+        "category": "Software Engineering",
+        "questions": 15,
+        "time_limit": 35,
+        "passing_score": 75,
+        "badge_icon": "🏗️",
+        "badge_color": "#795548",
+        "description": "Scalability, distributed systems, caching, load balancing"
+    },
+    "Cybersecurity Fundamentals": {
+        "category": "Software Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🔐",
+        "badge_color": "#D32F2F",
+        "description": "Security principles, OWASP, encryption, authentication, authorization"
+    },
+    
+    # ============== AI & Machine Learning ==============
+    "Machine Learning Fundamentals": {
+        "category": "AI & Machine Learning",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🤖",
+        "badge_color": "#FF6F00",
+        "description": "Supervised/unsupervised learning, algorithms, model evaluation"
+    },
+    "Deep Learning & Neural Networks": {
+        "category": "AI & Machine Learning",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🧠",
+        "badge_color": "#7B1FA2",
+        "description": "Neural networks, CNNs, RNNs, transformers, training techniques"
+    },
+    "Natural Language Processing": {
+        "category": "AI & Machine Learning",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "💬",
+        "badge_color": "#1976D2",
+        "description": "Text processing, embeddings, transformers, LLMs, sentiment analysis"
+    },
+    "Computer Vision": {
+        "category": "AI & Machine Learning",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "👁️",
+        "badge_color": "#00897B",
+        "description": "Image classification, object detection, segmentation, GANs"
+    },
+    "Data Science & Analytics": {
+        "category": "AI & Machine Learning",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "📊",
+        "badge_color": "#4B8BBE",
+        "description": "Data analysis, visualization, statistics, feature engineering"
+    },
+    "MLOps & Model Deployment": {
+        "category": "AI & Machine Learning",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🚀",
+        "badge_color": "#E65100",
+        "description": "Model serving, monitoring, versioning, A/B testing, pipelines"
+    },
+    "TensorFlow & PyTorch": {
+        "category": "AI & Machine Learning",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🔥",
+        "badge_color": "#FF6F00",
+        "description": "Deep learning frameworks, model building, training, optimization"
+    },
+    "Generative AI & LLMs": {
+        "category": "AI & Machine Learning",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "✨",
+        "badge_color": "#6A1B9A",
+        "description": "GPT, BERT, prompt engineering, fine-tuning, RAG, embeddings"
+    },
+    "AI Ethics & Responsible AI": {
+        "category": "AI & Machine Learning",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "⚖️",
+        "badge_color": "#37474F",
+        "description": "Bias detection, fairness, explainability, privacy, governance"
+    },
+    "Reinforcement Learning": {
+        "category": "AI & Machine Learning",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "🎮",
+        "badge_color": "#C62828",
+        "description": "RL algorithms, policy gradients, Q-learning, multi-agent systems"
+    },
+    
     # ============== Programming ==============
     "Python": {
         "category": "Programming",
