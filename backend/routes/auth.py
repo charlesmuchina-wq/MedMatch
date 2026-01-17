@@ -71,8 +71,8 @@ def create_session_token() -> str:
 
 async def create_session(user_id: str, session_token: str):
     """Store session in database"""
-    await db.sessions.insert_one({
-        "token": session_token,
+    await db.user_sessions.insert_one({
+        "session_token": session_token,
         "user_id": user_id,
         "created_at": datetime.now(timezone.utc).isoformat(),
         "expires_at": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat()
