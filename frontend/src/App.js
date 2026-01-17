@@ -79,6 +79,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/", icon: TrendingUp, label: "Dashboard" },
     { path: "/resume", icon: FileText, label: "My Resume" },
     { path: "/resume-profiles", icon: Users, label: "Resume Profiles" },
+    { path: "/skill-assessments", icon: Award, label: "Skill Tests" },
     { path: "/search", icon: Search, label: "Job Search" },
     { path: "/saved", icon: Bookmark, label: "Saved Jobs" },
     { path: "/applications", icon: CheckSquare, label: "Applications" },
