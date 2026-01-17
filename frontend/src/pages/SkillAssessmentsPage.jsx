@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import { useTheme } from "@/App";
 import { 
   Award, Brain, Clock, Trophy, CheckCircle, XCircle, Play,
-  Loader2, ChevronRight, Star, Target, Zap, Medal
+  Loader2, ChevronRight, Star, Target, Zap, Medal, Languages
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -14,6 +14,7 @@ import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import TranslationWidget from "@/components/TranslationWidget";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
