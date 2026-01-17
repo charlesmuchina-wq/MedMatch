@@ -217,6 +217,300 @@ SKILL_ASSESSMENTS = {
         "description": "Automotive QMS, core tools, customer-specific requirements, warranty management"
     },
     
+    # ============== Aerospace ==============
+    "AS9100D Fundamentals": {
+        "category": "Aerospace",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "✈️",
+        "badge_color": "#1565C0",
+        "description": "Aerospace QMS requirements, risk-based thinking, documented information"
+    },
+    "AS9102 First Article Inspection": {
+        "category": "Aerospace",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "📋",
+        "badge_color": "#0D47A1",
+        "description": "FAI forms, balloon drawings, partial/full FAI, delta FAI requirements"
+    },
+    "AS9145 APQP & PPAP (Aerospace)": {
+        "category": "Aerospace",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "📊",
+        "badge_color": "#1976D2",
+        "description": "Advanced Product Quality Planning for aerospace, production readiness reviews"
+    },
+    "NADCAP": {
+        "category": "Aerospace",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🏅",
+        "badge_color": "#283593",
+        "description": "Special processes accreditation, heat treat, NDT, welding, coatings"
+    },
+    "Aerospace Configuration Management": {
+        "category": "Aerospace",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "⚙️",
+        "badge_color": "#303F9F",
+        "description": "Configuration identification, control, status accounting, audits"
+    },
+    "Special Processes (Aerospace)": {
+        "category": "Aerospace",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🔥",
+        "badge_color": "#FF5722",
+        "description": "Heat treatment, NDT, welding, surface treatment, composite processing"
+    },
+    "Counterfeit Parts Prevention": {
+        "category": "Aerospace",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "🔒",
+        "badge_color": "#455A64",
+        "description": "AS6174, suspect/counterfeit detection, supply chain risk mitigation"
+    },
+    "Aerospace NDT (Non-Destructive Testing)": {
+        "category": "Aerospace",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🔍",
+        "badge_color": "#00796B",
+        "description": "RT, UT, MT, PT, ET methods, NAS 410/EN 4179 certification levels"
+    },
+    "Flight Safety Parts": {
+        "category": "Aerospace",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 85,
+        "badge_icon": "🛡️",
+        "badge_color": "#B71C1C",
+        "description": "Critical safety items, traceability, documentation requirements"
+    },
+    "Aerospace Materials & Specifications": {
+        "category": "Aerospace",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🧪",
+        "badge_color": "#6A1B9A",
+        "description": "AMS, MIL-SPEC, material certifications, shelf life management"
+    },
+    
+    # ============== Automotive ==============
+    "IATF 16949 Fundamentals": {
+        "category": "Automotive",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🚗",
+        "badge_color": "#1565C0",
+        "description": "Automotive QMS, customer-specific requirements, process approach"
+    },
+    "Automotive Core Tools (APQP)": {
+        "category": "Automotive",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "📐",
+        "badge_color": "#0D47A1",
+        "description": "Advanced Product Quality Planning phases, deliverables, milestones"
+    },
+    "Automotive Core Tools (PPAP)": {
+        "category": "Automotive",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "📦",
+        "badge_color": "#1976D2",
+        "description": "18 PPAP elements, submission levels, PSW, customer approval"
+    },
+    "Automotive Core Tools (FMEA)": {
+        "category": "Automotive",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "⚠️",
+        "badge_color": "#F57C00",
+        "description": "AIAG-VDA FMEA, action priority, 7-step approach, linking D-FMEA to P-FMEA"
+    },
+    "Automotive Core Tools (SPC)": {
+        "category": "Automotive",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "📈",
+        "badge_color": "#388E3C",
+        "description": "Control charts, process capability, Cpk/Ppk, special vs common causes"
+    },
+    "Automotive Core Tools (MSA)": {
+        "category": "Automotive",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "📏",
+        "badge_color": "#7B1FA2",
+        "description": "Gage R&R, bias, linearity, stability studies, attribute MSA"
+    },
+    "VDA 6.3 Process Audit": {
+        "category": "Automotive",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🔎",
+        "badge_color": "#C62828",
+        "description": "German automotive process audit standard, P-elements, scoring methodology"
+    },
+    "CQI Standards": {
+        "category": "Automotive",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "📘",
+        "badge_color": "#00838F",
+        "description": "CQI-9 Heat Treat, CQI-11 Plating, CQI-12 Coating, special process assessments"
+    },
+    "Automotive Problem Solving (8D)": {
+        "category": "Automotive",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "🎯",
+        "badge_color": "#AD1457",
+        "description": "Global 8D, containment, root cause analysis, verification of effectiveness"
+    },
+    "Automotive Warranty Management": {
+        "category": "Automotive",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "💰",
+        "badge_color": "#6D4C41",
+        "description": "Warranty data analysis, NTF management, field return analysis"
+    },
+    
+    # ============== Industrial/Manufacturing ==============
+    "Industrial Safety (OSHA)": {
+        "category": "Industrial",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "⛑️",
+        "badge_color": "#FF6F00",
+        "description": "OSHA regulations, hazard identification, PPE, lockout/tagout, ergonomics"
+    },
+    "ISO 45001 (Occupational Health & Safety)": {
+        "category": "Industrial",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🦺",
+        "badge_color": "#E65100",
+        "description": "OH&S management system, hazard identification, risk assessment, worker participation"
+    },
+    "ISO 14001 (Environmental Management)": {
+        "category": "Industrial",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🌿",
+        "badge_color": "#2E7D32",
+        "description": "Environmental management system, aspects/impacts, compliance obligations"
+    },
+    "Industrial Maintenance (TPM)": {
+        "category": "Industrial",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "🔧",
+        "badge_color": "#5D4037",
+        "description": "Total Productive Maintenance, OEE, autonomous maintenance, planned maintenance"
+    },
+    "Production Planning & Control": {
+        "category": "Industrial",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "📅",
+        "badge_color": "#0277BD",
+        "description": "MRP, MPS, capacity planning, scheduling, inventory management"
+    },
+    "Industrial Engineering": {
+        "category": "Industrial",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "⚡",
+        "badge_color": "#7B1FA2",
+        "description": "Time studies, line balancing, work measurement, facility layout"
+    },
+    "Welding Inspection (CWI)": {
+        "category": "Industrial",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🔥",
+        "badge_color": "#BF360C",
+        "description": "AWS D1.1, weld symbols, visual inspection, discontinuities, WPS/PQR"
+    },
+    "Industrial Automation & PLC": {
+        "category": "Industrial",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🤖",
+        "badge_color": "#37474F",
+        "description": "PLC programming, ladder logic, HMI, sensors, industrial networks"
+    },
+    "Material Handling & Logistics": {
+        "category": "Industrial",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "📦",
+        "badge_color": "#4E342E",
+        "description": "Warehouse management, FIFO, inventory control, forklift safety"
+    },
+    "Industrial Quality Control": {
+        "category": "Industrial",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "✅",
+        "badge_color": "#1B5E20",
+        "description": "Incoming inspection, in-process control, final inspection, sampling plans"
+    },
+    "Lean Six Sigma (Industrial)": {
+        "category": "Industrial",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🎯",
+        "badge_color": "#311B92",
+        "description": "VSM, Kaizen events, SMED, Poka-Yoke, standard work"
+    },
+    "ESD Control (Electronics)": {
+        "category": "Industrial",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "⚡",
+        "badge_color": "#FFC107",
+        "description": "ANSI/ESD S20.20, EPA requirements, grounding, ionization, packaging"
+    },
+    
     # ============== Programming ==============
     "Python": {
         "category": "Programming",
