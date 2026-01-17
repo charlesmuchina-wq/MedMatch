@@ -457,22 +457,8 @@ async def get_common_questions(job_context: JobContext, request: Request):
         chat = LlmChat(api_key=EMERGENT_LLM_KEY)
         
         response = await chat.send_message(
-            system_message="""Generate common interview questions for the specified job.
-
-Return a JSON object:
-{
-    "behavioral_questions": ["question 1", "question 2", "question 3"],
-    "technical_questions": ["question 1", "question 2", "question 3"],
-    "situational_questions": ["question 1", "question 2"],
-    "company_specific_questions": ["question 1", "question 2"],
-    "questions_to_ask_interviewer": ["question 1", "question 2"]
-}
-
-Generate 3-5 questions per category, tailored to the specific role and company.""",
-            text=f"""Generate interview questions for:
-Company: {job_context.company_name or 'Not specified'}
-Position: {job_context.job_title}
-Job Description: {job_context.job_description[:1500] if job_context.job_description else 'Not provided'}""",
+            system_message="""Generate common interview questions for the specified job. Return a JSON object with question arrays.""",
+            text=f"""Generate interview questions for {job_context.job_title} position{' at ' + job_context.company_name if job_context.company_name else ''}. Return JSON with: behavioral_questions, technical_questions, situational_questions, company_specific_questions, questions_to_ask_interviewer (2-3 questions each).""",
             json_mode=True
         )
         
@@ -485,7 +471,36 @@ Job Description: {job_context.job_description[:1500] if job_context.job_descript
         }
     except Exception as e:
         logging.error(f"Common questions generation error: {e}")
-        raise HTTPException(status_code=500, detail="Failed to generate questions")
+        # Return fallback questions instead of error
+        fallback_questions = {
+            "behavioral_questions": [
+                "Tell me about a time you faced a challenging situation at work. How did you handle it?",
+                "Describe a project you're most proud of and your role in it.",
+                "Give an example of when you had to work with a difficult team member."
+            ],
+            "technical_questions": [
+                f"What technical skills do you bring to this {job_context.job_title} role?",
+                "Describe your experience with the tools and technologies relevant to this position.",
+                "How do you stay updated with industry trends and best practices?"
+            ],
+            "situational_questions": [
+                "How would you prioritize multiple urgent tasks with competing deadlines?",
+                "What would you do if you disagreed with your manager's decision?"
+            ],
+            "company_specific_questions": [
+                f"Why are you interested in this {job_context.job_title} position?",
+                f"What do you know about {job_context.company_name or 'our company'}?"
+            ],
+            "questions_to_ask_interviewer": [
+                "What does success look like in this role after 90 days?",
+                "Can you describe the team I would be working with?"
+            ]
+        }
+        return {
+            "job_context": job_context.dict(),
+            "questions": fallback_questions,
+            "fallback": True
+        }
 
 @router.delete("/history/{record_id}")
 async def delete_qa_record(record_id: str, request: Request):
