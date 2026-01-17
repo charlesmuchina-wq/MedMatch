@@ -195,6 +195,11 @@ INTENT_ACTIONS = {
         "label": "Messages",
         "color": "#6366F1"
     },
+    "translate": {
+        "path": None,
+        "label": "Translation",
+        "color": "#A855F7"
+    },
     "web_search": {
         "path": None,
         "label": "Web Search",
@@ -204,15 +209,16 @@ INTENT_ACTIONS = {
 
 @router.post("/process")
 async def process_dragon_command(data: DragonCommand, request: Request):
-    """Process a KARAU Dragon AI voice/text command"""
+    """Process a KARAU Dragon AI voice/text command (multi-language support)"""
     user = await get_current_user(request)
-    command = data.command.lower().strip()
+    command = data.command.strip()
     user_context = data.user_context
+    language = data.language or "en"
 
-    # Try AI-powered intent detection first
+    # Try AI-powered intent detection first (with language awareness)
     if EMERGENT_LLM_KEY:
         try:
-            result = await ai_intent_detection(command, user_context)
+            result = await ai_intent_detection(command, user_context, language)
             
             # Log the command
             await log_dragon_command(user, command, result)
