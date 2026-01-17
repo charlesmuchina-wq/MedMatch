@@ -13,8 +13,17 @@ import {
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-// Popular languages shown first
-const POPULAR_CODES = ["en", "es", "fr", "de", "zh", "ja", "pt", "ar", "hi", "ko"];
+// Strategic language priority order based on market research
+const POPULAR_CODES = [
+  // EFIGS Foundation
+  "en", "es", "fr", "de", "it",
+  // CJK Growth Block
+  "zh", "ja", "ko",
+  // Rapidly Expanding Markets
+  "hi", "pt-BR", "ar",
+  // Additional high-value
+  "pt", "zh-TW"
+];
 
 // Language Context for global state
 const LanguageContext = createContext();
