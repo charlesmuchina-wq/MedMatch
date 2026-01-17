@@ -35,10 +35,193 @@ class SubmitAssessmentRequest(BaseModel):
 # ============== Available Assessments ==============
 
 SKILL_ASSESSMENTS = {
+    # ============== Quality Engineering ==============
+    "Supplier Quality Management": {
+        "category": "Quality Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "🏭",
+        "badge_color": "#1E88E5",
+        "description": "Supplier audits, PPAP, supplier scorecards, corrective actions, supplier development"
+    },
+    "Manufacturing Quality": {
+        "category": "Quality Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "⚙️",
+        "badge_color": "#43A047",
+        "description": "Process control, defect prevention, quality control plans, inspection methods"
+    },
+    "ISO 13485 (Medical Devices)": {
+        "category": "Quality Engineering",
+        "questions": 15,
+        "time_limit": 35,
+        "passing_score": 80,
+        "badge_icon": "🏥",
+        "badge_color": "#E53935",
+        "description": "Medical device QMS, design controls, risk management, regulatory compliance"
+    },
+    "ISO 9001": {
+        "category": "Quality Engineering",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "✅",
+        "badge_color": "#00897B",
+        "description": "Quality management systems, process approach, continual improvement"
+    },
+    "FDA 21 CFR Part 820": {
+        "category": "Quality Engineering",
+        "questions": 15,
+        "time_limit": 35,
+        "passing_score": 80,
+        "badge_icon": "📜",
+        "badge_color": "#5E35B1",
+        "description": "FDA QSR, design controls, CAPA, DHF/DMR/DHR, complaint handling"
+    },
+    "Six Sigma (Green Belt)": {
+        "category": "Quality Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "📈",
+        "badge_color": "#00ACC1",
+        "description": "DMAIC, statistical analysis, process improvement, variation reduction"
+    },
+    "Six Sigma (Black Belt)": {
+        "category": "Quality Engineering",
+        "questions": 20,
+        "time_limit": 45,
+        "passing_score": 80,
+        "badge_icon": "🎯",
+        "badge_color": "#212121",
+        "description": "Advanced statistics, DOE, hypothesis testing, project leadership"
+    },
+    "Root Cause Analysis": {
+        "category": "Quality Engineering",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "🔍",
+        "badge_color": "#FF7043",
+        "description": "8D, 5 Whys, fishbone diagrams, fault tree analysis, CAPA"
+    },
+    "Statistical Process Control (SPC)": {
+        "category": "Quality Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "📉",
+        "badge_color": "#7B1FA2",
+        "description": "Control charts, Cp/Cpk, process capability, variation analysis"
+    },
+    "Measurement System Analysis (MSA)": {
+        "category": "Quality Engineering",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "📏",
+        "badge_color": "#0288D1",
+        "description": "Gage R&R, bias studies, linearity, stability, measurement uncertainty"
+    },
+    "FMEA (Failure Mode Effects Analysis)": {
+        "category": "Quality Engineering",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "⚠️",
+        "badge_color": "#FFA000",
+        "description": "Design FMEA, Process FMEA, risk prioritization, severity/occurrence/detection"
+    },
+    "APQP/PPAP": {
+        "category": "Quality Engineering",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "📋",
+        "badge_color": "#0D47A1",
+        "description": "Advanced Product Quality Planning, Production Part Approval Process, control plans"
+    },
+    "Auditing (Lead Auditor)": {
+        "category": "Quality Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🔎",
+        "badge_color": "#37474F",
+        "description": "Internal/external audits, audit planning, nonconformance documentation, audit reporting"
+    },
+    "GD&T (Geometric Dimensioning & Tolerancing)": {
+        "category": "Quality Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 75,
+        "badge_icon": "📐",
+        "badge_color": "#546E7A",
+        "description": "ASME Y14.5, datums, feature control frames, tolerances, MMC/LMC"
+    },
+    "Lean Manufacturing": {
+        "category": "Quality Engineering",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "🔧",
+        "badge_color": "#689F38",
+        "description": "Waste elimination, value stream mapping, 5S, Kaizen, continuous flow"
+    },
+    "CAPA Management": {
+        "category": "Quality Engineering",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "🛠️",
+        "badge_color": "#D84315",
+        "description": "Corrective and Preventive Actions, effectiveness verification, trending"
+    },
+    "Risk Management (ISO 14971)": {
+        "category": "Quality Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "⚖️",
+        "badge_color": "#C62828",
+        "description": "Risk analysis, risk evaluation, risk control, benefit-risk analysis"
+    },
+    "Metrology & Calibration": {
+        "category": "Quality Engineering",
+        "questions": 12,
+        "time_limit": 25,
+        "passing_score": 75,
+        "badge_icon": "🔬",
+        "badge_color": "#1565C0",
+        "description": "Calibration standards, traceability, measurement uncertainty, ISO 17025"
+    },
+    "AS9100 (Aerospace Quality)": {
+        "category": "Quality Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "✈️",
+        "badge_color": "#283593",
+        "description": "Aerospace QMS, configuration management, first article inspection, special processes"
+    },
+    "IATF 16949 (Automotive Quality)": {
+        "category": "Quality Engineering",
+        "questions": 15,
+        "time_limit": 30,
+        "passing_score": 80,
+        "badge_icon": "🚗",
+        "badge_color": "#4527A0",
+        "description": "Automotive QMS, core tools, customer-specific requirements, warranty management"
+    },
+    
+    # ============== Programming ==============
     "Python": {
         "category": "Programming",
         "questions": 15,
-        "time_limit": 25,  # minutes
+        "time_limit": 25,
         "passing_score": 70,
         "badge_icon": "🐍",
         "badge_color": "#3776AB"
