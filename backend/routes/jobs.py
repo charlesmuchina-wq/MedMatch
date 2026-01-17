@@ -128,7 +128,67 @@ QUALITY_ENGINEERING_KEYWORDS = [
     "Industrial Quality",
     "Welding Inspector",
     "CWI",
-    "Automation Engineer"
+    "Automation Engineer",
+    
+    # Pharmaceuticals
+    "Pharmaceutical Quality",
+    "cGMP Quality",
+    "Validation Engineer Pharma",
+    "QC Analyst",
+    "QA Specialist Pharma",
+    "Sterile Manufacturing",
+    "Pharmaceutical Packaging",
+    "Drug Product Development",
+    "Pharmacovigilance",
+    "Data Integrity Specialist",
+    "GxP Compliance",
+    
+    # Medical Devices
+    "Medical Device Quality Engineer",
+    "Medical Device QA",
+    "Design Quality Engineer",
+    "Regulatory Affairs Medical Device",
+    "Clinical Affairs",
+    "Post-Market Surveillance",
+    "510k Specialist",
+    "EU MDR Specialist",
+    "Biocompatibility",
+    
+    # Biologics & Biotech
+    "Biologics Quality",
+    "Cell Culture Scientist",
+    "Upstream Process Engineer",
+    "Downstream Process Engineer",
+    "Gene Therapy",
+    "Cell Therapy Manufacturing",
+    "Vaccine Manufacturing",
+    "Bioinformatics",
+    "Protein Engineering",
+    "NGS Scientist",
+    
+    # Software Engineering
+    "Software Engineer",
+    "Full Stack Developer",
+    "Backend Engineer",
+    "Frontend Developer",
+    "DevOps Engineer",
+    "Cloud Engineer AWS",
+    "Cloud Engineer Azure",
+    "Data Engineer",
+    "QA Engineer Software",
+    "Site Reliability Engineer",
+    
+    # AI/ML
+    "Machine Learning Engineer",
+    "AI Engineer",
+    "Data Scientist",
+    "NLP Engineer",
+    "Computer Vision Engineer",
+    "MLOps Engineer",
+    "Deep Learning Engineer",
+    "AI Research Scientist",
+    "Generative AI Engineer",
+    "LLM Engineer"
 ]
 
 # ============== Models ==============
