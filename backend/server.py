@@ -642,6 +642,14 @@ async def google_auth_session(request: Request, response: Response):
         auth_method="google"
     )
     
+    # Track last login
+    current_time = datetime.now(timezone.utc).isoformat()
+    previous_login = user.get("last_login")
+    await db.users.update_one(
+        {"user_id": user["user_id"]},
+        {"$set": {"last_login": current_time, "previous_login": previous_login}}
+    )
+    
     # Create our own session
     session_token = create_session_token()
     await create_session(user["user_id"], session_token)
@@ -665,7 +673,9 @@ async def google_auth_session(request: Request, response: Response):
             "email": user["email"],
             "name": user.get("name", ""),
             "auth_method": "google",
-            "created_at": user.get("created_at", "")
+            "created_at": user.get("created_at", ""),
+            "last_login": current_time,
+            "previous_login": previous_login
         }
     }
 
