@@ -207,8 +207,26 @@ async def get_quality_engineering_keywords():
             "Medical Device Quality", "Medical Device QA", 
             "Design Quality Engineer", "Post-Market Quality"
         ],
+        "Aerospace": [
+            "Aerospace Quality Engineer", "Aerospace Quality Manager",
+            "AS9100 Lead Auditor", "NADCAP Auditor", "First Article Inspector",
+            "NDT Inspector", "NDT Level II", "NDT Level III", "Configuration Manager",
+            "Flight Safety", "Special Processes Engineer"
+        ],
+        "Automotive": [
+            "Automotive Quality Engineer", "Automotive Quality Manager",
+            "IATF 16949 Auditor", "APQP Engineer", "PPAP Coordinator",
+            "VDA 6.3 Auditor", "Automotive Supplier Quality", "Tier 1 Quality",
+            "OEM Quality", "Launch Quality", "Warranty Analyst"
+        ],
+        "Industrial": [
+            "Industrial Engineer", "Manufacturing Engineer", "Production Manager",
+            "Plant Quality Manager", "EHS Manager", "Safety Manager",
+            "Maintenance Manager", "TPM Coordinator", "Welding Inspector", "CWI"
+        ],
         "Auditing": [
-            "Lead Auditor", "Quality Auditor", "Internal Auditor", "Audit Manager"
+            "Lead Auditor", "Quality Auditor", "Internal Auditor", "Audit Manager",
+            "AS9100 Auditor", "IATF Auditor", "VDA Auditor"
         ],
         "Six Sigma / Lean": [
             "Six Sigma Black Belt", "Six Sigma Green Belt",
@@ -216,10 +234,7 @@ async def get_quality_engineering_keywords():
         ],
         "Specialized": [
             "CAPA Manager", "Root Cause Analysis", "Metrology Engineer",
-            "Calibration Manager", "Validation Engineer"
-        ],
-        "Industry Specific": [
-            "IATF 16949", "AS9100", "Automotive Quality", "Aerospace Quality"
+            "Calibration Manager", "Validation Engineer", "Automation Engineer"
         ]
     }
     
