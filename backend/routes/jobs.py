@@ -142,6 +142,59 @@ GOOGLE_CSE_JOB_SITES = [
 
 # ============== Job Search Routes ==============
 
+@router.get("/jobs/quality-keywords")
+async def get_quality_engineering_keywords():
+    """Get suggested search keywords for Quality Engineering professionals"""
+    # Group keywords by category
+    categories = {
+        "Supplier Quality": [
+            "Supplier Quality Manager", "Supplier Quality Engineer", 
+            "Supplier Quality Director", "Vendor Quality", "Supply Chain Quality"
+        ],
+        "Manufacturing Quality": [
+            "Manufacturing Quality Engineer", "Manufacturing Quality Manager",
+            "Production Quality", "Process Quality Engineer", "QC Engineer"
+        ],
+        "Quality Management": [
+            "Quality Manager", "Quality Director", "VP of Quality",
+            "Quality Assurance Manager", "QA Manager", "QMS Manager"
+        ],
+        "Regulatory & Compliance": [
+            "Regulatory Compliance", "FDA Compliance", "ISO 13485",
+            "ISO 9001", "GMP Quality", "cGMP"
+        ],
+        "Medical Device": [
+            "Medical Device Quality", "Medical Device QA", 
+            "Design Quality Engineer", "Post-Market Quality"
+        ],
+        "Auditing": [
+            "Lead Auditor", "Quality Auditor", "Internal Auditor", "Audit Manager"
+        ],
+        "Six Sigma / Lean": [
+            "Six Sigma Black Belt", "Six Sigma Green Belt",
+            "Lean Manufacturing", "Continuous Improvement Manager"
+        ],
+        "Specialized": [
+            "CAPA Manager", "Root Cause Analysis", "Metrology Engineer",
+            "Calibration Manager", "Validation Engineer"
+        ],
+        "Industry Specific": [
+            "IATF 16949", "AS9100", "Automotive Quality", "Aerospace Quality"
+        ]
+    }
+    
+    return {
+        "keywords": QUALITY_ENGINEERING_KEYWORDS,
+        "categories": categories,
+        "popular_searches": [
+            "Supplier Quality Manager Remote",
+            "Quality Engineer Medical Device",
+            "ISO 13485 Quality Manager",
+            "Six Sigma Black Belt Remote",
+            "FDA Compliance Manager"
+        ]
+    }
+
 @router.get("/jobs/search")
 async def search_jobs(
     q: str = "",
