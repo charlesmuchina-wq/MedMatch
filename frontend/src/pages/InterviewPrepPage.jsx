@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { 
   Mic, MessageSquare, Sparkles, Loader2, BookOpen, Target,
   CheckCircle2, Lightbulb, Users, Building2, ChevronRight,
-  Clock, Star, Award, RefreshCw, Copy, Volume2, FileText, Download
+  Clock, Star, Award, RefreshCw, Copy, Volume2, FileText, Download, Languages
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import TranslationWidget from "@/components/TranslationWidget";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
