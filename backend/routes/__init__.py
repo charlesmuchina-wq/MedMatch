@@ -27,6 +27,7 @@ from routes.scheduling import notifications_router
 from routes.push import router as push_router
 from routes.dragon import router as dragon_router
 from routes.translation import router as translation_router
+from routes.biometric import router as biometric_router
 
 __all__ = [
     # Core routes
@@ -61,6 +62,9 @@ __all__ = [
     
     # Translation
     'translation_router',
+    
+    # Biometric Authentication
+    'biometric_router',
     
     # Helper functions
     'get_current_user',
