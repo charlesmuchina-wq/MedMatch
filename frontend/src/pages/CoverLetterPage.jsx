@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "sonner";
-import { PenTool, Copy, Download, History, ChevronRight, Sparkles, Loader2, FileText } from "lucide-react";
+import { PenTool, Copy, Download, History, ChevronRight, Sparkles, Loader2, FileText, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import TranslationWidget from "@/components/TranslationWidget";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
