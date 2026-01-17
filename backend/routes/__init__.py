@@ -25,6 +25,7 @@ from routes.scheduling import router as scheduling_router
 from routes.scheduling import notifications_router
 
 from routes.push import router as push_router
+from routes.dragon import router as dragon_router
 
 __all__ = [
     # Core routes
@@ -53,6 +54,9 @@ __all__ = [
     
     # Push routes
     'push_router',
+    
+    # Dragon AI
+    'dragon_router',
     
     # Helper functions
     'get_current_user',
