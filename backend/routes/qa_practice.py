@@ -3,7 +3,7 @@ Q&A Interview Practice Routes
 Handles: Interview question input, AI-driven answer generation, resume correlation,
          voice recording analysis, and feedback based on job requirements
 """
-from fastapi import APIRouter, HTTPException, Request, UploadFile, File
+from fastapi import APIRouter, HTTPException, Request, UploadFile, File, Form
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict, Any
 from datetime import datetime, timezone
@@ -11,14 +11,21 @@ import uuid
 import logging
 import base64
 import io
+import tempfile
+import os
 
 from emergentintegrations.llm.chat import LlmChat, UserMessage
+from emergentintegrations.llm.openai import OpenAISpeechToText
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
 from routes.auth import get_current_user
 
 router = APIRouter(prefix="/qa-practice", tags=["Q&A Practice"])
+
+# Supported audio formats
+SUPPORTED_AUDIO_FORMATS = ['.mp3', '.mp4', '.mpeg', '.mpga', '.m4a', '.wav', '.webm']
+MAX_AUDIO_SIZE = 25 * 1024 * 1024  # 25MB
 
 # ============== Models ==============
 
