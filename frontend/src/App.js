@@ -493,6 +493,8 @@ function AppContent() {
             <Route path="/recruiter/candidates" element={<CandidateSearch user={user} />} />
             <Route path="/messages" element={<MessagesPage user={user} />} />
             <Route path="/messages/new" element={<MessagesPage user={user} />} />
+            <Route path="/companies/:companyId" element={<CompanyProfilePage user={user} />} />
+            <Route path="/skill-assessments" element={<SkillAssessmentsPage user={user} />} />
           </Routes>
         </main>
       </div>
