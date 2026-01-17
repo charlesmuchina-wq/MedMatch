@@ -4,11 +4,12 @@ import { toast } from "sonner";
 import { 
   Bookmark, ExternalLink, MapPin, Building2, 
   Clock, ChevronRight, Loader2, TrendingUp, Target,
-  CheckCircle2, XCircle, AlertCircle, HelpCircle
+  CheckCircle2, XCircle, AlertCircle, HelpCircle, Languages
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { QuickTranslateButton } from "@/components/TranslationWidget";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
