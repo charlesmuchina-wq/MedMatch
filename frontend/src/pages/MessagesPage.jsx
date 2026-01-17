@@ -5,13 +5,14 @@ import { toast } from "sonner";
 import { useTheme } from "@/App";
 import { 
   MessageSquare, Send, ChevronLeft, User, Clock, Check, CheckCheck,
-  Loader2, Search, Inbox, Plus, ArrowRight, Mail
+  Loader2, Search, Inbox, Plus, ArrowRight, Mail, Languages
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { QuickTranslateButton } from "@/components/TranslationWidget";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
