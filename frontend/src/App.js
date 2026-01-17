@@ -76,6 +76,18 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
   const location = useLocation();
   const { isDark } = useTheme();
   
+  // Lock body scroll when sidebar is open on mobile
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+  
   // Different navigation for recruiters vs job seekers
   const isRecruiter = user?.role === "recruiter";
   
