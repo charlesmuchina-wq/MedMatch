@@ -862,8 +862,24 @@ const QAPracticePage = ({ resume }) => {
                       size="sm" 
                       variant="outline"
                       onClick={() => copyToClipboard(aiAnswer.suggested_answer)}
+                      title="Copy"
                     >
                       <Copy className="w-4 h-4" />
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      variant="outline"
+                      onClick={() => exportToPDF({
+                        question: currentQuestion,
+                        aiAnswer,
+                        feedback,
+                        matchAnalysis,
+                        jobContext: { company_name: companyName, job_title: jobTitle }
+                      })}
+                      title="Export PDF"
+                      data-testid="export-pdf-btn"
+                    >
+                      <Download className="w-4 h-4" />
                     </Button>
                   </div>
                 </CardTitle>
