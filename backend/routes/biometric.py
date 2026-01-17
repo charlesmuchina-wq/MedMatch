@@ -472,10 +472,16 @@ async def complete_biometric_authentication(request: BiometricAuthCompleteReques
             {"$set": {"last_login": datetime.now(timezone.utc).isoformat()}}
         )
         
-        # Generate JWT token
-        token = create_access_token(data={
-            "sub": user_id,
+        # Generate session token
+        token = create_session_token(user_id, credential_doc["email"])
+        
+        # Store session
+        await db.user_sessions.insert_one({
+            "session_id": token,
+            "user_id": user_id,
             "email": credential_doc["email"],
+            "created_at": datetime.now(timezone.utc),
+            "expires_at": datetime.now(timezone.utc) + timedelta(days=7),
             "auth_method": "biometric"
         })
         
