@@ -77,11 +77,11 @@ const CandidateSearch = ({ user }) => {
 
   const viewCandidateProfile = async (candidateId) => {
     try {
-      const response = await axios.get(`${API}/api/recruiter/candidates/${candidateId}`);
+      const response = await apiClient.get(`/api/recruiter/candidates/${candidateId}`);
       setSelectedCandidate(response.data);
       setShowDetailDialog(true);
     } catch (e) {
-      toast.error("Failed to load profile");
+      toast.error(t("candidates.loadFailed") || "Failed to load profile");
     }
   };
 
