@@ -1,4 +1,5 @@
 import { openDB } from 'idb';
+import React from 'react';
 
 // IndexedDB Configuration
 const DB_NAME = 'medmatch-offline';
