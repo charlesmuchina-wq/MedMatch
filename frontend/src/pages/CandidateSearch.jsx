@@ -62,14 +62,14 @@ const CandidateSearch = ({ user }) => {
     setHasSearched(true);
     
     try {
-      const response = await axios.post(`${API}/api/recruiter/candidates/search`, {
+      const response = await apiClient.post(`/api/recruiter/candidates/search`, {
         skills: searchSkills,
         keywords: searchKeywords.split(",").map(k => k.trim()).filter(Boolean),
         limit: 30
       });
       setCandidates(response.data.candidates || []);
     } catch (e) {
-      toast.error("Search failed");
+      toast.error(t("candidates.searchFailed") || "Search failed");
       console.error(e);
     }
     setLoading(false);
