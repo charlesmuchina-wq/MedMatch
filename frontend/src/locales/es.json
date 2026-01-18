@@ -85,6 +85,7 @@
   "jobs": {
     "searchJobs": "Buscar Empleos",
     "findYourPerfectJob": "Encuentra Tu Empleo Remoto Perfecto",
+    "searchDescription": "Busca en múltiples bolsas de trabajo simultáneamente con coincidencias impulsadas por IA",
     "searchPlaceholder": "Título del puesto, palabras clave o empresa",
     "location": "Ubicación",
     "anyLocation": "Cualquier Ubicación",
@@ -107,7 +108,22 @@
     "tryDifferentSearch": "Intenta con diferentes términos de búsqueda",
     "company": "Empresa",
     "experience": "Experiencia",
-    "skills": "Habilidades"
+    "skills": "Habilidades",
+    "source": "Fuente",
+    "allSources": "Todas las Fuentes",
+    "anyTime": "Cualquier Momento",
+    "last24h": "Últimas 24 Horas",
+    "last3Days": "Últimos 3 Días",
+    "lastWeek": "Última Semana",
+    "lastMonth": "Último Mes",
+    "jobsFound": "empleos encontrados",
+    "aiDeepSearch": "Búsqueda Profunda IA",
+    "deepSearchSuccess": "¡La Búsqueda Profunda IA encontró {{count}} empleos relevantes!",
+    "deepSearchFailed": "La búsqueda profunda falló",
+    "deepSearchResults": "Resultados de Búsqueda Profunda IA",
+    "foundJobs": "Encontrados {{count}} empleos",
+    "queriesUsed": "consultas usadas",
+    "searchFailed": "Error al buscar empleos"
   },
   "resume": {
     "myResume": "Mi Currículum",
