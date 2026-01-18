@@ -617,9 +617,9 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
-        <LanguageProvider>
+        <I18nProvider>
           <AppContent />
-        </LanguageProvider>
+        </I18nProvider>
       </ThemeProvider>
     </BrowserRouter>
   );
