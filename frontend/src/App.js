@@ -199,6 +199,9 @@ const Header = ({ onMenuClick, resume, user, onLogout }) => {
         <div className="flex-1" />
         
         <div className="flex items-center gap-4">
+          {/* Offline Status Indicator */}
+          <OfflineIndicator compact={true} />
+          
           {/* Global Language Selector */}
           <GlobalLanguageSelector compact={true} />
           
