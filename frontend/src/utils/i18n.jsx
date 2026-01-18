@@ -269,7 +269,9 @@ export const I18nProvider = ({ children }) => {
   const [isRTL, setIsRTL] = useState(false);
   const [isLoadingAI, setIsLoadingAI] = useState(false);
   const [isSynced, setIsSynced] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(true); // Start as true to avoid flash
   const aiTranslationCache = useRef({});
+  const lastSyncRef = useRef(Date.now());
 
   // Sync language preference with server when user is logged in
   const syncLanguageWithServer = useCallback(async (lang) => {
@@ -288,7 +290,13 @@ export const I18nProvider = ({ children }) => {
   }, []);
 
   // Fetch user's language preference from server on mount
+  // Only fetches if not recently synced from login event
   const fetchLanguagePreference = useCallback(async () => {
+    // Skip if we just got a sync event (within last 5 seconds)
+    if (Date.now() - lastSyncRef.current < 5000) {
+      return;
+    }
+    
     try {
       const token = localStorage.getItem("access_token");
       if (!token) return;
