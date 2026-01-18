@@ -508,6 +508,76 @@ const LoginPage = ({ onAuthSuccess }) => {
                 )}
               </div>
             </TabsContent>
+
+            {/* Biometric Login */}
+            <TabsContent value="biometric">
+              <div className="space-y-4">
+                {!isRegister ? (
+                  <BiometricLogin 
+                    onSuccess={(data) => {
+                      toast.success("Biometric login successful!");
+                      onAuthSuccess(data.user);
+                      navigate('/');
+                    }}
+                  />
+                ) : (
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="bio-name">Name</Label>
+                      <div className="relative">
+                        <User className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                        <Input
+                          id="bio-name"
+                          type="text"
+                          placeholder="Your name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="pl-10"
+                          data-testid="bio-name-input"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="bio-email">Email</Label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+                        <Input
+                          id="bio-email"
+                          type="email"
+                          placeholder="you@example.com"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          className="pl-10"
+                          data-testid="bio-email-input"
+                        />
+                      </div>
+                    </div>
+                    {email && name && (
+                      <BiometricRegistration
+                        email={email}
+                        username={name}
+                        onSuccess={(data) => {
+                          toast.success("Biometric registration successful!");
+                          onAuthSuccess(data.user);
+                          navigate('/');
+                        }}
+                      />
+                    )}
+                  </div>
+                )}
+
+                <p className="text-center text-sm text-slate-500 pt-2">
+                  {isRegister ? "Already have biometrics?" : "New to biometric login?"}{" "}
+                  <button
+                    type="button"
+                    onClick={() => setIsRegister(!isRegister)}
+                    className="text-turquoise hover:underline font-medium"
+                  >
+                    {isRegister ? "Sign in" : "Register biometrics"}
+                  </button>
+                </p>
+              </div>
+            </TabsContent>
           </Tabs>
         </CardContent>
       </Card>
