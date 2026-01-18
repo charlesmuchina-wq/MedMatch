@@ -583,6 +583,9 @@ function AppContent() {
             <Route path="/skill-assessments" element={<SkillAssessmentsPage user={user} />} />
             <Route path="/companies" element={<CompaniesPage user={user} />} />
             <Route path="/interviews" element={<InterviewSchedulingPage user={user} />} />
+            <Route path="/notifications" element={<NotificationsPage user={user} />} />
+            <Route path="/id-verification" element={<IDVerificationPage user={user} />} />
+            <Route path="/video-practice" element={<VideoInterviewPage resume={resume} user={user} />} />
           </Routes>
         </main>
       </div>
