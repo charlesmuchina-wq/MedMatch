@@ -379,7 +379,4 @@ export const useOfflineStatus = () => {
   return { isOnline, pendingCount, lastSync };
 };
 
-// Import React for the hook
-import React from 'react';
-
 export default offlineStorage;
