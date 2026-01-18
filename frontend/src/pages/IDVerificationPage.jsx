@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import { toast } from "sonner";
 import { useTheme } from "@/App";
 import { 
@@ -14,6 +13,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useTranslation } from "@/utils/i18n";
+import { apiClient } from "@/utils/apiClient";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
