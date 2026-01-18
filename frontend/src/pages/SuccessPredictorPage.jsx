@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { toast } from "sonner";
 import { 
   TrendingUp, Target, Clock, Users, Sparkles, Loader2, 
@@ -12,11 +11,11 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+import { useTranslation } from "@/utils/i18n";
+import { apiClient } from "@/utils/apiClient";
 
 // Probability Score Ring Component
-const ProbabilityRing = ({ score, size = "large" }) => {
+const ProbabilityRing = ({ score, size = "large", t }) => {
   const radius = size === "large" ? 54 : 24;
   const strokeWidth = size === "large" ? 8 : 4;
   const circumference = 2 * Math.PI * radius;
@@ -88,6 +87,7 @@ const MatchBar = ({ label, score, icon: Icon }) => {
 };
 
 const SuccessPredictorPage = ({ resume }) => {
+  const { t } = useTranslation();
   const [jobTitle, setJobTitle] = useState("");
   const [company, setCompany] = useState("");
   const [jobDescription, setJobDescription] = useState("");
@@ -98,24 +98,24 @@ const SuccessPredictorPage = ({ resume }) => {
 
   useEffect(() => {
     // Load prediction history
-    axios.get(`${API}/jobs/prediction-history`).then(res => {
+    apiClient.get("/api/jobs/prediction-history").then(res => {
       setHistory(res.data || []);
     }).catch(() => {});
   }, []);
 
   const predictCallback = async () => {
     if (!jobTitle || !company || !jobDescription) {
-      toast.error("Please fill in all required fields");
+      toast.error(t("predictor.fillAllFields"));
       return;
     }
     if (!resume) {
-      toast.error("Please upload your resume first");
+      toast.error(t("predictor.uploadResumeFirst"));
       return;
     }
 
     setPredicting(true);
     try {
-      const response = await axios.post(`${API}/jobs/predict-callback`, {
+      const response = await apiClient.post("/api/jobs/predict-callback", {
         job_title: jobTitle,
         company: company,
         job_description: jobDescription,
@@ -123,12 +123,12 @@ const SuccessPredictorPage = ({ resume }) => {
         location: ""
       });
       setPrediction(response.data);
-      toast.success("Prediction complete!");
+      toast.success(t("predictor.predictionComplete"));
       // Refresh history
-      const historyRes = await axios.get(`${API}/jobs/prediction-history`);
+      const historyRes = await apiClient.get("/api/jobs/prediction-history");
       setHistory(historyRes.data || []);
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Failed to generate prediction");
+      toast.error(e.data?.detail || t("errors.somethingWentWrong"));
     }
     setPredicting(false);
   };
@@ -163,9 +163,9 @@ const SuccessPredictorPage = ({ resume }) => {
     <div className="p-6 md:p-8 lg:p-12 max-w-6xl mx-auto animate-fade-in" data-testid="success-predictor-page">
       <div className="mb-8">
         <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight mb-2" style={{ fontFamily: 'IBM Plex Sans' }}>
-          Application Success Predictor
+          {t("predictor.title")}
         </h1>
-        <p className="text-slate-500">AI-powered analysis of your callback probability based on resume-job fit</p>
+        <p className="text-slate-500">{t("predictor.subtitle")}</p>
       </div>
 
       <div className="grid lg:grid-cols-5 gap-6">
@@ -175,15 +175,15 @@ const SuccessPredictorPage = ({ resume }) => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2" style={{ fontFamily: 'IBM Plex Sans' }}>
                 <Target className="w-5 h-5 text-sky-500" />
-                Job Details
+                {t("predictor.jobDetails")}
               </CardTitle>
               <CardDescription>
-                Enter the job information to analyze your chances
+                {t("predictor.jobDetailsDesc")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Job Title *</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{t("predictor.jobTitleRequired")}</label>
                 <Input
                   placeholder="e.g., Supplier Quality Manager"
                   value={jobTitle}
@@ -193,7 +193,7 @@ const SuccessPredictorPage = ({ resume }) => {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Company *</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{t("predictor.companyRequired")}</label>
                 <Input
                   placeholder="e.g., Medtronic"
                   value={company}
@@ -203,7 +203,7 @@ const SuccessPredictorPage = ({ resume }) => {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Posted Date (optional)</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{t("predictor.postedDate")}</label>
                 <Input
                   type="date"
                   value={postedAt}
@@ -211,12 +211,12 @@ const SuccessPredictorPage = ({ resume }) => {
                   className="mt-1"
                   data-testid="predict-posted-date"
                 />
-                <p className="text-xs text-slate-400 mt-1">Newer postings typically have higher success rates</p>
+                <p className="text-xs text-slate-400 mt-1">{t("predictor.postedDateHint")}</p>
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Job Description *</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{t("predictor.jobDescRequired")}</label>
                 <Textarea
-                  placeholder="Paste the full job description here for accurate analysis..."
+                  placeholder={t("predictor.jobDescPlaceholder")}
                   value={jobDescription}
                   onChange={(e) => setJobDescription(e.target.value)}
                   className="mt-1 min-h-[180px]"
@@ -230,14 +230,14 @@ const SuccessPredictorPage = ({ resume }) => {
                 data-testid="predict-btn"
               >
                 {predicting ? (
-                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Analyzing...</>
+                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("predictor.analyzing")}</>
                 ) : (
-                  <><Sparkles className="w-4 h-4 mr-2" /> Predict Success Rate</>
+                  <><Sparkles className="w-4 h-4 mr-2" /> {t("predictor.predictButton")}</>
                 )}
               </Button>
               {!resume && (
                 <p className="text-sm text-amber-600 text-center flex items-center justify-center gap-1">
-                  <AlertCircle className="w-4 h-4" /> Please upload your resume first
+                  <AlertCircle className="w-4 h-4" /> {t("predictor.uploadResumeFirst")}
                 </p>
               )}
             </CardContent>
@@ -249,7 +249,7 @@ const SuccessPredictorPage = ({ resume }) => {
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-2 text-base" style={{ fontFamily: 'IBM Plex Sans' }}>
                   <History className="w-4 h-4" />
-                  Recent Predictions
+                  {t("predictor.recentPredictions")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -284,7 +284,7 @@ const SuccessPredictorPage = ({ resume }) => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2" style={{ fontFamily: 'IBM Plex Sans' }}>
                 <BarChart3 className="w-5 h-5 text-violet-500" />
-                Prediction Results
+                {t("predictor.predictionResults")}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -293,7 +293,7 @@ const SuccessPredictorPage = ({ resume }) => {
                   {/* Main Score */}
                   <div className="flex items-center justify-between p-6 bg-gradient-to-r from-slate-50 to-violet-50 rounded-xl">
                     <div>
-                      <p className="text-sm text-slate-500 mb-1">Callback Probability</p>
+                      <p className="text-sm text-slate-500 mb-1">{t("predictor.callbackProbability")}</p>
                       <div className="flex items-center gap-3">
                         <Badge className={`${getLabelColor(prediction.probability_label)} text-lg px-3 py-1`}>
                           {prediction.probability_label}
@@ -301,11 +301,11 @@ const SuccessPredictorPage = ({ resume }) => {
                       </div>
                       {prediction.interview_likelihood && (
                         <p className="text-sm text-slate-600 mt-2">
-                          Interview Likelihood: <span className="font-medium">{prediction.interview_likelihood}</span>
+                          {t("predictor.interviewLikelihood")}: <span className="font-medium">{prediction.interview_likelihood}</span>
                         </p>
                       )}
                     </div>
-                    <ProbabilityRing score={prediction.probability_score} size="large" />
+                    <ProbabilityRing score={prediction.probability_score} size="large" t={t} />
                   </div>
 
                   {/* Match Breakdown */}
@@ -313,13 +313,13 @@ const SuccessPredictorPage = ({ resume }) => {
                     <div className="space-y-3">
                       <h4 className="font-medium text-slate-900 flex items-center gap-2">
                         <BarChart3 className="w-4 h-4 text-slate-400" />
-                        Match Breakdown
+                        {t("predictor.matchBreakdown")}
                       </h4>
                       <div className="grid gap-3">
-                        <MatchBar label="Skills Match" score={prediction.match_breakdown.skills_match || 0} icon={Zap} />
-                        <MatchBar label="Experience Match" score={prediction.match_breakdown.experience_match || 0} icon={Award} />
-                        <MatchBar label="Education Match" score={prediction.match_breakdown.education_match || 0} icon={CheckCircle2} />
-                        <MatchBar label="Keywords Match" score={prediction.match_breakdown.keywords_match || 0} icon={Target} />
+                        <MatchBar label={t("predictor.skillsMatch")} score={prediction.match_breakdown.skills_match || 0} icon={Zap} />
+                        <MatchBar label={t("predictor.experienceMatch")} score={prediction.match_breakdown.experience_match || 0} icon={Award} />
+                        <MatchBar label={t("predictor.educationMatch")} score={prediction.match_breakdown.education_match || 0} icon={CheckCircle2} />
+                        <MatchBar label={t("predictor.keywordsMatch")} score={prediction.match_breakdown.keywords_match || 0} icon={Target} />
                       </div>
                     </div>
                   )}
@@ -330,7 +330,7 @@ const SuccessPredictorPage = ({ resume }) => {
                       <div className="p-4 bg-slate-50 rounded-lg">
                         <div className="flex items-center gap-2 mb-2">
                           {getCompetitionIcon(prediction.competition_estimate)}
-                          <span className="font-medium text-slate-900 dark:text-slate-100">Competition Level</span>
+                          <span className="font-medium text-slate-900 dark:text-slate-100">{t("predictor.competitionLevel")}</span>
                         </div>
                         <p className="text-lg font-semibold text-slate-800">{prediction.competition_estimate}</p>
                         {prediction.competition_reasoning && (
@@ -342,7 +342,7 @@ const SuccessPredictorPage = ({ resume }) => {
                       <div className="p-4 bg-sky-50 rounded-lg">
                         <div className="flex items-center gap-2 mb-2">
                           <Clock className="w-4 h-4 text-sky-500" />
-                          <span className="font-medium text-slate-900 dark:text-slate-100">Timing Advice</span>
+                          <span className="font-medium text-slate-900 dark:text-slate-100">{t("predictor.timingAdvice")}</span>
                         </div>
                         <p className="text-sm text-slate-700 dark:text-slate-300">{prediction.timing_advice}</p>
                       </div>
@@ -354,7 +354,7 @@ const SuccessPredictorPage = ({ resume }) => {
                     <div>
                       <h4 className="font-medium text-slate-900 flex items-center gap-2 mb-3">
                         <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                        Your Strengths
+                        {t("predictor.yourStrengths")}
                       </h4>
                       <div className="space-y-2">
                         {prediction.strengths.map((strength, i) => (
@@ -372,7 +372,7 @@ const SuccessPredictorPage = ({ resume }) => {
                     <div>
                       <h4 className="font-medium text-slate-900 flex items-center gap-2 mb-3">
                         <XCircle className="w-4 h-4 text-amber-500" />
-                        Areas to Address
+                        {t("predictor.areasToAddress")}
                       </h4>
                       <div className="space-y-2">
                         {prediction.gaps.map((gap, i) => (
@@ -390,7 +390,7 @@ const SuccessPredictorPage = ({ resume }) => {
                     <div className="p-4 bg-violet-50 rounded-lg">
                       <h4 className="font-medium text-violet-900 flex items-center gap-2 mb-3">
                         <Lightbulb className="w-4 h-4" />
-                        Recommendations to Improve Your Chances
+                        {t("predictor.recommendations")}
                       </h4>
                       <ul className="space-y-2">
                         {prediction.recommendations.map((rec, i) => (
@@ -408,7 +408,7 @@ const SuccessPredictorPage = ({ resume }) => {
                     <div>
                       <h4 className="font-medium text-slate-900 flex items-center gap-2 mb-3">
                         <Award className="w-4 h-4 text-sky-500" />
-                        What Makes You Stand Out
+                        {t("predictor.whatMakesYouStandOut")}
                       </h4>
                       <div className="flex flex-wrap gap-2">
                         {prediction.key_differentiators.map((diff, i) => (
@@ -423,8 +423,8 @@ const SuccessPredictorPage = ({ resume }) => {
               ) : (
                 <div className="text-center py-16 text-slate-400">
                   <Target className="w-16 h-16 mx-auto mb-4 opacity-40" />
-                  <p className="text-lg font-medium text-slate-500 mb-2">No prediction yet</p>
-                  <p>Enter job details and click "Predict Success Rate" to see your callback probability</p>
+                  <p className="text-lg font-medium text-slate-500 mb-2">{t("predictor.noPredictionYet")}</p>
+                  <p>{t("predictor.enterJobDetails")}</p>
                 </div>
               )}
             </CardContent>
