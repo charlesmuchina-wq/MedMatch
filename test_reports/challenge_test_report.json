@@ -1,0 +1,699 @@
+{
+  "test_date": "2026-01-18T15:28:52.765656",
+  "api_url": "https://remote-job-hub-4.preview.emergentagent.com/api",
+  "challenge_levels": [
+    2000,
+    4000,
+    6000,
+    8000,
+    10000
+  ],
+  "results_by_level": {
+    "2000": {
+      "health": {
+        "total": 166,
+        "success": 166,
+        "failed": 0,
+        "success_rate": 100.0,
+        "avg_time_ms": 190.11120957845586,
+        "p95_time_ms": 257.0582030166406,
+        "p99_time_ms": 261.8056380015332,
+        "throughput_rps": 608.1667681433498,
+        "weight": "light"
+      },
+      "languages": {
+        "total": 166,
+        "success": 166,
+        "failed": 0,
+        "success_rate": 100.0,
+        "avg_time_ms": 64.2132473813583,
+        "p95_time_ms": 115.54751201765612,
+        "p99_time_ms": 118.44088399084285,
+        "throughput_rps": 1312.635538129139,
+        "weight": "light"
+      },
+      "id_levels": {
+        "total": 166,
+        "success": 166,
+        "failed": 0,
+        "success_rate": 100.0,
+        "avg_time_ms": 75.40528156096116,
+        "p95_time_ms": 144.0082920016721,
+        "p99_time_ms": 147.21329300664365,
+        "throughput_rps": 1074.3289985950805,
+        "weight": "light"
+      },
+      "bio_supported": {
+        "total": 166,
+        "success": 166,
+        "failed": 0,
+        "success_rate": 100.0,
+        "avg_time_ms": 68.36400647505316,
+        "p95_time_ms": 132.31546900351532,
+        "p99_time_ms": 137.51718300045468,
+        "throughput_rps": 1088.807287432112,
+        "weight": "light"
+      },
+      "companies": {
+        "total": 166,
+        "success": 166,
+        "failed": 0,
+        "success_rate": 100.0,
+        "avg_time_ms": 105.25490169228246,
+        "p95_time_ms": 184.33647300116718,
+        "p99_time_ms": 186.66610700893216,
+        "throughput_rps": 854.0997921802613,
+        "weight": "medium"
+      },
+      "profile": {
+        "total": 166,
+        "success": 161,
+        "failed": 5,
+        "success_rate": 96.98795180722891,
+        "avg_time_ms": 124.56795153940554,
+        "p95_time_ms": 220.6419339927379,
+        "p99_time_ms": 227.6640369964298,
+        "throughput_rps": 589.3526917599223,
+        "weight": "light"
+      },
+      "saved_jobs": {
+        "total": 166,
+        "success": 31,
+        "failed": 135,
+        "success_rate": 18.67469879518072,
+        "avg_time_ms": 63.03188035681453,
+        "p95_time_ms": 201.90287398872897,
+        "p99_time_ms": 229.71049600164406,
+        "throughput_rps": 495.10069968145143,
+        "weight": "medium"
+      },
+      "applications": {
+        "total": 166,
+        "success": 0,
+        "failed": 166,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 395.43386229056716,
+        "weight": "medium"
+      },
+      "notifications": {
+        "total": 166,
+        "success": 1,
+        "failed": 165,
+        "success_rate": 0.6024096385542169,
+        "avg_time_ms": 115.12316798325628,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 396.7030127436296,
+        "weight": "medium"
+      },
+      "qa_favorites": {
+        "total": 166,
+        "success": 1,
+        "failed": 165,
+        "success_rate": 0.6024096385542169,
+        "avg_time_ms": 213.9617440116126,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 396.25355819391433,
+        "weight": "medium"
+      },
+      "analytics": {
+        "total": 166,
+        "success": 0,
+        "failed": 166,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 396.75466822680636,
+        "weight": "heavy"
+      },
+      "messages": {
+        "total": 166,
+        "success": 1,
+        "failed": 165,
+        "success_rate": 0.6024096385542169,
+        "avg_time_ms": 212.91284100152552,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 395.36349039443206,
+        "weight": "heavy"
+      }
+    },
+    "4000": {
+      "health": {
+        "total": 333,
+        "success": 1,
+        "failed": 332,
+        "success_rate": 0.3003003003003003,
+        "avg_time_ms": 9.29850700777024,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 452.7696888588318,
+        "weight": "light"
+      },
+      "languages": {
+        "total": 333,
+        "success": 0,
+        "failed": 333,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 451.8587588634017,
+        "weight": "light"
+      },
+      "id_levels": {
+        "total": 333,
+        "success": 0,
+        "failed": 333,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 452.5575992972506,
+        "weight": "light"
+      },
+      "bio_supported": {
+        "total": 333,
+        "success": 0,
+        "failed": 333,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 452.05489308963314,
+        "weight": "light"
+      },
+      "companies": {
+        "total": 333,
+        "success": 0,
+        "failed": 333,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 452.58825867572676,
+        "weight": "medium"
+      },
+      "profile": {
+        "total": 333,
+        "success": 0,
+        "failed": 333,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 452.06162092511516,
+        "weight": "light"
+      },
+      "saved_jobs": {
+        "total": 333,
+        "success": 0,
+        "failed": 333,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 452.15975512777146,
+        "weight": "medium"
+      },
+      "applications": {
+        "total": 333,
+        "success": 0,
+        "failed": 333,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 451.76325579189813,
+        "weight": "medium"
+      },
+      "notifications": {
+        "total": 333,
+        "success": 0,
+        "failed": 333,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 451.6065218389955,
+        "weight": "medium"
+      },
+      "qa_favorites": {
+        "total": 333,
+        "success": 0,
+        "failed": 333,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 450.7006580174342,
+        "weight": "medium"
+      },
+      "analytics": {
+        "total": 333,
+        "success": 0,
+        "failed": 333,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 448.58838993372996,
+        "weight": "heavy"
+      },
+      "messages": {
+        "total": 333,
+        "success": 0,
+        "failed": 333,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 451.93809744845396,
+        "weight": "heavy"
+      }
+    },
+    "6000": {
+      "health": {
+        "total": 500,
+        "success": 0,
+        "failed": 500,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 464.27090222092,
+        "weight": "light"
+      },
+      "languages": {
+        "total": 500,
+        "success": 0,
+        "failed": 500,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 468.38391392494725,
+        "weight": "light"
+      },
+      "id_levels": {
+        "total": 500,
+        "success": 0,
+        "failed": 500,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 465.29890347879297,
+        "weight": "light"
+      },
+      "bio_supported": {
+        "total": 500,
+        "success": 0,
+        "failed": 500,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 467.9113192654874,
+        "weight": "light"
+      },
+      "companies": {
+        "total": 500,
+        "success": 0,
+        "failed": 500,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 460.66421526495867,
+        "weight": "medium"
+      },
+      "profile": {
+        "total": 500,
+        "success": 0,
+        "failed": 500,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 466.215189463433,
+        "weight": "light"
+      },
+      "saved_jobs": {
+        "total": 500,
+        "success": 0,
+        "failed": 500,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 469.60471109644817,
+        "weight": "medium"
+      },
+      "applications": {
+        "total": 500,
+        "success": 0,
+        "failed": 500,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 468.71492533364665,
+        "weight": "medium"
+      },
+      "notifications": {
+        "total": 500,
+        "success": 0,
+        "failed": 500,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 468.1097315111442,
+        "weight": "medium"
+      },
+      "qa_favorites": {
+        "total": 500,
+        "success": 0,
+        "failed": 500,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 457.434747569535,
+        "weight": "medium"
+      },
+      "analytics": {
+        "total": 500,
+        "success": 1,
+        "failed": 499,
+        "success_rate": 0.2,
+        "avg_time_ms": 220.6990119884722,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 469.0722876946052,
+        "weight": "heavy"
+      },
+      "messages": {
+        "total": 500,
+        "success": 0,
+        "failed": 500,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 438.0237248698091,
+        "weight": "heavy"
+      }
+    },
+    "8000": {
+      "health": {
+        "total": 666,
+        "success": 0,
+        "failed": 666,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 456.7319120654732,
+        "weight": "light"
+      },
+      "languages": {
+        "total": 666,
+        "success": 0,
+        "failed": 666,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 455.9336851849866,
+        "weight": "light"
+      },
+      "id_levels": {
+        "total": 666,
+        "success": 0,
+        "failed": 666,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 456.1285549833,
+        "weight": "light"
+      },
+      "bio_supported": {
+        "total": 666,
+        "success": 1,
+        "failed": 665,
+        "success_rate": 0.15015015015015015,
+        "avg_time_ms": 113.41118399286643,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 455.35266628834756,
+        "weight": "light"
+      },
+      "companies": {
+        "total": 666,
+        "success": 0,
+        "failed": 666,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 456.0230117361238,
+        "weight": "medium"
+      },
+      "profile": {
+        "total": 666,
+        "success": 0,
+        "failed": 666,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 455.50035638702207,
+        "weight": "light"
+      },
+      "saved_jobs": {
+        "total": 666,
+        "success": 0,
+        "failed": 666,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 456.03160058423873,
+        "weight": "medium"
+      },
+      "applications": {
+        "total": 666,
+        "success": 0,
+        "failed": 666,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 456.312815251532,
+        "weight": "medium"
+      },
+      "notifications": {
+        "total": 666,
+        "success": 0,
+        "failed": 666,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 456.17698092338594,
+        "weight": "medium"
+      },
+      "qa_favorites": {
+        "total": 666,
+        "success": 0,
+        "failed": 666,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 455.8388824410607,
+        "weight": "medium"
+      },
+      "analytics": {
+        "total": 666,
+        "success": 0,
+        "failed": 666,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 456.0765591470978,
+        "weight": "heavy"
+      },
+      "messages": {
+        "total": 666,
+        "success": 0,
+        "failed": 666,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 456.0171762234537,
+        "weight": "heavy"
+      }
+    },
+    "10000": {
+      "health": {
+        "total": 833,
+        "success": 0,
+        "failed": 833,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 467.32621606937585,
+        "weight": "light"
+      },
+      "languages": {
+        "total": 833,
+        "success": 0,
+        "failed": 833,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 467.5471698309886,
+        "weight": "light"
+      },
+      "id_levels": {
+        "total": 833,
+        "success": 0,
+        "failed": 833,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 466.8968609428972,
+        "weight": "light"
+      },
+      "bio_supported": {
+        "total": 833,
+        "success": 0,
+        "failed": 833,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 466.8646279904894,
+        "weight": "light"
+      },
+      "companies": {
+        "total": 833,
+        "success": 149,
+        "failed": 684,
+        "success_rate": 17.88715486194478,
+        "avg_time_ms": 1447.3302012753607,
+        "p95_time_ms": 1534.9813800130505,
+        "p99_time_ms": 1541.505542001687,
+        "throughput_rps": 514.1686241141913,
+        "weight": "medium"
+      },
+      "profile": {
+        "total": 833,
+        "success": 801,
+        "failed": 32,
+        "success_rate": 96.15846338535414,
+        "avg_time_ms": 434.73020011611305,
+        "p95_time_ms": 793.0953330069315,
+        "p99_time_ms": 836.0062449937686,
+        "throughput_rps": 953.5840917139998,
+        "weight": "light"
+      },
+      "saved_jobs": {
+        "total": 833,
+        "success": 74,
+        "failed": 759,
+        "success_rate": 8.883553421368548,
+        "avg_time_ms": 134.3476992710871,
+        "p95_time_ms": 524.9991889868397,
+        "p99_time_ms": 830.1795430015773,
+        "throughput_rps": 488.9960918812702,
+        "weight": "medium"
+      },
+      "applications": {
+        "total": 833,
+        "success": 3,
+        "failed": 830,
+        "success_rate": 0.36014405762304924,
+        "avg_time_ms": 1077.2719963279087,
+        "p95_time_ms": 1567.7809689950664,
+        "p99_time_ms": 1567.7809689950664,
+        "throughput_rps": 466.92824536623937,
+        "weight": "medium"
+      },
+      "notifications": {
+        "total": 833,
+        "success": 1,
+        "failed": 832,
+        "success_rate": 0.12004801920768307,
+        "avg_time_ms": 315.5433539941441,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 466.99173320185974,
+        "weight": "medium"
+      },
+      "qa_favorites": {
+        "total": 833,
+        "success": 1,
+        "failed": 832,
+        "success_rate": 0.12004801920768307,
+        "avg_time_ms": 22.94689099653624,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 466.8787988743067,
+        "weight": "medium"
+      },
+      "analytics": {
+        "total": 833,
+        "success": 0,
+        "failed": 833,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 466.98713286040163,
+        "weight": "heavy"
+      },
+      "messages": {
+        "total": 833,
+        "success": 0,
+        "failed": 833,
+        "success_rate": 0.0,
+        "avg_time_ms": 0,
+        "p95_time_ms": 0,
+        "p99_time_ms": 0,
+        "throughput_rps": 467.1105797781458,
+        "weight": "heavy"
+      }
+    }
+  },
+  "summary": {
+    "total_requests": 29976,
+    "total_successes": 2057,
+    "overall_success_rate": 6.86215639178009,
+    "avg_response_time_ms": 263.6065935026834,
+    "success_rates_by_level": {
+      "2000": 51.455823293172685,
+      "4000": 0.025025025025025023,
+      "6000": 0.016666666666666666,
+      "8000": 0.012512512512512512,
+      "10000": 10.294117647058822
+    }
+  },
+  "reliability_score": 6.86215639178009,
+  "stability_score": 0,
+  "resilience_score": 17.676588707772282
+}
