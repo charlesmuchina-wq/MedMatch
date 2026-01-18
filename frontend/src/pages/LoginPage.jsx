@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { useTheme } from "@/App";
+import { useTranslation } from "@/utils/i18n";
 import { 
   Mail, Phone, Lock, User, Loader2, ArrowRight, Eye, EyeOff,
   Smartphone, Fingerprint
@@ -13,6 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { BiometricLogin, BiometricRegistration } from "@/components/BiometricAuth";
+import GlobalLanguageSelector from "@/components/GlobalLanguageSelector";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
