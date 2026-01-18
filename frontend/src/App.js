@@ -81,6 +81,7 @@ const ThemeProvider = ({ children }) => {
 const Sidebar = ({ isOpen, setIsOpen, user }) => {
   const location = useLocation();
   const { isDark } = useTheme();
+  const { t } = useTranslation();
   
   // Lock body scroll when sidebar is open on mobile
   useEffect(() => {
@@ -98,40 +99,40 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
   const isRecruiter = user?.role === "recruiter";
   
   const jobSeekerLinks = [
-    { path: "/", icon: TrendingUp, label: "Dashboard" },
-    { path: "/resume", icon: FileText, label: "My Resume" },
-    { path: "/resume-profiles", icon: Users, label: "Resume Profiles" },
-    { path: "/skill-assessments", icon: Award, label: "Skill Tests" },
-    { path: "/search", icon: Search, label: "Job Search" },
-    { path: "/saved", icon: Bookmark, label: "Saved Jobs" },
-    { path: "/applications", icon: CheckSquare, label: "Applications" },
-    { path: "/interviews", icon: Video, label: "My Interviews" },
-    { path: "/predictor", icon: Target, label: "Success Predictor" },
-    { path: "/interview", icon: Mic, label: "Interview Prep" },
-    { path: "/qa-practice", icon: MessageSquare, label: "Q&A Practice" },
-    { path: "/video-practice", icon: Video, label: "Video Practice" },
-    { path: "/voice-coach", icon: Volume2, label: "Voice Coach" },
-    { path: "/cover-letter", icon: PenTool, label: "Cover Letter" },
-    { path: "/alerts", icon: Bell, label: "Job Alerts" },
-    { path: "/notifications", icon: Bell, label: "Notifications" },
-    { path: "/salary-insights", icon: DollarSign, label: "Salary Insights" },
-    { path: "/analytics", icon: BarChart3, label: "Analytics" },
-    { path: "/companies", icon: Briefcase, label: "Companies" },
-    { path: "/messages", icon: MessageSquare, label: "Messages" },
-    { path: "/id-verification", icon: ShieldCheck, label: "ID Verification" },
-    { path: "/membership", icon: Crown, label: "Membership" },
+    { path: "/", icon: TrendingUp, labelKey: "nav.dashboard" },
+    { path: "/resume", icon: FileText, labelKey: "nav.myResume" },
+    { path: "/resume-profiles", icon: Users, labelKey: "nav.resumeProfiles" },
+    { path: "/skill-assessments", icon: Award, labelKey: "nav.skillTests" },
+    { path: "/search", icon: Search, labelKey: "nav.jobSearch" },
+    { path: "/saved", icon: Bookmark, labelKey: "nav.savedJobs" },
+    { path: "/applications", icon: CheckSquare, labelKey: "nav.applications" },
+    { path: "/interviews", icon: Video, labelKey: "nav.myInterviews" },
+    { path: "/predictor", icon: Target, labelKey: "nav.successPredictor" },
+    { path: "/interview", icon: Mic, labelKey: "nav.interviewPrep" },
+    { path: "/qa-practice", icon: MessageSquare, labelKey: "nav.qaPractice" },
+    { path: "/video-practice", icon: Video, labelKey: "nav.videoPractice" },
+    { path: "/voice-coach", icon: Volume2, labelKey: "nav.voiceCoach" },
+    { path: "/cover-letter", icon: PenTool, labelKey: "nav.coverLetter" },
+    { path: "/alerts", icon: Bell, labelKey: "nav.jobAlerts" },
+    { path: "/notifications", icon: Bell, labelKey: "nav.notifications" },
+    { path: "/salary-insights", icon: DollarSign, labelKey: "nav.salaryInsights" },
+    { path: "/analytics", icon: BarChart3, labelKey: "nav.analytics" },
+    { path: "/companies", icon: Briefcase, labelKey: "nav.companies" },
+    { path: "/messages", icon: MessageSquare, labelKey: "nav.messages" },
+    { path: "/id-verification", icon: ShieldCheck, labelKey: "nav.idVerification" },
+    { path: "/membership", icon: Crown, labelKey: "nav.membership" },
   ];
   
   const recruiterLinks = [
-    { path: "/recruiter/dashboard", icon: LayoutDashboard, label: "Dashboard" },
-    { path: "/recruiter/jobs", icon: Briefcase, label: "My Job Postings" },
-    { path: "/interviews", icon: Video, label: "Interviews" },
-    { path: "/recruiter/candidates", icon: UserSearch, label: "Search Candidates" },
-    { path: "/companies", icon: Briefcase, label: "Companies" },
-    { path: "/messages", icon: MessageSquare, label: "Messages" },
-    { path: "/notifications", icon: Bell, label: "Notifications" },
-    { path: "/id-verification", icon: ShieldCheck, label: "ID Verification" },
-    { path: "/membership", icon: Crown, label: "Membership" },
+    { path: "/recruiter/dashboard", icon: LayoutDashboard, labelKey: "recruiter.dashboard" },
+    { path: "/recruiter/jobs", icon: Briefcase, labelKey: "recruiter.myJobPostings" },
+    { path: "/interviews", icon: Video, labelKey: "recruiter.interviews" },
+    { path: "/recruiter/candidates", icon: UserSearch, labelKey: "recruiter.searchCandidates" },
+    { path: "/companies", icon: Briefcase, labelKey: "nav.companies" },
+    { path: "/messages", icon: MessageSquare, labelKey: "nav.messages" },
+    { path: "/notifications", icon: Bell, labelKey: "nav.notifications" },
+    { path: "/id-verification", icon: ShieldCheck, labelKey: "nav.idVerification" },
+    { path: "/membership", icon: Crown, labelKey: "nav.membership" },
   ];
   
   const links = isRecruiter ? recruiterLinks : jobSeekerLinks;
