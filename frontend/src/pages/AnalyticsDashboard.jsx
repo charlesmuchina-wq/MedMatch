@@ -12,8 +12,6 @@ import { Progress } from "@/components/ui/progress";
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
-
 // Stat Card Component
 const StatCard = ({ title, value, change, changeType, icon: Icon, color }) => (
   <Card>

@@ -22,8 +22,6 @@ import {
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
 
-const API = process.env.REACT_APP_BACKEND_URL;
-
 const STATUS_OPTIONS = [
   { value: "new", label: "New", color: "bg-blue-500" },
   { value: "reviewing", label: "Reviewing", color: "bg-amber-500" },

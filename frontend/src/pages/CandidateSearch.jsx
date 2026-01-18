@@ -14,8 +14,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
 
-const API = process.env.REACT_APP_BACKEND_URL;
-
 const SKILL_SUGGESTIONS = [
   "Python", "JavaScript", "React", "Node.js", "AWS", "Docker",
   "Machine Learning", "Data Science", "SQL", "Java", "TypeScript",
