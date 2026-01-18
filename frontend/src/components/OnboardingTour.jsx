@@ -6,84 +6,87 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useTranslation } from "@/utils/i18n";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-const tourSteps = [
-  {
-    id: "welcome",
-    title: "Welcome to MedMatch! 🎉",
-    description: "Your AI-powered job search companion. Let's take a quick tour of the key features.",
-    icon: Sparkles,
-    highlight: null,
-    action: null
-  },
-  {
-    id: "resume",
-    title: "Upload Your Resume",
-    description: "Start by uploading your resume. Our AI will parse it and use it to find matching jobs and generate personalized content.",
-    icon: FileText,
-    highlight: "/resume",
-    action: "Try it: Click 'My Resume' in the sidebar"
-  },
-  {
-    id: "search",
-    title: "Smart Job Search",
-    description: "Search across multiple job boards simultaneously. We aggregate results from Indeed, LinkedIn, Glassdoor, and more.",
-    icon: Search,
-    highlight: "/search",
-    action: "Try it: Search for jobs that match your skills"
-  },
-  {
-    id: "predictor",
-    title: "Success Predictor",
-    description: "Get AI-powered predictions on your callback probability before applying. Know which jobs are worth your time.",
-    icon: Target,
-    highlight: "/predictor",
-    action: "Try it: Analyze any job to see your match score"
-  },
-  {
-    id: "interview",
-    title: "Interview Preparation",
-    description: "Generate tailored interview questions and practice with our AI voice coach. Export questions as PDF.",
-    icon: Mic,
-    highlight: "/interview",
-    action: "Try it: Get questions for your target role"
-  },
-  {
-    id: "cover-letter",
-    title: "AI Cover Letters",
-    description: "Generate personalized cover letters in seconds. Our AI analyzes the job description and highlights your relevant experience.",
-    icon: PenTool,
-    highlight: "/cover-letter",
-    action: "Try it: Create a cover letter for any job"
-  },
-  {
-    id: "analytics",
-    title: "Track Your Progress",
-    description: "Monitor your job search with detailed analytics. See application trends, response rates, and more.",
-    icon: BarChart3,
-    highlight: "/analytics",
-    action: "Try it: View your job search dashboard"
-  },
-  {
-    id: "complete",
-    title: "You're All Set!",
-    description: "Start your job search journey. Remember, you have a 15-day free trial to explore all features!",
-    icon: CheckCircle2,
-    highlight: null,
-    action: null
-  }
-];
-
 /**
  * Onboarding Tour Component
- * Shows a guided tour for first-time users
+ * Shows a guided tour for first-time users with i18n support
  */
 const OnboardingTour = ({ onComplete, user }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
+
+  // Tour steps with translation keys
+  const tourSteps = [
+    {
+      id: "welcome",
+      titleKey: "onboarding.welcome",
+      descriptionKey: "onboarding.welcomeDesc",
+      icon: Sparkles,
+      highlight: null,
+      actionKey: null
+    },
+    {
+      id: "resume",
+      titleKey: "onboarding.uploadResume",
+      descriptionKey: "onboarding.uploadResumeDesc",
+      icon: FileText,
+      highlight: "/resume",
+      actionKey: "onboarding.uploadResumeAction"
+    },
+    {
+      id: "search",
+      titleKey: "onboarding.smartSearch",
+      descriptionKey: "onboarding.smartSearchDesc",
+      icon: Search,
+      highlight: "/search",
+      actionKey: "onboarding.smartSearchAction"
+    },
+    {
+      id: "predictor",
+      titleKey: "onboarding.successPredictor",
+      descriptionKey: "onboarding.successPredictorDesc",
+      icon: Target,
+      highlight: "/predictor",
+      actionKey: "onboarding.successPredictorAction"
+    },
+    {
+      id: "interview",
+      titleKey: "onboarding.interviewPrep",
+      descriptionKey: "onboarding.interviewPrepDesc",
+      icon: Mic,
+      highlight: "/interview",
+      actionKey: "onboarding.interviewPrepAction"
+    },
+    {
+      id: "cover-letter",
+      titleKey: "onboarding.coverLetter",
+      descriptionKey: "onboarding.coverLetterDesc",
+      icon: PenTool,
+      highlight: "/cover-letter",
+      actionKey: "onboarding.coverLetterAction"
+    },
+    {
+      id: "analytics",
+      titleKey: "onboarding.analytics",
+      descriptionKey: "onboarding.analyticsDesc",
+      icon: BarChart3,
+      highlight: "/analytics",
+      actionKey: "onboarding.analyticsAction"
+    },
+    {
+      id: "complete",
+      titleKey: "onboarding.complete",
+      descriptionKey: "onboarding.completeDesc",
+      icon: CheckCircle2,
+      highlight: null,
+      actionKey: null
+    }
+  ];
 
   const step = tourSteps[currentStep];
   const isLastStep = currentStep === tourSteps.length - 1;
@@ -108,7 +111,6 @@ const OnboardingTour = ({ onComplete, user }) => {
   };
 
   const handleComplete = () => {
-    // Mark tour as completed in localStorage
     localStorage.setItem("medmatch-tour-completed", "true");
     setIsVisible(false);
     if (onComplete) onComplete();
@@ -143,17 +145,18 @@ const OnboardingTour = ({ onComplete, user }) => {
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100" style={{ fontFamily: 'IBM Plex Sans' }}>
-                    {step.title}
+                    {t(step.titleKey)}
                   </h3>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Step {currentStep + 1} of {tourSteps.length}
+                    {t("onboarding.stepOf", { current: currentStep + 1, total: tourSteps.length })}
                   </p>
                 </div>
               </div>
               <button 
                 onClick={handleSkip}
                 className="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
-                aria-label="Skip tour"
+                aria-label={t("onboarding.skip")}
+                data-testid="onboarding-skip"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -161,14 +164,14 @@ const OnboardingTour = ({ onComplete, user }) => {
 
             {/* Content */}
             <p className="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
-              {step.description}
+              {t(step.descriptionKey)}
             </p>
 
-            {step.action && (
+            {step.actionKey && (
               <div className="bg-turquoise/10 dark:bg-turquoise/20 rounded-lg p-3 mb-6">
                 <p className="text-sm text-turquoise dark:text-turquoise font-medium flex items-center gap-2">
                   <Sparkles className="w-4 h-4" />
-                  {step.action}
+                  {t(step.actionKey)}
                 </p>
               </div>
             )}
@@ -182,7 +185,7 @@ const OnboardingTour = ({ onComplete, user }) => {
                 className="text-slate-500"
               >
                 <ChevronLeft className="w-4 h-4 mr-1" />
-                Back
+                {t("common.back")}
               </Button>
 
               <div className="flex items-center gap-2">
@@ -203,8 +206,9 @@ const OnboardingTour = ({ onComplete, user }) => {
               <Button
                 onClick={handleNext}
                 className="bg-gradient-to-r from-turquoise to-teal-600"
+                data-testid="onboarding-next"
               >
-                {isLastStep ? "Get Started" : "Next"}
+                {isLastStep ? t("onboarding.getStarted") : t("common.next")}
                 {!isLastStep && <ChevronRight className="w-4 h-4 ml-1" />}
               </Button>
             </div>
@@ -224,7 +228,6 @@ export const useOnboardingTour = () => {
   useEffect(() => {
     const tourCompleted = localStorage.getItem("medmatch-tour-completed");
     if (!tourCompleted) {
-      // Small delay to let the app render first
       const timer = setTimeout(() => setShowTour(true), 1000);
       return () => clearTimeout(timer);
     }
