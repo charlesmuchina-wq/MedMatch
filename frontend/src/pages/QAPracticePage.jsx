@@ -488,14 +488,28 @@ const QAPracticePage = ({ resume }) => {
         {/* Favorites Tab */}
         <TabsContent value="favorites" className="space-y-4 mt-6">
           <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Star className="w-5 h-5 text-amber-500" />
-                Saved Answers
-              </CardTitle>
-              <CardDescription>
-                Your favorite answers for quick reference during interviews
-              </CardDescription>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  <Star className="w-5 h-5 text-amber-500" />
+                  Saved Answers
+                </CardTitle>
+                <CardDescription>
+                  Your favorite answers for quick reference during interviews
+                </CardDescription>
+              </div>
+              {favorites.length > 0 && (
+                <Button
+                  onClick={exportToPDF}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-2"
+                  data-testid="export-pdf-btn"
+                >
+                  <Download className="w-4 h-4" />
+                  Export PDF
+                </Button>
+              )}
             </CardHeader>
             <CardContent>
               {loadingFavorites ? (
