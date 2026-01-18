@@ -52,6 +52,7 @@ const CLOUD_PROVIDERS = {
  * Allows users to upload resumes from Google Drive, Dropbox, or OneDrive
  */
 const CloudStorageUpload = ({ onFileSelected, isLoading }) => {
+  const { t } = useTranslation();
   const [showPicker, setShowPicker] = useState(false);
   const [activeProvider, setActiveProvider] = useState(null);
   const [pickerLoading, setPickerLoading] = useState(false);
