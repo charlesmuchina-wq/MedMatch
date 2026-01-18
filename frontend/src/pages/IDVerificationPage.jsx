@@ -47,7 +47,7 @@ const IDVerificationPage = ({ user }) => {
   const fetchVerificationStatus = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`${API}/id-verification/status`);
+      const response = await apiClient.get(`/api/id-verification/status`);
       setVerificationStatus(response.data);
       
       // Set step based on status
@@ -64,17 +64,17 @@ const IDVerificationPage = ({ user }) => {
 
   const startVerification = async () => {
     try {
-      const response = await axios.post(`${API}/id-verification/request-verification`, {
+      await apiClient.post(`/api/id-verification/request-verification`, {
         document_type: documentType,
         full_name: fullName,
         date_of_birth: dateOfBirth,
         country
       });
       
-      toast.success("Verification request created");
+      toast.success(t("verification.requestCreated") || "Verification request created");
       setStep(2);
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Failed to start verification");
+      toast.error(e.data?.detail || t("verification.startFailed") || "Failed to start verification");
     }
   };
 
@@ -87,28 +87,28 @@ const IDVerificationPage = ({ user }) => {
       formData.append('file', file);
       formData.append('document_side', side);
       
-      const response = await axios.post(
-        `${API}/id-verification/upload-document`,
+      const response = await apiClient.post(
+        `/api/id-verification/upload-document`,
         formData,
         { headers: { 'Content-Type': 'multipart/form-data' } }
       );
       
       setUploadedDocs(prev => ({ ...prev, [side]: file.name }));
-      toast.success(`${side} document uploaded`);
+      toast.success(`${side} ${t("verification.documentUploaded") || "document uploaded"}`);
       
       if (response.data.next_step === 'processing') {
         setStep(3);
         fetchVerificationStatus();
       }
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Upload failed");
+      toast.error(e.data?.detail || t("verification.uploadFailed") || "Upload failed");
     }
     setIsUploading(false);
   };
 
   const verifyCompany = async () => {
     try {
-      const response = await axios.post(`${API}/id-verification/verify-company`, {
+      const response = await apiClient.post(`/api/id-verification/verify-company`, {
         company_name: companyName,
         company_website: companyWebsite,
         company_email_domain: companyEmailDomain,
@@ -117,14 +117,14 @@ const IDVerificationPage = ({ user }) => {
       });
       
       if (response.data.status === 'approved') {
-        toast.success("Company verified automatically!");
+        toast.success(t("verification.companyVerified") || "Company verified automatically!");
       } else {
-        toast.info("Company verification pending review");
+        toast.info(t("verification.pendingReview") || "Company verification pending review");
       }
       
       fetchVerificationStatus();
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Company verification failed");
+      toast.error(e.data?.detail || t("verification.companyFailed") || "Company verification failed");
     }
   };
 
