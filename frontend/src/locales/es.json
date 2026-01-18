@@ -24,7 +24,8 @@
     "profile": "Perfil",
     "logout": "Cerrar Sesión",
     "login": "Iniciar Sesión",
-    "signup": "Registrarse"
+    "signup": "Registrarse",
+    "all": "Todos"
   },
   "nav": {
     "dashboard": "Panel Principal",
