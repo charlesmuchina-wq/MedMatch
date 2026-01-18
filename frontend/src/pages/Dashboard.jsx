@@ -197,6 +197,7 @@ const ContextualTip = ({ id, children, position = "bottom" }) => {
 
 const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   
   // Format date for display
   const formatLastLogin = (dateString) => {
@@ -209,10 +210,10 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
       const diffHours = Math.floor(diffMs / 3600000);
       const diffDays = Math.floor(diffMs / 86400000);
       
-      if (diffMins < 1) return 'Just now';
-      if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
-      if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
-      if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+      if (diffMins < 1) return t("dashboard.justNow") || 'Just now';
+      if (diffMins < 60) return `${diffMins} ${t("dashboard.minutesAgo") || 'minute(s) ago'}`;
+      if (diffHours < 24) return `${diffHours} ${t("dashboard.hoursAgo") || 'hour(s) ago'}`;
+      if (diffDays < 7) return `${diffDays} ${t("dashboard.daysAgo") || 'day(s) ago'}`;
       
       return date.toLocaleDateString('en-US', { 
         month: 'short', 
@@ -226,10 +227,10 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
   };
   
   const stats = [
-    { label: "Saved Jobs", value: savedJobs.length, icon: Bookmark, color: "text-sky-500", path: "/saved" },
-    { label: "Applications", value: applications.length, icon: CheckSquare, color: "text-emerald-500", path: "/applications" },
-    { label: "Interviews", value: applications.filter(a => a.status === "Interview").length, icon: Clock, color: "text-amber-500", path: "/applications" },
-    { label: "Skills", value: resume?.skills?.length || 0, icon: TrendingUp, color: "text-violet-500", path: "/resume" },
+    { label: t("dashboard.savedJobs"), value: savedJobs.length, icon: Bookmark, color: "text-sky-500", path: "/saved" },
+    { label: t("dashboard.applications"), value: applications.length, icon: CheckSquare, color: "text-emerald-500", path: "/applications" },
+    { label: t("dashboard.interviews"), value: applications.filter(a => a.status === "Interview").length, icon: Clock, color: "text-amber-500", path: "/applications" },
+    { label: t("resume.skills"), value: resume?.skills?.length || 0, icon: TrendingUp, color: "text-violet-500", path: "/resume" },
   ];
 
   return (
