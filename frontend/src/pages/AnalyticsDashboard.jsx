@@ -112,6 +112,7 @@ const AnalyticsDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [timeRange, setTimeRange] = useState('30'); // days
   const { isDark } = useTheme();
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchAnalytics();
@@ -120,10 +121,10 @@ const AnalyticsDashboard = () => {
   const fetchAnalytics = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`${API}/analytics/dashboard?days=${timeRange}`);
+      const response = await apiClient.get(`/api/analytics/dashboard?days=${timeRange}`);
       setAnalytics(response.data);
     } catch (e) {
-      toast.error("Failed to load analytics");
+      toast.error(t("analytics.loadFailed") || "Failed to load analytics");
       // Set default data
       setAnalytics({
         total_applications: 0,
