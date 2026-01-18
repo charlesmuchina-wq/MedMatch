@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useTranslation } from "@/utils/i18n";
 import axios from "axios";
 
 const API = process.env.REACT_APP_BACKEND_URL;
@@ -15,6 +16,7 @@ const API = process.env.REACT_APP_BACKEND_URL;
 // Quick Actions based on user activity and state
 const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [recentActivity, setRecentActivity] = useState([]);
 
   // Determine most relevant quick actions based on user state
@@ -25,8 +27,8 @@ const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
     if (!resume) {
       actions.push({
         id: "upload_resume",
-        label: "Upload Resume",
-        description: "Get AI-powered job matches",
+        label: t("dashboard.uploadResume"),
+        description: t("dashboard.getAIMatches") || "Get AI-powered job matches",
         icon: Upload,
         color: "from-violet-500 to-purple-600",
         path: "/resume",
@@ -37,8 +39,8 @@ const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
     // Always show job search
     actions.push({
       id: "search_jobs",
-      label: "Search Jobs",
-      description: "Find matching opportunities",
+      label: t("dashboard.searchJobs"),
+      description: t("dashboard.findOpportunities") || "Find matching opportunities",
       icon: Search,
       color: "from-sky-500 to-blue-600",
       path: "/search",
