@@ -5,7 +5,7 @@ import { useTheme } from "@/App";
 import { 
   ShieldCheck, Upload, Camera, User, Building, BadgeCheck,
   Loader2, CheckCircle2, AlertCircle, Clock, Star,
-  FileText, Globe, Link as LinkIcon, ChevronRight, X
+  FileText, Globe, Link as LinkIcon, ChevronRight, X, RefreshCw
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
