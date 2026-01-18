@@ -525,37 +525,134 @@ export const useTranslation = () => {
 
 /**
  * Hook for translating dynamic text with AI
+ * Provides loading state and translated text
  */
-export const useAITranslation = (text) => {
+export const useAITranslation = (text, options = {}) => {
   const { language, translateText, isBundled } = useTranslation();
   const [translated, setTranslated] = useState(text);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { enabled = true } = options;
 
   useEffect(() => {
-    if (!text || language === DEFAULT_LANGUAGE || isBundled(language)) {
+    if (!text || !enabled || language === DEFAULT_LANGUAGE || isBundled(language)) {
       setTranslated(text);
+      setIsLoading(false);
       return;
     }
 
     setIsLoading(true);
-    translateText(text).then(result => {
-      setTranslated(result);
-      setIsLoading(false);
-    });
-  }, [text, language, translateText, isBundled]);
+    setError(null);
+    
+    translateText(text)
+      .then(result => {
+        setTranslated(result);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.error("AI translation error:", err);
+        setError(err);
+        setTranslated(text); // Fallback to original
+        setIsLoading(false);
+      });
+  }, [text, language, translateText, isBundled, enabled]);
 
-  return { translated, isLoading };
+  return { translated, isLoading, error, originalText: text };
+};
+
+/**
+ * Component for AI-translated text with loading indicator
+ * Usage: <AIText text="Hello World" />
+ */
+export const AIText = ({ text, className = "", showLoading = true, fallback = null }) => {
+  const { translated, isLoading } = useAITranslation(text);
+  
+  if (isLoading && showLoading) {
+    return (
+      <span className={`inline-flex items-center gap-1 ${className}`}>
+        <span className="animate-pulse bg-slate-200 dark:bg-slate-700 rounded h-4 w-20"></span>
+      </span>
+    );
+  }
+  
+  if (isLoading && fallback) {
+    return <span className={className}>{fallback}</span>;
+  }
+  
+  return <span className={className}>{translated}</span>;
+};
+
+/**
+ * Hook for batch translating multiple texts at once
+ * More efficient than individual translations
+ */
+export const useBatchTranslation = (texts = []) => {
+  const { language, isBundled, aiTranslator } = useTranslation();
+  const [translations, setTranslations] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!texts.length || language === DEFAULT_LANGUAGE || isBundled(language)) {
+      // Return original texts
+      const map = {};
+      texts.forEach(t => { map[t] = t; });
+      setTranslations(map);
+      return;
+    }
+
+    setIsLoading(true);
+    
+    // Check cache first
+    const uncached = [];
+    const cached = {};
+    texts.forEach(t => {
+      const cachedTranslation = aiTranslator?.getFromCache(t, language);
+      if (cachedTranslation) {
+        cached[t] = cachedTranslation;
+      } else {
+        uncached.push(t);
+      }
+    });
+
+    if (uncached.length === 0) {
+      setTranslations(cached);
+      setIsLoading(false);
+      return;
+    }
+
+    // Batch translate uncached texts
+    aiTranslator?.translateBatch(uncached, language)
+      .then(results => {
+        const newTranslations = { ...cached };
+        uncached.forEach((text, idx) => {
+          newTranslations[text] = results[idx] || text;
+        });
+        setTranslations(newTranslations);
+        setIsLoading(false);
+      })
+      .catch(() => {
+        // Fallback to original texts
+        const fallback = { ...cached };
+        uncached.forEach(t => { fallback[t] = t; });
+        setTranslations(fallback);
+        setIsLoading(false);
+      });
+  }, [texts.join(','), language, isBundled, aiTranslator]);
+
+  return { translations, isLoading, get: (text) => translations[text] || text };
 };
 
 /**
  * Hook to get current language info
  */
 export const useLanguageInfo = () => {
-  const { language, getLanguageInfo, isRTL } = useTranslation();
+  const { language, getLanguageInfo, isRTL, isBundled } = useTranslation();
   return {
     code: language,
     ...getLanguageInfo(language),
-    isRTL
+    isRTL,
+    isAIPowered: !isBundled(language),
+    isBundled: isBundled(language)
   };
 };
 
