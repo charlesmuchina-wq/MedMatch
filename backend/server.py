@@ -204,6 +204,9 @@ from routes import (
     id_verification_router
 )
 
+# Import batch router
+from routes.batch import router as batch_router
+
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
 app.include_router(jobs_router, prefix="/api")
