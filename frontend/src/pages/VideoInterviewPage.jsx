@@ -71,29 +71,7 @@ const VideoInterviewPage = ({ resume }) => {
   
   const timerRef = useRef(null);
 
-  // Load questions on mount
-  useEffect(() => {
-    if (resume?.skills?.length > 0) {
-      generateQuestions();
-    }
-    loadRecordings();
-  }, [resume]);
-
-  // Timer effect
-  useEffect(() => {
-    if (isRecording) {
-      timerRef.current = setInterval(() => {
-        setElapsedTime(prev => prev + 1);
-      }, 1000);
-    } else {
-      if (timerRef.current) clearInterval(timerRef.current);
-    }
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
-  }, [isRecording]);
-
-  const generateQuestions = async () => {
+  const generateQuestions = useCallback(async () => {
     // First try to load cached questions from Interview Prep
     try {
       const cachedResponse = await apiClient.get("/api/interview/cached-questions");
@@ -121,16 +99,38 @@ const VideoInterviewPage = ({ resume }) => {
     } catch (e) {
       toast.error(t("errors.somethingWentWrong"));
     }
-  };
+  }, [resume?.skills, t]);
 
-  const loadRecordings = async () => {
+  const loadRecordings = useCallback(async () => {
     try {
       const response = await apiClient.get("/api/interview/video-recordings");
       setRecordings(response.data || []);
     } catch (e) {
       console.error("Failed to load recordings");
     }
-  };
+  }, []);
+
+  // Load questions on mount
+  useEffect(() => {
+    if (resume?.skills?.length > 0) {
+      generateQuestions();
+    }
+    loadRecordings();
+  }, [resume?.skills?.length, generateQuestions, loadRecordings]);
+
+  // Timer effect
+  useEffect(() => {
+    if (isRecording) {
+      timerRef.current = setInterval(() => {
+        setElapsedTime(prev => prev + 1);
+      }, 1000);
+    } else {
+      if (timerRef.current) clearInterval(timerRef.current);
+    }
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isRecording]);
 
   const startPreview = async () => {
     try {
