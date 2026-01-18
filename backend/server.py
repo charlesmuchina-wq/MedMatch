@@ -131,6 +131,10 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.error(f"❌ MongoDB connection failed: {e}")
     
+    # Start AI Supervisor
+    await ai_supervisor.start()
+    logger.info(f"🤖 AI Supervisor started (max users: {MAX_CONCURRENT_USERS})")
+    
     # Start scheduler
     scheduler.add_job(
         scheduled_digest_task,
