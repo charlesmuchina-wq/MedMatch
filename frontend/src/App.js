@@ -44,6 +44,8 @@ import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
 import InstallPrompt from "@/components/InstallPrompt";
 import KarauDragonAI, { DragonButton } from "@/components/KarauDragonAI";
 import GlobalLanguageSelector, { LanguageProvider } from "@/components/GlobalLanguageSelector";
+import { OfflineBanner, OfflineIndicator } from "@/components/OfflineIndicator";
+import { offlineStorage } from "@/utils/offlineStorage";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
