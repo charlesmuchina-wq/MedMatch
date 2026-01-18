@@ -268,7 +268,9 @@ async def login_user(login_data: UserLogin, response: Response):
                 "is_admin": True,
                 "created_at": admin_user.get("created_at", ""),
                 "last_login": current_time,
-                "previous_login": previous_login
+                "previous_login": previous_login,
+                "language": admin_user.get("language", "en"),
+                "theme": admin_user.get("theme", "light")
             }
         }
     
