@@ -42,7 +42,7 @@ const QAPracticePage = ({ resume }) => {
   const fetchFavorites = async () => {
     setLoadingFavorites(true);
     try {
-      const response = await axios.get(`${API}/qa-practice/favorites`);
+      const response = await api.client.get(`${API}/qa-practice/favorites`);
       setFavorites(response.data.favorites || []);
     } catch (error) {
       console.error("Failed to load favorites:", error);
@@ -71,7 +71,7 @@ const QAPracticePage = ({ resume }) => {
   const generateAnswer = async (id) => {
     const question = questions.find(q => q.id === id);
     if (!question?.text.trim()) {
-      toast.error("Please enter a question");
+      toast.error(t("interview.enterQuestion") || "Please enter a question");
       return;
     }
 
