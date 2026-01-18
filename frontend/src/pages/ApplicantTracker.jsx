@@ -36,6 +36,7 @@ const ApplicantTracker = ({ user }) => {
   const { jobId } = useParams();
   const navigate = useNavigate();
   const { isDark } = useTheme();
+  const { t } = useTranslation();
   
   const [job, setJob] = useState(null);
   const [applicants, setApplicants] = useState([]);
@@ -58,11 +59,11 @@ const ApplicantTracker = ({ user }) => {
 
   const fetchApplicants = async () => {
     try {
-      const response = await axios.get(`${API}/api/recruiter/jobs/${jobId}/applicants`);
+      const response = await apiClient.get(`/api/recruiter/jobs/${jobId}/applicants`);
       setJob(response.data.job);
       setApplicants(response.data.applicants || []);
     } catch (e) {
-      toast.error("Failed to fetch applicants");
+      toast.error(t("applicants.fetchFailed") || "Failed to fetch applicants");
       console.error(e);
     }
     setLoading(false);
@@ -70,13 +71,13 @@ const ApplicantTracker = ({ user }) => {
 
   const updateStatus = async (applicantId, newStatus) => {
     try {
-      await axios.put(`${API}/api/recruiter/applicants/${applicantId}/status`, {
+      await apiClient.put(`/api/recruiter/applicants/${applicantId}/status`, {
         status: newStatus
       });
-      toast.success(`Status updated to ${newStatus}`);
+      toast.success(`${t("common.status") || "Status"} ${t("common.updated") || "updated"} to ${newStatus}`);
       fetchApplicants();
     } catch (e) {
-      toast.error("Failed to update status");
+      toast.error(t("applicants.updateFailed") || "Failed to update status");
     }
   };
 
@@ -84,10 +85,10 @@ const ApplicantTracker = ({ user }) => {
     if (!noteText.trim()) return;
     setAddingNote(true);
     try {
-      await axios.post(`${API}/api/recruiter/applicants/${applicantId}/notes`, {
+      await apiClient.post(`/api/recruiter/applicants/${applicantId}/notes`, {
         note: noteText
       });
-      toast.success("Note added");
+      toast.success(t("applicants.noteAdded") || "Note added");
       setNoteText("");
       fetchApplicants();
       // Refresh selected applicant
@@ -96,7 +97,7 @@ const ApplicantTracker = ({ user }) => {
         setSelectedApplicant({...updated, notes: [...(updated.notes || []), {text: noteText}]});
       }
     } catch (e) {
-      toast.error("Failed to add note");
+      toast.error(t("applicants.noteFailed") || "Failed to add note");
     }
     setAddingNote(false);
   };
