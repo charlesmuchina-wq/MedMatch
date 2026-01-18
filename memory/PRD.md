@@ -177,9 +177,11 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - [x] Biometric authentication
 - [x] Offline capabilities
 
-### P1 - High Priority (ALL DONE ✅)
+### P1 - High Priority
 - [x] Biometric login integration in auth flow
 - [x] IndexedDB caching with auto-sync
+- [x] i18n expansion to major pages (QAPractice, Skills, Predictor, Video, Voice, Alerts)
+- [ ] Language sync flicker fix (minor UX - language briefly shows English before syncing)
 - [ ] Apple Sign In (blocked on user Apple Developer Console config)
 - [ ] OneDrive integration (needs Microsoft app registration)
 - [ ] Dropbox integration (needs Dropbox app registration)
