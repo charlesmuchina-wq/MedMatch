@@ -299,12 +299,15 @@ const LoginPage = ({ onAuthSuccess }) => {
           </div>
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-4">
+            <TabsList className="grid w-full grid-cols-3 mb-4">
               <TabsTrigger value="email" className="flex items-center gap-2">
                 <Mail className="w-4 h-4" /> Email
               </TabsTrigger>
               <TabsTrigger value="phone" className="flex items-center gap-2">
                 <Smartphone className="w-4 h-4" /> Phone
+              </TabsTrigger>
+              <TabsTrigger value="biometric" className="flex items-center gap-2" data-testid="biometric-tab">
+                <Fingerprint className="w-4 h-4" /> Biometric
               </TabsTrigger>
             </TabsList>
 
