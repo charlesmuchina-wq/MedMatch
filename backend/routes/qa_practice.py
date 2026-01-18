@@ -554,7 +554,7 @@ async def transcribe_audio_file(
     # Read file content
     content = await file.read()
     
-    # Validate file size
+    # Check file size
     if len(content) > MAX_AUDIO_SIZE:
         raise HTTPException(
             status_code=400,
@@ -579,7 +579,6 @@ async def transcribe_audio_file(
                     "response_format": "verbose_json"
                 }
                 
-                # Add language if specified
                 if language:
                     transcribe_params["language"] = language
                 
@@ -611,6 +610,40 @@ async def transcribe_audio_file(
                 "language": language or "auto-detected",
                 "created_at": datetime.now(timezone.utc).isoformat()
             }
+            await db.audio_transcriptions.insert_one(record)
+            
+            return {
+                "success": True,
+                "transcript": transcript_text,
+                "duration": duration,
+                "segments": segments[:20] if segments else [],
+                "record_id": record["id"],
+                "detected_language": getattr(response, 'language', language)
+            }
+            
+        finally:
+            # Clean up temp file
+            if os.path.exists(temp_path):
+                os.unlink(temp_path)
+                
+    except Exception as e:
+        logging.error(f"Audio transcription error: {e}")
+        raise HTTPException(status_code=500, detail=f"Transcription failed: {str(e)}")
+
+
+@router.get("/transcriptions")
+async def get_transcription_history(request: Request, limit: int = 10):
+    """Get user's audio transcription history"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    transcriptions = await db.audio_transcriptions.find(
+        {"user_id": user.get("user_id")},
+        {"_id": 0}
+    ).sort("created_at", -1).limit(limit).to_list(length=limit)
+    
+    return {"transcriptions": transcriptions}
 
 
 # ============== Favorite Answers ==============
@@ -621,6 +654,7 @@ class SaveFavoriteRequest(BaseModel):
     key_points: List[str] = []
     job_title: str = ""
     company_name: str = ""
+
 
 @router.post("/favorites/save")
 async def save_favorite_answer(req: SaveFavoriteRequest, request: Request):
@@ -644,6 +678,7 @@ async def save_favorite_answer(req: SaveFavoriteRequest, request: Request):
     
     return {"id": favorite["id"], "message": "Answer saved to favorites"}
 
+
 @router.get("/favorites")
 async def get_favorite_answers(request: Request, limit: int = 50):
     """Get user's favorite answers"""
@@ -657,6 +692,7 @@ async def get_favorite_answers(request: Request, limit: int = 50):
     ).sort("created_at", -1).limit(limit).to_list(length=limit)
     
     return {"favorites": favorites, "total": len(favorites)}
+
 
 @router.delete("/favorites/{favorite_id}")
 async def delete_favorite_answer(favorite_id: str, request: Request):
@@ -674,38 +710,3 @@ async def delete_favorite_answer(favorite_id: str, request: Request):
         raise HTTPException(status_code=404, detail="Favorite not found")
     
     return {"message": "Favorite deleted"}
-
-            await db.audio_transcriptions.insert_one(record)
-            
-            return {
-                "success": True,
-                "transcript": transcript_text,
-                "duration": duration,
-                "segments": segments[:20] if segments else [],  # Limit segments
-                "record_id": record["id"],
-                "detected_language": getattr(response, 'language', language)
-            }
-            
-        finally:
-            # Clean up temp file
-            if os.path.exists(temp_path):
-                os.unlink(temp_path)
-                
-    except Exception as e:
-        logging.error(f"Audio transcription error: {e}")
-        raise HTTPException(status_code=500, detail=f"Transcription failed: {str(e)}")
-
-@router.get("/transcriptions")
-async def get_transcription_history(request: Request, limit: int = 10):
-    """Get user's audio transcription history"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
-    
-    transcriptions = await db.audio_transcriptions.find(
-        {"user_id": user.get("user_id")},
-        {"_id": 0}
-    ).sort("created_at", -1).limit(limit).to_list(length=limit)
-    
-    return {"transcriptions": transcriptions}
-
