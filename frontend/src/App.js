@@ -45,7 +45,8 @@ import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
 import InstallPrompt from "@/components/InstallPrompt";
 import KarauDragonAI, { DragonButton } from "@/components/KarauDragonAI";
-import GlobalLanguageSelector, { LanguageProvider } from "@/components/GlobalLanguageSelector";
+import GlobalLanguageSelector from "@/components/GlobalLanguageSelector";
+import { I18nProvider, useTranslation } from "@/utils/i18n";
 import { OfflineBanner, OfflineIndicator } from "@/components/OfflineIndicator";
 import { offlineStorage } from "@/utils/offlineStorage";
 
