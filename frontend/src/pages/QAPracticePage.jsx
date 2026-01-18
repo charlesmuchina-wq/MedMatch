@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "sonner";
+import { jsPDF } from "jspdf";
 import { 
   Sparkles, Loader2, Building2, MessageSquare, Copy, CheckCircle2, Plus, Trash2,
-  Heart, Star, BookmarkPlus, Bookmark, ChevronDown, ChevronUp
+  Star, BookmarkPlus, ChevronDown, ChevronUp, Download, FileText
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
