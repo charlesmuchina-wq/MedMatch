@@ -231,13 +231,57 @@ app.add_middleware(
 # ============== Request Tracking Middleware ==============
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
-    """Add processing time header for monitoring"""
+    """Add processing time header and track in AI Supervisor"""
     import time
     start_time = time.perf_counter()
-    response = await call_next(request)
-    process_time = (time.perf_counter() - start_time) * 1000
-    response.headers["X-Process-Time-Ms"] = f"{process_time:.2f}"
-    return response
+    
+    # Track request in AI Supervisor metrics
+    ai_supervisor.metrics.total_requests += 1
+    
+    try:
+        response = await call_next(request)
+        process_time = (time.perf_counter() - start_time) * 1000
+        
+        # Record success
+        if response.status_code < 400:
+            ai_supervisor.metrics.successful_requests += 1
+        else:
+            ai_supervisor.metrics.failed_requests += 1
+        
+        ai_supervisor.metrics.response_times.append(process_time)
+        
+        response.headers["X-Process-Time-Ms"] = f"{process_time:.2f}"
+        response.headers["X-System-Health"] = ai_supervisor.health.value
+        return response
+        
+    except Exception as e:
+        ai_supervisor.metrics.failed_requests += 1
+        raise
+
+# ============== Overload Protection Middleware ==============
+@app.middleware("http")
+async def overload_protection(request: Request, call_next):
+    """Protect system from overload using AI Supervisor"""
+    # Skip protection for health checks and status
+    if request.url.path in ["/api/health", "/api/status", "/api/supervisor/status"]:
+        return await call_next(request)
+    
+    # Check if system is overloaded
+    if ai_supervisor.health == SystemHealth.OVERLOADED:
+        # Check rate limiter
+        if not await ai_supervisor.rate_limiter.acquire():
+            return JSONResponse(
+                status_code=503,
+                content={
+                    "error": "Service temporarily unavailable",
+                    "message": "System is under heavy load. Please retry.",
+                    "retry_after": 5,
+                    "health": ai_supervisor.health.value
+                },
+                headers={"Retry-After": "5"}
+            )
+    
+    return await call_next(request)
 
 # ============== Root Endpoint ==============
 @app.get("/")
@@ -252,7 +296,8 @@ async def health_check():
     return {
         "status": "healthy",
         "service": "MedMatch API",
-        "version": "2.1.0",
+        "version": "2.2.0",
+        "ai_supervisor": ai_supervisor.health.value,
         "cache_stats": response_cache.stats()
     }
 
