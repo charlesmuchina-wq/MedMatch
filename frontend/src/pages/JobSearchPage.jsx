@@ -55,9 +55,12 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
         location: location === "any" ? "" : location, 
         days: parseInt(days)
       });
-      setJobs(response.data);
+      // API returns { data: { jobs: [...], total: ... } }
+      const result = response.data;
+      setJobs(result.jobs || result || []);
     } catch (e) {
       toast.error(t("jobs.searchFailed") || "Failed to fetch jobs");
+      setJobs([]);
     }
     setLoading(false);
   };
