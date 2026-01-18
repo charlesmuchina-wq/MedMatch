@@ -29,6 +29,9 @@ from routes.dragon import router as dragon_router
 from routes.translation import router as translation_router
 from routes.biometric import router as biometric_router
 from routes.qa_practice import router as qa_practice_router
+from routes.video_interview import router as video_interview_router
+from routes.push_notifications import router as push_notifications_router
+from routes.id_verification import router as id_verification_router
 
 __all__ = [
     # Core routes
