@@ -1,5 +1,5 @@
 {
-  "test_date": "2026-01-18T15:41:25.209619",
+  "test_date": "2026-01-18T15:47:08.405327",
   "results": {
     "100": {
       "config": {
@@ -12,85 +12,85 @@
           "total": 11,
           "success": 11,
           "success_rate": 100.0,
-          "avg_time_ms": 34.258376457728446,
-          "p95_time_ms": 71.01781398523599,
-          "min_time_ms": 13.424328004475683,
-          "max_time_ms": 71.01781398523599
+          "avg_time_ms": 35.09102108761329,
+          "p95_time_ms": 68.12499300576746,
+          "min_time_ms": 11.195582977961749,
+          "max_time_ms": 68.12499300576746
         },
         "languages": {
           "total": 11,
           "success": 11,
           "success_rate": 100.0,
-          "avg_time_ms": 15.137724178864367,
-          "p95_time_ms": 19.058221019804478,
-          "min_time_ms": 9.408685989910737,
-          "max_time_ms": 19.058221019804478
+          "avg_time_ms": 15.493814910190519,
+          "p95_time_ms": 18.422944005578756,
+          "min_time_ms": 9.67779100756161,
+          "max_time_ms": 18.422944005578756
         },
         "id_levels": {
           "total": 11,
           "success": 11,
           "success_rate": 100.0,
-          "avg_time_ms": 36.708862727126956,
-          "p95_time_ms": 64.18812001356855,
-          "min_time_ms": 9.454010985791683,
-          "max_time_ms": 64.18812001356855
+          "avg_time_ms": 33.439392639345236,
+          "p95_time_ms": 64.83954400755465,
+          "min_time_ms": 8.24059100705199,
+          "max_time_ms": 64.83954400755465
         },
         "biometric": {
           "total": 11,
           "success": 11,
           "success_rate": 100.0,
-          "avg_time_ms": 25.75875191409564,
-          "p95_time_ms": 53.34876599954441,
-          "min_time_ms": 7.159149012295529,
-          "max_time_ms": 53.34876599954441
+          "avg_time_ms": 27.174455547620628,
+          "p95_time_ms": 55.99625900504179,
+          "min_time_ms": 8.24994599679485,
+          "max_time_ms": 55.99625900504179
         },
         "companies": {
           "total": 11,
           "success": 11,
           "success_rate": 100.0,
-          "avg_time_ms": 24.373617457141254,
-          "p95_time_ms": 58.65360799361952,
-          "min_time_ms": 9.348983992822468,
-          "max_time_ms": 58.65360799361952
+          "avg_time_ms": 29.374692086342044,
+          "p95_time_ms": 61.07320199953392,
+          "min_time_ms": 17.05290999962017,
+          "max_time_ms": 61.07320199953392
         },
         "profile": {
           "total": 11,
           "success": 11,
           "success_rate": 100.0,
-          "avg_time_ms": 23.00780809177509,
-          "p95_time_ms": 57.02685099095106,
-          "min_time_ms": 10.096023004734889,
-          "max_time_ms": 57.02685099095106
+          "avg_time_ms": 33.84792445418002,
+          "p95_time_ms": 62.808458984363824,
+          "min_time_ms": 17.185061995405704,
+          "max_time_ms": 62.808458984363824
         },
         "saved_jobs": {
           "total": 11,
           "success": 11,
           "success_rate": 100.0,
-          "avg_time_ms": 23.301982910859145,
-          "p95_time_ms": 50.53577100625262,
-          "min_time_ms": 17.980416014324874,
-          "max_time_ms": 50.53577100625262
+          "avg_time_ms": 35.74929481626234,
+          "p95_time_ms": 69.23973598168232,
+          "min_time_ms": 25.221873016562313,
+          "max_time_ms": 69.23973598168232
         },
         "qa_favorites": {
           "total": 11,
           "success": 11,
           "success_rate": 100.0,
-          "avg_time_ms": 24.81639927083796,
-          "p95_time_ms": 62.34438199317083,
-          "min_time_ms": 10.067876020912081,
-          "max_time_ms": 62.34438199317083
+          "avg_time_ms": 33.113633724331685,
+          "p95_time_ms": 64.59543498931453,
+          "min_time_ms": 20.025528996484354,
+          "max_time_ms": 64.59543498931453
         },
         "notifications": {
           "total": 11,
           "success": 11,
           "success_rate": 100.0,
-          "avg_time_ms": 23.873069998279046,
-          "p95_time_ms": 50.64817899256013,
-          "min_time_ms": 20.001155993668362,
-          "max_time_ms": 50.64817899256013
+          "avg_time_ms": 28.18705709333616,
+          "p95_time_ms": 66.67378899874166,
+          "min_time_ms": 10.49883000086993,
+          "max_time_ms": 66.67378899874166
         }
       },
-      "total_time_sec": 0.5308713650156278
+      "total_time_sec": 0.5577194209909067
     },
     "500": {
       "config": {
@@ -103,85 +103,85 @@
           "total": 55,
           "success": 55,
           "success_rate": 100.0,
-          "avg_time_ms": 41.7669329834594,
-          "p95_time_ms": 71.59603602485731,
-          "min_time_ms": 13.50703599746339,
-          "max_time_ms": 85.37652899394743
+          "avg_time_ms": 44.18545018098402,
+          "p95_time_ms": 95.05518601508811,
+          "min_time_ms": 11.617947020567954,
+          "max_time_ms": 101.0134179960005
         },
         "languages": {
           "total": 55,
           "success": 55,
           "success_rate": 100.0,
-          "avg_time_ms": 22.945681237086486,
-          "p95_time_ms": 35.58963999967091,
-          "min_time_ms": 10.947454982670024,
-          "max_time_ms": 38.917024998227134
+          "avg_time_ms": 31.08860712540759,
+          "p95_time_ms": 40.55261000758037,
+          "min_time_ms": 19.184691976988688,
+          "max_time_ms": 45.0593699933961
         },
         "id_levels": {
           "total": 55,
           "success": 55,
           "success_rate": 100.0,
-          "avg_time_ms": 40.27117413087663,
-          "p95_time_ms": 68.20792600046843,
-          "min_time_ms": 8.004875999176875,
-          "max_time_ms": 74.07653200789355
+          "avg_time_ms": 47.792628545060076,
+          "p95_time_ms": 63.10833801398985,
+          "min_time_ms": 8.661615021992475,
+          "max_time_ms": 225.84883600939065
         },
         "biometric": {
           "total": 55,
           "success": 55,
           "success_rate": 100.0,
-          "avg_time_ms": 33.902228833176196,
-          "p95_time_ms": 60.209465998923406,
-          "min_time_ms": 8.440770005108789,
-          "max_time_ms": 61.13985099364072
+          "avg_time_ms": 40.86054165805267,
+          "p95_time_ms": 71.56431299517862,
+          "min_time_ms": 9.235447010723874,
+          "max_time_ms": 75.43959000031464
         },
         "companies": {
           "total": 55,
           "success": 55,
           "success_rate": 100.0,
-          "avg_time_ms": 40.6112529406197,
-          "p95_time_ms": 68.20780198904686,
-          "min_time_ms": 12.04183098161593,
-          "max_time_ms": 70.5927409871947
+          "avg_time_ms": 46.4496842733669,
+          "p95_time_ms": 73.8569590030238,
+          "min_time_ms": 9.302184014813974,
+          "max_time_ms": 75.21328201983124
         },
         "profile": {
           "total": 55,
           "success": 55,
           "success_rate": 100.0,
-          "avg_time_ms": 41.858542506815866,
-          "p95_time_ms": 69.20457500382327,
-          "min_time_ms": 9.070366999367252,
-          "max_time_ms": 69.51037398539484
+          "avg_time_ms": 45.46187392816964,
+          "p95_time_ms": 72.76433001970872,
+          "min_time_ms": 10.150646994588897,
+          "max_time_ms": 75.63158302218653
         },
         "saved_jobs": {
           "total": 55,
           "success": 55,
           "success_rate": 100.0,
-          "avg_time_ms": 45.84578385216776,
-          "p95_time_ms": 78.92723797704093,
-          "min_time_ms": 9.271870978409424,
-          "max_time_ms": 81.51644599274732
+          "avg_time_ms": 51.954075072320514,
+          "p95_time_ms": 80.97123200423084,
+          "min_time_ms": 15.451669023605064,
+          "max_time_ms": 85.39471399853937
         },
         "qa_favorites": {
           "total": 55,
           "success": 55,
           "success_rate": 100.0,
-          "avg_time_ms": 48.59972394505431,
-          "p95_time_ms": 76.34105000761338,
-          "min_time_ms": 20.53017998696305,
-          "max_time_ms": 77.32790100271814
+          "avg_time_ms": 76.10199070980094,
+          "p95_time_ms": 134.84405301278457,
+          "min_time_ms": 26.288868015399203,
+          "max_time_ms": 138.87289498234168
         },
         "notifications": {
           "total": 55,
           "success": 55,
           "success_rate": 100.0,
-          "avg_time_ms": 48.915661306289785,
-          "p95_time_ms": 78.30826099961996,
-          "min_time_ms": 15.742946998216212,
-          "max_time_ms": 81.95108899963088
+          "avg_time_ms": 56.43995021977885,
+          "p95_time_ms": 83.3114089909941,
+          "min_time_ms": 21.304301015334204,
+          "max_time_ms": 86.23220899607986
         }
       },
-      "total_time_sec": 1.0295772599929478
+      "total_time_sec": 1.3408259720017668
     },
     "1000": {
       "config": {
@@ -194,85 +194,85 @@
           "total": 111,
           "success": 111,
           "success_rate": 100.0,
-          "avg_time_ms": 64.17661158473919,
-          "p95_time_ms": 113.98664201260544,
-          "min_time_ms": 16.88934297999367,
-          "max_time_ms": 141.63046900648624
+          "avg_time_ms": 67.2854609923282,
+          "p95_time_ms": 132.12286599446088,
+          "min_time_ms": 35.456329002045095,
+          "max_time_ms": 136.36389598832466
         },
         "languages": {
           "total": 111,
           "success": 111,
           "success_rate": 100.0,
-          "avg_time_ms": 44.24517076653387,
-          "p95_time_ms": 57.42050500703044,
-          "min_time_ms": 11.413920001359656,
-          "max_time_ms": 63.002270995639265
+          "avg_time_ms": 58.80027488403668,
+          "p95_time_ms": 70.06771402666345,
+          "min_time_ms": 10.931259021162987,
+          "max_time_ms": 73.31612199777737
         },
         "id_levels": {
           "total": 111,
           "success": 111,
           "success_rate": 100.0,
-          "avg_time_ms": 50.56960540582418,
-          "p95_time_ms": 93.22148899082094,
-          "min_time_ms": 16.768510977271944,
-          "max_time_ms": 153.57467197463848
+          "avg_time_ms": 83.94228010978507,
+          "p95_time_ms": 146.72744800918736,
+          "min_time_ms": 27.92780799791217,
+          "max_time_ms": 181.4270090253558
         },
         "biometric": {
           "total": 111,
-          "success": 64,
-          "success_rate": 57.65765765765766,
-          "avg_time_ms": 52.03526985815188,
-          "p95_time_ms": 108.7289710121695,
-          "min_time_ms": 5.913671979214996,
-          "max_time_ms": 110.95235901302658
+          "success": 66,
+          "success_rate": 59.45945945945946,
+          "avg_time_ms": 44.51639515173156,
+          "p95_time_ms": 65.06467598956078,
+          "min_time_ms": 16.17150698439218,
+          "max_time_ms": 67.56375500117429
         },
         "companies": {
           "total": 111,
-          "success": 13,
-          "success_rate": 11.711711711711711,
-          "avg_time_ms": 16.426347310278707,
-          "p95_time_ms": 49.888484994880855,
-          "min_time_ms": 8.684454020112753,
-          "max_time_ms": 49.888484994880855
+          "success": 11,
+          "success_rate": 9.90990990990991,
+          "avg_time_ms": 13.837358723817902,
+          "p95_time_ms": 49.516764003783464,
+          "min_time_ms": 8.613437006715685,
+          "max_time_ms": 49.516764003783464
         },
         "profile": {
           "total": 111,
-          "success": 7,
-          "success_rate": 6.306306306306306,
-          "avg_time_ms": 16.230242143917298,
-          "p95_time_ms": 50.76989598455839,
-          "min_time_ms": 9.520838997559622,
-          "max_time_ms": 50.76989598455839
+          "success": 8,
+          "success_rate": 7.207207207207207,
+          "avg_time_ms": 19.203999880119227,
+          "p95_time_ms": 50.10072301956825,
+          "min_time_ms": 8.834259991999716,
+          "max_time_ms": 50.10072301956825
         },
         "saved_jobs": {
           "total": 111,
-          "success": 4,
-          "success_rate": 3.6036036036036037,
-          "avg_time_ms": 11.091836509876885,
-          "p95_time_ms": 13.311103015439585,
-          "min_time_ms": 8.850498008541763,
-          "max_time_ms": 13.311103015439585
+          "success": 6,
+          "success_rate": 5.405405405405405,
+          "avg_time_ms": 11.870253996069854,
+          "p95_time_ms": 13.642826990690082,
+          "min_time_ms": 9.202707995427772,
+          "max_time_ms": 13.642826990690082
         },
         "qa_favorites": {
           "total": 111,
-          "success": 0,
-          "success_rate": 0.0,
-          "avg_time_ms": 0,
-          "p95_time_ms": 0,
-          "min_time_ms": 0,
-          "max_time_ms": 0
+          "success": 3,
+          "success_rate": 2.7027027027027026,
+          "avg_time_ms": 24.300108013752226,
+          "p95_time_ms": 51.065484003629535,
+          "min_time_ms": 10.707121022278443,
+          "max_time_ms": 51.065484003629535
         },
         "notifications": {
           "total": 111,
           "success": 2,
           "success_rate": 1.8018018018018018,
-          "avg_time_ms": 10.559895992628299,
-          "p95_time_ms": 11.180086992681026,
-          "min_time_ms": 9.939704992575571,
-          "max_time_ms": 11.180086992681026
+          "avg_time_ms": 8.941364008933306,
+          "p95_time_ms": 9.275837015593424,
+          "min_time_ms": 8.606891002273187,
+          "max_time_ms": 9.275837015593424
         }
       },
-      "total_time_sec": 2.254722656973172
+      "total_time_sec": 2.305052189010894
     },
     "2000": {
       "config": {
@@ -283,87 +283,87 @@
       "metrics": {
         "health": {
           "total": 222,
-          "success": 8,
-          "success_rate": 3.6036036036036037,
-          "avg_time_ms": 48.33012750168564,
-          "p95_time_ms": 112.76535101933405,
-          "min_time_ms": 7.530830014729872,
-          "max_time_ms": 112.76535101933405
+          "success": 0,
+          "success_rate": 0.0,
+          "avg_time_ms": 0,
+          "p95_time_ms": 0,
+          "min_time_ms": 0,
+          "max_time_ms": 0
         },
         "languages": {
           "total": 222,
-          "success": 69,
-          "success_rate": 31.08108108108108,
-          "avg_time_ms": 6845.876968232071,
-          "p95_time_ms": 15346.054513007402,
-          "min_time_ms": 7.885600993176922,
-          "max_time_ms": 15356.05233401293
+          "success": 0,
+          "success_rate": 0.0,
+          "avg_time_ms": 0,
+          "p95_time_ms": 0,
+          "min_time_ms": 0,
+          "max_time_ms": 0
         },
         "id_levels": {
           "total": 222,
-          "success": 210,
-          "success_rate": 94.5945945945946,
-          "avg_time_ms": 782.818808233493,
-          "p95_time_ms": 7231.178446003469,
-          "min_time_ms": 8.216436981456354,
-          "max_time_ms": 15347.74250301416
+          "success": 0,
+          "success_rate": 0.0,
+          "avg_time_ms": 0,
+          "p95_time_ms": 0,
+          "min_time_ms": 0,
+          "max_time_ms": 0
         },
         "biometric": {
           "total": 222,
-          "success": 221,
-          "success_rate": 99.54954954954955,
-          "avg_time_ms": 270.73583986999455,
-          "p95_time_ms": 245.97696197452024,
-          "min_time_ms": 6.51848700363189,
-          "max_time_ms": 7243.840500013903
+          "success": 0,
+          "success_rate": 0.0,
+          "avg_time_ms": 0,
+          "p95_time_ms": 0,
+          "min_time_ms": 0,
+          "max_time_ms": 0
         },
         "companies": {
           "total": 222,
-          "success": 222,
-          "success_rate": 100.0,
-          "avg_time_ms": 104.09825910480592,
-          "p95_time_ms": 203.36007699370384,
-          "min_time_ms": 12.81755999661982,
-          "max_time_ms": 214.67938198475167
+          "success": 0,
+          "success_rate": 0.0,
+          "avg_time_ms": 0,
+          "p95_time_ms": 0,
+          "min_time_ms": 0,
+          "max_time_ms": 0
         },
         "profile": {
           "total": 222,
-          "success": 220,
-          "success_rate": 99.09909909909909,
-          "avg_time_ms": 131.05755561489124,
-          "p95_time_ms": 180.2015860157553,
-          "min_time_ms": 68.91895100125112,
-          "max_time_ms": 204.3102949974127
+          "success": 0,
+          "success_rate": 0.0,
+          "avg_time_ms": 0,
+          "p95_time_ms": 0,
+          "min_time_ms": 0,
+          "max_time_ms": 0
         },
         "saved_jobs": {
           "total": 222,
-          "success": 76,
-          "success_rate": 34.234234234234236,
-          "avg_time_ms": 64.35844759107567,
-          "p95_time_ms": 74.22113601933233,
-          "min_time_ms": 8.453465008642524,
-          "max_time_ms": 75.54995300597511
+          "success": 0,
+          "success_rate": 0.0,
+          "avg_time_ms": 0,
+          "p95_time_ms": 0,
+          "min_time_ms": 0,
+          "max_time_ms": 0
         },
         "qa_favorites": {
           "total": 222,
-          "success": 9,
-          "success_rate": 4.054054054054054,
-          "avg_time_ms": 23.416148776757634,
-          "p95_time_ms": 50.42076300014742,
-          "min_time_ms": 9.188138996250927,
-          "max_time_ms": 50.42076300014742
+          "success": 0,
+          "success_rate": 0.0,
+          "avg_time_ms": 0,
+          "p95_time_ms": 0,
+          "min_time_ms": 0,
+          "max_time_ms": 0
         },
         "notifications": {
           "total": 222,
-          "success": 2,
-          "success_rate": 0.9009009009009009,
-          "avg_time_ms": 10.440075988299213,
-          "p95_time_ms": 11.03027697536163,
-          "min_time_ms": 9.849875001236796,
-          "max_time_ms": 11.03027697536163
+          "success": 0,
+          "success_rate": 0.0,
+          "avg_time_ms": 0,
+          "p95_time_ms": 0,
+          "min_time_ms": 0,
+          "max_time_ms": 0
         }
       },
-      "total_time_sec": 69.73335649102228
+      "total_time_sec": 2.999884605000261
     },
     "3000": {
       "config": {
@@ -374,93 +374,93 @@
       "metrics": {
         "health": {
           "total": 333,
-          "success": 1,
-          "success_rate": 0.3003003003003003,
-          "avg_time_ms": 10.064842994324863,
-          "p95_time_ms": 0,
-          "min_time_ms": 10.064842994324863,
-          "max_time_ms": 10.064842994324863
+          "success": 6,
+          "success_rate": 1.8018018018018018,
+          "avg_time_ms": 2562.774279998848,
+          "p95_time_ms": 15262.63701901189,
+          "min_time_ms": 10.157111973967403,
+          "max_time_ms": 15262.63701901189
         },
         "languages": {
           "total": 333,
-          "success": 0,
-          "success_rate": 0.0,
-          "avg_time_ms": 0,
-          "p95_time_ms": 0,
-          "min_time_ms": 0,
-          "max_time_ms": 0
+          "success": 226,
+          "success_rate": 67.86786786786787,
+          "avg_time_ms": 4617.44642602236,
+          "p95_time_ms": 15275.781973992707,
+          "min_time_ms": 7.259550009621307,
+          "max_time_ms": 15384.689730999526
         },
         "id_levels": {
           "total": 333,
-          "success": 0,
-          "success_rate": 0.0,
-          "avg_time_ms": 0,
-          "p95_time_ms": 0,
-          "min_time_ms": 0,
-          "max_time_ms": 0
+          "success": 333,
+          "success_rate": 100.0,
+          "avg_time_ms": 302.37847699590765,
+          "p95_time_ms": 296.63990400149487,
+          "min_time_ms": 9.533146978355944,
+          "max_time_ms": 11272.7294889919
         },
         "biometric": {
           "total": 333,
-          "success": 0,
-          "success_rate": 0.0,
-          "avg_time_ms": 0,
-          "p95_time_ms": 0,
-          "min_time_ms": 0,
-          "max_time_ms": 0
+          "success": 333,
+          "success_rate": 100.0,
+          "avg_time_ms": 123.0717428978085,
+          "p95_time_ms": 204.34993799426593,
+          "min_time_ms": 16.47629399667494,
+          "max_time_ms": 219.88881201832555
         },
         "companies": {
           "total": 333,
-          "success": 0,
-          "success_rate": 0.0,
-          "avg_time_ms": 0,
-          "p95_time_ms": 0,
-          "min_time_ms": 0,
-          "max_time_ms": 0
+          "success": 161,
+          "success_rate": 48.348348348348345,
+          "avg_time_ms": 105.60919149031845,
+          "p95_time_ms": 136.1700070265215,
+          "min_time_ms": 8.34131400915794,
+          "max_time_ms": 142.681753000943
         },
         "profile": {
           "total": 333,
-          "success": 0,
-          "success_rate": 0.0,
-          "avg_time_ms": 0,
-          "p95_time_ms": 0,
-          "min_time_ms": 0,
-          "max_time_ms": 0
+          "success": 5,
+          "success_rate": 1.5015015015015014,
+          "avg_time_ms": 9.050764003768563,
+          "p95_time_ms": 9.697760018752888,
+          "min_time_ms": 8.268811012385413,
+          "max_time_ms": 9.697760018752888
         },
         "saved_jobs": {
           "total": 333,
+          "success": 2,
+          "success_rate": 0.6006006006006006,
+          "avg_time_ms": 10.087714996188879,
+          "p95_time_ms": 10.71872899774462,
+          "min_time_ms": 9.456700994633138,
+          "max_time_ms": 10.71872899774462
+        },
+        "qa_favorites": {
+          "total": 333,
+          "success": 1,
+          "success_rate": 0.3003003003003003,
+          "avg_time_ms": 11.299624980892986,
+          "p95_time_ms": 0,
+          "min_time_ms": 11.299624980892986,
+          "max_time_ms": 11.299624980892986
+        },
+        "notifications": {
+          "total": 333,
           "success": 0,
           "success_rate": 0.0,
           "avg_time_ms": 0,
           "p95_time_ms": 0,
           "min_time_ms": 0,
           "max_time_ms": 0
-        },
-        "qa_favorites": {
-          "total": 333,
-          "success": 307,
-          "success_rate": 92.1921921921922,
-          "avg_time_ms": 155.10216038063598,
-          "p95_time_ms": 186.94022399722598,
-          "min_time_ms": 50.54948999895714,
-          "max_time_ms": 241.01578901172616
-        },
-        "notifications": {
-          "total": 333,
-          "success": 327,
-          "success_rate": 98.1981981981982,
-          "avg_time_ms": 165.12071420319324,
-          "p95_time_ms": 216.8095439847093,
-          "min_time_ms": 45.91771197738126,
-          "max_time_ms": 264.10841499455273
         }
       },
-      "total_time_sec": 4.192297007015441
+      "total_time_sec": 64.79415076199803
     }
   },
   "scores": {
-    "reliability": 63.08641975308642,
-    "stability": 64.51717045890814,
-    "resilience": 21.18785452118786,
-    "overall": 49.597148244394134
+    "reliability": 55.70904237570904,
+    "stability": 56.42784464284824,
+    "resilience": 35.60226893560227,
+    "overall": 49.24638531805318
   }
 }
