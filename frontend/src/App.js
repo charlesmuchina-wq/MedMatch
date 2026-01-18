@@ -109,13 +109,16 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/predictor", icon: Target, label: "Success Predictor" },
     { path: "/interview", icon: Mic, label: "Interview Prep" },
     { path: "/qa-practice", icon: MessageSquare, label: "Q&A Practice" },
+    { path: "/video-practice", icon: Video, label: "Video Practice" },
     { path: "/voice-coach", icon: Volume2, label: "Voice Coach" },
     { path: "/cover-letter", icon: PenTool, label: "Cover Letter" },
     { path: "/alerts", icon: Bell, label: "Job Alerts" },
+    { path: "/notifications", icon: Bell, label: "Notifications" },
     { path: "/salary-insights", icon: DollarSign, label: "Salary Insights" },
     { path: "/analytics", icon: BarChart3, label: "Analytics" },
     { path: "/companies", icon: Briefcase, label: "Companies" },
     { path: "/messages", icon: MessageSquare, label: "Messages" },
+    { path: "/id-verification", icon: ShieldCheck, label: "ID Verification" },
     { path: "/membership", icon: Crown, label: "Membership" },
   ];
   
