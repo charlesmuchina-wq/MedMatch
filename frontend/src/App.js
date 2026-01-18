@@ -40,7 +40,6 @@ import CompaniesPage from "@/pages/CompaniesPage";
 import QAPracticePage from "@/pages/QAPracticePage";
 import NotificationsPage from "@/pages/NotificationsPage";
 import IDVerificationPage from "@/pages/IDVerificationPage";
-import VideoInterviewPage from "@/pages/VideoInterviewPage";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
