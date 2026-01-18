@@ -488,6 +488,9 @@ function AppContent() {
 
   return (
     <div className={`min-h-screen flex ${isDark ? 'bg-batik-black text-white' : 'bg-slate-50'}`}>
+      {/* Offline Banner - shows when user goes offline/online */}
+      <OfflineBanner />
+      
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} user={user} />
       
       <div className="flex-1 flex flex-col min-w-0">
