@@ -54,7 +54,7 @@ const CandidateSearch = ({ user }) => {
 
   const searchCandidates = async () => {
     if (searchSkills.length === 0 && !searchKeywords.trim()) {
-      toast.error("Please add at least one skill or keyword");
+      toast.error(t("candidates.addSkillOrKeyword") || "Please add at least one skill or keyword");
       return;
     }
 
