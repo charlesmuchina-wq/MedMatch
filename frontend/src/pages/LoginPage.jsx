@@ -473,13 +473,13 @@ const LoginPage = ({ onAuthSuccess }) => {
                     {isLoading ? (
                       <Loader2 className="w-4 h-4 animate-spin" />
                     ) : (
-                      <>Send OTP <ArrowRight className="w-4 h-4 ml-2" /></>
+                      <>{t("auth.sendCode")} <ArrowRight className="w-4 h-4 ml-2" /></>
                     )}
                   </Button>
                 ) : (
                   <>
                     <div className="space-y-2">
-                      <Label htmlFor="otp">Verification Code</Label>
+                      <Label htmlFor="otp">{t("auth.verifyCode")}</Label>
                       <Input
                         id="otp"
                         type="text"
