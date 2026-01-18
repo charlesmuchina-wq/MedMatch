@@ -1157,6 +1157,30 @@ SKILL_ASSESSMENTS = {
 
 # ============== Routes ==============
 
+@router.get("/categories")
+async def get_skill_categories():
+    """Get list of all skill assessment categories"""
+    categories = {}
+    for skill, config in SKILL_ASSESSMENTS.items():
+        cat = config["category"]
+        if cat not in categories:
+            categories[cat] = {
+                "name": cat,
+                "skills": [],
+                "total_assessments": 0
+            }
+        categories[cat]["skills"].append({
+            "skill_name": skill,
+            "badge_icon": config["badge_icon"],
+            "badge_color": config["badge_color"]
+        })
+        categories[cat]["total_assessments"] += 1
+    
+    return {
+        "categories": list(categories.values()),
+        "total_categories": len(categories)
+    }
+
 @router.get("/available")
 async def get_available_assessments():
     """Get list of available skill assessments"""
