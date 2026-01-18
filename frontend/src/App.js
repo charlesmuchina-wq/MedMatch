@@ -402,10 +402,24 @@ function AppContent() {
     try {
       const response = await axios.post(`${API}/jobs/save`, job);
       setSavedJobs([response.data, ...savedJobs]);
+      // Cache the updated saved jobs
+      offlineStorage.cacheJobs([response.data, ...savedJobs]).catch(console.error);
       toast.success("Job saved!");
     } catch (e) {
-      if (e.response?.status === 400) toast.info("Job already saved");
-      else toast.error("Failed to save job");
+      if (e.response?.status === 400) {
+        toast.info("Job already saved");
+      } else if (!navigator.onLine) {
+        // Queue the action for later sync
+        await offlineStorage.queueAction({
+          type: 'save_job',
+          data: job,
+          endpoint: `${API}/jobs/save`
+        });
+        setSavedJobs([{ ...job, id: `temp_${Date.now()}`, pendingSync: true }, ...savedJobs]);
+        toast.info("Job saved offline - will sync when online");
+      } else {
+        toast.error("Failed to save job");
+      }
     }
   };
 
