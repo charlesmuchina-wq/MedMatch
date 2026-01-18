@@ -172,16 +172,16 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
         </div>
         
         <nav className="p-4 space-y-1 flex-1 overflow-y-auto">
-          {links.map(({ path, icon: Icon, label }) => (
+          {links.map(({ path, icon: Icon, labelKey }) => (
             <NavLink
               key={path}
               to={path}
               className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''} ${isDark ? 'dark' : ''}`}
               onClick={() => setIsOpen(false)}
-              data-testid={`nav-${label.toLowerCase().replace(' ', '-')}`}
+              data-testid={`nav-${labelKey.split('.').pop().toLowerCase()}`}
             >
               <Icon className="w-5 h-5" />
-              <span>{label}</span>
+              <span>{t(labelKey)}</span>
             </NavLink>
           ))}
         </nav>
