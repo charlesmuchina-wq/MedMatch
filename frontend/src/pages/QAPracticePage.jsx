@@ -174,6 +174,99 @@ const QAPracticePage = ({ resume }) => {
     toast.success("Copied to clipboard!");
   };
 
+  // Export favorites to PDF
+  const exportToPDF = () => {
+    if (favorites.length === 0) {
+      toast.error("No favorites to export");
+      return;
+    }
+
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const margin = 20;
+    const maxWidth = pageWidth - 2 * margin;
+    let yPos = 20;
+
+    // Title
+    doc.setFontSize(20);
+    doc.setFont("helvetica", "bold");
+    doc.text("Interview Q&A Study Guide", margin, yPos);
+    yPos += 10;
+
+    // Date
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(128, 128, 128);
+    doc.text(`Generated: ${new Date().toLocaleDateString()}`, margin, yPos);
+    yPos += 15;
+
+    doc.setTextColor(0, 0, 0);
+
+    favorites.forEach((fav, index) => {
+      // Check if we need a new page
+      if (yPos > 250) {
+        doc.addPage();
+        yPos = 20;
+      }
+
+      // Question number and job context
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "bold");
+      doc.setTextColor(0, 128, 128); // Turquoise
+      const questionHeader = `Q${index + 1}${fav.job_title ? ` - ${fav.job_title}` : ''}${fav.company_name ? ` at ${fav.company_name}` : ''}`;
+      doc.text(questionHeader, margin, yPos);
+      yPos += 8;
+
+      // Question text
+      doc.setTextColor(0, 0, 0);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      const questionLines = doc.splitTextToSize(fav.question, maxWidth);
+      doc.text(questionLines, margin, yPos);
+      yPos += questionLines.length * 6 + 5;
+
+      // Answer
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(10);
+      const answerLines = doc.splitTextToSize(fav.answer, maxWidth);
+      
+      // Check if answer will fit on current page
+      if (yPos + answerLines.length * 5 > 280) {
+        doc.addPage();
+        yPos = 20;
+      }
+      
+      doc.text(answerLines, margin, yPos);
+      yPos += answerLines.length * 5 + 5;
+
+      // Key points
+      if (fav.key_points && fav.key_points.length > 0) {
+        doc.setFont("helvetica", "italic");
+        doc.setFontSize(9);
+        doc.setTextColor(80, 80, 80);
+        doc.text("Key Points:", margin, yPos);
+        yPos += 5;
+        
+        fav.key_points.forEach((point) => {
+          const pointLines = doc.splitTextToSize(`• ${point}`, maxWidth - 5);
+          if (yPos + pointLines.length * 4 > 280) {
+            doc.addPage();
+            yPos = 20;
+          }
+          doc.text(pointLines, margin + 5, yPos);
+          yPos += pointLines.length * 4;
+        });
+      }
+
+      yPos += 15; // Space between Q&As
+      doc.setTextColor(0, 0, 0);
+    });
+
+    // Save the PDF
+    doc.save("interview-qa-study-guide.pdf");
+    toast.success("PDF exported successfully!");
+  };
+
   return (
     <div className="p-6 md:p-8 max-w-4xl mx-auto space-y-6" data-testid="qa-practice-page">
       {/* Header */}
