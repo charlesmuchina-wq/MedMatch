@@ -73,6 +73,15 @@ __all__ = [
     # Q&A Practice
     'qa_practice_router',
     
+    # Video Interview
+    'video_interview_router',
+    
+    # Push Notifications
+    'push_notifications_router',
+    
+    # ID Verification
+    'id_verification_router',
+    
     # Helper functions
     'get_current_user',
     'check_membership_status'
