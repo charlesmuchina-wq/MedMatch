@@ -22,6 +22,7 @@ const LoginPage = ({ onAuthSuccess }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { isDark } = useTheme();
+  const { t } = useTranslation();
   
   const [activeTab, setActiveTab] = useState("email");
   const [isLoading, setIsLoading] = useState(false);
