@@ -78,7 +78,7 @@ const QAPracticePage = ({ resume }) => {
     setQuestions(questions.map(q => q.id === id ? { ...q, loading: true } : q));
 
     try {
-      const response = await axios.post(`${API}/qa-practice/generate-answer`, {
+      const response = await api.client.post(`${API}/qa-practice/generate-answer`, {
         question: question.text,
         question_type: "behavioral",
         job_context: {
@@ -91,9 +91,9 @@ const QAPracticePage = ({ resume }) => {
       setQuestions(questions.map(q => 
         q.id === id ? { ...q, answer: response.data.ai_answer, loading: false, saved: false } : q
       ));
-      toast.success("Answer generated!");
+      toast.success(t("interview.answerGenerated") || "Answer generated!");
     } catch (error) {
-      toast.error("Failed to generate answer");
+      toast.error(t("interview.answerFailed") || "Failed to generate answer");
       setQuestions(questions.map(q => q.id === id ? { ...q, loading: false } : q));
     }
   };
@@ -102,7 +102,7 @@ const QAPracticePage = ({ resume }) => {
   const generateAllAnswers = async () => {
     const questionsWithText = questions.filter(q => q.text.trim());
     if (questionsWithText.length === 0) {
-      toast.error("Please enter at least one question");
+      toast.error(t("interview.enterAtLeastOne") || "Please enter at least one question");
       return;
     }
 
@@ -111,7 +111,7 @@ const QAPracticePage = ({ resume }) => {
 
     for (const question of questionsWithText) {
       try {
-        const response = await axios.post(`${API}/qa-practice/generate-answer`, {
+        const response = await api.client.post(`${API}/qa-practice/generate-answer`, {
           question: question.text,
           question_type: "behavioral",
           job_context: {
