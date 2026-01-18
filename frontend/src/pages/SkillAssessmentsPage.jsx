@@ -36,10 +36,56 @@ const SkillAssessmentsPage = ({ user }) => {
   const [showResultsDialog, setShowResultsDialog] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
 
+  const fetchAssessments = useCallback(async () => {
+    try {
+      const response = await apiClient.get("/api/skills/available");
+      setAssessments(response.data.assessments || []);
+      setCategories(response.data.by_category || {});
+    } catch (e) {
+      toast.error(t("errors.somethingWentWrong"));
+    }
+    setLoading(false);
+  }, [t]);
+
+  const fetchMyBadges = useCallback(async () => {
+    try {
+      const response = await apiClient.get("/api/skills/my-badges");
+      setMyBadges(response.data.badges || []);
+    } catch (e) {
+      console.error("Failed to load badges");
+    }
+  }, []);
+
+  const handleSubmitAssessment = useCallback(async () => {
+    if (!activeAssessment) return;
+    
+    setSubmitting(true);
+    try {
+      const answerList = Object.entries(answers).map(([idx, answer]) => ({
+        question_index: parseInt(idx),
+        answer
+      }));
+      
+      const response = await apiClient.post("/api/skills/submit", {
+        assessment_id: activeAssessment.id,
+        answers: answerList
+      });
+      
+      setResults(response.data);
+      setShowResultsDialog(true);
+      setActiveAssessment(null);
+      fetchMyBadges();
+      
+    } catch (e) {
+      toast.error(t("errors.somethingWentWrong"));
+    }
+    setSubmitting(false);
+  }, [activeAssessment, answers, fetchMyBadges, t]);
+
   useEffect(() => {
     fetchAssessments();
     fetchMyBadges();
-  }, []);
+  }, [fetchAssessments, fetchMyBadges]);
 
   useEffect(() => {
     if (timeLeft > 0 && activeAssessment) {
@@ -49,27 +95,7 @@ const SkillAssessmentsPage = ({ user }) => {
       // Auto-submit when time runs out
       handleSubmitAssessment();
     }
-  }, [timeLeft, activeAssessment]);
-
-  const fetchAssessments = async () => {
-    try {
-      const response = await apiClient.get("/api/skills/available");
-      setAssessments(response.data.assessments || []);
-      setCategories(response.data.by_category || {});
-    } catch (e) {
-      toast.error(t("errors.somethingWentWrong"));
-    }
-    setLoading(false);
-  };
-
-  const fetchMyBadges = async () => {
-    try {
-      const response = await apiClient.get("/api/skills/my-badges");
-      setMyBadges(response.data.badges || []);
-    } catch (e) {
-      console.error("Failed to load badges");
-    }
-  };
+  }, [timeLeft, activeAssessment, handleSubmitAssessment]);
 
   const startAssessment = async (skillName, difficulty = "intermediate") => {
     setSubmitting(true);
@@ -100,32 +126,6 @@ const SkillAssessmentsPage = ({ user }) => {
       ...answers,
       [questionIndex]: answer
     });
-  };
-
-  const handleSubmitAssessment = async () => {
-    if (!activeAssessment) return;
-    
-    setSubmitting(true);
-    try {
-      const answerList = Object.entries(answers).map(([idx, answer]) => ({
-        question_index: parseInt(idx),
-        answer
-      }));
-      
-      const response = await apiClient.post("/api/skills/submit", {
-        assessment_id: activeAssessment.id,
-        answers: answerList
-      });
-      
-      setResults(response.data);
-      setShowResultsDialog(true);
-      setActiveAssessment(null);
-      fetchMyBadges();
-      
-    } catch (e) {
-      toast.error(t("errors.somethingWentWrong"));
-    }
-    setSubmitting(false);
   };
 
   const formatTime = (seconds) => {
