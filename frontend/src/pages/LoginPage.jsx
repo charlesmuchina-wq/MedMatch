@@ -424,20 +424,20 @@ const LoginPage = ({ onAuthSuccess }) => {
                     <Loader2 className="w-4 h-4 animate-spin" />
                   ) : (
                     <>
-                      {isRegister ? "Create Account" : "Sign In"}
+                      {isRegister ? t("auth.createAccount") : t("auth.signIn")}
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </>
                   )}
                 </Button>
 
                 <p className="text-center text-sm text-slate-500">
-                  {isRegister ? "Already have an account?" : "Don't have an account?"}{" "}
+                  {isRegister ? t("auth.alreadyHaveAccount") : t("auth.dontHaveAccount")}{" "}
                   <button
                     type="button"
                     onClick={() => setIsRegister(!isRegister)}
                     className="text-turquoise hover:underline font-medium"
                   >
-                    {isRegister ? "Sign in" : "Create one"}
+                    {isRegister ? t("auth.signIn") : t("auth.signUp")}
                   </button>
                 </p>
               </form>
