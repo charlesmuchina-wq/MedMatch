@@ -1,4 +1,4 @@
-import { Globe, Check, ChevronDown } from "lucide-react";
+import { Globe, Check, ChevronDown, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,7 +12,7 @@ import { useTranslation, POPULAR_LANGUAGES, LANGUAGE_META, BUNDLED_LANGUAGES } f
 
 // Global Language Selector Component for Header
 const GlobalLanguageSelector = ({ compact = false }) => {
-  const { language, setLanguage, t, getLanguageInfo, isBundled } = useTranslation();
+  const { language, setLanguage, t, getLanguageInfo, isBundled, isLoadingAI } = useTranslation();
   const currentLang = getLanguageInfo(language);
 
   // Get all available languages
@@ -40,7 +40,11 @@ const GlobalLanguageSelector = ({ compact = false }) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="sm" className="gap-1 px-2" data-testid="language-selector">
-            <span className="text-lg">{currentLang.flag}</span>
+            {isLoadingAI ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <span className="text-lg">{currentLang.flag}</span>
+            )}
             <ChevronDown className="w-3 h-3 opacity-50" />
           </Button>
         </DropdownMenuTrigger>
@@ -59,7 +63,7 @@ const GlobalLanguageSelector = ({ compact = false }) => {
                 <span>{lang.flag}</span>
                 <span>{lang.name}</span>
                 {!lang.isBundled && (
-                  <span className="text-[10px] px-1 bg-amber-100 text-amber-700 rounded">AI</span>
+                  <span className="text-[10px] px-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded font-medium" title="AI-powered translation">AI</span>
                 )}
               </span>
               {language === lang.code && <Check className="w-4 h-4 text-green-500" />}
@@ -74,7 +78,11 @@ const GlobalLanguageSelector = ({ compact = false }) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm" className="gap-2" data-testid="language-selector">
-          <Globe className="w-4 h-4" />
+          {isLoadingAI ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Globe className="w-4 h-4" />
+          )}
           <span className="hidden sm:inline">{currentLang.flag} {currentLang.name}</span>
           <span className="sm:hidden">{currentLang.flag}</span>
           <ChevronDown className="w-3 h-3 opacity-50" />
@@ -102,7 +110,7 @@ const GlobalLanguageSelector = ({ compact = false }) => {
               <span>{lang.name}</span>
               <span className="text-xs text-slate-400">({lang.native})</span>
               {!lang.isBundled && (
-                <span className="text-[10px] px-1 bg-amber-100 text-amber-700 rounded" title="AI Translated">AI</span>
+                <span className="text-[10px] px-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded font-medium" title="AI-powered translation">AI</span>
               )}
             </span>
             {language === lang.code && <Check className="w-4 h-4 text-green-500" />}
@@ -126,7 +134,7 @@ const GlobalLanguageSelector = ({ compact = false }) => {
                   <span className="text-lg">{lang.flag}</span>
                   <span>{lang.name}</span>
                   {!lang.isBundled && (
-                    <span className="text-[10px] px-1 bg-amber-100 text-amber-700 rounded" title="AI Translated">AI</span>
+                    <span className="text-[10px] px-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded font-medium" title="AI-powered translation">AI</span>
                   )}
                 </span>
                 {language === lang.code && <Check className="w-4 h-4 text-green-500" />}
