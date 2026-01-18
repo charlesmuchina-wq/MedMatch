@@ -1,4 +1,4 @@
-import { Globe, Check, ChevronDown, Loader2 } from "lucide-react";
+import { Globe, Check, ChevronDown, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,11 +8,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
-import { useTranslation, POPULAR_LANGUAGES, LANGUAGE_META, BUNDLED_LANGUAGES } from "@/utils/i18n";
+import { useTranslation, POPULAR_LANGUAGES, LANGUAGE_META, BUNDLED_LANGUAGES, useLanguageInfo } from "@/utils/i18n";
 
 // Global Language Selector Component for Header
 const GlobalLanguageSelector = ({ compact = false }) => {
   const { language, setLanguage, t, getLanguageInfo, isBundled, isLoadingAI } = useTranslation();
+  const langInfo = useLanguageInfo();
   const currentLang = getLanguageInfo(language);
 
   // Get all available languages
