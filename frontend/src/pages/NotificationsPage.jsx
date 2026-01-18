@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import axios from "axios";
 import { toast } from "sonner";
 import { useTheme } from "@/App";
 import { 
@@ -12,11 +11,12 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+import { useTranslation } from "@/utils/i18n";
+import { apiClient } from "@/utils/apiClient";
 
 const NotificationsPage = ({ user }) => {
   const { isDark } = useTheme();
+  const { t } = useTranslation();
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [preferences, setPreferences] = useState(null);
@@ -26,23 +26,13 @@ const NotificationsPage = ({ user }) => {
   const [pushSupported, setPushSupported] = useState(false);
   const [pushPermission, setPushPermission] = useState('default');
 
-  useEffect(() => {
-    // Check push notification support
-    if ('Notification' in window && 'serviceWorker' in navigator) {
-      setPushSupported(true);
-      setPushPermission(Notification.permission);
-    }
-    
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setIsLoading(true);
     try {
       const [historyRes, prefsRes, subsRes] = await Promise.all([
-        axios.get(`${API}/notifications/history?limit=50`),
-        axios.get(`${API}/notifications/preferences`),
-        axios.get(`${API}/notifications/subscriptions`)
+        apiClient.get("/api/notifications/history?limit=50"),
+        apiClient.get("/api/notifications/preferences"),
+        apiClient.get("/api/notifications/subscriptions")
       ]);
       
       setNotifications(historyRes.data.notifications || []);
@@ -53,11 +43,21 @@ const NotificationsPage = ({ user }) => {
       console.error("Failed to fetch notifications:", e);
     }
     setIsLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    // Check push notification support
+    if ('Notification' in window && 'serviceWorker' in navigator) {
+      setPushSupported(true);
+      setPushPermission(Notification.permission);
+    }
+    
+    fetchData();
+  }, [fetchData]);
 
   const requestPushPermission = async () => {
     if (!pushSupported) {
-      toast.error("Push notifications not supported in this browser");
+      toast.error(t("notifications.notSupported") || "Push notifications not supported in this browser");
       return;
     }
 
@@ -68,10 +68,6 @@ const NotificationsPage = ({ user }) => {
       
       if (permission === 'granted') {
         // Register service worker and subscribe
-        const registration = await navigator.serviceWorker.ready;
-        
-        // Generate VAPID keys would be needed for production
-        // For now, we'll just store the subscription intent
         const subscription = {
           endpoint: `${window.location.origin}/push-endpoint-${Date.now()}`,
           keys: {
@@ -81,14 +77,14 @@ const NotificationsPage = ({ user }) => {
           user_agent: navigator.userAgent
         };
 
-        await axios.post(`${API}/notifications/subscribe`, subscription);
-        toast.success("Push notifications enabled!");
+        await apiClient.post("/api/notifications/subscribe", subscription);
+        toast.success(t("notifications.pushEnabled") || "Push notifications enabled!");
         fetchData();
       } else {
-        toast.error("Push notification permission denied");
+        toast.error(t("notifications.permissionDenied") || "Push notification permission denied");
       }
     } catch (e) {
-      toast.error("Failed to enable push notifications");
+      toast.error(t("notifications.enableFailed") || "Failed to enable push notifications");
       console.error(e);
     }
     setIsSubscribing(false);
@@ -96,11 +92,11 @@ const NotificationsPage = ({ user }) => {
 
   const unsubscribe = async (endpoint) => {
     try {
-      await axios.delete(`${API}/notifications/unsubscribe?endpoint=${encodeURIComponent(endpoint)}`);
-      toast.success("Unsubscribed from push notifications");
+      await apiClient.delete(`/api/notifications/unsubscribe?endpoint=${encodeURIComponent(endpoint)}`);
+      toast.success(t("notifications.unsubscribed") || "Unsubscribed from push notifications");
       fetchData();
     } catch (e) {
-      toast.error("Failed to unsubscribe");
+      toast.error(t("notifications.unsubscribeFailed") || "Failed to unsubscribe");
     }
   };
 
@@ -109,44 +105,44 @@ const NotificationsPage = ({ user }) => {
     setPreferences(newPrefs);
     
     try {
-      await axios.put(`${API}/notifications/preferences`, newPrefs);
-      toast.success("Preferences updated");
+      await apiClient.put("/api/notifications/preferences", newPrefs);
+      toast.success(t("notifications.prefsUpdated") || "Preferences updated");
     } catch (e) {
-      toast.error("Failed to update preferences");
+      toast.error(t("notifications.prefsFailed") || "Failed to update preferences");
       setPreferences(preferences); // Revert
     }
   };
 
   const markAsRead = async (notificationId) => {
     try {
-      await axios.put(`${API}/notifications/mark-read/${notificationId}`);
+      await apiClient.put(`/api/notifications/mark-read/${notificationId}`);
       setNotifications(prev => 
         prev.map(n => n.notification_id === notificationId ? { ...n, read: true } : n)
       );
       setUnreadCount(prev => Math.max(0, prev - 1));
     } catch (e) {
-      toast.error("Failed to mark as read");
+      toast.error(t("notifications.markReadFailed") || "Failed to mark as read");
     }
   };
 
   const markAllAsRead = async () => {
     try {
-      await axios.put(`${API}/notifications/mark-all-read`);
+      await apiClient.put("/api/notifications/mark-all-read");
       setNotifications(prev => prev.map(n => ({ ...n, read: true })));
       setUnreadCount(0);
-      toast.success("All notifications marked as read");
+      toast.success(t("notifications.allMarkedRead") || "All notifications marked as read");
     } catch (e) {
-      toast.error("Failed to mark all as read");
+      toast.error(t("notifications.markAllFailed") || "Failed to mark all as read");
     }
   };
 
   const sendTestNotification = async () => {
     try {
-      await axios.post(`${API}/notifications/send-test`);
-      toast.success("Test notification sent!");
+      await apiClient.post("/api/notifications/send-test");
+      toast.success(t("notifications.testSent") || "Test notification sent!");
       fetchData();
     } catch (e) {
-      toast.error("Failed to send test notification");
+      toast.error(t("notifications.testFailed") || "Failed to send test notification");
     }
   };
 
@@ -160,12 +156,12 @@ const NotificationsPage = ({ user }) => {
   };
 
   const preferenceItems = [
-    { key: 'job_alerts', icon: Briefcase, label: 'Job Alerts', desc: 'Get notified about new matching jobs' },
-    { key: 'application_updates', icon: CheckCircle2, label: 'Application Updates', desc: 'Status changes on your applications' },
-    { key: 'messages', icon: MessageSquare, label: 'Messages', desc: 'New messages from recruiters' },
-    { key: 'interview_reminders', icon: Calendar, label: 'Interview Reminders', desc: 'Upcoming interview notifications' },
-    { key: 'weekly_digest', icon: Mail, label: 'Weekly Digest', desc: 'Weekly summary of job matches' },
-    { key: 'marketing', icon: Megaphone, label: 'Marketing', desc: 'Tips, news, and promotions' }
+    { key: 'job_alerts', icon: Briefcase, label: t("notifications.jobAlerts") || 'Job Alerts', desc: t("notifications.jobAlertsDesc") || 'Get notified about new matching jobs' },
+    { key: 'application_updates', icon: CheckCircle2, label: t("notifications.appUpdates") || 'Application Updates', desc: t("notifications.appUpdatesDesc") || 'Status changes on your applications' },
+    { key: 'messages', icon: MessageSquare, label: t("notifications.messages") || 'Messages', desc: t("notifications.messagesDesc") || 'New messages from recruiters' },
+    { key: 'interview_reminders', icon: Calendar, label: t("notifications.interviewReminders") || 'Interview Reminders', desc: t("notifications.interviewRemindersDesc") || 'Upcoming interview notifications' },
+    { key: 'weekly_digest', icon: Mail, label: t("notifications.weeklyDigest") || 'Weekly Digest', desc: t("notifications.weeklyDigestDesc") || 'Weekly summary of job matches' },
+    { key: 'marketing', icon: Megaphone, label: t("notifications.marketing") || 'Marketing', desc: t("notifications.marketingDesc") || 'Tips, news, and promotions' }
   ];
 
   if (isLoading) {
@@ -182,24 +178,24 @@ const NotificationsPage = ({ user }) => {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100" style={{ fontFamily: 'IBM Plex Sans' }}>
-            Notifications
+            {t("notifications.title") || "Notifications"}
           </h1>
           <p className="text-slate-500 dark:text-slate-400 mt-1">
-            Manage your notification preferences and history
+            {t("notifications.subtitle") || "Manage your notification preferences and history"}
           </p>
         </div>
         {unreadCount > 0 && (
-          <Badge className="bg-turquoise text-white">{unreadCount} unread</Badge>
+          <Badge className="bg-turquoise text-white">{unreadCount} {t("notifications.unread") || "unread"}</Badge>
         )}
       </div>
 
       <Tabs defaultValue="history" className="space-y-6">
         <TabsList>
           <TabsTrigger value="history" className="flex items-center gap-2">
-            <Bell className="w-4 h-4" /> History
+            <Bell className="w-4 h-4" /> {t("notifications.history") || "History"}
           </TabsTrigger>
           <TabsTrigger value="preferences" className="flex items-center gap-2">
-            <Settings className="w-4 h-4" /> Preferences
+            <Settings className="w-4 h-4" /> {t("notifications.preferences") || "Preferences"}
           </TabsTrigger>
         </TabsList>
 
@@ -208,16 +204,16 @@ const NotificationsPage = ({ user }) => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle>Notification History</CardTitle>
-                <CardDescription>Your recent notifications</CardDescription>
+                <CardTitle>{t("notifications.historyTitle") || "Notification History"}</CardTitle>
+                <CardDescription>{t("notifications.historyDesc") || "Your recent notifications"}</CardDescription>
               </div>
               <div className="flex gap-2">
-                <Button variant="outline" size="sm" onClick={fetchData}>
-                  <RefreshCw className="w-4 h-4 mr-1" /> Refresh
+                <Button variant="outline" size="sm" onClick={fetchData} data-testid="refresh-notifications">
+                  <RefreshCw className="w-4 h-4 mr-1" /> {t("common.refresh") || "Refresh"}
                 </Button>
                 {unreadCount > 0 && (
-                  <Button variant="outline" size="sm" onClick={markAllAsRead}>
-                    <Check className="w-4 h-4 mr-1" /> Mark All Read
+                  <Button variant="outline" size="sm" onClick={markAllAsRead} data-testid="mark-all-read">
+                    <Check className="w-4 h-4 mr-1" /> {t("notifications.markAllRead") || "Mark All Read"}
                   </Button>
                 )}
               </div>
@@ -226,13 +222,14 @@ const NotificationsPage = ({ user }) => {
               {notifications.length === 0 ? (
                 <div className="text-center py-12 text-slate-400">
                   <BellOff className="w-12 h-12 mx-auto mb-4 opacity-40" />
-                  <p>No notifications yet</p>
+                  <p>{t("notifications.noNotifications") || "No notifications yet"}</p>
                   <Button 
                     variant="outline" 
                     className="mt-4"
                     onClick={sendTestNotification}
+                    data-testid="send-test-notification"
                   >
-                    Send Test Notification
+                    {t("notifications.sendTest") || "Send Test Notification"}
                   </Button>
                 </div>
               ) : (
@@ -246,6 +243,7 @@ const NotificationsPage = ({ user }) => {
                           : 'bg-turquoise/5 dark:bg-turquoise/10 border-l-4 border-turquoise'
                       }`}
                       onClick={() => !notification.read && markAsRead(notification.notification_id)}
+                      data-testid={`notification-${notification.notification_id}`}
                     >
                       <div className="mt-0.5">
                         {getNotificationIcon(notification.data?.type)}
@@ -282,28 +280,28 @@ const NotificationsPage = ({ user }) => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BellRing className="w-5 h-5 text-turquoise" />
-                  Push Notifications
+                  {t("notifications.pushNotifications") || "Push Notifications"}
                 </CardTitle>
                 <CardDescription>
-                  Receive instant notifications on this device
+                  {t("notifications.pushDesc") || "Receive instant notifications on this device"}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 {!pushSupported ? (
                   <p className="text-amber-600 dark:text-amber-400 text-sm">
-                    Push notifications are not supported in this browser
+                    {t("notifications.notSupported") || "Push notifications are not supported in this browser"}
                   </p>
                 ) : pushPermission === 'granted' && subscriptions.length > 0 ? (
                   <div className="space-y-4">
                     <div className="flex items-center gap-3 p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg">
                       <CheckCircle2 className="w-5 h-5 text-emerald-500" />
                       <span className="text-emerald-700 dark:text-emerald-300 font-medium">
-                        Push notifications enabled
+                        {t("notifications.pushEnabled") || "Push notifications enabled"}
                       </span>
                     </div>
                     
                     <div className="space-y-2">
-                      <p className="text-sm text-slate-500 dark:text-slate-400">Subscribed devices:</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">{t("notifications.subscribedDevices") || "Subscribed devices"}:</p>
                       {subscriptions.map((sub) => (
                         <div 
                           key={sub.subscription_id}
@@ -314,7 +312,7 @@ const NotificationsPage = ({ user }) => {
                               {sub.user_agent?.split(' ')[0] || 'Device'}
                             </p>
                             <p className="text-xs text-slate-500">
-                              Added {new Date(sub.created_at).toLocaleDateString()}
+                              {t("notifications.added") || "Added"} {new Date(sub.created_at).toLocaleDateString()}
                             </p>
                           </div>
                           <Button 
@@ -333,27 +331,29 @@ const NotificationsPage = ({ user }) => {
                       variant="outline" 
                       onClick={sendTestNotification}
                       className="w-full"
+                      data-testid="test-push-notification"
                     >
                       <Bell className="w-4 h-4 mr-2" />
-                      Send Test Notification
+                      {t("notifications.sendTest") || "Send Test Notification"}
                     </Button>
                   </div>
                 ) : (
                   <div className="text-center py-4">
                     <p className="text-slate-500 dark:text-slate-400 mb-4">
-                      Enable push notifications to receive instant updates
+                      {t("notifications.enablePushDesc") || "Enable push notifications to receive instant updates"}
                     </p>
                     <Button 
                       onClick={requestPushPermission}
                       disabled={isSubscribing}
                       className="bg-turquoise hover:bg-turquoise/90"
+                      data-testid="enable-push-btn"
                     >
                       {isSubscribing ? (
                         <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                       ) : (
                         <Bell className="w-4 h-4 mr-2" />
                       )}
-                      Enable Push Notifications
+                      {t("notifications.enablePush") || "Enable Push Notifications"}
                     </Button>
                   </div>
                 )}
@@ -363,8 +363,8 @@ const NotificationsPage = ({ user }) => {
             {/* Notification Preferences */}
             <Card>
               <CardHeader>
-                <CardTitle>Notification Preferences</CardTitle>
-                <CardDescription>Choose what notifications you want to receive</CardDescription>
+                <CardTitle>{t("notifications.preferencesTitle") || "Notification Preferences"}</CardTitle>
+                <CardDescription>{t("notifications.preferencesDesc") || "Choose what notifications you want to receive"}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
