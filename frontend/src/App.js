@@ -343,12 +343,36 @@ function AppContent() {
           axios.get(`${API}/applications`),
           axios.get(`${API}/membership/status`, { withCredentials: true })
         ]);
-        if (resumeRes.data) setResume(resumeRes.data);
+        if (resumeRes.data) {
+          setResume(resumeRes.data);
+          // Cache resume for offline use
+          offlineStorage.cacheResume(resumeRes.data).catch(console.error);
+        }
         setSavedJobs(savedRes.data);
+        // Cache saved jobs for offline use
+        if (savedRes.data?.length > 0) {
+          offlineStorage.cacheJobs(savedRes.data).catch(console.error);
+        }
         setApplications(appsRes.data);
         setMembership(membershipRes.data);
+        // Cache user data
+        offlineStorage.cacheUser(user).catch(console.error);
       } catch (e) {
         console.error("Failed to fetch data:", e);
+        // Try to load from cache if offline
+        if (!navigator.onLine) {
+          try {
+            const cachedResume = await offlineStorage.getCachedResume();
+            const cachedJobs = await offlineStorage.getCachedJobs();
+            const cachedUser = await offlineStorage.getCachedUser();
+            if (cachedResume) setResume(cachedResume);
+            if (cachedJobs?.length > 0) setSavedJobs(cachedJobs);
+            if (cachedUser) setUser(cachedUser);
+            toast.info("Loaded cached data - you're offline");
+          } catch (cacheErr) {
+            console.error("Cache load error:", cacheErr);
+          }
+        }
       }
     };
     fetchData();
