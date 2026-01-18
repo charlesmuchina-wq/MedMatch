@@ -68,7 +68,19 @@
     "uploadResume": "Subir Currículum",
     "searchJobs": "Buscar Empleos",
     "practiceInterview": "Practicar Entrevista",
-    "viewAnalytics": "Ver Analíticas"
+    "viewAnalytics": "Ver Analíticas",
+    "getAIMatches": "Obtener coincidencias con IA",
+    "findOpportunities": "Encontrar oportunidades",
+    "applyToJobs": "Aplicar a Empleos",
+    "reviewSaved": "Revisar posiciones guardadas",
+    "generateCoverLetter": "Generar Carta de Presentación",
+    "createInSeconds": "Crear en segundos con IA",
+    "successPredictor": "Predictor de Éxito",
+    "analyzeChances": "Analiza tus posibilidades",
+    "viewApps": "Ver Solicitudes",
+    "trackProgress": "Seguir tu progreso",
+    "noRecentActivity": "Sin actividad reciente",
+    "startByUploadingResume": "Comienza subiendo tu currículum para obtener recomendaciones personalizadas"
   },
   "jobs": {
     "searchJobs": "Buscar Empleos",
