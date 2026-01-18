@@ -10,7 +10,7 @@ import requests
 import os
 import json
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://remote-job-hub-4.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://remotejobapp.preview.emergentagent.com')
 
 class TestDragonAI:
     """KARAU Dragon AI endpoint tests"""
