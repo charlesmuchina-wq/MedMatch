@@ -118,7 +118,7 @@ const InterviewPrepPage = ({ resume }) => {
 
     setGeneratingQuestions(true);
     try {
-      const response = await axios.post(`${API}/interview/generate-questions`, {
+      const response = await api.client.post(`${API}/interview/generate-questions`, {
         job_title: jobTitle,
         company: company,
         resume_skills: resume?.skills || []
@@ -135,7 +135,7 @@ const InterviewPrepPage = ({ resume }) => {
     setGeneratingAnswer(true);
     setSelectedQuestion(question);
     try {
-      const response = await axios.post(`${API}/interview/generate-answer`, {
+      const response = await api.client.post(`${API}/interview/generate-answer`, {
         question: question.text || question,
         job_title: jobTitle,
         company: company
@@ -150,7 +150,7 @@ const InterviewPrepPage = ({ resume }) => {
   const polishStarAnswer = async (starData) => {
     setGeneratingAnswer(true);
     try {
-      const response = await axios.post(`${API}/interview/polish-star`, starData);
+      const response = await api.client.post(`${API}/interview/polish-star`, starData);
       setGeneratedAnswer(response.data);
     } catch (e) {
       toast.error("Failed to polish answer");
@@ -165,7 +165,7 @@ const InterviewPrepPage = ({ resume }) => {
     }
     setResearchingCompany(true);
     try {
-      const response = await axios.post(`${API}/interview/research-company`, { company });
+      const response = await api.client.post(`${API}/interview/research-company`, { company });
       setCompanyResearch(response.data);
       toast.success("Company research complete!");
     } catch (e) {
