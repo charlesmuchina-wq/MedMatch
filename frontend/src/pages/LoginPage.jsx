@@ -447,7 +447,7 @@ const LoginPage = ({ onAuthSuccess }) => {
             <TabsContent value="phone">
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number</Label>
+                  <Label htmlFor="phone">{t("auth.phone")}</Label>
                   <div className="relative">
                     <Phone className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                     <Input
