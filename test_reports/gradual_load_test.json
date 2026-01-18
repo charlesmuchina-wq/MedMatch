@@ -1,0 +1,466 @@
+{
+  "test_date": "2026-01-18T15:31:07.947640",
+  "results": {
+    "100": {
+      "config": {
+        "requests": 100,
+        "concurrency": 10,
+        "label": "Light Load"
+      },
+      "metrics": {
+        "health": {
+          "total": 11,
+          "success": 11,
+          "success_rate": 100.0,
+          "avg_time_ms": 29.77161345982247,
+          "p95_time_ms": 57.901066000340506,
+          "min_time_ms": 9.249163005733863,
+          "max_time_ms": 57.901066000340506
+        },
+        "languages": {
+          "total": 11,
+          "success": 11,
+          "success_rate": 100.0,
+          "avg_time_ms": 11.298231457741084,
+          "p95_time_ms": 15.88144400739111,
+          "min_time_ms": 7.55089198355563,
+          "max_time_ms": 15.88144400739111
+        },
+        "id_levels": {
+          "total": 11,
+          "success": 11,
+          "success_rate": 100.0,
+          "avg_time_ms": 47.989855086515576,
+          "p95_time_ms": 58.0439239856787,
+          "min_time_ms": 18.354038998950273,
+          "max_time_ms": 58.0439239856787
+        },
+        "biometric": {
+          "total": 11,
+          "success": 11,
+          "success_rate": 100.0,
+          "avg_time_ms": 27.45290791129016,
+          "p95_time_ms": 52.122481021797284,
+          "min_time_ms": 7.101677008904517,
+          "max_time_ms": 52.122481021797284
+        },
+        "companies": {
+          "total": 11,
+          "success": 11,
+          "success_rate": 100.0,
+          "avg_time_ms": 75.4791481833143,
+          "p95_time_ms": 102.7368149952963,
+          "min_time_ms": 48.51371800759807,
+          "max_time_ms": 102.7368149952963
+        },
+        "profile": {
+          "total": 11,
+          "success": 11,
+          "success_rate": 100.0,
+          "avg_time_ms": 29.522766729562797,
+          "p95_time_ms": 58.050199993886054,
+          "min_time_ms": 7.6696560136042535,
+          "max_time_ms": 58.050199993886054
+        },
+        "saved_jobs": {
+          "total": 11,
+          "success": 11,
+          "success_rate": 100.0,
+          "avg_time_ms": 30.186166730180215,
+          "p95_time_ms": 61.03680899832398,
+          "min_time_ms": 9.149424004135653,
+          "max_time_ms": 61.03680899832398
+        },
+        "qa_favorites": {
+          "total": 11,
+          "success": 11,
+          "success_rate": 100.0,
+          "avg_time_ms": 28.980619268788192,
+          "p95_time_ms": 61.115941003663465,
+          "min_time_ms": 8.172275993274525,
+          "max_time_ms": 61.115941003663465
+        },
+        "notifications": {
+          "total": 11,
+          "success": 11,
+          "success_rate": 100.0,
+          "avg_time_ms": 31.64955855093219,
+          "p95_time_ms": 58.03099600598216,
+          "min_time_ms": 17.779513000277802,
+          "max_time_ms": 58.03099600598216
+        }
+      },
+      "total_time_sec": 0.5559662669838872
+    },
+    "500": {
+      "config": {
+        "requests": 500,
+        "concurrency": 25,
+        "label": "Medium Load"
+      },
+      "metrics": {
+        "health": {
+          "total": 55,
+          "success": 55,
+          "success_rate": 100.0,
+          "avg_time_ms": 41.5245485661382,
+          "p95_time_ms": 73.68262100499123,
+          "min_time_ms": 6.729581014951691,
+          "max_time_ms": 154.8091199947521
+        },
+        "languages": {
+          "total": 55,
+          "success": 55,
+          "success_rate": 100.0,
+          "avg_time_ms": 17.840701853327285,
+          "p95_time_ms": 35.366188996704295,
+          "min_time_ms": 7.75159100885503,
+          "max_time_ms": 44.35897298390046
+        },
+        "id_levels": {
+          "total": 55,
+          "success": 55,
+          "success_rate": 100.0,
+          "avg_time_ms": 35.845147287049755,
+          "p95_time_ms": 60.80496497452259,
+          "min_time_ms": 7.731003017397597,
+          "max_time_ms": 68.17879501613788
+        },
+        "biometric": {
+          "total": 55,
+          "success": 55,
+          "success_rate": 100.0,
+          "avg_time_ms": 28.61476118401201,
+          "p95_time_ms": 52.84830401069485,
+          "min_time_ms": 7.058413000777364,
+          "max_time_ms": 53.45340198255144
+        },
+        "companies": {
+          "total": 55,
+          "success": 55,
+          "success_rate": 100.0,
+          "avg_time_ms": 39.85899390906773,
+          "p95_time_ms": 63.834292988758534,
+          "min_time_ms": 7.1282979915849864,
+          "max_time_ms": 64.55390399787575
+        },
+        "profile": {
+          "total": 55,
+          "success": 55,
+          "success_rate": 100.0,
+          "avg_time_ms": 39.99051860142076,
+          "p95_time_ms": 62.50825501047075,
+          "min_time_ms": 11.010832997271791,
+          "max_time_ms": 65.52284600911662
+        },
+        "saved_jobs": {
+          "total": 55,
+          "success": 55,
+          "success_rate": 100.0,
+          "avg_time_ms": 44.458501358431846,
+          "p95_time_ms": 69.95171000016853,
+          "min_time_ms": 10.826731013366953,
+          "max_time_ms": 157.43861300870776
+        },
+        "qa_favorites": {
+          "total": 55,
+          "success": 55,
+          "success_rate": 100.0,
+          "avg_time_ms": 45.14725807292218,
+          "p95_time_ms": 74.21106399851851,
+          "min_time_ms": 9.910359978675842,
+          "max_time_ms": 75.65482900827192
+        },
+        "notifications": {
+          "total": 55,
+          "success": 55,
+          "success_rate": 100.0,
+          "avg_time_ms": 43.49988223614425,
+          "p95_time_ms": 69.9370660004206,
+          "min_time_ms": 10.583121998934075,
+          "max_time_ms": 73.12268399982713
+        }
+      },
+      "total_time_sec": 1.0995217690069694
+    },
+    "1000": {
+      "config": {
+        "requests": 1000,
+        "concurrency": 50,
+        "label": "Heavy Load"
+      },
+      "metrics": {
+        "health": {
+          "total": 111,
+          "success": 111,
+          "success_rate": 100.0,
+          "avg_time_ms": 49.24645160297603,
+          "p95_time_ms": 93.1869309861213,
+          "min_time_ms": 9.922683995682746,
+          "max_time_ms": 96.4102309953887
+        },
+        "languages": {
+          "total": 111,
+          "success": 73,
+          "success_rate": 65.76576576576578,
+          "avg_time_ms": 25.23823575418098,
+          "p95_time_ms": 42.02972000348382,
+          "min_time_ms": 6.55242899665609,
+          "max_time_ms": 43.88829102390446
+        },
+        "id_levels": {
+          "total": 111,
+          "success": 94,
+          "success_rate": 84.68468468468468,
+          "avg_time_ms": 3250.8665278731683,
+          "p95_time_ms": 11275.924271001713,
+          "min_time_ms": 7.462783018127084,
+          "max_time_ms": 15279.386851994786
+        },
+        "biometric": {
+          "total": 111,
+          "success": 100,
+          "success_rate": 90.09009009009009,
+          "avg_time_ms": 878.2832648907788,
+          "p95_time_ms": 11269.872378994478,
+          "min_time_ms": 7.004422979662195,
+          "max_time_ms": 15353.46797501552
+        },
+        "companies": {
+          "total": 111,
+          "success": 110,
+          "success_rate": 99.09909909909909,
+          "avg_time_ms": 1482.7307577255522,
+          "p95_time_ms": 11233.952328999294,
+          "min_time_ms": 9.057440009200945,
+          "max_time_ms": 15286.996575974626
+        },
+        "profile": {
+          "total": 111,
+          "success": 111,
+          "success_rate": 100.0,
+          "avg_time_ms": 77.67295209913271,
+          "p95_time_ms": 164.6907769900281,
+          "min_time_ms": 10.544698016019538,
+          "max_time_ms": 181.8422279902734
+        },
+        "saved_jobs": {
+          "total": 111,
+          "success": 111,
+          "success_rate": 100.0,
+          "avg_time_ms": 61.26617473971753,
+          "p95_time_ms": 88.08536300784908,
+          "min_time_ms": 14.725821994943544,
+          "max_time_ms": 94.08851299667731
+        },
+        "qa_favorites": {
+          "total": 111,
+          "success": 111,
+          "success_rate": 100.0,
+          "avg_time_ms": 71.74922896366617,
+          "p95_time_ms": 102.85813800874166,
+          "min_time_ms": 15.906696993624792,
+          "max_time_ms": 107.01680698548444
+        },
+        "notifications": {
+          "total": 111,
+          "success": 111,
+          "success_rate": 100.0,
+          "avg_time_ms": 71.79242481271996,
+          "p95_time_ms": 103.07526000542566,
+          "min_time_ms": 20.53774500382133,
+          "max_time_ms": 108.6809629923664
+        }
+      },
+      "total_time_sec": 64.72645114199258
+    },
+    "2000": {
+      "config": {
+        "requests": 2000,
+        "concurrency": 75,
+        "label": "Stress Load"
+      },
+      "metrics": {
+        "health": {
+          "total": 222,
+          "success": 222,
+          "success_rate": 100.0,
+          "avg_time_ms": 49.51150540452816,
+          "p95_time_ms": 82.86734300781973,
+          "min_time_ms": 9.717772016301751,
+          "max_time_ms": 136.45727399853058
+        },
+        "languages": {
+          "total": 222,
+          "success": 222,
+          "success_rate": 100.0,
+          "avg_time_ms": 48.97998214889683,
+          "p95_time_ms": 82.06293600960635,
+          "min_time_ms": 8.539203990949318,
+          "max_time_ms": 97.30113798286766
+        },
+        "id_levels": {
+          "total": 222,
+          "success": 195,
+          "success_rate": 87.83783783783784,
+          "avg_time_ms": 62.011009498756046,
+          "p95_time_ms": 121.82361798477359,
+          "min_time_ms": 7.849811023334041,
+          "max_time_ms": 147.53588201710954
+        },
+        "biometric": {
+          "total": 222,
+          "success": 150,
+          "success_rate": 67.56756756756756,
+          "avg_time_ms": 35.524014933422826,
+          "p95_time_ms": 55.77538299257867,
+          "min_time_ms": 6.390018999809399,
+          "max_time_ms": 59.0466279827524
+        },
+        "companies": {
+          "total": 222,
+          "success": 147,
+          "success_rate": 66.21621621621621,
+          "avg_time_ms": 41.32724213762348,
+          "p95_time_ms": 66.19285300257616,
+          "min_time_ms": 7.544492022134364,
+          "max_time_ms": 70.586659014225
+        },
+        "profile": {
+          "total": 222,
+          "success": 145,
+          "success_rate": 65.31531531531532,
+          "avg_time_ms": 44.90609064172343,
+          "p95_time_ms": 72.09563901415095,
+          "min_time_ms": 8.862096990924329,
+          "max_time_ms": 74.85429898952134
+        },
+        "saved_jobs": {
+          "total": 222,
+          "success": 144,
+          "success_rate": 64.86486486486487,
+          "avg_time_ms": 55.09334223602814,
+          "p95_time_ms": 83.89450798858888,
+          "min_time_ms": 11.295349977444857,
+          "max_time_ms": 124.25227300263941
+        },
+        "qa_favorites": {
+          "total": 222,
+          "success": 41,
+          "success_rate": 18.46846846846847,
+          "avg_time_ms": 34.15241761050732,
+          "p95_time_ms": 61.64919299772009,
+          "min_time_ms": 7.685454009333625,
+          "max_time_ms": 73.10419701389037
+        },
+        "notifications": {
+          "total": 222,
+          "success": 4,
+          "success_rate": 1.8018018018018018,
+          "avg_time_ms": 11.469244745967444,
+          "p95_time_ms": 12.954650999745354,
+          "min_time_ms": 9.523895976599306,
+          "max_time_ms": 12.954650999745354
+        }
+      },
+      "total_time_sec": 2.3245180540252477
+    },
+    "3000": {
+      "config": {
+        "requests": 3000,
+        "concurrency": 100,
+        "label": "Peak Load"
+      },
+      "metrics": {
+        "health": {
+          "total": 333,
+          "success": 12,
+          "success_rate": 3.6036036036036037,
+          "avg_time_ms": 17.461850329709705,
+          "p95_time_ms": 52.74143398855813,
+          "min_time_ms": 6.402799976058304,
+          "max_time_ms": 52.74143398855813
+        },
+        "languages": {
+          "total": 333,
+          "success": 7,
+          "success_rate": 2.1021021021021022,
+          "avg_time_ms": 8.839399861504457,
+          "p95_time_ms": 12.811079999664798,
+          "min_time_ms": 6.54709100490436,
+          "max_time_ms": 12.811079999664798
+        },
+        "id_levels": {
+          "total": 333,
+          "success": 1,
+          "success_rate": 0.3003003003003003,
+          "avg_time_ms": 10.194072005106136,
+          "p95_time_ms": 0,
+          "min_time_ms": 10.194072005106136,
+          "max_time_ms": 10.194072005106136
+        },
+        "biometric": {
+          "total": 333,
+          "success": 1,
+          "success_rate": 0.3003003003003003,
+          "avg_time_ms": 6.7610410042107105,
+          "p95_time_ms": 0,
+          "min_time_ms": 6.7610410042107105,
+          "max_time_ms": 6.7610410042107105
+        },
+        "companies": {
+          "total": 333,
+          "success": 0,
+          "success_rate": 0.0,
+          "avg_time_ms": 0,
+          "p95_time_ms": 0,
+          "min_time_ms": 0,
+          "max_time_ms": 0
+        },
+        "profile": {
+          "total": 333,
+          "success": 0,
+          "success_rate": 0.0,
+          "avg_time_ms": 0,
+          "p95_time_ms": 0,
+          "min_time_ms": 0,
+          "max_time_ms": 0
+        },
+        "saved_jobs": {
+          "total": 333,
+          "success": 137,
+          "success_rate": 41.14114114114114,
+          "avg_time_ms": 60.28188117520619,
+          "p95_time_ms": 86.28568801213987,
+          "min_time_ms": 27.55606098799035,
+          "max_time_ms": 88.34534900961444
+        },
+        "qa_favorites": {
+          "total": 333,
+          "success": 223,
+          "success_rate": 66.96696696696696,
+          "avg_time_ms": 88.02893174921304,
+          "p95_time_ms": 115.13516001286916,
+          "min_time_ms": 27.43435700540431,
+          "max_time_ms": 121.5584870078601
+        },
+        "notifications": {
+          "total": 333,
+          "success": 226,
+          "success_rate": 67.86786786786787,
+          "avg_time_ms": 89.83922325279687,
+          "p95_time_ms": 121.56975999823771,
+          "min_time_ms": 40.85385397775099,
+          "max_time_ms": 122.39084800239652
+        }
+      },
+      "total_time_sec": 3.5909566799819004
+    }
+  },
+  "scores": {
+    "reliability": 75.42208875542208,
+    "stability": 65.67903116027296,
+    "resilience": 20.253586920253582,
+    "overall": 53.78490227864955
+  }
+}
