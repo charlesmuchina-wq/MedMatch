@@ -1,7 +1,7 @@
 """
 MedMatch API Server
 Clean, modular FastAPI application with route organization
-Production-ready with AI Supervisor for scaling up to 3000 concurrent users
+Production-ready with AI Supervisor for scaling up to 1M+ concurrent users
 """
 from fastapi import FastAPI, Request, Response, HTTPException
 from fastapi.responses import RedirectResponse, JSONResponse
@@ -30,15 +30,22 @@ from fastapi_cache.decorator import cache
 # AI Supervisor for intelligent scaling
 from services.ai_supervisor import ai_supervisor, RequestPriority, SystemHealth
 
+# Global Rate Limiter
+from services.global_rate_limiter import (
+    global_rate_limiter, 
+    get_client_identifier, 
+    get_user_tier
+)
+
 # Load environment
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-# ============== Production Configuration ==============
+# ============== Production Configuration (1M Users) ==============
 MONGO_POOL_SIZE = int(os.environ.get('MONGO_POOL_SIZE', '100'))
 MONGO_MIN_POOL_SIZE = int(os.environ.get('MONGO_MIN_POOL_SIZE', '20'))
 CACHE_EXPIRE_SECONDS = int(os.environ.get('CACHE_EXPIRE_SECONDS', '300'))
-MAX_CONCURRENT_USERS = int(os.environ.get('MAX_CONCURRENT_USERS', '3000'))
+MAX_CONCURRENT_USERS = int(os.environ.get('MAX_CONCURRENT_USERS', '1000000'))
 
 # ============== MongoDB Connection with Optimized Pooling ==============
 mongo_url = os.environ['MONGO_URL']
