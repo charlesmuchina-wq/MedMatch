@@ -392,6 +392,11 @@ function AppContent() {
 
   const handleAuthSuccess = (userData) => {
     setUser(userData);
+    // Sync language preference from server if available
+    if (userData?.language) {
+      localStorage.setItem("medmatch-language", userData.language);
+      window.dispatchEvent(new CustomEvent('languageSync', { detail: userData.language }));
+    }
   };
 
   const handleLogout = async () => {
