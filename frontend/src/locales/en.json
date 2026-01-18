@@ -187,6 +187,10 @@
     "saveFavorite": "Save to Favorites",
     "exportPDF": "Export to PDF"
   },
+  "savedJobs": {
+    "noSavedJobs": "No saved jobs",
+    "saveJobsHint": "Save jobs while searching to review them later"
+  },
   "coverLetter": {
     "coverLetterGenerator": "Cover Letter Generator",
     "generateCoverLetter": "Generate Cover Letter",
@@ -198,9 +202,13 @@
     "friendly": "Friendly",
     "enthusiastic": "Enthusiastic",
     "generating": "Generating your cover letter...",
-    "generated": "Cover letter generated",
+    "generated": "Cover letter generated!",
     "copy": "Copy to Clipboard",
-    "download": "Download"
+    "copied": "Cover letter copied to clipboard!",
+    "download": "Download",
+    "fillAllFields": "Please fill in all fields",
+    "uploadResumeFirst": "Please upload your resume first",
+    "generationFailed": "Failed to generate cover letter"
   },
   "membership": {
     "membership": "Membership",
