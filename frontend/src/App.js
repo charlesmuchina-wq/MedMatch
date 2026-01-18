@@ -303,6 +303,11 @@ function AppContent() {
   // Onboarding tour state
   const { showTour, completeTour } = useOnboardingTour();
 
+  // Initialize offline storage
+  useEffect(() => {
+    offlineStorage.init().catch(console.error);
+  }, []);
+
   // Check for OAuth callback (session_id in hash) 
   useEffect(() => {
     const hash = window.location.hash;
