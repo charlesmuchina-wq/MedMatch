@@ -268,7 +268,50 @@ export const I18nProvider = ({ children }) => {
   const [dynamicTranslations, setDynamicTranslations] = useState({});
   const [isRTL, setIsRTL] = useState(false);
   const [isLoadingAI, setIsLoadingAI] = useState(false);
+  const [isSynced, setIsSynced] = useState(false);
   const aiTranslationCache = useRef({});
+
+  // Sync language preference with server when user is logged in
+  const syncLanguageWithServer = useCallback(async (lang) => {
+    try {
+      const token = localStorage.getItem("access_token");
+      if (!token) return;
+      
+      await axios.put(`${API}/api/auth/preferences`, 
+        { language: lang },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setIsSynced(true);
+    } catch (e) {
+      console.warn("Failed to sync language preference:", e);
+    }
+  }, []);
+
+  // Fetch user's language preference from server on mount
+  const fetchLanguagePreference = useCallback(async () => {
+    try {
+      const token = localStorage.getItem("access_token");
+      if (!token) return;
+      
+      const response = await axios.get(`${API}/api/auth/preferences`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      const serverLang = response.data?.language;
+      if (serverLang && serverLang !== language) {
+        setLanguageState(serverLang);
+        localStorage.setItem("medmatch-language", serverLang);
+      }
+      setIsSynced(true);
+    } catch (e) {
+      // User might not be logged in, that's okay
+    }
+  }, [language]);
+
+  // Fetch language preference on mount
+  useEffect(() => {
+    fetchLanguagePreference();
+  }, [fetchLanguagePreference]);
 
   // Update localStorage and document direction when language changes
   useEffect(() => {
