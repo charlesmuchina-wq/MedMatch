@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { toast } from "sonner";
 import { 
   Mic, MessageSquare, Sparkles, Loader2, BookOpen, Target,
@@ -13,6 +12,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TranslationWidget from "@/components/TranslationWidget";
+import { useTranslation } from "@/utils/i18n";
+import api from "@/utils/apiClient";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
