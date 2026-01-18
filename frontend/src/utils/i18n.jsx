@@ -326,6 +326,7 @@ export const I18nProvider = ({ children }) => {
     const handleLanguageSync = (event) => {
       const newLang = event.detail;
       if (newLang && LANGUAGE_META[newLang] && newLang !== language) {
+        lastSyncRef.current = Date.now(); // Mark as recently synced
         setLanguageState(newLang);
       }
     };
