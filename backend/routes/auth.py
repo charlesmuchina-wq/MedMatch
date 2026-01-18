@@ -105,7 +105,33 @@ async def get_or_create_user(email: str, name: str = "", auth_method: str = "ema
     return user_doc
 
 async def get_current_user(request: Request):
-    """Get current user from session cookie"""
+    """Get current user from session cookie or Bearer token"""
+    # First try Bearer token from Authorization header
+    auth_header = request.headers.get("Authorization", "")
+    if auth_header.startswith("Bearer "):
+        token = auth_header[7:]
+        # Check in sessions collection
+        session = await db.user_sessions.find_one({"session_token": token}, {"_id": 0})
+        if session:
+            # Check expiration
+            expires_at = session.get("expires_at")
+            if expires_at:
+                try:
+                    if isinstance(expires_at, str):
+                        expires_dt = datetime.fromisoformat(expires_at.replace('Z', '+00:00'))
+                    else:
+                        expires_dt = expires_at
+                    
+                    if expires_dt < datetime.now(timezone.utc):
+                        await db.user_sessions.delete_one({"session_token": token})
+                    else:
+                        user = await db.users.find_one({"user_id": session["user_id"]}, {"_id": 0})
+                        if user:
+                            return user
+                except Exception as e:
+                    logging.warning(f"Session expiry check error: {e}")
+    
+    # Fallback to session cookie
     session_token = request.cookies.get("session_token")
     if not session_token:
         return None
