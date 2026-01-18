@@ -85,12 +85,21 @@ const GlobalLanguageSelector = ({ compact = false }) => {
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm" className="gap-2" data-testid="language-selector">
           {isLoadingAI ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
+            <Loader2 className="w-4 h-4 animate-spin text-purple-500" />
+          ) : langInfo.isAIPowered ? (
+            <span className="relative flex items-center gap-1">
+              <Sparkles className="w-4 h-4 text-purple-500" />
+            </span>
           ) : (
             <Globe className="w-4 h-4" />
           )}
           <span className="hidden sm:inline">{currentLang.flag} {currentLang.name}</span>
           <span className="sm:hidden">{currentLang.flag}</span>
+          {langInfo.isAIPowered && !isLoadingAI && (
+            <span className="text-[9px] px-1.5 py-0.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full font-medium hidden sm:inline">
+              AI
+            </span>
+          )}
           <ChevronDown className="w-3 h-3 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
