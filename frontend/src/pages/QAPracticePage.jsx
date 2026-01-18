@@ -12,9 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useTranslation } from "@/utils/i18n";
-import api from "@/utils/apiClient";
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+import { apiClient } from "@/utils/apiClient";
 
 const QAPracticePage = ({ resume }) => {
   const { t } = useTranslation();
@@ -42,7 +40,7 @@ const QAPracticePage = ({ resume }) => {
   const fetchFavorites = async () => {
     setLoadingFavorites(true);
     try {
-      const response = await api.client.get(`${API}/qa-practice/favorites`);
+      const response = await apiClient.get("/api/qa-practice/favorites");
       setFavorites(response.data.favorites || []);
     } catch (error) {
       console.error("Failed to load favorites:", error);
@@ -71,14 +69,14 @@ const QAPracticePage = ({ resume }) => {
   const generateAnswer = async (id) => {
     const question = questions.find(q => q.id === id);
     if (!question?.text.trim()) {
-      toast.error(t("interview.enterQuestion") || "Please enter a question");
+      toast.error(t("interview.enterQuestion"));
       return;
     }
 
     setQuestions(questions.map(q => q.id === id ? { ...q, loading: true } : q));
 
     try {
-      const response = await api.client.post(`${API}/qa-practice/generate-answer`, {
+      const response = await apiClient.post("/api/qa-practice/generate-answer", {
         question: question.text,
         question_type: "behavioral",
         job_context: {
@@ -91,9 +89,9 @@ const QAPracticePage = ({ resume }) => {
       setQuestions(questions.map(q => 
         q.id === id ? { ...q, answer: response.data.ai_answer, loading: false, saved: false } : q
       ));
-      toast.success(t("interview.answerGenerated") || "Answer generated!");
+      toast.success(t("interview.answerGenerated"));
     } catch (error) {
-      toast.error(t("interview.answerFailed") || "Failed to generate answer");
+      toast.error(t("interview.answerFailed"));
       setQuestions(questions.map(q => q.id === id ? { ...q, loading: false } : q));
     }
   };
@@ -102,7 +100,7 @@ const QAPracticePage = ({ resume }) => {
   const generateAllAnswers = async () => {
     const questionsWithText = questions.filter(q => q.text.trim());
     if (questionsWithText.length === 0) {
-      toast.error(t("interview.enterAtLeastOne") || "Please enter at least one question");
+      toast.error(t("interview.enterAtLeastOne"));
       return;
     }
 
@@ -111,7 +109,7 @@ const QAPracticePage = ({ resume }) => {
 
     for (const question of questionsWithText) {
       try {
-        const response = await api.client.post(`${API}/qa-practice/generate-answer`, {
+        const response = await apiClient.post("/api/qa-practice/generate-answer", {
           question: question.text,
           question_type: "behavioral",
           job_context: {
@@ -132,7 +130,7 @@ const QAPracticePage = ({ resume }) => {
     }
 
     setGeneratingAll(false);
-    toast.success(t("interview.allAnswersGenerated") || "All answers generated!");
+    toast.success(t("interview.allAnswersGenerated"));
   };
 
   // Save answer to favorites
@@ -140,7 +138,7 @@ const QAPracticePage = ({ resume }) => {
     if (!question.answer) return;
 
     try {
-      await api.client.post(`${API}/qa-practice/favorites/save`, {
+      await apiClient.post("/api/qa-practice/favorites/save", {
         question: question.text,
         answer: question.answer.suggested_answer,
         key_points: question.answer.key_points || [],
@@ -152,34 +150,34 @@ const QAPracticePage = ({ resume }) => {
         q.id === question.id ? { ...q, saved: true } : q
       ));
       
-      toast.success(t("interview.savedToFavorites") || "Saved to favorites!");
+      toast.success(t("interview.savedToFavorites"));
       fetchFavorites(); // Refresh favorites list
     } catch (error) {
-      toast.error(t("interview.saveFailed") || "Failed to save");
+      toast.error(t("interview.saveFailed"));
     }
   };
 
   // Delete favorite
   const deleteFavorite = async (id) => {
     try {
-      await api.client.delete(`${API}/qa-practice/favorites/${id}`);
+      await apiClient.delete(`/api/qa-practice/favorites/${id}`);
       setFavorites(favorites.filter(f => f.id !== id));
-      toast.success(t("interview.removedFromFavorites") || "Removed from favorites");
+      toast.success(t("interview.removedFromFavorites"));
     } catch (error) {
-      toast.error(t("common.deleteFailed") || "Failed to delete");
+      toast.error(t("common.delete") + " " + t("errors.somethingWentWrong"));
     }
   };
 
   // Copy answer to clipboard
   const copyAnswer = (text) => {
     navigator.clipboard.writeText(text);
-    toast.success("Copied to clipboard!");
+    toast.success(t("coverLetter.copied") || "Copied to clipboard!");
   };
 
   // Export favorites to PDF
   const exportToPDF = () => {
     if (favorites.length === 0) {
-      toast.error("No favorites to export");
+      toast.error(t("qaPractice.noSavedAnswers"));
       return;
     }
 
@@ -246,7 +244,7 @@ const QAPracticePage = ({ resume }) => {
         doc.setFont("helvetica", "italic");
         doc.setFontSize(9);
         doc.setTextColor(80, 80, 80);
-        doc.text("Key Points:", margin, yPos);
+        doc.text(t("qaPractice.keyPoints"), margin, yPos);
         yPos += 5;
         
         fav.key_points.forEach((point) => {
@@ -266,7 +264,7 @@ const QAPracticePage = ({ resume }) => {
 
     // Save the PDF
     doc.save("interview-qa-study-guide.pdf");
-    toast.success("PDF exported successfully!");
+    toast.success(t("common.success") + "!");
   };
 
   return (
@@ -274,20 +272,20 @@ const QAPracticePage = ({ resume }) => {
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-slate-900 dark:text-white" style={{ fontFamily: 'IBM Plex Sans' }}>
-          Q&A Answer Generator
+          {t("qaPractice.title")}
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-1">
-          Generate AI interview answers and save your favorites
+          {t("qaPractice.subtitle")}
         </p>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="grid grid-cols-2 w-full max-w-xs">
-          <TabsTrigger value="generate" className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4" /> Generate
+          <TabsTrigger value="generate" className="flex items-center gap-2" data-testid="generate-tab">
+            <Sparkles className="w-4 h-4" /> {t("qaPractice.generate")}
           </TabsTrigger>
-          <TabsTrigger value="favorites" className="flex items-center gap-2">
-            <Star className="w-4 h-4" /> Favorites
+          <TabsTrigger value="favorites" className="flex items-center gap-2" data-testid="favorites-tab">
+            <Star className="w-4 h-4" /> {t("qaPractice.favorites")}
             {favorites.length > 0 && (
               <Badge variant="secondary" className="ml-1 text-xs">{favorites.length}</Badge>
             )}
@@ -301,18 +299,18 @@ const QAPracticePage = ({ resume }) => {
             <CardHeader className="pb-4">
               <CardTitle className="flex items-center gap-2 text-lg">
                 <Building2 className="w-5 h-5 text-turquoise" />
-                Job Information
+                {t("qaPractice.jobInformation")}
               </CardTitle>
               <CardDescription>
-                Provide job details for more relevant answers
+                {t("qaPractice.jobInfoDesc")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Company Name</label>
+                  <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{t("qaPractice.companyName")}</label>
                   <Input 
-                    placeholder="e.g., Google, Amazon"
+                    placeholder={t("qaPractice.companyPlaceholder")}
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
                     className="mt-1"
@@ -320,9 +318,9 @@ const QAPracticePage = ({ resume }) => {
                   />
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Job Title *</label>
+                  <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{t("qaPractice.jobTitle")} *</label>
                   <Input 
-                    placeholder="e.g., Software Engineer"
+                    placeholder={t("qaPractice.jobTitlePlaceholder")}
                     value={jobTitle}
                     onChange={(e) => setJobTitle(e.target.value)}
                     className="mt-1"
@@ -331,9 +329,9 @@ const QAPracticePage = ({ resume }) => {
                 </div>
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Job Description (optional)</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{t("qaPractice.jobDescription")}</label>
                 <Textarea 
-                  placeholder="Paste the job description for more accurate answers..."
+                  placeholder={t("qaPractice.jobDescPlaceholder")}
                   value={jobDescription}
                   onChange={(e) => setJobDescription(e.target.value)}
                   className="mt-1 min-h-[80px]"
@@ -350,10 +348,10 @@ const QAPracticePage = ({ resume }) => {
                 <div>
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <MessageSquare className="w-5 h-5 text-violet-500" />
-                    Interview Questions
+                    {t("qaPractice.interviewQuestions")}
                   </CardTitle>
                   <CardDescription>
-                    Add your interview questions below
+                    {t("qaPractice.questionsDesc")}
                   </CardDescription>
                 </div>
                 <div className="flex gap-2">
@@ -363,7 +361,7 @@ const QAPracticePage = ({ resume }) => {
                     onClick={addQuestion}
                     data-testid="add-question-btn"
                   >
-                    <Plus className="w-4 h-4 mr-1" /> Add Question
+                    <Plus className="w-4 h-4 mr-1" /> {t("qaPractice.addQuestion")}
                   </Button>
                   <Button 
                     size="sm"
@@ -377,7 +375,7 @@ const QAPracticePage = ({ resume }) => {
                     ) : (
                       <Sparkles className="w-4 h-4 mr-1" />
                     )}
-                    Generate All
+                    {t("qaPractice.generateAll")}
                   </Button>
                 </div>
               </div>
@@ -392,7 +390,7 @@ const QAPracticePage = ({ resume }) => {
                         <Badge variant="outline" className="text-xs">Q{index + 1}</Badge>
                       </div>
                       <Textarea 
-                        placeholder="Enter your interview question..."
+                        placeholder={t("qaPractice.questionPlaceholder")}
                         value={question.text}
                         onChange={(e) => updateQuestion(question.id, e.target.value)}
                         className="min-h-[60px]"
@@ -432,7 +430,7 @@ const QAPracticePage = ({ resume }) => {
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
                           <Sparkles className="w-4 h-4 text-turquoise" />
-                          <span className="text-sm font-medium text-turquoise">AI Answer</span>
+                          <span className="text-sm font-medium text-turquoise">{t("qaPractice.aiAnswer")}</span>
                         </div>
                         <div className="flex items-center gap-1">
                           <Button 
@@ -441,7 +439,7 @@ const QAPracticePage = ({ resume }) => {
                             onClick={() => saveToFavorites(question)}
                             disabled={question.saved}
                             className={question.saved ? "text-amber-500" : "text-slate-500 hover:text-amber-500"}
-                            title={question.saved ? "Saved!" : "Save to favorites"}
+                            title={question.saved ? t("common.success") : t("interview.saveFavorite")}
                             data-testid={`save-favorite-btn-${index}`}
                           >
                             {question.saved ? (
@@ -468,7 +466,7 @@ const QAPracticePage = ({ resume }) => {
                       {/* Key Points */}
                       {question.answer.key_points?.length > 0 && (
                         <div className="pt-3 border-t border-turquoise/10">
-                          <p className="text-xs font-medium text-slate-600 dark:text-slate-400 mb-2">Key Points:</p>
+                          <p className="text-xs font-medium text-slate-600 dark:text-slate-400 mb-2">{t("qaPractice.keyPoints")}</p>
                           <ul className="space-y-1">
                             {question.answer.key_points.map((point, i) => (
                               <li key={i} className="text-xs text-slate-600 dark:text-slate-400 flex items-start gap-2">
@@ -494,10 +492,10 @@ const QAPracticePage = ({ resume }) => {
               <div>
                 <CardTitle className="flex items-center gap-2">
                   <Star className="w-5 h-5 text-amber-500" />
-                  Saved Answers
+                  {t("qaPractice.savedAnswers")}
                 </CardTitle>
                 <CardDescription>
-                  Your favorite answers for quick reference during interviews
+                  {t("qaPractice.savedAnswersDesc")}
                 </CardDescription>
               </div>
               {favorites.length > 0 && (
@@ -509,7 +507,7 @@ const QAPracticePage = ({ resume }) => {
                   data-testid="export-pdf-btn"
                 >
                   <Download className="w-4 h-4" />
-                  Export PDF
+                  {t("qaPractice.exportPdf")}
                 </Button>
               )}
             </CardHeader>
@@ -521,8 +519,8 @@ const QAPracticePage = ({ resume }) => {
               ) : favorites.length === 0 ? (
                 <div className="text-center py-8 text-slate-500">
                   <Star className="w-12 h-12 mx-auto mb-3 opacity-20" />
-                  <p>No saved answers yet</p>
-                  <p className="text-sm mt-1">Generate answers and click the bookmark icon to save them</p>
+                  <p>{t("qaPractice.noSavedAnswers")}</p>
+                  <p className="text-sm mt-1">{t("qaPractice.noSavedAnswersHint")}</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -584,7 +582,7 @@ const QAPracticePage = ({ resume }) => {
                           
                           {fav.key_points?.length > 0 && (
                             <div className="mt-4">
-                              <p className="text-xs font-medium text-slate-600 dark:text-slate-400 mb-2">Key Points:</p>
+                              <p className="text-xs font-medium text-slate-600 dark:text-slate-400 mb-2">{t("qaPractice.keyPoints")}</p>
                               <ul className="space-y-1">
                                 {fav.key_points.map((point, i) => (
                                   <li key={i} className="text-xs text-slate-600 dark:text-slate-400 flex items-start gap-2">
@@ -597,7 +595,7 @@ const QAPracticePage = ({ resume }) => {
                           )}
                           
                           <p className="text-xs text-slate-400 mt-4">
-                            Saved {new Date(fav.created_at).toLocaleDateString()}
+                            {t("qaPractice.savedOn")} {new Date(fav.created_at).toLocaleDateString()}
                           </p>
                         </div>
                       )}
@@ -612,7 +610,7 @@ const QAPracticePage = ({ resume }) => {
 
       {/* Tips */}
       <div className="text-center text-sm text-slate-500 dark:text-slate-400 py-4">
-        <p>Tip: Save your best answers to quickly review them before your actual interview</p>
+        <p>{t("qaPractice.tip")}</p>
       </div>
     </div>
   );
