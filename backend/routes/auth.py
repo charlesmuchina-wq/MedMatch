@@ -583,6 +583,49 @@ async def logout_user(request: Request, response: Response):
     response.delete_cookie(key="session_token", path="/")
     return {"message": "Logged out successfully"}
 
+@router.get("/preferences")
+async def get_user_preferences(request: Request):
+    """Get user preferences including language"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    return {
+        "language": user.get("language", "en"),
+        "theme": user.get("theme", "light"),
+        "timezone": user.get("timezone", "UTC"),
+        "user_id": user.get("user_id")
+    }
+
+@router.put("/preferences")
+async def update_user_preferences(prefs: UpdatePreferencesRequest, request: Request):
+    """Update user preferences including language sync"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    update_data = {}
+    if prefs.language:
+        update_data["language"] = prefs.language
+    if prefs.theme:
+        update_data["theme"] = prefs.theme
+    if prefs.timezone:
+        update_data["timezone"] = prefs.timezone
+    
+    if update_data:
+        update_data["preferences_updated_at"] = datetime.now(timezone.utc).isoformat()
+        await db.users.update_one(
+            {"user_id": user.get("user_id")},
+            {"$set": update_data}
+        )
+    
+    return {
+        "message": "Preferences updated",
+        "language": prefs.language or user.get("language", "en"),
+        "theme": prefs.theme or user.get("theme", "light"),
+        "timezone": prefs.timezone or user.get("timezone", "UTC")
+    }
+
 # Export helper functions for use in other modules
 __all__ = [
     'router', 
