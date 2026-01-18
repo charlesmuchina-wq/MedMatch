@@ -61,10 +61,10 @@ const InterviewSchedulingPage = ({ user }) => {
   const fetchInterviews = async () => {
     try {
       const endpoint = isRecruiter 
-        ? `${API}/api/interviews/recruiter/upcoming`
-        : `${API}/api/interviews/candidate/upcoming`;
+        ? `/api/interviews/recruiter/upcoming`
+        : `/api/interviews/candidate/upcoming`;
       
-      const response = await axios.get(endpoint);
+      const response = await apiClient.get(endpoint);
       setInterviews(response.data.interviews || []);
     } catch (e) {
       console.error("Failed to load interviews:", e);
@@ -75,7 +75,7 @@ const InterviewSchedulingPage = ({ user }) => {
   const fetchApplicants = async () => {
     try {
       // Fetch applicants who are in "shortlisted" or "interviewing" status
-      const response = await axios.get(`${API}/api/recruiter/applicants?status=shortlisted`);
+      const response = await apiClient.get(`/api/recruiter/applicants?status=shortlisted`);
       setApplicants(response.data.applicants || []);
     } catch (e) {
       console.error("Failed to load applicants");
@@ -84,12 +84,12 @@ const InterviewSchedulingPage = ({ user }) => {
 
   const scheduleInterview = async () => {
     if (!scheduleForm.applicant_id || !scheduleForm.date || !scheduleForm.start_time) {
-      toast.error("Please fill in all required fields");
+      toast.error(t("scheduling.fillRequired") || "Please fill in all required fields");
       return;
     }
 
     try {
-      const response = await axios.post(`${API}/api/interviews/schedule`, {
+      const response = await apiClient.post(`/api/interviews/schedule`, {
         applicant_id: scheduleForm.applicant_id,
         job_id: scheduleForm.job_id,
         interview_type: scheduleForm.interview_type,
@@ -105,7 +105,7 @@ const InterviewSchedulingPage = ({ user }) => {
         notify_candidate: true
       });
 
-      toast.success("Interview scheduled successfully");
+      toast.success(t("scheduling.success") || "Interview scheduled successfully");
       setShowScheduleDialog(false);
       resetScheduleForm();
       fetchInterviews();
@@ -120,42 +120,42 @@ const InterviewSchedulingPage = ({ user }) => {
         a.click();
       }
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Failed to schedule interview");
+      toast.error(e.data?.detail || t("scheduling.failed") || "Failed to schedule interview");
     }
   };
 
-  const respondToInterview = async (interviewId, response) => {
+  const respondToInterview = async (interviewId, responseType) => {
     try {
-      await axios.post(`${API}/api/interviews/${interviewId}/respond`, {
-        response,
+      await apiClient.post(`/api/interviews/${interviewId}/respond`, {
+        response: responseType,
         message: responseMessage
       });
 
-      toast.success(`Interview ${response}ed`);
+      toast.success(`${t("scheduling.interview") || "Interview"} ${responseType}ed`);
       setShowResponseDialog(false);
       setSelectedInterview(null);
       setResponseMessage("");
       fetchInterviews();
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Failed to respond");
+      toast.error(e.data?.detail || t("scheduling.respondFailed") || "Failed to respond");
     }
   };
 
   const cancelInterview = async (interviewId) => {
-    if (!confirm("Are you sure you want to cancel this interview?")) return;
+    if (!confirm(t("scheduling.confirmCancel") || "Are you sure you want to cancel this interview?")) return;
 
     try {
-      await axios.put(`${API}/api/interviews/${interviewId}/cancel`);
-      toast.success("Interview cancelled");
+      await apiClient.put(`/api/interviews/${interviewId}/cancel`);
+      toast.success(t("scheduling.cancelled") || "Interview cancelled");
       fetchInterviews();
     } catch (e) {
-      toast.error("Failed to cancel interview");
+      toast.error(t("scheduling.cancelFailed") || "Failed to cancel interview");
     }
   };
 
   const openCalendarEvent = async (interviewId, format) => {
     try {
-      const response = await axios.get(`${API}/api/interviews/${interviewId}/calendar?format=${format}`);
+      const response = await apiClient.get(`/api/interviews/${interviewId}/calendar?format=${format}`);
       
       if (format === "google" && response.data.google_calendar_url) {
         window.open(response.data.google_calendar_url, "_blank");
