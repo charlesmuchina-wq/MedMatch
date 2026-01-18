@@ -45,8 +45,8 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 **Translation Coverage:**
 - **Bundled Languages (Instant):** English, Spanish, French, Chinese, German
 - **AI-Translated Languages:** Japanese, Korean, Portuguese, Brazilian Portuguese, Arabic, Hindi, Italian, Russian, Dutch, Turkish, Vietnamese, Thai, Indonesian, Polish
-- **Components Translated:** Login page, Onboarding tour, Sidebar navigation
-- **Translation Keys:** 150+ covering auth, navigation, dashboard, jobs, resume, interview, cover letter, membership, notifications, errors
+- **Pages with Full i18n:** Login, Dashboard, Job Search, Resume, Applications, Onboarding Tour, Sidebar Navigation
+- **Translation Keys:** 200+ covering auth, navigation, dashboard, jobs, resume, interview, cover letter, membership, notifications, errors
 
 **AI Translation Features:**
 - Uses existing `/api/translate/text` and `/api/translate/batch` endpoints
@@ -55,7 +55,13 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - Loading indicator while AI translations load
 - RTL support for Arabic
 
-**Testing:** All i18n tests passed (iteration_17.json)
+**apiClient.js Integration:**
+- Job Search page now uses `api.searchJobs()` with built-in retry and caching
+- Exponential backoff for rate limiting (5 retries max)
+- 5-minute default cache TTL for GET requests
+- Proper error handling with toast notifications
+
+**Testing:** 14/14 backend tests passed, 100% frontend i18n features working (iteration_18.json)
 
 ### Previous Session: January 18, 2026 (P2 Tasks)
 
