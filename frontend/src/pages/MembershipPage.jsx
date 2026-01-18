@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import axios from "axios";
 import { toast } from "sonner";
 import { useTheme } from "@/App";
 import { 
@@ -11,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { useTranslation } from "@/utils/i18n";
+import api from "@/utils/apiClient";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
@@ -18,6 +19,7 @@ const MembershipPage = ({ user }) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { isDark } = useTheme();
+  const { t } = useTranslation();
   const [membership, setMembership] = useState(null);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
@@ -36,7 +38,7 @@ const MembershipPage = ({ user }) => {
 
   const fetchMembershipStatus = async () => {
     try {
-      const response = await axios.get(`${API}/api/membership/status`, {
+      const response = await api.client.get(`${API}/api/membership/status`, {
         withCredentials: true
       });
       setMembership(response.data);
