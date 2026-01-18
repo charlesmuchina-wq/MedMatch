@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "sonner";
 import { useTheme } from "@/App";
 import { 
@@ -14,13 +13,13 @@ import { Progress } from "@/components/ui/progress";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import TranslationWidget from "@/components/TranslationWidget";
-
-const API = process.env.REACT_APP_BACKEND_URL;
+import { useTranslation } from "@/utils/i18n";
+import { apiClient } from "@/utils/apiClient";
 
 const SkillAssessmentsPage = ({ user }) => {
   const navigate = useNavigate();
   const { isDark } = useTheme();
+  const { t } = useTranslation();
   
   const [assessments, setAssessments] = useState([]);
   const [categories, setCategories] = useState({});
@@ -54,18 +53,18 @@ const SkillAssessmentsPage = ({ user }) => {
 
   const fetchAssessments = async () => {
     try {
-      const response = await axios.get(`${API}/api/skills/available`);
+      const response = await apiClient.get("/api/skills/available");
       setAssessments(response.data.assessments || []);
       setCategories(response.data.by_category || {});
     } catch (e) {
-      toast.error("Failed to load assessments");
+      toast.error(t("errors.somethingWentWrong"));
     }
     setLoading(false);
   };
 
   const fetchMyBadges = async () => {
     try {
-      const response = await axios.get(`${API}/api/skills/my-badges`);
+      const response = await apiClient.get("/api/skills/my-badges");
       setMyBadges(response.data.badges || []);
     } catch (e) {
       console.error("Failed to load badges");
@@ -75,7 +74,7 @@ const SkillAssessmentsPage = ({ user }) => {
   const startAssessment = async (skillName, difficulty = "intermediate") => {
     setSubmitting(true);
     try {
-      const response = await axios.post(`${API}/api/skills/start`, {
+      const response = await apiClient.post("/api/skills/start", {
         skill_name: skillName,
         difficulty
       });
@@ -91,7 +90,7 @@ const SkillAssessmentsPage = ({ user }) => {
       setTimeLeft(response.data.time_limit * 60); // Convert to seconds
       
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Failed to start assessment");
+      toast.error(e.data?.detail || t("errors.somethingWentWrong"));
     }
     setSubmitting(false);
   };
@@ -113,7 +112,7 @@ const SkillAssessmentsPage = ({ user }) => {
         answer
       }));
       
-      const response = await axios.post(`${API}/api/skills/submit`, {
+      const response = await apiClient.post("/api/skills/submit", {
         assessment_id: activeAssessment.id,
         answers: answerList
       });
@@ -124,7 +123,7 @@ const SkillAssessmentsPage = ({ user }) => {
       fetchMyBadges();
       
     } catch (e) {
-      toast.error("Failed to submit assessment");
+      toast.error(t("errors.somethingWentWrong"));
     }
     setSubmitting(false);
   };
@@ -157,10 +156,10 @@ const SkillAssessmentsPage = ({ user }) => {
         <div className="flex items-center justify-between mb-6">
           <div>
             <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-              {activeAssessment.skill_name} Assessment
+              {activeAssessment.skill_name} {t("skills.assessment")}
             </h1>
             <p className="text-sm text-slate-500">
-              Question {currentQuestion + 1} of {questions.length}
+              {t("skills.questionOf", { current: currentQuestion + 1, total: questions.length })}
             </p>
           </div>
           
@@ -209,7 +208,7 @@ const SkillAssessmentsPage = ({ user }) => {
             onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
             disabled={currentQuestion === 0}
           >
-            Previous
+            {t("skills.previous")}
           </Button>
           
           <div className="flex items-center gap-2">
@@ -228,7 +227,7 @@ const SkillAssessmentsPage = ({ user }) => {
           
           {currentQuestion < questions.length - 1 ? (
             <Button onClick={() => setCurrentQuestion(currentQuestion + 1)}>
-              Next
+              {t("skills.next")}
             </Button>
           ) : (
             <Button 
@@ -237,7 +236,7 @@ const SkillAssessmentsPage = ({ user }) => {
               className="bg-emerald-500 hover:bg-emerald-600"
             >
               {submitting ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-              Submit Assessment
+              {t("skills.submit")}
             </Button>
           )}
         </div>
@@ -250,10 +249,10 @@ const SkillAssessmentsPage = ({ user }) => {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl md:text-4xl font-semibold text-slate-900 dark:text-slate-100">
-          Skill Assessments
+          {t("skills.title")}
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-2">
-          Verify your skills and earn badges to stand out to recruiters
+          {t("skills.subtitle")}
         </p>
       </div>
 
@@ -263,7 +262,7 @@ const SkillAssessmentsPage = ({ user }) => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Trophy className="w-5 h-5 text-amber-500" />
-              My Badges ({myBadges.length})
+              {t("skills.myBadges")} ({myBadges.length})
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -284,7 +283,7 @@ const SkillAssessmentsPage = ({ user }) => {
                       {badge.skill_name}
                     </p>
                     <p className="text-xs text-slate-500">
-                      Score: {badge.score}% • {badge.difficulty}
+                      {t("interview.score")}: {badge.score}% • {badge.difficulty}
                     </p>
                   </div>
                   <CheckCircle className="w-5 h-5 text-emerald-500 ml-2" />
@@ -327,7 +326,7 @@ const SkillAssessmentsPage = ({ user }) => {
                             {skill.skill_name}
                           </h3>
                           <p className="text-xs text-slate-500">
-                            {skill.questions} questions • {skill.time_limit} min
+                            {skill.questions} {t("skills.questions")} • {skill.time_limit} {t("skills.minutes")}
                           </p>
                         </div>
                       </div>
@@ -335,14 +334,14 @@ const SkillAssessmentsPage = ({ user }) => {
                       {earned && (
                         <Badge className="bg-emerald-100 text-emerald-700">
                           <CheckCircle className="w-3 h-3 mr-1" />
-                          Earned
+                          {t("skills.earned")}
                         </Badge>
                       )}
                     </div>
                     
                     <div className="mt-4 flex items-center justify-between">
                       <span className="text-xs text-slate-500">
-                        Pass: {skill.passing_score}%
+                        {t("skills.pass")}: {skill.passing_score}%
                       </span>
                       
                       <Button
@@ -350,13 +349,14 @@ const SkillAssessmentsPage = ({ user }) => {
                         onClick={() => startAssessment(skill.skill_name)}
                         disabled={submitting}
                         variant={earned ? "outline" : "default"}
+                        data-testid={`start-assessment-${skill.skill_name.toLowerCase().replace(/\s+/g, '-')}`}
                       >
                         {submitting ? (
                           <Loader2 className="w-4 h-4 animate-spin" />
                         ) : (
                           <>
                             <Play className="w-4 h-4 mr-1" />
-                            {earned ? "Retake" : "Start"}
+                            {earned ? t("skills.retake") : t("skills.start")}
                           </>
                         )}
                       </Button>
@@ -381,14 +381,14 @@ const SkillAssessmentsPage = ({ user }) => {
                       <div className="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mb-4">
                         <Trophy className="w-10 h-10 text-emerald-500" />
                       </div>
-                      <span className="text-2xl text-emerald-600">Congratulations!</span>
+                      <span className="text-2xl text-emerald-600">{t("skills.congratulations")}</span>
                     </div>
                   ) : (
                     <div className="flex flex-col items-center">
                       <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-4">
                         <Target className="w-10 h-10 text-slate-400" />
                       </div>
-                      <span className="text-2xl text-slate-600">Keep Practicing</span>
+                      <span className="text-2xl text-slate-600">{t("skills.keepPracticing")}</span>
                     </div>
                   )}
                 </DialogTitle>
@@ -401,12 +401,12 @@ const SkillAssessmentsPage = ({ user }) => {
                   {results.score}%
                 </div>
                 <p className="text-slate-500 mb-4">
-                  {results.correct_count} of {results.total_questions} correct
+                  {results.correct_count} of {results.total_questions} {t("skills.correct")}
                 </p>
                 
                 {results.badge && (
                   <div className="p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20 mb-4">
-                    <p className="text-sm text-amber-600 font-medium mb-2">Badge Earned!</p>
+                    <p className="text-sm text-amber-600 font-medium mb-2">{t("skills.badgeEarned")}</p>
                     <div className="text-4xl">{results.badge.badge_icon}</div>
                     <p className="font-semibold text-slate-900 dark:text-slate-100 mt-1">
                       {results.badge.skill_name}
@@ -419,7 +419,7 @@ const SkillAssessmentsPage = ({ user }) => {
               
               <DialogFooter>
                 <Button onClick={() => setShowResultsDialog(false)} className="w-full">
-                  {results.passed ? "View My Badges" : "Try Again Later"}
+                  {results.passed ? t("skills.myBadges") : t("interview.tryAgain")}
                 </Button>
               </DialogFooter>
             </>
