@@ -53,7 +53,10 @@ from routes import (
     dragon_router,
     translation_router,
     biometric_router,
-    qa_practice_router
+    qa_practice_router,
+    video_interview_router,
+    push_notifications_router,
+    id_verification_router
 )
 
 # Register all routers with /api prefix
@@ -78,6 +81,9 @@ app.include_router(dragon_router, prefix="/api")
 app.include_router(translation_router, prefix="/api")
 app.include_router(biometric_router, prefix="/api")
 app.include_router(qa_practice_router, prefix="/api")
+app.include_router(video_interview_router, prefix="/api")
+app.include_router(push_notifications_router, prefix="/api")
+app.include_router(id_verification_router, prefix="/api")
 
 # ============== CORS Configuration ==============
 app.add_middleware(
