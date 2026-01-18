@@ -142,7 +142,7 @@ async def start_biometric_registration(request: BiometricRegistrationStartReques
             user_id=user_id.encode('utf-8'),
             user_name=request.email,
             user_display_name=request.username,
-            attestation="none",  # Don't require attestation for privacy
+            attestation=AttestationConveyancePreference.NONE,  # Don't require attestation for privacy
             authenticator_selection=AuthenticatorSelectionCriteria(
                 authenticator_attachment=AuthenticatorAttachment.PLATFORM,
                 resident_key=ResidentKeyRequirement.PREFERRED,
