@@ -312,7 +312,9 @@ async def login_user(login_data: UserLogin, response: Response):
             "trial_ends_at": user.get("trial_ends_at"),
             "created_at": user.get("created_at", ""),
             "last_login": current_time,
-            "previous_login": previous_login
+            "previous_login": previous_login,
+            "language": user.get("language", "en"),
+            "theme": user.get("theme", "light")
         }
     }
 
