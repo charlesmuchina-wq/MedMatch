@@ -51,6 +51,11 @@ class VerifyOTPRequest(BaseModel):
     phone_number: str
     code: str
 
+class UpdatePreferencesRequest(BaseModel):
+    language: Optional[str] = None
+    theme: Optional[str] = None
+    timezone: Optional[str] = None
+
 # ============== Helper Functions ==============
 
 def hash_password(password: str) -> str:
