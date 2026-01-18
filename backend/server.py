@@ -313,7 +313,7 @@ async def system_status():
     
     return {
         "status": "operational",
-        "version": "2.1.0",
+        "version": "2.2.0",
         "mongodb": {
             "status": mongo_status,
             "pool_size": f"{MONGO_MIN_POOL_SIZE}-{MONGO_POOL_SIZE}"
@@ -326,8 +326,34 @@ async def system_status():
         "scheduler": {
             "running": scheduler.running,
             "jobs": len(scheduler.get_jobs())
-        }
+        },
+        "ai_supervisor": ai_supervisor.get_status()
     }
+
+# ============== AI Supervisor Endpoints ==============
+@app.get("/api/supervisor/status")
+async def get_supervisor_status():
+    """Get detailed AI Supervisor status"""
+    return ai_supervisor.get_status()
+
+@app.get("/api/supervisor/health")
+async def get_supervisor_health():
+    """Get AI Supervisor health metrics"""
+    status = ai_supervisor.get_status()
+    return {
+        "health": status["health"],
+        "health_score": status["health_score"],
+        "metrics": status["metrics"],
+        "capacity": status["capacity"]
+    }
+
+@app.post("/api/supervisor/adjust-rate")
+async def adjust_rate_limit(rate: int):
+    """Manually adjust rate limit (admin only)"""
+    if rate < 100 or rate > 5000:
+        raise HTTPException(status_code=400, detail="Rate must be between 100 and 5000")
+    ai_supervisor.rate_limiter.current_rate = rate
+    return {"message": f"Rate limit adjusted to {rate} req/sec"}
 
 # ============== Cached Endpoints ==============
 @app.get("/api/cached/languages")
