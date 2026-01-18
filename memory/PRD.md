@@ -16,12 +16,36 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 8. **Offline Capabilities**: IndexedDB caching for offline access
 9. **Push Notifications**: Web Push API for real-time alerts
 10. **ID Verification**: Multi-level verification for trusted interactions
+11. **Internationalization (i18n)**: Full UI translation system with bundled translations
 
 ---
 
 ## What's Been Implemented
 
-### Session: January 18, 2026 (P2 Tasks)
+### Session: January 18, 2026 - Internationalization (i18n) Fix
+
+#### ✅ LANGUAGE SWITCHING / i18n FIX (COMPLETED)
+- **Issue**: Language selector was storing preference but not translating UI
+- **Solution**: Implemented complete i18n system with bundled translations
+- **Files Created**:
+  - `/app/frontend/src/utils/i18n.jsx`: Core i18n system with I18nProvider context and useTranslation hook
+  - `/app/frontend/src/locales/en.json`: English translations (100+ keys)
+  - `/app/frontend/src/locales/es.json`: Spanish translations
+  - `/app/frontend/src/locales/fr.json`: French translations
+  - `/app/frontend/src/locales/zh.json`: Chinese translations
+  - `/app/frontend/src/locales/de.json`: German translations
+- **Files Updated**:
+  - `/app/frontend/src/components/GlobalLanguageSelector.jsx`: Integrated with new i18n system
+  - `/app/frontend/src/pages/LoginPage.jsx`: Added translations + language selector in header
+  - `/app/frontend/src/App.js`: Sidebar navigation now uses translation keys with t() function
+- **Translation Coverage**:
+  - Login page (Sign In, Email, Password, Create Account, etc.)
+  - Sidebar navigation (22+ menu items)
+  - Common UI elements (Save, Cancel, Delete, etc.)
+  - Error messages, notifications, membership labels
+- **Testing**: All 7 i18n tests passed (iteration_17.json)
+
+### Previous Session: January 18, 2026 (P2 Tasks)
 
 #### ✅ P2: Push Notifications (COMPLETED)
 - **NotificationsPage.jsx**: Full notification management UI
