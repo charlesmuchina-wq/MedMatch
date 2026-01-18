@@ -1,10 +1,10 @@
 """
 MedMatch API Server
 Clean, modular FastAPI application with route organization
-Production-ready with caching, connection pooling, and optimizations
+Production-ready with AI Supervisor for scaling up to 3000 concurrent users
 """
-from fastapi import FastAPI, Request, Response
-from fastapi.responses import RedirectResponse
+from fastapi import FastAPI, Request, Response, HTTPException
+from fastapi.responses import RedirectResponse, JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
@@ -16,6 +16,7 @@ from typing import Optional
 import hashlib
 import json
 from datetime import datetime, timezone
+import asyncio
 
 # APScheduler for automated daily digest
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -26,14 +27,18 @@ from fastapi_cache import FastAPICache
 from fastapi_cache.backends.inmemory import InMemoryBackend
 from fastapi_cache.decorator import cache
 
+# AI Supervisor for intelligent scaling
+from services.ai_supervisor import ai_supervisor, RequestPriority, SystemHealth
+
 # Load environment
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 # ============== Production Configuration ==============
-MONGO_POOL_SIZE = int(os.environ.get('MONGO_POOL_SIZE', '50'))
-MONGO_MIN_POOL_SIZE = int(os.environ.get('MONGO_MIN_POOL_SIZE', '10'))
+MONGO_POOL_SIZE = int(os.environ.get('MONGO_POOL_SIZE', '100'))
+MONGO_MIN_POOL_SIZE = int(os.environ.get('MONGO_MIN_POOL_SIZE', '20'))
 CACHE_EXPIRE_SECONDS = int(os.environ.get('CACHE_EXPIRE_SECONDS', '300'))
+MAX_CONCURRENT_USERS = int(os.environ.get('MAX_CONCURRENT_USERS', '3000'))
 
 # ============== MongoDB Connection with Optimized Pooling ==============
 mongo_url = os.environ['MONGO_URL']
