@@ -146,7 +146,7 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - `/app/test_reports/iteration_14.json` - 92% pass rate
 - `/app/test_reports/iteration_15.json` - 100% pass rate (P1 tasks)
 - `/app/test_reports/iteration_16.json` - 100% pass rate (P2 tasks)
-- `/app/tests/test_p2_features.py` - Comprehensive P2 test suite
+- `/app/memory/FUNCTIONAL_ASSESSMENT.md` - Full system assessment
 
 ## Test Credentials
 - **Admin**: admin@medmatch.com / MedMatch2026!
