@@ -232,6 +232,7 @@ app.include_router(qa_practice_router, prefix="/api")
 app.include_router(video_interview_router, prefix="/api")
 app.include_router(push_notifications_router, prefix="/api")
 app.include_router(id_verification_router, prefix="/api")
+app.include_router(batch_router, prefix="/api")
 
 # ============== CORS Configuration ==============
 app.add_middleware(
@@ -241,6 +242,40 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# ============== Global Rate Limiting Middleware ==============
+@app.middleware("http")
+async def global_rate_limit_middleware(request: Request, call_next):
+    """Apply tier-based rate limiting with proper headers"""
+    # Skip rate limiting for health checks
+    if request.url.path in ["/api/health", "/api/status", "/docs", "/openapi.json"]:
+        return await call_next(request)
+    
+    # Get client identifier and tier
+    identifier = get_client_identifier(request)
+    tier = get_user_tier(request)
+    
+    # Check rate limit
+    allowed, headers = await global_rate_limiter.check_rate_limit(identifier, tier)
+    
+    if not allowed:
+        return JSONResponse(
+            status_code=429,
+            content={
+                "error": "Rate limit exceeded",
+                "message": "Too many requests. Please retry after the specified time.",
+                "tier": tier,
+                "retry_after": headers.get("Retry-After", "5")
+            },
+            headers=headers
+        )
+    
+    # Process request and add rate limit headers to response
+    response = await call_next(request)
+    for key, value in headers.items():
+        response.headers[key] = value
+    
+    return response
 
 # ============== Request Tracking Middleware ==============
 @app.middleware("http")
