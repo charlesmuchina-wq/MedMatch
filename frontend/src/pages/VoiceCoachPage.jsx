@@ -12,6 +12,152 @@ import { Progress } from "@/components/ui/progress";
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
 
+// Speech Recognition Hook
+const useSpeechRecognition = () => {
+  const [isListening, setIsListening] = useState(false);
+  const [transcript, setTranscript] = useState("");
+  const [interimTranscript, setInterimTranscript] = useState("");
+  const [isSupported, setIsSupported] = useState(false);
+  const recognitionRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        setIsSupported(true);
+        recognitionRef.current = new SpeechRecognition();
+        recognitionRef.current.continuous = true;
+        recognitionRef.current.interimResults = true;
+        recognitionRef.current.lang = 'en-US';
+
+        recognitionRef.current.onresult = (event) => {
+          let finalTranscript = '';
+          let currentInterim = '';
+          
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            const currentTranscript = event.results[i][0].transcript;
+            if (event.results[i].isFinal) {
+              finalTranscript += currentTranscript + ' ';
+            } else {
+              currentInterim += currentTranscript;
+            }
+          }
+          
+          if (finalTranscript) {
+            setTranscript(prev => prev + finalTranscript);
+          }
+          setInterimTranscript(currentInterim);
+        };
+
+        recognitionRef.current.onerror = (event) => {
+          console.error('Speech recognition error:', event.error);
+          if (event.error === 'not-allowed') {
+            toast.error("Microphone access denied. Please allow microphone access.");
+          }
+          setIsListening(false);
+        };
+      }
+    }
+
+    return () => {
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
+      }
+    };
+  }, []);
+
+  const startListening = useCallback(() => {
+    if (recognitionRef.current && !isListening) {
+      setTranscript("");
+      setInterimTranscript("");
+      try {
+        recognitionRef.current.start();
+        setIsListening(true);
+      } catch (e) {
+        console.error('Failed to start recognition:', e);
+      }
+    }
+  }, [isListening]);
+
+  const stopListening = useCallback(() => {
+    if (recognitionRef.current && isListening) {
+      recognitionRef.current.stop();
+      setIsListening(false);
+      setInterimTranscript("");
+    }
+  }, [isListening]);
+
+  const resetTranscript = useCallback(() => {
+    setTranscript("");
+    setInterimTranscript("");
+  }, []);
+
+  return {
+    isListening,
+    transcript,
+    interimTranscript,
+    isSupported,
+    startListening,
+    stopListening,
+    resetTranscript
+  };
+};
+
+// Circular Progress Component
+const CircularScore = ({ score, label, color }) => {
+  const radius = 40;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (score / 100) * circumference;
+
+  return (
+    <div className="flex flex-col items-center">
+      <div className="relative w-24 h-24">
+        <svg className="transform -rotate-90" viewBox="0 0 100 100">
+          <circle
+            cx="50" cy="50" r={radius}
+            fill="none" stroke="currentColor"
+            className="text-slate-200 dark:text-slate-700"
+            strokeWidth="8"
+          />
+          <circle
+            cx="50" cy="50" r={radius}
+            fill="none" stroke={color}
+            strokeWidth="8"
+            strokeDasharray={circumference}
+            strokeDashoffset={offset}
+            strokeLinecap="round"
+            className="transition-all duration-1000 ease-out"
+          />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-2xl font-bold" style={{ color }}>{score}</span>
+        </div>
+      </div>
+      <span className="text-sm text-slate-500 dark:text-slate-400 mt-2">{label}</span>
+    </div>
+  );
+};
+
+// Voice Waveform Visualization
+const VoiceWaveform = ({ isActive }) => {
+  return (
+    <div className="flex items-center justify-center gap-1 h-12">
+      {[...Array(12)].map((_, i) => (
+        <div
+          key={i}
+          className={`w-1 bg-turquoise rounded-full transition-all duration-150 ${
+            isActive ? 'animate-wave' : 'h-2'
+          }`}
+          style={{
+            animationDelay: `${i * 0.1}s`,
+            height: isActive ? `${Math.random() * 30 + 10}px` : '8px'
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const VoiceCoachPage = ({ resume }) => {
   const { t } = useTranslation();
   const {
@@ -46,12 +192,39 @@ const VoiceCoachPage = ({ resume }) => {
   const audioChunksRef = useRef([]);
   const audioRef = useRef(null);
 
+  const generateQuestions = useCallback(async () => {
+    try {
+      const cachedResponse = await apiClient.get("/api/interview/cached-questions");
+      if (cachedResponse.data.questions?.length > 0) {
+        setQuestions(cachedResponse.data.questions);
+        setCurrentQuestion(cachedResponse.data.questions[0]);
+        return;
+      }
+    } catch (e) {
+      console.log("No cached questions, generating new ones");
+    }
+    
+    try {
+      const response = await apiClient.post("/api/interview/generate-questions", {
+        job_title: "Quality Manager",
+        company: "",
+        resume_skills: resume?.skills || []
+      });
+      setQuestions(response.data.questions || []);
+      if (response.data.questions?.length > 0) {
+        setCurrentQuestion(response.data.questions[0]);
+      }
+    } catch (e) {
+      toast.error(t("errors.somethingWentWrong"));
+    }
+  }, [resume?.skills, t]);
+
   // Load questions on mount
   useEffect(() => {
     if (resume?.skills?.length > 0) {
       generateQuestions();
     }
-  }, [resume]);
+  }, [resume?.skills?.length, generateQuestions]);
 
   // Timer for recording duration
   useEffect(() => {
@@ -68,36 +241,6 @@ const VoiceCoachPage = ({ resume }) => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, [isListening]);
-
-  const generateQuestions = async () => {
-    // First try to load cached questions from Interview Prep
-    try {
-      const cachedResponse = await axios.get(`${API}/interview/cached-questions`);
-      if (cachedResponse.data.questions?.length > 0) {
-        setQuestions(cachedResponse.data.questions);
-        setCurrentQuestion(cachedResponse.data.questions[0]);
-        toast.success("Loaded questions from Interview Prep");
-        return;
-      }
-    } catch (e) {
-      console.log("No cached questions, generating new ones");
-    }
-    
-    // If no cached questions, generate new ones
-    try {
-      const response = await axios.post(`${API}/interview/generate-questions`, {
-        job_title: "Quality Manager",
-        company: "",
-        resume_skills: resume?.skills || []
-      });
-      setQuestions(response.data.questions || []);
-      if (response.data.questions?.length > 0) {
-        setCurrentQuestion(response.data.questions[0]);
-      }
-    } catch (e) {
-      toast.error("Failed to load questions");
-    }
-  };
 
   const startSession = () => {
     setIsSessionActive(true);
@@ -129,7 +272,6 @@ const VoiceCoachPage = ({ resume }) => {
         const url = URL.createObjectURL(audioBlob);
         setAudioURL(url);
         
-        // Add to recording history
         setRecordingHistory(prev => [...prev, {
           id: Date.now(),
           url,
@@ -139,7 +281,6 @@ const VoiceCoachPage = ({ resume }) => {
           timestamp: new Date().toISOString()
         }]);
         
-        // Stop all tracks
         stream.getTracks().forEach(track => track.stop());
       };
 
@@ -149,7 +290,6 @@ const VoiceCoachPage = ({ resume }) => {
     }
   };
 
-  // Stop audio recording
   const stopAudioRecording = () => {
     if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
       mediaRecorderRef.current.stop();
@@ -169,14 +309,13 @@ const VoiceCoachPage = ({ resume }) => {
     stopAudioRecording();
     
     if (transcript.trim().length < 10) {
-      toast.error("Please speak a longer answer");
+      toast.error(t("voiceCoach.speakLonger") || "Please speak a longer answer");
       return;
     }
 
-    // Analyze the response
     setIsAnalyzing(true);
     try {
-      const response = await axios.post(`${API}/interview/voice-feedback`, {
+      const response = await apiClient.post("/api/interview/voice-feedback", {
         question: currentQuestion?.text || currentQuestion,
         answer: transcript,
         duration_seconds: elapsedTime,
@@ -184,7 +323,6 @@ const VoiceCoachPage = ({ resume }) => {
       });
       setFeedback(response.data);
       
-      // Update session stats
       setSessionStats(prev => ({
         questionsAnswered: prev.questionsAnswered + 1,
         averageScore: Math.round(
@@ -194,12 +332,11 @@ const VoiceCoachPage = ({ resume }) => {
         totalTime: prev.totalTime + elapsedTime
       }));
     } catch (e) {
-      toast.error("Failed to analyze response");
+      toast.error(t("errors.somethingWentWrong"));
     }
     setIsAnalyzing(false);
   };
 
-  // Playback controls
   const togglePlayback = () => {
     if (audioRef.current) {
       if (isPlaying) {
@@ -211,7 +348,6 @@ const VoiceCoachPage = ({ resume }) => {
     }
   };
 
-  // Handle audio ended
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.onended = () => setIsPlaying(false);
@@ -227,8 +363,7 @@ const VoiceCoachPage = ({ resume }) => {
       resetTranscript();
       setElapsedTime(0);
     } else {
-      // Session complete
-      toast.success("Practice session complete!");
+      toast.success(t("common.success"));
       setIsSessionActive(false);
     }
   };
@@ -246,10 +381,10 @@ const VoiceCoachPage = ({ resume }) => {
           <CardContent className="p-6 text-center">
             <AlertCircle className="w-12 h-12 text-amber-500 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-amber-800 dark:text-amber-300 mb-2">
-              Speech Recognition Not Supported
+              {t("voiceCoach.notSupported") || "Speech Recognition Not Supported"}
             </h3>
             <p className="text-amber-700 dark:text-amber-400">
-              Your browser doesn't support voice input. Please use Chrome, Edge, or Safari for the voice coach feature.
+              {t("voiceCoach.useChrome") || "Your browser doesn't support voice input. Please use Chrome, Edge, or Safari."}
             </p>
           </CardContent>
         </Card>
@@ -261,14 +396,13 @@ const VoiceCoachPage = ({ resume }) => {
     <div className="p-6 md:p-8 lg:p-12 max-w-5xl mx-auto animate-fade-in" data-testid="voice-coach-page">
       <div className="mb-8">
         <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight mb-2" style={{ fontFamily: 'IBM Plex Sans' }}>
-          AI Interview Coach
+          {t("voiceCoach.title") || "AI Interview Coach"}
         </h1>
         <p className="text-slate-500 dark:text-slate-400">
-          Practice speaking your answers and get real-time AI feedback on content, delivery, and confidence
+          {t("voiceCoach.subtitle") || "Practice speaking your answers and get real-time AI feedback"}
         </p>
       </div>
 
-      {/* Session Stats Bar */}
       {isSessionActive && (
         <Card className="mb-6 bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 border-violet-200 dark:border-violet-800">
           <CardContent className="p-4">
@@ -277,24 +411,24 @@ const VoiceCoachPage = ({ resume }) => {
                 <div className="flex items-center gap-2">
                   <MessageSquare className="w-4 h-4 text-violet-500" />
                   <span className="text-sm text-slate-600 dark:text-slate-300">
-                    Question {questionIndex + 1} of {questions.length}
+                    {t("skills.questionOf", { current: questionIndex + 1, total: questions.length })}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Award className="w-4 h-4 text-amber-500" />
                   <span className="text-sm text-slate-600 dark:text-slate-300">
-                    Avg Score: {sessionStats.averageScore || '-'}
+                    {t("voiceCoach.avgScore") || "Avg Score"}: {sessionStats.averageScore || '-'}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-sky-500" />
                   <span className="text-sm text-slate-600 dark:text-slate-300">
-                    Total Time: {formatTime(sessionStats.totalTime)}
+                    {t("voiceCoach.totalTime") || "Total Time"}: {formatTime(sessionStats.totalTime)}
                   </span>
                 </div>
               </div>
               <Badge variant="outline" className="bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300">
-                {sessionStats.questionsAnswered} Answered
+                {sessionStats.questionsAnswered} {t("voiceCoach.answered") || "Answered"}
               </Badge>
             </div>
           </CardContent>
@@ -302,25 +436,23 @@ const VoiceCoachPage = ({ resume }) => {
       )}
 
       {!isSessionActive ? (
-        /* Start Session Card */
         <Card className="mb-6">
           <CardContent className="p-12 text-center">
             <div className="w-24 h-24 bg-gradient-to-br from-violet-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-violet-500/30">
               <Mic className="w-12 h-12 text-white" />
             </div>
             <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-3" style={{ fontFamily: 'IBM Plex Sans' }}>
-              Voice Interview Practice
+              {t("voiceCoach.practice") || "Voice Interview Practice"}
             </h2>
             <p className="text-slate-500 dark:text-slate-400 mb-6 max-w-md mx-auto">
-              Speak your answers out loud and receive AI-powered feedback on your content, 
-              delivery pace, confidence level, and areas for improvement.
+              {t("voiceCoach.practiceDesc") || "Speak your answers out loud and receive AI-powered feedback on your content, delivery pace, confidence level, and areas for improvement."}
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               {[
-                { icon: Volume2, label: "Voice Analysis" },
-                { icon: TrendingUp, label: "Confidence Score" },
-                { icon: Zap, label: "Real-time Feedback" },
-                { icon: Target, label: "Improvement Tips" }
+                { icon: Volume2, label: t("voiceCoach.voiceAnalysis") || "Voice Analysis" },
+                { icon: TrendingUp, label: t("video.confidenceScore") || "Confidence Score" },
+                { icon: Zap, label: t("voiceCoach.realtimeFeedback") || "Real-time Feedback" },
+                { icon: Target, label: t("video.improvementTips") || "Improvement Tips" }
               ].map(({ icon: Icon, label }) => (
                 <div key={label} className="flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 rounded-full">
                   <Icon className="w-4 h-4 text-turquoise" />
@@ -333,21 +465,20 @@ const VoiceCoachPage = ({ resume }) => {
               size="lg"
               className="bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700"
               disabled={questions.length === 0}
+              data-testid="start-voice-session"
             >
-              <Mic className="w-5 h-5 mr-2" /> Start Practice Session
+              <Mic className="w-5 h-5 mr-2" /> {t("voiceCoach.startPractice") || "Start Practice Session"}
             </Button>
             {questions.length === 0 && (
               <p className="text-sm text-amber-600 mt-4">
-                Loading interview questions...
+                {t("video.loadingQuestions") || "Loading interview questions..."}
               </p>
             )}
           </CardContent>
         </Card>
       ) : (
         <div className="grid lg:grid-cols-5 gap-6">
-          {/* Main Recording Area - 3 columns */}
           <div className="lg:col-span-3 space-y-6">
-            {/* Question Card */}
             <Card className="border-2 border-violet-200 dark:border-violet-800">
               <CardHeader>
                 <div className="flex items-center justify-between">
@@ -361,7 +492,6 @@ const VoiceCoachPage = ({ resume }) => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {/* Recording Controls */}
                 <div className="flex flex-col items-center py-6">
                   <VoiceWaveform isActive={isListening} />
                   
@@ -372,6 +502,7 @@ const VoiceCoachPage = ({ resume }) => {
                         onClick={handleStartRecording}
                         className="w-16 h-16 rounded-full bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700"
                         disabled={isAnalyzing}
+                        data-testid="start-voice-recording"
                       >
                         <Mic className="w-8 h-8" />
                       </Button>
@@ -380,6 +511,7 @@ const VoiceCoachPage = ({ resume }) => {
                         size="lg"
                         onClick={handleStopRecording}
                         className="w-16 h-16 rounded-full bg-slate-800 hover:bg-slate-700 animate-pulse"
+                        data-testid="stop-voice-recording"
                       >
                         <MicOff className="w-8 h-8" />
                       </Button>
@@ -393,21 +525,20 @@ const VoiceCoachPage = ({ resume }) => {
                     </Badge>
                     {transcript && (
                       <Button variant="ghost" size="sm" onClick={resetTranscript}>
-                        <RotateCcw className="w-4 h-4 mr-1" /> Reset
+                        <RotateCcw className="w-4 h-4 mr-1" /> {t("common.reset") || "Reset"}
                       </Button>
                     )}
                   </div>
 
                   <p className="text-sm text-slate-500 dark:text-slate-400 mt-4">
-                    {isListening ? "Listening... Speak your answer" : "Click the microphone to start recording"}
+                    {isListening ? (t("voiceCoach.listening") || "Listening... Speak your answer") : (t("voiceCoach.clickToRecord") || "Click the microphone to start recording")}
                   </p>
                 </div>
 
-                {/* Live Transcript */}
                 {(transcript || interimTranscript) && (
                   <div className="mt-4 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
                     <h4 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
-                      <MessageSquare className="w-4 h-4" /> Your Answer
+                      <MessageSquare className="w-4 h-4" /> {t("interview.yourAnswer") || "Your Answer"}
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400">
                       {transcript}
@@ -416,11 +547,10 @@ const VoiceCoachPage = ({ resume }) => {
                   </div>
                 )}
 
-                {/* Audio Playback */}
                 {audioURL && (
                   <div className="mt-4 p-4 bg-turquoise/10 dark:bg-turquoise/20 rounded-lg">
                     <h4 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-2">
-                      <Volume2 className="w-4 h-4 text-turquoise" /> Recording Playback
+                      <Volume2 className="w-4 h-4 text-turquoise" /> {t("voiceCoach.playback") || "Recording Playback"}
                     </h4>
                     <div className="flex items-center gap-4">
                       <Button
@@ -431,14 +561,14 @@ const VoiceCoachPage = ({ resume }) => {
                         data-testid="playback-toggle"
                       >
                         {isPlaying ? (
-                          <><Pause className="w-4 h-4 mr-2" /> Pause</>
+                          <><Pause className="w-4 h-4 mr-2" /> {t("common.pause") || "Pause"}</>
                         ) : (
-                          <><Play className="w-4 h-4 mr-2" /> Play Recording</>
+                          <><Play className="w-4 h-4 mr-2" /> {t("voiceCoach.playRecording") || "Play Recording"}</>
                         )}
                       </Button>
                       <audio ref={audioRef} src={audioURL} className="hidden" />
                       <span className="text-sm text-slate-500 dark:text-slate-400">
-                        Duration: {formatTime(elapsedTime)}
+                        {t("voiceCoach.duration") || "Duration"}: {formatTime(elapsedTime)}
                       </span>
                     </div>
                   </div>
@@ -447,85 +577,80 @@ const VoiceCoachPage = ({ resume }) => {
                 {isAnalyzing && (
                   <div className="mt-4 p-4 bg-violet-50 dark:bg-violet-900/20 rounded-lg text-center">
                     <Loader2 className="w-8 h-8 animate-spin text-violet-500 mx-auto mb-2" />
-                    <p className="text-violet-700 dark:text-violet-300">Analyzing your response...</p>
+                    <p className="text-violet-700 dark:text-violet-300">{t("common.loading") || "Analyzing your response..."}</p>
                   </div>
                 )}
               </CardContent>
             </Card>
 
-            {/* Navigation */}
             {feedback && (
               <div className="flex justify-between">
                 <Button variant="outline" onClick={() => { setFeedback(null); resetTranscript(); setElapsedTime(0); }}>
-                  <RefreshCw className="w-4 h-4 mr-2" /> Try Again
+                  <RefreshCw className="w-4 h-4 mr-2" /> {t("interview.tryAgain") || "Try Again"}
                 </Button>
                 <Button onClick={nextQuestion} className="bg-gradient-to-r from-violet-500 to-purple-600">
                   {questionIndex + 1 < questions.length ? (
-                    <>Next Question <ChevronRight className="w-4 h-4 ml-1" /></>
+                    <>{t("interview.nextQuestion") || "Next Question"} <ChevronRight className="w-4 h-4 ml-1" /></>
                   ) : (
-                    <>Finish Session <CheckCircle2 className="w-4 h-4 ml-1" /></>
+                    <>{t("voiceCoach.finishSession") || "Finish Session"} <CheckCircle2 className="w-4 h-4 ml-1" /></>
                   )}
                 </Button>
               </div>
             )}
           </div>
 
-          {/* Feedback Panel - 2 columns */}
           <div className="lg:col-span-2">
             <Card className="h-full">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2" style={{ fontFamily: 'IBM Plex Sans' }}>
                   <Sparkles className="w-5 h-5 text-violet-500" />
-                  AI Feedback
+                  {t("voiceCoach.aiFeedback") || "AI Feedback"}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 {feedback ? (
                   <div className="space-y-6">
-                    {/* Score Rings */}
                     <div className="flex justify-around">
                       <CircularScore 
                         score={feedback.overall_score} 
-                        label="Overall" 
+                        label={t("voiceCoach.overall") || "Overall"} 
                         color="#8B5CF6" 
                       />
                       <CircularScore 
                         score={feedback.confidence_score} 
-                        label="Confidence" 
+                        label={t("video.confidence") || "Confidence"} 
                         color="#20b2aa" 
                       />
                     </div>
 
-                    {/* Detailed Scores */}
                     <div className="space-y-3">
                       <div>
                         <div className="flex justify-between text-sm mb-1">
-                          <span className="text-slate-600 dark:text-slate-400">Content Quality</span>
+                          <span className="text-slate-600 dark:text-slate-400">{t("voiceCoach.contentQuality") || "Content Quality"}</span>
                           <span className="font-medium">{feedback.content_score}%</span>
                         </div>
                         <Progress value={feedback.content_score} className="h-2" />
                       </div>
                       <div>
                         <div className="flex justify-between text-sm mb-1">
-                          <span className="text-slate-600 dark:text-slate-400">Delivery Pace</span>
+                          <span className="text-slate-600 dark:text-slate-400">{t("voiceCoach.deliveryPace") || "Delivery Pace"}</span>
                           <span className="font-medium">{feedback.pace_score}%</span>
                         </div>
                         <Progress value={feedback.pace_score} className="h-2" />
                       </div>
                       <div>
                         <div className="flex justify-between text-sm mb-1">
-                          <span className="text-slate-600 dark:text-slate-400">Structure</span>
+                          <span className="text-slate-600 dark:text-slate-400">{t("voiceCoach.structure") || "Structure"}</span>
                           <span className="font-medium">{feedback.structure_score}%</span>
                         </div>
                         <Progress value={feedback.structure_score} className="h-2" />
                       </div>
                     </div>
 
-                    {/* Strengths */}
                     {feedback.strengths?.length > 0 && (
                       <div>
                         <h4 className="text-sm font-medium text-emerald-700 dark:text-emerald-400 mb-2 flex items-center gap-1">
-                          <CheckCircle2 className="w-4 h-4" /> Strengths
+                          <CheckCircle2 className="w-4 h-4" /> {t("video.strengths") || "Strengths"}
                         </h4>
                         <ul className="space-y-1">
                           {feedback.strengths.map((s, i) => (
@@ -537,11 +662,10 @@ const VoiceCoachPage = ({ resume }) => {
                       </div>
                     )}
 
-                    {/* Areas to Improve */}
                     {feedback.improvements?.length > 0 && (
                       <div>
                         <h4 className="text-sm font-medium text-amber-700 dark:text-amber-400 mb-2 flex items-center gap-1">
-                          <Target className="w-4 h-4" /> Areas to Improve
+                          <Target className="w-4 h-4" /> {t("video.areasToImprove") || "Areas to Improve"}
                         </h4>
                         <ul className="space-y-1">
                           {feedback.improvements.map((s, i) => (
@@ -553,11 +677,10 @@ const VoiceCoachPage = ({ resume }) => {
                       </div>
                     )}
 
-                    {/* Delivery Tips */}
                     {feedback.delivery_tip && (
                       <div className="p-3 bg-violet-50 dark:bg-violet-900/20 rounded-lg">
                         <h4 className="text-sm font-medium text-violet-700 dark:text-violet-300 mb-1">
-                          💡 Delivery Tip
+                          💡 {t("voiceCoach.deliveryTip") || "Delivery Tip"}
                         </h4>
                         <p className="text-sm text-violet-600 dark:text-violet-400">
                           {feedback.delivery_tip}
@@ -565,16 +688,15 @@ const VoiceCoachPage = ({ resume }) => {
                       </div>
                     )}
 
-                    {/* Word Count & Pace */}
                     <div className="flex gap-4 text-sm text-slate-500 dark:text-slate-400">
-                      <span>Words: {feedback.word_count}</span>
-                      <span>Pace: {feedback.words_per_minute} WPM</span>
+                      <span>{t("voiceCoach.words") || "Words"}: {feedback.word_count}</span>
+                      <span>{t("voiceCoach.pace") || "Pace"}: {feedback.words_per_minute} WPM</span>
                     </div>
                   </div>
                 ) : (
                   <div className="text-center py-12 text-slate-400 dark:text-slate-500">
                     <Volume2 className="w-12 h-12 mx-auto mb-4 opacity-40" />
-                    <p>Record your answer to receive AI feedback</p>
+                    <p>{t("voiceCoach.recordToReceive") || "Record your answer to receive AI feedback"}</p>
                   </div>
                 )}
               </CardContent>
@@ -583,15 +705,14 @@ const VoiceCoachPage = ({ resume }) => {
         </div>
       )}
 
-      {/* Recording History */}
       {recordingHistory.length > 0 && (
         <Card className="mt-6">
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2" style={{ fontFamily: 'IBM Plex Sans' }}>
               <Volume2 className="w-5 h-5 text-turquoise" />
-              Recording History ({recordingHistory.length})
+              {t("voiceCoach.recordingHistory") || "Recording History"} ({recordingHistory.length})
             </CardTitle>
-            <CardDescription>Replay your practice recordings from this session</CardDescription>
+            <CardDescription>{t("voiceCoach.replayRecordings") || "Replay your practice recordings from this session"}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -605,7 +726,7 @@ const VoiceCoachPage = ({ resume }) => {
                       Q{idx + 1}: {typeof recording.question === 'string' ? recording.question.slice(0, 60) : 'Practice Response'}...
                     </h4>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                      Duration: {formatTime(recording.duration)} • {recording.transcript?.split(' ').length || 0} words
+                      {t("voiceCoach.duration") || "Duration"}: {formatTime(recording.duration)} • {recording.transcript?.split(' ').length || 0} {t("voiceCoach.words") || "words"}
                     </p>
                   </div>
                   <div className="flex items-center gap-2 ml-4">
@@ -641,20 +762,19 @@ const VoiceCoachPage = ({ resume }) => {
         </Card>
       )}
 
-      {/* Tips Section */}
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="text-lg" style={{ fontFamily: 'IBM Plex Sans' }}>
-            Voice Interview Tips
+            {t("voiceCoach.tips") || "Voice Interview Tips"}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-4 gap-4">
             {[
-              { icon: Clock, title: "Ideal Length", desc: "Aim for 1-2 minute answers (150-300 words)" },
-              { icon: Volume2, title: "Clear Speech", desc: "Speak clearly and at a moderate pace" },
-              { icon: Zap, title: "Be Specific", desc: "Use concrete examples and metrics" },
-              { icon: Target, title: "Stay Focused", desc: "Answer the question directly, then elaborate" }
+              { icon: Clock, title: t("voiceCoach.idealLength") || "Ideal Length", desc: t("voiceCoach.idealLengthDesc") || "Aim for 1-2 minute answers (150-300 words)" },
+              { icon: Volume2, title: t("voiceCoach.clearSpeech") || "Clear Speech", desc: t("voiceCoach.clearSpeechDesc") || "Speak clearly and at a moderate pace" },
+              { icon: Zap, title: t("voiceCoach.beSpecific") || "Be Specific", desc: t("voiceCoach.beSpecificDesc") || "Use concrete examples and metrics" },
+              { icon: Target, title: t("voiceCoach.stayFocused") || "Stay Focused", desc: t("voiceCoach.stayFocusedDesc") || "Answer the question directly, then elaborate" }
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="text-center p-4">
                 <Icon className="w-8 h-8 text-turquoise mx-auto mb-2" />
@@ -666,7 +786,7 @@ const VoiceCoachPage = ({ resume }) => {
         </CardContent>
       </Card>
 
-      <style jsx>{`
+      <style>{`
         @keyframes wave {
           0%, 100% { height: 8px; }
           50% { height: 32px; }
