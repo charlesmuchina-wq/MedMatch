@@ -23,6 +23,7 @@ const SKILL_SUGGESTIONS = [
 const CandidateSearch = ({ user }) => {
   const navigate = useNavigate();
   const { isDark } = useTheme();
+  const { t } = useTranslation();
   
   const [searchSkills, setSearchSkills] = useState([]);
   const [searchKeywords, setSearchKeywords] = useState("");
