@@ -582,6 +582,21 @@
     "searchFailed": "Search failed",
     "loadFailed": "Failed to load profile"
   },
+  "cloudStorage": {
+    "importFrom": "Import from Cloud Storage",
+    "connectFailed": "Failed to connect to cloud provider",
+    "listFailed": "Failed to load files",
+    "uploadSuccess": "File uploaded successfully!",
+    "uploadFailed": "Failed to upload file",
+    "connected": "Connected",
+    "clickToConnect": "Click to connect",
+    "comingSoon": "Coming soon",
+    "noProviders": "Cloud storage providers are not configured. Contact support for help.",
+    "selectFile": "Select a File",
+    "noFiles": "No compatible files found",
+    "supportedTypes": "Supported: PDF, DOC, DOCX",
+    "import": "Import File"
+  },
   "errors": {
     "somethingWentWrong": "Something went wrong",
     "tryAgainLater": "Please try again later",
