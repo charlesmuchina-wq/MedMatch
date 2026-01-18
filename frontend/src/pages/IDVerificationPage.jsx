@@ -16,10 +16,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
-
 const IDVerificationPage = ({ user }) => {
   const { isDark } = useTheme();
+  const { t } = useTranslation();
   const fileInputRef = useRef(null);
   
   const [verificationStatus, setVerificationStatus] = useState(null);

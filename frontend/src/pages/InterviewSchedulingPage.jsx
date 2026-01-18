@@ -18,11 +18,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
 
-const API = process.env.REACT_APP_BACKEND_URL;
-
 const InterviewSchedulingPage = ({ user }) => {
   const navigate = useNavigate();
   const { isDark } = useTheme();
+  const { t } = useTranslation();
   
   const [interviews, setInterviews] = useState([]);
   const [loading, setLoading] = useState(true);
