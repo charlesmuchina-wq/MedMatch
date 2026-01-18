@@ -24,6 +24,7 @@ from webauthn.helpers.structs import (
     ResidentKeyRequirement,
     AuthenticatorAttachment,
     PublicKeyCredentialDescriptor,
+    AttestationConveyancePreference,
 )
 from webauthn.helpers.cose import COSEAlgorithmIdentifier
 
