@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import axios from "axios";
 import { toast } from "sonner";
 import { useTheme } from "@/App";
 import { 
@@ -12,8 +11,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+import { useTranslation } from "@/utils/i18n";
+import { apiClient } from "@/utils/apiClient";
 
 // Circular Score Component
 const CircularScore = ({ score, label, color }) => {
@@ -52,6 +51,7 @@ const CircularScore = ({ score, label, color }) => {
 
 const VideoInterviewPage = ({ resume }) => {
   const { isDark } = useTheme();
+  const { t } = useTranslation();
   const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const streamRef = useRef(null);
@@ -96,11 +96,11 @@ const VideoInterviewPage = ({ resume }) => {
   const generateQuestions = async () => {
     // First try to load cached questions from Interview Prep
     try {
-      const cachedResponse = await axios.get(`${API}/interview/cached-questions`);
+      const cachedResponse = await apiClient.get("/api/interview/cached-questions");
       if (cachedResponse.data.questions?.length > 0) {
         setQuestions(cachedResponse.data.questions);
         setCurrentQuestion(cachedResponse.data.questions[0]);
-        toast.success("Loaded questions from Interview Prep");
+        toast.success(t("common.success"));
         return;
       }
     } catch (e) {
@@ -109,7 +109,7 @@ const VideoInterviewPage = ({ resume }) => {
     
     // If no cached questions, generate new ones
     try {
-      const response = await axios.post(`${API}/interview/generate-questions`, {
+      const response = await apiClient.post("/api/interview/generate-questions", {
         job_title: "Quality Manager",
         company: "",
         resume_skills: resume?.skills || []
@@ -119,13 +119,13 @@ const VideoInterviewPage = ({ resume }) => {
         setCurrentQuestion(response.data.questions[0]);
       }
     } catch (e) {
-      toast.error("Failed to load questions");
+      toast.error(t("errors.somethingWentWrong"));
     }
   };
 
   const loadRecordings = async () => {
     try {
-      const response = await axios.get(`${API}/interview/video-recordings`);
+      const response = await apiClient.get("/api/interview/video-recordings");
       setRecordings(response.data || []);
     } catch (e) {
       console.error("Failed to load recordings");
@@ -144,7 +144,7 @@ const VideoInterviewPage = ({ resume }) => {
       }
       setIsPreviewing(true);
     } catch (err) {
-      toast.error("Could not access camera. Please allow camera permissions.");
+      toast.error(t("errors.somethingWentWrong"));
       console.error("Camera error:", err);
     }
   };
@@ -212,16 +212,16 @@ const VideoInterviewPage = ({ resume }) => {
       ctx.drawImage(videoRef.current, 0, 0);
       const base64 = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
       
-      const response = await axios.post(`${API}/interview/analyze-video-frame`, {
+      const response = await apiClient.post("/api/interview/analyze-video-frame", {
         frame_base64: base64,
         question: currentQuestion?.text || currentQuestion || "",
         context: "behavioral interview"
       });
       
       setVideoAnalysis(response.data);
-      toast.success("Video analysis complete!");
+      toast.success(t("common.success"));
     } catch (e) {
-      toast.error("Failed to analyze video");
+      toast.error(t("errors.somethingWentWrong"));
       console.error(e);
     }
     setIsAnalyzing(false);
@@ -247,7 +247,7 @@ const VideoInterviewPage = ({ resume }) => {
       setRecordedVideoURL(null);
       setElapsedTime(0);
     } else {
-      toast.success("Practice session complete!");
+      toast.success(t("common.success"));
       setIsSessionActive(false);
       stopPreview();
     }
@@ -268,11 +268,11 @@ const VideoInterviewPage = ({ resume }) => {
 
   const deleteRecording = async (recordingId) => {
     try {
-      await axios.delete(`${API}/interview/video-recordings/${recordingId}`);
+      await apiClient.delete(`/api/interview/video-recordings/${recordingId}`);
       setRecordings(prev => prev.filter(r => r.id !== recordingId));
-      toast.success("Recording deleted");
+      toast.success(t("common.delete") + " " + t("common.success").toLowerCase());
     } catch (e) {
-      toast.error("Failed to delete recording");
+      toast.error(t("errors.somethingWentWrong"));
     }
   };
 
@@ -281,10 +281,10 @@ const VideoInterviewPage = ({ resume }) => {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight" style={{ fontFamily: 'IBM Plex Sans' }}>
-          Video Interview Practice
+          {t("video.title")}
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-2">
-          Practice on camera with AI-powered body language analysis
+          {t("video.subtitle")}
         </p>
       </div>
 
@@ -296,18 +296,18 @@ const VideoInterviewPage = ({ resume }) => {
               <Video className="w-10 h-10 text-white" />
             </div>
             <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-3" style={{ fontFamily: 'IBM Plex Sans' }}>
-              Video Interview Practice
+              {t("video.title")}
             </h2>
             <p className="text-slate-500 dark:text-slate-400 mb-6">
-              Record yourself answering interview questions and get AI feedback on your body language, eye contact, and overall presentation.
+              {t("video.subtitle")}
             </p>
             
             <div className="flex flex-wrap justify-center gap-3 mb-8">
               {[
-                { icon: Eye, label: "Eye Contact Analysis" },
-                { icon: User, label: "Posture Feedback" },
-                { icon: Sparkles, label: "Confidence Score" },
-                { icon: Target, label: "Improvement Tips" }
+                { icon: Eye, label: t("video.eyeContactAnalysis") },
+                { icon: User, label: t("video.postureFeedback") },
+                { icon: Sparkles, label: t("video.confidenceScore") },
+                { icon: Target, label: t("video.improvementTips") }
               ].map(({ icon: Icon, label }) => (
                 <Badge key={label} variant="outline" className="px-3 py-1">
                   <Icon className="w-3 h-3 mr-1" /> {label}
@@ -321,11 +321,11 @@ const VideoInterviewPage = ({ resume }) => {
               className="bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700"
               data-testid="start-video-session"
             >
-              <Camera className="w-5 h-5 mr-2" /> Start Practice Session
+              <Camera className="w-5 h-5 mr-2" /> {t("video.startSession")}
             </Button>
             
             {questions.length === 0 && (
-              <p className="text-sm text-amber-600 mt-4">Loading interview questions...</p>
+              <p className="text-sm text-amber-600 mt-4">{t("video.loadingQuestions")}</p>
             )}
           </CardContent>
         </Card>
@@ -374,7 +374,7 @@ const VideoInterviewPage = ({ resume }) => {
                     <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
                       <div className="text-center text-white">
                         <Loader2 className="w-12 h-12 animate-spin mx-auto mb-3" />
-                        <p>Analyzing your presentation...</p>
+                        <p>{t("common.loading")}</p>
                       </div>
                     </div>
                   )}
@@ -411,13 +411,13 @@ const VideoInterviewPage = ({ resume }) => {
                       data-testid="analyze-video"
                     >
                       <Sparkles className="w-4 h-4 mr-2" />
-                      {isAnalyzing ? "Analyzing..." : "Analyze Again"}
+                      {isAnalyzing ? t("common.loading") : t("video.analyzeAgain")}
                     </Button>
                   )}
                 </div>
 
                 <p className="text-center text-sm text-slate-500 dark:text-slate-400 pb-4">
-                  {isRecording ? "Recording... Click to stop" : "Click to start recording your answer"}
+                  {isRecording ? t("video.recording") : t("video.clickToStart")}
                 </p>
               </CardContent>
             </Card>
@@ -428,7 +428,7 @@ const VideoInterviewPage = ({ resume }) => {
                 <CardHeader>
                   <CardTitle className="text-lg flex items-center gap-2">
                     <Play className="w-5 h-5 text-turquoise" />
-                    Your Recording
+                    {t("video.yourRecording")}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -453,14 +453,14 @@ const VideoInterviewPage = ({ resume }) => {
                     className="flex-1"
                     disabled={isRecording}
                   >
-                    Next Question <ChevronRight className="w-4 h-4 ml-1" />
+                    {t("video.nextQuestion")} <ChevronRight className="w-4 h-4 ml-1" />
                   </Button>
                   <Button 
                     variant="outline" 
                     onClick={endSession}
                     disabled={isRecording}
                   >
-                    End
+                    {t("video.end")}
                   </Button>
                 </div>
               </CardContent>
@@ -471,7 +471,7 @@ const VideoInterviewPage = ({ resume }) => {
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-violet-500" />
-                  AI Body Language Analysis
+                  {t("video.aiAnalysis")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -481,24 +481,24 @@ const VideoInterviewPage = ({ resume }) => {
                     <div className="grid grid-cols-3 gap-2">
                       <CircularScore 
                         score={videoAnalysis.eye_contact_score} 
-                        label="Eye Contact" 
+                        label={t("video.eyeContact")} 
                         color="#20b2aa" 
                       />
                       <CircularScore 
                         score={videoAnalysis.posture_score} 
-                        label="Posture" 
+                        label={t("video.posture")} 
                         color="#8b5cf6" 
                       />
                       <CircularScore 
                         score={videoAnalysis.confidence_score} 
-                        label="Confidence" 
+                        label={t("video.confidence")} 
                         color="#f59e0b" 
                       />
                     </div>
 
                     {/* Facial Expression */}
                     <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
-                      <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">Facial Expression</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{t("video.facialExpression")}</p>
                       <p className="font-medium text-slate-900 dark:text-slate-100">
                         {videoAnalysis.facial_expression}
                       </p>
@@ -507,7 +507,7 @@ const VideoInterviewPage = ({ resume }) => {
                     {/* Overall Assessment */}
                     <div className="p-3 bg-violet-50 dark:bg-violet-900/20 rounded-lg">
                       <p className="text-sm font-medium text-violet-700 dark:text-violet-300 mb-1">
-                        Overall Assessment
+                        {t("video.overallAssessment")}
                       </p>
                       <p className="text-sm text-violet-600 dark:text-violet-400">
                         {videoAnalysis.overall_assessment}
@@ -518,7 +518,7 @@ const VideoInterviewPage = ({ resume }) => {
                     {videoAnalysis.strengths?.length > 0 && (
                       <div>
                         <h4 className="text-sm font-medium text-emerald-700 dark:text-emerald-400 mb-2 flex items-center gap-1">
-                          <CheckCircle2 className="w-4 h-4" /> Strengths
+                          <CheckCircle2 className="w-4 h-4" /> {t("video.strengths")}
                         </h4>
                         <ul className="space-y-1">
                           {videoAnalysis.strengths.map((s, i) => (
@@ -534,7 +534,7 @@ const VideoInterviewPage = ({ resume }) => {
                     {videoAnalysis.improvements?.length > 0 && (
                       <div>
                         <h4 className="text-sm font-medium text-amber-700 dark:text-amber-400 mb-2 flex items-center gap-1">
-                          <Target className="w-4 h-4" /> Areas to Improve
+                          <Target className="w-4 h-4" /> {t("video.areasToImprove")}
                         </h4>
                         <ul className="space-y-1">
                           {videoAnalysis.improvements.map((s, i) => (
@@ -550,12 +550,12 @@ const VideoInterviewPage = ({ resume }) => {
                     {videoAnalysis.body_language_tips?.length > 0 && (
                       <div>
                         <h4 className="text-sm font-medium text-sky-700 dark:text-sky-400 mb-2 flex items-center gap-1">
-                          <Zap className="w-4 h-4" /> Quick Tips
+                          <Zap className="w-4 h-4" /> {t("video.quickTips")}
                         </h4>
                         <ul className="space-y-1">
                           {videoAnalysis.body_language_tips.slice(0, 3).map((tip, i) => (
                             <li key={i} className="text-sm text-slate-600 dark:text-slate-400">
-                              💡 {tip}
+                              {tip}
                             </li>
                           ))}
                         </ul>
@@ -565,7 +565,7 @@ const VideoInterviewPage = ({ resume }) => {
                 ) : (
                   <div className="text-center py-8 text-slate-400 dark:text-slate-500">
                     <Eye className="w-12 h-12 mx-auto mb-4 opacity-40" />
-                    <p>Record a video to receive AI body language analysis</p>
+                    <p>{t("video.recordToAnalyze")}</p>
                   </div>
                 )}
               </CardContent>
@@ -579,9 +579,9 @@ const VideoInterviewPage = ({ resume }) => {
         <Card className="mt-8">
           <CardHeader>
             <CardTitle className="text-lg" style={{ fontFamily: 'IBM Plex Sans' }}>
-              Previous Practice Sessions
+              {t("video.previousSessions")}
             </CardTitle>
-            <CardDescription>Review your past video interview practice</CardDescription>
+            <CardDescription>{t("video.previousSessionsDesc")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -596,7 +596,7 @@ const VideoInterviewPage = ({ resume }) => {
                     </p>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                       Duration: {formatTime(recording.duration_seconds || 0)} • 
-                      {recording.feedback?.overall_score ? ` Score: ${recording.feedback.overall_score}` : ''}
+                      {recording.feedback?.overall_score ? ` ${t("interview.score")}: ${recording.feedback.overall_score}` : ''}
                       {' • '}{new Date(recording.created_at).toLocaleDateString()}
                     </p>
                   </div>
@@ -619,16 +619,16 @@ const VideoInterviewPage = ({ resume }) => {
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="text-lg" style={{ fontFamily: 'IBM Plex Sans' }}>
-            Video Interview Tips
+            {t("video.videoTips")}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-4 gap-4">
             {[
-              { icon: Eye, title: "Eye Contact", desc: "Look directly at the camera, not at your own image" },
-              { icon: User, title: "Good Posture", desc: "Sit up straight with shoulders back" },
-              { icon: Camera, title: "Lighting", desc: "Face a light source for clear visibility" },
-              { icon: Award, title: "Background", desc: "Keep a clean, professional background" }
+              { icon: Eye, title: t("video.eyeContact"), desc: t("video.lookAtCamera") },
+              { icon: User, title: t("video.posture"), desc: t("video.sitStraight") },
+              { icon: Camera, title: "Lighting", desc: t("video.faceLightSource") },
+              { icon: Award, title: "Background", desc: t("video.cleanBackground") }
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="text-center p-4">
                 <Icon className="w-8 h-8 text-turquoise mx-auto mb-2" />
