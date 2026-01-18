@@ -32,12 +32,7 @@ const QAPracticePage = ({ resume }) => {
   const [loadingFavorites, setLoadingFavorites] = useState(false);
   const [expandedFavorite, setExpandedFavorite] = useState(null);
 
-  // Load favorites on mount
-  useEffect(() => {
-    fetchFavorites();
-  }, []);
-
-  const fetchFavorites = async () => {
+  const fetchFavorites = useCallback(async () => {
     setLoadingFavorites(true);
     try {
       const response = await apiClient.get("/api/qa-practice/favorites");
@@ -46,7 +41,12 @@ const QAPracticePage = ({ resume }) => {
       console.error("Failed to load favorites:", error);
     }
     setLoadingFavorites(false);
-  };
+  }, []);
+
+  // Load favorites on mount
+  useEffect(() => {
+    fetchFavorites();
+  }, [fetchFavorites]);
 
   // Add a new question
   const addQuestion = () => {
