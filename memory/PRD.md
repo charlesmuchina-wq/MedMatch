@@ -22,28 +22,40 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ## What's Been Implemented
 
-### Session: January 18, 2026 - Internationalization (i18n) Fix
+### Session: January 18, 2026 - Internationalization (i18n) Enhancement
 
 #### ✅ LANGUAGE SWITCHING / i18n FIX (COMPLETED)
 - **Issue**: Language selector was storing preference but not translating UI
-- **Solution**: Implemented complete i18n system with bundled translations
-- **Files Created**:
-  - `/app/frontend/src/utils/i18n.jsx`: Core i18n system with I18nProvider context and useTranslation hook
-  - `/app/frontend/src/locales/en.json`: English translations (100+ keys)
-  - `/app/frontend/src/locales/es.json`: Spanish translations
-  - `/app/frontend/src/locales/fr.json`: French translations
-  - `/app/frontend/src/locales/zh.json`: Chinese translations
-  - `/app/frontend/src/locales/de.json`: German translations
-- **Files Updated**:
-  - `/app/frontend/src/components/GlobalLanguageSelector.jsx`: Integrated with new i18n system
-  - `/app/frontend/src/pages/LoginPage.jsx`: Added translations + language selector in header
-  - `/app/frontend/src/App.js`: Sidebar navigation now uses translation keys with t() function
-- **Translation Coverage**:
-  - Login page (Sign In, Email, Password, Create Account, etc.)
-  - Sidebar navigation (22+ menu items)
-  - Common UI elements (Save, Cancel, Delete, etc.)
-  - Error messages, notifications, membership labels
-- **Testing**: All 7 i18n tests passed (iteration_17.json)
+- **Solution**: Implemented complete i18n system with bundled translations + AI-powered translation for non-bundled languages
+
+**Files Created/Updated:**
+- `/app/frontend/src/utils/i18n.jsx`: Core i18n system with:
+  - `I18nProvider` context for app-wide language state
+  - `useTranslation` hook for accessing translations
+  - `useAITranslation` hook for dynamic AI translation
+  - `AITranslationService` class for caching and batching AI translations
+  - Support for 18 languages (5 bundled + 13 AI-translated)
+- `/app/frontend/src/locales/{en,es,fr,zh,de}.json`: Bundled translation files (150+ keys each)
+- `/app/frontend/src/components/GlobalLanguageSelector.jsx`: Updated with AI loading indicator
+- `/app/frontend/src/components/OnboardingTour.jsx`: Now fully translated
+- `/app/frontend/src/pages/LoginPage.jsx`: Full translation support
+- `/app/frontend/src/pages/Dashboard.jsx`: Started translation integration
+- `/app/frontend/src/App.js`: Sidebar navigation uses translation keys
+
+**Translation Coverage:**
+- **Bundled Languages (Instant):** English, Spanish, French, Chinese, German
+- **AI-Translated Languages:** Japanese, Korean, Portuguese, Brazilian Portuguese, Arabic, Hindi, Italian, Russian, Dutch, Turkish, Vietnamese, Thai, Indonesian, Polish
+- **Components Translated:** Login page, Onboarding tour, Sidebar navigation
+- **Translation Keys:** 150+ covering auth, navigation, dashboard, jobs, resume, interview, cover letter, membership, notifications, errors
+
+**AI Translation Features:**
+- Uses existing `/api/translate/text` and `/api/translate/batch` endpoints
+- Client-side caching in localStorage for performance
+- Batch translation for efficiency (20 texts per batch)
+- Loading indicator while AI translations load
+- RTL support for Arabic
+
+**Testing:** All i18n tests passed (iteration_17.json)
 
 ### Previous Session: January 18, 2026 (P2 Tasks)
 
