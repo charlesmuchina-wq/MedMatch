@@ -105,18 +105,18 @@ const ApplicantTracker = ({ user }) => {
   const runAIPrescreen = async (applicant) => {
     setPrescreening(true);
     try {
-      const response = await axios.post(`${API}/api/recruiter/ai-prescreen`, {
+      const response = await apiClient.post(`/api/recruiter/ai-prescreen`, {
         candidate_id: applicant.resume_snapshot?.id || applicant.id,
         job_id: jobId
       });
-      toast.success("AI analysis complete");
+      toast.success(t("applicants.aiComplete") || "AI analysis complete");
       setSelectedApplicant({
         ...applicant,
         ai_analysis: response.data.analysis
       });
       fetchApplicants();
     } catch (e) {
-      toast.error("AI prescreening failed");
+      toast.error(t("applicants.aiFailed") || "AI prescreening failed");
       console.error(e);
     }
     setPrescreening(false);
