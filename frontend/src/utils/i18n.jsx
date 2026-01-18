@@ -326,23 +326,6 @@ export const I18nProvider = ({ children }) => {
     return () => window.removeEventListener('languageSync', handleLanguageSync);
   }, [language]);
 
-  // Update localStorage and document direction when language changes
-  useEffect(() => {
-    localStorage.setItem("medmatch-language", language);
-    
-    const langMeta = LANGUAGE_META[language];
-    const rtl = langMeta?.rtl || false;
-    setIsRTL(rtl);
-    
-    document.documentElement.dir = rtl ? "rtl" : "ltr";
-    document.documentElement.lang = language;
-
-    // If non-bundled language, trigger AI translation load
-    if (!BUNDLED_LANGUAGES.includes(language)) {
-      loadAITranslations(language);
-    }
-  }, [language]);
-
   // Priority keys that should be translated first (visible immediately)
   const PRIORITY_KEYS = [
     "common.loading", "common.error", "common.success", "common.save", "common.cancel",
@@ -356,7 +339,7 @@ export const I18nProvider = ({ children }) => {
    * Load AI translations for a non-bundled language
    * Uses progressive loading: priority keys first, then background loading
    */
-  const loadAITranslations = async (lang) => {
+  const loadAITranslations = useCallback(async (lang) => {
     // Check if we already have translations for this language
     if (aiTranslationCache.current[lang] && Object.keys(aiTranslationCache.current[lang]).length > 50) {
       setDynamicTranslations(prev => ({
@@ -441,7 +424,24 @@ export const I18nProvider = ({ children }) => {
       console.error("Failed to load AI translations:", e);
       setIsLoadingAI(false);
     }
-  };
+  }, []);
+
+  // Update localStorage and document direction when language changes
+  useEffect(() => {
+    localStorage.setItem("medmatch-language", language);
+    
+    const langMeta = LANGUAGE_META[language];
+    const rtl = langMeta?.rtl || false;
+    setIsRTL(rtl);
+    
+    document.documentElement.dir = rtl ? "rtl" : "ltr";
+    document.documentElement.lang = language;
+
+    // If non-bundled language, trigger AI translation load
+    if (!BUNDLED_LANGUAGES.includes(language)) {
+      loadAITranslations(language);
+    }
+  }, [language, loadAITranslations]);
 
   const setLanguage = useCallback((lang) => {
     if (lang && LANGUAGE_META[lang]) {
