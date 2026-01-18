@@ -343,12 +343,22 @@ export const I18nProvider = ({ children }) => {
     }
   }, [language]);
 
+  // Priority keys that should be translated first (visible immediately)
+  const PRIORITY_KEYS = [
+    "common.loading", "common.error", "common.success", "common.save", "common.cancel",
+    "common.delete", "common.edit", "common.search", "common.filter", "common.submit",
+    "nav.home", "nav.dashboard", "nav.jobs", "nav.resume", "nav.applications",
+    "nav.savedJobs", "nav.interviewPrep", "nav.settings", "nav.logout",
+    "language.selectLanguage", "language.popular", "language.otherLanguages"
+  ];
+
   /**
    * Load AI translations for a non-bundled language
+   * Uses progressive loading: priority keys first, then background loading
    */
   const loadAITranslations = async (lang) => {
     // Check if we already have translations for this language
-    if (aiTranslationCache.current[lang]) {
+    if (aiTranslationCache.current[lang] && Object.keys(aiTranslationCache.current[lang]).length > 50) {
       setDynamicTranslations(prev => ({
         ...prev,
         [lang]: aiTranslationCache.current[lang]
@@ -359,36 +369,78 @@ export const I18nProvider = ({ children }) => {
     setIsLoadingAI(true);
 
     try {
-      // Get all English strings that need translation
+      // Get all English strings
       const englishStrings = flattenTranslations(translations.en);
-      const keys = Object.keys(englishStrings);
-      const texts = Object.values(englishStrings);
-
-      // Batch translate (limit to avoid overwhelming API)
-      const batchSize = 20;
+      const allKeys = Object.keys(englishStrings);
+      
+      // Separate priority keys from the rest
+      const priorityTexts = PRIORITY_KEYS
+        .filter(k => englishStrings[k])
+        .map(k => ({ key: k, text: englishStrings[k] }));
+      
+      const remainingKeys = allKeys.filter(k => !PRIORITY_KEYS.includes(k));
+      
       const translatedMap = {};
 
-      for (let i = 0; i < texts.length; i += batchSize) {
-        const batch = texts.slice(i, i + batchSize);
-        const batchKeys = keys.slice(i, i + batchSize);
+      // First: Translate priority keys quickly (small batch)
+      if (priorityTexts.length > 0) {
+        const priorityBatch = priorityTexts.map(p => p.text);
+        const translated = await aiTranslator.translateBatch(priorityBatch, lang);
         
-        const translated = await aiTranslator.translateBatch(batch, lang);
-        
-        batchKeys.forEach((key, idx) => {
-          translatedMap[key] = translated[idx];
+        priorityTexts.forEach((p, idx) => {
+          translatedMap[p.key] = translated[idx];
         });
+        
+        // Update UI immediately with priority translations
+        aiTranslationCache.current[lang] = { ...translatedMap };
+        setDynamicTranslations(prev => ({
+          ...prev,
+          [lang]: { ...translatedMap }
+        }));
       }
 
-      aiTranslationCache.current[lang] = translatedMap;
-      setDynamicTranslations(prev => ({
-        ...prev,
-        [lang]: translatedMap
-      }));
+      // Show quick loading indicator done
+      setIsLoadingAI(false);
+
+      // Second: Background load remaining translations (don't block UI)
+      const loadRemaining = async () => {
+        const batchSize = 25;
+        
+        for (let i = 0; i < remainingKeys.length; i += batchSize) {
+          const batchKeys = remainingKeys.slice(i, i + batchSize);
+          const batchTexts = batchKeys.map(k => englishStrings[k]);
+          
+          try {
+            const translated = await aiTranslator.translateBatch(batchTexts, lang);
+            
+            batchKeys.forEach((key, idx) => {
+              translatedMap[key] = translated[idx];
+            });
+            
+            // Update cache and state periodically
+            if (i % 100 === 0 || i + batchSize >= remainingKeys.length) {
+              aiTranslationCache.current[lang] = { ...translatedMap };
+              setDynamicTranslations(prev => ({
+                ...prev,
+                [lang]: { ...translatedMap }
+              }));
+            }
+          } catch (batchErr) {
+            console.warn(`AI translation batch ${i} failed:`, batchErr);
+          }
+          
+          // Small delay between batches to avoid rate limiting
+          await new Promise(r => setTimeout(r, 100));
+        }
+      };
+      
+      // Run remaining translations in background
+      loadRemaining().catch(e => console.error("Background translation error:", e));
+      
     } catch (e) {
       console.error("Failed to load AI translations:", e);
+      setIsLoadingAI(false);
     }
-
-    setIsLoadingAI(false);
   };
 
   const setLanguage = useCallback((lang) => {
