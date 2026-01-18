@@ -1,0 +1,345 @@
+# MedMatch Kubernetes Production Configuration
+# Designed for 1M+ users with high availability
+
+---
+# Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: medmatch
+  labels:
+    app: medmatch
+
+---
+# ConfigMap for application settings
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: medmatch-config
+  namespace: medmatch
+data:
+  MONGO_POOL_SIZE: "100"
+  MONGO_MIN_POOL_SIZE: "20"
+  CACHE_EXPIRE_SECONDS: "300"
+  MAX_CONCURRENT_USERS: "3000"
+  LOG_LEVEL: "INFO"
+
+---
+# Secret for sensitive data (base64 encoded)
+apiVersion: v1
+kind: Secret
+metadata:
+  name: medmatch-secrets
+  namespace: medmatch
+type: Opaque
+data:
+  # Replace with actual base64-encoded values
+  MONGO_URL: <base64-encoded-mongo-url>
+  EMERGENT_LLM_KEY: <base64-encoded-llm-key>
+  REDIS_URL: <base64-encoded-redis-url>
+
+---
+# Redis Deployment for Global Rate Limiting
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: medmatch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        command:
+        - redis-server
+        - --maxmemory
+        - 256mb
+        - --maxmemory-policy
+        - allkeys-lru
+
+---
+# Redis Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: medmatch
+spec:
+  selector:
+    app: redis
+  ports:
+  - port: 6379
+    targetPort: 6379
+
+---
+# MedMatch API Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: medmatch-api
+  namespace: medmatch
+spec:
+  replicas: 4  # Start with 4 replicas
+  selector:
+    matchLabels:
+      app: medmatch-api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: medmatch-api
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8001"
+        prometheus.io/path: "/api/metrics"
+    spec:
+      containers:
+      - name: api
+        image: medmatch/api:latest
+        ports:
+        - containerPort: 8001
+          name: http
+        envFrom:
+        - configMapRef:
+            name: medmatch-config
+        - secretRef:
+            name: medmatch-secrets
+        env:
+        - name: REDIS_URL
+          value: "redis://redis:6379/0"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 8001
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 8001
+          initialDelaySeconds: 15
+          periodSeconds: 20
+          timeoutSeconds: 5
+          failureThreshold: 3
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sh", "-c", "sleep 10"]
+
+---
+# API Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: medmatch-api-service
+  namespace: medmatch
+spec:
+  selector:
+    app: medmatch-api
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8001
+  type: ClusterIP
+
+---
+# Horizontal Pod Autoscaler
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: medmatch-api-hpa
+  namespace: medmatch
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: medmatch-api
+  minReplicas: 4
+  maxReplicas: 20  # Scale up to 20 pods for 1M users
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Pods
+        value: 4
+        periodSeconds: 60
+      - type: Percent
+        value: 100
+        periodSeconds: 60
+      selectPolicy: Max
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 10
+        periodSeconds: 60
+
+---
+# NGINX Ingress with Rate Limiting
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: medmatch-ingress
+  namespace: medmatch
+  annotations:
+    # NGINX Ingress Controller annotations
+    kubernetes.io/ingress.class: nginx
+    
+    # SSL/TLS
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    
+    # Rate Limiting - Adjusted for 1M users
+    nginx.ingress.kubernetes.io/limit-rps: "1000"           # 1000 req/sec per IP
+    nginx.ingress.kubernetes.io/limit-rpm: "30000"          # 30000 req/min per IP
+    nginx.ingress.kubernetes.io/limit-connections: "100"     # 100 concurrent connections per IP
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "5"  # Allow 5x burst
+    nginx.ingress.kubernetes.io/limit-whitelist-source-range: "10.0.0.0/8"  # Internal traffic no limit
+    
+    # Proxy settings
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+    nginx.ingress.kubernetes.io/proxy-buffering: "on"
+    
+    # Connection optimization
+    nginx.ingress.kubernetes.io/upstream-keepalive-connections: "100"
+    nginx.ingress.kubernetes.io/upstream-keepalive-timeout: "60"
+    
+    # HTTP/2 for better performance
+    nginx.ingress.kubernetes.io/use-http2: "true"
+    
+    # CORS
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,Authorization"
+    
+    # Custom error responses
+    nginx.ingress.kubernetes.io/custom-http-errors: "429,503"
+    nginx.ingress.kubernetes.io/default-backend: medmatch-error-backend
+    
+spec:
+  tls:
+  - hosts:
+    - api.medmatch.com
+    secretName: medmatch-tls
+  rules:
+  - host: api.medmatch.com
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: medmatch-api-service
+            port:
+              number: 80
+
+---
+# Pod Disruption Budget
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: medmatch-api-pdb
+  namespace: medmatch
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: medmatch-api
+
+---
+# Network Policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: medmatch-network-policy
+  namespace: medmatch
+spec:
+  podSelector:
+    matchLabels:
+      app: medmatch-api
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 8001
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: redis
+    ports:
+    - protocol: TCP
+      port: 6379
+  - to: []  # Allow all egress (MongoDB, external APIs)
+
+---
+# ServiceMonitor for Prometheus (if using Prometheus Operator)
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: medmatch-api-monitor
+  namespace: medmatch
+spec:
+  selector:
+    matchLabels:
+      app: medmatch-api
+  endpoints:
+  - port: http
+    path: /api/metrics
+    interval: 30s
