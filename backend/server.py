@@ -404,6 +404,33 @@ async def adjust_rate_limit(rate: int):
     ai_supervisor.rate_limiter.current_rate = rate
     return {"message": f"Rate limit adjusted to {rate} req/sec"}
 
+# ============== Global Rate Limiter Endpoints ==============
+@app.get("/api/rate-limit/status")
+async def get_rate_limit_status(request: Request):
+    """Get current rate limit status for the client"""
+    identifier = get_client_identifier(request)
+    tier = get_user_tier(request)
+    usage = await global_rate_limiter.get_usage(identifier)
+    tier_info = global_rate_limiter.get_tier_info()[tier]
+    
+    return {
+        "identifier": identifier,
+        "tier": tier,
+        "usage": usage,
+        "limits": tier_info,
+        "backend": global_rate_limiter.get_stats()["type"]
+    }
+
+@app.get("/api/rate-limit/tiers")
+async def get_rate_limit_tiers():
+    """Get all available rate limit tiers"""
+    return global_rate_limiter.get_tier_info()
+
+@app.get("/api/rate-limit/stats")
+async def get_rate_limit_stats():
+    """Get global rate limiter statistics"""
+    return global_rate_limiter.get_stats()
+
 # ============== Cached Endpoints ==============
 @app.get("/api/cached/languages")
 @cache(expire=3600)  # Cache for 1 hour
