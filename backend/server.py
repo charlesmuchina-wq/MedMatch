@@ -138,9 +138,13 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.error(f"❌ MongoDB connection failed: {e}")
     
+    # Initialize Global Rate Limiter
+    await global_rate_limiter.initialize()
+    logger.info(f"🚦 Global rate limiter initialized ({global_rate_limiter.get_stats()['type']})")
+    
     # Start AI Supervisor
     await ai_supervisor.start()
-    logger.info(f"🤖 AI Supervisor started (max users: {MAX_CONCURRENT_USERS})")
+    logger.info(f"🤖 AI Supervisor started (max users: {MAX_CONCURRENT_USERS:,})")
     
     # Start scheduler
     scheduler.add_job(
@@ -152,7 +156,7 @@ async def lifespan(app: FastAPI):
     scheduler.start()
     logger.info("📅 Daily digest scheduler started - runs at 8:00 AM UTC")
     
-    logger.info("🚀 MedMatch API server started successfully")
+    logger.info("🚀 MedMatch API server started successfully - Ready for 1M+ users!")
     
     yield
     
