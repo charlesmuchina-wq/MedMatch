@@ -40,18 +40,18 @@ const CoverLetterPage = ({ resume }) => {
 
     setGenerating(true);
     try {
-      const response = await axios.post(`${API}/cover-letter/generate`, {
+      const response = await api.client.post(`${API}/cover-letter/generate`, {
         job_title: jobTitle,
         company: company,
         job_description: jobDescription
       });
       setCoverLetter(response.data);
-      toast.success("Cover letter generated!");
+      toast.success(t("coverLetter.generated") || "Cover letter generated!");
       // Refresh history
-      const historyRes = await axios.get(`${API}/cover-letter/history`);
+      const historyRes = await api.client.get(`${API}/cover-letter/history`);
       setHistory(historyRes.data || []);
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Failed to generate cover letter");
+      toast.error(e.response?.data?.detail || t("coverLetter.generationFailed") || "Failed to generate cover letter");
     }
     setGenerating(false);
   };
@@ -59,7 +59,7 @@ const CoverLetterPage = ({ resume }) => {
   const copyToClipboard = () => {
     if (coverLetter?.cover_letter) {
       navigator.clipboard.writeText(coverLetter.cover_letter);
-      toast.success("Cover letter copied to clipboard!");
+      toast.success(t("coverLetter.copied") || "Cover letter copied to clipboard!");
     }
   };
 
