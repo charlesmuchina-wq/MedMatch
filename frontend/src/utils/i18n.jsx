@@ -1,8 +1,9 @@
 /**
  * Internationalization (i18n) System for MedMatch
- * Provides translation hooks and language management
+ * Provides translation hooks, language management, and AI-powered translation
  */
-import { useState, useEffect, createContext, useContext, useCallback } from "react";
+import { useState, useEffect, createContext, useContext, useCallback, useRef } from "react";
+import axios from "axios";
 
 // Import all locale files
 import en from "@/locales/en.json";
@@ -10,6 +11,8 @@ import es from "@/locales/es.json";
 import fr from "@/locales/fr.json";
 import zh from "@/locales/zh.json";
 import de from "@/locales/de.json";
+
+const API = process.env.REACT_APP_BACKEND_URL;
 
 // Available translations
 const translations = {
@@ -56,11 +59,11 @@ export const POPULAR_LANGUAGES = ["en", "es", "fr", "de", "zh", "ja", "ko", "pt-
 // i18n Context
 const I18nContext = createContext(null);
 
+// Cache key for localStorage
+const AI_TRANSLATION_CACHE_KEY = "medmatch-ai-translations";
+
 /**
  * Get nested value from object using dot notation
- * @param {Object} obj - The object to traverse
- * @param {string} path - Dot notation path (e.g., "nav.dashboard")
- * @returns {string} The value or the path if not found
  */
 const getNestedValue = (obj, path) => {
   if (!obj || !path) return path;
@@ -72,7 +75,7 @@ const getNestedValue = (obj, path) => {
     if (value && typeof value === "object" && key in value) {
       value = value[key];
     } else {
-      return path; // Return the key if translation not found
+      return path;
     }
   }
   
@@ -80,8 +83,182 @@ const getNestedValue = (obj, path) => {
 };
 
 /**
+ * Flatten nested object to dot notation keys
+ */
+const flattenTranslations = (obj, prefix = "") => {
+  const result = {};
+  for (const key in obj) {
+    const fullKey = prefix ? `${prefix}.${key}` : key;
+    if (typeof obj[key] === "object" && obj[key] !== null) {
+      Object.assign(result, flattenTranslations(obj[key], fullKey));
+    } else {
+      result[fullKey] = obj[key];
+    }
+  }
+  return result;
+};
+
+/**
+ * AI Translation Service
+ * Handles translation for non-bundled languages using the backend API
+ */
+class AITranslationService {
+  constructor() {
+    this.cache = this.loadCache();
+    this.pendingRequests = new Map();
+    this.batchQueue = [];
+    this.batchTimeout = null;
+  }
+
+  loadCache() {
+    try {
+      const cached = localStorage.getItem(AI_TRANSLATION_CACHE_KEY);
+      return cached ? JSON.parse(cached) : {};
+    } catch {
+      return {};
+    }
+  }
+
+  saveCache() {
+    try {
+      localStorage.setItem(AI_TRANSLATION_CACHE_KEY, JSON.stringify(this.cache));
+    } catch (e) {
+      console.warn("Failed to save translation cache:", e);
+    }
+  }
+
+  getCacheKey(text, targetLang) {
+    return `${targetLang}:${text}`;
+  }
+
+  getFromCache(text, targetLang) {
+    const key = this.getCacheKey(text, targetLang);
+    return this.cache[key];
+  }
+
+  setInCache(text, targetLang, translation) {
+    const key = this.getCacheKey(text, targetLang);
+    this.cache[key] = translation;
+    this.saveCache();
+  }
+
+  /**
+   * Translate a single text
+   */
+  async translate(text, targetLang) {
+    // Check cache first
+    const cached = this.getFromCache(text, targetLang);
+    if (cached) return cached;
+
+    // Check if request is already pending
+    const pendingKey = this.getCacheKey(text, targetLang);
+    if (this.pendingRequests.has(pendingKey)) {
+      return this.pendingRequests.get(pendingKey);
+    }
+
+    // Create new request
+    const promise = this.doTranslate(text, targetLang);
+    this.pendingRequests.set(pendingKey, promise);
+
+    try {
+      const result = await promise;
+      this.setInCache(text, targetLang, result);
+      return result;
+    } finally {
+      this.pendingRequests.delete(pendingKey);
+    }
+  }
+
+  async doTranslate(text, targetLang) {
+    try {
+      const response = await axios.post(`${API}/api/translate/text`, {
+        text,
+        target_language: targetLang
+      });
+      return response.data.translated_text || text;
+    } catch (e) {
+      console.error("AI translation failed:", e);
+      return text; // Return original on failure
+    }
+  }
+
+  /**
+   * Batch translate multiple texts
+   */
+  async translateBatch(texts, targetLang) {
+    // Filter out already cached
+    const uncached = texts.filter(t => !this.getFromCache(t, targetLang));
+    
+    if (uncached.length === 0) {
+      return texts.map(t => this.getFromCache(t, targetLang) || t);
+    }
+
+    try {
+      const response = await axios.post(`${API}/api/translate/batch`, {
+        texts: uncached,
+        target_language: targetLang
+      });
+
+      const results = response.data.translations || [];
+      results.forEach(({ original, translated }) => {
+        this.setInCache(original, targetLang, translated);
+      });
+    } catch (e) {
+      console.error("Batch translation failed:", e);
+    }
+
+    return texts.map(t => this.getFromCache(t, targetLang) || t);
+  }
+
+  /**
+   * Queue text for batch translation
+   */
+  queueForBatch(text, targetLang, callback) {
+    this.batchQueue.push({ text, targetLang, callback });
+    
+    if (this.batchTimeout) {
+      clearTimeout(this.batchTimeout);
+    }
+
+    // Process batch after 100ms of no new requests
+    this.batchTimeout = setTimeout(() => this.processBatchQueue(), 100);
+  }
+
+  async processBatchQueue() {
+    if (this.batchQueue.length === 0) return;
+
+    const queue = [...this.batchQueue];
+    this.batchQueue = [];
+
+    // Group by target language
+    const byLang = {};
+    queue.forEach(item => {
+      if (!byLang[item.targetLang]) byLang[item.targetLang] = [];
+      byLang[item.targetLang].push(item);
+    });
+
+    // Translate each language group
+    for (const [lang, items] of Object.entries(byLang)) {
+      const texts = items.map(i => i.text);
+      const translated = await this.translateBatch(texts, lang);
+      
+      items.forEach((item, idx) => {
+        item.callback(translated[idx]);
+      });
+    }
+  }
+
+  clearCache() {
+    this.cache = {};
+    localStorage.removeItem(AI_TRANSLATION_CACHE_KEY);
+  }
+}
+
+// Singleton instance
+const aiTranslator = new AITranslationService();
+
+/**
  * I18n Provider Component
- * Wraps the app and provides translation context
  */
 export const I18nProvider = ({ children }) => {
   const [language, setLanguageState] = useState(() => {
@@ -90,52 +267,101 @@ export const I18nProvider = ({ children }) => {
   
   const [dynamicTranslations, setDynamicTranslations] = useState({});
   const [isRTL, setIsRTL] = useState(false);
+  const [isLoadingAI, setIsLoadingAI] = useState(false);
+  const aiTranslationCache = useRef({});
 
   // Update localStorage and document direction when language changes
   useEffect(() => {
     localStorage.setItem("medmatch-language", language);
     
-    // Check if RTL
     const langMeta = LANGUAGE_META[language];
     const rtl = langMeta?.rtl || false;
     setIsRTL(rtl);
     
-    // Update document direction
     document.documentElement.dir = rtl ? "rtl" : "ltr";
     document.documentElement.lang = language;
+
+    // If non-bundled language, trigger AI translation load
+    if (!BUNDLED_LANGUAGES.includes(language)) {
+      loadAITranslations(language);
+    }
   }, [language]);
 
   /**
-   * Set the current language
+   * Load AI translations for a non-bundled language
    */
+  const loadAITranslations = async (lang) => {
+    // Check if we already have translations for this language
+    if (aiTranslationCache.current[lang]) {
+      setDynamicTranslations(prev => ({
+        ...prev,
+        [lang]: aiTranslationCache.current[lang]
+      }));
+      return;
+    }
+
+    setIsLoadingAI(true);
+
+    try {
+      // Get all English strings that need translation
+      const englishStrings = flattenTranslations(translations.en);
+      const keys = Object.keys(englishStrings);
+      const texts = Object.values(englishStrings);
+
+      // Batch translate (limit to avoid overwhelming API)
+      const batchSize = 20;
+      const translatedMap = {};
+
+      for (let i = 0; i < texts.length; i += batchSize) {
+        const batch = texts.slice(i, i + batchSize);
+        const batchKeys = keys.slice(i, i + batchSize);
+        
+        const translated = await aiTranslator.translateBatch(batch, lang);
+        
+        batchKeys.forEach((key, idx) => {
+          translatedMap[key] = translated[idx];
+        });
+      }
+
+      aiTranslationCache.current[lang] = translatedMap;
+      setDynamicTranslations(prev => ({
+        ...prev,
+        [lang]: translatedMap
+      }));
+    } catch (e) {
+      console.error("Failed to load AI translations:", e);
+    }
+
+    setIsLoadingAI(false);
+  };
+
   const setLanguage = useCallback((lang) => {
-    if (lang && (translations[lang] || LANGUAGE_META[lang])) {
+    if (lang && LANGUAGE_META[lang]) {
       setLanguageState(lang);
     }
   }, []);
 
   /**
    * Get translation for a key
-   * @param {string} key - Translation key (e.g., "nav.dashboard")
-   * @param {Object} params - Optional interpolation parameters
-   * @returns {string} Translated string
    */
   const t = useCallback((key, params = {}) => {
-    // First check dynamic translations (AI-generated)
-    if (dynamicTranslations[language]?.[key]) {
-      let text = dynamicTranslations[language][key];
-      // Handle interpolation
-      Object.entries(params).forEach(([param, value]) => {
-        text = text.replace(new RegExp(`{{${param}}}`, "g"), value);
-      });
-      return text;
+    // For non-bundled languages, check AI translations
+    if (!BUNDLED_LANGUAGES.includes(language)) {
+      const aiTranslation = dynamicTranslations[language]?.[key];
+      if (aiTranslation) {
+        let text = aiTranslation;
+        Object.entries(params).forEach(([param, value]) => {
+          text = text.replace(new RegExp(`{{${param}}}`, "g"), value);
+        });
+        return text;
+      }
     }
     
-    // Then check bundled translations
+    // Check bundled translations
     const currentTranslations = translations[language] || translations[DEFAULT_LANGUAGE];
     let text = getNestedValue(currentTranslations, key);
     
-    // Fallback to English if translation not found
+    // Fallback to English
     if (text === key && language !== DEFAULT_LANGUAGE) {
       text = getNestedValue(translations[DEFAULT_LANGUAGE], key);
     }
@@ -151,18 +377,24 @@ export const I18nProvider = ({ children }) => {
   }, [language, dynamicTranslations]);
 
   /**
-   * Check if a translation exists for the current language
+   * Translate arbitrary text (for dynamic content)
    */
+  const translateText = useCallback(async (text) => {
+    if (language === DEFAULT_LANGUAGE || BUNDLED_LANGUAGES.includes(language)) {
+      return text;
+    }
+    return aiTranslator.translate(text, language);
+  }, [language]);
+
   const hasTranslation = useCallback((key) => {
-    if (dynamicTranslations[language]?.[key]) return true;
+    if (!BUNDLED_LANGUAGES.includes(language)) {
+      return !!dynamicTranslations[language]?.[key];
+    }
     const currentTranslations = translations[language];
     if (!currentTranslations) return false;
     return getNestedValue(currentTranslations, key) !== key;
   }, [language, dynamicTranslations]);
 
-  /**
-   * Add dynamic translations (from AI or API)
-   */
   const addTranslations = useCallback((lang, newTranslations) => {
     setDynamicTranslations(prev => ({
       ...prev,
@@ -173,16 +405,10 @@ export const I18nProvider = ({ children }) => {
     }));
   }, []);
 
-  /**
-   * Get language info
-   */
   const getLanguageInfo = useCallback((code) => {
     return LANGUAGE_META[code] || { name: code, native: code, flag: "🌐" };
   }, []);
 
-  /**
-   * Check if language has bundled translations
-   */
   const isBundled = useCallback((lang) => {
     return BUNDLED_LANGUAGES.includes(lang);
   }, []);
@@ -191,14 +417,17 @@ export const I18nProvider = ({ children }) => {
     language,
     setLanguage,
     t,
+    translateText,
     hasTranslation,
     addTranslations,
     getLanguageInfo,
     isBundled,
     isRTL,
+    isLoadingAI,
     availableLanguages: Object.keys(LANGUAGE_META),
     bundledLanguages: BUNDLED_LANGUAGES,
-    popularLanguages: POPULAR_LANGUAGES
+    popularLanguages: POPULAR_LANGUAGES,
+    aiTranslator
   };
 
   return (
@@ -210,29 +439,54 @@ export const I18nProvider = ({ children }) => {
 
 /**
  * Hook to access translation functions
- * @returns {Object} Translation utilities
  */
 export const useTranslation = () => {
   const context = useContext(I18nContext);
   
   if (!context) {
-    // Fallback for components outside provider
     return {
       language: DEFAULT_LANGUAGE,
       setLanguage: () => {},
       t: (key) => key,
+      translateText: async (text) => text,
       hasTranslation: () => false,
       addTranslations: () => {},
       getLanguageInfo: (code) => LANGUAGE_META[code] || { name: code },
       isBundled: () => false,
       isRTL: false,
+      isLoadingAI: false,
       availableLanguages: Object.keys(LANGUAGE_META),
       bundledLanguages: BUNDLED_LANGUAGES,
-      popularLanguages: POPULAR_LANGUAGES
+      popularLanguages: POPULAR_LANGUAGES,
+      aiTranslator: null
     };
   }
   
   return context;
+};
+
+/**
+ * Hook for translating dynamic text with AI
+ */
+export const useAITranslation = (text) => {
+  const { language, translateText, isBundled } = useTranslation();
+  const [translated, setTranslated] = useState(text);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (!text || language === DEFAULT_LANGUAGE || isBundled(language)) {
+      setTranslated(text);
+      return;
+    }
+
+    setIsLoading(true);
+    translateText(text).then(result => {
+      setTranslated(result);
+      setIsLoading(false);
+    });
+  }, [text, language, translateText, isBundled]);
+
+  return { translated, isLoading };
 };
 
 /**
