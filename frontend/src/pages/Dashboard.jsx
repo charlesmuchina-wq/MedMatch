@@ -237,17 +237,17 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
       {/* Welcome Header */}
       <div className="mb-8">
         <h1 className="text-3xl md:text-4xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight" style={{ fontFamily: 'IBM Plex Sans' }}>
-          {resume?.full_name ? `Welcome, ${resume.full_name.split(' ')[0]}` : 'Welcome to MedMatch'}
+          {resume?.full_name ? `${t("dashboard.welcomeBack")}, ${resume.full_name.split(' ')[0]}` : t("dashboard.welcomeToMedMatch") || "Welcome to MedMatch"}
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-2">
-          {resume ? 'Your personalized remote job dashboard' : 'Upload your resume to get started'}
+          {resume ? (t("dashboard.personalizedDashboard") || "Your personalized remote job dashboard") : (t("dashboard.uploadToStart") || "Upload your resume to get started")}
         </p>
         
         {/* Last Login Info */}
         {user?.previous_login && (
           <div className="mt-3 flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500" data-testid="last-login-info">
             <Clock className="w-3 h-3" />
-            <span>Last login: {formatLastLogin(user.previous_login)}</span>
+            <span>{t("dashboard.lastLogin") || "Last login"}: {formatLastLogin(user.previous_login)}</span>
             {user.is_admin && (
               <span className="ml-2 px-2 py-0.5 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-full text-xs font-medium">
                 Admin
