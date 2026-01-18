@@ -132,7 +132,7 @@ const QAPracticePage = ({ resume }) => {
     }
 
     setGeneratingAll(false);
-    toast.success("All answers generated!");
+    toast.success(t("interview.allAnswersGenerated") || "All answers generated!");
   };
 
   // Save answer to favorites
@@ -140,7 +140,7 @@ const QAPracticePage = ({ resume }) => {
     if (!question.answer) return;
 
     try {
-      await axios.post(`${API}/qa-practice/favorites/save`, {
+      await api.client.post(`${API}/qa-practice/favorites/save`, {
         question: question.text,
         answer: question.answer.suggested_answer,
         key_points: question.answer.key_points || [],
@@ -152,21 +152,21 @@ const QAPracticePage = ({ resume }) => {
         q.id === question.id ? { ...q, saved: true } : q
       ));
       
-      toast.success("Saved to favorites!");
+      toast.success(t("interview.savedToFavorites") || "Saved to favorites!");
       fetchFavorites(); // Refresh favorites list
     } catch (error) {
-      toast.error("Failed to save");
+      toast.error(t("interview.saveFailed") || "Failed to save");
     }
   };
 
   // Delete favorite
   const deleteFavorite = async (id) => {
     try {
-      await axios.delete(`${API}/qa-practice/favorites/${id}`);
+      await api.client.delete(`${API}/qa-practice/favorites/${id}`);
       setFavorites(favorites.filter(f => f.id !== id));
-      toast.success("Removed from favorites");
+      toast.success(t("interview.removedFromFavorites") || "Removed from favorites");
     } catch (error) {
-      toast.error("Failed to delete");
+      toast.error(t("common.deleteFailed") || "Failed to delete");
     }
   };
 
