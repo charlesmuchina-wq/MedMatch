@@ -381,8 +381,10 @@ export const I18nProvider = ({ children }) => {
   const setLanguage = useCallback((lang) => {
     if (lang && LANGUAGE_META[lang]) {
       setLanguageState(lang);
+      // Sync with server if user is logged in
+      syncLanguageWithServer(lang);
     }
-  }, []);
+  }, [syncLanguageWithServer]);
 
   /**
    * Get translation for a key
