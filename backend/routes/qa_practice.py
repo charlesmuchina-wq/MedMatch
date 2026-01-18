@@ -611,6 +611,70 @@ async def transcribe_audio_file(
                 "language": language or "auto-detected",
                 "created_at": datetime.now(timezone.utc).isoformat()
             }
+
+
+# ============== Favorite Answers ==============
+
+class SaveFavoriteRequest(BaseModel):
+    question: str
+    answer: str
+    key_points: List[str] = []
+    job_title: str = ""
+    company_name: str = ""
+
+@router.post("/favorites/save")
+async def save_favorite_answer(req: SaveFavoriteRequest, request: Request):
+    """Save an answer to favorites"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    favorite = {
+        "id": str(uuid.uuid4()),
+        "user_id": user.get("user_id"),
+        "question": req.question,
+        "answer": req.answer,
+        "key_points": req.key_points,
+        "job_title": req.job_title,
+        "company_name": req.company_name,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.qa_favorites.insert_one(favorite)
+    
+    return {"id": favorite["id"], "message": "Answer saved to favorites"}
+
+@router.get("/favorites")
+async def get_favorite_answers(request: Request, limit: int = 50):
+    """Get user's favorite answers"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    favorites = await db.qa_favorites.find(
+        {"user_id": user.get("user_id")},
+        {"_id": 0}
+    ).sort("created_at", -1).limit(limit).to_list(length=limit)
+    
+    return {"favorites": favorites, "total": len(favorites)}
+
+@router.delete("/favorites/{favorite_id}")
+async def delete_favorite_answer(favorite_id: str, request: Request):
+    """Delete a favorite answer"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    result = await db.qa_favorites.delete_one({
+        "id": favorite_id,
+        "user_id": user.get("user_id")
+    })
+    
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Favorite not found")
+    
+    return {"message": "Favorite deleted"}
+
             await db.audio_transcriptions.insert_one(record)
             
             return {
