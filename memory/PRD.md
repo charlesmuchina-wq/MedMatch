@@ -14,57 +14,59 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 6. **Multi-Language Support**: 39 languages across EFIGS, CJK, and Expanding Markets
 7. **Biometric Verification**: WebAuthn/FIDO2 passwordless authentication
 8. **Offline Capabilities**: IndexedDB caching for offline access
+9. **Push Notifications**: Web Push API for real-time alerts
+10. **ID Verification**: Multi-level verification for trusted interactions
 
 ---
 
 ## What's Been Implemented
 
-### Session: January 18, 2026
+### Session: January 18, 2026 (P2 Tasks)
+
+#### ✅ P2: Push Notifications (COMPLETED)
+- **NotificationsPage.jsx**: Full notification management UI
+- **Features**:
+  - Push subscription with Web Push API
+  - Notification preferences (6 toggles: job alerts, application updates, messages, interview reminders, weekly digest, marketing)
+  - Notification history with read/unread status
+  - Test notification sender
+  - Device subscription management
+- **Endpoints**: `/api/notifications/subscribe`, `/api/notifications/preferences`, `/api/notifications/history`, `/api/notifications/send-test`
+- **Note**: Push delivery is **MOCKED** - simulated for demo, no actual Web Push server
+
+#### ✅ P2: ID Verification (COMPLETED)
+- **IDVerificationPage.jsx**: Complete verification flow
+- **Features**:
+  - 4 verification levels (0: Unverified → 3: ID Verified)
+  - Government ID upload flow (front + selfie)
+  - Company verification for recruiters (auto-approves if email domain matches)
+  - Progress steps UI (Personal Info → Upload Documents → Processing → Verified)
+- **Endpoints**: `/api/id-verification/status`, `/api/id-verification/levels`, `/api/id-verification/request-verification`, `/api/id-verification/upload-document`, `/api/id-verification/verify-company`
+- **Note**: Auto-approves for demo - production should integrate with **Persona/Jumio**
+
+#### ✅ P2: Video Interview Recording (COMPLETED - Previous Session)
+- **VideoInterviewPage.jsx**: Video practice with AI analysis
+- **Features**:
+  - WebRTC camera access
+  - Recording controls
+  - AI body language analysis (eye contact, posture, confidence)
+  - Session management
+  - Common interview questions by category
+- **Endpoints**: `/api/video-interview/sessions/create`, `/api/video-interview/sessions`, `/api/video-interview/analyze`, `/api/video-interview/common-questions/{type}`
+
+### Session: January 18, 2026 (P1 Tasks)
 
 #### ✅ P1: Biometric Login Integration (COMPLETED)
 - **Login Page**: Added Biometric tab (3rd tab alongside Email and Phone)
 - **BiometricLogin**: Email input + "Login with Biometrics" button integrated
 - **BiometricRegistration**: Name/Email inputs + "Register with Biometrics" flow
-- **Fixed Bug**: `AttestationConveyancePreference.NONE` enum usage in biometric.py
 - **Testing**: 100% pass rate on all biometric endpoints
 
 #### ✅ P1: Offline Capabilities Integration (COMPLETED)
-- **OfflineIndicator**: Compact status indicator added to app header (shows Online/Offline)
-- **OfflineBanner**: Full-width banner shows when user goes offline/online
-- **IndexedDB Caching**: 
-  - Jobs caching on fetch
-  - Resume caching on fetch
-  - User data caching on login
-  - Offline action queueing for job saves
-- **Auto-sync**: Pending actions sync when back online
-
-#### ✅ Q&A Practice Timeout Fix (VERIFIED)
-- `/api/qa-practice/common-questions` endpoint now has fallback questions
-- Returns static questions if LLM API times out
-
-### Session: January 17, 2026
-
-#### ✅ Multi-Language Translation System (COMPLETED)
-- **Backend**: `/app/backend/routes/translation.py`
-  - 39 supported languages organized by strategic clusters
-  - EFIGS Foundation: English, Spanish, French, German, Italian
-  - CJK Growth Block: Chinese (Simplified/Traditional), Japanese, Korean
-  - Rapidly Expanding Markets: Hindi, Portuguese (Brazilian), Arabic
-- **Frontend**: 
-  - `GlobalLanguageSelector.jsx` - Header language selector
-  - `TranslationWidget.jsx` - Inline translation component
-
-#### ✅ Biometric Authentication Backend (COMPLETED)
-- **Backend**: `/app/backend/routes/biometric.py`
-  - WebAuthn/FIDO2 registration and authentication
-  - Challenge-response ceremony implementation
-  - Credential storage in MongoDB
-  - Bot prevention and fraud detection endpoints
-
-#### ✅ Q&A Interview Practice (COMPLETED)
-- **Backend**: `/app/backend/routes/qa_practice.py`
-- **Frontend**: `/app/frontend/src/pages/QAPracticePage.jsx`
-- AI-driven feedback, voice recording, audio upload, PDF export
+- **OfflineIndicator**: Compact status indicator in app header
+- **OfflineBanner**: Full-width banner on connectivity changes
+- **IndexedDB Caching**: Jobs, resume, user data with auto-sync
+- **Offline action queueing**: Job saves work offline
 
 ---
 
@@ -74,18 +76,18 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 /app/
 ├── backend/
 │   ├── routes/
-│   │   ├── auth.py          # Email, Google, Apple, Phone auth
-│   │   ├── biometric.py     # WebAuthn/FIDO2 auth
-│   │   ├── translation.py   # 39-language support
-│   │   ├── qa_practice.py   # Q&A Interview Practice
-│   │   ├── dragon.py        # KARAU DRAGON AI
-│   │   ├── jobs.py          # Job search & matching
-│   │   ├── resume.py        # Resume upload (PDF/DOC/DOCX)
-│   │   ├── video_interview.py  # Placeholder
-│   │   ├── push_notifications.py  # Placeholder
-│   │   ├── id_verification.py  # Placeholder
+│   │   ├── auth.py              # Email, Google, Apple, Phone auth
+│   │   ├── biometric.py         # WebAuthn/FIDO2 auth
+│   │   ├── push_notifications.py # ✅ NEW - Push subscription, preferences, history
+│   │   ├── id_verification.py   # ✅ NEW - Multi-level ID verification
+│   │   ├── video_interview.py   # Video sessions, transcription, analysis
+│   │   ├── translation.py       # 39-language support
+│   │   ├── qa_practice.py       # Q&A Interview Practice
+│   │   ├── dragon.py            # KARAU DRAGON AI
+│   │   ├── jobs.py              # Job search & matching
+│   │   ├── resume.py            # Resume upload (PDF/DOC/DOCX)
 │   │   └── ... (more route modules)
-│   └── server.py            # 226 lines, modular
+│   └── server.py
 ├── frontend/
 │   ├── src/
 │   │   ├── components/
@@ -95,12 +97,15 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 │   │   │   ├── TranslationWidget.jsx
 │   │   │   └── KarauDragonAI.jsx
 │   │   ├── pages/
-│   │   │   ├── LoginPage.jsx  # 3 tabs: Email, Phone, Biometric
+│   │   │   ├── NotificationsPage.jsx   # ✅ NEW
+│   │   │   ├── IDVerificationPage.jsx  # ✅ NEW
+│   │   │   ├── VideoInterviewPage.jsx
+│   │   │   ├── LoginPage.jsx
 │   │   │   ├── QAPracticePage.jsx
 │   │   │   └── ... (20+ pages)
 │   │   ├── utils/
-│   │   │   └── offlineStorage.js  # IndexedDB caching
-│   │   └── App.js (with OfflineBanner, OfflineIndicator)
+│   │   │   └── offlineStorage.js
+│   │   └── App.js
 └── memory/
     └── PRD.md
 ```
@@ -109,35 +114,39 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ## Prioritized Backlog
 
-### P0 - Critical (DONE)
+### P0 - Critical (ALL DONE ✅)
 - [x] Multi-language support (39 languages)
-- [x] Biometric authentication backend
-- [x] Biometric authentication frontend
-- [x] Integrate BiometricLogin into login page ✅ Jan 18
+- [x] Biometric authentication
+- [x] Offline capabilities
 
-### P1 - High Priority
-- [x] Offline capabilities (IndexedDB caching) ✅ Jan 18
+### P1 - High Priority (ALL DONE ✅)
+- [x] Biometric login integration in auth flow
+- [x] IndexedDB caching with auto-sync
 - [ ] Apple Sign In (blocked on user Apple Developer Console config)
 - [ ] OneDrive integration (needs Microsoft app registration)
 - [ ] Dropbox integration (needs Dropbox app registration)
 
-### P2 - Medium Priority (READY FOR IMPLEMENTATION)
-- [ ] Video Interview Recording (placeholder at `/app/backend/routes/video_interview.py`)
-- [ ] Push Notifications (placeholder at `/app/backend/routes/push_notifications.py`)
-- [ ] Recruiter ID Verification - Persona + Jumio (placeholder at `/app/backend/routes/id_verification.py`)
-- [ ] PayPal integration (deprioritized, blocked on credentials)
+### P2 - Medium Priority (ALL DONE ✅)
+- [x] Push Notifications (Web Push API) ✅ Jan 18
+- [x] ID Verification (multi-level, 0-3) ✅ Jan 18
+- [x] Video Interview Recording ✅ Already implemented
+- [ ] PayPal integration (blocked on credentials)
 
 ### P3 - Future
 - [ ] Native Windows/Desktop widget
 - [ ] LinkedIn profile sync
 - [ ] Application feedback learning
 - [ ] Advanced fraud scoring
+- [ ] Real Web Push server integration (replace mocked push)
+- [ ] Persona/Jumio integration for production ID verification
 
 ---
 
 ## Test Reports
-- `/app/test_reports/iteration_14.json` - 92% pass rate (before P1 fix)
-- `/app/test_reports/iteration_15.json` - 100% pass rate (after P1 implementation)
+- `/app/test_reports/iteration_14.json` - 92% pass rate
+- `/app/test_reports/iteration_15.json` - 100% pass rate (P1 tasks)
+- `/app/test_reports/iteration_16.json` - 100% pass rate (P2 tasks)
+- `/app/tests/test_p2_features.py` - Comprehensive P2 test suite
 
 ## Test Credentials
 - **Admin**: admin@medmatch.com / MedMatch2026!
@@ -147,22 +156,44 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ## Technical Notes
 
-### Biometric Implementation
-- Uses py_webauthn library for FIDO2 compliance
-- Platform authenticator preference (fingerprint/face)
-- Challenge expiration: 10 minutes
-- Sign count tracking for clone detection
-- Fixed: Uses `AttestationConveyancePreference.NONE` enum
+### Push Notifications
+- Uses Web Push API (browser-native)
+- Subscription stored in MongoDB
+- Preferences: job_alerts, application_updates, messages, interview_reminders, weekly_digest, marketing
+- **MOCKED**: Delivery is simulated, no actual push server
 
-### Offline Storage Architecture
-- Database: IndexedDB (medmatch-offline)
-- Stores: cached_jobs, cached_resume, cached_user, cached_messages, pending_actions, sync_metadata
-- Auto-sync on reconnection
-- Action queueing for offline saves
+### ID Verification Levels
+| Level | Name | Features |
+|-------|------|----------|
+| 0 | Unverified | Basic search |
+| 1 | Email Verified | Job posting |
+| 2 | Company Verified | Contact candidates |
+| 3 | ID Verified | Premium features |
 
-### Dependencies
+### Video Interview
+- WebRTC for camera access
+- Whisper for transcription
+- GPT for AI body language analysis
+
+### Dependencies Added
 - webauthn: 2.7.0
-- slowapi: 0.1.9
-- python-docx: 1.2.0
 - idb (frontend): IndexedDB wrapper
 - jsPDF (frontend): PDF generation
+
+---
+
+## APIs That Need User Configuration
+
+| Integration | Required Action | Status |
+|-------------|-----------------|--------|
+| Apple Sign In | Register redirect URL in Apple Developer Console | BLOCKED |
+| PayPal | Provide API credentials | BLOCKED |
+| OneDrive | Register app in Microsoft Azure | BLOCKED |
+| Dropbox | Register app in Dropbox Developer Console | BLOCKED |
+
+---
+
+## Mocked/Simulated Features (for Production)
+1. **Push Notifications**: Replace with actual Web Push server (needs VAPID keys)
+2. **ID Verification**: Integrate with Persona or Jumio API
+3. **Video Transcription**: Working with Whisper, but camera access requires user permission
