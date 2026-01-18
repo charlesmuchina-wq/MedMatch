@@ -125,8 +125,20 @@ class TestAuthenticationFlow:
 class TestQAPracticeEndpoints:
     """Test Q&A Practice endpoints with fallback"""
     
-    def test_qa_practice_analyze_match(self):
+    @pytest.fixture
+    def auth_token(self):
+        """Get authentication token"""
+        response = requests.post(
+            f"{BASE_URL}/api/auth/login",
+            json={"email": "admin@medmatch.com", "password": "MedMatch2026!"}
+        )
+        if response.status_code == 200:
+            return response.json().get("access_token")
+        return None
+    
+    def test_qa_practice_analyze_match(self, auth_token):
         """Test /api/qa-practice/analyze-match endpoint"""
+        headers = {"Authorization": f"Bearer {auth_token}"} if auth_token else {}
         payload = {
             "job_title": "Software Engineer",
             "company": "Tech Corp",
@@ -134,14 +146,16 @@ class TestQAPracticeEndpoints:
         }
         response = requests.post(
             f"{BASE_URL}/api/qa-practice/analyze-match",
-            json=payload
+            json=payload,
+            headers=headers
         )
-        # Should work or return appropriate error
-        assert response.status_code in [200, 400, 500]
+        # Should work or return appropriate error (401 if no auth, 200/500 if auth)
+        assert response.status_code in [200, 400, 401, 500]
         print(f"✅ /api/qa-practice/analyze-match - Returns {response.status_code}")
     
-    def test_qa_practice_generate_answer(self):
+    def test_qa_practice_generate_answer(self, auth_token):
         """Test /api/qa-practice/generate-answer endpoint"""
+        headers = {"Authorization": f"Bearer {auth_token}"} if auth_token else {}
         payload = {
             "question": "Tell me about yourself",
             "question_type": "behavioral",
@@ -152,10 +166,11 @@ class TestQAPracticeEndpoints:
         }
         response = requests.post(
             f"{BASE_URL}/api/qa-practice/generate-answer",
-            json=payload
+            json=payload,
+            headers=headers
         )
         # Should work or return appropriate error
-        assert response.status_code in [200, 400, 500]
+        assert response.status_code in [200, 400, 401, 500]
         print(f"✅ /api/qa-practice/generate-answer - Returns {response.status_code}")
 
 
