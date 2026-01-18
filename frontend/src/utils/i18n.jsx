@@ -313,6 +313,19 @@ export const I18nProvider = ({ children }) => {
     fetchLanguagePreference();
   }, [fetchLanguagePreference]);
 
+  // Listen for language sync events from auth
+  useEffect(() => {
+    const handleLanguageSync = (event) => {
+      const newLang = event.detail;
+      if (newLang && LANGUAGE_META[newLang] && newLang !== language) {
+        setLanguageState(newLang);
+      }
+    };
+    
+    window.addEventListener('languageSync', handleLanguageSync);
+    return () => window.removeEventListener('languageSync', handleLanguageSync);
+  }, [language]);
+
   // Update localStorage and document direction when language changes
   useEffect(() => {
     localStorage.setItem("medmatch-language", language);
