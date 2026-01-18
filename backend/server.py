@@ -151,6 +151,7 @@ async def lifespan(app: FastAPI):
     
     # Shutdown
     logger.info("👋 Shutting down MedMatch API server...")
+    await ai_supervisor.stop()
     scheduler.shutdown()
     client.close()
     response_cache.clear()
@@ -159,8 +160,8 @@ async def lifespan(app: FastAPI):
 # ============== Initialize FastAPI App ==============
 app = FastAPI(
     title="MedMatch API",
-    description="AI-Powered Job Search Platform",
-    version="2.1.0",
+    description="AI-Powered Job Search Platform with AI Supervisor",
+    version="2.2.0",
     lifespan=lifespan
 )
 
