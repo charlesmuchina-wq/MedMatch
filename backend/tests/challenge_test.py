@@ -13,7 +13,7 @@ import json
 from datetime import datetime
 from collections import defaultdict
 
-API_URL = "https://remotejobapp.preview.emergentagent.com/api"
+API_URL = "https://careermate-15.preview.emergentagent.com/api"
 
 # Test endpoints with different complexity levels
 ENDPOINTS = {
