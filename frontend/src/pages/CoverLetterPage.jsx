@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { toast } from "sonner";
 import { PenTool, Copy, Download, History, ChevronRight, Sparkles, Loader2, FileText, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,10 +7,13 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import TranslationWidget from "@/components/TranslationWidget";
+import { useTranslation } from "@/utils/i18n";
+import api from "@/utils/apiClient";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const CoverLetterPage = ({ resume }) => {
+  const { t } = useTranslation();
   const [jobTitle, setJobTitle] = useState("");
   const [company, setCompany] = useState("");
   const [jobDescription, setJobDescription] = useState("");
@@ -21,18 +23,18 @@ const CoverLetterPage = ({ resume }) => {
 
   useEffect(() => {
     // Load cover letter history
-    axios.get(`${API}/cover-letter/history`).then(res => {
+    api.client.get(`${API}/cover-letter/history`).then(res => {
       setHistory(res.data || []);
     }).catch(() => {});
   }, []);
 
   const generateCoverLetter = async () => {
     if (!jobTitle || !company || !jobDescription) {
-      toast.error("Please fill in all fields");
+      toast.error(t("coverLetter.fillAllFields") || "Please fill in all fields");
       return;
     }
     if (!resume) {
-      toast.error("Please upload your resume first");
+      toast.error(t("coverLetter.uploadResumeFirst") || "Please upload your resume first");
       return;
     }
 
