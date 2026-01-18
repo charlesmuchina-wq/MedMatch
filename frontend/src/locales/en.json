@@ -68,7 +68,19 @@
     "uploadResume": "Upload Resume",
     "searchJobs": "Search Jobs",
     "practiceInterview": "Practice Interview",
-    "viewAnalytics": "View Analytics"
+    "viewAnalytics": "View Analytics",
+    "getAIMatches": "Get AI-powered job matches",
+    "findOpportunities": "Find matching opportunities",
+    "applyToJobs": "Apply to Jobs",
+    "reviewSaved": "Review saved positions",
+    "generateCoverLetter": "Generate Cover Letter",
+    "createInSeconds": "Create in seconds with AI",
+    "successPredictor": "Success Predictor",
+    "analyzeChances": "Analyze your chances",
+    "viewApps": "View Applications",
+    "trackProgress": "Track your progress",
+    "noRecentActivity": "No recent activity",
+    "startByUploadingResume": "Start by uploading your resume to get personalized recommendations"
   },
   "jobs": {
     "searchJobs": "Search Jobs",
