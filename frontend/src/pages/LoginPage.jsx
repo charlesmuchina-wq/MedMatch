@@ -5,13 +5,14 @@ import { toast } from "sonner";
 import { useTheme } from "@/App";
 import { 
   Mail, Phone, Lock, User, Loader2, ArrowRight, Eye, EyeOff,
-  Smartphone
+  Smartphone, Fingerprint
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
+import { BiometricLogin, BiometricRegistration } from "@/components/BiometricAuth";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
