@@ -51,11 +51,11 @@ const CompaniesPage = ({ user }) => {
 
   const fetchCompanies = async () => {
     try {
-      let url = `${API}/api/companies/?limit=50`;
+      let url = `/api/companies/?limit=50`;
       if (selectedIndustry) url += `&industry=${encodeURIComponent(selectedIndustry)}`;
       if (selectedSize) url += `&size=${encodeURIComponent(selectedSize)}`;
       
-      const response = await axios.get(url);
+      const response = await apiClient.get(url);
       setCompanies(response.data || []);
     } catch (e) {
       console.error("Failed to load companies:", e);
@@ -71,19 +71,19 @@ const CompaniesPage = ({ user }) => {
 
     setLoading(true);
     try {
-      const response = await axios.get(
-        `${API}/api/companies/?search=${encodeURIComponent(searchQuery)}&limit=50`
+      const response = await apiClient.get(
+        `/api/companies/?search=${encodeURIComponent(searchQuery)}&limit=50`
       );
       setCompanies(response.data || []);
     } catch (e) {
-      toast.error("Search failed");
+      toast.error(t("common.searchFailed") || "Search failed");
     }
     setLoading(false);
   };
 
   const createCompany = async () => {
     if (!createForm.name || !createForm.description || !createForm.industry) {
-      toast.error("Please fill in required fields");
+      toast.error(t("common.fillRequired") || "Please fill in required fields");
       return;
     }
 
@@ -102,8 +102,8 @@ const CompaniesPage = ({ user }) => {
         culture_values: createForm.culture_values ? createForm.culture_values.split(",").map(s => s.trim()) : []
       };
 
-      const response = await axios.post(`${API}/api/companies/`, companyData);
-      toast.success("Company profile created");
+      const response = await apiClient.post(`/api/companies/`, companyData);
+      toast.success(t("companies.created") || "Company profile created");
       setShowCreateDialog(false);
       resetCreateForm();
       fetchCompanies();
@@ -111,7 +111,7 @@ const CompaniesPage = ({ user }) => {
       // Navigate to the new company page
       navigate(`/companies/${response.data.company_id}`);
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Failed to create company");
+      toast.error(e.data?.detail || t("companies.createFailed") || "Failed to create company");
     }
     setCreating(false);
   };
@@ -134,11 +134,11 @@ const CompaniesPage = ({ user }) => {
   const followCompany = async (companyId, e) => {
     e.stopPropagation();
     try {
-      const response = await axios.post(`${API}/api/companies/${companyId}/follow`);
+      const response = await apiClient.post(`/api/companies/${companyId}/follow`);
       toast.success(response.data.message);
       fetchCompanies();
     } catch (e) {
-      toast.error("Failed to follow company");
+      toast.error(t("companies.followFailed") || "Failed to follow company");
     }
   };
 
