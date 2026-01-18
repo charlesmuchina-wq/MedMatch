@@ -22,7 +22,28 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ## What's Been Implemented
 
-### Session: January 18, 2026 - Comprehensive Updates
+### Session: January 18, 2026 - i18n Expansion & API Client Refactor
+
+#### ✅ FRONTEND i18n REFACTOR (COMPLETED)
+- **Pages updated with useTranslation() + apiClient:**
+  - QAPracticePage.jsx - Q&A answer generator with favorites
+  - SkillAssessmentsPage.jsx - Skill tests with badge system
+  - SuccessPredictorPage.jsx - Callback probability predictor
+  - VideoInterviewPage.jsx - Video practice with AI analysis
+  - VoiceCoachPage.jsx - Voice interview coach
+  - JobAlertsPage.jsx - Email digest subscriptions
+  
+- **New translation keys added to en.json:**
+  - `qaPractice.*` - 30+ keys for Q&A practice
+  - `skills.*` - 20+ keys for skill assessments
+  - `predictor.*` - 35+ keys for success predictor
+  - `video.*` - 25+ keys for video interview
+  - `voiceCoach.*` - 40+ keys for voice coach
+  - `jobAlerts.*` - 30+ keys for job alerts
+
+- **apiClient.js integration:** All updated pages now use exponential backoff for API resilience
+
+#### ✅ PREVIOUS SESSION: Comprehensive Updates
 
 #### ✅ FUNCTIONAL ASSESSMENT FIXES (COMPLETED)
 - **Q&A History endpoint** - Now working with authentication (returns text_answers and voice_recordings)
