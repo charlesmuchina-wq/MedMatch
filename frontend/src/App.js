@@ -129,6 +129,8 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/recruiter/candidates", icon: UserSearch, label: "Search Candidates" },
     { path: "/companies", icon: Briefcase, label: "Companies" },
     { path: "/messages", icon: MessageSquare, label: "Messages" },
+    { path: "/notifications", icon: Bell, label: "Notifications" },
+    { path: "/id-verification", icon: ShieldCheck, label: "ID Verification" },
     { path: "/membership", icon: Crown, label: "Membership" },
   ];
   
