@@ -331,7 +331,7 @@ const CloudStorageUpload = ({ onFileSelected, isLoading }) => {
 
           <div className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-200 dark:border-slate-700">
             <Check className="w-3 h-3 inline mr-1 text-green-500" />
-            Google Drive is ready to use
+            {t("cloudStorage.connected") || "Google Drive is ready to use"}
           </div>
         </DialogContent>
       </Dialog>
