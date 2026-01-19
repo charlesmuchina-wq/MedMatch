@@ -307,8 +307,8 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
         <div className="grid md:grid-cols-2 gap-6">
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg" style={{ fontFamily: 'IBM Plex Sans' }}>Your Skills</CardTitle>
-              <CardDescription>Extracted from your resume</CardDescription>
+              <CardTitle className="text-lg" style={{ fontFamily: 'IBM Plex Sans' }}>{t("dashboard.yourSkills") || "Your Skills"}</CardTitle>
+              <CardDescription>{t("dashboard.extractedFromResume") || "Extracted from your resume"}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-2">
@@ -316,7 +316,7 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
                   <Badge key={i} variant="secondary" className="bg-slate-100 dark:bg-slate-700 dark:text-slate-200">{skill}</Badge>
                 ))}
                 {resume.skills?.length > 12 && (
-                  <Badge variant="outline" className="dark:border-slate-600 dark:text-slate-300">+{resume.skills.length - 12} more</Badge>
+                  <Badge variant="outline" className="dark:border-slate-600 dark:text-slate-300">{t("dashboard.more", { count: resume.skills.length - 12 }) || `+${resume.skills.length - 12} more`}</Badge>
                 )}
               </div>
             </CardContent>
@@ -326,12 +326,12 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="text-lg" style={{ fontFamily: 'IBM Plex Sans' }}>Recent Applications</CardTitle>
-                  <CardDescription>Track your job applications</CardDescription>
+                  <CardTitle className="text-lg" style={{ fontFamily: 'IBM Plex Sans' }}>{t("dashboard.recentApplications") || "Recent Applications"}</CardTitle>
+                  <CardDescription>{t("dashboard.trackApplications") || "Track your job applications"}</CardDescription>
                 </div>
                 {applications.length > 0 && (
                   <Button variant="ghost" size="sm" onClick={() => navigate('/applications')}>
-                    View All <ArrowRight className="w-4 h-4 ml-1" />
+                    {t("dashboard.viewAll") || "View All"} <ArrowRight className="w-4 h-4 ml-1" />
                   </Button>
                 )}
               </div>
@@ -339,9 +339,9 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
             <CardContent>
               {applications.length === 0 ? (
                 <div className="text-center py-4">
-                  <p className="text-slate-500 dark:text-slate-400 text-sm mb-3">No applications yet</p>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm mb-3">{t("dashboard.noApplicationsYet") || "No applications yet"}</p>
                   <Button variant="outline" size="sm" onClick={() => navigate('/search')}>
-                    <Search className="w-4 h-4 mr-2" /> Find Jobs
+                    <Search className="w-4 h-4 mr-2" /> {t("dashboard.findJobs") || "Find Jobs"}
                   </Button>
                 </div>
               ) : (
