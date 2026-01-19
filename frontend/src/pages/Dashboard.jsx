@@ -366,28 +366,28 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
       {resume && (
         <div className="mt-8">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-4" style={{ fontFamily: 'IBM Plex Sans' }}>
-            AI-Powered Tools
+            {t("dashboard.aiPoweredTools") || "AI-Powered Tools"}
           </h2>
           <div className="grid md:grid-cols-3 gap-4">
             {[
               { 
                 icon: Target, 
-                title: "Success Predictor", 
-                desc: "Get AI-powered callback probability scores",
+                title: t("nav.successPredictor") || "Success Predictor", 
+                desc: t("dashboard.getCallbackScores") || "Get AI-powered callback probability scores",
                 path: "/predictor",
                 color: "from-violet-500 to-purple-600"
               },
               { 
                 icon: Video, 
-                title: "Video Interview", 
-                desc: "Practice with AI body language analysis",
+                title: t("nav.videoPractice") || "Video Interview", 
+                desc: t("dashboard.practiceBodyLanguage") || "Practice with AI body language analysis",
                 path: "/video-interview",
                 color: "from-pink-500 to-rose-600"
               },
               { 
                 icon: Bell, 
-                title: "Smart Alerts", 
-                desc: "Get notified when matching jobs appear",
+                title: t("dashboard.smartAlerts") || "Smart Alerts", 
+                desc: t("dashboard.getNotifiedMatching") || "Get notified when matching jobs appear",
                 path: "/alerts",
                 color: "from-amber-500 to-orange-600"
               }
