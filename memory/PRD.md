@@ -22,6 +22,36 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ## What's Been Implemented
 
+### Session: January 19, 2026 - Hardcoded Text Fix & Cloud Storage UI Verification
+
+#### ✅ HARDCODED TEXT FIX (COMPLETED)
+- Fixed all hardcoded English text in Dashboard.jsx:
+  - Quick Actions section fully translated
+  - Upload Resume card translated
+  - Skills section translated
+  - Recent Applications section translated
+  - AI-Powered Tools section translated
+- Added 25+ new translation keys to en.json for Dashboard
+- Updated CloudStorageUpload.jsx with proper translations
+
+#### ✅ CLOUD STORAGE UI INTEGRATION (VERIFIED)
+- CloudStorageUpload component fully integrated in ResumePage.jsx
+- "Import from Cloud Storage" button visible in Resume page header
+- Cloud Storage dialog showing:
+  - Google Drive ✅ - Configured and ready (uses user OAuth)
+  - Dropbox ⚠️ - Shows "Coming soon" (needs API keys)
+  - OneDrive ⚠️ - Shows "Coming soon" (needs API keys)
+- Backend cloud endpoints all working:
+  - GET /api/cloud/status - Returns integration status
+  - POST /api/cloud/google-drive/download - Proxy for CORS
+  - Full Dropbox & OneDrive OAuth flows ready
+
+#### ✅ TEST VERIFICATION (22/22 TESTS PASSED)
+- apiClient exponential backoff verified
+- i18n language switching works across all pages
+- Translation endpoints working with 39 languages
+- Voice Coach & Job Alerts translations fixed
+
 ### Session: January 18, 2026 - Major i18n Expansion & Complete Refactor
 
 #### ✅ FRONTEND i18n REFACTOR (COMPLETED - ALL PAGES)
