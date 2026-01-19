@@ -240,6 +240,7 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - [x] IndexedDB caching with auto-sync
 - [x] i18n expansion to ALL frontend pages (completed)
 - [x] Language sync flicker fix (completed)
+- [x] Cloud Storage UI integration in Resume page (completed Jan 19)
 - [ ] Apple Sign In (blocked on user Apple Developer Console config)
 - [ ] OneDrive integration (needs Microsoft app registration)
 - [ ] Dropbox integration (needs Dropbox app registration)
