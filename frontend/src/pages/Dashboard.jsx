@@ -118,13 +118,13 @@ const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Zap className="w-5 h-5 text-amber-500" />
-            <CardTitle className="text-lg" style={{ fontFamily: 'IBM Plex Sans' }}>Quick Actions</CardTitle>
+            <CardTitle className="text-lg" style={{ fontFamily: 'IBM Plex Sans' }}>{t("dashboard.quickActions") || "Quick Actions"}</CardTitle>
           </div>
           <Badge variant="outline" className="text-xs">
-            <Sparkles className="w-3 h-3 mr-1" /> AI Powered
+            <Sparkles className="w-3 h-3 mr-1" /> {t("dashboard.aiPowered") || "AI Powered"}
           </Badge>
         </div>
-        <CardDescription>Recommended next steps based on your activity</CardDescription>
+        <CardDescription>{t("dashboard.recommendedSteps") || "Recommended next steps based on your activity"}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
