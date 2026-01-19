@@ -293,10 +293,10 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
         <Card className="border-dashed border-2 border-slate-300 dark:border-slate-600">
           <CardContent className="p-12 text-center">
             <Upload className="w-12 h-12 text-slate-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">Upload Your Resume</h3>
-            <p className="text-slate-500 dark:text-slate-400 mb-4">Get AI-powered job matches based on your skills and experience</p>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-100 mb-2">{t("dashboard.uploadResumeCard") || "Upload Your Resume"}</h3>
+            <p className="text-slate-500 dark:text-slate-400 mb-4">{t("dashboard.getAIMatchesLong") || "Get AI-powered job matches based on your skills and experience"}</p>
             <Button onClick={() => onNavigate('/resume')} data-testid="upload-resume-cta">
-              Upload Resume
+              {t("dashboard.uploadResume") || "Upload Resume"}
             </Button>
             <ContextualTip id="first-upload" position="bottom">
               Pro tip: Upload a PDF for best results. Our AI extracts skills, experience, and education automatically!
