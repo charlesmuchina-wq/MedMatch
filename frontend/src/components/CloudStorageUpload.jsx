@@ -279,7 +279,7 @@ const CloudStorageUpload = ({ onFileSelected, isLoading }) => {
         data-testid="cloud-storage-btn"
       >
         <Cloud className="w-4 h-4" />
-        Import from Cloud
+        {t("cloudStorage.importFrom") || "Import from Cloud Storage"}
       </Button>
 
       <Dialog open={showPicker} onOpenChange={setShowPicker}>
@@ -287,10 +287,10 @@ const CloudStorageUpload = ({ onFileSelected, isLoading }) => {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Cloud className="w-5 h-5 text-turquoise" />
-              Import Resume from Cloud
+              {t("cloudStorage.importFrom") || "Import Resume from Cloud"}
             </DialogTitle>
             <DialogDescription>
-              Select a cloud storage service to import your resume
+              {t("cloudStorage.selectFile") || "Select a cloud storage service to import your resume"}
             </DialogDescription>
           </DialogHeader>
 
