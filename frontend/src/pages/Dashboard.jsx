@@ -51,8 +51,8 @@ const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
     if (savedJobs.length > 0) {
       actions.push({
         id: "review_saved",
-        label: "Review Saved",
-        description: `${savedJobs.length} jobs waiting`,
+        label: t("dashboard.reviewSavedJobs") || "Review Saved",
+        description: t("dashboard.jobsWaiting", { count: savedJobs.length }) || `${savedJobs.length} jobs waiting`,
         icon: Bookmark,
         color: "from-amber-500 to-orange-600",
         path: "/saved",
@@ -64,8 +64,8 @@ const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
     if (resume) {
       actions.push({
         id: "cover_letter",
-        label: "Write Cover Letter",
-        description: "AI-powered generation",
+        label: t("dashboard.writeCoverLetter") || "Write Cover Letter",
+        description: t("dashboard.aiPoweredGeneration") || "AI-powered generation",
         icon: PenTool,
         color: "from-emerald-500 to-teal-600",
         path: "/cover-letter",
@@ -74,8 +74,8 @@ const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
 
       actions.push({
         id: "interview_prep",
-        label: "Prepare Interview",
-        description: "Practice with AI coach",
+        label: t("dashboard.prepareInterview") || "Prepare Interview",
+        description: t("dashboard.practiceWithCoach") || "Practice with AI coach",
         icon: Mic,
         color: "from-pink-500 to-rose-600",
         path: "/interview",
@@ -84,8 +84,8 @@ const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
 
       actions.push({
         id: "success_predictor",
-        label: "Check Match Score",
-        description: "AI callback predictor",
+        label: t("dashboard.checkMatchScore") || "Check Match Score",
+        description: t("dashboard.aiCallbackPredictor") || "AI callback predictor",
         icon: Target,
         color: "from-indigo-500 to-purple-600",
         path: "/predictor",
@@ -97,8 +97,8 @@ const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
     if (applications.length > 0) {
       actions.push({
         id: "view_analytics",
-        label: "View Analytics",
-        description: `${applications.length} applications tracked`,
+        label: t("dashboard.viewAnalytics") || "View Analytics",
+        description: t("dashboard.applicationsTracked", { count: applications.length }) || `${applications.length} applications tracked`,
         icon: BarChart3,
         color: "from-cyan-500 to-blue-600",
         path: "/analytics",
