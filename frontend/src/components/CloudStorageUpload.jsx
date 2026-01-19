@@ -15,7 +15,9 @@ import {
 import { toast } from "sonner";
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
+import axios from "axios";
 
+const API = process.env.REACT_APP_BACKEND_URL;
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
