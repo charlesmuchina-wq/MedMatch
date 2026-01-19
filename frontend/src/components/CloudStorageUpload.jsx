@@ -317,7 +317,7 @@ const CloudStorageUpload = ({ onFileSelected, isLoading }) => {
                     {getProviderStatus(key)}
                   </h4>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    {provider.configured ? 'PDF, DOC, DOCX files' : 'Not configured'}
+                    {provider.configured ? (t("cloudStorage.supportedTypes") || 'PDF, DOC, DOCX files') : (t("cloudStorage.comingSoon") || 'Not configured')}
                   </p>
                 </div>
                 {pickerLoading && activeProvider === key ? (
