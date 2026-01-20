@@ -20,6 +20,17 @@ const LinkedInSync = ({ onSync }) => {
   const [syncing, setSyncing] = useState(false);
   const [connecting, setConnecting] = useState(false);
 
+  const fetchStatus = useCallback(async () => {
+    try {
+      const response = await apiClient.get("/linkedin/status");
+      setStatus(response);
+    } catch (error) {
+      console.error("Failed to fetch LinkedIn status:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   const handleOAuthCallback = useCallback(async (code) => {
     setConnecting(true);
     try {
@@ -40,7 +51,7 @@ const LinkedInSync = ({ onSync }) => {
     } finally {
       setConnecting(false);
     }
-  }, [t]);
+  }, [t, fetchStatus]);
 
   useEffect(() => {
     fetchStatus();
@@ -53,7 +64,22 @@ const LinkedInSync = ({ onSync }) => {
     if (code && state && window.location.pathname.includes("linkedin")) {
       handleOAuthCallback(code);
     }
-  }, [handleOAuthCallback]);
+  }, [handleOAuthCallback, fetchStatus]);
+
+  const handleConnect = async () => {
+    setConnecting(true);
+    try {
+      const redirectUri = `${window.location.origin}/settings?linkedin_callback=true`;
+      const response = await apiClient.get(`/linkedin/auth-url?redirect_uri=${encodeURIComponent(redirectUri)}`);
+      
+      if (response.auth_url) {
+        window.location.href = response.auth_url;
+      }
+    } catch (error) {
+      toast.error(t("linkedin.connectFailed") || "Failed to connect LinkedIn");
+      setConnecting(false);
+    }
+  };
 
   const handleSync = async () => {
     setSyncing(true);
