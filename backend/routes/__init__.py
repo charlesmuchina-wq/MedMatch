@@ -33,6 +33,11 @@ from routes.video_interview import router as video_interview_router
 from routes.push_notifications import router as push_notifications_router
 from routes.id_verification import router as id_verification_router
 
+# New routes for LinkedIn, Feedback, and AutoFill
+from routes.linkedin import router as linkedin_router
+from routes.feedback import router as feedback_router
+from routes.autofill import router as autofill_router
+
 __all__ = [
     # Core routes
     'auth_router',
@@ -81,6 +86,15 @@ __all__ = [
     
     # ID Verification
     'id_verification_router',
+    
+    # LinkedIn Integration
+    'linkedin_router',
+    
+    # Feedback Learning
+    'feedback_router',
+    
+    # Resume Auto-Fill
+    'autofill_router',
     
     # Helper functions
     'get_current_user',
