@@ -605,8 +605,9 @@ function AppContent() {
       {/* Onboarding Tour for first-time users */}
       {showTour && user && <OnboardingTour onComplete={completeTour} user={user} />}
 
-      {/* PWA Install Prompt */}
+      {/* PWA Install Prompts */}
       <InstallPrompt />
+      <PWAInstallPrompt />
 
       {/* KARAU Dragon AI */}
       <DragonButton onClick={() => setShowDragonAI(true)} />
