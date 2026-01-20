@@ -201,7 +201,10 @@ from routes import (
     qa_practice_router,
     video_interview_router,
     push_notifications_router,
-    id_verification_router
+    id_verification_router,
+    linkedin_router,
+    feedback_router,
+    autofill_router
 )
 
 # Import batch router
