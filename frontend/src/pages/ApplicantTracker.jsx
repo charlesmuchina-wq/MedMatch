@@ -542,6 +542,22 @@ const ApplicantTracker = ({ user }) => {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Rejection Feedback Form */}
+      <RejectionFeedbackForm
+        applicationId={feedbackApplicant?.id}
+        candidateId={feedbackApplicant?.applicant_id}
+        jobId={jobId}
+        candidateName={feedbackApplicant?.applicant_name}
+        isOpen={showFeedbackForm}
+        onClose={() => {
+          setShowFeedbackForm(false);
+          setFeedbackApplicant(null);
+        }}
+        onSubmit={() => {
+          fetchApplicants();
+        }}
+      />
     </div>
   );
 };
