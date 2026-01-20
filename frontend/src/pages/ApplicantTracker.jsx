@@ -296,7 +296,7 @@ const ApplicantTracker = ({ user }) => {
                             key={status.value}
                             onClick={(e) => {
                               e.stopPropagation();
-                              updateStatus(applicant.id, status.value);
+                              updateStatus(applicant.id, status.value, applicant);
                             }}
                           >
                             <div className={`w-2 h-2 rounded-full ${status.color} mr-2`} />
