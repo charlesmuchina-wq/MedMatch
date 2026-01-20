@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
+import RejectionFeedbackForm from "@/components/RejectionFeedbackForm";
 
 const STATUS_OPTIONS = [
   { value: "new", label: "New", color: "bg-blue-500" },
