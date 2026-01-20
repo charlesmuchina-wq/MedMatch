@@ -77,6 +77,20 @@ const ResumePage = ({ resume, setResume }) => {
     maxFiles: 1
   });
 
+  const handleLinkedInSync = (syncedData) => {
+    // Update resume with LinkedIn data
+    if (syncedData) {
+      setResume(prev => ({
+        ...prev,
+        full_name: syncedData.name || prev?.full_name,
+        email: syncedData.email || prev?.email,
+        profile_picture: syncedData.picture || prev?.profile_picture,
+        linkedin_synced: true
+      }));
+      toast.success(t("linkedin.synced") || "LinkedIn profile synced!");
+    }
+  };
+
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-4xl mx-auto animate-fade-in" data-testid="resume-page">
       <div className="flex items-center justify-between mb-8">
@@ -86,33 +100,50 @@ const ResumePage = ({ resume, setResume }) => {
         <CloudStorageUpload onFileSelected={handleFileUpload} isLoading={uploading} />
       </div>
 
-      <Card className="mb-8">
-        <CardContent className="p-6">
-          <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`} data-testid="resume-dropzone">
-            <input {...getInputProps()} />
-            <div className="text-center py-12">
-              {uploading ? (
-                <>
-                  <Loader2 className="w-12 h-12 mx-auto text-turquoise animate-spin mb-4" />
-                  <p className="text-slate-600 dark:text-slate-400">{t("resume.parsing")}</p>
-                </>
-              ) : (
-                <>
-                  <Upload className="w-12 h-12 mx-auto text-slate-300 mb-4" />
-                  <p className="text-lg font-medium text-slate-700 dark:text-slate-300 mb-2">
-                    {isDragActive ? (t("resume.dropHere") || "Drop your resume here...") : t("resume.dragDrop")}
-                  </p>
-                  <p className="text-slate-500 mb-4">{t("resume.or")}</p>
-                  <Badge variant="outline" className="cursor-pointer hover:bg-turquoise/10">
-                    {t("resume.browse")}
-                  </Badge>
-                  <p className="text-xs text-slate-400 mt-4">{t("resume.supportedFormats")}</p>
-                </>
-              )}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">
+        <TabsList className="mb-6">
+          <TabsTrigger value="resume" data-testid="resume-tab">
+            <FileText className="w-4 h-4 mr-2" />
+            {t("resume.myResume") || "My Resume"}
+          </TabsTrigger>
+          <TabsTrigger value="autofill" data-testid="autofill-tab">
+            <Award className="w-4 h-4 mr-2" />
+            {t("autofill.title") || "Auto-Fill"}
+          </TabsTrigger>
+          <TabsTrigger value="linkedin" data-testid="linkedin-tab">
+            <User className="w-4 h-4 mr-2" />
+            {t("linkedin.title") || "LinkedIn"}
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="resume">
+          <Card className="mb-8">
+            <CardContent className="p-6">
+              <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`} data-testid="resume-dropzone">
+                <input {...getInputProps()} />
+                <div className="text-center py-12">
+                  {uploading ? (
+                    <>
+                      <Loader2 className="w-12 h-12 mx-auto text-turquoise animate-spin mb-4" />
+                      <p className="text-slate-600 dark:text-slate-400">{t("resume.parsing")}</p>
+                    </>
+                  ) : (
+                    <>
+                      <Upload className="w-12 h-12 mx-auto text-slate-300 mb-4" />
+                      <p className="text-lg font-medium text-slate-700 dark:text-slate-300 mb-2">
+                        {isDragActive ? (t("resume.dropHere") || "Drop your resume here...") : t("resume.dragDrop")}
+                      </p>
+                      <p className="text-slate-500 mb-4">{t("resume.or")}</p>
+                      <Badge variant="outline" className="cursor-pointer hover:bg-turquoise/10">
+                        {t("resume.browse")}
+                      </Badge>
+                      <p className="text-xs text-slate-400 mt-4">{t("resume.supportedFormats")}</p>
+                    </>
+                  )}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
       {/* Resume Content Display */}
       {resume && (
