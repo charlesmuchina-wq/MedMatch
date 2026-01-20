@@ -311,8 +311,9 @@ class TestAllEndpointsAfterRestart:
         response = requests.get(f"{BASE_URL}/api/companies/", timeout=10)
         assert response.status_code == 200
         data = response.json()
-        assert 'companies' in data
-        print(f"✅ Companies: {len(data['companies'])} companies")
+        # API returns list directly, not wrapped in 'companies' key
+        assert isinstance(data, list)
+        print(f"✅ Companies: {len(data)} companies")
 
 
 class TestAuthenticationFlow:
