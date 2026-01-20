@@ -44,6 +44,7 @@ import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
 import InstallPrompt from "@/components/InstallPrompt";
+import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import KarauDragonAI, { DragonButton } from "@/components/KarauDragonAI";
 import GlobalLanguageSelector from "@/components/GlobalLanguageSelector";
 import { I18nProvider, useTranslation } from "@/utils/i18n";
