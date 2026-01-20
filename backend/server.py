@@ -236,6 +236,9 @@ app.include_router(video_interview_router, prefix="/api")
 app.include_router(push_notifications_router, prefix="/api")
 app.include_router(id_verification_router, prefix="/api")
 app.include_router(batch_router, prefix="/api")
+app.include_router(linkedin_router, prefix="/api")
+app.include_router(feedback_router, prefix="/api")
+app.include_router(autofill_router, prefix="/api")
 
 # ============== CORS Configuration ==============
 app.add_middleware(
