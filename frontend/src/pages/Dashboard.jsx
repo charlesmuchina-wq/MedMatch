@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { 
   Bookmark, CheckSquare, Clock, TrendingUp, Upload, Search, 
   PenTool, Target, Mic, BarChart3, Sparkles, ArrowRight,
-  Zap, FileText, Bell, Video
+  Zap, FileText, Bell, Video, MessageSquare
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useTranslation } from "@/utils/i18n";
+import FeedbackInsights from "@/components/FeedbackInsights";
 import axios from "axios";
 
 const API = process.env.REACT_APP_BACKEND_URL;
