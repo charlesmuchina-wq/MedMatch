@@ -410,6 +410,13 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
           </div>
         </div>
       )}
+
+      {/* Application Feedback Insights */}
+      {applications?.length > 0 && (
+        <div className="mt-8">
+          <FeedbackInsights />
+        </div>
+      )}
     </div>
   );
 };
