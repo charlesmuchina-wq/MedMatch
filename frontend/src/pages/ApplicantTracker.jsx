@@ -72,12 +72,19 @@ const ApplicantTracker = ({ user }) => {
     setLoading(false);
   };
 
-  const updateStatus = async (applicantId, newStatus) => {
+  const updateStatus = async (applicantId, newStatus, applicant) => {
     try {
       await apiClient.put(`/api/recruiter/applicants/${applicantId}/status`, {
         status: newStatus
       });
       toast.success(`${t("common.status") || "Status"} ${t("common.updated") || "updated"} to ${newStatus}`);
+      
+      // Show feedback form when rejecting
+      if (newStatus === "rejected" && applicant) {
+        setFeedbackApplicant(applicant);
+        setShowFeedbackForm(true);
+      }
+      
       fetchApplicants();
     } catch (e) {
       toast.error(t("applicants.updateFailed") || "Failed to update status");
