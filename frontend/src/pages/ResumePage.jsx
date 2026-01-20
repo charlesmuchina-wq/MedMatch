@@ -3,9 +3,12 @@ import { toast } from "sonner";
 import { Upload, Cloud, FileText, User, Briefcase, GraduationCap, Award, Loader2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useDropzone } from "react-dropzone";
 import { useTranslation } from "@/utils/i18n";
 import CloudStorageUpload from "@/components/CloudStorageUpload";
+import ResumeAutoFill from "@/components/ResumeAutoFill";
+import LinkedInSync from "@/components/LinkedInSync";
 import api from "@/utils/apiClient";
 
 const ResumePage = ({ resume, setResume }) => {
