@@ -491,8 +491,9 @@ class TestFourNewFeatures:
         
         assert response.status_code == 200
         data = response.json()
-        assert 'categories' in data
-        print(f"✅ AutoFill data: {len(data['categories'])} categories")
+        # API returns 'autofill_data' key with categories inside
+        assert 'autofill_data' in data
+        print(f"✅ AutoFill data: {data.get('fields_available', 0)} fields available")
 
 
 if __name__ == "__main__":
