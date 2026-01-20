@@ -84,7 +84,7 @@ const PWAInstallPrompt = () => {
     setShowPrompt(false);
   };
 
-  if (isInstalled || !showPrompt) return null;
+  if (isAlreadyInstalled || isInstalled || !showPrompt) return null;
 
   return (
     <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 z-50 animate-slide-up">
