@@ -268,6 +268,16 @@ const ResumePage = ({ resume, setResume }) => {
           )}
         </div>
       )}
+        </TabsContent>
+
+        <TabsContent value="autofill">
+          <ResumeAutoFill resume={resume} />
+        </TabsContent>
+
+        <TabsContent value="linkedin">
+          <LinkedInSync onSync={handleLinkedInSync} />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
