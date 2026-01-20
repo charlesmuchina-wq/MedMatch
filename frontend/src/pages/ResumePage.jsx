@@ -14,6 +14,7 @@ import api from "@/utils/apiClient";
 const ResumePage = ({ resume, setResume }) => {
   const { t } = useTranslation();
   const [uploading, setUploading] = useState(false);
+  const [activeTab, setActiveTab] = useState("resume");
 
   const handleFileUpload = useCallback(async (file) => {
     if (!file) return;
