@@ -14,11 +14,12 @@ const PWAInstallPrompt = () => {
   const [showPrompt, setShowPrompt] = useState(false);
   const [isInstalled, setIsInstalled] = useState(false);
   const [platform, setPlatform] = useState("desktop");
+  
+  // Check if already installed on mount
+  const isAlreadyInstalled = window.matchMedia("(display-mode: standalone)").matches;
 
   useEffect(() => {
-    // Check if already installed
-    if (window.matchMedia("(display-mode: standalone)").matches) {
-      setIsInstalled(true);
+    if (isAlreadyInstalled) {
       return;
     }
 
