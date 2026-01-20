@@ -49,6 +49,8 @@ const ApplicantTracker = ({ user }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [noteText, setNoteText] = useState("");
   const [addingNote, setAddingNote] = useState(false);
+  const [showFeedbackForm, setShowFeedbackForm] = useState(false);
+  const [feedbackApplicant, setFeedbackApplicant] = useState(null);
 
   useEffect(() => {
     if (user?.role !== "recruiter") {
