@@ -20,50 +20,11 @@ const LinkedInSync = ({ onSync }) => {
   const [syncing, setSyncing] = useState(false);
   const [connecting, setConnecting] = useState(false);
 
-  useEffect(() => {
-    fetchStatus();
-    
-    // Handle OAuth callback
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("code");
-    const state = urlParams.get("state");
-    
-    if (code && state && window.location.pathname.includes("linkedin")) {
-      handleOAuthCallback(code);
-    }
-  }, []);
-
-  const fetchStatus = async () => {
-    try {
-      const response = await apiClient.get("/linkedin/status");
-      setStatus(response);
-    } catch (error) {
-      console.error("Failed to fetch LinkedIn status:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleConnect = async () => {
+  const handleOAuthCallback = useCallback(async (code) => {
     setConnecting(true);
     try {
       const redirectUri = `${window.location.origin}/settings?linkedin_callback=true`;
-      const response = await apiClient.get(`/linkedin/auth-url?redirect_uri=${encodeURIComponent(redirectUri)}`);
-      
-      if (response.auth_url) {
-        window.location.href = response.auth_url;
-      }
-    } catch (error) {
-      toast.error(t("linkedin.connectFailed") || "Failed to connect LinkedIn");
-      setConnecting(false);
-    }
-  };
-
-  const handleOAuthCallback = async (code) => {
-    setConnecting(true);
-    try {
-      const redirectUri = `${window.location.origin}/settings?linkedin_callback=true`;
-      const response = await apiClient.post("/linkedin/token", {
+      await apiClient.post("/linkedin/token", {
         code,
         redirect_uri: redirectUri
       });
@@ -79,7 +40,20 @@ const LinkedInSync = ({ onSync }) => {
     } finally {
       setConnecting(false);
     }
-  };
+  }, [t]);
+
+  useEffect(() => {
+    fetchStatus();
+    
+    // Handle OAuth callback
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get("code");
+    const state = urlParams.get("state");
+    
+    if (code && state && window.location.pathname.includes("linkedin")) {
+      handleOAuthCallback(code);
+    }
+  }, [handleOAuthCallback]);
 
   const handleSync = async () => {
     setSyncing(true);
