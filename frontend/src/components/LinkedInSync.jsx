@@ -22,9 +22,30 @@ const LinkedInSync = ({ onSync }) => {
 
   const fetchStatus = useCallback(async () => {
     try {
-      // Bypass cache by adding timestamp to force fresh data
-      const response = await apiClient.get(`/linkedin/status?_t=${Date.now()}`);
-      setStatus(response);
+      // Bypass cache and add timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      
+      const token = localStorage.getItem('access_token');
+      const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+      
+      const response = await fetch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/linkedin/status?_t=${Date.now()}`,
+        { 
+          headers,
+          signal: controller.signal 
+        }
+      );
+      
+      clearTimeout(timeoutId);
+      
+      if (response.ok) {
+        const data = await response.json();
+        setStatus(data);
+      } else {
+        console.error("LinkedIn status fetch failed:", response.status);
+        setStatus({ integration_configured: false, user_connected: false });
+      }
     } catch (error) {
       console.error("Failed to fetch LinkedIn status:", error);
       // Set default status on error so UI doesn't hang on loading
