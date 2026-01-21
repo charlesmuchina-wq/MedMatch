@@ -27,6 +27,8 @@ const LinkedInSync = ({ onSync }) => {
       setStatus(response);
     } catch (error) {
       console.error("Failed to fetch LinkedIn status:", error);
+      // Set default status on error so UI doesn't hang on loading
+      setStatus({ integration_configured: false, user_connected: false });
     } finally {
       setLoading(false);
     }
