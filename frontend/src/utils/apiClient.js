@@ -387,6 +387,14 @@ class ResilientAPIClient {
   generateRequestId() {
     return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }
+
+  getAuthHeaders() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      return { 'Authorization': `Bearer ${token}` };
+    }
+    return {};
+  }
 }
 
 // ============== API Error Class ==============
