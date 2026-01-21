@@ -22,7 +22,8 @@ const LinkedInSync = ({ onSync }) => {
 
   const fetchStatus = useCallback(async () => {
     try {
-      const response = await apiClient.get("/linkedin/status");
+      // Bypass cache by adding timestamp to force fresh data
+      const response = await apiClient.get(`/linkedin/status?_t=${Date.now()}`);
       setStatus(response);
     } catch (error) {
       console.error("Failed to fetch LinkedIn status:", error);
