@@ -248,6 +248,7 @@ class ResilientAPIClient {
             'Content-Type': 'application/json',
             'X-Client-Version': '2.2.0',
             'X-Request-ID': this.generateRequestId(),
+            ...this.getAuthHeaders(),
             ...options.headers
           }
         });
