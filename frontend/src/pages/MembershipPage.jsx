@@ -53,11 +53,9 @@ const MembershipPage = ({ user }) => {
     try {
       // Poll for payment status
       for (let i = 0; i < 5; i++) {
-        const response = await axios.get(`${API}/api/payments/status/${sessionId}`, {
-          withCredentials: true
-        });
+        const response = await api.client.get(`${API}/api/payments/status/${sessionId}`);
         
-        if (response.data.payment_status === 'paid') {
+        if (response.data.status === 'success' || response.data.payment_status === 'paid') {
           toast.success("🎉 Payment successful! Welcome to MedMatch Premium!");
           fetchMembershipStatus();
           navigate('/membership', { replace: true });
