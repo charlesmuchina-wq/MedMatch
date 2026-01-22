@@ -56,7 +56,7 @@ async def create_checkout_session(checkout_request: CreateCheckoutRequest, reque
                 'quantity': 1,
             }],
             mode='payment',
-            success_url=checkout_request.success_url + '?session_id={CHECKOUT_SESSION_ID}',
+            success_url=checkout_request.success_url + ('&' if '?' in checkout_request.success_url else '?') + 'session_id={CHECKOUT_SESSION_ID}',
             cancel_url=checkout_request.cancel_url,
             customer_email=user['email'],
             metadata={
