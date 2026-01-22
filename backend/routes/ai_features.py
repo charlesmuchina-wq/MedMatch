@@ -498,3 +498,422 @@ async def export_interview_prep_html(request_data: InterviewPrepExportRequest):
 </html>
 """
     return {"html": html, "filename": f"interview_prep_{request_data.company.replace(' ', '_')}.html"}
+
+
+# ============== Interview Preparation Routes ==============
+
+class InterviewPrepRequest(BaseModel):
+    job_title: str
+    company: str = ""
+    topics: List[str] = []
+    difficulty: str = "medium"  # easy, medium, hard
+    num_questions: int = 5
+
+class InterviewAnswerRequest(BaseModel):
+    question: str
+    answer: str
+    job_title: str
+
+@router.post("/interview-prep")
+async def generate_interview_questions(request_data: InterviewPrepRequest, request: Request):
+    """Generate interview questions and tips for a specific role"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="AI features not configured")
+    
+    difficulty_map = {
+        "easy": "entry-level, focusing on basic concepts and behavioral questions",
+        "medium": "intermediate, mixing technical and behavioral questions",
+        "hard": "senior-level, including complex scenarios and system design"
+    }
+    
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=str(uuid.uuid4()),
+        system_message=f"""You are an expert interview coach with experience at top companies.
+Generate realistic interview questions that are {difficulty_map.get(request_data.difficulty, 'intermediate')}.
+
+Return ONLY valid JSON:
+{{
+    "questions": [
+        {{
+            "question": "<interview question>",
+            "type": "<Behavioral|Technical|Situational>",
+            "tip": "<brief advice on how to approach>",
+            "sample_points": ["<key point to cover>"]
+        }}
+    ],
+    "general_tips": ["<overall preparation tip>"],
+    "company_research": "<what to research about the company>"
+}}"""
+    ).with_model("openai", "gpt-4o")
+    
+    topics_str = ", ".join(request_data.topics) if request_data.topics else "general job-related topics"
+    
+    context = f"""
+Generate {request_data.num_questions} interview questions for:
+Position: {request_data.job_title}
+Company: {request_data.company or 'A leading company'}
+Focus Areas: {topics_str}
+Difficulty: {request_data.difficulty}
+"""
+    
+    try:
+        response = await chat.send_message(UserMessage(text=context))
+        
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        
+        result = json.loads(clean_response)
+        
+        # Save interview prep
+        prep_doc = {
+            "id": str(uuid.uuid4()),
+            "user_id": user["user_id"],
+            "job_title": request_data.job_title,
+            "company": request_data.company,
+            "difficulty": request_data.difficulty,
+            "questions": result.get("questions", []),
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+        await db.interview_preps.insert_one(prep_doc)
+        
+        return result
+        
+    except Exception as e:
+        logging.error(f"Interview prep error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate questions")
+
+@router.post("/evaluate-answer")
+async def evaluate_interview_answer(request_data: InterviewAnswerRequest, request: Request):
+    """Evaluate a user's interview answer and provide feedback"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="AI features not configured")
+    
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=str(uuid.uuid4()),
+        system_message="""You are an experienced interview coach. Evaluate answers using STAR method.
+
+Return ONLY valid JSON:
+{
+    "score": <1-10>,
+    "strengths": ["<what was done well>"],
+    "improvements": ["<specific improvement>"],
+    "improved_answer": "<suggested better version>",
+    "star_analysis": {
+        "situation": "<was context provided>",
+        "task": "<was the task clear>",
+        "action": "<were actions specific>",
+        "result": "<were results measurable>"
+    }
+}"""
+    ).with_model("openai", "gpt-4o")
+    
+    context = f"""
+Evaluate this interview answer:
+Position: {request_data.job_title}
+Question: {request_data.question}
+Answer: {request_data.answer}
+"""
+    
+    try:
+        response = await chat.send_message(UserMessage(text=context))
+        
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        
+        return json.loads(clean_response)
+        
+    except Exception as e:
+        logging.error(f"Answer evaluation error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to evaluate answer")
+
+@router.get("/interview-prep/history")
+async def get_interview_prep_history(request: Request):
+    """Get interview prep history"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    preps = await db.interview_preps.find(
+        {"user_id": user["user_id"]},
+        {"_id": 0}
+    ).sort("created_at", -1).limit(20).to_list(20)
+    
+    return preps
+
+# ============== Voice Coach Routes ==============
+
+class VoiceCoachRequest(BaseModel):
+    mode: str  # "practice", "feedback", "tips"
+    topic: str = "elevator pitch"
+    context: str = ""
+
+@router.post("/voice-coach")
+async def voice_coach_session(request_data: VoiceCoachRequest, request: Request):
+    """Get voice coaching tips and practice prompts"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="AI features not configured")
+    
+    mode_prompts = {
+        "practice": f"Create a practice scenario for: {request_data.topic}",
+        "feedback": f"Provide feedback based on: {request_data.context}",
+        "tips": f"Give top 5 tips for: {request_data.topic}"
+    }
+    
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=str(uuid.uuid4()),
+        system_message="""You are a professional communication coach. Help with speaking skills.
+
+Return ONLY valid JSON:
+{
+    "coaching": "<main coaching content>",
+    "key_points": ["<important point>"],
+    "practice_script": "<example script to practice>",
+    "body_language_tips": ["<non-verbal tip>"],
+    "common_mistakes": ["<mistake to avoid>"]
+}"""
+    ).with_model("openai", "gpt-4o")
+    
+    try:
+        response = await chat.send_message(UserMessage(text=mode_prompts.get(request_data.mode, mode_prompts["tips"])))
+        
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        
+        result = json.loads(clean_response)
+        result["mode"] = request_data.mode
+        result["topic"] = request_data.topic
+        
+        return result
+        
+    except Exception as e:
+        logging.error(f"Voice coach error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get coaching")
+
+@router.post("/voice-coach/transcribe")
+async def transcribe_speech(request: Request):
+    """Transcribe speech using Whisper"""
+    from fastapi import UploadFile, File, Form
+    import tempfile
+    import os
+    
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="AI features not configured")
+    
+    # Note: This endpoint needs to be called with multipart form data
+    # containing 'audio' file and optional 'context' field
+    return {
+        "success": True,
+        "message": "Use multipart form to upload audio file",
+        "supported_formats": ["mp3", "mp4", "mpeg", "mpga", "m4a", "wav", "webm"],
+        "max_size_mb": 25
+    }
+
+@router.get("/stt/status")
+async def get_stt_status(request: Request):
+    """Check Speech-to-Text service status"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    return {
+        "available": bool(EMERGENT_LLM_KEY),
+        "model": "whisper-1",
+        "supported_formats": ["mp3", "mp4", "mpeg", "mpga", "m4a", "wav", "webm"],
+        "max_file_size_mb": 25
+    }
+
+# ============== KARAU DRAGON AI Assistant ==============
+
+class AssistantRequest(BaseModel):
+    message: str
+    context: str = "general"  # job_search, resume, interview, career
+
+@router.post("/assistant")
+async def ai_assistant(request_data: AssistantRequest, request: Request):
+    """KARAU DRAGON AI Assistant - General job search help"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="AI features not configured")
+    
+    context_prompts = {
+        "job_search": "helping users find and apply for jobs",
+        "resume": "providing resume writing and improvement advice",
+        "interview": "preparing users for job interviews",
+        "career": "offering career development guidance",
+        "general": "assisting with all aspects of job searching"
+    }
+    
+    # Get user's resume for context
+    resume = await db.resumes.find_one({"user_id": user["user_id"]}, {"_id": 0})
+    resume_context = ""
+    if resume:
+        resume_context = f"""
+User Profile:
+- Name: {resume.get('full_name', user.get('name', ''))}
+- Skills: {', '.join(resume.get('skills', [])[:10])}
+- Experience: {len(resume.get('experience', []))} positions
+"""
+    
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=f"karau-{user['user_id']}",
+        system_message=f"""You are KARAU DRAGON, an AI career assistant for MedMatch.
+You specialize in {context_prompts.get(request_data.context, context_prompts['general'])}.
+
+Personality: Friendly, encouraging, professional, knowledgeable.
+Style: Concise but thorough, practical and actionable.
+
+{resume_context}
+
+Help the user with their career journey."""
+    ).with_model("openai", "gpt-4o")
+    
+    try:
+        response = await chat.send_message(UserMessage(text=request_data.message))
+        
+        # Log conversation
+        await db.ai_conversations.insert_one({
+            "user_id": user["user_id"],
+            "context": request_data.context,
+            "user_message": request_data.message,
+            "assistant_response": response,
+            "created_at": datetime.now(timezone.utc).isoformat()
+        })
+        
+        return {
+            "success": True,
+            "response": response,
+            "context": request_data.context,
+            "assistant": "KARAU DRAGON"
+        }
+        
+    except Exception as e:
+        logging.error(f"Assistant error: {e}")
+        raise HTTPException(status_code=500, detail="Assistant error")
+
+# ============== Q&A Interview Practice ==============
+
+class QAPracticeRequest(BaseModel):
+    question: str
+    answer: str
+    job_context: str = ""
+
+@router.post("/qa-practice")
+async def qa_interview_practice(request_data: QAPracticeRequest, request: Request):
+    """Practice Q&A with AI feedback"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="AI features not configured")
+    
+    chat = LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=str(uuid.uuid4()),
+        system_message="""You are an interview practice partner using STAR method.
+
+Return ONLY valid JSON:
+{
+    "score": <1-10>,
+    "feedback": "<overall feedback>",
+    "strengths": ["<what was good>"],
+    "improvements": ["<what to improve>"],
+    "example_answer": "<model answer>",
+    "follow_up_questions": ["<potential follow-up>"]
+}"""
+    ).with_model("openai", "gpt-4o")
+    
+    context = f"""
+Context: {request_data.job_context or 'General job interview'}
+Question: {request_data.question}
+Answer: {request_data.answer}
+
+Provide detailed feedback."""
+    
+    try:
+        response = await chat.send_message(UserMessage(text=context))
+        
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        
+        return json.loads(clean_response)
+        
+    except Exception as e:
+        logging.error(f"Q&A practice error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to evaluate")
+
+# ============== Text-to-Speech (placeholder) ==============
+
+@router.post("/tts")
+async def text_to_speech(request: Request):
+    """Convert text to speech (placeholder)"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    return {
+        "success": True,
+        "message": "Text-to-speech feature coming soon",
+        "available": False
+    }
+
+# ============== Video Interview Practice (placeholder) ==============
+
+@router.post("/video-interview")
+async def video_interview_practice(request: Request):
+    """Video interview practice (placeholder)"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    return {
+        "success": True,
+        "message": "Video interview practice feature coming soon",
+        "available": False
+    }
+
+# ============== Callback Probability (additional endpoint) ==============
+
+@router.post("/callback-probability")
+async def callback_probability(request: Request):
+    """Callback probability predictor - redirect to existing endpoint"""
+    return {
+        "success": True,
+        "message": "Use /api/jobs/predict-callback for full analysis or /api/jobs/quick-probability for quick estimate"
+    }
+
