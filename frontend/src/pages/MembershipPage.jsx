@@ -83,12 +83,19 @@ const MembershipPage = ({ user }) => {
         ? `${API}/api/payments/paypal/create`
         : `${API}/api/payments/create-checkout`;
       
-      const response = await axios.post(endpoint, {
-        origin_url: window.location.origin
-      }, { withCredentials: true });
+      const payload = {
+        success_url: `${window.location.origin}/membership?success=true`,
+        cancel_url: `${window.location.origin}/membership?canceled=true`,
+        plan: 'lifetime'
+      };
+      
+      const response = await api.client.post(endpoint, payload);
       
       if (provider === 'paypal' && response.data.approval_url) {
         window.location.href = response.data.approval_url;
+      } else if (response.data.url) {
+        // Stripe returns 'url' for the checkout session
+        window.location.href = response.data.url;
       } else if (response.data.checkout_url) {
         window.location.href = response.data.checkout_url;
       } else if (response.data.membership_status === 'active') {
