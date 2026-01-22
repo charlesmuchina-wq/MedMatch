@@ -467,7 +467,7 @@ const MembershipPage = ({ user }) => {
 
       {/* Recruiter Job Posting CTA - Show for active recruiters */}
       {isRecruiter && isActive && (
-        <Card className="bg-gradient-to-r from-violet-500 to-purple-600 text-white">
+        <Card className="bg-gradient-to-r from-violet-500 to-purple-600 text-white mb-8">
           <CardContent className="p-6 flex items-center justify-between flex-wrap gap-4">
             <div>
               <h3 className="text-xl font-semibold mb-1">Ready to find talent?</h3>
@@ -482,6 +482,11 @@ const MembershipPage = ({ user }) => {
             </Button>
           </CardContent>
         </Card>
+      )}
+
+      {/* Subscription Management - Show for recruiters with active subscription */}
+      {isRecruiter && isActive && (
+        <SubscriptionManager user={user} />
       )}
     </div>
   );
