@@ -224,16 +224,22 @@ const OnboardingTour = ({ onComplete, user }) => {
  */
 export const useOnboardingTour = () => {
   // Check localStorage synchronously to avoid flash
-  const tourCompleted = localStorage.getItem("medmatch-tour-completed") === "true";
-  const [showTour, setShowTour] = useState(false);
+  const [showTour, setShowTour] = useState(() => {
+    // Only show if NOT completed
+    const completed = localStorage.getItem("medmatch-tour-completed") === "true";
+    return false; // Start false, timer will enable if needed
+  });
 
   useEffect(() => {
+    // Check localStorage value
+    const tourCompleted = localStorage.getItem("medmatch-tour-completed") === "true";
+    
     // Only show tour if not completed
     if (!tourCompleted) {
       const timer = setTimeout(() => setShowTour(true), 1000);
       return () => clearTimeout(timer);
     }
-  }, [tourCompleted]);
+  }, []); // Empty dependency - only run once on mount
 
   const completeTour = () => {
     localStorage.setItem("medmatch-tour-completed", "true");
