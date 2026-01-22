@@ -306,8 +306,8 @@ const CloudStorageUpload = ({ onFileSelected, isLoading }) => {
   };
 
   const getProviderStatus = (key) => {
-    const provider = CLOUD_PROVIDERS[key];
-    if (provider.configured) {
+    const provider = cloudProviders[key];
+    if (provider?.configured) {
       return <Check className="w-4 h-4 text-green-500" />;
     }
     return <AlertCircle className="w-4 h-4 text-amber-500" />;
@@ -339,7 +339,12 @@ const CloudStorageUpload = ({ onFileSelected, isLoading }) => {
           </DialogHeader>
 
           <div className="space-y-3 py-4">
-            {Object.entries(CLOUD_PROVIDERS).map(([key, provider]) => (
+            {statusLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <Loader2 className="w-6 h-6 animate-spin text-turquoise" />
+              </div>
+            ) : (
+              Object.entries(cloudProviders).map(([key, provider]) => (
               <button
                 key={key}
                 onClick={() => handleProviderClick(key)}
