@@ -166,6 +166,9 @@ async def create_paypal_payment(checkout_request: CreateCheckoutRequest, request
     if not paypal_client_id or not paypal_secret:
         raise HTTPException(status_code=500, detail="PayPal not configured")
     
+    # Determine amount based on plan
+    amount = "1.00" if checkout_request.plan == "lifetime" else "1.00"
+    
     try:
         import paypalrestsdk
         
@@ -188,7 +191,7 @@ async def create_paypal_payment(checkout_request: CreateCheckoutRequest, request
             },
             "transactions": [{
                 "amount": {
-                    "total": str(checkout_request.amount),
+                    "total": amount,
                     "currency": "USD"
                 },
                 "description": "MedMatch Lifetime Membership"
