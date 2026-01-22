@@ -223,23 +223,31 @@ const OnboardingTour = ({ onComplete, user }) => {
  * Hook to check if user should see the onboarding tour
  */
 export const useOnboardingTour = () => {
-  // Check localStorage synchronously to avoid flash
+  // Check localStorage synchronously during initialization
   const [showTour, setShowTour] = useState(() => {
-    // Only show if NOT completed
-    const completed = localStorage.getItem("medmatch-tour-completed") === "true";
-    return false; // Start false, timer will enable if needed
+    // Never show initially - we'll set it via useEffect only if needed
+    return false;
   });
+  
+  // Track if we've already checked (to prevent re-showing on re-renders)
+  const [hasChecked, setHasChecked] = useState(false);
 
   useEffect(() => {
+    // Only check once per session
+    if (hasChecked) return;
+    
     // Check localStorage value
     const tourCompleted = localStorage.getItem("medmatch-tour-completed") === "true";
+    
+    // Mark as checked
+    setHasChecked(true);
     
     // Only show tour if not completed
     if (!tourCompleted) {
       const timer = setTimeout(() => setShowTour(true), 1000);
       return () => clearTimeout(timer);
     }
-  }, []); // Empty dependency - only run once on mount
+  }, [hasChecked]);
 
   const completeTour = () => {
     localStorage.setItem("medmatch-tour-completed", "true");
@@ -248,6 +256,7 @@ export const useOnboardingTour = () => {
 
   const resetTour = () => {
     localStorage.removeItem("medmatch-tour-completed");
+    setHasChecked(false);
     setShowTour(true);
   };
 
