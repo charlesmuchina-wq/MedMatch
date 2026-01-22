@@ -152,9 +152,9 @@ const MembershipPage = ({ user }) => {
   }
 
   const isRecruiter = membership?.role === 'recruiter';
-  const isActive = membership?.membership_status === 'active';
-  const isTrial = membership?.membership_status === 'trial';
-  const isExpired = membership?.membership_status === 'expired';
+  const isActive = membership?.status === 'active' || membership?.membership_status === 'active';
+  const isTrial = membership?.status === 'trial' || membership?.membership_status === 'trial';
+  const isExpired = membership?.status === 'expired' || membership?.membership_status === 'expired';
 
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-5xl mx-auto animate-fade-in" data-testid="membership-page">
