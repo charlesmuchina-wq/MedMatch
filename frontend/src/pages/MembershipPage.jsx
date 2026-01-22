@@ -155,26 +155,31 @@ const MembershipPage = ({ user }) => {
   const isActive = membership?.status === 'active' || membership?.membership_status === 'active';
   const isTrial = membership?.status === 'trial' || membership?.membership_status === 'trial';
   const isExpired = membership?.status === 'expired' || membership?.membership_status === 'expired';
+  const trialDays = isRecruiter ? 30 : 15;
 
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-5xl mx-auto animate-fade-in" data-testid="membership-page">
       {/* Header */}
       <div className="text-center mb-10">
-        <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <Crown className="w-10 h-10 text-white" />
+        <div className={`w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 ${
+          isRecruiter 
+            ? 'bg-gradient-to-br from-violet-500 to-purple-600' 
+            : 'bg-gradient-to-br from-amber-400 to-orange-500'
+        }`}>
+          {isRecruiter ? <Briefcase className="w-10 h-10 text-white" /> : <Crown className="w-10 h-10 text-white" />}
         </div>
         <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100" style={{ fontFamily: 'IBM Plex Sans' }}>
-          {isRecruiter ? "Recruiter Account" : "MedMatch Membership"}
+          {isRecruiter ? "Recruiter Pro" : "MedMatch Membership"}
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-2 max-w-xl mx-auto">
           {isRecruiter 
-            ? "Post jobs and find qualified candidates worldwide"
+            ? "Post jobs, access candidates, and build your dream team"
             : "Your gateway to landing your dream remote job"}
         </p>
       </div>
 
       {/* Current Status Card */}
-      <Card className="mb-8 border-2 border-turquoise/30">
+      <Card className={`mb-8 border-2 ${isRecruiter ? 'border-violet-500/30' : 'border-turquoise/30'}`}>
         <CardContent className="p-6">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-4">
@@ -189,15 +194,16 @@ const MembershipPage = ({ user }) => {
               </div>
               <div>
                 <h3 className="font-semibold text-slate-900 dark:text-slate-100">
-                  {isRecruiter ? "Recruiter (Free Forever)" :
-                   isActive ? "Lifetime Member" :
-                   isTrial ? "Free Trial" : "Trial Expired"}
+                  {isRecruiter 
+                    ? (isActive ? "Recruiter Pro" : isTrial ? "Free Trial" : "Trial Expired")
+                    : (isActive ? "Lifetime Member" : isTrial ? "Free Trial" : "Trial Expired")}
                 </h3>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  {isRecruiter ? "Post unlimited jobs" :
-                   isActive ? "Full access to all features" :
-                   isTrial ? `${membership?.days_remaining} days remaining` :
-                   "Upgrade to continue"}
+                  {isActive 
+                    ? (isRecruiter ? "Full access to all recruiter features" : "Full access to all features")
+                    : isTrial 
+                      ? `${membership?.days_remaining || trialDays} days remaining` 
+                      : "Upgrade to continue"}
                 </p>
               </div>
             </div>
@@ -207,7 +213,7 @@ const MembershipPage = ({ user }) => {
               isTrial ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' :
               'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
             }`}>
-              {isRecruiter ? "FREE" : isActive ? "ACTIVE" : isTrial ? "TRIAL" : "EXPIRED"}
+              {isActive ? "ACTIVE" : isTrial ? "TRIAL" : "EXPIRED"}
             </Badge>
           </div>
 
@@ -215,15 +221,107 @@ const MembershipPage = ({ user }) => {
             <div className="mt-6">
               <div className="flex justify-between text-sm mb-2">
                 <span className="text-slate-500 dark:text-slate-400">Trial Progress</span>
-                <span className="text-slate-700 dark:text-slate-300">{15 - membership.days_remaining}/15 days used</span>
+                <span className="text-slate-700 dark:text-slate-300">{trialDays - (membership.days_remaining || 0)}/{trialDays} days used</span>
               </div>
-              <Progress value={((15 - membership.days_remaining) / 15) * 100} className="h-2" />
+              <Progress value={((trialDays - (membership.days_remaining || 0)) / trialDays) * 100} className="h-2" />
             </div>
           )}
         </CardContent>
       </Card>
 
-      {/* Pricing Section - Show only for job seekers who aren't active */}
+      {/* Recruiter Pricing Section */}
+      {isRecruiter && !isActive && (
+        <div className="grid md:grid-cols-2 gap-6 mb-10">
+          {/* Free Trial */}
+          <Card className={`${isTrial ? 'border-2 border-amber-400' : ''}`}>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Clock className="w-5 h-5 text-amber-500" />
+                Free Trial
+              </CardTitle>
+              <CardDescription>Try Recruiter Pro for 30 days</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+                $0 <span className="text-sm font-normal text-slate-500">/ 30 days</span>
+              </div>
+              <ul className="space-y-3">
+                {[
+                  "Post up to 3 jobs",
+                  "View applicant profiles",
+                  "Basic candidate search",
+                  "Email notifications"
+                ].map((feature, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                    <Check className="w-4 h-4 text-emerald-500" /> {feature}
+                  </li>
+                ))}
+              </ul>
+              {isTrial && (
+                <Button variant="outline" className="w-full mt-6" disabled>
+                  Current Plan
+                </Button>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Recruiter Pro Monthly */}
+          <Card className="border-2 border-violet-500 relative overflow-hidden">
+            <div className="absolute top-0 right-0 bg-violet-500 text-white text-xs px-3 py-1 rounded-bl-lg font-medium">
+              RECOMMENDED
+            </div>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Briefcase className="w-5 h-5 text-violet-500" />
+                Recruiter Pro
+              </CardTitle>
+              <CardDescription>Everything you need to hire</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+                $5 <span className="text-sm font-normal text-slate-500">/ month</span>
+              </div>
+              <ul className="space-y-3">
+                {[
+                  "Unlimited job postings",
+                  "Full ATS (Applicant Tracking)",
+                  "Advanced candidate search",
+                  "In-app messaging",
+                  "Analytics & reporting",
+                  "Priority support",
+                  "Company branding"
+                ].map((feature, i) => (
+                  <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                    <Check className="w-4 h-4 text-violet-500" /> {feature}
+                  </li>
+                ))}
+              </ul>
+              
+              {/* Payment Options */}
+              <div className="mt-6 space-y-3">
+                <Button 
+                  onClick={() => handleUpgrade('stripe', 'recruiter_monthly')}
+                  disabled={processing}
+                  className="w-full bg-gradient-to-r from-violet-500 to-purple-600 hover:from-purple-600 hover:to-violet-500"
+                  data-testid="upgrade-recruiter-btn"
+                >
+                  {processing ? (
+                    <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Processing...</>
+                  ) : (
+                    <><CreditCard className="w-4 h-4 mr-2" /> Start 30-Day Free Trial</>
+                  )}
+                </Button>
+              </div>
+              
+              <p className="text-xs text-slate-500 text-center mt-3">
+                30-day free trial • Cancel anytime • No commitment
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* Job Seeker Pricing Section */}
       {!isRecruiter && !isActive && (
         <div className="grid md:grid-cols-2 gap-6 mb-10">
           {/* Free Trial */}
