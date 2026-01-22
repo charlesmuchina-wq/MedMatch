@@ -274,18 +274,58 @@ const CloudStorageUpload = ({ onFileSelected, isLoading }) => {
     }
   }, [googleApiLoaded, tokenClient, accessToken, loadGoogleApis, createAndOpenPicker]);
 
-  // Dropbox Chooser
-  const openDropboxChooser = useCallback(() => {
+  // Dropbox OAuth
+  const openDropboxChooser = useCallback(async () => {
     setPickerLoading(true);
-    toast.info("Dropbox integration requires API setup. Use direct upload or Google Drive.");
-    setPickerLoading(false);
+    try {
+      const token = localStorage.getItem('access_token');
+      const response = await fetch(`${API}/api/cloud/dropbox/auth-url`, {
+        headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.auth_url) {
+          window.location.href = data.auth_url;
+        } else {
+          toast.error("Failed to get Dropbox authorization URL");
+        }
+      } else {
+        toast.error("Dropbox not configured");
+      }
+    } catch (error) {
+      console.error("Dropbox auth error:", error);
+      toast.error("Failed to connect to Dropbox");
+    } finally {
+      setPickerLoading(false);
+    }
   }, []);
 
-  // OneDrive Picker
-  const openOneDrivePicker = useCallback(() => {
+  // OneDrive OAuth
+  const openOneDrivePicker = useCallback(async () => {
     setPickerLoading(true);
-    toast.info("OneDrive integration requires API setup. Use direct upload or Google Drive.");
-    setPickerLoading(false);
+    try {
+      const token = localStorage.getItem('access_token');
+      const response = await fetch(`${API}/api/cloud/onedrive/auth-url`, {
+        headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data.auth_url) {
+          window.location.href = data.auth_url;
+        } else {
+          toast.error("Failed to get OneDrive authorization URL");
+        }
+      } else {
+        toast.error("OneDrive not configured");
+      }
+    } catch (error) {
+      console.error("OneDrive auth error:", error);
+      toast.error("Failed to connect to OneDrive");
+    } finally {
+      setPickerLoading(false);
+    }
   }, []);
 
   const handleProviderClick = (provider) => {
