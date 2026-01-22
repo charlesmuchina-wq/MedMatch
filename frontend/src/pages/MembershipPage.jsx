@@ -80,7 +80,7 @@ const MembershipPage = ({ user }) => {
     setProcessing(false);
   };
 
-  const handleUpgrade = async (provider = 'stripe') => {
+  const handleUpgrade = async (provider = 'stripe', plan = 'lifetime') => {
     setProcessing(true);
     try {
       const endpoint = provider === 'paypal' 
@@ -90,7 +90,7 @@ const MembershipPage = ({ user }) => {
       const payload = {
         success_url: `${window.location.origin}/membership?success=true`,
         cancel_url: `${window.location.origin}/membership?canceled=true`,
-        plan: 'lifetime'
+        plan: plan
       };
       
       const response = await api.client.post(endpoint, payload);
@@ -103,7 +103,7 @@ const MembershipPage = ({ user }) => {
       } else if (response.data.checkout_url) {
         window.location.href = response.data.checkout_url;
       } else if (response.data.membership_status === 'active') {
-        toast.success("You already have lifetime membership!");
+        toast.success("You already have an active membership!");
         fetchMembershipStatus();
       }
     } catch (e) {
