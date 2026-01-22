@@ -223,15 +223,17 @@ const OnboardingTour = ({ onComplete, user }) => {
  * Hook to check if user should see the onboarding tour
  */
 export const useOnboardingTour = () => {
+  // Check localStorage synchronously to avoid flash
+  const tourCompleted = localStorage.getItem("medmatch-tour-completed") === "true";
   const [showTour, setShowTour] = useState(false);
 
   useEffect(() => {
-    const tourCompleted = localStorage.getItem("medmatch-tour-completed");
+    // Only show tour if not completed
     if (!tourCompleted) {
       const timer = setTimeout(() => setShowTour(true), 1000);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [tourCompleted]);
 
   const completeTour = () => {
     localStorage.setItem("medmatch-tour-completed", "true");
