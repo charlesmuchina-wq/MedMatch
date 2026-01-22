@@ -16,7 +16,9 @@ router = APIRouter(prefix="/payments", tags=["Payments"])
 
 STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY', '')
 LIFETIME_PRICE = 1.00
-TRIAL_DAYS = 15
+RECRUITER_MONTHLY_PRICE = 5.00
+JOB_SEEKER_TRIAL_DAYS = 15
+RECRUITER_TRIAL_DAYS = 30
 
 # ============== Models ==============
 
@@ -41,29 +43,66 @@ async def create_checkout_session(checkout_request: CreateCheckoutRequest, reque
         import stripe
         stripe.api_key = STRIPE_API_KEY
         
-        # Create checkout session
-        session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=[{
-                'price_data': {
-                    'currency': 'usd',
-                    'product_data': {
-                        'name': 'MedMatch Lifetime Membership',
-                        'description': 'Unlimited access to all job search features',
+        is_recruiter = user.get('role') == 'recruiter'
+        plan = checkout_request.plan
+        
+        # Determine pricing based on plan type
+        if plan == 'recruiter_monthly' or (is_recruiter and plan != 'lifetime'):
+            # Recruiter monthly subscription - $5/month
+            session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[{
+                    'price_data': {
+                        'currency': 'usd',
+                        'product_data': {
+                            'name': 'MedMatch Recruiter Pro',
+                            'description': 'Post unlimited jobs, access candidate database, ATS tools',
+                        },
+                        'unit_amount': int(RECRUITER_MONTHLY_PRICE * 100),
+                        'recurring': {
+                            'interval': 'month',
+                        },
                     },
-                    'unit_amount': int(LIFETIME_PRICE * 100),
+                    'quantity': 1,
+                }],
+                mode='subscription',
+                subscription_data={
+                    'trial_period_days': RECRUITER_TRIAL_DAYS,
                 },
-                'quantity': 1,
-            }],
-            mode='payment',
-            success_url=checkout_request.success_url + ('&' if '?' in checkout_request.success_url else '?') + 'session_id={CHECKOUT_SESSION_ID}',
-            cancel_url=checkout_request.cancel_url,
-            customer_email=user['email'],
-            metadata={
-                'user_id': user['user_id'],
-                'plan': checkout_request.plan
-            }
-        )
+                success_url=checkout_request.success_url + ('&' if '?' in checkout_request.success_url else '?') + 'session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=checkout_request.cancel_url,
+                customer_email=user['email'],
+                metadata={
+                    'user_id': user['user_id'],
+                    'plan': 'recruiter_monthly',
+                    'role': 'recruiter'
+                }
+            )
+        else:
+            # Job seeker lifetime membership - $1 one-time
+            session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[{
+                    'price_data': {
+                        'currency': 'usd',
+                        'product_data': {
+                            'name': 'MedMatch Lifetime Membership',
+                            'description': 'Unlimited access to all job search features',
+                        },
+                        'unit_amount': int(LIFETIME_PRICE * 100),
+                    },
+                    'quantity': 1,
+                }],
+                mode='payment',
+                success_url=checkout_request.success_url + ('&' if '?' in checkout_request.success_url else '?') + 'session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=checkout_request.cancel_url,
+                customer_email=user['email'],
+                metadata={
+                    'user_id': user['user_id'],
+                    'plan': 'lifetime',
+                    'role': 'job_seeker'
+                }
+            )
         
         return {"session_id": session.id, "url": session.url}
         
