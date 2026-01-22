@@ -27,8 +27,14 @@ const MembershipPage = ({ user }) => {
   // Check for payment success
   useEffect(() => {
     const sessionId = searchParams.get('session_id');
+    const success = searchParams.get('success');
+    
     if (sessionId) {
       checkPaymentStatus(sessionId);
+    } else if (success === 'true') {
+      // If we have success but no session_id, just refresh membership status
+      fetchMembershipStatus();
+      toast.success("🎉 Payment successful! Welcome to MedMatch Premium!");
     }
   }, [searchParams]);
 
