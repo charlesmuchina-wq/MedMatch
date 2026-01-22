@@ -375,12 +375,23 @@ const CloudStorageUpload = ({ onFileSelected, isLoading }) => {
                   <Upload className="w-5 h-5 text-slate-400" />
                 )}
               </button>
-            ))}
+            ))
+            )}
           </div>
 
+          {/* Show status based on configured providers */}
           <div className="text-center text-xs text-slate-500 dark:text-slate-400 pt-2 border-t border-slate-200 dark:border-slate-700">
-            <Check className="w-3 h-3 inline mr-1 text-green-500" />
-            {t("cloudStorage.connected") || "Google Drive is ready to use"}
+            {Object.values(cloudProviders).some(p => p.configured) ? (
+              <>
+                <Check className="w-3 h-3 inline mr-1 text-green-500" />
+                {t("cloudStorage.connected") || "Cloud storage is ready to use"}
+              </>
+            ) : (
+              <>
+                <AlertCircle className="w-3 h-3 inline mr-1 text-amber-500" />
+                {t("cloudStorage.notConfigured") || "No cloud storage configured"}
+              </>
+            )}
           </div>
         </DialogContent>
       </Dialog>
