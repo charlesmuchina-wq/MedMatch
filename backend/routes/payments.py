@@ -176,7 +176,7 @@ async def get_payment_status(session_id: str, request: Request):
 
 @router.post("/webhook/stripe")
 async def stripe_webhook(request: Request):
-    """Handle Stripe webhooks"""
+    """Handle Stripe webhooks for subscription events"""
     if not STRIPE_API_KEY:
         raise HTTPException(status_code=500, detail="Payment system not configured")
     
@@ -186,31 +186,363 @@ async def stripe_webhook(request: Request):
         
         payload = await request.body()
         sig_header = request.headers.get('stripe-signature')
+        webhook_secret = os.environ.get('STRIPE_WEBHOOK_SECRET', '')
         
-        # In production, verify webhook signature
-        event = stripe.Event.construct_from(
-            values=eval(payload.decode()),
-            key=stripe.api_key
-        )
+        # Verify webhook signature if secret is configured
+        if webhook_secret and sig_header:
+            try:
+                event = stripe.Webhook.construct_event(
+                    payload, sig_header, webhook_secret
+                )
+            except stripe.error.SignatureVerificationError:
+                raise HTTPException(status_code=400, detail="Invalid signature")
+        else:
+            # Fallback for development
+            import json
+            event_data = json.loads(payload.decode())
+            event = stripe.Event.construct_from(event_data, stripe.api_key)
         
+        logging.info(f"Stripe webhook received: {event.type}")
+        
+        # Handle different event types
         if event.type == 'checkout.session.completed':
             session = event.data.object
             user_id = session.metadata.get('user_id')
             
             if user_id:
+                update_data = {
+                    "membership_status": "active",
+                    "membership_activated_at": datetime.now(timezone.utc).isoformat()
+                }
+                
+                # If subscription, store subscription ID
+                if session.subscription:
+                    update_data["subscription_id"] = session.subscription
+                    update_data["subscription_status"] = "active"
+                
                 await db.users.update_one(
                     {"user_id": user_id},
+                    {"$set": update_data}
+                )
+                logging.info(f"Updated membership for user {user_id}")
+        
+        elif event.type == 'customer.subscription.updated':
+            subscription = event.data.object
+            # Find user by subscription ID
+            user = await db.users.find_one({"subscription_id": subscription.id})
+            if user:
+                status = subscription.status
+                update_data = {
+                    "subscription_status": status,
+                    "membership_status": "active" if status in ["active", "trialing"] else "expired"
+                }
+                
+                # Update trial end date if in trial
+                if subscription.trial_end:
+                    update_data["trial_ends_at"] = datetime.fromtimestamp(
+                        subscription.trial_end, tz=timezone.utc
+                    ).isoformat()
+                
+                # Update current period end
+                if subscription.current_period_end:
+                    update_data["subscription_period_end"] = datetime.fromtimestamp(
+                        subscription.current_period_end, tz=timezone.utc
+                    ).isoformat()
+                
+                await db.users.update_one(
+                    {"user_id": user["user_id"]},
+                    {"$set": update_data}
+                )
+                logging.info(f"Subscription updated for user {user['user_id']}: {status}")
+        
+        elif event.type == 'customer.subscription.deleted':
+            subscription = event.data.object
+            user = await db.users.find_one({"subscription_id": subscription.id})
+            if user:
+                await db.users.update_one(
+                    {"user_id": user["user_id"]},
                     {"$set": {
-                        "membership_status": "active",
-                        "membership_activated_at": datetime.now(timezone.utc).isoformat()
+                        "subscription_status": "canceled",
+                        "membership_status": "expired",
+                        "subscription_canceled_at": datetime.now(timezone.utc).isoformat()
                     }}
                 )
+                logging.info(f"Subscription canceled for user {user['user_id']}")
+        
+        elif event.type == 'invoice.payment_succeeded':
+            invoice = event.data.object
+            if invoice.subscription:
+                user = await db.users.find_one({"subscription_id": invoice.subscription})
+                if user:
+                    # Store payment record
+                    payment_record = {
+                        "user_id": user["user_id"],
+                        "invoice_id": invoice.id,
+                        "amount": invoice.amount_paid / 100,
+                        "currency": invoice.currency,
+                        "status": "paid",
+                        "paid_at": datetime.now(timezone.utc).isoformat(),
+                        "period_start": datetime.fromtimestamp(invoice.period_start, tz=timezone.utc).isoformat(),
+                        "period_end": datetime.fromtimestamp(invoice.period_end, tz=timezone.utc).isoformat()
+                    }
+                    await db.payment_history.insert_one(payment_record)
+                    logging.info(f"Payment recorded for user {user['user_id']}: ${invoice.amount_paid/100}")
+        
+        elif event.type == 'invoice.payment_failed':
+            invoice = event.data.object
+            if invoice.subscription:
+                user = await db.users.find_one({"subscription_id": invoice.subscription})
+                if user:
+                    await db.users.update_one(
+                        {"user_id": user["user_id"]},
+                        {"$set": {
+                            "subscription_status": "past_due",
+                            "payment_failed_at": datetime.now(timezone.utc).isoformat()
+                        }}
+                    )
+                    logging.warning(f"Payment failed for user {user['user_id']}")
         
         return {"received": True}
         
     except Exception as e:
         logging.error(f"Webhook error: {e}")
         raise HTTPException(status_code=400, detail=str(e))
+
+# ============== Subscription Management Routes ==============
+
+@router.get("/subscription")
+async def get_subscription_details(request: Request):
+    """Get current subscription details for recruiter"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    subscription_id = user.get("subscription_id")
+    
+    if not subscription_id:
+        return {
+            "has_subscription": False,
+            "message": "No active subscription"
+        }
+    
+    if not STRIPE_API_KEY:
+        raise HTTPException(status_code=500, detail="Payment system not configured")
+    
+    try:
+        import stripe
+        stripe.api_key = STRIPE_API_KEY
+        
+        subscription = stripe.Subscription.retrieve(subscription_id)
+        
+        # Get customer info
+        customer = stripe.Customer.retrieve(subscription.customer)
+        
+        # Get default payment method
+        payment_method = None
+        if subscription.default_payment_method:
+            pm = stripe.PaymentMethod.retrieve(subscription.default_payment_method)
+            if pm.card:
+                payment_method = {
+                    "brand": pm.card.brand,
+                    "last4": pm.card.last4,
+                    "exp_month": pm.card.exp_month,
+                    "exp_year": pm.card.exp_year
+                }
+        
+        return {
+            "has_subscription": True,
+            "subscription_id": subscription.id,
+            "status": subscription.status,
+            "plan": "Recruiter Pro",
+            "price": RECRUITER_MONTHLY_PRICE,
+            "interval": "month",
+            "current_period_start": datetime.fromtimestamp(subscription.current_period_start, tz=timezone.utc).isoformat(),
+            "current_period_end": datetime.fromtimestamp(subscription.current_period_end, tz=timezone.utc).isoformat(),
+            "trial_end": datetime.fromtimestamp(subscription.trial_end, tz=timezone.utc).isoformat() if subscription.trial_end else None,
+            "cancel_at_period_end": subscription.cancel_at_period_end,
+            "canceled_at": datetime.fromtimestamp(subscription.canceled_at, tz=timezone.utc).isoformat() if subscription.canceled_at else None,
+            "payment_method": payment_method,
+            "customer_email": customer.email
+        }
+        
+    except Exception as e:
+        logging.error(f"Error fetching subscription: {e}")
+        raise HTTPException(status_code=500, detail="Failed to fetch subscription details")
+
+@router.post("/subscription/cancel")
+async def cancel_subscription(request: Request):
+    """Cancel recruiter subscription (at period end)"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    subscription_id = user.get("subscription_id")
+    
+    if not subscription_id:
+        raise HTTPException(status_code=400, detail="No active subscription to cancel")
+    
+    if not STRIPE_API_KEY:
+        raise HTTPException(status_code=500, detail="Payment system not configured")
+    
+    try:
+        import stripe
+        stripe.api_key = STRIPE_API_KEY
+        
+        # Cancel at period end (user keeps access until subscription period ends)
+        subscription = stripe.Subscription.modify(
+            subscription_id,
+            cancel_at_period_end=True
+        )
+        
+        # Update user record
+        await db.users.update_one(
+            {"user_id": user["user_id"]},
+            {"$set": {
+                "subscription_status": "canceling",
+                "subscription_cancel_requested_at": datetime.now(timezone.utc).isoformat()
+            }}
+        )
+        
+        return {
+            "success": True,
+            "message": "Subscription will be canceled at the end of the current billing period",
+            "cancel_at": datetime.fromtimestamp(subscription.current_period_end, tz=timezone.utc).isoformat()
+        }
+        
+    except Exception as e:
+        logging.error(f"Error canceling subscription: {e}")
+        raise HTTPException(status_code=500, detail="Failed to cancel subscription")
+
+@router.post("/subscription/reactivate")
+async def reactivate_subscription(request: Request):
+    """Reactivate a subscription that was set to cancel"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    subscription_id = user.get("subscription_id")
+    
+    if not subscription_id:
+        raise HTTPException(status_code=400, detail="No subscription to reactivate")
+    
+    if not STRIPE_API_KEY:
+        raise HTTPException(status_code=500, detail="Payment system not configured")
+    
+    try:
+        import stripe
+        stripe.api_key = STRIPE_API_KEY
+        
+        # Reactivate subscription
+        subscription = stripe.Subscription.modify(
+            subscription_id,
+            cancel_at_period_end=False
+        )
+        
+        # Update user record
+        await db.users.update_one(
+            {"user_id": user["user_id"]},
+            {"$set": {
+                "subscription_status": subscription.status,
+                "subscription_cancel_requested_at": None
+            }}
+        )
+        
+        return {
+            "success": True,
+            "message": "Subscription reactivated successfully",
+            "status": subscription.status
+        }
+        
+    except Exception as e:
+        logging.error(f"Error reactivating subscription: {e}")
+        raise HTTPException(status_code=500, detail="Failed to reactivate subscription")
+
+@router.get("/billing-history")
+async def get_billing_history(request: Request):
+    """Get payment/billing history for user"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Get from local database
+    payments = await db.payment_history.find(
+        {"user_id": user["user_id"]}
+    ).sort("paid_at", -1).limit(12).to_list(12)
+    
+    # Convert ObjectIds to strings
+    for payment in payments:
+        payment["_id"] = str(payment["_id"])
+    
+    # Also try to get from Stripe if we have subscription
+    subscription_id = user.get("subscription_id")
+    stripe_invoices = []
+    
+    if subscription_id and STRIPE_API_KEY:
+        try:
+            import stripe
+            stripe.api_key = STRIPE_API_KEY
+            
+            subscription = stripe.Subscription.retrieve(subscription_id)
+            invoices = stripe.Invoice.list(
+                subscription=subscription_id,
+                limit=12
+            )
+            
+            for inv in invoices.data:
+                stripe_invoices.append({
+                    "invoice_id": inv.id,
+                    "amount": inv.amount_paid / 100 if inv.amount_paid else inv.total / 100,
+                    "currency": inv.currency,
+                    "status": inv.status,
+                    "paid_at": datetime.fromtimestamp(inv.status_transitions.paid_at, tz=timezone.utc).isoformat() if inv.status_transitions.paid_at else None,
+                    "period_start": datetime.fromtimestamp(inv.period_start, tz=timezone.utc).isoformat(),
+                    "period_end": datetime.fromtimestamp(inv.period_end, tz=timezone.utc).isoformat(),
+                    "invoice_pdf": inv.invoice_pdf,
+                    "hosted_invoice_url": inv.hosted_invoice_url
+                })
+        except Exception as e:
+            logging.error(f"Error fetching Stripe invoices: {e}")
+    
+    return {
+        "local_payments": payments,
+        "stripe_invoices": stripe_invoices
+    }
+
+@router.post("/update-payment-method")
+async def create_payment_method_session(request: Request):
+    """Create a Stripe session to update payment method"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    subscription_id = user.get("subscription_id")
+    
+    if not subscription_id:
+        raise HTTPException(status_code=400, detail="No active subscription")
+    
+    if not STRIPE_API_KEY:
+        raise HTTPException(status_code=500, detail="Payment system not configured")
+    
+    try:
+        import stripe
+        stripe.api_key = STRIPE_API_KEY
+        
+        # Get subscription to find customer
+        subscription = stripe.Subscription.retrieve(subscription_id)
+        
+        # Create billing portal session
+        session = stripe.billing_portal.Session.create(
+            customer=subscription.customer,
+            return_url=f"{os.environ.get('FRONTEND_URL', 'https://jobfinder-ai-3.preview.emergentagent.com')}/membership?updated=true"
+        )
+        
+        return {
+            "url": session.url
+        }
+        
+    except Exception as e:
+        logging.error(f"Error creating billing portal session: {e}")
+        raise HTTPException(status_code=500, detail="Failed to create payment update session")
 
 # ============== PayPal Routes ==============
 
