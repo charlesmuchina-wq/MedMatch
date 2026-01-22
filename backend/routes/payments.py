@@ -126,25 +126,47 @@ async def get_payment_status(session_id: str, request: Request):
         
         session = stripe.checkout.Session.retrieve(session_id)
         
-        if session.payment_status == 'paid':
+        # Check if it's a subscription (recruiter) or one-time payment (job seeker)
+        is_subscription = session.mode == 'subscription'
+        is_paid = session.payment_status == 'paid' or (is_subscription and session.status == 'complete')
+        
+        if is_paid:
+            # Determine plan type from metadata
+            plan = session.metadata.get('plan', 'lifetime')
+            role = session.metadata.get('role', 'job_seeker')
+            
+            update_data = {
+                "membership_status": "active",
+                "membership_activated_at": datetime.now(timezone.utc).isoformat(),
+                "payment_session_id": session_id
+            }
+            
+            if is_subscription:
+                # Recruiter subscription
+                update_data["subscription_id"] = session.subscription
+                update_data["subscription_plan"] = "recruiter_monthly"
+                update_data["subscription_status"] = "active"
+                # Trial ends in 30 days
+                update_data["trial_ends_at"] = (datetime.now(timezone.utc) + timedelta(days=RECRUITER_TRIAL_DAYS)).isoformat()
+            else:
+                # Job seeker lifetime
+                update_data["membership_plan"] = "lifetime"
+            
             # Update user membership
             await db.users.update_one(
                 {"user_id": user["user_id"]},
-                {"$set": {
-                    "membership_status": "active",
-                    "membership_activated_at": datetime.now(timezone.utc).isoformat(),
-                    "payment_session_id": session_id
-                }}
+                {"$set": update_data}
             )
             
             return {
                 "status": "success",
                 "message": "Payment successful! Your membership is now active.",
-                "membership_status": "active"
+                "membership_status": "active",
+                "plan": plan
             }
         else:
             return {
-                "status": session.payment_status,
+                "status": session.payment_status or session.status,
                 "message": "Payment is being processed"
             }
             
