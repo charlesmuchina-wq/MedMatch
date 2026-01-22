@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useTranslation } from "@/utils/i18n";
 import api from "@/utils/apiClient";
+import SubscriptionManager from "@/components/SubscriptionManager";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
