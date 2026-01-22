@@ -155,22 +155,119 @@ async def stripe_webhook(request: Request):
 
 @router.post("/paypal/create")
 async def create_paypal_payment(checkout_request: CreateCheckoutRequest, request: Request):
-    """Create a PayPal payment (placeholder - needs credentials)"""
+    """Create a PayPal payment"""
     user = await get_current_user(request)
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
     paypal_client_id = os.environ.get('PAYPAL_CLIENT_ID', '')
-    if not paypal_client_id:
-        raise HTTPException(status_code=500, detail="PayPal not configured. Please use Stripe.")
+    paypal_secret = os.environ.get('PAYPAL_SECRET', '')
     
-    # PayPal integration would go here
-    raise HTTPException(status_code=501, detail="PayPal integration pending. Please use Stripe.")
+    if not paypal_client_id or not paypal_secret:
+        raise HTTPException(status_code=500, detail="PayPal not configured")
+    
+    try:
+        import paypalrestsdk
+        
+        # Configure PayPal SDK
+        paypalrestsdk.configure({
+            "mode": os.environ.get('PAYPAL_MODE', 'sandbox'),
+            "client_id": paypal_client_id,
+            "client_secret": paypal_secret
+        })
+        
+        # Create payment
+        payment = paypalrestsdk.Payment({
+            "intent": "sale",
+            "payer": {
+                "payment_method": "paypal"
+            },
+            "redirect_urls": {
+                "return_url": checkout_request.success_url,
+                "cancel_url": checkout_request.cancel_url
+            },
+            "transactions": [{
+                "amount": {
+                    "total": str(checkout_request.amount),
+                    "currency": "USD"
+                },
+                "description": "MedMatch Lifetime Membership"
+            }]
+        })
+        
+        if payment.create():
+            # Find approval URL
+            for link in payment.links:
+                if link.rel == "approval_url":
+                    return {
+                        "payment_id": payment.id,
+                        "approval_url": link.href
+                    }
+            raise HTTPException(status_code=500, detail="PayPal approval URL not found")
+        else:
+            logging.error(f"PayPal payment creation failed: {payment.error}")
+            raise HTTPException(status_code=500, detail=f"PayPal error: {payment.error}")
+            
+    except ImportError:
+        raise HTTPException(status_code=500, detail="PayPal SDK not installed")
+    except Exception as e:
+        logging.error(f"PayPal error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/paypal/execute")
 async def execute_paypal_payment(request: Request):
-    """Execute PayPal payment (placeholder)"""
-    raise HTTPException(status_code=501, detail="PayPal integration pending. Please use Stripe.")
+    """Execute PayPal payment after user approval"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    body = await request.json()
+    payment_id = body.get("payment_id")
+    payer_id = body.get("payer_id")
+    
+    if not payment_id or not payer_id:
+        raise HTTPException(status_code=400, detail="Missing payment_id or payer_id")
+    
+    paypal_client_id = os.environ.get('PAYPAL_CLIENT_ID', '')
+    paypal_secret = os.environ.get('PAYPAL_SECRET', '')
+    
+    if not paypal_client_id or not paypal_secret:
+        raise HTTPException(status_code=500, detail="PayPal not configured")
+    
+    try:
+        import paypalrestsdk
+        
+        paypalrestsdk.configure({
+            "mode": os.environ.get('PAYPAL_MODE', 'sandbox'),
+            "client_id": paypal_client_id,
+            "client_secret": paypal_secret
+        })
+        
+        payment = paypalrestsdk.Payment.find(payment_id)
+        
+        if payment.execute({"payer_id": payer_id}):
+            # Payment successful - update user membership
+            await db.users.update_one(
+                {"user_id": user["user_id"]},
+                {"$set": {
+                    "membership_status": "lifetime",
+                    "membership_updated": datetime.now(timezone.utc).isoformat(),
+                    "payment_method": "paypal",
+                    "paypal_payment_id": payment_id
+                }}
+            )
+            return {
+                "success": True,
+                "payment_id": payment_id,
+                "message": "Payment successful! Welcome to MedMatch Lifetime Membership."
+            }
+        else:
+            logging.error(f"PayPal execution failed: {payment.error}")
+            raise HTTPException(status_code=500, detail=f"PayPal error: {payment.error}")
+            
+    except Exception as e:
+        logging.error(f"PayPal execution error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 # ============== Membership Routes ==============
 
