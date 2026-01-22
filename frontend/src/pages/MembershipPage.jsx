@@ -435,13 +435,16 @@ const MembershipPage = ({ user }) => {
       {/* Features Grid */}
       <div className="mb-10">
         <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-6 text-center" style={{ fontFamily: 'IBM Plex Sans' }}>
-          {isRecruiter ? "Recruiter Features" : "What's Included"}
+          {isRecruiter ? "Recruiter Pro Features" : "What's Included"}
         </h2>
         <div className="grid md:grid-cols-3 gap-4">
           {(isRecruiter ? [
-            { icon: Briefcase, title: "Post Jobs", desc: "Unlimited job postings" },
-            { icon: Users, title: "Reach Talent", desc: "Connect with job seekers" },
-            { icon: Globe, title: "Worldwide", desc: "Global candidate reach" }
+            { icon: Briefcase, title: "Unlimited Jobs", desc: "Post as many jobs as you need" },
+            { icon: Users, title: "Candidate Database", desc: "Search qualified candidates" },
+            { icon: Globe, title: "Global Reach", desc: "Hire from anywhere" },
+            { icon: Star, title: "ATS System", desc: "Track all applicants" },
+            { icon: Zap, title: "Quick Hire", desc: "Streamlined hiring process" },
+            { icon: Shield, title: "Company Branding", desc: "Showcase your brand" }
           ] : [
             { icon: Sparkles, title: "AI-Powered", desc: "Smart job matching" },
             { icon: Globe, title: "Worldwide Jobs", desc: "Remote positions globally" },
@@ -450,8 +453,10 @@ const MembershipPage = ({ user }) => {
             { icon: Star, title: "Interview Prep", desc: "AI coaching tools" },
             { icon: CreditCard, title: "One-Time Fee", desc: "No subscriptions" }
           ]).map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg text-center">
-              <Icon className="w-8 h-8 text-turquoise mx-auto mb-2" />
+            <div key={title} className={`p-4 rounded-lg text-center ${
+              isRecruiter ? 'bg-violet-50 dark:bg-violet-900/20' : 'bg-slate-50 dark:bg-slate-800'
+            }`}>
+              <Icon className={`w-8 h-8 mx-auto mb-2 ${isRecruiter ? 'text-violet-500' : 'text-turquoise'}`} />
               <h4 className="font-medium text-slate-900 dark:text-slate-100">{title}</h4>
               <p className="text-xs text-slate-500 dark:text-slate-400">{desc}</p>
             </div>
@@ -459,8 +464,8 @@ const MembershipPage = ({ user }) => {
         </div>
       </div>
 
-      {/* Recruiter Job Posting CTA */}
-      {isRecruiter && (
+      {/* Recruiter Job Posting CTA - Show for active recruiters */}
+      {isRecruiter && isActive && (
         <Card className="bg-gradient-to-r from-violet-500 to-purple-600 text-white">
           <CardContent className="p-6 flex items-center justify-between flex-wrap gap-4">
             <div>
