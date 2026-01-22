@@ -349,6 +349,12 @@ async def get_subscription_details(request: Request):
                     "exp_year": pm.card.exp_year
                 }
         
+        # Access subscription data safely
+        current_period_start = subscription.get("current_period_start")
+        current_period_end = subscription.get("current_period_end")
+        trial_end = subscription.get("trial_end")
+        canceled_at = subscription.get("canceled_at")
+        
         return {
             "has_subscription": True,
             "subscription_id": subscription.id,
@@ -356,11 +362,11 @@ async def get_subscription_details(request: Request):
             "plan": "Recruiter Pro",
             "price": RECRUITER_MONTHLY_PRICE,
             "interval": "month",
-            "current_period_start": datetime.fromtimestamp(subscription.current_period_start, tz=timezone.utc).isoformat(),
-            "current_period_end": datetime.fromtimestamp(subscription.current_period_end, tz=timezone.utc).isoformat(),
-            "trial_end": datetime.fromtimestamp(subscription.trial_end, tz=timezone.utc).isoformat() if subscription.trial_end else None,
+            "current_period_start": datetime.fromtimestamp(current_period_start, tz=timezone.utc).isoformat() if current_period_start else None,
+            "current_period_end": datetime.fromtimestamp(current_period_end, tz=timezone.utc).isoformat() if current_period_end else None,
+            "trial_end": datetime.fromtimestamp(trial_end, tz=timezone.utc).isoformat() if trial_end else None,
             "cancel_at_period_end": subscription.cancel_at_period_end,
-            "canceled_at": datetime.fromtimestamp(subscription.canceled_at, tz=timezone.utc).isoformat() if subscription.canceled_at else None,
+            "canceled_at": datetime.fromtimestamp(canceled_at, tz=timezone.utc).isoformat() if canceled_at else None,
             "payment_method": payment_method,
             "customer_email": customer.email
         }
