@@ -345,6 +345,7 @@ async def get_membership_status(request: Request):
         raise HTTPException(status_code=401, detail="Not authenticated")
     
     status = check_membership_status(user)
+    is_recruiter = user.get("role") == "recruiter"
     
     # Calculate days remaining for trial
     days_remaining = None
@@ -355,13 +356,28 @@ async def get_membership_status(request: Request):
         except:
             pass
     
-    return {
+    response = {
         "status": status,
         "is_active": status in ["active", "trial"],
         "trial_ends_at": user.get("trial_ends_at"),
         "days_remaining": days_remaining,
-        "price": LIFETIME_PRICE
+        "role": user.get("role", "job_seeker"),
     }
+    
+    # Add role-specific pricing
+    if is_recruiter:
+        response["price"] = RECRUITER_MONTHLY_PRICE
+        response["price_type"] = "monthly"
+        response["trial_days"] = RECRUITER_TRIAL_DAYS
+        response["plan"] = user.get("subscription_plan", "recruiter_monthly")
+        response["subscription_status"] = user.get("subscription_status")
+    else:
+        response["price"] = LIFETIME_PRICE
+        response["price_type"] = "lifetime"
+        response["trial_days"] = JOB_SEEKER_TRIAL_DAYS
+        response["plan"] = user.get("membership_plan", "lifetime")
+    
+    return response
 
 @membership_router.get("/check-access/{feature}")
 async def check_feature_access(feature: str, request: Request):
@@ -374,13 +390,28 @@ async def check_feature_access(feature: str, request: Request):
     if user.get("is_admin") or user.get("email") == "admin@medmatch.com":
         return {"has_access": True, "reason": "admin"}
     
-    # Recruiters have free access
-    if user.get("role") == "recruiter":
-        return {"has_access": True, "reason": "recruiter"}
-    
     status = check_membership_status(user)
+    is_recruiter = user.get("role") == "recruiter"
     
-    # Free features
+    # Check recruiter-specific access
+    if is_recruiter:
+        # Basic recruiter features are free during trial or with active subscription
+        free_recruiter_features = ["post_job", "view_applications"]
+        premium_recruiter_features = ["candidate_search", "ats", "messaging", "analytics"]
+        
+        if feature in free_recruiter_features:
+            return {"has_access": True, "reason": "free_recruiter_feature"}
+        
+        if feature in premium_recruiter_features:
+            if status in ["active", "trial"]:
+                return {"has_access": True, "reason": status}
+            return {
+                "has_access": False,
+                "reason": "subscription_required",
+                "message": "Upgrade to Recruiter Pro to access this feature"
+            }
+    
+    # Job seeker features
     free_features = ["resume", "job_search", "saved_jobs", "applications"]
     if feature in free_features:
         return {"has_access": True, "reason": "free_feature"}
