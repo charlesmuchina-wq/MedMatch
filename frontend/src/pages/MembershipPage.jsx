@@ -121,12 +121,12 @@ const MembershipPage = ({ user }) => {
   const executePayPalPayment = async (paymentId, payerId) => {
     setProcessing(true);
     try {
-      const response = await axios.post(`${API}/api/payments/paypal/execute`, {
-        paymentId,
-        PayerID: payerId
-      }, { withCredentials: true });
+      const response = await api.client.post(`${API}/api/payments/paypal/execute`, {
+        payment_id: paymentId,
+        payer_id: payerId
+      });
       
-      if (response.data.status === 'success') {
+      if (response.data.success) {
         toast.success("🎉 Payment successful! Welcome to MedMatch Premium!");
         fetchMembershipStatus();
         navigate('/membership', { replace: true });
