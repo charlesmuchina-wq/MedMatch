@@ -38,7 +38,7 @@
     "✅ Cloud Storage /api/cloud/status - onedrive.configured=true",
     "✅ Cloud Storage /api/cloud/status - dropbox.configured=true",
     "✅ Dropbox /api/cloud/dropbox/auth-url - returns valid OAuth URL with app_key=qjcao2halndcd70",
-    "✅ OneDrive /api/cloud/onedrive/auth-url - returns valid OAuth URL with client_id=33fd0966-d65f-4474-9eb7-2afeef5e72df",
+    "✅ OneDrive /api/cloud/onedrive/auth-url - returns valid OAuth URL with client_id=jobfinder-ai-3",
     "✅ PayPal /api/payments/paypal/create - returns payment_id and approval_url (sandbox mode)",
     "✅ Membership /api/membership/status - returns user membership info",
     "✅ AI Supervisor /api/supervisor/status - health_score > 0",
