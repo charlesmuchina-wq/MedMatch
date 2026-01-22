@@ -21,15 +21,15 @@ const API = process.env.REACT_APP_BACKEND_URL;
 const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const GOOGLE_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 
-// Cloud provider configurations
-const CLOUD_PROVIDERS = {
+// Default cloud provider configurations
+const DEFAULT_PROVIDERS = {
   google_drive: {
     name: "Google Drive",
     icon: "/icons/google-drive.svg",
     color: "from-blue-500 to-blue-600",
     bgColor: "bg-blue-50 dark:bg-blue-900/20",
     accepts: ".pdf,.doc,.docx",
-    configured: !!GOOGLE_CLIENT_ID && !!GOOGLE_API_KEY
+    configured: false
   },
   dropbox: {
     name: "Dropbox",
@@ -37,7 +37,7 @@ const CLOUD_PROVIDERS = {
     color: "from-blue-600 to-blue-700",
     bgColor: "bg-blue-50 dark:bg-blue-900/20",
     accepts: ".pdf,.doc,.docx",
-    configured: false // Requires API key
+    configured: false
   },
   onedrive: {
     name: "OneDrive",
@@ -45,7 +45,7 @@ const CLOUD_PROVIDERS = {
     color: "from-sky-500 to-sky-600", 
     bgColor: "bg-sky-50 dark:bg-sky-900/20",
     accepts: ".pdf,.doc,.docx",
-    configured: false // Requires API key
+    configured: false
   }
 };
 
@@ -61,6 +61,48 @@ const CloudStorageUpload = ({ onFileSelected, isLoading }) => {
   const [googleApiLoaded, setGoogleApiLoaded] = useState(false);
   const [tokenClient, setTokenClient] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
+  const [cloudProviders, setCloudProviders] = useState(DEFAULT_PROVIDERS);
+  const [statusLoading, setStatusLoading] = useState(true);
+
+  // Fetch cloud storage status from backend
+  useEffect(() => {
+    const fetchCloudStatus = async () => {
+      try {
+        const response = await fetch(`${API}/api/cloud/status`);
+        if (response.ok) {
+          const data = await response.json();
+          setCloudProviders(prev => ({
+            google_drive: {
+              ...prev.google_drive,
+              configured: data.google_drive?.configured || (!!GOOGLE_CLIENT_ID && !!GOOGLE_API_KEY)
+            },
+            dropbox: {
+              ...prev.dropbox,
+              configured: data.dropbox?.configured || false
+            },
+            onedrive: {
+              ...prev.onedrive,
+              configured: data.onedrive?.configured || false
+            }
+          }));
+        }
+      } catch (error) {
+        console.error("Failed to fetch cloud status:", error);
+        // Fallback to checking Google credentials locally
+        setCloudProviders(prev => ({
+          ...prev,
+          google_drive: {
+            ...prev.google_drive,
+            configured: !!GOOGLE_CLIENT_ID && !!GOOGLE_API_KEY
+          }
+        }));
+      } finally {
+        setStatusLoading(false);
+      }
+    };
+
+    fetchCloudStatus();
+  }, []);
 
   // Load Google APIs on mount
   useEffect(() => {
