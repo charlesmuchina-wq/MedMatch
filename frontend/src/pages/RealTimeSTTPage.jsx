@@ -117,11 +117,31 @@ const RealTimeSTTPage = () => {
   const animationFrameRef = useRef(null);
   const audioChunksRef = useRef([]);
 
+  const checkServiceStatus = useCallback(async () => {
+    try {
+      const response = await apiClient.get('/api/realtime-stt/status');
+      setServiceStatus(response.data);
+    } catch (e) {
+      console.error('Failed to check STT status:', e);
+      setServiceStatus({ available: false });
+    }
+    setIsLoading(false);
+  }, []);
+
+  const loadHistory = useCallback(async () => {
+    try {
+      const response = await apiClient.get('/api/realtime-stt/history');
+      setHistory(response.data.history || []);
+    } catch (e) {
+      console.error('Failed to load history:', e);
+    }
+  }, []);
+
   // Check service status on mount
   useEffect(() => {
     checkServiceStatus();
     loadHistory();
-  }, []);
+  }, [checkServiceStatus, loadHistory]);
 
   // Timer effect
   useEffect(() => {
@@ -136,26 +156,6 @@ const RealTimeSTTPage = () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, [isRecording]);
-
-  const checkServiceStatus = async () => {
-    try {
-      const response = await apiClient.get('/api/realtime-stt/status');
-      setServiceStatus(response.data);
-    } catch (e) {
-      console.error('Failed to check STT status:', e);
-      setServiceStatus({ available: false });
-    }
-    setIsLoading(false);
-  };
-
-  const loadHistory = async () => {
-    try {
-      const response = await apiClient.get('/api/realtime-stt/history');
-      setHistory(response.data.history || []);
-    } catch (e) {
-      console.error('Failed to load history:', e);
-    }
-  };
 
   // Audio level analysis
   const startAudioAnalysis = (stream) => {
