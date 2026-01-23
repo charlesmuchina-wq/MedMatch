@@ -99,6 +99,9 @@ __all__ = [
     # Resume Auto-Fill
     'autofill_router',
     
+    # Real-time Speech-to-Text
+    'realtime_stt_router',
+    
     # Helper functions
     'get_current_user',
     'check_membership_status'
