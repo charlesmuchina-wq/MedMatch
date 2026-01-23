@@ -193,6 +193,7 @@ const VoiceCoachPage = ({ resume }) => {
   const audioRef = useRef(null);
 
   const generateQuestions = useCallback(async () => {
+    // First try to get cached questions
     try {
       const cachedResponse = await apiClient.get("/api/interview/cached-questions");
       if (cachedResponse.data.questions?.length > 0) {
@@ -204,18 +205,39 @@ const VoiceCoachPage = ({ resume }) => {
       console.log("No cached questions, generating new ones");
     }
     
+    // Generate new questions using AI interview prep endpoint
     try {
-      const response = await apiClient.post("/api/interview/generate-questions", {
+      const response = await apiClient.post("/api/interview-prep", {
         job_title: "Quality Manager",
         company: "",
-        resume_skills: resume?.skills || []
+        difficulty: "medium",
+        num_questions: 5,
+        topics: resume?.skills?.slice(0, 5) || []
       });
-      setQuestions(response.data.questions || []);
-      if (response.data.questions?.length > 0) {
-        setCurrentQuestion(response.data.questions[0]);
+      
+      // Map response to expected format
+      const questions = response.data.questions?.map(q => ({
+        text: q.question,
+        type: q.type,
+        tip: q.tip,
+        sample_points: q.sample_points
+      })) || [];
+      
+      setQuestions(questions);
+      if (questions.length > 0) {
+        setCurrentQuestion(questions[0]);
       }
     } catch (e) {
-      toast.error(t("errors.somethingWentWrong"));
+      // Fallback to default questions if AI fails
+      const defaultQuestions = [
+        { text: "Tell me about yourself and your professional background.", type: "Behavioral" },
+        { text: "Describe a challenging project you've worked on.", type: "Behavioral" },
+        { text: "What are your greatest strengths?", type: "Behavioral" },
+        { text: "Where do you see yourself in 5 years?", type: "Behavioral" },
+        { text: "Why are you interested in this position?", type: "Situational" }
+      ];
+      setQuestions(defaultQuestions);
+      setCurrentQuestion(defaultQuestions[0]);
     }
   }, [resume?.skills, t]);
 
