@@ -246,6 +246,7 @@ app.include_router(autofill_router, prefix="/api")
 app.include_router(realtime_stt_router, prefix="/api")
 app.include_router(webpush_router, prefix="/api")
 app.include_router(video_analysis_router, prefix="/api")
+app.include_router(persona_verification_router, prefix="/api")
 
 # ============== CORS Configuration ==============
 app.add_middleware(
