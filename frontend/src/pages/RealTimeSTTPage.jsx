@@ -15,6 +15,9 @@ import { apiClient } from "@/utils/apiClient";
 // Voice Waveform Visualization Component
 const VoiceWaveform = ({ isActive, audioLevel = 0 }) => {
   const bars = 24;
+  // Pre-generate random heights for consistent rendering
+  const randomHeights = Array.from({ length: bars }, () => Math.random() * 10);
+  
   return (
     <div className="flex items-center justify-center gap-0.5 h-16">
       {[...Array(bars)].map((_, i) => {
@@ -24,10 +27,10 @@ const VoiceWaveform = ({ isActive, audioLevel = 0 }) => {
           <div
             key={i}
             className={`w-1 bg-gradient-to-t from-turquoise to-cyan-400 rounded-full transition-all duration-75 ${
-              isActive ? '' : 'opacity-30'
+              isActive ? 'animate-pulse' : 'opacity-30'
             }`}
             style={{
-              height: `${isActive ? baseHeight + Math.random() * 10 : 4}px`,
+              height: `${isActive ? baseHeight + randomHeights[i] : 4}px`,
               animationDelay: `${i * 30}ms`
             }}
           />
