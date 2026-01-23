@@ -207,7 +207,8 @@ from routes import (
     autofill_router,
     realtime_stt_router,
     webpush_router,
-    video_analysis_router
+    video_analysis_router,
+    persona_verification_router
 )
 
 # Import batch router
