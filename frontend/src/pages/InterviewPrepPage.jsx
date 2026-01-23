@@ -214,11 +214,33 @@ const InterviewPrepPage = ({ resume }) => {
 
   const getMockFeedback = async (answers) => {
     try {
-      const response = await axios.post(`${API}/interview/mock-feedback`, {
-        answers,
-        job_title: jobTitle
+      // Evaluate each answer using the Q&A practice endpoint
+      const feedbackPromises = answers.map(async (a) => {
+        const response = await api.client.post(`${API}/api/qa-practice`, {
+          question: a.question.text || a.question,
+          answer: a.answer,
+          job_context: `${jobTitle} at ${company || 'a company'}`
+        });
+        return {
+          question: a.question.text || a.question,
+          answer: a.answer,
+          score: response.data.score,
+          feedback: response.data.feedback,
+          strengths: response.data.strengths,
+          improvements: response.data.improvements
+        };
       });
-      setMockFeedback(response.data);
+      
+      const allFeedback = await Promise.all(feedbackPromises);
+      
+      // Calculate overall score
+      const avgScore = allFeedback.reduce((sum, f) => sum + f.score, 0) / allFeedback.length;
+      
+      setMockFeedback({
+        overall_score: Math.round(avgScore * 10),
+        questions_feedback: allFeedback,
+        summary: `Overall performance: ${avgScore >= 7 ? 'Excellent' : avgScore >= 5 ? 'Good' : 'Needs improvement'}. You answered ${answers.length} questions with an average score of ${avgScore.toFixed(1)}/10.`
+      });
       setMockMode(false);
     } catch (e) {
       toast.error("Failed to get feedback");
