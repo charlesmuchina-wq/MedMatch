@@ -114,6 +114,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/qa-practice", icon: MessageSquare, labelKey: "nav.qaPractice" },
     { path: "/video-practice", icon: Video, labelKey: "nav.videoPractice" },
     { path: "/voice-coach", icon: Volume2, labelKey: "nav.voiceCoach" },
+    { path: "/realtime-stt", icon: Mic, labelKey: "nav.realtimeSTT" },
     { path: "/cover-letter", icon: PenTool, labelKey: "nav.coverLetter" },
     { path: "/alerts", icon: Bell, labelKey: "nav.jobAlerts" },
     { path: "/notifications", icon: Bell, labelKey: "nav.notifications" },
@@ -599,6 +600,11 @@ function AppContent() {
             <Route path="/notifications" element={<NotificationsPage user={user} />} />
             <Route path="/id-verification" element={<IDVerificationPage user={user} />} />
             <Route path="/video-practice" element={<VideoInterviewPage resume={resume} user={user} />} />
+            <Route path="/realtime-stt" element={
+              <PremiumGate feature="voice_coach">
+                <RealTimeSTTPage />
+              </PremiumGate>
+            } />
           </Routes>
         </main>
       </div>
