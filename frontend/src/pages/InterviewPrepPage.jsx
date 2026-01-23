@@ -165,8 +165,21 @@ const InterviewPrepPage = ({ resume }) => {
   const polishStarAnswer = async (starData) => {
     setGeneratingAnswer(true);
     try {
-      const response = await api.client.post(`${API}/interview/polish-star`, starData);
-      setGeneratedAnswer(response.data);
+      // Use AI assistant to polish STAR answer
+      const response = await api.client.post(`${API}/api/assistant`, {
+        message: `Polish this STAR interview answer:
+Situation: ${starData.situation}
+Task: ${starData.task}
+Action: ${starData.action}
+Result: ${starData.result}
+
+Make it more concise, impactful, and professional while keeping the STAR structure.`,
+        context: "interview"
+      });
+      setGeneratedAnswer({
+        answer: response.data.response,
+        tips: ["Be specific with numbers and results", "Show your unique contribution", "Connect to the role you're applying for"]
+      });
     } catch (e) {
       toast.error("Failed to polish answer");
     }
@@ -180,8 +193,16 @@ const InterviewPrepPage = ({ resume }) => {
     }
     setResearchingCompany(true);
     try {
-      const response = await api.client.post(`${API}/interview/research-company`, { company });
-      setCompanyResearch(response.data);
+      // Use AI assistant for company research
+      const response = await api.client.post(`${API}/api/assistant`, {
+        message: `Provide interview preparation research for ${company}. Include: company culture, recent news, interview tips, common interview questions, and what they look for in candidates.`,
+        context: "career"
+      });
+      setCompanyResearch({
+        company: company,
+        research: response.data.response,
+        generated_at: new Date().toISOString()
+      });
       toast.success("Company research complete!");
     } catch (e) {
       toast.error("Failed to research company");
