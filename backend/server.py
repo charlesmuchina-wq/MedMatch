@@ -240,6 +240,7 @@ app.include_router(batch_router, prefix="/api")
 app.include_router(linkedin_router, prefix="/api")
 app.include_router(feedback_router, prefix="/api")
 app.include_router(autofill_router, prefix="/api")
+app.include_router(realtime_stt_router, prefix="/api")
 
 # ============== CORS Configuration ==============
 app.add_middleware(
