@@ -41,6 +41,9 @@ from routes.autofill import router as autofill_router
 # Real-time Speech-to-Text
 from routes.realtime_stt import router as realtime_stt_router
 
+# Real Web Push
+from routes.webpush import router as webpush_router
+
 __all__ = [
     # Core routes
     'auth_router',
