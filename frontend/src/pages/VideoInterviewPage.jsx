@@ -391,7 +391,7 @@ const VideoInterviewPage = ({ resume }) => {
       setQuestions(defaultQuestions);
       setCurrentQuestion(defaultQuestions[0]);
     }
-  }, [resume?.skills]);
+  }, [resume]);
 
   const loadRecordings = useCallback(async () => {
     try {
@@ -407,7 +407,8 @@ const VideoInterviewPage = ({ resume }) => {
       generateQuestions();
     }
     loadRecordings();
-  }, [resume?.skills?.length, generateQuestions, loadRecordings]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resume?.skills?.length]);
 
   useEffect(() => {
     if (isRecording) {
