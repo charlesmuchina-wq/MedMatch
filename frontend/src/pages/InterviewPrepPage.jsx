@@ -119,7 +119,7 @@ const InterviewPrepPage = ({ resume }) => {
     setGeneratingQuestions(true);
     try {
       // Use new AI interview prep endpoint
-      const response = await api.client.post(`${API}/api/interview-prep`, {
+      const response = await api.client.post(`${API}/interview-prep`, {
         job_title: jobTitle,
         company: company,
         difficulty: "medium",
@@ -148,7 +148,7 @@ const InterviewPrepPage = ({ resume }) => {
     setSelectedQuestion(question);
     try {
       // Use KARAU DRAGON assistant for answer generation
-      const response = await api.client.post(`${API}/api/assistant`, {
+      const response = await api.client.post(`${API}/assistant`, {
         message: `Generate a strong interview answer for this question: "${question.text || question}". The position is ${jobTitle} at ${company || 'a company'}. Use the STAR method if applicable.`,
         context: "interview"
       });
@@ -166,7 +166,7 @@ const InterviewPrepPage = ({ resume }) => {
     setGeneratingAnswer(true);
     try {
       // Use AI assistant to polish STAR answer
-      const response = await api.client.post(`${API}/api/assistant`, {
+      const response = await api.client.post(`${API}/assistant`, {
         message: `Polish this STAR interview answer:
 Situation: ${starData.situation}
 Task: ${starData.task}
@@ -194,7 +194,7 @@ Make it more concise, impactful, and professional while keeping the STAR structu
     setResearchingCompany(true);
     try {
       // Use AI assistant for company research
-      const response = await api.client.post(`${API}/api/assistant`, {
+      const response = await api.client.post(`${API}/assistant`, {
         message: `Provide interview preparation research for ${company}. Include: company culture, recent news, interview tips, common interview questions, and what they look for in candidates.`,
         context: "career"
       });
@@ -237,7 +237,7 @@ Make it more concise, impactful, and professional while keeping the STAR structu
     try {
       // Evaluate each answer using the Q&A practice endpoint
       const feedbackPromises = answers.map(async (a) => {
-        const response = await api.client.post(`${API}/api/qa-practice`, {
+        const response = await api.client.post(`${API}/qa-practice`, {
           question: a.question.text || a.question,
           answer: a.answer,
           job_context: `${jobTitle} at ${company || 'a company'}`
