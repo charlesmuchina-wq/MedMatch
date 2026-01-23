@@ -105,6 +105,9 @@ __all__ = [
     # Real-time Speech-to-Text
     'realtime_stt_router',
     
+    # Real Web Push
+    'webpush_router',
+    
     # Helper functions
     'get_current_user',
     'check_membership_status'
