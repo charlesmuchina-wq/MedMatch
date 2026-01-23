@@ -433,12 +433,11 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - [ ] PayPal integration (blocked on credentials)
 
 ### P3 - Future
-- [ ] Native Windows/Desktop widget
-- [ ] LinkedIn profile sync
-- [ ] Application feedback learning
-- [ ] Advanced fraud scoring
+- [ ] Native Windows/Desktop app
+- [ ] Real-time voice transcription during practice
 - [ ] Real Web Push server integration (replace mocked push)
 - [ ] Persona/Jumio integration for production ID verification
+- [ ] Video Interview with facial expression analysis
 
 ---
 
