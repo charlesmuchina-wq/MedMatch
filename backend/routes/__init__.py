@@ -117,6 +117,9 @@ __all__ = [
     # Video Facial Expression Analysis
     'video_analysis_router',
     
+    # Persona/Jumio ID Verification
+    'persona_verification_router',
+    
     # Helper functions
     'get_current_user',
     'check_membership_status'
