@@ -71,8 +71,9 @@ async def analyze_resume_job_match(resume_text: str, job_context: JobContext) ->
         return {"match_score": 0, "matches": [], "gaps": [], "transferable_skills": []}
     
     try:
-        chat = LlmChat(api_key=EMERGENT_LLM_KEY)
-        response = await chat.send_message(
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=str(uuid.uuid4()),
             system_message="""You are an expert career coach and HR specialist. Analyze the candidate's resume against the job requirements.
 
 Return a JSON object with:
@@ -84,8 +85,11 @@ Return a JSON object with:
     "gaps": ["missing requirement 1", "missing requirement 2"],
     "strengths_to_highlight": ["strength 1", "strength 2"],
     "talking_points": ["point 1", "point 2"]
-}""",
-            text=f"""RESUME:
+}"""
+        ).with_model("openai", "gpt-5.2")
+        
+        response = await chat.send_message(
+            UserMessage(text=f"""RESUME:
 {resume_text}
 
 JOB DETAILS:
@@ -93,12 +97,16 @@ Company: {job_context.company_name}
 Title: {job_context.job_title}
 Description: {job_context.job_description}
 
-Analyze the match and identify transferable skills.""",
-            json_mode=True
+Analyze the match and identify transferable skills.""")
         )
         
         import json
-        return json.loads(response)
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        return json.loads(clean_response)
     except Exception as e:
         logging.error(f"Resume-job match analysis error: {e}")
         return {"match_score": 0, "matches": [], "gaps": [], "transferable_skills": []}
