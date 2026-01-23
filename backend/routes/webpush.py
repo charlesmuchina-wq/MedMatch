@@ -13,7 +13,6 @@ import os
 import base64
 
 from pywebpush import webpush, WebPushException
-from py_vapid import Vapid
 
 from utils.database import db
 from routes.auth import get_current_user
@@ -27,13 +26,31 @@ VAPID_PRIVATE_KEY = os.environ.get("VAPID_PRIVATE_KEY")
 VAPID_PUBLIC_KEY = os.environ.get("VAPID_PUBLIC_KEY")
 VAPID_CLAIMS_EMAIL = os.environ.get("VAPID_CLAIMS_EMAIL", "mailto:admin@medmatch.com")
 
-# Generate keys if not configured
+# Generate keys if not configured - use pywebpush's built-in method
 if not VAPID_PRIVATE_KEY or not VAPID_PUBLIC_KEY:
     try:
-        vapid = Vapid()
-        vapid.generate_keys()
-        VAPID_PRIVATE_KEY = vapid.private_key_pem.decode('utf-8') if hasattr(vapid.private_key_pem, 'decode') else str(vapid.private_key_pem)
-        VAPID_PUBLIC_KEY = vapid.public_key_base64url
+        from cryptography.hazmat.primitives.asymmetric import ec
+        from cryptography.hazmat.backends import default_backend
+        from cryptography.hazmat.primitives import serialization
+        
+        # Generate ECDSA key pair for VAPID
+        private_key = ec.generate_private_key(ec.SECP256R1(), default_backend())
+        
+        # Get private key in PEM format
+        VAPID_PRIVATE_KEY = private_key.private_bytes(
+            encoding=serialization.Encoding.PEM,
+            format=serialization.PrivateFormat.PKCS8,
+            encryption_algorithm=serialization.NoEncryption()
+        ).decode('utf-8')
+        
+        # Get public key for VAPID
+        public_key = private_key.public_key()
+        public_key_bytes = public_key.public_bytes(
+            encoding=serialization.Encoding.X962,
+            format=serialization.PublicFormat.UncompressedPoint
+        )
+        VAPID_PUBLIC_KEY = base64.urlsafe_b64encode(public_key_bytes).rstrip(b'=').decode('utf-8')
+        
         logging.info(f"Generated new VAPID keys. Public key: {VAPID_PUBLIC_KEY[:50]}...")
     except Exception as e:
         logging.error(f"Failed to generate VAPID keys: {e}")
