@@ -147,3 +147,5 @@ zipp==3.23.0
 aioredis==2.0.1
 fastapi-cache2==0.2.2
 redis==7.1.0
+py-vapid==1.9.4
+pywebpush==2.2.0
