@@ -111,6 +111,9 @@ __all__ = [
     # Real Web Push
     'webpush_router',
     
+    # Video Facial Expression Analysis
+    'video_analysis_router',
+    
     # Helper functions
     'get_current_user',
     'check_membership_status'
