@@ -44,6 +44,9 @@ from routes.realtime_stt import router as realtime_stt_router
 # Real Web Push
 from routes.webpush import router as webpush_router
 
+# Video Facial Expression Analysis
+from routes.video_analysis import router as video_analysis_router
+
 __all__ = [
     # Core routes
     'auth_router',
