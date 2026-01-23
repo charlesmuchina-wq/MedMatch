@@ -184,25 +184,6 @@ const KarauDragonAI = ({ user, isOpen, onClose }) => {
     setProcessing(false);
   };
 
-    } catch (error) {
-      console.error("Dragon AI error:", error);
-      
-      // Fallback: Local intent detection
-      const localResult = detectLocalIntent(command);
-      setResponse(localResult);
-      
-      if (localResult.speech) {
-        speak(localResult.speech);
-      }
-      
-      if (localResult.action) {
-        executeAction(localResult);
-      }
-    }
-
-    setProcessing(false);
-  };
-
   const detectLocalIntent = (command) => {
     const cmd = command.toLowerCase();
     
