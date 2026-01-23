@@ -419,12 +419,12 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - [x] Language sync flicker fix (completed)
 - [x] Cloud Storage UI integration in Resume page (completed Jan 19)
 - [x] PWA Desktop Widget (completed Jan 20)
-- [x] LinkedIn Profile Sync OAuth flow (completed Jan 20 - needs credentials)
+- [x] LinkedIn Profile Sync OAuth flow (completed Jan 20) ✅ CONFIGURED
 - [x] Company Feedback Learning System (completed Jan 20)
 - [x] Resume Auto-Fill (completed Jan 20)
-- [ ] Apple Sign In (blocked on user Apple Developer Console config)
-- [ ] OneDrive integration (needs Microsoft app registration)
-- [ ] Dropbox integration (needs Dropbox app registration)
+- [x] Apple Sign In ✅ CONFIGURED (Team ID: 96879J9FZY, Key ID: GKXL7V8MZ5)
+- [x] OneDrive integration ✅ CONFIGURED (Client: jobfinder-ai-3)
+- [x] Dropbox integration ✅ CONFIGURED (App Key: qjcao2halndcd70)
 
 ### P2 - Medium Priority (ALL DONE ✅)
 - [x] Push Notifications (Web Push API) ✅ Jan 18
