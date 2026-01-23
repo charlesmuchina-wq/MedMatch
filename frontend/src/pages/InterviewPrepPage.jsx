@@ -643,38 +643,9 @@ Make it more concise, impactful, and professional while keeping the STAR structu
               {companyResearch && (
                 <div className="space-y-4 mt-4">
                   <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
-                    <h4 className="font-medium text-slate-900 dark:text-slate-100 mb-2">Company Overview</h4>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">{companyResearch.overview}</p>
+                    <h4 className="font-medium text-slate-900 dark:text-slate-100 mb-2">Research for {companyResearch.company}</h4>
+                    <div className="text-sm text-slate-600 dark:text-slate-400 whitespace-pre-wrap">{companyResearch.research}</div>
                   </div>
-
-                  {companyResearch.culture && (
-                    <div className="p-4 bg-violet-50 dark:bg-violet-900/20 rounded-lg">
-                      <h4 className="font-medium text-violet-800 dark:text-violet-300 mb-2">Company Culture</h4>
-                      <p className="text-sm text-violet-700 dark:text-violet-400">{companyResearch.culture}</p>
-                    </div>
-                  )}
-
-                  {companyResearch.interview_tips && (
-                    <div className="p-4 bg-turquoise-50 dark:bg-turquoise-900/20 rounded-lg">
-                      <h4 className="font-medium text-turquoise-800 dark:text-turquoise-300 mb-2">Interview Tips for This Company</h4>
-                      <ul className="space-y-1">
-                        {companyResearch.interview_tips.map((tip, i) => (
-                          <li key={i} className="text-sm text-turquoise-700 dark:text-turquoise-400">• {tip}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {companyResearch.questions_to_ask && (
-                    <div className="p-4 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
-                      <h4 className="font-medium text-amber-800 dark:text-amber-300 mb-2">Questions to Ask Them</h4>
-                      <ul className="space-y-1">
-                        {companyResearch.questions_to_ask.map((q, i) => (
-                          <li key={i} className="text-sm text-amber-700 dark:text-amber-400">• {q}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
                 </div>
               )}
             </CardContent>
