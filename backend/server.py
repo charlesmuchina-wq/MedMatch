@@ -206,7 +206,8 @@ from routes import (
     feedback_router,
     autofill_router,
     realtime_stt_router,
-    webpush_router
+    webpush_router,
+    video_analysis_router
 )
 
 # Import batch router
