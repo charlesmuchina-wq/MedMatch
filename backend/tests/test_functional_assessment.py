@@ -132,7 +132,7 @@ class TestRAGAndAIInterface:
     
     def test_job_search_with_ai_matching(self):
         """Test AI job matching - query understanding"""
-        response = self.ts.session.post(f"{BASE_URL}/api/jobs/search", json={
+        response = self.ts.session.get(f"{BASE_URL}/api/jobs/search", params={
             "query": "remote python developer",
             "location": "remote",
             "limit": 5
@@ -279,7 +279,7 @@ class TestExternalAPIIntegrations:
     
     def test_jobspy_integration(self):
         """Test JobSpy job scraping - data consistency"""
-        response = self.ts.session.post(f"{BASE_URL}/api/jobs/search", json={
+        response = self.ts.session.get(f"{BASE_URL}/api/jobs/search", params={
             "query": "software engineer",
             "location": "remote",
             "source": "jobspy"
@@ -562,7 +562,7 @@ class TestEndToEndJourneys:
         assert response.status_code == 200, "Membership check failed"
         steps.append("Membership Status")
         
-        response = self.ts.session.post(f"{BASE_URL}/api/jobs/search", json={
+        response = self.ts.session.get(f"{BASE_URL}/api/jobs/search", params={
             "query": "software engineer",
             "location": "remote"
         })
