@@ -2,10 +2,10 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { toast } from "sonner";
 import { useTheme } from "@/App";
 import { 
-  Video, VideoOff, Mic, MicOff, Play, Pause, RotateCcw, 
+  Video, VideoOff, Play, RotateCcw, 
   Sparkles, Loader2, Camera, Clock, CheckCircle2, AlertCircle,
-  TrendingUp, Eye, User, Zap, Target, Award, RefreshCw, 
-  ChevronRight, Download, Trash2
+  TrendingUp, Eye, User, Zap, Target, Award,
+  ChevronRight, Trash2, Activity, Smile
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +13,22 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
+
+// TensorFlow.js imports
+let tf, faceLandmarksDetection;
+
+// Dynamic TensorFlow loading to avoid SSR issues
+const loadTensorFlow = async () => {
+  if (!tf) {
+    tf = await import('@tensorflow/tfjs');
+    await tf.setBackend('webgl');
+    await tf.ready();
+  }
+  if (!faceLandmarksDetection) {
+    faceLandmarksDetection = await import('@tensorflow-models/face-landmarks-detection');
+  }
+  return { tf, faceLandmarksDetection };
+};
 
 // Circular Score Component
 const CircularScore = ({ score, label, color }) => {
@@ -27,7 +43,7 @@ const CircularScore = ({ score, label, color }) => {
           <circle
             cx="50" cy="50" r={radius}
             fill="none" stroke="currentColor"
-            className="text-slate-200 dark:text-slate-700 dark:text-slate-300"
+            className="text-slate-200 dark:text-slate-700"
             strokeWidth="8"
           />
           <circle
@@ -37,11 +53,11 @@ const CircularScore = ({ score, label, color }) => {
             strokeDasharray={circumference}
             strokeDashoffset={offset}
             strokeLinecap="round"
-            className="transition-all duration-1000 ease-out"
+            className="transition-all duration-500 ease-out"
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-xl font-bold" style={{ color }}>{score}</span>
+          <span className="text-xl font-bold" style={{ color }}>{Math.round(score)}</span>
         </div>
       </div>
       <span className="text-xs text-slate-500 dark:text-slate-400 mt-1 text-center">{label}</span>
@@ -49,43 +65,310 @@ const CircularScore = ({ score, label, color }) => {
   );
 };
 
+// Real-time facial analysis indicator
+const LiveIndicator = ({ isActive, label }) => (
+  <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium ${
+    isActive 
+      ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300' 
+      : 'bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400'
+  }`}>
+    <span className={`w-2 h-2 rounded-full ${isActive ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
+    {label}
+  </div>
+);
+
+// Expression emoji mapping
+const EXPRESSION_EMOJI = {
+  'neutral': '😐',
+  'happy': '😊',
+  'confident': '💪',
+  'engaged': '🎯',
+  'nervous': '😰',
+  'uncertain': '🤔',
+  'distracted': '😶',
+  'focused': '👁️'
+};
+
 const VideoInterviewPage = ({ resume }) => {
   const { isDark } = useTheme();
   const { t } = useTranslation();
   const videoRef = useRef(null);
+  const canvasRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const streamRef = useRef(null);
   const chunksRef = useRef([]);
+  const detectorRef = useRef(null);
+  const analysisIntervalRef = useRef(null);
   
   const [isRecording, setIsRecording] = useState(false);
   const [isPreviewing, setIsPreviewing] = useState(false);
   const [recordedVideoURL, setRecordedVideoURL] = useState(null);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [videoAnalysis, setVideoAnalysis] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [recordings, setRecordings] = useState([]);
   const [isSessionActive, setIsSessionActive] = useState(false);
   
+  // TensorFlow.js state
+  const [isModelLoading, setIsModelLoading] = useState(false);
+  const [modelLoaded, setModelLoaded] = useState(false);
+  const [realTimeAnalysis, setRealTimeAnalysis] = useState(null);
+  const [analysisHistory, setAnalysisHistory] = useState([]);
+  const [sessionSummary, setSessionSummary] = useState(null);
+  
   const timerRef = useRef(null);
 
+  // Load TensorFlow model
+  const loadModel = async () => {
+    if (modelLoaded || isModelLoading) return;
+    
+    setIsModelLoading(true);
+    try {
+      const { faceLandmarksDetection } = await loadTensorFlow();
+      
+      const model = faceLandmarksDetection.SupportedModels.MediaPipeFaceMesh;
+      const detectorConfig = {
+        runtime: 'tfjs',
+        refineLandmarks: true,
+        maxFaces: 1
+      };
+      
+      detectorRef.current = await faceLandmarksDetection.createDetector(model, detectorConfig);
+      setModelLoaded(true);
+      toast.success('Facial analysis ready!');
+    } catch (error) {
+      console.error('Failed to load face detection model:', error);
+      toast.error('Failed to load facial analysis. Using basic mode.');
+    }
+    setIsModelLoading(false);
+  };
+
+  // Analyze face from video frame
+  const analyzeFace = async () => {
+    if (!detectorRef.current || !videoRef.current || !isPreviewing) return null;
+    
+    try {
+      const video = videoRef.current;
+      if (video.readyState < 2) return null;
+      
+      const faces = await detectorRef.current.estimateFaces(video);
+      
+      if (faces.length === 0) {
+        return {
+          faceDetected: false,
+          eyeContact: 0,
+          expression: 'no_face',
+          engagement: 0,
+          tips: ['Make sure your face is clearly visible in the frame']
+        };
+      }
+      
+      const face = faces[0];
+      const keypoints = face.keypoints;
+      
+      // Calculate eye contact based on iris position
+      const leftIris = keypoints.find(p => p.name === 'leftIris');
+      const rightIris = keypoints.find(p => p.name === 'rightIris');
+      const nose = keypoints.find(p => p.name === 'noseTip');
+      
+      let eyeContactScore = 70; // Base score
+      if (leftIris && rightIris && nose) {
+        // Check if eyes are looking forward (at camera)
+        const irisCenter = {
+          x: (leftIris.x + rightIris.x) / 2,
+          y: (leftIris.y + rightIris.y) / 2
+        };
+        const noseX = nose.x;
+        
+        // Distance from center indicates where person is looking
+        const horizontalOffset = Math.abs(irisCenter.x - noseX);
+        const normalizedOffset = horizontalOffset / video.videoWidth;
+        
+        // Lower offset = better eye contact
+        eyeContactScore = Math.max(0, Math.min(100, 100 - (normalizedOffset * 500)));
+      }
+      
+      // Calculate head position
+      const leftEar = keypoints.find(p => p.name === 'leftEarTragion');
+      const rightEar = keypoints.find(p => p.name === 'rightEarTragion');
+      let headPosition = 'centered';
+      
+      if (leftEar && rightEar) {
+        const earDiff = Math.abs(leftEar.y - rightEar.y);
+        if (earDiff > 20) {
+          headPosition = leftEar.y > rightEar.y ? 'tilted_left' : 'tilted_right';
+        }
+        
+        const faceWidth = Math.abs(leftEar.x - rightEar.x);
+        const faceCenterX = (leftEar.x + rightEar.x) / 2;
+        const frameCenter = video.videoWidth / 2;
+        
+        if (Math.abs(faceCenterX - frameCenter) > faceWidth * 0.3) {
+          headPosition = faceCenterX < frameCenter ? 'looking_left' : 'looking_right';
+        }
+      }
+      
+      // Estimate expression based on mouth landmarks
+      const upperLip = keypoints.find(p => p.name === 'upperLip');
+      const lowerLip = keypoints.find(p => p.name === 'lowerLip');
+      const leftMouth = keypoints.find(p => p.name === 'mouthLeft');
+      const rightMouth = keypoints.find(p => p.name === 'mouthRight');
+      
+      let expression = 'neutral';
+      let engagementScore = 75;
+      
+      if (upperLip && lowerLip && leftMouth && rightMouth) {
+        const mouthOpenness = Math.abs(upperLip.y - lowerLip.y);
+        const mouthWidth = Math.abs(leftMouth.x - rightMouth.x);
+        
+        // Speaking detection
+        if (mouthOpenness > 15) {
+          expression = 'engaged';
+          engagementScore = 85;
+        }
+        
+        // Smile detection (corners of mouth higher)
+        const mouthCenterY = (upperLip.y + lowerLip.y) / 2;
+        const leftCornerOffset = mouthCenterY - leftMouth.y;
+        const rightCornerOffset = mouthCenterY - rightMouth.y;
+        
+        if (leftCornerOffset > 3 && rightCornerOffset > 3) {
+          expression = 'happy';
+          engagementScore = 90;
+        }
+      }
+      
+      // Adjust engagement based on eye contact and head position
+      if (eyeContactScore > 80) engagementScore += 5;
+      if (headPosition === 'centered') engagementScore += 5;
+      if (headPosition.includes('tilted') || headPosition.includes('looking')) engagementScore -= 10;
+      
+      engagementScore = Math.max(0, Math.min(100, engagementScore));
+      
+      // Generate tips
+      const tips = [];
+      if (eyeContactScore < 60) tips.push('Look directly at the camera lens');
+      if (headPosition !== 'centered') tips.push('Keep your head centered and facing forward');
+      if (engagementScore < 70) tips.push('Try to show more enthusiasm with your expressions');
+      if (expression === 'neutral') tips.push('A slight smile can make you appear more confident');
+      
+      return {
+        faceDetected: true,
+        eyeContact: Math.round(eyeContactScore),
+        expression,
+        engagement: Math.round(engagementScore),
+        headPosition,
+        confidence: Math.round((eyeContactScore + engagementScore) / 2),
+        tips: tips.length > 0 ? tips : ['Great! Keep maintaining your presence']
+      };
+    } catch (error) {
+      console.error('Face analysis error:', error);
+      return null;
+    }
+  };
+
+  // Start real-time analysis
+  const startRealTimeAnalysis = () => {
+    if (!modelLoaded || analysisIntervalRef.current) return;
+    
+    analysisIntervalRef.current = setInterval(async () => {
+      const analysis = await analyzeFace();
+      if (analysis) {
+        setRealTimeAnalysis(analysis);
+        if (analysis.faceDetected) {
+          setAnalysisHistory(prev => [...prev, {
+            ...analysis,
+            timestamp: Date.now()
+          }]);
+        }
+      }
+    }, 500); // Analyze every 500ms
+  };
+
+  // Stop real-time analysis
+  const stopRealTimeAnalysis = () => {
+    if (analysisIntervalRef.current) {
+      clearInterval(analysisIntervalRef.current);
+      analysisIntervalRef.current = null;
+    }
+  };
+
+  // Calculate session summary from analysis history
+  const calculateSessionSummary = () => {
+    if (analysisHistory.length === 0) return null;
+    
+    const validAnalyses = analysisHistory.filter(a => a.faceDetected);
+    if (validAnalyses.length === 0) return null;
+    
+    const avgEyeContact = validAnalyses.reduce((sum, a) => sum + a.eyeContact, 0) / validAnalyses.length;
+    const avgEngagement = validAnalyses.reduce((sum, a) => sum + a.engagement, 0) / validAnalyses.length;
+    const avgConfidence = validAnalyses.reduce((sum, a) => sum + a.confidence, 0) / validAnalyses.length;
+    
+    // Expression distribution
+    const expressionCounts = {};
+    validAnalyses.forEach(a => {
+      expressionCounts[a.expression] = (expressionCounts[a.expression] || 0) + 1;
+    });
+    
+    const dominantExpression = Object.entries(expressionCounts)
+      .sort((a, b) => b[1] - a[1])[0]?.[0] || 'neutral';
+    
+    // Trend analysis
+    const firstHalf = validAnalyses.slice(0, Math.floor(validAnalyses.length / 2));
+    const secondHalf = validAnalyses.slice(Math.floor(validAnalyses.length / 2));
+    
+    const firstHalfEngagement = firstHalf.reduce((sum, a) => sum + a.engagement, 0) / firstHalf.length;
+    const secondHalfEngagement = secondHalf.reduce((sum, a) => sum + a.engagement, 0) / secondHalf.length;
+    
+    let trend = 'consistent';
+    if (secondHalfEngagement > firstHalfEngagement + 5) trend = 'improving';
+    if (secondHalfEngagement < firstHalfEngagement - 5) trend = 'declining';
+    
+    // Generate strengths and improvements
+    const strengths = [];
+    const improvements = [];
+    
+    if (avgEyeContact >= 75) strengths.push('Excellent eye contact maintained throughout');
+    else if (avgEyeContact < 60) improvements.push('Work on maintaining consistent eye contact with the camera');
+    
+    if (avgEngagement >= 80) strengths.push('High engagement and enthusiasm shown');
+    else if (avgEngagement < 65) improvements.push('Try to appear more engaged and enthusiastic');
+    
+    if (dominantExpression === 'happy' || dominantExpression === 'engaged') {
+      strengths.push('Positive and approachable demeanor');
+    }
+    
+    if (trend === 'improving') strengths.push('Great improvement as the session progressed');
+    if (trend === 'declining') improvements.push('Try to maintain energy throughout longer responses');
+    
+    return {
+      eyeContact: Math.round(avgEyeContact),
+      engagement: Math.round(avgEngagement),
+      confidence: Math.round(avgConfidence),
+      dominantExpression,
+      expressionDistribution: expressionCounts,
+      trend,
+      strengths: strengths.length > 0 ? strengths : ['Completed the practice session'],
+      improvements: improvements.length > 0 ? improvements : ['Continue practicing to build confidence'],
+      totalFrames: validAnalyses.length,
+      duration: elapsedTime
+    };
+  };
+
   const generateQuestions = useCallback(async () => {
-    // First try to load cached questions from Interview Prep
     try {
       const cachedResponse = await apiClient.get("/api/interview/cached-questions");
       if (cachedResponse.data.questions?.length > 0) {
         setQuestions(cachedResponse.data.questions);
         setCurrentQuestion(cachedResponse.data.questions[0]);
-        toast.success(t("common.success"));
         return;
       }
     } catch (e) {
       console.log("No cached questions, generating new ones");
     }
     
-    // If no cached questions, generate new ones
     try {
       const response = await apiClient.post("/api/interview/generate-questions", {
         job_title: "Quality Manager",
@@ -97,9 +380,18 @@ const VideoInterviewPage = ({ resume }) => {
         setCurrentQuestion(response.data.questions[0]);
       }
     } catch (e) {
-      toast.error(t("errors.somethingWentWrong"));
+      // Fallback questions
+      const defaultQuestions = [
+        { text: "Tell me about yourself and your professional background.", category: "Behavioral" },
+        { text: "Describe a challenging project you've led.", category: "Leadership" },
+        { text: "How do you handle tight deadlines?", category: "Situational" },
+        { text: "What are your greatest strengths?", category: "Self-Assessment" },
+        { text: "Where do you see yourself in 5 years?", category: "Goals" }
+      ];
+      setQuestions(defaultQuestions);
+      setCurrentQuestion(defaultQuestions[0]);
     }
-  }, [resume?.skills, t]);
+  }, [resume?.skills]);
 
   const loadRecordings = useCallback(async () => {
     try {
@@ -110,7 +402,6 @@ const VideoInterviewPage = ({ resume }) => {
     }
   }, []);
 
-  // Load questions on mount
   useEffect(() => {
     if (resume?.skills?.length > 0) {
       generateQuestions();
@@ -118,7 +409,6 @@ const VideoInterviewPage = ({ resume }) => {
     loadRecordings();
   }, [resume?.skills?.length, generateQuestions, loadRecordings]);
 
-  // Timer effect
   useEffect(() => {
     if (isRecording) {
       timerRef.current = setInterval(() => {
@@ -132,6 +422,16 @@ const VideoInterviewPage = ({ resume }) => {
     };
   }, [isRecording]);
 
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      stopRealTimeAnalysis();
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, []);
+
   const startPreview = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ 
@@ -143,6 +443,9 @@ const VideoInterviewPage = ({ resume }) => {
         videoRef.current.srcObject = stream;
       }
       setIsPreviewing(true);
+      
+      // Load model in background
+      loadModel();
     } catch (err) {
       toast.error(t("errors.somethingWentWrong"));
       console.error("Camera error:", err);
@@ -150,6 +453,7 @@ const VideoInterviewPage = ({ resume }) => {
   };
 
   const stopPreview = () => {
+    stopRealTimeAnalysis();
     if (streamRef.current) {
       streamRef.current.getTracks().forEach(track => track.stop());
       streamRef.current = null;
@@ -158,12 +462,16 @@ const VideoInterviewPage = ({ resume }) => {
       videoRef.current.srcObject = null;
     }
     setIsPreviewing(false);
+    setRealTimeAnalysis(null);
   };
 
   const startRecording = () => {
     if (!streamRef.current) return;
     
     chunksRef.current = [];
+    setAnalysisHistory([]);
+    setSessionSummary(null);
+    
     const mediaRecorder = new MediaRecorder(streamRef.current, {
       mimeType: 'video/webm;codecs=vp9'
     });
@@ -184,7 +492,11 @@ const VideoInterviewPage = ({ resume }) => {
     mediaRecorder.start();
     setIsRecording(true);
     setElapsedTime(0);
-    setVideoAnalysis(null);
+    
+    // Start real-time analysis
+    if (modelLoaded) {
+      startRealTimeAnalysis();
+    }
   };
 
   const stopRecording = async () => {
@@ -192,46 +504,23 @@ const VideoInterviewPage = ({ resume }) => {
       mediaRecorderRef.current.stop();
     }
     setIsRecording(false);
+    stopRealTimeAnalysis();
     
-    // Capture frame for analysis
-    if (videoRef.current && elapsedTime >= 3) {
-      await analyzeVideoFrame();
-    }
-  };
-
-  const analyzeVideoFrame = async () => {
-    if (!videoRef.current) return;
+    // Calculate session summary
+    const summary = calculateSessionSummary();
+    setSessionSummary(summary);
     
-    setIsAnalyzing(true);
-    try {
-      // Capture current frame as base64
-      const canvas = document.createElement('canvas');
-      canvas.width = videoRef.current.videoWidth || 640;
-      canvas.height = videoRef.current.videoHeight || 480;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(videoRef.current, 0, 0);
-      const base64 = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
-      
-      const response = await apiClient.post("/api/interview/analyze-video-frame", {
-        frame_base64: base64,
-        question: currentQuestion?.text || currentQuestion || "",
-        context: "behavioral interview"
-      });
-      
-      setVideoAnalysis(response.data);
-      toast.success(t("common.success"));
-    } catch (e) {
-      toast.error(t("errors.somethingWentWrong"));
-      console.error(e);
+    if (summary) {
+      toast.success('Analysis complete!');
     }
-    setIsAnalyzing(false);
   };
 
   const startSession = () => {
     setIsSessionActive(true);
     setQuestionIndex(0);
-    setVideoAnalysis(null);
+    setSessionSummary(null);
     setRecordedVideoURL(null);
+    setAnalysisHistory([]);
     if (questions.length > 0) {
       setCurrentQuestion(questions[0]);
     }
@@ -243,9 +532,10 @@ const VideoInterviewPage = ({ resume }) => {
     if (newIndex < questions.length) {
       setQuestionIndex(newIndex);
       setCurrentQuestion(questions[newIndex]);
-      setVideoAnalysis(null);
+      setSessionSummary(null);
       setRecordedVideoURL(null);
       setElapsedTime(0);
+      setAnalysisHistory([]);
     } else {
       toast.success(t("common.success"));
       setIsSessionActive(false);
@@ -256,7 +546,7 @@ const VideoInterviewPage = ({ resume }) => {
   const endSession = () => {
     setIsSessionActive(false);
     stopPreview();
-    setVideoAnalysis(null);
+    setSessionSummary(null);
     setRecordedVideoURL(null);
   };
 
@@ -280,11 +570,16 @@ const VideoInterviewPage = ({ resume }) => {
     <div className="p-6 md:p-8 lg:p-12 max-w-7xl mx-auto animate-fade-in" data-testid="video-interview-page">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight" style={{ fontFamily: 'IBM Plex Sans' }}>
-          {t("video.title")}
-        </h1>
-        <p className="text-slate-500 dark:text-slate-400 mt-2">
-          {t("video.subtitle")}
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-xl flex items-center justify-center">
+            <Video className="w-5 h-5 text-white" />
+          </div>
+          <h1 className="text-3xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight" style={{ fontFamily: 'IBM Plex Sans' }}>
+            {t("video.title")}
+          </h1>
+        </div>
+        <p className="text-slate-500 dark:text-slate-400">
+          {t("video.subtitle")} • Real-time facial expression analysis powered by TensorFlow.js
         </p>
       </div>
 
@@ -296,21 +591,21 @@ const VideoInterviewPage = ({ resume }) => {
               <Video className="w-10 h-10 text-white" />
             </div>
             <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-100 mb-3" style={{ fontFamily: 'IBM Plex Sans' }}>
-              {t("video.title")}
+              AI-Powered Video Practice
             </h2>
             <p className="text-slate-500 dark:text-slate-400 mb-6">
-              {t("video.subtitle")}
+              Practice interviews with real-time AI analysis of your facial expressions, eye contact, and body language
             </p>
             
             <div className="flex flex-wrap justify-center gap-3 mb-8">
               {[
-                { icon: Eye, label: t("video.eyeContactAnalysis") },
-                { icon: User, label: t("video.postureFeedback") },
-                { icon: Sparkles, label: t("video.confidenceScore") },
-                { icon: Target, label: t("video.improvementTips") }
+                { icon: Eye, label: 'Eye Contact Tracking' },
+                { icon: Smile, label: 'Expression Analysis' },
+                { icon: Activity, label: 'Engagement Score' },
+                { icon: Sparkles, label: 'AI Coaching Tips' }
               ].map(({ icon: Icon, label }) => (
-                <Badge key={label} variant="outline" className="px-3 py-1">
-                  <Icon className="w-3 h-3 mr-1" /> {label}
+                <Badge key={label} variant="outline" className="px-3 py-1.5">
+                  <Icon className="w-3 h-3 mr-1.5" /> {label}
                 </Badge>
               ))}
             </div>
@@ -360,21 +655,55 @@ const VideoInterviewPage = ({ resume }) => {
                     playsInline
                     className="w-full h-full object-cover"
                   />
+                  <canvas ref={canvasRef} className="hidden" />
                   
-                  {/* Recording Indicator */}
-                  {isRecording && (
-                    <div className="absolute top-4 left-4 flex items-center gap-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm">
-                      <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                      REC {formatTime(elapsedTime)}
+                  {/* Status Indicators */}
+                  <div className="absolute top-4 left-4 flex items-center gap-2">
+                    {isRecording && (
+                      <div className="flex items-center gap-2 bg-red-500 text-white px-3 py-1 rounded-full text-sm">
+                        <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                        REC {formatTime(elapsedTime)}
+                      </div>
+                    )}
+                    <LiveIndicator 
+                      isActive={modelLoaded && isPreviewing} 
+                      label={modelLoaded ? 'AI Active' : isModelLoading ? 'Loading AI...' : 'Basic Mode'} 
+                    />
+                  </div>
+                  
+                  {/* Real-time feedback overlay */}
+                  {isRecording && realTimeAnalysis?.faceDetected && (
+                    <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
+                      <div className="bg-black/60 backdrop-blur-sm rounded-lg px-4 py-2 text-white text-sm">
+                        <div className="flex items-center gap-4">
+                          <span className="flex items-center gap-1">
+                            <Eye className="w-4 h-4" />
+                            Eye: {realTimeAnalysis.eyeContact}%
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Activity className="w-4 h-4" />
+                            Engagement: {realTimeAnalysis.engagement}%
+                          </span>
+                          <span className="text-lg">
+                            {EXPRESSION_EMOJI[realTimeAnalysis.expression] || '😐'}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      {realTimeAnalysis.tips?.[0] && (
+                        <div className="bg-turquoise/90 backdrop-blur-sm rounded-lg px-3 py-1.5 text-white text-xs max-w-xs">
+                          💡 {realTimeAnalysis.tips[0]}
+                        </div>
+                      )}
                     </div>
                   )}
                   
-                  {/* Analyzing Overlay */}
-                  {isAnalyzing && (
-                    <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+                  {/* Loading Model Overlay */}
+                  {isModelLoading && (
+                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                       <div className="text-center text-white">
-                        <Loader2 className="w-12 h-12 animate-spin mx-auto mb-3" />
-                        <p>{t("common.loading")}</p>
+                        <Loader2 className="w-8 h-8 animate-spin mx-auto mb-2" />
+                        <p className="text-sm">Loading AI analysis...</p>
                       </div>
                     </div>
                   )}
@@ -387,7 +716,7 @@ const VideoInterviewPage = ({ resume }) => {
                       size="lg"
                       onClick={startRecording}
                       className="w-16 h-16 rounded-full bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700"
-                      disabled={!isPreviewing || isAnalyzing}
+                      disabled={!isPreviewing}
                       data-testid="start-recording"
                     >
                       <Video className="w-8 h-8" />
@@ -402,22 +731,10 @@ const VideoInterviewPage = ({ resume }) => {
                       <VideoOff className="w-8 h-8" />
                     </Button>
                   )}
-                  
-                  {recordedVideoURL && !isRecording && (
-                    <Button
-                      variant="outline"
-                      onClick={analyzeVideoFrame}
-                      disabled={isAnalyzing}
-                      data-testid="analyze-video"
-                    >
-                      <Sparkles className="w-4 h-4 mr-2" />
-                      {isAnalyzing ? t("common.loading") : t("video.analyzeAgain")}
-                    </Button>
-                  )}
                 </div>
 
                 <p className="text-center text-sm text-slate-500 dark:text-slate-400 pb-4">
-                  {isRecording ? t("video.recording") : t("video.clickToStart")}
+                  {isRecording ? 'Recording with live AI analysis...' : 'Click to start recording'}
                 </p>
               </CardContent>
             </Card>
@@ -471,57 +788,57 @@ const VideoInterviewPage = ({ resume }) => {
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Sparkles className="w-5 h-5 text-violet-500" />
-                  {t("video.aiAnalysis")}
+                  {sessionSummary ? 'Session Analysis' : 'Live Analysis'}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {videoAnalysis ? (
+                {sessionSummary ? (
                   <div className="space-y-6">
                     {/* Scores */}
                     <div className="grid grid-cols-3 gap-2">
                       <CircularScore 
-                        score={videoAnalysis.eye_contact_score} 
-                        label={t("video.eyeContact")} 
+                        score={sessionSummary.eyeContact} 
+                        label="Eye Contact" 
                         color="#20b2aa" 
                       />
                       <CircularScore 
-                        score={videoAnalysis.posture_score} 
-                        label={t("video.posture")} 
+                        score={sessionSummary.engagement} 
+                        label="Engagement" 
                         color="#8b5cf6" 
                       />
                       <CircularScore 
-                        score={videoAnalysis.confidence_score} 
-                        label={t("video.confidence")} 
+                        score={sessionSummary.confidence} 
+                        label="Confidence" 
                         color="#f59e0b" 
                       />
                     </div>
 
-                    {/* Facial Expression */}
-                    <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
-                      <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{t("video.facialExpression")}</p>
-                      <p className="font-medium text-slate-900 dark:text-slate-100">
-                        {videoAnalysis.facial_expression}
-                      </p>
-                    </div>
-
-                    {/* Overall Assessment */}
-                    <div className="p-3 bg-violet-50 dark:bg-violet-900/20 rounded-lg">
-                      <p className="text-sm font-medium text-violet-700 dark:text-violet-300 mb-1">
-                        {t("video.overallAssessment")}
-                      </p>
-                      <p className="text-sm text-violet-600 dark:text-violet-400">
-                        {videoAnalysis.overall_assessment}
-                      </p>
+                    {/* Expression & Trend */}
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg text-center">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Expression</p>
+                        <p className="text-2xl">{EXPRESSION_EMOJI[sessionSummary.dominantExpression]}</p>
+                        <p className="text-xs font-medium capitalize">{sessionSummary.dominantExpression}</p>
+                      </div>
+                      <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg text-center">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-1">Trend</p>
+                        <TrendingUp className={`w-6 h-6 mx-auto ${
+                          sessionSummary.trend === 'improving' ? 'text-emerald-500' :
+                          sessionSummary.trend === 'declining' ? 'text-red-500 rotate-180' :
+                          'text-slate-400'
+                        }`} />
+                        <p className="text-xs font-medium capitalize">{sessionSummary.trend}</p>
+                      </div>
                     </div>
 
                     {/* Strengths */}
-                    {videoAnalysis.strengths?.length > 0 && (
+                    {sessionSummary.strengths?.length > 0 && (
                       <div>
                         <h4 className="text-sm font-medium text-emerald-700 dark:text-emerald-400 mb-2 flex items-center gap-1">
-                          <CheckCircle2 className="w-4 h-4" /> {t("video.strengths")}
+                          <CheckCircle2 className="w-4 h-4" /> Strengths
                         </h4>
                         <ul className="space-y-1">
-                          {videoAnalysis.strengths.map((s, i) => (
+                          {sessionSummary.strengths.map((s, i) => (
                             <li key={i} className="text-sm text-slate-600 dark:text-slate-400">
                               ✓ {s}
                             </li>
@@ -531,13 +848,13 @@ const VideoInterviewPage = ({ resume }) => {
                     )}
 
                     {/* Improvements */}
-                    {videoAnalysis.improvements?.length > 0 && (
+                    {sessionSummary.improvements?.length > 0 && (
                       <div>
                         <h4 className="text-sm font-medium text-amber-700 dark:text-amber-400 mb-2 flex items-center gap-1">
-                          <Target className="w-4 h-4" /> {t("video.areasToImprove")}
+                          <Target className="w-4 h-4" /> Areas to Improve
                         </h4>
                         <ul className="space-y-1">
-                          {videoAnalysis.improvements.map((s, i) => (
+                          {sessionSummary.improvements.map((s, i) => (
                             <li key={i} className="text-sm text-slate-600 dark:text-slate-400">
                               → {s}
                             </li>
@@ -546,26 +863,59 @@ const VideoInterviewPage = ({ resume }) => {
                       </div>
                     )}
 
-                    {/* Body Language Tips */}
-                    {videoAnalysis.body_language_tips?.length > 0 && (
-                      <div>
-                        <h4 className="text-sm font-medium text-sky-700 dark:text-sky-400 mb-2 flex items-center gap-1">
-                          <Zap className="w-4 h-4" /> {t("video.quickTips")}
-                        </h4>
-                        <ul className="space-y-1">
-                          {videoAnalysis.body_language_tips.slice(0, 3).map((tip, i) => (
-                            <li key={i} className="text-sm text-slate-600 dark:text-slate-400">
-                              {tip}
-                            </li>
-                          ))}
-                        </ul>
+                    <div className="text-xs text-slate-400 dark:text-slate-500 text-center pt-2 border-t border-slate-200 dark:border-slate-700">
+                      Analyzed {sessionSummary.totalFrames} frames over {formatTime(sessionSummary.duration)}
+                    </div>
+                  </div>
+                ) : realTimeAnalysis ? (
+                  <div className="space-y-4">
+                    {realTimeAnalysis.faceDetected ? (
+                      <>
+                        <div className="grid grid-cols-3 gap-2">
+                          <CircularScore 
+                            score={realTimeAnalysis.eyeContact} 
+                            label="Eye" 
+                            color="#20b2aa" 
+                          />
+                          <CircularScore 
+                            score={realTimeAnalysis.engagement} 
+                            label="Engage" 
+                            color="#8b5cf6" 
+                          />
+                          <CircularScore 
+                            score={realTimeAnalysis.confidence} 
+                            label="Conf." 
+                            color="#f59e0b" 
+                          />
+                        </div>
+                        
+                        <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg text-center">
+                          <p className="text-xs text-slate-500 dark:text-slate-400">Expression</p>
+                          <p className="text-3xl my-1">{EXPRESSION_EMOJI[realTimeAnalysis.expression]}</p>
+                          <p className="text-sm font-medium capitalize">{realTimeAnalysis.expression}</p>
+                        </div>
+
+                        {realTimeAnalysis.tips?.[0] && (
+                          <div className="p-3 bg-turquoise/10 rounded-lg">
+                            <p className="text-sm text-turquoise font-medium">💡 Quick Tip</p>
+                            <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                              {realTimeAnalysis.tips[0]}
+                            </p>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div className="text-center py-4 text-amber-600 dark:text-amber-400">
+                        <AlertCircle className="w-10 h-10 mx-auto mb-2 opacity-60" />
+                        <p className="text-sm">Face not detected</p>
+                        <p className="text-xs mt-1">Position yourself in the center of the frame</p>
                       </div>
                     )}
                   </div>
                 ) : (
                   <div className="text-center py-8 text-slate-400 dark:text-slate-500">
                     <Eye className="w-12 h-12 mx-auto mb-4 opacity-40" />
-                    <p>{t("video.recordToAnalyze")}</p>
+                    <p>{isRecording ? 'Analyzing...' : 'Start recording to see live analysis'}</p>
                   </div>
                 )}
               </CardContent>
@@ -596,7 +946,7 @@ const VideoInterviewPage = ({ resume }) => {
                     </p>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                       Duration: {formatTime(recording.duration_seconds || 0)} • 
-                      {recording.feedback?.overall_score ? ` ${t("interview.score")}: ${recording.feedback.overall_score}` : ''}
+                      {recording.feedback?.overall_score ? ` Score: ${recording.feedback.overall_score}` : ''}
                       {' • '}{new Date(recording.created_at).toLocaleDateString()}
                     </p>
                   </div>
@@ -619,16 +969,16 @@ const VideoInterviewPage = ({ resume }) => {
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="text-lg" style={{ fontFamily: 'IBM Plex Sans' }}>
-            {t("video.videoTips")}
+            Video Interview Tips
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-4 gap-4">
             {[
-              { icon: Eye, title: t("video.eyeContact"), desc: t("video.lookAtCamera") },
-              { icon: User, title: t("video.posture"), desc: t("video.sitStraight") },
-              { icon: Camera, title: "Lighting", desc: t("video.faceLightSource") },
-              { icon: Award, title: "Background", desc: t("video.cleanBackground") }
+              { icon: Eye, title: 'Eye Contact', desc: 'Look directly at the camera lens, not the screen' },
+              { icon: User, title: 'Posture', desc: 'Sit up straight with shoulders back' },
+              { icon: Camera, title: 'Lighting', desc: 'Face a light source, avoid backlighting' },
+              { icon: Award, title: 'Expression', desc: 'Maintain a natural, friendly expression' }
             ].map(({ icon: Icon, title, desc }) => (
               <div key={title} className="text-center p-4">
                 <Icon className="w-8 h-8 text-turquoise mx-auto mb-2" />
