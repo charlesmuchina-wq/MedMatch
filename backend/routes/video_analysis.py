@@ -14,7 +14,6 @@ import base64
 import json
 
 from emergentintegrations.llm.chat import LlmChat, UserMessage
-from emergentintegrations.llm.stt import OpenAISpeechToText
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
