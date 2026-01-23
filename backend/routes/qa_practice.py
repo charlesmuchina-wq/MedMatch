@@ -115,8 +115,6 @@ async def generate_ai_answer(question: str, question_type: str, job_context: Job
                              resume_text: str = None, match_analysis: Dict = None) -> Dict:
     """Generate AI-driven answer for an interview question"""
     try:
-        chat = LlmChat(api_key=EMERGENT_LLM_KEY)
-        
         context_parts = []
         if job_context.company_name:
             context_parts.append(f"Company: {job_context.company_name}")
@@ -139,7 +137,9 @@ async def generate_ai_answer(question: str, question_type: str, job_context: Job
                 skills = [t.get("skill", t) if isinstance(t, dict) else t for t in transferable[:5]]
                 match_context += f"\nTransferable Skills: {', '.join(skills)}"
         
-        response = await chat.send_message(
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=str(uuid.uuid4()),
             system_message=f"""You are an expert interview coach helping a candidate prepare for a {question_type} interview question.
 
 Generate a comprehensive, personalized answer that:
@@ -158,8 +158,11 @@ Return a JSON object:
     "follow_up_tips": ["tip 1", "tip 2"],
     "what_to_avoid": ["pitfall 1", "pitfall 2"],
     "confidence_level": "high/medium/low based on resume match"
-}}""",
-            text=f"""INTERVIEW QUESTION ({question_type}):
+}}"""
+        ).with_model("openai", "gpt-5.2")
+        
+        response = await chat.send_message(
+            UserMessage(text=f"""INTERVIEW QUESTION ({question_type}):
 {question}
 
 JOB CONTEXT:
@@ -167,12 +170,16 @@ JOB CONTEXT:
 {resume_context}
 {match_context}
 
-Generate a tailored answer for this specific question.""",
-            json_mode=True
+Generate a tailored answer for this specific question.""")
         )
         
         import json
-        return json.loads(response)
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        return json.loads(clean_response)
     except Exception as e:
         logging.error(f"AI answer generation error: {e}")
         return {
