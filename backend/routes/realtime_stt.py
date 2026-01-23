@@ -115,7 +115,7 @@ async def transcribe_audio_file(
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
-    if not EMERGENT_LLM_KEY:
+    if not EMERGENT_LLM_KEY or OpenAISpeechToText is None:
         raise HTTPException(status_code=500, detail="STT service not configured")
     
     # Check file size (max 25MB)
