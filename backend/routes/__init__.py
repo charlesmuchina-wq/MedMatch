@@ -38,6 +38,9 @@ from routes.linkedin import router as linkedin_router
 from routes.feedback import router as feedback_router
 from routes.autofill import router as autofill_router
 
+# Real-time Speech-to-Text
+from routes.realtime_stt import router as realtime_stt_router
+
 __all__ = [
     # Core routes
     'auth_router',
