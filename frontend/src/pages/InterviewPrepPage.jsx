@@ -118,13 +118,25 @@ const InterviewPrepPage = ({ resume }) => {
 
     setGeneratingQuestions(true);
     try {
-      const response = await api.client.post(`${API}/interview/generate-questions`, {
+      // Use new AI interview prep endpoint
+      const response = await api.client.post(`${API}/api/interview-prep`, {
         job_title: jobTitle,
         company: company,
-        resume_skills: resume?.skills || []
+        difficulty: "medium",
+        num_questions: 5,
+        topics: resume?.skills?.slice(0, 5) || []
       });
-      setQuestions(response.data.questions || []);
-      toast.success(`Generated ${response.data.questions?.length || 0} interview questions!`);
+      
+      // Map response to expected format
+      const questions = response.data.questions?.map(q => ({
+        text: q.question,
+        type: q.type,
+        tip: q.tip,
+        sample_points: q.sample_points
+      })) || [];
+      
+      setQuestions(questions);
+      toast.success(`Generated ${questions.length} interview questions!`);
     } catch (e) {
       toast.error("Failed to generate questions");
     }
@@ -135,12 +147,15 @@ const InterviewPrepPage = ({ resume }) => {
     setGeneratingAnswer(true);
     setSelectedQuestion(question);
     try {
-      const response = await api.client.post(`${API}/interview/generate-answer`, {
-        question: question.text || question,
-        job_title: jobTitle,
-        company: company
+      // Use KARAU DRAGON assistant for answer generation
+      const response = await api.client.post(`${API}/api/assistant`, {
+        message: `Generate a strong interview answer for this question: "${question.text || question}". The position is ${jobTitle} at ${company || 'a company'}. Use the STAR method if applicable.`,
+        context: "interview"
       });
-      setGeneratedAnswer(response.data);
+      setGeneratedAnswer({
+        answer: response.data.response,
+        tips: ["Use specific examples", "Quantify results when possible", "Connect to the job requirements"]
+      });
     } catch (e) {
       toast.error("Failed to generate answer");
     }
