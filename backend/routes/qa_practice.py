@@ -195,9 +195,9 @@ async def analyze_user_answer(question: str, user_answer: str, job_context: JobC
                               resume_text: str = None) -> Dict:
     """Analyze and provide feedback on user's answer"""
     try:
-        chat = LlmChat(api_key=EMERGENT_LLM_KEY)
-        
-        response = await chat.send_message(
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=str(uuid.uuid4()),
             system_message="""You are an expert interview coach providing constructive feedback on a candidate's answer.
 
 Analyze the answer and return a JSON object:
@@ -212,8 +212,11 @@ Analyze the answer and return a JSON object:
     "relevance_to_job": "high/medium/low",
     "authenticity_score": <1-10>,
     "star_method_usage": "excellent/good/needs work/not applicable"
-}""",
-            text=f"""QUESTION:
+}"""
+        ).with_model("openai", "gpt-5.2")
+        
+        response = await chat.send_message(
+            UserMessage(text=f"""QUESTION:
 {question}
 
 CANDIDATE'S ANSWER:
@@ -227,12 +230,16 @@ Requirements: {job_context.job_description[:1000] if job_context.job_description
 CANDIDATE RESUME:
 {resume_text[:1500] if resume_text else 'Not provided'}
 
-Provide detailed, constructive feedback.""",
-            json_mode=True
+Provide detailed, constructive feedback.""")
         )
         
         import json
-        return json.loads(response)
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        return json.loads(clean_response)
     except Exception as e:
         logging.error(f"User answer analysis error: {e}")
         return {
