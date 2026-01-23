@@ -47,6 +47,9 @@ from routes.webpush import router as webpush_router
 # Video Facial Expression Analysis
 from routes.video_analysis import router as video_analysis_router
 
+# Persona/Jumio ID Verification
+from routes.persona_verification import router as persona_verification_router
+
 __all__ = [
     # Core routes
     'auth_router',
