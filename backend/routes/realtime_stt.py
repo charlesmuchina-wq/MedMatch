@@ -91,7 +91,7 @@ async def get_realtime_stt_status(request: Request):
         raise HTTPException(status_code=401, detail="Not authenticated")
     
     return {
-        "available": bool(EMERGENT_LLM_KEY),
+        "available": bool(EMERGENT_LLM_KEY) and OpenAISpeechToText is not None,
         "model": "whisper-1",
         "features": {
             "streaming": True,
