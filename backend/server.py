@@ -204,7 +204,8 @@ from routes import (
     id_verification_router,
     linkedin_router,
     feedback_router,
-    autofill_router
+    autofill_router,
+    realtime_stt_router
 )
 
 # Import batch router
