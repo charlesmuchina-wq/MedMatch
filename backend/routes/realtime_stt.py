@@ -51,7 +51,7 @@ class TranscriptionSession(BaseModel):
 
 async def transcribe_audio_chunk(audio_data: bytes, format: str = "webm") -> Optional[str]:
     """Transcribe a chunk of audio using Whisper"""
-    if not EMERGENT_LLM_KEY:
+    if not EMERGENT_LLM_KEY or OpenAISpeechToText is None:
         return None
     
     try:
