@@ -124,16 +124,37 @@ const KarauDragonAI = ({ user, isOpen, onClose }) => {
     setWebResults([]);
 
     try {
-      // Send command to AI for processing
-      const result = await axios.post(`${API}/api/dragon/process`, {
-        command,
-        user_context: {
-          has_resume: true, // We'll check this
-          user_name: user?.name || "User"
+      // Determine context based on command keywords
+      let context = "general";
+      const lowerCommand = command.toLowerCase();
+      if (lowerCommand.includes("job") || lowerCommand.includes("search") || lowerCommand.includes("find")) {
+        context = "job_search";
+      } else if (lowerCommand.includes("resume") || lowerCommand.includes("cv")) {
+        context = "resume";
+      } else if (lowerCommand.includes("interview") || lowerCommand.includes("question")) {
+        context = "interview";
+      } else if (lowerCommand.includes("career") || lowerCommand.includes("advice")) {
+        context = "career";
+      }
+      
+      // Use the new AI assistant endpoint
+      const result = await axios.post(`${API}/api/assistant`, {
+        message: command,
+        context: context
+      }, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
         }
       });
 
-      const aiResponse = result.data;
+      const aiResponse = {
+        text: result.data.response,
+        speech: result.data.response.substring(0, 200), // Limit speech length
+        context: result.data.context,
+        assistant: result.data.assistant
+      };
+      
       setResponse(aiResponse);
 
       // Add to history
@@ -143,20 +164,25 @@ const KarauDragonAI = ({ user, isOpen, onClose }) => {
         timestamp: new Date().toISOString()
       }, ...prev.slice(0, 9)]);
 
-      // Speak the response
+      // Speak the response (first part only)
       if (aiResponse.speech) {
         speak(aiResponse.speech);
       }
 
-      // Handle actions
-      if (aiResponse.action) {
-        await executeAction(aiResponse);
-      }
+    } catch (error) {
+      console.error("Dragon AI error:", error);
+      
+      // Fallback response
+      const fallbackResponse = {
+        text: "I'm here to help with your job search! You can ask me about interview tips, resume advice, job searching strategies, or career guidance. What would you like to know?",
+        speech: "I'm here to help with your job search!"
+      };
+      setResponse(fallbackResponse);
+      speak(fallbackResponse.speech);
+    }
 
-      // Handle web search results
-      if (aiResponse.web_results) {
-        setWebResults(aiResponse.web_results);
-      }
+    setProcessing(false);
+  };
 
     } catch (error) {
       console.error("Dragon AI error:", error);
