@@ -11,7 +11,7 @@ import statistics
 import json
 from datetime import datetime
 
-API_URL = "https://jobfinder-ai-3.preview.emergentagent.com/api"
+API_URL = "https://career-match-123.preview.emergentagent.com/api"
 
 # Endpoints to test
 ENDPOINTS = [

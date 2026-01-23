@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://jobfinder-ai-3.preview.emergentagent.com/api
+**API Target:** https://career-match-123.preview.emergentagent.com/api
 
 ---
 
