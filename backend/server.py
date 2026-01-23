@@ -205,7 +205,8 @@ from routes import (
     linkedin_router,
     feedback_router,
     autofill_router,
-    realtime_stt_router
+    realtime_stt_router,
+    webpush_router
 )
 
 # Import batch router
