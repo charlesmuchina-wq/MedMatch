@@ -14,11 +14,16 @@ import base64
 from datetime import datetime, timezone
 import io
 
-from emergentintegrations.llm.stt import OpenAISpeechToText
-
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
 from routes.auth import get_current_user
+
+# Import STT from the correct location
+try:
+    from emergentintegrations.llm.openai import OpenAISpeechToText
+except ImportError:
+    # Fallback for different package structure
+    OpenAISpeechToText = None
 
 router = APIRouter(prefix="/realtime-stt", tags=["Real-time Speech-to-Text"])
 
