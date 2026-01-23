@@ -315,18 +315,29 @@ const VoiceCoachPage = ({ resume }) => {
 
     setIsAnalyzing(true);
     try {
-      const response = await apiClient.post("/api/interview/voice-feedback", {
+      // Use new Q&A practice endpoint for evaluation
+      const response = await apiClient.post("/api/qa-practice", {
         question: currentQuestion?.text || currentQuestion,
         answer: transcript,
-        duration_seconds: elapsedTime,
-        job_title: "Quality Manager"
+        job_context: "Interview practice"
       });
-      setFeedback(response.data);
+      
+      // Map response to expected feedback format
+      const feedbackData = {
+        overall_score: response.data.score * 10, // Convert 1-10 to percentage
+        feedback: response.data.feedback,
+        strengths: response.data.strengths || [],
+        areas_to_improve: response.data.improvements || [],
+        example_answer: response.data.example_answer,
+        follow_up_questions: response.data.follow_up_questions || []
+      };
+      
+      setFeedback(feedbackData);
       
       setSessionStats(prev => ({
         questionsAnswered: prev.questionsAnswered + 1,
         averageScore: Math.round(
-          (prev.averageScore * prev.questionsAnswered + response.data.overall_score) / 
+          (prev.averageScore * prev.questionsAnswered + feedbackData.overall_score) / 
           (prev.questionsAnswered + 1)
         ),
         totalTime: prev.totalTime + elapsedTime
