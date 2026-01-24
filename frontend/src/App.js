@@ -111,6 +111,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/saved", icon: Bookmark, labelKey: "nav.savedJobs" },
     { path: "/applications", icon: CheckSquare, labelKey: "nav.applications" },
     { path: "/interviews", icon: Video, labelKey: "nav.myInterviews" },
+    { path: "/interview-calendar", icon: CalendarDays, labelKey: "nav.interviewCalendar" },
     { path: "/predictor", icon: Target, labelKey: "nav.successPredictor" },
     { path: "/interview", icon: Mic, labelKey: "nav.interviewPrep" },
     { path: "/qa-practice", icon: MessageSquare, labelKey: "nav.qaPractice" },
