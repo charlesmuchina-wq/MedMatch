@@ -12,26 +12,25 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
 
-// Voice Waveform Visualization Component
-const VoiceWaveform = ({ isActive, audioLevel = 0 }) => {
+// Voice Waveform Visualization Component - uses CSS animation instead of random values
+const VoiceWaveform = ({ isActive }) => {
   const bars = 24;
-  // Pre-generate random heights for consistent rendering
-  const randomHeights = Array.from({ length: bars }, () => Math.random() * 10);
   
   return (
     <div className="flex items-center justify-center gap-0.5 h-16">
       {[...Array(bars)].map((_, i) => {
         const centerDistance = Math.abs(i - bars / 2) / (bars / 2);
-        const baseHeight = isActive ? (1 - centerDistance * 0.7) * (30 + audioLevel * 20) : 4;
+        const baseHeight = (1 - centerDistance * 0.7) * 40;
         return (
           <div
             key={i}
-            className={`w-1 bg-gradient-to-t from-turquoise to-cyan-400 rounded-full transition-all duration-75 ${
-              isActive ? 'animate-pulse' : 'opacity-30'
+            className={`w-1 bg-gradient-to-t from-turquoise to-cyan-400 rounded-full transition-all duration-150 ${
+              isActive ? 'animate-bounce' : 'opacity-30'
             }`}
             style={{
-              height: `${isActive ? baseHeight + randomHeights[i] : 4}px`,
-              animationDelay: `${i * 30}ms`
+              height: isActive ? `${baseHeight}px` : '4px',
+              animationDelay: `${i * 50}ms`,
+              animationDuration: `${400 + i * 20}ms`
             }}
           />
         );
