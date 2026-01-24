@@ -2,7 +2,7 @@
 Messaging Routes
 Handles: In-app messaging between recruiters and job seekers
 """
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
 from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime, timezone
@@ -11,6 +11,7 @@ import logging
 
 from utils.database import db
 from routes.auth import get_current_user
+from utils.push_service import notify_new_message
 
 router = APIRouter(prefix="/messages", tags=["Messaging"])
 
