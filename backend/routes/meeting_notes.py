@@ -68,9 +68,9 @@ async def generate_meeting_summary(
         }
     
     try:
-        chat = LlmChat(api_key=EMERGENT_LLM_KEY)
-        
         context = f"Company: {company}\nPosition: {position}\n" if company else ""
+        
+        system_message = "You are an expert meeting analyst. Extract actionable insights from meeting transcripts. Always respond with valid JSON only."
         
         prompt = f"""Analyze this {meeting_type} meeting transcript and provide a structured summary.
 
@@ -92,11 +92,13 @@ Provide your response in the following JSON format:
 
 Return ONLY valid JSON, no markdown or explanation."""
 
-        response = await chat.send_message(
-            prompt,
-            model="gpt-4o-mini",
-            system_prompt="You are an expert meeting analyst. Extract actionable insights from meeting transcripts. Always respond with valid JSON only."
-        )
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=str(uuid.uuid4()),
+            system_message=system_message
+        ).with_model("openai", "gpt-4o-mini")
+
+        response = await chat.send_message(prompt)
         
         # Parse JSON response
         try:
