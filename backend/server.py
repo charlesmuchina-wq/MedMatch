@@ -211,8 +211,9 @@ from routes import (
     persona_verification_router
 )
 
-# Import batch router
+# Import additional routers
 from routes.batch import router as batch_router
+from routes.meeting_notes import router as meeting_notes_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
