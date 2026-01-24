@@ -564,12 +564,31 @@ const InterviewCalendarPage = () => {
           </p>
         </div>
 
-        <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-          <DialogTrigger asChild>
-            <Button className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700">
-              <Plus className="w-4 h-4 mr-2" /> Schedule Interview
-            </Button>
-          </DialogTrigger>
+        <div className="flex items-center gap-3 flex-wrap">
+          {/* Google Calendar Integration */}
+          <GoogleCalendarConnect 
+            isConnected={googleCalendarConnected}
+            connectedEmail={googleCalendarEmail}
+            onConnect={(email) => {
+              setGoogleCalendarConnected(true);
+              setGoogleCalendarEmail(email);
+            }}
+            onSync={() => {
+              loadEvents();
+              loadStats();
+            }}
+            onDisconnect={() => {
+              setGoogleCalendarConnected(false);
+              setGoogleCalendarEmail(null);
+            }}
+          />
+
+          <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
+            <DialogTrigger asChild>
+              <Button className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700">
+                <Plus className="w-4 h-4 mr-2" /> Schedule Interview
+              </Button>
+            </DialogTrigger>
           <DialogContent className="max-w-lg">
             <DialogHeader>
               <DialogTitle>Schedule New Interview</DialogTitle>
