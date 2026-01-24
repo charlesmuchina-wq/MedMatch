@@ -116,6 +116,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/video-practice", icon: Video, labelKey: "nav.videoPractice" },
     { path: "/voice-coach", icon: Volume2, labelKey: "nav.voiceCoach" },
     { path: "/realtime-stt", icon: Mic, labelKey: "nav.realtimeSTT" },
+    { path: "/meeting-notes", icon: FileText, labelKey: "nav.meetingNotes" },
     { path: "/cover-letter", icon: PenTool, labelKey: "nav.coverLetter" },
     { path: "/alerts", icon: Bell, labelKey: "nav.jobAlerts" },
     { path: "/notifications", icon: Bell, labelKey: "nav.notifications" },
