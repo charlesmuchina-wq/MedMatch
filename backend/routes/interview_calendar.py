@@ -118,7 +118,7 @@ Return ONLY valid JSON."""
             system_message=system_message
         ).with_model("openai", "gpt-4o-mini")
         
-        response = await chat.send_message(prompt)
+        response = await chat.send_message(UserMessage(text=prompt))
         
         # Parse JSON response
         try:
