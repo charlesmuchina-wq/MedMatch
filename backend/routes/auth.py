@@ -656,6 +656,213 @@ async def update_user_preferences(prefs: UpdatePreferencesRequest, request: Requ
         "timezone": prefs.timezone or user.get("timezone", "UTC")
     }
 
+
+# ============== Google Calendar OAuth ==============
+
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", "")
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", "")
+GOOGLE_CALENDAR_SCOPES = "https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events"
+
+
+@router.get("/google-calendar/config")
+async def get_google_calendar_config(request: Request):
+    """Get Google Calendar OAuth configuration"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Check if user already has Google Calendar connected
+    cal_auth = await db.google_calendar_auth.find_one(
+        {"user_id": user["user_id"]},
+        {"_id": 0, "access_token": 0, "refresh_token": 0}
+    )
+    
+    return {
+        "configured": bool(GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET),
+        "client_id": GOOGLE_CLIENT_ID if GOOGLE_CLIENT_ID else None,
+        "scopes": GOOGLE_CALENDAR_SCOPES,
+        "connected": cal_auth is not None,
+        "connected_email": cal_auth.get("email") if cal_auth else None,
+        "connected_at": cal_auth.get("connected_at") if cal_auth else None
+    }
+
+
+@router.post("/google-calendar/connect")
+async def connect_google_calendar(request: Request):
+    """Exchange authorization code for access token and store it"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    body = await request.json()
+    code = body.get("code")
+    redirect_uri = body.get("redirect_uri")
+    
+    if not code:
+        raise HTTPException(status_code=400, detail="Authorization code required")
+    
+    if not GOOGLE_CLIENT_ID or not GOOGLE_CLIENT_SECRET:
+        raise HTTPException(status_code=500, detail="Google Calendar not configured on server")
+    
+    try:
+        # Exchange code for tokens
+        async with httpx.AsyncClient() as client:
+            token_response = await client.post(
+                "https://oauth2.googleapis.com/token",
+                data={
+                    "code": code,
+                    "client_id": GOOGLE_CLIENT_ID,
+                    "client_secret": GOOGLE_CLIENT_SECRET,
+                    "redirect_uri": redirect_uri,
+                    "grant_type": "authorization_code"
+                }
+            )
+            
+            if token_response.status_code != 200:
+                logging.error(f"Google token exchange failed: {token_response.text}")
+                raise HTTPException(status_code=400, detail="Failed to exchange authorization code")
+            
+            tokens = token_response.json()
+            
+            # Get user info from Google
+            user_info_response = await client.get(
+                "https://www.googleapis.com/oauth2/v2/userinfo",
+                headers={"Authorization": f"Bearer {tokens['access_token']}"}
+            )
+            
+            google_email = None
+            if user_info_response.status_code == 200:
+                user_info = user_info_response.json()
+                google_email = user_info.get("email")
+        
+        # Calculate token expiry
+        expires_in = tokens.get("expires_in", 3600)
+        expires_at = datetime.now(timezone.utc) + timedelta(seconds=expires_in)
+        
+        # Store tokens
+        cal_auth_doc = {
+            "user_id": user["user_id"],
+            "email": google_email,
+            "access_token": tokens["access_token"],
+            "refresh_token": tokens.get("refresh_token"),
+            "token_type": tokens.get("token_type", "Bearer"),
+            "expires_at": expires_at.isoformat(),
+            "scope": tokens.get("scope", GOOGLE_CALENDAR_SCOPES),
+            "connected_at": datetime.now(timezone.utc).isoformat()
+        }
+        
+        # Upsert - update if exists, insert if not
+        await db.google_calendar_auth.update_one(
+            {"user_id": user["user_id"]},
+            {"$set": cal_auth_doc},
+            upsert=True
+        )
+        
+        return {
+            "success": True,
+            "message": "Google Calendar connected successfully",
+            "email": google_email
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"Google Calendar connection error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to connect Google Calendar")
+
+
+@router.get("/google-calendar/token")
+async def get_google_calendar_token(request: Request):
+    """Get fresh Google Calendar access token (refreshes if expired)"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    cal_auth = await db.google_calendar_auth.find_one(
+        {"user_id": user["user_id"]},
+        {"_id": 0}
+    )
+    
+    if not cal_auth:
+        raise HTTPException(status_code=404, detail="Google Calendar not connected")
+    
+    # Check if token is expired
+    expires_at_str = cal_auth.get("expires_at")
+    if expires_at_str:
+        expires_at = datetime.fromisoformat(expires_at_str.replace('Z', '+00:00'))
+        
+        # If token expires in less than 5 minutes, refresh it
+        if expires_at < datetime.now(timezone.utc) + timedelta(minutes=5):
+            refresh_token = cal_auth.get("refresh_token")
+            
+            if not refresh_token:
+                # Need to re-authenticate
+                await db.google_calendar_auth.delete_one({"user_id": user["user_id"]})
+                raise HTTPException(status_code=401, detail="Token expired, please reconnect Google Calendar")
+            
+            try:
+                async with httpx.AsyncClient() as client:
+                    refresh_response = await client.post(
+                        "https://oauth2.googleapis.com/token",
+                        data={
+                            "client_id": GOOGLE_CLIENT_ID,
+                            "client_secret": GOOGLE_CLIENT_SECRET,
+                            "refresh_token": refresh_token,
+                            "grant_type": "refresh_token"
+                        }
+                    )
+                    
+                    if refresh_response.status_code != 200:
+                        await db.google_calendar_auth.delete_one({"user_id": user["user_id"]})
+                        raise HTTPException(status_code=401, detail="Failed to refresh token, please reconnect")
+                    
+                    new_tokens = refresh_response.json()
+                    
+                    # Calculate new expiry
+                    new_expires_in = new_tokens.get("expires_in", 3600)
+                    new_expires_at = datetime.now(timezone.utc) + timedelta(seconds=new_expires_in)
+                    
+                    # Update stored tokens
+                    await db.google_calendar_auth.update_one(
+                        {"user_id": user["user_id"]},
+                        {"$set": {
+                            "access_token": new_tokens["access_token"],
+                            "expires_at": new_expires_at.isoformat()
+                        }}
+                    )
+                    
+                    return {
+                        "access_token": new_tokens["access_token"],
+                        "expires_in": new_expires_in
+                    }
+                    
+            except HTTPException:
+                raise
+            except Exception as e:
+                logging.error(f"Token refresh error: {e}")
+                raise HTTPException(status_code=500, detail="Failed to refresh token")
+    
+    return {
+        "access_token": cal_auth["access_token"],
+        "expires_in": 3600  # Approximate
+    }
+
+
+@router.delete("/google-calendar/disconnect")
+async def disconnect_google_calendar(request: Request):
+    """Disconnect Google Calendar integration"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    result = await db.google_calendar_auth.delete_one({"user_id": user["user_id"]})
+    
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Google Calendar not connected")
+    
+    return {"success": True, "message": "Google Calendar disconnected"}
+
+
 # Export helper functions for use in other modules
 __all__ = [
     'router', 
