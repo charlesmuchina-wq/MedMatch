@@ -5,9 +5,17 @@ Tests: CRUD operations, AI preparation generation, stats, upcoming interviews
 import pytest
 import requests
 import os
+import time
 from datetime import datetime, timedelta
 
 BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', '').rstrip('/')
+
+# Add delay between tests to avoid rate limiting
+@pytest.fixture(autouse=True)
+def rate_limit_delay():
+    """Add delay between tests to avoid rate limiting"""
+    yield
+    time.sleep(1.5)  # Wait 1.5 seconds between tests
 
 # Test credentials
 TEST_EMAIL = "admin@medmatch.com"
