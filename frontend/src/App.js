@@ -614,6 +614,11 @@ function AppContent() {
                 <MeetingNotesPage />
               </PremiumGate>
             } />
+            <Route path="/interview-calendar" element={
+              <PremiumGate feature="voice_coach">
+                <InterviewCalendarPage />
+              </PremiumGate>
+            } />
           </Routes>
         </main>
       </div>
