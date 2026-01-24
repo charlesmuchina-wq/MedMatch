@@ -15,6 +15,7 @@ import hashlib
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY, GOOGLE_API_KEY, GOOGLE_CSE_ID
 from routes.auth import get_current_user
+from utils.push_service import notify_application_update, notify_job_match
 
 router = APIRouter(tags=["Jobs"])
 
