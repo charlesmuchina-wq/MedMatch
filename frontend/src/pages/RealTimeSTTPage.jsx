@@ -138,8 +138,11 @@ const RealTimeSTTPage = () => {
 
   // Check service status on mount
   useEffect(() => {
-    checkServiceStatus();
-    loadHistory();
+    const initData = async () => {
+      await checkServiceStatus();
+      await loadHistory();
+    };
+    initData();
   }, [checkServiceStatus, loadHistory]);
 
   // Timer effect
