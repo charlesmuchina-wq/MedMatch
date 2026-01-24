@@ -85,6 +85,15 @@ async def send_message(message: MessageCreate, request: Request, background_task
     
     await db.messages.insert_one(msg)
     
+    # Send push notification to recipient in background
+    background_tasks.add_task(
+        notify_new_message,
+        user_id=message.recipient_id,
+        sender_name=user.get("name", user["email"]),
+        preview=message.content[:100],
+        conversation_id=conv_id
+    )
+    
     return {"message": "Message sent", "message_id": msg["id"], "conversation_id": conv_id}
 
 @router.get("/conversations")
