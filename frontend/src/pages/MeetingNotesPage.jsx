@@ -165,9 +165,12 @@ const MeetingNotesPage = () => {
 
   // Load data on mount
   useEffect(() => {
-    checkServiceStatus();
-    loadMeetings();
-    loadStats();
+    const loadData = async () => {
+      await checkServiceStatus();
+      await loadMeetings();
+      await loadStats();
+    };
+    loadData();
   }, [checkServiceStatus, loadMeetings, loadStats]);
 
   // Recording timer
