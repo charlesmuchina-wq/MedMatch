@@ -177,7 +177,12 @@ async def get_job_applicants(job_id: str, request: Request):
     }
 
 @router.put("/applicants/{application_id}/status")
-async def update_applicant_status(application_id: str, status_update: JobApplicationStatus, request: Request):
+async def update_applicant_status(
+    application_id: str, 
+    status_update: JobApplicationStatus, 
+    request: Request,
+    background_tasks: BackgroundTasks
+):
     """Recruiter updates an applicant's status"""
     user = await get_current_user(request)
     if not user:
@@ -190,6 +195,15 @@ async def update_applicant_status(application_id: str, status_update: JobApplica
     if status_update.status not in valid_statuses:
         raise HTTPException(status_code=400, detail=f"Invalid status. Must be one of: {valid_statuses}")
     
+    # Get the application first to send notification
+    application = await db.job_applicants.find_one(
+        {"id": application_id, "recruiter_id": user["user_id"]},
+        {"_id": 0}
+    )
+    
+    if not application:
+        raise HTTPException(status_code=404, detail="Application not found")
+    
     result = await db.job_applicants.update_one(
         {"id": application_id, "recruiter_id": user["user_id"]},
         {"$set": {
@@ -198,8 +212,30 @@ async def update_applicant_status(application_id: str, status_update: JobApplica
         }}
     )
     
-    if result.modified_count == 0:
-        raise HTTPException(status_code=404, detail="Application not found")
+    # Get job details for notification
+    job = await db.posted_jobs.find_one({"id": application.get("job_id")}, {"_id": 0})
+    company_name = job.get("company", "Company") if job else "Company"
+    
+    # Send push notification to applicant in background
+    if application.get("user_id"):
+        # Map internal status to user-friendly status
+        status_map = {
+            "reviewing": "Viewed",
+            "shortlisted": "Shortlisted",
+            "interviewing": "Interview",
+            "offered": "Offer",
+            "rejected": "Rejected",
+            "hired": "Hired"
+        }
+        friendly_status = status_map.get(status_update.status, status_update.status.title())
+        
+        background_tasks.add_task(
+            notify_application_update,
+            user_id=application["user_id"],
+            company=company_name,
+            status=friendly_status,
+            application_id=application_id
+        )
     
     return {"message": f"Status updated to {status_update.status}"}
 
