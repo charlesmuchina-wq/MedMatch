@@ -559,9 +559,12 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 ### P3 - Future
 - [ ] Native Windows/Desktop app
 - [x] Real-time voice transcription during practice ✅ Jan 24, 2026
-- [ ] Real Web Push server integration (replace mocked push) - Backend ready, needs event wiring
+- [x] Real Web Push server integration ✅ Jan 24, 2026 (wired to messages, recruiter status)
 - [ ] Persona/Jumio integration for production ID verification (SKIPPED per user request)
 - [x] Video Interview with facial expression analysis ✅ Jan 24, 2026 (TensorFlow.js browser-based)
+- [x] Meeting Notes with AI summaries ✅ Jan 24, 2026
+- [ ] PayPal payment integration (instructions provided at /app/docs/PAYPAL_INTEGRATION.md)
+- [ ] Native mobile app UI screens (scaffold ready in /app/mobile)
 
 ---
 
@@ -577,6 +580,7 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - `/app/test_reports/iteration_29.json` - 100% pass rate (33/33 backend functional tests)
 - `/app/test_reports/iteration_30.json` - Frontend E2E AI features - All passing, 2 bugs fixed
 - `/app/test_reports/iteration_31.json` - 100% pass rate (Real-Time STT + Video Analysis)
+- `/app/test_reports/iteration_32.json` - 100% pass rate (Meeting Notes + Web Push + PayPal docs)
 
 ## Test Credentials
 - **Admin**: admin@medmatch.com / MedMatch2026!
