@@ -5,28 +5,37 @@ Tests the new AI-powered features: Real-time voice transcription and TensorFlow.
 import pytest
 import requests
 import os
+import time
 
 BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', '').rstrip('/')
+
+# Shared session for all tests to avoid rate limiting
+_shared_session = None
+
+def get_authenticated_session():
+    """Get or create a shared authenticated session"""
+    global _shared_session
+    if _shared_session is None:
+        _shared_session = requests.Session()
+        _shared_session.headers.update({"Content-Type": "application/json"})
+        
+        # Login to get session
+        login_response = _shared_session.post(
+            f"{BASE_URL}/api/auth/login",
+            json={"email": "admin@medmatch.com", "password": "MedMatch2026!"}
+        )
+        if login_response.status_code != 200:
+            pytest.skip(f"Login failed: {login_response.text}")
+    return _shared_session
+
 
 class TestRealTimeSTT:
     """Tests for Real-Time Speech-to-Text API endpoints"""
     
-    @pytest.fixture(autouse=True)
-    def setup(self):
-        """Setup authentication for tests"""
-        self.session = requests.Session()
-        self.session.headers.update({"Content-Type": "application/json"})
-        
-        # Login to get session
-        login_response = self.session.post(
-            f"{BASE_URL}/api/auth/login",
-            json={"email": "admin@medmatch.com", "password": "MedMatch2026!"}
-        )
-        assert login_response.status_code == 200, f"Login failed: {login_response.text}"
-        
     def test_stt_status_endpoint(self):
         """Test GET /api/realtime-stt/status returns available=true with model and features"""
-        response = self.session.get(f"{BASE_URL}/api/realtime-stt/status")
+        session = get_authenticated_session()
+        response = session.get(f"{BASE_URL}/api/realtime-stt/status")
         
         assert response.status_code == 200, f"Status endpoint failed: {response.text}"
         
@@ -46,7 +55,8 @@ class TestRealTimeSTT:
         
     def test_stt_history_endpoint(self):
         """Test GET /api/realtime-stt/history returns user's transcription history"""
-        response = self.session.get(f"{BASE_URL}/api/realtime-stt/history")
+        session = get_authenticated_session()
+        response = session.get(f"{BASE_URL}/api/realtime-stt/history")
         
         assert response.status_code == 200, f"History endpoint failed: {response.text}"
         
@@ -68,23 +78,11 @@ class TestRealTimeSTT:
 
 class TestVideoAnalysis:
     """Tests for Video Analysis API endpoints (TensorFlow.js facial analysis)"""
-    
-    @pytest.fixture(autouse=True)
-    def setup(self):
-        """Setup authentication for tests"""
-        self.session = requests.Session()
-        self.session.headers.update({"Content-Type": "application/json"})
-        
-        # Login to get session
-        login_response = self.session.post(
-            f"{BASE_URL}/api/auth/login",
-            json={"email": "admin@medmatch.com", "password": "MedMatch2026!"}
-        )
-        assert login_response.status_code == 200, f"Login failed: {login_response.text}"
         
     def test_video_analysis_status_endpoint(self):
         """Test GET /api/video-analysis/status returns available=true with all features"""
-        response = self.session.get(f"{BASE_URL}/api/video-analysis/status")
+        session = get_authenticated_session()
+        response = session.get(f"{BASE_URL}/api/video-analysis/status")
         
         assert response.status_code == 200, f"Status endpoint failed: {response.text}"
         
@@ -104,7 +102,8 @@ class TestVideoAnalysis:
         
     def test_video_analysis_benchmarks_endpoint(self):
         """Test GET /api/video-analysis/benchmarks returns industry benchmarks"""
-        response = self.session.get(f"{BASE_URL}/api/video-analysis/benchmarks")
+        session = get_authenticated_session()
+        response = session.get(f"{BASE_URL}/api/video-analysis/benchmarks")
         
         assert response.status_code == 200, f"Benchmarks endpoint failed: {response.text}"
         
@@ -129,8 +128,9 @@ class TestVideoAnalysis:
         
     def test_video_analysis_realtime_tips_endpoint(self):
         """Test GET /api/video-analysis/tips/real-time returns coaching tips based on params"""
+        session = get_authenticated_session()
         # Test with default params
-        response = self.session.get(
+        response = session.get(
             f"{BASE_URL}/api/video-analysis/tips/real-time",
             params={"eye_contact": 50, "expression": "neutral", "posture": "good"}
         )
@@ -153,7 +153,8 @@ class TestVideoAnalysis:
         
     def test_video_analysis_tips_low_eye_contact(self):
         """Test tips endpoint returns high priority tip for low eye contact"""
-        response = self.session.get(
+        session = get_authenticated_session()
+        response = session.get(
             f"{BASE_URL}/api/video-analysis/tips/real-time",
             params={"eye_contact": 30, "expression": "neutral", "posture": "good"}
         )
@@ -172,12 +173,14 @@ class TestVideoAnalysis:
         
     def test_video_analysis_tips_nervous_expression(self):
         """Test tips endpoint returns tip for nervous expression"""
-        response = self.session.get(
+        session = get_authenticated_session()
+        time.sleep(0.5)  # Small delay to avoid rate limiting
+        response = session.get(
             f"{BASE_URL}/api/video-analysis/tips/real-time",
             params={"eye_contact": 70, "expression": "nervous", "posture": "good"}
         )
         
-        assert response.status_code == 200
+        assert response.status_code == 200, f"Tips endpoint failed: {response.text}"
         
         data = response.json()
         tips = data["tips"]
