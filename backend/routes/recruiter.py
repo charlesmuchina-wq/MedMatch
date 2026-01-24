@@ -2,7 +2,7 @@
 Recruiter Routes
 Handles: Job postings, applicant tracking, candidate search, AI prescreening
 """
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
 from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime, timezone
@@ -14,6 +14,7 @@ import re
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
 from routes.auth import get_current_user
+from utils.push_service import notify_application_update, notify_recruiter_new_applicant
 
 router = APIRouter(prefix="/recruiter", tags=["Recruiter"])
 
