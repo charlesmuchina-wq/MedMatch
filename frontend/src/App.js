@@ -607,6 +607,11 @@ function AppContent() {
                 <RealTimeSTTPage />
               </PremiumGate>
             } />
+            <Route path="/meeting-notes" element={
+              <PremiumGate feature="voice_coach">
+                <MeetingNotesPage />
+              </PremiumGate>
+            } />
           </Routes>
         </main>
       </div>
