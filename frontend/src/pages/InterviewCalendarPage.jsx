@@ -27,42 +27,48 @@ const GOOGLE_CALENDAR_SCOPES = "https://www.googleapis.com/auth/calendar.readonl
 const GoogleCalendarConnect = ({ onConnect, onSync, isConnected, connectedEmail, onDisconnect }) => {
   const [isConnecting, setIsConnecting] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
+  const hasProcessedCallback = React.useRef(false);
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleOAuthCallback = useCallback(async (code) => {
-    setIsConnecting(true);
-    try {
-      // REMINDER: DO NOT HARDCODE THE URL, OR ADD ANY FALLBACKS OR REDIRECT URLS, THIS BREAKS THE AUTH
-      const redirectUri = window.location.origin + '/interview-calendar';
-      
-      const response = await apiClient.post('/api/auth/google-calendar/connect', {
-        code,
-        redirect_uri: redirectUri
-      });
-      
-      if (response.data.success) {
-        toast.success(`Connected to Google Calendar: ${response.data.email}`);
-        onConnect(response.data.email);
-      }
-    } catch (e) {
-      toast.error(e.response?.data?.detail || "Failed to connect Google Calendar");
-    }
-    setIsConnecting(false);
-  }, [onConnect]);
-
-  // Handle OAuth callback
+  // Handle OAuth callback - process code from URL
   useEffect(() => {
+    if (hasProcessedCallback.current) return;
+    
     const searchParams = new URLSearchParams(location.search);
     const code = searchParams.get('code');
     const state = searchParams.get('state');
     
     if (code && state === 'google_calendar') {
-      handleOAuthCallback(code);
-      // Clear URL params
-      navigate(location.pathname, { replace: true });
+      hasProcessedCallback.current = true;
+      
+      // Process the OAuth callback
+      const processCallback = async () => {
+        setIsConnecting(true);
+        try {
+          // REMINDER: DO NOT HARDCODE THE URL, OR ADD ANY FALLBACKS OR REDIRECT URLS, THIS BREAKS THE AUTH
+          const redirectUri = window.location.origin + '/interview-calendar';
+          
+          const response = await apiClient.post('/api/auth/google-calendar/connect', {
+            code,
+            redirect_uri: redirectUri
+          });
+          
+          if (response.data.success) {
+            toast.success(`Connected to Google Calendar: ${response.data.email}`);
+            onConnect(response.data.email);
+          }
+        } catch (e) {
+          toast.error(e.response?.data?.detail || "Failed to connect Google Calendar");
+        }
+        setIsConnecting(false);
+        // Clear URL params
+        navigate(location.pathname, { replace: true });
+      };
+      
+      processCallback();
     }
-  }, [location, handleOAuthCallback, navigate]);
+  }, [location, navigate, onConnect]);
 
   const initiateGoogleOAuth = () => {
     if (!GOOGLE_CLIENT_ID) {
