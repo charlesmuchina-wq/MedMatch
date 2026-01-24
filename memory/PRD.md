@@ -605,7 +605,9 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - [ ] Persona/Jumio integration for production ID verification (SKIPPED per user request)
 - [x] Video Interview with facial expression analysis ✅ Jan 24, 2026 (TensorFlow.js browser-based)
 - [x] Meeting Notes with AI summaries ✅ Jan 24, 2026
+- [x] Interview Calendar with AI preparation ✅ Jan 24, 2026
 - [ ] PayPal payment integration (instructions provided at /app/docs/PAYPAL_INTEGRATION.md)
+- [ ] Google Calendar OAuth setup (sync endpoint ready)
 - [ ] Native mobile app UI screens (scaffold ready in /app/mobile)
 
 ---
