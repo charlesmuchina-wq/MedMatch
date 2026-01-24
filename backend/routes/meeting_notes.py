@@ -20,10 +20,11 @@ from routes.auth import get_current_user
 # Import from emergent integrations
 try:
     from emergentintegrations.llm.openai import OpenAISpeechToText
-    from emergentintegrations.llm.chat import LlmChat
+    from emergentintegrations.llm.chat import LlmChat, UserMessage
 except ImportError:
     OpenAISpeechToText = None
     LlmChat = None
+    UserMessage = None
 
 router = APIRouter(prefix="/meeting-notes", tags=["Meeting Notes"])
 
