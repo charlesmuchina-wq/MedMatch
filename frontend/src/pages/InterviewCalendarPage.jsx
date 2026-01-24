@@ -376,6 +376,10 @@ const InterviewCalendarPage = () => {
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [isGeneratingPrep, setIsGeneratingPrep] = useState(false);
   
+  // Google Calendar state
+  const [googleCalendarConnected, setGoogleCalendarConnected] = useState(false);
+  const [googleCalendarEmail, setGoogleCalendarEmail] = useState(null);
+  
   // New event form
   const [newEvent, setNewEvent] = useState({
     title: "",
@@ -390,6 +394,17 @@ const InterviewCalendarPage = () => {
     interviewer_name: "",
     interviewer_email: ""
   });
+
+  // Load Google Calendar connection status
+  const loadGoogleCalendarStatus = useCallback(async () => {
+    try {
+      const response = await apiClient.get('/api/auth/google-calendar/config');
+      setGoogleCalendarConnected(response.data.connected);
+      setGoogleCalendarEmail(response.data.connected_email);
+    } catch (e) {
+      console.error('Failed to load Google Calendar status:', e);
+    }
+  }, []);
 
   // Load data
   const loadEvents = useCallback(async () => {
@@ -413,11 +428,11 @@ const InterviewCalendarPage = () => {
   useEffect(() => {
     const loadData = async () => {
       setIsLoading(true);
-      await Promise.all([loadEvents(), loadStats()]);
+      await Promise.all([loadEvents(), loadStats(), loadGoogleCalendarStatus()]);
       setIsLoading(false);
     };
     loadData();
-  }, [loadEvents, loadStats]);
+  }, [loadEvents, loadStats, loadGoogleCalendarStatus]);
 
   // Create event
   const createEvent = async () => {
