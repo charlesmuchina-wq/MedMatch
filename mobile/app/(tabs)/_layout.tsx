@@ -1,82 +1,117 @@
 /**
- * MedMatch Mobile - Tab Navigation Layout
+ * MedMatch Mobile - Tab Layout
+ * Bottom navigation with batik-inspired styling
  */
 import { Tabs } from 'expo-router';
+import { View, Text, StyleSheet, Platform } from 'react-native';
 import { useTheme } from '../../contexts/ThemeContext';
-import { View, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../../constants/theme';
+
+// Custom Tab Bar Icon
+const TabBarIcon = ({ icon, focused }: { icon: string; focused: boolean }) => (
+  <View style={[styles.iconContainer, focused && styles.iconContainerFocused]}>
+    <Text style={[styles.iconEmoji, { opacity: focused ? 1 : 0.6 }]}>{icon}</Text>
+  </View>
+);
 
 export default function TabLayout() {
-  const { isDark, colors } = useTheme();
+  const { colors: themeColors, isDark } = useTheme();
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.textSecondary,
+        tabBarActiveTintColor: colors.turquoise,
+        tabBarInactiveTintColor: themeColors.textSecondary,
         tabBarStyle: {
-          backgroundColor: colors.surface,
-          borderTopColor: colors.border,
-          height: 85,
-          paddingBottom: 25,
+          backgroundColor: themeColors.surface,
+          borderTopColor: themeColors.border,
+          borderTopWidth: 1,
+          height: Platform.OS === 'ios' ? 88 : 65,
+          paddingBottom: Platform.OS === 'ios' ? 25 : 10,
           paddingTop: 10,
         },
         tabBarLabelStyle: {
           fontSize: 11,
-          fontWeight: '500',
+          fontWeight: '600',
         },
         headerStyle: {
-          backgroundColor: colors.surface,
+          backgroundColor: themeColors.surface,
+          shadowColor: 'transparent',
+          elevation: 0,
         },
-        headerTintColor: colors.text,
-        headerShadowVisible: false,
+        headerTintColor: themeColors.text,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          fontSize: 20,
+        },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Jobs',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="briefcase-outline" size={size} color={color} />
-          ),
+          title: 'Home',
+          tabBarIcon: ({ focused }) => <TabBarIcon icon="🏠" focused={focused} />,
+          tabBarLabel: 'Home',
+          headerTitle: 'MedMatch',
+          headerTitleStyle: {
+            color: colors.turquoise,
+            fontWeight: 'bold',
+            fontSize: 24,
+          },
         }}
       />
       <Tabs.Screen
         name="search"
         options={{
-          title: 'Search',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="search-outline" size={size} color={color} />
-          ),
+          title: 'Jobs',
+          tabBarIcon: ({ focused }) => <TabBarIcon icon="🔍" focused={focused} />,
+          tabBarLabel: 'Search',
+          headerTitle: 'Find Jobs',
         }}
       />
       <Tabs.Screen
-        name="practice"
+        name="calendar"
         options={{
-          title: 'Practice',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="mic-outline" size={size} color={color} />
-          ),
+          title: 'Calendar',
+          tabBarIcon: ({ focused }) => <TabBarIcon icon="📅" focused={focused} />,
+          tabBarLabel: 'Interviews',
+          headerTitle: 'Interview Calendar',
         }}
       />
       <Tabs.Screen
-        name="applications"
+        name="ai-tools"
         options={{
-          title: 'Applications',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="document-text-outline" size={size} color={color} />
-          ),
+          title: 'AI Tools',
+          tabBarIcon: ({ focused }) => <TabBarIcon icon="✨" focused={focused} />,
+          tabBarLabel: 'AI Tools',
+          headerTitle: 'AI Assistant',
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-outline" size={size} color={color} />
-          ),
+          tabBarIcon: ({ focused }) => <TabBarIcon icon="👤" focused={focused} />,
+          tabBarLabel: 'Profile',
+          headerTitle: 'My Profile',
         }}
       />
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  iconContainer: {
+    width: 40,
+    height: 28,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  iconContainerFocused: {
+    backgroundColor: colors.turquoise + '20',
+  },
+  iconEmoji: {
+    fontSize: 20,
+  },
+});
