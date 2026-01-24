@@ -19,9 +19,10 @@ from utils.push_service import notify_interview_reminder
 
 # Try to import LLM for AI preparation
 try:
-    from emergentintegrations.llm.chat import LlmChat
+    from emergentintegrations.llm.chat import LlmChat, UserMessage
 except ImportError:
     LlmChat = None
+    UserMessage = None
 
 router = APIRouter(prefix="/interview-calendar", tags=["Interview Calendar"])
 logger = logging.getLogger(__name__)
