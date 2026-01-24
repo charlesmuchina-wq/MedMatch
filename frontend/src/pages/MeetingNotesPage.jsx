@@ -132,12 +132,43 @@ const MeetingNotesPage = () => {
   const timerRef = useRef(null);
   const wsRef = useRef(null);
 
+  const checkServiceStatus = useCallback(async () => {
+    try {
+      const response = await apiClient.get('/api/meeting-notes/status');
+      setServiceStatus(response.data);
+    } catch (e) {
+      console.error('Failed to check service status:', e);
+      setServiceStatus({ available: false });
+    }
+    setIsLoading(false);
+  }, []);
+
+  const loadMeetings = useCallback(async () => {
+    try {
+      const response = await apiClient.get('/api/meeting-notes/list', {
+        params: { limit: 50 }
+      });
+      setMeetings(response.data.meetings || []);
+    } catch (e) {
+      console.error('Failed to load meetings:', e);
+    }
+  }, []);
+
+  const loadStats = useCallback(async () => {
+    try {
+      const response = await apiClient.get('/api/meeting-notes/stats/overview');
+      setStats(response.data);
+    } catch (e) {
+      console.error('Failed to load stats:', e);
+    }
+  }, []);
+
   // Load data on mount
   useEffect(() => {
     checkServiceStatus();
     loadMeetings();
     loadStats();
-  }, []);
+  }, [checkServiceStatus, loadMeetings, loadStats]);
 
   // Recording timer
   useEffect(() => {
@@ -152,37 +183,6 @@ const MeetingNotesPage = () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
   }, [isRecording]);
-
-  const checkServiceStatus = async () => {
-    try {
-      const response = await apiClient.get('/api/meeting-notes/status');
-      setServiceStatus(response.data);
-    } catch (e) {
-      console.error('Failed to check service status:', e);
-      setServiceStatus({ available: false });
-    }
-    setIsLoading(false);
-  };
-
-  const loadMeetings = async () => {
-    try {
-      const response = await apiClient.get('/api/meeting-notes/list', {
-        params: { limit: 50 }
-      });
-      setMeetings(response.data.meetings || []);
-    } catch (e) {
-      console.error('Failed to load meetings:', e);
-    }
-  };
-
-  const loadStats = async () => {
-    try {
-      const response = await apiClient.get('/api/meeting-notes/stats/overview');
-      setStats(response.data);
-    } catch (e) {
-      console.error('Failed to load stats:', e);
-    }
-  };
 
   const createMeeting = async () => {
     if (!newMeeting.title.trim()) {
