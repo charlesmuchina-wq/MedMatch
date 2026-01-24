@@ -82,10 +82,13 @@ async def generate_interview_preparation(
         }
     
     try:
-        chat = LlmChat(api_key=EMERGENT_LLM_KEY)
+        import uuid as uuid_module
         
         skills_text = ", ".join(user_skills) if user_skills else "general professional skills"
         
+        system_message = """You are an expert career coach specializing in interview preparation. 
+Provide actionable, specific advice. Always respond with valid JSON only."""
+
         prompt = f"""Generate comprehensive interview preparation materials for the following:
 
 Company: {company}
@@ -108,11 +111,13 @@ Provide a structured response in JSON format:
 
 Return ONLY valid JSON."""
 
-        response = await chat.send_message(
-            prompt,
-            model="gpt-4o-mini",
-            system_prompt="You are an expert career coach specializing in interview preparation. Provide actionable, specific advice."
-        )
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=str(uuid_module.uuid4()),
+            system_message=system_message
+        ).with_model("openai", "gpt-4o-mini")
+        
+        response = await chat.send_message(prompt)
         
         # Parse JSON response
         try:
