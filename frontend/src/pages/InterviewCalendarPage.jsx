@@ -698,6 +698,7 @@ const InterviewCalendarPage = () => {
             </DialogFooter>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
 
       {/* Stats Cards */}
