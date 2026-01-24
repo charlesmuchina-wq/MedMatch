@@ -30,20 +30,7 @@ const GoogleCalendarConnect = ({ onConnect, onSync, isConnected, connectedEmail,
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Handle OAuth callback
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const code = searchParams.get('code');
-    const state = searchParams.get('state');
-    
-    if (code && state === 'google_calendar') {
-      handleOAuthCallback(code);
-      // Clear URL params
-      navigate(location.pathname, { replace: true });
-    }
-  }, [location]);
-
-  const handleOAuthCallback = async (code) => {
+  const handleOAuthCallback = useCallback(async (code) => {
     setIsConnecting(true);
     try {
       // REMINDER: DO NOT HARDCODE THE URL, OR ADD ANY FALLBACKS OR REDIRECT URLS, THIS BREAKS THE AUTH
@@ -62,7 +49,20 @@ const GoogleCalendarConnect = ({ onConnect, onSync, isConnected, connectedEmail,
       toast.error(e.response?.data?.detail || "Failed to connect Google Calendar");
     }
     setIsConnecting(false);
-  };
+  }, [onConnect]);
+
+  // Handle OAuth callback
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const code = searchParams.get('code');
+    const state = searchParams.get('state');
+    
+    if (code && state === 'google_calendar') {
+      handleOAuthCallback(code);
+      // Clear URL params
+      navigate(location.pathname, { replace: true });
+    }
+  }, [location, handleOAuthCallback, navigate]);
 
   const initiateGoogleOAuth = () => {
     if (!GOOGLE_CLIENT_ID) {
