@@ -26,7 +26,7 @@ class MessageCreate(BaseModel):
 # ============== Routes ==============
 
 @router.post("/send")
-async def send_message(message: MessageCreate, request: Request):
+async def send_message(message: MessageCreate, request: Request, background_tasks: BackgroundTasks):
     """Send a message to another user"""
     user = await get_current_user(request)
     if not user:
