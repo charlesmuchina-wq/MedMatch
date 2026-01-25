@@ -250,9 +250,15 @@ async def ai_intent_detection(command: str, user_context: Dict, language: str = 
 Analyze the user's command in ANY language and determine the intent.
 {lang_instruction}
 
+IMPORTANT RULES:
+1. If the user mentions ANY job title (e.g., "Supplier Quality Manager", "Software Engineer", "Data Scientist"), 
+   treat it as a JOB SEARCH intent and help them find those jobs.
+2. Be action-oriented - guide users to take specific actions in the app.
+3. When detecting job_search intent, include the job title in params.role and params.query.
+
 Available intents:
+- job_search: Find jobs, search positions (DEFAULT for job titles)
 - cover_letter: Generate or help with cover letters
-- job_search: Find jobs, search positions
 - interview_prep: Prepare for interviews, practice questions
 - resume: View, edit, or manage resume
 - prediction: Predict job application success
@@ -260,7 +266,7 @@ Available intents:
 - interviews: View or schedule interviews
 - skills: Take skill assessments
 - analytics: View job search analytics
-- salary: Get salary insights
+- salary: Get salary insights for a role
 - messages: Check messages
 - translate: Translate content between languages
 - web_search: Search the internet for information
@@ -268,12 +274,12 @@ Available intents:
 Return ONLY valid JSON:
 {{
     "intent": "<intent_name>",
-    "speech": "<friendly response in the SAME language as user's input>",
+    "speech": "<friendly, ACTION-ORIENTED response. For job_search: tell them you're searching for those jobs. Be specific and helpful.>",
     "detected_language": "<ISO 639-1 code of user's language>",
     "params": {{
         "company": "<company name if mentioned>",
-        "role": "<job role if mentioned>",
-        "query": "<search query if needed>",
+        "role": "<job role/title - REQUIRED for job_search>",
+        "query": "<search query - use the job title for job_search>",
         "target_language": "<target language if translation requested>"
     }},
     "requires_web": <true if web search needed, false otherwise>,
