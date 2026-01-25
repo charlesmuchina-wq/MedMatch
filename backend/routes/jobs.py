@@ -382,6 +382,122 @@ async def search_jobs(
     
     return {"jobs": unique_jobs[:100], "total": len(unique_jobs)}
 
+
+@router.post("/jobs/deep-search")
+async def deep_search_jobs(request: Request):
+    """
+    AI-powered deep search that uses user's resume and preferences
+    to find highly relevant jobs across all sources
+    """
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    try:
+        body = await request.json()
+        use_ai = body.get("use_ai", True)
+        
+        # Get user's resume for context
+        resume = await db.resumes.find_one(
+            {"user_id": user["user_id"]},
+            {"_id": 0, "skills": 1, "experience": 1, "education": 1, "summary": 1, "job_titles": 1}
+        )
+        
+        # Build search queries based on resume
+        search_queries = []
+        
+        if resume:
+            # Use job titles from resume
+            if resume.get("job_titles"):
+                search_queries.extend(resume["job_titles"][:3])
+            
+            # Use top skills
+            if resume.get("skills"):
+                top_skills = resume["skills"][:5]
+                for skill in top_skills:
+                    if isinstance(skill, dict):
+                        search_queries.append(skill.get("name", ""))
+                    else:
+                        search_queries.append(str(skill))
+        
+        # Fallback to quality engineering keywords if no resume
+        if not search_queries:
+            search_queries = [
+                "Quality Engineer Remote",
+                "Supplier Quality Manager",
+                "QA Engineer",
+                "Software Engineer Remote",
+                "Data Scientist"
+            ]
+        
+        # Search across all sources with multiple queries
+        all_jobs = []
+        tasks = []
+        
+        for query in search_queries[:5]:  # Limit to 5 queries
+            if query:
+                tasks.append(fetch_remoteok_jobs(query, "Remote"))
+                tasks.append(fetch_remotive_jobs(query, "Remote"))
+                tasks.append(fetch_himalayas_jobs(query, "Remote"))
+        
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        
+        for result in results:
+            if isinstance(result, list):
+                all_jobs.extend(result)
+        
+        # Deduplicate by URL
+        seen_urls = set()
+        unique_jobs = []
+        for job in all_jobs:
+            job_url = job.get("url", "")
+            if job_url and job_url not in seen_urls:
+                seen_urls.add(job_url)
+                unique_jobs.append(job)
+            elif not job_url:
+                unique_jobs.append(job)
+        
+        # Calculate match scores if we have resume data
+        if resume and use_ai:
+            user_skills = set()
+            if resume.get("skills"):
+                for skill in resume["skills"]:
+                    if isinstance(skill, dict):
+                        user_skills.add(skill.get("name", "").lower())
+                    else:
+                        user_skills.add(str(skill).lower())
+            
+            for job in unique_jobs:
+                job_text = f"{job.get('title', '')} {job.get('description', '')} {job.get('company', '')}".lower()
+                
+                # Calculate simple match score
+                matches = sum(1 for skill in user_skills if skill in job_text)
+                job["match_score"] = min(95, 50 + (matches * 10))
+        
+        # Sort by match score (highest first)
+        unique_jobs.sort(key=lambda x: x.get("match_score", 50), reverse=True)
+        
+        # Store deep search results for user
+        await db.users.update_one(
+            {"user_id": user["user_id"]},
+            {"$set": {
+                "last_deep_search": datetime.now(timezone.utc).isoformat(),
+                "deep_search_count": len(unique_jobs)
+            }}
+        )
+        
+        return {
+            "jobs": unique_jobs[:100],
+            "total_found": len(unique_jobs),
+            "queries_used": search_queries[:5],
+            "ai_enhanced": use_ai and resume is not None
+        }
+        
+    except Exception as e:
+        logging.error(f"Deep search error: {e}")
+        raise HTTPException(status_code=500, detail=f"Deep search failed: {str(e)}")
+
+
 @router.post("/jobs/manual")
 async def create_manual_job(job: ManualJobCreate, request: Request):
     """Create a manual job entry"""
