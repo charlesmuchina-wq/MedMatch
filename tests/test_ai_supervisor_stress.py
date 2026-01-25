@@ -11,7 +11,7 @@ import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://jobmatcher-app-1.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://career-ai-28.preview.emergentagent.com')
 
 
 class TestAISupervisorHealth:

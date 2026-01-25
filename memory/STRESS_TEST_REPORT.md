@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://jobmatcher-app-1.preview.emergentagent.com/api
+**API Target:** https://career-ai-28.preview.emergentagent.com/api
 
 ---
 
