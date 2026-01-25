@@ -403,42 +403,43 @@ async def deep_search_jobs(request: Request):
             {"_id": 0, "skills": 1, "experience": 1, "education": 1, "summary": 1, "job_titles": 1}
         )
         
-        # Build search queries based on resume
+        # Build search queries based on resume - use simple keywords
         search_queries = []
         
         if resume:
-            # Use job titles from resume
+            # Use job titles from resume - simplify them
             if resume.get("job_titles"):
-                search_queries.extend(resume["job_titles"][:3])
+                for title in resume["job_titles"][:3]:
+                    # Extract key words from title
+                    simplified = title.replace("(", "").replace(")", "").split()[0:2]
+                    search_queries.append(" ".join(simplified))
             
-            # Use top skills
+            # Use top skills - single words work better
             if resume.get("skills"):
-                top_skills = resume["skills"][:5]
-                for skill in top_skills:
-                    if isinstance(skill, dict):
-                        search_queries.append(skill.get("name", ""))
-                    else:
-                        search_queries.append(str(skill))
+                for skill in resume["skills"][:5]:
+                    skill_name = skill.get("name", "") if isinstance(skill, dict) else str(skill)
+                    # Take first word if multi-word
+                    first_word = skill_name.split()[0] if skill_name else ""
+                    if first_word and len(first_word) > 2:
+                        search_queries.append(first_word)
         
-        # Fallback to quality engineering keywords if no resume
+        # Fallback to common job keywords
         if not search_queries:
-            search_queries = [
-                "Quality Engineer Remote",
-                "Supplier Quality Manager",
-                "QA Engineer",
-                "Software Engineer Remote",
-                "Data Scientist"
-            ]
+            search_queries = ["engineer", "manager", "developer", "analyst", "quality"]
+        
+        # Deduplicate and limit queries
+        search_queries = list(dict.fromkeys(search_queries))[:5]
         
         # Search across all sources with multiple queries
         all_jobs = []
         tasks = []
         
-        for query in search_queries[:5]:  # Limit to 5 queries
-            if query:
+        for query in search_queries:
+            if query and len(query) > 2:
                 tasks.append(fetch_remoteok_jobs(query, "Remote"))
                 tasks.append(fetch_remotive_jobs(query, "Remote"))
                 tasks.append(fetch_himalayas_jobs(query, "Remote"))
+                tasks.append(fetch_arbeitnow_jobs(query, "Remote"))
         
         results = await asyncio.gather(*tasks, return_exceptions=True)
         
@@ -489,7 +490,7 @@ async def deep_search_jobs(request: Request):
         return {
             "jobs": unique_jobs[:100],
             "total_found": len(unique_jobs),
-            "queries_used": search_queries[:5],
+            "queries_used": search_queries,
             "ai_enhanced": use_ai and resume is not None
         }
         
