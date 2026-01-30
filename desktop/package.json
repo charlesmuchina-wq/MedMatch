@@ -102,6 +102,7 @@
       ],
       "icon": "assets/icons",
       "category": "Office",
+      "maintainer": "MedMatch Team <support@medmatch.com>",
       "desktop": {
         "StartupNotify": "true",
         "Terminal": "false",
