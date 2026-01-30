@@ -129,6 +129,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/analytics", icon: BarChart3, labelKey: "nav.analytics" },
     { path: "/analytics-funnel", icon: BarChart3, labelKey: "nav.analyticsFunnel" },
     { path: "/dragon-automator", icon: Bot, labelKey: "nav.dragonAutomator" },
+    { path: "/admin", icon: Shield, labelKey: "nav.adminDashboard", adminOnly: true },
     { path: "/companies", icon: Briefcase, labelKey: "nav.companies" },
     { path: "/messages", icon: MessageSquare, labelKey: "nav.messages" },
     { path: "/id-verification", icon: ShieldCheck, labelKey: "nav.idVerification" },
