@@ -132,8 +132,8 @@ class IssuePredictor:
         )
         events = await cursor.to_list(length=50000)
         
-        if len(events) < 50:
-            raise ValueError(f"Insufficient training data: {len(events)} events (need 50+)")
+        if len(events) < 20:
+            raise ValueError(f"Insufficient training data: {len(events)} events (need 20+)")
         
         # Convert to DataFrame
         df = pd.DataFrame(events)
