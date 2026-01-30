@@ -2,21 +2,55 @@
 KARAU DRAGON Scheduled Automation Service
 Runs automated diagnostics, fixes, and maintenance tasks on schedule.
 Schedule: Sundays at 1:00 AM PST (9:00 AM UTC)
+
+Now with MongoDB persistence for job state across server restarts.
 """
 import asyncio
 import logging
+import os
 from datetime import datetime, timezone, timedelta
 from typing import Dict, Any, List, Optional
 import json
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
+from apscheduler.jobstores.mongodb import MongoDBJobStore
+from apscheduler.executors.asyncio import AsyncIOExecutor
+from pymongo import MongoClient
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
 
-# Initialize scheduler
-scheduler = AsyncIOScheduler()
+# Get MongoDB URL from environment
+MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
+DB_NAME = os.environ.get("DB_NAME", "medmatch")
+
+# Configure MongoDB job store for persistence
+jobstores = {
+    'default': MongoDBJobStore(
+        database=DB_NAME,
+        collection='apscheduler_jobs',
+        client=MongoClient(MONGO_URL)
+    )
+}
+
+executors = {
+    'default': AsyncIOExecutor()
+}
+
+job_defaults = {
+    'coalesce': True,  # Combine multiple missed executions into one
+    'max_instances': 1,  # Only one instance of each job at a time
+    'misfire_grace_time': 3600  # Allow jobs to run up to 1 hour late
+}
+
+# Initialize scheduler with MongoDB persistence
+scheduler = AsyncIOScheduler(
+    jobstores=jobstores,
+    executors=executors,
+    job_defaults=job_defaults,
+    timezone='UTC'
+)
 
 # ============== Scheduled Tasks ==============
 
