@@ -44,8 +44,9 @@
     ],
     "publish": {
       "provider": "github",
-      "owner": "medmatch",
-      "repo": "medmatch-desktop"
+      "owner": "charlesmuchina-wq",
+      "repo": "MedMatch",
+      "releaseType": "release"
     },
     "win": {
       "target": [
