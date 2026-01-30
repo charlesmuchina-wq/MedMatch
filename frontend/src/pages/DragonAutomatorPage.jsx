@@ -217,17 +217,31 @@ export default function DragonAutomatorPage() {
   const loadData = async () => {
     setLoading(true);
     try {
-      const [healthRes, improvementsRes, updatesRes, versionRes] = await Promise.all([
+      // Load data with individual error handling
+      const results = await Promise.allSettled([
         api.get('/api/dragon/automator/health'),
         api.get('/api/dragon/automator/improvements'),
         api.get('/api/dragon/automator/updates'),
         api.get('/api/dragon/automator/version')
       ]);
       
-      setHealth(healthRes.data);
-      setImprovements(improvementsRes.data.suggestions || []);
-      setUpdates(updatesRes.data.updates || []);
-      setVersion(versionRes.data);
+      if (results[0].status === 'fulfilled') {
+        setHealth(results[0].value.data);
+      } else {
+        console.error('Health fetch failed:', results[0].reason);
+      }
+      
+      if (results[1].status === 'fulfilled') {
+        setImprovements(results[1].value.data.suggestions || []);
+      }
+      
+      if (results[2].status === 'fulfilled') {
+        setUpdates(results[2].value.data.updates || []);
+      }
+      
+      if (results[3].status === 'fulfilled') {
+        setVersion(results[3].value.data);
+      }
     } catch (error) {
       console.error('Failed to load automator data:', error);
       toast.error('Failed to load automator data');
