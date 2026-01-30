@@ -91,13 +91,12 @@ const PWAInstallPrompt = () => {
       <Card className="bg-gradient-to-r from-turquoise/10 to-teal-500/10 border-turquoise/30 shadow-xl">
         <CardContent className="p-4">
           <div className="flex items-start gap-3">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-turquoise to-teal-600 flex items-center justify-center flex-shrink-0">
-              {platform === "mobile" ? (
-                <Smartphone className="w-6 h-6 text-white" />
-              ) : (
-                <Monitor className="w-6 h-6 text-white" />
-              )}
-            </div>
+            <img 
+              src="/logo-small.png" 
+              alt="MedMatch" 
+              className="w-12 h-12 rounded-xl flex-shrink-0 object-contain"
+              data-testid="pwa-prompt-logo"
+            />
             
             <div className="flex-1 min-w-0">
               <h4 className="font-semibold text-slate-900 dark:text-slate-100 text-sm">

@@ -77,10 +77,13 @@ const InstallPrompt = () => {
       <Card className="shadow-2xl border-2 border-turquoise/30 bg-white dark:bg-slate-900">
         <CardContent className="p-4">
           <div className="flex items-start gap-3">
-            {/* Icon */}
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-turquoise to-teal-600 flex items-center justify-center flex-shrink-0">
-              <Download className="w-6 h-6 text-white" />
-            </div>
+            {/* Logo */}
+            <img 
+              src="/logo-small.png" 
+              alt="MedMatch" 
+              className="w-12 h-12 rounded-xl flex-shrink-0 object-contain"
+              data-testid="install-prompt-logo"
+            />
 
             {/* Content */}
             <div className="flex-1 min-w-0">
