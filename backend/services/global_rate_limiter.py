@@ -27,31 +27,31 @@ class RateLimitConfig:
     def burst_limit(self) -> int:
         return int(self.requests_per_second * self.burst_multiplier)
 
-# Tier-based rate limits
+# Tier-based rate limits - OPTIMIZED to prevent 429 errors
 RATE_LIMIT_TIERS = {
     "anonymous": RateLimitConfig(
-        requests_per_second=10,
-        requests_per_minute=100,
-        burst_multiplier=1.5
-    ),
-    "free": RateLimitConfig(
-        requests_per_second=50,
-        requests_per_minute=500,
+        requests_per_second=30,
+        requests_per_minute=300,
         burst_multiplier=2.0
     ),
-    "premium": RateLimitConfig(
-        requests_per_second=200,
-        requests_per_minute=2000,
+    "free": RateLimitConfig(
+        requests_per_second=100,
+        requests_per_minute=1000,
         burst_multiplier=3.0
     ),
+    "premium": RateLimitConfig(
+        requests_per_second=500,
+        requests_per_minute=5000,
+        burst_multiplier=4.0
+    ),
     "enterprise": RateLimitConfig(
-        requests_per_second=1000,
-        requests_per_minute=10000,
+        requests_per_second=2000,
+        requests_per_minute=20000,
         burst_multiplier=5.0
     ),
     "internal": RateLimitConfig(
-        requests_per_second=5000,
-        requests_per_minute=50000,
+        requests_per_second=10000,
+        requests_per_minute=100000,
         burst_multiplier=10.0
     )
 }
