@@ -137,29 +137,79 @@ async def send_push_notification(
         return {"success": False, "error": str(e)}
 
 async def send_to_user(user_id: str, payload: Dict, ttl: int = 86400) -> Dict:
-    """Send push notification to all of a user's subscriptions"""
-    subscriptions = await db.webpush_subscriptions.find(
+    """Send push notification to all of a user's subscriptions (web and Expo)"""
+    # Get web push subscriptions
+    web_subscriptions = await db.webpush_subscriptions.find(
         {"user_id": user_id, "active": True}
     ).to_list(length=10)
     
-    if not subscriptions:
+    # Get Expo push tokens
+    expo_tokens = await db.expo_push_tokens.find(
+        {"user_id": user_id, "active": True}
+    ).to_list(length=10)
+    
+    if not web_subscriptions and not expo_tokens:
         return {"success": False, "error": "No active subscriptions", "sent": 0}
     
     results = []
-    for sub in subscriptions:
+    
+    # Send to web subscriptions
+    for sub in web_subscriptions:
         result = await send_push_notification(sub, payload, ttl)
-        results.append(result)
-        
-        # If subscription expired, it's already marked inactive by send_push_notification
+        results.append({"type": "web", **result})
+    
+    # Send to Expo tokens
+    for token_doc in expo_tokens:
+        result = await send_expo_notification(token_doc["expo_token"], payload)
+        results.append({"type": "expo", **result})
     
     successful = sum(1 for r in results if r.get("success"))
     
     return {
         "success": successful > 0,
         "sent": successful,
-        "total_subscriptions": len(subscriptions),
+        "total_subscriptions": len(web_subscriptions) + len(expo_tokens),
         "results": results
     }
+
+
+async def send_expo_notification(expo_token: str, payload: Dict) -> Dict:
+    """Send push notification via Expo's push service"""
+    import httpx
+    
+    try:
+        message = {
+            "to": expo_token,
+            "title": payload.get("title", "MedMatch"),
+            "body": payload.get("body", ""),
+            "data": payload.get("data", {}),
+            "sound": "default" if not payload.get("silent") else None,
+            "badge": 1,
+        }
+        
+        # Add optional fields
+        if payload.get("subtitle"):
+            message["subtitle"] = payload["subtitle"]
+        
+        async with httpx.AsyncClient() as client:
+            response = await client.post(
+                "https://exp.host/--/api/v2/push/send",
+                json=message,
+                headers={"Content-Type": "application/json"}
+            )
+            
+            if response.status_code == 200:
+                result = response.json()
+                if result.get("data", {}).get("status") == "ok":
+                    return {"success": True}
+                else:
+                    return {"success": False, "error": result.get("data", {}).get("message")}
+            else:
+                return {"success": False, "error": f"HTTP {response.status_code}"}
+    
+    except Exception as e:
+        logging.error(f"Expo push error: {e}")
+        return {"success": False, "error": str(e)}
 
 # ============== Routes ==============
 
