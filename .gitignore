@@ -132,3 +132,7 @@ frontend/node_modules/.cache/default-development/12.pack
 *.env.*
 desktop/node_modules/electron/dist/electron
 desktop/dist/linux-arm64-unpacked/medmatch-desktop
+-e 
+# Environment files
+*.env
+*.env.*
