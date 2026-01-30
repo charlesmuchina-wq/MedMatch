@@ -227,6 +227,7 @@ class IssuePredictor:
         """
         Determine the issue label for a time window.
         Labels: 'healthy', 'degraded', 'critical'
+        Thresholds raised to reduce false positives.
         """
         error_count = len(group[group['severity'].isin(['error', 'critical'])])
         total = len(group)
@@ -247,12 +248,12 @@ class IssuePredictor:
         max_cpu = np.max(cpu_values) if cpu_values else 0
         max_memory = np.max(memory_values) if memory_values else 0
         
-        # Critical conditions
-        if error_rate > 0.15 or max_cpu > 90 or max_memory > 90:
+        # Critical conditions (raised thresholds)
+        if error_rate > 0.25 or max_cpu > 92 or max_memory > 92:
             return 'critical'
         
-        # Degraded conditions
-        if error_rate > 0.05 or max_cpu > 70 or max_memory > 75:
+        # Degraded conditions (raised thresholds)
+        if error_rate > 0.10 or max_cpu > 75 or max_memory > 80:
             return 'degraded'
         
         return 'healthy'
