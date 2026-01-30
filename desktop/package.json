@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "MedMatch Desktop App - AI-Powered Job Search",
   "main": "main.js",
+  "homepage": "https://github.com/charlesmuchina-wq/MedMatch",
+  "author": {
+    "name": "MedMatch Team",
+    "email": "support@medmatch.com"
+  },
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
