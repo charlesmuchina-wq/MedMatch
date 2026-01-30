@@ -9,6 +9,7 @@ from typing import Optional, List
 import os
 
 from services.ml_data_collector import ml_collector, EventType, EventSeverity
+from services.ml_data_generator import ml_data_generator
 
 router = APIRouter(prefix="/ml-data", tags=["ML Data Collection"])
 
