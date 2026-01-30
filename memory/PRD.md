@@ -64,10 +64,13 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 #### 0. Logo Integration (P0 - COMPLETED)
 - **Problem:** User-provided logo was only updated in favicon/public assets, not in React components
-- **Solution:** Replaced placeholder icons with actual logo in Login page and Sidebar
+- **Solution:** Replaced placeholder icons with actual logo in Login page, Sidebar, PWA prompts, and mobile app
 - **Files Updated:**
   - `/app/frontend/src/App.js` - Sidebar logo
   - `/app/frontend/src/pages/LoginPage.jsx` - Login page logo
+  - `/app/frontend/src/components/PWAInstallPrompt.jsx` - PWA install prompt logo
+  - `/app/frontend/src/components/InstallPrompt.jsx` - Install prompt logo
+  - `/app/mobile/assets/` - Mobile app icons and splash screen
 - **Logo Assets:** `/app/frontend/public/logo.png`, `/app/frontend/public/logo-small.png`
 
 #### 1. Frontend Rate Limiting Fix (P1 - COMPLETED)
