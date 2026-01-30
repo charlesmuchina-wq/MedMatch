@@ -74,7 +74,22 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - QR code generated for scanning with Expo Go app
 - Metro bundler running on port 8081
 
-#### 5. Enhanced Job Search Filters (COMPLETED)
+#### 6. Admin Dashboard & Access Control (COMPLETED)
+- **Frontend**: Created `/app/frontend/src/pages/AdminDashboard.jsx`
+  - Central hub for all admin functions
+  - System health status banner
+  - Quick stats: Total Users, Active Users, Scheduled Jobs, Pending Issues
+  - Admin modules grid with navigation
+  - Scheduled tasks overview
+  - Quick action buttons (Run Analysis, Auto-Fix, View Analytics, Push Update)
+- **Backend**: Updated admin access checks
+  - `/app/backend/routes/auth.py` - Returns admin role, is_admin flag, permissions
+  - `/app/backend/routes/payments.py` - Admin bypass for all feature access
+  - `/app/backend/routes/dragon_automator.py` - `is_admin_user()` helper function
+- **Admin User Permissions**:
+  - `all`, `admin_dashboard`, `dragon_automator`, `analytics_funnel`
+  - `recruiter_tools`, `version_management`, `system_maintenance`, `user_management`
+- Accessible at `/admin` route
 - **Frontend**: Updated `/app/frontend/src/pages/JobSearchPage.jsx`
   - Country dropdown with 20+ countries (US, UK, Canada, Germany, India, etc.)
   - City dropdown (dependent on selected country) with major cities
