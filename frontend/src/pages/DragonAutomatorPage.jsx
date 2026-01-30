@@ -34,22 +34,32 @@ import api from '@/utils/apiClient';
 
 // Status Badge Component
 const StatusBadge = ({ status }) => {
+  if (!status) {
+    return (
+      <Badge variant="outline" className="bg-gray-500/10 text-gray-500 border-gray-500/30">
+        Unknown
+      </Badge>
+    );
+  }
+  
   const styles = {
     healthy: "bg-green-500/10 text-green-500 border-green-500/30",
     degraded: "bg-yellow-500/10 text-yellow-500 border-yellow-500/30",
-    critical: "bg-red-500/10 text-red-500 border-red-500/30"
+    critical: "bg-red-500/10 text-red-500 border-red-500/30",
+    improved: "bg-blue-500/10 text-blue-500 border-blue-500/30"
   };
   
   const icons = {
     healthy: <CheckCircle className="h-3 w-3" />,
     degraded: <AlertTriangle className="h-3 w-3" />,
-    critical: <XCircle className="h-3 w-3" />
+    critical: <XCircle className="h-3 w-3" />,
+    improved: <TrendingUp className="h-3 w-3" />
   };
   
   return (
     <Badge variant="outline" className={`${styles[status] || styles.degraded} flex items-center gap-1`}>
-      {icons[status]}
-      {status?.charAt(0).toUpperCase() + status?.slice(1)}
+      {icons[status] || icons.degraded}
+      {status.charAt(0).toUpperCase() + status.slice(1)}
     </Badge>
   );
 };
