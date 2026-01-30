@@ -241,9 +241,12 @@ const LoginPage = ({ onAuthSuccess }) => {
       
       <Card className="w-full max-w-md relative z-10 shadow-xl">
         <CardHeader className="text-center pb-2">
-          <div className="w-16 h-16 bg-gradient-to-br from-turquoise to-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-2xl font-bold text-white">M</span>
-          </div>
+          <img 
+            src="/logo.png" 
+            alt="MedMatch Logo" 
+            className="w-16 h-16 object-contain mx-auto mb-4 rounded-2xl"
+            data-testid="login-logo"
+          />
           <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100" style={{ fontFamily: 'IBM Plex Sans' }}>
             {t("auth.signIn")} - MedMatch
           </CardTitle>
