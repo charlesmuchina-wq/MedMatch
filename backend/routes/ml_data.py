@@ -10,7 +10,7 @@ import os
 
 from services.ml_data_collector import ml_collector, EventType, EventSeverity
 
-router = APIRouter(prefix="/api/ml-data", tags=["ML Data Collection"])
+router = APIRouter(prefix="/ml-data", tags=["ML Data Collection"])
 
 # Helper to check admin access
 def is_admin_user(user: dict) -> bool:
