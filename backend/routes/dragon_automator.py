@@ -1229,3 +1229,164 @@ async def scheduled_diagnostics():
                     
     except Exception as e:
         logging.error(f"Scheduled diagnostics error: {e}")
+
+
+# ============== Auto-Rollback API Endpoints ==============
+
+@router.post("/rollback/snapshot")
+async def create_system_snapshot(request: Request):
+    """Create a system snapshot for potential rollback"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if not is_admin_user(user):
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    body = await request.json() if request.headers.get("content-type") == "application/json" else {}
+    reason = body.get("reason", "manual")
+    
+    result = await rollback_manager.create_snapshot(reason=reason)
+    
+    if not result.get("success"):
+        raise HTTPException(status_code=500, detail=result.get("error", "Snapshot creation failed"))
+    
+    return result
+
+
+@router.get("/rollback/snapshots")
+async def list_system_snapshots(request: Request, limit: int = 10):
+    """List available system snapshots for rollback"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    snapshots = await rollback_manager.get_snapshots(limit=limit)
+    
+    return {
+        "snapshots": snapshots,
+        "count": len(snapshots)
+    }
+
+
+@router.get("/rollback/check")
+async def check_rollback_status(request: Request):
+    """Check if auto-rollback should be triggered"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    result = await rollback_manager.check_rollback_needed()
+    
+    return result
+
+
+@router.post("/rollback/execute")
+async def execute_system_rollback(request: Request):
+    """Execute a rollback to a previous snapshot state"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if not is_admin_user(user):
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    body = await request.json()
+    snapshot_id = body.get("snapshot_id")
+    dry_run = body.get("dry_run", False)
+    
+    if not snapshot_id:
+        raise HTTPException(status_code=400, detail="snapshot_id is required")
+    
+    result = await rollback_manager.execute_rollback(snapshot_id=snapshot_id, dry_run=dry_run)
+    
+    if not result.get("success") and result.get("error"):
+        raise HTTPException(status_code=500, detail=result.get("error"))
+    
+    return result
+
+
+@router.get("/rollback/history")
+async def get_rollback_history(request: Request, limit: int = 10):
+    """Get history of executed rollbacks"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if not is_admin_user(user):
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        history = await db.rollback_history.find(
+            {},
+            {"_id": 0}
+        ).sort("executed_at", -1).limit(limit).to_list(limit)
+        
+        return {
+            "history": history,
+            "count": len(history)
+        }
+    except Exception as e:
+        return {
+            "history": [],
+            "error": str(e)
+        }
+
+
+@router.post("/rollback/auto-check")
+async def auto_check_and_rollback(request: Request, background_tasks: BackgroundTasks):
+    """
+    Automatically check system health and trigger rollback if needed.
+    This is what the scheduled maintenance task calls.
+    """
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if not is_admin_user(user):
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    # Check if rollback is needed
+    check_result = await rollback_manager.check_rollback_needed()
+    
+    if not check_result.get("rollback_needed"):
+        return {
+            "action": "none",
+            "message": "System health is acceptable, no rollback needed",
+            "health_score": check_result.get("current_health")
+        }
+    
+    # Get recommendation
+    recommendation = check_result.get("recommendation", {})
+    
+    if recommendation.get("action") == "rollback":
+        # Execute rollback
+        snapshot_id = recommendation.get("target_snapshot")
+        rollback_result = await rollback_manager.execute_rollback(snapshot_id=snapshot_id, dry_run=False)
+        
+        # Log the auto-rollback event
+        await db.admin_audit_logs.insert_one({
+            "timestamp": datetime.now(timezone.utc),
+            "admin_email": "KARAU_DRAGON_AUTOMATOR",
+            "action": "auto_rollback",
+            "target_type": "system",
+            "details": {
+                "trigger": check_result.get("reasons"),
+                "snapshot_id": snapshot_id,
+                "result": rollback_result
+            }
+        })
+        
+        return {
+            "action": "rollback_executed",
+            "snapshot_id": snapshot_id,
+            "result": rollback_result,
+            "trigger_reasons": check_result.get("reasons")
+        }
+    else:
+        return {
+            "action": "manual_intervention_required",
+            "message": recommendation.get("reason"),
+            "trigger_reasons": check_result.get("reasons"),
+            "health_score": check_result.get("current_health")
+        }
