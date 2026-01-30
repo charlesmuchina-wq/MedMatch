@@ -224,6 +224,133 @@ async def get_vapid_public_key():
         "configured": True
     }
 
+
+# ============== Expo Push Token Management ==============
+
+class ExpoTokenSubscription(BaseModel):
+    expo_token: str
+    device_name: Optional[str] = None
+    platform: Optional[str] = None  # ios, android
+
+@router.post("/expo/subscribe")
+async def subscribe_expo_push(subscription: ExpoTokenSubscription, request: Request):
+    """Register an Expo push token for mobile notifications"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    user_id = user.get("user_id")
+    
+    # Check for existing token
+    existing = await db.expo_push_tokens.find_one({"expo_token": subscription.expo_token})
+    
+    if existing:
+        # Update existing
+        await db.expo_push_tokens.update_one(
+            {"expo_token": subscription.expo_token},
+            {"$set": {
+                "user_id": user_id,
+                "device_name": subscription.device_name,
+                "platform": subscription.platform,
+                "active": True,
+                "updated_at": datetime.now(timezone.utc).isoformat()
+            }}
+        )
+        return {"success": True, "message": "Expo token updated"}
+    
+    # Create new token
+    token_doc = {
+        "token_id": str(uuid.uuid4()),
+        "user_id": user_id,
+        "expo_token": subscription.expo_token,
+        "device_name": subscription.device_name,
+        "platform": subscription.platform,
+        "active": True,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    await db.expo_push_tokens.insert_one(token_doc)
+    
+    return {
+        "success": True,
+        "message": "Expo push token registered",
+        "token_id": token_doc["token_id"]
+    }
+
+
+@router.delete("/expo/unsubscribe")
+async def unsubscribe_expo_push(request: Request, expo_token: str):
+    """Unregister an Expo push token"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    result = await db.expo_push_tokens.update_one(
+        {"expo_token": expo_token, "user_id": user.get("user_id")},
+        {"$set": {"active": False, "deactivated_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Token not found")
+    
+    return {"success": True, "message": "Expo push token unregistered"}
+
+
+@router.get("/expo/status")
+async def get_expo_status(request: Request):
+    """Get Expo push notification status for current user"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    tokens = await db.expo_push_tokens.find(
+        {"user_id": user.get("user_id"), "active": True},
+        {"_id": 0, "expo_token": 0}  # Don't expose tokens
+    ).to_list(length=10)
+    
+    return {
+        "enabled": len(tokens) > 0,
+        "devices": len(tokens),
+        "tokens": tokens
+    }
+
+
+@router.post("/expo/test")
+async def test_expo_notification(request: Request):
+    """Send a test notification to current user's Expo devices"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    tokens = await db.expo_push_tokens.find(
+        {"user_id": user.get("user_id"), "active": True}
+    ).to_list(length=10)
+    
+    if not tokens:
+        raise HTTPException(status_code=404, detail="No Expo push tokens registered")
+    
+    payload = {
+        "title": "🔔 MedMatch Test",
+        "body": "Push notifications are working!",
+        "data": {"type": "test", "timestamp": datetime.now(timezone.utc).isoformat()}
+    }
+    
+    results = []
+    for token_doc in tokens:
+        result = await send_expo_notification(token_doc["expo_token"], payload)
+        results.append(result)
+    
+    successful = sum(1 for r in results if r.get("success"))
+    
+    return {
+        "success": successful > 0,
+        "sent": successful,
+        "total_devices": len(tokens)
+    }
+
+
+# ============== Web Push Routes ==============
+
 @router.post("/subscribe")
 async def subscribe_webpush(subscription: WebPushSubscription, request: Request):
     """Subscribe to web push notifications"""
