@@ -389,9 +389,8 @@ class MLDataCollector:
         if self.collection is None:
             return {}
         
-        cutoff = datetime.now(timezone.utc).replace(
-            hour=datetime.now(timezone.utc).hour - hours
-        )
+        from datetime import timedelta
+        cutoff = datetime.now(timezone.utc) - timedelta(hours=hours)
         
         pipeline = [
             {"$match": {"timestamp": {"$gte": cutoff}}},
