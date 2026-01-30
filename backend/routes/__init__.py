@@ -50,6 +50,15 @@ from routes.video_analysis import router as video_analysis_router
 # Persona/Jumio ID Verification
 from routes.persona_verification import router as persona_verification_router
 
+# Interview Funnel Analytics
+from routes.analytics_funnel import router as analytics_funnel_router
+
+# Meeting Notes
+from routes.meeting_notes import router as meeting_notes_router
+
+# Interview Calendar
+from routes.interview_calendar import router as interview_calendar_router
+
 __all__ = [
     # Core routes
     'auth_router',
