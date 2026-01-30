@@ -184,7 +184,8 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
       {/* Search Bar */}
       <Card className="mb-6">
         <CardContent className="p-4">
-          <div className="flex flex-col md:flex-row gap-4">
+          {/* Main Search Row */}
+          <div className="flex flex-col md:flex-row gap-4 mb-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
               <Input
@@ -197,43 +198,27 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
               />
             </div>
             
-            <Select value={location} onValueChange={setLocation}>
-              <SelectTrigger className="w-full md:w-40" data-testid="location-select">
-                <MapPin className="w-4 h-4 mr-2 text-slate-400" />
-                <SelectValue placeholder={t("jobs.location")} />
+            {/* Location Type Dropdown */}
+            <Select value={locationType} onValueChange={setLocationType}>
+              <SelectTrigger className="w-full md:w-40" data-testid="location-type-select">
+                {locationType === "remote" && <Laptop className="w-4 h-4 mr-2 text-turquoise" />}
+                {locationType === "hybrid" && <Home className="w-4 h-4 mr-2 text-purple-500" />}
+                {locationType === "onsite" && <Building className="w-4 h-4 mr-2 text-orange-500" />}
+                {locationType === "all" && <Globe className="w-4 h-4 mr-2 text-slate-400" />}
+                <SelectValue placeholder="Work Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="any">{t("jobs.anyLocation")}</SelectItem>
-                {presets.locations?.map(loc => (
-                  <SelectItem key={loc} value={loc}>{loc}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-
-            <Select value={source} onValueChange={setSource}>
-              <SelectTrigger className="w-full md:w-36" data-testid="source-select">
-                <Globe className="w-4 h-4 mr-2 text-slate-400" />
-                <SelectValue placeholder={t("jobs.source") || "Source"} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">{t("jobs.allSources") || "All Sources"}</SelectItem>
-                <SelectItem value="indeed">Indeed</SelectItem>
-                <SelectItem value="linkedin">LinkedIn</SelectItem>
-                <SelectItem value="glassdoor">Glassdoor</SelectItem>
-              </SelectContent>
-            </Select>
-
-            <Select value={days} onValueChange={setDays}>
-              <SelectTrigger className="w-full md:w-36" data-testid="days-select">
-                <Calendar className="w-4 h-4 mr-2 text-slate-400" />
-                <SelectValue placeholder={t("jobs.postedDate")} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="0">{t("jobs.anyTime") || "Any Time"}</SelectItem>
-                <SelectItem value="1">{t("jobs.last24h") || "Last 24h"}</SelectItem>
-                <SelectItem value="3">{t("jobs.last3Days") || "Last 3 Days"}</SelectItem>
-                <SelectItem value="7">{t("jobs.lastWeek") || "Last Week"}</SelectItem>
-                <SelectItem value="30">{t("jobs.lastMonth") || "Last Month"}</SelectItem>
+                {LOCATION_TYPES.map(type => {
+                  const Icon = type.icon;
+                  return (
+                    <SelectItem key={type.value} value={type.value}>
+                      <div className="flex items-center gap-2">
+                        <Icon className="w-4 h-4" />
+                        {type.label}
+                      </div>
+                    </SelectItem>
+                  );
+                })}
               </SelectContent>
             </Select>
 
@@ -246,7 +231,137 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
               {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4 mr-2" />}
               {t("common.search")}
             </Button>
+            
+            <Button 
+              variant="outline"
+              onClick={() => setShowAdvanced(!showAdvanced)}
+              className="md:w-auto"
+            >
+              <Filter className="w-4 h-4 mr-2" />
+              {showAdvanced ? "Less Filters" : "More Filters"}
+              <ChevronDown className={`w-4 h-4 ml-2 transition-transform ${showAdvanced ? 'rotate-180' : ''}`} />
+            </Button>
           </div>
+          
+          {/* Advanced Filters Row */}
+          {showAdvanced && (
+            <div className="flex flex-col md:flex-row gap-4 pt-4 border-t border-slate-200 dark:border-slate-700 animate-fade-in">
+              {/* Country Dropdown */}
+              <Select value={country} onValueChange={setCountry}>
+                <SelectTrigger className="w-full md:w-48" data-testid="country-select">
+                  <Globe className="w-4 h-4 mr-2 text-slate-400" />
+                  <SelectValue placeholder="Select Country" />
+                </SelectTrigger>
+                <SelectContent className="max-h-[300px]">
+                  <SelectItem value="any">🌍 Any Country</SelectItem>
+                  {Object.keys(COUNTRIES_DATA).map(countryName => (
+                    <SelectItem key={countryName} value={countryName}>
+                      {countryName === "Remote/Global" ? "🌐 " : ""}
+                      {countryName}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              
+              {/* City Dropdown (dependent on country) */}
+              <Select 
+                value={city} 
+                onValueChange={setCity}
+                disabled={country === "any" || availableCities.length === 0}
+              >
+                <SelectTrigger className="w-full md:w-48" data-testid="city-select">
+                  <MapPin className="w-4 h-4 mr-2 text-slate-400" />
+                  <SelectValue placeholder={country === "any" ? "Select Country First" : "Select City"} />
+                </SelectTrigger>
+                <SelectContent className="max-h-[300px]">
+                  <SelectItem value="any">All Cities in {country}</SelectItem>
+                  {availableCities.map(cityName => (
+                    <SelectItem key={cityName} value={cityName}>
+                      {cityName}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              {/* Source Dropdown */}
+              <Select value={source} onValueChange={setSource}>
+                <SelectTrigger className="w-full md:w-40" data-testid="source-select">
+                  <Globe className="w-4 h-4 mr-2 text-slate-400" />
+                  <SelectValue placeholder={t("jobs.source") || "Source"} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{t("jobs.allSources") || "All Sources"}</SelectItem>
+                  <SelectItem value="indeed">Indeed</SelectItem>
+                  <SelectItem value="linkedin">LinkedIn</SelectItem>
+                  <SelectItem value="glassdoor">Glassdoor</SelectItem>
+                  <SelectItem value="remoteok">RemoteOK</SelectItem>
+                  <SelectItem value="remotive">Remotive</SelectItem>
+                </SelectContent>
+              </Select>
+
+              {/* Date Posted Dropdown */}
+              <Select value={days} onValueChange={setDays}>
+                <SelectTrigger className="w-full md:w-40" data-testid="days-select">
+                  <Calendar className="w-4 h-4 mr-2 text-slate-400" />
+                  <SelectValue placeholder={t("jobs.postedDate")} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="0">{t("jobs.anyTime") || "Any Time"}</SelectItem>
+                  <SelectItem value="1">{t("jobs.last24h") || "Last 24h"}</SelectItem>
+                  <SelectItem value="3">{t("jobs.last3Days") || "Last 3 Days"}</SelectItem>
+                  <SelectItem value="7">{t("jobs.lastWeek") || "Last Week"}</SelectItem>
+                  <SelectItem value="30">{t("jobs.lastMonth") || "Last Month"}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+          
+          {/* Active Filters Display */}
+          {(country !== "any" || locationType !== "all" || city !== "any") && (
+            <div className="flex flex-wrap gap-2 mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+              <span className="text-sm text-slate-500">Active filters:</span>
+              {locationType !== "all" && (
+                <Badge variant="secondary" className="flex items-center gap-1">
+                  {locationType === "remote" && <Laptop className="w-3 h-3" />}
+                  {locationType === "hybrid" && <Home className="w-3 h-3" />}
+                  {locationType === "onsite" && <Building className="w-3 h-3" />}
+                  {LOCATION_TYPES.find(t => t.value === locationType)?.label}
+                  <button 
+                    onClick={() => setLocationType("all")}
+                    className="ml-1 hover:text-red-500"
+                  >×</button>
+                </Badge>
+              )}
+              {country !== "any" && (
+                <Badge variant="secondary" className="flex items-center gap-1">
+                  <Globe className="w-3 h-3" />
+                  {country}
+                  <button 
+                    onClick={() => { setCountry("any"); setCity("any"); }}
+                    className="ml-1 hover:text-red-500"
+                  >×</button>
+                </Badge>
+              )}
+              {city !== "any" && (
+                <Badge variant="secondary" className="flex items-center gap-1">
+                  <MapPin className="w-3 h-3" />
+                  {city}
+                  <button 
+                    onClick={() => setCity("any")}
+                    className="ml-1 hover:text-red-500"
+                  >×</button>
+                </Badge>
+              )}
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => { setCountry("any"); setCity("any"); setLocationType("all"); }}
+                className="text-xs text-red-500 hover:text-red-700"
+              >
+                Clear all
+              </Button>
+            </div>
+          )}
         </CardContent>
       </Card>
 
