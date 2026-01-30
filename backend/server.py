@@ -320,12 +320,18 @@ async def global_rate_limit_middleware(request: Request, call_next):
 # ============== Request Tracking Middleware ==============
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
-    """Add processing time header and track in AI Supervisor"""
+    """Add processing time header and track in AI Supervisor + ML Data"""
     import time
     start_time = time.perf_counter()
     
     # Track request in AI Supervisor metrics
     ai_supervisor.metrics.total_requests += 1
+    
+    # Get user ID for ML tracking if available
+    user_id = None
+    user = getattr(request.state, 'user', None)
+    if user:
+        user_id = user.get('user_id')
     
     try:
         response = await call_next(request)
@@ -338,6 +344,19 @@ async def add_process_time_header(request: Request, call_next):
             ai_supervisor.metrics.failed_requests += 1
         
         ai_supervisor.metrics.response_times.append(process_time)
+        
+        # Log to ML Data Collector (only for API routes)
+        if request.url.path.startswith("/api") and request.url.path not in ["/api/health", "/api/status"]:
+            try:
+                await ml_collector.log_api_call(
+                    path=request.url.path,
+                    method=request.method,
+                    status_code=response.status_code,
+                    response_time_ms=process_time,
+                    user_id=user_id
+                )
+            except Exception:
+                pass  # Don't fail requests due to ML logging
         
         response.headers["X-Process-Time-Ms"] = f"{process_time:.2f}"
         response.headers["X-System-Health"] = ai_supervisor.health.value
