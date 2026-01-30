@@ -121,7 +121,7 @@ export default function AdminDashboard() {
       // Stagger API calls to prevent rate limiting (thundering herd)
       // Load health first (critical data)
       try {
-        const healthRes = await api.get('/api/dragon/automator/health');
+        const healthRes = await apiClient.get('/api/dragon/automator/health');
         healthData = healthRes.data;
         setSystemHealth(healthData);
       } catch (err) {
@@ -132,7 +132,7 @@ export default function AdminDashboard() {
       
       // Load scheduler status
       try {
-        const schedulerRes = await api.get('/api/dragon/automator/scheduler-status');
+        const schedulerRes = await apiClient.get('/api/dragon/automator/scheduler-status');
         setSchedulerStatus(schedulerRes.data);
       } catch (err) {
         console.error('Scheduler status fetch failed:', err);
