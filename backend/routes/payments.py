@@ -724,9 +724,20 @@ async def check_feature_access(feature: str, request: Request):
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
-    # Admin bypass
-    if user.get("is_admin") or user.get("email") == "admin@medmatch.com":
-        return {"has_access": True, "reason": "admin"}
+    # Admin bypass - check all admin indicators
+    is_admin = (
+        user.get("is_admin") or 
+        user.get("role") == "admin" or 
+        user.get("email") == "admin@medmatch.com"
+    )
+    if is_admin:
+        return {
+            "has_access": True, 
+            "reason": "admin",
+            "role": "admin",
+            "membership_status": "admin",
+            "is_admin": True
+        }
     
     status = check_membership_status(user)
     is_recruiter = user.get("role") == "recruiter"
