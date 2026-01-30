@@ -45,6 +45,7 @@ import MeetingNotesPage from "@/pages/MeetingNotesPage";
 import InterviewCalendarPage from "@/pages/InterviewCalendarPage";
 import AnalyticsFunnelPage from "@/pages/AnalyticsFunnelPage";
 import DragonAutomatorPage from "@/pages/DragonAutomatorPage";
+import AdminDashboard from "@/pages/AdminDashboard";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
