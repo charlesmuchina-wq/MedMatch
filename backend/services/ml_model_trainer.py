@@ -282,16 +282,31 @@ class IssuePredictor:
             self.scaler = StandardScaler()
             X_scaled = self.scaler.fit_transform(X)
             
-            # Split data
-            X_train, X_test, y_train, y_test = train_test_split(
-                X_scaled, y_encoded, test_size=0.2, random_state=42, stratify=y_encoded
-            )
+            # Check class distribution and handle imbalanced data
+            unique_labels, counts = np.unique(y_encoded, return_counts=True)
+            min_samples = min(counts)
+            
+            # Split data - use stratify only if enough samples per class
+            try:
+                if min_samples >= 2:
+                    X_train, X_test, y_train, y_test = train_test_split(
+                        X_scaled, y_encoded, test_size=0.2, random_state=42, stratify=y_encoded
+                    )
+                else:
+                    # Fall back to non-stratified split for imbalanced data
+                    X_train, X_test, y_train, y_test = train_test_split(
+                        X_scaled, y_encoded, test_size=0.2, random_state=42
+                    )
+            except ValueError:
+                # Final fallback - use all data for training if split fails
+                X_train, y_train = X_scaled, y_encoded
+                X_test, y_test = X_scaled[:2], y_encoded[:2]
             
             # Train Random Forest
             self.rf_model = RandomForestClassifier(
-                n_estimators=100,
-                max_depth=10,
-                min_samples_split=5,
+                n_estimators=50,  # Reduced for smaller datasets
+                max_depth=5,
+                min_samples_split=2,
                 random_state=42,
                 n_jobs=-1
             )
@@ -299,8 +314,8 @@ class IssuePredictor:
             
             # Train Gradient Boosting
             self.gb_model = GradientBoostingClassifier(
-                n_estimators=100,
-                max_depth=5,
+                n_estimators=50,
+                max_depth=3,
                 learning_rate=0.1,
                 random_state=42
             )
