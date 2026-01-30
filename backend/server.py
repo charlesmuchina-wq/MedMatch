@@ -274,6 +274,7 @@ app.include_router(interview_calendar_router, prefix="/api")
 app.include_router(analytics_funnel_router, prefix="/api")
 app.include_router(dragon_automator_router, prefix="/api")
 app.include_router(ml_data_router, prefix="/api")
+app.include_router(admin_audit_router, prefix="/api")
 
 # ============== CORS Configuration ==============
 app.add_middleware(
