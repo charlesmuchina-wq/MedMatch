@@ -640,6 +640,9 @@ function AppContent() {
             <Route path="/admin" element={
               <AdminDashboard />
             } />
+            <Route path="/admin/metrics" element={
+              <ProductionMetricsPage />
+            } />
           </Routes>
         </main>
       </div>
