@@ -376,7 +376,7 @@ export default function AdminDashboard() {
           <Button 
             variant="outline"
             onClick={() => {
-              api.post('/api/dragon/automator/auto-fix')
+              apiClient.post('/api/dragon/automator/auto-fix')
                 .then(() => toast.success('Auto-fix completed'))
                 .catch(() => toast.error('Auto-fix failed'));
             }}
@@ -394,7 +394,7 @@ export default function AdminDashboard() {
           <Button 
             variant="outline"
             onClick={() => {
-              api.post('/api/dragon/automator/version/release', {
+              apiClient.post('/api/dragon/automator/version/release', {
                 version: "2.4.1",
                 type: "patch",
                 changes: ["Bug fixes and improvements"]
