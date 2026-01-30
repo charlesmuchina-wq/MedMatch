@@ -214,6 +214,18 @@ export default function AdminDashboard() {
       status: "active"
     },
     {
+      title: "Production Metrics",
+      description: "User engagement, AI usage, and business KPIs",
+      icon: TrendingUp,
+      path: "/admin/metrics",
+      status: "active",
+      stats: {
+        sessions: "Live",
+        ai_calls: "Active",
+        funnel: "Tracking"
+      }
+    },
+    {
       title: "User Management",
       description: "View and manage platform users",
       icon: Users,
