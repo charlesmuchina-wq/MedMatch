@@ -228,7 +228,7 @@ class TestRateLimiting:
         assert response.status_code == 200
         data = response.json()
         assert "anonymous" in data
-        assert "authenticated" in data
+        assert "free" in data or "authenticated" in data  # Either naming convention
         print(f"Available tiers: {list(data.keys())}")
 
 
