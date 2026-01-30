@@ -236,6 +236,7 @@ from routes.dragon_automator import router as dragon_automator_router
 from routes.ml_data import router as ml_data_router
 from routes.admin_audit import router as admin_audit_router
 from routes.ml_predictor import router as ml_predictor_router
+from routes.ml_model import router as ml_model_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
