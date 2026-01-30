@@ -107,8 +107,9 @@ async def run_weekly_maintenance():
     report["summary"]["tasks_completed"] = len([t for t in report["tasks"] if t.get("status") == "completed"])
     report["summary"]["tasks_failed"] = len([t for t in report["tasks"] if t.get("status") == "failed"])
     
-    # Store report
-    await db.maintenance_reports.insert_one(report)
+    # Store report (make a copy to avoid _id modification)
+    report_to_store = {**report}
+    await db.maintenance_reports.insert_one(report_to_store)
     
     # Notify admins
     await notify_admins_maintenance_complete(report)
