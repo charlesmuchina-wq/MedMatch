@@ -539,7 +539,7 @@ async def run_full_diagnostics(request: Request, background_tasks: BackgroundTas
         raise HTTPException(status_code=401, detail="Not authenticated")
     
     # Check if user is admin
-    if user.get("role") != "admin":
+    if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     # Run diagnostics
@@ -584,7 +584,7 @@ async def apply_auto_fixes(request: Request):
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
-    if user.get("role") != "admin":
+    if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     # Run diagnostics first
@@ -656,7 +656,7 @@ async def implement_improvement(index: int, request: Request):
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
-    if user.get("role") != "admin":
+    if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     # Get improvement suggestions
@@ -692,7 +692,7 @@ async def release_new_version(request: Request):
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
-    if user.get("role") != "admin":
+    if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     body = await request.json()
@@ -754,7 +754,7 @@ async def analyze_and_auto_fix(request: Request, background_tasks: BackgroundTas
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
-    if user.get("role") != "admin":
+    if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     # Phase 1: Diagnostics
@@ -858,7 +858,7 @@ async def run_weekly_maintenance_now(request: Request):
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
-    if user.get("role") != "admin":
+    if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     try:
