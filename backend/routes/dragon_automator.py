@@ -416,8 +416,8 @@ Feedback Themes: {[f.get('category', 'general') for f in feedback[:10]]}
 Suggest 3-5 specific improvements for this job search platform.
 """
         
-        # Use sync chat method
-        response = chat.chat(UserMessage(content=prompt))
+        # Use send_message method
+        response = chat.send_message(prompt)
         
         try:
             improvements = json.loads(response.content)
