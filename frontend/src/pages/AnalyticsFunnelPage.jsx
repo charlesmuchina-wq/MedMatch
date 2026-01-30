@@ -3,7 +3,7 @@
  * Tracks: Applications → Callbacks → Interviews → Offers
  */
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/utils/i18n';
 import { toast } from 'sonner';
 import {
   TrendingUp,
@@ -24,7 +24,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../co
 import { Button } from '../components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Progress } from '../components/ui/progress';
-import api from '../api';
+import api from '@/utils/apiClient';
 
 // Funnel Stage Component
 const FunnelStage = ({ stage, index, total }) => {
