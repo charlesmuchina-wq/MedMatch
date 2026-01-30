@@ -457,7 +457,7 @@ class MLDataCollector:
         limit: int = 10000
     ) -> List[Dict]:
         """Export training data for ML model training"""
-        if not self.collection:
+        if self.collection is None:
             return []
         
         query = {}
