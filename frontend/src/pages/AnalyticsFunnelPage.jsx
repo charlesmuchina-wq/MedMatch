@@ -148,11 +148,11 @@ export default function AnalyticsFunnelPage() {
     setLoading(true);
     try {
       const [funnelRes, trendsRes, companyRes, roleRes, insightsRes] = await Promise.all([
-        api.client.get(`/api/analytics/funnel?days=${dateRange}`),
-        api.client.get(`/api/analytics/trends?days=${dateRange}`),
-        api.client.get('/api/analytics/by-company?limit=5'),
-        api.client.get('/api/analytics/by-role?limit=5'),
-        api.client.get('/api/analytics/insights')
+        api.get(`/api/analytics/funnel?days=${dateRange}`),
+        api.get(`/api/analytics/trends?days=${dateRange}`),
+        api.get('/api/analytics/by-company?limit=5'),
+        api.get('/api/analytics/by-role?limit=5'),
+        api.get('/api/analytics/insights')
       ]);
       
       setFunnelData(funnelRes.data);
