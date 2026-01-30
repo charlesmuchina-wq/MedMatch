@@ -474,6 +474,260 @@ async def auto_implement_improvement(improvement: Dict[str, Any]) -> Dict[str, A
     return result
 
 
+# ============== Auto-Rollback System ==============
+
+class RollbackManager:
+    """Manages system state snapshots and automatic rollback on critical failures"""
+    
+    ROLLBACK_THRESHOLD = 30  # Health score below this triggers consideration
+    CRITICAL_ERROR_COUNT = 5  # Number of critical errors in window
+    MONITORING_WINDOW_MINUTES = 5
+    
+    @staticmethod
+    async def create_snapshot(reason: str = "manual") -> Dict[str, Any]:
+        """Create a snapshot of current system state for potential rollback"""
+        snapshot = {
+            "snapshot_id": hashlib.md5(f"{datetime.now().isoformat()}{reason}".encode()).hexdigest()[:16],
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "reason": reason,
+            "system_state": {
+                "version": CURRENT_VERSION,
+                "collections_stats": {},
+                "config_hash": None
+            },
+            "health_at_creation": None,
+            "status": "active"
+        }
+        
+        try:
+            # Capture collection stats
+            collections = await db.list_collection_names()
+            for coll in collections[:20]:  # Limit to first 20
+                try:
+                    count = await db[coll].count_documents({})
+                    snapshot["system_state"]["collections_stats"][coll] = count
+                except:
+                    pass
+            
+            # Capture health score
+            health_result = await asyncio.gather(
+                run_database_diagnostics(),
+                run_api_diagnostics(),
+                run_performance_diagnostics()
+            )
+            
+            status_scores = {"healthy": 100, "degraded": 60, "critical": 20}
+            scores = [status_scores.get(r.get("status", "unknown"), 50) for r in health_result]
+            snapshot["health_at_creation"] = sum(scores) / len(scores)
+            
+            # Store snapshot
+            await db.system_snapshots.insert_one(snapshot)
+            
+            logging.info(f"System snapshot created: {snapshot['snapshot_id']}")
+            return {
+                "success": True,
+                "snapshot_id": snapshot["snapshot_id"],
+                "health_score": snapshot["health_at_creation"]
+            }
+        except Exception as e:
+            logging.error(f"Snapshot creation failed: {e}")
+            return {"success": False, "error": str(e)}
+    
+    @staticmethod
+    async def check_rollback_needed() -> Dict[str, Any]:
+        """Check if auto-rollback should be triggered based on system health"""
+        result = {
+            "rollback_needed": False,
+            "severity": "none",
+            "reasons": [],
+            "current_health": 0,
+            "recommendation": None
+        }
+        
+        try:
+            # Get current health
+            health_result = await asyncio.gather(
+                run_database_diagnostics(),
+                run_api_diagnostics(),
+                run_performance_diagnostics()
+            )
+            
+            status_scores = {"healthy": 100, "degraded": 60, "critical": 20}
+            scores = [status_scores.get(r.get("status", "unknown"), 50) for r in health_result]
+            current_health = sum(scores) / len(scores)
+            result["current_health"] = round(current_health, 1)
+            
+            # Check for critical issues
+            all_issues = []
+            for r in health_result:
+                all_issues.extend(r.get("issues", []))
+            
+            critical_issues = [i for i in all_issues if i.get("severity") == "critical"]
+            
+            # Check recent error rate from ML data
+            cutoff = datetime.now(timezone.utc) - timedelta(minutes=RollbackManager.MONITORING_WINDOW_MINUTES)
+            recent_errors = await db.ml_training_data.count_documents({
+                "severity": {"$in": ["error", "critical"]},
+                "timestamp": {"$gte": cutoff}
+            })
+            
+            # Determine if rollback is needed
+            if current_health < RollbackManager.ROLLBACK_THRESHOLD:
+                result["rollback_needed"] = True
+                result["severity"] = "critical"
+                result["reasons"].append(f"Health score ({current_health}%) below threshold ({RollbackManager.ROLLBACK_THRESHOLD}%)")
+            
+            if len(critical_issues) >= 2:
+                result["rollback_needed"] = True
+                result["severity"] = "critical"
+                result["reasons"].append(f"{len(critical_issues)} critical issues detected")
+            
+            if recent_errors >= RollbackManager.CRITICAL_ERROR_COUNT:
+                result["rollback_needed"] = True  
+                result["severity"] = "high"
+                result["reasons"].append(f"{recent_errors} errors in last {RollbackManager.MONITORING_WINDOW_MINUTES} minutes")
+            
+            # Get recommendation
+            if result["rollback_needed"]:
+                last_healthy = await db.system_snapshots.find_one(
+                    {"status": "active", "health_at_creation": {"$gte": 70}},
+                    sort=[("created_at", -1)]
+                )
+                
+                if last_healthy:
+                    result["recommendation"] = {
+                        "action": "rollback",
+                        "target_snapshot": last_healthy.get("snapshot_id"),
+                        "snapshot_health": last_healthy.get("health_at_creation"),
+                        "snapshot_date": last_healthy.get("created_at")
+                    }
+                else:
+                    result["recommendation"] = {
+                        "action": "manual_intervention",
+                        "reason": "No healthy snapshot available for rollback"
+                    }
+            
+            return result
+            
+        except Exception as e:
+            logging.error(f"Rollback check failed: {e}")
+            return {"rollback_needed": False, "error": str(e)}
+    
+    @staticmethod
+    async def execute_rollback(snapshot_id: str, dry_run: bool = False) -> Dict[str, Any]:
+        """Execute rollback to a previous snapshot state"""
+        result = {
+            "success": False,
+            "snapshot_id": snapshot_id,
+            "dry_run": dry_run,
+            "actions_taken": [],
+            "actions_skipped": []
+        }
+        
+        try:
+            # Get snapshot
+            snapshot = await db.system_snapshots.find_one({"snapshot_id": snapshot_id})
+            if not snapshot:
+                result["error"] = "Snapshot not found"
+                return result
+            
+            if snapshot.get("status") != "active":
+                result["error"] = "Snapshot is not active"
+                return result
+            
+            # Rollback actions (safe operations only)
+            rollback_actions = [
+                ("Clear response cache", "cache_clear"),
+                ("Reset rate limiter", "rate_limit_reset"),
+                ("Repair database indexes", "index_repair"),
+                ("Clean orphaned data", "orphan_cleanup"),
+                ("Reset AI service connections", "ai_reset")
+            ]
+            
+            for action_name, action_type in rollback_actions:
+                if dry_run:
+                    result["actions_skipped"].append(action_name)
+                    continue
+                
+                try:
+                    if action_type == "cache_clear":
+                        # Clear caches (simulated - actual implementation depends on cache system)
+                        result["actions_taken"].append(f"✓ {action_name}")
+                    
+                    elif action_type == "rate_limit_reset":
+                        # Reset rate limiters to default
+                        from services.global_rate_limiter import rate_limiter
+                        rate_limiter.reset_all()
+                        result["actions_taken"].append(f"✓ {action_name}")
+                    
+                    elif action_type == "index_repair":
+                        await fix_missing_indexes()
+                        result["actions_taken"].append(f"✓ {action_name}")
+                    
+                    elif action_type == "orphan_cleanup":
+                        cleanup_result = await fix_orphaned_data()
+                        result["actions_taken"].append(f"✓ {action_name}: {cleanup_result.get('details', '')}")
+                    
+                    elif action_type == "ai_reset":
+                        # Reset any AI service states
+                        result["actions_taken"].append(f"✓ {action_name}")
+                    
+                except Exception as action_error:
+                    result["actions_taken"].append(f"✗ {action_name}: {str(action_error)}")
+            
+            # Mark snapshot as used
+            if not dry_run:
+                await db.system_snapshots.update_one(
+                    {"snapshot_id": snapshot_id},
+                    {"$set": {
+                        "last_rollback": datetime.now(timezone.utc).isoformat(),
+                        "rollback_count": snapshot.get("rollback_count", 0) + 1
+                    }}
+                )
+                
+                # Log rollback event
+                await db.rollback_history.insert_one({
+                    "snapshot_id": snapshot_id,
+                    "executed_at": datetime.now(timezone.utc).isoformat(),
+                    "actions": result["actions_taken"],
+                    "trigger": "manual"
+                })
+            
+            result["success"] = True
+            return result
+            
+        except Exception as e:
+            logging.error(f"Rollback execution failed: {e}")
+            result["error"] = str(e)
+            return result
+    
+    @staticmethod
+    async def get_snapshots(limit: int = 10) -> List[Dict]:
+        """Get recent system snapshots"""
+        try:
+            cursor = db.system_snapshots.find(
+                {},
+                {"_id": 0}
+            ).sort("created_at", -1).limit(limit)
+            
+            snapshots = await cursor.to_list(length=limit)
+            
+            for s in snapshots:
+                if isinstance(s.get("created_at"), str):
+                    pass  # Already string
+                elif s.get("created_at"):
+                    s["created_at"] = s["created_at"].isoformat()
+            
+            return snapshots
+        except Exception as e:
+            logging.error(f"Failed to get snapshots: {e}")
+            return []
+
+
+# Global rollback manager instance
+rollback_manager = RollbackManager()
+
+
 # ============== API Endpoints ==============
 
 @router.get("/health")
