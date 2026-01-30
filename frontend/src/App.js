@@ -628,6 +628,9 @@ function AppContent() {
                 <AnalyticsFunnelPage />
               </PremiumGate>
             } />
+            <Route path="/dragon-automator" element={
+              <DragonAutomatorPage />
+            } />
           </Routes>
         </main>
       </div>
