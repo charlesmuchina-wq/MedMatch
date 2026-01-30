@@ -344,6 +344,242 @@ export default function AdminDashboard() {
         />
       </div>
 
+      {/* ML Predictor Dashboard */}
+      <Card className="border-2 border-purple-500/20 bg-gradient-to-br from-purple-500/5 to-transparent">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Brain className="h-5 w-5 text-purple-500" />
+            ML Issue Predictor
+            {mlModelInfo?.trained && (
+              <Badge className="bg-purple-500/10 text-purple-500 text-xs">Model Trained</Badge>
+            )}
+          </CardTitle>
+          <CardDescription>
+            AI-powered system health prediction and issue detection
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Prediction Status */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium">System Status</span>
+                <Badge 
+                  className={`text-xs ${
+                    mlPrediction?.status === 'healthy' ? 'bg-green-500/10 text-green-500' :
+                    mlPrediction?.status === 'critical' ? 'bg-red-500/10 text-red-500' :
+                    mlPrediction?.status === 'warning' ? 'bg-yellow-500/10 text-yellow-500' :
+                    'bg-gray-500/10 text-gray-500'
+                  }`}
+                >
+                  {mlPrediction?.status?.toUpperCase() || 'ANALYZING'}
+                </Badge>
+              </div>
+              
+              <div className="relative">
+                <div className="flex items-center justify-center">
+                  <div className="relative w-32 h-32">
+                    <svg className="w-32 h-32 transform -rotate-90">
+                      <circle
+                        cx="64"
+                        cy="64"
+                        r="56"
+                        stroke="currentColor"
+                        strokeWidth="8"
+                        fill="none"
+                        className="text-muted/20"
+                      />
+                      <circle
+                        cx="64"
+                        cy="64"
+                        r="56"
+                        stroke="currentColor"
+                        strokeWidth="8"
+                        fill="none"
+                        strokeDasharray={`${(mlPrediction?.health_score || 0) * 3.51} 351`}
+                        className={`${
+                          (mlPrediction?.health_score || 0) >= 70 ? 'text-green-500' :
+                          (mlPrediction?.health_score || 0) >= 40 ? 'text-yellow-500' :
+                          'text-red-500'
+                        }`}
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <span className="text-3xl font-bold">{mlPrediction?.health_score || 0}</span>
+                      <span className="text-xs text-muted-foreground">Health Score</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <p className="text-sm text-center text-muted-foreground">
+                {mlPrediction?.status_message || 'Loading predictions...'}
+              </p>
+            </div>
+
+            {/* Predictions by Severity */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-medium flex items-center gap-2">
+                <Target className="h-4 w-4" />
+                Issues by Severity
+              </h4>
+              <div className="space-y-2">
+                {['critical', 'high', 'medium', 'low'].map((severity) => {
+                  const count = mlPrediction?.predictions_by_severity?.[severity] || 0;
+                  const colors = {
+                    critical: 'bg-red-500',
+                    high: 'bg-orange-500',
+                    medium: 'bg-yellow-500',
+                    low: 'bg-blue-500'
+                  };
+                  const maxCount = Math.max(
+                    ...Object.values(mlPrediction?.predictions_by_severity || { x: 1 })
+                  ) || 1;
+                  
+                  return (
+                    <div key={severity} className="flex items-center gap-3">
+                      <span className="text-xs w-16 capitalize">{severity}</span>
+                      <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
+                        <div 
+                          className={`h-full ${colors[severity]} rounded-full transition-all`}
+                          style={{ width: `${(count / maxCount) * 100}%` }}
+                        />
+                      </div>
+                      <span className="text-xs font-medium w-6">{count}</span>
+                    </div>
+                  );
+                })}
+              </div>
+              
+              {mlPrediction?.metrics && (
+                <div className="pt-4 border-t border-border/50 space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Error Rate</span>
+                    <span className="font-medium">{mlPrediction.metrics.error_rate}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">Avg Latency</span>
+                    <span className="font-medium">{mlPrediction.metrics.avg_latency}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Top Issues & Actions */}
+            <div className="space-y-4">
+              <h4 className="text-sm font-medium flex items-center gap-2">
+                <AlertTriangle className="h-4 w-4" />
+                Top Issues
+              </h4>
+              <div className="space-y-2 max-h-48 overflow-y-auto">
+                {mlPrediction?.top_issues?.length > 0 ? (
+                  mlPrediction.top_issues.map((issue, idx) => (
+                    <div 
+                      key={idx}
+                      className={`p-3 rounded-lg text-xs ${
+                        issue.severity === 'critical' ? 'bg-red-500/10 border border-red-500/20' :
+                        issue.severity === 'high' ? 'bg-orange-500/10 border border-orange-500/20' :
+                        'bg-yellow-500/10 border border-yellow-500/20'
+                      }`}
+                    >
+                      <p className="font-medium">{issue.title}</p>
+                      <p className="text-muted-foreground mt-1 line-clamp-2">{issue.description}</p>
+                    </div>
+                  ))
+                ) : (
+                  <div className="p-4 text-center text-muted-foreground text-sm">
+                    <CheckCircle className="h-8 w-8 mx-auto mb-2 text-green-500" />
+                    No issues detected
+                  </div>
+                )}
+              </div>
+              
+              <div className="flex gap-2 pt-2">
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  className="flex-1"
+                  onClick={async () => {
+                    try {
+                      await apiClient.post('/api/ml-model/train?days=30');
+                      toast.success('ML model training started');
+                      loadAdminData();
+                    } catch (err) {
+                      toast.error('Training failed');
+                    }
+                  }}
+                >
+                  <Brain className="h-3 w-3 mr-1" />
+                  Train Model
+                </Button>
+                <Button 
+                  size="sm" 
+                  variant="outline"
+                  className="flex-1"
+                  onClick={loadAdminData}
+                >
+                  <RefreshCw className="h-3 w-3 mr-1" />
+                  Refresh
+                </Button>
+              </div>
+            </div>
+          </div>
+          
+          {/* Model Info */}
+          {mlModelInfo?.trained && (
+            <div className="mt-4 pt-4 border-t border-border/50">
+              <div className="flex items-center justify-between text-xs text-muted-foreground">
+                <span>Model v{mlModelInfo.version} | Accuracy: {(mlModelInfo.metrics?.accuracy * 100)?.toFixed(1)}% | F1: {(mlModelInfo.metrics?.f1_score * 100)?.toFixed(1)}%</span>
+                <span>Trained: {new Date(mlModelInfo.trained_at).toLocaleDateString()}</span>
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Rollback Status */}
+      {rollbackStatus && (
+        <Card className={`border ${rollbackStatus.rollback_needed ? 'border-red-500/50 bg-red-500/5' : 'border-green-500/30 bg-green-500/5'}`}>
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <History className={`h-6 w-6 ${rollbackStatus.rollback_needed ? 'text-red-500' : 'text-green-500'}`} />
+                <div>
+                  <h4 className="font-medium">Auto-Rollback Status</h4>
+                  <p className="text-sm text-muted-foreground">
+                    {rollbackStatus.rollback_needed 
+                      ? `Rollback recommended: ${rollbackStatus.reasons?.join(', ')}`
+                      : `System stable | Health: ${rollbackStatus.current_health}%`}
+                  </p>
+                </div>
+              </div>
+              {rollbackStatus.rollback_needed && rollbackStatus.recommendation?.target_snapshot && (
+                <Button 
+                  size="sm" 
+                  variant="destructive"
+                  onClick={async () => {
+                    if (window.confirm('Execute rollback? This will restore system to previous state.')) {
+                      try {
+                        await apiClient.post('/api/dragon/automator/rollback/execute', {
+                          snapshot_id: rollbackStatus.recommendation.target_snapshot
+                        });
+                        toast.success('Rollback executed successfully');
+                        loadAdminData();
+                      } catch (err) {
+                        toast.error('Rollback failed');
+                      }
+                    }
+                  }}
+                >
+                  <History className="h-4 w-4 mr-2" />
+                  Execute Rollback
+                </Button>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Scheduler Status */}
       {schedulerStatus && (
         <Card>
