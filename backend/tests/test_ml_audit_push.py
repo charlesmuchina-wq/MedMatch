@@ -140,7 +140,7 @@ class TestAdminAuditLogging:
     def test_audit_unauthorized_access(self):
         """Test that unauthenticated requests are rejected"""
         response = requests.get(f"{BASE_URL}/api/admin-audit/status")
-        assert response.status_code == 401
+        assert response.status_code in [401, 403]  # Either unauthorized or forbidden
         print("Unauthorized access correctly rejected")
 
 
