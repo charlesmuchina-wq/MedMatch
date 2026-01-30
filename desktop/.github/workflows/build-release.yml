@@ -1,0 +1,184 @@
+name: Build and Release Desktop App
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on version tags like v1.0.0
+  workflow_dispatch:  # Allow manual trigger
+    inputs:
+      version:
+        description: 'Version to build (e.g., 1.0.0)'
+        required: false
+        default: ''
+
+env:
+  APP_NAME: MedMatch
+  NODE_VERSION: '20'
+
+jobs:
+  # Build for all platforms
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            platform: win
+            artifact: windows
+          - os: macos-latest
+            platform: mac
+            artifact: macos
+          - os: ubuntu-latest
+            platform: linux
+            artifact: linux
+
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+          cache-dependency-path: desktop/yarn.lock
+
+      - name: Install dependencies
+        working-directory: desktop
+        run: yarn install --frozen-lockfile
+
+      # macOS: Create icns from iconset
+      - name: Create macOS icon
+        if: matrix.platform == 'mac'
+        working-directory: desktop
+        run: |
+          if [ -d "assets/icon.iconset" ]; then
+            iconutil -c icns assets/icon.iconset -o assets/icon.icns
+          fi
+
+      # Windows: Install Wine on Linux for cross-compilation (if needed)
+      - name: Setup Wine (Linux only, for Windows builds)
+        if: matrix.platform == 'linux'
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install -y wine64 wine32
+
+      # Build the app
+      - name: Build Electron app
+        working-directory: desktop
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ matrix.platform }}" = "win" ]; then
+            yarn build:win
+          elif [ "${{ matrix.platform }}" = "mac" ]; then
+            yarn build:mac
+          else
+            yarn build:linux
+          fi
+        shell: bash
+
+      # Upload artifacts
+      - name: Upload Windows artifacts
+        if: matrix.platform == 'win'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-${{ matrix.artifact }}
+          path: |
+            desktop/dist/*.exe
+            desktop/dist/*.msi
+          retention-days: 5
+
+      - name: Upload macOS artifacts
+        if: matrix.platform == 'mac'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-${{ matrix.artifact }}
+          path: |
+            desktop/dist/*.dmg
+            desktop/dist/*.zip
+          retention-days: 5
+
+      - name: Upload Linux artifacts
+        if: matrix.platform == 'linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-${{ matrix.artifact }}
+          path: |
+            desktop/dist/*.AppImage
+            desktop/dist/*.deb
+            desktop/dist/*.rpm
+          retention-days: 5
+
+  # Create GitHub Release
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Display artifacts
+        run: ls -R artifacts
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: MedMatch Desktop ${{ github.ref_name }}
+          body: |
+            ## MedMatch Desktop ${{ github.ref_name }}
+            
+            ### Downloads
+            
+            | Platform | Download |
+            |----------|----------|
+            | Windows | `MedMatch-Setup-*.exe` |
+            | macOS | `MedMatch-*.dmg` |
+            | Linux | `MedMatch-*.AppImage` |
+            
+            ### What's New
+            - See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for details
+            
+            ### Installation
+            
+            **Windows**: Download and run the `.exe` installer
+            **macOS**: Download the `.dmg`, open it, and drag MedMatch to Applications
+            **Linux**: Download `.AppImage`, make it executable (`chmod +x`), and run
+            
+            ### Auto-Updates
+            The app will automatically check for updates and notify you when a new version is available.
+          draft: false
+          prerelease: false
+          files: |
+            artifacts/**/*.exe
+            artifacts/**/*.msi
+            artifacts/**/*.dmg
+            artifacts/**/*.zip
+            artifacts/**/*.AppImage
+            artifacts/**/*.deb
+            artifacts/**/*.rpm
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Notify on completion
+  notify:
+    needs: [build, release]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Build Status
+        run: |
+          echo "Build completed!"
+          echo "Release: ${{ github.ref_name }}"
+          echo "Status: ${{ needs.build.result }}"
