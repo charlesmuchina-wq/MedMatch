@@ -8,7 +8,7 @@ const { app, BrowserWindow, Menu, Tray, shell, ipcMain, Notification, nativeImag
 const path = require('path');
 
 // Configuration
-const APP_URL = 'https://career-ai-28.preview.emergentagent.com';
+const APP_URL = 'https://resume-match-64.preview.emergentagent.com';
 const isDev = process.env.NODE_ENV === 'development';
 
 let mainWindow = null;
