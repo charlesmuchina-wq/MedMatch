@@ -3,7 +3,8 @@ import { toast } from "sonner";
 import { 
   Search, MapPin, Globe, Calendar, Filter,
   Sparkles, Loader2, ShieldCheck, Award, CheckCircle, 
-  FileText, Code, HeartPulse, Settings, FileSearch
+  FileText, Code, HeartPulse, Settings, FileSearch,
+  Building, Home, Laptop, ChevronDown
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,17 +27,65 @@ const PresetIcons = {
   "search": FileSearch
 };
 
+// Location type icons
+const LocationTypeIcons = {
+  "remote": Laptop,
+  "onsite": Building,
+  "hybrid": Home
+};
+
+// Countries and cities data
+const COUNTRIES_DATA = {
+  "United States": ["New York", "Los Angeles", "San Francisco", "Chicago", "Seattle", "Austin", "Boston", "Denver", "Atlanta", "Miami", "Dallas", "San Diego", "Phoenix", "Portland", "Washington DC"],
+  "United Kingdom": ["London", "Manchester", "Birmingham", "Edinburgh", "Glasgow", "Bristol", "Leeds", "Liverpool", "Cambridge", "Oxford"],
+  "Canada": ["Toronto", "Vancouver", "Montreal", "Calgary", "Ottawa", "Edmonton", "Winnipeg", "Quebec City"],
+  "Germany": ["Berlin", "Munich", "Frankfurt", "Hamburg", "Cologne", "Stuttgart", "Düsseldorf"],
+  "Australia": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide", "Canberra"],
+  "India": ["Bangalore", "Mumbai", "Delhi", "Hyderabad", "Chennai", "Pune", "Kolkata", "Ahmedabad"],
+  "Singapore": ["Singapore"],
+  "Netherlands": ["Amsterdam", "Rotterdam", "The Hague", "Utrecht", "Eindhoven"],
+  "France": ["Paris", "Lyon", "Marseille", "Toulouse", "Nice", "Bordeaux"],
+  "Ireland": ["Dublin", "Cork", "Galway", "Limerick"],
+  "Spain": ["Madrid", "Barcelona", "Valencia", "Seville", "Bilbao"],
+  "Italy": ["Milan", "Rome", "Turin", "Florence", "Bologna"],
+  "Switzerland": ["Zurich", "Geneva", "Basel", "Bern"],
+  "Sweden": ["Stockholm", "Gothenburg", "Malmö"],
+  "Japan": ["Tokyo", "Osaka", "Yokohama", "Nagoya", "Fukuoka"],
+  "South Korea": ["Seoul", "Busan", "Incheon"],
+  "Brazil": ["São Paulo", "Rio de Janeiro", "Brasília", "Belo Horizonte"],
+  "Mexico": ["Mexico City", "Guadalajara", "Monterrey"],
+  "UAE": ["Dubai", "Abu Dhabi", "Sharjah"],
+  "Israel": ["Tel Aviv", "Jerusalem", "Haifa"],
+  "Poland": ["Warsaw", "Krakow", "Wroclaw", "Gdansk"],
+  "Portugal": ["Lisbon", "Porto", "Braga"],
+  "Remote/Global": ["Worldwide", "Any Location"]
+};
+
+// Location types
+const LOCATION_TYPES = [
+  { value: "all", label: "All Types", icon: Globe },
+  { value: "remote", label: "Remote", icon: Laptop },
+  { value: "hybrid", label: "Hybrid", icon: Home },
+  { value: "onsite", label: "On-site", icon: Building }
+];
+
 const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
   const { t } = useTranslation();
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [source, setSource] = useState("all");
-  const [location, setLocation] = useState("any");
+  const [country, setCountry] = useState("any");
+  const [city, setCity] = useState("any");
+  const [locationType, setLocationType] = useState("all");
   const [days, setDays] = useState("0");
   const [presets, setPresets] = useState({ presets: [], locations: [], quality_terms: [] });
   const [deepSearching, setDeepSearching] = useState(false);
   const [searchStats, setSearchStats] = useState(null);
+  const [showAdvanced, setShowAdvanced] = useState(false);
+
+  // Get cities for selected country
+  const availableCities = country && country !== "any" ? COUNTRIES_DATA[country] || [] : [];
 
   useEffect(() => {
     // Fetch presets using apiClient
@@ -45,19 +94,51 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
     // eslint-disable-next-line
   }, []);
 
+  // Reset city when country changes
+  useEffect(() => {
+    setCity("any");
+  }, [country]);
+
   const searchJobs = async (searchQuery = query) => {
     setLoading(true);
     setSearchStats(null);
     try {
+      // Build location string from country/city
+      let locationStr = "";
+      if (country !== "any") {
+        locationStr = country;
+        if (city !== "any") {
+          locationStr = `${city}, ${country}`;
+        }
+      }
+      
       const response = await api.searchJobs({
         query: searchQuery, 
         source, 
-        location: location === "any" ? "" : location, 
+        location: locationStr,
+        location_type: locationType !== "all" ? locationType : "",
         days: parseInt(days)
       });
       // API returns { data: { jobs: [...], total: ... } }
       const result = response.data;
-      setJobs(result.jobs || result || []);
+      let filteredJobs = result.jobs || result || [];
+      
+      // Client-side filter for location type if API doesn't support it fully
+      if (locationType !== "all") {
+        filteredJobs = filteredJobs.filter(job => {
+          const jobLocation = (job.location || "").toLowerCase();
+          const jobTitle = (job.title || "").toLowerCase();
+          const isRemote = jobLocation.includes("remote") || jobTitle.includes("remote");
+          const isHybrid = jobLocation.includes("hybrid") || jobTitle.includes("hybrid");
+          
+          if (locationType === "remote") return isRemote;
+          if (locationType === "hybrid") return isHybrid;
+          if (locationType === "onsite") return !isRemote && !isHybrid;
+          return true;
+        });
+      }
+      
+      setJobs(filteredJobs);
     } catch (e) {
       toast.error(t("jobs.searchFailed") || "Failed to fetch jobs");
       setJobs([]);
