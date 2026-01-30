@@ -268,10 +268,10 @@ class IssuePredictor:
             # Prepare data
             X, y = await self.prepare_training_data(days)
             
-            if len(X) < 50:
+            if len(X) < 10:
                 return {
                     "success": False,
-                    "error": f"Insufficient training samples: {len(X)} (need 50+)"
+                    "error": f"Insufficient training samples: {len(X)} (need 10+)"
                 }
             
             # Encode labels
