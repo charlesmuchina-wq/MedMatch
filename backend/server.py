@@ -40,6 +40,9 @@ from services.global_rate_limiter import (
 # KARAU DRAGON Scheduler
 from services.dragon_scheduler import start_scheduler, stop_scheduler
 
+# ML Data Collector
+from services.ml_data_collector import ml_collector
+
 # Load environment
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -163,6 +166,10 @@ async def lifespan(app: FastAPI):
     start_scheduler()
     logger.info("🐉 KARAU DRAGON Scheduler started - Weekly maintenance Sundays 1:00 AM PST")
     
+    # Initialize ML Data Collector
+    await ml_collector.initialize(mongo_url, os.environ.get('DB_NAME', 'medmatch'))
+    logger.info("🧠 ML Data Collector initialized - Training data collection active")
+    
     logger.info("🚀 MedMatch API server started successfully - Ready for 1M+ users!")
     
     yield
@@ -170,6 +177,7 @@ async def lifespan(app: FastAPI):
     # Shutdown
     logger.info("👋 Shutting down MedMatch API server...")
     await ai_supervisor.stop()
+    await ml_collector.shutdown()
     scheduler.shutdown()
     stop_scheduler()
     client.close()
@@ -225,6 +233,7 @@ from routes.meeting_notes import router as meeting_notes_router
 from routes.interview_calendar import router as interview_calendar_router
 from routes.analytics_funnel import router as analytics_funnel_router
 from routes.dragon_automator import router as dragon_automator_router
+from routes.ml_data import router as ml_data_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
@@ -263,6 +272,7 @@ app.include_router(meeting_notes_router, prefix="/api")
 app.include_router(interview_calendar_router, prefix="/api")
 app.include_router(analytics_funnel_router, prefix="/api")
 app.include_router(dragon_automator_router, prefix="/api")
+app.include_router(ml_data_router, prefix="/api")
 
 # ============== CORS Configuration ==============
 app.add_middleware(
