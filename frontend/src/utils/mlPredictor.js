@@ -10,14 +10,14 @@
 export class BrowserMLPredictor {
   constructor() {
     this.thresholds = {
-      errorRateWarning: 5,
-      errorRateCritical: 15,
-      latencyWarning: 500,
-      latencyCritical: 2000,
-      cpuWarning: 70,
-      cpuCritical: 90,
-      memoryWarning: 75,
-      memoryCritical: 90,
+      errorRateWarning: 10,      // Raised from 5%
+      errorRateCritical: 25,     // Raised from 15%
+      latencyWarning: 800,       // Raised from 500ms
+      latencyCritical: 3000,     // Raised from 2000ms
+      cpuWarning: 75,            // Raised from 70%
+      cpuCritical: 92,           // Raised from 90%
+      memoryWarning: 80,         // Raised from 75%
+      memoryCritical: 92,        // Raised from 90%
     };
     
     this.weights = {
