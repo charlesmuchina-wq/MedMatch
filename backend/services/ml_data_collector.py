@@ -364,7 +364,7 @@ class MLDataCollector:
         limit: int = 100
     ) -> List[Dict]:
         """Get recent errors for analysis"""
-        if not self.collection:
+        if self.collection is None:
             return []
             
         cutoff = datetime.now(timezone.utc).replace(
@@ -386,7 +386,7 @@ class MLDataCollector:
         hours: int = 24
     ) -> Dict:
         """Get event statistics for the given time period"""
-        if not self.collection:
+        if self.collection is None:
             return {}
         
         cutoff = datetime.now(timezone.utc).replace(
