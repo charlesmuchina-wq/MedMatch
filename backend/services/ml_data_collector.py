@@ -421,7 +421,7 @@ class MLDataCollector:
         days: int = 30
     ) -> Dict:
         """Get user activity pattern for personalization"""
-        if not self.collection:
+        if self.collection is None:
             return {}
         
         from datetime import timedelta
