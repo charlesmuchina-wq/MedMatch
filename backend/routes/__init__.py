@@ -129,6 +129,15 @@ __all__ = [
     # Persona/Jumio ID Verification
     'persona_verification_router',
     
+    # Interview Funnel Analytics
+    'analytics_funnel_router',
+    
+    # Meeting Notes
+    'meeting_notes_router',
+    
+    # Interview Calendar
+    'interview_calendar_router',
+    
     # Helper functions
     'get_current_user',
     'check_membership_status'
