@@ -37,6 +37,9 @@ from services.global_rate_limiter import (
     get_user_tier
 )
 
+# KARAU DRAGON Scheduler
+from services.dragon_scheduler import start_scheduler, stop_scheduler
+
 # Load environment
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
