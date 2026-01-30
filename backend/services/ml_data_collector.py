@@ -125,7 +125,7 @@ class MLDataCollector:
     
     async def _flush_buffer(self):
         """Flush buffered events to MongoDB"""
-        if not self.buffer or not self.collection:
+        if not self.buffer or self.collection is None:
             return
         
         events_to_insert = self.buffer.copy()
