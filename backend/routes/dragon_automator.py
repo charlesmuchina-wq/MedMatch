@@ -26,9 +26,23 @@ from routes.auth import get_current_user
 
 router = APIRouter(prefix="/dragon/automator", tags=["KARAU Dragon Automator"])
 
+# ============== Helper Functions ==============
+
+def is_admin_user(user: dict) -> bool:
+    """Check if user has admin privileges"""
+    if not user:
+        return False
+    return (
+        user.get("is_admin", False) or
+        user.get("role") == "admin" or
+        user.get("email") == "admin@medmatch.com" or
+        "all" in user.get("permissions", []) or
+        "admin_dashboard" in user.get("permissions", [])
+    )
+
 # ============== Version Management ==============
 
-CURRENT_VERSION = "2.3.0"
+CURRENT_VERSION = "2.4.0"
 VERSION_HISTORY = []
 
 class VersionInfo(BaseModel):
