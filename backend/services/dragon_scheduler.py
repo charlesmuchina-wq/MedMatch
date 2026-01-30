@@ -638,52 +638,68 @@ async def check_for_rollback_conditions():
 # ============== Scheduler Setup ==============
 
 def setup_scheduled_tasks():
-    """Configure all scheduled tasks"""
+    """Configure all scheduled tasks with MongoDB persistence"""
+    
+    # Check if jobs already exist (persisted from previous run)
+    existing_jobs = {job.id for job in scheduler.get_jobs()}
     
     # Weekly maintenance - Sundays at 1:00 AM PST (9:00 AM UTC)
-    scheduler.add_job(
-        run_weekly_maintenance,
-        CronTrigger(day_of_week='sun', hour=9, minute=0, timezone='UTC'),
-        id='weekly_maintenance',
-        name='KARAU DRAGON Weekly Maintenance',
-        replace_existing=True
-    )
+    if 'weekly_maintenance' not in existing_jobs:
+        scheduler.add_job(
+            run_weekly_maintenance,
+            CronTrigger(day_of_week='sun', hour=9, minute=0, timezone='UTC'),
+            id='weekly_maintenance',
+            name='KARAU DRAGON Weekly Maintenance',
+            replace_existing=True
+        )
+        logging.info("   📅 Added: Weekly maintenance (Sundays 1:00 AM PST)")
+    else:
+        logging.info("   📅 Restored: Weekly maintenance (Sundays 1:00 AM PST)")
     
     # Auto-scaling check - every 5 minutes
-    scheduler.add_job(
-        check_and_scale_resources,
-        'interval',
-        minutes=5,
-        id='auto_scaling_check',
-        name='Auto-Scaling Resource Check',
-        replace_existing=True
-    )
+    if 'auto_scaling_check' not in existing_jobs:
+        scheduler.add_job(
+            check_and_scale_resources,
+            'interval',
+            minutes=5,
+            id='auto_scaling_check',
+            name='Auto-Scaling Resource Check',
+            replace_existing=True
+        )
+        logging.info("   ⚡ Added: Auto-scaling check (every 5 min)")
+    else:
+        logging.info("   ⚡ Restored: Auto-scaling check (every 5 min)")
     
     # Predictive analysis - every 6 hours
-    scheduler.add_job(
-        analyze_trends_for_predictions,
-        'interval',
-        hours=6,
-        id='predictive_analysis',
-        name='Predictive Issue Analysis',
-        replace_existing=True
-    )
+    if 'predictive_analysis' not in existing_jobs:
+        scheduler.add_job(
+            analyze_trends_for_predictions,
+            'interval',
+            hours=6,
+            id='predictive_analysis',
+            name='Predictive Issue Analysis',
+            replace_existing=True
+        )
+        logging.info("   🔮 Added: Predictive analysis (every 6 hours)")
+    else:
+        logging.info("   🔮 Restored: Predictive analysis (every 6 hours)")
     
     # Rollback condition check - every 15 minutes
-    scheduler.add_job(
-        check_for_rollback_conditions,
-        'interval',
-        minutes=15,
-        id='rollback_check',
-        name='Rollback Condition Check',
-        replace_existing=True
-    )
+    if 'rollback_check' not in existing_jobs:
+        scheduler.add_job(
+            check_for_rollback_conditions,
+            'interval',
+            minutes=15,
+            id='rollback_check',
+            name='Rollback Condition Check',
+            replace_existing=True
+        )
+        logging.info("   🔄 Added: Rollback check (every 15 min)")
+    else:
+        logging.info("   🔄 Restored: Rollback check (every 15 min)")
     
-    logging.info("🐉 KARAU DRAGON Scheduler configured:")
-    logging.info("   📅 Weekly maintenance: Sundays 1:00 AM PST")
-    logging.info("   ⚡ Auto-scaling check: Every 5 minutes")
-    logging.info("   🔮 Predictive analysis: Every 6 hours")
-    logging.info("   🔄 Rollback check: Every 15 minutes")
+    logging.info(f"🐉 KARAU DRAGON Scheduler configured with {len(scheduler.get_jobs())} jobs")
+    logging.info(f"   💾 Job persistence: MongoDB ({DB_NAME}.apscheduler_jobs)")
 
 
 def start_scheduler():
