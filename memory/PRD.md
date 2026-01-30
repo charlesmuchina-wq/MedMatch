@@ -20,12 +20,15 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 12. **Real-time Voice Transcription**: WebSocket-based live audio transcription with Whisper ✅
 13. **Video Interview with Facial Expression Analysis**: Browser-based TensorFlow.js analysis ✅
 14. **Native Mobile App**: Expo SDK 54 / React Native 0.81 (structure ready)
+15. **ML Training Data Collection**: System events, errors, and user actions logging ✅
+16. **Admin Audit Logging**: Security and compliance tracking ✅
+17. **Mobile Push Notifications**: Expo push notification support ✅
 
 ---
 
 ## Deployment Readiness: 100% ✅
 
-### Latest Assessment: January 24, 2026
+### Latest Assessment: January 30, 2026
 
 | Category | Score | Status |
 |----------|-------|--------|
@@ -37,16 +40,77 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 | Performance & Reliability | 100% | ✅ PASS |
 | Frontend E2E (AI Features) | 100% | ✅ PASS |
 | Real-Time STT & Video Analysis | 100% | ✅ PASS |
+| ML Data Collection & Admin Audit | 100% | ✅ PASS |
 
 **Backend Test Results:** 100% pass rate (All API endpoints working)
 **Frontend E2E Test Results:** All features validated
-**New Features Status:** Real-time STT, Video Analysis, Meeting Notes, Web Push, Interview Calendar fully implemented
+**New Features Status:** Real-time STT, Video Analysis, Meeting Notes, Web Push, Interview Calendar, ML Data Collection, Admin Audit Logging fully implemented
 
 ---
 
-## Session: January 30, 2026 - Desktop App, Analytics Dashboard & KARAU Automator
+## Session: January 30, 2026 - Rate Limiting Fix, ML Data Collection, Admin Audit Logging
 
 ### ✅ COMPLETED THIS SESSION
+
+#### 1. Frontend Rate Limiting Fix (COMPLETED)
+- **Problem:** Admin dashboards triggered 429 errors due to simultaneous API calls (thundering herd)
+- **Solution:** Implemented staggered API calls with 150ms delays
+- **Files Updated:**
+  - `/app/frontend/src/pages/DragonAutomatorPage.jsx` - Sequential API loading
+  - `/app/frontend/src/pages/AdminDashboard.jsx` - Sequential API loading
+- **Result:** No more 429 errors on admin pages
+
+#### 2. ML Training Data Collection (COMPLETED)
+- **Backend Service:** `/app/backend/services/ml_data_collector.py`
+  - Event buffering with 30-second flush interval
+  - 50-event buffer before auto-flush
+  - System metrics capture (CPU, memory, disk)
+  - Automatic API call logging via middleware
+- **API Routes:** `/app/backend/routes/ml_data.py`
+  - `GET /api/ml-data/status` - Service status and stats
+  - `POST /api/ml-data/test-event` - Log test events
+  - `POST /api/ml-data/flush` - Manual buffer flush
+  - `GET /api/ml-data/events/stats` - Event statistics
+  - `GET /api/ml-data/events/recent-errors` - Error analysis
+  - `GET /api/ml-data/export` - Export training data
+  - `GET /api/ml-data/event-types` - Available event types
+- **Event Types Tracked:**
+  - System: errors, warnings, API calls, performance metrics
+  - User: logins, job searches, applications, AI interactions
+  - Diagnostic: health checks, maintenance, version releases
+- **Database Collection:** `ml_training_data`
+
+#### 3. Admin Audit Logging (COMPLETED)
+- **API Routes:** `/app/backend/routes/admin_audit.py`
+  - `GET /api/admin-audit/status` - Audit service status
+  - `POST /api/admin-audit/log` - Create audit entry
+  - `GET /api/admin-audit/logs` - Retrieve logs with pagination
+  - `GET /api/admin-audit/logs/{id}` - Get log details
+  - `GET /api/admin-audit/summary` - Statistics summary
+  - `GET /api/admin-audit/export` - Export for compliance
+  - `DELETE /api/admin-audit/logs/cleanup` - Old log cleanup
+- **Audit Actions:**
+  - User Management: create, update, delete, suspend, role changes
+  - Content: job approve/reject/delete/feature
+  - System: settings, rate limits, maintenance mode
+  - Security: login as user, force logout, password reset
+  - Financial: subscription, refund, payment adjustments
+- **Database Collection:** `admin_audit_logs`
+
+#### 4. Mobile Push Notifications - Expo Support (COMPLETED)
+- **API Routes:** `/app/backend/routes/webpush.py` (enhanced)
+  - `POST /api/webpush/expo/subscribe` - Register Expo token
+  - `DELETE /api/webpush/expo/unsubscribe` - Unregister token
+  - `GET /api/webpush/expo/status` - Push status for user
+  - `POST /api/webpush/expo/test` - Test notification
+- **Unified Notifications:** `send_to_user()` now sends to both web push and Expo
+- **Database Collection:** `expo_push_tokens`
+
+---
+
+## Session: January 30, 2026 - Previous Work (Desktop App, Analytics, KARAU Automator)
+
+### ✅ COMPLETED EARLIER
 
 #### 1. Native Desktop App (COMPLETED)
 - Created `/app/desktop/` with Electron configuration
