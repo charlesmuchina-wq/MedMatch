@@ -30,7 +30,7 @@ async def get_ml_collector_status():
     try:
         stats = await ml_collector.get_event_stats(hours=24)
         return {
-            "status": "active" if ml_collector.collection else "not_initialized",
+            "status": "active" if ml_collector.collection is not None else "not_initialized",
             "buffer_size": len(ml_collector.buffer),
             "flush_interval_seconds": ml_collector.flush_interval,
             "last_24h_stats": stats
