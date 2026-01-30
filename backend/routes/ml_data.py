@@ -198,3 +198,70 @@ async def log_test_event():
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/generate")
+async def generate_training_data(
+    count: int = Query(default=10, ge=1, le=100, description="Number of event batches to generate")
+):
+    """Generate synthetic training data for ML model improvement"""
+    try:
+        result = await ml_data_generator.generate_batch(count=count)
+        await ml_collector._flush_buffer()
+        
+        return {
+            "success": True,
+            "generated": result,
+            "message": f"Generated {sum(result.values())} events"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/generate-historical")
+async def generate_historical_data(
+    hours: int = Query(default=24, ge=1, le=168, description="Hours of historical data to generate"),
+    events_per_hour: int = Query(default=20, ge=5, le=100, description="Events per hour")
+):
+    """Generate historical training data for ML model bootstrapping (admin only)"""
+    try:
+        result = await ml_data_generator.generate_historical_data(
+            hours=hours,
+            events_per_hour=events_per_hour
+        )
+        
+        return {
+            "success": True,
+            "generated": result,
+            "message": f"Generated {hours} hours of historical data"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/generator/start")
+async def start_data_generator(
+    interval_seconds: int = Query(default=60, ge=10, le=3600, description="Generation interval in seconds")
+):
+    """Start automatic background data generation"""
+    try:
+        await ml_data_generator.start(interval_seconds=interval_seconds)
+        return {
+            "success": True,
+            "message": f"Data generator started with {interval_seconds}s interval"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/generator/stop")
+async def stop_data_generator():
+    """Stop automatic background data generation"""
+    try:
+        await ml_data_generator.stop()
+        return {
+            "success": True,
+            "message": "Data generator stopped"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
