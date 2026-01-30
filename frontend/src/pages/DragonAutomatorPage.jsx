@@ -233,7 +233,7 @@ export default function DragonAutomatorPage() {
       // Stagger API calls to prevent rate limiting (thundering herd)
       // Load health first (critical data)
       try {
-        const healthRes = await api.get('/api/dragon/automator/health');
+        const healthRes = await apiClient.get('/api/dragon/automator/health');
         setHealth(healthRes.data);
       } catch (err) {
         console.error('Health fetch failed:', err);
@@ -243,7 +243,7 @@ export default function DragonAutomatorPage() {
       
       // Load improvements
       try {
-        const improvementsRes = await api.get('/api/dragon/automator/improvements');
+        const improvementsRes = await apiClient.get('/api/dragon/automator/improvements');
         setImprovements(improvementsRes.data.suggestions || []);
       } catch (err) {
         console.error('Improvements fetch failed:', err);
@@ -253,7 +253,7 @@ export default function DragonAutomatorPage() {
       
       // Load updates
       try {
-        const updatesRes = await api.get('/api/dragon/automator/updates');
+        const updatesRes = await apiClient.get('/api/dragon/automator/updates');
         setUpdates(updatesRes.data.updates || []);
       } catch (err) {
         console.error('Updates fetch failed:', err);
@@ -263,7 +263,7 @@ export default function DragonAutomatorPage() {
       
       // Load version info
       try {
-        const versionRes = await api.get('/api/dragon/automator/version');
+        const versionRes = await apiClient.get('/api/dragon/automator/version');
         setVersion(versionRes.data);
       } catch (err) {
         console.error('Version fetch failed:', err);
