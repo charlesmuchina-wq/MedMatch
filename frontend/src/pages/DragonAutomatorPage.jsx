@@ -279,7 +279,7 @@ export default function DragonAutomatorPage() {
   const runFullAnalysis = async () => {
     setRunning(true);
     try {
-      const response = await api.post('/api/dragon/automator/analyze-and-fix');
+      const response = await apiClient.post('/api/dragon/automator/analyze-and-fix');
       setLastReport(response.data.report);
       toast.success(`Analysis complete! ${response.data.report?.phases?.auto_fix?.fixes_applied || 0} fixes applied`);
       await loadData();
@@ -293,7 +293,7 @@ export default function DragonAutomatorPage() {
 
   const applyAutoFixes = async () => {
     try {
-      const response = await api.post('/api/dragon/automator/auto-fix');
+      const response = await apiClient.post('/api/dragon/automator/auto-fix');
       toast.success(`Applied ${response.data.fixes_applied} fixes`);
       await loadData();
     } catch (error) {
@@ -303,7 +303,7 @@ export default function DragonAutomatorPage() {
 
   const implementImprovement = async (index) => {
     try {
-      const response = await api.post(`/api/dragon/automator/improvements/${index}/implement`);
+      const response = await apiClient.post(`/api/dragon/automator/improvements/${index}/implement`);
       if (response.data.success) {
         toast.success('Improvement implemented successfully');
         await loadData();
@@ -317,7 +317,7 @@ export default function DragonAutomatorPage() {
 
   const markUpdatesRead = async () => {
     try {
-      await api.post('/api/dragon/automator/updates/mark-read');
+      await apiClient.post('/api/dragon/automator/updates/mark-read');
       setUpdates([]);
       toast.success('Updates marked as read');
     } catch (error) {
