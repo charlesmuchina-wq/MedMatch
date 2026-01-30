@@ -149,7 +149,7 @@ async def lifespan(app: FastAPI):
     await ai_supervisor.start()
     logger.info(f"🤖 AI Supervisor started (max users: {MAX_CONCURRENT_USERS:,})")
     
-    # Start scheduler
+    # Start daily digest scheduler
     scheduler.add_job(
         scheduled_digest_task,
         CronTrigger(hour=8, minute=0),
@@ -159,6 +159,10 @@ async def lifespan(app: FastAPI):
     scheduler.start()
     logger.info("📅 Daily digest scheduler started - runs at 8:00 AM UTC")
     
+    # Start KARAU DRAGON Scheduler
+    start_scheduler()
+    logger.info("🐉 KARAU DRAGON Scheduler started - Weekly maintenance Sundays 1:00 AM PST")
+    
     logger.info("🚀 MedMatch API server started successfully - Ready for 1M+ users!")
     
     yield
@@ -167,6 +171,7 @@ async def lifespan(app: FastAPI):
     logger.info("👋 Shutting down MedMatch API server...")
     await ai_supervisor.stop()
     scheduler.shutdown()
+    stop_scheduler()
     client.close()
     response_cache.clear()
     logger.info("👋 MedMatch API server shutdown complete")
