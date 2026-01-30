@@ -420,11 +420,11 @@ Suggest 3-5 specific improvements for this job search platform.
         response = chat.send_message(prompt)
         
         try:
-            improvements = json.loads(response.content)
+            improvements = json.loads(response)
         except json.JSONDecodeError:
             # Try to extract JSON from response
             import re
-            json_match = re.search(r'\[[\s\S]*\]', response.content)
+            json_match = re.search(r'\[[\s\S]*\]', response)
             if json_match:
                 improvements = json.loads(json_match.group())
                 
