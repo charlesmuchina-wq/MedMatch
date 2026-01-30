@@ -339,35 +339,94 @@ async def get_quality_engineering_keywords():
 async def search_jobs(
     q: str = "",
     location: str = "Remote",
-    sources: str = "all"
+    sources: str = "all",
+    location_type: str = ""
 ):
-    """Search for jobs across multiple sources"""
+    """
+    Search for jobs across multiple sources.
+    
+    Args:
+        q: Search query (job title, skills, etc.)
+        location: Location string (city, country, or "Remote")
+        sources: Source filter (all, remoteok, remotive, etc.)
+        location_type: Filter by work type (remote, hybrid, onsite)
+    """
     all_jobs = []
+    
+    # Adjust location based on location_type
+    search_location = location
+    if location_type == "remote":
+        search_location = "Remote"
     
     # Fetch from multiple sources in parallel
     tasks = []
     
     if sources in ["all", "remoteok"]:
-        tasks.append(fetch_remoteok_jobs(q, location))
+        tasks.append(fetch_remoteok_jobs(q, search_location))
     if sources in ["all", "remotive"]:
-        tasks.append(fetch_remotive_jobs(q, location))
+        tasks.append(fetch_remotive_jobs(q, search_location))
     if sources in ["all", "jobicy"]:
-        tasks.append(fetch_jobicy_jobs(q, location))
+        tasks.append(fetch_jobicy_jobs(q, search_location))
     if sources in ["all", "arbeitnow"]:
-        tasks.append(fetch_arbeitnow_jobs(q, location))
+        tasks.append(fetch_arbeitnow_jobs(q, search_location))
     if sources in ["all", "himalayas"]:
-        tasks.append(fetch_himalayas_jobs(q, location))
+        tasks.append(fetch_himalayas_jobs(q, search_location))
     
     # Google CSE if configured
     if GOOGLE_API_KEY and GOOGLE_CSE_ID and sources in ["all", "google"]:
         for site in GOOGLE_CSE_JOB_SITES[:3]:
-            tasks.append(fetch_google_cse_jobs(q, location, site))
+            tasks.append(fetch_google_cse_jobs(q, search_location, site))
     
     results = await asyncio.gather(*tasks, return_exceptions=True)
     
     for result in results:
         if isinstance(result, list):
             all_jobs.extend(result)
+    
+    # Filter by location type if specified
+    if location_type:
+        filtered_jobs = []
+        for job in all_jobs:
+            job_location = (job.get("location", "") or "").lower()
+            job_title = (job.get("title", "") or "").lower()
+            job_desc = (job.get("description", "") or "").lower()
+            
+            is_remote = any(kw in job_location or kw in job_title or kw in job_desc 
+                          for kw in ["remote", "work from home", "wfh", "anywhere", "distributed"])
+            is_hybrid = any(kw in job_location or kw in job_title or kw in job_desc 
+                          for kw in ["hybrid", "flexible", "partial remote"])
+            
+            if location_type == "remote" and is_remote:
+                job["work_type"] = "Remote"
+                filtered_jobs.append(job)
+            elif location_type == "hybrid" and is_hybrid:
+                job["work_type"] = "Hybrid"
+                filtered_jobs.append(job)
+            elif location_type == "onsite" and not is_remote and not is_hybrid:
+                job["work_type"] = "On-site"
+                filtered_jobs.append(job)
+            elif not location_type:
+                # Detect and tag work type
+                if is_remote:
+                    job["work_type"] = "Remote"
+                elif is_hybrid:
+                    job["work_type"] = "Hybrid"
+                else:
+                    job["work_type"] = "On-site"
+                filtered_jobs.append(job)
+        all_jobs = filtered_jobs
+    else:
+        # Tag all jobs with detected work type
+        for job in all_jobs:
+            job_location = (job.get("location", "") or "").lower()
+            job_title = (job.get("title", "") or "").lower()
+            
+            if any(kw in job_location or kw in job_title for kw in ["remote", "work from home", "wfh"]):
+                job["work_type"] = "Remote"
+            elif any(kw in job_location or kw in job_title for kw in ["hybrid", "flexible"]):
+                job["work_type"] = "Hybrid"
+            else:
+                job["work_type"] = "On-site"
     
     # Deduplicate by URL
     seen_urls = set()
