@@ -74,7 +74,18 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - QR code generated for scanning with Expo Go app
 - Metro bundler running on port 8081
 
-#### 4. KARAU DRAGON AI Automator (COMPLETED)
+#### 5. Enhanced Job Search Filters (COMPLETED)
+- **Frontend**: Updated `/app/frontend/src/pages/JobSearchPage.jsx`
+  - Country dropdown with 20+ countries (US, UK, Canada, Germany, India, etc.)
+  - City dropdown (dependent on selected country) with major cities
+  - Location Type dropdown: Remote, Hybrid, On-site, All Types
+  - "More Filters" toggle for advanced options
+  - Active filters display with clear buttons
+- **Backend**: Updated `/app/backend/routes/jobs.py`
+  - Added `location_type` parameter to search API
+  - Server-side filtering for Remote/Hybrid/On-site jobs
+  - Auto-tagging of jobs with `work_type` field
+- **Countries Supported**: US, UK, Canada, Germany, Australia, India, Singapore, Netherlands, France, Ireland, Spain, Italy, Switzerland, Sweden, Japan, South Korea, Brazil, Mexico, UAE, Israel, Poland, Portugal, Remote/Global
 - **Backend**: `/app/backend/routes/dragon_automator.py`
   - `GET /api/dragon/automator/health` - System health diagnostics
   - `POST /api/dragon/automator/diagnose` - Full diagnostic report
