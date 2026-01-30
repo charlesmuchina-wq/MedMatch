@@ -169,9 +169,12 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
       `}>
         <div className={`flex items-center justify-between p-6 border-b ${isDark ? 'border-batik-dark-grey' : 'border-slate-100'} shrink-0`}>
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-batik-black to-batik-charcoal rounded-lg flex items-center justify-center border-2 border-turquoise shadow-lg shadow-turquoise/20">
-              <Briefcase className="w-5 h-5 text-turquoise" />
-            </div>
+            <img 
+              src="/logo-small.png" 
+              alt="MedMatch Logo" 
+              className="w-10 h-10 object-contain rounded-lg"
+              data-testid="sidebar-logo"
+            />
             <span className={`font-semibold text-lg ${isDark ? 'text-white' : 'text-slate-900'}`} style={{ fontFamily: 'IBM Plex Sans' }}>
               MedMatch
             </span>
