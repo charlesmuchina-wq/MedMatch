@@ -44,6 +44,7 @@ import RealTimeSTTPage from "@/pages/RealTimeSTTPage";
 import MeetingNotesPage from "@/pages/MeetingNotesPage";
 import InterviewCalendarPage from "@/pages/InterviewCalendarPage";
 import AnalyticsFunnelPage from "@/pages/AnalyticsFunnelPage";
+import DragonAutomatorPage from "@/pages/DragonAutomatorPage";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
