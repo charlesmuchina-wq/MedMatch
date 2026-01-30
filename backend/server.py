@@ -215,6 +215,7 @@ from routes import (
 from routes.batch import router as batch_router
 from routes.meeting_notes import router as meeting_notes_router
 from routes.interview_calendar import router as interview_calendar_router
+from routes.analytics_funnel import router as analytics_funnel_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
