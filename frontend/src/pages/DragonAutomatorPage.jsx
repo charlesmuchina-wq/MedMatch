@@ -30,7 +30,7 @@ import { Button } from '../components/ui/button';
 import { Progress } from '../components/ui/progress';
 import { Badge } from '../components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import api from '@/utils/apiClient';
+import { apiClient } from '@/utils/apiClient';
 
 // Status Badge Component
 const StatusBadge = ({ status }) => {
