@@ -23,7 +23,11 @@ import {
   Crown,
   TrendingUp,
   AlertTriangle,
-  CheckCircle
+  CheckCircle,
+  Brain,
+  Gauge,
+  History,
+  Target
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
 import { Button } from '../components/ui/button';
