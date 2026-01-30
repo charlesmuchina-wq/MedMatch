@@ -92,6 +92,19 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - **Updated:** `package.json` with author, homepage, maintainer fields
 - **Note:** Windows/macOS builds require Wine/Xcode (use GitHub Actions CI/CD)
 
+#### 0.3 APScheduler MongoDB Persistence (COMPLETED)
+- **Updated:** `/app/backend/services/dragon_scheduler.py`
+- **Features:**
+  - Jobs now persist across server restarts via `MongoDBJobStore`
+  - Collection: `MedMatch.apscheduler_jobs`
+  - Coalesce missed jobs, max 1 instance per job, 1hr misfire grace time
+
+#### 0.4 Database Consolidation (COMPLETED)
+- **Migrated:** All data from `test_database` → `MedMatch`
+- **Updated:** `/app/backend/.env` with `DB_NAME="MedMatch"`
+- **Cleaned:** Dropped old `test_database`
+- **Final State:** `MedMatch` database with 38 collections, 4204 documents
+
 #### 1. Frontend Rate Limiting Fix (P1 - COMPLETED)
 - **Problem:** Admin dashboards triggered 429 errors due to simultaneous API calls
 - **Solution:** Implemented staggered API calls with 150ms delays
