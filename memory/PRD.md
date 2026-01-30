@@ -86,6 +86,15 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
   - `GET /api/dragon/automator/updates` - Get pending update notifications
   - `POST /api/dragon/automator/updates/mark-read` - Mark updates as read
   - `POST /api/dragon/automator/analyze-and-fix` - Complete automation cycle
+  - `POST /api/dragon/automator/run-weekly-maintenance` - Manual maintenance trigger
+  - `GET /api/dragon/automator/scheduler-status` - View scheduled tasks
+  - `GET /api/dragon/automator/maintenance-reports` - View maintenance history
+  - `GET /api/dragon/automator/predictions` - AI predictive issue analysis
+- **Scheduler Service**: `/app/backend/services/dragon_scheduler.py`
+  - Weekly maintenance: **Sundays 1:00 AM PST (9:00 AM UTC)**
+  - Auto-scaling check: Every 5 minutes
+  - Predictive analysis: Every 6 hours
+  - Rollback condition check: Every 15 minutes
 - **Frontend**: `/app/frontend/src/pages/DragonAutomatorPage.jsx`
   - System Health Gauge (0-100 score)
   - Diagnostics tabs: Database, API, AI Services, Performance
@@ -96,9 +105,16 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
   - Automatic diagnostics (database, API, AI services, performance)
   - Auto-fix for: orphaned data, missing indexes, data integrity
   - AI-powered improvement analysis using GPT-5.2
-  - Version management and changelog tracking
-  - Push update notifications to users on login
-- Accessible at `/dragon-automator` route (admin only for some features)
+  - Version management and changelog tracking (v2.4.0 released)
+  - Push update notifications to users on login (76 users notified)
+  - Predictive issue detection using trend analysis
+  - Automated rollback monitoring for critical failures
+  - Auto-scaling with dynamic rate limit adjustment
+- **Rate Limiting Optimized**: Increased limits to prevent 429 errors
+  - Anonymous: 30 req/sec, 300 req/min
+  - Free: 100 req/sec, 1000 req/min
+  - Premium: 500 req/sec, 5000 req/min
+- Accessible at `/dragon-automator` route (admin features protected)
 
 ---
 
