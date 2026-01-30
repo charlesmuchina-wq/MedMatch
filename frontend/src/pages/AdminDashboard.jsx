@@ -113,6 +113,9 @@ export default function AdminDashboard() {
     pending_issues: 0
   });
   const [schedulerStatus, setSchedulerStatus] = useState(null);
+  const [mlPrediction, setMlPrediction] = useState(null);
+  const [mlModelInfo, setMlModelInfo] = useState(null);
+  const [rollbackStatus, setRollbackStatus] = useState(null);
 
   // Helper to add delay between requests to prevent rate limiting
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -140,6 +143,36 @@ export default function AdminDashboard() {
         setSchedulerStatus(schedulerRes.data);
       } catch (err) {
         console.error('Scheduler status fetch failed:', err);
+      }
+      
+      await delay(150);
+      
+      // Load ML predictor summary
+      try {
+        const mlRes = await apiClient.get('/api/ml-predictor/summary');
+        setMlPrediction(mlRes.data);
+      } catch (err) {
+        console.error('ML prediction fetch failed:', err);
+      }
+      
+      await delay(150);
+      
+      // Load ML model info
+      try {
+        const modelRes = await apiClient.get('/api/ml-model/info');
+        setMlModelInfo(modelRes.data);
+      } catch (err) {
+        console.error('ML model info fetch failed:', err);
+      }
+      
+      await delay(150);
+      
+      // Load rollback status
+      try {
+        const rollbackRes = await apiClient.get('/api/dragon/automator/rollback/check');
+        setRollbackStatus(rollbackRes.data);
+      } catch (err) {
+        console.error('Rollback status fetch failed:', err);
       }
 
       // Set stats from health data
