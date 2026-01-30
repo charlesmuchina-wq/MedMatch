@@ -29,7 +29,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../co
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Progress } from '../components/ui/progress';
-import api from '@/utils/apiClient';
+import { apiClient } from '@/utils/apiClient';
 
 // Admin Module Card
 const AdminModuleCard = ({ title, description, icon: Icon, path, status, stats, onClick }) => (
