@@ -154,7 +154,7 @@ async def run_ai_diagnostics() -> Dict[str, Any]:
     else:
         results["metrics"]["llm_configured"] = True
         
-        # Test LLM connection - use sync method in async wrapper
+        # Test LLM connection - use send_message method
         try:
             chat = LlmChat(
                 api_key=EMERGENT_LLM_KEY,
@@ -162,8 +162,8 @@ async def run_ai_diagnostics() -> Dict[str, Any]:
                 system_message="Respond with 'OK' only"
             ).with_model("openai", "gpt-5.2")
             
-            # Use sync chat method
-            response = chat.chat(UserMessage(content="test"))
+            # Use send_message method
+            response = chat.send_message("test")
             results["metrics"]["llm_responsive"] = True
         except Exception as e:
             results["status"] = "degraded"
