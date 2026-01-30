@@ -134,6 +134,47 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
   - Clean orphaned data
   - Reset AI connections
 - **Database Collections:** `system_snapshots`, `rollback_history`
+
+#### 8. ML Model Training - Scikit-Learn (P3 - COMPLETED)
+- **Backend Service:** `/app/backend/services/ml_model_trainer.py`
+  - Random Forest + Gradient Boosting ensemble
+  - Feature extraction from time-bucketed events
+  - Model persistence with joblib
+- **API Routes:** `/app/backend/routes/ml_model.py`
+  - `GET /api/ml-model/info` - Model info and metrics
+  - `POST /api/ml-model/train` - Train model (admin only)
+  - `GET /api/ml-model/predict` - Get ML prediction
+  - `POST /api/ml-model/retrain` - Force retrain
+  - `GET /api/ml-model/feature-importance` - Feature weights
+- **Features Extracted:**
+  - Error count/rate, warning count
+  - Response time (avg, max, std)
+  - System metrics (CPU, memory, disk)
+  - Event diversity, unique users
+  - Time-based (hour, day, weekend)
+- **Model Storage:** `/app/backend/services/ml_models/`
+
+#### 9. TensorFlow.js Browser Predictor (P3 - COMPLETED)
+- **Frontend Utility:** `/app/frontend/src/utils/mlPredictor.js`
+  - Browser-based rule predictor (complements backend ML)
+  - Configurable thresholds and weights
+  - Real-time health score calculation
+  - Issue detection and recommendations
+
+#### 10. ML Dashboard Integration (P3 - COMPLETED)
+- **Integrated into Admin Dashboard:** `/app/frontend/src/pages/AdminDashboard.jsx`
+  - Health score gauge with circular progress
+  - Issues by severity breakdown (critical/high/medium/low)
+  - Top issues list with details
+  - Error rate and latency metrics
+  - Train Model button
+  - Model info (version, accuracy, F1, trained date)
+  - Auto-rollback status indicator
+  - Execute rollback button (when needed)
+
+---
+
+#### Expo Push Notifications (Enhanced)
 - **API Routes:** `/app/backend/routes/webpush.py` (enhanced)
   - `POST /api/webpush/expo/subscribe` - Register Expo token
   - `DELETE /api/webpush/expo/unsubscribe` - Unregister token
