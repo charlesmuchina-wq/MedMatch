@@ -61,16 +61,16 @@ class HealthScore:
 
 # Thresholds for issue detection
 THRESHOLDS = {
-    "error_rate_warning": 5,      # % of requests that are errors
-    "error_rate_critical": 15,    # % critical threshold
-    "api_latency_warning": 500,   # ms average response time
-    "api_latency_critical": 2000, # ms critical threshold
-    "cpu_warning": 70,            # % CPU usage
-    "cpu_critical": 90,           # % critical
-    "memory_warning": 75,         # % memory usage  
-    "memory_critical": 90,        # % critical
-    "error_spike_multiplier": 3,  # x normal error rate = spike
-    "min_data_points": 10,        # minimum events to analyze
+    "error_rate_warning": 10,      # % of requests that are errors (raised from 5%)
+    "error_rate_critical": 25,     # % critical threshold (raised from 15%)
+    "api_latency_warning": 800,    # ms average response time (raised from 500ms)
+    "api_latency_critical": 3000,  # ms critical threshold (raised from 2000ms)
+    "cpu_warning": 75,             # % CPU usage (raised from 70%)
+    "cpu_critical": 92,            # % critical (raised from 90%)
+    "memory_warning": 80,          # % memory usage (raised from 75%)
+    "memory_critical": 92,         # % critical (raised from 90%)
+    "error_spike_multiplier": 4,   # x normal error rate = spike (raised from 3x)
+    "min_data_points": 10,         # minimum events to analyze
 }
 
 
