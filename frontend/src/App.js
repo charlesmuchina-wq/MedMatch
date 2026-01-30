@@ -621,6 +621,11 @@ function AppContent() {
                 <InterviewCalendarPage />
               </PremiumGate>
             } />
+            <Route path="/analytics-funnel" element={
+              <PremiumGate feature="analytics">
+                <AnalyticsFunnelPage />
+              </PremiumGate>
+            } />
           </Routes>
         </main>
       </div>
