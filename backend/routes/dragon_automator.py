@@ -834,6 +834,103 @@ async def analyze_and_auto_fix(request: Request, background_tasks: BackgroundTas
     }
 
 
+@router.post("/run-weekly-maintenance")
+async def run_weekly_maintenance_now(request: Request):
+    """
+    Manually trigger the weekly maintenance task.
+    Admin only. Normally runs Sundays at 1:00 AM PST.
+    """
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    try:
+        from services.dragon_scheduler import run_weekly_maintenance
+        report = await run_weekly_maintenance()
+        return {
+            "success": True,
+            "message": "Weekly maintenance completed",
+            "report": report
+        }
+    except Exception as e:
+        logging.error(f"Manual maintenance error: {e}")
+        raise HTTPException(status_code=500, detail=f"Maintenance failed: {str(e)}")
+
+
+@router.get("/scheduler-status")
+async def get_scheduler_status(request: Request):
+    """Get status of all scheduled tasks"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    try:
+        from services.dragon_scheduler import scheduler as dragon_scheduler
+        
+        jobs = []
+        for job in dragon_scheduler.get_jobs():
+            jobs.append({
+                "id": job.id,
+                "name": job.name,
+                "next_run": job.next_run_time.isoformat() if job.next_run_time else None,
+                "trigger": str(job.trigger)
+            })
+        
+        return {
+            "running": dragon_scheduler.running,
+            "jobs": jobs,
+            "timezone": "UTC"
+        }
+    except Exception as e:
+        return {
+            "running": False,
+            "error": str(e),
+            "jobs": []
+        }
+
+
+@router.get("/maintenance-reports")
+async def get_maintenance_reports(request: Request, limit: int = 10):
+    """Get recent maintenance reports"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    reports = await db.maintenance_reports.find(
+        {},
+        {"_id": 0}
+    ).sort("started_at", -1).limit(limit).to_list(limit)
+    
+    return {
+        "reports": reports,
+        "count": len(reports)
+    }
+
+
+@router.get("/predictions")
+async def get_issue_predictions(request: Request):
+    """Get AI-powered predictive issue analysis"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    try:
+        from services.dragon_scheduler import analyze_trends_for_predictions
+        predictions = await analyze_trends_for_predictions()
+        return {
+            "predictions": predictions,
+            "generated_at": datetime.now(timezone.utc).isoformat()
+        }
+    except Exception as e:
+        return {
+            "predictions": [],
+            "error": str(e)
+        }
+
+
 # ============== Background Tasks ==============
 
 async def scheduled_diagnostics():
