@@ -1,0 +1,29 @@
+{
+  "feature_columns": [
+    "total_events",
+    "error_count",
+    "warning_count",
+    "error_rate",
+    "avg_response_time",
+    "max_response_time",
+    "response_time_std",
+    "avg_cpu",
+    "max_cpu",
+    "avg_memory",
+    "max_memory",
+    "avg_disk",
+    "unique_event_types",
+    "unique_users",
+    "hour_of_day",
+    "day_of_week",
+    "is_weekend"
+  ],
+  "metrics": {
+    "accuracy": 1.0,
+    "f1_score": 1.0,
+    "training_samples": 13,
+    "feature_count": 17,
+    "trained_at": "2026-01-30T21:51:08.311366+00:00",
+    "model_version": "1.0.0"
+  }
+}
