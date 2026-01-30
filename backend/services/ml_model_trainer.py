@@ -132,8 +132,8 @@ class IssuePredictor:
         )
         events = await cursor.to_list(length=50000)
         
-        if len(events) < 100:
-            raise ValueError(f"Insufficient training data: {len(events)} events (need 100+)")
+        if len(events) < 50:
+            raise ValueError(f"Insufficient training data: {len(events)} events (need 50+)")
         
         # Convert to DataFrame
         df = pd.DataFrame(events)
@@ -142,9 +142,9 @@ class IssuePredictor:
         features = []
         labels = []
         
-        # Group by time windows (5-minute buckets)
+        # Group by time windows (1-minute buckets for finer granularity)
         df['timestamp'] = pd.to_datetime(df['timestamp'])
-        df['time_bucket'] = df['timestamp'].dt.floor('5T')
+        df['time_bucket'] = df['timestamp'].dt.floor('1min')
         
         for bucket, group in df.groupby('time_bucket'):
             feature_row = self._extract_features(group)
