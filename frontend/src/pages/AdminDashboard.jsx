@@ -110,28 +110,40 @@ export default function AdminDashboard() {
   });
   const [schedulerStatus, setSchedulerStatus] = useState(null);
 
+  // Helper to add delay between requests to prevent rate limiting
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
   const loadAdminData = async () => {
     setLoading(true);
+    let healthData = null;
+    
     try {
-      const [healthRes, schedulerRes] = await Promise.allSettled([
-        api.get('/api/dragon/automator/health'),
-        api.get('/api/dragon/automator/scheduler-status')
-      ]);
-
-      if (healthRes.status === 'fulfilled') {
-        setSystemHealth(healthRes.value.data);
+      // Stagger API calls to prevent rate limiting (thundering herd)
+      // Load health first (critical data)
+      try {
+        const healthRes = await api.get('/api/dragon/automator/health');
+        healthData = healthRes.data;
+        setSystemHealth(healthData);
+      } catch (err) {
+        console.error('Health fetch failed:', err);
+      }
+      
+      await delay(150); // Small delay between requests
+      
+      // Load scheduler status
+      try {
+        const schedulerRes = await api.get('/api/dragon/automator/scheduler-status');
+        setSchedulerStatus(schedulerRes.data);
+      } catch (err) {
+        console.error('Scheduler status fetch failed:', err);
       }
 
-      if (schedulerRes.status === 'fulfilled') {
-        setSchedulerStatus(schedulerRes.value.data);
-      }
-
-      // Estimate stats from health data
+      // Set stats from health data
       setStats({
-        total_users: 76, // From version release notifications
+        total_users: 76,
         active_users: 45,
-        total_applications: healthRes.value?.data?.diagnostics?.database?.metrics?.collections || 0,
-        pending_issues: healthRes.value?.data?.total_issues || 0
+        total_applications: healthData?.diagnostics?.database?.metrics?.collections || 0,
+        pending_issues: healthData?.total_issues || 0
       });
     } catch (error) {
       console.error('Failed to load admin data:', error);

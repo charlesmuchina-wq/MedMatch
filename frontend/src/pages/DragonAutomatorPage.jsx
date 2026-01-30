@@ -224,33 +224,49 @@ export default function DragonAutomatorPage() {
   const [version, setVersion] = useState(null);
   const [lastReport, setLastReport] = useState(null);
 
+  // Helper to add delay between requests to prevent rate limiting
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
   const loadData = async () => {
     setLoading(true);
     try {
-      // Load data with individual error handling
-      const results = await Promise.allSettled([
-        api.get('/api/dragon/automator/health'),
-        api.get('/api/dragon/automator/improvements'),
-        api.get('/api/dragon/automator/updates'),
-        api.get('/api/dragon/automator/version')
-      ]);
-      
-      if (results[0].status === 'fulfilled') {
-        setHealth(results[0].value.data);
-      } else {
-        console.error('Health fetch failed:', results[0].reason);
+      // Stagger API calls to prevent rate limiting (thundering herd)
+      // Load health first (critical data)
+      try {
+        const healthRes = await api.get('/api/dragon/automator/health');
+        setHealth(healthRes.data);
+      } catch (err) {
+        console.error('Health fetch failed:', err);
       }
       
-      if (results[1].status === 'fulfilled') {
-        setImprovements(results[1].value.data.suggestions || []);
+      await delay(150); // Small delay between requests
+      
+      // Load improvements
+      try {
+        const improvementsRes = await api.get('/api/dragon/automator/improvements');
+        setImprovements(improvementsRes.data.suggestions || []);
+      } catch (err) {
+        console.error('Improvements fetch failed:', err);
       }
       
-      if (results[2].status === 'fulfilled') {
-        setUpdates(results[2].value.data.updates || []);
+      await delay(150);
+      
+      // Load updates
+      try {
+        const updatesRes = await api.get('/api/dragon/automator/updates');
+        setUpdates(updatesRes.data.updates || []);
+      } catch (err) {
+        console.error('Updates fetch failed:', err);
       }
       
-      if (results[3].status === 'fulfilled') {
-        setVersion(results[3].value.data);
+      await delay(150);
+      
+      // Load version info
+      try {
+        const versionRes = await api.get('/api/dragon/automator/version');
+        setVersion(versionRes.data);
+      } catch (err) {
+        console.error('Version fetch failed:', err);
       }
     } catch (error) {
       console.error('Failed to load automator data:', error);
