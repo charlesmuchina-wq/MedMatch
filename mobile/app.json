@@ -19,7 +19,6 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.medmatch.app",
-      "buildNumber": "1",
       "infoPlist": {
         "NSCameraUsageDescription": "MedMatch needs camera access for ID verification and video interviews",
         "NSMicrophoneUsageDescription": "MedMatch needs microphone access for voice coaching and interviews",
@@ -32,7 +31,6 @@
         "backgroundColor": "#1a1a2e"
       },
       "package": "com.medmatch.app",
-      "versionCode": 1,
       "permissions": [
         "CAMERA",
         "RECORD_AUDIO",
@@ -51,7 +49,6 @@
     "plugins": [
       "expo-router",
       "expo-secure-store",
-      "expo-dev-client",
       [
         "expo-camera",
         {
@@ -70,8 +67,7 @@
           "icon": "./assets/notification-icon.png",
           "color": "#4f46e5"
         }
-      ],
-      "expo-web-browser"
+      ]
     ],
     "experiments": {
       "typedRoutes": true
