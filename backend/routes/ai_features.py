@@ -554,13 +554,27 @@ Return ONLY valid JSON:
     ).with_model("openai", "gpt-4o")
     
     topics_str = ", ".join(request_data.topics) if request_data.topics else "general job-related topics"
+    skills_str = ", ".join(request_data.resume_skills[:10]) if request_data.resume_skills else ""
     
+    # Build context with optional job description
     context = f"""
 Generate {request_data.num_questions} interview questions for:
 Position: {request_data.job_title}
 Company: {request_data.company or 'A leading company'}
 Focus Areas: {topics_str}
 Difficulty: {request_data.difficulty}
+"""
+    
+    if request_data.job_description:
+        context += f"""
+Job Description:
+{request_data.job_description[:2000]}
+"""
+    
+    if skills_str:
+        context += f"""
+Candidate's Transferable Skills: {skills_str}
+Generate questions that allow the candidate to highlight these skills.
 """
     
     try:
