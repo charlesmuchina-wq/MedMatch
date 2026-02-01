@@ -413,7 +413,7 @@ Make it more concise, impactful, and professional while keeping the STAR structu
     
     try {
       toast.info("Generating PDF...");
-      const response = await axios.post(`${API}/export/interview-prep-html`, {
+      const response = await api.client.post(`${API}/export/interview-prep-html`, {
         job_title: jobTitle,
         company: company || "General",
         questions: questions.map(q => ({
@@ -438,6 +438,7 @@ Make it more concise, impactful, and professional while keeping the STAR structu
       
       toast.success("PDF ready! Use 'Save as PDF' in the print dialog.");
     } catch (e) {
+      console.error("Export PDF error:", e);
       toast.error("Failed to generate PDF");
     }
   };
