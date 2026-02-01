@@ -1,0 +1,43 @@
+#!/usr/bin/expect -f
+
+set timeout 300
+set env(EXPO_TOKEN) "T5ZSsYKhdeURiXWX3ZumKYe1yuTlKGnGPYSpOUd8"
+
+spawn eas credentials:configure-build -p ios -e preview
+
+expect {
+    "Log in to your Apple Developer account" {
+        exp_continue
+    }
+    "Apple ID:" {
+        send "cmuchina@hotmail.com\r"
+        exp_continue
+    }
+    "Password" {
+        send "ylby-vmcy-rnkn-bsbt\r"
+        exp_continue
+    }
+    "Select Team" {
+        send "1\r"
+        exp_continue
+    }
+    "Would you like" {
+        send "Y\r"
+        exp_continue
+    }
+    "Generate a new" {
+        send "Y\r"
+        exp_continue
+    }
+    "Set up Push Notifications" {
+        send "n\r"
+        exp_continue
+    }
+    timeout {
+        puts "\nTimeout occurred"
+        exit 1
+    }
+    eof
+}
+
+puts "\niOS credential setup complete!"
