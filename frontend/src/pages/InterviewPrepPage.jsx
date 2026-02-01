@@ -455,49 +455,179 @@ Make it more concise, impactful, and professional while keeping the STAR structu
       {/* Job Context */}
       <Card className="mb-6 border-2 border-turquoise-200 dark:border-turquoise-800">
         <CardContent className="p-4">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-              <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Target Job Title</label>
-              <Input
-                placeholder="e.g., Supplier Quality Manager"
-                value={jobTitle}
-                onChange={(e) => setJobTitle(e.target.value)}
-                className="mt-1 dark:bg-slate-800"
-                data-testid="interview-job-title"
-              />
+          <div className="flex flex-col gap-4">
+            {/* Job Details Row */}
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1">
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Target Job Title</label>
+                <Input
+                  placeholder="e.g., Supplier Quality Manager"
+                  value={jobTitle}
+                  onChange={(e) => setJobTitle(e.target.value)}
+                  className="mt-1 dark:bg-slate-800"
+                  data-testid="interview-job-title"
+                />
+              </div>
+              <div className="flex-1">
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Company (optional)</label>
+                <Input
+                  placeholder="e.g., Medtronic"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  className="mt-1 dark:bg-slate-800"
+                  data-testid="interview-company"
+                />
+              </div>
             </div>
-            <div className="flex-1">
-              <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Company (optional)</label>
-              <Input
-                placeholder="e.g., Medtronic"
-                value={company}
-                onChange={(e) => setCompany(e.target.value)}
-                className="mt-1 dark:bg-slate-800"
-                data-testid="interview-company"
-              />
-            </div>
-            <div className="flex items-end gap-2">
-              <Button 
-                onClick={generateQuestions}
-                disabled={generatingQuestions || !jobTitle}
-                className="bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700"
-                data-testid="generate-questions-btn"
-              >
-                {generatingQuestions ? (
-                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Generating...</>
-                ) : (
-                  <><Sparkles className="w-4 h-4 mr-2" /> Generate Questions</>
-                )}
-              </Button>
-              {questions.length > 0 && (
-                <Button 
-                  variant="outline"
-                  onClick={exportToPDF}
-                  className="text-turquoise border-turquoise hover:bg-turquoise/10"
-                  data-testid="export-pdf-btn"
+
+            {/* Input Mode Selector */}
+            <div className="border-t pt-4 dark:border-slate-700">
+              <div className="flex flex-wrap gap-2 mb-4">
+                <Button
+                  variant={inputMode === "generate" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setInputMode("generate")}
+                  className={inputMode === "generate" ? "bg-violet-500" : ""}
                 >
-                  <FileText className="w-4 h-4 mr-2" /> Export PDF
+                  <Sparkles className="w-4 h-4 mr-1" /> AI Generate
                 </Button>
+                <Button
+                  variant={inputMode === "description" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setInputMode("description")}
+                  className={inputMode === "description" ? "bg-violet-500" : ""}
+                >
+                  <FileQuestion className="w-4 h-4 mr-1" /> From Job Description
+                </Button>
+                <Button
+                  variant={inputMode === "paste" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setInputMode("paste")}
+                  className={inputMode === "paste" ? "bg-violet-500" : ""}
+                >
+                  <ListPlus className="w-4 h-4 mr-1" /> Paste Questions
+                </Button>
+              </div>
+
+              {/* Generate Mode */}
+              {inputMode === "generate" && (
+                <div className="flex gap-2">
+                  <Button 
+                    onClick={generateQuestions}
+                    disabled={generatingQuestions || !jobTitle}
+                    className="bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700"
+                    data-testid="generate-questions-btn"
+                  >
+                    {generatingQuestions ? (
+                      <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Generating...</>
+                    ) : (
+                      <><Sparkles className="w-4 h-4 mr-2" /> Generate {resume?.skills?.length > 0 ? 'Using Resume Skills' : 'Questions'}</>
+                    )}
+                  </Button>
+                  {questions.length > 0 && (
+                    <Button 
+                      variant="outline"
+                      onClick={exportToPDF}
+                      className="text-turquoise border-turquoise hover:bg-turquoise/10"
+                      data-testid="export-pdf-btn"
+                    >
+                      <FileText className="w-4 h-4 mr-2" /> Export PDF
+                    </Button>
+                  )}
+                </div>
+              )}
+
+              {/* Job Description Mode */}
+              {inputMode === "description" && (
+                <div className="space-y-3">
+                  <div>
+                    <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Paste Job Description</label>
+                    <Textarea
+                      placeholder="Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills..."
+                      value={jobDescription}
+                      onChange={(e) => setJobDescription(e.target.value)}
+                      rows={6}
+                      className="mt-1 dark:bg-slate-800"
+                      data-testid="job-description-input"
+                    />
+                  </div>
+                  {resume?.skills?.length > 0 && (
+                    <div className="text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 p-2 rounded">
+                      <strong>Your Resume Skills:</strong> {resume.skills.slice(0, 8).join(", ")}{resume.skills.length > 8 ? "..." : ""}
+                    </div>
+                  )}
+                  <div className="flex gap-2">
+                    <Button 
+                      onClick={generateFromJobDescription}
+                      disabled={generatingQuestions || !jobDescription}
+                      className="bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-600 hover:to-purple-700"
+                      data-testid="generate-from-jd-btn"
+                    >
+                      {generatingQuestions ? (
+                        <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Analyzing...</>
+                      ) : (
+                        <><Sparkles className="w-4 h-4 mr-2" /> Generate from Job Description</>
+                      )}
+                    </Button>
+                    {questions.length > 0 && (
+                      <Button 
+                        variant="outline"
+                        onClick={exportToPDF}
+                        className="text-turquoise border-turquoise hover:bg-turquoise/10"
+                      >
+                        <FileText className="w-4 h-4 mr-2" /> Export PDF
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Paste Questions Mode */}
+              {inputMode === "paste" && (
+                <div className="space-y-3">
+                  <div>
+                    <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Paste Your Questions</label>
+                    <Textarea
+                      placeholder="Enter questions, one per line. For example:
+1. Tell me about a time you led a cross-functional team.
+2. How do you handle conflicting priorities?
+3. What experience do you have with supplier audits?"
+                      value={customQuestions}
+                      onChange={(e) => setCustomQuestions(e.target.value)}
+                      rows={6}
+                      className="mt-1 dark:bg-slate-800 font-mono text-sm"
+                      data-testid="custom-questions-input"
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      onClick={addCustomQuestions}
+                      disabled={!customQuestions.trim()}
+                      className="bg-gradient-to-r from-turquoise to-cyan-500 hover:from-turquoise/90 hover:to-cyan-600"
+                      data-testid="add-questions-btn"
+                    >
+                      <Plus className="w-4 h-4 mr-2" /> Add Questions
+                    </Button>
+                    {questions.length > 0 && (
+                      <>
+                        <Button 
+                          variant="outline"
+                          onClick={() => setQuestions([])}
+                          className="text-red-500 border-red-300 hover:bg-red-50 dark:hover:bg-red-900/20"
+                        >
+                          Clear All
+                        </Button>
+                        <Button 
+                          variant="outline"
+                          onClick={exportToPDF}
+                          className="text-turquoise border-turquoise hover:bg-turquoise/10"
+                        >
+                          <FileText className="w-4 h-4 mr-2" /> Export PDF
+                        </Button>
+                      </>
+                    )}
+                  </div>
+                </div>
               )}
             </div>
           </div>
