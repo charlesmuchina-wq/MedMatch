@@ -27,7 +27,8 @@
         "EXPO_PUBLIC_API_URL": "https://medmatch-careers.preview.emergentagent.com"
       },
       "ios": {
-        "resourceClass": "m-medium"
+        "resourceClass": "m-medium",
+        "credentialsSource": "local"
       },
       "android": {
         "buildType": "apk",
