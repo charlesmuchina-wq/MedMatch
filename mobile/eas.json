@@ -28,11 +28,21 @@
       },
       "ios": {
         "resourceClass": "m-medium",
-        "credentialsSource": "local"
+        "credentialsSource": "remote"
       },
       "android": {
         "buildType": "apk",
         "credentialsSource": "remote"
+      }
+    },
+    "preview-simulator": {
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://job-matchmaker-21.preview.emergentagent.com"
+      },
+      "ios": {
+        "resourceClass": "m-medium",
+        "simulator": true
       }
     },
     "production": {
@@ -41,11 +51,13 @@
       },
       "ios": {
         "resourceClass": "m-medium",
-        "autoIncrement": true
+        "autoIncrement": true,
+        "credentialsSource": "remote"
       },
       "android": {
         "buildType": "app-bundle",
-        "autoIncrement": true
+        "autoIncrement": true,
+        "credentialsSource": "remote"
       }
     }
   },
@@ -53,7 +65,8 @@
     "production": {
       "ios": {
         "appleId": "cmuchina@hotmail.com",
-        "ascAppId": "your-app-store-connect-app-id"
+        "ascAppId": "your-app-store-connect-app-id",
+        "appleTeamId": "96879J9FZY"
       },
       "android": {
         "serviceAccountKeyPath": "./google-services.json",
