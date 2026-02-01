@@ -1,0 +1,182 @@
+name: Build Mobile Apps
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'mobile/**'
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Platform to build'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - android
+          - ios
+      profile:
+        description: 'Build profile'
+        required: true
+        default: 'preview'
+        type: choice
+        options:
+          - development
+          - preview
+          - production
+
+env:
+  EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+  NODE_VERSION: '20'
+
+jobs:
+  # Android Build
+  build-android:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'android' || github.event_name == 'push' }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+          cache-dependency-path: mobile/yarn.lock
+
+      - name: Setup EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        working-directory: mobile
+        run: yarn install --frozen-lockfile
+
+      - name: Build Android APK
+        working-directory: mobile
+        run: |
+          PROFILE="${{ github.event.inputs.profile || 'preview' }}"
+          eas build --platform android --profile $PROFILE --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Get build URL
+        working-directory: mobile
+        run: |
+          echo "Build submitted to EAS"
+          echo "View build status at: https://expo.dev/accounts/cmuchina/projects/medmatch-ai-job-search-aid/builds"
+
+  # iOS Build
+  build-ios:
+    name: Build iOS IPA
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'ios' }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+          cache-dependency-path: mobile/yarn.lock
+
+      - name: Setup EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        working-directory: mobile
+        run: yarn install --frozen-lockfile
+
+      - name: Build iOS IPA
+        working-directory: mobile
+        run: |
+          PROFILE="${{ github.event.inputs.profile || 'preview' }}"
+          eas build --platform ios --profile $PROFILE --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          # Note: iOS credentials must be configured in EAS before this will work
+          # Run: npx eas credentials -p ios
+
+      - name: Get build URL
+        working-directory: mobile
+        run: |
+          echo "Build submitted to EAS"
+          echo "View build status at: https://expo.dev/accounts/cmuchina/projects/medmatch-ai-job-search-aid/builds"
+
+  # Submit to App Stores (only for production builds)
+  submit:
+    name: Submit to App Stores
+    needs: [build-android, build-ios]
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.profile == 'production' && (github.event.inputs.platform == 'all') }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+          cache-dependency-path: mobile/yarn.lock
+
+      - name: Setup EAS CLI
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        working-directory: mobile
+        run: yarn install --frozen-lockfile
+
+      - name: Submit to Google Play Store
+        working-directory: mobile
+        run: |
+          echo "Submitting to Google Play Store..."
+          # eas submit --platform android --latest --non-interactive
+          echo "Note: Configure GOOGLE_SERVICE_ACCOUNT_JSON secret for automated submission"
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Submit to Apple App Store
+        working-directory: mobile
+        run: |
+          echo "Submitting to Apple App Store..."
+          # eas submit --platform ios --latest --non-interactive
+          echo "Note: Configure APPLE_ID and APPLE_APP_SPECIFIC_PASSWORD secrets for automated submission"
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+  # Notify on completion
+  notify:
+    name: Build Notification
+    needs: [build-android, build-ios]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Build Status Summary
+        run: |
+          echo "## MedMatch Mobile Build Summary"
+          echo ""
+          echo "| Platform | Status |"
+          echo "|----------|--------|"
+          echo "| Android | ${{ needs.build-android.result }} |"
+          echo "| iOS | ${{ needs.build-ios.result }} |"
+          echo ""
+          echo "View builds at: https://expo.dev/accounts/cmuchina/projects/medmatch-ai-job-search-aid/builds"
