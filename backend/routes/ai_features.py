@@ -508,6 +508,8 @@ class InterviewPrepRequest(BaseModel):
     topics: List[str] = []
     difficulty: str = "medium"  # easy, medium, hard
     num_questions: int = 5
+    job_description: str = ""  # Optional job description for tailored questions
+    resume_skills: List[str] = []  # Optional resume skills for transferable skill focus
 
 class InterviewAnswerRequest(BaseModel):
     question: str
