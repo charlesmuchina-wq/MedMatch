@@ -265,17 +265,30 @@ Return as JSON array with format: [{"question": "...", "type": "Behavioral|Techn
     setGeneratingAnswer(true);
     setSelectedQuestion(question);
     try {
+      // Build context with resume skills for better answers
+      const resumeContext = resume ? `
+Candidate's Skills: ${resume.skills?.join(", ") || "Not specified"}
+Past Experience: ${resume.experience?.map(e => `${e.title} at ${e.company}`).join("; ") || "Not specified"}
+Education: ${resume.education?.map(e => e.degree).join(", ") || "Not specified"}` : "";
+
       // Use KARAU DRAGON assistant for answer generation
       const response = await api.client.post(`${API}/assistant`, {
-        message: `Generate a strong interview answer for this question: "${question.text || question}". The position is ${jobTitle} at ${company || 'a company'}. Use the STAR method if applicable.`,
+        message: `Generate a strong interview answer for this question: "${question.text || question}". 
+The position is ${jobTitle} at ${company || 'a company'}.
+${question.transferable_skill ? `Focus on demonstrating: ${question.transferable_skill}` : ''}
+${resumeContext}
+
+Use the STAR method if applicable. Include specific examples and quantifiable results where possible.`,
         context: "interview"
       });
       setGeneratedAnswer({
         answer: response.data.response,
-        tips: ["Use specific examples", "Quantify results when possible", "Connect to the job requirements"]
+        tips: ["Use specific examples from your experience", "Quantify results when possible", "Connect to the job requirements"],
+        transferable_skill: question.transferable_skill
       });
     } catch (e) {
-      toast.error("Failed to generate answer");
+      console.error("Generate answer error:", e);
+      toast.error("Failed to generate answer. Please try again.");
     }
     setGeneratingAnswer(false);
   };
