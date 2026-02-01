@@ -1033,7 +1033,7 @@ const MockInterviewMode = ({ question, questionNumber, totalQuestions, onSubmit,
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setAnswer("");
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     setTimeLeft(120);
   }, [question]);
 
