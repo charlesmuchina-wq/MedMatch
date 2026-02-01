@@ -142,3 +142,7 @@ desktop/dist/linux-unpacked/medmatch-desktop
 # Environment files
 *.env
 *.env.*
+-e 
+# Environment files
+*.env
+*.env.*

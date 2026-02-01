@@ -9,7 +9,7 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://medmatch-careers.preview.emergentagent.com"
+        "EXPO_PUBLIC_API_URL": "https://job-matchmaker-21.preview.emergentagent.com"
       },
       "ios": {
         "resourceClass": "m-medium",
@@ -24,7 +24,7 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://medmatch-careers.preview.emergentagent.com"
+        "EXPO_PUBLIC_API_URL": "https://job-matchmaker-21.preview.emergentagent.com"
       },
       "ios": {
         "resourceClass": "m-medium",
@@ -37,7 +37,7 @@
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://medmatch-careers.preview.emergentagent.com"
+        "EXPO_PUBLIC_API_URL": "https://job-matchmaker-21.preview.emergentagent.com"
       },
       "ios": {
         "resourceClass": "m-medium",

@@ -79,5 +79,5 @@
   "retest_needed": false,
   "should_main_agent_self_test": false,
   
-  "context_for_next_testing_agent": "Session persistence P0 bug is fixed and verified. The fix involved: 1) Setting axios.defaults.withCredentials = true globally in frontend/src/index.js, 2) Configuring CORS_ORIGINS to specific domains (https://medmatch-careers.preview.emergentagent.com,http://localhost:3000) instead of wildcard '*' in backend/.env. All authentication endpoints work correctly. Cloud Storage Upload component with Google Drive integration is functional on the Resume page."
+  "context_for_next_testing_agent": "Session persistence P0 bug is fixed and verified. The fix involved: 1) Setting axios.defaults.withCredentials = true globally in frontend/src/index.js, 2) Configuring CORS_ORIGINS to specific domains (https://job-matchmaker-21.preview.emergentagent.com,http://localhost:3000) instead of wildcard '*' in backend/.env. All authentication endpoints work correctly. Cloud Storage Upload component with Google Drive integration is functional on the Resume page."
 }
