@@ -99,6 +99,8 @@ const InterviewPrepPage = ({ resume }) => {
   const [activeTab, setActiveTab] = useState("questions");
   const [jobTitle, setJobTitle] = useState("");
   const [company, setCompany] = useState("");
+  const [jobDescription, setJobDescription] = useState("");
+  const [customQuestions, setCustomQuestions] = useState("");
   const [questions, setQuestions] = useState([]);
   const [generatingQuestions, setGeneratingQuestions] = useState(false);
   const [selectedQuestion, setSelectedQuestion] = useState(null);
@@ -110,6 +112,7 @@ const InterviewPrepPage = ({ resume }) => {
   const [currentMockQuestion, setCurrentMockQuestion] = useState(0);
   const [mockAnswers, setMockAnswers] = useState([]);
   const [mockFeedback, setMockFeedback] = useState(null);
+  const [inputMode, setInputMode] = useState("generate"); // "generate" | "paste" | "description"
 
   const generateQuestions = async () => {
     if (!jobTitle) {
@@ -119,29 +122,143 @@ const InterviewPrepPage = ({ resume }) => {
 
     setGeneratingQuestions(true);
     try {
-      // Use new AI interview prep endpoint
-      const response = await api.client.post(`${API}/interview-prep`, {
+      // Build context with job description and resume skills
+      const context = {
         job_title: jobTitle,
         company: company,
         difficulty: "medium",
         num_questions: 5,
         topics: resume?.skills?.slice(0, 5) || []
-      });
+      };
+      
+      // Add job description if provided
+      if (jobDescription && inputMode === "description") {
+        context.job_description = jobDescription;
+        context.resume_skills = resume?.skills || [];
+      }
+      
+      // Use new AI interview prep endpoint
+      const response = await api.client.post(`${API}/interview-prep`, context);
       
       // Map response to expected format
-      const questions = response.data.questions?.map(q => ({
+      const generatedQuestions = response.data.questions?.map(q => ({
         text: q.question,
         type: q.type,
+        category: q.type?.toLowerCase() || 'general',
+        difficulty: 'medium',
         tip: q.tip,
         sample_points: q.sample_points
       })) || [];
       
-      setQuestions(questions);
-      toast.success(`Generated ${questions.length} interview questions!`);
+      setQuestions(generatedQuestions);
+      toast.success(`Generated ${generatedQuestions.length} interview questions!`);
     } catch (e) {
-      toast.error("Failed to generate questions");
+      console.error("Generate questions error:", e);
+      toast.error("Failed to generate questions. Please try again.");
     }
     setGeneratingQuestions(false);
+  };
+
+  const generateFromJobDescription = async () => {
+    if (!jobDescription) {
+      toast.error("Please paste a job description");
+      return;
+    }
+
+    setGeneratingQuestions(true);
+    try {
+      // Use AI to generate questions from job description with resume context
+      const resumeSkills = resume?.skills?.join(", ") || "general professional skills";
+      const resumeExperience = resume?.experience?.map(e => e.title).join(", ") || "";
+      
+      const response = await api.client.post(`${API}/assistant`, {
+        message: `Based on this job description, generate 5 interview questions that:
+1. Are relevant to the role requirements
+2. Allow the candidate to highlight transferable skills
+3. Include a mix of behavioral, technical, and situational questions
+
+Job Description:
+${jobDescription}
+
+Candidate's Skills: ${resumeSkills}
+${resumeExperience ? `Past Roles: ${resumeExperience}` : ''}
+
+Return as JSON array with format: [{"question": "...", "type": "Behavioral|Technical|Situational", "tip": "...", "transferable_skill": "..."}]`,
+        context: "interview"
+      });
+      
+      // Parse the response
+      let questionsData = [];
+      try {
+        const responseText = response.data.response;
+        // Try to extract JSON from the response
+        const jsonMatch = responseText.match(/\[[\s\S]*\]/);
+        if (jsonMatch) {
+          questionsData = JSON.parse(jsonMatch[0]);
+        }
+      } catch (parseError) {
+        console.error("Parse error:", parseError);
+      }
+      
+      if (questionsData.length === 0) {
+        // Fallback: Generate questions using the standard endpoint
+        const fallbackResponse = await api.client.post(`${API}/interview-prep`, {
+          job_title: jobTitle || "Professional Role",
+          company: company,
+          difficulty: "medium",
+          num_questions: 5,
+          topics: resume?.skills?.slice(0, 5) || [],
+          job_description: jobDescription
+        });
+        questionsData = fallbackResponse.data.questions || [];
+      }
+      
+      const generatedQuestions = questionsData.map(q => ({
+        text: q.question,
+        type: q.type,
+        category: q.type?.toLowerCase() || 'general',
+        difficulty: 'medium',
+        tip: q.tip,
+        transferable_skill: q.transferable_skill,
+        sample_points: q.sample_points
+      }));
+      
+      setQuestions(generatedQuestions);
+      toast.success(`Generated ${generatedQuestions.length} questions from job description!`);
+    } catch (e) {
+      console.error("Generate from JD error:", e);
+      toast.error("Failed to generate questions. Please try again.");
+    }
+    setGeneratingQuestions(false);
+  };
+
+  const addCustomQuestions = () => {
+    if (!customQuestions.trim()) {
+      toast.error("Please enter at least one question");
+      return;
+    }
+
+    // Parse questions - split by newlines, filter empty lines
+    const newQuestions = customQuestions
+      .split('\n')
+      .map(q => q.trim())
+      .filter(q => q.length > 0)
+      .map((q, index) => ({
+        text: q.replace(/^\d+[\.\)]\s*/, ''), // Remove numbering like "1." or "1)"
+        type: 'Custom',
+        category: 'custom',
+        difficulty: 'medium',
+        tip: 'Prepare specific examples from your experience'
+      }));
+
+    if (newQuestions.length === 0) {
+      toast.error("No valid questions found");
+      return;
+    }
+
+    setQuestions(prev => [...prev, ...newQuestions]);
+    setCustomQuestions("");
+    toast.success(`Added ${newQuestions.length} custom question(s)!`);
   };
 
   const generateAnswer = async (question) => {
