@@ -666,7 +666,7 @@ Make it more concise, impactful, and professional while keeping the STAR structu
                 <Card className="border-dashed">
                   <CardContent className="p-8 text-center">
                     <MessageSquare className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                    <p className="text-slate-500 dark:text-slate-400">Enter a job title and click "Generate Questions" to get started</p>
+                    <p className="text-slate-500 dark:text-slate-400">Choose an input method above and generate or add questions to get started</p>
                   </CardContent>
                 </Card>
               ) : (
