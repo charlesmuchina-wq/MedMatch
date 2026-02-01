@@ -1016,8 +1016,8 @@ Make it more concise, impactful, and professional while keeping the STAR structu
 const MockInterviewMode = ({ question, questionNumber, totalQuestions, onSubmit, onSkip }) => {
   const [answer, setAnswer] = useState("");
   const [timeLeft, setTimeLeft] = useState(120); // 2 minutes per question
-  const answerRef = React.useRef(answer);
-  const onSubmitRef = React.useRef(onSubmit);
+  const answerRef = useRef(answer);
+  const onSubmitRef = useRef(onSubmit);
 
   // Keep refs in sync
   answerRef.current = answer;
