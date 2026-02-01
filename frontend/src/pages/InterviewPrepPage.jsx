@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 import { 
   Mic, MessageSquare, Sparkles, Loader2, BookOpen, Target,
