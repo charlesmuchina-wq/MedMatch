@@ -3,7 +3,8 @@ import { toast } from "sonner";
 import { 
   Mic, MessageSquare, Sparkles, Loader2, BookOpen, Target,
   CheckCircle2, Lightbulb, Users, Building2, ChevronRight,
-  Clock, Star, Award, RefreshCw, Copy, Volume2, FileText, Download, Languages
+  Clock, Star, Award, RefreshCw, Copy, Volume2, FileText, Download, Languages,
+  Plus, ListPlus, FileQuestion
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
