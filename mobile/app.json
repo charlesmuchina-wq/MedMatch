@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "MedMatch",
-    "slug": "medmatch-mobile",
+    "name": "MedMatch AI Job Search",
+    "slug": "medmatch-ai-job-search-aid",
+    "owner": "charlesmuchina-wq",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -81,8 +82,14 @@
         "origin": false
       },
       "eas": {
-        "projectId": "your-project-id"
+        "projectId": "be604cc0-241c-44b4-b2d2-77d933214c9d"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/be604cc0-241c-44b4-b2d2-77d933214c9d"
     }
   }
 }

@@ -7,15 +7,23 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://medmatch-careers.preview.emergentagent.com"
+      },
       "ios": {
-        "resourceClass": "m-medium"
+        "resourceClass": "m-medium",
+        "simulator": true
       },
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleDebug"
       }
     },
     "preview": {
       "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://medmatch-careers.preview.emergentagent.com"
+      },
       "ios": {
         "resourceClass": "m-medium"
       },
@@ -24,11 +32,16 @@
       }
     },
     "production": {
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://medmatch-careers.preview.emergentagent.com"
+      },
       "ios": {
-        "resourceClass": "m-medium"
+        "resourceClass": "m-medium",
+        "autoIncrement": true
       },
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "app-bundle",
+        "autoIncrement": true
       }
     }
   },
