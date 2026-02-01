@@ -70,7 +70,8 @@
           "icon": "./assets/notification-icon.png",
           "color": "#4f46e5"
         }
-      ]
+      ],
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
