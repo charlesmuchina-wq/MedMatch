@@ -1,0 +1,68 @@
+#!/usr/bin/expect -f
+
+set timeout 600
+set env(EXPO_TOKEN) "T5ZSsYKhdeURiXWX3ZumKYe1yuTlKGnGPYSpOUd8"
+
+log_user 1
+
+spawn eas credentials -p ios
+
+expect {
+    -re "Which build profile" {
+        send "2\r"
+        exp_continue
+    }
+    -re "What do you want to do" {
+        send "1\r"
+        exp_continue
+    }
+    -re "Do you want to log in" {
+        send "Y\r"
+        exp_continue
+    }
+    -re "Apple ID:" {
+        send "cmuchina@hotmail.com\r"
+        exp_continue
+    }
+    -re "assword" {
+        send "Jacuipe2027!\r"
+        exp_continue
+    }
+    -re "Two-factor" {
+        expect -re "code"
+        send_user "\n\n=== 2FA REQUIRED - Check your device for the code ===\n"
+        expect -re "code:" 
+        interact
+    }
+    -re "elect a Team" {
+        send "1\r"
+        exp_continue
+    }
+    -re "Generate a new Apple Distribution Certificate" {
+        send "Y\r"
+        exp_continue
+    }
+    -re "Generate a new Apple Provisioning Profile" {
+        send "Y\r"
+        exp_continue
+    }
+    -re "Set up Push Notifications" {
+        send "n\r"
+        exp_continue
+    }
+    -re "Would you like" {
+        send "Y\r"
+        exp_continue
+    }
+    -re "Create a new" {
+        send "Y\r"
+        exp_continue
+    }
+    timeout {
+        puts "\n\n=== TIMEOUT ==="
+        exit 0
+    }
+    eof {
+        puts "\n\n=== iOS credential setup finished ==="
+    }
+}
