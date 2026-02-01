@@ -17,6 +17,7 @@
     "expo": "~54.0.0",
     "expo-av": "~15.0.0",
     "expo-camera": "~16.0.0",
+    "expo-constants": "^18.0.13",
     "expo-dev-client": "^6.0.20",
     "expo-document-picker": "~13.0.0",
     "expo-file-system": "~18.0.0",
