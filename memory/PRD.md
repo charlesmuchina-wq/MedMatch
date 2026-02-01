@@ -108,6 +108,17 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - Corrupted files in mobile folder cleaned up
 - Notification context ref type fixes
 
+#### 5. Interview Prep Feature Enhancement (P1 - COMPLETED)
+- **Bug Fixed:** Generate Questions button not responding - Fixed axios reference and API client usage
+- **New Features Added:**
+  - **AI Generate Mode:** Generates interview questions using AI based on job title and resume skills
+  - **From Job Description Mode:** Paste a job description to generate tailored questions that highlight transferable skills
+  - **Paste Questions Mode:** Add multiple custom questions at once (one per line)
+- **Resume Skills Integration:** AI now uses candidate's resume skills to generate more relevant questions and answers
+- **Updated Files:**
+  - `/app/frontend/src/pages/InterviewPrepPage.jsx` - Enhanced with 3 input modes
+  - `/app/backend/routes/ai_features.py` - Added job_description and resume_skills support
+
 ---
 
 ## Session: January 30, 2026 - Previous Priority Tasks Completed
