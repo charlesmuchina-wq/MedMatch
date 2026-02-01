@@ -75,7 +75,7 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ---
 
-## Session: February 1, 2026 - Mobile App EAS Build
+## Session: February 1, 2026 - Mobile App EAS Build & CI/CD Pipeline
 
 ### ✅ COMPLETED THIS SESSION
 
@@ -85,7 +85,7 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - **Expo Owner:** `cmuchina`
 - **Updated Files:**
   - `/app/mobile/app.json` - Updated with project ID, owner, slug, and removed deprecated configs
-  - `/app/mobile/eas.json` - Build profiles for development, preview, and production
+  - `/app/mobile/eas.json` - Build profiles for development, preview, preview-simulator, production
   - `/app/mobile/package.json` - Updated dependencies to Expo SDK 54 latest
 
 #### 2. Android APK Build (P0 - COMPLETED)
@@ -97,7 +97,51 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - **SDK Version:** 54.0.0
 - **Runtime Version:** 1.0.0
 
-#### 3. iOS Build (PENDING)
+#### 3. iOS Build Template (P0 - COMPLETED)
+- **Created:** `/app/mobile/ios-build-guide.md` - Comprehensive iOS build guide
+- **Includes:**
+  - EAS Cloud Build instructions
+  - Local Xcode build instructions
+  - Apple App Store Connect setup guide
+  - Troubleshooting section for common errors
+  - Quick commands reference
+- **EAS Profiles Updated:**
+  - `preview` - Changed to `credentialsSource: remote` for easier cloud builds
+  - Added `preview-simulator` profile for iOS simulator testing
+  - Added `appleTeamId: 96879J9FZY` to submit configuration
+
+#### 4. Mobile CI/CD Pipeline (P0 - COMPLETED)
+- **Created:** `/app/mobile/.github/workflows/build-mobile.yml`
+- **Features:**
+  - Manual trigger with platform selection (Android/iOS/All)
+  - Build profile selection (development/preview/production)
+  - Auto-trigger on push to `main` branch (mobile folder changes)
+  - Parallel Android and iOS builds
+  - App Store submission job (for production builds)
+  - Build status notification
+
+#### 5. Desktop CI/CD Pipeline (ALREADY EXISTS)
+- **Location:** `/app/desktop/.github/workflows/build-release.yml`
+- **Features:**
+  - Windows (NSIS + Portable), macOS (DMG + ZIP), Linux (AppImage) builds
+  - Auto-trigger on version tags (v*)
+  - GitHub Release creation with all artifacts
+  - Auto-update support via electron-updater
+
+#### 6. Interview Prep Feature (P1 - VERIFIED ✅)
+- **Testing Status:** 100% pass rate (10/10 backend, all frontend features)
+- **Test Report:** `/app/test_reports/iteration_35.json`
+- **Features Verified:**
+  - AI Generate Questions mode ✅
+  - From Job Description mode ✅
+  - Paste Questions mode ✅
+  - AI Answer generation with STAR method ✅
+  - Mock Interview mode ✅
+  - Company Research tab ✅
+  - PDF Export ✅
+- **Bug Fixed:** ESLint error in InterviewPrepPage.jsx
+
+#### 7. iOS Build Status (BLOCKED - User Action Required)
 - **Status:** Blocked - Apple Developer account locked
 - **Apple ID:** cmuchina@hotmail.com
 - **Next Steps:** User needs to unlock account at https://iforgot.apple.com
