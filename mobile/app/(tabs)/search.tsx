@@ -247,7 +247,7 @@ export default function SearchScreen() {
             <JobCard
               {...item}
               isSaved={savedJobs.has(item.id)}
-              onPress={() => router.push(`/job/${item.id}`)}
+              onPress={() => router.push(`/job/${item.id}` as any)}
               onSave={() => toggleSave(item.id)}
             />
           )}

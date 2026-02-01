@@ -125,7 +125,7 @@ export default function ProfileScreen() {
       <View style={styles.menuGroup}>
         <MenuItem icon="👤" title="Personal Info" subtitle="Name, email, phone" onPress={() => {}} />
         <MenuItem icon="🔒" title="Security" subtitle="Password, biometric login" onPress={() => {}} />
-        <MenuItem icon="✓" title="ID Verification" subtitle={user?.id_verified ? 'Verified' : 'Not verified'} onPress={() => router.push('/id-verification')} />
+        <MenuItem icon="✓" title="ID Verification" subtitle={user?.id_verified ? 'Verified' : 'Not verified'} onPress={() => router.push('/id-verification' as any)} />
         <MenuItem icon="💳" title="Subscription" subtitle="Premium • Active" onPress={() => {}} />
       </View>
 
