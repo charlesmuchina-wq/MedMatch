@@ -10,7 +10,7 @@ import time
 import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://intellihire-5.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-careers.preview.emergentagent.com')
 
 
 class TestTranslationEndpoints:

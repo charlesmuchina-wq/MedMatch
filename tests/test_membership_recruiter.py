@@ -280,7 +280,7 @@ class TestPaymentEndpoints:
         headers = {"Authorization": f"Bearer {token}"}
         
         # Create checkout session
-        payload = {"origin_url": "https://intellihire-5.preview.emergentagent.com"}
+        payload = {"origin_url": "https://medmatch-careers.preview.emergentagent.com"}
         response = self.session.post(f"{BASE_URL}/api/payments/create-checkout", json=payload, headers=headers)
         
         # Should return checkout URL or error if Stripe not configured
@@ -307,7 +307,7 @@ class TestPaymentEndpoints:
         headers = {"Authorization": f"Bearer {token}"}
         
         # Create checkout session
-        payload = {"origin_url": "https://intellihire-5.preview.emergentagent.com"}
+        payload = {"origin_url": "https://medmatch-careers.preview.emergentagent.com"}
         response = self.session.post(f"{BASE_URL}/api/payments/create-checkout", json=payload, headers=headers)
         
         assert response.status_code == 200, f"Failed: {response.text}"
@@ -342,7 +342,7 @@ class TestPaymentEndpoints:
         headers = {"Authorization": f"Bearer {token}"}
         
         # Create PayPal payment
-        payload = {"origin_url": "https://intellihire-5.preview.emergentagent.com"}
+        payload = {"origin_url": "https://medmatch-careers.preview.emergentagent.com"}
         response = self.session.post(f"{BASE_URL}/api/payments/paypal/create", json=payload, headers=headers)
         
         # Should return 500 with "not configured" message since PayPal credentials not set

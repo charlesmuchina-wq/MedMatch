@@ -138,3 +138,7 @@ desktop/dist/linux-arm64-unpacked/medmatch-desktop
 *.env.*
 desktop/dist/MedMatch-1.0.0.AppImage
 desktop/dist/linux-unpacked/medmatch-desktop
+-e 
+# Environment files
+*.env
+*.env.*

@@ -7,7 +7,7 @@ import requests
 import os
 import time
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://intellihire-5.preview.emergentagent.com').rstrip('/')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-careers.preview.emergentagent.com').rstrip('/')
 
 class TestResumeEndpoints:
     """Resume API endpoint tests"""
