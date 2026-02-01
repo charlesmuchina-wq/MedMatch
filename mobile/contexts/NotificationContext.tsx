@@ -101,7 +101,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
 
     try {
       const tokenData = await Notifications.getExpoPushTokenAsync({
-        projectId: 'your-project-id', // Replace with actual project ID
+        projectId: 'be604cc0-241c-44b4-b2d2-77d933214c9d',
       });
       token = tokenData.data;
     } catch (error) {
