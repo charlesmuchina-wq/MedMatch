@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { useTheme } from "@/App";
+import { useTranslation } from "@/utils/i18n";
 import { 
   Mic, MicOff, Loader2, Sparkles, X, Volume2, Send,
   FileText, Search, Briefcase, PenTool, Target, Calendar,
