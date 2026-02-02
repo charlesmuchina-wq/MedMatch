@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { 
   TrendingUp, Target, Clock, Users, Sparkles, Loader2, 
   ChevronRight, History, AlertCircle, CheckCircle2, XCircle,
-  Zap, Award, BarChart3, Lightbulb
+  Zap, Award, BarChart3, Lightbulb, Brain, Cpu
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
+import CallbackProbabilityPredictor from "@/components/ai/CallbackProbabilityPredictor";
 
 // Probability Score Ring Component
 const ProbabilityRing = ({ score, size = "large", t }) => {
