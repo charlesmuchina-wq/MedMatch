@@ -19,10 +19,14 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.medmatch.app",
+      "config": {
+        "usesNonExemptEncryption": false
+      },
       "infoPlist": {
         "NSCameraUsageDescription": "MedMatch needs camera access for ID verification and video interviews",
         "NSMicrophoneUsageDescription": "MedMatch needs microphone access for voice coaching and interviews",
-        "NSPhotoLibraryUsageDescription": "MedMatch needs photo access to upload your resume documents"
+        "NSPhotoLibraryUsageDescription": "MedMatch needs photo access to upload your resume documents",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
