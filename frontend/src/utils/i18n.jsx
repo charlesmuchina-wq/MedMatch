@@ -759,6 +759,8 @@ export const I18nProvider = ({ children }) => {
     isBundled,
     isRTL,
     isLoadingAI,
+    translationVersion, // Used to force re-renders when translations load
+    translationProgress, // 0-100 progress of translation loading
     availableLanguages: Object.keys(LANGUAGE_META),
     bundledLanguages: BUNDLED_LANGUAGES,
     popularLanguages: POPULAR_LANGUAGES,
