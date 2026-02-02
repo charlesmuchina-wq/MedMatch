@@ -643,7 +643,9 @@
     "selectLanguage": "Select Language",
     "popular": "Popular",
     "otherLanguages": "Other Languages",
-    "african": "African Languages"
+    "african": "African Languages",
+    "autoDetected": "Language detected",
+    "switchedTo": "App language has been updated"
   },
   "dragon": {
     "webSearch": "Web Search",
