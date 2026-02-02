@@ -23,6 +23,9 @@ router = APIRouter(prefix="/translate", tags=["Translation"])
 SUPPORTED_LANGUAGES = {
     # EFIGS Foundation (Core Global Reach)
     "en": {"name": "English", "native": "English", "flag": "🇺🇸"},
+    "en-GB": {"name": "English (UK)", "native": "English (UK)", "flag": "🇬🇧"},
+    "en-IE": {"name": "English (Ireland)", "native": "English (Ireland)", "flag": "🇮🇪"},
+    "en-SG": {"name": "English (Singapore)", "native": "English (Singapore)", "flag": "🇸🇬"},
     "es": {"name": "Spanish", "native": "Español", "flag": "🇪🇸"},
     "fr": {"name": "French", "native": "Français", "flag": "🇫🇷"},
     "de": {"name": "German", "native": "Deutsch", "flag": "🇩🇪"},
@@ -39,6 +42,15 @@ SUPPORTED_LANGUAGES = {
     "pt-BR": {"name": "Portuguese (Brazilian)", "native": "Português (Brasil)", "flag": "🇧🇷"},
     "pt": {"name": "Portuguese (European)", "native": "Português (Portugal)", "flag": "🇵🇹"},
     "ar": {"name": "Arabic", "native": "العربية", "flag": "🇸🇦"},
+    "ar-AE": {"name": "Arabic (UAE)", "native": "العربية (الإمارات)", "flag": "🇦🇪"},
+    "ar-EG": {"name": "Arabic (Egypt)", "native": "العربية (مصر)", "flag": "🇪🇬"},
+    
+    # Nordic Languages
+    "no": {"name": "Norwegian", "native": "Norsk", "flag": "🇳🇴"},
+    "sv": {"name": "Swedish", "native": "Svenska", "flag": "🇸🇪"},
+    "da": {"name": "Danish", "native": "Dansk", "flag": "🇩🇰"},
+    "fi": {"name": "Finnish", "native": "Suomi", "flag": "🇫🇮"},
+    "is": {"name": "Icelandic", "native": "Íslenska", "flag": "🇮🇸"},
     
     # Additional High-Value Languages
     "nl": {"name": "Dutch", "native": "Nederlands", "flag": "🇳🇱"},
@@ -53,10 +65,6 @@ SUPPORTED_LANGUAGES = {
     "uk": {"name": "Ukrainian", "native": "Українська", "flag": "🇺🇦"},
     "tr": {"name": "Turkish", "native": "Türkçe", "flag": "🇹🇷"},
     "he": {"name": "Hebrew", "native": "עברית", "flag": "🇮🇱"},
-    "sv": {"name": "Swedish", "native": "Svenska", "flag": "🇸🇪"},
-    "da": {"name": "Danish", "native": "Dansk", "flag": "🇩🇰"},
-    "no": {"name": "Norwegian", "native": "Norsk", "flag": "🇳🇴"},
-    "fi": {"name": "Finnish", "native": "Suomi", "flag": "🇫🇮"},
     "cs": {"name": "Czech", "native": "Čeština", "flag": "🇨🇿"},
     "ro": {"name": "Romanian", "native": "Română", "flag": "🇷🇴"},
     "hu": {"name": "Hungarian", "native": "Magyar", "flag": "🇭🇺"},
@@ -68,7 +76,24 @@ SUPPORTED_LANGUAGES = {
     "mr": {"name": "Marathi", "native": "मराठी", "flag": "🇮🇳"},
     "ur": {"name": "Urdu", "native": "اردو", "flag": "🇵🇰"},
     "fa": {"name": "Persian (Farsi)", "native": "فارسی", "flag": "🇮🇷"},
+    
+    # African Languages
     "sw": {"name": "Swahili", "native": "Kiswahili", "flag": "🇰🇪"},
+    "ha": {"name": "Hausa", "native": "Hausa", "flag": "🇳🇬"},
+    "yo": {"name": "Yoruba", "native": "Yorùbá", "flag": "🇳🇬"},
+    "ig": {"name": "Igbo", "native": "Igbo", "flag": "🇳🇬"},
+    "zu": {"name": "Zulu", "native": "isiZulu", "flag": "🇿🇦"},
+    "xh": {"name": "Xhosa", "native": "isiXhosa", "flag": "🇿🇦"},
+    "af": {"name": "Afrikaans", "native": "Afrikaans", "flag": "🇿🇦"},
+    "am": {"name": "Amharic", "native": "አማርኛ", "flag": "🇪🇹"},
+    "om": {"name": "Oromo", "native": "Oromoo", "flag": "🇪🇹"},
+    "so": {"name": "Somali", "native": "Soomaali", "flag": "🇸🇴"},
+    "rw": {"name": "Kinyarwanda", "native": "Kinyarwanda", "flag": "🇷🇼"},
+    "sn": {"name": "Shona", "native": "chiShona", "flag": "🇿🇼"},
+    "ny": {"name": "Chichewa", "native": "Chichewa", "flag": "🇲🇼"},
+    "tw": {"name": "Twi", "native": "Twi", "flag": "🇬🇭"},
+    "wo": {"name": "Wolof", "native": "Wolof", "flag": "🇸🇳"},
+    "lg": {"name": "Luganda", "native": "Luganda", "flag": "🇺🇬"},
 }
 
 # ============== Models ==============
