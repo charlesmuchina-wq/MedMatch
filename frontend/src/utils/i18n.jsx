@@ -713,6 +713,24 @@ export const I18nProvider = ({ children }) => {
     return BUNDLED_LANGUAGES.includes(lang);
   }, []);
 
+  /**
+   * Detect language from user input text and optionally switch
+   * @param {string} text - User input text
+   * @param {boolean} autoSwitch - Whether to automatically switch language
+   * @returns {string|null} Detected language code or null
+   */
+  const detectAndSwitchLanguage = useCallback((text, autoSwitch = false) => {
+    const detected = detectTextLanguage(text);
+    if (detected && detected !== language) {
+      console.log('[i18n] Detected language from text:', detected);
+      if (autoSwitch) {
+        setLanguage(detected);
+      }
+      return detected;
+    }
+    return null;
+  }, [language, setLanguage]);
+
   const value = {
     language,
     setLanguage,
@@ -727,7 +745,9 @@ export const I18nProvider = ({ children }) => {
     availableLanguages: Object.keys(LANGUAGE_META),
     bundledLanguages: BUNDLED_LANGUAGES,
     popularLanguages: POPULAR_LANGUAGES,
-    aiTranslator
+    aiTranslator,
+    detectAndSwitchLanguage, // New: detect language from user text
+    detectBrowserLanguage: () => detectBrowserLanguage(), // Expose browser detection
   };
 
   return (
