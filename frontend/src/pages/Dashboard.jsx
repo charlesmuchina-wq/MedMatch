@@ -114,7 +114,7 @@ const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
   const quickActions = getQuickActions();
 
   return (
-    <Card className="mb-6">
+    <Card className="mb-6" key={`quick-actions-${language}-${translationVersion}`}>
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
@@ -122,7 +122,16 @@ const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
             <CardTitle className="text-lg" style={{ fontFamily: 'IBM Plex Sans' }}>{t("dashboard.quickActions") || "Quick Actions"}</CardTitle>
           </div>
           <Badge variant="outline" className="text-xs">
-            <Sparkles className="w-3 h-3 mr-1" /> {t("dashboard.aiPowered") || "AI Powered"}
+            {!isBundled(language) && isLoadingAI ? (
+              <>
+                <span className="animate-spin w-3 h-3 mr-1 border border-turquoise border-t-transparent rounded-full inline-block"></span>
+                <span className="text-turquoise">Translating...</span>
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-3 h-3 mr-1" /> {t("dashboard.aiPowered") || "AI Powered"}
+              </>
+            )}
           </Badge>
         </div>
         <CardDescription>{t("dashboard.recommendedSteps") || "Recommended next steps based on your activity"}</CardDescription>
@@ -131,7 +140,7 @@ const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {quickActions.map((action) => (
             <button
-              key={action.id}
+              key={`${action.id}-${translationVersion}`}
               onClick={() => navigate(action.path)}
               className="group relative p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-transparent hover:shadow-lg transition-all duration-200 text-left overflow-hidden"
               data-testid={`quick-action-${action.id}`}
