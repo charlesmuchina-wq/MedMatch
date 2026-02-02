@@ -90,8 +90,12 @@ export const LANGUAGE_META = {
 // Bundled languages (full translations available)
 export const BUNDLED_LANGUAGES = ["en", "es", "fr", "zh", "de"];
 
-// Popular languages order
-export const POPULAR_LANGUAGES = ["en", "es", "fr", "de", "zh", "ja", "ko", "pt-BR", "ar", "hi"];
+// Popular languages order (including African languages)
+export const POPULAR_LANGUAGES = [
+  "en", "es", "fr", "de", "zh", "ja", "ko", "pt-BR", "ar", "hi",
+  // African languages in popular list
+  "sw", "ha", "am", "yo", "zu", "af"
+];
 
 // i18n Context
 const I18nContext = createContext(null);
