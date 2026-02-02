@@ -794,6 +794,8 @@ export const useTranslation = () => {
       isBundled: () => false,
       isRTL: false,
       isLoadingAI: false,
+      translationVersion: 0,
+      translationProgress: 100,
       availableLanguages: Object.keys(LANGUAGE_META),
       bundledLanguages: BUNDLED_LANGUAGES,
       popularLanguages: POPULAR_LANGUAGES,
