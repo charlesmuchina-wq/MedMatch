@@ -566,29 +566,33 @@ export const I18nProvider = ({ children }) => {
       
       const translatedMap = {};
 
-      // First: Translate priority keys quickly (small batch)
+      // First: Translate priority keys in smaller batches (backend limit is 20)
       if (priorityTexts.length > 0) {
-        const priorityBatch = priorityTexts.map(p => p.text);
-        console.log(`[i18n] Translating priority batch:`, priorityBatch.slice(0, 5));
-        const translated = await aiTranslator.translateBatch(priorityBatch, lang);
-        console.log(`[i18n] Priority batch translated:`, translated.slice(0, 5));
-        
-        priorityTexts.forEach((p, idx) => {
-          translatedMap[p.key] = translated[idx];
-        });
-        
-        // Update UI immediately with priority translations
-        aiTranslationCache.current[lang] = { ...translatedMap };
-        setDynamicTranslations(prev => {
-          const updated = {
-            ...prev,
-            [lang]: { ...translatedMap }
-          };
-          console.log(`[i18n] Dynamic translations updated for ${lang}:`, Object.keys(updated[lang]).length);
-          return updated;
-        });
-        setTranslationVersion(v => v + 1); // Force re-render after priority translations
-        setTranslationProgress(Math.round((priorityTexts.length / totalKeys) * 100));
+        const priorityBatchSize = 15;
+        for (let i = 0; i < priorityTexts.length; i += priorityBatchSize) {
+          const batchPriority = priorityTexts.slice(i, i + priorityBatchSize);
+          const priorityBatch = batchPriority.map(p => p.text);
+          console.log(`[i18n] Translating priority batch ${i / priorityBatchSize + 1}:`, priorityBatch.slice(0, 5));
+          const translated = await aiTranslator.translateBatch(priorityBatch, lang);
+          console.log(`[i18n] Priority batch translated:`, translated.slice(0, 5));
+          
+          batchPriority.forEach((p, idx) => {
+            translatedMap[p.key] = translated[idx];
+          });
+          
+          // Update UI after each priority batch
+          aiTranslationCache.current[lang] = { ...translatedMap };
+          setDynamicTranslations(prev => {
+            const updated = {
+              ...prev,
+              [lang]: { ...translatedMap }
+            };
+            console.log(`[i18n] Dynamic translations updated for ${lang}:`, Object.keys(updated[lang]).length);
+            return updated;
+          });
+          setTranslationVersion(v => v + 1); // Force re-render after priority translations
+          setTranslationProgress(Math.round((Object.keys(translatedMap).length / totalKeys) * 100));
+        }
       }
 
       // Show quick loading indicator done
