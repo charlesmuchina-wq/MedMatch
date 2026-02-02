@@ -3,7 +3,7 @@
  * Uses TensorFlow.js neural network for real-time predictions
  */
 import React, { useState, useEffect, useCallback } from 'react';
-import { callbackPredictor } from '../services/callbackPredictorModel';
+import { callbackPredictor } from '../../services/callbackPredictorModel';
 
 const CallbackProbabilityPredictor = ({ 
   resume, 
