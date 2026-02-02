@@ -137,6 +137,31 @@ const GlobalLanguageSelector = ({ compact = false }) => {
           </DropdownMenuItem>
         ))}
         
+        {/* African Languages */}
+        {africanLanguages.length > 0 && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuLabel className="text-xs text-slate-400 font-normal flex items-center gap-1">
+              🌍 {t("language.african") || "African Languages"}
+            </DropdownMenuLabel>
+            {africanLanguages.map((lang) => (
+              <DropdownMenuItem
+                key={lang.code}
+                onClick={() => setLanguage(lang.code)}
+                className="flex items-center justify-between cursor-pointer"
+              >
+                <span className="flex items-center gap-2">
+                  <span className="text-lg">{lang.flag}</span>
+                  <span>{lang.name}</span>
+                  <span className="text-xs text-slate-400">({lang.native})</span>
+                  <span className="text-[10px] px-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded font-medium" title="AI-powered translation">AI</span>
+                </span>
+                {language === lang.code && <Check className="w-4 h-4 text-green-500" />}
+              </DropdownMenuItem>
+            ))}
+          </>
+        )}
+        
         {/* Other Languages */}
         {otherLanguages.length > 0 && (
           <>
