@@ -596,7 +596,7 @@ export const I18nProvider = ({ children }) => {
 
       // Second: Background load remaining translations (don't block UI)
       const loadRemaining = async () => {
-        const batchSize = 25;
+        const batchSize = 15; // Keep under backend limit of 20
         let processedCount = priorityTexts.length;
         
         for (let i = 0; i < remainingKeys.length; i += batchSize) {
