@@ -82,10 +82,28 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 #### 1. African Languages Support (P0 - COMPLETED)
 - **Added 16 African Languages:** Swahili, Hausa, Yoruba, Igbo, Zulu, Xhosa, Afrikaans, Amharic, Oromo, Somali, Kinyarwanda, Shona, Chichewa, Twi, Wolof, Luganda
 - **Separate African Languages Section** in language selector dropdown
+- **Backend Translation Support:** Updated `/app/backend/routes/translation.py` with all African language codes
+- **Verified Translations Working:** 
+  - Swahili: Dashboard → Dashibodi, Job Search → Utafutaji wa Kazi ✅
+  - Hausa: Dashboard → Allon Kulawa, My Resume → Tarihin Aiki na ✅
+  - Yoruba: Dashboard → Dashibodu, Job Search → Wiwa Iṣẹ ✅
+  - Zulu: Dashboard → Ibhodi, My Resume → I-CV yami ✅
 - **Updated Files:**
-  - `/app/frontend/src/utils/i18n.jsx` - Added LANGUAGE_META for African languages, expanded POPULAR_LANGUAGES, enhanced PRIORITY_KEYS
+  - `/app/frontend/src/utils/i18n.jsx` - Added LANGUAGE_META for African languages + UK/UAE/Singapore/Norway/Ireland
   - `/app/frontend/src/components/GlobalLanguageSelector.jsx` - Added African languages section with 🌍 icon
   - `/app/frontend/src/locales/en.json` - Added dragon.* and language.african translation keys
+  - `/app/backend/routes/translation.py` - Added all 16 African languages to SUPPORTED_LANGUAGES
+
+#### 2. Country-Specific Languages Added (P0 - COMPLETED)
+- 🇬🇧 English (UK) - en-GB
+- 🇮🇪 English (Ireland) - en-IE
+- 🇸🇬 English (Singapore) - en-SG
+- 🇦🇪 Arabic (UAE) - ar-AE
+- 🇪🇬 Arabic (Egypt) - ar-EG
+- 🇳🇴 Norwegian - no
+- 🇩🇰 Danish - da
+- 🇫🇮 Finnish - fi
+- 🇮🇸 Icelandic - is
 
 #### 2. Mobile App UI Screens (P1 - COMPLETED)
 - **Created New Mobile Screens:**
