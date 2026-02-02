@@ -4,7 +4,8 @@ import { toast } from "sonner";
 import { 
   Bookmark, ExternalLink, MapPin, Building2, 
   Clock, ChevronRight, Loader2, TrendingUp, Target,
-  CheckCircle2, XCircle, AlertCircle, HelpCircle, Languages
+  CheckCircle2, XCircle, AlertCircle, HelpCircle, Languages,
+  Laptop, Home, Building
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -302,6 +303,25 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
             <div className="flex flex-wrap items-center gap-3 text-sm text-slate-500 dark:text-slate-400 mb-3">
               {/* Job Status Badge */}
               <JobStatusBadge status={verifiedStatus || job.status || job.job_status} postedAt={job.posted_at} />
+              
+              {/* Work Type Badge (Remote/Hybrid/On-site) */}
+              {job.work_type && (
+                <Badge 
+                  className={`text-xs px-2 py-0.5 flex items-center gap-1 font-medium ${
+                    job.work_type === 'Remote' 
+                      ? 'bg-turquoise/20 text-turquoise border border-turquoise/30' 
+                      : job.work_type === 'Hybrid'
+                      ? 'bg-purple-500/20 text-purple-600 dark:text-purple-400 border border-purple-500/30'
+                      : 'bg-orange-500/20 text-orange-600 dark:text-orange-400 border border-orange-500/30'
+                  }`}
+                  data-testid="work-type-badge"
+                >
+                  {job.work_type === 'Remote' && <Laptop className="w-3 h-3" />}
+                  {job.work_type === 'Hybrid' && <Home className="w-3 h-3" />}
+                  {job.work_type === 'On-site' && <Building className="w-3 h-3" />}
+                  {job.work_type}
+                </Badge>
+              )}
               
               <span className="flex items-center gap-1">
                 <MapPin className="w-4 h-4" />
