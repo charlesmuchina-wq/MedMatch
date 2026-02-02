@@ -538,15 +538,18 @@ export const I18nProvider = ({ children }) => {
         ...prev,
         [lang]: aiTranslationCache.current[lang]
       }));
+      setTranslationVersion(v => v + 1); // Force re-render
       return;
     }
 
     setIsLoadingAI(true);
+    setTranslationProgress(0);
 
     try {
       // Get all English strings
       const englishStrings = flattenTranslations(translations.en);
       const allKeys = Object.keys(englishStrings);
+      const totalKeys = allKeys.length;
       
       // Separate priority keys from the rest
       const priorityTexts = PRIORITY_KEYS
@@ -572,6 +575,8 @@ export const I18nProvider = ({ children }) => {
           ...prev,
           [lang]: { ...translatedMap }
         }));
+        setTranslationVersion(v => v + 1); // Force re-render after priority translations
+        setTranslationProgress(Math.round((priorityTexts.length / totalKeys) * 100));
       }
 
       // Show quick loading indicator done
@@ -580,6 +585,7 @@ export const I18nProvider = ({ children }) => {
       // Second: Background load remaining translations (don't block UI)
       const loadRemaining = async () => {
         const batchSize = 25;
+        let processedCount = priorityTexts.length;
         
         for (let i = 0; i < remainingKeys.length; i += batchSize) {
           const batchKeys = remainingKeys.slice(i, i + batchSize);
@@ -592,6 +598,8 @@ export const I18nProvider = ({ children }) => {
               translatedMap[key] = translated[idx];
             });
             
+            processedCount += batchKeys.length;
+            
             // Update cache and state periodically
             if (i % 100 === 0 || i + batchSize >= remainingKeys.length) {
               aiTranslationCache.current[lang] = { ...translatedMap };
@@ -599,6 +607,8 @@ export const I18nProvider = ({ children }) => {
                 ...prev,
                 [lang]: { ...translatedMap }
               }));
+              setTranslationVersion(v => v + 1); // Force re-render on each batch
+              setTranslationProgress(Math.round((processedCount / totalKeys) * 100));
             }
           } catch (batchErr) {
             console.warn(`AI translation batch ${i} failed:`, batchErr);
@@ -607,6 +617,10 @@ export const I18nProvider = ({ children }) => {
           // Small delay between batches to avoid rate limiting
           await new Promise(r => setTimeout(r, 100));
         }
+        
+        // Final update to ensure 100% progress
+        setTranslationProgress(100);
+        setTranslationVersion(v => v + 1);
       };
       
       // Run remaining translations in background
@@ -615,6 +629,7 @@ export const I18nProvider = ({ children }) => {
     } catch (e) {
       console.error("Failed to load AI translations:", e);
       setIsLoadingAI(false);
+      setTranslationProgress(0);
     }
   }, []);
 
