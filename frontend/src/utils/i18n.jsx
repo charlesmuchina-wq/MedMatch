@@ -430,6 +430,8 @@ export const I18nProvider = ({ children }) => {
   const [isLoadingAI, setIsLoadingAI] = useState(false);
   const [isSynced, setIsSynced] = useState(false);
   const [isInitialized, setIsInitialized] = useState(true); // Start as true to avoid flash
+  const [translationVersion, setTranslationVersion] = useState(0); // Force re-render when translations load
+  const [translationProgress, setTranslationProgress] = useState(0); // Track loading progress (0-100)
   const aiTranslationCache = useRef({});
   const lastSyncRef = useRef(Date.now());
 
