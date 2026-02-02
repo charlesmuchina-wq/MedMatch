@@ -129,7 +129,18 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
   - Shows TensorFlow.js neural network analysis below backend prediction
   - Extracts skills from job description automatically
 
-#### 4. TestFlight Beta Testing Configuration (P0 - COMPLETED)
+#### 5. Language Auto-Detection Features (P1 - COMPLETED)
+- **Browser Locale Detection:** Auto-detects user's language from browser on first visit
+- **Text Language Detection:** AI detects when user types in a different language (e.g., Swahili) in KARAU Dragon chat
+- **Auto-Switch Feature:** Automatically switches app language when user types in a different language
+- **Toast Notification:** Shows "Language detected: [Language Name]" when auto-switching
+- **Updated Files:**
+  - `/app/frontend/src/utils/i18n.jsx` - Added `detectBrowserLanguage()`, `detectTextLanguage()`, `detectAndSwitchLanguage()` functions
+  - `/app/frontend/src/components/KarauDragonAI.jsx` - Integrated language detection on text input
+  - `/app/frontend/src/locales/en.json` - Added `language.autoDetected`, `language.switchedTo` keys
+
+#### 6. Payment Integration Note
+- **Using Stripe (NOT PayPal)** - Stripe is the preferred payment processor
 - **Created Comprehensive Guide:**
   - `/app/mobile/testflight-setup-guide.md` - Full TestFlight setup documentation
   - Internal and external tester configuration
