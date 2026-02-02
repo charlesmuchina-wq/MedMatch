@@ -8,7 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { useTranslation } from "@/utils/i18n";
+import { useTranslation, useLanguageInfo } from "@/utils/i18n";
 import FeedbackInsights from "@/components/FeedbackInsights";
 import axios from "axios";
 
@@ -17,7 +17,7 @@ const API = process.env.REACT_APP_BACKEND_URL;
 // Quick Actions based on user activity and state
 const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, translationVersion, language, isBundled, isLoadingAI } = useTranslation();
   const [recentActivity, setRecentActivity] = useState([]);
 
   // Determine most relevant quick actions based on user state
