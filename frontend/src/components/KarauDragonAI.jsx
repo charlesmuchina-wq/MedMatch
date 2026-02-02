@@ -31,7 +31,7 @@ const DRAGON_ACTIONS = {
 const KarauDragonAI = ({ user, isOpen, onClose }) => {
   const navigate = useNavigate();
   const { isDark } = useTheme();
-  const { t } = useTranslation();
+  const { t, detectAndSwitchLanguage, getLanguageInfo } = useTranslation();
   
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
