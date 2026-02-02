@@ -28,7 +28,7 @@
       },
       "ios": {
         "resourceClass": "m-medium",
-        "credentialsSource": "remote"
+        "credentialsSource": "local"
       },
       "android": {
         "buildType": "apk",
