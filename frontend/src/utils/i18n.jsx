@@ -378,11 +378,32 @@ export const I18nProvider = ({ children }) => {
 
   // Priority keys that should be translated first (visible immediately)
   const PRIORITY_KEYS = [
+    // Common actions
     "common.loading", "common.error", "common.success", "common.save", "common.cancel",
-    "common.delete", "common.edit", "common.search", "common.filter", "common.submit",
-    "nav.home", "nav.dashboard", "nav.jobs", "nav.resume", "nav.applications",
-    "nav.savedJobs", "nav.interviewPrep", "nav.settings", "nav.logout",
-    "language.selectLanguage", "language.popular", "language.otherLanguages"
+    "common.delete", "common.edit", "common.search", "common.submit", "common.close",
+    "common.back", "common.next", "common.confirm", "common.yes", "common.no",
+    "common.settings", "common.profile", "common.logout", "common.login", "common.signup",
+    // Navigation
+    "nav.dashboard", "nav.myResume", "nav.jobSearch", "nav.savedJobs", "nav.applications",
+    "nav.myInterviews", "nav.interviewPrep", "nav.successPredictor", "nav.coverLetter",
+    "nav.voiceCoach", "nav.analytics", "nav.companies", "nav.messages", "nav.notifications",
+    "nav.membership", "nav.idVerification", "nav.salaryInsights", "nav.qaPractice",
+    // Dashboard stats
+    "dashboard.savedJobs", "dashboard.applications", "dashboard.interviews", "dashboard.resumeScore",
+    "dashboard.quickActions", "dashboard.uploadResume", "dashboard.searchJobs",
+    "dashboard.welcomeBack", "dashboard.welcomeToMedMatch",
+    // Resume/Skills
+    "resume.skills", "resume.myResume", "resume.uploadResume", "resume.workExperience",
+    "resume.education", "resume.summary", "resume.contact",
+    // Jobs
+    "jobs.searchJobs", "jobs.apply", "jobs.save", "jobs.saved", "jobs.remote",
+    "jobs.fullTime", "jobs.partTime", "jobs.contract", "jobs.hybrid", "jobs.salary",
+    // Language selector
+    "language.selectLanguage", "language.popular", "language.otherLanguages", "language.african",
+    // Interview
+    "interview.interviewPrep", "interview.practiceQuestions", "interview.generateQuestion",
+    // Dragon AI
+    "dragon.webSearch", "dragon.askAnything", "dragon.suggestions"
   ];
 
   /**
