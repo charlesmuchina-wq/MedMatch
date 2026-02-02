@@ -640,7 +640,16 @@
   "language": {
     "selectLanguage": "Select Language",
     "popular": "Popular",
-    "otherLanguages": "Other Languages"
+    "otherLanguages": "Other Languages",
+    "african": "African Languages"
+  },
+  "dragon": {
+    "webSearch": "Web Search",
+    "askAnything": "Ask KARAU anything...",
+    "processing": "Processing...",
+    "suggestions": "Suggestions",
+    "actionHistory": "Action History",
+    "clearHistory": "Clear History"
   },
   "pwa": {
     "installTitle": "Install MedMatch",
