@@ -10,6 +10,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useTranslation, POPULAR_LANGUAGES, LANGUAGE_META, BUNDLED_LANGUAGES, useLanguageInfo } from "@/utils/i18n";
 
+// African language codes for separate section
+const AFRICAN_LANGUAGES = ["sw", "ha", "yo", "ig", "zu", "xh", "af", "am", "om", "so", "rw", "sn", "ny", "tw", "wo", "lg"];
+
 // Global Language Selector Component for Header
 const GlobalLanguageSelector = ({ compact = false }) => {
   const { language, setLanguage, t, getLanguageInfo, isBundled, isLoadingAI } = useTranslation();
@@ -20,7 +23,8 @@ const GlobalLanguageSelector = ({ compact = false }) => {
   const allLanguages = Object.entries(LANGUAGE_META).map(([code, info]) => ({
     code,
     ...info,
-    isBundled: BUNDLED_LANGUAGES.includes(code)
+    isBundled: BUNDLED_LANGUAGES.includes(code),
+    isAfrican: AFRICAN_LANGUAGES.includes(code)
   }));
 
   // Sort languages: popular first, then by name
@@ -34,7 +38,8 @@ const GlobalLanguageSelector = ({ compact = false }) => {
   });
 
   const popularLanguages = sortedLanguages.filter(l => POPULAR_LANGUAGES.includes(l.code));
-  const otherLanguages = sortedLanguages.filter(l => !POPULAR_LANGUAGES.includes(l.code));
+  const africanLanguages = sortedLanguages.filter(l => AFRICAN_LANGUAGES.includes(l.code) && !POPULAR_LANGUAGES.includes(l.code));
+  const otherLanguages = sortedLanguages.filter(l => !POPULAR_LANGUAGES.includes(l.code) && !AFRICAN_LANGUAGES.includes(l.code));
 
   if (compact) {
     return (
