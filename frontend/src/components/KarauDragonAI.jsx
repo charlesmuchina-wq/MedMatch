@@ -16,21 +16,22 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-// Dragon AI Action Types
+// Dragon AI Action Types - labels are translation keys
 const DRAGON_ACTIONS = {
-  COVER_LETTER: { icon: PenTool, label: "Cover Letter", path: "/cover-letter", color: "#10B981" },
-  JOB_SEARCH: { icon: Search, label: "Job Search", path: "/search", color: "#3B82F6" },
-  INTERVIEW_PREP: { icon: MessageSquare, label: "Interview Prep", path: "/interview", color: "#8B5CF6" },
-  RESUME: { icon: FileText, label: "Resume", path: "/resume", color: "#F59E0B" },
-  PREDICTOR: { icon: Target, label: "Success Predictor", path: "/predictor", color: "#EF4444" },
-  COMPANIES: { icon: Briefcase, label: "Companies", path: "/companies", color: "#06B6D4" },
-  SCHEDULE: { icon: Calendar, label: "Interviews", path: "/interviews", color: "#EC4899" },
-  WEB_SEARCH: { icon: Globe, label: "Web Search", path: null, color: "#6366F1" },
+  COVER_LETTER: { icon: PenTool, labelKey: "nav.coverLetter", path: "/cover-letter", color: "#10B981" },
+  JOB_SEARCH: { icon: Search, labelKey: "nav.jobSearch", path: "/search", color: "#3B82F6" },
+  INTERVIEW_PREP: { icon: MessageSquare, labelKey: "nav.interviewPrep", path: "/interview", color: "#8B5CF6" },
+  RESUME: { icon: FileText, labelKey: "nav.myResume", path: "/resume", color: "#F59E0B" },
+  PREDICTOR: { icon: Target, labelKey: "nav.successPredictor", path: "/predictor", color: "#EF4444" },
+  COMPANIES: { icon: Briefcase, labelKey: "nav.companies", path: "/companies", color: "#06B6D4" },
+  SCHEDULE: { icon: Calendar, labelKey: "nav.myInterviews", path: "/interviews", color: "#EC4899" },
+  WEB_SEARCH: { icon: Globe, labelKey: "dragon.webSearch", path: null, color: "#6366F1" },
 };
 
 const KarauDragonAI = ({ user, isOpen, onClose }) => {
   const navigate = useNavigate();
   const { isDark } = useTheme();
+  const { t } = useTranslation();
   
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
