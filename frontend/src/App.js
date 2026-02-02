@@ -188,10 +188,27 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
           </button>
         </div>
         
-        <nav className="p-4 space-y-1 flex-1 overflow-y-auto">
+        <nav className="p-4 space-y-1 flex-1 overflow-y-auto" key={`nav-${language}-${translationVersion}`}>
+          {/* Translation loading indicator for AI languages */}
+          {!isBundled(language) && isLoadingAI && (
+            <div className="px-3 py-2 mb-2 text-xs text-turquoise flex items-center gap-2">
+              <span className="animate-spin w-3 h-3 border-2 border-turquoise border-t-transparent rounded-full"></span>
+              <span>Loading translations...</span>
+            </div>
+          )}
+          {!isBundled(language) && !isLoadingAI && translationProgress > 0 && translationProgress < 100 && (
+            <div className="px-3 py-2 mb-2">
+              <div className="h-1 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div 
+                  className="h-full bg-turquoise transition-all duration-300"
+                  style={{ width: `${translationProgress}%` }}
+                ></div>
+              </div>
+            </div>
+          )}
           {links.map(({ path, icon: Icon, labelKey }) => (
             <NavLink
-              key={path}
+              key={`${path}-${translationVersion}`}
               to={path}
               className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''} ${isDark ? 'dark' : ''}`}
               onClick={() => setIsOpen(false)}
