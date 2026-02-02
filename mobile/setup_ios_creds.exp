@@ -1,0 +1,64 @@
+#!/usr/bin/expect -f
+# iOS Credential Setup Script for EAS
+# This handles the interactive Apple ID login with 2FA
+
+set timeout 120
+set apple_id "Cmuchina@hotmail.com"
+set apple_password "Jacuipe2027!"
+
+# Start EAS credentials command
+spawn npx --yes eas-cli@latest credentials -p ios
+
+# Wait for Apple ID prompt
+expect {
+    "Apple ID:" {
+        send "$apple_id\r"
+        exp_continue
+    }
+    "Password" {
+        send "$apple_password\r"
+        exp_continue
+    }
+    "verification code" {
+        # 2FA prompt - wait for user input
+        puts "\n\n=========================================="
+        puts "2FA VERIFICATION CODE REQUIRED"
+        puts "Please check your phone and enter the code"
+        puts "==========================================\n"
+        expect_user -re "(.*)\n"
+        send "$expect_out(1,string)\r"
+        exp_continue
+    }
+    "Two-factor" {
+        puts "\n\n=========================================="
+        puts "2FA CODE REQUIRED - Check your phone"
+        puts "==========================================\n"
+        expect_user -re "(.*)\n"
+        send "$expect_out(1,string)\r"
+        exp_continue
+    }
+    "Do you want" {
+        send "y\r"
+        exp_continue
+    }
+    "Select" {
+        send "\r"
+        exp_continue
+    }
+    "team" -i {
+        send "\r"
+        exp_continue
+    }
+    "successfully" {
+        puts "\n✓ Credentials setup successful!"
+    }
+    "error" -i {
+        puts "\n✗ Error occurred during setup"
+    }
+    timeout {
+        puts "\n✗ Timeout - process took too long"
+    }
+    eof {
+        puts "\nProcess completed"
+    }
+}
