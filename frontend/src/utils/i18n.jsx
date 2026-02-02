@@ -101,9 +101,13 @@ export const LANGUAGE_META = {
 // Bundled languages (full translations available)
 export const BUNDLED_LANGUAGES = ["en", "es", "fr", "zh", "de"];
 
-// Popular languages order (including African languages)
+// Popular languages order (including African languages and key regional variants)
 export const POPULAR_LANGUAGES = [
-  "en", "es", "fr", "de", "zh", "ja", "ko", "pt-BR", "ar", "hi",
+  "en", "en-GB", "es", "fr", "de", "zh", "ja", "ko", "pt-BR", "ar", "ar-AE", "hi",
+  // Nordic
+  "no",
+  // Regional English
+  "en-IE", "en-SG",
   // African languages in popular list
   "sw", "ha", "am", "yo", "zu", "af"
 ];
