@@ -29,11 +29,21 @@ const DEFAULT_LANGUAGE = "en";
 // Language metadata
 export const LANGUAGE_META = {
   // Bundled languages (full translations available)
-  en: { name: "English", native: "English", flag: "🇺🇸", rtl: false },
+  en: { name: "English (US)", native: "English (US)", flag: "🇺🇸", rtl: false },
+  "en-GB": { name: "English (UK)", native: "English (UK)", flag: "🇬🇧", rtl: false },
+  "en-IE": { name: "English (Ireland)", native: "English (Ireland)", flag: "🇮🇪", rtl: false },
+  "en-SG": { name: "English (Singapore)", native: "English (Singapore)", flag: "🇸🇬", rtl: false },
   es: { name: "Spanish", native: "Español", flag: "🇪🇸", rtl: false },
   fr: { name: "French", native: "Français", flag: "🇫🇷", rtl: false },
   zh: { name: "Chinese", native: "中文", flag: "🇨🇳", rtl: false },
   de: { name: "German", native: "Deutsch", flag: "🇩🇪", rtl: false },
+  
+  // Nordic Languages (AI translation)
+  no: { name: "Norwegian", native: "Norsk", flag: "🇳🇴", rtl: false },
+  sv: { name: "Swedish", native: "Svenska", flag: "🇸🇪", rtl: false },
+  da: { name: "Danish", native: "Dansk", flag: "🇩🇰", rtl: false },
+  fi: { name: "Finnish", native: "Suomi", flag: "🇫🇮", rtl: false },
+  is: { name: "Icelandic", native: "Íslenska", flag: "🇮🇸", rtl: false },
   
   // Asian Languages (AI translation)
   ja: { name: "Japanese", native: "日本語", flag: "🇯🇵", rtl: false },
@@ -59,12 +69,13 @@ export const LANGUAGE_META = {
   uk: { name: "Ukrainian", native: "Українська", flag: "🇺🇦", rtl: false },
   el: { name: "Greek", native: "Ελληνικά", flag: "🇬🇷", rtl: false },
   cs: { name: "Czech", native: "Čeština", flag: "🇨🇿", rtl: false },
-  sv: { name: "Swedish", native: "Svenska", flag: "🇸🇪", rtl: false },
   ro: { name: "Romanian", native: "Română", flag: "🇷🇴", rtl: false },
   hu: { name: "Hungarian", native: "Magyar", flag: "🇭🇺", rtl: false },
   
   // Middle Eastern Languages (AI translation)
   ar: { name: "Arabic", native: "العربية", flag: "🇸🇦", rtl: true },
+  "ar-AE": { name: "Arabic (UAE)", native: "العربية (الإمارات)", flag: "🇦🇪", rtl: true },
+  "ar-EG": { name: "Arabic (Egypt)", native: "العربية (مصر)", flag: "🇪🇬", rtl: true },
   he: { name: "Hebrew", native: "עברית", flag: "🇮🇱", rtl: true },
   fa: { name: "Persian", native: "فارسی", flag: "🇮🇷", rtl: true },
   
