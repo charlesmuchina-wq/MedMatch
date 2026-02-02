@@ -139,8 +139,19 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
   - `/app/frontend/src/components/KarauDragonAI.jsx` - Integrated language detection on text input
   - `/app/frontend/src/locales/en.json` - Added `language.autoDetected`, `language.switchedTo` keys
 
-#### 6. Payment Integration Note
-- **Using Stripe (NOT PayPal)** - Stripe is the preferred payment processor
+#### 7. Mobile App Settings & Account Screens (P1 - COMPLETED)
+- **Created Settings Screen:** `/app/mobile/app/settings.tsx`
+  - Appearance (Dark Mode, Language selector with African languages)
+  - Notifications (Push, Email, Job Alerts)
+  - Security (Password, Biometric, 2FA)
+  - Data & Privacy (Export, Privacy Policy, Terms)
+  - Support (Help Center, Contact)
+  - Account management (Logout, Delete Account)
+- **Updated Profile Screen:** `/app/mobile/app/(tabs)/profile.tsx`
+  - Added link to full Settings screen
+  - Enhanced menu navigation
+
+---
 - **Created Comprehensive Guide:**
   - `/app/mobile/testflight-setup-guide.md` - Full TestFlight setup documentation
   - Internal and external tester configuration
