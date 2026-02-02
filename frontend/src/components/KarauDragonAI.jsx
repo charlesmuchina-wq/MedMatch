@@ -115,6 +115,14 @@ const KarauDragonAI = ({ user, isOpen, onClose }) => {
   const handleTextSubmit = (e) => {
     e.preventDefault();
     if (textInput.trim()) {
+      // Detect language from user input and auto-switch if different
+      const detectedLang = detectAndSwitchLanguage(textInput, true);
+      if (detectedLang) {
+        toast.info(t("language.autoDetected") || `Language detected: ${getLanguageInfo(detectedLang).name}`, {
+          description: t("language.switchedTo") || "App language has been updated",
+          duration: 3000,
+        });
+      }
       handleDragonCommand(textInput);
       setTextInput("");
     }
