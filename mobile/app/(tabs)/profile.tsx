@@ -160,8 +160,8 @@ export default function ProfileScreen() {
             />
           }
         />
-        <MenuItem icon="🌐" title="Language" subtitle="English" onPress={() => {}} />
-        <MenuItem icon="🔊" title="Sound Effects" subtitle="On" onPress={() => {}} />
+        <MenuItem icon="🌐" title="Language" subtitle="English" onPress={() => router.push('/settings' as any)} />
+        <MenuItem icon="⚙️" title="All Settings" subtitle="View all preferences" onPress={() => router.push('/settings' as any)} />
       </View>
 
       {/* Support Section */}
