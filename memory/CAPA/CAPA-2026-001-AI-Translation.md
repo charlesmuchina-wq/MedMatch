@@ -78,23 +78,24 @@ Issue: Dynamic translations not propagating to all components
 
 ## 4. Corrective Actions (Short-Term Fixes)
 
-### CA-1: Add Loading Skeleton for AI Languages
-**Description:** Show loading skeleton/shimmer effect on navigation items while AI translations load
+### CA-1: Reduce Frontend Batch Size ✅ IMPLEMENTED
+**Description:** Reduced batch size from 25 to 15 texts per request to stay under backend limit of 20
 **Owner:** Frontend Team
-**Target Date:** TBD
-**Status:** Proposed
+**Date Completed:** Feb 2, 2026
+**Status:** ✅ Complete
+**Result:** Japanese translations now load successfully
 
-### CA-2: Force Component Re-render on Translation Update
-**Description:** Implement `key` prop change or `forceUpdate` when dynamicTranslations state changes
+### CA-2: Force Component Re-render on Translation Update ✅ IMPLEMENTED
+**Description:** Added `translationVersion` state counter that increments when translations load, used as `key` prop to force re-renders
 **Owner:** Frontend Team
-**Target Date:** TBD
-**Status:** Proposed
+**Date Completed:** Feb 2, 2026
+**Status:** ✅ Complete
 
-### CA-3: Pre-fetch Priority Translations on Language Select
-**Description:** Immediately fetch and apply navigation translations before closing language selector
+### CA-3: Add Loading Indicator for AI Languages ✅ IMPLEMENTED
+**Description:** Added translation progress indicator in sidebar and "Translating..." badge in Quick Actions
 **Owner:** Frontend Team
-**Target Date:** TBD
-**Status:** Proposed
+**Date Completed:** Feb 2, 2026
+**Status:** ✅ Complete
 
 ---
 
