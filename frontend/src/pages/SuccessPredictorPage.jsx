@@ -430,6 +430,41 @@ const SuccessPredictorPage = ({ resume }) => {
               )}
             </CardContent>
           </Card>
+          
+          {/* TensorFlow.js Neural Network Prediction */}
+          {resume && jobDescription && (
+            <Card className="mt-6">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2" style={{ fontFamily: 'IBM Plex Sans' }}>
+                  <Brain className="w-5 h-5 text-violet-500" />
+                  {t("predictor.neuralNetworkAnalysis") || "Neural Network Analysis"}
+                  <Badge variant="secondary" className="ml-2 bg-gradient-to-r from-violet-100 to-pink-100 text-violet-700">
+                    <Cpu className="w-3 h-3 mr-1" />
+                    TensorFlow.js
+                  </Badge>
+                </CardTitle>
+                <CardDescription>
+                  {t("predictor.browserBasedAI") || "Browser-based AI prediction using a 4-layer neural network"}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <CallbackProbabilityPredictor
+                  resume={resume}
+                  job={{
+                    title: jobTitle,
+                    company: company,
+                    description: jobDescription,
+                    required_skills: jobDescription.match(/\b(python|javascript|react|node|sql|aws|docker|kubernetes|java|c\+\+|typescript|go|rust|swift|kotlin)\b/gi) || [],
+                    min_experience: parseInt(jobDescription.match(/(\d+)\+?\s*years?/i)?.[1]) || 0,
+                    location: jobDescription.toLowerCase().includes('remote') ? 'Remote' : 'On-site'
+                  }}
+                  onPredictionComplete={(result) => {
+                    console.log('TensorFlow.js prediction:', result);
+                  }}
+                />
+              </CardContent>
+            </Card>
+          )}
         </div>
       </div>
     </div>
