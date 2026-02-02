@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.medmatch.app",
+      "bundleIdentifier": "com.cmuchina.medmatch",
       "config": {
         "usesNonExemptEncryption": false
       },
