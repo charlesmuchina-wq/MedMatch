@@ -28,26 +28,63 @@ const DEFAULT_LANGUAGE = "en";
 
 // Language metadata
 export const LANGUAGE_META = {
+  // Bundled languages (full translations available)
   en: { name: "English", native: "English", flag: "🇺🇸", rtl: false },
   es: { name: "Spanish", native: "Español", flag: "🇪🇸", rtl: false },
   fr: { name: "French", native: "Français", flag: "🇫🇷", rtl: false },
   zh: { name: "Chinese", native: "中文", flag: "🇨🇳", rtl: false },
   de: { name: "German", native: "Deutsch", flag: "🇩🇪", rtl: false },
-  // Languages that will use AI translation (not bundled)
+  
+  // Asian Languages (AI translation)
   ja: { name: "Japanese", native: "日本語", flag: "🇯🇵", rtl: false },
   ko: { name: "Korean", native: "한국어", flag: "🇰🇷", rtl: false },
+  hi: { name: "Hindi", native: "हिन्दी", flag: "🇮🇳", rtl: false },
+  vi: { name: "Vietnamese", native: "Tiếng Việt", flag: "🇻🇳", rtl: false },
+  th: { name: "Thai", native: "ไทย", flag: "🇹🇭", rtl: false },
+  id: { name: "Indonesian", native: "Bahasa Indonesia", flag: "🇮🇩", rtl: false },
+  ms: { name: "Malay", native: "Bahasa Melayu", flag: "🇲🇾", rtl: false },
+  tl: { name: "Filipino", native: "Tagalog", flag: "🇵🇭", rtl: false },
+  bn: { name: "Bengali", native: "বাংলা", flag: "🇧🇩", rtl: false },
+  ta: { name: "Tamil", native: "தமிழ்", flag: "🇮🇳", rtl: false },
+  ur: { name: "Urdu", native: "اردو", flag: "🇵🇰", rtl: true },
+  
+  // European Languages (AI translation)
   pt: { name: "Portuguese", native: "Português", flag: "🇵🇹", rtl: false },
   "pt-BR": { name: "Portuguese (Brazil)", native: "Português (Brasil)", flag: "🇧🇷", rtl: false },
-  ar: { name: "Arabic", native: "العربية", flag: "🇸🇦", rtl: true },
-  hi: { name: "Hindi", native: "हिन्दी", flag: "🇮🇳", rtl: false },
   it: { name: "Italian", native: "Italiano", flag: "🇮🇹", rtl: false },
   ru: { name: "Russian", native: "Русский", flag: "🇷🇺", rtl: false },
   nl: { name: "Dutch", native: "Nederlands", flag: "🇳🇱", rtl: false },
   tr: { name: "Turkish", native: "Türkçe", flag: "🇹🇷", rtl: false },
-  vi: { name: "Vietnamese", native: "Tiếng Việt", flag: "🇻🇳", rtl: false },
-  th: { name: "Thai", native: "ไทย", flag: "🇹🇭", rtl: false },
-  id: { name: "Indonesian", native: "Bahasa Indonesia", flag: "🇮🇩", rtl: false },
   pl: { name: "Polish", native: "Polski", flag: "🇵🇱", rtl: false },
+  uk: { name: "Ukrainian", native: "Українська", flag: "🇺🇦", rtl: false },
+  el: { name: "Greek", native: "Ελληνικά", flag: "🇬🇷", rtl: false },
+  cs: { name: "Czech", native: "Čeština", flag: "🇨🇿", rtl: false },
+  sv: { name: "Swedish", native: "Svenska", flag: "🇸🇪", rtl: false },
+  ro: { name: "Romanian", native: "Română", flag: "🇷🇴", rtl: false },
+  hu: { name: "Hungarian", native: "Magyar", flag: "🇭🇺", rtl: false },
+  
+  // Middle Eastern Languages (AI translation)
+  ar: { name: "Arabic", native: "العربية", flag: "🇸🇦", rtl: true },
+  he: { name: "Hebrew", native: "עברית", flag: "🇮🇱", rtl: true },
+  fa: { name: "Persian", native: "فارسی", flag: "🇮🇷", rtl: true },
+  
+  // African Languages (AI translation) - Popular languages across the continent
+  sw: { name: "Swahili", native: "Kiswahili", flag: "🇰🇪", rtl: false },      // East Africa - Kenya, Tanzania
+  ha: { name: "Hausa", native: "Hausa", flag: "🇳🇬", rtl: false },           // West Africa - Nigeria, Niger
+  yo: { name: "Yoruba", native: "Yorùbá", flag: "🇳🇬", rtl: false },         // West Africa - Nigeria
+  ig: { name: "Igbo", native: "Igbo", flag: "🇳🇬", rtl: false },             // West Africa - Nigeria
+  zu: { name: "Zulu", native: "isiZulu", flag: "🇿🇦", rtl: false },          // South Africa
+  xh: { name: "Xhosa", native: "isiXhosa", flag: "🇿🇦", rtl: false },        // South Africa
+  af: { name: "Afrikaans", native: "Afrikaans", flag: "🇿🇦", rtl: false },   // South Africa
+  am: { name: "Amharic", native: "አማርኛ", flag: "🇪🇹", rtl: false },         // Ethiopia
+  om: { name: "Oromo", native: "Oromoo", flag: "🇪🇹", rtl: false },          // Ethiopia
+  so: { name: "Somali", native: "Soomaali", flag: "🇸🇴", rtl: false },       // Somalia
+  rw: { name: "Kinyarwanda", native: "Kinyarwanda", flag: "🇷🇼", rtl: false }, // Rwanda
+  sn: { name: "Shona", native: "chiShona", flag: "🇿🇼", rtl: false },        // Zimbabwe
+  ny: { name: "Chichewa", native: "Chichewa", flag: "🇲🇼", rtl: false },     // Malawi
+  tw: { name: "Twi", native: "Twi", flag: "🇬🇭", rtl: false },               // Ghana
+  wo: { name: "Wolof", native: "Wolof", flag: "🇸🇳", rtl: false },           // Senegal
+  lg: { name: "Luganda", native: "Luganda", flag: "🇺🇬", rtl: false },       // Uganda
 };
 
 // Bundled languages (full translations available)
