@@ -314,11 +314,115 @@ class AITranslationService {
 const aiTranslator = new AITranslationService();
 
 /**
+ * Detect language from browser locale
+ * Maps browser locales to our supported language codes
+ */
+const detectBrowserLanguage = () => {
+  const browserLang = navigator.language || navigator.userLanguage || 'en';
+  const langCode = browserLang.split('-')[0].toLowerCase();
+  const fullCode = browserLang.toLowerCase();
+  
+  // Check for exact match first (e.g., en-GB, pt-BR, ar-AE)
+  if (LANGUAGE_META[fullCode]) {
+    return fullCode;
+  }
+  
+  // Check for language code match
+  if (LANGUAGE_META[langCode]) {
+    return langCode;
+  }
+  
+  // Special mappings for common browser locales
+  const localeMapping = {
+    'nb': 'no', // Norwegian Bokmål -> Norwegian
+    'nn': 'no', // Norwegian Nynorsk -> Norwegian
+    'zh-cn': 'zh',
+    'zh-tw': 'zh-TW',
+    'zh-hk': 'zh-TW',
+  };
+  
+  return localeMapping[fullCode] || localeMapping[langCode] || 'en';
+};
+
+/**
+ * Detect language from text input using simple heuristics
+ * Returns detected language code or null if uncertain
+ */
+const detectTextLanguage = (text) => {
+  if (!text || text.length < 10) return null;
+  
+  // Language detection patterns (character ranges and common words)
+  const patterns = [
+    // African languages
+    { lang: 'sw', patterns: [/\b(habari|jambo|asante|karibu|sana|kwaheri|ndio|hapana|kazi|nyumba)\b/i], script: /[\u0041-\u007A]/ },
+    { lang: 'ha', patterns: [/\b(sannu|nagode|ina|kai|ku|shi|ta|yi|da|kuma)\b/i], script: /[\u0041-\u007A]/ },
+    { lang: 'yo', patterns: [/\b(báwo|ẹ|ọ|ṣe|pẹlẹ|ọjọ́|orúkọ|ilé)\b/i], script: /[\u0041-\u007A\u1E00-\u1EFF]/ },
+    { lang: 'zu', patterns: [/\b(sawubona|yebo|ngiyabonga|unjani|mina|wena|ukuthi)\b/i], script: /[\u0041-\u007A]/ },
+    { lang: 'am', patterns: [/[\u1200-\u137F]/], script: /[\u1200-\u137F]/ }, // Ethiopic script
+    
+    // RTL languages
+    { lang: 'ar', patterns: [/[\u0600-\u06FF]/], script: /[\u0600-\u06FF]/ }, // Arabic script
+    { lang: 'he', patterns: [/[\u0590-\u05FF]/], script: /[\u0590-\u05FF]/ }, // Hebrew script
+    { lang: 'fa', patterns: [/[\u0600-\u06FF]/, /[\u0750-\u077F]/], script: /[\u0600-\u06FF]/ }, // Persian uses Arabic script
+    { lang: 'ur', patterns: [/[\u0600-\u06FF]/], script: /[\u0600-\u06FF]/ }, // Urdu uses Arabic script
+    
+    // Asian languages
+    { lang: 'zh', patterns: [/[\u4E00-\u9FFF]/], script: /[\u4E00-\u9FFF]/ }, // Chinese
+    { lang: 'ja', patterns: [/[\u3040-\u309F\u30A0-\u30FF]/], script: /[\u3040-\u309F\u30A0-\u30FF]/ }, // Japanese
+    { lang: 'ko', patterns: [/[\uAC00-\uD7AF]/], script: /[\uAC00-\uD7AF]/ }, // Korean
+    { lang: 'hi', patterns: [/[\u0900-\u097F]/], script: /[\u0900-\u097F]/ }, // Hindi (Devanagari)
+    { lang: 'bn', patterns: [/[\u0980-\u09FF]/], script: /[\u0980-\u09FF]/ }, // Bengali
+    { lang: 'ta', patterns: [/[\u0B80-\u0BFF]/], script: /[\u0B80-\u0BFF]/ }, // Tamil
+    { lang: 'th', patterns: [/[\u0E00-\u0E7F]/], script: /[\u0E00-\u0E7F]/ }, // Thai
+    { lang: 'vi', patterns: [/[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/i], script: /[a-zA-Z]/ }, // Vietnamese
+    
+    // European languages with distinctive patterns
+    { lang: 'ru', patterns: [/[\u0400-\u04FF]/], script: /[\u0400-\u04FF]/ }, // Cyrillic
+    { lang: 'uk', patterns: [/[\u0400-\u04FF]/, /[іїєґ]/i], script: /[\u0400-\u04FF]/ }, // Ukrainian
+    { lang: 'el', patterns: [/[\u0370-\u03FF]/], script: /[\u0370-\u03FF]/ }, // Greek
+    { lang: 'de', patterns: [/\b(ich|und|der|die|das|ist|ein|für|mit|nicht|auf|sie|es|von|haben|werden|sein|bei|nach|auch|nur|noch|wie|über|so|keine|mehr)\b/i], script: /[a-zA-ZäöüÄÖÜß]/ },
+    { lang: 'fr', patterns: [/\b(je|tu|il|nous|vous|ils|est|sont|une|des|les|pour|avec|dans|sur|que|qui|ne|pas|ce|cette|très|bien|aussi|mais|ou|si)\b/i], script: /[a-zA-Zàâäéèêëïîôùûüÿç]/ },
+    { lang: 'es', patterns: [/\b(yo|tú|él|ella|nosotros|ustedes|es|son|una|unos|las|los|para|con|en|que|por|más|como|pero|cuando|donde)\b/i], script: /[a-zA-Záéíóúüñ¿¡]/ },
+    { lang: 'pt', patterns: [/\b(eu|tu|ele|ela|nós|vocês|é|são|uma|uns|as|os|para|com|em|que|por|mais|como|mas|quando|onde)\b/i], script: /[a-zA-Záàâãéêíóôõúç]/ },
+    { lang: 'it', patterns: [/\b(io|tu|lui|lei|noi|voi|loro|è|sono|una|un|le|gli|per|con|che|di|da|in|su|ma|come|dove|quando)\b/i], script: /[a-zA-Zàèéìíîòóùú]/ },
+    { lang: 'nl', patterns: [/\b(ik|jij|hij|zij|wij|jullie|is|zijn|een|de|het|voor|met|van|dat|die|ook|maar|als|of|niet|nog|meer|dan)\b/i], script: /[a-zA-Z]/ },
+    { lang: 'no', patterns: [/\b(jeg|du|han|hun|vi|de|er|var|en|et|den|det|for|med|til|fra|som|men|eller|når|hvis|også)\b/i], script: /[a-zA-ZæøåÆØÅ]/ },
+    { lang: 'sv', patterns: [/\b(jag|du|han|hon|vi|de|är|var|en|ett|den|det|för|med|till|från|som|men|eller|när|också)\b/i], script: /[a-zA-ZåäöÅÄÖ]/ },
+  ];
+  
+  // Check each pattern
+  for (const { lang, patterns: langPatterns, script } of patterns) {
+    // First check if text contains the script
+    if (script && script.test(text)) {
+      // Then check specific patterns
+      for (const pattern of langPatterns) {
+        if (pattern.test(text)) {
+          return lang;
+        }
+      }
+      // If script matches but no word patterns, still return for script-based languages
+      if (!/[a-zA-Z]/.test(String(script))) {
+        return lang;
+      }
+    }
+  }
+  
+  return null; // Unable to detect
+};
+
+/**
  * I18n Provider Component
  */
 export const I18nProvider = ({ children }) => {
   const [language, setLanguageState] = useState(() => {
-    return localStorage.getItem("medmatch-language") || DEFAULT_LANGUAGE;
+    const savedLang = localStorage.getItem("medmatch-language");
+    if (savedLang && LANGUAGE_META[savedLang]) {
+      return savedLang;
+    }
+    // Auto-detect from browser on first visit
+    const detected = detectBrowserLanguage();
+    console.log('[i18n] Auto-detected language from browser:', detected);
+    return detected;
   });
   
   const [dynamicTranslations, setDynamicTranslations] = useState({});
