@@ -28,7 +28,7 @@ const store = new Store({
 });
 
 // Configuration
-const APP_URL = process.env.MEDMATCH_URL || 'https://job-matchmaker-21.preview.emergentagent.com';
+const APP_URL = process.env.MEDMATCH_URL || 'https://ai-job-assistant-2.preview.emergentagent.com';
 const isDev = process.env.NODE_ENV === 'development';
 
 let mainWindow = null;
