@@ -929,13 +929,16 @@ export const useBatchTranslation = (texts = []) => {
  * Hook to get current language info
  */
 export const useLanguageInfo = () => {
-  const { language, getLanguageInfo, isRTL, isBundled } = useTranslation();
+  const { language, getLanguageInfo, isRTL, isBundled, translationVersion, translationProgress, isLoadingAI } = useTranslation();
   return {
     code: language,
     ...getLanguageInfo(language),
     isRTL,
     isAIPowered: !isBundled(language),
-    isBundled: isBundled(language)
+    isBundled: isBundled(language),
+    translationVersion, // Use this in key prop to force re-renders
+    translationProgress,
+    isLoadingAI
   };
 };
 
