@@ -307,7 +307,9 @@
     "recommendations": "Recommendations to Improve Your Chances",
     "whatMakesYouStandOut": "What Makes You Stand Out",
     "noPredictionYet": "No prediction yet",
-    "enterJobDetails": "Enter job details and click \"Predict Success Rate\" to see your callback probability"
+    "enterJobDetails": "Enter job details and click \"Predict Success Rate\" to see your callback probability",
+    "neuralNetworkAnalysis": "Neural Network Analysis",
+    "browserBasedAI": "Browser-based AI prediction using a 4-layer neural network"
   },
   "video": {
     "title": "Video Interview Practice",
