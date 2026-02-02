@@ -89,7 +89,7 @@ const ThemeProvider = ({ children }) => {
 const Sidebar = ({ isOpen, setIsOpen, user }) => {
   const location = useLocation();
   const { isDark } = useTheme();
-  const { t } = useTranslation();
+  const { t, translationVersion, translationProgress, isLoadingAI, language, isBundled } = useTranslation();
   
   // Lock body scroll when sidebar is open on mobile
   useEffect(() => {
