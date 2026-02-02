@@ -244,8 +244,22 @@ Return ONLY valid JSON:
 @router.post("/batch")
 async def batch_translate(data: BatchTranslateRequest, request: Request):
     """Translate multiple texts at once"""
+    # Handle empty array gracefully - return empty translations
+    if not data.texts or len(data.texts) == 0:
+        return {
+            "translations": [],
+            "target_language": data.target_language,
+            "count": 0
+        }
+    
+    # Filter out empty strings
+    data.texts = [t for t in data.texts if t and t.strip()]
     if not data.texts:
-        raise HTTPException(status_code=400, detail="No texts provided")
+        return {
+            "translations": [],
+            "target_language": data.target_language,
+            "count": 0
+        }
     
     if len(data.texts) > 20:
         raise HTTPException(status_code=400, detail="Maximum 20 texts per batch")
