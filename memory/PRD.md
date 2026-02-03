@@ -34,6 +34,8 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 26. **Conversion Funnel**: Full funnel analytics (signup → subscription) ✅
 27. **Translation Analytics Dashboard**: Admin analytics for translation usage, TMX, quality ✅ NEW
 28. **Linguistic Gender Support**: CLDR-based gender-aware translations (24 gendered languages) ✅ NEW
+29. **Gender-Neutral Greetings**: Personalized "Welcome back, {firstName}" greetings ✅ NEW
+30. **Performance Testing Framework**: Locust stress testing with industry benchmarks ✅ NEW
 
 ---
 
