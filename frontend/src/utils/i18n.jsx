@@ -198,13 +198,18 @@ export const BUNDLED_LANGUAGES = [
 
 // Popular languages order (including African languages and key regional variants)
 export const POPULAR_LANGUAGES = [
-  "en", "en-GB", "es", "fr", "de", "zh", "ja", "ko", "pt-BR", "ar", "ar-AE", "hi",
-  // Nordic
-  "no",
-  // Regional English
-  "en-IE", "en-SG",
-  // African languages in popular list
-  "sw", "ha", "am", "yo", "zu", "af"
+  // English variants
+  "en", "en-GB", "en-IE", "en-SG",
+  // Major European languages
+  "es", "fr", "de", "it", "pt", "pt-BR", "nl", "pl", "ru", "uk",
+  // Nordic languages
+  "no", "sv", "da", "fi",
+  // Asian languages
+  "zh", "ja", "ko", "hi", "vi", "th", "id", "bn",
+  // Middle Eastern
+  "ar", "ar-AE", "ar-EG", "he", "tr",
+  // African languages - all 16
+  "sw", "ha", "yo", "ig", "zu", "xh", "af", "am", "om", "so", "rw", "sn", "ny", "tw", "wo", "lg"
 ];
 
 // i18n Context
