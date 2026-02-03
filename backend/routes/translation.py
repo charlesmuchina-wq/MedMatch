@@ -581,7 +581,6 @@ async def get_prerendered_translations(language: str, request: Request):
     if cached:
         cached_at = cached.get("cached_at", "")
         if cached_at:
-            from datetime import datetime, timezone
             try:
                 cache_time = datetime.fromisoformat(cached_at.replace("Z", "+00:00"))
                 if (datetime.now(timezone.utc) - cache_time).total_seconds() < 86400:  # 24 hours
