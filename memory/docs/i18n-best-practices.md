@@ -71,6 +71,14 @@ Priority Order:
 | `/api/translate/batch` | POST | Translate batch of texts via AI |
 | `/api/translate/text` | POST | Translate single text |
 | `/api/translate/languages` | GET | Get supported languages list |
+| `/api/translate/memory/store` | POST | Store translation in memory (TMX) |
+| `/api/translate/memory/lookup` | GET | Lookup translation from memory |
+| `/api/translate/memory/stats` | GET | Translation memory statistics |
+| `/api/translate/memory/analytics` | GET | Enhanced TM analytics (Admin) |
+| `/api/translate/quality/score` | POST | Score translation quality |
+| `/api/translate/quality/batch-score` | POST | Batch score translations |
+| `/api/translate/quality/stats` | GET | Quality statistics (Admin) |
+| `/api/translate/analytics/dashboard` | GET | Full analytics dashboard (Admin) |
 
 ## Supported Languages
 
