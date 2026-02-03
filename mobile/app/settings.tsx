@@ -261,7 +261,89 @@ export default function SettingsScreen() {
         />
         {showLanguages && (
           <View style={styles.languageList}>
-            {LANGUAGES.map((lang) => (
+            {/* Popular */}
+            <Text style={[styles.languageSectionTitle, { color: themeColors.textSecondary }]}>Popular</Text>
+            {LANGUAGES.filter(l => l.region === 'popular').map((lang) => (
+              <TouchableOpacity
+                key={lang.code}
+                style={[
+                  styles.languageItem,
+                  language === lang.code && { backgroundColor: colors.turquoise + '15' }
+                ]}
+                onPress={() => {
+                  setLanguage(lang.code);
+                  setShowLanguages(false);
+                }}
+              >
+                <Text style={styles.languageFlag}>{lang.flag}</Text>
+                <Text style={[styles.languageName, { color: themeColors.text }]}>{lang.name}</Text>
+                {language === lang.code && <Text style={styles.checkmark}>✓</Text>}
+              </TouchableOpacity>
+            ))}
+            
+            {/* African Languages */}
+            <Text style={[styles.languageSectionTitle, { color: themeColors.textSecondary }]}>🌍 African</Text>
+            {LANGUAGES.filter(l => l.region === 'africa').map((lang) => (
+              <TouchableOpacity
+                key={lang.code}
+                style={[
+                  styles.languageItem,
+                  language === lang.code && { backgroundColor: colors.turquoise + '15' }
+                ]}
+                onPress={() => {
+                  setLanguage(lang.code);
+                  setShowLanguages(false);
+                }}
+              >
+                <Text style={styles.languageFlag}>{lang.flag}</Text>
+                <Text style={[styles.languageName, { color: themeColors.text }]}>{lang.name}</Text>
+                {language === lang.code && <Text style={styles.checkmark}>✓</Text>}
+              </TouchableOpacity>
+            ))}
+            
+            {/* European */}
+            <Text style={[styles.languageSectionTitle, { color: themeColors.textSecondary }]}>🇪🇺 European</Text>
+            {LANGUAGES.filter(l => l.region === 'europe' || l.region === 'nordic').map((lang) => (
+              <TouchableOpacity
+                key={lang.code}
+                style={[
+                  styles.languageItem,
+                  language === lang.code && { backgroundColor: colors.turquoise + '15' }
+                ]}
+                onPress={() => {
+                  setLanguage(lang.code);
+                  setShowLanguages(false);
+                }}
+              >
+                <Text style={styles.languageFlag}>{lang.flag}</Text>
+                <Text style={[styles.languageName, { color: themeColors.text }]}>{lang.name}</Text>
+                {language === lang.code && <Text style={styles.checkmark}>✓</Text>}
+              </TouchableOpacity>
+            ))}
+            
+            {/* Asian */}
+            <Text style={[styles.languageSectionTitle, { color: themeColors.textSecondary }]}>🌏 Asian</Text>
+            {LANGUAGES.filter(l => l.region === 'asia').map((lang) => (
+              <TouchableOpacity
+                key={lang.code}
+                style={[
+                  styles.languageItem,
+                  language === lang.code && { backgroundColor: colors.turquoise + '15' }
+                ]}
+                onPress={() => {
+                  setLanguage(lang.code);
+                  setShowLanguages(false);
+                }}
+              >
+                <Text style={styles.languageFlag}>{lang.flag}</Text>
+                <Text style={[styles.languageName, { color: themeColors.text }]}>{lang.name}</Text>
+                {language === lang.code && <Text style={styles.checkmark}>✓</Text>}
+              </TouchableOpacity>
+            ))}
+            
+            {/* Middle East */}
+            <Text style={[styles.languageSectionTitle, { color: themeColors.textSecondary }]}>🌙 Middle East</Text>
+            {LANGUAGES.filter(l => l.region === 'middle_east').map((lang) => (
               <TouchableOpacity
                 key={lang.code}
                 style={[
