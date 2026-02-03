@@ -660,6 +660,112 @@ export const I18nProvider = ({ children }) => {
     }
   }, []);
 
+  /**
+   * ATOMIC LANGUAGE SWITCHING - Industry Standard Pattern
+   * 
+   * Based on i18next best practices and CLDR standards:
+   * 1. Sequential loading with await (prevents race conditions)
+   * 2. Fallback chain: Cached → Pre-rendered → AI
+   * 3. Atomic state update (all translations applied at once)
+   * 4. Loading gate prevents partial renders
+   */
+  const loadTranslationsAtomically = useCallback(async (lang) => {
+    console.log(`[i18n] Atomic language switch to: ${lang}`);
+    setIsLoadingAI(true);
+    setTranslationProgress(0);
+    
+    let allTranslations = {};
+    
+    // Step 1: Check localStorage cache (instant)
+    const cached = aiTranslationCache.current[lang];
+    if (cached && Object.keys(cached).length > 50) {
+      console.log(`[i18n] Step 1: Found ${Object.keys(cached).length} cached translations`);
+      allTranslations = { ...cached };
+    }
+    
+    // Step 2: Fetch pre-rendered translations (fast, ~100ms)
+    try {
+      const response = await axios.get(`${API}/api/translate/prerender/${lang}`);
+      if (response.data.translations && Object.keys(response.data.translations).length > 0) {
+        console.log(`[i18n] Step 2: Got ${Object.keys(response.data.translations).length} pre-rendered translations`);
+        
+        // Map pre-rendered to translation keys
+        const keyMapping = {
+          "Dashboard": "nav.dashboard",
+          "My Resume": "nav.myResume",
+          "Resume Profiles": "nav.resumeProfiles",
+          "Skill Tests": "nav.skillTests",
+          "Job Search": "nav.jobSearch",
+          "Saved Jobs": "nav.savedJobs",
+          "Applications": "nav.applications",
+          "My Interviews": "nav.myInterviews",
+          "Interview Calendar": "nav.interviewCalendar",
+          "Success Predictor": "nav.successPredictor",
+          "Interview Prep": "nav.interviewPrep",
+          "Q&A Practice": "nav.qaPractice",
+          "Video Practice": "nav.videoPractice",
+          "Voice Coach": "nav.voiceCoach",
+          "Cover Letter": "nav.coverLetter",
+          "Job Alerts": "nav.jobAlerts",
+          "Analytics": "nav.analytics",
+          "Messages": "nav.messages",
+          "Settings": "common.settings",
+          "Profile": "common.profile",
+          "Sign Out": "common.logout",
+          "Sign In": "common.login",
+          "Welcome to MedMatch": "dashboard.welcomeToMedMatch",
+          "Quick Actions": "dashboard.quickActions",
+          "Upload Resume": "dashboard.uploadResume",
+          "Search Jobs": "dashboard.searchJobs",
+          "Interviews": "dashboard.interviews",
+          "Skills": "dashboard.skills",
+          "AI Powered": "dashboard.aiPowered",
+          "Loading...": "common.loading",
+          "Save": "common.save",
+          "Cancel": "common.cancel",
+          "Delete": "common.delete",
+          "Edit": "common.edit",
+          "Search": "common.search",
+          "Submit": "common.submit",
+          "Close": "common.close",
+          "Back": "common.back",
+          "Next": "common.next",
+          "Confirm": "common.confirm",
+          "Yes": "common.yes",
+          "No": "common.no",
+          "Error": "common.error",
+          "Success": "common.success"
+        };
+        
+        Object.entries(response.data.translations).forEach(([original, translated]) => {
+          const key = keyMapping[original];
+          if (key) {
+            allTranslations[key] = translated;
+          }
+        });
+      }
+    } catch (e) {
+      console.log(`[i18n] Step 2: Pre-rendered not available: ${e.message}`);
+    }
+    
+    // Step 3: ATOMIC UPDATE - Apply all collected translations at once
+    if (Object.keys(allTranslations).length > 0) {
+      console.log(`[i18n] Step 3: Atomic update with ${Object.keys(allTranslations).length} translations`);
+      aiTranslationCache.current[lang] = { ...allTranslations };
+      setDynamicTranslations(prev => ({
+        ...prev,
+        [lang]: { ...allTranslations }
+      }));
+      setTranslationVersion(v => v + 1);
+      setTranslationProgress(Math.min(20, Math.round((Object.keys(allTranslations).length / 659) * 100)));
+    }
+    
+    // Step 4: Load remaining AI translations in background (don't await - non-blocking)
+    setIsLoadingAI(false);
+    loadAITranslations(lang);
+    
+  }, [loadAITranslations]);
+
   // Update localStorage and document direction when language changes
   useEffect(() => {
     localStorage.setItem("medmatch-language", language);
@@ -671,53 +777,11 @@ export const I18nProvider = ({ children }) => {
     document.documentElement.dir = rtl ? "rtl" : "ltr";
     document.documentElement.lang = language;
 
-    // If non-bundled language, try pre-rendered translations first, then AI
+    // If non-bundled language, use atomic loading pattern
     if (!BUNDLED_LANGUAGES.includes(language)) {
-      // PA-3: Try to load pre-rendered server-side translations first
-      const loadPrerenderedFirst = async () => {
-        try {
-          console.log(`[i18n] Fetching pre-rendered translations for: ${language}`);
-          const response = await axios.get(`${API}/api/translate/prerender/${language}`);
-          
-          if (response.data.translations && Object.keys(response.data.translations).length > 0) {
-            console.log(`[i18n] Got ${Object.keys(response.data.translations).length} pre-rendered translations`);
-            
-            // Map the pre-rendered translations to our key format
-            const prerendered = response.data.translations;
-            const mappedTranslations = {};
-            
-            // Map common UI strings to translation keys
-            const keyMapping = {
-              "Dashboard": "nav.dashboard",
-              "My Resume": "nav.myResume",
-              "Resume Profiles": "nav.resumeProfiles",
-              "Skill Tests": "nav.skillTests",
-              "Job Search": "nav.jobSearch",
-              "Saved Jobs": "nav.savedJobs",
-              "Applications": "nav.applications",
-              "My Interviews": "nav.myInterviews",
-              "Interview Calendar": "nav.interviewCalendar",
-              "Success Predictor": "nav.successPredictor",
-              "Interview Prep": "nav.interviewPrep",
-              "Q&A Practice": "nav.qaPractice",
-              "Video Practice": "nav.videoPractice",
-              "Voice Coach": "nav.voiceCoach",
-              "Cover Letter": "nav.coverLetter",
-              "Job Alerts": "nav.jobAlerts",
-              "Analytics": "nav.analytics",
-              "Messages": "nav.messages",
-              "Settings": "common.settings",
-              "Profile": "common.profile",
-              "Sign Out": "common.logout",
-              "Sign In": "common.login",
-              "Welcome to MedMatch": "dashboard.welcomeToMedMatch",
-              "Quick Actions": "dashboard.quickActions",
-              "Upload Resume": "dashboard.uploadResume",
-              "Search Jobs": "dashboard.searchJobs",
-              "Interviews": "dashboard.interviews",
-              "Skills": "dashboard.skills",
-              "AI Powered": "dashboard.aiPowered",
-              "Loading...": "common.loading",
+      loadTranslationsAtomically(language);
+    }
+  }, [language, loadTranslationsAtomically]);
               "Save": "common.save",
               "Cancel": "common.cancel",
               "Delete": "common.delete",
