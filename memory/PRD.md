@@ -75,6 +75,41 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ---
 
+## Session: February 3, 2026 - CAPA Resolution & Translation Improvements
+
+### ✅ COMPLETED THIS SESSION
+
+#### 1. CAPA-2026-001 Resolution (P0 - COMPLETED)
+**Root Cause:** Frontend was sending 25 texts per batch, exceeding backend limit of 20.
+
+**Corrective Actions Implemented:**
+- **CA-1:** Reduced batch size from 25 → 15 texts ✅
+- **CA-2:** Added `translationVersion` state for forced re-renders ✅
+- **CA-3:** Added loading indicator in sidebar for AI languages ✅
+
+**Verified AI Languages Working:**
+| Language | Status | Sample Translation |
+|----------|--------|-------------------|
+| Japanese | ✅ Working | ダッシュボード, 求人検索, 履歴書 |
+| Arabic | ✅ Working | لوحة التحكم, البحث عن وظائف (RTL correct) |
+| Hindi | ✅ Working | डैशबोर्ड, नौकरी खोज, मेरा रिज्यूमे |
+| Swahili | ✅ API Verified | Dashibodi, Utafutaji wa Kazi |
+
+#### 2. PA-2: Service Worker Translation Caching (P1 - COMPLETED)
+- Added `TRANSLATION_CACHE` cache storage
+- Created `handleTranslationRequest()` function in service-worker.js
+- Caches successful `/api/translate/batch` responses
+- Instant retrieval for previously translated text on subsequent visits
+
+**Files Modified:**
+- `/app/frontend/src/utils/i18n.jsx` - Batch size & version tracking
+- `/app/frontend/src/App.js` - Navigation re-render key
+- `/app/frontend/src/pages/Dashboard.jsx` - Quick actions re-render
+- `/app/backend/routes/translation.py` - Empty array handling
+- `/app/frontend/public/service-worker.js` - Translation caching
+
+---
+
 ## Session: February 2, 2026 (Cont.) - Comprehensive Language Translation Testing
 
 ### ✅ COMPLETED THIS SESSION
