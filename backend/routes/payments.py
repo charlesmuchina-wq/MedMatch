@@ -14,10 +14,21 @@ from routes.auth import get_current_user, check_membership_status
 router = APIRouter(prefix="/payments", tags=["Payments"])
 
 STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY', '')
-LIFETIME_PRICE = 1.00
-RECRUITER_MONTHLY_PRICE = 5.00
-JOB_SEEKER_TRIAL_DAYS = 15
+
+# Job Seeker Pricing
+JOB_SEEKER_3_YEAR_PRICE = 3.00  # $3 for 3 years premium
+JOB_SEEKER_TRIAL_DAYS = 30
+
+# Recruiter Pricing (monthly)
+RECRUITER_STARTER_PRICE = 2.99
+RECRUITER_GROWTH_PRICE = 7.99
+RECRUITER_PREMIUM_PRICE = 14.99
 RECRUITER_TRIAL_DAYS = 30
+
+# Annual pricing (save 2 months)
+RECRUITER_STARTER_ANNUAL = 29.99
+RECRUITER_GROWTH_ANNUAL = 79.99
+RECRUITER_PREMIUM_ANNUAL = 149.99
 
 # ============== Models ==============
 
@@ -46,20 +57,29 @@ async def create_checkout_session(checkout_request: CreateCheckoutRequest, reque
         plan = checkout_request.plan
         
         # Determine pricing based on plan type
-        if plan == 'recruiter_monthly' or (is_recruiter and plan != 'lifetime'):
-            # Recruiter monthly subscription - $5/month
+        recruiter_plans = {
+            'recruiter_starter': (RECRUITER_STARTER_PRICE, 'month', 'MedMatch Recruiter Starter', '5 job posts, basic candidate search'),
+            'recruiter_starter_annual': (RECRUITER_STARTER_ANNUAL, 'year', 'MedMatch Recruiter Starter (Annual)', '5 job posts, basic candidate search - Save 2 months!'),
+            'recruiter_growth': (RECRUITER_GROWTH_PRICE, 'month', 'MedMatch Recruiter Growth', '10 job posts, advanced search, blind screening, analytics'),
+            'recruiter_growth_annual': (RECRUITER_GROWTH_ANNUAL, 'year', 'MedMatch Recruiter Growth (Annual)', '10 job posts, advanced search, blind screening, analytics - Save 2 months!'),
+            'recruiter_premium': (RECRUITER_PREMIUM_PRICE, 'month', 'MedMatch Recruiter Premium', 'Unlimited posts, ATS integration, API access, dedicated support'),
+            'recruiter_premium_annual': (RECRUITER_PREMIUM_ANNUAL, 'year', 'MedMatch Recruiter Premium (Annual)', 'Unlimited posts, ATS integration, API access, dedicated support - Save 2 months!'),
+        }
+        
+        if plan in recruiter_plans:
+            price, interval, name, description = recruiter_plans[plan]
             session = stripe.checkout.Session.create(
                 payment_method_types=['card'],
                 line_items=[{
                     'price_data': {
                         'currency': 'usd',
                         'product_data': {
-                            'name': 'MedMatch Recruiter Pro',
-                            'description': 'Post unlimited jobs, access candidate database, ATS tools',
+                            'name': name,
+                            'description': description,
                         },
-                        'unit_amount': int(RECRUITER_MONTHLY_PRICE * 100),
+                        'unit_amount': int(price * 100),
                         'recurring': {
-                            'interval': 'month',
+                            'interval': interval,
                         },
                     },
                     'quantity': 1,
@@ -73,22 +93,22 @@ async def create_checkout_session(checkout_request: CreateCheckoutRequest, reque
                 customer_email=user['email'],
                 metadata={
                     'user_id': user['user_id'],
-                    'plan': 'recruiter_monthly',
+                    'plan': plan,
                     'role': 'recruiter'
                 }
             )
-        else:
-            # Job seeker lifetime membership - $1 one-time
+        elif plan == 'job_seeker_3_year' or plan == 'premium_3_year':
+            # Job seeker 3-year premium membership - $3 one-time
             session = stripe.checkout.Session.create(
                 payment_method_types=['card'],
                 line_items=[{
                     'price_data': {
                         'currency': 'usd',
                         'product_data': {
-                            'name': 'MedMatch Lifetime Membership',
-                            'description': 'Unlimited access to all job search features',
+                            'name': 'MedMatch Premium (3 Years)',
+                            'description': 'Full access to all premium features for 3 years',
                         },
-                        'unit_amount': int(LIFETIME_PRICE * 100),
+                        'unit_amount': int(JOB_SEEKER_3_YEAR_PRICE * 100),
                     },
                     'quantity': 1,
                 }],
@@ -98,7 +118,32 @@ async def create_checkout_session(checkout_request: CreateCheckoutRequest, reque
                 customer_email=user['email'],
                 metadata={
                     'user_id': user['user_id'],
-                    'plan': 'lifetime',
+                    'plan': 'premium_3_year',
+                    'role': 'job_seeker'
+                }
+            )
+        else:
+            # Fallback - Job seeker 3-year premium
+            session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[{
+                    'price_data': {
+                        'currency': 'usd',
+                        'product_data': {
+                            'name': 'MedMatch Premium (3 Years)',
+                            'description': 'Full access to all premium features for 3 years',
+                        },
+                        'unit_amount': int(JOB_SEEKER_3_YEAR_PRICE * 100),
+                    },
+                    'quantity': 1,
+                }],
+                mode='payment',
+                success_url=checkout_request.success_url + ('&' if '?' in checkout_request.success_url else '?') + 'session_id={CHECKOUT_SESSION_ID}',
+                cancel_url=checkout_request.cancel_url,
+                customer_email=user['email'],
+                metadata={
+                    'user_id': user['user_id'],
+                    'plan': 'premium_3_year',
                     'role': 'job_seeker'
                 }
             )
