@@ -36,6 +36,12 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 28. **Linguistic Gender Support**: CLDR-based gender-aware translations (24 gendered languages) ✅ NEW
 29. **Gender-Neutral Greetings**: Personalized "Welcome back, {firstName}" greetings ✅ NEW
 30. **Performance Testing Framework**: Locust stress testing with industry benchmarks ✅ NEW
+31. **Privacy Impact Assessment (PIA)**: GDPR/CCPA compliant privacy system ✅ NEW
+32. **PII Redaction Service**: Automated PII masking before AI processing ✅ NEW
+33. **Explainable AI (XAI)**: "Why was I matched?" feature with human review option ✅ NEW
+34. **Data Portability**: Export all user data in JSON format (GDPR Article 20) ✅ NEW
+35. **Right to Erasure**: One-tap data deletion (GDPR Article 17) ✅ NEW
+36. **Sub-Processor Disclosure**: Third-party vendor audit with DPA status ✅ NEW
 
 ---
 
