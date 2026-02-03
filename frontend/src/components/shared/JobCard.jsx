@@ -358,8 +358,8 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
             
             {showActions && (
               <div className="flex flex-wrap items-center gap-2 pt-2">
-                {/* Why was I matched? - Explainable AI */}
-                {(matchData || job.match_score || job.relevance_score > 0) && (
+                {/* Why was I matched? - Explainable AI (always show if job has ID) */}
+                {job.id && (
                   <MatchExplanation
                     jobId={job.id}
                     jobTitle={job.title}
