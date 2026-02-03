@@ -722,6 +722,10 @@ function AppContent() {
                 onSkip={() => navigate('/')}
               />
             } />
+            {/* Recruiter RBAC Routes */}
+            <Route path="/recruiter/candidates" element={<BlindScreeningDashboard />} />
+            <Route path="/recruiter/verify" element={<RecruiterVerificationPage />} />
+            <Route path="/contact-requests" element={<ContactRequestScreen requests={[]} />} />
           </Routes>
         </main>
       </div>
