@@ -750,16 +750,20 @@ async def get_membership_status(request: Request):
     
     # Add role-specific pricing
     if is_recruiter:
-        response["price"] = RECRUITER_MONTHLY_PRICE
-        response["price_type"] = "monthly"
+        response["pricing"] = {
+            "starter": {"monthly": RECRUITER_STARTER_PRICE, "annual": RECRUITER_STARTER_ANNUAL},
+            "growth": {"monthly": RECRUITER_GROWTH_PRICE, "annual": RECRUITER_GROWTH_ANNUAL},
+            "premium": {"monthly": RECRUITER_PREMIUM_PRICE, "annual": RECRUITER_PREMIUM_ANNUAL}
+        }
         response["trial_days"] = RECRUITER_TRIAL_DAYS
-        response["plan"] = user.get("subscription_plan", "recruiter_monthly")
+        response["plan"] = user.get("subscription_plan", "recruiter_starter")
         response["subscription_status"] = user.get("subscription_status")
     else:
-        response["price"] = LIFETIME_PRICE
-        response["price_type"] = "lifetime"
+        response["price"] = JOB_SEEKER_3_YEAR_PRICE
+        response["price_type"] = "3_year"
         response["trial_days"] = JOB_SEEKER_TRIAL_DAYS
-        response["plan"] = user.get("membership_plan", "lifetime")
+        response["plan"] = user.get("membership_plan", "free")
+        response["membership_expires_at"] = user.get("membership_expires_at")
     
     return response
 
