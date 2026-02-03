@@ -429,7 +429,7 @@ async def system_status():
         # Check MongoDB
         await client.admin.command('ping')
         mongo_status = "connected"
-    except:
+    except Exception:
         mongo_status = "disconnected"
     
     return {
