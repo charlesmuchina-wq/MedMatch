@@ -87,6 +87,39 @@ locust -f stress_test_locust.py --host=https://medmatch-13.preview.emergentagent
 - System resilience (empty queries, special chars, concurrency)
 **Results:** 11/11 tests passed, 3 skipped (require auth)
 
+#### 4. Privacy Impact Assessment (PIA) System (P0 - COMPLETED)
+**User Request:** Implement GDPR/CCPA compliant privacy features for AI job application.
+
+**Backend - `/app/backend/routes/privacy.py`:**
+- `GET /api/privacy/consent/status` - Check consent status
+- `POST /api/privacy/consent/grant` - Grant consent for AI processing
+- `POST /api/privacy/consent/withdraw` - Withdraw consent (triggers data deletion)
+- `POST /api/privacy/pii/redact` - Redact PII from text before AI processing
+- `GET /api/privacy/explain/match/{job_id}` - Explainable AI (GDPR Article 22)
+- `POST /api/privacy/review/request` - Request human review of AI decision
+- `GET /api/privacy/data/export` - Export all user data (GDPR Article 20)
+- `POST /api/privacy/data/delete` - Delete user data (GDPR Article 17)
+- `GET /api/privacy/sub-processors` - Third-party vendor disclosure
+- `GET /api/privacy/audit/logs` - Privacy activity audit log
+
+**Frontend Components:**
+- `/app/frontend/src/components/PrivacyConsentScreen.jsx` - GDPR consent collection
+- `/app/frontend/src/components/MatchExplanation.jsx` - "Why was I matched?" dialog
+- `/app/frontend/src/pages/PrivacySettingsPage.jsx` - Privacy & Data management
+
+**Features Implemented:**
+- ✅ Explicit opt-in consent before AI processing
+- ✅ PII redaction (email, phone, SSN, address)
+- ✅ Voice data: Not stored after transcription
+- ✅ "Why was I matched?" explainable AI
+- ✅ Human-in-the-loop review requests
+- ✅ One-tap data deletion
+- ✅ Data export in JSON format
+- ✅ Sub-processor disclosure (5 vendors listed with DPA status)
+- ✅ Privacy audit logging
+
+**Routes:** `/privacy`, `/consent`
+
 ---
 
 ## Session: February 3, 2026 - Language Dropdown Fix & Full i18n Feature Set
