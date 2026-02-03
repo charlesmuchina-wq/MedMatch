@@ -358,6 +358,25 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
             
             {showActions && (
               <div className="flex flex-wrap items-center gap-2 pt-2">
+                {/* Why was I matched? - Explainable AI */}
+                {(matchData || job.match_score || job.relevance_score > 0) && (
+                  <MatchExplanation
+                    jobId={job.id}
+                    jobTitle={job.title}
+                    matchScore={matchData?.match_score || job.match_score || job.relevance_score}
+                    trigger={
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        className="text-turquoise hover:text-turquoise/80 hover:bg-turquoise/10"
+                        data-testid={`why-matched-btn-${job.id}`}
+                      >
+                        <Brain className="w-4 h-4 mr-1" />
+                        Why matched?
+                      </Button>
+                    }
+                  />
+                )}
                 {!matchData && (
                   <Button 
                     variant="outline" size="sm"
