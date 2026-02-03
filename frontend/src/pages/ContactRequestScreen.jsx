@@ -82,6 +82,18 @@ const ContactRequestScreen = ({ requests: propRequests, onRequestUpdate }) => {
     }
   };
 
+  // Loading state
+  if (loading) {
+    return (
+      <div className="p-6 max-w-2xl mx-auto">
+        <div className="flex items-center justify-center py-12">
+          <Loader2 className="w-8 h-8 animate-spin text-turquoise" />
+        </div>
+      </div>
+    );
+  }
+
+  // Empty state
   if (!requests || requests.length === 0) {
     return (
       <div className="p-6 max-w-2xl mx-auto">
@@ -93,6 +105,14 @@ const ContactRequestScreen = ({ requests: propRequests, onRequestUpdate }) => {
           <p className="text-sm text-slate-500 mt-2">
             When recruiters want to contact you, their requests will appear here.
           </p>
+          <Button 
+            variant="outline" 
+            className="mt-4"
+            onClick={fetchContactRequests}
+          >
+            <RefreshCw className="w-4 h-4 mr-2" />
+            Refresh
+          </Button>
         </Card>
       </div>
     );
@@ -100,13 +120,19 @@ const ContactRequestScreen = ({ requests: propRequests, onRequestUpdate }) => {
 
   return (
     <div className="p-6 max-w-3xl mx-auto" data-testid="contact-requests-screen">
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100" style={{ fontFamily: 'IBM Plex Sans' }}>
-          Contact Requests
-        </h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
-          Review and respond to recruiter requests. Your contact details are only shared when you accept.
-        </p>
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold text-slate-900 dark:text-slate-100" style={{ fontFamily: 'IBM Plex Sans' }}>
+            Contact Requests
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
+            Review and respond to recruiter requests. Your contact details are only shared when you accept.
+          </p>
+        </div>
+        <Button variant="outline" size="sm" onClick={fetchContactRequests}>
+          <RefreshCw className="w-4 h-4 mr-1" />
+          Refresh
+        </Button>
       </div>
 
       {/* Pending Requests */}
