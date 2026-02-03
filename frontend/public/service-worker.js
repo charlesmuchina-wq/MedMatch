@@ -48,16 +48,10 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Skip non-GET requests (except POST for translation)
-  if (request.method !== 'GET' && request.method !== 'POST') return;
-  
-  // PA-2: Cache translation API responses
-  if (url.pathname.includes('/api/translate/batch') && request.method === 'POST') {
-    event.respondWith(handleTranslationRequest(request));
-    return;
-  }
+  // Skip non-GET requests - Let POST requests pass through
+  if (request.method !== 'GET') return;
 
-  // Skip other API calls - always go to network
+  // Skip API calls - always go to network
   if (url.pathname.startsWith('/api')) {
     return;
   }
