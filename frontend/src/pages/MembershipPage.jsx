@@ -325,35 +325,37 @@ const MembershipPage = ({ user }) => {
       {/* Job Seeker Pricing Section */}
       {!isRecruiter && !isActive && (
         <div className="grid md:grid-cols-2 gap-6 mb-10">
-          {/* Free Trial */}
-          <Card className={`${isTrial ? 'border-2 border-amber-400' : ''}`}>
+          {/* Free Forever Tier */}
+          <Card className={`${!membership?.tier || membership?.tier === 'free' ? 'border-2 border-emerald-400' : ''}`}>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-amber-500" />
-                Free Trial
+                <Sparkles className="w-5 h-5 text-emerald-500" />
+                Free Forever
               </CardTitle>
-              <CardDescription>Try MedMatch for 15 days</CardDescription>
+              <CardDescription>Everything you need to find your next job</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-                $0 <span className="text-sm font-normal text-slate-500">/ 15 days</span>
+                $0 <span className="text-sm font-normal text-slate-500">/ forever</span>
               </div>
               <ul className="space-y-3">
                 {[
+                  "Unlimited job searches",
+                  "AI-powered job matching",
                   "Resume upload & parsing",
-                  "Job search (limited)",
-                  "Save up to 10 jobs",
-                  "Basic AI features"
+                  "Save unlimited jobs",
+                  "Basic cover letter generation",
+                  "Interview preparation tips",
+                  "Email job alerts",
+                  "Mobile app access"
                 ].map((feature, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
                     <Check className="w-4 h-4 text-emerald-500" /> {feature}
                   </li>
                 ))}
               </ul>
-              {isTrial && (
-                <Button variant="outline" className="w-full mt-6" disabled>
-                  Current Plan
-                </Button>
+              {(!membership?.tier || membership?.tier === 'free') && (
+                <Badge className="mt-4 bg-emerald-500">Current Plan</Badge>
               )}
             </CardContent>
           </Card>
