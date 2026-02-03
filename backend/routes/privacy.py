@@ -560,13 +560,18 @@ async def explain_ai_match(job_id: str, request: Request):
             "details": "This job was found based on your search criteria"
         })
     
-    return {
+    result = {
         "job_id": job_id,
         "explanation": f"This job was recommended based on: {', '.join(explanation_parts) if explanation_parts else 'your search criteria'}",
         "match_factors": match_factors,
         "transparency_note": "Our AI uses your resume skills, experience, and education to calculate match scores. No demographic data is used in matching.",
         "request_review_available": True
     }
+    
+    # Cache the result
+    set_cached_explanation(cache_key, result)
+    
+    return result
 
 # ============== Sub-Processor Disclosure ==============
 
