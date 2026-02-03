@@ -120,6 +120,15 @@ locust -f stress_test_locust.py --host=https://medmatch-13.preview.emergentagent
 
 **Routes:** `/privacy`, `/consent`
 
+#### 5. iOS Build Fix (EAS Configuration)
+**Issue:** iOS build failing due to credentials error.
+**Fix:** Changed `credentialsSource` from `"local"` to `"remote"` in `/app/mobile/eas.json` so Expo manages signing certificates automatically.
+
+**To rebuild iOS:**
+```bash
+cd /app/mobile && eas build --platform ios --profile preview
+```
+
 ---
 
 ## Session: February 3, 2026 - Language Dropdown Fix & Full i18n Feature Set
