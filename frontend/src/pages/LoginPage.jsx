@@ -355,7 +355,7 @@ const LoginPage = ({ onAuthSuccess }) => {
                           <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                             {t("auth.jobSeekerDesc") || "Find your dream job with AI"}
                           </div>
-                          <div className="text-xs text-emerald-600 font-medium mt-2">Free forever</div>
+                          <div className="text-xs text-turquoise font-medium mt-2">30 days FREE • then $1/3 years</div>
                         </button>
                         <button
                           type="button"
@@ -377,7 +377,7 @@ const LoginPage = ({ onAuthSuccess }) => {
                           <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                             {t("auth.recruiterDesc") || "Hire top healthcare talent"}
                           </div>
-                          <div className="text-xs text-emerald-600 font-medium mt-2">Free forever</div>
+                          <div className="text-xs text-emerald-600 font-medium mt-2">From $2.99/month</div>
                         </button>
                       </div>
                     </div>
