@@ -445,9 +445,6 @@ async def search_candidates_with_rbac(
             detail="Account verification required to search candidates"
         )
     
-    # Get organization settings
-    org_settings = await get_organization_settings(recruiter.get("organization_id", ""))
-    
     # Build query
     query = {
         "searchable": {"$ne": False},

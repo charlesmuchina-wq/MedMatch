@@ -734,7 +734,7 @@ async def get_membership_status(request: Request):
         try:
             trial_end = datetime.fromisoformat(user["trial_ends_at"].replace('Z', '+00:00'))
             days_remaining = (trial_end - datetime.now(timezone.utc)).days
-        except:
+        except Exception:
             pass
     
     response = {

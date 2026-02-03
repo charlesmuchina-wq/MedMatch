@@ -204,7 +204,7 @@ async def update_applicant_status(
     if not application:
         raise HTTPException(status_code=404, detail="Application not found")
     
-    result = await db.job_applicants.update_one(
+    await db.job_applicants.update_one(
         {"id": application_id, "recruiter_id": user["user_id"]},
         {"$set": {
             "status": status_update.status,
