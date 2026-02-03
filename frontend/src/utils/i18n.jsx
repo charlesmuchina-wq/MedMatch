@@ -16,20 +16,54 @@ import ja from "@/locales/ja.json";
 import ar from "@/locales/ar.json";
 import hi from "@/locales/hi.json";
 import ptBR from "@/locales/pt-BR.json";
+// African Languages - ALL BUNDLED
+import sw from "@/locales/sw.json";  // Swahili
+import ha from "@/locales/ha.json";  // Hausa
+import yo from "@/locales/yo.json";  // Yoruba
+import ig from "@/locales/ig.json";  // Igbo
+import zu from "@/locales/zu.json";  // Zulu
+import xh from "@/locales/xh.json";  // Xhosa
+import af from "@/locales/af.json";  // Afrikaans
+import am from "@/locales/am.json";  // Amharic
+import om from "@/locales/om.json";  // Oromo
+import so from "@/locales/so.json";  // Somali
+import rw from "@/locales/rw.json";  // Kinyarwanda
+import sn from "@/locales/sn.json";  // Shona
+import ny from "@/locales/ny.json";  // Chichewa
+import tw from "@/locales/tw.json";  // Twi
+import wo from "@/locales/wo.json";  // Wolof
+import lg from "@/locales/lg.json";  // Luganda
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-// Available translations - Now includes high-demand languages
+// Available translations - All bundled languages
 const translations = {
   en,
   es,
   fr,
   zh,
   de,
-  ja,      // Japanese - bundled
-  ar,      // Arabic - bundled
-  hi,      // Hindi - bundled
-  "pt-BR": ptBR  // Portuguese-BR - bundled
+  ja,      // Japanese
+  ar,      // Arabic
+  hi,      // Hindi
+  "pt-BR": ptBR,  // Portuguese-BR
+  // African Languages
+  sw,      // Swahili
+  ha,      // Hausa
+  yo,      // Yoruba
+  ig,      // Igbo
+  zu,      // Zulu
+  xh,      // Xhosa
+  af,      // Afrikaans
+  am,      // Amharic
+  om,      // Oromo
+  so,      // Somali
+  rw,      // Kinyarwanda
+  sn,      // Shona
+  ny,      // Chichewa
+  tw,      // Twi
+  wo,      // Wolof
+  lg       // Luganda
 };
 
 // Fallback language
