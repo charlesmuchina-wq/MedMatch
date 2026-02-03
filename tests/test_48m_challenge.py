@@ -10,7 +10,7 @@ import time
 import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://ai-job-hunter-4.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-ai-1.preview.emergentagent.com')
 
 
 class TestAPIClientExponentialBackoff:
