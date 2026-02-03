@@ -661,6 +661,9 @@ function AppContent() {
             <Route path="/admin/metrics" element={
               <ProductionMetricsPage />
             } />
+            <Route path="/admin/translations" element={
+              <TranslationAnalyticsPage />
+            } />
           </Routes>
         </main>
       </div>
