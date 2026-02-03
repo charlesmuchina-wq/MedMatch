@@ -338,31 +338,46 @@ const LoginPage = ({ onAuthSuccess }) => {
                   <>
                     {/* Role Selection */}
                     <div className="space-y-2">
-                      <Label>I am a</Label>
+                      <Label>{t("auth.iAmA") || "I am a"}</Label>
                       <div className="grid grid-cols-2 gap-3">
                         <button
                           type="button"
                           onClick={() => setSelectedRole("job_seeker")}
-                          className={`p-3 rounded-lg border-2 transition-all text-left ${
+                          className={`p-4 rounded-lg border-2 transition-all text-left ${
                             selectedRole === "job_seeker"
                               ? "border-turquoise bg-turquoise/10"
                               : "border-slate-200 dark:border-slate-700 hover:border-slate-300"
                           }`}
+                          data-testid="role-job-seeker"
                         >
-                          <div className="font-medium text-slate-900 dark:text-slate-100 text-sm">Job Seeker</div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400">$1 lifetime • 15-day trial</div>
+                          <User className={`w-5 h-5 mb-2 ${selectedRole === "job_seeker" ? "text-turquoise" : "text-slate-400"}`} />
+                          <div className="font-medium text-slate-900 dark:text-slate-100">{t("auth.jobSeeker") || "Job Seeker"}</div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            {t("auth.jobSeekerDesc") || "Find your dream job with AI"}
+                          </div>
+                          <div className="text-xs text-turquoise font-medium mt-2">$1 lifetime • 15-day trial</div>
                         </button>
                         <button
                           type="button"
                           onClick={() => setSelectedRole("recruiter")}
-                          className={`p-3 rounded-lg border-2 transition-all text-left ${
+                          className={`p-4 rounded-lg border-2 transition-all text-left ${
                             selectedRole === "recruiter"
                               ? "border-turquoise bg-turquoise/10"
                               : "border-slate-200 dark:border-slate-700 hover:border-slate-300"
                           }`}
+                          data-testid="role-recruiter"
                         >
-                          <div className="font-medium text-slate-900 dark:text-slate-100 text-sm">Recruiter</div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400">Free forever</div>
+                          <svg className={`w-5 h-5 mb-2 ${selectedRole === "recruiter" ? "text-turquoise" : "text-slate-400"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                          </svg>
+                          <div className="font-medium text-slate-900 dark:text-slate-100">{t("auth.recruiter") || "Recruiter"}</div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                            {t("auth.recruiterDesc") || "Hire top healthcare talent"}
+                          </div>
+                          <div className="text-xs text-emerald-600 font-medium mt-2">Free forever</div>
                         </button>
                       </div>
                     </div>
