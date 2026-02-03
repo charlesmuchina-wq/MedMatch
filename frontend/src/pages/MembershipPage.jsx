@@ -395,115 +395,140 @@ const MembershipPage = ({ user }) => {
 
       {/* Job Seeker Pricing Section */}
       {!isRecruiter && !isActive && (
-        <div className="grid md:grid-cols-2 gap-6 mb-10">
-          {/* Free Forever Tier */}
-          <Card className={`${!membership?.tier || membership?.tier === 'free' ? 'border-2 border-emerald-400' : ''}`}>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-emerald-500" />
-                Free Forever
-              </CardTitle>
-              <CardDescription>Everything you need to find your next job</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-                $0 <span className="text-sm font-normal text-slate-500">/ forever</span>
+        <div className="mb-10">
+          {/* 30-Day Trial Banner */}
+          {isTrial && (
+            <div className="mb-6 p-4 rounded-lg bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border border-amber-200 dark:border-amber-800">
+              <div className="flex items-center gap-3">
+                <Clock className="w-6 h-6 text-amber-600" />
+                <div>
+                  <p className="font-medium text-amber-800 dark:text-amber-200">
+                    🎉 You're on a 30-day free trial!
+                  </p>
+                  <p className="text-sm text-amber-600 dark:text-amber-400">
+                    {membership?.days_remaining || 30} days remaining • Enjoy full premium access
+                  </p>
+                </div>
               </div>
-              <ul className="space-y-3">
-                {[
-                  "Unlimited job searches",
-                  "AI-powered job matching",
-                  "Resume upload & parsing",
-                  "Save unlimited jobs",
-                  "Basic cover letter generation",
-                  "Interview preparation tips",
-                  "Email job alerts",
-                  "Mobile app access"
-                ].map((feature, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                    <Check className="w-4 h-4 text-emerald-500" /> {feature}
-                  </li>
-                ))}
-              </ul>
-              {(!membership?.tier || membership?.tier === 'free') && (
-                <Badge className="mt-4 bg-emerald-500">Current Plan</Badge>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Pro Monthly Subscription */}
-          <Card className="border-2 border-turquoise relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-turquoise text-white text-xs px-3 py-1 rounded-bl-lg font-medium">
-              RECOMMENDED
             </div>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Crown className="w-5 h-5 text-turquoise" />
-                Pro Membership
-              </CardTitle>
-              <CardDescription>Advanced career tools for serious job seekers</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-                $9.99 <span className="text-sm font-normal text-slate-500">/ month</span>
+          )}
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Free Forever Tier */}
+            <Card className={`${!membership?.tier || membership?.tier === 'free' ? 'border-2 border-slate-300' : ''}`}>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-slate-500" />
+                  Free Forever
+                </CardTitle>
+                <CardDescription>Basic job search features</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
+                  $0 <span className="text-sm font-normal text-slate-500">/ forever</span>
+                </div>
+                <ul className="space-y-3">
+                  {[
+                    "Unlimited job searches",
+                    "View job listings",
+                    "Save favorite jobs",
+                    "Basic email alerts",
+                    "Mobile app access"
+                  ].map((feature, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                      <Check className="w-4 h-4 text-slate-400" /> {feature}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
+                  <p className="text-xs text-slate-500">Not included:</p>
+                  <ul className="mt-2 space-y-1">
+                    {["AI job matching", "Cover letter generator", "Interview prep", "Resume optimization"].map((f, i) => (
+                      <li key={i} className="flex items-center gap-2 text-xs text-slate-400">
+                        <span className="w-3 h-3 rounded-full border border-slate-300" /> {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Premium 3-Year Plan */}
+            <Card className="border-2 border-turquoise relative overflow-hidden">
+              <div className="absolute top-0 right-0 bg-turquoise text-white text-xs px-3 py-1 rounded-bl-lg font-medium">
+                BEST VALUE
               </div>
-              <ul className="space-y-3">
-                {[
-                  "Everything in Free tier",
-                  "AI Resume Optimization Review",
-                  "Salary Negotiation Coaching",
-                  "Priority visibility to recruiters",
-                  "Advanced Interview Prep with AI feedback",
-                  "Unlimited cover letter generations",
-                  "Career path recommendations",
-                  "Priority Support"
-                ].map((feature, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                    <Check className="w-4 h-4 text-turquoise" /> {feature}
-                  </li>
-                ))}
-              </ul>
-              
-              {/* Payment Options */}
-              <div className="mt-6 space-y-3">
-                <Button 
-                  onClick={() => handleUpgrade('stripe', 'pro_monthly')}
-                  disabled={processing}
-                  className="w-full bg-gradient-to-r from-turquoise to-teal-600 hover:from-teal-600 hover:to-turquoise"
-                  data-testid="upgrade-stripe-btn"
-                >
-                  {processing ? (
-                    <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Processing...</>
-                  ) : (
-                    <><CreditCard className="w-4 h-4 mr-2" /> Subscribe with Card</>
-                  )}
-                </Button>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Crown className="w-5 h-5 text-turquoise" />
+                  Premium Membership
+                </CardTitle>
+                <CardDescription>Full access to all AI-powered features</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-1">
+                  $3 <span className="text-sm font-normal text-slate-500">/ 3 years</span>
+                </div>
+                <p className="text-xs text-emerald-600 mb-4">Just $0.08/month • One-time payment</p>
+                <ul className="space-y-3">
+                  {[
+                    "Everything in Free tier",
+                    "AI-powered job matching",
+                    "AI Resume Optimization",
+                    "Unlimited cover letter generations",
+                    "Interview Prep with AI feedback",
+                    "Salary Negotiation Coaching",
+                    "Priority visibility to recruiters",
+                    "Career path recommendations",
+                    "Priority Support"
+                  ].map((feature, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                      <Check className="w-4 h-4 text-turquoise" /> {feature}
+                    </li>
+                  ))}
+                </ul>
                 
-                <Button 
-                  onClick={() => handleUpgrade('paypal', 'pro_monthly')}
-                  disabled={processing}
-                  variant="outline"
-                  className="w-full border-[#0070ba] text-[#0070ba] hover:bg-[#0070ba]/10"
-                  data-testid="upgrade-paypal-btn"
-                >
-                  {processing ? (
-                    <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Processing...</>
-                  ) : (
-                    <>
-                      <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.77.77 0 0 1 .757-.629h6.153c2.046 0 3.667.468 4.736 1.371 1.006.85 1.468 2.076 1.338 3.548-.33 3.692-2.898 5.447-6.246 5.447h-1.83a.77.77 0 0 0-.758.628l-.87 5.507a.64.64 0 0 1-.632.54h-.516v1.205zm12.234-14.446c-.395 4.268-3.133 6.38-7.07 6.38h-1.315l-1.026 6.491h2.45l.714-4.515h1.315c3.936 0 6.673-2.112 7.07-6.38.096-1.04-.052-1.89-.427-2.578.34.327.597.738.758 1.238.156.485.234 1.057.234 1.713 0 .257-.012.521-.038.79-.233 2.55-1.553 4.41-3.615 5.346.826-.773 1.397-1.79 1.687-3.036.058-.248.102-.508.133-.779.026-.232.039-.455.039-.667 0-.555-.063-1.044-.187-1.47a3.283 3.283 0 0 0-.722-1.333z"/>
-                      </svg>
-                      Subscribe with PayPal
-                    </>
-                  )}
-                </Button>
-              </div>
-              
-              <p className="text-xs text-slate-500 text-center mt-3">
-                Cancel anytime • All currencies accepted worldwide
-              </p>
-            </CardContent>
-          </Card>
+                {/* Payment Options */}
+                <div className="mt-6 space-y-3">
+                  <Button 
+                    onClick={() => handleUpgrade('stripe', 'job_seeker_3_year')}
+                    disabled={processing}
+                    className="w-full bg-gradient-to-r from-turquoise to-teal-600 hover:from-teal-600 hover:to-turquoise"
+                    data-testid="upgrade-stripe-btn"
+                  >
+                    {processing ? (
+                      <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Processing...</>
+                    ) : (
+                      <><CreditCard className="w-4 h-4 mr-2" /> Get Premium for $3</>
+                    )}
+                  </Button>
+                  
+                  <Button 
+                    onClick={() => handleUpgrade('paypal', 'job_seeker_3_year')}
+                    disabled={processing}
+                    variant="outline"
+                    className="w-full border-[#0070ba] text-[#0070ba] hover:bg-[#0070ba]/10"
+                    data-testid="upgrade-paypal-btn"
+                  >
+                    {processing ? (
+                      <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Processing...</>
+                    ) : (
+                      <>
+                        <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.77.77 0 0 1 .757-.629h6.153c2.046 0 3.667.468 4.736 1.371 1.006.85 1.468 2.076 1.338 3.548-.33 3.692-2.898 5.447-6.246 5.447h-1.83a.77.77 0 0 0-.758.628l-.87 5.507a.64.64 0 0 1-.632.54h-.516v1.205zm12.234-14.446c-.395 4.268-3.133 6.38-7.07 6.38h-1.315l-1.026 6.491h2.45l.714-4.515h1.315c3.936 0 6.673-2.112 7.07-6.38.096-1.04-.052-1.89-.427-2.578.34.327.597.738.758 1.238.156.485.234 1.057.234 1.713 0 .257-.012.521-.038.79-.233 2.55-1.553 4.41-3.615 5.346.826-.773 1.397-1.79 1.687-3.036.058-.248.102-.508.133-.779.026-.232.039-.455.039-.667 0-.555-.063-1.044-.187-1.47a3.283 3.283 0 0 0-.722-1.333z"/>
+                        </svg>
+                        Pay with PayPal
+                      </>
+                    )}
+                  </Button>
+                </div>
+                
+                <p className="text-xs text-slate-500 text-center mt-3">
+                  One-time payment • No recurring fees • 3 years of premium access
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       )}
 
