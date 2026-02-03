@@ -176,7 +176,7 @@ async def get_payment_status(session_id: str, request: Request):
         
         if is_paid:
             # Determine plan type from metadata
-            plan = session.metadata.get('plan', 'lifetime')
+            plan = session.metadata.get('plan', 'premium_3_year')
             role = session.metadata.get('role', 'job_seeker')
             
             update_data = {
@@ -188,13 +188,15 @@ async def get_payment_status(session_id: str, request: Request):
             if is_subscription:
                 # Recruiter subscription
                 update_data["subscription_id"] = session.subscription
-                update_data["subscription_plan"] = "recruiter_monthly"
+                update_data["subscription_plan"] = plan
                 update_data["subscription_status"] = "active"
                 # Trial ends in 30 days
                 update_data["trial_ends_at"] = (datetime.now(timezone.utc) + timedelta(days=RECRUITER_TRIAL_DAYS)).isoformat()
             else:
-                # Job seeker lifetime
-                update_data["membership_plan"] = "lifetime"
+                # Job seeker 3-year premium
+                update_data["membership_plan"] = "premium_3_year"
+                # Set expiry to 3 years from now
+                update_data["membership_expires_at"] = (datetime.now(timezone.utc) + timedelta(days=1095)).isoformat()
             
             # Update user membership
             await db.users.update_one(
