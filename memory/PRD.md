@@ -50,6 +50,7 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 42. **Audit Trail Logging**: Compliance-ready recruiter action logging ✅ NEW
 43. **MFA Requirement for Recruiters**: Multi-factor auth for PII access ✅ NEW
 44. **Time-Bound Data Access**: 60-day retention after job closure ✅ NEW
+45. **Role Selection UI**: Enhanced registration with Job Seeker/Recruiter cards ✅ NEW
 
 ---
 
