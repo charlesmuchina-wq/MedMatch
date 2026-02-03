@@ -176,7 +176,7 @@ async def run_ai_diagnostics() -> Dict[str, Any]:
             ).with_model("openai", "gpt-5.2")
             
             # Use send_message method
-            response = chat.send_message("test")
+            chat.send_message("test")
             results["metrics"]["llm_responsive"] = True
         except Exception as e:
             results["status"] = "degraded"
@@ -451,7 +451,6 @@ async def auto_implement_improvement(improvement: Dict[str, Any]) -> Dict[str, A
     """Automatically implement certain improvements"""
     result = {"success": False, "details": ""}
     
-    category = improvement.get("category", "")
     title = improvement.get("title", "")
     
     # Only implement safe, predefined improvements
@@ -505,7 +504,7 @@ class RollbackManager:
                 try:
                     count = await db[coll].count_documents({})
                     snapshot["system_state"]["collections_stats"][coll] = count
-                except:
+                except Exception:
                     pass
             
             # Capture health score
