@@ -377,13 +377,17 @@ async def toggle_blind_screening(toggle: BlindScreeningToggle, request: Request)
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
+    # Check if recruiter profile exists
+    recruiter = await db.recruiter_profiles.find_one({"user_id": user["user_id"]})
+    if not recruiter:
+        raise HTTPException(status_code=404, detail="Recruiter profile not found. Please complete registration first.")
+    
     await db.recruiter_profiles.update_one(
         {"user_id": user["user_id"]},
         {"$set": {"blind_screening_mode": toggle.enabled}}
     )
     
     # Log the change
-    recruiter = await db.recruiter_profiles.find_one({"user_id": user["user_id"]})
     await log_recruiter_action(
         user["user_id"],
         recruiter.get("organization_id", "unknown"),
