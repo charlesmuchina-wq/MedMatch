@@ -88,7 +88,7 @@ const BlindScreeningDashboard = () => {
       const params = new URLSearchParams();
       if (searchSkills) params.append("skills", searchSkills);
       if (searchKeywords) params.append("keywords", searchKeywords);
-      params.append("min_match_score", "70");
+      params.append("min_match_score", "0");
       params.append("limit", "20");
 
       const response = await axios.get(
