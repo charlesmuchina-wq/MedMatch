@@ -672,7 +672,7 @@ function AppContent() {
             <Route path="/recruiter/jobs" element={<RecruiterJobsPage user={user} />} />
             <Route path="/recruiter/dashboard" element={<RecruiterDashboard user={user} />} />
             <Route path="/recruiter/jobs/:jobId/applicants" element={<ApplicantTracker user={user} />} />
-            <Route path="/recruiter/candidates" element={<CandidateSearch user={user} />} />
+            <Route path="/recruiter/candidates" element={<BlindScreeningDashboard />} />
             <Route path="/messages" element={<MessagesPage user={user} />} />
             <Route path="/messages/new" element={<MessagesPage user={user} />} />
             <Route path="/companies/:companyId" element={<CompanyProfilePage user={user} />} />
