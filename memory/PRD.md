@@ -75,6 +75,61 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ---
 
+## Session: February 3, 2026 (Continued) - Linguistic Gender Support & African Languages Bundling
+
+### ✅ COMPLETED THIS SESSION
+
+#### 1. African Languages Bundling (P0 - COMPLETED)
+All 16 supported African languages are now bundled as static translation files for instant loading:
+- Swahili (sw), Hausa (ha), Yoruba (yo), Igbo (ig), Zulu (zu), Xhosa (xh)
+- Afrikaans (af), Amharic (am), Oromo (om), Somali (so), Kinyarwanda (rw)
+- Shona (sn), Chichewa (ny), Twi (tw), Wolof (wo), Luganda (lg)
+
+**Verified:** Swahili loads instantly without "Loading..." or "AI Powered" indicators.
+
+#### 2. Linguistic Gender Support (P1 - COMPLETED)
+Implemented grammatical gender-aware translations following ICU MessageFormat and CLDR standards.
+
+**New Backend Endpoints:**
+- `GET /api/translate/gender-rules` - Get all language gender rules
+- `GET /api/translate/gender-rules/{lang}` - Get rules for a specific language
+- `POST /api/translate/gender-aware` - Translate with explicit gender
+- `POST /api/translate/gender-variants` - Get all gender variants of text
+
+**New Frontend Features:**
+- `useGenderRules()` hook - Get gender rules for current language
+- `useGenderAwareTranslation()` hook - Gender-aware text translation
+- `<GenderText />` component - Render gender-aware translated text
+- `LANGUAGE_GENDER_RULES` constant - Gender metadata for 24 gendered languages
+
+**User Preference:**
+- Users can set grammatical gender preference in Language Settings
+- Options: Masculine (♂️), Feminine (♀️), Neutral (⚧️), Auto (🔄)
+- Preference saved to user profile and persists across sessions
+- Only shows for languages with grammatical gender (Spanish, French, German, Arabic, etc.)
+
+**Languages with Gender Support:**
+- Romance: Spanish, French, Italian, Portuguese (masculine/feminine)
+- Germanic: German, Dutch (masculine/feminine/neuter or common/neuter)
+- Slavic: Russian, Polish, Ukrainian, Czech (masculine/feminine/neuter)
+- Semitic: Arabic, Hebrew (masculine/feminine)
+- Other: Greek, Hindi, Urdu (masculine/feminine)
+
+**Updated Files:**
+- `/app/backend/routes/translation.py` - Added gender rules and endpoints
+- `/app/backend/routes/auth.py` - Added grammatical_gender to user preferences
+- `/app/frontend/src/utils/i18n.jsx` - Added gender hooks and rules
+- `/app/frontend/src/components/GlobalLanguageSelector.jsx` - Added gender submenu
+- `/app/frontend/src/locales/en.json` - Added gender-related translation keys
+- `/app/memory/docs/i18n-best-practices.md` - Updated documentation
+
+**Example Translations:**
+- "Welcome back" → Spanish (feminine): "Bienvenida de nuevo"
+- "You are connected" → French (masculine): "Vous êtes connecté"
+- "You are connected" → French (feminine): "Vous êtes connectée"
+
+---
+
 ## Session: February 3, 2026 - CAPA Resolution & Translation Improvements
 
 ### ✅ COMPLETED THIS SESSION
