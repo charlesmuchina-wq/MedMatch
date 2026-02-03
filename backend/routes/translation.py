@@ -749,11 +749,15 @@ async def store_translation_memory(data: Dict[str, Any], request: Request):
     }
     
     # Upsert to avoid duplicates
-    await db.translation_memory.update_one(
-        {"tu_id": tu_id},
-        {"$set": tm_entry, "$inc": {"usage_count": 1}},
-        upsert=True
-    )
+    existing = await db.translation_memory.find_one({"tu_id": tu_id})
+    if existing:
+        await db.translation_memory.update_one(
+            {"tu_id": tu_id},
+            {"$set": {"target_text": target_text, "updated_at": datetime.now(timezone.utc).isoformat()}, 
+             "$inc": {"usage_count": 1}}
+        )
+    else:
+        await db.translation_memory.insert_one(tm_entry)
     
     return {"message": "Translation stored in memory", "tu_id": tu_id}
 
