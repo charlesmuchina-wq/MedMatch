@@ -138,6 +138,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/companies", icon: Briefcase, labelKey: "nav.companies" },
     { path: "/messages", icon: MessageSquare, labelKey: "nav.messages" },
     { path: "/id-verification", icon: ShieldCheck, labelKey: "nav.idVerification" },
+    { path: "/privacy", icon: Shield, labelKey: "nav.privacy" },
     { path: "/membership", icon: Crown, labelKey: "nav.membership" },
   ];
   
