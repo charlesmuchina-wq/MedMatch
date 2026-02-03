@@ -316,7 +316,6 @@ async def cleanup_old_data() -> Dict[str, Any]:
     # Cutoff dates
     thirty_days_ago = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
     ninety_days_ago = (datetime.now(timezone.utc) - timedelta(days=90)).isoformat()
-    one_year_ago = (datetime.now(timezone.utc) - timedelta(days=365)).isoformat()
     
     try:
         # Clean old dragon logs (keep 30 days)

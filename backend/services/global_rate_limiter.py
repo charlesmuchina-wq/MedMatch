@@ -285,7 +285,7 @@ class GlobalRateLimiter:
                 await self.redis_limiter.connect()
                 self._use_redis = True
                 logger.info("Using Redis for global rate limiting")
-            except:
+            except Exception:
                 logger.info("Redis not available, using in-memory rate limiting")
                 self._use_redis = False
         else:
@@ -311,7 +311,7 @@ class GlobalRateLimiter:
         if self._use_redis and self.redis_limiter:
             try:
                 return await self.redis_limiter.get_usage(identifier)
-            except:
+            except Exception:
                 pass
         return await self.memory_limiter.get_usage(identifier)
     

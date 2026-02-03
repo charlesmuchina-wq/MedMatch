@@ -388,7 +388,7 @@ async def subscribe_webpush(subscription: WebPushSubscription, request: Request)
         "created_at": datetime.now(timezone.utc).isoformat()
     }
     
-    result = await db.webpush_subscriptions.insert_one(subscription_doc)
+    await db.webpush_subscriptions.insert_one(subscription_doc)
     
     # Send welcome notification
     await send_push_notification(

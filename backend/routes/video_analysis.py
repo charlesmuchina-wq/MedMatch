@@ -418,7 +418,7 @@ Provide JSON feedback:
             if "```json" in response_text:
                 response_text = response_text.split("```json")[1].split("```")[0]
             analysis = json.loads(response_text.strip())
-        except:
+        except Exception:
             analysis = {"error": "Failed to parse analysis"}
         
         # Update recording with analysis
