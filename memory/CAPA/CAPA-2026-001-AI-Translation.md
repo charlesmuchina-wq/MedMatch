@@ -160,20 +160,38 @@ Issue: Dynamic translations not propagating to all components
 
 ## 6. Verification & Validation
 
-### 6.1 Test Cases Required
-| Test ID | Description | Expected Result |
-|---------|-------------|-----------------|
-| TC-001 | Switch to Japanese, verify navigation translates within 3 seconds | Pass |
-| TC-002 | Switch to Arabic, verify RTL layout applies immediately | Pass |
-| TC-003 | Refresh page with non-bundled language saved, verify translation loads | Pass |
-| TC-004 | Verify loading indicator appears during translation fetch | Pass |
-| TC-005 | Verify bundled languages continue working without regression | Pass |
+### 6.1 Test Cases Executed - February 3, 2026
+| Test ID | Description | Expected Result | Actual Result |
+|---------|-------------|-----------------|---------------|
+| TC-001 | Switch to Japanese, verify navigation translates within 3 seconds | Pass | ✅ PASS |
+| TC-002 | Switch to Arabic, verify RTL layout applies immediately | Pass | ✅ PASS |
+| TC-003 | Refresh page with non-bundled language saved, verify translation loads | Pass | ✅ PASS |
+| TC-004 | Verify loading indicator appears during translation fetch | Pass | ✅ PASS |
+| TC-005 | Verify bundled languages continue working without regression | Pass | ✅ PASS |
+| TC-006 | Switch to Hindi, verify Devanagari script renders correctly | Pass | ✅ PASS |
+| TC-007 | Switch to Korean, verify Hangul characters render correctly | Pass | ✅ PASS |
+| TC-008 | Verify pre-render API returns 45+ translations | Pass | ✅ PASS |
+| TC-009 | Verify Translation Memory store/lookup | Pass | ✅ PASS |
+| TC-010 | Verify no flickering during language switch | Pass | ✅ PASS |
 
-### 6.2 Acceptance Criteria
-- [ ] AI-powered languages show translations within 3 seconds of selection
-- [ ] Loading state clearly visible to user during translation fetch
-- [ ] No console errors during language switching
-- [ ] Translations persist across page refreshes
+### 6.2 CAPA Verification Results
+| Language | Navigation | Dashboard | Loading Indicator | Flickering | Status |
+|----------|-----------|-----------|-------------------|------------|--------|
+| Japanese (ja) | ✅ ダッシュボード, 求人検索 | ✅ | ✅ | None | **PASS** |
+| Arabic (ar) | ✅ لوحة التحكم + RTL | ✅ | ✅ | None | **PASS** |
+| Hindi (hi) | ✅ डैशबोर्ड, नौकरी खोज | ✅ | ✅ | None | **PASS** |
+| Swahili (sw) | ✅ Dashibodi, Utafutaji | ✅ | ✅ | None | **PASS** |
+| Korean (ko) | ✅ 대시보드, 채용 공고 | ✅ | ✅ | None | **PASS** |
+| Portuguese-BR | ✅ Painel, Busca de vagas | ✅ | ✅ | None | **PASS** |
+
+### 6.3 Acceptance Criteria
+- [x] AI-powered languages show translations within 3 seconds of selection
+- [x] Loading state clearly visible to user during translation fetch
+- [x] No console errors during language switching
+- [x] Translations persist across page refreshes
+- [x] RTL layout applies correctly for Arabic, Hebrew, Persian, Urdu
+- [x] No flickering or partial renders during language switch
+- [x] Translation Memory stores and retrieves translations correctly
 
 ---
 
