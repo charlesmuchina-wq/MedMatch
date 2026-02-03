@@ -174,7 +174,7 @@ const LoginPage = ({ onAuthSuccess }) => {
       const userRole = response.data.user?.role;
       const roleMessage = userRole === 'recruiter' 
         ? "Welcome, Recruiter! Complete verification to access candidates." 
-        : isRegister ? "Account created! 15-day free trial started." : "Logged in!";
+        : isRegister ? "Account created! Welcome to MedMatch." : "Logged in!";
       toast.success(roleMessage);
       onAuthSuccess(response.data.user);
       
