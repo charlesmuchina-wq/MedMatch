@@ -420,7 +420,7 @@ async def websocket_transcription(websocket: WebSocket):
                 "type": "error",
                 "message": str(e)
             })
-        except:
+        except Exception:
             pass
     finally:
         if session_id in active_connections:

@@ -917,7 +917,7 @@ async def get_prerendered_translations(language: str, request: Request):
                         "from_cache": True,
                         "language_info": SUPPORTED_LANGUAGES.get(language, {})
                     }
-            except:
+            except Exception:
                 pass
     
     if not EMERGENT_LLM_KEY:

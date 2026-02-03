@@ -75,10 +75,10 @@ async def schedule_interview(schedule_request: ScheduleInterviewRequest, request
     
     # Parse datetime
     try:
-        interview_datetime = datetime.fromisoformat(
+        datetime.fromisoformat(
             f"{schedule_request.slot.date}T{schedule_request.slot.start_time}:00"
         )
-    except:
+    except Exception:
         raise HTTPException(status_code=400, detail="Invalid date/time format")
     
     # Create interview record
@@ -391,7 +391,7 @@ async def get_recruiter_availability(recruiter_id: str, date: Optional[str] = No
                 })
             
             return {"available_slots": available, "timezone": availability.get("timezone")}
-        except:
+        except Exception:
             pass
     
     return {"availability": availability}
