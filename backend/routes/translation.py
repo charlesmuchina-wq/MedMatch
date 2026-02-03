@@ -96,6 +96,67 @@ SUPPORTED_LANGUAGES = {
     "lg": {"name": "Luganda", "native": "Luganda", "flag": "🇺🇬"},
 }
 
+# ============== Linguistic Gender Rules (CLDR-based) ==============
+# Languages that require grammatical gender agreement
+# 'has_gender': whether the language uses grammatical gender for adjectives/verbs
+# 'genders': available grammatical genders in the language
+# 'default': default gender to use when user preference is not set
+
+LANGUAGE_GENDER_RULES = {
+    # Romance Languages (masculine/feminine)
+    "es": {"has_gender": True, "genders": ["masculine", "feminine"], "default": "masculine"},
+    "fr": {"has_gender": True, "genders": ["masculine", "feminine"], "default": "masculine"},
+    "it": {"has_gender": True, "genders": ["masculine", "feminine"], "default": "masculine"},
+    "pt": {"has_gender": True, "genders": ["masculine", "feminine"], "default": "masculine"},
+    "pt-BR": {"has_gender": True, "genders": ["masculine", "feminine"], "default": "masculine"},
+    "ro": {"has_gender": True, "genders": ["masculine", "feminine", "neuter"], "default": "masculine"},
+    
+    # Germanic Languages
+    "de": {"has_gender": True, "genders": ["masculine", "feminine", "neuter"], "default": "masculine"},
+    "nl": {"has_gender": True, "genders": ["common", "neuter"], "default": "common"},
+    
+    # Slavic Languages
+    "ru": {"has_gender": True, "genders": ["masculine", "feminine", "neuter"], "default": "masculine"},
+    "pl": {"has_gender": True, "genders": ["masculine", "feminine", "neuter"], "default": "masculine"},
+    "uk": {"has_gender": True, "genders": ["masculine", "feminine", "neuter"], "default": "masculine"},
+    "cs": {"has_gender": True, "genders": ["masculine", "feminine", "neuter"], "default": "masculine"},
+    
+    # Semitic Languages
+    "ar": {"has_gender": True, "genders": ["masculine", "feminine"], "default": "masculine"},
+    "ar-AE": {"has_gender": True, "genders": ["masculine", "feminine"], "default": "masculine"},
+    "ar-EG": {"has_gender": True, "genders": ["masculine", "feminine"], "default": "masculine"},
+    "he": {"has_gender": True, "genders": ["masculine", "feminine"], "default": "masculine"},
+    
+    # Other Gendered Languages
+    "el": {"has_gender": True, "genders": ["masculine", "feminine", "neuter"], "default": "masculine"},
+    "hi": {"has_gender": True, "genders": ["masculine", "feminine"], "default": "masculine"},
+    "ur": {"has_gender": True, "genders": ["masculine", "feminine"], "default": "masculine"},
+    
+    # African Languages with Gender
+    "sw": {"has_gender": True, "genders": ["noun_class"], "default": None},  # Bantu noun classes
+    "zu": {"has_gender": True, "genders": ["noun_class"], "default": None},
+    "xh": {"has_gender": True, "genders": ["noun_class"], "default": None},
+    "af": {"has_gender": False, "genders": [], "default": None},  # No grammatical gender
+    "am": {"has_gender": True, "genders": ["masculine", "feminine"], "default": "masculine"},
+    "ha": {"has_gender": True, "genders": ["masculine", "feminine"], "default": "masculine"},
+    "yo": {"has_gender": False, "genders": [], "default": None},  # No grammatical gender
+    "ig": {"has_gender": False, "genders": [], "default": None},
+    
+    # Non-gendered Languages (explicit for reference)
+    "en": {"has_gender": False, "genders": [], "default": None},
+    "en-GB": {"has_gender": False, "genders": [], "default": None},
+    "zh": {"has_gender": False, "genders": [], "default": None},
+    "ja": {"has_gender": False, "genders": [], "default": None},
+    "ko": {"has_gender": False, "genders": [], "default": None},
+    "vi": {"has_gender": False, "genders": [], "default": None},
+    "th": {"has_gender": False, "genders": [], "default": None},
+    "id": {"has_gender": False, "genders": [], "default": None},
+    "ms": {"has_gender": False, "genders": [], "default": None},
+    "tr": {"has_gender": False, "genders": [], "default": None},
+    "fi": {"has_gender": False, "genders": [], "default": None},
+    "hu": {"has_gender": False, "genders": [], "default": None},
+}
+
 # ============== Models ==============
 
 class TranslateRequest(BaseModel):
