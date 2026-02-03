@@ -490,6 +490,13 @@ async def explain_ai_match(job_id: str, request: Request):
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
+    # Check cache first
+    cache_key = f"{user['user_id']}:{job_id}"
+    cached = get_cached_explanation(cache_key)
+    if cached:
+        return cached
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
     # Get user's resume
     resume = await db.resumes.find_one(
         {"user_id": user["user_id"]},
