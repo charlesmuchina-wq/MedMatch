@@ -285,6 +285,8 @@ app.include_router(ml_predictor_router, prefix="/api")
 app.include_router(ml_model_router, prefix="/api")
 app.include_router(production_metrics_router, prefix="/api")
 app.include_router(privacy_router, prefix="/api")
+app.include_router(recruiter_rbac_router, prefix="/api")
+app.include_router(mutual_match_router, prefix="/api")
 
 # ============== CORS Configuration ==============
 app.add_middleware(
