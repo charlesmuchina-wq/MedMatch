@@ -28,7 +28,8 @@ class TestExplainableAI:
             "password": self.job_seeker_password
         })
         if response.status_code == 200:
-            return response.json().get("token")
+            data = response.json()
+            return data.get("access_token") or data.get("token")
         return None
     
     def get_recruiter_token(self):
@@ -38,7 +39,8 @@ class TestExplainableAI:
             "password": self.recruiter_password
         })
         if response.status_code == 200:
-            return response.json().get("token")
+            data = response.json()
+            return data.get("access_token") or data.get("token")
         return None
     
     def test_health_check(self):
@@ -57,7 +59,7 @@ class TestExplainableAI:
         })
         assert response.status_code == 200
         data = response.json()
-        assert "token" in data
+        assert "access_token" in data or "token" in data
         print(f"✓ Job seeker login successful")
     
     def test_recruiter_login(self):
@@ -68,7 +70,7 @@ class TestExplainableAI:
         })
         assert response.status_code == 200
         data = response.json()
-        assert "token" in data
+        assert "access_token" in data or "token" in data
         print(f"✓ Recruiter login successful")
     
     def test_explain_match_endpoint_exists(self):
@@ -185,7 +187,8 @@ class TestPricingTiers:
             "password": password
         })
         if response.status_code == 200:
-            return response.json().get("token")
+            data = response.json()
+            return data.get("access_token") or data.get("token")
         return None
     
     def test_membership_status_endpoint(self):
@@ -233,7 +236,8 @@ class TestBlindScreeningDashboard:
             "password": self.recruiter_password
         })
         if response.status_code == 200:
-            return response.json().get("token")
+            data = response.json()
+            return data.get("access_token") or data.get("token")
         return None
     
     def test_candidate_search_endpoint(self):
