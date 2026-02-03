@@ -71,6 +71,9 @@ const ContactRequestScreen = ({ requests: propRequests, onRequestUpdate }) => {
       }
 
       setSelectedRequest(null);
+      setDeclineMessage("");
+      // Refresh the list
+      fetchContactRequests();
       if (onRequestUpdate) onRequestUpdate();
     } catch (err) {
       toast.error(err.response?.data?.detail || "Failed to respond");
