@@ -568,8 +568,6 @@ function AppContent() {
     return response.data;
   };
 
-  const navigate = (path) => { window.location.href = path; };
-
   // Show loading while checking auth
   if (isAuthChecking) {
     return (
