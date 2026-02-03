@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { 
   Shield, Building2, MapPin, Briefcase, Mail, Phone, 
   Lock, Check, X, MessageSquare, Clock, ExternalLink,
-  ChevronRight, Bell, User
+  ChevronRight, Bell, User, Loader2, RefreshCw
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,11 +18,37 @@ const API = process.env.REACT_APP_BACKEND_URL;
  * Contact Request Notification Screen
  * Allows candidates to review and respond to recruiter contact requests
  */
-const ContactRequestScreen = ({ requests, onRequestUpdate }) => {
+const ContactRequestScreen = ({ requests: propRequests, onRequestUpdate }) => {
   const { t } = useTranslation();
+  const [requests, setRequests] = useState(propRequests || []);
+  const [loading, setLoading] = useState(true);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [responding, setResponding] = useState(false);
   const [declineMessage, setDeclineMessage] = useState("");
+
+  // Fetch contact requests on mount
+  useEffect(() => {
+    fetchContactRequests();
+  }, []);
+
+  const fetchContactRequests = async () => {
+    setLoading(true);
+    try {
+      const token = localStorage.getItem("medmatch-token");
+      const response = await axios.get(`${API}/api/mutual-match/requests/received`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setRequests(response.data.requests || []);
+    } catch (err) {
+      console.error("Failed to fetch contact requests:", err);
+      // If propRequests provided, use those as fallback
+      if (propRequests && propRequests.length > 0) {
+        setRequests(propRequests);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleRespond = async (requestId, action) => {
     setResponding(true);
