@@ -3,6 +3,7 @@
 const CACHE_NAME = 'medmatch-v1';
 const STATIC_CACHE = 'medmatch-static-v1';
 const DYNAMIC_CACHE = 'medmatch-dynamic-v1';
+const TRANSLATION_CACHE = 'medmatch-translations-v1'; // PA-2: Translation cache
 
 // Static assets to cache immediately
 const STATIC_ASSETS = [
@@ -32,7 +33,7 @@ self.addEventListener('activate', (event) => {
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames
-          .filter((name) => name !== STATIC_CACHE && name !== DYNAMIC_CACHE)
+          .filter((name) => name !== STATIC_CACHE && name !== DYNAMIC_CACHE && name !== TRANSLATION_CACHE)
           .map((name) => {
             console.log('[ServiceWorker] Deleting old cache:', name);
             return caches.delete(name);
@@ -47,10 +48,16 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Skip non-GET requests
-  if (request.method !== 'GET') return;
+  // Skip non-GET requests (except POST for translation)
+  if (request.method !== 'GET' && request.method !== 'POST') return;
+  
+  // PA-2: Cache translation API responses
+  if (url.pathname.includes('/api/translate/batch') && request.method === 'POST') {
+    event.respondWith(handleTranslationRequest(request));
+    return;
+  }
 
-  // Skip API calls - always go to network
+  // Skip other API calls - always go to network
   if (url.pathname.startsWith('/api')) {
     return;
   }
