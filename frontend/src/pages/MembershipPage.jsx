@@ -24,6 +24,7 @@ const MembershipPage = ({ user }) => {
   const [membership, setMembership] = useState(null);
   const [loading, setLoading] = useState(true);
   const [processing, setProcessing] = useState(false);
+  const [isAnnual, setIsAnnual] = useState(false);
 
   // Check for payment success
   useEffect(() => {
