@@ -16,15 +16,40 @@ from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
 from pydantic import BaseModel
 from typing import Optional, Dict, Any
 from datetime import datetime, timezone
+from functools import lru_cache
 import uuid
 import re
 import logging
 import hashlib
+import time
 
 from utils.database import db
 from routes.auth import get_current_user
 
 router = APIRouter(prefix="/privacy", tags=["Privacy & Compliance"])
+
+# Simple in-memory cache for match explanations (5 minute TTL)
+_explanation_cache: Dict[str, tuple] = {}
+EXPLANATION_CACHE_TTL = 300  # 5 minutes
+
+def get_cached_explanation(cache_key: str) -> Optional[Dict]:
+    """Get cached explanation if not expired."""
+    if cache_key in _explanation_cache:
+        data, timestamp = _explanation_cache[cache_key]
+        if time.time() - timestamp < EXPLANATION_CACHE_TTL:
+            return data
+        del _explanation_cache[cache_key]
+    return None
+
+def set_cached_explanation(cache_key: str, data: Dict):
+    """Cache explanation with timestamp."""
+    _explanation_cache[cache_key] = (data, time.time())
+    # Clean old entries (keep cache small)
+    if len(_explanation_cache) > 1000:
+        cutoff = time.time() - EXPLANATION_CACHE_TTL
+        keys_to_delete = [k for k, (_, ts) in _explanation_cache.items() if ts < cutoff]
+        for k in keys_to_delete[:100]:
+            del _explanation_cache[k]
 
 # ============== Models ==============
 
