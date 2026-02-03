@@ -608,7 +608,7 @@ export const I18nProvider = ({ children }) => {
     "nav.dashboard", "nav.myResume", "nav.jobSearch", "nav.savedJobs", "nav.applications",
     "nav.myInterviews", "nav.interviewPrep", "nav.successPredictor", "nav.coverLetter",
     "nav.voiceCoach", "nav.analytics", "nav.companies", "nav.messages", "nav.notifications",
-    "nav.membership", "nav.idVerification", "nav.salaryInsights", "nav.qaPractice",
+    "nav.membership", "nav.idVerification", "nav.salaryInsights", "nav.qaPractice", "nav.privacy",
     // Dashboard stats
     "dashboard.savedJobs", "dashboard.applications", "dashboard.interviews", "dashboard.resumeScore",
     "dashboard.quickActions", "dashboard.uploadResume", "dashboard.searchJobs",
