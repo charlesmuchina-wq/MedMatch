@@ -385,8 +385,9 @@ function AppContent() {
         
         if (!response.data.has_consented) {
           setNeedsConsent(true);
-          // Redirect to consent page if not on it already
-          if (location.pathname !== '/consent' && location.pathname !== '/login') {
+          // Redirect to consent page if not on excluded paths
+          const excludedPaths = ['/consent', '/login', '/recruiter/verify', '/recruiter/dashboard'];
+          if (!excludedPaths.some(path => location.pathname.startsWith(path))) {
             navigate('/consent');
           }
         } else {
