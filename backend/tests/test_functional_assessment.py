@@ -17,7 +17,7 @@ import time
 import os
 from datetime import datetime
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-ai-1.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com')
 
 # Test credentials
 ADMIN_EMAIL = "admin@medmatch.com"
