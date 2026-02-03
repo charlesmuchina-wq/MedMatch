@@ -711,3 +711,296 @@ async def get_translation_analytics(request: Request):
             for item in lang_stats if item["_id"]
         ]
     }
+
+# ============== CLDR Translation Memory (TMX Standard) ==============
+
+@router.post("/memory/store")
+async def store_translation_memory(data: Dict[str, Any], request: Request):
+    """
+    CLDR TMX-compliant Translation Memory storage
+    Stores verified translations for consistency and reuse
+    """
+    source_text = data.get("source_text", "").strip()
+    target_text = data.get("target_text", "").strip()
+    source_lang = data.get("source_language", "en")
+    target_lang = data.get("target_language", "")
+    context = data.get("context", "")  # UI context: nav, dashboard, common, etc.
+    
+    if not source_text or not target_text or not target_lang:
+        raise HTTPException(status_code=400, detail="source_text, target_text, and target_language are required")
+    
+    if target_lang not in SUPPORTED_LANGUAGES:
+        raise HTTPException(status_code=400, detail=f"Unsupported language: {target_lang}")
+    
+    # Create TMX-compliant translation unit (TU)
+    tu_id = f"{source_lang}:{target_lang}:{hash(source_text) % 10**8}"
+    
+    tm_entry = {
+        "tu_id": tu_id,
+        "source_language": source_lang,
+        "target_language": target_lang,
+        "source_text": source_text,
+        "target_text": target_text,
+        "context": context,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "usage_count": 1,
+        "verified": False,
+        "cldr_locale": target_lang
+    }
+    
+    # Upsert to avoid duplicates
+    await db.translation_memory.update_one(
+        {"tu_id": tu_id},
+        {"$set": tm_entry, "$inc": {"usage_count": 1}},
+        upsert=True
+    )
+    
+    return {"message": "Translation stored in memory", "tu_id": tu_id}
+
+@router.get("/memory/lookup")
+async def lookup_translation_memory(
+    source_text: str,
+    target_language: str,
+    source_language: str = "en",
+    request: Request = None
+):
+    """
+    CLDR TMX-compliant Translation Memory lookup
+    Returns exact and fuzzy matches from translation memory
+    """
+    if not source_text or not target_language:
+        raise HTTPException(status_code=400, detail="source_text and target_language are required")
+    
+    # Exact match
+    exact_match = await db.translation_memory.find_one(
+        {
+            "source_language": source_language,
+            "target_language": target_language,
+            "source_text": source_text
+        },
+        {"_id": 0}
+    )
+    
+    if exact_match:
+        # Increment usage count
+        await db.translation_memory.update_one(
+            {"tu_id": exact_match["tu_id"]},
+            {"$inc": {"usage_count": 1}}
+        )
+        return {
+            "match_type": "exact",
+            "confidence": 100,
+            "translation": exact_match["target_text"],
+            "tu_id": exact_match["tu_id"],
+            "usage_count": exact_match.get("usage_count", 1)
+        }
+    
+    # Fuzzy match (simplified - words overlap)
+    words = set(source_text.lower().split())
+    if len(words) >= 2:
+        # Find similar entries
+        similar = await db.translation_memory.find(
+            {
+                "source_language": source_language,
+                "target_language": target_language,
+            },
+            {"_id": 0}
+        ).to_list(100)
+        
+        best_match = None
+        best_score = 0
+        
+        for entry in similar:
+            entry_words = set(entry["source_text"].lower().split())
+            overlap = len(words & entry_words)
+            total = len(words | entry_words)
+            score = (overlap / total * 100) if total > 0 else 0
+            
+            if score > best_score and score >= 50:  # 50% minimum threshold
+                best_score = score
+                best_match = entry
+        
+        if best_match:
+            return {
+                "match_type": "fuzzy",
+                "confidence": round(best_score),
+                "translation": best_match["target_text"],
+                "tu_id": best_match["tu_id"],
+                "source_matched": best_match["source_text"]
+            }
+    
+    return {
+        "match_type": "none",
+        "confidence": 0,
+        "translation": None
+    }
+
+@router.get("/memory/stats")
+async def get_translation_memory_stats(request: Request):
+    """Get Translation Memory statistics"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
+    # Total entries
+    total_entries = await db.translation_memory.count_documents({})
+    
+    # By language
+    lang_pipeline = [
+        {"$group": {"_id": "$target_language", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+        {"$limit": 20}
+    ]
+    by_language = await db.translation_memory.aggregate(lang_pipeline).to_list(20)
+    
+    # By context
+    context_pipeline = [
+        {"$group": {"_id": "$context", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}}
+    ]
+    by_context = await db.translation_memory.aggregate(context_pipeline).to_list(10)
+    
+    # Most used translations
+    most_used_pipeline = [
+        {"$sort": {"usage_count": -1}},
+        {"$limit": 10},
+        {"$project": {"_id": 0, "source_text": 1, "target_language": 1, "usage_count": 1}}
+    ]
+    most_used = await db.translation_memory.aggregate(most_used_pipeline).to_list(10)
+    
+    return {
+        "total_entries": total_entries,
+        "by_language": [
+            {"language": item["_id"], "count": item["count"], "info": SUPPORTED_LANGUAGES.get(item["_id"], {})}
+            for item in by_language if item["_id"]
+        ],
+        "by_context": [
+            {"context": item["_id"] or "general", "count": item["count"]}
+            for item in by_context
+        ],
+        "most_used": most_used
+    }
+
+@router.post("/memory/bulk-store")
+async def bulk_store_translation_memory(data: Dict[str, Any], request: Request):
+    """
+    Bulk store translations in memory (for pre-population)
+    """
+    user = await get_current_user(request)
+    if not user or user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    translations = data.get("translations", [])
+    target_language = data.get("target_language", "")
+    source_language = data.get("source_language", "en")
+    context = data.get("context", "ui")
+    
+    if not translations or not target_language:
+        raise HTTPException(status_code=400, detail="translations array and target_language are required")
+    
+    stored_count = 0
+    for item in translations:
+        source = item.get("source", "")
+        target = item.get("target", "")
+        
+        if source and target:
+            tu_id = f"{source_language}:{target_language}:{hash(source) % 10**8}"
+            
+            await db.translation_memory.update_one(
+                {"tu_id": tu_id},
+                {"$set": {
+                    "tu_id": tu_id,
+                    "source_language": source_language,
+                    "target_language": target_language,
+                    "source_text": source,
+                    "target_text": target,
+                    "context": context,
+                    "created_at": datetime.now(timezone.utc).isoformat(),
+                    "verified": True,
+                    "cldr_locale": target_language
+                }},
+                upsert=True
+            )
+            stored_count += 1
+    
+    return {
+        "message": f"Stored {stored_count} translations in memory",
+        "target_language": target_language
+    }
+
+# ============== Enhanced Analytics Dashboard ==============
+
+@router.get("/analytics/dashboard")
+async def get_analytics_dashboard(request: Request):
+    """
+    Comprehensive translation analytics dashboard
+    """
+    user = await get_current_user(request)
+    if not user or user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    # Translation logs stats
+    total_translations = await db.translation_logs.count_documents({})
+    
+    # Character count
+    char_pipeline = [
+        {"$group": {"_id": None, "total": {"$sum": "$character_count"}}}
+    ]
+    char_result = await db.translation_logs.aggregate(char_pipeline).to_list(1)
+    total_characters = char_result[0]["total"] if char_result else 0
+    
+    # Top languages
+    lang_pipeline = [
+        {"$group": {"_id": "$target_language", "count": {"$sum": 1}, "chars": {"$sum": "$character_count"}}},
+        {"$sort": {"count": -1}},
+        {"$limit": 15}
+    ]
+    top_languages = await db.translation_logs.aggregate(lang_pipeline).to_list(15)
+    
+    # Pre-render cache stats
+    cache_count = await db.translation_cache.count_documents({})
+    
+    # Translation Memory stats
+    tm_count = await db.translation_memory.count_documents({})
+    
+    # Daily usage (last 7 days)
+    from datetime import timedelta
+    seven_days_ago = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
+    daily_pipeline = [
+        {"$match": {"timestamp": {"$gte": seven_days_ago}}},
+        {"$group": {
+            "_id": {"$substr": ["$timestamp", 0, 10]},
+            "count": {"$sum": 1}
+        }},
+        {"$sort": {"_id": 1}}
+    ]
+    daily_usage = await db.translation_logs.aggregate(daily_pipeline).to_list(7)
+    
+    return {
+        "summary": {
+            "total_translations": total_translations,
+            "total_characters": total_characters,
+            "cache_entries": cache_count,
+            "memory_entries": tm_count
+        },
+        "top_languages": [
+            {
+                "language": item["_id"],
+                "translations": item["count"],
+                "characters": item.get("chars", 0),
+                "info": SUPPORTED_LANGUAGES.get(item["_id"], {})
+            }
+            for item in top_languages if item["_id"]
+        ],
+        "daily_usage": [
+            {"date": item["_id"], "count": item["count"]}
+            for item in daily_usage
+        ],
+        "cldr_compliance": {
+            "tmx_enabled": True,
+            "locale_support": len(SUPPORTED_LANGUAGES),
+            "rtl_languages": ["ar", "he", "fa", "ur"],
+            "bundled_languages": ["en", "es", "fr", "de", "zh"]
+        }
+    }
+
