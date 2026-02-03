@@ -238,6 +238,7 @@ from routes.admin_audit import router as admin_audit_router
 from routes.ml_predictor import router as ml_predictor_router
 from routes.ml_model import router as ml_model_router
 from routes.production_metrics import router as production_metrics_router
+from routes.privacy import router as privacy_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
