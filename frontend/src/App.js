@@ -47,6 +47,7 @@ import AnalyticsFunnelPage from "@/pages/AnalyticsFunnelPage";
 import DragonAutomatorPage from "@/pages/DragonAutomatorPage";
 import AdminDashboard from "@/pages/AdminDashboard";
 import ProductionMetricsPage from "@/pages/ProductionMetricsPage";
+import TranslationAnalyticsPage from "@/pages/TranslationAnalyticsPage";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
