@@ -1330,7 +1330,14 @@ async def get_analytics_dashboard(request: Request):
             "tmx_enabled": True,
             "locale_support": len(SUPPORTED_LANGUAGES),
             "rtl_languages": ["ar", "he", "fa", "ur"],
-            "bundled_languages": ["en", "es", "fr", "de", "zh", "ja", "ar", "hi", "pt-BR"]
+            "bundled_languages": [
+                # Core languages
+                "en", "es", "fr", "de", "zh",
+                # High demand languages
+                "ja", "ar", "hi", "pt-BR",
+                # All 16 African languages
+                "sw", "ha", "yo", "ig", "zu", "xh", "af", "am", "om", "so", "rw", "sn", "ny", "tw", "wo", "lg"
+            ]
         }
     }
 
