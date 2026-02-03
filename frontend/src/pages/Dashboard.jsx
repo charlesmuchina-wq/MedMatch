@@ -266,10 +266,12 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
 
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-7xl mx-auto animate-fade-in" data-testid="dashboard">
-      {/* Welcome Header */}
+      {/* Welcome Header - Gender-neutral personalized greeting */}
       <div className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight" style={{ fontFamily: 'IBM Plex Sans' }}>
-          {resume?.full_name ? `${t("dashboard.welcomeBack")}, ${resume.full_name.split(' ')[0]}` : t("dashboard.welcomeToMedMatch") || "Welcome to MedMatch"}
+        <h1 className="text-3xl md:text-4xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight" style={{ fontFamily: 'IBM Plex Sans' }} data-testid="welcome-greeting">
+          {firstName 
+            ? `${t("dashboard.welcomeBack") || "Welcome back"}, ${firstName}` 
+            : t("dashboard.welcomeToMedMatch") || "Welcome to MedMatch"}
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-2">
           {resume ? (t("dashboard.personalizedDashboard") || "Your personalized remote job dashboard") : (t("dashboard.uploadToStart") || "Upload your resume to get started")}
