@@ -288,7 +288,7 @@ Return ONLY valid JSON:
 
 @router.post("/text")
 async def translate_text(data: TranslateRequest, request: Request):
-    """Translate text to target language"""
+    """Translate text to target language with optional gender-awareness"""
     if not data.text.strip():
         raise HTTPException(status_code=400, detail="Text is required")
     
@@ -301,23 +301,36 @@ async def translate_text(data: TranslateRequest, request: Request):
     target_lang_name = SUPPORTED_LANGUAGES[data.target_language]["name"]
     source_lang_name = SUPPORTED_LANGUAGES.get(data.source_language, {}).get("name", "auto-detect")
     
+    # Get gender rules for target language
+    gender_rules = LANGUAGE_GENDER_RULES.get(data.target_language, {"has_gender": False})
+    gender_instruction = ""
+    
+    if gender_rules.get("has_gender") and data.grammatical_gender:
+        gender_instruction = f"""
+- IMPORTANT: This text addresses a {data.grammatical_gender} person. Use {data.grammatical_gender} grammatical forms for:
+  * Adjectives that agree with the addressee
+  * Past participles that agree with the addressee
+  * Pronouns referring to the addressee
+  * Any other grammatical elements that require gender agreement"""
+    
     try:
         chat = LlmChat(
             api_key=EMERGENT_LLM_KEY,
             session_id=str(uuid.uuid4()),
-            system_message=f"""You are an expert translator. Translate the given text to {target_lang_name}.
+            system_message=f"""You are an expert translator specializing in grammatically correct, gender-aware translations. Translate the given text to {target_lang_name}.
 
 Rules:
 - Maintain the original meaning and tone
 - Preserve formatting (paragraphs, bullet points, etc.)
 - Keep proper nouns, company names, and technical terms as appropriate
-- For professional/job-related content, use formal language
+- For professional/job-related content, use formal language{gender_instruction}
 
 Return ONLY valid JSON:
 {{
     "translated_text": "<translated text>",
     "source_language": "<detected source language code>",
     "target_language": "{data.target_language}",
+    "gender_applied": "{data.grammatical_gender or 'none'}",
     "notes": "<any translation notes or cultural adaptations made>"
 }}"""
         ).with_model("openai", "gpt-5.2")
@@ -346,6 +359,213 @@ Return ONLY valid JSON:
     except Exception as e:
         logging.error(f"Translation error: {e}")
         raise HTTPException(status_code=500, detail="Failed to translate text")
+
+@router.post("/gender-aware")
+async def translate_gender_aware(data: GenderAwareTranslateRequest, request: Request):
+    """
+    Translate text with explicit gender-awareness following ICU MessageFormat principles.
+    
+    This endpoint is specifically designed for UI strings that address the user directly,
+    ensuring grammatically correct gender agreement in gendered languages.
+    
+    Examples of affected text:
+    - "You are connected" -> Spanish: "Estás conectado" (m) / "Estás conectada" (f)
+    - "Welcome back" -> French: "Bienvenu" (m) / "Bienvenue" (f)
+    """
+    if not data.text.strip():
+        raise HTTPException(status_code=400, detail="Text is required")
+    
+    if data.target_language not in SUPPORTED_LANGUAGES:
+        raise HTTPException(status_code=400, detail=f"Unsupported language: {data.target_language}")
+    
+    if data.grammatical_gender not in ['masculine', 'feminine', 'neutral']:
+        raise HTTPException(status_code=400, detail="grammatical_gender must be 'masculine', 'feminine', or 'neutral'")
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="Translation service not configured")
+    
+    gender_rules = LANGUAGE_GENDER_RULES.get(data.target_language, {"has_gender": False})
+    target_lang_name = SUPPORTED_LANGUAGES[data.target_language]["name"]
+    
+    # If language doesn't have grammatical gender, do normal translation
+    if not gender_rules.get("has_gender"):
+        try:
+            chat = LlmChat(
+                api_key=EMERGENT_LLM_KEY,
+                session_id=str(uuid.uuid4()),
+                system_message=f"Translate to {target_lang_name}. Return only the translated text, nothing else."
+            ).with_model("openai", "gpt-5.2")
+            
+            response = await chat.send_message(UserMessage(text=data.text))
+            
+            return {
+                "original": data.text,
+                "translated": response.strip(),
+                "target_language": data.target_language,
+                "grammatical_gender": data.grammatical_gender,
+                "gender_applied": False,
+                "reason": "Target language does not use grammatical gender"
+            }
+        except Exception as e:
+            logging.error(f"Translation error: {e}")
+            raise HTTPException(status_code=500, detail="Failed to translate text")
+    
+    # Gender-aware translation for gendered languages
+    try:
+        context_note = f"\nContext: {data.context}" if data.context else ""
+        
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=str(uuid.uuid4()),
+            system_message=f"""You are an expert linguist specializing in grammatically correct, gender-aware translations.
+
+TASK: Translate the text to {target_lang_name} using {data.grammatical_gender} grammatical forms.
+
+GENDER AGREEMENT RULES:
+- Use {data.grammatical_gender} forms for ALL grammatical elements that agree with the person being addressed:
+  * Adjectives (e.g., Spanish: conectado/conectada, French: bienvenu/bienvenue)
+  * Past participles
+  * Pronouns
+  * Articles where applicable
+  * Verb endings in languages where verbs agree with gender
+
+IMPORTANT:
+- This text addresses or refers to a {data.grammatical_gender} person
+- Ensure ALL gender-agreeing elements are consistently {data.grammatical_gender}
+- Maintain formal/professional tone for job-related content{context_note}
+
+Return ONLY valid JSON:
+{{
+    "translated": "<translated text with {data.grammatical_gender} gender agreement>",
+    "gender_markers": ["<list of words where gender was applied>"],
+    "confidence": <0.0-1.0 confidence in correct gender application>
+}}"""
+        ).with_model("openai", "gpt-5.2")
+        
+        response = await chat.send_message(UserMessage(text=f"Translate: {data.text}"))
+        
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        
+        result = json.loads(clean_response)
+        
+        return {
+            "original": data.text,
+            "translated": result.get("translated", ""),
+            "target_language": data.target_language,
+            "grammatical_gender": data.grammatical_gender,
+            "gender_applied": True,
+            "gender_markers": result.get("gender_markers", []),
+            "confidence": result.get("confidence", 0.9)
+        }
+        
+    except Exception as e:
+        logging.error(f"Gender-aware translation error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to translate text")
+
+@router.post("/gender-variants")
+async def get_gender_variants(data: GenderVariantsRequest, request: Request):
+    """
+    Get all gender variants of a translation for gendered languages.
+    
+    Useful for:
+    - Pre-generating all variants for static UI strings
+    - Building translation memory with gender variants
+    - Quality assurance of gender-aware translations
+    
+    Returns masculine, feminine, and neutral (where applicable) variants.
+    """
+    if not data.text.strip():
+        raise HTTPException(status_code=400, detail="Text is required")
+    
+    if data.target_language not in SUPPORTED_LANGUAGES:
+        raise HTTPException(status_code=400, detail=f"Unsupported language: {data.target_language}")
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="Translation service not configured")
+    
+    gender_rules = LANGUAGE_GENDER_RULES.get(data.target_language, {"has_gender": False})
+    target_lang_name = SUPPORTED_LANGUAGES[data.target_language]["name"]
+    
+    # If language doesn't have grammatical gender
+    if not gender_rules.get("has_gender"):
+        try:
+            chat = LlmChat(
+                api_key=EMERGENT_LLM_KEY,
+                session_id=str(uuid.uuid4()),
+                system_message=f"Translate to {target_lang_name}. Return only the translated text."
+            ).with_model("openai", "gpt-5.2")
+            
+            response = await chat.send_message(UserMessage(text=data.text))
+            translated = response.strip()
+            
+            return {
+                "original": data.text,
+                "target_language": data.target_language,
+                "has_gender": False,
+                "variants": {
+                    "default": translated
+                }
+            }
+        except Exception as e:
+            logging.error(f"Translation error: {e}")
+            raise HTTPException(status_code=500, detail="Failed to translate text")
+    
+    # Get all gender variants for gendered languages
+    available_genders = gender_rules.get("genders", ["masculine", "feminine"])
+    
+    try:
+        gender_list = ", ".join(available_genders)
+        
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=str(uuid.uuid4()),
+            system_message=f"""You are an expert linguist. Translate the text to {target_lang_name} providing ALL gender variants.
+
+TASK: Provide translations for each grammatical gender: {gender_list}
+
+For each variant:
+- Apply correct gender agreement to adjectives, participles, pronouns
+- Maintain identical meaning across variants
+- Only the gender-agreeing elements should differ
+
+Return ONLY valid JSON:
+{{
+    "variants": {{
+        "<gender>": "<translated text with that gender agreement>",
+        ...for each gender in [{gender_list}]
+    }},
+    "differences": ["<list of words/phrases that differ between genders>"],
+    "neutral_possible": <true if a gender-neutral version exists>
+}}"""
+        ).with_model("openai", "gpt-5.2")
+        
+        response = await chat.send_message(UserMessage(text=f"Translate with all gender variants: {data.text}"))
+        
+        clean_response = response.strip()
+        if clean_response.startswith("```"):
+            clean_response = clean_response.split("```")[1]
+            if clean_response.startswith("json"):
+                clean_response = clean_response[4:]
+        
+        result = json.loads(clean_response)
+        
+        return {
+            "original": data.text,
+            "target_language": data.target_language,
+            "has_gender": True,
+            "available_genders": available_genders,
+            "variants": result.get("variants", {}),
+            "differences": result.get("differences", []),
+            "neutral_possible": result.get("neutral_possible", False)
+        }
+        
+    except Exception as e:
+        logging.error(f"Gender variants error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get gender variants")
 
 @router.post("/batch")
 async def batch_translate(data: BatchTranslateRequest, request: Request):
