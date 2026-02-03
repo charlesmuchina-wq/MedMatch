@@ -634,6 +634,7 @@ async def get_user_preferences(request: Request):
         "language": user.get("language", "en"),
         "theme": user.get("theme", "light"),
         "timezone": user.get("timezone", "UTC"),
+        "grammatical_gender": user.get("grammatical_gender"),  # None = auto, 'masculine', 'feminine', 'neutral'
         "user_id": user.get("user_id")
     }
 
@@ -651,6 +652,12 @@ async def update_user_preferences(prefs: UpdatePreferencesRequest, request: Requ
         update_data["theme"] = prefs.theme
     if prefs.timezone:
         update_data["timezone"] = prefs.timezone
+    if prefs.grammatical_gender is not None:
+        # Validate gender value
+        valid_genders = ['masculine', 'feminine', 'neutral', 'auto', '']
+        if prefs.grammatical_gender not in valid_genders:
+            raise HTTPException(status_code=400, detail=f"Invalid grammatical_gender. Must be one of: {valid_genders}")
+        update_data["grammatical_gender"] = prefs.grammatical_gender if prefs.grammatical_gender else None
     
     if update_data:
         update_data["preferences_updated_at"] = datetime.now(timezone.utc).isoformat()
@@ -663,7 +670,8 @@ async def update_user_preferences(prefs: UpdatePreferencesRequest, request: Requ
         "message": "Preferences updated",
         "language": prefs.language or user.get("language", "en"),
         "theme": prefs.theme or user.get("theme", "light"),
-        "timezone": prefs.timezone or user.get("timezone", "UTC")
+        "timezone": prefs.timezone or user.get("timezone", "UTC"),
+        "grammatical_gender": update_data.get("grammatical_gender", user.get("grammatical_gender"))
     }
 
 
