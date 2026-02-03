@@ -116,6 +116,56 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
+/**
+ * PA-2: Handle translation API requests with caching
+ * Caches successful translation responses for instant retrieval
+ */
+async function handleTranslationRequest(request) {
+  try {
+    // Clone request to read body
+    const requestClone = request.clone();
+    const body = await requestClone.json();
+    const { texts, target_language } = body;
+    
+    // Create a cache key from the request
+    const cacheKey = `translate:${target_language}:${texts.sort().join('|')}`;
+    
+    // Try to get from cache first
+    const cache = await caches.open(TRANSLATION_CACHE);
+    const cachedResponse = await cache.match(cacheKey);
+    
+    if (cachedResponse) {
+      console.log('[ServiceWorker] Returning cached translation for:', target_language);
+      return cachedResponse.clone();
+    }
+    
+    // Not in cache, fetch from network
+    const response = await fetch(request);
+    
+    if (response.ok) {
+      // Cache successful responses
+      const responseClone = response.clone();
+      
+      // Store with a custom cache key
+      const cacheResponse = new Response(await responseClone.text(), {
+        status: response.status,
+        statusText: response.statusText,
+        headers: response.headers
+      });
+      
+      await cache.put(cacheKey, cacheResponse);
+      console.log('[ServiceWorker] Cached translation for:', target_language);
+    }
+    
+    return response;
+    
+  } catch (error) {
+    console.error('[ServiceWorker] Translation cache error:', error);
+    // Fallback to network
+    return fetch(request);
+  }
+}
+
 // Handle push notifications
 self.addEventListener('push', (event) => {
   const data = event.data?.json() || {};
