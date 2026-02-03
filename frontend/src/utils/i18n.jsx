@@ -580,12 +580,16 @@ export const I18nProvider = ({ children }) => {
             translatedMap[p.key] = translated[idx];
           });
           
-          // Update UI after each priority batch
-          aiTranslationCache.current[lang] = { ...translatedMap };
+          // Update UI after each priority batch - MERGE with existing translations
+          aiTranslationCache.current[lang] = { 
+            ...(aiTranslationCache.current[lang] || {}),
+            ...translatedMap 
+          };
           setDynamicTranslations(prev => {
+            const existing = prev[lang] || {};
             const updated = {
               ...prev,
-              [lang]: { ...translatedMap }
+              [lang]: { ...existing, ...translatedMap }
             };
             console.log(`[i18n] Dynamic translations updated for ${lang}:`, Object.keys(updated[lang]).length);
             return updated;
