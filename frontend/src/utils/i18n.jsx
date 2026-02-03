@@ -141,6 +141,50 @@ export const LANGUAGE_META = {
   lg: { name: "Luganda", native: "Luganda", flag: "🇺🇬", rtl: false },       // Uganda
 };
 
+// Linguistic Gender Rules (CLDR-based)
+// Languages that require grammatical gender agreement for UI strings addressing the user
+export const LANGUAGE_GENDER_RULES = {
+  // Romance Languages (masculine/feminine)
+  es: { hasGender: true, genders: ["masculine", "feminine"], default: "masculine" },
+  fr: { hasGender: true, genders: ["masculine", "feminine"], default: "masculine" },
+  it: { hasGender: true, genders: ["masculine", "feminine"], default: "masculine" },
+  pt: { hasGender: true, genders: ["masculine", "feminine"], default: "masculine" },
+  "pt-BR": { hasGender: true, genders: ["masculine", "feminine"], default: "masculine" },
+  ro: { hasGender: true, genders: ["masculine", "feminine", "neuter"], default: "masculine" },
+  
+  // Germanic Languages
+  de: { hasGender: true, genders: ["masculine", "feminine", "neuter"], default: "masculine" },
+  nl: { hasGender: true, genders: ["common", "neuter"], default: "common" },
+  
+  // Slavic Languages
+  ru: { hasGender: true, genders: ["masculine", "feminine", "neuter"], default: "masculine" },
+  pl: { hasGender: true, genders: ["masculine", "feminine", "neuter"], default: "masculine" },
+  uk: { hasGender: true, genders: ["masculine", "feminine", "neuter"], default: "masculine" },
+  cs: { hasGender: true, genders: ["masculine", "feminine", "neuter"], default: "masculine" },
+  
+  // Semitic Languages
+  ar: { hasGender: true, genders: ["masculine", "feminine"], default: "masculine" },
+  "ar-AE": { hasGender: true, genders: ["masculine", "feminine"], default: "masculine" },
+  "ar-EG": { hasGender: true, genders: ["masculine", "feminine"], default: "masculine" },
+  he: { hasGender: true, genders: ["masculine", "feminine"], default: "masculine" },
+  
+  // Other Gendered Languages
+  el: { hasGender: true, genders: ["masculine", "feminine", "neuter"], default: "masculine" },
+  hi: { hasGender: true, genders: ["masculine", "feminine"], default: "masculine" },
+  ur: { hasGender: true, genders: ["masculine", "feminine"], default: "masculine" },
+  
+  // African Languages with Gender
+  sw: { hasGender: true, genders: ["noun_class"], default: null },  // Bantu noun classes
+  am: { hasGender: true, genders: ["masculine", "feminine"], default: "masculine" },
+  ha: { hasGender: true, genders: ["masculine", "feminine"], default: "masculine" },
+  
+  // Non-gendered Languages
+  en: { hasGender: false, genders: [], default: null },
+  zh: { hasGender: false, genders: [], default: null },
+  ja: { hasGender: false, genders: [], default: null },
+  ko: { hasGender: false, genders: [], default: null },
+};
+
 // Bundled languages (full translations available)
 export const BUNDLED_LANGUAGES = [
   // Core languages
