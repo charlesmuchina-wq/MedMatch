@@ -555,7 +555,7 @@ const MembershipPage = ({ user }) => {
       {/* Features Grid */}
       <div className="mb-10">
         <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-6 text-center" style={{ fontFamily: 'IBM Plex Sans' }}>
-          {isRecruiter ? "Recruiter Pro Features" : "What's Included"}
+          {isRecruiter ? "Recruiter Pro Features" : "Premium Features"}
         </h2>
         <div className="grid md:grid-cols-3 gap-4">
           {(isRecruiter ? [
@@ -571,7 +571,7 @@ const MembershipPage = ({ user }) => {
             { icon: Zap, title: "Quick Apply", desc: "One-click applications" },
             { icon: Shield, title: "Privacy First", desc: "Your data stays yours" },
             { icon: Star, title: "Interview Prep", desc: "AI coaching tools" },
-            { icon: CreditCard, title: "One-Time Fee", desc: "No subscriptions" }
+            { icon: CreditCard, title: "$3 for 3 Years", desc: "One-time payment" }
           ]).map(({ icon: Icon, title, desc }) => (
             <div key={title} className={`p-4 rounded-lg text-center ${
               isRecruiter ? 'bg-violet-50 dark:bg-violet-900/20' : 'bg-slate-50 dark:bg-slate-800'
