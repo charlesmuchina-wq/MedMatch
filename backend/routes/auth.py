@@ -67,7 +67,7 @@ def verify_password(password: str, stored_hash: str) -> bool:
     try:
         salt, password_hash = stored_hash.split(":")
         return hashlib.sha256(f"{salt}{password}".encode()).hexdigest() == password_hash
-    except:
+    except Exception:
         return False
 
 def create_session_token() -> str:
@@ -167,7 +167,7 @@ def check_membership_status(user: dict) -> str:
             trial_end_dt = datetime.fromisoformat(trial_ends.replace('Z', '+00:00'))
             if trial_end_dt > datetime.now(timezone.utc):
                 return "trial"
-        except:
+        except Exception:
             pass
     
     return "expired"
@@ -382,7 +382,6 @@ async def apple_redirect(request: Request, response: Response):
     """Handle Apple Sign In form_post redirect"""
     form_data = await request.form()
     id_token = form_data.get("id_token")
-    code = form_data.get("code")
     user_data = form_data.get("user")
     
     if not id_token:
