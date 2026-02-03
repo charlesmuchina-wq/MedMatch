@@ -163,6 +163,7 @@ class TranslateRequest(BaseModel):
     text: str
     target_language: str
     source_language: Optional[str] = None  # Auto-detect if not provided
+    grammatical_gender: Optional[str] = None  # For gender-aware translation
 
 class DetectLanguageRequest(BaseModel):
     text: str
@@ -171,6 +172,7 @@ class BatchTranslateRequest(BaseModel):
     texts: List[str]
     target_language: str
     source_language: Optional[str] = None
+    grammatical_gender: Optional[str] = None  # For gender-aware translation
 
 class TranslateJobRequest(BaseModel):
     job_id: str
@@ -182,7 +184,50 @@ class TranslateCoverLetterRequest(BaseModel):
     job_title: str = ""
     company: str = ""
 
+class GenderAwareTranslateRequest(BaseModel):
+    """Request for gender-aware translation following ICU MessageFormat"""
+    text: str
+    target_language: str
+    grammatical_gender: str  # 'masculine', 'feminine', 'neutral'
+    context: Optional[str] = None  # Additional context for accurate translation
+
+class GenderVariantsRequest(BaseModel):
+    """Request to get all gender variants of a translation"""
+    text: str
+    target_language: str
+
 # ============== Routes ==============
+
+@router.get("/gender-rules")
+async def get_gender_rules():
+    """Get linguistic gender rules for all supported languages (CLDR-based)"""
+    return {
+        "rules": LANGUAGE_GENDER_RULES,
+        "description": {
+            "has_gender": "Whether the language uses grammatical gender",
+            "genders": "Available grammatical genders in the language",
+            "default": "Default gender when user preference is not set"
+        },
+        "gendered_languages": [
+            code for code, rules in LANGUAGE_GENDER_RULES.items() 
+            if rules.get("has_gender")
+        ],
+        "total_gendered": sum(1 for rules in LANGUAGE_GENDER_RULES.values() if rules.get("has_gender"))
+    }
+
+@router.get("/gender-rules/{language}")
+async def get_language_gender_rule(language: str):
+    """Get gender rules for a specific language"""
+    if language not in SUPPORTED_LANGUAGES:
+        raise HTTPException(status_code=404, detail=f"Language {language} not supported")
+    
+    rules = LANGUAGE_GENDER_RULES.get(language, {"has_gender": False, "genders": [], "default": None})
+    return {
+        "language": language,
+        "language_info": SUPPORTED_LANGUAGES[language],
+        **rules,
+        "requires_gender_selection": rules.get("has_gender", False) and len(rules.get("genders", [])) > 1
+    }
 
 @router.get("/languages")
 async def get_supported_languages():
