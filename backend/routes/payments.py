@@ -406,7 +406,7 @@ async def get_subscription_details(request: Request):
             "subscription_id": subscription.id,
             "status": subscription.status,
             "plan": "Recruiter Pro",
-            "price": RECRUITER_MONTHLY_PRICE,
+            "price": RECRUITER_STARTER_PRICE,  # Default price, actual varies by plan
             "interval": "month",
             "current_period_start": datetime.fromtimestamp(start_date, tz=timezone.utc).isoformat() if start_date else None,
             "current_period_end": datetime.fromtimestamp(billing_cycle_anchor, tz=timezone.utc).isoformat() if billing_cycle_anchor else None,
