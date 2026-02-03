@@ -349,11 +349,46 @@ function AppContent() {
   const [membership, setMembership] = useState(null);
   const [isAuthChecking, setIsAuthChecking] = useState(true);
   const [showDragonAI, setShowDragonAI] = useState(false);
+  const [consentChecked, setConsentChecked] = useState(false);
+  const [needsConsent, setNeedsConsent] = useState(false);
   const { isDark } = useTheme();
   const location = useLocation();
+  const navigate = useNavigate();
   
   // Onboarding tour state
   const { showTour, completeTour } = useOnboardingTour();
+
+  // Check privacy consent status after login
+  useEffect(() => {
+    if (!user || consentChecked) return;
+    
+    const checkConsent = async () => {
+      // Skip if already granted locally
+      if (localStorage.getItem("medmatch-consent-granted") === "true") {
+        setConsentChecked(true);
+        return;
+      }
+      
+      try {
+        const response = await axios.get(`${API}/privacy/consent/status`);
+        if (!response.data.has_consented) {
+          setNeedsConsent(true);
+          // Redirect to consent page if not on it already
+          if (location.pathname !== '/consent' && location.pathname !== '/login') {
+            navigate('/consent');
+          }
+        } else {
+          localStorage.setItem("medmatch-consent-granted", "true");
+        }
+      } catch (e) {
+        // If endpoint fails, don't block user
+        console.error("Consent check failed:", e);
+      }
+      setConsentChecked(true);
+    };
+    
+    checkConsent();
+  }, [user, consentChecked, location.pathname, navigate]);
 
   // Initialize offline storage
   useEffect(() => {
