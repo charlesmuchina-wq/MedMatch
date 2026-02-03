@@ -232,94 +232,164 @@ const MembershipPage = ({ user }) => {
       </Card>
 
       {/* Recruiter Pricing Section */}
-      {isRecruiter && !isActive && (
-        <div className="grid md:grid-cols-2 gap-6 mb-10">
-          {/* Free Trial */}
-          <Card className={`${isTrial ? 'border-2 border-amber-400' : ''}`}>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-amber-500" />
-                Free Trial
-              </CardTitle>
-              <CardDescription>Try Recruiter Pro for 30 days</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-                $0 <span className="text-sm font-normal text-slate-500">/ 30 days</span>
-              </div>
-              <ul className="space-y-3">
-                {[
-                  "Post up to 3 jobs",
-                  "View applicant profiles",
-                  "Basic candidate search",
-                  "Email notifications"
-                ].map((feature, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                    <Check className="w-4 h-4 text-emerald-500" /> {feature}
-                  </li>
-                ))}
-              </ul>
-              {isTrial && (
-                <Button variant="outline" className="w-full mt-6" disabled>
-                  Current Plan
-                </Button>
-              )}
-            </CardContent>
-          </Card>
+      {isRecruiter && (
+        <div className="mb-10">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-6 text-center">
+            Choose Your Recruiter Plan
+          </h2>
+          
+          {/* Billing Toggle */}
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <span className={`text-sm ${!isAnnual ? 'font-medium text-slate-900 dark:text-slate-100' : 'text-slate-500'}`}>Monthly</span>
+            <button
+              onClick={() => setIsAnnual(!isAnnual)}
+              className={`relative w-14 h-7 rounded-full transition-colors ${isAnnual ? 'bg-turquoise' : 'bg-slate-300'}`}
+            >
+              <div className={`absolute top-1 w-5 h-5 rounded-full bg-white transition-transform ${isAnnual ? 'translate-x-8' : 'translate-x-1'}`} />
+            </button>
+            <span className={`text-sm ${isAnnual ? 'font-medium text-slate-900 dark:text-slate-100' : 'text-slate-500'}`}>
+              Annual <Badge className="ml-1 bg-emerald-500 text-xs">Save 2 months</Badge>
+            </span>
+          </div>
 
-          {/* Recruiter Pro Monthly */}
-          <Card className="border-2 border-violet-500 relative overflow-hidden">
-            <div className="absolute top-0 right-0 bg-violet-500 text-white text-xs px-3 py-1 rounded-bl-lg font-medium">
-              RECOMMENDED
-            </div>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Briefcase className="w-5 h-5 text-violet-500" />
-                Recruiter Pro
-              </CardTitle>
-              <CardDescription>Everything you need to hire</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-                $5 <span className="text-sm font-normal text-slate-500">/ month</span>
-              </div>
-              <ul className="space-y-3">
-                {[
-                  "Unlimited job postings",
-                  "Full ATS (Applicant Tracking)",
-                  "Advanced candidate search",
-                  "In-app messaging",
-                  "Analytics & reporting",
-                  "Priority support",
-                  "Company branding"
-                ].map((feature, i) => (
-                  <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                    <Check className="w-4 h-4 text-violet-500" /> {feature}
-                  </li>
-                ))}
-              </ul>
-              
-              {/* Payment Options */}
-              <div className="mt-6 space-y-3">
+          <div className="grid md:grid-cols-4 gap-4">
+            {/* Starter Tier */}
+            <Card className="border-slate-200">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg">Starter</CardTitle>
+                <CardDescription>For small practices</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-1">
+                  ${isAnnual ? '2.50' : '2.99'}
+                  <span className="text-sm font-normal text-slate-500">/mo</span>
+                </div>
+                {isAnnual && <p className="text-xs text-emerald-600 mb-4">$29.99 billed annually</p>}
+                <div className="text-sm text-slate-600 dark:text-slate-400 mb-4 font-medium">
+                  1-5 job postings
+                </div>
+                <ul className="space-y-2 text-sm">
+                  {["5 active job posts", "Basic candidate search", "In-app messaging", "Email support"].map((f, i) => (
+                    <li key={i} className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                      <Check className="w-4 h-4 text-emerald-500" /> {f}
+                    </li>
+                  ))}
+                </ul>
                 <Button 
-                  onClick={() => handleUpgrade('stripe', 'recruiter_monthly')}
+                  onClick={() => handleUpgrade('stripe', isAnnual ? 'recruiter_starter_annual' : 'recruiter_starter')}
                   disabled={processing}
-                  className="w-full bg-gradient-to-r from-violet-500 to-purple-600 hover:from-purple-600 hover:to-violet-500"
-                  data-testid="upgrade-recruiter-btn"
+                  variant="outline"
+                  className="w-full mt-6"
                 >
-                  {processing ? (
-                    <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Processing...</>
-                  ) : (
-                    <><CreditCard className="w-4 h-4 mr-2" /> Start 30-Day Free Trial</>
-                  )}
+                  Get Started
                 </Button>
+              </CardContent>
+            </Card>
+
+            {/* Growth Tier */}
+            <Card className="border-2 border-turquoise relative">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                <Badge className="bg-turquoise text-white">POPULAR</Badge>
               </div>
-              
-              <p className="text-xs text-slate-500 text-center mt-3">
-                30-day free trial • Cancel anytime • No commitment
-              </p>
-            </CardContent>
-          </Card>
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg">Growth</CardTitle>
+                <CardDescription>For growing teams</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-1">
+                  ${isAnnual ? '6.66' : '7.99'}
+                  <span className="text-sm font-normal text-slate-500">/mo</span>
+                </div>
+                {isAnnual && <p className="text-xs text-emerald-600 mb-4">$79.99 billed annually</p>}
+                <div className="text-sm text-slate-600 dark:text-slate-400 mb-4 font-medium">
+                  5-10 job postings
+                </div>
+                <ul className="space-y-2 text-sm">
+                  {["10 active job posts", "Advanced candidate search", "Blind screening mode", "Analytics dashboard", "Priority support"].map((f, i) => (
+                    <li key={i} className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                      <Check className="w-4 h-4 text-turquoise" /> {f}
+                    </li>
+                  ))}
+                </ul>
+                <Button 
+                  onClick={() => handleUpgrade('stripe', isAnnual ? 'recruiter_growth_annual' : 'recruiter_growth')}
+                  disabled={processing}
+                  className="w-full mt-6 bg-turquoise hover:bg-turquoise/90"
+                >
+                  Get Started
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Premium Tier */}
+            <Card className="border-violet-200 bg-violet-50/30 dark:bg-violet-900/10">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Crown className="w-5 h-5 text-violet-500" />
+                  Premium
+                </CardTitle>
+                <CardDescription>For large organizations</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-1">
+                  ${isAnnual ? '12.50' : '14.99'}
+                  <span className="text-sm font-normal text-slate-500">/mo</span>
+                </div>
+                {isAnnual && <p className="text-xs text-emerald-600 mb-4">$149.99 billed annually</p>}
+                <div className="text-sm text-slate-600 dark:text-slate-400 mb-4 font-medium">
+                  Unlimited job postings
+                </div>
+                <ul className="space-y-2 text-sm">
+                  {["Unlimited job posts", "Full ATS integration", "Bulk candidate export", "Custom branding", "API access", "Dedicated support"].map((f, i) => (
+                    <li key={i} className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                      <Check className="w-4 h-4 text-violet-500" /> {f}
+                    </li>
+                  ))}
+                </ul>
+                <Button 
+                  onClick={() => handleUpgrade('stripe', isAnnual ? 'recruiter_premium_annual' : 'recruiter_premium')}
+                  disabled={processing}
+                  className="w-full mt-6 bg-gradient-to-r from-violet-500 to-purple-600"
+                >
+                  Get Started
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Enterprise Tier */}
+            <Card className="border-slate-300 bg-slate-50 dark:bg-slate-800/50">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Building2 className="w-5 h-5 text-slate-600" />
+                  Enterprise
+                </CardTitle>
+                <CardDescription>For hospital networks</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-1">
+                  Custom
+                </div>
+                <p className="text-xs text-slate-500 mb-4">Tailored for 50+ recruiters</p>
+                <div className="text-sm text-slate-600 dark:text-slate-400 mb-4 font-medium">
+                  Volume discounts
+                </div>
+                <ul className="space-y-2 text-sm">
+                  {["Everything in Premium", "SSO/SAML integration", "Custom SLA", "Dedicated account manager", "On-site training", "HIPAA compliance"].map((f, i) => (
+                    <li key={i} className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                      <Check className="w-4 h-4 text-slate-500" /> {f}
+                    </li>
+                  ))}
+                </ul>
+                <Button 
+                  variant="outline"
+                  onClick={() => window.location.href = 'mailto:enterprise@medmatch.ai?subject=Enterprise%20Inquiry'}
+                  className="w-full mt-6"
+                >
+                  Contact Sales
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       )}
 
