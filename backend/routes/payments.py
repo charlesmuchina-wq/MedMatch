@@ -176,7 +176,6 @@ async def get_payment_status(session_id: str, request: Request):
         if is_paid:
             # Determine plan type from metadata
             plan = session.metadata.get('plan', 'premium_3_year')
-            role = session.metadata.get('role', 'job_seeker')
             
             update_data = {
                 "membership_status": "active",
@@ -533,7 +532,6 @@ async def get_billing_history(request: Request):
             import stripe
             stripe.api_key = STRIPE_API_KEY
             
-            subscription = stripe.Subscription.retrieve(subscription_id)
             invoices = stripe.Invoice.list(
                 subscription=subscription_id,
                 limit=12
