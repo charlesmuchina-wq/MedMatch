@@ -113,12 +113,17 @@ const GlobalLanguageSelector = ({ compact = false }) => {
             <ChevronDown className="w-3 h-3 opacity-50" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-52 max-h-80 overflow-y-auto">
+        <DropdownMenuContent align="end" className="w-56 max-h-[70vh] overflow-y-auto">
           <DropdownMenuLabel className="text-xs text-slate-500">
             {t("language.selectLanguage")}
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          {sortedLanguages.slice(0, 12).map((lang) => (
+          
+          {/* Popular Languages */}
+          <DropdownMenuLabel className="text-xs text-slate-400 font-normal px-2 py-1">
+            {t("language.popular")}
+          </DropdownMenuLabel>
+          {popularLanguages.slice(0, 15).map((lang) => (
             <DropdownMenuItem
               key={lang.code}
               onClick={() => setLanguage(lang.code)}
@@ -126,14 +131,66 @@ const GlobalLanguageSelector = ({ compact = false }) => {
             >
               <span className="flex items-center gap-2">
                 <span>{lang.flag}</span>
-                <span>{lang.name}</span>
+                <span className="text-sm">{lang.name}</span>
                 {!lang.isBundled && (
-                  <span className="text-[10px] px-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded font-medium" title="AI-powered translation">AI</span>
+                  <span className="text-[9px] px-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded font-medium">AI</span>
                 )}
               </span>
               {language === lang.code && <Check className="w-4 h-4 text-green-500" />}
             </DropdownMenuItem>
           ))}
+          
+          {/* African Languages */}
+          {africanLanguages.length > 0 && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel className="text-xs text-slate-400 font-normal px-2 py-1 flex items-center gap-1">
+                🌍 {t("language.african") || "African Languages"}
+              </DropdownMenuLabel>
+              {africanLanguages.map((lang) => (
+                <DropdownMenuItem
+                  key={lang.code}
+                  onClick={() => setLanguage(lang.code)}
+                  className="flex items-center justify-between cursor-pointer"
+                >
+                  <span className="flex items-center gap-2">
+                    <span>{lang.flag}</span>
+                    <span className="text-sm">{lang.name}</span>
+                    {!lang.isBundled && (
+                      <span className="text-[9px] px-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded font-medium">AI</span>
+                    )}
+                  </span>
+                  {language === lang.code && <Check className="w-4 h-4 text-green-500" />}
+                </DropdownMenuItem>
+              ))}
+            </>
+          )}
+          
+          {/* Other Languages */}
+          {otherLanguages.length > 0 && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel className="text-xs text-slate-400 font-normal px-2 py-1">
+                {t("language.otherLanguages")}
+              </DropdownMenuLabel>
+              {otherLanguages.map((lang) => (
+                <DropdownMenuItem
+                  key={lang.code}
+                  onClick={() => setLanguage(lang.code)}
+                  className="flex items-center justify-between cursor-pointer"
+                >
+                  <span className="flex items-center gap-2">
+                    <span>{lang.flag}</span>
+                    <span className="text-sm">{lang.name}</span>
+                    {!lang.isBundled && (
+                      <span className="text-[9px] px-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded font-medium">AI</span>
+                    )}
+                  </span>
+                  {language === lang.code && <Check className="w-4 h-4 text-green-500" />}
+                </DropdownMenuItem>
+              ))}
+            </>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     );
