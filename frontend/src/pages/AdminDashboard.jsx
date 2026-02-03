@@ -259,6 +259,18 @@ export default function AdminDashboard() {
       icon: Activity,
       path: "/meeting-notes",
       status: "active"
+    },
+    {
+      title: "Translation Analytics",
+      description: "Translation usage, memory, and quality metrics",
+      icon: Globe,
+      path: "/admin/translations",
+      status: "active",
+      stats: {
+        languages: "55+",
+        bundled: "25",
+        gendered: "24"
+      }
     }
   ];
 
