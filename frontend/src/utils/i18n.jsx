@@ -142,7 +142,15 @@ export const LANGUAGE_META = {
 };
 
 // Bundled languages (full translations available)
-export const BUNDLED_LANGUAGES = ["en", "es", "fr", "zh", "de", "ja", "ar", "hi", "pt-BR"];
+export const BUNDLED_LANGUAGES = [
+  // Core languages
+  "en", "es", "fr", "zh", "de",
+  // High-demand languages
+  "ja", "ar", "hi", "pt-BR",
+  // African Languages (16)
+  "sw", "ha", "yo", "ig", "zu", "xh", "af", "am",
+  "om", "so", "rw", "sn", "ny", "tw", "wo", "lg"
+];
 
 // Popular languages order (including African languages and key regional variants)
 export const POPULAR_LANGUAGES = [
