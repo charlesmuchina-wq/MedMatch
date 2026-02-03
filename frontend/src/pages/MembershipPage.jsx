@@ -234,9 +234,29 @@ const MembershipPage = ({ user }) => {
       {/* Recruiter Pricing Section */}
       {isRecruiter && (
         <div className="mb-10">
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-6 text-center">
+          {/* 30-Day Trial Banner for Recruiters */}
+          {isTrial && (
+            <div className="mb-6 p-4 rounded-lg bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-900/20 dark:to-purple-900/20 border border-violet-200 dark:border-violet-800">
+              <div className="flex items-center gap-3">
+                <Clock className="w-6 h-6 text-violet-600" />
+                <div>
+                  <p className="font-medium text-violet-800 dark:text-violet-200">
+                    🎉 You're on a 30-day free trial!
+                  </p>
+                  <p className="text-sm text-violet-600 dark:text-violet-400">
+                    {membership?.days_remaining || 30} days remaining • Full access to all recruiter features
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-2 text-center">
             Choose Your Recruiter Plan
           </h2>
+          <p className="text-center text-sm text-slate-500 mb-6">
+            All plans include a <span className="font-medium text-violet-600">30-day free trial</span>
+          </p>
           
           {/* Billing Toggle */}
           <div className="flex items-center justify-center gap-4 mb-8">
