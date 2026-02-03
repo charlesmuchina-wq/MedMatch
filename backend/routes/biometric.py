@@ -131,8 +131,7 @@ async def start_biometric_registration(request: BiometricRegistrationStartReques
             # Create temporary user record for registration
             user_id = str(uuid.uuid4())
         
-        # Generate unique challenge
-        challenge = os.urandom(32)
+        # Generate registration options (challenge is generated internally)
         
         # Build registration options
         registration_options = generate_registration_options(
