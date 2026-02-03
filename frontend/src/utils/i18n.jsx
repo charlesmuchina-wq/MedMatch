@@ -1170,4 +1170,87 @@ export const useLanguageInfo = () => {
   };
 };
 
+/**
+ * Hook to get linguistic gender rules for the current language
+ * Based on CLDR standards for grammatical gender
+ */
+export const useGenderRules = () => {
+  const { language } = useTranslation();
+  
+  const rules = LANGUAGE_GENDER_RULES[language] || { hasGender: false, genders: [], default: null };
+  
+  return {
+    language,
+    hasGrammaticalGender: rules.hasGender,
+    availableGenders: rules.genders,
+    defaultGender: rules.default,
+    requiresGenderSelection: rules.hasGender && rules.genders.length > 1,
+  };
+};
+
+/**
+ * Hook for gender-aware translation of dynamic text
+ * Follows ICU MessageFormat principles for grammatical gender
+ * 
+ * @param {string} text - Text to translate
+ * @param {string} gender - 'masculine', 'feminine', or 'neutral'
+ * @param {object} options - Additional options
+ */
+export const useGenderAwareTranslation = (text, gender = null, options = {}) => {
+  const { language, isBundled } = useTranslation();
+  const [translated, setTranslated] = useState(text);
+  const [isLoading, setIsLoading] = useState(false);
+  const { context } = options;
+  
+  const rules = LANGUAGE_GENDER_RULES[language] || { hasGender: false };
+  
+  useEffect(() => {
+    // Skip if no text, English, bundled, or no gender rules
+    if (!text || language === 'en' || !rules.hasGender || !gender) {
+      setTranslated(text);
+      return;
+    }
+    
+    const translateWithGender = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.post(`${API}/api/translate/gender-aware`, {
+          text,
+          target_language: language,
+          grammatical_gender: gender,
+          context
+        });
+        setTranslated(response.data.translated || text);
+      } catch (e) {
+        console.error('Gender-aware translation failed:', e);
+        setTranslated(text);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    translateWithGender();
+  }, [text, language, gender, context, rules.hasGender]);
+  
+  return { translated, isLoading, originalText: text, genderApplied: rules.hasGender && !!gender };
+};
+
+/**
+ * Component for gender-aware translated text
+ * Usage: <GenderText text="Welcome back" gender="feminine" />
+ */
+export const GenderText = ({ text, gender, className = "", showLoading = true }) => {
+  const { translated, isLoading } = useGenderAwareTranslation(text, gender);
+  
+  if (isLoading && showLoading) {
+    return (
+      <span className={`inline-flex items-center gap-1 ${className}`}>
+        <span className="animate-pulse bg-slate-200 dark:bg-slate-700 rounded h-4 w-20"></span>
+      </span>
+    );
+  }
+  
+  return <span className={className}>{translated}</span>;
+};
+
 export default I18nProvider;
