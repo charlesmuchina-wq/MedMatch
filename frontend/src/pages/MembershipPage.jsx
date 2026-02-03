@@ -358,30 +358,31 @@ const MembershipPage = ({ user }) => {
             </CardContent>
           </Card>
 
-          {/* Lifetime Membership */}
+          {/* Pro Monthly Subscription */}
           <Card className="border-2 border-turquoise relative overflow-hidden">
             <div className="absolute top-0 right-0 bg-turquoise text-white text-xs px-3 py-1 rounded-bl-lg font-medium">
-              BEST VALUE
+              RECOMMENDED
             </div>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Crown className="w-5 h-5 text-turquoise" />
-                Lifetime Membership
+                Pro Membership
               </CardTitle>
-              <CardDescription>One payment, forever access</CardDescription>
+              <CardDescription>Advanced career tools for serious job seekers</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold text-slate-900 dark:text-slate-100 mb-4">
-                $1 <span className="text-sm font-normal text-slate-500">/ forever</span>
+                $9.99 <span className="text-sm font-normal text-slate-500">/ month</span>
               </div>
               <ul className="space-y-3">
                 {[
-                  "Unlimited job searches",
-                  "All AI features (Cover Letters, Interview Prep)",
-                  "Voice & Video Interview Coach",
-                  "Application Analytics",
-                  "Email Alerts & Daily Digest",
-                  "Multiple Resume Profiles",
+                  "Everything in Free tier",
+                  "AI Resume Optimization Review",
+                  "Salary Negotiation Coaching",
+                  "Priority visibility to recruiters",
+                  "Advanced Interview Prep with AI feedback",
+                  "Unlimited cover letter generations",
+                  "Career path recommendations",
                   "Priority Support"
                 ].map((feature, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
@@ -393,7 +394,7 @@ const MembershipPage = ({ user }) => {
               {/* Payment Options */}
               <div className="mt-6 space-y-3">
                 <Button 
-                  onClick={() => handleUpgrade('stripe')}
+                  onClick={() => handleUpgrade('stripe', 'pro_monthly')}
                   disabled={processing}
                   className="w-full bg-gradient-to-r from-turquoise to-teal-600 hover:from-teal-600 hover:to-turquoise"
                   data-testid="upgrade-stripe-btn"
@@ -401,12 +402,12 @@ const MembershipPage = ({ user }) => {
                   {processing ? (
                     <><Loader2 className="w-4 h-4 animate-spin mr-2" /> Processing...</>
                   ) : (
-                    <><CreditCard className="w-4 h-4 mr-2" /> Pay $1 with Card</>
+                    <><CreditCard className="w-4 h-4 mr-2" /> Subscribe with Card</>
                   )}
                 </Button>
                 
                 <Button 
-                  onClick={() => handleUpgrade('paypal')}
+                  onClick={() => handleUpgrade('paypal', 'pro_monthly')}
                   disabled={processing}
                   variant="outline"
                   className="w-full border-[#0070ba] text-[#0070ba] hover:bg-[#0070ba]/10"
@@ -419,14 +420,14 @@ const MembershipPage = ({ user }) => {
                       <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.77.77 0 0 1 .757-.629h6.153c2.046 0 3.667.468 4.736 1.371 1.006.85 1.468 2.076 1.338 3.548-.33 3.692-2.898 5.447-6.246 5.447h-1.83a.77.77 0 0 0-.758.628l-.87 5.507a.64.64 0 0 1-.632.54h-.516v1.205zm12.234-14.446c-.395 4.268-3.133 6.38-7.07 6.38h-1.315l-1.026 6.491h2.45l.714-4.515h1.315c3.936 0 6.673-2.112 7.07-6.38.096-1.04-.052-1.89-.427-2.578.34.327.597.738.758 1.238.156.485.234 1.057.234 1.713 0 .257-.012.521-.038.79-.233 2.55-1.553 4.41-3.615 5.346.826-.773 1.397-1.79 1.687-3.036.058-.248.102-.508.133-.779.026-.232.039-.455.039-.667 0-.555-.063-1.044-.187-1.47a3.283 3.283 0 0 0-.722-1.333z"/>
                       </svg>
-                      Pay $1 with PayPal
+                      Subscribe with PayPal
                     </>
                   )}
                 </Button>
               </div>
               
               <p className="text-xs text-slate-500 text-center mt-3">
-                Secure payment • All currencies accepted worldwide
+                Cancel anytime • All currencies accepted worldwide
               </p>
             </CardContent>
           </Card>
