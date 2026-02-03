@@ -667,6 +667,14 @@ function AppContent() {
             <Route path="/admin/translations" element={
               <TranslationAnalyticsPage />
             } />
+            <Route path="/privacy" element={<PrivacySettingsPage />} />
+            <Route path="/consent" element={
+              <PrivacyConsentScreen 
+                onConsentGranted={() => navigate('/')}
+                showSkip={true}
+                onSkip={() => navigate('/')}
+              />
+            } />
           </Routes>
         </main>
       </div>
