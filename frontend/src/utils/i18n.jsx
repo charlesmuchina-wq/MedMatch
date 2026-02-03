@@ -782,51 +782,6 @@ export const I18nProvider = ({ children }) => {
       loadTranslationsAtomically(language);
     }
   }, [language, loadTranslationsAtomically]);
-              "Save": "common.save",
-              "Cancel": "common.cancel",
-              "Delete": "common.delete",
-              "Edit": "common.edit",
-              "Search": "common.search",
-              "Submit": "common.submit",
-              "Close": "common.close",
-              "Back": "common.back",
-              "Next": "common.next",
-              "Confirm": "common.confirm",
-              "Yes": "common.yes",
-              "No": "common.no",
-              "Error": "common.error",
-              "Success": "common.success"
-            };
-            
-            // Map prerendered strings to keys
-            Object.entries(prerendered).forEach(([original, translated]) => {
-              const key = keyMapping[original];
-              if (key) {
-                mappedTranslations[key] = translated;
-              }
-            });
-            
-            // Apply pre-rendered translations immediately
-            aiTranslationCache.current[language] = { ...mappedTranslations };
-            setDynamicTranslations(prev => ({
-              ...prev,
-              [language]: { ...mappedTranslations }
-            }));
-            setTranslationVersion(v => v + 1);
-            
-            console.log(`[i18n] Applied ${Object.keys(mappedTranslations).length} pre-rendered translations`);
-          }
-        } catch (e) {
-          console.log(`[i18n] Pre-rendered translations not available, falling back to AI: ${e.message}`);
-        }
-        
-        // Always run full AI translations to fill in gaps
-        loadAITranslations(language);
-      };
-      
-      loadPrerenderedFirst();
-    }
-  }, [language, loadAITranslations]);
 
   const setLanguage = useCallback((lang) => {
     if (lang && LANGUAGE_META[lang]) {
