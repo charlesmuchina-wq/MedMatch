@@ -4,13 +4,11 @@ Handles: Interview question input, AI-driven answer generation, resume correlati
          voice recording analysis, and feedback based on job requirements
 """
 from fastapi import APIRouter, HTTPException, Request, UploadFile, File, Form
-from pydantic import BaseModel, Field
-from typing import Optional, List, Dict, Any
+from pydantic import BaseModel
+from typing import Optional, List, Dict
 from datetime import datetime, timezone
 import uuid
 import logging
-import base64
-import io
 import tempfile
 import os
 

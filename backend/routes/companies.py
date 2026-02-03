@@ -7,7 +7,6 @@ from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime, timezone
 import uuid
-import logging
 
 from utils.database import db
 from routes.auth import get_current_user

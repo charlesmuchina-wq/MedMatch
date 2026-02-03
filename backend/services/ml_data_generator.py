@@ -6,8 +6,7 @@ Runs as a background task to simulate various system states.
 import asyncio
 import logging
 import random
-from datetime import datetime, timezone, timedelta
-from typing import Dict, List
+from typing import Dict
 
 from services.ml_data_collector import ml_collector, EventType, EventSeverity
 

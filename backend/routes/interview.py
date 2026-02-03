@@ -4,7 +4,7 @@ Handles: Interview questions, answers, company research, voice/video feedback
 """
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
-from typing import Optional, List, Dict, Any
+from typing import Dict, Any
 from datetime import datetime, timezone
 import uuid
 import logging

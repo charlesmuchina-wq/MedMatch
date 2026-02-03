@@ -2,13 +2,11 @@
 Push Notifications Routes
 Handles: Web push subscriptions, notification sending, preferences
 """
-from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
-from pydantic import BaseModel, Field
+from fastapi import APIRouter, HTTPException, Request
+from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 from datetime import datetime, timezone
 import uuid
-import logging
-import json
 
 from utils.database import db
 from routes.auth import get_current_user

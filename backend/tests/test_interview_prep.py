@@ -5,7 +5,6 @@ Tests for: AI Generate Questions, From Job Description, Paste Questions, AI Answ
 import pytest
 import requests
 import os
-import json
 
 BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', '').rstrip('/')
 
@@ -34,7 +33,7 @@ class TestInterviewPrepEndpoints:
             token = data.get("token") or data.get("access_token")
             if token:
                 self.session.headers.update({"Authorization": f"Bearer {token}"})
-                print(f"Logged in successfully")
+                print("Logged in successfully")
             else:
                 # Try cookie-based auth
                 print("Using cookie-based auth")

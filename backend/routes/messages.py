@@ -4,10 +4,9 @@ Handles: In-app messaging between recruiters and job seekers
 """
 from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional
 from datetime import datetime, timezone
 import uuid
-import logging
 
 from utils.database import db
 from routes.auth import get_current_user

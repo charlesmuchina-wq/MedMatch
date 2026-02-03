@@ -3,22 +3,19 @@ ML Model Trainer for Issue Prediction
 Trains scikit-learn models using collected ML training data.
 Provides both offline training and real-time prediction capabilities.
 """
-import asyncio
 import logging
 import json
 import os
 from datetime import datetime, timezone, timedelta
 from typing import Dict, List, Optional, Tuple, Any
 from dataclasses import dataclass
-import pickle
-import hashlib
 
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.metrics import classification_report, accuracy_score, f1_score
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, f1_score
 import joblib
 
 from utils.database import db

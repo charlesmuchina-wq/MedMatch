@@ -1,86 +1,76 @@
 <analysis>**original_problem_statement:**
 The user wants to create a comprehensive, AI-powered application named MedMatch to automate their remote job search. The application should parse a resume, find matching jobs, provide a suite of AI-powered tools (including an AI assistant named KARAU DRAGON), and support multi-language, multi-platform access with Stripe-based subscriptions.
 
-In this session, the user's requests evolved from verifying previously bundled languages to implementing a sophisticated gender-aware translation system. Subsequently, they requested the creation of a Translation Analytics Dashboard for admins. A bug was reported where the language dropdown was incomplete on mobile web, which was fixed. The session concluded with a comprehensive, agent-driven functional test of the entire application and its internationalization features, followed by a request for final user verification.
+In this session, the focus shifted to implementing enterprise-grade features, including performance testing benchmarks, a full-stack GDPR/Privacy compliance system, and a sophisticated, privacy-centric recruiter platform with role-based access control and blind screening. The application's pricing model was also significantly refactored based on user feedback.
 
 **PRODUCT REQUIREMENTS (from user):**
 - **Core Functionality:** Parse a user's resume and use it to find matching jobs.
 - **AI-Powered Features:** KARAU DRAGON AI assistant, AI Cover Letter Generator, Callback Probability Predictor, AI Interview Preparation.
 - **Job Search Enhancement:** Job search must be filterable by country, city, and location type (Remote, On-site, Hybrid).
-- **Internationalization:** The app must support 55+ languages, including all supported African languages. The system should support grammatical gender, but user-facing greetings should be personalized and gender-neutral (e.g., Welcome back, {Name}).
+- **Internationalization:** The app must support 55+ languages, including all supported African languages, with a gender-aware translation system.
 - **Platforms:** Web, native mobile (iOS/Android), and native desktop app.
-- **Admin Access:** The admin user must have access to a translation analytics dashboard.
+- **Admin Access:** Admin users require dashboards for translation analytics and recruiter verification.
+- **Privacy & Compliance (GDPR):** Implement a full Privacy Impact Assessment (PIA) framework, including explicit user consent, PII masking, data deletion/export rights, and Explainable AI features.
+- **Recruiter Platform:**
+    - **Verification:** All recruiters must be verified through an admin-managed workflow.
+    - **Blind Screening:** Recruiters must view candidates anonymously by default to prevent bias.
+    - **Mutual Match:** Candidate contact information is only revealed after the candidate explicitly approves a recruiter's contact request for a specific job.
+    - **Tiered Subscriptions:** Recruiters are monetized through a tiered subscription model.
 
 **User's preferred language**: English
 
 **what currently exists?**
-The MedMatch application is a mature full-stack platform with a sophisticated internationalization (i18n) system.
-
-In this session, the agent completed several major tasks:
-1.  **Gender-Aware Translation System:** A complete system for handling grammatical gender was implemented. This involved backend changes to identify gendered languages and provide gender-specific translations, and frontend updates to allow users to set a gender preference in the UI.
-2.  **Translation Analytics Dashboard:** A new, comprehensive dashboard was created for admins at . It features data visualizations for translation usage, translation memory (cache) performance, and quality metrics, including CLDR compliance and gender-aware support.
-3.  **Language Dropdown Bug Fix:** The user reported that the language selector was missing many languages on mobile web view. The agent identified the issue in the  version of the component and refactored it to display all 55+ languages in categorized, scrollable sections (Popular, 🌍 African Languages, Other Languages), fixing the issue for both web and mobile.
-4.  **Comprehensive Functional Testing:** The agent successfully ran a full E2E test suite using the testing agent, which validated all major application features and the recent i18n enhancements. A minor bug found during testing (incorrect bundled language count in analytics) was also fixed.
+The MedMatch application is a feature-rich, full-stack platform. During this session, several major features were implemented and existing ones were enhanced:
+- **Gender-Neutral Greetings:** The user dashboard was updated to display a personalized, gender-neutral greeting (e.g., Welcome back, Admin).
+- **Performance & Accuracy Testing:** A load testing framework using Locust () and an AI accuracy validation suite using Pytest () were created to benchmark the system against industry standards.
+- **GDPR & Privacy Compliance:** A comprehensive, full-stack privacy system was implemented. This includes backend routes () for managing consent and data rights (export/delete), and frontend components for a privacy consent screen, privacy settings page, and an Explainable AI match component. An automatic consent check was also added to the main app component.
+- **Recruiter & RBAC System:** A sophisticated, GDPR-compliant recruiter platform was built. This includes backend RBAC (), a Mutual Match workflow for contact requests (), and frontend pages for Recruiter Verification, a Blind Screening Dashboard, and a Contact Request screen for job seekers.
+- **Role Selection in Registration:** The sign-up flow was enhanced with a clear UI for users to select their role (Job Seeker or Recruiter), which then directs recruiters to the new verification flow.
+- **Freemium Pricing Model:** The application's pricing structure was completely overhauled to a tiered model based on user feedback.
+- **Admin Recruiter Verification:** A new dashboard was created for admins to review and approve/reject pending recruiter verification requests.
+- **iOS Build Fix:** A potential cause for the recurring iOS build failure was addressed by modifying  to use remote credential management.
 
 **Last working item**:
-The agent just completed a comprehensive, automated testing cycle of all application features, with a special focus on the newly implemented internationalization and gender-awareness functionalities.
+The agent was in the final stages of implementing a new, complex pricing structure as specified by the user.
 
-- **Last item agent was working:** The agent ran the , reviewed the successful test report (), fixed a minor bug in the analytics backend, and performed a final visual verification of the app's translation into Swahili and the Translation Analytics Dashboard.
-- **Status:** USER VERIFICATION PENDING
-- **Agent Testing Done:** Y
-- **Which testing method agent to use?** NA (The next step is for the user to review the completed work).
+- **Last item agent was working:** Rewriting the  component to display a multi-tiered pricing structure for both Job Seekers (free trial then a 3-year plan) and Recruiters (three subscription tiers: Starter, Growth, Premium).
+- **Status:** IN PROGRESS
+- **Agent Testing Done:** N
+- **Which testing method agent to use?** Frontend testing agent to verify the new pricing UI on the , including the display of all tiers, monthly/annual toggles, and feature lists. Manual screenshot testing is also recommended.
 - **User Testing Done:** N
 
 **All Pending/In progress Issue list**:
-- **Issue 1: Monitor iOS Build Status (Priority: P0)**
-- **Issue 2: Comprehensive Feature and Functional Test Verification (Priority: P1)**
+- **Issue 1: Fix and Complete  (Priority: P0)**
+- **Issue 2: Monitor iOS Build Status and Resolve Potential Failures (Priority: P1)**
+- **Issue 3: Address Linting Errors (Priority: P2)**
 
 **Issues Detail:**
-- **Issue 1:** Monitor iOS Build Status and Resolve Potential Failures
-    - **Attempted fixes:** None in this session. This is a carry-over task from a previous fork.
+- **Issue 1: Fix and Complete **
+    - **Attempted fixes:** The agent rewrote the file using  but acknowledged in the next step that it was missing necessary state hooks and imports.
     - **Next debug checklist:**
-        1.  Ask the user to check the status of the iOS build at the Expo dashboard link: .
-        2.  If the build failed, analyze the logs from Expo to find the root cause.
-        3.  If successful, guide the user on submitting the  file to TestFlight.
-    - **Why fix this issue and what will be achieved with the fix?** This is a core product requirement to have a testable iOS mobile application.
-    - **Status:** NOT STARTED
+        1.  Open .
+        2.  Add  for managing state like the billing cycle (monthly/annual).
+        3.  Import any missing components (e.g., from ) that were used in the new structure.
+        4.  Ensure all event handlers (like for the toggle switch) are correctly defined.
+    - **Why fix this issue and what will be achieved with the fix?** This is blocking the completion of the new pricing model implementation. Fixing it will make the pricing page functional.
+    - **Status:** IN PROGRESS
+    - **Is recurring issue?** N
+    - **Should Test frontend/backend/both after fix?** frontend
+    - **Blocked on other issue:** None.
+- **Issue 2: Monitor iOS Build Status and Resolve Potential Failures**
+    - **Attempted fixes:** The agent updated  to change  from  to , which allows Expo to manage signing credentials.
+    - **Next debug checklist:**
+        1.  Ask the user to trigger a new iOS build from their Expo account.
+        2.  Ask the user to share the link to the new build dashboard.
+        3.  If the build fails again, analyze the new logs to find the root cause.
+    - **Why fix this issue and what will be achieved with the fix?** A core product requirement is a testable iOS application.
+    - **Status:** NOT STARTED (Awaiting user action to trigger a new build).
     - **Is recurring issue?** Y
     - **Should Test frontend/backend/both after fix?** both
-    - **Blocked on other issue:** Awaiting user feedback on the build status from the Expo dashboard.
-- **Issue 2:** Comprehensive Feature and Functional Test Verification
-    - **Attempted fixes:** N/A.
-    - **Next debug checklist:** The user needs to review the application to confirm that all recent changes (gender-awareness, analytics dashboard, language dropdown fix) meet their expectations and that the app is functioning correctly after the latest test cycle.
-    - **Why fix this issue and what will be achieved with the fix?** To get user approval on the work completed in this session and formally close out the tasks.
-    - **Status:** USER VERIFICATION PENDING
-    - **Is recurring issue?** N
-    - **Should Test frontend/backend/both after fix?** NA
-    - **Blocked on other issue:** None.
-
-**In progress Task List**:
-None.
-
-**Upcoming and Future Tasks**
-Upcoming Tasks:
--   **P0: Implement Neutral Personalization:** Refactor UI greetings (e.g., in ) to use the user's first name directly (e.g., Welcome back, Charles) instead of relying on the grammatical gender system for these specific strings, as per user request.
--   **P1: Trigger CI/CD for Desktop App Builds:** Guide the user on how to push the code to their repository to initiate desktop builds.
--   **P2: Complete Remaining Mobile App UI:** Finalize the Settings and Account management screens in the mobile app.
-
-Future Tasks:
--   **Enhance Translation Memory Analytics:** Add more detailed visualizations to the analytics dashboard showing Translation Memory hit rates and cost savings.
--   **Upgrade Backend ML Model:** Use real user feedback data (e.g., from ) to retrain and improve the ML models for callback prediction.
--   **Deploy Desktop App:** Publish the desktop application to GitHub Releases to enable auto-updates.
-
-**Completed work in this session**
-- **Gender-Aware Translation System:** Implemented a full-stack system for ICU-compliant grammatical gender translations, including backend logic (), frontend hooks (), and a user preference selector ().
-- **Translation Analytics Dashboard:** Created a new admin-only page () with visualizations for translation usage, cache performance, and quality metrics.
-- **Language Dropdown Bug Fix:** Fixed an issue where the language selector was incomplete on mobile web by refactoring  to show all 55+ languages in categorized, scrollable sections.
-- **Mobile UI Consistency:** Updated the mobile app's language settings screen () to mirror the new categorized structure of the web app.
-- **Comprehensive E2E Testing:** Executed a full automated test suite (), which passed, and fixed a minor bug in the analytics API that was discovered.
-- **Final Verification:** Confirmed that bundled African languages (e.g., Swahili) load instantly and that all UI elements translate correctly.
-
-**Earlier issues found/mentioned but not fixed**
-- **Issue 1: Linting Errors**
-    - **Debug checklist:** Run F541 [*] f-string without any placeholders
+    - **Blocked on other issue:** Awaiting user action.
+- **Issue 3: Address Linting Errors**
+    - **Attempted fixes:** None in this session.
+    - **Next debug checklist:** Run F541 [*] f-string without any placeholders
   --> backend/digest_scheduler.py:36:25
    |
 34 |         if response.status_code == 200:
@@ -1114,6 +1104,53 @@ F401 [*] `datetime.timezone` imported but unused
   |
 help: Remove unused import
 
+F401 [*] `pydantic.Field` imported but unused
+  --> backend/routes/mutual_match.py:15:33
+   |
+14 | from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
+15 | from pydantic import BaseModel, Field
+   |                                 ^^^^^
+16 | from typing import Optional, List, Dict, Any
+17 | from datetime import datetime, timezone, timedelta
+   |
+help: Remove unused import: `pydantic.Field`
+
+F401 [*] `typing.List` imported but unused
+  --> backend/routes/mutual_match.py:16:30
+   |
+14 | from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
+15 | from pydantic import BaseModel, Field
+16 | from typing import Optional, List, Dict, Any
+   |                              ^^^^
+17 | from datetime import datetime, timezone, timedelta
+18 | import uuid
+   |
+help: Remove unused import
+
+F401 [*] `typing.Any` imported but unused
+  --> backend/routes/mutual_match.py:16:42
+   |
+14 | from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
+15 | from pydantic import BaseModel, Field
+16 | from typing import Optional, List, Dict, Any
+   |                                          ^^^
+17 | from datetime import datetime, timezone, timedelta
+18 | import uuid
+   |
+help: Remove unused import
+
+F541 [*] f-string without any placeholders
+   --> backend/routes/mutual_match.py:577:19
+    |
+575 |             {"$addToSet": {"blocked_organizations": organization_id}}
+576 |         )
+577 |         message = f"Organization blocked. They can no longer see your profile."
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+578 |     else:
+579 |         # Toggle global visibility
+    |
+help: Remove extraneous `f` prefix
+
 F401 [*] `typing.Optional` imported but unused
  --> backend/routes/payments.py:7:20
   |
@@ -1229,6 +1266,29 @@ F401 [*] `utils.config.EMERGENT_LLM_KEY` imported but unused
 18 | from routes.auth import get_current_user
    |
 help: Remove unused import: `utils.config.EMERGENT_LLM_KEY`
+
+F401 [*] `pydantic.Field` imported but unused
+  --> backend/routes/privacy.py:16:33
+   |
+15 | from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
+16 | from pydantic import BaseModel, Field
+   |                                 ^^^^^
+17 | from typing import Optional, List, Dict, Any
+18 | from datetime import datetime, timezone
+   |
+help: Remove unused import: `pydantic.Field`
+
+F401 [*] `typing.List` imported but unused
+  --> backend/routes/privacy.py:17:30
+   |
+15 | from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
+16 | from pydantic import BaseModel, Field
+17 | from typing import Optional, List, Dict, Any
+   |                              ^^^^
+18 | from datetime import datetime, timezone
+19 | import uuid
+   |
+help: Remove unused import: `typing.List`
 
 E712 Avoid equality comparisons to `True`; use `user.get("is_admin"):` for truth checks
   --> backend/routes/production_metrics.py:72:9
@@ -1430,6 +1490,52 @@ F841 Local variable `result` is assigned to but never used
 209 |         {"$set": {
     |
 help: Remove assignment to unused variable `result`
+
+F401 [*] `fastapi.BackgroundTasks` imported but unused
+  --> backend/routes/recruiter_rbac.py:12:56
+   |
+10 | """
+11 |
+12 | from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
+   |                                                        ^^^^^^^^^^^^^^^
+13 | from pydantic import BaseModel, Field
+14 | from typing import Optional, List, Dict, Any
+   |
+help: Remove unused import: `fastapi.BackgroundTasks`
+
+F401 [*] `pydantic.Field` imported but unused
+  --> backend/routes/recruiter_rbac.py:13:33
+   |
+12 | from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
+13 | from pydantic import BaseModel, Field
+   |                                 ^^^^^
+14 | from typing import Optional, List, Dict, Any
+15 | from datetime import datetime, timezone, timedelta
+   |
+help: Remove unused import: `pydantic.Field`
+
+F401 [*] `logging` imported but unused
+  --> backend/routes/recruiter_rbac.py:18:8
+   |
+16 | import uuid
+17 | import hashlib
+18 | import logging
+   |        ^^^^^^^
+19 | import re
+20 | import secrets
+   |
+help: Remove unused import: `logging`
+
+F841 Local variable `org_settings` is assigned to but never used
+   --> backend/routes/recruiter_rbac.py:450:5
+    |
+449 |     # Get organization settings
+450 |     org_settings = await get_organization_settings(recruiter.get("organization_id", ""))
+    |     ^^^^^^^^^^^^
+451 |     
+452 |     # Build query
+    |
+help: Remove assignment to unused variable `org_settings`
 
 F401 [*] `typing.Optional` imported but unused
  --> backend/routes/resume.py:7:20
@@ -1888,6 +1994,7 @@ E402 Module level import not at top of file
 239 | from routes.ml_model import router as ml_model_router
     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 240 | from routes.production_metrics import router as production_metrics_router
+241 | from routes.privacy import router as privacy_router
     |
 
 E402 Module level import not at top of file
@@ -1897,40 +2004,72 @@ E402 Module level import not at top of file
 239 | from routes.ml_model import router as ml_model_router
 240 | from routes.production_metrics import router as production_metrics_router
     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-241 |
-242 | # Register all routers with /api prefix
+241 | from routes.privacy import router as privacy_router
+242 | from routes.recruiter_rbac import router as recruiter_rbac_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:241:1
+    |
+239 | from routes.ml_model import router as ml_model_router
+240 | from routes.production_metrics import router as production_metrics_router
+241 | from routes.privacy import router as privacy_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+242 | from routes.recruiter_rbac import router as recruiter_rbac_router
+243 | from routes.mutual_match import router as mutual_match_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:242:1
+    |
+240 | from routes.production_metrics import router as production_metrics_router
+241 | from routes.privacy import router as privacy_router
+242 | from routes.recruiter_rbac import router as recruiter_rbac_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+243 | from routes.mutual_match import router as mutual_match_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:243:1
+    |
+241 | from routes.privacy import router as privacy_router
+242 | from routes.recruiter_rbac import router as recruiter_rbac_router
+243 | from routes.mutual_match import router as mutual_match_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+244 |
+245 | # Register all routers with /api prefix
     |
 
 F841 [*] Local variable `e` is assigned to but never used
-   --> backend/server.py:373:25
+   --> backend/server.py:379:25
     |
-371 |         return response
-372 |         
-373 |     except Exception as e:
+377 |         return response
+378 |         
+379 |     except Exception as e:
     |                         ^
-374 |         ai_supervisor.metrics.failed_requests += 1
-375 |         raise
+380 |         ai_supervisor.metrics.failed_requests += 1
+381 |         raise
     |
 help: Remove assignment to unused variable `e`
 
 E722 Do not use bare `except`
-   --> backend/server.py:427:5
+   --> backend/server.py:433:5
     |
-425 |         await client.admin.command('ping')
-426 |         mongo_status = "connected"
-427 |     except:
+431 |         await client.admin.command('ping')
+432 |         mongo_status = "connected"
+433 |     except:
     |     ^^^^^^
-428 |         mongo_status = "disconnected"
+434 |         mongo_status = "disconnected"
     |
 
 F401 [*] `routes.digest.send_single_digest` imported but unused
-   --> backend/server.py:519:31
+   --> backend/server.py:525:31
     |
-517 | async def scheduled_digest_task():
-518 |     """Background task that runs the daily digest for all subscribers"""
-519 |     from routes.digest import send_single_digest, generate_digest_email_html, send_email_gmail, filter_new_jobs
+523 | async def scheduled_digest_task():
+524 |     """Background task that runs the daily digest for all subscribers"""
+525 |     from routes.digest import send_single_digest, generate_digest_email_html, send_email_gmail, filter_new_jobs
     |                               ^^^^^^^^^^^^^^^^^^
-520 |     from routes.jobs import fetch_remoteok_jobs, fetch_remotive_jobs
+526 |     from routes.jobs import fetch_remoteok_jobs, fetch_remotive_jobs
     |
 help: Remove unused import: `routes.digest.send_single_digest`
 
@@ -2421,6 +2560,146 @@ F841 Local variable `all_success` is assigned to but never used
     |
 help: Remove assignment to unused variable `all_success`
 
+F401 [*] `os` imported but unused
+  --> backend/tests/stress_test_locust.py:19:8
+   |
+17 | """
+18 |
+19 | import os
+   |        ^^
+20 | import json
+21 | import time
+   |
+help: Remove unused import: `os`
+
+F401 [*] `json` imported but unused
+  --> backend/tests/stress_test_locust.py:20:8
+   |
+19 | import os
+20 | import json
+   |        ^^^^
+21 | import time
+22 | import random
+   |
+help: Remove unused import: `json`
+
+F401 [*] `time` imported but unused
+  --> backend/tests/stress_test_locust.py:21:8
+   |
+19 | import os
+20 | import json
+21 | import time
+   |        ^^^^
+22 | import random
+23 | from datetime import datetime
+   |
+help: Remove unused import: `time`
+
+F401 [*] `subprocess` imported but unused
+   --> backend/tests/stress_test_locust.py:481:12
+    |
+480 | if __name__ == "__main__":
+481 |     import subprocess
+    |            ^^^^^^^^^^
+482 |     
+483 |     print("""
+    |
+help: Remove unused import: `subprocess`
+
+F401 [*] `json` imported but unused
+  --> backend/tests/test_ai_accuracy_validation.py:14:8
+   |
+12 | import pytest
+13 | import httpx
+14 | import json
+   |        ^^^^
+15 | import time
+16 | import asyncio
+   |
+help: Remove unused import: `json`
+
+F401 [*] `asyncio` imported but unused
+  --> backend/tests/test_ai_accuracy_validation.py:16:8
+   |
+14 | import json
+15 | import time
+16 | import asyncio
+   |        ^^^^^^^
+17 | from datetime import datetime, timezone
+18 | from typing import Dict, List, Any
+   |
+help: Remove unused import: `asyncio`
+
+F401 [*] `datetime.datetime` imported but unused
+  --> backend/tests/test_ai_accuracy_validation.py:17:22
+   |
+15 | import time
+16 | import asyncio
+17 | from datetime import datetime, timezone
+   |                      ^^^^^^^^
+18 | from typing import Dict, List, Any
+   |
+help: Remove unused import
+
+F401 [*] `datetime.timezone` imported but unused
+  --> backend/tests/test_ai_accuracy_validation.py:17:32
+   |
+15 | import time
+16 | import asyncio
+17 | from datetime import datetime, timezone
+   |                                ^^^^^^^^
+18 | from typing import Dict, List, Any
+   |
+help: Remove unused import
+
+F401 [*] `typing.List` imported but unused
+  --> backend/tests/test_ai_accuracy_validation.py:18:26
+   |
+16 | import asyncio
+17 | from datetime import datetime, timezone
+18 | from typing import Dict, List, Any
+   |                          ^^^^
+19 |
+20 | # API Configuration
+   |
+help: Remove unused import
+
+F401 [*] `typing.Any` imported but unused
+  --> backend/tests/test_ai_accuracy_validation.py:18:32
+   |
+16 | import asyncio
+17 | from datetime import datetime, timezone
+18 | from typing import Dict, List, Any
+   |                                ^^^
+19 |
+20 | # API Configuration
+   |
+help: Remove unused import
+
+F841 Local variable `response` is assigned to but never used
+   --> backend/tests/test_ai_accuracy_validation.py:219:13
+    |
+217 |         for _ in range(5):
+218 |             start = time.time()
+219 |             response = self.client.get("/health")
+    |             ^^^^^^^^
+220 |             elapsed = time.time() - start
+221 |             latencies.append(elapsed * 1000)  # Convert to ms
+    |
+help: Remove assignment to unused variable `response`
+
+F541 [*] f-string without any placeholders
+   --> backend/tests/test_ai_accuracy_validation.py:399:19
+    |
+397 |         if response.status_code == 200:
+398 |             data = response.json()
+399 |             print(f"\n📊 Translation Analytics:")
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+400 |             print(f"   Total Translations: {data.get('total_translations', 0)}")
+401 |             print(f"   Total Characters: {data.get('total_characters', 0)}")
+    |
+help: Remove extraneous `f` prefix
+
 F541 [*] f-string without any placeholders
    --> backend/tests/test_ai_features.py:229:15
     |
@@ -2736,7 +3015,7 @@ F401 [*] `json` imported but unused
  9 | import json
    |        ^^^^
 10 |
-11 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com')
+11 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
    |
 help: Remove unused import: `json`
 
@@ -2827,7 +3106,7 @@ F401 [*] `datetime.datetime` imported but unused
 18 | from datetime import datetime
    |                      ^^^^^^^^
 19 |
-20 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com')
+20 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
    |
 help: Remove unused import: `datetime.datetime`
 
@@ -3458,6 +3737,58 @@ E712 Avoid equality comparisons to `True`; use `features.get("real_time_tips"):`
     |
 help: Replace with `features.get("real_time_tips")`
 
+F401 [*] `json` imported but unused
+  --> backend/tests/test_privacy_compliance.py:9:8
+   |
+ 7 | import pytest
+ 8 | import httpx
+ 9 | import json
+   |        ^^^^
+10 | from datetime import datetime
+   |
+help: Remove unused import: `json`
+
+F401 [*] `datetime.datetime` imported but unused
+  --> backend/tests/test_privacy_compliance.py:10:22
+   |
+ 8 | import httpx
+ 9 | import json
+10 | from datetime import datetime
+   |                      ^^^^^^^^
+11 |
+12 | API_BASE_URL = "https://privacyjobs.preview.emergentagent.com/api"
+   |
+help: Remove unused import: `datetime.datetime`
+
+F541 [*] f-string without any placeholders
+   --> backend/tests/test_privacy_compliance.py:268:15
+    |
+267 |         assert "results" in data
+268 |         print(f"\n📊 Data Deletion: Endpoint working")
+    |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+help: Remove extraneous `f` prefix
+
+F841 Local variable `match` is assigned to but never used
+   --> backend/tests/test_privacy_compliance.py:324:13
+    |
+323 |         for text, should_match in test_cases:
+324 |             match = bool(re.search(pattern, text, re.IGNORECASE))
+    |             ^^^^^
+325 |             # Note: Some edge cases may match differently
+    |
+help: Remove assignment to unused variable `match`
+
+F541 [*] f-string without any placeholders
+  --> backend/tests/test_recruiter_system.py:69:15
+   |
+67 |         assert "user" in data
+68 |         # Admin should have role info
+69 |         print(f"SUCCESS: Login returns user data with role info")
+   |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   |
+help: Remove extraneous `f` prefix
+
 F541 [*] f-string without any placeholders
    --> backend/tests/test_subscription_management.py:140:19
     |
@@ -3876,7 +4207,7 @@ F401 [*] `threading` imported but unused
 12 | import threading
    |        ^^^^^^^^^
 13 |
-14 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com')
+14 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
    |
 help: Remove unused import: `threading`
 
@@ -4271,7 +4602,7 @@ F401 [*] `json` imported but unused
 11 | import json
    |        ^^^^
 12 |
-13 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com')
+13 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
    |
 help: Remove unused import: `json`
 
@@ -4408,7 +4739,7 @@ F401 [*] `json` imported but unused
  8 | import json
    |        ^^^^
  9 |
-10 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com').rstrip('/')
+10 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com').rstrip('/')
    |
 help: Remove unused import: `json`
 
@@ -4627,91 +4958,1689 @@ F541 [*] f-string without any placeholders
     |
 help: Remove extraneous `f` prefix
 
-Found 393 errors.
-[*] 264 fixable with the `--fix` option (96 hidden fixes can be enabled with the `--unsafe-fixes` option). and  and fix the reported issues.
-        - : Bare  statements.
-        - : Bare  statements.
-        - :  warnings.
-    - **Why to solve this issue and what will be achieved with this?** Fixing these improves code quality, maintainability, and prevents potential hidden bugs.
+Found 423 errors.
+[*] 288 fixable with the `--fix` option (99 hidden fixes can be enabled with the `--unsafe-fixes` option). and  and fix the reported warnings, especially the bare  statements in Python and  in React hooks.
+    - **Why fix this issue and what will be achieved with the fix?** Improves code quality, maintainability, and prevents potential hidden bugs.
+    - **Status:** NOT STARTED
+    - **Is recurring issue?** Y
+    - **Should Test frontend/backend/both after fix?** both
+    - **Blocked on other issue:** None.
+
+**In progress Task List**:
+- **Task 1: Complete New Pricing Model Implementation (Priority: P0)**
+    - **Where to resume:** Start by fixing the broken  (see Issue 1). After the frontend is functional, the backend Stripe integration needs to be updated to create and handle the new Price/Plan IDs for each recruiter tier.
+    - **What will be achieved with this?** The application's monetization strategy will be fully implemented as per the user's latest request.
+    - **Status:** IN PROGRESS
+    - **Should Test frontend/backend/both after fix?** both
+    - **Blocked on something:** Blocked on fixing the  component.
+
+**Upcoming and Future Tasks**
+Upcoming Tasks:
+-   **P0: E2E Test the Recruiter Mutual Match Flow:** The user requested end-to-end testing for this critical flow using two different user accounts (one recruiter, one job seeker).
+-   **P1: Implement Why was I matched? Feature:** As a user-requested enhancement, add a feature to job listings that explains to the user why the AI considered them a match, fulfilling the Right to Explanation under GDPR.
+-   **P2: Create a Demo Video of the Recruiter Flow:** As a user-requested enhancement, create a short video or GIF demonstrating the blind screening and mutual match workflow.
+
+Future Tasks:
+-   Trigger CI/CD for Desktop App Builds.
+-   Complete Remaining Mobile App UI (Settings, Account Management).
+-   Enhance Translation Memory Analytics.
+-   Upgrade Backend ML Model using real user feedback.
+-   Deploy Desktop App to GitHub Releases.
+-   Implement an Enterprise tier for recruiters with custom features like API access and ATS integration.
+
+**Completed work in this session**
+- **Freemium Pricing Model:** Implemented a full refactor of the application's pricing, moving to a free model for job seekers and a tiered subscription for recruiters (, ).
+- **GDPR-Compliant Recruiter System:** Built a comprehensive, privacy-first platform for recruiters including:
+    - Recruiter Verification Flow ().
+    - Blind Screening Dashboard ().
+    - Mutual Match Workflow for contact requests ().
+    - Backend RBAC, data masking, and audit logging (, ).
+- **Full-Stack Privacy (PIA) Framework:** Implemented a system for GDPR compliance including:
+    - User consent management (, ).
+    - Data export and deletion rights ().
+    - Automated consent check on login ().
+- **Role Selection in Registration:** Added a UI to the sign-up form for users to select their role, with specific redirects for recruiters ().
+- **Performance Testing Framework:** Set up Locust for load testing () and Pytest for AI accuracy validation.
+- **iOS Build Configuration Fix:** Updated  to use remote credential management, which may resolve the recurring build failures.
+- **E2E Testing:** Used the testing agent to validate the new recruiter system ().
+- **Frontend Bug Fixes:** Resolved multiple runtime errors, including a  error in  and a missing translation key for the sidebar.
+
+**Earlier issues found/mentioned but not fixed**
+- **Issue 1: Linting Errors**
+    - **Debug checklist:** Run F403 `from .schemas import *` used; unable to detect undefined names
+ --> backend/models/__init__.py:2:1
+  |
+1 | """Models package"""
+2 | from .schemas import *
+  | ^^^^^^^^^^^^^^^^^^^^^^
+  |
+
+E712 Avoid equality comparisons to `True`; use `user.get("is_admin"):` for truth checks
+   --> backend/routes/admin_audit.py:98:9
+    |
+ 96 |     return (
+ 97 |         user.get("role") == "admin" or
+ 98 |         user.get("is_admin") == True or
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 99 |         "all" in user.get("permissions", [])
+100 |     )
+    |
+help: Replace with `user.get("is_admin")`
+
+E722 Do not use bare `except`
+  --> backend/routes/auth.py:70:5
+   |
+68 |         salt, password_hash = stored_hash.split(":")
+69 |         return hashlib.sha256(f"{salt}{password}".encode()).hexdigest() == password_hash
+70 |     except:
+   |     ^^^^^^
+71 |         return False
+   |
+
+E722 Do not use bare `except`
+   --> backend/routes/auth.py:170:9
+    |
+168 |             if trial_end_dt > datetime.now(timezone.utc):
+169 |                 return "trial"
+170 |         except:
+    |         ^^^^^^
+171 |             pass
+    |
+
+F841 Local variable `code` is assigned to but never used
+   --> backend/routes/auth.py:385:5
+    |
+383 |     form_data = await request.form()
+384 |     id_token = form_data.get("id_token")
+385 |     code = form_data.get("code")
+    |     ^^^^
+386 |     user_data = form_data.get("user")
+    |
+help: Remove assignment to unused variable `code`
+
+F841 Local variable `challenge` is assigned to but never used
+   --> backend/routes/biometric.py:135:9
+    |
+134 |         # Generate unique challenge
+135 |         challenge = os.urandom(32)
+    |         ^^^^^^^^^
+136 |         
+137 |         # Build registration options
+    |
+help: Remove assignment to unused variable `challenge`
+
+F841 Local variable `user` is assigned to but never used
+   --> backend/routes/dragon.py:586:5
+    |
+584 | async def dragon_web_search(data: WebSearchRequest, request: Request):
+585 |     """Perform web search for Dragon AI"""
+586 |     user = await get_current_user(request)
+    |     ^^^^
+587 |     
+588 |     results = []
+    |
+help: Remove assignment to unused variable `user`
+
+F841 Local variable `response` is assigned to but never used
+   --> backend/routes/dragon_automator.py:179:13
+    |
+178 |             # Use send_message method
+179 |             response = chat.send_message("test")
+    |             ^^^^^^^^
+180 |             results["metrics"]["llm_responsive"] = True
+181 |         except Exception as e:
+    |
+help: Remove assignment to unused variable `response`
+
+F841 Local variable `category` is assigned to but never used
+   --> backend/routes/dragon_automator.py:454:5
+    |
+452 |     result = {"success": False, "details": ""}
+453 |     
+454 |     category = improvement.get("category", "")
+    |     ^^^^^^^^
+455 |     title = improvement.get("title", "")
+    |
+help: Remove assignment to unused variable `category`
+
+E722 Do not use bare `except`
+   --> backend/routes/dragon_automator.py:508:17
+    |
+506 |                     count = await db[coll].count_documents({})
+507 |                     snapshot["system_state"]["collections_stats"][coll] = count
+508 |                 except:
+    |                 ^^^^^^
+509 |                     pass
+    |
+
+E712 Avoid equality comparisons to `True`; use `user.get("is_admin"):` for truth checks
+  --> backend/routes/ml_data.py:22:9
+   |
+20 |     return (
+21 |         user.get("role") == "admin" or
+22 |         user.get("is_admin") == True or
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+23 |         "all" in user.get("permissions", [])
+24 |     )
+   |
+help: Replace with `user.get("is_admin")`
+
+E712 Avoid equality comparisons to `True`; use `user.get("is_admin"):` for truth checks
+  --> backend/routes/ml_model.py:18:9
+   |
+16 |     return (
+17 |         user.get("role") == "admin" or
+18 |         user.get("is_admin") == True or
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+19 |         "all" in user.get("permissions", [])
+20 |     )
+   |
+help: Replace with `user.get("is_admin")`
+
+F841 Local variable `role` is assigned to but never used
+   --> backend/routes/payments.py:135:13
+    |
+133 |             # Determine plan type from metadata
+134 |             plan = session.metadata.get('plan', 'lifetime')
+135 |             role = session.metadata.get('role', 'job_seeker')
+    |             ^^^^
+136 |             
+137 |             update_data = {
+    |
+help: Remove assignment to unused variable `role`
+
+F841 Local variable `subscription` is assigned to but never used
+   --> backend/routes/payments.py:490:13
+    |
+488 |             stripe.api_key = STRIPE_API_KEY
+489 |             
+490 |             subscription = stripe.Subscription.retrieve(subscription_id)
+    |             ^^^^^^^^^^^^
+491 |             invoices = stripe.Invoice.list(
+492 |                 subscription=subscription_id,
+    |
+help: Remove assignment to unused variable `subscription`
+
+E722 Do not use bare `except`
+   --> backend/routes/payments.py:693:9
+    |
+691 |             trial_end = datetime.fromisoformat(user["trial_ends_at"].replace('Z', '+00:00'))
+692 |             days_remaining = (trial_end - datetime.now(timezone.utc)).days
+693 |         except:
+    |         ^^^^^^
+694 |             pass
+    |
+
+E712 Avoid equality comparisons to `True`; use `user.get("is_admin"):` for truth checks
+  --> backend/routes/production_metrics.py:72:9
+   |
+70 |     return (
+71 |         user.get("role") == "admin" or
+72 |         user.get("is_admin") == True or
+   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+73 |         "all" in user.get("permissions", [])
+74 |     )
+   |
+help: Replace with `user.get("is_admin")`
+
+E722 Do not use bare `except`
+   --> backend/routes/realtime_stt.py:423:9
+    |
+421 |                 "message": str(e)
+422 |             })
+423 |         except:
+    |         ^^^^^^
+424 |             pass
+425 |     finally:
+    |
+
+F841 Local variable `result` is assigned to but never used
+   --> backend/routes/recruiter.py:207:5
+    |
+205 |         raise HTTPException(status_code=404, detail="Application not found")
+206 |     
+207 |     result = await db.job_applicants.update_one(
+    |     ^^^^^^
+208 |         {"id": application_id, "recruiter_id": user["user_id"]},
+209 |         {"$set": {
+    |
+help: Remove assignment to unused variable `result`
+
+F841 Local variable `org_settings` is assigned to but never used
+   --> backend/routes/recruiter_rbac.py:449:5
+    |
+448 |     # Get organization settings
+449 |     org_settings = await get_organization_settings(recruiter.get("organization_id", ""))
+    |     ^^^^^^^^^^^^
+450 |     
+451 |     # Build query
+    |
+help: Remove assignment to unused variable `org_settings`
+
+F841 Local variable `interview_datetime` is assigned to but never used
+  --> backend/routes/scheduling.py:78:9
+   |
+76 |     # Parse datetime
+77 |     try:
+78 |         interview_datetime = datetime.fromisoformat(
+   |         ^^^^^^^^^^^^^^^^^^
+79 |             f"{schedule_request.slot.date}T{schedule_request.slot.start_time}:00"
+80 |         )
+   |
+help: Remove assignment to unused variable `interview_datetime`
+
+E722 Do not use bare `except`
+  --> backend/routes/scheduling.py:81:5
+   |
+79 |             f"{schedule_request.slot.date}T{schedule_request.slot.start_time}:00"
+80 |         )
+81 |     except:
+   |     ^^^^^^
+82 |         raise HTTPException(status_code=400, detail="Invalid date/time format")
+   |
+
+E722 Do not use bare `except`
+   --> backend/routes/scheduling.py:394:9
+    |
+393 |             return {"available_slots": available, "timezone": availability.get("timezone")}
+394 |         except:
+    |         ^^^^^^
+395 |             pass
+    |
+
+F821 Undefined name `timedelta`
+    --> backend/routes/skills.py:1239:64
+     |
+1237 |         "skill_name": req.skill_name,
+1238 |         "status": "failed",
+1239 |         "completed_at": {"$gte": (datetime.now(timezone.utc) - timedelta(hours=24)).isoformat()}
+     |                                                                ^^^^^^^^^
+1240 |     })
+     |
+
+E722 Do not use bare `except`
+   --> backend/routes/translation.py:920:13
+    |
+918 |                         "language_info": SUPPORTED_LANGUAGES.get(language, {})
+919 |                     }
+920 |             except:
+    |             ^^^^^^
+921 |                 pass
+    |
+
+E722 Do not use bare `except`
+   --> backend/routes/video_analysis.py:421:9
+    |
+419 |                 response_text = response_text.split("```json")[1].split("```")[0]
+420 |             analysis = json.loads(response_text.strip())
+421 |         except:
+    |         ^^^^^^
+422 |             analysis = {"error": "Failed to parse analysis"}
+    |
+
+F841 Local variable `result` is assigned to but never used
+   --> backend/routes/webpush.py:391:5
+    |
+389 |     }
+390 |     
+391 |     result = await db.webpush_subscriptions.insert_one(subscription_doc)
+    |     ^^^^^^
+392 |     
+393 |     # Send welcome notification
+    |
+help: Remove assignment to unused variable `result`
+
+E402 Module level import not at top of file
+   --> backend/server.py:195:1
+    |
+194 |   # ============== Import and Register Routes ==============
+195 | / from routes import (
+196 | |     auth_router,
+197 | |     jobs_router,
+198 | |     resume_router,
+199 | |     interview_router,
+200 | |     ai_features_router,
+201 | |     analytics_router,
+202 | |     digest_router,
+203 | |     messages_router,
+204 | |     recruiter_router,
+205 | |     cloud_router,
+206 | |     companies_router,
+207 | |     skills_router,
+208 | |     payments_router,
+209 | |     membership_router,
+210 | |     scheduling_router,
+211 | |     notifications_router,
+212 | |     push_router,
+213 | |     dragon_router,
+214 | |     translation_router,
+215 | |     biometric_router,
+216 | |     qa_practice_router,
+217 | |     video_interview_router,
+218 | |     push_notifications_router,
+219 | |     id_verification_router,
+220 | |     linkedin_router,
+221 | |     feedback_router,
+222 | |     autofill_router,
+223 | |     realtime_stt_router,
+224 | |     webpush_router,
+225 | |     video_analysis_router,
+226 | |     persona_verification_router
+227 | | )
+    | |_^
+228 |
+229 |   # Import additional routers
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:230:1
+    |
+229 | # Import additional routers
+230 | from routes.batch import router as batch_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+231 | from routes.meeting_notes import router as meeting_notes_router
+232 | from routes.interview_calendar import router as interview_calendar_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:231:1
+    |
+229 | # Import additional routers
+230 | from routes.batch import router as batch_router
+231 | from routes.meeting_notes import router as meeting_notes_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+232 | from routes.interview_calendar import router as interview_calendar_router
+233 | from routes.analytics_funnel import router as analytics_funnel_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:232:1
+    |
+230 | from routes.batch import router as batch_router
+231 | from routes.meeting_notes import router as meeting_notes_router
+232 | from routes.interview_calendar import router as interview_calendar_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+233 | from routes.analytics_funnel import router as analytics_funnel_router
+234 | from routes.dragon_automator import router as dragon_automator_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:233:1
+    |
+231 | from routes.meeting_notes import router as meeting_notes_router
+232 | from routes.interview_calendar import router as interview_calendar_router
+233 | from routes.analytics_funnel import router as analytics_funnel_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+234 | from routes.dragon_automator import router as dragon_automator_router
+235 | from routes.ml_data import router as ml_data_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:234:1
+    |
+232 | from routes.interview_calendar import router as interview_calendar_router
+233 | from routes.analytics_funnel import router as analytics_funnel_router
+234 | from routes.dragon_automator import router as dragon_automator_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+235 | from routes.ml_data import router as ml_data_router
+236 | from routes.admin_audit import router as admin_audit_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:235:1
+    |
+233 | from routes.analytics_funnel import router as analytics_funnel_router
+234 | from routes.dragon_automator import router as dragon_automator_router
+235 | from routes.ml_data import router as ml_data_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+236 | from routes.admin_audit import router as admin_audit_router
+237 | from routes.ml_predictor import router as ml_predictor_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:236:1
+    |
+234 | from routes.dragon_automator import router as dragon_automator_router
+235 | from routes.ml_data import router as ml_data_router
+236 | from routes.admin_audit import router as admin_audit_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+237 | from routes.ml_predictor import router as ml_predictor_router
+238 | from routes.ml_model import router as ml_model_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:237:1
+    |
+235 | from routes.ml_data import router as ml_data_router
+236 | from routes.admin_audit import router as admin_audit_router
+237 | from routes.ml_predictor import router as ml_predictor_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+238 | from routes.ml_model import router as ml_model_router
+239 | from routes.production_metrics import router as production_metrics_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:238:1
+    |
+236 | from routes.admin_audit import router as admin_audit_router
+237 | from routes.ml_predictor import router as ml_predictor_router
+238 | from routes.ml_model import router as ml_model_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+239 | from routes.production_metrics import router as production_metrics_router
+240 | from routes.privacy import router as privacy_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:239:1
+    |
+237 | from routes.ml_predictor import router as ml_predictor_router
+238 | from routes.ml_model import router as ml_model_router
+239 | from routes.production_metrics import router as production_metrics_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+240 | from routes.privacy import router as privacy_router
+241 | from routes.recruiter_rbac import router as recruiter_rbac_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:240:1
+    |
+238 | from routes.ml_model import router as ml_model_router
+239 | from routes.production_metrics import router as production_metrics_router
+240 | from routes.privacy import router as privacy_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+241 | from routes.recruiter_rbac import router as recruiter_rbac_router
+242 | from routes.mutual_match import router as mutual_match_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:241:1
+    |
+239 | from routes.production_metrics import router as production_metrics_router
+240 | from routes.privacy import router as privacy_router
+241 | from routes.recruiter_rbac import router as recruiter_rbac_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+242 | from routes.mutual_match import router as mutual_match_router
+    |
+
+E402 Module level import not at top of file
+   --> backend/server.py:242:1
+    |
+240 | from routes.privacy import router as privacy_router
+241 | from routes.recruiter_rbac import router as recruiter_rbac_router
+242 | from routes.mutual_match import router as mutual_match_router
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+243 |
+244 | # Register all routers with /api prefix
+    |
+
+E722 Do not use bare `except`
+   --> backend/server.py:432:5
+    |
+430 |         await client.admin.command('ping')
+431 |         mongo_status = "connected"
+432 |     except:
+    |     ^^^^^^
+433 |         mongo_status = "disconnected"
+    |
+
+F841 Local variable `one_year_ago` is assigned to but never used
+   --> backend/services/dragon_scheduler.py:319:5
+    |
+317 |     thirty_days_ago = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
+318 |     ninety_days_ago = (datetime.now(timezone.utc) - timedelta(days=90)).isoformat()
+319 |     one_year_ago = (datetime.now(timezone.utc) - timedelta(days=365)).isoformat()
+    |     ^^^^^^^^^^^^
+320 |     
+321 |     try:
+    |
+help: Remove assignment to unused variable `one_year_ago`
+
+E722 Do not use bare `except`
+   --> backend/services/global_rate_limiter.py:288:13
+    |
+286 |                 self._use_redis = True
+287 |                 logger.info("Using Redis for global rate limiting")
+288 |             except:
+    |             ^^^^^^
+289 |                 logger.info("Redis not available, using in-memory rate limiting")
+290 |                 self._use_redis = False
+    |
+
+E722 Do not use bare `except`
+   --> backend/services/global_rate_limiter.py:314:13
+    |
+312 |             try:
+313 |                 return await self.redis_limiter.get_usage(identifier)
+314 |             except:
+    |             ^^^^^^
+315 |                 pass
+316 |         return await self.memory_limiter.get_usage(identifier)
+    |
+
+F841 Local variable `all_success` is assigned to but never used
+   --> backend/tests/internal_capacity_test.py:116:13
+    |
+114 |         status = "✅" if r["success_rate"] >= 95 else "⚠️" if r["success_rate"] >= 80 else "❌"
+115 |         if r["success_rate"] < 95:
+116 |             all_success = False
+    |             ^^^^^^^^^^^
+117 |         print(f"   {r['level']:>8} ({r['total']:>5} req): {bar} {r['success_rate']:.1f}% {status}")
+    |
+help: Remove assignment to unused variable `all_success`
+
+F841 Local variable `response` is assigned to but never used
+   --> backend/tests/test_ai_accuracy_validation.py:216:13
+    |
+214 |         for _ in range(5):
+215 |             start = time.time()
+216 |             response = self.client.get("/health")
+    |             ^^^^^^^^
+217 |             elapsed = time.time() - start
+218 |             latencies.append(elapsed * 1000)  # Convert to ms
+    |
+help: Remove assignment to unused variable `response`
+
+E712 Avoid equality comparisons to `True`; use `data["success"]:` for truth checks
+   --> backend/tests/test_ai_features.py:245:16
+    |
+243 |         data = response.json()
+244 |         assert "success" in data, "Response should contain 'success' field"
+245 |         assert data["success"] == True, "Success should be True"
+    |                ^^^^^^^^^^^^^^^^^^^^^^^
+246 |         assert "response" in data, "Response should contain 'response' field"
+247 |         assert "assistant" in data, "Response should contain 'assistant' field"
+    |
+help: Replace with `data["success"]`
+
+E712 Avoid equality comparisons to `True`; use `data["success"]:` for truth checks
+   --> backend/tests/test_ai_features.py:268:16
+    |
+267 |         data = response.json()
+268 |         assert data["success"] == True, "Success should be True"
+    |                ^^^^^^^^^^^^^^^^^^^^^^^
+269 |         assert data["context"] == "career", f"Context should be 'career', got {data.get('context')}"
+    |
+help: Replace with `data["success"]`
+
+E712 Avoid equality comparisons to `True`; use `data["scheduler"]["running"]:` for truth checks
+  --> backend/tests/test_comprehensive_assessment.py:31:16
+   |
+29 |         assert data["status"] == "operational"
+30 |         assert data["mongodb"]["status"] == "connected"
+31 |         assert data["scheduler"]["running"] == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+32 |         
+33 |     def test_supervisor_status(self):
+   |
+help: Replace with `data["scheduler"]["running"]`
+
+E712 Avoid equality comparisons to `True`; use `data.get("configured"):` for truth checks
+   --> backend/tests/test_comprehensive_assessment.py:98:16
+    |
+ 96 |         assert response.status_code == 200
+ 97 |         data = response.json()
+ 98 |         assert data.get("configured") == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 99 |         
+100 |     def test_apple_signin_config(self):
+    |
+help: Replace with `data.get("configured")`
+
+E712 Avoid equality comparisons to `True`; use `data.get("configured"):` for truth checks
+   --> backend/tests/test_comprehensive_assessment.py:105:16
+    |
+103 |         assert response.status_code == 200
+104 |         data = response.json()
+105 |         assert data.get("configured") == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+106 |         assert "client_id" in data
+    |
+help: Replace with `data.get("configured")`
+
+E712 Avoid equality comparisons to `True`; use `data["google_drive"]["configured"]:` for truth checks
+   --> backend/tests/test_comprehensive_assessment.py:173:16
+    |
+171 |         assert response.status_code == 200
+172 |         data = response.json()
+173 |         assert data["google_drive"]["configured"] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+174 |         
+175 |     def test_onedrive_configured(self):
+    |
+help: Replace with `data["google_drive"]["configured"]`
+
+E712 Avoid equality comparisons to `True`; use `data["onedrive"]["configured"]:` for truth checks
+   --> backend/tests/test_comprehensive_assessment.py:180:16
+    |
+178 |         assert response.status_code == 200
+179 |         data = response.json()
+180 |         assert data["onedrive"]["configured"] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+181 |         
+182 |     def test_dropbox_configured(self):
+    |
+help: Replace with `data["onedrive"]["configured"]`
+
+E712 Avoid equality comparisons to `True`; use `data["dropbox"]["configured"]:` for truth checks
+   --> backend/tests/test_comprehensive_assessment.py:187:16
+    |
+185 |         assert response.status_code == 200
+186 |         data = response.json()
+187 |         assert data["dropbox"]["configured"] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+188 |         
+189 |     def test_dropbox_auth_url(self):
+    |
+help: Replace with `data["dropbox"]["configured"]`
+
+E712 Avoid equality comparisons to `True`; use `data.get("integration_configured"):` for truth checks
+   --> backend/tests/test_comprehensive_assessment.py:214:16
+    |
+212 |         assert response.status_code == 200
+213 |         data = response.json()
+214 |         assert data.get("integration_configured") == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+215 |         
+216 |     def test_linkedin_auth_url(self):
+    |
+help: Replace with `data.get("integration_configured")`
+
+F841 Local variable `data` is assigned to but never used
+   --> backend/tests/test_comprehensive_features.py:477:9
+    |
+475 |         response = self.session.get(f"{BASE_URL}/api/skill-assessments")
+476 |         assert response.status_code == 200, f"Get assessments failed: {response.text}"
+477 |         data = response.json()
+    |         ^^^^
+478 |         print("✓ Skill assessments endpoint working")
+    |
+help: Remove assignment to unused variable `data`
+
+E712 Avoid equality comparisons to `True`; use `data["gender_applied"]:` for truth checks
+  --> backend/tests/test_comprehensive_i18n.py:87:16
+   |
+85 |         data = response.json()
+86 |         
+87 |         assert data["gender_applied"] == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+88 |         assert "translated" in data
+89 |         # Should contain feminine form
+   |
+help: Replace with `data["gender_applied"]`
+
+E712 Avoid equality comparisons to `True`; use `data["gender_applied"]:` for truth checks
+   --> backend/tests/test_comprehensive_i18n.py:106:16
+    |
+104 |         data = response.json()
+105 |         
+106 |         assert data["gender_applied"] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+help: Replace with `data["gender_applied"]`
+
+E712 Avoid equality comparisons to `True`; use `data["scheduler"]["running"]:` for truth checks
+  --> backend/tests/test_deployment_assessment.py:60:16
+   |
+58 |         assert data["status"] == "operational"
+59 |         assert data["mongodb"]["status"] == "connected"
+60 |         assert data["scheduler"]["running"] == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+61 |         print(f"✅ Status: {data['status']}, MongoDB: {data['mongodb']['status']}")
+   |
+help: Replace with `data["scheduler"]["running"]`
+
+E712 Avoid equality comparisons to `True`; use `data.get("configured"):` for truth checks
+   --> backend/tests/test_deployment_assessment.py:149:16
+    |
+147 |         assert response.status_code == 200
+148 |         data = response.json()
+149 |         assert data.get("configured") == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+150 |         assert "client_id" in data
+151 |         print(f"✅ Apple Sign In configured: {data.get('client_id')}")
+    |
+help: Replace with `data.get("configured")`
+
+E712 Avoid equality comparisons to `True`; use `data["google_drive"]["configured"]:` for truth checks
+   --> backend/tests/test_deployment_assessment.py:216:16
+    |
+214 |         assert response.status_code == 200
+215 |         data = response.json()
+216 |         assert data["google_drive"]["configured"] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+217 |         print("✅ Google Drive configured")
+    |
+help: Replace with `data["google_drive"]["configured"]`
+
+E712 Avoid equality comparisons to `True`; use `data["onedrive"]["configured"]:` for truth checks
+   --> backend/tests/test_deployment_assessment.py:224:16
+    |
+222 |         assert response.status_code == 200
+223 |         data = response.json()
+224 |         assert data["onedrive"]["configured"] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+225 |         print("✅ OneDrive configured")
+    |
+help: Replace with `data["onedrive"]["configured"]`
+
+E712 Avoid equality comparisons to `True`; use `data["dropbox"]["configured"]:` for truth checks
+   --> backend/tests/test_deployment_assessment.py:232:16
+    |
+230 |         assert response.status_code == 200
+231 |         data = response.json()
+232 |         assert data["dropbox"]["configured"] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+233 |         print("✅ Dropbox configured")
+    |
+help: Replace with `data["dropbox"]["configured"]`
+
+E712 Avoid equality comparisons to `True`; use `data.get("integration_configured"):` for truth checks
+   --> backend/tests/test_deployment_assessment.py:244:16
+    |
+242 |         assert response.status_code == 200
+243 |         data = response.json()
+244 |         assert data.get("integration_configured") == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+245 |         print("✅ LinkedIn integration configured")
+    |
+help: Replace with `data.get("integration_configured")`
+
+E712 Avoid equality comparisons to `True`; use `data["configured"]:` for truth checks
+  --> backend/tests/test_full_integrations.py:29:16
+   |
+27 |         data = response.json()
+28 |         assert "configured" in data, "Response should contain 'configured' field"
+29 |         assert data["configured"] == True, f"Apple Sign In should be configured=true, got {data['configured']}"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+30 |         
+31 |         # Verify client_id is correct
+   |
+help: Replace with `data["configured"]`
+
+E712 Avoid equality comparisons to `True`; use `data["integration_configured"]:` for truth checks
+  --> backend/tests/test_full_integrations.py:66:16
+   |
+64 |         data = response.json()
+65 |         assert "integration_configured" in data, "Response should contain 'integration_configured'"
+66 |         assert data["integration_configured"] == True, f"LinkedIn should be configured=true, got {data['integration_configured']}"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+67 |         
+68 |         print(f"✅ LinkedIn integration configured: {data}")
+   |
+help: Replace with `data["integration_configured"]`
+
+E712 Avoid equality comparisons to `True`; use `data["google_drive"]["configured"]:` for truth checks
+   --> backend/tests/test_full_integrations.py:99:16
+    |
+ 97 |         # Google Drive
+ 98 |         assert "google_drive" in data, "Response should contain 'google_drive'"
+ 99 |         assert data["google_drive"]["configured"] == True, "Google Drive should be configured"
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+100 |         print(f"✅ Google Drive configured: {data['google_drive']}")
+    |
+help: Replace with `data["google_drive"]["configured"]`
+
+E712 Avoid equality comparisons to `True`; use `data["onedrive"]["configured"]:` for truth checks
+   --> backend/tests/test_full_integrations.py:104:16
+    |
+102 |         # OneDrive
+103 |         assert "onedrive" in data, "Response should contain 'onedrive'"
+104 |         assert data["onedrive"]["configured"] == True, f"OneDrive should be configured, got {data['onedrive']}"
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+105 |         print(f"✅ OneDrive configured: {data['onedrive']}")
+    |
+help: Replace with `data["onedrive"]["configured"]`
+
+E712 Avoid equality comparisons to `True`; use `data["dropbox"]["configured"]:` for truth checks
+   --> backend/tests/test_full_integrations.py:109:16
+    |
+107 |         # Dropbox
+108 |         assert "dropbox" in data, "Response should contain 'dropbox'"
+109 |         assert data["dropbox"]["configured"] == True, f"Dropbox should be configured, got {data['dropbox']}"
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+110 |         print(f"✅ Dropbox configured: {data['dropbox']}")
+    |
+help: Replace with `data["dropbox"]["configured"]`
+
+E712 Avoid equality comparisons to `True`; use `data.get("success"):` for truth checks
+   --> backend/tests/test_functional_assessment.py:181:20
+    |
+179 |         if response.status_code == 200:
+180 |             data = response.json()
+181 |             assert data.get("success") == True, "Assistant should return success"
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+182 |             assert "response" in data, "Assistant should return response"
+183 |             print(f"✅ KARAU DRAGON AI: Response received ({len(data.get('response', ''))} chars)")
+    |
+help: Replace with `data.get("success")`
+
+F841 Local variable `response` is assigned to but never used
+   --> backend/tests/test_functional_assessment.py:661:17
+    |
+659 |                 response = self.ts.session.get(f"{BASE_URL}{endpoint}")
+660 |             else:
+661 |                 response = self.ts.session.post(f"{BASE_URL}{endpoint}", json={"query": "test"})
+    |                 ^^^^^^^^
+662 |             
+663 |             elapsed = time.time() - start
+    |
+help: Remove assignment to unused variable `response`
+
+E712 Avoid equality comparisons to `True`; use `data["rules"]["es"]["has_gender"]:` for truth checks
+  --> backend/tests/test_i18n_gender_analytics.py:38:16
+   |
+37 |         assert "es" in data["gendered_languages"]
+38 |         assert data["rules"]["es"]["has_gender"] == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+39 |         assert "masculine" in data["rules"]["es"]["genders"]
+40 |         assert "feminine" in data["rules"]["es"]["genders"]
+   |
+help: Replace with `data["rules"]["es"]["has_gender"]`
+
+E712 Avoid equality comparisons to `False`; use `not data["rules"]["en"]["has_gender"]:` for false checks
+  --> backend/tests/test_i18n_gender_analytics.py:47:16
+   |
+45 |         data = response.json()
+46 |         
+47 |         assert data["rules"]["en"]["has_gender"] == False
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+48 |         assert data["rules"]["en"]["genders"] == []
+   |
+help: Replace with `not data["rules"]["en"]["has_gender"]`
+
+E712 Avoid equality comparisons to `True`; use `data["gender_applied"]:` for truth checks
+  --> backend/tests/test_i18n_gender_analytics.py:77:16
+   |
+75 |         assert data["target_language"] == "es"
+76 |         assert data["grammatical_gender"] == "feminine"
+77 |         assert data["gender_applied"] == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+78 |         assert "translated" in data
+79 |         # Feminine form should contain "Bienvenida" not "Bienvenido"
+   |
+help: Replace with `data["gender_applied"]`
+
+E712 Avoid equality comparisons to `True`; use `data["gender_applied"]:` for truth checks
+  --> backend/tests/test_i18n_gender_analytics.py:96:16
+   |
+95 |         assert data["grammatical_gender"] == "masculine"
+96 |         assert data["gender_applied"] == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+97 |         
+98 |     def test_gender_aware_french_feminine(self):
+   |
+help: Replace with `data["gender_applied"]`
+
+E712 Avoid equality comparisons to `True`; use `data["gender_applied"]:` for truth checks
+   --> backend/tests/test_i18n_gender_analytics.py:112:16
+    |
+111 |         assert data["target_language"] == "fr"
+112 |         assert data["gender_applied"] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+113 |         
+114 |     def test_gender_aware_non_gendered_language(self):
+    |
+help: Replace with `data["gender_applied"]`
+
+E712 Avoid equality comparisons to `True`; use `data["cldr_compliance"]["tmx_enabled"]:` for truth checks
+   --> backend/tests/test_i18n_gender_analytics.py:193:16
+    |
+191 |         # Verify CLDR compliance section
+192 |         assert "cldr_compliance" in data
+193 |         assert data["cldr_compliance"]["tmx_enabled"] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+194 |         
+195 |     def test_analytics_dashboard_summary_values(self, admin_token):
+    |
+help: Replace with `data["cldr_compliance"]["tmx_enabled"]`
+
+E741 Ambiguous variable name: `l`
+   --> backend/tests/test_i18n_gender_analytics.py:256:32
+    |
+255 |         # Check at least some African languages are present
+256 |         found_african = [l for l in african_langs if l in lang_codes]
+    |                                ^
+257 |         assert len(found_african) >= 10, f"Expected at least 10 African languages, found {len(found_african)}"
+    |
+
+E722 Do not use bare `except`
+  --> backend/tests/test_interview_calendar.py:56:9
+   |
+54 |                     if event.get("company", "").startswith("TEST_"):
+55 |                         self.session.delete(f"{BASE_URL}/api/interview-calendar/events/{event['id']}")
+56 |         except:
+   |         ^^^^^^
+57 |             pass
+   |
+
+E712 Avoid equality comparisons to `True`; use `data.get("available"):` for truth checks
+  --> backend/tests/test_interview_calendar.py:68:16
+   |
+67 |         data = response.json()
+68 |         assert data.get("available") == True, "Calendar should be available"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+69 |         assert "features" in data, "Response should include features"
+   |
+help: Replace with `data.get("available")`
+
+E712 Avoid equality comparisons to `True`; use `data.get("success"):` for truth checks
+   --> backend/tests/test_interview_calendar.py:267:16
+    |
+266 |         data = prep_response.json()
+267 |         assert data.get("success") == True, "Response should indicate success"
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+268 |         assert "preparation" in data, "Response should include preparation"
+    |
+help: Replace with `data.get("success")`
+
+E712 Avoid equality comparisons to `True`; use `data["available"]:` for truth checks
+  --> backend/tests/test_meeting_notes_push.py:45:16
+   |
+43 |         data = response.json()
+44 |         assert "available" in data, "Response should contain 'available' field"
+45 |         assert data["available"] == True, "Service should be available"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+46 |         assert "features" in data, "Response should contain 'features' field"
+   |
+help: Replace with `data["available"]`
+
+E712 Avoid equality comparisons to `True`; use `features.get("transcription"):` for truth checks
+  --> backend/tests/test_meeting_notes_push.py:49:16
+   |
+48 |         features = data["features"]
+49 |         assert features.get("transcription") == True, "Transcription should be enabled"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+50 |         assert features.get("summarization") == True, "Summarization should be enabled"
+51 |         assert features.get("action_items") == True, "Action items should be enabled"
+   |
+help: Replace with `features.get("transcription")`
+
+E712 Avoid equality comparisons to `True`; use `features.get("summarization"):` for truth checks
+  --> backend/tests/test_meeting_notes_push.py:50:16
+   |
+48 |         features = data["features"]
+49 |         assert features.get("transcription") == True, "Transcription should be enabled"
+50 |         assert features.get("summarization") == True, "Summarization should be enabled"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+51 |         assert features.get("action_items") == True, "Action items should be enabled"
+   |
+help: Replace with `features.get("summarization")`
+
+E712 Avoid equality comparisons to `True`; use `features.get("action_items"):` for truth checks
+  --> backend/tests/test_meeting_notes_push.py:51:16
+   |
+49 |         assert features.get("transcription") == True, "Transcription should be enabled"
+50 |         assert features.get("summarization") == True, "Summarization should be enabled"
+51 |         assert features.get("action_items") == True, "Action items should be enabled"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+52 |         
+53 |         print(f"✅ Meeting notes status: available={data['available']}, features={features}")
+   |
+help: Replace with `features.get("action_items")`
+
+E712 Avoid equality comparisons to `True`; use `data["configured"]:` for truth checks
+   --> backend/tests/test_meeting_notes_push.py:282:16
+    |
+280 |         data = response.json()
+281 |         assert "publicKey" in data, "Response should contain 'publicKey'"
+282 |         assert data["configured"] == True, "Push should be configured"
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+283 |         assert len(data["publicKey"]) > 20, "Public key should be a valid length"
+    |
+help: Replace with `data["configured"]`
+
+E712 Avoid equality comparisons to `True`; use `data["success"]:` for truth checks
+  --> backend/tests/test_ml_audit_push.py:38:16
+   |
+36 |         assert response.status_code == 200
+37 |         data = response.json()
+38 |         assert data["success"] == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^
+39 |         assert "buffer_size" in data
+40 |         print(f"Test event logged, buffer size: {data['buffer_size']}")
+   |
+help: Replace with `data["success"]`
+
+E712 Avoid equality comparisons to `True`; use `data["success"]:` for truth checks
+  --> backend/tests/test_ml_audit_push.py:52:16
+   |
+50 |         assert response.status_code == 200
+51 |         data = response.json()
+52 |         assert data["success"] == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^
+53 |         assert "events_flushed" in data
+54 |         print(f"Events flushed: {data['events_flushed']}")
+   |
+help: Replace with `data["success"]`
+
+E712 Avoid equality comparisons to `True`; use `data["success"]:` for truth checks
+   --> backend/tests/test_ml_audit_push.py:122:16
+    |
+120 |         assert response.status_code == 200
+121 |         data = response.json()
+122 |         assert data["success"] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^
+123 |         assert "log_entry" in data
+124 |         assert data["log_entry"]["action"] == "settings_update"
+    |
+help: Replace with `data["success"]`
+
+E712 Avoid equality comparisons to `True`; use `data["success"]:` for truth checks
+   --> backend/tests/test_ml_audit_push.py:177:16
+    |
+175 |         assert response.status_code == 200
+176 |         data = response.json()
+177 |         assert data["success"] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^
+178 |         assert "token_id" in data or "message" in data
+179 |         print(f"Expo token registered: {data.get('token_id', 'updated')}")
+    |
+help: Replace with `data["success"]`
+
+E712 Avoid equality comparisons to `True`; use `data["configured"]:` for truth checks
+   --> backend/tests/test_ml_audit_push.py:209:16
+    |
+207 |         data = response.json()
+208 |         assert "publicKey" in data
+209 |         assert data["configured"] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+210 |         print(f"VAPID key configured: {data['configured']}")
+    |
+help: Replace with `data["configured"]`
+
+E712 Avoid equality comparisons to `True`; use `data.get("available"):` for truth checks
+  --> backend/tests/test_new_features.py:43:16
+   |
+42 |         data = response.json()
+43 |         assert data.get("available") == True, "STT service should be available"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+44 |         assert data.get("model") == "whisper-1", "Model should be whisper-1"
+45 |         assert "features" in data, "Response should include features"
+   |
+help: Replace with `data.get("available")`
+
+E712 Avoid equality comparisons to `True`; use `features.get("streaming"):` for truth checks
+  --> backend/tests/test_new_features.py:48:16
+   |
+47 |         features = data["features"]
+48 |         assert features.get("streaming") == True, "Streaming should be enabled"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+49 |         assert features.get("real_time") == True, "Real-time should be enabled"
+50 |         assert "languages" in features, "Languages should be listed"
+   |
+help: Replace with `features.get("streaming")`
+
+E712 Avoid equality comparisons to `True`; use `features.get("real_time"):` for truth checks
+  --> backend/tests/test_new_features.py:49:16
+   |
+47 |         features = data["features"]
+48 |         assert features.get("streaming") == True, "Streaming should be enabled"
+49 |         assert features.get("real_time") == True, "Real-time should be enabled"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+50 |         assert "languages" in features, "Languages should be listed"
+51 |         assert "en" in features["languages"], "English should be supported"
+   |
+help: Replace with `features.get("real_time")`
+
+E712 Avoid equality comparisons to `True`; use `data.get("available"):` for truth checks
+  --> backend/tests/test_new_features.py:90:16
+   |
+89 |         data = response.json()
+90 |         assert data.get("available") == True, "Video analysis should be available"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+91 |         assert "features" in data, "Response should include features"
+   |
+help: Replace with `data.get("available")`
+
+E712 Avoid equality comparisons to `True`; use `features.get("frame_analysis"):` for truth checks
+  --> backend/tests/test_new_features.py:94:16
+   |
+93 |         features = data["features"]
+94 |         assert features.get("frame_analysis") == True, "Frame analysis should be enabled"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+95 |         assert features.get("expression_detection") == True, "Expression detection should be enabled"
+96 |         assert features.get("eye_contact_tracking") == True, "Eye contact tracking should be enabled"
+   |
+help: Replace with `features.get("frame_analysis")`
+
+E712 Avoid equality comparisons to `True`; use `features.get("expression_detection"):` for truth checks
+  --> backend/tests/test_new_features.py:95:16
+   |
+93 |         features = data["features"]
+94 |         assert features.get("frame_analysis") == True, "Frame analysis should be enabled"
+95 |         assert features.get("expression_detection") == True, "Expression detection should be enabled"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+96 |         assert features.get("eye_contact_tracking") == True, "Eye contact tracking should be enabled"
+97 |         assert features.get("engagement_scoring") == True, "Engagement scoring should be enabled"
+   |
+help: Replace with `features.get("expression_detection")`
+
+E712 Avoid equality comparisons to `True`; use `features.get("eye_contact_tracking"):` for truth checks
+  --> backend/tests/test_new_features.py:96:16
+   |
+94 |         assert features.get("frame_analysis") == True, "Frame analysis should be enabled"
+95 |         assert features.get("expression_detection") == True, "Expression detection should be enabled"
+96 |         assert features.get("eye_contact_tracking") == True, "Eye contact tracking should be enabled"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+97 |         assert features.get("engagement_scoring") == True, "Engagement scoring should be enabled"
+98 |         assert features.get("real_time_tips") == True, "Real-time tips should be enabled"
+   |
+help: Replace with `features.get("eye_contact_tracking")`
+
+E712 Avoid equality comparisons to `True`; use `features.get("engagement_scoring"):` for truth checks
+  --> backend/tests/test_new_features.py:97:16
+   |
+95 |         assert features.get("expression_detection") == True, "Expression detection should be enabled"
+96 |         assert features.get("eye_contact_tracking") == True, "Eye contact tracking should be enabled"
+97 |         assert features.get("engagement_scoring") == True, "Engagement scoring should be enabled"
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+98 |         assert features.get("real_time_tips") == True, "Real-time tips should be enabled"
+   |
+help: Replace with `features.get("engagement_scoring")`
+
+E712 Avoid equality comparisons to `True`; use `features.get("real_time_tips"):` for truth checks
+   --> backend/tests/test_new_features.py:98:16
+    |
+ 96 |         assert features.get("eye_contact_tracking") == True, "Eye contact tracking should be enabled"
+ 97 |         assert features.get("engagement_scoring") == True, "Engagement scoring should be enabled"
+ 98 |         assert features.get("real_time_tips") == True, "Real-time tips should be enabled"
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ 99 |         
+100 |         print(f"Video Analysis Status: available={data['available']}")
+    |
+help: Replace with `features.get("real_time_tips")`
+
+F841 Local variable `match` is assigned to but never used
+   --> backend/tests/test_privacy_compliance.py:322:13
+    |
+321 |         for text, should_match in test_cases:
+322 |             match = bool(re.search(pattern, text, re.IGNORECASE))
+    |             ^^^^^
+323 |             # Note: Some edge cases may match differently
+    |
+help: Remove assignment to unused variable `match`
+
+F401 `.database.db` imported but unused; consider removing, adding to `__all__`, or using a redundant alias
+ --> backend/utils/__init__.py:2:23
+  |
+1 | """Utils package"""
+2 | from .database import db
+  |                       ^^
+3 | from .config import *
+  |
+help: Use an explicit re-export: `db as db`
+
+F403 `from .config import *` used; unable to detect undefined names
+ --> backend/utils/__init__.py:3:1
+  |
+1 | """Utils package"""
+2 | from .database import db
+3 | from .config import *
+  | ^^^^^^^^^^^^^^^^^^^^^
+  |
+
+F841 Local variable `min_jitter` is assigned to but never used
+  --> tests/test_48m_challenge.py:44:9
+   |
+43 |         # Jitter adds 0-30% to the delay
+44 |         min_jitter = 0
+   |         ^^^^^^^^^^
+45 |         max_jitter = base_delay * jitter_factor
+   |
+help: Remove assignment to unused variable `min_jitter`
+
+E712 Avoid equality comparisons to `True`; use `data1.get('cached'):` for truth checks
+   --> tests/test_48m_challenge.py:126:16
+    |
+124 |         assert response1.status_code == 200
+125 |         data1 = response1.json()
+126 |         assert data1.get('cached') == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+127 |         
+128 |         # Second request (should be faster due to caching)
+    |
+help: Replace with `data1.get('cached')`
+
+E712 Avoid equality comparisons to `True`; use `data.get('cached'):` for truth checks
+   --> tests/test_48m_challenge.py:146:16
+    |
+144 |         assert response.status_code == 200
+145 |         data = response.json()
+146 |         assert data.get('cached') == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+147 |         assert 'levels' in data
+    |
+help: Replace with `data.get('cached')`
+
+F841 Local variable `base_delay` is assigned to but never used
+   --> tests/test_48m_challenge.py:166:9
+    |
+164 |     def test_jitter_prevents_thundering_herd(self):
+165 |         """Verify jitter spreads out retry requests"""
+166 |         base_delay = 1000
+    |         ^^^^^^^^^^
+167 |         jitter_factor = 0.3
+    |
+help: Remove assignment to unused variable `base_delay`
+
+E722 Do not use bare `except`
+  --> tests/test_auth.py:28:9
+   |
+26 |         try:
+27 |             self.session.post(f"{BASE_URL}/api/auth/logout")
+28 |         except:
+   |         ^^^^^^
+29 |             pass
+   |
+
+E712 Avoid equality comparisons to `True`; use `user.get("is_admin"):` for truth checks
+   --> tests/test_auth_apple.py:115:16
+    |
+113 |         assert user["name"] == "Admin"
+114 |         assert user["auth_method"] == "admin"
+115 |         assert user.get("is_admin") == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+116 |         print(f"✅ Admin login works: {user['email']}")
+    |
+help: Replace with `user.get("is_admin")`
+
+E712 Avoid equality comparisons to `True`; use `data["supported"]:` for truth checks
+  --> tests/test_biometric_offline.py:20:16
+   |
+19 |         data = response.json()
+20 |         assert data["supported"] == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^
+21 |         assert "rp_id" in data
+22 |         assert "rp_name" in data
+   |
+help: Replace with `data["supported"]`
+
+E712 Avoid equality comparisons to `True`; use `features["platform_authenticator"]:` for truth checks
+  --> tests/test_biometric_offline.py:28:16
+   |
+26 |         assert "features" in data
+27 |         features = data["features"]
+28 |         assert features["platform_authenticator"] == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+29 |         assert features["cross_platform"] == True
+30 |         assert features["user_verification"] == True
+   |
+help: Replace with `features["platform_authenticator"]`
+
+E712 Avoid equality comparisons to `True`; use `features["cross_platform"]:` for truth checks
+  --> tests/test_biometric_offline.py:29:16
+   |
+27 |         features = data["features"]
+28 |         assert features["platform_authenticator"] == True
+29 |         assert features["cross_platform"] == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+30 |         assert features["user_verification"] == True
+31 |         assert features["resident_key"] == True
+   |
+help: Replace with `features["cross_platform"]`
+
+E712 Avoid equality comparisons to `True`; use `features["user_verification"]:` for truth checks
+  --> tests/test_biometric_offline.py:30:16
+   |
+28 |         assert features["platform_authenticator"] == True
+29 |         assert features["cross_platform"] == True
+30 |         assert features["user_verification"] == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+31 |         assert features["resident_key"] == True
+32 |         print("✅ /api/biometric/supported - Returns supported:true with all features")
+   |
+help: Replace with `features["user_verification"]`
+
+E712 Avoid equality comparisons to `True`; use `features["resident_key"]:` for truth checks
+  --> tests/test_biometric_offline.py:31:16
+   |
+29 |         assert features["cross_platform"] == True
+30 |         assert features["user_verification"] == True
+31 |         assert features["resident_key"] == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+32 |         print("✅ /api/biometric/supported - Returns supported:true with all features")
+   |
+help: Replace with `features["resident_key"]`
+
+E712 Avoid equality comparisons to `True`; use `data['cached']:` for truth checks
+   --> tests/test_i18n_apiclient.py:129:16
+    |
+127 |         data = response.json()
+128 |         assert 'languages' in data
+129 |         assert data['cached'] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^
+130 |         print(f"✅ Cached languages returned {len(data['languages'])} languages")
+    |
+help: Replace with `data['cached']`
+
+E712 Avoid equality comparisons to `True`; use `data['cached']:` for truth checks
+   --> tests/test_i18n_apiclient.py:139:16
+    |
+137 |         data = response.json()
+138 |         assert 'levels' in data
+139 |         assert data['cached'] == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^
+140 |         print(f"✅ Cached ID levels returned {len(data['levels'])} levels")
+    |
+help: Replace with `data['cached']`
+
+E712 Avoid equality comparisons to `True`; use `data.get("has_access"):` for truth checks
+   --> tests/test_membership_recruiter.py:204:16
+    |
+202 |         assert response.status_code == 200
+203 |         data = response.json()
+204 |         assert data.get("has_access") == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+205 |         assert data.get("membership_status") == "trial"
+206 |         print(f"✅ Job seeker trial has access to basic: {data}")
+    |
+help: Replace with `data.get("has_access")`
+
+E712 Avoid equality comparisons to `True`; use `data.get("has_access"):` for truth checks
+   --> tests/test_membership_recruiter.py:231:16
+    |
+229 |         assert response.status_code == 200
+230 |         data = response.json()
+231 |         assert data.get("has_access") == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+232 |         assert data.get("role") == "recruiter"
+233 |         print(f"✅ Recruiter has access to post_jobs: {data}")
+    |
+help: Replace with `data.get("has_access")`
+
+E712 Avoid equality comparisons to `True`; use `data.get("has_access"):` for truth checks
+   --> tests/test_membership_recruiter.py:239:16
+    |
+237 |         assert response.status_code == 200
+238 |         data = response.json()
+239 |         assert data.get("has_access") == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+240 |         print(f"✅ Recruiter has access to dashboard: {data}")
+    |
+help: Replace with `data.get("has_access")`
+
+E712 Avoid equality comparisons to `False`; use `not data.get("has_access"):` for false checks
+   --> tests/test_membership_recruiter.py:247:16
+    |
+245 |         assert response.status_code == 200
+246 |         data = response.json()
+247 |         assert data.get("has_access") == False
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+248 |         assert "Not authenticated" in data.get("reason", "")
+249 |         print(f"✅ Unauthenticated check-access returns no access: {data}")
+    |
+help: Replace with `not data.get("has_access")`
+
+E712 Avoid equality comparisons to `False`; use `not data["integration_configured"]:` for false checks
+   --> tests/test_new_features_v2.py:108:16
+    |
+107 |         # Since no LinkedIn credentials are set, should be false
+108 |         assert data["integration_configured"] == False
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+109 |         assert data["user_connected"] == False
+    |
+help: Replace with `not data["integration_configured"]`
+
+E712 Avoid equality comparisons to `False`; use `not data["user_connected"]:` for false checks
+   --> tests/test_new_features_v2.py:109:16
+    |
+107 |         # Since no LinkedIn credentials are set, should be false
+108 |         assert data["integration_configured"] == False
+109 |         assert data["user_connected"] == False
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+110 |     
+111 |     def test_linkedin_auth_url_returns_error_when_not_configured(self):
+    |
+help: Replace with `not data["user_connected"]`
+
+E712 Avoid equality comparisons to `False`; use `not data["preferences"]["weekly_digest"]:` for false checks
+   --> tests/test_p2_features.py:103:16
+    |
+101 |         data = response.json()
+102 |         assert data["message"] == "Preferences updated"
+103 |         assert data["preferences"]["weekly_digest"] == False
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+104 |         print("✅ PUT /api/notifications/preferences - updated successfully")
+    |
+help: Replace with `not data["preferences"]["weekly_digest"]`
+
+E741 Ambiguous variable name: `l`
+   --> tests/test_p2_features.py:201:50
+    |
+200 |         # Check specific levels
+201 |         level_names = {l["level"]: l["name"] for l in levels}
+    |                                                  ^
+202 |         assert level_names[0] == "Unverified"
+203 |         assert level_names[1] == "Email Verified"
+    |
+
+E712 Avoid equality comparisons to `True`; use `data.get("supported"):` for truth checks
+  --> tests/test_qa_practice_features.py:65:16
+   |
+63 |         assert response.status_code == 200
+64 |         data = response.json()
+65 |         assert data.get("supported") == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+66 |         print("✅ Biometric API returns supported:true")
+   |
+help: Replace with `data.get("supported")`
+
+E712 Avoid equality comparisons to `True`; use `features.get("platform_authenticator"):` for truth checks
+  --> tests/test_qa_practice_features.py:74:16
+   |
+72 |         assert "features" in data
+73 |         features = data["features"]
+74 |         assert features.get("platform_authenticator") == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+75 |         assert features.get("cross_platform") == True
+76 |         print("✅ Biometric features: platform_authenticator, cross_platform")
+   |
+help: Replace with `features.get("platform_authenticator")`
+
+E712 Avoid equality comparisons to `True`; use `features.get("cross_platform"):` for truth checks
+  --> tests/test_qa_practice_features.py:75:16
+   |
+73 |         features = data["features"]
+74 |         assert features.get("platform_authenticator") == True
+75 |         assert features.get("cross_platform") == True
+   |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+76 |         print("✅ Biometric features: platform_authenticator, cross_platform")
+   |
+help: Replace with `features.get("cross_platform")`
+
+F841 Local variable `data` is assigned to but never used
+   --> tests/test_refactored_backend.py:128:9
+    |
+126 |         response = session.get(f"{BASE_URL}/api/resume")
+127 |         assert response.status_code == 200
+128 |         data = response.json()
+    |         ^^^^
+129 |         # Resume may have various fields
+130 |         print(f"✅ GET /api/resume - Status: {response.status_code}")
+    |
+help: Remove assignment to unused variable `data`
+
+E741 Ambiguous variable name: `l`
+   --> tests/test_scaling_features.py:147:37
+    |
+146 |         # Check some expected languages
+147 |         lang_codes = [l['code'] for l in data['languages']]
+    |                                     ^
+148 |         assert 'en' in lang_codes
+149 |         assert 'es' in lang_codes
+    |
+
+E712 Avoid equality comparisons to `True`; use `data.get('cached'):` for truth checks
+   --> tests/test_scaling_features.py:345:16
+    |
+344 |         assert 'languages' in data
+345 |         assert data.get('cached') == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+346 |         assert len(data['languages']) > 0
+347 |         print(f"✅ Cached languages: {len(data['languages'])} languages, cached={data['cached']}")
+    |
+help: Replace with `data.get('cached')`
+
+E712 Avoid equality comparisons to `True`; use `data.get('cached'):` for truth checks
+   --> tests/test_scaling_features.py:357:16
+    |
+356 |         assert 'levels' in data
+357 |         assert data.get('cached') == True
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+358 |         print(f"✅ Cached ID levels: {len(data['levels'])} levels, cached={data['cached']}")
+    |
+help: Replace with `data.get('cached')`
+
+E712 Avoid equality comparisons to `True`; use `data.get("is_admin"):` for truth checks
+   --> tests/test_session_persistence.py:101:16
+    |
+ 99 |         data = membership_response.json()
+100 |         # Admin should have admin membership status
+101 |         assert data.get("is_admin") == True or data.get("membership_status") == "admin", \
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+102 |             f"Admin not identified correctly: {data}"
+103 |         print(f"✅ Session persisted to /api/membership/status - status: {data.get('membership_status')}")
+    |
+help: Replace with `data.get("is_admin")`
+
+E712 Avoid equality comparisons to `True`; use `user.get("is_admin"):` for truth checks
+   --> tests/test_session_persistence.py:211:16
+    |
+209 |         user = data.get("user", {})
+210 |         
+211 |         assert user.get("is_admin") == True, f"Admin user not identified: {user}"
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+212 |         assert user.get("email") == ADMIN_EMAIL, f"Wrong email: {user.get('email')}"
+213 |         print("✅ Admin user correctly identified with is_admin=True")
+    |
+help: Replace with `user.get("is_admin")`
+
+E712 Avoid equality comparisons to `True`; use `data.get("is_admin"):` for truth checks
+   --> tests/test_session_persistence.py:232:16
+    |
+231 |         data = status_response.json()
+232 |         assert data.get("is_admin") == True, f"Admin not identified in membership status: {data}"
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+233 |         assert data.get("membership_status") == "admin", f"Wrong membership status: {data.get('membership_status')}"
+234 |         print("✅ Membership status correctly identifies admin user")
+    |
+help: Replace with `data.get("is_admin")`
+
+Found 422 errors (288 fixed, 134 remaining).
+No fixes available (99 hidden fixes can be enabled with the `--unsafe-fixes` option). on the backend and  on the frontend. Key files to check are , , and .
+    - **Why to solve this issue and what will be achieved with this?** To improve code quality, reduce technical debt, and prevent potential runtime bugs.
     - **Should Test frontend/backend/both after fix:** both
     - **Is recurring issue?** Y
 
 **Known issue recurrence from previous fork**
 - **Issue recurrence in previous fork:** Monitor iOS Build Status
-- **Recurrence count:** 2
-- **Status:** NOT STARTED
+- **Recurrence count:** 3
+- **Status:** NOT STARTED (A fix was implemented, but a new build has not been triggered or monitored).
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
-- **ICU MessageFormat:** Used for implementing gender-aware pluralization and translations.
-- **React Context API & Hooks:** Central to managing the application's i18n state, including language and grammatical gender preference.
-- **Data Visualization (Recharts):** Used to build the charts and graphs in the new .
-- **Full-Stack Development:** Coordinated changes across the FastAPI backend, React frontend, and React Native mobile app.
-- **Component Refactoring:** The  was significantly refactored to handle a large, dynamic list of languages in a user-friendly way, even in a compact view.
+- **Load Testing (Locust):** Implemented for stress-testing AI/ML endpoints to ensure they meet performance benchmarks under pressure.
+- **GDPR/Privacy by Design:** A full-stack implementation of privacy principles, including explicit consent, PII masking, data subject rights (export/delete), and explainable AI.
+- **Role-Based Access Control (RBAC):** Implemented on the backend to create distinct permissions and data visibility rules for job seekers, recruiters, and admins.
+- **Blind Screening & Mutual Match:** Core architectural patterns for the recruiter platform that enforce user privacy and mitigate hiring bias.
+- **Tiered Subscription Models:** Frontend and backend logic to support complex freemium and multi-tier subscription plans via Stripe.
+- **Expo EAS Build Configuration:** Modified  to use remote credentials, a key step in troubleshooting and managing mobile build pipelines.
 
 **key DB schema**
-- **users:** The  field within the user document was updated to store .
-- **translation_memory:** 
-- **translation_analytics:** 
+- **users:**
+    - : String ('job_seeker', 'recruiter', 'admin').
+    - : Sub-document .
+    - : Sub-document for recruiters .
+- **contact_requests:** (New Collection)
+    - ,  (recruiter), , ,  ('pending', 'accepted', 'declined'), .
+- **recruiter_verifications:** (New Collection)
+    - , , , , , , .
 
 **All files of reference**
-- **/app/frontend/src/components/GlobalLanguageSelector.jsx**: The refactored language selector component.
-- **/app/frontend/src/utils/i18n.jsx**: The core of the frontend i18n logic, now including gender-awareness.
-- **/app/backend/routes/translation.py**: The backend API for all translation, analytics, and gender logic.
-- **/app/frontend/src/pages/TranslationAnalyticsPage.jsx**: The new admin dashboard for translations.
-- **/app/mobile/app/settings.tsx**: The mobile application's updated settings screen.
-- **/app/test_reports/iteration_38.json**: The final, successful test report from the comprehensive E2E test run.
-- **/app/memory/PRD.md**: Contains the full, updated product requirements and session history.
+- **/app/frontend/src/pages/MembershipPage.jsx**: The newly rewritten (but broken) pricing page.
+- **/app/frontend/src/pages/LoginPage.jsx**: Contains the new role-selection UI for registration.
+- **/app/backend/routes/recruiter_rbac.py**: Core backend logic for the new recruiter system.
+- **/app/backend/routes/privacy.py**: Backend for GDPR consent and data management.
+- **/app/frontend/src/pages/AdminRecruiterVerificationPage.jsx**: The new admin dashboard.
+- **/app/mobile/eas.json**: Contains the fix for the iOS build issue.
+- **/app/test_reports/iteration_39.json**: The test report from the successful E2E test of the recruiter system.
 
 **Areas that need refactoring**:
-- Pre-existing linting errors in , , and  should be addressed to improve overall code health.
+- The main  file has grown significantly and now manages routing, global state, authentication, and privacy checks. It should be broken down into smaller components and custom hooks (e.g., , ) to improve maintainability.
+- Pre-existing linting errors in multiple backend and frontend files should be addressed.
 
 **key api endpoints**
--  **(Enhanced)**: Now accepts an optional  parameter to provide gender-specific translations.
--  **(New)**: Retrieves all gender variants (e.g., masculine, feminine, neutral) for a given text.
--  **(New)**: Returns metadata on which languages support grammatical gender.
--  **(Enhanced)**: Provides aggregated data for the translation analytics dashboard. Fixed to report the correct number of bundled languages.
--  **(New)**: Provides analytics on translation memory usage and cache hit rates.
+- **Privacy API:**
+    - : Grant consent.
+    - : Check a user's consent status.
+    - : Request a data export.
+    - : Request account and data deletion.
+- **Recruiter & RBAC API:**
+    - : Submit verification info.
+    - : Search candidates (with blind screening).
+    - : View a single candidate (with data masking).
+- **Mutual Match API:**
+    - : Recruiter requests contact with a candidate.
+    - : Candidate views pending requests.
+    - : Candidate accepts or declines a request.
+- **Admin API:**
+    - : Get list of recruiters awaiting verification.
+    - : Approve a recruiter.
+    - : Reject a recruiter.
 
 **Critical Info for New Agent**
-- **User Preference for Greetings:** The user has specifically requested that user-facing greetings be gender-neutral and use their name (e.g., Welcome back, Sarah) rather than the new gendered translation system. This is a high-priority upcoming task. The gender system should be reserved for other parts of the UI where grammar requires it.
-- **iOS Build Status:** The P0 task of checking the iOS build status has been carried over and must be addressed. This is a recurring blocker.
-- **Language Dropdown:** The language selector in the header ( mode) now correctly displays all 55+ languages in scrollable, categorized sections. The issue reported by the user is resolved.
+- **Pricing Implementation is Incomplete:** The frontend  has been rewritten with the new pricing tiers, but it is currently broken (missing state/imports). The backend Stripe integration has **not** been updated to reflect these new plans. This is the highest priority task.
+- **iOS Build Needs User Action:** A fix was applied to  to potentially solve the iOS build failure. The user must now be instructed to trigger a new build and provide the status link for monitoring. Do not assume the issue is resolved.
+- **New Privacy & Recruiter Architecture:** The application now operates under a strict, privacy-first model. All new features handling user data must check for consent (). The recruiter flow is fundamentally based on blind screening and mutual match, and PII should never be exposed without explicit candidate approval via the defined workflow.
 
 **documents and test reports created in this job**
-- **/app/frontend/src/pages/TranslationAnalyticsPage.jsx**
-- **/app/test_reports/iteration_38.json**
-- All other documents like  and  were updated.
+- **/app/frontend/src/pages/AdminRecruiterVerificationPage.jsx**
+- **/app/frontend/src/pages/BlindScreeningDashboard.jsx**
+- **/app/frontend/src/pages/ContactRequestScreen.jsx**
+- **/app/frontend/src/pages/PrivacySettingsPage.jsx**
+- **/app/frontend/src/pages/RecruiterVerificationPage.jsx**
+- **/app/backend/tests/stress_test_locust.py**
+- **/app/backend/tests/test_ai_accuracy_validation.py**
+- **/app/backend/tests/test_privacy_compliance.py**
+- **/app/test_reports/iteration_39.json**
 
 **Last 10 User Messages and any pending HUMAN messages**
-1.  **User (msg 295):** Requested execution of pending functional features and validation of language translations. **Status: Completed.**
-2.  **User (msg 241):** Reported that the language dropdown was incomplete, missing many Western European and African languages, with screenshots. **Status: Resolved.**
-3.  **User (msg 145):** Responded Yes, approving the agent's plan to implement gender-neutral personalization and other features. **Status: In Progress (Neutral personalization is pending).**
-4.  **User (msg 142):** Clarified that greetings should be gender-neutral (using the user's name) and requested comprehensive testing after all updates. **Status: Testing is complete, but the neutral greeting part is a pending task.**
-5.  **User (msg 5):** Initial request to fix all non-responding languages and then implement gender assignment principles. **Status: Completed.**
-*(The remaining messages are agent actions or older user messages that have been fully addressed.)*
+1.  **User (msg 369, 372):** Provided specific, corrected pricing tiers for Job Seekers and Recruiters and approved moving forward. **Status: In Progress.**
+2.  **User (msg 318):** Provided feedback on pricing, suggesting a freemium model. **Status: Superseded by msg 369, but work was started.**
+3.  **User (msg 269):** Requested adding recruiter role selection to the registration flow and performing E2E testing of the mutual match flow. **Status: Completed.**
+4.  **User (msg 219):** Approved an enhancement and provided detailed requirements for a comprehensive, GDPR-compliant recruiter verification and access control system. **Status: Completed.**
+5.  **User (msg 88):** Approved an enhancement for the privacy feature and reported that the Expo iOS build had failed, providing a screenshot. **Status: In Progress (Enhancement done, build fix attempted).**
+6.  **User (msg 8):** Confirmed the agent should proceed with latency testing, gender-neutral greetings, and checking the iOS build status. **Status: Completed (except for build monitoring).**
+7.  **User (msg 5):** Provided research on performance benchmarks for AI recruitment platforms. **Status: Addressed (Load testing framework was created).**
 
 **Project Health Check:**
-- **Healthy**: Web Application, Android Application, Internationalization System, Backend Services
-- **In Progress**: iOS Application (Build status is unknown and needs to be checked)
+- **Healthy**: Web Application, Backend Services
+- **In Progress**: Android Application (Build status unknown)
+- **Blocked**: iOS Application (Build failed. A fix has been implemented, but a new build needs to be triggered by the user to verify).
 - **Mocked**: Desktop Application
 
 **3rd Party Integrations**
 - **Expo (EAS):** Used for mobile builds.
-- **Stripe:** Implemented for payments.
+- **Stripe:** Implemented for payments (needs updating for new pricing plans).
 - **Google Calendar:** Implemented.
 - **TensorFlow.js:** Implemented for client-side predictions.
 - **Emergent LLM Key:** Used for all AI text generation and translation features.
+- **Locust:** Used for load testing.
 
 **Testing status**
-- **Testing agent used after significant changes:** YES (Comprehensive functional tests run via , results in ).
+- **Testing agent used after significant changes:** YES (Comprehensive E2E tests for the recruiter system, results in ).
 - **Troubleshoot agent used after agent stuck in loop:** NO
 - **Test files created:**
-  - 
-- **Known regressions:** None. All tests passed.
+    - 
+    - 
+    - 
+    - Test results in 
+- **Known regressions:** None.
 
 **What agent forgot to execute**
-- The agent has not yet implemented the user's explicit request to make greetings gender-neutral by using the user's first name (e.g., Welcome back, {name}). It built the grammatical gender system but did not apply this specific personalization rule.
-- The agent did not address the long-pending P0 task of checking the iOS build status.</analysis>
+- The agent has not implemented the backend Stripe Plan and Price IDs corresponding to the new recruiter subscription tiers. The frontend shows the prices, but the checkout flow is not connected to these new plans.
+- The user enhancement to create a demo video of the mutual match flow has not been started.
+- The user enhancement to implement the Why was I matched? feature on job listings has not been started.
+- While a fix for the iOS build was implemented, the agent did not guide the user to trigger a new build and monitor its outcome, leaving the core task unfinished.</analysis>

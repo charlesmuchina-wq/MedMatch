@@ -66,7 +66,7 @@ class TestAuthWithRoleSelection:
         data = response.json()
         assert "user" in data
         # Admin should have role info
-        print(f"SUCCESS: Login returns user data with role info")
+        print("SUCCESS: Login returns user data with role info")
 
 
 class TestRecruiterRBACEndpoints:

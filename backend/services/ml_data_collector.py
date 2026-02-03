@@ -6,7 +6,7 @@ Data is stored in MongoDB for predictive issue detection and system optimization
 import asyncio
 import logging
 from datetime import datetime, timezone
-from typing import Dict, List, Optional, Any
+from typing import Dict, List, Optional
 from enum import Enum
 from motor.motor_asyncio import AsyncIOMotorClient
 import os

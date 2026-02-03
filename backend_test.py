@@ -7,12 +7,10 @@ Tests all CRUD operations, job search APIs, and AI integrations
 import requests
 import sys
 import json
-import time
 from datetime import datetime
-from pathlib import Path
 
 class MedMatchAPITester:
-    def __init__(self, base_url="https://medmatch-13.preview.emergentagent.com"):
+    def __init__(self, base_url="https://privacyjobs.preview.emergentagent.com"):
         self.base_url = base_url
         self.api_url = f"{base_url}/api"
         self.tests_run = 0
@@ -624,7 +622,7 @@ def main():
     with open('/app/backend_test_results.json', 'w') as f:
         json.dump(results, f, indent=2)
     
-    print(f"\n📁 Detailed results saved to: /app/backend_test_results.json")
+    print("\n📁 Detailed results saved to: /app/backend_test_results.json")
     
     return 0 if success else 1
 

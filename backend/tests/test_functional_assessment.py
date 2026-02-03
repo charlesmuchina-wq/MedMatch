@@ -12,12 +12,10 @@ Updated: January 23, 2026 - All AI features now implemented
 """
 import pytest
 import requests
-import json
 import time
 import os
-from datetime import datetime
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
 
 # Test credentials
 ADMIN_EMAIL = "admin@medmatch.com"
@@ -78,7 +76,7 @@ class TestRAGAndAIInterface:
             else:
                 print(f"✅ AI Cover Letter endpoint accessible: {data}")
         elif response.status_code == 400:
-            print(f"✅ AI Cover Letter requires resume (expected): 400")
+            print("✅ AI Cover Letter requires resume (expected): 400")
         else:
             print(f"✅ AI Cover Letter requires membership/auth: {response.status_code}")
     
@@ -165,7 +163,7 @@ class TestRAGAndAIInterface:
             else:
                 print(f"✅ Callback Probability accessible: {list(data.keys())}")
         elif response.status_code == 400:
-            print(f"✅ Callback Probability requires resume (expected): 400")
+            print("✅ Callback Probability requires resume (expected): 400")
         else:
             print(f"✅ Callback Probability endpoint: {response.status_code}")
     
@@ -232,7 +230,7 @@ class TestExternalAPIIntegrations:
         if response.status_code == 200:
             data = response.json()
             assert "approval_url" in data or "payment_id" in data, "Invalid PayPal response"
-            print(f"✅ PayPal API integration: Valid contract")
+            print("✅ PayPal API integration: Valid contract")
         else:
             print(f"✅ PayPal API endpoint exists: {response.status_code}")
     
@@ -245,9 +243,9 @@ class TestExternalAPIIntegrations:
         if response.status_code == 200:
             data = response.json()
             if "client_id" in data or "enabled" in data:
-                print(f"✅ Google Auth integration: Configured")
+                print("✅ Google Auth integration: Configured")
             else:
-                print(f"✅ Google Auth endpoint accessible")
+                print("✅ Google Auth endpoint accessible")
         else:
             print(f"✅ Google Auth endpoint: {response.status_code}")
     
@@ -296,7 +294,7 @@ class TestExternalAPIIntegrations:
         
         # Should return 422 (validation error) or 400
         assert response.status_code in [400, 422, 500], f"Expected error, got: {response.status_code}"
-        print(f"✅ API error handling: Returns proper error codes")
+        print("✅ API error handling: Returns proper error codes")
     
     def test_rate_limiting(self):
         """Test rate limiting - multiple rapid requests"""
@@ -359,7 +357,7 @@ class TestVoiceAndVideoBiofeedback:
         if response.status_code == 200:
             data = response.json()
             assert "practice_script" in data, "Should return practice script"
-            print(f"✅ Voice Coach (practice): Practice script generated")
+            print("✅ Voice Coach (practice): Practice script generated")
         else:
             print(f"✅ Voice Coach practice: {response.status_code}")
     
@@ -461,7 +459,7 @@ class TestSecurityAndSystemLevel:
             
             print(f"✅ User data isolation: Admin role={admin_role}, Recruiter role={recruiter_role}")
         else:
-            print(f"✅ User data isolation test: Endpoints protected")
+            print("✅ User data isolation test: Endpoints protected")
     
     def test_prompt_injection_prevention(self):
         """Test prompt injection protection"""
@@ -481,7 +479,7 @@ class TestSecurityAndSystemLevel:
                 "context": "general"
             })
             
-            assert response.status_code in [200, 400, 401, 403], f"Unexpected response to injection attempt"
+            assert response.status_code in [200, 400, 401, 403], "Unexpected response to injection attempt"
             
             if response.status_code == 200:
                 data = response.json()

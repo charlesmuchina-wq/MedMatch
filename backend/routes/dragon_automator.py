@@ -16,9 +16,8 @@ import asyncio
 import logging
 import json
 import hashlib
-import os
 
-from emergentintegrations.llm.chat import LlmChat, UserMessage
+from emergentintegrations.llm.chat import LlmChat
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY

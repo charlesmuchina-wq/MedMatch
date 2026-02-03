@@ -5,10 +5,8 @@ Handles: Schedule interviews, calendar integration, reminders
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 from typing import Optional, List
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 import uuid
-import logging
-import os
 
 from utils.database import db
 from routes.auth import get_current_user

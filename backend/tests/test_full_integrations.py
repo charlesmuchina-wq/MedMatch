@@ -6,9 +6,8 @@ PayPal, Stripe, AI Supervisor, Translation, Job Search, Feedback, AutoFill
 import pytest
 import requests
 import os
-import json
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
 
 # Test credentials
 ADMIN_EMAIL = "admin@medmatch.com"
@@ -406,7 +405,7 @@ class TestHealthEndpoints:
         response = requests.get(f"{BASE_URL}/api/status")
         assert response.status_code == 200, f"Expected 200, got {response.status_code}: {response.text}"
         
-        print(f"✅ Status endpoint working")
+        print("✅ Status endpoint working")
 
 
 if __name__ == "__main__":

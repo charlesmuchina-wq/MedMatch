@@ -12,7 +12,6 @@ import pytest
 import requests
 import os
 import uuid
-from datetime import datetime, timedelta
 
 BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', '').rstrip('/')
 
@@ -280,7 +279,7 @@ class TestPaymentEndpoints:
         headers = {"Authorization": f"Bearer {token}"}
         
         # Create checkout session
-        payload = {"origin_url": "https://medmatch-13.preview.emergentagent.com"}
+        payload = {"origin_url": "https://privacyjobs.preview.emergentagent.com"}
         response = self.session.post(f"{BASE_URL}/api/payments/create-checkout", json=payload, headers=headers)
         
         # Should return checkout URL or error if Stripe not configured
@@ -292,7 +291,7 @@ class TestPaymentEndpoints:
             assert "checkout_url" in data or "message" in data
             print(f"✅ Stripe checkout response: {data}")
         else:
-            print(f"✅ Stripe checkout endpoint exists (may not be configured)")
+            print("✅ Stripe checkout endpoint exists (may not be configured)")
     
     def test_stripe_checkout_for_recruiter_returns_active(self):
         """Test Stripe checkout for recruiter returns already active message"""
@@ -307,7 +306,7 @@ class TestPaymentEndpoints:
         headers = {"Authorization": f"Bearer {token}"}
         
         # Create checkout session
-        payload = {"origin_url": "https://medmatch-13.preview.emergentagent.com"}
+        payload = {"origin_url": "https://privacyjobs.preview.emergentagent.com"}
         response = self.session.post(f"{BASE_URL}/api/payments/create-checkout", json=payload, headers=headers)
         
         assert response.status_code == 200, f"Failed: {response.text}"
@@ -342,7 +341,7 @@ class TestPaymentEndpoints:
         headers = {"Authorization": f"Bearer {token}"}
         
         # Create PayPal payment
-        payload = {"origin_url": "https://medmatch-13.preview.emergentagent.com"}
+        payload = {"origin_url": "https://privacyjobs.preview.emergentagent.com"}
         response = self.session.post(f"{BASE_URL}/api/payments/paypal/create", json=payload, headers=headers)
         
         # Should return 500 with "not configured" message since PayPal credentials not set
@@ -355,7 +354,7 @@ class TestPaymentEndpoints:
             assert "not configured" in data["detail"].lower() or "paypal" in data["detail"].lower()
             print(f"✅ PayPal returns not configured error: {data['detail']}")
         else:
-            print(f"✅ PayPal endpoint exists but has library issues (520 error - expected when PayPal not configured)")
+            print("✅ PayPal endpoint exists but has library issues (520 error - expected when PayPal not configured)")
 
 
 class TestRecruiterJobPosting:

@@ -3,7 +3,7 @@ MedMatch API Server
 Clean, modular FastAPI application with route organization
 Production-ready with AI Supervisor for scaling up to 1M+ concurrent users
 """
-from fastapi import FastAPI, Request, Response, HTTPException
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import RedirectResponse, JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -16,7 +16,6 @@ from typing import Optional
 import hashlib
 import json
 from datetime import datetime, timezone
-import asyncio
 
 # APScheduler for automated daily digest
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -28,7 +27,7 @@ from fastapi_cache.backends.inmemory import InMemoryBackend
 from fastapi_cache.decorator import cache
 
 # AI Supervisor for intelligent scaling
-from services.ai_supervisor import ai_supervisor, RequestPriority, SystemHealth
+from services.ai_supervisor import ai_supervisor, SystemHealth
 
 # Global Rate Limiter
 from services.global_rate_limiter import (
@@ -376,7 +375,7 @@ async def add_process_time_header(request: Request, call_next):
         response.headers["X-System-Health"] = ai_supervisor.health.value
         return response
         
-    except Exception as e:
+    except Exception:
         ai_supervisor.metrics.failed_requests += 1
         raise
 
@@ -522,7 +521,7 @@ async def get_cached_id_levels():
 # ============== Scheduled Tasks ==============
 async def scheduled_digest_task():
     """Background task that runs the daily digest for all subscribers"""
-    from routes.digest import send_single_digest, generate_digest_email_html, send_email_gmail, filter_new_jobs
+    from routes.digest import generate_digest_email_html, send_email_gmail, filter_new_jobs
     from routes.jobs import fetch_remoteok_jobs, fetch_remotive_jobs
     
     logger.info("🕐 Running scheduled daily digest...")

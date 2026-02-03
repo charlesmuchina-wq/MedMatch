@@ -4,12 +4,11 @@ Handles: Skill verification tests, certifications, badges
 """
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import List
 from datetime import datetime, timezone
 import uuid
 import logging
 import json
-import random
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
@@ -1248,7 +1247,6 @@ async def start_assessment(req: StartAssessmentRequest, request: Request):
         raise HTTPException(status_code=500, detail="AI features not configured")
     
     from emergentintegrations.llm.chat import LlmChat, UserMessage
-    from datetime import timedelta
     
     chat = LlmChat(
         api_key=EMERGENT_LLM_KEY,

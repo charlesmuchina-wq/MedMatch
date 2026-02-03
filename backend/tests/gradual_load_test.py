@@ -11,7 +11,7 @@ import statistics
 import json
 from datetime import datetime
 
-API_URL = "https://medmatch-13.preview.emergentagent.com/api"
+API_URL = "https://privacyjobs.preview.emergentagent.com/api"
 
 # Endpoints to test
 ENDPOINTS = [
@@ -133,7 +133,7 @@ async def main():
             total_requests = sum(m["total"] for m in metrics.values())
             avg_times = [m["avg_time_ms"] for m in metrics.values() if m["avg_time_ms"] > 0]
             
-            print(f"\n  Results:")
+            print("\n  Results:")
             print(f"    Total Requests: {total_requests}")
             print(f"    Successful: {total_success} ({total_success/total_requests*100:.1f}%)")
             print(f"    Avg Response: {statistics.mean(avg_times):.1f}ms" if avg_times else "    Avg Response: N/A")
@@ -173,7 +173,7 @@ async def main():
         else:
             resilience = reliability
         
-        print(f"\n🏆 SCORES:")
+        print("\n🏆 SCORES:")
         print(f"   Reliability:  {reliability:.1f}/100 {'✅' if reliability >= 90 else '⚠️' if reliability >= 70 else '❌'}")
         print(f"   Stability:    {stability:.1f}/100 {'✅' if stability >= 85 else '⚠️' if stability >= 70 else '❌'}")
         print(f"   Resilience:   {resilience:.1f}/100 {'✅' if resilience >= 85 else '⚠️' if resilience >= 70 else '❌'}")
@@ -204,7 +204,7 @@ async def main():
         with open("/app/test_reports/gradual_load_test.json", "w") as f:
             json.dump(report, f, indent=2, default=str)
         
-        print(f"\n📁 Report saved: /app/test_reports/gradual_load_test.json")
+        print("\n📁 Report saved: /app/test_reports/gradual_load_test.json")
 
 if __name__ == "__main__":
     asyncio.run(main())

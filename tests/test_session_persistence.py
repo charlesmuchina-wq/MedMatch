@@ -178,7 +178,7 @@ class TestCORSConfiguration:
             json={"email": ADMIN_EMAIL, "password": ADMIN_PASSWORD},
             headers={
                 "Content-Type": "application/json",
-                "Origin": "https://medmatch-13.preview.emergentagent.com"
+                "Origin": "https://privacyjobs.preview.emergentagent.com"
             }
         )
         
@@ -210,7 +210,7 @@ class TestAdminUserIdentification:
         
         assert user.get("is_admin") == True, f"Admin user not identified: {user}"
         assert user.get("email") == ADMIN_EMAIL, f"Wrong email: {user.get('email')}"
-        print(f"✅ Admin user correctly identified with is_admin=True")
+        print("✅ Admin user correctly identified with is_admin=True")
     
     def test_membership_status_identifies_admin(self):
         """Test that /api/membership/status correctly identifies admin"""
@@ -231,7 +231,7 @@ class TestAdminUserIdentification:
         data = status_response.json()
         assert data.get("is_admin") == True, f"Admin not identified in membership status: {data}"
         assert data.get("membership_status") == "admin", f"Wrong membership status: {data.get('membership_status')}"
-        print(f"✅ Membership status correctly identifies admin user")
+        print("✅ Membership status correctly identifies admin user")
 
 
 if __name__ == "__main__":

@@ -13,7 +13,7 @@ import requests
 import os
 import time
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
 
 # Test credentials
 ADMIN_EMAIL = "admin@medmatch.com"
@@ -122,7 +122,7 @@ class TestRecruiterDashboard:
             assert "applicants" in data
             print(f"✅ Dashboard stats: {data.get('jobs', {}).get('total', 0)} jobs, {data.get('applicants', {}).get('total', 0)} applicants")
         else:
-            print(f"⚠️ Dashboard stats returned 403 - user may not be recruiter role")
+            print("⚠️ Dashboard stats returned 403 - user may not be recruiter role")
 
 
 class TestRecruiterJobs:

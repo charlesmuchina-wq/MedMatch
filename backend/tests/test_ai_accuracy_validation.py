@@ -11,14 +11,11 @@ Industry Benchmarks:
 
 import pytest
 import httpx
-import json
 import time
-import asyncio
-from datetime import datetime, timezone
-from typing import Dict, List, Any
+from typing import Dict
 
 # API Configuration
-API_BASE_URL = "https://medmatch-13.preview.emergentagent.com/api"
+API_BASE_URL = "https://privacyjobs.preview.emergentagent.com/api"
 TIMEOUT = 30.0
 
 # Test credentials
@@ -396,7 +393,7 @@ class TestAIAccuracy:
         
         if response.status_code == 200:
             data = response.json()
-            print(f"\n📊 Translation Analytics:")
+            print("\n📊 Translation Analytics:")
             print(f"   Total Translations: {data.get('total_translations', 0)}")
             print(f"   Total Characters: {data.get('total_characters', 0)}")
             print(f"   Cache Entries: {data.get('cache_entries', 0)}")

@@ -7,10 +7,9 @@ import pytest
 import requests
 import os
 import time
-import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
 
 
 class TestAPIClientExponentialBackoff:
@@ -34,7 +33,7 @@ class TestAPIClientExponentialBackoff:
         
         assert expected_delays == [1000, 2000, 4000, 8000, 16000, 32000]
         print(f"✅ Exponential backoff delays verified: {expected_delays} ms")
-        print(f"   Formula: min(1000 * 2^attempt, 32000)")
+        print("   Formula: min(1000 * 2^attempt, 32000)")
     
     def test_jitter_calculation(self):
         """Verify 30% jitter calculation is correct"""
@@ -47,7 +46,7 @@ class TestAPIClientExponentialBackoff:
         
         assert max_jitter == 300  # 30% of 1000ms
         print(f"✅ Jitter calculation verified: 0-{max_jitter}ms (30% of base delay)")
-        print(f"   Total delay range for 1s base: 1000-1300ms")
+        print("   Total delay range for 1s base: 1000-1300ms")
     
     def test_max_delay_cap(self):
         """Verify delay is capped at 32 seconds"""
@@ -76,7 +75,7 @@ class TestAPIClientRetryLogic:
         assert 'tier' in data
         assert 'limits' in data
         print(f"✅ Rate limit endpoint working - Tier: {data['tier']}")
-        print(f"   apiClient retries on 429 with exponential backoff")
+        print("   apiClient retries on 429 with exponential backoff")
     
     def test_retry_on_503_service_unavailable(self):
         """Verify apiClient retries on 503 (service unavailable)"""
@@ -88,7 +87,7 @@ class TestAPIClientRetryLogic:
         data = response.json()
         assert data['health'] in ['healthy', 'degraded', 'overloaded']
         print(f"✅ Supervisor status: {data['health']}")
-        print(f"   apiClient retries on 503 with exponential backoff")
+        print("   apiClient retries on 503 with exponential backoff")
     
     def test_retry_on_5xx_server_errors(self):
         """Verify apiClient retries on 5xx server errors"""
@@ -100,7 +99,7 @@ class TestAPIClientRetryLogic:
         data = response.json()
         assert data['status'] == 'healthy'
         print(f"✅ Health check passed - Status: {data['status']}")
-        print(f"   apiClient retries on 500, 502, 503, 504, etc.")
+        print("   apiClient retries on 500, 502, 503, 504, etc.")
 
 
 class TestAPIClientCaching:
@@ -111,7 +110,7 @@ class TestAPIClientCaching:
         expected_cache_ttl = 300000  # 5 minutes in ms
         expected_max_cache_size = 500
         
-        print(f"✅ Cache configuration verified:")
+        print("✅ Cache configuration verified:")
         print(f"   - Default TTL: {expected_cache_ttl}ms (5 minutes)")
         print(f"   - Max cache size: {expected_max_cache_size} entries")
     
@@ -133,7 +132,7 @@ class TestAPIClientCaching:
         
         assert response2.status_code == 200
         
-        print(f"✅ Cached languages endpoint working")
+        print("✅ Cached languages endpoint working")
         print(f"   - First request: {time1:.3f}s")
         print(f"   - Second request: {time2:.3f}s")
         print(f"   - Languages count: {len(data1.get('languages', []))}")
@@ -147,16 +146,16 @@ class TestAPIClientCaching:
         assert data.get('cached') == True
         assert 'levels' in data
         
-        print(f"✅ Cached ID levels endpoint working")
+        print("✅ Cached ID levels endpoint working")
         print(f"   - Levels count: {len(data.get('levels', []))}")
     
     def test_cache_invalidation_on_mutation(self):
         """Verify cache is invalidated on POST/PUT/DELETE operations"""
         # The apiClient invalidates cache when mutations occur
         # This is verified by the code structure in apiClient.js
-        print(f"✅ Cache invalidation verified in apiClient.js:")
-        print(f"   - saveJob() invalidates '/api/saved-jobs' cache")
-        print(f"   - saveFavorite() invalidates '/api/qa-practice/favorites' cache")
+        print("✅ Cache invalidation verified in apiClient.js:")
+        print("   - saveJob() invalidates '/api/saved-jobs' cache")
+        print("   - saveFavorite() invalidates '/api/qa-practice/favorites' cache")
 
 
 class TestAPIClientJitter:
@@ -170,7 +169,7 @@ class TestAPIClientJitter:
         # Calculate jitter range for each delay
         delays = [1000, 2000, 4000, 8000, 16000, 32000]
         
-        print(f"✅ Jitter ranges for each retry delay:")
+        print("✅ Jitter ranges for each retry delay:")
         for i, delay in enumerate(delays):
             max_jitter = delay * jitter_factor
             min_total = delay
@@ -212,17 +211,17 @@ class TestAPIClientRequestDeduplication:
         """Verify each request gets a unique ID"""
         # The apiClient generates unique request IDs
         # Format: {timestamp}-{random9chars}
-        print(f"✅ Request ID format verified:")
-        print(f"   - Format: {{timestamp}}-{{random9chars}}")
-        print(f"   - Example: 1703123456789-abc123def")
+        print("✅ Request ID format verified:")
+        print("   - Format: {timestamp}-{random9chars}")
+        print("   - Example: 1703123456789-abc123def")
     
     def test_batch_request_deduplication(self):
         """Verify batch requests are deduplicated"""
         # The RequestBatcher class handles deduplication
-        print(f"✅ Batch request deduplication verified:")
-        print(f"   - Batch delay: 50ms")
-        print(f"   - Max batch size: 10 requests")
-        print(f"   - Duplicate requests within batch window are combined")
+        print("✅ Batch request deduplication verified:")
+        print("   - Batch delay: 50ms")
+        print("   - Max batch size: 10 requests")
+        print("   - Duplicate requests within batch window are combined")
 
 
 class TestAllEndpointsAfterRestart:
@@ -296,7 +295,7 @@ class TestAllEndpointsAfterRestart:
             assert 'translations' in data
             print(f"✅ Batch translation: {data['count']} texts translated")
         else:
-            print(f"⚠️ Batch translation: LLM may not be configured (500)")
+            print("⚠️ Batch translation: LLM may not be configured (500)")
     
     def test_skills_available_endpoint(self):
         """Test /api/skills/available endpoint"""
@@ -370,7 +369,7 @@ class TestResumeUploadAndParsing:
         """Test /api/resume requires authentication"""
         response = requests.get(f"{BASE_URL}/api/resume", timeout=10)
         assert response.status_code == 401
-        print(f"✅ Resume endpoint requires auth (401)")
+        print("✅ Resume endpoint requires auth (401)")
     
     def test_resume_endpoint_with_auth(self):
         """Test /api/resume with authentication"""
@@ -395,9 +394,9 @@ class TestResumeUploadAndParsing:
         # Accept 200 (has resume) or 404 (no resume)
         assert response.status_code in [200, 404]
         if response.status_code == 200:
-            print(f"✅ Resume retrieved successfully")
+            print("✅ Resume retrieved successfully")
         else:
-            print(f"✅ No resume found (expected for new user)")
+            print("✅ No resume found (expected for new user)")
 
 
 class TestJobSearch:

@@ -4,15 +4,13 @@ WebSocket-based live audio transcription using OpenAI Whisper
 """
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, HTTPException, Request, UploadFile, File
 from pydantic import BaseModel
-from typing import Optional, List, Dict
-import asyncio
+from typing import Optional, Dict
 import logging
 import os
 import tempfile
 import uuid
 import base64
 from datetime import datetime, timezone
-import io
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
@@ -333,7 +331,7 @@ async def websocket_transcription(websocket: WebSocket):
                         "session_id": session_id,
                         "message": "Ready to receive audio"
                     })
-                except Exception as e:
+                except Exception:
                     await websocket.send_json({
                         "type": "error",
                         "message": "Invalid token"

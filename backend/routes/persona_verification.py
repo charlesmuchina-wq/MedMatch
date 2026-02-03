@@ -4,17 +4,13 @@ Production-ready ID verification with sandbox mode for testing
 """
 from fastapi import APIRouter, HTTPException, Request, UploadFile, File, Form
 from pydantic import BaseModel
-from typing import Optional, List, Dict, Any
+from typing import Optional, Dict
 from datetime import datetime, timezone
 import uuid
-import logging
-import base64
 import hashlib
 import os
-import json
 
 from utils.database import db
-from utils.config import EMERGENT_LLM_KEY
 from routes.auth import get_current_user
 
 router = APIRouter(prefix="/id-verify", tags=["ID Verification"])

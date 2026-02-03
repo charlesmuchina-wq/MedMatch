@@ -3,9 +3,7 @@ Interview Funnel Analytics Routes
 Tracks: Applications → Callbacks → Interviews → Offers
 """
 from fastapi import APIRouter, HTTPException, Request
-from typing import Optional, List, Dict, Any
 from datetime import datetime, timezone, timedelta
-import logging
 
 from utils.database import db
 from routes.auth import get_current_user

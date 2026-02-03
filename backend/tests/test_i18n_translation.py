@@ -6,7 +6,6 @@ Languages: Japanese, Arabic (RTL), Hindi, Swahili, Korean, Portuguese-BR
 import pytest
 import requests
 import os
-import time
 
 BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', '').rstrip('/')
 
@@ -178,7 +177,7 @@ class TestTranslationMemoryAPI:
         
         assert response.status_code in [200, 201], f"Unexpected status: {response.status_code}"
         print(f"✅ Translation Memory store: {response.status_code}")
-        print(f"   Stored: 'Dashboard' -> 'ダッシュボード' (en->ja)")
+        print("   Stored: 'Dashboard' -> 'ダッシュボード' (en->ja)")
     
     def test_memory_lookup(self):
         """Test /api/translate/memory/lookup endpoint"""

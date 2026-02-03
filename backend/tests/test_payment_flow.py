@@ -34,8 +34,8 @@ class TestPaymentFlow:
     def test_stripe_checkout_session_creation(self):
         """Test POST /api/payments/create-checkout - creates Stripe checkout session"""
         payload = {
-            "success_url": "https://medmatch-13.preview.emergentagent.com/membership?success=true",
-            "cancel_url": "https://medmatch-13.preview.emergentagent.com/membership?canceled=true",
+            "success_url": "https://privacyjobs.preview.emergentagent.com/membership?success=true",
+            "cancel_url": "https://privacyjobs.preview.emergentagent.com/membership?canceled=true",
             "plan": "lifetime"
         }
         
@@ -87,8 +87,8 @@ class TestPaymentFlow:
         """Test GET /api/payments/status/{session_id} - checks payment status"""
         # First create a session to get a valid session_id
         payload = {
-            "success_url": "https://medmatch-13.preview.emergentagent.com/membership?success=true",
-            "cancel_url": "https://medmatch-13.preview.emergentagent.com/membership?canceled=true",
+            "success_url": "https://privacyjobs.preview.emergentagent.com/membership?success=true",
+            "cancel_url": "https://privacyjobs.preview.emergentagent.com/membership?canceled=true",
             "plan": "lifetime"
         }
         
@@ -129,8 +129,8 @@ class TestPaymentFlow:
     def test_paypal_payment_creation(self):
         """Test POST /api/payments/paypal/create - creates PayPal payment"""
         payload = {
-            "success_url": "https://medmatch-13.preview.emergentagent.com/membership?provider=paypal&success=true",
-            "cancel_url": "https://medmatch-13.preview.emergentagent.com/membership?canceled=true",
+            "success_url": "https://privacyjobs.preview.emergentagent.com/membership?provider=paypal&success=true",
+            "cancel_url": "https://privacyjobs.preview.emergentagent.com/membership?canceled=true",
             "plan": "lifetime"
         }
         
@@ -248,8 +248,8 @@ class TestStripeIntegration:
         
         for plan in plans:
             payload = {
-                "success_url": "https://medmatch-13.preview.emergentagent.com/membership?success=true",
-                "cancel_url": "https://medmatch-13.preview.emergentagent.com/membership?canceled=true",
+                "success_url": "https://privacyjobs.preview.emergentagent.com/membership?success=true",
+                "cancel_url": "https://privacyjobs.preview.emergentagent.com/membership?canceled=true",
                 "plan": plan
             }
             
@@ -270,8 +270,8 @@ class TestStripeIntegration:
     def test_stripe_checkout_url_format(self):
         """Test that checkout URL has correct format and parameters"""
         payload = {
-            "success_url": "https://medmatch-13.preview.emergentagent.com/membership?success=true",
-            "cancel_url": "https://medmatch-13.preview.emergentagent.com/membership?canceled=true",
+            "success_url": "https://privacyjobs.preview.emergentagent.com/membership?success=true",
+            "cancel_url": "https://privacyjobs.preview.emergentagent.com/membership?canceled=true",
             "plan": "lifetime"
         }
         

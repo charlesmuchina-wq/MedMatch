@@ -5,8 +5,6 @@ Tests: Meeting Notes CRUD, AI Summary, Export, Push Service Integration
 import pytest
 import requests
 import os
-import json
-from datetime import datetime
 
 BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', '').rstrip('/')
 
@@ -233,7 +231,7 @@ class TestMeetingNotesAPI:
         # Should fail because no transcript
         assert response.status_code == 400, f"Expected 400 (no transcript), got {response.status_code}"
         
-        print(f"✅ Generate summary correctly requires transcript")
+        print("✅ Generate summary correctly requires transcript")
         
         # Cleanup
         self.session.delete(f"{BASE_URL}/api/meeting-notes/{meeting_id}")
@@ -249,7 +247,7 @@ class TestMeetingNotesAPI:
         response = unauth_session.get(f"{BASE_URL}/api/meeting-notes/list")
         assert response.status_code == 401, f"Expected 401, got {response.status_code}"
         
-        print(f"✅ Meeting notes endpoints require authentication")
+        print("✅ Meeting notes endpoints require authentication")
 
 
 class TestWebPushAPI:
@@ -333,7 +331,7 @@ class TestWebPushAPI:
         
         assert response.status_code == 200, f"Expected 200, got {response.status_code}"
         
-        print(f"✅ Interview reminder notification endpoint works")
+        print("✅ Interview reminder notification endpoint works")
     
     def test_application_update_notification_endpoint(self):
         """Test POST /api/webpush/notify/application-update endpoint"""
@@ -347,7 +345,7 @@ class TestWebPushAPI:
         
         assert response.status_code == 200, f"Expected 200, got {response.status_code}"
         
-        print(f"✅ Application update notification endpoint works")
+        print("✅ Application update notification endpoint works")
     
     def test_message_notification_endpoint(self):
         """Test POST /api/webpush/notify/message endpoint"""
@@ -361,7 +359,7 @@ class TestWebPushAPI:
         
         assert response.status_code == 200, f"Expected 200, got {response.status_code}"
         
-        print(f"✅ Message notification endpoint works")
+        print("✅ Message notification endpoint works")
     
     def test_webpush_auth_required(self):
         """Test that webpush endpoints require authentication"""
@@ -376,7 +374,7 @@ class TestWebPushAPI:
         )
         assert response.status_code == 401, f"Expected 401, got {response.status_code}"
         
-        print(f"✅ Webpush endpoints require authentication")
+        print("✅ Webpush endpoints require authentication")
 
 
 class TestPushServiceIntegration:
@@ -407,7 +405,7 @@ class TestPushServiceIntegration:
         # Should return 200 (empty list is fine)
         assert response.status_code == 200, f"Expected 200, got {response.status_code}"
         
-        print(f"✅ Messages route accessible")
+        print("✅ Messages route accessible")
     
     def test_messages_unread_count(self):
         """Test GET /api/messages/unread-count endpoint"""
@@ -438,7 +436,7 @@ class TestPayPalDocumentation:
         assert "webhook" in content.lower(), "Doc should mention webhooks"
         assert "sandbox" in content.lower(), "Doc should mention sandbox testing"
         
-        print(f"✅ PayPal integration documentation exists and contains required sections")
+        print("✅ PayPal integration documentation exists and contains required sections")
 
 
 class TestNavigationMeetingNotes:
@@ -469,7 +467,7 @@ class TestNavigationMeetingNotes:
         # Should not be 404 (route not found)
         assert response.status_code != 404, "Meeting notes route should be registered"
         
-        print(f"✅ Meeting notes route is registered in backend")
+        print("✅ Meeting notes route is registered in backend")
 
 
 # Cleanup function to remove test data

@@ -5,10 +5,9 @@ Tests: Authentication, Jobs, AI Features, Applications, Resume, Saved Jobs
 import pytest
 import requests
 import os
-import time
 import uuid
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
 
 # Test credentials
 ADMIN_EMAIL = "admin@medmatch.com"
@@ -476,7 +475,7 @@ class TestSkillAssessments:
         response = self.session.get(f"{BASE_URL}/api/skill-assessments")
         assert response.status_code == 200, f"Get assessments failed: {response.text}"
         data = response.json()
-        print(f"✓ Skill assessments endpoint working")
+        print("✓ Skill assessments endpoint working")
 
 
 if __name__ == "__main__":

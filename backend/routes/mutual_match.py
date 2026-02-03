@@ -12,8 +12,8 @@ Features:
 """
 
 from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
-from pydantic import BaseModel, Field
-from typing import Optional, List, Dict, Any
+from pydantic import BaseModel
+from typing import Optional, Dict
 from datetime import datetime, timezone, timedelta
 import uuid
 import logging
@@ -574,7 +574,7 @@ async def toggle_ghost_mode(request: Request, organization_id: Optional[str] = N
             {"user_id": user["user_id"]},
             {"$addToSet": {"blocked_organizations": organization_id}}
         )
-        message = f"Organization blocked. They can no longer see your profile."
+        message = "Organization blocked. They can no longer see your profile."
     else:
         # Toggle global visibility
         resume = await db.resumes.find_one({"user_id": user["user_id"]})

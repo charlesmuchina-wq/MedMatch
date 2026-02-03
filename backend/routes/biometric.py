@@ -2,9 +2,9 @@
 Biometric Authentication Routes
 Handles: WebAuthn/FIDO2 passwordless authentication, bot prevention, fraud detection
 """
-from fastapi import APIRouter, HTTPException, Request, Depends
+from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, EmailStr, Field
-from typing import Optional, List
+from typing import Optional
 from datetime import datetime, timezone, timedelta
 import uuid
 import logging
@@ -29,7 +29,6 @@ from webauthn.helpers.structs import (
 from webauthn.helpers.cose import COSEAlgorithmIdentifier
 
 from utils.database import db
-from utils.config import EMERGENT_LLM_KEY, JWT_SECRET_KEY
 from routes.auth import get_current_user
 
 router = APIRouter(prefix="/biometric", tags=["Biometric Authentication"])

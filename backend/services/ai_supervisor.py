@@ -6,7 +6,6 @@ Handles up to 3000 concurrent users with adaptive resource allocation
 import asyncio
 import time
 import logging
-from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any, Callable
 from dataclasses import dataclass, field
 from collections import deque
@@ -485,7 +484,7 @@ class AISupervisor:
             
             return result
             
-        except Exception as e:
+        except Exception:
             self.metrics.failed_requests += 1
             circuit.record_failure()
             raise

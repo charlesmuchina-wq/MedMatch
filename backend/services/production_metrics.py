@@ -2,10 +2,9 @@
 Production Metrics Collector
 Tracks user engagement, business metrics, and performance for analytics and ML.
 """
-import asyncio
 import logging
 from datetime import datetime, timezone, timedelta
-from typing import Dict, List, Optional, Any
+from typing import Dict, Optional
 from enum import Enum
 
 from utils.database import db

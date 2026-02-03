@@ -8,7 +8,7 @@ import requests
 import os
 import time
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com').rstrip('/')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com').rstrip('/')
 
 # Test credentials
 ADMIN_EMAIL = "admin@medmatch.com"
@@ -226,7 +226,7 @@ class TestAIFeaturesAuthenticated:
         assert "practice_script" in data, "Response should contain 'practice_script' field"
         assert data["mode"] == "practice", f"Mode should be 'practice', got {data.get('mode')}"
         
-        print(f"✅ POST /api/voice-coach (practice) - Practice script provided")
+        print("✅ POST /api/voice-coach (practice) - Practice script provided")
         
         time.sleep(2)
     
@@ -248,7 +248,7 @@ class TestAIFeaturesAuthenticated:
         assert data["assistant"] == "KARAU DRAGON", f"Assistant should be 'KARAU DRAGON', got {data.get('assistant')}"
         assert data["context"] == "job_search", f"Context should be 'job_search', got {data.get('context')}"
         
-        print(f"✅ POST /api/assistant - KARAU DRAGON responded")
+        print("✅ POST /api/assistant - KARAU DRAGON responded")
         print(f"   Context: {data.get('context')}")
         print(f"   Response length: {len(data.get('response', ''))} chars")
         
@@ -268,7 +268,7 @@ class TestAIFeaturesAuthenticated:
         assert data["success"] == True, "Success should be True"
         assert data["context"] == "career", f"Context should be 'career', got {data.get('context')}"
         
-        print(f"✅ POST /api/assistant (career context) - Response received")
+        print("✅ POST /api/assistant (career context) - Response received")
         
         time.sleep(2)
     
@@ -314,7 +314,7 @@ class TestAIFeaturesAuthenticated:
         if response.status_code == 400:
             data = response.json()
             if "resume" in data.get("detail", "").lower():
-                print(f"⚠️ POST /api/cover-letter/generate - Requires resume upload (expected)")
+                print("⚠️ POST /api/cover-letter/generate - Requires resume upload (expected)")
                 return
         
         assert response.status_code == 200, f"Expected 200, got {response.status_code}: {response.text}"
@@ -323,7 +323,7 @@ class TestAIFeaturesAuthenticated:
         assert "cover_letter" in data, "Response should contain 'cover_letter' field"
         assert "key_matches" in data, "Response should contain 'key_matches' field"
         
-        print(f"✅ POST /api/cover-letter/generate - Cover letter generated")
+        print("✅ POST /api/cover-letter/generate - Cover letter generated")
         print(f"   Key matches: {len(data.get('key_matches', []))}")
         
         time.sleep(2)
@@ -345,7 +345,7 @@ class TestAIFeaturesAuthenticated:
         if response.status_code == 400:
             data = response.json()
             if "resume" in data.get("detail", "").lower():
-                print(f"⚠️ POST /api/jobs/predict-callback - Requires resume upload (expected)")
+                print("⚠️ POST /api/jobs/predict-callback - Requires resume upload (expected)")
                 return
         
         assert response.status_code == 200, f"Expected 200, got {response.status_code}: {response.text}"

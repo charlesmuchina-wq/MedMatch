@@ -4,17 +4,13 @@ Handles: Document verification for recruiters, identity checks, verification sta
 Note: This is a simplified implementation. For production, integrate with Persona, Veriff, or similar service.
 """
 from fastapi import APIRouter, HTTPException, Request, UploadFile, File, Form
-from pydantic import BaseModel, Field
-from typing import Optional, List, Dict, Any
+from pydantic import BaseModel
+from typing import Optional
 from datetime import datetime, timezone, timedelta
 import uuid
-import logging
-import base64
 
-from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 from utils.database import db
-from utils.config import EMERGENT_LLM_KEY
 from routes.auth import get_current_user
 
 router = APIRouter(prefix="/id-verification", tags=["ID Verification"])

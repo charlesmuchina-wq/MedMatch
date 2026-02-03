@@ -6,7 +6,7 @@ import pytest
 import requests
 import os
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
 
 # Test credentials
 RECRUITER_EMAIL = "recruiter_test_1769122141@example.com"
@@ -77,8 +77,8 @@ class TestSubscriptionEndpoints:
         
         # Create checkout session for recruiter plan
         response = self.session.post(f"{BASE_URL}/api/payments/create-checkout", json={
-            "success_url": "https://medmatch-13.preview.emergentagent.com/membership?success=true",
-            "cancel_url": "https://medmatch-13.preview.emergentagent.com/membership?canceled=true",
+            "success_url": "https://privacyjobs.preview.emergentagent.com/membership?success=true",
+            "cancel_url": "https://privacyjobs.preview.emergentagent.com/membership?canceled=true",
             "plan": "recruiter_monthly"
         })
         
@@ -101,8 +101,8 @@ class TestSubscriptionEndpoints:
         
         # Create checkout session
         response = self.session.post(f"{BASE_URL}/api/payments/create-checkout", json={
-            "success_url": "https://medmatch-13.preview.emergentagent.com/membership?success=true",
-            "cancel_url": "https://medmatch-13.preview.emergentagent.com/membership?canceled=true",
+            "success_url": "https://privacyjobs.preview.emergentagent.com/membership?success=true",
+            "cancel_url": "https://privacyjobs.preview.emergentagent.com/membership?canceled=true",
             "plan": "lifetime"
         })
         
@@ -137,7 +137,7 @@ class TestSubscriptionEndpoints:
             assert "price" in data, "Should have price"
             print(f"✅ Subscription details returned: {data['plan']} - ${data['price']}/month, status: {data['status']}")
         else:
-            print(f"✅ No subscription found for user (expected if not subscribed)")
+            print("✅ No subscription found for user (expected if not subscribed)")
     
     def test_get_subscription_details_without_subscription(self):
         """GET /api/payments/subscription returns no subscription for user without one"""
@@ -242,7 +242,7 @@ class TestSubscriptionEndpoints:
         elif response.status_code == 200:
             data = response.json()
             assert "url" in data, "Should return billing portal URL"
-            print(f"✅ Billing portal URL returned")
+            print("✅ Billing portal URL returned")
         else:
             pytest.fail(f"Unexpected status code: {response.status_code}")
     
@@ -355,8 +355,8 @@ class TestRecruiterSubscriptionFlow:
             
             # Step 4: Create checkout session
             checkout_resp = self.session.post(f"{BASE_URL}/api/payments/create-checkout", json={
-                "success_url": "https://medmatch-13.preview.emergentagent.com/membership?success=true",
-                "cancel_url": "https://medmatch-13.preview.emergentagent.com/membership?canceled=true",
+                "success_url": "https://privacyjobs.preview.emergentagent.com/membership?success=true",
+                "cancel_url": "https://privacyjobs.preview.emergentagent.com/membership?canceled=true",
                 "plan": "recruiter_monthly"
             })
             assert checkout_resp.status_code == 200

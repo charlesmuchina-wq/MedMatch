@@ -14,7 +14,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 from utils.database import db
-from utils.config import EMERGENT_LLM_KEY, GMAIL_ADDRESS, GMAIL_APP_PASSWORD
+from utils.config import GMAIL_ADDRESS, GMAIL_APP_PASSWORD
 from routes.auth import get_current_user
 
 router = APIRouter(prefix="/digest", tags=["Digest"])

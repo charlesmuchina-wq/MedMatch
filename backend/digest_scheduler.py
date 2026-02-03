@@ -33,7 +33,7 @@ def run_scheduled_digest():
         
         if response.status_code == 200:
             result = response.json()
-            logger.info(f"Digest completed successfully:")
+            logger.info("Digest completed successfully:")
             logger.info(f"  - Total subscribers: {result.get('total_subscribers', 0)}")
             logger.info(f"  - Emails sent: {result.get('sent_count', 0)}")
             logger.info(f"  - Jobs found: {result.get('total_jobs_found', 0)}")

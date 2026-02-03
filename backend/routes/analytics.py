@@ -4,7 +4,6 @@ Handles: Dashboard analytics, application statistics, job market insights
 """
 from fastapi import APIRouter, HTTPException, Request
 from datetime import datetime, timezone, timedelta
-import logging
 
 from utils.database import db
 from routes.auth import get_current_user

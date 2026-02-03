@@ -4,8 +4,7 @@ Handles: Generate auto-fill data from resume, format for common job application 
 """
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
-from typing import Optional, List, Dict
-from datetime import datetime, timezone
+from typing import Optional, List
 import uuid
 import logging
 import json

@@ -9,13 +9,12 @@ GDPR-compliant recruiter access controls including:
 - Audit trail logging
 """
 
-from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
-from pydantic import BaseModel, Field
+from fastapi import APIRouter, HTTPException, Request
+from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 from datetime import datetime, timezone, timedelta
 import uuid
 import hashlib
-import logging
 import re
 import secrets
 

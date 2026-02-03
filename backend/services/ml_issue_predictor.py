@@ -3,16 +3,14 @@ ML Issue Predictor - Rule-Based Prediction System
 Uses collected ML training data to predict system issues and suggest preventive actions.
 This is a simple rule-based system that can be upgraded to a trained ML model later.
 """
-import asyncio
 import logging
 from datetime import datetime, timezone, timedelta
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 from dataclasses import dataclass, field
 from enum import Enum
 import statistics
 
 from utils.database import db
-from services.ml_data_collector import ml_collector, EventType, EventSeverity
 
 logger = logging.getLogger(__name__)
 

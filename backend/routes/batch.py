@@ -40,10 +40,6 @@ class BatchResponse(BaseModel):
     parallel: bool
 
 # Import route handlers
-from routes import (
-    auth_router, jobs_router, resume_router, 
-    qa_practice_router, translation_router
-)
 
 # Route mapping for batch processing
 ROUTE_HANDLERS = {

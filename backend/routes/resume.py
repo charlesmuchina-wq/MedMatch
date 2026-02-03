@@ -4,7 +4,7 @@ Handles: Resume upload, parsing, profiles, skills management
 """
 from fastapi import APIRouter, HTTPException, Request, UploadFile, File
 from pydantic import BaseModel, Field, ConfigDict
-from typing import Optional, List, Dict, Any
+from typing import List, Dict, Any
 from datetime import datetime, timezone
 import uuid
 import logging

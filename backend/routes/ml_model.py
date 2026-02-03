@@ -3,8 +3,6 @@ ML Model Training API Routes
 Provides endpoints for training and using ML models for issue prediction.
 """
 from fastapi import APIRouter, HTTPException, Request, Query, BackgroundTasks
-from datetime import datetime, timezone
-from typing import Optional
 
 from services.ml_model_trainer import ml_issue_predictor
 

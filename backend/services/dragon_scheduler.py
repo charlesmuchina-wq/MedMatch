@@ -5,12 +5,10 @@ Schedule: Sundays at 1:00 AM PST (9:00 AM UTC)
 
 Now with MongoDB persistence for job state across server restarts.
 """
-import asyncio
 import logging
 import os
 from datetime import datetime, timezone, timedelta
-from typing import Dict, Any, List, Optional
-import json
+from typing import Dict, Any
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
@@ -19,7 +17,6 @@ from apscheduler.executors.asyncio import AsyncIOExecutor
 from pymongo import MongoClient
 
 from utils.database import db
-from utils.config import EMERGENT_LLM_KEY
 
 # Get MongoDB URL from environment
 MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
@@ -497,7 +494,6 @@ async def check_and_scale_resources():
     Called every 5 minutes to prevent overload.
     """
     try:
-        from services.global_rate_limiter import global_rate_limiter
         
         # Get recent request counts
         now = datetime.now(timezone.utc)

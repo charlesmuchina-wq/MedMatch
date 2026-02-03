@@ -11,15 +11,12 @@ import hashlib
 import secrets
 import uuid
 import logging
-import jwt
 import httpx
 import os
 
 from utils.database import db
 from utils.config import (
-    JWT_SECRET_KEY, APPLE_TEAM_ID, APPLE_KEY_ID, 
-    APPLE_SERVICE_ID, APPLE_PRIVATE_KEY,
-    TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_VERIFY_SERVICE
+    APPLE_TEAM_ID, APPLE_SERVICE_ID, TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_VERIFY_SERVICE
 )
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])

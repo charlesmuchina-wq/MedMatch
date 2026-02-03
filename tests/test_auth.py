@@ -234,7 +234,7 @@ class TestPhoneAuthEndpoint:
             assert "not configured" in data["detail"].lower() or "twilio" in data["detail"].lower()
             print(f"✅ Phone auth endpoint exists but Twilio not configured: {data['detail']}")
         elif response.status_code == 520:
-            print(f"✅ Phone auth endpoint exists but Twilio library not available (520 error)")
+            print("✅ Phone auth endpoint exists but Twilio library not available (520 error)")
         else:
             print(f"✅ Phone auth endpoint accessible, status: {response.status_code}")
 

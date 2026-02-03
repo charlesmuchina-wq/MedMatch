@@ -139,7 +139,7 @@ class TestAuthentication:
         assert response.status_code == 200
         data = response.json()
         assert "email" in data or "user_id" in data
-        print(f"✅ Authenticated /auth/me returns user data")
+        print("✅ Authenticated /auth/me returns user data")
         
     def test_apple_signin_config(self):
         """Test Apple Sign In configuration"""
@@ -404,7 +404,7 @@ class TestEnvironmentConfig:
     def test_cors_headers(self):
         """Test CORS headers are present"""
         response = requests.options(f"{BASE_URL}/api/health", headers={
-            "Origin": "https://medmatch-13.preview.emergentagent.com",
+            "Origin": "https://privacyjobs.preview.emergentagent.com",
             "Access-Control-Request-Method": "GET"
         })
         # CORS preflight should return 200 or actual response

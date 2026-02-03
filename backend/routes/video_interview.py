@@ -3,15 +3,15 @@ Video Interview Routes
 Handles: Video recording, playback, Whisper transcription, AI analysis
 """
 from fastapi import APIRouter, HTTPException, Request, UploadFile, File, Form
-from pydantic import BaseModel, Field
-from typing import Optional, List, Dict, Any
+from pydantic import BaseModel
+from typing import Optional, List
 from datetime import datetime, timezone
 import uuid
 import logging
 import tempfile
 import os
 
-from emergentintegrations.llm.chat import LlmChat, UserMessage
+from emergentintegrations.llm.chat import LlmChat
 from emergentintegrations.llm.openai import OpenAISpeechToText
 
 from utils.database import db

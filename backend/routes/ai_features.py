@@ -4,7 +4,7 @@ Handles: Cover letter generation, callback prediction, job matching, salary insi
 """
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
-from typing import Optional, List, Dict, Any
+from typing import List, Dict, Any
 from datetime import datetime, timezone
 import uuid
 import logging
@@ -732,9 +732,6 @@ Return ONLY valid JSON:
 @router.post("/voice-coach/transcribe")
 async def transcribe_speech(request: Request):
     """Transcribe speech using Whisper"""
-    from fastapi import UploadFile, File, Form
-    import tempfile
-    import os
     
     user = await get_current_user(request)
     if not user:

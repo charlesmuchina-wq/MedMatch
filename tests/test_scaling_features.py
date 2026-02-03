@@ -7,10 +7,9 @@ import pytest
 import requests
 import os
 import time
-import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
 
 
 class TestTranslationEndpoints:
@@ -34,7 +33,7 @@ class TestTranslationEndpoints:
             print(f"✅ Translation API working - Translated: {data.get('translated_text', '')[:50]}...")
         elif response.status_code == 500:
             # LLM may not be configured - acceptable
-            print(f"⚠️ Translation API returned 500 - LLM may not be configured")
+            print("⚠️ Translation API returned 500 - LLM may not be configured")
         else:
             pytest.fail(f"Unexpected status code: {response.status_code}")
     
@@ -99,7 +98,7 @@ class TestTranslationEndpoints:
             for t in data.get('translations', [])[:2]:
                 print(f"   - {t.get('original', '')} -> {t.get('translated', '')}")
         elif response.status_code == 500:
-            print(f"⚠️ Batch translation returned 500 - LLM may not be configured")
+            print("⚠️ Batch translation returned 500 - LLM may not be configured")
         else:
             pytest.fail(f"Unexpected status code: {response.status_code}")
     
@@ -391,9 +390,9 @@ class TestQAPracticeAPI:
         if response.status_code == 200:
             data = response.json()
             assert 'answer' in data or 'generated_answer' in data
-            print(f"✅ Q&A Practice generate answer working")
+            print("✅ Q&A Practice generate answer working")
         elif response.status_code == 401:
-            print(f"⚠️ Q&A Practice requires authentication")
+            print("⚠️ Q&A Practice requires authentication")
         else:
             print(f"⚠️ Q&A Practice returned {response.status_code}")
 
@@ -432,7 +431,7 @@ class TestSuccessPredictorAPI:
             data = response.json()
             print(f"✅ Success Predictor working - Score: {data.get('score', 'N/A')}")
         elif response.status_code == 401:
-            print(f"⚠️ Success Predictor requires authentication")
+            print("⚠️ Success Predictor requires authentication")
         else:
             print(f"⚠️ Success Predictor returned {response.status_code}")
 

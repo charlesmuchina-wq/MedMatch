@@ -14,7 +14,7 @@ import re
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
 from routes.auth import get_current_user
-from utils.push_service import notify_application_update, notify_recruiter_new_applicant
+from utils.push_service import notify_application_update
 
 router = APIRouter(prefix="/recruiter", tags=["Recruiter"])
 

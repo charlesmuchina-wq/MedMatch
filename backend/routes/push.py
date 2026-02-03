@@ -255,7 +255,7 @@ async def send_push_notification(notification: SendNotificationRequest, request:
         }
     
     return {
-        "message": f"Notifications sent",
+        "message": "Notifications sent",
         "sent": sent_count,
         "failed": failed_count
     }

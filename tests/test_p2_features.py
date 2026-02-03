@@ -5,7 +5,6 @@ Tests for: Push Notifications, ID Verification, Video Interview
 import pytest
 import requests
 import os
-import json
 
 BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', '').rstrip('/')
 
@@ -82,7 +81,7 @@ class TestPushNotifications:
         assert "interview_reminders" in data
         assert "weekly_digest" in data
         assert "marketing" in data
-        print(f"✅ GET /api/notifications/preferences - defaults returned")
+        print("✅ GET /api/notifications/preferences - defaults returned")
     
     def test_update_notification_preferences(self, auth_session):
         """Test PUT /api/notifications/preferences"""
@@ -102,7 +101,7 @@ class TestPushNotifications:
         data = response.json()
         assert data["message"] == "Preferences updated"
         assert data["preferences"]["weekly_digest"] == False
-        print(f"✅ PUT /api/notifications/preferences - updated successfully")
+        print("✅ PUT /api/notifications/preferences - updated successfully")
     
     def test_get_notification_history(self, auth_session):
         """Test GET /api/notifications/history"""
@@ -163,9 +162,9 @@ class TestPushNotifications:
         notifications = data["notifications"]
         test_notif = next((n for n in notifications if n.get("title") == "Test Notification"), None)
         if test_notif:
-            print(f"✅ Test notification found in history")
+            print("✅ Test notification found in history")
         else:
-            print(f"⚠️ Test notification not found in history (may be timing issue)")
+            print("⚠️ Test notification not found in history (may be timing issue)")
 
 
 class TestIDVerification:
@@ -204,7 +203,7 @@ class TestIDVerification:
         assert level_names[1] == "Email Verified"
         assert level_names[2] == "Company Verified"
         assert level_names[3] == "ID Verified"
-        print(f"✅ GET /api/id-verification/levels - 4 levels returned correctly")
+        print("✅ GET /api/id-verification/levels - 4 levels returned correctly")
     
     def test_get_verification_status(self, auth_session):
         """Test GET /api/id-verification/status"""
@@ -298,7 +297,7 @@ class TestIDVerificationRecruiter:
             print(f"✅ POST /api/id-verification/verify-company - status: {data['status']}, level: {data['verification_level']}")
         elif response.status_code == 403:
             # Not a recruiter role
-            print(f"⚠️ Company verification requires recruiter role")
+            print("⚠️ Company verification requires recruiter role")
         else:
             print(f"⚠️ Company verification response: {response.status_code} - {response.text}")
 

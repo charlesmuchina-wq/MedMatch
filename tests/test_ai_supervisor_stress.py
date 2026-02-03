@@ -7,11 +7,9 @@ import pytest
 import requests
 import os
 import time
-import json
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import threading
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-13.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
 
 
 class TestAISupervisorHealth:
@@ -34,7 +32,7 @@ class TestAISupervisorHealth:
         assert 'circuit_breakers' in data
         assert 'capacity' in data
         
-        print(f"✅ AI Supervisor Status:")
+        print("✅ AI Supervisor Status:")
         print(f"   Health: {data['health']}")
         print(f"   Health Score: {data['health_score']:.2f}%")
         print(f"   Success Rate: {data['metrics']['success_rate']}")
@@ -97,7 +95,7 @@ class TestRateLimiterAdaptiveScaling:
         # Current rate should be within bounds
         assert rate_limiter['min_rate'] <= rate_limiter['current_rate'] <= rate_limiter['max_rate']
         
-        print(f"✅ Rate Limiter Configuration:")
+        print("✅ Rate Limiter Configuration:")
         print(f"   Base Rate: {rate_limiter['base_rate']} req/sec")
         print(f"   Min Rate: {rate_limiter['min_rate']} req/sec")
         print(f"   Max Rate: {rate_limiter['max_rate']} req/sec")
@@ -118,7 +116,7 @@ class TestRateLimiterAdaptiveScaling:
             assert 'requests_per_minute' in data[tier]
             assert 'burst_limit' in data[tier]
         
-        print(f"✅ Rate Limit Tiers:")
+        print("✅ Rate Limit Tiers:")
         for tier, config in data.items():
             print(f"   {tier}: {config['requests_per_second']} req/s, {config['requests_per_minute']} req/min")
     
@@ -129,7 +127,7 @@ class TestRateLimiterAdaptiveScaling:
         
         # Check for rate limit headers
         headers = response.headers
-        print(f"✅ Rate Limit Headers:")
+        print("✅ Rate Limit Headers:")
         for header in ['X-RateLimit-Limit', 'X-RateLimit-Remaining', 'X-RateLimit-Reset', 'X-RateLimit-Tier']:
             if header in headers:
                 print(f"   {header}: {headers[header]}")
@@ -156,7 +154,7 @@ class TestCircuitBreakers:
             assert 'failure_count' in cb
             assert 'threshold' in cb
         
-        print(f"✅ Circuit Breakers Status:")
+        print("✅ Circuit Breakers Status:")
         for name, cb in circuit_breakers.items():
             print(f"   {name}: state={cb['state']}, failures={cb['failure_count']}/{cb['threshold']}")
     
@@ -172,7 +170,7 @@ class TestCircuitBreakers:
         for name, cb in circuit_breakers.items():
             assert cb['state'] in valid_states
         
-        print(f"✅ All circuit breaker states are valid")
+        print("✅ All circuit breaker states are valid")
     
     def test_circuit_breaker_thresholds(self):
         """Test circuit breaker failure thresholds"""
@@ -193,7 +191,7 @@ class TestCircuitBreakers:
         for name, expected in expected_thresholds.items():
             assert circuit_breakers[name]['threshold'] == expected
         
-        print(f"✅ Circuit Breaker Thresholds:")
+        print("✅ Circuit Breaker Thresholds:")
         for name, threshold in expected_thresholds.items():
             print(f"   {name}: {threshold} failures before OPEN")
 
@@ -216,7 +214,7 @@ class TestWorkerPool:
         # Current workers should be within bounds
         assert workers['min_workers'] <= workers['current_workers'] <= workers['max_workers']
         
-        print(f"✅ Worker Pool Configuration:")
+        print("✅ Worker Pool Configuration:")
         print(f"   Min Workers: {workers['min_workers']}")
         print(f"   Max Workers: {workers['max_workers']}")
         print(f"   Current Workers: {workers['current_workers']}")
@@ -258,7 +256,7 @@ class TestPriorityQueue:
         assert 'total_queued' in queue
         assert 'by_priority' in queue
         
-        print(f"✅ Queue Configuration:")
+        print("✅ Queue Configuration:")
         print(f"   Max Size: {queue['max_size']}")
         print(f"   Total Queued: {queue['total_queued']}")
     
@@ -276,7 +274,7 @@ class TestPriorityQueue:
         for priority in expected_priorities:
             assert priority in by_priority
         
-        print(f"✅ Priority Queue Levels:")
+        print("✅ Priority Queue Levels:")
         for priority in expected_priorities:
             print(f"   {priority}: {by_priority[priority]} queued")
 
@@ -297,7 +295,7 @@ class TestCapacityMetrics:
         assert 'current_rate_limit' in capacity
         assert 'queue_capacity' in capacity
         
-        print(f"✅ Capacity Metrics:")
+        print("✅ Capacity Metrics:")
         print(f"   Max Concurrent Users: {capacity['max_concurrent_users']}")
         print(f"   Current Rate Limit: {capacity['current_rate_limit']} req/sec")
         print(f"   Queue Capacity: {capacity['queue_capacity']}")
@@ -553,9 +551,9 @@ class TestTranslationBatchLoad:
             assert 'translations' in data
             print(f"✅ Batch Translation: {data['count']} texts translated")
         elif response.status_code == 429:
-            print(f"✅ Batch Translation: Rate limited (expected under stress test)")
+            print("✅ Batch Translation: Rate limited (expected under stress test)")
         else:
-            print(f"⚠️ Batch Translation: LLM may not be configured")
+            print("⚠️ Batch Translation: LLM may not be configured")
 
 
 class Test39LanguageSupport:
@@ -570,7 +568,7 @@ class Test39LanguageSupport:
         
         # Accept 200 or 429 (rate limited under stress)
         if response.status_code == 429:
-            print(f"✅ Languages endpoint: Rate limited (expected under stress test)")
+            print("✅ Languages endpoint: Rate limited (expected under stress test)")
             return
         
         assert response.status_code == 200
@@ -586,7 +584,7 @@ class Test39LanguageSupport:
         
         # Print first 10 languages
         languages = data['languages'][:10]
-        print(f"   Sample languages:")
+        print("   Sample languages:")
         for lang in languages:
             print(f"   - {lang['code']}: {lang['name']} ({lang['native']}) {lang['flag']}")
 

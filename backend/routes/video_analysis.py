@@ -2,15 +2,12 @@
 Video Interview with Facial Expression Analysis
 Uses AI to analyze facial expressions, eye contact, and body language during video interviews
 """
-from fastapi import APIRouter, HTTPException, Request, UploadFile, File, Form
+from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
-from typing import Optional, List, Dict, Any
+from typing import Optional, List, Dict
 from datetime import datetime, timezone
 import uuid
 import logging
-import tempfile
-import os
-import base64
 import json
 
 from emergentintegrations.llm.chat import LlmChat, UserMessage

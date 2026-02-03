@@ -5,7 +5,7 @@ Supports: Multi-language voice commands and responses
 """
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
-from typing import Optional, List, Dict, Any
+from typing import Optional, Dict, Any
 from datetime import datetime, timezone
 import uuid
 import logging
@@ -241,7 +241,7 @@ async def ai_intent_detection(command: str, user_context: Dict, language: str = 
     # Language-aware system message
     lang_instruction = ""
     if language != "en":
-        lang_instruction = f"\nIMPORTANT: The user may be speaking in a language other than English. Detect the language and respond in the SAME language as the user's input. If they speak Spanish, respond in Spanish. If Chinese, respond in Chinese, etc."
+        lang_instruction = "\nIMPORTANT: The user may be speaking in a language other than English. Detect the language and respond in the SAME language as the user's input. If they speak Spanish, respond in Spanish. If Chinese, respond in Chinese, etc."
     
     chat = LlmChat(
         api_key=EMERGENT_LLM_KEY,
@@ -319,7 +319,7 @@ def rule_based_intent_detection(command: str, user_context: Dict) -> Dict:
         company = extract_company(cmd)
         role = extract_role(cmd)
         
-        speech = f"I'll help you create a cover letter"
+        speech = "I'll help you create a cover letter"
         if role:
             speech += f" for a {role} position"
         if company:

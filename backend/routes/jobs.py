@@ -2,20 +2,18 @@
 Jobs Routes
 Handles: Job search, job alerts, applications, saved jobs, manual job entry
 """
-from fastapi import APIRouter, HTTPException, Request, BackgroundTasks
+from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field, ConfigDict
-from typing import Optional, List, Dict, Any
+from typing import Optional, List
 from datetime import datetime, timezone
 import uuid
 import logging
 import asyncio
 import httpx
-import hashlib
 
 from utils.database import db
-from utils.config import EMERGENT_LLM_KEY, GOOGLE_API_KEY, GOOGLE_CSE_ID
+from utils.config import GOOGLE_API_KEY, GOOGLE_CSE_ID
 from routes.auth import get_current_user
-from utils.push_service import notify_application_update, notify_job_match
 
 router = APIRouter(tags=["Jobs"])
 

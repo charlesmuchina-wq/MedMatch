@@ -6,10 +6,8 @@ Tests for GDPR/CCPA compliance features.
 
 import pytest
 import httpx
-import json
-from datetime import datetime
 
-API_BASE_URL = "https://medmatch-13.preview.emergentagent.com/api"
+API_BASE_URL = "https://privacyjobs.preview.emergentagent.com/api"
 TIMEOUT = 30.0
 
 TEST_ADMIN = {
@@ -265,7 +263,7 @@ class TestPrivacyCompliance:
         data = response.json()
         
         assert "results" in data
-        print(f"\n📊 Data Deletion: Endpoint working")
+        print("\n📊 Data Deletion: Endpoint working")
 
 
 class TestPIIPatterns:

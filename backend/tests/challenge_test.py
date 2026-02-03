@@ -13,7 +13,7 @@ import json
 from datetime import datetime
 from collections import defaultdict
 
-API_URL = "https://medmatch-13.preview.emergentagent.com/api"
+API_URL = "https://privacyjobs.preview.emergentagent.com/api"
 
 # Test endpoints with different complexity levels
 ENDPOINTS = {
@@ -161,7 +161,7 @@ class ChallengeTest:
         print("="*70)
         print(f"Start Time: {datetime.now().isoformat()}")
         print(f"API Target: {API_URL}")
-        print(f"Challenge Levels: 2000, 4000, 6000, 8000, 10000")
+        print("Challenge Levels: 2000, 4000, 6000, 8000, 10000")
         
         challenge_levels = [2000, 4000, 6000, 8000, 10000]
         all_results = {}
@@ -262,18 +262,18 @@ def print_final_report(report):
     print("CHALLENGE TEST RESULTS")
     print("="*70)
     
-    print(f"\n📊 SUMMARY")
+    print("\n📊 SUMMARY")
     print(f"   Total Requests: {report['summary']['total_requests']:,}")
     print(f"   Total Successes: {report['summary']['total_successes']:,}")
     print(f"   Overall Success Rate: {report['summary']['overall_success_rate']:.2f}%")
     print(f"   Avg Response Time: {report['summary']['avg_response_time_ms']:.2f}ms")
     
-    print(f"\n📈 SUCCESS RATES BY LEVEL")
+    print("\n📈 SUCCESS RATES BY LEVEL")
     for level, rate in report['summary'].get('success_rates_by_level', {}).items():
         bar = "█" * int(rate / 5) + "░" * (20 - int(rate / 5))
         print(f"   {level:>5} requests: {bar} {rate:.1f}%")
     
-    print(f"\n🏆 SCORES")
+    print("\n🏆 SCORES")
     print(f"   Reliability Score:  {report['reliability_score']:.1f}/100", end="")
     print(f" {'✅ EXCELLENT' if report['reliability_score'] >= 95 else '⚠️ NEEDS IMPROVEMENT' if report['reliability_score'] >= 80 else '❌ CRITICAL'}")
     
@@ -307,7 +307,7 @@ async def main():
     
     print_final_report(report)
     
-    print(f"\n📁 Detailed report saved: /app/test_reports/challenge_test_report.json")
+    print("\n📁 Detailed report saved: /app/test_reports/challenge_test_report.json")
     print(f"⏱️  Test completed at: {datetime.now().isoformat()}")
 
 if __name__ == "__main__":

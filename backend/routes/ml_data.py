@@ -3,10 +3,9 @@ ML Data Collection API Routes
 Provides endpoints for viewing and exporting ML training data.
 Admin-only access for data analysis and export.
 """
-from fastapi import APIRouter, Depends, HTTPException, Query
-from datetime import datetime, timezone, timedelta
-from typing import Optional, List
-import os
+from fastapi import APIRouter, HTTPException, Query
+from datetime import datetime, timezone
+from typing import Optional
 
 from services.ml_data_collector import ml_collector, EventType, EventSeverity
 from services.ml_data_generator import ml_data_generator

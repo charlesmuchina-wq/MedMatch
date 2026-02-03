@@ -2,8 +2,7 @@
 ML Issue Predictor API Routes
 Provides endpoints for issue prediction and analysis.
 """
-from fastapi import APIRouter, HTTPException, Request, Query
-from datetime import datetime, timezone
+from fastapi import APIRouter, HTTPException, Query
 from typing import Optional
 
 from services.ml_issue_predictor import issue_predictor

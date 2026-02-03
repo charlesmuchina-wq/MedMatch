@@ -11,14 +11,11 @@ Target Benchmarks:
 
 Usage:
     pip install locust
-    locust -f stress_test_locust.py --host=https://medmatch-13.preview.emergentagent.com
+    locust -f stress_test_locust.py --host=https://privacyjobs.preview.emergentagent.com
     
 Then open http://localhost:8089 to start the test
 """
 
-import os
-import json
-import time
 import random
 from datetime import datetime
 from locust import HttpUser, task, between, events
@@ -478,16 +475,15 @@ def run_llm_token_bottleneck_test():
 
 
 if __name__ == "__main__":
-    import subprocess
     
     print("""
 MedMatch AI - Locust Stress Test
 ================================
 Run with:
-    locust -f stress_test_locust.py --host=https://medmatch-13.preview.emergentagent.com
+    locust -f stress_test_locust.py --host=https://privacyjobs.preview.emergentagent.com
     
 Or for headless:
-    locust -f stress_test_locust.py --host=https://medmatch-13.preview.emergentagent.com --headless -u 100 -r 10 -t 5m
+    locust -f stress_test_locust.py --host=https://privacyjobs.preview.emergentagent.com --headless -u 100 -r 10 -t 5m
     
 Options:
     -u: Number of users
