@@ -2,9 +2,9 @@
 
 ## Active CAPAs
 
-| CAPA # | Title | Severity | Priority | Status | Owner | Opened | Target Close |
-|--------|-------|----------|----------|--------|-------|--------|--------------|
-| CAPA-2026-001 | AI-Powered Translation Loading Delay | Medium | P2 | Open | Engineering | Feb 2, 2026 | TBD |
+| CAPA # | Title | Severity | Priority | Status | Owner | Opened | Closed |
+|--------|-------|----------|----------|--------|-------|--------|--------|
+| CAPA-2026-001 | AI-Powered Translation Loading Delay | Medium | P2 | **CLOSED** | Engineering | Feb 2, 2026 | Feb 3, 2026 |
 
 ---
 
@@ -12,10 +12,10 @@
 
 | Status | Count |
 |--------|-------|
-| Open | 1 |
+| Open | 0 |
 | In Progress | 0 |
 | Pending Verification | 0 |
-| Closed | 0 |
+| Closed - Verified Effective | 1 |
 | **Total** | **1** |
 
 ---
