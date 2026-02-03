@@ -146,3 +146,4 @@ desktop/dist/linux-unpacked/medmatch-desktop
 # Environment files
 *.env
 *.env.*
+frontend/node_modules/.cache/default-development/1.pack_
