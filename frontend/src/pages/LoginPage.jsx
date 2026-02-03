@@ -171,12 +171,21 @@ const LoginPage = ({ onAuthSuccess }) => {
       
       const response = await axios.post(endpoint, payload, { withCredentials: true });
       
-      const roleMessage = response.data.user?.role === 'recruiter' 
-        ? "Welcome, Recruiter!" 
+      const userRole = response.data.user?.role;
+      const roleMessage = userRole === 'recruiter' 
+        ? "Welcome, Recruiter! Complete verification to access candidates." 
         : isRegister ? "Account created! 15-day free trial started." : "Logged in!";
       toast.success(roleMessage);
       onAuthSuccess(response.data.user);
-      navigate('/');
+      
+      // Redirect recruiters to verification page on registration
+      if (isRegister && userRole === 'recruiter') {
+        navigate('/recruiter/verify');
+      } else if (userRole === 'recruiter') {
+        navigate('/recruiter/dashboard');
+      } else {
+        navigate('/');
+      }
     } catch (e) {
       toast.error(e.response?.data?.detail || "Authentication failed");
     }
