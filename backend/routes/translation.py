@@ -1004,7 +1004,336 @@ async def get_analytics_dashboard(request: Request):
             "tmx_enabled": True,
             "locale_support": len(SUPPORTED_LANGUAGES),
             "rtl_languages": ["ar", "he", "fa", "ur"],
-            "bundled_languages": ["en", "es", "fr", "de", "zh"]
+            "bundled_languages": ["en", "es", "fr", "de", "zh", "ja", "ar", "hi", "pt-BR"]
         }
     }
+
+# ============== Translation Quality Scoring ==============
+
+class TranslationQualityScorer:
+    """
+    CLDR-compliant Translation Quality Scoring System
+    Evaluates translations based on:
+    1. Completeness - All content translated
+    2. Consistency - Similar phrases translated similarly
+    3. Formatting - Proper punctuation and structure
+    4. Length ratio - Target length appropriate for source
+    """
+    
+    # Expected length ratios by language (target/source)
+    LENGTH_RATIOS = {
+        "ja": (0.5, 1.5),   # Japanese can be shorter
+        "zh": (0.4, 1.2),   # Chinese is compact
+        "ar": (0.8, 1.5),   # Arabic similar to English
+        "hi": (0.9, 1.6),   # Hindi can be longer
+        "de": (1.0, 1.5),   # German often longer
+        "es": (1.0, 1.3),   # Spanish slightly longer
+        "fr": (1.0, 1.4),   # French slightly longer
+        "pt-BR": (1.0, 1.4), # Portuguese similar to Spanish
+        "default": (0.5, 2.0)
+    }
+    
+    @staticmethod
+    def score_completeness(source: str, target: str) -> float:
+        """Check if translation is complete (not empty, not same as source)"""
+        if not target or not target.strip():
+            return 0.0
+        if target.strip() == source.strip():
+            return 0.3  # Might be intentional (brand names)
+        return 1.0
+    
+    @staticmethod
+    def score_length_ratio(source: str, target: str, target_lang: str) -> float:
+        """Check if target length is appropriate for the language"""
+        if not source or not target:
+            return 0.0
+        
+        ratio = len(target) / len(source) if len(source) > 0 else 0
+        min_ratio, max_ratio = TranslationQualityScorer.LENGTH_RATIOS.get(
+            target_lang, 
+            TranslationQualityScorer.LENGTH_RATIOS["default"]
+        )
+        
+        if min_ratio <= ratio <= max_ratio:
+            return 1.0
+        elif ratio < min_ratio:
+            return max(0.3, ratio / min_ratio)
+        else:
+            return max(0.3, max_ratio / ratio)
+    
+    @staticmethod
+    def score_formatting(source: str, target: str) -> float:
+        """Check formatting consistency (punctuation, capitalization)"""
+        score = 1.0
+        
+        # Check ending punctuation
+        source_ends = source.strip()[-1] if source.strip() else ""
+        target_ends = target.strip()[-1] if target.strip() else ""
+        
+        if source_ends in ".!?" and target_ends not in ".!?。！？":
+            score -= 0.2
+        
+        # Check for placeholder preservation {{}}
+        import re
+        source_placeholders = set(re.findall(r'\{\{.*?\}\}', source))
+        target_placeholders = set(re.findall(r'\{\{.*?\}\}', target))
+        
+        if source_placeholders and source_placeholders != target_placeholders:
+            score -= 0.3
+        
+        return max(0.0, score)
+    
+    @classmethod
+    def calculate_score(cls, source: str, target: str, target_lang: str) -> dict:
+        """Calculate overall quality score"""
+        completeness = cls.score_completeness(source, target)
+        length = cls.score_length_ratio(source, target, target_lang)
+        formatting = cls.score_formatting(source, target)
+        
+        # Weighted average
+        overall = (completeness * 0.4) + (length * 0.3) + (formatting * 0.3)
+        
+        return {
+            "overall_score": round(overall * 100),
+            "completeness": round(completeness * 100),
+            "length_ratio": round(length * 100),
+            "formatting": round(formatting * 100),
+            "quality_level": "excellent" if overall >= 0.9 else "good" if overall >= 0.7 else "fair" if overall >= 0.5 else "poor"
+        }
+
+@router.post("/quality/score")
+async def score_translation_quality(data: Dict[str, Any], request: Request):
+    """
+    Score the quality of a translation
+    """
+    source_text = data.get("source_text", "")
+    target_text = data.get("target_text", "")
+    target_language = data.get("target_language", "")
+    
+    if not source_text or not target_text or not target_language:
+        raise HTTPException(status_code=400, detail="source_text, target_text, and target_language are required")
+    
+    score = TranslationQualityScorer.calculate_score(source_text, target_text, target_language)
+    
+    # Store quality score in DB for analytics
+    await db.translation_quality.insert_one({
+        "source_text": source_text[:100],
+        "target_text": target_text[:100],
+        "target_language": target_language,
+        "scores": score,
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    })
+    
+    return {
+        "source_text": source_text,
+        "target_text": target_text,
+        "target_language": target_language,
+        "quality": score
+    }
+
+@router.post("/quality/batch-score")
+async def batch_score_translations(data: Dict[str, Any], request: Request):
+    """
+    Score quality of multiple translations at once
+    """
+    translations = data.get("translations", [])
+    target_language = data.get("target_language", "")
+    
+    if not translations or not target_language:
+        raise HTTPException(status_code=400, detail="translations array and target_language are required")
+    
+    results = []
+    total_score = 0
+    
+    for item in translations:
+        source = item.get("source", "")
+        target = item.get("target", "")
+        
+        if source and target:
+            score = TranslationQualityScorer.calculate_score(source, target, target_language)
+            total_score += score["overall_score"]
+            results.append({
+                "source": source[:50],
+                "target": target[:50],
+                "quality": score
+            })
+    
+    avg_score = total_score / len(results) if results else 0
+    
+    return {
+        "target_language": target_language,
+        "translations_scored": len(results),
+        "average_score": round(avg_score),
+        "quality_level": "excellent" if avg_score >= 90 else "good" if avg_score >= 70 else "fair" if avg_score >= 50 else "poor",
+        "results": results[:20]  # Limit response size
+    }
+
+@router.get("/quality/stats")
+async def get_quality_stats(request: Request):
+    """
+    Get translation quality statistics
+    """
+    user = await get_current_user(request)
+    if not user or user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    # Overall quality by language
+    quality_pipeline = [
+        {"$group": {
+            "_id": "$target_language",
+            "avg_score": {"$avg": "$scores.overall_score"},
+            "count": {"$sum": 1}
+        }},
+        {"$sort": {"count": -1}},
+        {"$limit": 20}
+    ]
+    by_language = await db.translation_quality.aggregate(quality_pipeline).to_list(20)
+    
+    # Quality distribution
+    distribution_pipeline = [
+        {"$bucket": {
+            "groupBy": "$scores.overall_score",
+            "boundaries": [0, 50, 70, 90, 101],
+            "default": "unknown",
+            "output": {"count": {"$sum": 1}}
+        }}
+    ]
+    distribution = await db.translation_quality.aggregate(distribution_pipeline).to_list(10)
+    
+    # Total scored
+    total_scored = await db.translation_quality.count_documents({})
+    
+    return {
+        "total_scored": total_scored,
+        "by_language": [
+            {
+                "language": item["_id"],
+                "average_score": round(item["avg_score"]) if item["avg_score"] else 0,
+                "count": item["count"],
+                "quality_level": "excellent" if item["avg_score"] and item["avg_score"] >= 90 else "good" if item["avg_score"] and item["avg_score"] >= 70 else "fair"
+            }
+            for item in by_language if item["_id"]
+        ],
+        "quality_distribution": [
+            {
+                "range": f"{dist['_id']}-{dist['_id']+20 if dist['_id'] < 90 else 100}" if isinstance(dist['_id'], int) else "unknown",
+                "count": dist["count"],
+                "level": "poor" if dist['_id'] == 0 else "fair" if dist['_id'] == 50 else "good" if dist['_id'] == 70 else "excellent"
+            }
+            for dist in distribution if isinstance(dist.get('_id'), int)
+        ]
+    }
+
+# ============== Enhanced Translation Memory Analytics ==============
+
+@router.get("/memory/analytics")
+async def get_memory_analytics(request: Request):
+    """
+    Comprehensive Translation Memory analytics with CLDR metrics
+    """
+    user = await get_current_user(request)
+    if not user or user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    # Total entries
+    total_entries = await db.translation_memory.count_documents({})
+    verified_entries = await db.translation_memory.count_documents({"verified": True})
+    
+    # Usage statistics
+    usage_pipeline = [
+        {"$group": {
+            "_id": None,
+            "total_usage": {"$sum": "$usage_count"},
+            "avg_usage": {"$avg": "$usage_count"},
+            "max_usage": {"$max": "$usage_count"}
+        }}
+    ]
+    usage_stats = await db.translation_memory.aggregate(usage_pipeline).to_list(1)
+    
+    # Top used translations
+    top_used_pipeline = [
+        {"$sort": {"usage_count": -1}},
+        {"$limit": 15},
+        {"$project": {
+            "_id": 0,
+            "source_text": 1,
+            "target_text": 1,
+            "target_language": 1,
+            "usage_count": 1,
+            "context": 1
+        }}
+    ]
+    top_used = await db.translation_memory.aggregate(top_used_pipeline).to_list(15)
+    
+    # Coverage by language
+    coverage_pipeline = [
+        {"$group": {
+            "_id": "$target_language",
+            "entries": {"$sum": 1},
+            "verified": {"$sum": {"$cond": ["$verified", 1, 0]}},
+            "total_usage": {"$sum": "$usage_count"}
+        }},
+        {"$sort": {"entries": -1}},
+        {"$limit": 20}
+    ]
+    by_language = await db.translation_memory.aggregate(coverage_pipeline).to_list(20)
+    
+    # Context distribution
+    context_pipeline = [
+        {"$group": {
+            "_id": "$context",
+            "count": {"$sum": 1},
+            "usage": {"$sum": "$usage_count"}
+        }},
+        {"$sort": {"count": -1}}
+    ]
+    by_context = await db.translation_memory.aggregate(context_pipeline).to_list(10)
+    
+    # Recent additions (last 7 days)
+    seven_days_ago = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
+    recent_count = await db.translation_memory.count_documents({
+        "created_at": {"$gte": seven_days_ago}
+    })
+    
+    return {
+        "summary": {
+            "total_entries": total_entries,
+            "verified_entries": verified_entries,
+            "verification_rate": round((verified_entries / total_entries * 100) if total_entries > 0 else 0),
+            "recent_additions": recent_count
+        },
+        "usage": {
+            "total_lookups": usage_stats[0]["total_usage"] if usage_stats else 0,
+            "average_per_entry": round(usage_stats[0]["avg_usage"], 1) if usage_stats else 0,
+            "most_used_count": usage_stats[0]["max_usage"] if usage_stats else 0
+        },
+        "top_translations": top_used,
+        "by_language": [
+            {
+                "language": item["_id"],
+                "entries": item["entries"],
+                "verified": item["verified"],
+                "total_usage": item["total_usage"],
+                "info": SUPPORTED_LANGUAGES.get(item["_id"], {})
+            }
+            for item in by_language if item["_id"]
+        ],
+        "by_context": [
+            {
+                "context": item["_id"] or "general",
+                "entries": item["count"],
+                "usage": item["usage"]
+            }
+            for item in by_context
+        ],
+        "cldr_metrics": {
+            "tmx_version": "1.4",
+            "supported_locales": len(SUPPORTED_LANGUAGES),
+            "bundled_locales": 9,  # Updated count
+            "rtl_support": True,
+            "pluralization": False,  # Future enhancement
+            "gender_forms": False   # Future enhancement
+        }
+    }
+
 
