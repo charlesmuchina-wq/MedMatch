@@ -60,7 +60,7 @@ class TestExplainableAI:
         assert response.status_code == 200
         data = response.json()
         assert "access_token" in data or "token" in data
-        print(f"✓ Job seeker login successful")
+        print("✓ Job seeker login successful")
     
     def test_recruiter_login(self):
         """Test recruiter can login"""
@@ -71,7 +71,7 @@ class TestExplainableAI:
         assert response.status_code == 200
         data = response.json()
         assert "access_token" in data or "token" in data
-        print(f"✓ Recruiter login successful")
+        print("✓ Recruiter login successful")
     
     def test_explain_match_endpoint_exists(self):
         """Test /api/privacy/explain/match/{job_id} endpoint exists"""
@@ -115,7 +115,7 @@ class TestExplainableAI:
         if "request_review_available" in data:
             print(f"✓ Human review available: {data['request_review_available']}")
         
-        print(f"✓ Explain match returns proper structure")
+        print("✓ Explain match returns proper structure")
     
     def test_human_review_request_endpoint(self):
         """Test /api/privacy/review/request endpoint for GDPR Article 22"""
@@ -134,7 +134,7 @@ class TestExplainableAI:
         assert response.status_code == 200
         data = response.json()
         assert "review_id" in data or "message" in data
-        print(f"✓ Human review request endpoint works")
+        print("✓ Human review request endpoint works")
     
     def test_contact_requests_received_endpoint(self):
         """Test /api/mutual-match/requests/received endpoint"""

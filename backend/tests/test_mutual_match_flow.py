@@ -14,8 +14,6 @@ Tests the complete recruiter-candidate mutual match workflow:
 import pytest
 import requests
 import os
-import uuid
-from datetime import datetime
 
 # Base URL from environment
 BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', '').rstrip('/')
@@ -61,12 +59,12 @@ class TestSetupAndAuth:
     def test_job_seeker_login(self, job_seeker_token):
         """Test job seeker can login"""
         assert job_seeker_token is not None
-        print(f"✓ Job seeker login successful")
+        print("✓ Job seeker login successful")
     
     def test_recruiter_login(self, recruiter_token):
         """Test recruiter can login"""
         assert recruiter_token is not None
-        print(f"✓ Recruiter login successful")
+        print("✓ Recruiter login successful")
 
 
 class TestRecruiterSetup:

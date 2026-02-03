@@ -3015,7 +3015,7 @@ F401 [*] `json` imported but unused
  9 | import json
    |        ^^^^
 10 |
-11 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
+11 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://smart-recruiter-40.preview.emergentagent.com')
    |
 help: Remove unused import: `json`
 
@@ -3106,7 +3106,7 @@ F401 [*] `datetime.datetime` imported but unused
 18 | from datetime import datetime
    |                      ^^^^^^^^
 19 |
-20 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
+20 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://smart-recruiter-40.preview.emergentagent.com')
    |
 help: Remove unused import: `datetime.datetime`
 
@@ -3756,7 +3756,7 @@ F401 [*] `datetime.datetime` imported but unused
 10 | from datetime import datetime
    |                      ^^^^^^^^
 11 |
-12 | API_BASE_URL = "https://privacyjobs.preview.emergentagent.com/api"
+12 | API_BASE_URL = "https://smart-recruiter-40.preview.emergentagent.com/api"
    |
 help: Remove unused import: `datetime.datetime`
 
@@ -4207,7 +4207,7 @@ F401 [*] `threading` imported but unused
 12 | import threading
    |        ^^^^^^^^^
 13 |
-14 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
+14 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://smart-recruiter-40.preview.emergentagent.com')
    |
 help: Remove unused import: `threading`
 
@@ -4602,7 +4602,7 @@ F401 [*] `json` imported but unused
 11 | import json
    |        ^^^^
 12 |
-13 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com')
+13 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://smart-recruiter-40.preview.emergentagent.com')
    |
 help: Remove unused import: `json`
 
@@ -4739,7 +4739,7 @@ F401 [*] `json` imported but unused
  8 | import json
    |        ^^^^
  9 |
-10 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://privacyjobs.preview.emergentagent.com').rstrip('/')
+10 | BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://smart-recruiter-40.preview.emergentagent.com').rstrip('/')
    |
 help: Remove unused import: `json`
 

@@ -28,7 +28,7 @@ const store = new Store({
 });
 
 // Configuration
-const APP_URL = process.env.MEDMATCH_URL || 'https://privacyjobs.preview.emergentagent.com';
+const APP_URL = process.env.MEDMATCH_URL || 'https://smart-recruiter-40.preview.emergentagent.com';
 const isDev = process.env.NODE_ENV === 'development';
 
 let mainWindow = null;

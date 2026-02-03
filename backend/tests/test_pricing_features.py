@@ -89,7 +89,7 @@ class TestMembershipStatusEndpoint:
         assert premium.get("monthly") == 14.99, f"Expected Premium monthly $14.99, got {premium.get('monthly')}"
         assert premium.get("annual") == 149.99, f"Expected Premium annual $149.99, got {premium.get('annual')}"
         
-        print(f"✓ Recruiter pricing tiers verified:")
+        print("✓ Recruiter pricing tiers verified:")
         print(f"  - Starter: ${starter.get('monthly')}/mo, ${starter.get('annual')}/yr")
         print(f"  - Growth: ${growth.get('monthly')}/mo, ${growth.get('annual')}/yr")
         print(f"  - Premium: ${premium.get('monthly')}/mo, ${premium.get('annual')}/yr")
@@ -136,7 +136,7 @@ class TestPaymentCheckoutEndpoint:
         if response.status_code == 200:
             data = response.json()
             assert "url" in data or "session_id" in data, "Expected checkout URL or session_id"
-            print(f"✓ Job seeker 3-year checkout created successfully")
+            print("✓ Job seeker 3-year checkout created successfully")
         else:
             data = response.json()
             # If Stripe not configured, that's expected in test env
@@ -158,7 +158,7 @@ class TestPaymentCheckoutEndpoint:
         if response.status_code == 200:
             data = response.json()
             assert "url" in data or "session_id" in data, "Expected checkout URL or session_id"
-            print(f"✓ Recruiter starter checkout created successfully")
+            print("✓ Recruiter starter checkout created successfully")
         else:
             data = response.json()
             if "not configured" in str(data.get("detail", "")):
@@ -179,7 +179,7 @@ class TestPaymentCheckoutEndpoint:
         if response.status_code == 200:
             data = response.json()
             assert "url" in data or "session_id" in data, "Expected checkout URL or session_id"
-            print(f"✓ Recruiter growth checkout created successfully")
+            print("✓ Recruiter growth checkout created successfully")
         else:
             data = response.json()
             if "not configured" in str(data.get("detail", "")):
@@ -198,7 +198,7 @@ class TestPaymentCheckoutEndpoint:
         if response.status_code == 200:
             data = response.json()
             assert "url" in data or "session_id" in data, "Expected checkout URL or session_id"
-            print(f"✓ Recruiter premium checkout created successfully")
+            print("✓ Recruiter premium checkout created successfully")
         else:
             data = response.json()
             if "not configured" in str(data.get("detail", "")):
