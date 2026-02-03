@@ -1,4 +1,4 @@
-import { Globe, Check, ChevronDown, Loader2, Sparkles } from "lucide-react";
+import { Globe, Check, ChevronDown, Loader2, Sparkles, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,17 +7,68 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
   DropdownMenuLabel,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
-import { useTranslation, POPULAR_LANGUAGES, LANGUAGE_META, BUNDLED_LANGUAGES, useLanguageInfo } from "@/utils/i18n";
+import { useTranslation, POPULAR_LANGUAGES, LANGUAGE_META, BUNDLED_LANGUAGES, useLanguageInfo, useGenderRules, LANGUAGE_GENDER_RULES } from "@/utils/i18n";
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+const API = process.env.REACT_APP_BACKEND_URL;
 
 // African language codes for separate section
 const AFRICAN_LANGUAGES = ["sw", "ha", "yo", "ig", "zu", "xh", "af", "am", "om", "so", "rw", "sn", "ny", "tw", "wo", "lg"];
+
+// Gender preference labels
+const GENDER_LABELS = {
+  masculine: { label: "Masculine", icon: "♂️", description: "Use masculine grammatical forms" },
+  feminine: { label: "Feminine", icon: "♀️", description: "Use feminine grammatical forms" },
+  neutral: { label: "Neutral", icon: "⚧️", description: "Use neutral/inclusive forms where available" },
+  auto: { label: "Auto", icon: "🔄", description: "Use language default" }
+};
 
 // Global Language Selector Component for Header
 const GlobalLanguageSelector = ({ compact = false }) => {
   const { language, setLanguage, t, getLanguageInfo, isBundled, isLoadingAI } = useTranslation();
   const langInfo = useLanguageInfo();
+  const genderRules = useGenderRules();
   const currentLang = getLanguageInfo(language);
+  const [grammaticalGender, setGrammaticalGender] = useState(null);
+
+  // Load user's gender preference
+  useEffect(() => {
+    const loadPreference = async () => {
+      try {
+        const token = localStorage.getItem("access_token");
+        if (!token) return;
+        
+        const response = await axios.get(`${API}/api/auth/preferences`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setGrammaticalGender(response.data.grammatical_gender || 'auto');
+      } catch (e) {
+        // User might not be logged in
+      }
+    };
+    loadPreference();
+  }, []);
+
+  // Save gender preference
+  const updateGenderPreference = async (gender) => {
+    setGrammaticalGender(gender);
+    try {
+      const token = localStorage.getItem("access_token");
+      if (!token) return;
+      
+      await axios.put(`${API}/api/auth/preferences`, 
+        { grammatical_gender: gender === 'auto' ? '' : gender },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+    } catch (e) {
+      console.warn("Failed to save gender preference:", e);
+    }
+  };
 
   // Get all available languages
   const allLanguages = Object.entries(LANGUAGE_META).map(([code, info]) => ({
@@ -40,6 +91,9 @@ const GlobalLanguageSelector = ({ compact = false }) => {
   const popularLanguages = sortedLanguages.filter(l => POPULAR_LANGUAGES.includes(l.code));
   const africanLanguages = sortedLanguages.filter(l => AFRICAN_LANGUAGES.includes(l.code) && !POPULAR_LANGUAGES.includes(l.code));
   const otherLanguages = sortedLanguages.filter(l => !POPULAR_LANGUAGES.includes(l.code) && !AFRICAN_LANGUAGES.includes(l.code));
+
+  // Check if current language has grammatical gender
+  const currentLangHasGender = LANGUAGE_GENDER_RULES[language]?.hasGender || false;
 
   if (compact) {
     return (
@@ -108,12 +162,47 @@ const GlobalLanguageSelector = ({ compact = false }) => {
           <ChevronDown className="w-3 h-3 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-60 max-h-96 overflow-y-auto">
+      <DropdownMenuContent align="end" className="w-64 max-h-[28rem] overflow-y-auto">
         <DropdownMenuLabel className="flex items-center gap-2">
           <Globe className="w-4 h-4" />
           {t("language.selectLanguage")}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        
+        {/* Gender Preference (for gendered languages) */}
+        {currentLangHasGender && (
+          <>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger className="flex items-center gap-2">
+                <User className="w-4 h-4" />
+                <span>{t("language.grammaticalGender") || "Grammatical Gender"}</span>
+                <span className="text-xs text-slate-400 ml-auto">
+                  {GENDER_LABELS[grammaticalGender || 'auto']?.icon}
+                </span>
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent className="w-56">
+                <DropdownMenuLabel className="text-xs text-slate-500">
+                  {t("language.genderDescription") || "How should UI address you?"}
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {Object.entries(GENDER_LABELS).map(([key, { label, icon, description }]) => (
+                  <DropdownMenuItem
+                    key={key}
+                    onClick={() => updateGenderPreference(key)}
+                    className="flex items-center justify-between cursor-pointer"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>{icon}</span>
+                      <span>{label}</span>
+                    </span>
+                    {(grammaticalGender || 'auto') === key && <Check className="w-4 h-4 text-green-500" />}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
+            <DropdownMenuSeparator />
+          </>
+        )}
         
         {/* Popular Languages */}
         <DropdownMenuLabel className="text-xs text-slate-400 font-normal">
@@ -154,7 +243,9 @@ const GlobalLanguageSelector = ({ compact = false }) => {
                   <span className="text-lg">{lang.flag}</span>
                   <span>{lang.name}</span>
                   <span className="text-xs text-slate-400">({lang.native})</span>
-                  <span className="text-[10px] px-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded font-medium" title="AI-powered translation">AI</span>
+                  {!lang.isBundled && (
+                    <span className="text-[10px] px-1 bg-gradient-to-r from-purple-100 to-pink-100 text-purple-700 rounded font-medium" title="AI-powered translation">AI</span>
+                  )}
                 </span>
                 {language === lang.code && <Check className="w-4 h-4 text-green-500" />}
               </DropdownMenuItem>
