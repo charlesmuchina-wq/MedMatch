@@ -55,6 +55,7 @@ class UpdatePreferencesRequest(BaseModel):
     language: Optional[str] = None
     theme: Optional[str] = None
     timezone: Optional[str] = None
+    grammatical_gender: Optional[str] = None  # 'masculine', 'feminine', 'neutral', or None (auto)
 
 # ============== Helper Functions ==============
 
