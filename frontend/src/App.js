@@ -360,7 +360,7 @@ function AppContent() {
 
   // Check privacy consent status after login
   useEffect(() => {
-    if (!user || consentChecked) return;
+    if (!user || consentChecked || isAuthChecking) return;
     
     const checkConsent = async () => {
       // Skip if already granted locally
@@ -370,7 +370,16 @@ function AppContent() {
       }
       
       try {
-        const response = await axios.get(`${API}/privacy/consent/status`);
+        const token = localStorage.getItem("medmatch-token");
+        if (!token) {
+          setConsentChecked(true);
+          return;
+        }
+        
+        const response = await axios.get(`${API}/privacy/consent/status`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        
         if (!response.data.has_consented) {
           setNeedsConsent(true);
           // Redirect to consent page if not on it already
@@ -381,14 +390,14 @@ function AppContent() {
           localStorage.setItem("medmatch-consent-granted", "true");
         }
       } catch (e) {
-        // If endpoint fails, don't block user
+        // If endpoint fails, don't block user - consent not required to use app
         console.error("Consent check failed:", e);
       }
       setConsentChecked(true);
     };
     
     checkConsent();
-  }, [user, consentChecked, location.pathname, navigate]);
+  }, [user, consentChecked, isAuthChecking, location.pathname, navigate]);
 
   // Initialize offline storage
   useEffect(() => {
