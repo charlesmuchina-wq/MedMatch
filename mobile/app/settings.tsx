@@ -595,7 +595,16 @@ const styles = StyleSheet.create({
   chevron: { fontSize: 20, fontWeight: fontWeight.bold },
   separator: { height: 1, marginLeft: 60 },
   
-  languageList: { paddingHorizontal: spacing.md, paddingBottom: spacing.md },
+  languageList: { paddingHorizontal: spacing.md, paddingBottom: spacing.md, maxHeight: 400 },
+  languageSectionTitle: {
+    fontSize: fontSize.xs,
+    fontWeight: fontWeight.semibold,
+    marginTop: spacing.md,
+    marginBottom: spacing.xs,
+    marginLeft: spacing.sm,
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+  },
   languageItem: { 
     flexDirection: 'row', 
     alignItems: 'center', 
