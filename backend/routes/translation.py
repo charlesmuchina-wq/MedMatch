@@ -535,6 +535,133 @@ async def set_user_language_preference(data: Dict[str, str], request: Request):
         "language_info": SUPPORTED_LANGUAGES[language]
     }
 
+# Priority UI keys that should be pre-rendered server-side
+PRIORITY_UI_KEYS = [
+    # Navigation
+    "Dashboard", "My Resume", "Resume Profiles", "Skill Tests", "Job Search",
+    "Saved Jobs", "Applications", "My Interviews", "Interview Calendar",
+    "Success Predictor", "Interview Prep", "Q&A Practice", "Video Practice",
+    "Voice Coach", "Cover Letter", "Job Alerts", "Analytics", "Messages",
+    "Settings", "Profile", "Sign Out", "Sign In",
+    # Dashboard
+    "Welcome to MedMatch", "Quick Actions", "Upload Resume", "Search Jobs",
+    "Interviews", "Skills", "AI Powered", "Recommended next steps",
+    # Common
+    "Loading...", "Save", "Cancel", "Delete", "Edit", "Search", "Submit",
+    "Close", "Back", "Next", "Confirm", "Yes", "No", "Error", "Success"
+]
+
+@router.get("/prerender/{language}")
+async def get_prerendered_translations(language: str, request: Request):
+    """
+    PA-3: Server-side pre-rendered translations
+    Returns essential UI translations for instant page load
+    """
+    if language not in SUPPORTED_LANGUAGES and language != "en":
+        raise HTTPException(status_code=400, detail=f"Unsupported language: {language}")
+    
+    # For English or bundled languages, no pre-rendering needed
+    bundled_languages = ["en", "es", "fr", "zh", "de"]
+    if language in bundled_languages:
+        return {
+            "language": language,
+            "is_bundled": True,
+            "translations": {},
+            "message": "Language is bundled, no pre-rendering needed"
+        }
+    
+    # Check cache first
+    cache_key = f"prerender:{language}"
+    cached = await db.translation_cache.find_one(
+        {"cache_key": cache_key},
+        {"_id": 0, "translations": 1, "cached_at": 1}
+    )
+    
+    # Use cached translations if less than 24 hours old
+    if cached:
+        cached_at = cached.get("cached_at", "")
+        if cached_at:
+            from datetime import datetime, timezone
+            try:
+                cache_time = datetime.fromisoformat(cached_at.replace("Z", "+00:00"))
+                if (datetime.now(timezone.utc) - cache_time).total_seconds() < 86400:  # 24 hours
+                    return {
+                        "language": language,
+                        "is_bundled": False,
+                        "translations": cached.get("translations", {}),
+                        "from_cache": True,
+                        "language_info": SUPPORTED_LANGUAGES.get(language, {})
+                    }
+            except:
+                pass
+    
+    if not EMERGENT_LLM_KEY:
+        return {
+            "language": language,
+            "is_bundled": False,
+            "translations": {},
+            "error": "Translation service not configured"
+        }
+    
+    # Generate translations for priority keys
+    target_lang_name = SUPPORTED_LANGUAGES[language]["name"]
+    translations = {}
+    
+    try:
+        # Translate in batches of 15
+        for i in range(0, len(PRIORITY_UI_KEYS), 15):
+            batch = PRIORITY_UI_KEYS[i:i+15]
+            
+            chat = LlmChat(
+                api_key=EMERGENT_LLM_KEY,
+                session_id=str(uuid.uuid4()),
+                system_message=f"""You are an expert UI translator. Translate all UI strings to {target_lang_name}.
+Return ONLY valid JSON array:
+[{{"original": "<original text>", "translated": "<translated text>"}}]"""
+            ).with_model("openai", "gpt-5.2")
+            
+            texts_formatted = "\n".join([f"{j+1}. {text}" for j, text in enumerate(batch)])
+            response = await chat.send_message(UserMessage(text=f"Translate:\n{texts_formatted}"))
+            
+            clean_response = response.strip()
+            if clean_response.startswith("```"):
+                clean_response = clean_response.split("```")[1]
+                if clean_response.startswith("json"):
+                    clean_response = clean_response[4:]
+            
+            results = json.loads(clean_response)
+            for item in results:
+                translations[item["original"]] = item["translated"]
+        
+        # Cache the translations
+        await db.translation_cache.update_one(
+            {"cache_key": cache_key},
+            {"$set": {
+                "cache_key": cache_key,
+                "language": language,
+                "translations": translations,
+                "cached_at": datetime.now(timezone.utc).isoformat()
+            }},
+            upsert=True
+        )
+        
+        return {
+            "language": language,
+            "is_bundled": False,
+            "translations": translations,
+            "from_cache": False,
+            "language_info": SUPPORTED_LANGUAGES.get(language, {})
+        }
+        
+    except Exception as e:
+        logging.error(f"Pre-render translation error: {e}")
+        return {
+            "language": language,
+            "is_bundled": False,
+            "translations": {},
+            "error": str(e)
+        }
+
 # ============== Helper Functions ==============
 
 async def log_translation(user: Optional[Dict], source_lang: str, target_lang: str, char_count: int):
