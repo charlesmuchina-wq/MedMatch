@@ -583,7 +583,7 @@ async def log_dragon_command(user: Optional[Dict], command: str, result: Dict):
 @router.post("/web-search")
 async def dragon_web_search(data: WebSearchRequest, request: Request):
     """Perform web search for Dragon AI"""
-    user = await get_current_user(request)
+    await get_current_user(request)  # Verify user is authenticated
     
     results = []
     
