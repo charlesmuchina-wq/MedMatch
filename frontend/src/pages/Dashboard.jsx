@@ -209,6 +209,27 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   
+  // Get user's first name for personalized greeting (gender-neutral)
+  const getUserFirstName = () => {
+    // First priority: resume full_name
+    if (resume?.full_name) {
+      return resume.full_name.split(' ')[0];
+    }
+    // Second priority: user object name
+    if (user?.name) {
+      return user.name.split(' ')[0];
+    }
+    // Third priority: email prefix (before @)
+    if (user?.email) {
+      const emailPrefix = user.email.split('@')[0];
+      // Capitalize first letter
+      return emailPrefix.charAt(0).toUpperCase() + emailPrefix.slice(1);
+    }
+    return null;
+  };
+  
+  const firstName = getUserFirstName();
+  
   // Format date for display
   const formatLastLogin = (dateString) => {
     if (!dateString) return null;
