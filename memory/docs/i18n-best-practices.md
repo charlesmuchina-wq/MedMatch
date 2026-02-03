@@ -79,28 +79,28 @@ Priority Order:
 | `/api/translate/quality/batch-score` | POST | Batch score translations |
 | `/api/translate/quality/stats` | GET | Quality statistics (Admin) |
 | `/api/translate/analytics/dashboard` | GET | Full analytics dashboard (Admin) |
+| `/api/translate/gender-rules` | GET | Get linguistic gender rules for all languages |
+| `/api/translate/gender-rules/{lang}` | GET | Get gender rules for a specific language |
+| `/api/translate/gender-aware` | POST | Translate with explicit grammatical gender |
+| `/api/translate/gender-variants` | POST | Get all gender variants of a translation |
 
 ## Supported Languages
 
-### Bundled (Instant Loading) - PA-1 COMPLETE
+### Bundled (Instant Loading) - COMPLETE
 - English (en)
 - Spanish (es)
 - French (fr)
 - German (de)
 - Chinese (zh)
-- **Japanese (ja)** ✅ NEW
-- **Arabic (ar)** ✅ NEW
-- **Hindi (hi)** ✅ NEW
-- **Portuguese-BR (pt-BR)** ✅ NEW
+- Japanese (ja)
+- Arabic (ar)
+- Hindi (hi)
+- Portuguese-BR (pt-BR)
+- **All 16 African Languages** ✅ NEW (sw, ha, yo, ig, zu, xh, af, am, om, so, rw, sn, ny, tw, wo, lg)
 
 ### AI-Powered (Progressive Loading)
 - Korean (ko)
-- Swahili (sw)
-- Hausa (ha)
-- Yoruba (yo)
-- Zulu (zu)
-- Amharic (am)
-- And 45+ more languages
+- And 40+ more languages
 
 ## RTL (Right-to-Left) Support
 
@@ -114,6 +114,64 @@ Automatically applied for:
 document.documentElement.dir = rtl ? "rtl" : "ltr";
 ```
 
+## Linguistic Gender Support (NEW - CLDR-based)
+
+MedMatch now supports grammatical gender-aware translations following ICU MessageFormat principles.
+
+### Why Grammatical Gender Matters
+
+In many languages (Spanish, French, German, Arabic, Hindi, etc.), adjectives, participles, and pronouns must agree with the gender of the person being addressed. For example:
+- **English:** "You are connected"
+- **Spanish (masculine):** "Estás conectado"
+- **Spanish (feminine):** "Estás conectada"
+- **French (masculine):** "Bienvenu"
+- **French (feminine):** "Bienvenue"
+
+### Supported Gendered Languages
+
+| Language | Gender System | Available Forms |
+|----------|---------------|-----------------|
+| Spanish, French, Italian, Portuguese | Binary | masculine, feminine |
+| German, Russian, Polish | Ternary | masculine, feminine, neuter |
+| Arabic, Hebrew, Hindi | Binary | masculine, feminine |
+| Dutch | Common/Neuter | common, neuter |
+
+### User Preference
+
+Users can set their grammatical gender preference in Settings → Language → Grammatical Gender:
+- **Masculine**: Use masculine grammatical forms
+- **Feminine**: Use feminine grammatical forms  
+- **Neutral**: Use neutral/inclusive forms where available
+- **Auto**: Use language default (typically masculine for historical reasons)
+
+### Implementation
+
+```javascript
+// Frontend: useGenderAwareTranslation hook
+import { useGenderAwareTranslation } from '@/utils/i18n';
+
+const { translated, isLoading } = useGenderAwareTranslation(
+  "Welcome back",
+  "feminine", // user's gender preference
+  { context: "dashboard greeting" }
+);
+
+// Or use the GenderText component
+<GenderText text="You are connected" gender="feminine" />
+```
+
+```python
+# Backend: Gender-aware translation endpoint
+POST /api/translate/gender-aware
+{
+    "text": "Welcome back",
+    "target_language": "es",
+    "grammatical_gender": "feminine",
+    "context": "dashboard greeting"
+}
+# Response: { "translated": "Bienvenida" }
+```
+
 ## Best Practices Checklist
 
 - [x] Atomic language switching (no partial renders)
@@ -125,6 +183,8 @@ document.documentElement.dir = rtl ? "rtl" : "ltr";
 - [x] Server-side caching (24-hour TTL)
 - [x] Merge translations (don't replace)
 - [x] Non-blocking background translation loading
+- [x] **Linguistic gender awareness (NEW)**
+- [x] **User gender preference settings (NEW)**
 
 ## References
 
@@ -132,6 +192,7 @@ document.documentElement.dir = rtl ? "rtl" : "ltr";
 - [i18next Best Practices](https://www.i18next.com/overview/best-practices)
 - [React Intl Documentation](https://formatjs.io/docs/react-intl/)
 - [ICU MessageFormat](https://unicode-org.github.io/icu/userguide/format_parse/messages/)
+- [Gender-Inclusive Language Guidelines (UN)](https://www.un.org/en/gender-inclusive-language/guidelines.shtml)
 
 ---
 
