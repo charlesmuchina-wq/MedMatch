@@ -645,7 +645,13 @@
     "otherLanguages": "Other Languages",
     "african": "African Languages",
     "autoDetected": "Language detected",
-    "switchedTo": "App language has been updated"
+    "switchedTo": "App language has been updated",
+    "grammaticalGender": "Grammatical Gender",
+    "genderDescription": "How should UI address you?",
+    "genderMasculine": "Masculine",
+    "genderFeminine": "Feminine",
+    "genderNeutral": "Neutral",
+    "genderAuto": "Auto (Language Default)"
   },
   "dragon": {
     "webSearch": "Web Search",
