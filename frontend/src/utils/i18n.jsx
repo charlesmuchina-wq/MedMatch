@@ -5,22 +5,31 @@
 import { useState, useEffect, createContext, useContext, useCallback, useRef } from "react";
 import axios from "axios";
 
-// Import all locale files
+// Import all locale files - Bundled languages (instant loading)
 import en from "@/locales/en.json";
 import es from "@/locales/es.json";
 import fr from "@/locales/fr.json";
 import zh from "@/locales/zh.json";
 import de from "@/locales/de.json";
+// PA-1: High-demand bundled languages
+import ja from "@/locales/ja.json";
+import ar from "@/locales/ar.json";
+import hi from "@/locales/hi.json";
+import ptBR from "@/locales/pt-BR.json";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-// Available translations
+// Available translations - Now includes high-demand languages
 const translations = {
   en,
   es,
   fr,
   zh,
-  de
+  de,
+  ja,      // Japanese - bundled
+  ar,      // Arabic - bundled
+  hi,      // Hindi - bundled
+  "pt-BR": ptBR  // Portuguese-BR - bundled
 };
 
 // Fallback language
