@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { useTheme } from "@/App";
 import { 
   Crown, Check, Sparkles, Shield, Clock, Zap, CreditCard,
-  Loader2, Globe, Users, Briefcase, Star, ArrowRight
+  Loader2, Globe, Users, Briefcase, Star, ArrowRight, Building2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
