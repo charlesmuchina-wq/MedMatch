@@ -620,13 +620,19 @@ export const I18nProvider = ({ children }) => {
             
             processedCount += batchKeys.length;
             
-            // Update cache and state periodically
+            // Update cache and state periodically - MERGE with existing translations
             if (i % 100 === 0 || i + batchSize >= remainingKeys.length) {
-              aiTranslationCache.current[lang] = { ...translatedMap };
-              setDynamicTranslations(prev => ({
-                ...prev,
-                [lang]: { ...translatedMap }
-              }));
+              aiTranslationCache.current[lang] = { 
+                ...(aiTranslationCache.current[lang] || {}),
+                ...translatedMap 
+              };
+              setDynamicTranslations(prev => {
+                const existing = prev[lang] || {};
+                return {
+                  ...prev,
+                  [lang]: { ...existing, ...translatedMap }
+                };
+              });
               setTranslationVersion(v => v + 1); // Force re-render on each batch
               setTranslationProgress(Math.round((processedCount / totalKeys) * 100));
             }
@@ -641,7 +647,7 @@ export const I18nProvider = ({ children }) => {
         // Final update to ensure 100% progress
         setTranslationProgress(100);
         setTranslationVersion(v => v + 1);
-        console.log(`[i18n] All translations loaded for ${lang}:`, Object.keys(translatedMap).length);
+        console.log(`[i18n] All translations loaded for ${lang}:`, Object.keys(aiTranslationCache.current[lang] || {}).length);
       };
       
       // Run remaining translations in background
