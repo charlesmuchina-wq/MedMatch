@@ -809,6 +809,7 @@ export const I18nProvider = ({ children }) => {
           "Job Alerts": "nav.jobAlerts",
           "Analytics": "nav.analytics",
           "Messages": "nav.messages",
+          "Privacy & Data": "nav.privacy",
           "Settings": "common.settings",
           "Profile": "common.profile",
           "Sign Out": "common.logout",
