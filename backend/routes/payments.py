@@ -53,7 +53,6 @@ async def create_checkout_session(checkout_request: CreateCheckoutRequest, reque
         import stripe
         stripe.api_key = STRIPE_API_KEY
         
-        is_recruiter = user.get('role') == 'recruiter'
         plan = checkout_request.plan
         
         # Determine pricing based on plan type

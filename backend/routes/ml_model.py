@@ -15,7 +15,7 @@ def is_admin_user(user: dict) -> bool:
         return False
     return (
         user.get("role") == "admin" or
-        user.get("is_admin") == True or
+        user.get("is_admin") or
         "all" in user.get("permissions", [])
     )
 
