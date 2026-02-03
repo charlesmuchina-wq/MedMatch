@@ -108,7 +108,7 @@ export const LANGUAGE_META = {
 };
 
 // Bundled languages (full translations available)
-export const BUNDLED_LANGUAGES = ["en", "es", "fr", "zh", "de"];
+export const BUNDLED_LANGUAGES = ["en", "es", "fr", "zh", "de", "ja", "ar", "hi", "pt-BR"];
 
 // Popular languages order (including African languages and key regional variants)
 export const POPULAR_LANGUAGES = [
