@@ -661,9 +661,96 @@ export const I18nProvider = ({ children }) => {
     document.documentElement.dir = rtl ? "rtl" : "ltr";
     document.documentElement.lang = language;
 
-    // If non-bundled language, trigger AI translation load
+    // If non-bundled language, try pre-rendered translations first, then AI
     if (!BUNDLED_LANGUAGES.includes(language)) {
-      loadAITranslations(language);
+      // PA-3: Try to load pre-rendered server-side translations first
+      const loadPrerenderedFirst = async () => {
+        try {
+          console.log(`[i18n] Fetching pre-rendered translations for: ${language}`);
+          const response = await axios.get(`${API}/api/translate/prerender/${language}`);
+          
+          if (response.data.translations && Object.keys(response.data.translations).length > 0) {
+            console.log(`[i18n] Got ${Object.keys(response.data.translations).length} pre-rendered translations`);
+            
+            // Map the pre-rendered translations to our key format
+            const prerendered = response.data.translations;
+            const mappedTranslations = {};
+            
+            // Map common UI strings to translation keys
+            const keyMapping = {
+              "Dashboard": "nav.dashboard",
+              "My Resume": "nav.myResume",
+              "Resume Profiles": "nav.resumeProfiles",
+              "Skill Tests": "nav.skillTests",
+              "Job Search": "nav.jobSearch",
+              "Saved Jobs": "nav.savedJobs",
+              "Applications": "nav.applications",
+              "My Interviews": "nav.myInterviews",
+              "Interview Calendar": "nav.interviewCalendar",
+              "Success Predictor": "nav.successPredictor",
+              "Interview Prep": "nav.interviewPrep",
+              "Q&A Practice": "nav.qaPractice",
+              "Video Practice": "nav.videoPractice",
+              "Voice Coach": "nav.voiceCoach",
+              "Cover Letter": "nav.coverLetter",
+              "Job Alerts": "nav.jobAlerts",
+              "Analytics": "nav.analytics",
+              "Messages": "nav.messages",
+              "Settings": "common.settings",
+              "Profile": "common.profile",
+              "Sign Out": "common.logout",
+              "Sign In": "common.login",
+              "Welcome to MedMatch": "dashboard.welcomeToMedMatch",
+              "Quick Actions": "dashboard.quickActions",
+              "Upload Resume": "dashboard.uploadResume",
+              "Search Jobs": "dashboard.searchJobs",
+              "Interviews": "dashboard.interviews",
+              "Skills": "dashboard.skills",
+              "AI Powered": "dashboard.aiPowered",
+              "Loading...": "common.loading",
+              "Save": "common.save",
+              "Cancel": "common.cancel",
+              "Delete": "common.delete",
+              "Edit": "common.edit",
+              "Search": "common.search",
+              "Submit": "common.submit",
+              "Close": "common.close",
+              "Back": "common.back",
+              "Next": "common.next",
+              "Confirm": "common.confirm",
+              "Yes": "common.yes",
+              "No": "common.no",
+              "Error": "common.error",
+              "Success": "common.success"
+            };
+            
+            // Map prerendered strings to keys
+            Object.entries(prerendered).forEach(([original, translated]) => {
+              const key = keyMapping[original];
+              if (key) {
+                mappedTranslations[key] = translated;
+              }
+            });
+            
+            // Apply pre-rendered translations immediately
+            aiTranslationCache.current[language] = { ...mappedTranslations };
+            setDynamicTranslations(prev => ({
+              ...prev,
+              [language]: { ...mappedTranslations }
+            }));
+            setTranslationVersion(v => v + 1);
+            
+            console.log(`[i18n] Applied ${Object.keys(mappedTranslations).length} pre-rendered translations`);
+          }
+        } catch (e) {
+          console.log(`[i18n] Pre-rendered translations not available, falling back to AI: ${e.message}`);
+        }
+        
+        // Always run full AI translations to fill in gaps
+        loadAITranslations(language);
+      };
+      
+      loadPrerenderedFirst();
     }
   }, [language, loadAITranslations]);
 
