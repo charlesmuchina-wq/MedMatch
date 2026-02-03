@@ -797,3 +797,118 @@ async def cleanup_expired_access(request: Request):
         "jobs_processed": len(expired_job_ids),
         "applicant_records_updated": result.modified_count
     }
+
+
+# ============== Admin Recruiter Verification Routes ==============
+
+@router.get("/admin/recruiter-verifications")
+async def get_verification_requests(request: Request):
+    """Admin: Get all recruiter verification requests"""
+    user = await get_current_user(request)
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    requests = await db.verification_requests.find(
+        {},
+        {"_id": 0}
+    ).sort("submitted_at", -1).to_list(200)
+    
+    # Enrich with recruiter info
+    for req in requests:
+        recruiter = await db.recruiter_profiles.find_one(
+            {"user_id": req.get("recruiter_id")},
+            {"_id": 0, "company_name": 1, "business_email": 1, "job_title": 1}
+        )
+        if recruiter:
+            req.update(recruiter)
+    
+    return {"requests": requests}
+
+@router.get("/admin/recruiters")
+async def get_all_recruiters(request: Request):
+    """Admin: Get all registered recruiters"""
+    user = await get_current_user(request)
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    recruiters = await db.recruiter_profiles.find(
+        {},
+        {"_id": 0}
+    ).sort("created_at", -1).to_list(500)
+    
+    return {"recruiters": recruiters}
+
+@router.post("/admin/recruiter-verifications/{request_id}/approve")
+async def approve_verification(request_id: str, request: Request):
+    """Admin: Approve a recruiter verification request"""
+    user = await get_current_user(request)
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    body = await request.json() if request.headers.get("content-type") == "application/json" else {}
+    
+    # Get the verification request
+    verification_req = await db.verification_requests.find_one({"id": request_id})
+    if not verification_req:
+        raise HTTPException(status_code=404, detail="Verification request not found")
+    
+    # Update verification request
+    await db.verification_requests.update_one(
+        {"id": request_id},
+        {"$set": {
+            "status": "approved",
+            "reviewed_by": user["user_id"],
+            "reviewed_at": datetime.now(timezone.utc).isoformat(),
+            "notes": body.get("notes", "")
+        }}
+    )
+    
+    # Update recruiter profile to verified
+    await db.recruiter_profiles.update_one(
+        {"user_id": verification_req.get("recruiter_id")},
+        {"$set": {"verification_status": "verified"}}
+    )
+    
+    # Log action
+    await log_recruiter_action(
+        verification_req.get("recruiter_id"),
+        verification_req.get("organization_id", "unknown"),
+        "VERIFICATION_APPROVED",
+        {"approved_by": user["user_id"]}
+    )
+    
+    return {"message": "Recruiter approved successfully"}
+
+@router.post("/admin/recruiter-verifications/{request_id}/reject")
+async def reject_verification(request_id: str, request: Request):
+    """Admin: Reject a recruiter verification request"""
+    user = await get_current_user(request)
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    body = await request.json() if request.headers.get("content-type") == "application/json" else {}
+    
+    # Get the verification request
+    verification_req = await db.verification_requests.find_one({"id": request_id})
+    if not verification_req:
+        raise HTTPException(status_code=404, detail="Verification request not found")
+    
+    # Update verification request
+    await db.verification_requests.update_one(
+        {"id": request_id},
+        {"$set": {
+            "status": "rejected",
+            "reviewed_by": user["user_id"],
+            "reviewed_at": datetime.now(timezone.utc).isoformat(),
+            "rejection_reason": body.get("notes", "")
+        }}
+    )
+    
+    # Update recruiter profile
+    await db.recruiter_profiles.update_one(
+        {"user_id": verification_req.get("recruiter_id")},
+        {"$set": {"verification_status": "rejected"}}
+    )
+    
+    return {"message": "Recruiter rejected"}
+
