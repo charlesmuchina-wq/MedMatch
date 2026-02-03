@@ -84,12 +84,12 @@ const PremiumGate = ({
             onClick={() => navigate('/membership')}
             className="w-full bg-gradient-to-r from-turquoise to-teal-600"
           >
-            <Crown className="w-4 h-4 mr-2" /> Upgrade for $1
+            <Crown className="w-4 h-4 mr-2" /> Upgrade to Pro
           </Button>
           
           {membershipInfo?.membership_status === 'expired' && (
             <p className="text-xs text-slate-500">
-              One-time payment • Lifetime access
+              $9.99/month • Cancel anytime
             </p>
           )}
         </div>
