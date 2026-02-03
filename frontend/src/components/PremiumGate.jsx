@@ -172,7 +172,7 @@ export const UpgradeBanner = ({ membership }) => {
           : 'bg-amber-500 hover:bg-amber-600 text-white'
         }
       >
-        Upgrade for $1 <ArrowRight className="w-3 h-3 ml-1" />
+        Upgrade to Pro <ArrowRight className="w-3 h-3 ml-1" />
       </Button>
     </div>
   );
