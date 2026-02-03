@@ -490,7 +490,12 @@
     "verifyCode": "Verify Code",
     "createAccount": "Create Account",
     "alreadyHaveAccount": "Already have an account?",
-    "dontHaveAccount": "Don't have an account?"
+    "dontHaveAccount": "Don't have an account?",
+    "iAmA": "I am a",
+    "jobSeeker": "Job Seeker",
+    "jobSeekerDesc": "Find your dream job with AI",
+    "recruiter": "Recruiter",
+    "recruiterDesc": "Hire top healthcare talent"
   },
   "onboarding": {
     "welcome": "Welcome to MedMatch!",
