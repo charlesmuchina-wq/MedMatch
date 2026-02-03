@@ -723,7 +723,6 @@ function AppContent() {
               />
             } />
             {/* Recruiter RBAC Routes */}
-            <Route path="/recruiter/candidates" element={<BlindScreeningDashboard />} />
             <Route path="/recruiter/verify" element={<RecruiterVerificationPage />} />
             <Route path="/contact-requests" element={<ContactRequestScreen requests={[]} />} />
           </Routes>
