@@ -88,8 +88,8 @@ const GlobalLanguageSelector = ({ compact = false }) => {
     return a.name.localeCompare(b.name);
   });
 
-  const popularLanguages = sortedLanguages.filter(l => POPULAR_LANGUAGES.includes(l.code));
-  const africanLanguages = sortedLanguages.filter(l => AFRICAN_LANGUAGES.includes(l.code) && !POPULAR_LANGUAGES.includes(l.code));
+  const popularLanguages = sortedLanguages.filter(l => POPULAR_LANGUAGES.includes(l.code) && !AFRICAN_LANGUAGES.includes(l.code));
+  const africanLanguages = sortedLanguages.filter(l => AFRICAN_LANGUAGES.includes(l.code));
   const otherLanguages = sortedLanguages.filter(l => !POPULAR_LANGUAGES.includes(l.code) && !AFRICAN_LANGUAGES.includes(l.code));
 
   // Check if current language has grammatical gender
