@@ -37,6 +37,13 @@ const BlindScreeningDashboard = () => {
     fetchBlindModeStatus();
   }, []);
 
+  // Auto-search on mount if verified
+  useEffect(() => {
+    if (verificationStatus?.is_verified && candidates.length === 0 && !loading) {
+      searchCandidates();
+    }
+  }, [verificationStatus]);
+
   const fetchVerificationStatus = async () => {
     try {
       const token = localStorage.getItem("medmatch-token");
