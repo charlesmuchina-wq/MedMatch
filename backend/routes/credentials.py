@@ -225,6 +225,9 @@ async def submit_credential(request: Request, submission: CredentialSubmission):
     
     await db.user_credentials.insert_one(credential_record)
     
+    # Remove MongoDB _id before returning
+    credential_record.pop("_id", None)
+    
     # Invalidate trust score cache since credentials changed
     await trust_calculator.invalidate_cache(user["user_id"])
     
