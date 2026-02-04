@@ -483,6 +483,18 @@ async def search_candidates_with_rbac(
             masked_candidate = mask_candidate_data(candidate, blind_mode)
             masked_candidate["match_score"] = min(100, match_score)
             masked_candidate["match_reasoning"] = generate_match_reasoning(candidate, skill_list, keyword_list)
+            
+            # Fetch verified badges for the candidate
+            if candidate.get("user_id"):
+                badges = await db.user_credentials.find(
+                    {"user_id": candidate["user_id"], "status": "verified"},
+                    {"_id": 0, "credential_name": 1, "issuing_authority": 1, 
+                     "badge_image_url": 1, "badge_url": 1, "skills": 1, "source": 1}
+                ).to_list(10)
+                masked_candidate["badges"] = badges
+            else:
+                masked_candidate["badges"] = []
+            
             results.append(masked_candidate)
     
     # Sort by match score
