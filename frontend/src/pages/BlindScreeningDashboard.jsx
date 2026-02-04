@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import axios from "axios";
 import ProfileBadgeShowcase from "@/components/ProfileBadgeShowcase";
 import { TrustScoreBadge } from "@/components/TrustScoreDisplay";
+import EmployerReviewForm from "@/components/EmployerReviewForm";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
