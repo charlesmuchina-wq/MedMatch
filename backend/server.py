@@ -240,6 +240,7 @@ from routes.production_metrics import router as production_metrics_router
 from routes.privacy import router as privacy_router
 from routes.recruiter_rbac import router as recruiter_rbac_router
 from routes.mutual_match import router as mutual_match_router
+from routes.taxonomy import router as taxonomy_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
@@ -286,6 +287,7 @@ app.include_router(production_metrics_router, prefix="/api")
 app.include_router(privacy_router, prefix="/api")
 app.include_router(recruiter_rbac_router, prefix="/api")
 app.include_router(mutual_match_router, prefix="/api")
+app.include_router(taxonomy_router, prefix="/api")
 
 # ============== CORS Configuration ==============
 app.add_middleware(
