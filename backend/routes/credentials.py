@@ -598,6 +598,8 @@ async def initiate_credly_auth(request: Request):
     Returns the authorization URL to redirect the user to Credly.
     """
     user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
     
     # Generate state token for CSRF protection
     state = str(uuid.uuid4())
