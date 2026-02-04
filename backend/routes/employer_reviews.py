@@ -12,9 +12,13 @@ import logging
 
 from utils.database import db
 from routes.auth import get_current_user
+from services.trust_score import TrustScoreCalculator
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/reviews", tags=["Employer Reviews"])
+
+# Initialize trust score calculator for cache invalidation
+trust_calculator = TrustScoreCalculator(db)
 
 
 # ============== Models ==============
