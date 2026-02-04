@@ -56,6 +56,7 @@ import ContactRequestScreen from "@/pages/ContactRequestScreen";
 import RecruiterVerificationPage from "@/pages/RecruiterVerificationPage";
 import AdminRecruiterVerificationPage from "@/pages/AdminRecruiterVerificationPage";
 import TaxonomyExplorerPage from "@/pages/TaxonomyExplorerPage";
+import CredentialsPage from "@/pages/CredentialsPage";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
