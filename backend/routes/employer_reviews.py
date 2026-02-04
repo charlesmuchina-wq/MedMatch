@@ -369,6 +369,39 @@ async def reject_review(review_id: str, reason: str, request: Request):
     return {"success": True, "message": "Review rejected"}
 
 
+@router.get("/admin/stats")
+async def get_review_stats(request: Request):
+    """Admin: Get review moderation statistics"""
+    user = await get_current_user(request)
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    pending_count = await db.employer_reviews.count_documents({"status": "pending"})
+    approved_count = await db.employer_reviews.count_documents({"status": "approved"})
+    rejected_count = await db.employer_reviews.count_documents({"status": "rejected"})
+    
+    # Recent activity (last 7 days)
+    week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
+    recent_approved = await db.employer_reviews.count_documents({
+        "status": "approved",
+        "approved_at": {"$gte": week_ago}
+    })
+    recent_rejected = await db.employer_reviews.count_documents({
+        "status": "rejected",
+        "rejected_at": {"$gte": week_ago}
+    })
+    
+    return {
+        "pending_count": pending_count,
+        "approved_count": approved_count,
+        "rejected_count": rejected_count,
+        "recent_activity": {
+            "approved_this_week": recent_approved,
+            "rejected_this_week": recent_rejected
+        }
+    }
+
+
 # ============== Strength/Tag Suggestions ==============
 
 @router.get("/strength-suggestions")
