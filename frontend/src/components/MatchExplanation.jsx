@@ -123,9 +123,21 @@ const MatchExplanation = ({ jobId, jobTitle, matchScore, trigger }) => {
           )}
 
           {error && (
-            <div className="p-3 bg-rose-50 dark:bg-rose-900/20 rounded-lg text-rose-600 dark:text-rose-400 text-sm flex items-center gap-2">
-              <AlertCircle className="w-4 h-4" />
-              {error}
+            <div className="p-4 bg-rose-50 dark:bg-rose-900/20 rounded-lg">
+              <div className="flex items-start gap-2 text-rose-600 dark:text-rose-400 text-sm">
+                <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <span>{error}</span>
+              </div>
+              {needsResume && (
+                <Button
+                  size="sm"
+                  className="mt-3 w-full bg-turquoise hover:bg-turquoise/90"
+                  onClick={() => navigate('/dashboard')}
+                >
+                  <Upload className="w-4 h-4 mr-2" />
+                  Go to Dashboard to Upload Resume
+                </Button>
+              )}
             </div>
           )}
 
