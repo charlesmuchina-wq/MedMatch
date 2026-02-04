@@ -187,7 +187,14 @@ const LoginPage = ({ onAuthSuccess }) => {
         navigate('/');
       }
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Authentication failed");
+      const errorMessage = e.response?.data?.detail || "Authentication failed";
+      // Show more descriptive error with longer duration
+      toast.error(errorMessage, {
+        description: isRegister 
+          ? "Please check your information and try again." 
+          : "Please verify your email and password.",
+        duration: 5000
+      });
     }
     setIsLoading(false);
   };
