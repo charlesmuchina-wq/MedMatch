@@ -354,7 +354,7 @@ const CandidateCard = ({ candidate, blindMode, onRequestContact, onViewProfile }
               )}
             </div>
 
-            {/* Match Score */}
+            {/* Match Score & Trust Score */}
             <div className="flex items-center gap-2 mb-2">
               <Badge className={`${
                 candidate.match_score >= 80 ? 'bg-emerald-500' : 
@@ -362,7 +362,13 @@ const CandidateCard = ({ candidate, blindMode, onRequestContact, onViewProfile }
               } text-white`}>
                 {candidate.match_score}% Match
               </Badge>
-              
+              {candidate.trust_score && (
+                <TrustScoreBadge 
+                  score={candidate.trust_score} 
+                  level={candidate.trust_level || 'Building'}
+                  size="xs"
+                />
+              )}
               {/* Match Reasoning Tooltip */}
               <TooltipProvider>
                 <Tooltip>
