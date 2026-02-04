@@ -257,12 +257,113 @@ const CredentialsManager = () => {
   const [loading, setLoading] = useState(true);
   const [showConsent, setShowConsent] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
+  const [credlyStatus, setCredlyStatus] = useState(null);
+  const [credlyLoading, setCredlyLoading] = useState(false);
+  const [syncing, setSyncing] = useState(false);
 
   useEffect(() => {
     fetchCredentials();
     fetchTrustScore();
     fetchConsentStatus();
+    fetchCredlyStatus();
   }, []);
+
+  const fetchCredlyStatus = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/api/credentials/credly/status`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await response.json();
+      setCredlyStatus(data);
+    } catch (error) {
+      console.error('Failed to fetch Credly status:', error);
+    }
+  };
+
+  const handleConnectCredly = async () => {
+    setCredlyLoading(true);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/api/credentials/credly/auth`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await response.json();
+      
+      if (data.auth_url) {
+        // For demo mode, simulate the OAuth callback
+        if (data.auth_url.includes('DEMO_CLIENT')) {
+          // Simulate OAuth callback for demo
+          const callbackResponse = await fetch(
+            `${API_URL}/api/credentials/credly/callback?code=demo_code&state=${data.state}`,
+            { headers: { 'Authorization': `Bearer ${token}` } }
+          );
+          const callbackData = await callbackResponse.json();
+          
+          if (callbackData.success) {
+            toast.success(`Connected! Imported ${callbackData.imported_count} badges`);
+            fetchCredentials();
+            fetchCredlyStatus();
+            fetchTrustScore();
+          } else {
+            toast.error('Failed to connect to Credly');
+          }
+        } else {
+          // Production: redirect to Credly OAuth
+          window.location.href = data.auth_url;
+        }
+      }
+    } catch (error) {
+      toast.error('Failed to initiate Credly connection');
+      console.error('Credly connection error:', error);
+    } finally {
+      setCredlyLoading(false);
+    }
+  };
+
+  const handleSyncCredly = async () => {
+    setSyncing(true);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/api/credentials/credly/sync`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        toast.success(data.message);
+        fetchCredentials();
+        fetchTrustScore();
+      } else {
+        toast.error('Failed to sync badges');
+      }
+    } catch (error) {
+      toast.error('Failed to sync Credly badges');
+      console.error('Credly sync error:', error);
+    } finally {
+      setSyncing(false);
+    }
+  };
+
+  const handleDisconnectCredly = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/api/credentials/credly/disconnect`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await response.json();
+      
+      if (data.success) {
+        toast.success('Credly disconnected');
+        setCredlyStatus({ connected: false });
+      }
+    } catch (error) {
+      toast.error('Failed to disconnect Credly');
+      console.error('Credly disconnect error:', error);
+    }
+  };
 
   const fetchCredentials = async () => {
     try {
