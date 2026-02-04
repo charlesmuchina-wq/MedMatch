@@ -84,6 +84,7 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
   const [deepSearching, setDeepSearching] = useState(false);
   const [searchStats, setSearchStats] = useState(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [taxonomyFilters, setTaxonomyFilters] = useState({});
 
   // Get cities for selected country
   const availableCities = country && country !== "any" ? COUNTRIES_DATA[country] || [] : [];
