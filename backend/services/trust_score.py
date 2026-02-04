@@ -279,9 +279,9 @@ class TrustScoreCalculator:
             except Exception as e:
                 logger.warning(f"Failed to parse created_at date: {e}")
         
-        # 5. Employer reviews (placeholder for future)
+        # 5. Employer reviews (now integrated with employer_reviews collection)
         reviews = await self.db.employer_reviews.find(
-            {"candidate_id": user_id, "rating": {"$gte": 4}}
+            {"candidate_id": user_id, "status": "approved", "rating": {"$gte": 4}}
         ).to_list(20)
         
         review_points = min(len(reviews) * self.config["employer_review"], self.config["employer_review_max"])
@@ -296,7 +296,33 @@ class TrustScoreCalculator:
         # Calculate total
         total_score = sum(cat["points"] for cat in breakdown.values())
         
-        return self._build_response(total_score, breakdown, user_id)
+        result = self._build_response(total_score, breakdown, user_id)
+        
+        # Cache the result
+        global _trust_score_cache
+        cache_key = self._get_cache_key(user_id)
+        _trust_score_cache[cache_key] = {
+            "data": result,
+            "cached_at": datetime.now(timezone.utc).isoformat()
+        }
+        
+        result["from_cache"] = False
+        return result
+    
+    async def invalidate_cache(self, user_id: str):
+        """Invalidate cached trust score for a user"""
+        global _trust_score_cache
+        cache_key = self._get_cache_key(user_id)
+        if cache_key in _trust_score_cache:
+            del _trust_score_cache[cache_key]
+            logger.debug(f"Invalidated trust score cache for user {user_id}")
+    
+    @staticmethod
+    def clear_all_cache():
+        """Clear entire trust score cache"""
+        global _trust_score_cache
+        _trust_score_cache = {}
+        logger.info("Cleared all trust score cache")
     
     def _build_response(self, total_score: int, breakdown: Dict, user_id: str) -> Dict:
         """Build the complete trust score response"""
