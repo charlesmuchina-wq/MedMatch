@@ -2,6 +2,7 @@
 Credential Verification API Routes
 Primary Source Verification (PSV) endpoints for MedMatch.
 Includes Credly OAuth integration for automatic badge import.
+Includes Trust Score Calculator.
 """
 
 from fastapi import APIRouter, HTTPException, Request, UploadFile, File, Form
@@ -20,6 +21,7 @@ from services.psv_service import (
     get_certification_info, get_certifications_by_tier, get_certifications_by_category
 )
 from services.credly_service import CredlyOAuthService, SUPPORTED_BADGE_ISSUERS
+from services.trust_score import TrustScoreCalculator
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/credentials", tags=["Credential Verification"])
@@ -27,6 +29,7 @@ router = APIRouter(prefix="/credentials", tags=["Credential Verification"])
 # Initialize Services
 psv_service = PSVService(db)
 credly_service = CredlyOAuthService(db)
+trust_calculator = TrustScoreCalculator(db)
 
 # ============== Request/Response Models ==============
 
