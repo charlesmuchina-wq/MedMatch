@@ -242,6 +242,7 @@ from routes.recruiter_rbac import router as recruiter_rbac_router
 from routes.mutual_match import router as mutual_match_router
 from routes.taxonomy import router as taxonomy_router
 from routes.credentials import router as credentials_router
+from routes.employer_reviews import router as employer_reviews_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
