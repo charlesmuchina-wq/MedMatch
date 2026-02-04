@@ -225,6 +225,9 @@ async def submit_credential(request: Request, submission: CredentialSubmission):
     
     await db.user_credentials.insert_one(credential_record)
     
+    # Invalidate trust score cache since credentials changed
+    await trust_calculator.invalidate_cache(user["user_id"])
+    
     # If document provided, trigger verification
     if submission.document_url:
         verification_result = await psv_service.verify_credential(
@@ -490,6 +493,11 @@ async def approve_credential(request: Request, verification_id: str):
     if result.modified_count == 0:
         raise HTTPException(status_code=404, detail="Verification not found")
     
+    # Get the verification to find user_id for cache invalidation
+    verification = await db.credential_verifications.find_one({"verification_id": verification_id})
+    if verification:
+        await trust_calculator.invalidate_cache(verification["user_id"])
+    
     return {
         "success": True,
         "message": "Credential approved",
@@ -707,6 +715,9 @@ async def credly_oauth_callback(
         
         logger.info(f"Imported {imported_count} badges for user {user_id}")
         
+        # Invalidate trust score cache since badges changed
+        await trust_calculator.invalidate_cache(user_id)
+        
         return {
             "success": True,
             "message": f"Successfully connected to Credly and imported {imported_count} badges",
@@ -811,6 +822,10 @@ async def sync_credly_badges(request: Request):
             else:
                 await db.user_credentials.insert_one(transformed)
                 imported_count += 1
+        
+        # Invalidate trust score cache since badges changed
+        if imported_count > 0 or updated_count > 0:
+            await trust_calculator.invalidate_cache(user["user_id"])
         
         return {
             "success": True,
