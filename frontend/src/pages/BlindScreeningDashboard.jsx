@@ -14,6 +14,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { toast } from "sonner";
 import axios from "axios";
 import ProfileBadgeShowcase from "@/components/ProfileBadgeShowcase";
+import { TrustScoreBadge } from "@/components/TrustScoreDisplay";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
