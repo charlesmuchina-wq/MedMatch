@@ -35,7 +35,13 @@ const MatchExplanation = ({ jobId, jobTitle, matchScore, trigger }) => {
       );
       setExplanation(response.data);
     } catch (err) {
-      setError(err.response?.data?.detail || "Failed to load explanation");
+      const errorDetail = err.response?.data?.detail || "";
+      // Provide better guidance based on the error type
+      if (errorDetail.includes("resume") || err.response?.status === 400) {
+        setError("Upload your resume first to see personalized match explanations. Go to Dashboard → Upload Resume.");
+      } else {
+        setError(errorDetail || "Failed to load explanation. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
