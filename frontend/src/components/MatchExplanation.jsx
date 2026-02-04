@@ -16,9 +16,11 @@ const API = process.env.REACT_APP_BACKEND_URL;
  */
 const MatchExplanation = ({ jobId, jobTitle, matchScore, trigger }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [explanation, setExplanation] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [needsResume, setNeedsResume] = useState(false);
   const [requestingReview, setRequestingReview] = useState(false);
   const [reviewRequested, setReviewRequested] = useState(false);
 
