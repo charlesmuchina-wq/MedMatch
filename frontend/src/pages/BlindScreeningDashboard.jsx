@@ -390,6 +390,46 @@ const CandidateCard = ({ candidate, blindMode, onRequestContact, onViewProfile }
               )}
             </div>
 
+            {/* Verified Badges */}
+            {candidate.badges?.length > 0 && (
+              <div className="flex items-center gap-2 mb-2 py-1">
+                <Award className="w-4 h-4 text-amber-500" />
+                <div className="flex items-center gap-1">
+                  {candidate.badges.slice(0, 4).map((badge, idx) => (
+                    <TooltipProvider key={idx}>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <div className="relative">
+                            {badge.badge_image_url ? (
+                              <img 
+                                src={badge.badge_image_url} 
+                                alt={badge.credential_name}
+                                className="w-8 h-8 rounded object-contain bg-white border border-gray-200"
+                              />
+                            ) : (
+                              <div className="w-8 h-8 rounded bg-amber-100 flex items-center justify-center">
+                                <Award className="w-4 h-4 text-amber-600" />
+                              </div>
+                            )}
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p className="font-medium">{badge.credential_name}</p>
+                          <p className="text-xs text-gray-400">{badge.issuing_authority}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  ))}
+                  {candidate.badges.length > 4 && (
+                    <span className="text-xs text-gray-500 ml-1">+{candidate.badges.length - 4}</span>
+                  )}
+                </div>
+                <Badge variant="outline" className="text-xs text-green-600 border-green-200">
+                  Verified
+                </Badge>
+              </div>
+            )}
+
             {/* Summary */}
             <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
               {candidate.summary?.slice(0, 200)}...
