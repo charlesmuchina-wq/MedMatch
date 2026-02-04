@@ -20,8 +20,12 @@ import secrets
 
 from utils.database import db
 from routes.auth import get_current_user
+from services.trust_score import TrustScoreCalculator
 
 router = APIRouter(prefix="/recruiter-rbac", tags=["Recruiter RBAC"])
+
+# Initialize trust calculator
+trust_calculator = TrustScoreCalculator(db)
 
 # ============== Models ==============
 
