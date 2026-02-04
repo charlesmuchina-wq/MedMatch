@@ -1,12 +1,13 @@
 """
 Credential Verification API Routes
 Primary Source Verification (PSV) endpoints for MedMatch.
+Includes Credly OAuth integration for automatic badge import.
 """
 
 from fastapi import APIRouter, HTTPException, Request, UploadFile, File, Form
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import uuid
 import os
 import logging
@@ -18,12 +19,14 @@ from services.psv_service import (
     VerificationStatus, VerificationMethod, CredentialType,
     get_certification_info, get_certifications_by_tier, get_certifications_by_category
 )
+from services.credly_service import CredlyOAuthService, SUPPORTED_BADGE_ISSUERS
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/credentials", tags=["Credential Verification"])
 
-# Initialize PSV Service
+# Initialize Services
 psv_service = PSVService(db)
+credly_service = CredlyOAuthService(db)
 
 # ============== Request/Response Models ==============
 
