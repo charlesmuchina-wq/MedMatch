@@ -733,6 +733,7 @@ function AppContent() {
             <Route path="/admin/recruiters" element={<AdminRecruiterVerificationPage />} />
             <Route path="/taxonomy" element={<TaxonomyExplorerPage />} />
             <Route path="/careers" element={<TaxonomyExplorerPage />} />
+            <Route path="/credentials" element={<CredentialsPage />} />
           </Routes>
         </main>
       </div>
