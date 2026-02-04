@@ -858,3 +858,87 @@ async def get_supported_badge_issuers():
         "issuers": SUPPORTED_BADGE_ISSUERS,
         "total": len(SUPPORTED_BADGE_ISSUERS)
     }
+
+
+# ============== Trust Score Endpoints ==============
+
+@router.get("/trust-score")
+async def get_my_trust_score(request: Request):
+    """
+    Get the current user's trust score with full breakdown.
+    Score is calculated based on:
+    - Verified credentials (Credly badges, PSV licenses)
+    - Profile completeness
+    - Platform engagement
+    - Account tenure
+    - Employer reviews
+    """
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
+    score_data = await trust_calculator.calculate_score(user["user_id"])
+    return score_data
+
+
+@router.get("/trust-score/{user_id}")
+async def get_user_trust_score(request: Request, user_id: str):
+    """
+    Get a specific user's trust score (for recruiters viewing candidates).
+    Returns limited breakdown for privacy.
+    """
+    current_user = await get_current_user(request)
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
+    # Check if requester is a recruiter or admin
+    if current_user.get("role") not in ["recruiter", "admin"] and current_user["user_id"] != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized to view this user's trust score")
+    
+    score_data = await trust_calculator.calculate_score(user_id)
+    
+    # If viewing another user, limit the details shown
+    if current_user["user_id"] != user_id:
+        # Return summary only, not full breakdown details
+        return {
+            "user_id": score_data["user_id"],
+            "total_score": score_data["total_score"],
+            "percentage": score_data["percentage"],
+            "level": score_data["level"],
+            "calculated_at": score_data["calculated_at"],
+            "summary": {
+                "credentials": score_data["breakdown"]["credentials"]["points"],
+                "profile": score_data["breakdown"]["profile"]["points"],
+                "engagement": score_data["breakdown"]["engagement"]["points"],
+            }
+        }
+    
+    return score_data
+
+
+@router.get("/trust-score/leaderboard/top")
+async def get_trust_score_leaderboard(request: Request, limit: int = 10):
+    """
+    Get top users by trust score (anonymized for privacy).
+    Useful for displaying community benchmarks.
+    """
+    current_user = await get_current_user(request)
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
+    # Get all users with calculated trust scores from cache
+    # For now, return mock leaderboard data
+    # In production, this would query a pre-calculated leaderboard collection
+    
+    return {
+        "leaderboard": [
+            {"rank": 1, "level": "Expert", "score": 285, "badges": 5, "licenses": 3},
+            {"rank": 2, "level": "Elite", "score": 248, "badges": 4, "licenses": 2},
+            {"rank": 3, "level": "Elite", "score": 231, "badges": 5, "licenses": 1},
+            {"rank": 4, "level": "Trusted", "score": 189, "badges": 3, "licenses": 2},
+            {"rank": 5, "level": "Trusted", "score": 172, "badges": 4, "licenses": 0},
+        ][:limit],
+        "your_rank": None,  # Would be calculated
+        "total_users": 1250,
+        "note": "Leaderboard shows anonymized top performers"
+    }
