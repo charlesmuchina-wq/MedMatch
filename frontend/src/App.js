@@ -121,6 +121,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/resume", icon: FileText, labelKey: "nav.myResume" },
     { path: "/resume-profiles", icon: Users, labelKey: "nav.resumeProfiles" },
     { path: "/skill-assessments", icon: Award, labelKey: "nav.skillTests" },
+    { path: "/credentials", icon: Shield, labelKey: "nav.credentials" },
     { path: "/taxonomy", icon: Briefcase, labelKey: "nav.careerExplorer" },
     { path: "/search", icon: Search, labelKey: "nav.jobSearch" },
     { path: "/saved", icon: Bookmark, labelKey: "nav.savedJobs" },
