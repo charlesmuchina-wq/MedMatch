@@ -469,6 +469,15 @@ const CandidateCard = ({ candidate, blindMode, onRequestContact, onViewProfile, 
             <Button 
               size="sm" 
               variant="outline"
+              onClick={onWriteReview}
+              data-testid={`write-review-${candidate.id}`}
+            >
+              <Star className="w-4 h-4 mr-1" />
+              Write Review
+            </Button>
+            <Button 
+              size="sm" 
+              variant="ghost"
               onClick={onViewProfile}
             >
               View Profile
