@@ -117,6 +117,41 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - External link to view badge on Credly
 - Proper date formatting for issue/expiry dates
 
+### 3. Trust Score Calculator (P0 - COMPLETED)
+**Backend Implementation:**
+- `/app/backend/services/trust_score.py` - Comprehensive trust score calculation engine:
+  - Multi-factor scoring across 5 categories
+  - Configurable point weights for different activities
+  - Trust level system (Building → Emerging → Established → Trusted → Elite → Expert)
+  - Personalized improvement tips generation
+  - Next level progress tracking
+
+**Scoring Categories:**
+- **Credentials (max 200 pts):** Credly badges (15 pts each, max 75), PSV licenses (25 pts each, max 100), manual credentials (5 pts each, max 25)
+- **Profile (max 90 pts):** Name, email verification, phone, location, bio, photo, LinkedIn, resume, skills
+- **Engagement (max 75 pts):** Applications submitted, interviews, offers received
+- **Tenure (max 25 pts):** Account age milestones (30, 90, 180, 365 days)
+- **Reviews (max 50 pts):** Future employer review integration
+
+**API Endpoints:**
+- GET /api/credentials/trust-score - Get current user's full score breakdown
+- GET /api/credentials/trust-score/{user_id} - Get another user's score (recruiters only)
+- GET /api/credentials/trust-score/leaderboard/top - Anonymous community leaderboard
+
+**Frontend Implementation:**
+- `/app/frontend/src/components/TrustScoreDisplay.jsx` - Full-featured display component:
+  - Gradient header with score and level badge
+  - Progress bar to next level
+  - 5-category breakdown with individual progress bars
+  - Expandable detailed breakdown
+  - Actionable improvement tips with point values
+  - Compact inline badge mode for candidate cards
+
+**Integration Points:**
+- Main Dashboard: Full Trust Score display below Quick Actions
+- BlindScreeningDashboard: Compact TrustScoreBadge on candidate cards
+- Recruiter candidate search: Trust score included in search results
+
 **Demo Mode Features:**
 - Simulated OAuth flow when CREDLY_CLIENT_ID not configured
 - 5 sample badges: AWS Cloud Practitioner, Azure Fundamentals, PMP, CompTIA Security+, Google Cloud Associate Engineer
