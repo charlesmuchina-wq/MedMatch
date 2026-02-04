@@ -96,7 +96,7 @@ const MyReviewsSection = ({ userId }) => {
             No Reviews Yet
           </h3>
           <p className="text-slate-500 text-sm">
-            Reviews from employers will appear here once they're approved.
+            Reviews from employers will appear here once they&apos;re approved.
             Getting positive reviews can boost your Trust Score!
           </p>
         </CardContent>
@@ -234,7 +234,7 @@ const MyReviewsSection = ({ userId }) => {
                   </span>
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-3">
-                  "{responseDialog.review.comment || "No comment provided"}"
+                  &ldquo;{responseDialog.review.comment || "No comment provided"}&rdquo;
                 </p>
               </div>
             )}
