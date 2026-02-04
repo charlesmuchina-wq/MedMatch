@@ -123,7 +123,8 @@ export default function ProfileScreen() {
       {/* Account Section */}
       <SectionHeader title="Account" />
       <View style={styles.menuGroup}>
-        <MenuItem icon="👤" title="Personal Info" subtitle="Name, email, phone" onPress={() => {}} />
+        <MenuItem icon="👤" title="Account Settings" subtitle="Profile, name, contact info" onPress={() => router.push('/account' as any)} />
+        <MenuItem icon="🏆" title="Credentials & Badges" subtitle="Verify certifications, import badges" onPress={() => router.push('/credentials' as any)} />
         <MenuItem icon="🔒" title="Security" subtitle="Password, biometric login" onPress={() => {}} />
         <MenuItem icon="✓" title="ID Verification" subtitle={user?.id_verified ? 'Verified' : 'Not verified'} onPress={() => router.push('/id-verification' as any)} />
         <MenuItem icon="💳" title="Subscription" subtitle="Premium • Active" onPress={() => {}} />
