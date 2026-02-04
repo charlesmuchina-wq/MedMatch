@@ -315,7 +315,7 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 **Usage:**
 ```bash
-locust -f stress_test_locust.py --host=https://smart-recruiter-40.preview.emergentagent.com
+locust -f stress_test_locust.py --host=https://lseng-talent-hub.preview.emergentagent.com
 ```
 
 #### 3. AI Accuracy Validation Suite (P1 - COMPLETED)

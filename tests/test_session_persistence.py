@@ -178,7 +178,7 @@ class TestCORSConfiguration:
             json={"email": ADMIN_EMAIL, "password": ADMIN_PASSWORD},
             headers={
                 "Content-Type": "application/json",
-                "Origin": "https://smart-recruiter-40.preview.emergentagent.com"
+                "Origin": "https://lseng-talent-hub.preview.emergentagent.com"
             }
         )
         

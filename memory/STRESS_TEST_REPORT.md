@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://smart-recruiter-40.preview.emergentagent.com/api
+**API Target:** https://lseng-talent-hub.preview.emergentagent.com/api
 
 ---
 
