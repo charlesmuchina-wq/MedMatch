@@ -165,7 +165,7 @@ class TestJobSearch:
         }
         response = requests.post(
             f"{BASE_URL}/api/saved-jobs",
-            json={"job": job_data},
+            json=job_data,  # Send job directly, not wrapped
             headers=self.headers
         )
         # Accept 200, 201, or 409 (already saved)
