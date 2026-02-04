@@ -373,7 +373,7 @@ const AdminReviewModerationPage = () => {
       const response = await axios.get(`${API}/api/reviews/admin/pending`, {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setPendingReviews(response.data.reviews || []);
+      setPendingReviews(response.data.pending_reviews || []);
     } catch (err) {
       if (err.response?.status === 403) {
         toast.error("Admin access required");
