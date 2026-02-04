@@ -2,12 +2,19 @@
 Trust Score Calculator Service
 Calculates a comprehensive trust score based on verified credentials,
 profile completeness, and platform engagement.
+Includes caching for performance optimization.
 """
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from typing import Dict, List, Optional
 import logging
+import hashlib
+import json
 
 logger = logging.getLogger(__name__)
+
+# Cache configuration
+TRUST_SCORE_CACHE_TTL = 300  # 5 minutes in seconds
+_trust_score_cache: Dict[str, Dict] = {}
 
 # Score weights and points configuration
 TRUST_SCORE_CONFIG = {
@@ -46,7 +53,7 @@ TRUST_SCORE_CONFIG = {
     "account_age_180_days": 15,
     "account_age_365_days": 25,
     
-    # Employer reviews (future feature)
+    # Employer reviews
     "employer_review": 10,  # Per positive review
     "employer_review_max": 50,
 }
