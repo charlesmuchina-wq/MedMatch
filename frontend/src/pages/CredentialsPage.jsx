@@ -7,7 +7,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import CredentialsManager, { VerificationConsentScreen, TrustScoreBadge } from '@/components/CredentialsManager';
+import CredentialsManager, { VerificationConsentScreen } from '@/components/CredentialsManager';
+import TrustScoreDisplay, { TrustScoreBadge } from '@/components/TrustScoreDisplay';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
