@@ -201,11 +201,10 @@ class TestCredentials:
     def test_submit_credential(self):
         """Test submitting a credential for verification"""
         credential_data = {
-            "credential_type": "certification",
-            "credential_name": "ASQ CQE",
+            "credential_code": "CQE",
             "issuing_authority": "ASQ",
             "issue_date": "2024-01-15",
-            "credential_id": f"CQE-{uuid.uuid4().hex[:8]}"
+            "credential_number": f"CQE-{uuid.uuid4().hex[:8]}"
         }
         response = requests.post(
             f"{BASE_URL}/api/credentials/submit",
@@ -214,7 +213,7 @@ class TestCredentials:
         )
         assert response.status_code in [200, 201]
         data = response.json()
-        assert "id" in data or "credential_id" in data or "message" in data
+        assert "credential_id" in data or "message" in data
         print(f"✓ Credential submission working")
     
     def test_get_user_credentials(self):
