@@ -708,6 +708,8 @@ async def credly_oauth_callback(
 async def get_credly_status(request: Request):
     """Get user's Credly connection status"""
     user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
     
     token_record = await db.credly_tokens.find_one(
         {"user_id": user["user_id"]},
@@ -732,6 +734,8 @@ async def get_credly_status(request: Request):
 async def sync_credly_badges(request: Request):
     """Re-sync badges from Credly"""
     user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
     
     token_record = await db.credly_tokens.find_one({"user_id": user["user_id"]})
     
