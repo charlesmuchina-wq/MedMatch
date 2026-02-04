@@ -458,14 +458,6 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
             ))}
           </div>
         </div>
-
-        {/* Badge Showcase for users without resume */}
-        <div className="mt-6">
-          <ProfileBadgeShowcase 
-            maxBadges={4}
-            showConnectButton={true}
-          />
-        </div>
       )}
 
       {/* Application Feedback Insights */}
