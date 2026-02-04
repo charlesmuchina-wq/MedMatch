@@ -212,7 +212,7 @@ const MatchExplanation = ({ jobId, jobTitle, matchScore, trigger }) => {
                   {reviewRequested ? (
                     <div className="p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-lg text-emerald-700 dark:text-emerald-400 text-sm flex items-center gap-2">
                       <Users className="w-4 h-4" />
-                      Human review requested! We'll respond within 2-3 business days.
+                      Human review requested! We&apos;ll respond within 2-3 business days.
                     </div>
                   ) : (
                     <Button
