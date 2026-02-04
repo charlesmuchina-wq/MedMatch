@@ -587,3 +587,261 @@ async def get_trust_score(request: Request):
             "Grant PSV consent" if not user.get("psv_consent") else None
         ]
     }
+
+
+# ============== Credly OAuth Integration ==============
+
+@router.get("/credly/auth")
+async def initiate_credly_auth(request: Request):
+    """
+    Initiate Credly OAuth flow.
+    Returns the authorization URL to redirect the user to Credly.
+    """
+    user = await get_current_user(request)
+    
+    # Generate state token for CSRF protection
+    state = str(uuid.uuid4())
+    
+    # Store state in database for verification
+    await db.credly_oauth_states.insert_one({
+        "state": state,
+        "user_id": user["user_id"],
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "expires_at": (datetime.now(timezone.utc) + timedelta(minutes=10)).isoformat()
+    })
+    
+    auth_url = credly_service.get_authorization_url(state)
+    
+    return {
+        "auth_url": auth_url,
+        "state": state,
+        "message": "Redirect user to auth_url to authenticate with Credly"
+    }
+
+
+@router.get("/credly/callback")
+async def credly_oauth_callback(
+    request: Request,
+    code: str = None,
+    state: str = None,
+    error: str = None
+):
+    """
+    Handle Credly OAuth callback after user authorization.
+    Exchanges code for tokens and imports user badges.
+    """
+    if error:
+        raise HTTPException(status_code=400, detail=f"Credly authorization failed: {error}")
+    
+    if not code or not state:
+        raise HTTPException(status_code=400, detail="Missing authorization code or state")
+    
+    # Verify state token
+    state_record = await db.credly_oauth_states.find_one({
+        "state": state,
+        "expires_at": {"$gt": datetime.now(timezone.utc).isoformat()}
+    })
+    
+    if not state_record:
+        raise HTTPException(status_code=400, detail="Invalid or expired state token")
+    
+    user_id = state_record["user_id"]
+    
+    # Clean up state token
+    await db.credly_oauth_states.delete_one({"state": state})
+    
+    try:
+        # Exchange code for tokens
+        token_data = await credly_service.exchange_code_for_token(code)
+        
+        # Store tokens
+        await db.credly_tokens.update_one(
+            {"user_id": user_id},
+            {"$set": {
+                "user_id": user_id,
+                "access_token": token_data["access_token"],
+                "refresh_token": token_data.get("refresh_token"),
+                "expires_at": (
+                    datetime.now(timezone.utc) + timedelta(seconds=token_data.get("expires_in", 3600))
+                ).isoformat(),
+                "connected_at": datetime.now(timezone.utc).isoformat(),
+                "simulated": token_data.get("simulated", False)
+            }},
+            upsert=True
+        )
+        
+        # Fetch and import badges
+        badges = await credly_service.fetch_user_badges(token_data["access_token"])
+        imported_count = 0
+        
+        for badge in badges:
+            transformed = credly_service.transform_badge(badge, user_id)
+            
+            # Check if badge already exists
+            existing = await db.user_credentials.find_one({
+                "user_id": user_id,
+                "credly_badge_id": transformed["credly_badge_id"]
+            })
+            
+            if not existing:
+                await db.user_credentials.insert_one(transformed)
+                imported_count += 1
+        
+        logger.info(f"Imported {imported_count} badges for user {user_id}")
+        
+        return {
+            "success": True,
+            "message": f"Successfully connected to Credly and imported {imported_count} badges",
+            "imported_count": imported_count,
+            "total_badges": len(badges),
+            "simulated": token_data.get("simulated", False)
+        }
+        
+    except Exception as e:
+        logger.error(f"Credly OAuth callback error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to connect to Credly: {str(e)}")
+
+
+@router.get("/credly/status")
+async def get_credly_status(request: Request):
+    """Get user's Credly connection status"""
+    user = await get_current_user(request)
+    
+    token_record = await db.credly_tokens.find_one(
+        {"user_id": user["user_id"]},
+        {"_id": 0, "access_token": 0, "refresh_token": 0}
+    )
+    
+    if not token_record:
+        return {
+            "connected": False,
+            "message": "Not connected to Credly"
+        }
+    
+    return {
+        "connected": True,
+        "connected_at": token_record.get("connected_at"),
+        "simulated": token_record.get("simulated", False),
+        "message": "Connected to Credly"
+    }
+
+
+@router.post("/credly/sync")
+async def sync_credly_badges(request: Request):
+    """Re-sync badges from Credly"""
+    user = await get_current_user(request)
+    
+    token_record = await db.credly_tokens.find_one({"user_id": user["user_id"]})
+    
+    if not token_record:
+        raise HTTPException(status_code=400, detail="Not connected to Credly")
+    
+    # Check if token is expired and refresh if needed
+    expires_at = datetime.fromisoformat(token_record["expires_at"].replace("Z", "+00:00"))
+    access_token = token_record["access_token"]
+    
+    if expires_at < datetime.now(timezone.utc):
+        if token_record.get("refresh_token"):
+            try:
+                new_tokens = await credly_service.refresh_access_token(token_record["refresh_token"])
+                access_token = new_tokens["access_token"]
+                
+                await db.credly_tokens.update_one(
+                    {"user_id": user["user_id"]},
+                    {"$set": {
+                        "access_token": access_token,
+                        "refresh_token": new_tokens.get("refresh_token", token_record["refresh_token"]),
+                        "expires_at": (
+                            datetime.now(timezone.utc) + timedelta(seconds=new_tokens.get("expires_in", 3600))
+                        ).isoformat()
+                    }}
+                )
+            except Exception as e:
+                logger.error(f"Failed to refresh Credly token: {str(e)}")
+                raise HTTPException(status_code=401, detail="Credly session expired. Please reconnect.")
+        else:
+            raise HTTPException(status_code=401, detail="Credly session expired. Please reconnect.")
+    
+    try:
+        badges = await credly_service.fetch_user_badges(access_token)
+        imported_count = 0
+        updated_count = 0
+        
+        for badge in badges:
+            transformed = credly_service.transform_badge(badge, user["user_id"])
+            
+            existing = await db.user_credentials.find_one({
+                "user_id": user["user_id"],
+                "credly_badge_id": transformed["credly_badge_id"]
+            })
+            
+            if existing:
+                # Update existing badge
+                await db.user_credentials.update_one(
+                    {"_id": existing["_id"]},
+                    {"$set": {
+                        "last_synced": datetime.now(timezone.utc).isoformat(),
+                        "badge_url": transformed["badge_url"],
+                        "expiry_date": transformed.get("expiry_date")
+                    }}
+                )
+                updated_count += 1
+            else:
+                await db.user_credentials.insert_one(transformed)
+                imported_count += 1
+        
+        return {
+            "success": True,
+            "message": f"Synced badges: {imported_count} new, {updated_count} updated",
+            "imported_count": imported_count,
+            "updated_count": updated_count,
+            "total_badges": len(badges)
+        }
+        
+    except Exception as e:
+        logger.error(f"Credly sync error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to sync badges: {str(e)}")
+
+
+@router.delete("/credly/disconnect")
+async def disconnect_credly(request: Request):
+    """Disconnect Credly integration"""
+    user = await get_current_user(request)
+    
+    result = await db.credly_tokens.delete_one({"user_id": user["user_id"]})
+    
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Credly connection not found")
+    
+    return {
+        "success": True,
+        "message": "Credly disconnected successfully"
+    }
+
+
+@router.get("/credly/badges")
+async def get_credly_badges(request: Request):
+    """Get all imported Credly badges for the user"""
+    user = await get_current_user(request)
+    
+    badges = await db.user_credentials.find(
+        {
+            "user_id": user["user_id"],
+            "source": "credly"
+        },
+        {"_id": 0}
+    ).to_list(100)
+    
+    return {
+        "badges": badges,
+        "total": len(badges)
+    }
+
+
+@router.get("/credly/supported-issuers")
+async def get_supported_badge_issuers():
+    """Get list of supported badge issuers on Credly"""
+    return {
+        "issuers": SUPPORTED_BADGE_ISSUERS,
+        "total": len(SUPPORTED_BADGE_ISSUERS)
+    }
