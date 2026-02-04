@@ -298,8 +298,7 @@ class TrustScoreCalculator:
         
         result = self._build_response(total_score, breakdown, user_id)
         
-        # Cache the result
-        global _trust_score_cache
+        # Cache the result (using the global declared at function start)
         cache_key = self._get_cache_key(user_id)
         _trust_score_cache[cache_key] = {
             "data": result,
