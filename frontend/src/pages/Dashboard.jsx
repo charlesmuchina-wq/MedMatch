@@ -301,6 +301,15 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
         user={user}
       />
 
+      {/* Trust Score - Prominent Display */}
+      <div className="mb-8">
+        <TrustScoreDisplay 
+          showBreakdown={true}
+          showTips={true}
+          onNavigate={navigate}
+        />
+      </div>
+
       {/* Stats Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         {stats.map(({ label, value, icon: Icon, color, path }) => (
