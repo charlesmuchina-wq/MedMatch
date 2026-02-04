@@ -12,6 +12,7 @@ import { useTranslation, useLanguageInfo } from "@/utils/i18n";
 import FeedbackInsights from "@/components/FeedbackInsights";
 import ProfileBadgeShowcase from "@/components/ProfileBadgeShowcase";
 import TrustScoreDisplay from "@/components/TrustScoreDisplay";
+import TrustScoreHistoryGraph from "@/components/TrustScoreHistoryGraph";
 import MyReviewsSection from "@/components/MyReviewsSection";
 import axios from "axios";
 
