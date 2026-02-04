@@ -158,6 +158,55 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - **BLOCKED:** Requires EAS login credentials (Expo account)
 - User needs to run: `eas login` then `eas build --platform android --profile development`
 
+### 7. Employer Review System (COMPLETED)
+**Backend Implementation:**
+- `/app/backend/routes/employer_reviews.py` - Full review system:
+  - Create reviews (recruiters only, with ratings 1-5)
+  - Detailed scoring: professionalism, communication, technical skills, reliability
+  - Strengths and areas for improvement tags
+  - Would hire again indicator
+  - Candidate response capability
+  - Admin moderation (approve/reject pending reviews)
+  - Review summary statistics with rating distribution
+
+**API Endpoints:**
+- POST /api/reviews/create - Create a review
+- GET /api/reviews/candidate/{id} - Get candidate's reviews with stats
+- GET /api/reviews/my-reviews - Get reviews received
+- GET /api/reviews/given - Get reviews given (recruiters)
+- POST /api/reviews/respond/{id} - Candidate response
+- GET /api/reviews/admin/pending - Admin moderation queue
+- POST /api/reviews/admin/approve/{id} - Approve review
+- POST /api/reviews/admin/reject/{id} - Reject review
+- GET /api/reviews/strength-suggestions - Tag suggestions
+
+**Integration with Trust Score:**
+- Approved reviews with rating ≥4 contribute 10 points each (max 50 points)
+- Reviews collection: `employer_reviews`
+
+### 8. Trust Score Caching (COMPLETED)
+- Implemented in-memory caching with 5-minute TTL
+- Cache key per user: `trust_score_{user_id}`
+- `from_cache` flag in response indicates cache hit
+- `invalidate_cache(user_id)` method for cache invalidation
+- `clear_all_cache()` static method for bulk invalidation
+- Performance optimization: Avoids repeated DB queries for same user
+
+### 9. Mobile App UI Screens (COMPLETED)
+**Account Management Screen** (`/app/mobile/app/account.tsx`):
+- Profile editing: name, phone, location, bio, job title, LinkedIn
+- Trust Score badge display with level
+- Quick actions: Manage Credentials, Upload Resume, App Settings
+- Account deletion with confirmation
+- Linear gradient header, keyboard-aware scrolling
+
+**Credentials Screen** (`/app/mobile/app/credentials.tsx`):
+- Trust Score card with progress to next level
+- Credly Connect button with demo mode support
+- Credentials list with badge images, status, skills tags
+- Pull-to-refresh functionality
+- Empty state with call-to-action
+
 **Scoring Categories:**
 - **Credentials (max 200 pts):** Credly badges (15 pts each, max 75), PSV licenses (25 pts each, max 100), manual credentials (5 pts each, max 25)
 - **Profile (max 90 pts):** Name, email verification, phone, location, bio, photo, LinkedIn, resume, skills
