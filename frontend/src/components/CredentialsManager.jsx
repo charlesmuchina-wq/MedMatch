@@ -186,33 +186,69 @@ export const TrustScoreBadge = ({ score, badgeLevel }) => {
 
 // Credential Card Component
 const CredentialCard = ({ credential, onVerify, onUpload }) => {
+  const isCredlyBadge = credential.source === 'credly';
+  
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 hover:shadow-md transition-shadow">
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center">
-            <Award className="w-5 h-5 text-amber-600" />
-          </div>
-          <div>
-            <h4 className="font-medium text-gray-900 dark:text-white">
+          {isCredlyBadge && credential.badge_image_url ? (
+            <img 
+              src={credential.badge_image_url} 
+              alt={credential.credential_name}
+              className="w-12 h-12 rounded-lg object-contain bg-white"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = '';
+                e.target.className = 'hidden';
+              }}
+            />
+          ) : (
+            <div className="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center">
+              <Award className="w-5 h-5 text-amber-600" />
+            </div>
+          )}
+          <div className="flex-1 min-w-0">
+            <h4 className="font-medium text-gray-900 dark:text-white truncate">
               {credential.credential_name || credential.credential_code}
             </h4>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
               {credential.issuing_authority || credential.provider}
             </p>
           </div>
         </div>
-        <StatusBadge status={credential.status} />
+        <div className="flex flex-col items-end gap-1">
+          <StatusBadge status={credential.status} />
+          {isCredlyBadge && (
+            <span className="px-1.5 py-0.5 bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300 rounded text-xs font-medium">
+              Credly
+            </span>
+          )}
+        </div>
       </div>
+
+      {/* Skills/Tags for Credly badges */}
+      {isCredlyBadge && credential.skills?.length > 0 && (
+        <div className="flex flex-wrap gap-1 mb-3">
+          {credential.skills.slice(0, 4).map((skill, idx) => (
+            <span key={idx} className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded text-xs">
+              {skill}
+            </span>
+          ))}
+          {credential.skills.length > 4 && (
+            <span className="text-xs text-gray-500">+{credential.skills.length - 4}</span>
+          )}
+        </div>
+      )}
 
       <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-3">
         {credential.issue_date && (
-          <span>Issued: {credential.issue_date}</span>
+          <span>Issued: {new Date(credential.issue_date).toLocaleDateString()}</span>
         )}
         {credential.expiry_date && (
           <>
             <span>•</span>
-            <span>Expires: {credential.expiry_date}</span>
+            <span>Expires: {new Date(credential.expiry_date).toLocaleDateString()}</span>
           </>
         )}
       </div>
@@ -239,10 +275,23 @@ const CredentialCard = ({ credential, onVerify, onUpload }) => {
           </>
         )}
         {credential.status === 'verified' && (
-          <Button size="sm" variant="ghost" className="text-green-600" disabled>
-            <CheckCircle className="w-3 h-3 mr-1" />
-            MedMatch Verified
-          </Button>
+          <>
+            <Button size="sm" variant="ghost" className="text-green-600 flex-1" disabled>
+              <CheckCircle className="w-3 h-3 mr-1" />
+              Verified
+            </Button>
+            {isCredlyBadge && credential.badge_url && (
+              <Button 
+                size="sm" 
+                variant="outline"
+                onClick={() => window.open(credential.badge_url, '_blank')}
+                className="gap-1"
+              >
+                <ExternalLink className="w-3 h-3" />
+                View
+              </Button>
+            )}
+          </>
         )}
       </div>
     </div>
