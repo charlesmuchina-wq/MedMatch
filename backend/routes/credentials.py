@@ -524,71 +524,84 @@ async def reject_credential(request: Request, verification_id: str, reason: str 
         "verification_id": verification_id
     }
 
-# ============== Trust Score ==============
+# ============== Trust Score (Comprehensive) ==============
 
 @router.get("/trust-score")
 async def get_trust_score(request: Request):
-    """Calculate user's credential trust score"""
-    
+    """
+    Get the current user's trust score with full breakdown.
+    Score is calculated based on:
+    - Verified credentials (Credly badges, PSV licenses)
+    - Profile completeness
+    - Platform engagement
+    - Account tenure
+    - Employer reviews
+    """
     user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
     
-    credentials = await db.user_credentials.find(
-        {"user_id": user["user_id"]},
-        {"_id": 0}
-    ).to_list(100)
+    score_data = await trust_calculator.calculate_score(user["user_id"])
+    return score_data
+
+
+@router.get("/trust-score/{user_id}")
+async def get_user_trust_score(request: Request, user_id: str):
+    """
+    Get a specific user's trust score (for recruiters viewing candidates).
+    Returns limited breakdown for privacy.
+    """
+    current_user = await get_current_user(request)
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Authentication required")
     
-    # Calculate trust score
-    score = 0
-    max_score = 100
+    # Check if requester is a recruiter or admin
+    if current_user.get("role") not in ["recruiter", "admin"] and current_user["user_id"] != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized to view this user's trust score")
     
-    verified_count = sum(1 for c in credentials if c.get("status") == "verified")
-    pending_count = sum(1 for c in credentials if c.get("status") == "pending")
+    score_data = await trust_calculator.calculate_score(user_id)
     
-    # Points for verified credentials (max 50)
-    score += min(verified_count * 10, 50)
+    # If viewing another user, limit the details shown
+    if current_user["user_id"] != user_id:
+        # Return summary only, not full breakdown details
+        return {
+            "user_id": score_data["user_id"],
+            "total_score": score_data["total_score"],
+            "percentage": score_data["percentage"],
+            "level": score_data["level"],
+            "calculated_at": score_data["calculated_at"],
+            "summary": {
+                "credentials": score_data["breakdown"]["credentials"]["points"],
+                "profile": score_data["breakdown"]["profile"]["points"],
+                "engagement": score_data["breakdown"]["engagement"]["points"],
+            }
+        }
     
-    # Points for PSV consent (10)
-    if user.get("psv_consent"):
-        score += 10
+    return score_data
+
+
+@router.get("/trust-score/leaderboard/top")
+async def get_trust_score_leaderboard(request: Request, limit: int = 10):
+    """
+    Get top users by trust score (anonymized for privacy).
+    Useful for displaying community benchmarks.
+    """
+    current_user = await get_current_user(request)
+    if not current_user:
+        raise HTTPException(status_code=401, detail="Authentication required")
     
-    # Points for profile completeness (20)
-    if user.get("resume"):
-        score += 10
-    if user.get("linkedin_url"):
-        score += 5
-    if user.get("phone_verified"):
-        score += 5
-    
-    # Points for ID verification (20)
-    if user.get("id_verification_status") == "verified":
-        score += 20
-    
-    # Determine badge level
-    if score >= 80:
-        badge = "gold"
-    elif score >= 60:
-        badge = "silver"
-    elif score >= 40:
-        badge = "bronze"
-    else:
-        badge = "none"
-    
+    # Mock leaderboard data for now
     return {
-        "trust_score": score,
-        "max_score": max_score,
-        "badge_level": badge,
-        "breakdown": {
-            "verified_credentials": verified_count,
-            "pending_credentials": pending_count,
-            "psv_consent": user.get("psv_consent", False),
-            "id_verified": user.get("id_verification_status") == "verified"
-        },
-        "recommendations": [
-            "Verify more credentials" if verified_count < 3 else None,
-            "Complete ID verification" if user.get("id_verification_status") != "verified" else None,
-            "Add LinkedIn profile" if not user.get("linkedin_url") else None,
-            "Grant PSV consent" if not user.get("psv_consent") else None
-        ]
+        "leaderboard": [
+            {"rank": 1, "level": "Expert", "score": 285, "badges": 5, "licenses": 3},
+            {"rank": 2, "level": "Elite", "score": 248, "badges": 4, "licenses": 2},
+            {"rank": 3, "level": "Elite", "score": 231, "badges": 5, "licenses": 1},
+            {"rank": 4, "level": "Trusted", "score": 189, "badges": 3, "licenses": 2},
+            {"rank": 5, "level": "Trusted", "score": 172, "badges": 4, "licenses": 0},
+        ][:limit],
+        "your_rank": None,
+        "total_users": 1250,
+        "note": "Leaderboard shows anonymized top performers"
     }
 
 
