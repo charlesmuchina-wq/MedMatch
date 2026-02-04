@@ -4,7 +4,7 @@ import {
   Search, MapPin, Globe, Calendar, Filter,
   Sparkles, Loader2, ShieldCheck, Award, CheckCircle, 
   FileText, Code, HeartPulse, Settings, FileSearch,
-  Building, Home, Laptop, ChevronDown
+  Building, Home, Laptop, ChevronDown, FlaskConical
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { JobCard } from "@/components/shared/JobCard";
 import { useTranslation } from "@/utils/i18n";
 import api from "@/utils/apiClient";
+import TaxonomyJobFilters from "@/components/TaxonomyJobFilters";
 
 // Icon mapping for presets
 const PresetIcons = {
