@@ -291,6 +291,7 @@ app.include_router(recruiter_rbac_router, prefix="/api")
 app.include_router(mutual_match_router, prefix="/api")
 app.include_router(taxonomy_router, prefix="/api")
 app.include_router(credentials_router, prefix="/api")
+app.include_router(employer_reviews_router, prefix="/api")
 
 # ============== CORS Configuration ==============
 app.add_middleware(
