@@ -2,9 +2,9 @@
 AI-Powered Career Pivot Matching Service
 Uses the taxonomy to suggest cross-industry career pivots based on transferable skills.
 """
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 import logging
-from services.taxonomy import SECTORS, SKILLS, CROSS_POLLINATION
+from services.taxonomy import SECTORS, SKILLS
 
 logger = logging.getLogger(__name__)
 
