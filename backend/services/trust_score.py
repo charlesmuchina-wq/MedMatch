@@ -316,6 +316,40 @@ class TrustScoreCalculator:
             del _trust_score_cache[cache_key]
             logger.debug(f"Invalidated trust score cache for user {user_id}")
     
+    async def record_score_snapshot(self, user_id: str, score_data: Dict):
+        """Record a trust score snapshot for history tracking"""
+        try:
+            snapshot = {
+                "user_id": user_id,
+                "total_score": score_data.get("total_score", 0),
+                "level_name": score_data.get("level", {}).get("name", "Building"),
+                "breakdown": score_data.get("breakdown", {}),
+                "recorded_at": datetime.now(timezone.utc).isoformat()
+            }
+            await self.db.trust_score_history.insert_one(snapshot)
+            logger.debug(f"Recorded trust score snapshot for user {user_id}")
+        except Exception as e:
+            logger.error(f"Failed to record score snapshot: {e}")
+    
+    async def get_score_history(self, user_id: str, days: int = 90) -> List[Dict]:
+        """Get trust score history for a user over the specified period"""
+        try:
+            cutoff_date = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+            
+            cursor = self.db.trust_score_history.find(
+                {
+                    "user_id": user_id,
+                    "recorded_at": {"$gte": cutoff_date}
+                },
+                {"_id": 0}
+            ).sort("recorded_at", 1)
+            
+            history = await cursor.to_list(length=500)
+            return history
+        except Exception as e:
+            logger.error(f"Failed to get score history: {e}")
+            return []
+    
     @staticmethod
     def clear_all_cache():
         """Clear entire trust score cache"""
