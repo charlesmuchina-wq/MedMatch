@@ -729,6 +729,8 @@ function AppContent() {
             <Route path="/recruiter/verify" element={<RecruiterVerificationPage />} />
             <Route path="/contact-requests" element={<ContactRequestScreen requests={[]} />} />
             <Route path="/admin/recruiters" element={<AdminRecruiterVerificationPage />} />
+            <Route path="/taxonomy" element={<TaxonomyExplorerPage />} />
+            <Route path="/careers" element={<TaxonomyExplorerPage />} />
           </Routes>
         </main>
       </div>
