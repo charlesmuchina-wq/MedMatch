@@ -401,3 +401,152 @@ async def enhance_profile(
             "career_pivot_options": career_options[:3]
         }
     }
+
+
+# ============== AI-Powered Career Pivot Analysis ==============
+
+class CareerPivotRequest(BaseModel):
+    current_role: str
+    current_sector: str
+    skills: List[str] = []
+    certifications: List[str] = []
+    experience_years: int = 0
+    target_sectors: Optional[List[str]] = None
+
+
+@router.post("/career-pivots/analyze")
+async def analyze_career_pivot(request_data: CareerPivotRequest):
+    """
+    AI-powered career pivot analysis.
+    Analyzes transferable skills and suggests cross-industry transitions.
+    
+    Example pivot scenarios:
+    - Aerospace Engineer → Medical Robotics (embedded systems transfer)
+    - Automotive QA → Medical Device Quality (regulatory skills transfer)
+    - Pharma Validation → Medical Device Design Assurance
+    """
+    matcher = get_career_pivot_matcher(db)
+    
+    result = matcher.analyze_candidate_for_pivots(
+        current_role=request_data.current_role,
+        current_sector=request_data.current_sector,
+        skills=request_data.skills,
+        certifications=request_data.certifications,
+        experience_years=request_data.experience_years,
+        target_sectors=request_data.target_sectors
+    )
+    
+    return result
+
+
+@router.get("/career-pivots/analyze/me")
+async def analyze_my_career_pivots(request: Request):
+    """
+    Analyze career pivot options for the current user based on their profile.
+    Uses resume skills, credentials, and profile data.
+    """
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
+    # Get user's resume data
+    resume = await db.resumes.find_one({"user_id": user["user_id"]})
+    
+    # Get user's credentials
+    credentials = await db.user_credentials.find(
+        {"user_id": user["user_id"], "status": "verified"},
+        {"_id": 0, "credential_code": 1, "credential_name": 1}
+    ).to_list(50)
+    
+    # Extract data
+    skills = resume.get("skills", []) if resume else []
+    current_role = resume.get("current_title") or user.get("job_title", "")
+    experience = resume.get("experience", []) if resume else []
+    experience_years = len(experience) if experience else 0
+    
+    # Try to determine current sector from role
+    sector_match = match_role_to_sector(current_role) if current_role else None
+    current_sector = sector_match.get("sector_id", "engineering") if sector_match else "engineering"
+    
+    # Get certification codes
+    cert_codes = [c.get("credential_code", "") for c in credentials if c.get("credential_code")]
+    
+    matcher = get_career_pivot_matcher(db)
+    
+    result = matcher.analyze_candidate_for_pivots(
+        current_role=current_role or "Professional",
+        current_sector=current_sector,
+        skills=skills,
+        certifications=cert_codes,
+        experience_years=experience_years
+    )
+    
+    return {
+        **result,
+        "user_profile_used": {
+            "role_detected": current_role,
+            "sector_detected": current_sector,
+            "skills_count": len(skills),
+            "credentials_count": len(credentials)
+        }
+    }
+
+
+@router.get("/career-pivots/popular")
+async def get_popular_career_pivots():
+    """
+    Get popular/trending career pivot paths in the Life Sciences & Engineering ecosystem.
+    """
+    popular_pivots = [
+        {
+            "title": "Aerospace to Medical Robotics",
+            "from": {"role": "Avionics Engineer", "sector": "engineering"},
+            "to": {"role": "Embedded Systems Developer", "sector": "medical_devices"},
+            "match_score": 85,
+            "trend": "rising",
+            "reason": "Embedded systems expertise directly applicable to surgical robotics",
+            "bridge_certs": ["ISO 13485", "IEC 62304"]
+        },
+        {
+            "title": "Automotive QA to Medical Device Quality",
+            "from": {"role": "Quality Engineer", "sector": "engineering"},
+            "to": {"role": "Design Assurance Engineer", "sector": "medical_devices"},
+            "match_score": 80,
+            "trend": "stable",
+            "reason": "IATF 16949 experience transfers to ISO 13485",
+            "bridge_certs": ["ASQ CQE", "ISO 13485 Lead Auditor"]
+        },
+        {
+            "title": "Pharma Validation to Device Validation",
+            "from": {"role": "Validation Engineer", "sector": "life_sciences"},
+            "to": {"role": "Design Assurance Engineer", "sector": "medical_devices"},
+            "match_score": 90,
+            "trend": "rising",
+            "reason": "GxP validation expertise directly applicable",
+            "bridge_certs": ["ASQ CQA"]
+        },
+        {
+            "title": "Clinical Research to Device Trials",
+            "from": {"role": "Clinical Research Associate", "sector": "life_sciences"},
+            "to": {"role": "Field Clinical Engineer", "sector": "medical_devices"},
+            "match_score": 75,
+            "trend": "stable",
+            "reason": "Clinical trial management applicable to device studies",
+            "bridge_certs": ["ACRP CCRA", "RAPS RAC"]
+        },
+        {
+            "title": "EV Battery to Medical Implantables",
+            "from": {"role": "EV Battery Engineer", "sector": "engineering"},
+            "to": {"role": "R&D Engineer", "sector": "medical_devices"},
+            "match_score": 70,
+            "trend": "emerging",
+            "reason": "Battery chemistry expertise valuable for pacemakers/implants",
+            "bridge_certs": ["ISO 13485", "IEC 60601"]
+        }
+    ]
+    
+    return {
+        "popular_pivots": popular_pivots,
+        "total": len(popular_pivots),
+        "insight": "Medical Devices sector is attracting talent from Aerospace and Automotive due to shared engineering principles and growing demand for surgical robotics and smart implants."
+    }
