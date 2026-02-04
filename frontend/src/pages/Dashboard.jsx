@@ -477,6 +477,13 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
           <FeedbackInsights />
         </div>
       )}
+
+      {/* Employer Reviews Section */}
+      {resume && user?.user_id && (
+        <div className="mt-8">
+          <MyReviewsSection userId={user.user_id} />
+        </div>
+      )}
     </div>
   );
 };
