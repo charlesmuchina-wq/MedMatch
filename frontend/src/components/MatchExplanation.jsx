@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Info, Brain, Target, MapPin, Briefcase, GraduationCap, AlertCircle, Users, ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Info, Brain, Target, MapPin, Briefcase, GraduationCap, AlertCircle, Users, ChevronRight, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
