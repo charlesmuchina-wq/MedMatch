@@ -496,8 +496,19 @@ async def search_candidates_with_rbac(
                      "badge_image_url": 1, "badge_url": 1, "skills": 1, "source": 1}
                 ).to_list(10)
                 masked_candidate["badges"] = badges
+                
+                # Calculate and include trust score
+                try:
+                    trust_data = await trust_calculator.calculate_score(candidate["user_id"])
+                    masked_candidate["trust_score"] = trust_data.get("total_score", 0)
+                    masked_candidate["trust_level"] = trust_data.get("level", {}).get("name", "Building")
+                except Exception:
+                    masked_candidate["trust_score"] = None
+                    masked_candidate["trust_level"] = None
             else:
                 masked_candidate["badges"] = []
+                masked_candidate["trust_score"] = None
+                masked_candidate["trust_level"] = None
             
             results.append(masked_candidate)
     
