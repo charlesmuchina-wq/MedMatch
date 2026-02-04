@@ -268,6 +268,7 @@ const BlindScreeningDashboard = () => {
             blindMode={blindMode}
             onRequestContact={() => setContactRequestDialog({ open: true, candidate })}
             onViewProfile={() => setSelectedCandidate(candidate)}
+            onWriteReview={() => setReviewDialog({ open: true, candidate })}
           />
         ))}
       </div>
