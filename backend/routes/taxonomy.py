@@ -3,7 +3,7 @@ Taxonomy API Routes
 Endpoints for sector, role, certification, and skill management.
 """
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Request
 from typing import List, Optional
 from pydantic import BaseModel
 
@@ -14,6 +14,9 @@ from services.taxonomy import (
     get_career_pivots_from_sector, get_career_pivots_to_sector,
     match_role_to_sector, estimate_seniority_tier
 )
+from services.career_pivot import get_career_pivot_matcher
+from routes.auth import get_current_user
+from utils.database import db
 
 router = APIRouter(prefix="/taxonomy", tags=["Taxonomy"])
 
