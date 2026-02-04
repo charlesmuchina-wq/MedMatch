@@ -550,7 +550,54 @@ async def get_trust_score(request: Request):
         raise HTTPException(status_code=401, detail="Authentication required")
     
     score_data = await trust_calculator.calculate_score(user["user_id"])
+    
+    # Record snapshot for history tracking (every calculation)
+    await trust_calculator.record_score_snapshot(user["user_id"], score_data)
+    
     return score_data
+
+
+@router.get("/trust-score/history")
+async def get_trust_score_history(request: Request, days: int = 90):
+    """
+    Get the current user's trust score history for the specified period.
+    Returns data points showing score progression over time.
+    """
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
+    # Limit days to reasonable range
+    days = min(max(days, 7), 365)
+    
+    history = await trust_calculator.get_score_history(user["user_id"], days)
+    
+    # Also get current score
+    current_score = await trust_calculator.calculate_score(user["user_id"])
+    
+    # Calculate trends
+    if len(history) >= 2:
+        first_score = history[0]["total_score"]
+        last_score = history[-1]["total_score"]
+        change = last_score - first_score
+        change_percentage = ((last_score - first_score) / first_score * 100) if first_score > 0 else 0
+    else:
+        change = 0
+        change_percentage = 0
+    
+    return {
+        "user_id": user["user_id"],
+        "period_days": days,
+        "data_points": len(history),
+        "history": history,
+        "current_score": current_score["total_score"],
+        "current_level": current_score["level"]["name"],
+        "trend": {
+            "change": change,
+            "change_percentage": round(change_percentage, 1),
+            "direction": "up" if change > 0 else "down" if change < 0 else "stable"
+        }
+    }
 
 
 @router.get("/trust-score/{user_id}")
