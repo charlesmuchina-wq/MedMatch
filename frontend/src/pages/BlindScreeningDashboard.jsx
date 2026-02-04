@@ -34,6 +34,7 @@ const BlindScreeningDashboard = () => {
   const [dailyDownloads, setDailyDownloads] = useState({ remaining: 50, used: 0 });
   const [contactRequestDialog, setContactRequestDialog] = useState({ open: false, candidate: null });
   const [requestMessage, setRequestMessage] = useState("");
+  const [reviewDialog, setReviewDialog] = useState({ open: false, candidate: null });
 
   useEffect(() => {
     fetchVerificationStatus();
