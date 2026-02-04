@@ -813,6 +813,8 @@ async def sync_credly_badges(request: Request):
 async def disconnect_credly(request: Request):
     """Disconnect Credly integration"""
     user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
     
     result = await db.credly_tokens.delete_one({"user_id": user["user_id"]})
     
@@ -829,6 +831,8 @@ async def disconnect_credly(request: Request):
 async def get_credly_badges(request: Request):
     """Get all imported Credly badges for the user"""
     user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
     
     badges = await db.user_credentials.find(
         {
