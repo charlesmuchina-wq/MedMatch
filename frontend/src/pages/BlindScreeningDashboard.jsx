@@ -316,6 +316,15 @@ const BlindScreeningDashboard = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Employer Review Form Dialog */}
+      <EmployerReviewForm
+        isOpen={reviewDialog.open}
+        onClose={() => setReviewDialog({ open: false, candidate: null })}
+        candidateId={reviewDialog.candidate?.id}
+        candidateName={blindMode ? reviewDialog.candidate?.anonymous_id : reviewDialog.candidate?.full_name}
+        onSubmitSuccess={() => toast.success("Review submitted successfully!")}
+      />
     </div>
   );
 };
