@@ -321,6 +321,11 @@ async def approve_review(review_id: str, request: Request):
     if not user or not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
     
+    # Get the review first to find candidate_id for cache invalidation
+    review = await db.employer_reviews.find_one({"id": review_id, "status": "pending"})
+    if not review:
+        raise HTTPException(status_code=404, detail="Review not found or already processed")
+    
     result = await db.employer_reviews.update_one(
         {"id": review_id, "status": "pending"},
         {"$set": {
@@ -333,6 +338,9 @@ async def approve_review(review_id: str, request: Request):
     
     if result.modified_count == 0:
         raise HTTPException(status_code=404, detail="Review not found or already processed")
+    
+    # Invalidate trust score cache for the candidate since reviews affect trust score
+    await trust_calculator.invalidate_cache(review["candidate_id"])
     
     return {"success": True, "message": "Review approved"}
 
