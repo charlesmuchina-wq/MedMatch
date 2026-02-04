@@ -271,6 +271,18 @@ export default function AdminDashboard() {
         bundled: "25",
         gendered: "24"
       }
+    },
+    {
+      title: "Review Moderation",
+      description: "Approve or reject pending employer reviews",
+      icon: Shield,
+      path: "/admin/reviews",
+      status: "active",
+      stats: {
+        pending: "Queue",
+        approved: "History",
+        quality: "Control"
+      }
     }
   ];
 
