@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { 
   Shield, CheckCircle, Clock, AlertTriangle, Upload, 
   Award, ChevronRight, RefreshCw, FileText, X, Check,
-  ShieldCheck, AlertCircle, Info
+  ShieldCheck, AlertCircle, Info, Link2, ExternalLink, Unlink
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
