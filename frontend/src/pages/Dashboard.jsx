@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { useTranslation, useLanguageInfo } from "@/utils/i18n";
 import FeedbackInsights from "@/components/FeedbackInsights";
 import ProfileBadgeShowcase from "@/components/ProfileBadgeShowcase";
+import TrustScoreDisplay from "@/components/TrustScoreDisplay";
 import axios from "axios";
 
 const API = process.env.REACT_APP_BACKEND_URL;
