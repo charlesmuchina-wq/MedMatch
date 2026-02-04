@@ -479,6 +479,13 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
         </div>
       )}
 
+      {/* Trust Score History Graph */}
+      {resume && (
+        <div className="mt-8">
+          <TrustScoreHistoryGraph />
+        </div>
+      )}
+
       {/* Employer Reviews Section */}
       {resume && user?.user_id && (
         <div className="mt-8">
