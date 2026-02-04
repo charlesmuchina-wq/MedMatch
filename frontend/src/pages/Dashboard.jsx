@@ -356,6 +356,12 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
             </CardContent>
           </Card>
 
+          {/* Badge Showcase */}
+          <ProfileBadgeShowcase 
+            maxBadges={4}
+            showConnectButton={true}
+          />
+
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
