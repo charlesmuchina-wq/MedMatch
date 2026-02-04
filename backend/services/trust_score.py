@@ -70,17 +70,51 @@ TRUST_LEVELS = [
 
 
 class TrustScoreCalculator:
-    """Calculates and manages user trust scores"""
+    """Calculates and manages user trust scores with caching"""
     
     def __init__(self, db):
         self.db = db
         self.config = TRUST_SCORE_CONFIG
     
-    async def calculate_score(self, user_id: str) -> Dict:
+    def _get_cache_key(self, user_id: str) -> str:
+        """Generate cache key for user"""
+        return f"trust_score_{user_id}"
+    
+    def _is_cache_valid(self, cache_entry: Dict) -> bool:
+        """Check if cache entry is still valid"""
+        if not cache_entry:
+            return False
+        cached_at = cache_entry.get("cached_at")
+        if not cached_at:
+            return False
+        try:
+            cached_time = datetime.fromisoformat(cached_at)
+            return (datetime.now(timezone.utc) - cached_time).total_seconds() < TRUST_SCORE_CACHE_TTL
+        except Exception:
+            return False
+    
+    async def calculate_score(self, user_id: str, bypass_cache: bool = False) -> Dict:
         """
         Calculate comprehensive trust score for a user.
+        Uses caching to improve performance (5-minute TTL).
         Returns breakdown of points and overall score.
         """
+        global _trust_score_cache
+        
+        cache_key = self._get_cache_key(user_id)
+        
+        # Check cache first
+        if not bypass_cache and cache_key in _trust_score_cache:
+            cache_entry = _trust_score_cache[cache_key]
+            if self._is_cache_valid(cache_entry):
+                logger.debug(f"Trust score cache hit for user {user_id}")
+                cached_result = cache_entry["data"].copy()
+                cached_result["from_cache"] = True
+                return cached_result
+        
+        # Calculate fresh score
+        logger.debug(f"Calculating fresh trust score for user {user_id}")
+        
         breakdown = {
             "credentials": {"points": 0, "details": []},
             "profile": {"points": 0, "details": []},
