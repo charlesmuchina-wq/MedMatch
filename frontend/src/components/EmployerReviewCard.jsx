@@ -121,7 +121,7 @@ const EmployerReviewCard = ({ review, showResponse = true, onRespond }) => {
         {review.comment && (
           <div className="mb-3">
             <p className={`text-sm text-slate-600 dark:text-slate-400 ${!showFullComment && 'line-clamp-3'}`}>
-              "{review.comment}"
+              &ldquo;{review.comment}&rdquo;
             </p>
             {review.comment.length > 200 && (
               <button 
@@ -186,10 +186,10 @@ const EmployerReviewCard = ({ review, showResponse = true, onRespond }) => {
           <div className="mt-3 pt-3 border-t">
             <div className="flex items-center gap-2 mb-2">
               <MessageSquare className="w-4 h-4 text-turquoise" />
-              <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Candidate's Response</span>
+              <span className="text-xs font-medium text-slate-600 dark:text-slate-400">Candidate&apos;s Response</span>
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg">
-              "{review.candidate_response.text}"
+              &ldquo;{review.candidate_response.text}&rdquo;
             </p>
           </div>
         )}
