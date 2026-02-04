@@ -77,11 +77,12 @@ class TestCredlyIntegration:
         
         print(f"✓ Credly auth endpoint returned auth_url and state: {data['state'][:8]}...")
     
-    def test_credly_auth_requires_authentication(self, api_client):
+    def test_credly_auth_requires_authentication(self):
         """Test that /api/credentials/credly/auth requires authentication"""
-        # Remove auth header
-        headers = {"Content-Type": "application/json"}
-        response = api_client.get(f"{BASE_URL}/api/credentials/credly/auth", headers=headers)
+        # Use a fresh session without auth
+        fresh_session = requests.Session()
+        fresh_session.headers.update({"Content-Type": "application/json"})
+        response = fresh_session.get(f"{BASE_URL}/api/credentials/credly/auth")
         
         assert response.status_code in [401, 403], f"Expected 401/403 without auth, got {response.status_code}"
         print("✓ Credly auth endpoint requires authentication")
