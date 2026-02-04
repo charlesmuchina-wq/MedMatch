@@ -332,7 +332,7 @@ const BlindScreeningDashboard = () => {
 /**
  * Candidate Card with Blind Screening
  */
-const CandidateCard = ({ candidate, blindMode, onRequestContact, onViewProfile }) => {
+const CandidateCard = ({ candidate, blindMode, onRequestContact, onViewProfile, onWriteReview }) => {
   const displayName = blindMode ? candidate.anonymous_id || `Candidate #${candidate.id?.slice(-6).toUpperCase()}` : candidate.full_name;
 
   return (
