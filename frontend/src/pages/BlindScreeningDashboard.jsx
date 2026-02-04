@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { 
   Eye, EyeOff, Shield, User, Building2, Search, 
   MessageSquare, Download, Clock, Check, X, AlertTriangle,
-  Lock, Unlock, Filter, Star, ChevronRight, Info
+  Lock, Unlock, Filter, Star, ChevronRight, Info, Award
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { toast } from "sonner";
 import axios from "axios";
+import ProfileBadgeShowcase from "@/components/ProfileBadgeShowcase";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
