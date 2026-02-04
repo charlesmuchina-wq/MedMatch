@@ -526,9 +526,94 @@ const CredentialsManager = () => {
         </div>
       </div>
 
+      {/* Credly Integration Panel */}
+      <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 rounded-xl p-5 border border-orange-200 dark:border-orange-800">
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-orange-500 rounded-xl flex items-center justify-center">
+              <Award className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                Credly Digital Badges
+                {credlyStatus?.connected && (
+                  <span className="px-2 py-0.5 bg-green-100 text-green-700 rounded-full text-xs font-medium">
+                    Connected
+                  </span>
+                )}
+              </h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {credlyStatus?.connected 
+                  ? `Import badges from AWS, Microsoft, Cisco, CompTIA, PMI & more`
+                  : 'Connect to automatically import your verified digital badges'
+                }
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            {credlyStatus?.connected ? (
+              <>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleSyncCredly}
+                  disabled={syncing}
+                  className="gap-2"
+                  data-testid="sync-credly-btn"
+                >
+                  <RefreshCw className={`w-4 h-4 ${syncing ? 'animate-spin' : ''}`} />
+                  {syncing ? 'Syncing...' : 'Sync Badges'}
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleDisconnectCredly}
+                  className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                  data-testid="disconnect-credly-btn"
+                >
+                  <Unlink className="w-4 h-4" />
+                </Button>
+              </>
+            ) : (
+              <Button
+                onClick={handleConnectCredly}
+                disabled={credlyLoading}
+                className="bg-orange-500 hover:bg-orange-600 gap-2"
+                data-testid="connect-credly-btn"
+              >
+                <Link2 className="w-4 h-4" />
+                {credlyLoading ? 'Connecting...' : 'Connect Credly'}
+              </Button>
+            )}
+          </div>
+        </div>
+        
+        {/* Supported Issuers */}
+        {!credlyStatus?.connected && (
+          <div className="mt-4 pt-4 border-t border-orange-200 dark:border-orange-700">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Supported badge issuers:</p>
+            <div className="flex flex-wrap gap-2">
+              {['AWS', 'Microsoft', 'Google Cloud', 'Cisco', 'CompTIA', 'PMI', 'Docker', 'Kubernetes'].map(issuer => (
+                <span key={issuer} className="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
+                  {issuer}
+                </span>
+              ))}
+              <span className="px-2 py-1 text-xs text-gray-500">+50 more</span>
+            </div>
+          </div>
+        )}
+        
+        {credlyStatus?.simulated && (
+          <div className="mt-3 text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1">
+            <Info className="w-3 h-3" />
+            Demo mode: Showing sample badges. Connect real Credly account for actual data.
+          </div>
+        )}
+      </div>
+
       {/* Add Credential Button */}
-      <div className="flex justify-end">
-        <Button onClick={() => setShowAddModal(true)} className="gap-2">
+      <div className="flex justify-end gap-2">
+        <Button onClick={() => setShowAddModal(true)} className="gap-2" data-testid="add-credential-btn">
           <Award className="w-4 h-4" />
           Add Credential
         </Button>
@@ -552,11 +637,24 @@ const CredentialsManager = () => {
             No credentials added yet
           </h3>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-            Add your professional certifications to build your trust profile
+            Add your professional certifications or connect Credly to import badges
           </p>
-          <Button onClick={() => setShowAddModal(true)}>
-            Add Your First Credential
-          </Button>
+          <div className="flex gap-3 justify-center">
+            <Button onClick={() => setShowAddModal(true)}>
+              Add Manually
+            </Button>
+            {!credlyStatus?.connected && (
+              <Button 
+                variant="outline" 
+                onClick={handleConnectCredly}
+                disabled={credlyLoading}
+                className="gap-2"
+              >
+                <Link2 className="w-4 h-4" />
+                Import from Credly
+              </Button>
+            )}
+          </div>
         </div>
       )}
 
