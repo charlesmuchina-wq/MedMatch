@@ -71,6 +71,22 @@ function RootLayoutNav() {
             presentation: 'modal',
           }} 
         />
+        <Stack.Screen 
+          name="account" 
+          options={{ 
+            title: 'Account Settings',
+            presentation: 'card',
+            headerShown: false,
+          }} 
+        />
+        <Stack.Screen 
+          name="credentials" 
+          options={{ 
+            title: 'My Credentials',
+            presentation: 'card',
+            headerShown: false,
+          }} 
+        />
       </Stack>
     </>
   );
