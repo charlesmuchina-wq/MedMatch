@@ -282,7 +282,7 @@ const BlindScreeningDashboard = () => {
           <div className="space-y-4 py-4">
             <div className="p-4 bg-turquoise/5 border border-turquoise/20 rounded-lg">
               <p className="text-sm text-slate-600 dark:text-slate-400">
-                <strong>Privacy Notice:</strong> The candidate's contact information is hidden. 
+                <strong>Privacy Notice:</strong> The candidate&apos;s contact information is hidden. 
                 Your request will be sent to them, and they can choose to accept or decline.
               </p>
             </div>
