@@ -253,8 +253,7 @@ class TestAdminApproveReject:
     def test_reject_requires_admin(self, api_client, recruiter_token):
         """POST /api/reviews/admin/reject/{id} - Should require admin role"""
         response = api_client.post(
-            f"{BASE_URL}/api/reviews/admin/reject/test_review_id",
-            json={"reason": "Test rejection"},
+            f"{BASE_URL}/api/reviews/admin/reject/test_review_id?reason=Test%20rejection",
             headers={"Authorization": f"Bearer {recruiter_token}"}
         )
         
