@@ -65,6 +65,7 @@ import InstallPrompt from "@/components/InstallPrompt";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import KarauDragonAI, { DragonButton } from "@/components/KarauDragonAI";
 import GlobalLanguageSelector from "@/components/GlobalLanguageSelector";
+import NotificationCenter from "@/components/NotificationCenter";
 import { I18nProvider, useTranslation } from "@/utils/i18n";
 import { OfflineBanner, OfflineIndicator } from "@/components/OfflineIndicator";
 import { offlineStorage } from "@/utils/offlineStorage";
