@@ -874,6 +874,7 @@ async def delete_application(app_id: str, request: Request):
 # ============== Saved Jobs Routes ==============
 
 @router.get("/saved-jobs")
+@router.get("/jobs/saved")  # Alias for consistency
 async def get_saved_jobs(request: Request):
     """Get user's saved jobs"""
     user = await get_current_user(request)
@@ -885,7 +886,7 @@ async def get_saved_jobs(request: Request):
         {"_id": 0}
     ).sort("saved_at", -1).to_list(500)
     
-    return saved
+    return {"saved_jobs": saved, "count": len(saved)}
 
 @router.post("/saved-jobs")
 async def save_job(job: Job, request: Request):
