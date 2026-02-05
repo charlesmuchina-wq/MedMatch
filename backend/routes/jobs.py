@@ -440,51 +440,61 @@ async def search_jobs(
     # Apply relevance scoring if query is provided
     if q and len(q) > 2:
         scored_jobs = []
-        query_terms = q.lower().split()
+        query_terms = [term.lower() for term in q.split() if len(term) > 2]
         
         for job in unique_jobs:
             title = (job.get("title", "") or "").lower()
             description = (job.get("description", "") or "").lower()
             company = (job.get("company", "") or "").lower()
             tags = " ".join([str(t).lower() for t in job.get("tags", [])])
+            all_text = f"{title} {tags} {description}"
             
             # Calculate relevance score
             score = 0
             matched_terms = 0
             
             for term in query_terms:
-                if len(term) < 2:
-                    continue
                 # Title match (highest weight)
                 if term in title:
-                    score += 40
+                    score += 30
                     matched_terms += 1
                 # Tag match (high weight)
                 elif term in tags:
-                    score += 25
+                    score += 20
                     matched_terms += 1
                 # Description match (medium weight)
                 elif term in description:
-                    score += 15
-                    matched_terms += 1
-                # Company match (low weight)
-                elif term in company:
                     score += 10
                     matched_terms += 1
             
             # Bonus for matching multiple terms
             if matched_terms >= 2:
-                score += matched_terms * 10
+                score += matched_terms * 5
             
-            # Only include jobs with some relevance
+            # Add a base score if at least partial match
             if score > 0:
                 job["relevance_score"] = min(score, 100)
-                job["match_score"] = min(score, 100)  # For display
+                job["match_score"] = min(50 + score, 100)  # Base 50% + relevance
+                scored_jobs.append(job)
+            elif not query_terms:
+                # If no valid query terms, include all with default score
+                job["match_score"] = 50
                 scored_jobs.append(job)
         
-        # Sort by relevance score
+        # Sort by relevance score, but keep showing results even with low scores
         scored_jobs.sort(key=lambda x: x.get("relevance_score", 0), reverse=True)
+        
+        # If no relevant jobs found, show all with low scores
+        if not scored_jobs and unique_jobs:
+            for job in unique_jobs:
+                job["match_score"] = 25  # Low relevance indicator
+            scored_jobs = unique_jobs
+        
         unique_jobs = scored_jobs
+    else:
+        # No query - assign default scores
+        for job in unique_jobs:
+            job["match_score"] = 50
     
     return {"jobs": unique_jobs[:100], "total": len(unique_jobs)}
 
