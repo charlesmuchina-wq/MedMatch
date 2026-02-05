@@ -150,8 +150,20 @@ class JobSourcesService:
             except Exception:
                 pass
             
+            # Try RFC 2822 format (common in RSS feeds)
+            if not posted:
+                try:
+                    from email.utils import parsedate_to_datetime
+                    posted = parsedate_to_datetime(posted_date)
+                except Exception:
+                    pass
+            
             if not posted:
                 return {"badge": "Recently", "is_fresh": True, "minutes_ago": None}
+            
+            # Ensure posted is timezone-aware
+            if posted.tzinfo is None:
+                posted = posted.replace(tzinfo=timezone.utc)
             
             diff = now - posted
             minutes = diff.total_seconds() / 60
