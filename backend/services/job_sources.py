@@ -855,11 +855,13 @@ class JobSourcesService:
                 job["title"] = self._clean_text(job.get("title", ""))
                 job["company"] = self._clean_text(job.get("company", ""))
                 job["description"] = self._clean_text(job.get("description", ""))
+                job["tags"] = self._clean_tags(job.get("tags", []))
                 unique_jobs.append(job)
             elif not url:
                 job["title"] = self._clean_text(job.get("title", ""))
                 job["company"] = self._clean_text(job.get("company", ""))
                 job["description"] = self._clean_text(job.get("description", ""))
+                job["tags"] = self._clean_tags(job.get("tags", []))
                 unique_jobs.append(job)
         
         # Sort by freshness (fresh jobs first)
