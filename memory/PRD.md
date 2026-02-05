@@ -93,6 +93,26 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ---
 
+## Session: February 5, 2026 (Fork 2) - Save Job Bug Fix
+
+### ✅ FIXED THIS SESSION
+
+#### 1. Save Job Functionality Restored (P0 - CRITICAL BUG FIX)
+**Issue**: "Save Job" button showed "Failed to save job" toast for jobs from external sources (composite IDs like `remotive_12345`)
+**Root Cause**: Frontend called `POST /api/jobs/save` but backend only had `POST /api/saved-jobs`
+**Fix**: Added alias routes in `/app/backend/routes/jobs.py`:
+- `@router.post("/jobs/save")` → alias for `/api/saved-jobs`
+- `@router.delete("/jobs/saved/{job_id}")` → alias for `/api/saved-jobs/{job_id}`
+**Verification**: Both composite string IDs and standard UUIDs now work correctly
+**Test Report**: `/app/test_reports/iteration_53.json` - 100% pass rate
+
+#### 2. JobCard Null Check (BUG FIX)
+**Issue**: JobCard component crashed with "Cannot read properties of undefined (reading 'match_score')" on Saved Jobs page
+**Fix**: Added null check for job prop (`job?.match_score`) and early return if job is undefined
+**File**: `/app/frontend/src/components/shared/JobCard.jsx`
+
+---
+
 ## Session: February 5, 2026 - Bug Fixes
 
 ### ✅ FIXED THIS SESSION
