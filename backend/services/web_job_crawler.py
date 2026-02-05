@@ -11,6 +11,7 @@ import asyncio
 import httpx
 import logging
 import re
+import html
 from typing import List, Dict, Optional
 from datetime import datetime, timezone
 import hashlib
