@@ -243,6 +243,34 @@ GOOGLE_CSE_JOB_SITES = [
     "dice.com/jobs", "simplyhired.com/job"
 ]
 
+# ============== Job Sources & Stats ==============
+
+@router.get("/jobs/sources")
+async def get_job_sources():
+    """Get list of all available job board sources"""
+    job_service = get_job_sources_service(GOOGLE_API_KEY, GOOGLE_CSE_ID)
+    sources = job_service.get_available_sources()
+    
+    # Add Google CSE sources
+    google_sources = [
+        {"id": "indeed", "name": "Indeed", "focus": "General Jobs", "active": True},
+        {"id": "linkedin", "name": "LinkedIn", "focus": "Professional Network", "active": True},
+        {"id": "glassdoor", "name": "Glassdoor", "focus": "Company Reviews + Jobs", "active": True}
+    ]
+    
+    return {
+        "sources": sources + google_sources,
+        "total": len(sources) + len(google_sources),
+        "industries": [
+            {"id": "pharma", "name": "Pharma & Life Sciences"},
+            {"id": "biotech", "name": "Biotech"},
+            {"id": "healthcare", "name": "Healthcare"},
+            {"id": "medical_device", "name": "Medical Devices"},
+            {"id": "tech", "name": "Technology"},
+            {"id": "government", "name": "Government"}
+        ]
+    }
+
 # ============== Job Search Routes ==============
 
 @router.get("/jobs/quality-keywords")
