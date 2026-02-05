@@ -121,6 +121,16 @@ class JobSourcesService:
         self.google_cse_id = google_cse_id
         self.client = None
     
+    def _clean_text(self, text: str) -> str:
+        """Clean and decode HTML entities from text"""
+        if not text:
+            return ""
+        # Decode HTML entities (e.g., &amp;#8211; -> –)
+        text = html.unescape(text)
+        # Remove extra whitespace
+        text = re.sub(r'\s+', ' ', text).strip()
+        return text
+    
     async def get_client(self) -> httpx.AsyncClient:
         if self.client is None:
             self.client = httpx.AsyncClient(timeout=20.0)
