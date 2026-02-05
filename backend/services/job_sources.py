@@ -131,6 +131,30 @@ class JobSourcesService:
         text = re.sub(r'\s+', ' ', text).strip()
         return text
     
+    def _clean_tags(self, tags) -> List[str]:
+        """Clean and flatten tags list, decode HTML entities"""
+        if not tags:
+            return []
+        
+        cleaned = []
+        for tag in tags:
+            if isinstance(tag, list):
+                # Flatten nested lists
+                for t in tag:
+                    if t:
+                        cleaned.append(self._clean_text(str(t)))
+            elif tag:
+                cleaned.append(self._clean_text(str(tag)))
+        
+        # Remove empty strings and duplicates while preserving order
+        seen = set()
+        result = []
+        for t in cleaned:
+            if t and t not in seen:
+                seen.add(t)
+                result.append(t)
+        return result
+    
     async def get_client(self) -> httpx.AsyncClient:
         if self.client is None:
             self.client = httpx.AsyncClient(timeout=20.0)
