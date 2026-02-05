@@ -38,8 +38,10 @@ const FreshnessBadge = ({ freshness, className = "" }) => {
       variant={variant}
       className={`flex items-center gap-1 text-[10px] px-2 py-0.5 ${colorClass} ${className}`}
       data-testid="freshness-badge"
+      role="status"
+      aria-label={`Job freshness: ${badge}`}
     >
-      <Icon className="h-3 w-3" />
+      <Icon className="h-3 w-3" aria-hidden="true" />
       <span>{badge}</span>
     </Badge>
   );
