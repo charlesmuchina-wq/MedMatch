@@ -11,7 +11,7 @@ Target Benchmarks:
 
 Usage:
     pip install locust
-    locust -f stress_test_locust.py --host=https://healthjob.preview.emergentagent.com
+    locust -f stress_test_locust.py --host=https://lifesci-jobs.preview.emergentagent.com
     
 Then open http://localhost:8089 to start the test
 """
@@ -480,10 +480,10 @@ if __name__ == "__main__":
 MedMatch AI - Locust Stress Test
 ================================
 Run with:
-    locust -f stress_test_locust.py --host=https://healthjob.preview.emergentagent.com
+    locust -f stress_test_locust.py --host=https://lifesci-jobs.preview.emergentagent.com
     
 Or for headless:
-    locust -f stress_test_locust.py --host=https://healthjob.preview.emergentagent.com --headless -u 100 -r 10 -t 5m
+    locust -f stress_test_locust.py --host=https://lifesci-jobs.preview.emergentagent.com --headless -u 100 -r 10 -t 5m
     
 Options:
     -u: Number of users
