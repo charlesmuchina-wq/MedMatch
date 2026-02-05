@@ -460,10 +460,12 @@ function AppContent() {
           // Cache resume for offline use
           offlineStorage.cacheResume(resumeRes.data).catch(console.error);
         }
-        setSavedJobs(savedRes.data);
+        // API returns { saved_jobs: [], count: 0 } - extract the array
+        const savedJobsArray = savedRes.data?.saved_jobs || savedRes.data || [];
+        setSavedJobs(Array.isArray(savedJobsArray) ? savedJobsArray : []);
         // Cache saved jobs for offline use
-        if (savedRes.data?.length > 0) {
-          offlineStorage.cacheJobs(savedRes.data).catch(console.error);
+        if (savedJobsArray?.length > 0) {
+          offlineStorage.cacheJobs(savedJobsArray).catch(console.error);
         }
         setApplications(appsRes.data);
         setMembership(membershipRes.data);
