@@ -21,6 +21,7 @@ const TaxonomyBrowser = ({ onSelectSector, onSelectRole, compact = false }) => {
   const [selectedSector, setSelectedSector] = useState(null);
   const [sectorDetails, setSectorDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loadingDetails, setLoadingDetails] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -40,17 +41,27 @@ const TaxonomyBrowser = ({ onSelectSector, onSelectRole, compact = false }) => {
   };
 
   const fetchSectorDetails = async (sectorId) => {
+    setLoadingDetails(true);
     try {
       const response = await fetch(`${API_URL}/api/taxonomy/sectors/${sectorId}`);
       const data = await response.json();
       setSectorDetails(data);
     } catch (error) {
       console.error('Failed to fetch sector details:', error);
+    } finally {
+      setLoadingDetails(false);
     }
   };
 
   const handleSectorClick = (sector) => {
+    // If clicking the same sector, toggle it off
+    if (selectedSector?.id === sector.id) {
+      setSelectedSector(null);
+      setSectorDetails(null);
+      return;
+    }
     setSelectedSector(sector);
+    setSectorDetails(null); // Clear previous details
     fetchSectorDetails(sector.id);
     if (onSelectSector) onSelectSector(sector);
   };
