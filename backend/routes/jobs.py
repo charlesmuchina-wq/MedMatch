@@ -415,6 +415,12 @@ async def search_jobs(
         limit_per_source=20
     )
     
+    # Clean HTML entities from all job text fields
+    for job in all_jobs:
+        job["title"] = html.unescape(job.get("title", "") or "")
+        job["company"] = html.unescape(job.get("company", "") or "")
+        job["description"] = html.unescape(job.get("description", "") or "")
+    
     # Filter by location type if specified
     if location_type:
         filtered_jobs = []
