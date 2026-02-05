@@ -137,10 +137,16 @@ const NotificationCenter = () => {
           size="icon"
           className="relative"
           data-testid="notification-bell"
+          aria-label={`Notifications${unreadCount > 0 ? `, ${unreadCount} unread` : ''}`}
+          aria-haspopup="true"
+          aria-expanded={isOpen}
         >
-          <Bell className="h-5 w-5" />
+          <Bell className="h-5 w-5" aria-hidden="true" />
           {unreadCount > 0 && (
-            <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+            <span 
+              className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white"
+              aria-label={`${unreadCount} unread notifications`}
+            >
               {unreadCount > 9 ? "9+" : unreadCount}
             </span>
           )}
