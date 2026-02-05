@@ -93,7 +93,33 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ---
 
-## Session: February 5, 2026 - Enhanced Job Search & Code Cleanup
+## Session: February 5, 2026 - Bug Fixes
+
+### ✅ FIXED THIS SESSION
+
+#### 1. HTML Entity Decoding (BUG FIX)
+**Issue**: Job titles showing `&#8211;` instead of `–`
+**Root Cause**: HTML entities not decoded from external job board APIs
+**Fix**: Added `html.unescape()` to all job text fields in:
+- `/app/backend/routes/jobs.py` (search results post-processing)
+- `/app/backend/services/job_sources.py` (clean_text method)
+- `/app/backend/services/web_job_crawler.py` (web crawl results)
+
+#### 2. 404 Endpoint Fixes (BUG FIX)
+**Issue**: Several API endpoints returning 404
+**Fix**: Added alias routes for backward compatibility:
+- `/api/jobs/saved` → alias for `/api/saved-jobs`
+- `/api/jobs/alerts` → alias for `/api/job-alerts`
+- `/api/interviews` → new root endpoint
+- `/api/metrics` → new production metrics overview
+- `/api/credentials/admin/pending` → alias for admin pending reviews
+
+#### 3. ARIA Labels for Accessibility (IMPROVEMENT)
+**Added ARIA attributes to**:
+- `NotificationCenter.jsx`: aria-label, aria-haspopup, aria-expanded
+- `LocationSettings.jsx`: aria-label, role=status, aria-live=polite
+- `ReportExpiredJob.jsx`: aria-label on button
+- `FreshnessBadge.jsx`: role=status, aria-label
 
 ### ✅ COMPLETED THIS SESSION
 
