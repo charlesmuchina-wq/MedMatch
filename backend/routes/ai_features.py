@@ -780,7 +780,7 @@ async def ai_assistant(request_data: AssistantRequest, request: Request):
         raise HTTPException(status_code=500, detail="AI features not configured")
     
     context_prompts = {
-        "job_search": "helping users find and apply for jobs",
+        "job_search": "helping users find and apply for jobs. You can search the web for job opportunities.",
         "resume": "providing resume writing and improvement advice",
         "interview": "preparing users for job interviews",
         "career": "offering career development guidance",
@@ -790,13 +790,101 @@ async def ai_assistant(request_data: AssistantRequest, request: Request):
     # Get user's resume for context
     resume = await db.resumes.find_one({"user_id": user["user_id"]}, {"_id": 0})
     resume_context = ""
+    user_skills = []
     if resume:
+        user_skills = resume.get('skills', [])[:10]
+        experience_titles = [exp.get('title', '') for exp in resume.get('experience', [])[:3]]
         resume_context = f"""
 User Profile:
 - Name: {resume.get('full_name', user.get('name', ''))}
-- Skills: {', '.join(resume.get('skills', [])[:10])}
+- Skills: {', '.join(str(s) for s in user_skills)}
+- Recent Positions: {', '.join(experience_titles)}
 - Experience: {len(resume.get('experience', []))} positions
 """
+    
+    # Check if user is asking for job search - trigger web crawl
+    message_lower = request_data.message.lower()
+    job_search_triggers = ["find job", "search job", "looking for job", "job opportunities", 
+                          "find me", "search for", "open positions", "hiring", "vacancies",
+                          "recommend job", "suggest job", "match job"]
+    
+    should_search_jobs = any(trigger in message_lower for trigger in job_search_triggers)
+    
+    job_results_context = ""
+    if should_search_jobs and request_data.context in ["job_search", "general"]:
+        # Extract desired job title from message
+        desired_title = request_data.message
+        
+        # Perform web crawl for jobs
+        try:
+            from routes.jobs import fetch_remoteok_jobs, fetch_remotive_jobs, fetch_indeed_rss, fetch_dice_jobs
+            
+            # Build search queries from message and resume
+            search_terms = []
+            # Extract key terms from user message
+            for word in request_data.message.split():
+                if len(word) > 3 and word.lower() not in ['find', 'search', 'looking', 'want', 'need', 'jobs', 'job', 'position', 'role']:
+                    search_terms.append(word)
+            
+            # Add skills from resume
+            for skill in user_skills[:3]:
+                skill_str = skill.get('name', skill) if isinstance(skill, dict) else str(skill)
+                if len(skill_str) > 2:
+                    search_terms.append(skill_str)
+            
+            search_query = ' '.join(search_terms[:4]) if search_terms else 'engineer manager developer'
+            
+            # Search multiple job boards
+            tasks = [
+                fetch_remoteok_jobs(search_query, ""),
+                fetch_remotive_jobs(search_query, ""),
+                fetch_indeed_rss(search_query, ""),
+                fetch_dice_jobs(search_query, ""),
+            ]
+            
+            results = await asyncio.gather(*tasks, return_exceptions=True)
+            
+            all_jobs = []
+            for result in results:
+                if isinstance(result, list):
+                    all_jobs.extend(result)
+            
+            # Deduplicate and score
+            seen = set()
+            unique_jobs = []
+            for job in all_jobs:
+                url = job.get('url', '')
+                if url and url not in seen:
+                    seen.add(url)
+                    # Calculate relevance score
+                    job_text = f"{job.get('title', '')} {job.get('description', '')}".lower()
+                    matches = sum(1 for term in search_terms if term.lower() in job_text)
+                    job['match_score'] = min(95, 40 + matches * 12)
+                    unique_jobs.append(job)
+            
+            # Sort by score and take top results
+            unique_jobs.sort(key=lambda x: x.get('match_score', 0), reverse=True)
+            top_jobs = unique_jobs[:5]
+            
+            if top_jobs:
+                job_results_context = f"""
+
+I found {len(unique_jobs)} jobs matching your criteria. Here are the top matches:
+"""
+                for i, job in enumerate(top_jobs, 1):
+                    job_results_context += f"""
+{i}. **{job.get('title', 'Unknown')}** at {job.get('company', 'Unknown Company')}
+   - Match Score: {job.get('match_score', 50)}%
+   - Location: {job.get('location', 'Not specified')}
+   - Source: {job.get('source', 'Web')}
+   - Apply: {job.get('url', '#')}
+"""
+                job_results_context += f"""
+Total jobs found: {len(unique_jobs)}. Would you like me to search with different criteria?
+"""
+        except Exception as e:
+            logging.error(f"Job search in Dragon AI error: {e}")
+            job_results_context = "\n\nI tried to search for jobs but encountered an issue. Please try the Job Search page."
     
     chat = LlmChat(
         api_key=EMERGENT_LLM_KEY,
@@ -808,6 +896,9 @@ Personality: Friendly, encouraging, professional, knowledgeable.
 Style: Concise but thorough, practical and actionable.
 
 {resume_context}
+
+When users ask for job recommendations, search results are provided below if available.
+Always format job listings clearly with match scores.
 
 Help the user with their career journey."""
     ).with_model("openai", "gpt-4o")
