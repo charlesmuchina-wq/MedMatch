@@ -923,6 +923,7 @@ async def unsave_job(job_id: str, request: Request):
 # ============== Job Alerts Routes ==============
 
 @router.get("/job-alerts")
+@router.get("/jobs/alerts")  # Alias for consistency
 async def get_job_alerts(request: Request):
     """Get user's job alerts"""
     user = await get_current_user(request)
