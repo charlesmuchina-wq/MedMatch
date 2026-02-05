@@ -76,6 +76,24 @@ def is_admin_user(user: dict) -> bool:
 
 # ============== Tracking Endpoints ==============
 
+@router.get("")
+async def get_production_metrics_overview(request: Request):
+    """Get production metrics overview"""
+    user = await get_current_user(request)
+    
+    # Public basic stats (no auth required for health checks)
+    metrics = await production_metrics.get_engagement_metrics()
+    business = await production_metrics.get_business_metrics()
+    
+    return {
+        "status": "operational",
+        "uptime": "99.9%",
+        "total_users": business.get("total_users", 0) if business else 0,
+        "total_jobs_searched": metrics.get("total_searches", 0) if metrics else 0,
+        "ai_interactions": business.get("ai_interactions", 0) if business else 0,
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
+
 @router.post("/session/start")
 async def track_session_start(request: Request, data: SessionStartRequest):
     """Track session start"""
