@@ -24,6 +24,7 @@ import httpx
 import logging
 import re
 import hashlib
+import html
 from typing import List, Dict, Optional
 from datetime import datetime, timezone, timedelta
 import uuid
