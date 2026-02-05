@@ -20,8 +20,8 @@ const SavedJobsPage = ({ savedJobs, onRemove, onApply, onAnalyze }) => {
         </div>
       ) : (
         <div className="space-y-4">
-          {savedJobs.map(saved => (
-            <div key={saved.id} className="relative">
+          {savedJobs.map(saved => saved?.job ? (
+            <div key={saved.id || saved.job?.id || Math.random()} className="relative">
               <JobCard job={saved.job} onSave={() => {}} onApply={onApply} onAnalyze={onAnalyze} isSaved={true} />
               <Button
                 variant="ghost" size="sm"
@@ -32,7 +32,7 @@ const SavedJobsPage = ({ savedJobs, onRemove, onApply, onAnalyze }) => {
                 <Trash2 className="w-4 h-4" />
               </Button>
             </div>
-          ))}
+          ) : null)}
         </div>
       )}
     </div>
