@@ -5,13 +5,15 @@ import {
   Bookmark, ExternalLink, MapPin, Building2, 
   Clock, ChevronRight, Loader2, TrendingUp, Target,
   CheckCircle2, XCircle, AlertCircle, HelpCircle, Languages,
-  Laptop, Home, Building, Brain, Info
+  Laptop, Home, Building, Brain, Info, Flag
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { QuickTranslateButton } from "@/components/TranslationWidget";
 import MatchExplanation from "@/components/MatchExplanation";
+import ReportExpiredJob from "@/components/ReportExpiredJob";
+import FreshnessBadge from "@/components/FreshnessBadge";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
