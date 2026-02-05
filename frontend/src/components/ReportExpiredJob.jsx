@@ -43,8 +43,8 @@ const ReportExpiredJob = ({ jobId, jobTitle, variant = "ghost", className = "" }
 
   if (reported) {
     return (
-      <Button variant="ghost" size="sm" disabled className={className}>
-        <CheckCircle className="h-4 w-4 mr-1 text-green-500" />
+      <Button variant="ghost" size="sm" disabled className={className} aria-label="Job reported">
+        <CheckCircle className="h-4 w-4 mr-1 text-green-500" aria-hidden="true" />
         Reported
       </Button>
     );
@@ -58,6 +58,7 @@ const ReportExpiredJob = ({ jobId, jobTitle, variant = "ghost", className = "" }
           size="sm"
           className={`text-slate-500 hover:text-orange-500 ${className}`}
           data-testid={`report-job-${jobId}`}
+          aria-label={`Report ${jobTitle} as expired`}
         >
           <Flag className="h-4 w-4 mr-1" />
           Report
