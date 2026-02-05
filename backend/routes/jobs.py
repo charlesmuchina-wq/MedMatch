@@ -440,7 +440,8 @@ async def search_jobs(
     # Apply relevance scoring if query is provided
     if q and len(q) > 2:
         scored_jobs = []
-        query_terms = [term.lower() for term in q.split() if len(term) > 2]
+        query_lower = q.lower()
+        query_terms = [term for term in query_lower.split() if len(term) > 2]
         
         for job in unique_jobs:
             title = (job.get("title", "") or "").lower()
@@ -453,42 +454,57 @@ async def search_jobs(
             score = 0
             matched_terms = 0
             
-            for term in query_terms:
-                # Title match (highest weight)
-                if term in title:
-                    score += 30
-                    matched_terms += 1
-                # Tag match (high weight)
-                elif term in tags:
-                    score += 20
-                    matched_terms += 1
-                # Description match (medium weight)
-                elif term in description:
-                    score += 10
-                    matched_terms += 1
+            # Check for exact phrase match first (highest priority)
+            if query_lower in title:
+                score += 50
+                matched_terms = len(query_terms)
+            elif query_lower in description:
+                score += 30
+                matched_terms = len(query_terms)
+            else:
+                # Check individual terms
+                for term in query_terms:
+                    # Title match (highest weight)
+                    if term in title:
+                        score += 25
+                        matched_terms += 1
+                    # Tag match (high weight)
+                    elif term in tags:
+                        score += 15
+                        matched_terms += 1
+                    # Description match (medium weight)
+                    elif term in description:
+                        score += 8
+                        matched_terms += 1
             
             # Bonus for matching multiple terms
             if matched_terms >= 2:
                 score += matched_terms * 5
             
-            # Add a base score if at least partial match
-            if score > 0:
+            # Include jobs with any relevance
+            if score > 0 or matched_terms > 0:
                 job["relevance_score"] = min(score, 100)
-                job["match_score"] = min(50 + score, 100)  # Base 50% + relevance
-                scored_jobs.append(job)
-            elif not query_terms:
-                # If no valid query terms, include all with default score
-                job["match_score"] = 50
+                job["match_score"] = min(40 + score, 100)  # Base 40% + relevance
                 scored_jobs.append(job)
         
-        # Sort by relevance score, but keep showing results even with low scores
+        # Sort by relevance score
         scored_jobs.sort(key=lambda x: x.get("relevance_score", 0), reverse=True)
         
-        # If no relevant jobs found, show all with low scores
-        if not scored_jobs and unique_jobs:
+        # If no relevant jobs found with multi-word query, try with individual terms
+        if not scored_jobs and len(query_terms) > 1:
+            # Fall back to matching ANY term
             for job in unique_jobs:
-                job["match_score"] = 25  # Low relevance indicator
-            scored_jobs = unique_jobs
+                title = (job.get("title", "") or "").lower()
+                description = (job.get("description", "") or "").lower()
+                
+                for term in query_terms:
+                    if term in title or term in description:
+                        job["match_score"] = 35  # Low relevance - partial match
+                        job["relevance_score"] = 15
+                        scored_jobs.append(job)
+                        break
+            
+            scored_jobs.sort(key=lambda x: x.get("relevance_score", 0), reverse=True)
         
         unique_jobs = scored_jobs
     else:
