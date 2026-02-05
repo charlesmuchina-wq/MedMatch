@@ -79,9 +79,9 @@ def is_admin_user(user: dict) -> bool:
 @router.get("")
 async def get_production_metrics_overview(request: Request):
     """Get production metrics overview"""
-    user = await get_current_user(request)
-    
     # Public basic stats (no auth required for health checks)
+    _ = await get_current_user(request)  # Optional auth check
+    
     metrics = await production_metrics.get_engagement_metrics()
     business = await production_metrics.get_business_metrics()
     
