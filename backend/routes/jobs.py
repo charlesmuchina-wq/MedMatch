@@ -915,6 +915,7 @@ async def save_job(job: Job, request: Request):
     return {"message": "Job saved", "saved_job": saved_job}
 
 @router.delete("/saved-jobs/{job_id}")
+@router.delete("/jobs/saved/{job_id}")  # Alias for frontend compatibility
 async def unsave_job(job_id: str, request: Request):
     """Remove a saved job"""
     user = await get_current_user(request)
