@@ -447,9 +447,7 @@ async def search_jobs(
         for job in unique_jobs:
             title = (job.get("title", "") or "").lower()
             description = (job.get("description", "") or "").lower()
-            company = (job.get("company", "") or "").lower()
             tags = " ".join([str(t).lower() for t in job.get("tags", [])])
-            all_text = f"{title} {tags} {description}"
             
             # Calculate relevance score
             score = 0
