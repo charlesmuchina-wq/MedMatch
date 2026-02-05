@@ -40,7 +40,7 @@ const LocationSettings = () => {
 
   useEffect(() => {
     fetchPreferences();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchPreferences = async () => {
     try {
