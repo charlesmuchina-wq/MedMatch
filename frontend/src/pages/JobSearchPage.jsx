@@ -481,7 +481,7 @@ const JobSearchPage = ({ savedJobs = [], onSave, onApply, onAnalyze }) => {
             <JobCard 
               key={job.id} 
               job={job}
-              isSaved={savedJobs.some(s => s.job?.id === job.id)}
+              isSaved={savedJobsArray.some(s => s.job?.id === job.id)}
               onSave={onSave}
               onApply={onApply}
               onAnalyze={onAnalyze}
