@@ -445,15 +445,16 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
           <h3 className="text-lg font-medium text-slate-700 dark:text-slate-300 mb-2">{t("jobs.noJobsFound") || "No jobs found"}</h3>
           <p className="text-slate-500 mb-4">{t("jobs.tryDifferentSearch") || "Try a different search term or use AI Deep Search"}</p>
           {query && (
-            <div className="space-y-3">
+            <div className="space-y-3 relative z-10">
               <p className="text-sm text-slate-400">Suggestions:</p>
               <div className="flex flex-wrap justify-center gap-2">
                 {query.split(' ').filter(w => w.length > 3).slice(0, 3).map((term, idx) => (
                   <Badge
                     key={idx}
                     variant="outline"
-                    className="cursor-pointer hover:bg-turquoise/10 hover:border-turquoise transition-colors"
+                    className="cursor-pointer hover:bg-turquoise/10 hover:border-turquoise transition-colors relative z-20"
                     onClick={() => { setQuery(term); searchJobs(term); }}
+                    data-testid={`suggestion-badge-${term.toLowerCase()}`}
                   >
                     Try: {term}
                   </Badge>
