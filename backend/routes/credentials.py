@@ -453,6 +453,7 @@ async def get_consent_status(request: Request):
 # ============== Admin Endpoints ==============
 
 @router.get("/admin/pending-reviews")
+@router.get("/admin/pending")  # Alias for /api/admin/credentials/pending path
 async def get_pending_reviews(request: Request):
     """Get credentials pending manual review (admin only)"""
     
@@ -468,6 +469,7 @@ async def get_pending_reviews(request: Request):
     ).to_list(100)
     
     return {
+        "credentials": pending,
         "pending_reviews": pending,
         "total": len(pending)
     }
