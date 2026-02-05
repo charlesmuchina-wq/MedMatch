@@ -359,6 +359,7 @@ async def search_jobs(
     # Fetch from multiple sources in parallel
     tasks = []
     
+    # Remote-first job boards
     if sources in ["all", "remoteok"]:
         tasks.append(fetch_remoteok_jobs(q, search_location))
     if sources in ["all", "remotive"]:
@@ -370,7 +371,13 @@ async def search_jobs(
     if sources in ["all", "himalayas"]:
         tasks.append(fetch_himalayas_jobs(q, search_location))
     
-    # Google CSE if configured
+    # Major job boards (all job types: remote, hybrid, onsite)
+    if sources in ["all", "indeed"]:
+        tasks.append(fetch_indeed_rss(q, search_location))
+    if sources in ["all", "dice"]:
+        tasks.append(fetch_dice_jobs(q, search_location))
+    
+    # Google CSE if configured - search multiple job sites
     if GOOGLE_API_KEY and GOOGLE_CSE_ID and sources in ["all", "google"]:
         for site in GOOGLE_CSE_JOB_SITES[:3]:
             tasks.append(fetch_google_cse_jobs(q, search_location, site))
