@@ -827,8 +827,15 @@ class JobSourcesService:
             url = job.get("url", "")
             if url and url not in seen_urls:
                 seen_urls.add(url)
+                # Clean text fields
+                job["title"] = self._clean_text(job.get("title", ""))
+                job["company"] = self._clean_text(job.get("company", ""))
+                job["description"] = self._clean_text(job.get("description", ""))
                 unique_jobs.append(job)
             elif not url:
+                job["title"] = self._clean_text(job.get("title", ""))
+                job["company"] = self._clean_text(job.get("company", ""))
+                job["description"] = self._clean_text(job.get("description", ""))
                 unique_jobs.append(job)
         
         # Sort by freshness (fresh jobs first)
