@@ -22,39 +22,7 @@ class BatchVerifyRequest(BaseModel):
     urls: List[str]
 
 
-# ============== Verification Endpoints ==============
-
-@router.get("/{job_id}")
-async def get_job_verification_status(job_id: str, request: Request):
-    """Get verification status for a job"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
-    
-    service = get_liveness_service()
-    status = await service.get_job_status(job_id)
-    
-    return status
-
-
-@router.post("/{job_id}")
-async def verify_job(job_id: str, request: Request, url: str = ""):
-    """
-    Verify if a job listing is still active.
-    Performs HTTP check and content analysis.
-    """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
-    
-    if not url:
-        raise HTTPException(status_code=400, detail="URL is required")
-    
-    service = get_liveness_service()
-    result = await service.verify_job(job_id, url)
-    
-    return result
-
+# ============== Report Endpoint (must be before /{job_id} to avoid route conflict) ==============
 
 @router.post("/report")
 async def report_expired_job(data: ReportJobRequest, request: Request):
