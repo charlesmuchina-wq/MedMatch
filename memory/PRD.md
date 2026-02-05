@@ -153,6 +153,42 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 **File size reduced**: 1308 lines → 1134 lines (~170 lines removed)
 **Working sources**: Google CSE (Indeed, LinkedIn, Glassdoor), RemoteOK, Remotive, Himalayas, Arbeitnow, Jobicy
 
+#### 8. Multi-Board Job Sources Service (P0 - COMPLETED) - Feb 5, 2026
+**New Service Created**: `/app/backend/services/job_sources.py`
+**15+ Job Board Sources**:
+- RemoteOK, Remotive, WeWorkRemotely, Himalayas, Arbeitnow, Jobicy
+- BioSpace (Biotech), PharmiWeb (Pharma), HealtheCareers (Clinical)
+- MedDeviceJobs (Medical Devices), USAJOBS (Government)
+- Google CSE (Indeed, LinkedIn, Glassdoor)
+
+#### 9. Smart Notifications System (P0 - COMPLETED) - Feb 5, 2026
+**New Service**: `/app/backend/services/smart_notifications.py`
+**Features**:
+- In-app notification center with bell icon in header
+- Unread count badge
+- Match-based job alerts (85%+ threshold)
+- Notification preferences API
+- Mark as read / Mark all read
+- Notification types: new_job_match, job_alert, application_update, interview_reminder
+
+#### 10. Ghost Job Prevention (P1 - COMPLETED) - Feb 5, 2026
+**New Service**: `/app/backend/services/job_liveness.py`
+**Features**:
+- HTTP HEAD checks for job URL liveness
+- Content analysis for "Position Filled" indicators
+- User report system (2+ reports = job hidden)
+- Freshness badges ("Posted X mins ago")
+- Report Expired Job button on job cards
+
+#### 11. Geofencing & Location Preferences (P1 - COMPLETED) - Feb 5, 2026
+**New Service**: `/app/backend/services/geolocation.py`
+**Features**:
+- Haversine distance calculation (no external API needed)
+- 15 major tech/healthcare hubs (SF, Boston Biotech, Research Triangle, etc.)
+- Commute time estimates
+- Location preferences (home coordinates, preferred radius)
+- Work type filtering (Remote/Hybrid/Onsite)
+
 **Test Results**:
 - "quality manager" search: 30 jobs found with 100% match
 - "software engineer" search: 41 jobs found with 100% match
