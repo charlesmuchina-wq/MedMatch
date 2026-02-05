@@ -1,6 +1,7 @@
 """
 Jobs Routes
 Handles: Job search, job alerts, applications, saved jobs, manual job entry
+Enhanced with 15+ job board sources and ghost job prevention.
 """
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field, ConfigDict
@@ -14,6 +15,9 @@ import httpx
 from utils.database import db
 from utils.config import GOOGLE_API_KEY, GOOGLE_CSE_ID
 from routes.auth import get_current_user
+from services.job_sources import get_job_sources_service
+from services.job_liveness import get_liveness_service
+from services.smart_notifications import get_notification_service
 
 router = APIRouter(tags=["Jobs"])
 
