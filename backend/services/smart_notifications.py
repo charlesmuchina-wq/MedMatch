@@ -321,9 +321,11 @@ class SmartNotificationService:
         try:
             result = await db.users.update_one(
                 {"user_id": user_id},
-                {"$set": {"notification_preferences": preferences}}
+                {"$set": {"notification_preferences": preferences}},
+                upsert=False
             )
-            return result.modified_count > 0
+            # Return True if matched (even if not modified - same data)
+            return result.matched_count > 0 or result.modified_count > 0
         except Exception as e:
             logger.error(f"Failed to update preferences: {e}")
             return False
