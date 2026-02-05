@@ -811,6 +811,7 @@ export const I18nProvider = ({ children }) => {
           "Analytics": "nav.analytics",
           "Messages": "nav.messages",
           "Privacy & Data": "nav.privacy",
+          "Location Settings": "nav.locationSettings",
           "Settings": "common.settings",
           "Profile": "common.profile",
           "Sign Out": "common.logout",
