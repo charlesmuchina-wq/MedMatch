@@ -11,6 +11,7 @@ import uuid
 import logging
 import asyncio
 import httpx
+import html
 
 from utils.database import db
 from utils.config import GOOGLE_API_KEY, GOOGLE_CSE_ID
