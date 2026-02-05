@@ -896,6 +896,7 @@ async def get_saved_jobs(request: Request):
     return {"saved_jobs": saved, "count": len(saved)}
 
 @router.post("/saved-jobs")
+@router.post("/jobs/save")  # Alias for frontend compatibility
 async def save_job(job: Job, request: Request):
     """Save a job for later"""
     user = await get_current_user(request)
