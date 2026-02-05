@@ -904,7 +904,12 @@ Help the user with their career journey."""
     ).with_model("openai", "gpt-4o")
     
     try:
-        response = await chat.send_message(UserMessage(text=request_data.message))
+        # Include job results in the message if found
+        full_message = request_data.message
+        if job_results_context:
+            full_message += job_results_context
+        
+        response = await chat.send_message(UserMessage(text=full_message))
         
         # Log conversation
         await db.ai_conversations.insert_one({
@@ -912,6 +917,7 @@ Help the user with their career journey."""
             "context": request_data.context,
             "user_message": request_data.message,
             "assistant_response": response,
+            "jobs_searched": should_search_jobs,
             "created_at": datetime.now(timezone.utc).isoformat()
         })
         
