@@ -342,49 +342,49 @@ async def search_jobs(
     q: str = "",
     location: str = "Remote",
     sources: str = "all",
-    location_type: str = ""
+    location_type: str = "",
+    industry: str = ""
 ):
     """
-    Search for jobs across multiple sources.
+    Search for jobs across 15+ specialized job boards.
     
     Args:
         q: Search query (job title, skills, etc.)
         location: Location string (city, country, or "Remote")
-        sources: Source filter (all, remoteok, remotive, etc.)
+        sources: Source filter (all, remoteok, remotive, pharma, biotech, healthcare, meddevice, etc.)
         location_type: Filter by work type (remote, hybrid, onsite)
+        industry: Filter by industry (pharma, biotech, healthcare, medical_device, tech, government)
     """
-    all_jobs = []
+    # Use the new job sources service for comprehensive search
+    job_service = get_job_sources_service(GOOGLE_API_KEY, GOOGLE_CSE_ID)
     
-    # Adjust location based on location_type
-    search_location = location
-    if location_type == "remote":
-        search_location = "Remote"
+    # Determine industries to search
+    industries = None
+    if industry:
+        industries = [industry]
+    elif sources not in ["all"]:
+        # Map source to industry
+        source_industry_map = {
+            "pharma": ["pharma"],
+            "pharmiweb": ["pharma"],
+            "biotech": ["biotech"],
+            "biospace": ["biotech"],
+            "healthcare": ["healthcare"],
+            "healthecareers": ["healthcare"],
+            "meddevice": ["medical_device"],
+            "meddevicejobs": ["medical_device"],
+            "government": ["government"],
+            "usajobs": ["government"]
+        }
+        industries = source_industry_map.get(sources)
     
-    # Fetch from multiple sources in parallel
-    tasks = []
-    
-    # Remote-first job boards
-    if sources in ["all", "remoteok"]:
-        tasks.append(fetch_remoteok_jobs(q, search_location))
-    if sources in ["all", "remotive"]:
-        tasks.append(fetch_remotive_jobs(q, search_location))
-    if sources in ["all", "jobicy"]:
-        tasks.append(fetch_jobicy_jobs(q, search_location))
-    if sources in ["all", "arbeitnow"]:
-        tasks.append(fetch_arbeitnow_jobs(q, search_location))
-    if sources in ["all", "himalayas"]:
-        tasks.append(fetch_himalayas_jobs(q, search_location))
-    
-    # Google CSE for comprehensive job board aggregation (Indeed, LinkedIn, Glassdoor)
-    if GOOGLE_API_KEY and GOOGLE_CSE_ID and sources in ["all", "google"]:
-        for site in GOOGLE_CSE_JOB_SITES[:3]:
-            tasks.append(fetch_google_cse_jobs(q, search_location, site))
-    
-    results = await asyncio.gather(*tasks, return_exceptions=True)
-    
-    for result in results:
-        if isinstance(result, list):
-            all_jobs.extend(result)
+    # Search all sources
+    all_jobs = await job_service.search_all_sources(
+        query=q,
+        location=location,
+        industries=industries,
+        limit_per_source=20
+    )
     
     # Filter by location type if specified
     if location_type:
