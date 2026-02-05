@@ -295,7 +295,7 @@ const SkillAssessmentsPage = ({ user }) => {
       )}
 
       {/* Assessments by Category */}
-      {Object.entries(categories).map(([category, skills]) => (
+      {Object.entries(categories).map(([category, skills], catIndex) => (
         <div key={category} className="mb-8">
           <h2 className="text-xl font-semibold text-slate-900 dark:text-slate-100 mb-4">
             {category}
@@ -304,13 +304,16 @@ const SkillAssessmentsPage = ({ user }) => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {skills.map((skill, i) => {
               const earned = hasBadge(skill.skill_name);
+              // Staggered animation delay for each card
+              const animationDelay = `${(catIndex * skills.length + i) * 100}ms`;
               
               return (
                 <Card 
                   key={i}
-                  className={`hover:border-turquoise/50 transition-all ${
+                  className={`hover:border-turquoise/50 transition-all opacity-0 animate-[fadeIn_0.4s_ease-out_forwards] ${
                     earned ? 'border-emerald-200 bg-emerald-50/50 dark:bg-emerald-900/10' : ''
                   }`}
+                  style={{ animationDelay }}
                 >
                   <CardContent className="p-4">
                     <div className="flex items-start justify-between">
