@@ -85,7 +85,7 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ---
 
-## Session: February 5, 2026 - Enhanced Job Search & Web Crawling
+## Session: February 5, 2026 - Enhanced Job Search & Code Cleanup
 
 ### ✅ COMPLETED THIS SESSION
 
@@ -98,7 +98,6 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - Indeed (via Google Custom Search)
 - LinkedIn (via Google Custom Search)
 - Glassdoor (via Google Custom Search)
-- Dice (direct API - tech jobs)
 - All existing: RemoteOK, Remotive, Himalayas, Arbeitnow, Jobicy
 
 **All Job Types**: Remote, Hybrid, On-site (not just remote)
@@ -133,9 +132,23 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - "Try AI Deep Search" button for related jobs
 - Clear guidance when no results found
 
+#### 7. Code Cleanup - Dead Job Fetchers Removed (P2 - COMPLETED)
+**Removed non-functional functions from /app/backend/routes/jobs.py**:
+- `fetch_indeed_rss()` - Indeed RSS no longer working reliably
+- `fetch_dice_jobs()` - Dice API blocked/deprecated  
+- `fetch_simplyhired_jobs()` - Empty stub
+- `fetch_glassdoor_jobs()` - Empty stub
+- `fetch_ziprecruiter_jobs()` - Empty stub
+- `fetch_builtin_jobs()` - Empty stub
+- `fetch_wellfound_jobs()` - Empty stub
+
+**File size reduced**: 1308 lines → 1134 lines (~170 lines removed)
+**Working sources**: Google CSE (Indeed, LinkedIn, Glassdoor), RemoteOK, Remotive, Himalayas, Arbeitnow, Jobicy
+
 **Test Results**:
 - "quality manager" search: 30 jobs found with 100% match
-- Sources: Google (Indeed), Google (LinkedIn), Google (Glassdoor)
+- "software engineer" search: 41 jobs found with 100% match
+- Sources: Google (Indeed), Google (LinkedIn), Google (Glassdoor), RemoteOK, Remotive
 - Job types: Hybrid, On-site, Remote all included
 
 ---
