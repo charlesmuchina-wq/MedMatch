@@ -569,16 +569,27 @@ async def deep_search_jobs(request: Request):
         # Deduplicate and limit queries
         search_queries = list(dict.fromkeys(search_queries))[:5]
         
-        # Search across all sources with multiple queries
+        # Search across ALL sources with multiple queries (comprehensive web crawl)
         all_jobs = []
         tasks = []
         
-        for query in search_queries:
-            if query and len(query) > 2:
-                tasks.append(fetch_remoteok_jobs(query, "Remote"))
-                tasks.append(fetch_remotive_jobs(query, "Remote"))
-                tasks.append(fetch_himalayas_jobs(query, "Remote"))
-                tasks.append(fetch_arbeitnow_jobs(query, "Remote"))
+        for query_str in search_queries:
+            if query_str and len(query_str) > 2:
+                # Remote job boards
+                tasks.append(fetch_remoteok_jobs(query_str, "Remote"))
+                tasks.append(fetch_remotive_jobs(query_str, "Remote"))
+                tasks.append(fetch_himalayas_jobs(query_str, "Remote"))
+                tasks.append(fetch_arbeitnow_jobs(query_str, "Remote"))
+                tasks.append(fetch_jobicy_jobs(query_str, "Remote"))
+                
+                # Major job boards (all job types)
+                tasks.append(fetch_indeed_rss(query_str, ""))
+                tasks.append(fetch_dice_jobs(query_str, ""))
+                
+                # Google CSE for broader web search
+                if GOOGLE_API_KEY and GOOGLE_CSE_ID:
+                    for site in GOOGLE_CSE_JOB_SITES[:2]:
+                        tasks.append(fetch_google_cse_jobs(query_str, "", site))
         
         results = await asyncio.gather(*tasks, return_exceptions=True)
         
@@ -597,9 +608,11 @@ async def deep_search_jobs(request: Request):
             elif not job_url:
                 unique_jobs.append(job)
         
-        # Calculate match scores if we have resume data
+        # Calculate match scores based on resume data using AI matching
         if resume and use_ai:
             user_skills = set()
+            user_experience = set()
+            
             if resume.get("skills"):
                 for skill in resume["skills"]:
                     if isinstance(skill, dict):
@@ -607,12 +620,38 @@ async def deep_search_jobs(request: Request):
                     else:
                         user_skills.add(str(skill).lower())
             
+            # Extract experience keywords
+            if resume.get("experience"):
+                for exp in resume["experience"]:
+                    if isinstance(exp, dict):
+                        title = exp.get("title", "").lower()
+                        for word in title.split():
+                            if len(word) > 3:
+                                user_experience.add(word)
+            
+            # Calculate sophisticated match score
             for job in unique_jobs:
                 job_text = f"{job.get('title', '')} {job.get('description', '')} {job.get('company', '')}".lower()
+                job_title = job.get('title', '').lower()
                 
-                # Calculate simple match score
-                matches = sum(1 for skill in user_skills if skill in job_text)
-                job["match_score"] = min(95, 50 + (matches * 10))
+                # Skill matches (weighted)
+                skill_matches = sum(1 for skill in user_skills if skill in job_text)
+                
+                # Title/role matches (higher weight)
+                title_matches = sum(1 for exp in user_experience if exp in job_title)
+                
+                # Query relevance (if job matches search query)
+                query_matches = sum(1 for q in search_queries if q.lower() in job_title)
+                
+                # Calculate weighted score
+                score = 40  # Base score
+                score += skill_matches * 8  # Each skill match adds 8 points
+                score += title_matches * 12  # Title/role match adds 12 points
+                score += query_matches * 10  # Query match adds 10 points
+                
+                job["match_score"] = min(98, score)
+                job["skill_matches"] = skill_matches
+                job["ai_matched"] = True
         
         # Sort by match score (highest first)
         unique_jobs.sort(key=lambda x: x.get("match_score", 50), reverse=True)
