@@ -69,7 +69,7 @@ class TestJobSources:
             json={"email": TEST_EMAIL, "password": TEST_PASSWORD}
         )
         if response.status_code == 200:
-            token = response.json().get("token")
+            token = response.json().get("access_token")  # Fixed: use access_token
             return {"Authorization": f"Bearer {token}"}
         pytest.skip("Authentication failed")
     
