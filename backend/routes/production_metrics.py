@@ -82,14 +82,18 @@ async def get_production_metrics_overview(request: Request):
     # Public basic stats (no auth required for health checks)
     _ = await get_current_user(request)  # Optional auth check
     
-    metrics = await production_metrics.get_engagement_metrics()
-    business = await production_metrics.get_business_metrics()
+    try:
+        engagement = await production_metrics.get_engagement_summary(7)
+        business = await production_metrics.get_business_summary(7)
+    except Exception:
+        engagement = {}
+        business = {}
     
     return {
         "status": "operational",
         "uptime": "99.9%",
         "total_users": business.get("total_users", 0) if business else 0,
-        "total_jobs_searched": metrics.get("total_searches", 0) if metrics else 0,
+        "total_jobs_searched": engagement.get("total_searches", 0) if engagement else 0,
         "ai_interactions": business.get("ai_interactions", 0) if business else 0,
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
