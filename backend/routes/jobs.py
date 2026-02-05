@@ -437,6 +437,55 @@ async def search_jobs(
         elif not job_url:
             unique_jobs.append(job)
     
+    # Apply relevance scoring if query is provided
+    if q and len(q) > 2:
+        scored_jobs = []
+        query_terms = q.lower().split()
+        
+        for job in unique_jobs:
+            title = (job.get("title", "") or "").lower()
+            description = (job.get("description", "") or "").lower()
+            company = (job.get("company", "") or "").lower()
+            tags = " ".join([str(t).lower() for t in job.get("tags", [])])
+            
+            # Calculate relevance score
+            score = 0
+            matched_terms = 0
+            
+            for term in query_terms:
+                if len(term) < 2:
+                    continue
+                # Title match (highest weight)
+                if term in title:
+                    score += 40
+                    matched_terms += 1
+                # Tag match (high weight)
+                elif term in tags:
+                    score += 25
+                    matched_terms += 1
+                # Description match (medium weight)
+                elif term in description:
+                    score += 15
+                    matched_terms += 1
+                # Company match (low weight)
+                elif term in company:
+                    score += 10
+                    matched_terms += 1
+            
+            # Bonus for matching multiple terms
+            if matched_terms >= 2:
+                score += matched_terms * 10
+            
+            # Only include jobs with some relevance
+            if score > 0:
+                job["relevance_score"] = min(score, 100)
+                job["match_score"] = min(score, 100)  # For display
+                scored_jobs.append(job)
+        
+        # Sort by relevance score
+        scored_jobs.sort(key=lambda x: x.get("relevance_score", 0), reverse=True)
+        unique_jobs = scored_jobs
+    
     return {"jobs": unique_jobs[:100], "total": len(unique_jobs)}
 
 
