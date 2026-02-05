@@ -151,6 +151,11 @@ class WebJobCrawler:
                     source = domain.split(".")[0].title()
                     break
             
+            # Clean HTML entities from text
+            job_title = html.unescape(job_title)
+            company = html.unescape(company) if company else ""
+            snippet = html.unescape(snippet)
+            
             return {
                 "id": hashlib.md5(link.encode()).hexdigest()[:12],
                 "title": job_title[:100],
