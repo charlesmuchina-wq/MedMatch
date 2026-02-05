@@ -202,14 +202,15 @@ const LocationSettings = () => {
                 variant="outline"
                 onClick={handleUseCurrentLocation}
                 title="Use current location"
+                aria-label="Use current location"
               >
-                <Navigation className="h-4 w-4" />
+                <Navigation className="h-4 w-4" aria-hidden="true" />
               </Button>
             </div>
           </div>
 
           {preferences.home_lat && preferences.home_lon && (
-            <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+            <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg" role="status" aria-live="polite">
               <div className="text-sm text-slate-600 dark:text-slate-300">
                 <span className="font-medium">Coordinates:</span>{" "}
                 {preferences.home_lat.toFixed(4)}, {preferences.home_lon.toFixed(4)}
@@ -232,7 +233,7 @@ const LocationSettings = () => {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <MapPin className="h-5 w-5 text-turquoise" />
+            <MapPin className="h-5 w-5 text-turquoise" aria-hidden="true" />
             Job Search Radius
           </CardTitle>
           <CardDescription>
