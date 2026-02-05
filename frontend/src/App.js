@@ -58,6 +58,7 @@ import AdminRecruiterVerificationPage from "@/pages/AdminRecruiterVerificationPa
 import AdminReviewModerationPage from "@/pages/AdminReviewModerationPage";
 import TaxonomyExplorerPage from "@/pages/TaxonomyExplorerPage";
 import CredentialsPage from "@/pages/CredentialsPage";
+import LocationSettingsPage from "@/pages/LocationSettingsPage";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
