@@ -440,10 +440,36 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
           <Loader2 className="w-8 h-8 animate-spin text-turquoise" />
         </div>
       ) : jobs.length === 0 ? (
-        <div className="empty-state">
-          <Search className="w-12 h-12 text-slate-300 mb-4" />
-          <h3 className="text-lg font-medium text-slate-700 dark:text-slate-300">{t("jobs.noJobsFound")}</h3>
-          <p className="text-slate-500">{t("jobs.tryDifferentSearch")}</p>
+        <div className="empty-state text-center py-12">
+          <Search className="w-12 h-12 text-slate-300 mb-4 mx-auto" />
+          <h3 className="text-lg font-medium text-slate-700 dark:text-slate-300 mb-2">{t("jobs.noJobsFound") || "No jobs found"}</h3>
+          <p className="text-slate-500 mb-4">{t("jobs.tryDifferentSearch") || "Try a different search term or use AI Deep Search"}</p>
+          {query && (
+            <div className="space-y-3">
+              <p className="text-sm text-slate-400">Suggestions:</p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {query.split(' ').filter(w => w.length > 3).slice(0, 3).map((term, idx) => (
+                  <Badge
+                    key={idx}
+                    variant="outline"
+                    className="cursor-pointer hover:bg-turquoise/10 hover:border-turquoise transition-colors"
+                    onClick={() => { setQuery(term); searchJobs(term); }}
+                  >
+                    Try: {term}
+                  </Badge>
+                ))}
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleDeepSearch()}
+                className="mt-4"
+              >
+                <Sparkles className="w-4 h-4 mr-2 text-violet-500" />
+                Try AI Deep Search for related jobs
+              </Button>
+            </div>
+          )}
         </div>
       ) : (
         <div className="grid gap-4">
