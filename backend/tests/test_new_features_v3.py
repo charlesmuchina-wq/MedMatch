@@ -45,7 +45,7 @@ class TestAuthentication:
             json={"email": TEST_EMAIL, "password": TEST_PASSWORD}
         )
         if response.status_code == 200:
-            token = response.json().get("token")
+            token = response.json().get("access_token")  # Fixed: use access_token
             print(f"✅ Login successful, got token")
             return token
         else:
