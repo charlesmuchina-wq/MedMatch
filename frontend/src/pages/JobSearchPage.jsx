@@ -462,7 +462,7 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => handleDeepSearch()}
+                onClick={() => deepSearch()}
                 className="mt-4"
               >
                 <Sparkles className="w-4 h-4 mr-2 text-violet-500" />
