@@ -340,7 +340,7 @@ class TestGeolocation:
         )
         assert response.status_code == 200
         data = response.json()
-        assert "minutes" in data or "time" in data or "estimate" in data
+        assert "estimated_minutes" in data or "minutes" in data or "display" in data
         print(f"✅ Commute estimate for 25 miles: {data}")
     
     def test_radius_settings(self, auth_headers):
