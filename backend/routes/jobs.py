@@ -371,13 +371,7 @@ async def search_jobs(
     if sources in ["all", "himalayas"]:
         tasks.append(fetch_himalayas_jobs(q, search_location))
     
-    # Major job boards (all job types: remote, hybrid, onsite)
-    if sources in ["all", "indeed"]:
-        tasks.append(fetch_indeed_rss(q, search_location))
-    if sources in ["all", "dice"]:
-        tasks.append(fetch_dice_jobs(q, search_location))
-    
-    # Google CSE if configured - search multiple job sites
+    # Google CSE for comprehensive job board aggregation (Indeed, LinkedIn, Glassdoor)
     if GOOGLE_API_KEY and GOOGLE_CSE_ID and sources in ["all", "google"]:
         for site in GOOGLE_CSE_JOB_SITES[:3]:
             tasks.append(fetch_google_cse_jobs(q, search_location, site))
@@ -582,11 +576,7 @@ async def deep_search_jobs(request: Request):
                 tasks.append(fetch_arbeitnow_jobs(query_str, "Remote"))
                 tasks.append(fetch_jobicy_jobs(query_str, "Remote"))
                 
-                # Major job boards (all job types)
-                tasks.append(fetch_indeed_rss(query_str, ""))
-                tasks.append(fetch_dice_jobs(query_str, ""))
-                
-                # Google CSE for broader web search
+                # Google CSE for comprehensive web crawling (all job types)
                 if GOOGLE_API_KEY and GOOGLE_CSE_ID:
                     for site in GOOGLE_CSE_JOB_SITES[:2]:
                         tasks.append(fetch_google_cse_jobs(query_str, "", site))
