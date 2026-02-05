@@ -307,6 +307,19 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
               {/* Job Status Badge */}
               <JobStatusBadge status={verifiedStatus || job.status || job.job_status} postedAt={job.posted_at} />
               
+              {/* Freshness Badge - shows how recently posted */}
+              {job.freshness && (
+                <FreshnessBadge freshness={job.freshness} />
+              )}
+              
+              {/* Distance Badge if available */}
+              {job.distance_miles && (
+                <Badge className="text-xs px-2 py-0.5 flex items-center gap-1 font-medium bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30">
+                  <MapPin className="w-3 h-3" />
+                  {job.distance_miles} mi away
+                </Badge>
+              )}
+              
               {/* Work Type Badge (Remote/Hybrid/On-site) */}
               {job.work_type && (
                 <Badge 
