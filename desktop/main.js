@@ -28,7 +28,7 @@ const store = new Store({
 });
 
 // Configuration
-const APP_URL = process.env.MEDMATCH_URL || 'https://medmatch-14.preview.emergentagent.com';
+const APP_URL = process.env.MEDMATCH_URL || 'https://hirelifesci.preview.emergentagent.com';
 const isDev = process.env.NODE_ENV === 'development';
 
 let mainWindow = null;
