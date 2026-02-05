@@ -215,10 +215,15 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
   const [analyzing, setAnalyzing] = useState(false);
   const [verifyingStatus, setVerifyingStatus] = useState(false);
   const [verifiedStatus, setVerifiedStatus] = useState(null);
-  const [matchData, setMatchData] = useState(job.match_score ? { 
+  const [matchData, setMatchData] = useState(job?.match_score ? { 
     match_score: job.match_score, 
     analysis: job.match_analysis 
   } : null);
+  
+  // Guard against undefined job
+  if (!job) {
+    return null;
+  }
 
   const handleAnalyze = async () => {
     setAnalyzing(true);
