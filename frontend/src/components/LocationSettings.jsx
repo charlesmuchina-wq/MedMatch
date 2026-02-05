@@ -319,7 +319,7 @@ const LocationSettings = () => {
         <CardHeader>
           <CardTitle>Preferred Work Types</CardTitle>
           <CardDescription>
-            Select the work arrangements you're interested in
+            Select the work arrangements you are interested in
           </CardDescription>
         </CardHeader>
         <CardContent>
