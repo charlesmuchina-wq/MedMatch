@@ -53,6 +53,27 @@ class CandidateResponseRequest(BaseModel):
 
 # ============== Recruiter Routes ==============
 
+@router.get("")
+async def get_my_interviews(request: Request):
+    """Get all interviews for the current user (candidate or recruiter)"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    if user.get("role") == "recruiter":
+        # Recruiter sees interviews they scheduled
+        query = {"recruiter_id": user["user_id"]}
+    else:
+        # Candidate sees interviews they're invited to
+        query = {"applicant_email": user.get("email")}
+    
+    interviews = await db.interviews.find(
+        query,
+        {"_id": 0}
+    ).sort("scheduled_date", -1).to_list(100)
+    
+    return {"interviews": interviews, "total": len(interviews)}
+
 @router.post("/schedule")
 async def schedule_interview(schedule_request: ScheduleInterviewRequest, request: Request):
     """Recruiter schedules an interview with a candidate"""
