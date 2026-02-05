@@ -153,13 +153,20 @@ class TestNotifications:
     def test_update_notification_preferences(self, auth_headers):
         """Test PUT /api/notifications/preferences"""
         preferences = {
-            "email_enabled": True,
+            "job_matches": True,
+            "job_alerts": True,
+            "application_updates": True,
+            "interview_reminders": True,
+            "weekly_digest": True,
+            "profile_tips": True,
+            "match_threshold": 85,
             "push_enabled": True,
-            "in_app_enabled": True,
-            "job_match_threshold": 85,
-            "digest_frequency": "daily",
-            "quiet_hours_start": "22:00",
-            "quiet_hours_end": "08:00"
+            "email_enabled": True,
+            "quiet_hours": {
+                "enabled": False,
+                "start": "22:00",
+                "end": "08:00"
+            }
         }
         response = requests.put(
             f"{BASE_URL}/api/notifications/preferences",
