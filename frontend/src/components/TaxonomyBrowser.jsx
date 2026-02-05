@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   FlaskConical, HeartPulse, Cog, Building2, Cpu, 
   ChevronRight, Award, Briefcase, TrendingUp, Search,
@@ -23,10 +23,18 @@ const TaxonomyBrowser = ({ onSelectSector, onSelectRole, compact = false }) => {
   const [loading, setLoading] = useState(true);
   const [loadingDetails, setLoadingDetails] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const detailsRef = useRef(null);
 
   useEffect(() => {
     fetchSectors();
   }, []);
+
+  // Auto-scroll to details panel when it loads
+  useEffect(() => {
+    if (sectorDetails && detailsRef.current) {
+      detailsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [sectorDetails]);
 
   const fetchSectors = async () => {
     try {
