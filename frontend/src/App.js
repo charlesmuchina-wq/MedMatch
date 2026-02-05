@@ -140,6 +140,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/cover-letter", icon: PenTool, labelKey: "nav.coverLetter" },
     { path: "/alerts", icon: Bell, labelKey: "nav.jobAlerts" },
     { path: "/notifications", icon: Bell, labelKey: "nav.notifications" },
+    { path: "/location-settings", icon: Target, labelKey: "nav.locationSettings" },
     { path: "/salary-insights", icon: DollarSign, labelKey: "nav.salaryInsights" },
     { path: "/analytics", icon: BarChart3, labelKey: "nav.analytics" },
     { path: "/analytics-funnel", icon: BarChart3, labelKey: "nav.analyticsFunnel" },
