@@ -29,6 +29,7 @@ const MatchExplanation = ({ jobId, jobTitle, matchScore, trigger }) => {
     
     setLoading(true);
     setError(null);
+    setNeedsResume(false);
 
     try {
       const token = localStorage.getItem("medmatch-token");
@@ -36,7 +37,16 @@ const MatchExplanation = ({ jobId, jobTitle, matchScore, trigger }) => {
         `${API}/api/privacy/explain/match/${jobId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setExplanation(response.data);
+      
+      // Check if the response indicates no resume
+      const explanationText = response.data?.explanation || "";
+      if (explanationText.toLowerCase().includes("no resume") || explanationText.toLowerCase().includes("upload your resume")) {
+        setError("Upload your resume first to see personalized match explanations.");
+        setNeedsResume(true);
+        setExplanation(null);
+      } else {
+        setExplanation(response.data);
+      }
     } catch (err) {
       const errorDetail = err.response?.data?.detail || "";
       // Provide better guidance based on the error type
