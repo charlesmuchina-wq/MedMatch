@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 import uuid
 import logging
 import json
+import asyncio
 
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 
