@@ -245,6 +245,7 @@ from routes.credentials import router as credentials_router
 from routes.employer_reviews import router as employer_reviews_router
 from routes.notifications import router as notifications_router
 from routes.job_verification import router as job_verification_router
+from routes.geolocation import router as geolocation_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
@@ -262,6 +263,7 @@ app.include_router(skills_router, prefix="/api")
 app.include_router(payments_router, prefix="/api")
 app.include_router(notifications_router, prefix="/api")
 app.include_router(job_verification_router, prefix="/api")
+app.include_router(geolocation_router, prefix="/api")
 app.include_router(membership_router, prefix="/api")
 app.include_router(scheduling_router, prefix="/api")
 app.include_router(notifications_router, prefix="/api")
