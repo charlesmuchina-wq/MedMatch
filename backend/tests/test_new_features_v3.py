@@ -123,7 +123,7 @@ class TestNotifications:
             json={"email": TEST_EMAIL, "password": TEST_PASSWORD}
         )
         if response.status_code == 200:
-            token = response.json().get("token")
+            token = response.json().get("access_token")
             return {"Authorization": f"Bearer {token}"}
         pytest.skip("Authentication failed")
     
@@ -228,7 +228,7 @@ class TestGeolocation:
             json={"email": TEST_EMAIL, "password": TEST_PASSWORD}
         )
         if response.status_code == 200:
-            token = response.json().get("token")
+            token = response.json().get("access_token")
             return {"Authorization": f"Bearer {token}"}
         pytest.skip("Authentication failed")
     
@@ -366,7 +366,7 @@ class TestJobVerification:
             json={"email": TEST_EMAIL, "password": TEST_PASSWORD}
         )
         if response.status_code == 200:
-            token = response.json().get("token")
+            token = response.json().get("access_token")
             return {"Authorization": f"Bearer {token}"}
         pytest.skip("Authentication failed")
     
@@ -431,7 +431,7 @@ class TestJobFreshness:
             json={"email": TEST_EMAIL, "password": TEST_PASSWORD}
         )
         if response.status_code == 200:
-            token = response.json().get("token")
+            token = response.json().get("access_token")
             return {"Authorization": f"Bearer {token}"}
         pytest.skip("Authentication failed")
     
