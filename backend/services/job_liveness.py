@@ -75,7 +75,7 @@ class JobLivenessService:
             try:
                 response = await client.head(url)
                 status_code = response.status_code
-            except:
+            except Exception:
                 # Fallback to GET if HEAD fails
                 response = await client.get(url)
                 status_code = response.status_code
@@ -339,7 +339,7 @@ class JobLivenessService:
                 verified_time = datetime.fromisoformat(verified_at.replace('Z', '+00:00'))
                 age = datetime.now(timezone.utc) - verified_time
                 is_stale = age > timedelta(hours=24)
-            except:
+            except Exception:
                 pass
         
         return {

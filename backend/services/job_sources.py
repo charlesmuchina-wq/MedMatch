@@ -147,7 +147,7 @@ class JobSourcesService:
             # ISO format
             try:
                 posted = datetime.fromisoformat(posted_date.replace('Z', '+00:00'))
-            except:
+            except Exception:
                 pass
             
             if not posted:
