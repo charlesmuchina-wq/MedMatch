@@ -70,7 +70,7 @@ const LOCATION_TYPES = [
   { value: "onsite", label: "On-site", icon: Building }
 ];
 
-const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
+const JobSearchPage = ({ savedJobs = [], onSave, onApply, onAnalyze }) => {
   const { t } = useTranslation();
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -85,6 +85,9 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
   const [searchStats, setSearchStats] = useState(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [taxonomyFilters, setTaxonomyFilters] = useState({});
+  
+  // Ensure savedJobs is always an array
+  const savedJobsArray = Array.isArray(savedJobs) ? savedJobs : [];
 
   // Get cities for selected country
   const availableCities = country && country !== "any" ? COUNTRIES_DATA[country] || [] : [];
