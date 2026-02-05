@@ -194,7 +194,7 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
                 placeholder={t("jobs.searchPlaceholder")}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && searchJobs()}
+                onKeyPress={(e) => e.key === 'Enter' && searchJobs(query)}
                 className="pl-10"
                 data-testid="job-search-input"
               />
