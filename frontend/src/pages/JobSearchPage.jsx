@@ -115,7 +115,7 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
       }
       
       const response = await api.searchJobs({
-        query: searchQuery, 
+        q: searchQuery, 
         source, 
         location: locationStr,
         location_type: locationType !== "all" ? locationType : "",
