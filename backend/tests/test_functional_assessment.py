@@ -15,7 +15,7 @@ import requests
 import time
 import os
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://hirelifesci.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://healthjob.preview.emergentagent.com')
 
 # Test credentials
 ADMIN_EMAIL = "admin@medmatch.com"
