@@ -417,8 +417,8 @@ const api = {
   logout: () => apiClient.post('/api/auth/logout'),
   getProfile: () => apiClient.get('/api/auth/me', {}, { cacheTTL: 60000 }),
   
-  // Jobs - with caching
-  searchJobs: (params) => apiClient.get('/api/jobs/search', params, { cacheTTL: 120000 }),
+  // Jobs - no caching to ensure fresh results with search query
+  searchJobs: (params) => apiClient.get('/api/jobs/search', params, { cacheTTL: 0 }),
   getSavedJobs: () => apiClient.get('/api/saved-jobs', {}, { cacheTTL: 60000 }),
   saveJob: (job) => {
     apiClient.invalidateCache('/api/saved-jobs');
