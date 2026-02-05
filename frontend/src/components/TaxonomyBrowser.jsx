@@ -158,16 +158,26 @@ const TaxonomyBrowser = ({ onSelectSector, onSelectRole, compact = false }) => {
               </p>
               <div className="mt-3 flex items-center text-xs font-medium" style={{ color: sector.color }}>
                 {Object.keys(sector.subsectors || {}).length} subsectors
-                <ChevronRight className="w-4 h-4 ml-1" />
+                <ChevronRight className={`w-4 h-4 ml-1 transition-transform ${selectedSector?.id === sector.id ? 'rotate-90' : ''}`} />
               </div>
             </button>
           );
         })}
       </div>
 
+      {/* Sector Details Panel - Loading State */}
+      {selectedSector && loadingDetails && (
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-8">
+          <div className="flex items-center justify-center gap-3">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-teal-500"></div>
+            <span className="text-gray-600 dark:text-gray-400">Loading {selectedSector.name} details...</span>
+          </div>
+        </div>
+      )}
+
       {/* Sector Details Panel */}
-      {selectedSector && sectorDetails && (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+      {selectedSector && sectorDetails && !loadingDetails && (
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden animate-fade-in">
           {/* Sector Header */}
           <div 
             className="p-6 border-b border-gray-200 dark:border-gray-700"
@@ -201,6 +211,7 @@ const TaxonomyBrowser = ({ onSelectSector, onSelectRole, compact = false }) => {
                   setSectorDetails(null);
                 }}
                 className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg"
+                aria-label="Close details"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -211,10 +222,10 @@ const TaxonomyBrowser = ({ onSelectSector, onSelectRole, compact = false }) => {
           <div className="p-6">
             <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <Briefcase className="w-5 h-5" />
-              Roles & Positions
+              Roles & Positions ({Object.keys(sectorDetails.sector?.subsectors || selectedSector.subsectors || {}).length} subsectors)
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {Object.entries(sectorDetails.sector?.subsectors || {}).map(([subId, subsector]) => (
+              {Object.entries(sectorDetails.sector?.subsectors || selectedSector.subsectors || {}).map(([subId, subsector]) => (
                 <div 
                   key={subId}
                   className="border border-gray-200 dark:border-gray-700 rounded-lg p-4"
