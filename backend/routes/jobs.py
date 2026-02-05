@@ -1153,12 +1153,17 @@ async def fetch_google_cse_jobs(query: str, location: str = "Remote", site: str 
                 data = response.json()
                 jobs = []
                 for item in data.get("items", []):
+                    # Clean HTML entities from all text fields
+                    title = html.unescape(item.get("title", "").split(" - ")[0])
+                    company = html.unescape(item.get("pagemap", {}).get("organization", [{}])[0].get("name", ""))
+                    description = html.unescape(item.get("snippet", ""))
+                    
                     jobs.append({
                         "id": str(uuid.uuid4()),
-                        "title": item.get("title", "").split(" - ")[0],
-                        "company": item.get("pagemap", {}).get("organization", [{}])[0].get("name", ""),
+                        "title": title,
+                        "company": company,
                         "location": location,
-                        "description": item.get("snippet", ""),
+                        "description": description,
                         "url": item.get("link", ""),
                         "source": f"Google ({site.split('.')[0].title()})",
                         "posted_at": ""
