@@ -278,6 +278,9 @@ const Header = ({ onMenuClick, resume, user, onLogout }) => {
             {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
 
+          {/* Notification Center */}
+          {user && <NotificationCenter />}
+
           {user && (
             <div className="flex items-center gap-3">
               <div className={`w-9 h-9 rounded-full flex items-center justify-center ${
