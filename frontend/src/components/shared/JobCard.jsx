@@ -435,6 +435,10 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
                     View Original <ExternalLink className="w-3 h-3" />
                   </a>
                 )}
+                {/* Report Ghost Job Button */}
+                {job.id && (
+                  <ReportExpiredJob jobId={job.id} jobTitle={job.title} />
+                )}
               </div>
             )}
           </div>
