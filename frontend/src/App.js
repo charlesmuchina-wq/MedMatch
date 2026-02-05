@@ -598,12 +598,22 @@ function AppContent() {
 
   // Show login page if not authenticated (but allow hash with session_id to pass through)
   if (!user && !window.location.hash.includes('session_id')) {
-    return <LoginPage onAuthSuccess={handleAuthSuccess} />;
+    return (
+      <>
+        <LoginPage onAuthSuccess={handleAuthSuccess} />
+        <Toaster position="top-right" richColors theme={isDark ? 'dark' : 'light'} />
+      </>
+    );
   }
 
   // If we have a session_id in hash, show login page to process it
   if (window.location.hash.includes('session_id')) {
-    return <LoginPage onAuthSuccess={handleAuthSuccess} />;
+    return (
+      <>
+        <LoginPage onAuthSuccess={handleAuthSuccess} />
+        <Toaster position="top-right" richColors theme={isDark ? 'dark' : 'light'} />
+      </>
+    );
   }
 
   return (
