@@ -753,7 +753,7 @@ function AppContent() {
       <KarauDragonAI user={user} isOpen={showDragonAI} onClose={() => setShowDragonAI(false)} />
 
       <ApplyDialog job={applyDialogJob} open={!!applyDialogJob} onClose={() => setApplyDialogJob(null)} onConfirm={handleConfirmApply} />
-      <Toaster position="bottom-right" richColors theme={isDark ? 'dark' : 'light'} />
+      <Toaster position="top-right" richColors theme={isDark ? 'dark' : 'light'} />
     </div>
   );
 }
