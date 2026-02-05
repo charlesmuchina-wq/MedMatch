@@ -225,7 +225,7 @@ const JobSearchPage = ({ savedJobs, onSave, onApply, onAnalyze }) => {
             </Select>
 
             <Button 
-              onClick={() => searchJobs()} 
+              onClick={() => searchJobs(query)} 
               disabled={loading}
               className="bg-gradient-to-r from-turquoise to-teal-600"
               data-testid="search-btn"
