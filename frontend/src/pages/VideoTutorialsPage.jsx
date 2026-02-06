@@ -20,7 +20,7 @@ const VideoTutorialsPage = () => {
       const videosData = response.data.videos.map(v => ({
         ...v,
         icon: v.category === 'job_seeker' ? Users : v.category === 'recruiter' ? Briefcase : Search,
-        color: v.category === 'job_seeker' ? 'bg-teal-500' : 'bg-purple-500',
+        color: v.category === 'job_seeker' ? 'bg-teal-500' : v.category === 'recruiter' ? 'bg-purple-500' : 'bg-blue-500',
         file: `${API}${v.url}`
       }));
       setVideos(videosData);
@@ -29,10 +29,35 @@ const VideoTutorialsPage = () => {
       // Fallback to static data
       setVideos([
         {
-          id: '01_jobseeker_intro',
-          title: 'Getting Started as a Job Seeker',
-          description: 'Overview of MedMatch platform for job seekers',
-          duration: '4 seconds',
+          id: '01_jobseeker_features',
+          title: 'Job Seeker Features',
+          description: 'Complete guide to dashboard, job search, resume, applications, and interview prep',
+          duration: '34 seconds',
+          category: 'job_seeker',
+          icon: Users,
+          file: `${API}/api/tutorials/videos/01_jobseeker_features`,
+          color: 'bg-teal-500'
+        },
+        {
+          id: '02_recruiter_features',
+          title: 'Recruiter Features',
+          description: 'Dashboard, applicant tracking, job postings, and hiring tools',
+          duration: '30 seconds',
+          category: 'recruiter',
+          icon: Briefcase,
+          file: `${API}/api/tutorials/videos/02_recruiter_features`,
+          color: 'bg-purple-500'
+        },
+        {
+          id: '03_privacy_matters',
+          title: 'Your Privacy Matters',
+          description: 'How we protect your data and keep your job search secure',
+          duration: '31 seconds',
+          category: 'general',
+          icon: Search,
+          file: `${API}/api/tutorials/videos/03_privacy_matters`,
+          color: 'bg-blue-500'
+        }
           category: 'job_seeker',
           icon: Users,
           file: `${API}/api/tutorials/videos/01_jobseeker_intro`,
