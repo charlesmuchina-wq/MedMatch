@@ -72,14 +72,15 @@ async def create_application_link(data: ApplicationLinkCreate, request: Request)
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
-    if user.get("role") != "recruiter":
+    if user.get("role") not in ["recruiter", "admin"]:
         raise HTTPException(status_code=403, detail="Only recruiters can create application links")
     
-    # Verify job belongs to recruiter
-    job = await db.posted_jobs.find_one({
-        "id": data.job_id,
-        "recruiter_id": user["user_id"]
-    }, {"_id": 0})
+    # Verify job belongs to recruiter (or user is admin)
+    query = {"id": data.job_id}
+    if user.get("role") != "admin":
+        query["recruiter_id"] = user["user_id"]
+    
+    job = await db.posted_jobs.find_one(query, {"_id": 0})
     
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
