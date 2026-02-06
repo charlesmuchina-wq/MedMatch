@@ -419,6 +419,58 @@ export default function TranslationAnalyticsPage() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Export Section */}
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Download className="h-5 w-5 text-turquoise" />
+                Export Translation Memory
+              </CardTitle>
+              <CardDescription>
+                Download translation memory in standard localization formats
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Button 
+                  variant="outline" 
+                  className="h-auto p-4 flex flex-col items-center gap-2"
+                  onClick={() => {
+                    const token = localStorage.getItem('access_token');
+                    window.open(`${API}/api/translate/memory/export/tmx?token=${token}`, '_blank');
+                  }}
+                >
+                  <Database className="h-6 w-6 text-turquoise" />
+                  <span className="font-semibold">TMX Format</span>
+                  <span className="text-xs text-muted-foreground">Standard CAT tool format</span>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="h-auto p-4 flex flex-col items-center gap-2"
+                  onClick={() => {
+                    const token = localStorage.getItem('access_token');
+                    window.open(`${API}/api/translate/memory/export/json`, '_blank');
+                  }}
+                >
+                  <Code className="h-6 w-6 text-purple-500" />
+                  <span className="font-semibold">JSON Format</span>
+                  <span className="text-xs text-muted-foreground">For custom integrations</span>
+                </Button>
+                <Button 
+                  variant="outline" 
+                  className="h-auto p-4 flex flex-col items-center gap-2"
+                  onClick={() => {
+                    toast.info('Select a target language first');
+                  }}
+                >
+                  <Globe className="h-6 w-6 text-blue-500" />
+                  <span className="font-semibold">XLIFF Format</span>
+                  <span className="text-xs text-muted-foreground">Localization workflow</span>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
 
         {/* Quality Tab */}
