@@ -115,9 +115,9 @@ export default function ProfileScreen() {
       {/* Resume Section */}
       <SectionHeader title="Resume & Profile" />
       <View style={styles.menuGroup}>
-        <MenuItem icon="📄" title="My Resume" subtitle="View and edit your resume" onPress={() => {}} />
-        <MenuItem icon="⬆️" title="Upload Resume" subtitle="PDF, DOC, DOCX" onPress={() => {}} />
-        <MenuItem icon="🎯" title="Skills" subtitle="Manage your skills" onPress={() => {}} />
+        <MenuItem icon="📄" title="My Resume" subtitle="View and edit your resume" onPress={() => Alert.alert('Coming Soon', 'Resume viewing will be available in the next update')} />
+        <MenuItem icon="⬆️" title="Upload Resume" subtitle="PDF, DOC, DOCX" onPress={() => Alert.alert('Upload Resume', 'Resume upload functionality coming soon. Use the web app for now.')} />
+        <MenuItem icon="🎯" title="Skills" subtitle="Manage your skills" onPress={() => Alert.alert('Skills', 'Skills management coming soon')} />
       </View>
 
       {/* Account Section */}
@@ -125,9 +125,9 @@ export default function ProfileScreen() {
       <View style={styles.menuGroup}>
         <MenuItem icon="👤" title="Account Settings" subtitle="Profile, name, contact info" onPress={() => router.push('/account' as any)} />
         <MenuItem icon="🏆" title="Credentials & Badges" subtitle="Verify certifications, import badges" onPress={() => router.push('/credentials' as any)} />
-        <MenuItem icon="🔒" title="Security" subtitle="Password, biometric login" onPress={() => {}} />
-        <MenuItem icon="✓" title="ID Verification" subtitle={user?.id_verified ? 'Verified' : 'Not verified'} onPress={() => router.push('/id-verification' as any)} />
-        <MenuItem icon="💳" title="Subscription" subtitle="Premium • Active" onPress={() => {}} />
+        <MenuItem icon="🔒" title="Security" subtitle="Password, biometric login" onPress={() => router.push('/settings' as any)} />
+        <MenuItem icon="✓" title="ID Verification" subtitle={user?.id_verified ? 'Verified' : 'Not verified'} onPress={() => Alert.alert('ID Verification', 'ID verification available on the web app')} />
+        <MenuItem icon="💳" title="Subscription" subtitle="Premium • Active" onPress={() => Alert.alert('Subscription', 'Manage your subscription on the web app')} />
       </View>
 
       {/* Preferences Section */}
