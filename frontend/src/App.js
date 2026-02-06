@@ -127,6 +127,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
   
   const jobSeekerLinks = [
     { path: "/", icon: TrendingUp, labelKey: "nav.dashboard" },
+    { path: "/tutorials", icon: HelpCircle, labelKey: "Help & Tutorials" },
     { path: "/resume", icon: FileText, labelKey: "nav.myResume" },
     { path: "/resume-profiles", icon: Users, labelKey: "nav.resumeProfiles" },
     { path: "/skill-assessments", icon: Award, labelKey: "nav.skillTests" },
@@ -158,11 +159,11 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/id-verification", icon: ShieldCheck, labelKey: "nav.idVerification" },
     { path: "/privacy", icon: Shield, labelKey: "nav.privacy" },
     { path: "/membership", icon: Crown, labelKey: "nav.membership" },
-    { path: "/tutorials", icon: HelpCircle, labelKey: "Help & Tutorials" },
   ];
   
   const recruiterLinks = [
     { path: "/recruiter/dashboard", icon: LayoutDashboard, labelKey: "recruiter.dashboard" },
+    { path: "/tutorials", icon: HelpCircle, labelKey: "Help & Tutorials" },
     { path: "/recruiter/jobs", icon: Briefcase, labelKey: "recruiter.myJobPostings" },
     { path: "/recruiter/ats", icon: Users, labelKey: "Applicant Tracking" },
     { path: "/interviews", icon: Video, labelKey: "recruiter.interviews" },
@@ -174,7 +175,6 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/id-verification", icon: ShieldCheck, labelKey: "nav.idVerification" },
     { path: "/privacy", icon: Shield, labelKey: "nav.privacy" },
     { path: "/membership", icon: Crown, labelKey: "nav.membership" },
-    { path: "/tutorials", icon: HelpCircle, labelKey: "Help & Tutorials" },
   ];
   
   const links = isRecruiter ? recruiterLinks : jobSeekerLinks;
