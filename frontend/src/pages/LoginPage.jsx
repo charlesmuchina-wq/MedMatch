@@ -267,7 +267,7 @@ const LoginPage = ({ onAuthSuccess }) => {
             {t("auth.signIn")} - MedMatch
           </CardTitle>
           <CardDescription>
-            AI-powered job search for remote positions
+            AI-powered job search for life sciences careers
           </CardDescription>
         </CardHeader>
         
