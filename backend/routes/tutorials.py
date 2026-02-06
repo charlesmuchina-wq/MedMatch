@@ -17,48 +17,48 @@ VIDEOS = [
     {
         "id": "01_jobseeker_intro",
         "title": "Getting Started as a Job Seeker",
-        "description": "Overview of MedMatch platform for job seekers",
-        "duration": "4 seconds",
+        "description": "Complete guide to creating your profile and finding jobs",
+        "duration": "29 seconds",
         "category": "job_seeker",
         "filename": "01_jobseeker_intro.mp4"
     },
     {
         "id": "02_recruiter_dashboard",
         "title": "Recruiter Dashboard Overview",
-        "description": "Recruiter interface walkthrough",
-        "duration": "4 seconds",
+        "description": "Managing job postings, tracking applicants, and hiring",
+        "duration": "28 seconds",
         "category": "recruiter",
         "filename": "02_recruiter_dashboard.mp4"
     },
     {
         "id": "03_job_search",
-        "title": "Advanced Job Search",
-        "description": "How to search and filter jobs effectively",
-        "duration": "4 seconds",
+        "title": "Finding Your Perfect Job",
+        "description": "Search, filter, and apply to jobs with AI matching",
+        "duration": "26 seconds",
         "category": "job_seeker",
         "filename": "03_job_search.mp4"
     },
     {
         "id": "04_ats_system",
         "title": "Applicant Tracking System",
-        "description": "Learn how to use the ATS for hiring",
-        "duration": "4 seconds",
+        "description": "Create application links and track candidates",
+        "duration": "24 seconds",
         "category": "recruiter",
         "filename": "04_ats_system.mp4"
     },
     {
         "id": "05_resume_upload",
-        "title": "Resume Upload & AI Parsing",
-        "description": "How to upload your resume and let AI extract your information",
-        "duration": "4 seconds",
+        "title": "Upload Your Resume",
+        "description": "AI-powered resume parsing and profile completion",
+        "duration": "24 seconds",
         "category": "job_seeker",
         "filename": "05_resume_upload.mp4"
     },
     {
         "id": "06_interview_prep",
-        "title": "Interview Preparation Tools",
-        "description": "Practice questions, voice coaching, and video interview prep",
-        "duration": "4 seconds",
+        "title": "Interview Preparation",
+        "description": "Practice questions and AI feedback for interviews",
+        "duration": "23 seconds",
         "category": "job_seeker",
         "filename": "06_interview_prep.mp4"
     }
