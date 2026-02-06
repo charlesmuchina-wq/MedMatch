@@ -69,14 +69,25 @@ async def list_videos(category: str = None):
 
 
 @router.get("/videos/{video_id}")
-async def get_video(video_id: str):
-    """Stream a tutorial video"""
+async def get_video(video_id: str, lang: str = "en"):
+    """Stream a tutorial video, optionally in a specific language"""
     # Find video metadata
     video_meta = next((v for v in VIDEOS if v["id"] == video_id), None)
     
     if not video_meta:
         raise HTTPException(status_code=404, detail="Video not found")
     
+    # Check for translated version first
+    if lang != "en":
+        translated_path = VIDEOS_DIR / f"{video_id}_{lang}.mp4"
+        if translated_path.exists():
+            return FileResponse(
+                path=str(translated_path),
+                media_type="video/mp4",
+                filename=f"{video_id}_{lang}.mp4"
+            )
+    
+    # Fall back to original (English) video
     video_path = VIDEOS_DIR / video_meta["filename"]
     
     if not video_path.exists():
