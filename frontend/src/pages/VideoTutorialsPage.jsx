@@ -1,52 +1,78 @@
-import React, { useState } from 'react';
-import { Play, FileText, Users, Briefcase, Search, ClipboardList, ChevronRight, ExternalLink } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Play, FileText, Users, Briefcase, Search, ClipboardList, ChevronRight, ExternalLink, Loader2 } from 'lucide-react';
+import axios from 'axios';
+
+const API = process.env.REACT_APP_BACKEND_URL;
 
 const VideoTutorialsPage = () => {
   const [activeTab, setActiveTab] = useState('videos');
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const videos = [
-    {
-      id: 'jobseeker_intro',
-      title: 'Getting Started as a Job Seeker',
-      description: 'Learn how to navigate MedMatch, set up your profile, and start your job search journey.',
-      duration: '4 sec',
-      category: 'Job Seeker',
-      icon: Users,
-      file: '/videos/01_jobseeker_intro.mp4',
-      color: 'bg-teal-500'
-    },
-    {
-      id: 'recruiter_dashboard',
-      title: 'Recruiter Dashboard Overview',
-      description: 'Discover the recruiter dashboard features including job postings, applicant tracking, and candidate search.',
-      duration: '4 sec',
-      category: 'Recruiter',
-      icon: Briefcase,
-      file: '/videos/02_recruiter_dashboard.mp4',
-      color: 'bg-purple-500'
-    },
-    {
-      id: 'job_search',
-      title: 'Advanced Job Search',
-      description: 'Master the job search with filters, AI matching, and life sciences specialized options.',
-      duration: '4 sec',
-      category: 'Job Seeker',
-      icon: Search,
-      file: '/videos/03_job_search.mp4',
-      color: 'bg-blue-500'
-    },
-    {
-      id: 'ats_system',
-      title: 'Applicant Tracking System',
-      description: 'Learn how to create application links, track candidates, and manage your hiring pipeline.',
-      duration: '4 sec',
-      category: 'Recruiter',
-      icon: ClipboardList,
-      file: '/videos/04_ats_system.mp4',
-      color: 'bg-orange-500'
+  useEffect(() => {
+    fetchVideos();
+  }, []);
+
+  const fetchVideos = async () => {
+    try {
+      const response = await axios.get(`${API}/api/tutorials/videos`);
+      const videosData = response.data.videos.map(v => ({
+        ...v,
+        icon: v.category === 'job_seeker' ? Users : v.category === 'recruiter' ? Briefcase : Search,
+        color: v.category === 'job_seeker' ? 'bg-teal-500' : 'bg-purple-500',
+        file: `${API}${v.url}`
+      }));
+      setVideos(videosData);
+    } catch (error) {
+      console.error('Failed to fetch videos:', error);
+      // Fallback to static data
+      setVideos([
+        {
+          id: '01_jobseeker_intro',
+          title: 'Getting Started as a Job Seeker',
+          description: 'Overview of MedMatch platform for job seekers',
+          duration: '4 seconds',
+          category: 'job_seeker',
+          icon: Users,
+          file: `${API}/api/tutorials/videos/01_jobseeker_intro`,
+          color: 'bg-teal-500'
+        },
+        {
+          id: '02_recruiter_dashboard',
+          title: 'Recruiter Dashboard Overview',
+          description: 'Recruiter interface walkthrough',
+          duration: '4 seconds',
+          category: 'recruiter',
+          icon: Briefcase,
+          file: `${API}/api/tutorials/videos/02_recruiter_dashboard`,
+          color: 'bg-purple-500'
+        },
+        {
+          id: '03_job_search',
+          title: 'Advanced Job Search',
+          description: 'How to search and filter jobs effectively',
+          duration: '4 seconds',
+          category: 'job_seeker',
+          icon: Search,
+          file: `${API}/api/tutorials/videos/03_job_search`,
+          color: 'bg-teal-500'
+        },
+        {
+          id: '04_ats_system',
+          title: 'Applicant Tracking System',
+          description: 'Learn how to use the ATS for hiring',
+          duration: '4 seconds',
+          category: 'recruiter',
+          icon: ClipboardList,
+          file: `${API}/api/tutorials/videos/04_ats_system`,
+          color: 'bg-purple-500'
+        }
+      ]);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
 
   const quickGuides = [
     {
