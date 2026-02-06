@@ -148,14 +148,15 @@ async def get_job_applicants(job_id: str, request: Request):
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
-    if user.get("role") != "recruiter":
+    if user.get("role") not in ["recruiter", "admin"]:
         raise HTTPException(status_code=403, detail="Only recruiters can view applicants")
     
-    # Verify the job belongs to this recruiter
-    job = await db.posted_jobs.find_one({
-        "id": job_id,
-        "recruiter_id": user["user_id"]
-    })
+    # Verify the job exists (admin can see any job, recruiter only their own)
+    query = {"id": job_id}
+    if user.get("role") != "admin":
+        query["recruiter_id"] = user["user_id"]
+    
+    job = await db.posted_jobs.find_one(query)
     if not job:
         raise HTTPException(status_code=404, detail="Job not found")
     
