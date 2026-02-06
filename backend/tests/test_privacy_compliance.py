@@ -7,7 +7,7 @@ Tests for GDPR/CCPA compliance features.
 import pytest
 import httpx
 
-API_BASE_URL = "https://lifesci-jobs.preview.emergentagent.com/api"
+API_BASE_URL = "https://jobmatch-pro-47.preview.emergentagent.com/api"
 TIMEOUT = 30.0
 
 TEST_ADMIN = {
