@@ -101,7 +101,7 @@
   "dashboard": {
     "welcomeBack": "Welcome back",
     "welcomeToMedMatch": "Welcome to MedMatch",
-    "personalizedDashboard": "Your personalized remote job dashboard",
+    "personalizedDashboard": "Your personalized job search dashboard",
     "uploadToStart": "Upload your resume to get started",
     "lastLogin": "Last login",
     "justNow": "Just now",
@@ -160,7 +160,7 @@
   },
   "jobs": {
     "searchJobs": "Search Jobs",
-    "findYourPerfectJob": "Find Your Perfect Remote Job",
+    "findYourPerfectJob": "Find Your Perfect Job",
     "searchDescription": "Search across multiple job boards simultaneously with AI-powered matching",
     "searchPlaceholder": "Job title, keywords, or company",
     "location": "Location",
@@ -795,12 +795,12 @@
   },
   "onboarding": {
     "welcome": "Welcome to MedMatch!",
-    "welcomeDesc": "Let's get you started with AI-powered job matching. We'll help you find the perfect remote job.",
+    "welcomeDesc": "Let's get you started with AI-powered job matching. We'll help you find the perfect job.",
     "uploadResume": "Upload Your Resume",
     "uploadResumeDesc": "Start by uploading your resume. Our AI will analyze it to find matching jobs.",
     "uploadResumeAction": "Tip: We support PDF, DOC, and DOCX formats",
     "smartSearch": "Smart Job Search",
-    "smartSearchDesc": "Search through millions of remote jobs with AI-powered matching.",
+    "smartSearchDesc": "Search through millions of jobs with AI-powered matching.",
     "smartSearchAction": "Tip: Use filters to narrow down your perfect job",
     "predictor": "Success Predictor",
     "predictorDesc": "Get AI-powered predictions on your callback probability for each job.",
