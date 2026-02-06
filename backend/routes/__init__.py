@@ -143,6 +143,9 @@ __all__ = [
     # Enterprise API (API Keys, Webhooks, ATS)
     'enterprise_api_router',
     
+    # Application Tracking System
+    'ats_router',
+    
     # Helper functions
     'get_current_user',
     'check_membership_status'
