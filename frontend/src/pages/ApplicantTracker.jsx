@@ -86,15 +86,26 @@ const ApplicantTracker = ({ user }) => {
     setLoading(false);
   };
 
-  const updateStatus = async (applicantId, newStatus, applicant) => {
+  const updateStatus = async (applicantId, newStatus, applicant, sendEmail = true) => {
     try {
-      await apiClient.put(`/api/recruiter/applicants/${applicantId}/status`, {
-        status: newStatus
-      });
-      toast.success(`${t("common.status") || "Status"} ${t("common.updated") || "updated"} to ${newStatus}`);
+      // Try ATS endpoint first for enhanced status tracking with email
+      try {
+        await apiClient.put(`/api/ats/applications/${applicantId}/status`, {
+          status: newStatus,
+          send_email: sendEmail
+        });
+      } catch (atsError) {
+        // Fall back to legacy recruiter endpoint
+        await apiClient.put(`/api/recruiter/applicants/${applicantId}/status`, {
+          status: newStatus
+        });
+      }
       
-      // Show feedback form when rejecting
-      if (newStatus === "rejected" && applicant) {
+      const statusLabel = STATUS_OPTIONS.find(s => s.value === newStatus)?.label || newStatus;
+      toast.success(`Status updated to ${statusLabel}${sendEmail ? ' (email sent)' : ''}`);
+      
+      // Show feedback form when rejecting/not selecting
+      if ((newStatus === "not_selected" || newStatus === "rejected") && applicant) {
         setFeedbackApplicant(applicant);
         setShowFeedbackForm(true);
       }
