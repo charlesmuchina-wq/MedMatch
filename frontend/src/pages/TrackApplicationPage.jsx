@@ -252,7 +252,7 @@ export default function TrackApplicationPage() {
                         </p>
                         {event.message && (
                           <p className="text-sm text-muted-foreground mt-1 italic">
-                            "{event.message}"
+                            &ldquo;{event.message}&rdquo;
                           </p>
                         )}
                       </div>
