@@ -45,6 +45,22 @@ VIDEOS = [
         "duration": "4 seconds",
         "category": "recruiter",
         "filename": "04_ats_system.mp4"
+    },
+    {
+        "id": "05_resume_upload",
+        "title": "Resume Upload & AI Parsing",
+        "description": "How to upload your resume and let AI extract your information",
+        "duration": "4 seconds",
+        "category": "job_seeker",
+        "filename": "05_resume_upload.mp4"
+    },
+    {
+        "id": "06_interview_prep",
+        "title": "Interview Preparation Tools",
+        "description": "Practice questions, voice coaching, and video interview prep",
+        "duration": "4 seconds",
+        "category": "job_seeker",
+        "filename": "06_interview_prep.mp4"
     }
 ]
 
