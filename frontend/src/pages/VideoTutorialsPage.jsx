@@ -196,11 +196,18 @@ const VideoTutorialsPage = () => {
 
         {/* Video Grid */}
         {activeTab === 'videos' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {videos.map(video => (
-              <VideoCard key={video.id} video={video} />
-            ))}
-          </div>
+          loading ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-teal-500" />
+              <span className="ml-2 text-gray-600">Loading videos...</span>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {videos.map(video => (
+                <VideoCard key={video.id} video={video} />
+              ))}
+            </div>
+          )
         )}
 
         {/* Quick Guides */}
