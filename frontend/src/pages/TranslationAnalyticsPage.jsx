@@ -8,7 +8,7 @@ import { toast } from 'sonner';
 import {
   Globe, Languages, BarChart3, Database, TrendingUp, Clock, 
   RefreshCw, Download, CheckCircle, AlertTriangle, Zap,
-  ArrowLeft, PieChart, Activity, Target, Brain, Sparkles
+  ArrowLeft, PieChart, Activity, Target, Brain, Sparkles, Code
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
 import { Button } from '../components/ui/button';
