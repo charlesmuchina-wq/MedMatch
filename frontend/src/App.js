@@ -161,6 +161,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
   const recruiterLinks = [
     { path: "/recruiter/dashboard", icon: LayoutDashboard, labelKey: "recruiter.dashboard" },
     { path: "/recruiter/jobs", icon: Briefcase, labelKey: "recruiter.myJobPostings" },
+    { path: "/recruiter/ats", icon: Users, labelKey: "Applicant Tracking" },
     { path: "/interviews", icon: Video, labelKey: "recruiter.interviews" },
     { path: "/recruiter/candidates", icon: UserSearch, labelKey: "recruiter.searchCandidates" },
     { path: "/companies", icon: Briefcase, labelKey: "nav.companies" },
