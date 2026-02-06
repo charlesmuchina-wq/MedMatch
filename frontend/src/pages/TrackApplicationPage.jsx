@@ -2,15 +2,14 @@
  * Track Application Page
  * Allows candidates to track their application status via tracking link
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import {
   CheckCircle, Clock, Calendar, AlertCircle, Briefcase, Building2,
-  ArrowLeft, Loader2, MapPin, Mail, Phone, FileText, ExternalLink,
-  ChevronRight, RefreshCw
+  ArrowLeft, Loader2, Mail, RefreshCw
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
+import { Card, CardContent, CardHeader } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import axios from 'axios';
