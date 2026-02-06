@@ -1670,3 +1670,292 @@ async def get_memory_analytics(request: Request):
     }
 
 
+
+
+# ============== TMX/XLIFF Export ==============
+
+@router.get("/memory/export/tmx")
+async def export_translation_memory_tmx(
+    target_language: Optional[str] = None,
+    context: Optional[str] = None,
+    request: Request = None
+):
+    """
+    Export Translation Memory in TMX 1.4 format
+    Standard format for CAT tools and translation management systems
+    Admin only
+    """
+    user = await get_current_user(request)
+    if not user or user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    # Build query
+    query = {}
+    if target_language:
+        query["target_language"] = target_language
+    if context:
+        query["context"] = context
+    
+    # Get translation memory entries
+    entries = await db.translation_memory.find(query, {"_id": 0}).to_list(10000)
+    
+    if not entries:
+        raise HTTPException(status_code=404, detail="No translation memory entries found")
+    
+    # Build TMX XML
+    tmx_header = f'''<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tmx SYSTEM "tmx14.dtd">
+<tmx version="1.4">
+  <header
+    creationtool="MedMatch Translation Memory"
+    creationtoolversion="1.0"
+    datatype="plaintext"
+    segtype="sentence"
+    adminlang="en"
+    srclang="en"
+    o-tmf="MedMatch"
+    creationdate="{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}"
+  >
+    <note>Exported from MedMatch Translation Memory System</note>
+  </header>
+  <body>
+'''
+    
+    tmx_body = ""
+    for entry in entries:
+        source_lang = entry.get("source_language", "en")
+        target_lang = entry.get("target_language", "")
+        source_text = entry.get("source_text", "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        target_text = entry.get("target_text", "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        tu_id = entry.get("tu_id", str(uuid.uuid4()))
+        created_at = entry.get("created_at", datetime.now(timezone.utc).isoformat())
+        
+        # Convert ISO date to TMX format
+        try:
+            dt = datetime.fromisoformat(created_at.replace("Z", "+00:00"))
+            creation_date = dt.strftime("%Y%m%dT%H%M%SZ")
+        except Exception:
+            creation_date = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        
+        tmx_body += f'''    <tu tuid="{tu_id}" creationdate="{creation_date}">
+      <prop type="context">{entry.get("context", "general")}</prop>
+      <prop type="usage_count">{entry.get("usage_count", 0)}</prop>
+      <prop type="verified">{str(entry.get("verified", False)).lower()}</prop>
+      <tuv xml:lang="{source_lang}">
+        <seg>{source_text}</seg>
+      </tuv>
+      <tuv xml:lang="{target_lang}">
+        <seg>{target_text}</seg>
+      </tuv>
+    </tu>
+'''
+    
+    tmx_footer = '''  </body>
+</tmx>
+'''
+    
+    tmx_content = tmx_header + tmx_body + tmx_footer
+    
+    filename = f"medmatch_tm_{target_language or 'all'}_{datetime.now().strftime('%Y%m%d')}.tmx"
+    
+    from fastapi.responses import Response
+    return Response(
+        content=tmx_content,
+        media_type="application/xml",
+        headers={
+            "Content-Disposition": f"attachment; filename={filename}"
+        }
+    )
+
+@router.get("/memory/export/json")
+async def export_translation_memory_json(
+    target_language: Optional[str] = None,
+    context: Optional[str] = None,
+    request: Request = None
+):
+    """
+    Export Translation Memory in JSON format
+    Useful for custom integrations and backups
+    Admin only
+    """
+    user = await get_current_user(request)
+    if not user or user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    # Build query
+    query = {}
+    if target_language:
+        query["target_language"] = target_language
+    if context:
+        query["context"] = context
+    
+    # Get translation memory entries
+    entries = await db.translation_memory.find(query, {"_id": 0}).to_list(10000)
+    
+    export_data = {
+        "format": "MedMatch Translation Memory Export",
+        "version": "1.0",
+        "exported_at": datetime.now(timezone.utc).isoformat(),
+        "filters": {
+            "target_language": target_language,
+            "context": context
+        },
+        "statistics": {
+            "total_entries": len(entries),
+            "languages": list(set(e.get("target_language") for e in entries if e.get("target_language"))),
+            "contexts": list(set(e.get("context") for e in entries if e.get("context")))
+        },
+        "entries": entries
+    }
+    
+    return export_data
+
+@router.get("/memory/export/xliff")
+async def export_translation_memory_xliff(
+    target_language: str,
+    context: Optional[str] = None,
+    request: Request = None
+):
+    """
+    Export Translation Memory in XLIFF 2.0 format
+    Standard format for localization workflows
+    Admin only
+    """
+    user = await get_current_user(request)
+    if not user or user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    if not target_language:
+        raise HTTPException(status_code=400, detail="target_language is required for XLIFF export")
+    
+    # Build query
+    query = {"target_language": target_language}
+    if context:
+        query["context"] = context
+    
+    # Get translation memory entries
+    entries = await db.translation_memory.find(query, {"_id": 0}).to_list(10000)
+    
+    if not entries:
+        raise HTTPException(status_code=404, detail="No translation memory entries found")
+    
+    # Build XLIFF 2.0 XML
+    xliff_header = f'''<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="2.0" xmlns="urn:oasis:names:tc:xliff:document:2.0" srcLang="en" trgLang="{target_language}">
+  <file id="medmatch-tm" original="MedMatch Translation Memory">
+'''
+    
+    xliff_body = ""
+    for idx, entry in enumerate(entries):
+        source_text = entry.get("source_text", "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        target_text = entry.get("target_text", "").replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        tu_id = entry.get("tu_id", f"tu-{idx}")
+        
+        xliff_body += f'''    <unit id="{tu_id}">
+      <notes>
+        <note category="context">{entry.get("context", "general")}</note>
+        <note category="usage_count">{entry.get("usage_count", 0)}</note>
+      </notes>
+      <segment state="translated">
+        <source>{source_text}</source>
+        <target>{target_text}</target>
+      </segment>
+    </unit>
+'''
+    
+    xliff_footer = '''  </file>
+</xliff>
+'''
+    
+    xliff_content = xliff_header + xliff_body + xliff_footer
+    
+    filename = f"medmatch_tm_{target_language}_{datetime.now().strftime('%Y%m%d')}.xliff"
+    
+    from fastapi.responses import Response
+    return Response(
+        content=xliff_content,
+        media_type="application/xliff+xml",
+        headers={
+            "Content-Disposition": f"attachment; filename={filename}"
+        }
+    )
+
+# ============== TMX Import ==============
+
+class TMXImportRequest(BaseModel):
+    tmx_content: str
+    overwrite_existing: bool = False
+
+@router.post("/memory/import/tmx")
+async def import_translation_memory_tmx(data: TMXImportRequest, request: Request):
+    """
+    Import Translation Memory from TMX format
+    Admin only
+    """
+    user = await get_current_user(request)
+    if not user or user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    import re
+    
+    # Parse TMX content (simple regex parsing for reliability)
+    tu_pattern = r'<tu[^>]*tuid="([^"]*)"[^>]*>(.*?)</tu>'
+    tuv_pattern = r'<tuv[^>]*xml:lang="([^"]*)"[^>]*>\s*<seg>(.*?)</seg>\s*</tuv>'
+    
+    imported = 0
+    errors = []
+    
+    tus = re.findall(tu_pattern, data.tmx_content, re.DOTALL)
+    
+    for tu_id, tu_content in tus:
+        try:
+            tuvs = re.findall(tuv_pattern, tu_content, re.DOTALL)
+            
+            if len(tuvs) >= 2:
+                source_lang, source_text = tuvs[0]
+                target_lang, target_text = tuvs[1]
+                
+                # Unescape XML entities
+                source_text = source_text.replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&")
+                target_text = target_text.replace("&lt;", "<").replace("&gt;", ">").replace("&amp;", "&")
+                
+                # Check existing
+                existing = await db.translation_memory.find_one({"tu_id": tu_id})
+                
+                if existing and not data.overwrite_existing:
+                    continue
+                
+                tm_entry = {
+                    "tu_id": tu_id,
+                    "source_language": source_lang,
+                    "target_language": target_lang,
+                    "source_text": source_text.strip(),
+                    "target_text": target_text.strip(),
+                    "context": "imported",
+                    "created_at": datetime.now(timezone.utc).isoformat(),
+                    "usage_count": 0,
+                    "verified": False,
+                    "cldr_locale": target_lang,
+                    "imported_from": "tmx"
+                }
+                
+                if existing:
+                    await db.translation_memory.update_one(
+                        {"tu_id": tu_id},
+                        {"$set": tm_entry}
+                    )
+                else:
+                    await db.translation_memory.insert_one(tm_entry)
+                
+                imported += 1
+                
+        except Exception as e:
+            errors.append({"tu_id": tu_id, "error": str(e)})
+    
+    return {
+        "message": f"TMX import completed: {imported} entries processed",
+        "imported": imported,
+        "errors": errors[:20],  # Limit error list
+        "total_found": len(tus)
+    }
+
