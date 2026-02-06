@@ -99,6 +99,10 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 91. **Automated Email Notifications**: Status change emails to candidates (MOCK mode - logs to DB) ✅ NEW (Feb 6, 2026)
 92. **Application Tracking Page**: Public page for candidates to track their application status via tracking token ✅ NEW (Feb 6, 2026)
 93. **ATS Management Dashboard**: Recruiter UI to create links, view stats, send invitations ✅ NEW (Feb 6, 2026)
+94. **AI Video Tutorials**: Sora 2-generated instructional videos for Job Seekers and Recruiters ✅ NEW (Feb 6, 2026)
+95. **Help & Tutorials Page**: Video tutorials + step-by-step quick guides for platform navigation ✅ NEW (Feb 6, 2026)
+96. **Tutorials API**: Backend endpoint serving video metadata and file streaming ✅ NEW (Feb 6, 2026)
+97. **Navigation Guide Documentation**: Comprehensive markdown guide at `/app/docs/guides/NAVIGATION_GUIDE.md` ✅ NEW (Feb 6, 2026)
 
 
 ---
