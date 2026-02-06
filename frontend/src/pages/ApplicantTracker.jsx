@@ -66,15 +66,7 @@ const ApplicantTracker = ({ user }) => {
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
   const [feedbackApplicant, setFeedbackApplicant] = useState(null);
 
-  useEffect(() => {
-    if (user?.role !== "recruiter") {
-      navigate("/");
-      return;
-    }
-    fetchApplicants();
-  }, [user, jobId, navigate]);
-
-  const fetchApplicants = async () => {
+  const fetchApplicants = useCallback(async () => {
     try {
       const response = await apiClient.get(`/api/recruiter/jobs/${jobId}/applicants`);
       setJob(response.data.job);
@@ -84,7 +76,15 @@ const ApplicantTracker = ({ user }) => {
       console.error(e);
     }
     setLoading(false);
-  };
+  }, [jobId, t]);
+
+  useEffect(() => {
+    if (user?.role !== "recruiter") {
+      navigate("/");
+      return;
+    }
+    fetchApplicants();
+  }, [user, navigate, fetchApplicants]);
 
   const updateStatus = async (applicantId, newStatus, applicant, sendEmail = true) => {
     try {
