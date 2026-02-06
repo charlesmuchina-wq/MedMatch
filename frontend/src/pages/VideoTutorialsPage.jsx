@@ -58,41 +58,6 @@ const VideoTutorialsPage = () => {
           file: `${API}/api/tutorials/videos/03_privacy_matters`,
           color: 'bg-blue-500'
         }
-          category: 'job_seeker',
-          icon: Users,
-          file: `${API}/api/tutorials/videos/01_jobseeker_intro`,
-          color: 'bg-teal-500'
-        },
-        {
-          id: '02_recruiter_dashboard',
-          title: 'Recruiter Dashboard Overview',
-          description: 'Recruiter interface walkthrough',
-          duration: '4 seconds',
-          category: 'recruiter',
-          icon: Briefcase,
-          file: `${API}/api/tutorials/videos/02_recruiter_dashboard`,
-          color: 'bg-purple-500'
-        },
-        {
-          id: '03_job_search',
-          title: 'Advanced Job Search',
-          description: 'How to search and filter jobs effectively',
-          duration: '4 seconds',
-          category: 'job_seeker',
-          icon: Search,
-          file: `${API}/api/tutorials/videos/03_job_search`,
-          color: 'bg-teal-500'
-        },
-        {
-          id: '04_ats_system',
-          title: 'Applicant Tracking System',
-          description: 'Learn how to use the ATS for hiring',
-          duration: '4 seconds',
-          category: 'recruiter',
-          icon: ClipboardList,
-          file: `${API}/api/tutorials/videos/04_ats_system`,
-          color: 'bg-purple-500'
-        }
       ]);
     } finally {
       setLoading(false);
