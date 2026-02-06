@@ -304,6 +304,12 @@ app.include_router(employer_reviews_router, prefix="/api")
 app.include_router(enterprise_api_router, prefix="/api")
 app.include_router(ats_router, prefix="/api")
 
+# ============== Static Files for Videos ==============
+# Mount the videos directory for serving tutorial videos
+videos_dir = Path("/app/videos")
+if videos_dir.exists():
+    app.mount("/videos", StaticFiles(directory=str(videos_dir)), name="videos")
+
 # ============== CORS Configuration ==============
 app.add_middleware(
     CORSMiddleware,
