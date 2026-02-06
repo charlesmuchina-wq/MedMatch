@@ -121,7 +121,8 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
   }, [isOpen]);
   
   // Different navigation for recruiters vs job seekers
-  const isRecruiter = user?.role === "recruiter";
+  // Admin users also see recruiter navigation
+  const isRecruiter = user?.role === "recruiter" || user?.role === "admin";
   
   const jobSeekerLinks = [
     { path: "/", icon: TrendingUp, labelKey: "nav.dashboard" },
