@@ -105,20 +105,26 @@ const VideoTutorialsPage = () => {
         onClick={() => setSelectedVideo(video)}
         data-testid={`video-card-${video.id}`}
       >
-        <div className={`${video.color} h-32 flex items-center justify-center relative`}>
-          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors" />
-          <div className="relative z-10 w-16 h-16 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-            <Play className="w-8 h-8 text-gray-800 ml-1" />
+        <div className="h-40 relative overflow-hidden">
+          <img 
+            src="/images/presenter.jpeg" 
+            alt="Tutorial Presenter"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg">
+              <Play className="w-7 h-7 text-teal-600 ml-1" />
+            </div>
           </div>
           <span className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
             {video.duration}
           </span>
+          <span className={`absolute top-2 left-2 ${video.color} text-white text-xs px-2 py-1 rounded-full`}>
+            {video.category === 'job_seeker' ? 'Job Seeker' : 'Recruiter'}
+          </span>
         </div>
         <div className="p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <Icon className="w-4 h-4 text-gray-500" />
-            <span className="text-xs text-gray-500 font-medium">{video.category}</span>
-          </div>
           <h3 className="font-semibold text-gray-900 mb-1">{video.title}</h3>
           <p className="text-sm text-gray-600 line-clamp-2">{video.description}</p>
         </div>
