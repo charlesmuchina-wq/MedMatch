@@ -160,10 +160,26 @@ const VideoTutorialsPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-6" data-testid="video-tutorials-page">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Help & Tutorials</h1>
-          <p className="text-gray-600">Learn how to get the most out of MedMatch with video tutorials and step-by-step guides.</p>
+        {/* Header with Presenter */}
+        <div className="mb-8 bg-gradient-to-r from-teal-600 to-teal-500 rounded-2xl p-6 text-white">
+          <div className="flex flex-col md:flex-row items-center gap-6">
+            <div className="flex-shrink-0">
+              <img 
+                src="/images/presenter.jpeg" 
+                alt="Tutorial Host" 
+                className="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-white/30 object-cover shadow-lg"
+              />
+            </div>
+            <div className="text-center md:text-left">
+              <h1 className="text-3xl font-bold mb-2">Help & Tutorials</h1>
+              <p className="text-teal-100 text-lg mb-3">
+                Welcome! I'm here to help you get the most out of MedMatch.
+              </p>
+              <p className="text-teal-200 text-sm">
+                Watch our video tutorials and follow step-by-step guides to master the platform.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Tabs */}
@@ -202,7 +218,7 @@ const VideoTutorialsPage = () => {
               <span className="ml-2 text-gray-600">Loading videos...</span>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {videos.map(video => (
                 <VideoCard key={video.id} video={video} />
               ))}
