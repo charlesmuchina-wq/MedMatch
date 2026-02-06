@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://lifesci-jobs-1.preview.emergentagent.com/api
+**API Target:** https://lifesci-hiring.preview.emergentagent.com/api
 
 ---
 
