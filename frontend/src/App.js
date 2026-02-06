@@ -62,6 +62,7 @@ import LocationSettingsPage from "@/pages/LocationSettingsPage";
 import EnterpriseAPIPage from "@/pages/EnterpriseAPIPage";
 import PublicApplicationPage from "@/pages/PublicApplicationPage";
 import TrackApplicationPage from "@/pages/TrackApplicationPage";
+import ATSManagementPage from "@/pages/ATSManagementPage";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
