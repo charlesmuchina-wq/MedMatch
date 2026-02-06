@@ -757,6 +757,7 @@ function AppContent() {
             <Route path="/careers" element={<TaxonomyExplorerPage />} />
             <Route path="/credentials" element={<CredentialsPage />} />
             <Route path="/location-settings" element={<LocationSettingsPage />} />
+            <Route path="/enterprise/api" element={<EnterpriseAPIPage />} />
           </Routes>
         </main>
       </div>
