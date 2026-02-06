@@ -255,6 +255,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
 // Header Component with Dark Mode Toggle
 const Header = ({ onMenuClick, resume, user, onLogout }) => {
   const { isDark, toggleTheme } = useTheme();
+  const navigate = useNavigate();
   
   return (
     <header className={`glass-header sticky top-0 z-30 px-6 py-4 ${isDark ? 'dark' : ''}`}>
@@ -270,6 +271,21 @@ const Header = ({ onMenuClick, resume, user, onLogout }) => {
         <div className="flex-1" />
         
         <div className="flex items-center gap-4">
+          {/* Help Button */}
+          <button
+            onClick={() => navigate('/tutorials')}
+            className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
+              isDark 
+                ? 'bg-teal-900/30 text-teal-400 hover:bg-teal-900/50' 
+                : 'bg-teal-50 text-teal-600 hover:bg-teal-100'
+            }`}
+            data-testid="help-btn"
+            title="Help & Tutorials"
+          >
+            <HelpCircle className="w-4 h-4" />
+            <span className="text-sm font-medium hidden sm:block">Help</span>
+          </button>
+          
           {/* Offline Status Indicator */}
           <OfflineIndicator compact={true} />
           
