@@ -103,6 +103,7 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 95. **Help & Tutorials Page**: Video tutorials + step-by-step quick guides for platform navigation ✅ NEW (Feb 6, 2026)
 96. **Tutorials API**: Backend endpoint serving video metadata and file streaming ✅ NEW (Feb 6, 2026)
 97. **Navigation Guide Documentation**: Comprehensive markdown guide at `/app/docs/guides/NAVIGATION_GUIDE.md` ✅ NEW (Feb 6, 2026)
+98. **6 Tutorial Videos**: Job Seeker Intro, Recruiter Dashboard, Job Search, ATS, Resume Upload, Interview Prep ✅ NEW (Feb 6, 2026)
 
 
 ---
