@@ -782,6 +782,8 @@ function AppContent() {
             <Route path="/credentials" element={<CredentialsPage />} />
             <Route path="/location-settings" element={<LocationSettingsPage />} />
             <Route path="/enterprise/api" element={<EnterpriseAPIPage />} />
+            <Route path="/tutorials" element={<VideoTutorialsPage />} />
+            <Route path="/help" element={<VideoTutorialsPage />} />
           </Routes>
         </main>
       </div>
