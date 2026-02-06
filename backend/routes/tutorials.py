@@ -15,52 +15,28 @@ VIDEOS_DIR = Path("/app/videos")
 # Video metadata
 VIDEOS = [
     {
-        "id": "01_jobseeker_intro",
-        "title": "Getting Started as a Job Seeker",
-        "description": "Complete guide to creating your profile and finding jobs",
-        "duration": "29 seconds",
+        "id": "01_jobseeker_features",
+        "title": "Job Seeker Features",
+        "description": "Complete guide to dashboard, job search, resume, applications, and interview prep",
+        "duration": "34 seconds",
         "category": "job_seeker",
-        "filename": "01_jobseeker_intro.mp4"
+        "filename": "01_jobseeker_features.mp4"
     },
     {
-        "id": "02_recruiter_dashboard",
-        "title": "Recruiter Dashboard Overview",
-        "description": "Managing job postings, tracking applicants, and hiring",
-        "duration": "28 seconds",
+        "id": "02_recruiter_features",
+        "title": "Recruiter Features",
+        "description": "Dashboard, applicant tracking, job postings, and hiring tools",
+        "duration": "30 seconds",
         "category": "recruiter",
-        "filename": "02_recruiter_dashboard.mp4"
+        "filename": "02_recruiter_features.mp4"
     },
     {
-        "id": "03_job_search",
-        "title": "Finding Your Perfect Job",
-        "description": "Search, filter, and apply to jobs with AI matching",
-        "duration": "26 seconds",
-        "category": "job_seeker",
-        "filename": "03_job_search.mp4"
-    },
-    {
-        "id": "04_ats_system",
-        "title": "Applicant Tracking System",
-        "description": "Create application links and track candidates",
-        "duration": "24 seconds",
-        "category": "recruiter",
-        "filename": "04_ats_system.mp4"
-    },
-    {
-        "id": "05_resume_upload",
-        "title": "Upload Your Resume",
-        "description": "AI-powered resume parsing and profile completion",
-        "duration": "24 seconds",
-        "category": "job_seeker",
-        "filename": "05_resume_upload.mp4"
-    },
-    {
-        "id": "06_interview_prep",
-        "title": "Interview Preparation",
-        "description": "Practice questions and AI feedback for interviews",
-        "duration": "23 seconds",
-        "category": "job_seeker",
-        "filename": "06_interview_prep.mp4"
+        "id": "03_privacy_matters",
+        "title": "Your Privacy Matters",
+        "description": "How we protect your data and keep your job search secure",
+        "duration": "31 seconds",
+        "category": "general",
+        "filename": "03_privacy_matters.mp4"
     }
 ]
 
