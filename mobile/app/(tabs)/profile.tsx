@@ -168,10 +168,10 @@ export default function ProfileScreen() {
       {/* Support Section */}
       <SectionHeader title="Support" />
       <View style={styles.menuGroup}>
-        <MenuItem icon="❓" title="Help Center" subtitle="FAQs and guides" onPress={() => {}} />
-        <MenuItem icon="💬" title="Contact Support" subtitle="Chat with us" onPress={() => {}} />
-        <MenuItem icon="📋" title="Terms of Service" onPress={() => {}} />
-        <MenuItem icon="🔐" title="Privacy Policy" onPress={() => {}} />
+        <MenuItem icon="❓" title="Help Center" subtitle="FAQs and guides" onPress={() => Alert.alert('Help Center', 'Visit our help center at medmatch.com/help')} />
+        <MenuItem icon="💬" title="Contact Support" subtitle="support@medmatch.com" onPress={() => Alert.alert('Contact Support', 'Email us at support@medmatch.com')} />
+        <MenuItem icon="📋" title="Terms of Service" onPress={() => Alert.alert('Terms', 'Visit medmatch.com/terms')} />
+        <MenuItem icon="🔐" title="Privacy Policy" onPress={() => Alert.alert('Privacy', 'Visit medmatch.com/privacy')} />
       </View>
 
       {/* Logout */}
