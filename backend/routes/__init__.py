@@ -59,6 +59,7 @@ from routes.meeting_notes import router as meeting_notes_router
 # Interview Calendar
 from routes.interview_calendar import router as interview_calendar_router
 from routes.enterprise_api import router as enterprise_api_router
+from routes.ats import router as ats_router
 
 __all__ = [
     # Core routes
