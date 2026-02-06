@@ -146,28 +146,108 @@ const VideoTutorialsPage = () => {
   const VideoModal = ({ video, onClose }) => {
     if (!video) return null;
     
+    const videoUrl = selectedLanguage === 'en' 
+      ? video.file 
+      : `${video.file}?lang=${selectedLanguage}`;
+    
+    const subtitleUrl = `${API}/api/tutorials/subtitles/${video.id}?lang=${selectedLanguage}`;
+    
+    const requestTranslation = async () => {
+      setTranslating(true);
+      try {
+        await axios.post(`${API}/api/tutorials/translate/${video.id}?lang=${selectedLanguage}`);
+        // Poll for completion
+        const checkStatus = async () => {
+          const res = await axios.get(`${API}/api/tutorials/translate/${video.id}/status?lang=${selectedLanguage}`);
+          if (res.data.status === 'ready') {
+            setTranslating(false);
+            // Refresh to load translated video
+            setSelectedVideo({...video});
+          } else if (res.data.status === 'generating') {
+            setTimeout(checkStatus, 3000);
+          } else {
+            setTranslating(false);
+          }
+        };
+        checkStatus();
+      } catch (error) {
+        console.error('Translation request failed:', error);
+        setTranslating(false);
+      }
+    };
+    
     return (
       <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={onClose}>
         <div className="bg-white rounded-xl max-w-4xl w-full overflow-hidden" onClick={e => e.stopPropagation()}>
           <div className="p-4 border-b flex justify-between items-center">
             <h3 className="font-semibold text-lg">{video.title}</h3>
-            <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-              ✕
-            </button>
+            <div className="flex items-center gap-4">
+              {/* Language Selector */}
+              <div className="flex items-center gap-2">
+                <Globe className="w-4 h-4 text-gray-500" />
+                <select 
+                  value={selectedLanguage}
+                  onChange={(e) => setSelectedLanguage(e.target.value)}
+                  className="text-sm border rounded px-2 py-1"
+                >
+                  {LANGUAGES.map(lang => (
+                    <option key={lang.code} value={lang.code}>{lang.name}</option>
+                  ))}
+                </select>
+              </div>
+              {/* Subtitles Toggle */}
+              <button 
+                onClick={() => setShowSubtitles(!showSubtitles)}
+                className={`flex items-center gap-1 text-sm px-2 py-1 rounded ${showSubtitles ? 'bg-teal-100 text-teal-700' : 'bg-gray-100 text-gray-600'}`}
+              >
+                <Subtitles className="w-4 h-4" />
+                CC
+              </button>
+              <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+                ✕
+              </button>
+            </div>
           </div>
-          <div className="aspect-video bg-black">
+          <div className="aspect-video bg-black relative">
+            {translating && (
+              <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center text-white z-10">
+                <Loader2 className="w-8 h-8 animate-spin mb-2" />
+                <p>Generating {LANGUAGES.find(l => l.code === selectedLanguage)?.name} version...</p>
+                <p className="text-sm text-gray-400">This may take a minute</p>
+              </div>
+            )}
             <video 
-              src={video.file} 
+              src={videoUrl} 
               controls 
               autoPlay 
               className="w-full h-full"
               data-testid="video-player"
+              crossOrigin="anonymous"
             >
+              {showSubtitles && (
+                <track 
+                  kind="subtitles" 
+                  src={subtitleUrl}
+                  srcLang={selectedLanguage}
+                  label={LANGUAGES.find(l => l.code === selectedLanguage)?.name || 'English'}
+                  default
+                />
+              )}
               Your browser does not support video playback.
             </video>
           </div>
           <div className="p-4">
-            <p className="text-gray-600">{video.description}</p>
+            <p className="text-gray-600 mb-3">{video.description}</p>
+            {selectedLanguage !== 'en' && (
+              <button
+                onClick={requestTranslation}
+                disabled={translating}
+                className="text-sm bg-teal-500 text-white px-3 py-1 rounded hover:bg-teal-600 disabled:opacity-50"
+              >
+                {translating ? 'Generating...' : `Generate ${LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio`}
+              </button>
+            )}
+          </div>
           </div>
         </div>
       </div>
