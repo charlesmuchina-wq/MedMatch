@@ -111,7 +111,7 @@ const VideoTutorialsPage = () => {
             {video.duration}
           </span>
           <span className={`absolute top-2 left-2 ${video.color} text-white text-xs px-2 py-1 rounded-full`}>
-            {video.category === 'job_seeker' ? 'Job Seeker' : 'Recruiter'}
+            {video.category === 'job_seeker' ? 'Job Seeker' : video.category === 'recruiter' ? 'Recruiter' : 'Everyone'}
           </span>
         </div>
         <div className="p-4">
