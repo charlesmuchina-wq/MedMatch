@@ -567,7 +567,7 @@ const MembershipPage = ({ user }) => {
             { icon: Shield, title: "Company Branding", desc: "Showcase your brand" }
           ] : [
             { icon: Sparkles, title: "AI-Powered", desc: "Smart job matching" },
-            { icon: Globe, title: "Worldwide Jobs", desc: "Remote positions globally" },
+            { icon: Globe, title: "All Locations", desc: "Remote, hybrid & on-site" },
             { icon: Zap, title: "Quick Apply", desc: "One-click applications" },
             { icon: Shield, title: "Privacy First", desc: "Your data stays yours" },
             { icon: Star, title: "Interview Prep", desc: "AI coaching tools" },
