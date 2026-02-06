@@ -278,7 +278,7 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
             : t("dashboard.welcomeToMedMatch") || "Welcome to MedMatch"}
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-2">
-          {resume ? (t("dashboard.personalizedDashboard") || "Your personalized remote job dashboard") : (t("dashboard.uploadToStart") || "Upload your resume to get started")}
+          {resume ? (t("dashboard.personalizedDashboard") || "Your personalized job search dashboard") : (t("dashboard.uploadToStart") || "Upload your resume to get started")}
         </p>
         
         {/* Last Login Info */}
