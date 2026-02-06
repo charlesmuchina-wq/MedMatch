@@ -76,7 +76,22 @@ const TrustScoreDisplay = ({
   }
 
   if (!scoreData) {
-    return null;
+    // Show a placeholder for new users without a trust score
+    return (
+      <Card className="border-gray-200 dark:border-gray-700">
+        <CardContent className="p-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+              <Shield className="w-6 h-6 text-gray-400" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100">Build Your Trust Score</h3>
+              <p className="text-sm text-gray-500">Complete your profile and add credentials to build trust with recruiters</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
   }
 
   const levelColors = LEVEL_COLORS[scoreData.level?.name] || LEVEL_COLORS['Building'];
