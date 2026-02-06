@@ -154,7 +154,7 @@ TUTORIALS = [
         "screenshots": ["01_dashboard.png", "02_job_search.png", "03_resume.png"],
         "script": """Welcome to MedMatch! I'm here to help you find your dream job in life sciences. 
 Let me show you around. This is your dashboard where you'll see personalized job matches and your Trust Score.
-Use Job Search to find opportunities filtered by location, salary, and job type.
+Use Job Search to find remote, hybrid, or on-site opportunities filtered by location, salary, and job type.
 Upload your resume and our AI will automatically extract your skills and experience.
 Get started today and take the next step in your career!"""
     },
@@ -165,7 +165,7 @@ Get started today and take the next step in your career!"""
         "script": """Welcome recruiters! Here's your hiring command center.
 Your dashboard shows key metrics like total applications and active job postings.
 The Applicant Tracking System lets you create shareable links and track candidates through every stage.
-Manage all your job postings, review applicants, and find your next great hire.
+Post remote, hybrid, or on-site positions and manage all your job postings from one place.
 Let's build your dream team together!"""
     },
     {
@@ -174,9 +174,9 @@ Let's build your dream team together!"""
         "screenshots": ["02_job_search.png", "04_applications.png", "01_dashboard.png"],
         "script": """Let me show you how to find your perfect job.
 Use the search bar and filters to narrow down opportunities by location, salary, and job type.
+Choose from remote, hybrid, or on-site positions anywhere in the world.
 Our AI matching shows you a compatibility score for each position.
-Save jobs you like and apply with one click.
-Track all your applications in the Applications section.
+Save jobs you like and track all your applications in one place.
 Your next opportunity is just a search away!"""
     },
     {
