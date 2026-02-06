@@ -225,7 +225,7 @@ const ApplicantTracker = ({ user }) => {
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="gap-2">
                   <Filter className="w-4 h-4" />
-                  {filterStatus === "all" ? "All Status" : filterStatus}
+                  {filterStatus === "all" ? "All Status" : (STATUS_OPTIONS.find(s => s.value === filterStatus)?.label || filterStatus)}
                   <ChevronDown className="w-4 h-4" />
                 </Button>
               </DropdownMenuTrigger>
@@ -233,7 +233,7 @@ const ApplicantTracker = ({ user }) => {
                 <DropdownMenuItem onClick={() => setFilterStatus("all")}>
                   All Status
                 </DropdownMenuItem>
-                {STATUS_OPTIONS.map(status => (
+                {DROPDOWN_STATUSES.map(status => (
                   <DropdownMenuItem 
                     key={status.value}
                     onClick={() => setFilterStatus(status.value)}
