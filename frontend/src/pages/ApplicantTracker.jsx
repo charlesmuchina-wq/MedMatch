@@ -311,17 +311,20 @@ const ApplicantTracker = ({ user }) => {
                       <DropdownMenuTrigger asChild onClick={(e) => e.stopPropagation()}>
                         <Button variant="outline" size="sm" className="gap-2">
                           <div className={`w-2 h-2 rounded-full ${getStatusColor(applicant.status)}`} />
-                          {applicant.status}
+                          {STATUS_OPTIONS.find(s => s.value === applicant.status)?.emoji || ''} {STATUS_OPTIONS.find(s => s.value === applicant.status)?.label?.replace(/^.+\s/, '') || applicant.status}
                           <ChevronDown className="w-3 h-3" />
                         </Button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent>
-                        {STATUS_OPTIONS.map(status => (
+                      <DropdownMenuContent className="w-56">
+                        <div className="px-2 py-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400">
+                          Update Status (email will be sent)
+                        </div>
+                        {DROPDOWN_STATUSES.map(status => (
                           <DropdownMenuItem 
                             key={status.value}
                             onClick={(e) => {
                               e.stopPropagation();
-                              updateStatus(applicant.id, status.value, applicant);
+                              updateStatus(applicant.id, status.value, applicant, true);
                             }}
                           >
                             <div className={`w-2 h-2 rounded-full ${status.color} mr-2`} />
