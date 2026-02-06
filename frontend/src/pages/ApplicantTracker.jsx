@@ -23,15 +23,29 @@ import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
 import RejectionFeedbackForm from "@/components/RejectionFeedbackForm";
 
+// Enhanced ATS status options - matches backend APPLICATION_STATUSES
 const STATUS_OPTIONS = [
-  { value: "new", label: "New", color: "bg-blue-500" },
-  { value: "reviewing", label: "Reviewing", color: "bg-amber-500" },
-  { value: "shortlisted", label: "Shortlisted", color: "bg-emerald-500" },
-  { value: "interviewing", label: "Interviewing", color: "bg-violet-500" },
-  { value: "offered", label: "Offered", color: "bg-cyan-500" },
-  { value: "hired", label: "Hired", color: "bg-green-600" },
-  { value: "rejected", label: "Rejected", color: "bg-slate-400" }
+  { value: "received", label: "📩 Received", color: "bg-blue-500", emoji: "📩" },
+  { value: "under_review", label: "👀 Under Review", color: "bg-purple-500", emoji: "👀" },
+  { value: "shortlisted", label: "⭐ Shortlisted", color: "bg-emerald-500", emoji: "⭐" },
+  { value: "interview_scheduled", label: "📅 Interview Scheduled", color: "bg-amber-500", emoji: "📅" },
+  { value: "interview_completed", label: "✅ Interview Completed", color: "bg-indigo-500", emoji: "✅" },
+  { value: "offer_extended", label: "🎉 Offer Extended", color: "bg-green-500", emoji: "🎉" },
+  { value: "hired", label: "🏆 Hired", color: "bg-teal-500", emoji: "🏆" },
+  { value: "application_deferred", label: "⏸️ Deferred", color: "bg-orange-500", emoji: "⏸️" },
+  { value: "not_selected", label: "📋 Not Selected", color: "bg-slate-500", emoji: "📋" },
+  { value: "position_closed", label: "🔒 Position Closed", color: "bg-slate-400", emoji: "🔒" },
+  { value: "withdrawn", label: "↩️ Withdrawn", color: "bg-gray-500", emoji: "↩️" },
+  // Legacy status mappings for backward compatibility
+  { value: "new", label: "📩 New", color: "bg-blue-500", emoji: "📩", legacy: true },
+  { value: "reviewing", label: "👀 Reviewing", color: "bg-purple-500", emoji: "👀", legacy: true },
+  { value: "interviewing", label: "📅 Interviewing", color: "bg-amber-500", emoji: "📅", legacy: true },
+  { value: "offered", label: "🎉 Offered", color: "bg-green-500", emoji: "🎉", legacy: true },
+  { value: "rejected", label: "📋 Rejected", color: "bg-slate-500", emoji: "📋", legacy: true }
 ];
+
+// Filter to only show non-legacy statuses in dropdown
+const DROPDOWN_STATUSES = STATUS_OPTIONS.filter(s => !s.legacy);
 
 const ApplicantTracker = ({ user }) => {
   const { jobId } = useParams();
