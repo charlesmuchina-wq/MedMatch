@@ -60,6 +60,8 @@ import TaxonomyExplorerPage from "@/pages/TaxonomyExplorerPage";
 import CredentialsPage from "@/pages/CredentialsPage";
 import LocationSettingsPage from "@/pages/LocationSettingsPage";
 import EnterpriseAPIPage from "@/pages/EnterpriseAPIPage";
+import PublicApplicationPage from "@/pages/PublicApplicationPage";
+import TrackApplicationPage from "@/pages/TrackApplicationPage";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
