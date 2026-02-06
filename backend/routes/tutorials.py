@@ -37,6 +37,14 @@ VIDEOS = [
         "duration": "31 seconds",
         "category": "general",
         "filename": "03_privacy_matters.mp4"
+    },
+    {
+        "id": "04_faq_ai_compliance",
+        "title": "FAQs: AI Compliance & Data Rights",
+        "description": "Understanding AI usage, data ownership, GDPR compliance, and your rights",
+        "duration": "87 seconds",
+        "category": "general",
+        "filename": "04_faq_ai_compliance.mp4"
     }
 ]
 
