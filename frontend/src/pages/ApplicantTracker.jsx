@@ -79,7 +79,7 @@ const ApplicantTracker = ({ user }) => {
   }, [jobId, t]);
 
   useEffect(() => {
-    if (user?.role !== "recruiter") {
+    if (!["recruiter", "admin"].includes(user?.role)) {
       navigate("/");
       return;
     }
