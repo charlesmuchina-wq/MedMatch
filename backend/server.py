@@ -247,6 +247,7 @@ from routes.notifications import router as notifications_router
 from routes.job_verification import router as job_verification_router
 from routes.geolocation import router as geolocation_router
 from routes.enterprise_api import router as enterprise_api_router
+from routes.ats import router as ats_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
