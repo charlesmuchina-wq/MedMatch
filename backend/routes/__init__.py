@@ -139,6 +139,9 @@ __all__ = [
     # Interview Calendar
     'interview_calendar_router',
     
+    # Enterprise API (API Keys, Webhooks, ATS)
+    'enterprise_api_router',
+    
     # Helper functions
     'get_current_user',
     'check_membership_status'
