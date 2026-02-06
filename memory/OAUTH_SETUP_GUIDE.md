@@ -14,11 +14,11 @@ This guide covers setting up OAuth Client IDs for MedMatch across all platforms.
 **Client Secret:** `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`
 
 **Authorized JavaScript Origins:**
-- `https://jobmatch-pro-47.preview.emergentagent.com`
+- `https://lifesci-jobs-1.preview.emergentagent.com`
 - `http://localhost:3000`
 
 **Authorized Redirect URIs:**
-- `https://jobmatch-pro-47.preview.emergentagent.com`
+- `https://lifesci-jobs-1.preview.emergentagent.com`
 - `http://localhost:3000`
 
 ---

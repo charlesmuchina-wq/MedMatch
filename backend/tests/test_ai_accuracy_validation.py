@@ -15,7 +15,7 @@ import time
 from typing import Dict
 
 # API Configuration
-API_BASE_URL = "https://jobmatch-pro-47.preview.emergentagent.com/api"
+API_BASE_URL = "https://lifesci-jobs-1.preview.emergentagent.com/api"
 TIMEOUT = 30.0
 
 # Test credentials
