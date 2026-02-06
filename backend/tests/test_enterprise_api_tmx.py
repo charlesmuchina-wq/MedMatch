@@ -96,24 +96,21 @@ class TestAPIKeyManagement:
         print(f"API Keys count: {data['count']}, tier: {data['tier']}")
     
     def test_create_api_key_tier_gating(self):
-        """Test API key creation requires Premium tier"""
-        # Admin is on recruiter_starter tier, should be denied
+        """Test API key creation requires recruiter role and Premium tier"""
+        # Admin has role "admin" not "recruiter", so should be denied by role check
         response = self.session.post(f"{BASE_URL}/api/enterprise/api-keys", json={
             "name": "Test API Key",
             "scopes": ["read:candidates"],
             "expires_in_days": 30
         })
         
-        # Should return 403 because admin is on starter tier
-        if response.status_code == 403:
-            data = response.json()
-            assert "Premium" in data.get("detail", "") or "upgrade" in data.get("detail", "").lower()
-            print(f"Tier gating working: {data.get('detail')}")
-        elif response.status_code == 200:
-            # If it succeeds, user might have been upgraded
-            print("API key created - user may have Premium tier")
-        else:
-            print(f"Unexpected response: {response.status_code} - {response.text}")
+        # Should return 403 - either role check or tier check
+        assert response.status_code == 403, f"Expected 403, got {response.status_code}"
+        data = response.json()
+        detail = data.get("detail", "")
+        # Either "Only recruiters" or "Premium" tier message
+        assert "recruiter" in detail.lower() or "premium" in detail.lower() or "upgrade" in detail.lower()
+        print(f"Access control working: {detail}")
 
 
 class TestWebhookManagement:
@@ -148,22 +145,20 @@ class TestWebhookManagement:
         print(f"Available events: {len(data['available_events'])}")
     
     def test_create_webhook_tier_gating(self):
-        """Test webhook creation requires Growth tier"""
+        """Test webhook creation requires recruiter role and Growth tier"""
         response = self.session.post(f"{BASE_URL}/api/enterprise/webhooks", json={
             "url": "https://example.com/webhook",
             "events": ["application.created"],
             "description": "Test webhook"
         })
         
-        # Should return 403 because admin is on starter tier
-        if response.status_code == 403:
-            data = response.json()
-            assert "Growth" in data.get("detail", "") or "upgrade" in data.get("detail", "").lower()
-            print(f"Tier gating working: {data.get('detail')}")
-        elif response.status_code == 200:
-            print("Webhook created - user may have Growth tier")
-        else:
-            print(f"Unexpected response: {response.status_code} - {response.text}")
+        # Should return 403 - either role check or tier check
+        assert response.status_code == 403, f"Expected 403, got {response.status_code}"
+        data = response.json()
+        detail = data.get("detail", "")
+        # Either "Only recruiters" or "Growth" tier message
+        assert "recruiter" in detail.lower() or "growth" in detail.lower() or "upgrade" in detail.lower()
+        print(f"Access control working: {detail}")
 
 
 class TestTMXExport:
@@ -216,9 +211,10 @@ class TestTMXExport:
     
     def test_xliff_export_requires_language(self):
         """Test XLIFF export requires target_language parameter"""
-        # Without target_language
+        # Without target_language - FastAPI returns 422 for missing required param
         response = self.session.get(f"{BASE_URL}/api/translate/memory/export/xliff")
-        assert response.status_code == 400, "Should require target_language"
+        assert response.status_code in [400, 422], f"Should require target_language, got {response.status_code}"
+        print(f"XLIFF without language: {response.status_code} (validation error)")
         
         # With target_language
         response = self.session.get(f"{BASE_URL}/api/translate/memory/export/xliff?target_language=es")
