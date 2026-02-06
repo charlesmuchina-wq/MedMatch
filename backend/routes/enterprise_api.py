@@ -85,7 +85,6 @@ class BulkCandidateImport(BaseModel):
 def generate_api_key() -> tuple:
     """Generate a secure API key and its hash"""
     # Generate a secure random key
-    key_bytes = secrets.token_bytes(32)
     api_key = f"mm_live_{secrets.token_urlsafe(32)}"
     
     # Hash for storage (never store raw key)
