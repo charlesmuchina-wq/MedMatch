@@ -2,7 +2,7 @@
  * ATS Management Page
  * Recruiters can create application links, view invitations, and manage ATS settings
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useTheme } from '@/App';
@@ -10,8 +10,8 @@ import { useTranslation } from '@/utils/i18n';
 import { apiClient } from '@/utils/apiClient';
 import {
   Link2, Plus, Copy, Trash2, Mail, Send, Users, BarChart3,
-  Calendar, Loader2, ExternalLink, Eye, RefreshCw, CheckCircle,
-  Clock, AlertCircle, ChevronRight
+  Calendar, Loader2, ExternalLink, Eye,
+  Clock, AlertCircle
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
