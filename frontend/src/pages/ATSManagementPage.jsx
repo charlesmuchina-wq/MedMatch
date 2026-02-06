@@ -73,11 +73,7 @@ export default function ATSManagementPage() {
     personal_message: ''
   });
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     setLoading(true);
     try {
       const [linksRes, statsRes, jobsRes, invitationsRes] = await Promise.all([
@@ -96,7 +92,11 @@ export default function ATSManagementPage() {
       console.error(err);
     }
     setLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   const createApplicationLink = async () => {
     if (!newLink.job_id) {
