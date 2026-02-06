@@ -599,12 +599,28 @@ function AppContent() {
     return response.data;
   };
 
-  // Show loading while checking auth
-  if (isAuthChecking) {
+  // Check if current path is a public route (no auth required)
+  const isPublicRoute = location.pathname.startsWith('/apply/') || location.pathname.startsWith('/track-application/');
+
+  // Show loading while checking auth (except for public routes)
+  if (isAuthChecking && !isPublicRoute) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${isDark ? 'bg-batik-black' : 'bg-slate-50'}`}>
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-turquoise"></div>
       </div>
+    );
+  }
+
+  // Render public routes without authentication
+  if (isPublicRoute) {
+    return (
+      <>
+        <Routes>
+          <Route path="/apply/:token" element={<PublicApplicationPage />} />
+          <Route path="/track-application/:applicationId" element={<TrackApplicationPage />} />
+        </Routes>
+        <Toaster position="top-right" richColors theme={isDark ? 'dark' : 'light'} />
+      </>
     );
   }
 
