@@ -97,11 +97,7 @@ export default function TrackApplicationPage() {
   const [error, setError] = useState(null);
   const [application, setApplication] = useState(null);
 
-  useEffect(() => {
-    loadApplication();
-  }, [applicationId, token]);
-
-  const loadApplication = async (showRefresh = false) => {
+  const loadApplication = useCallback(async (showRefresh = false) => {
     if (showRefresh) setRefreshing(true);
     else setLoading(true);
     
@@ -121,7 +117,11 @@ export default function TrackApplicationPage() {
       setLoading(false);
       setRefreshing(false);
     }
-  };
+  }, [applicationId, token]);
+
+  useEffect(() => {
+    loadApplication();
+  }, [loadApplication]);
 
   const formatDate = (dateStr) => {
     if (!dateStr) return 'N/A';
