@@ -91,7 +91,24 @@ async def get_recruiter_jobs(request: Request):
     query = {} if user.get("role") == "admin" else {"recruiter_id": user["user_id"]}
     jobs = await db.posted_jobs.find(query, {"_id": 0}).to_list(100)
     
-    return jobs
+    # Format response for RecruiterJobsPage
+    formatted_jobs = []
+    for job in jobs:
+        formatted_jobs.append({
+            "id": job.get("id"),
+            "title": job.get("title"),
+            "company": job.get("company"),
+            "location": job.get("location"),
+            "description": job.get("description"),
+            "salary": job.get("salary"),
+            "tags": job.get("tags", []),
+            "status": job.get("status", "active"),
+            "applicants_count": job.get("applicants_count", 0),
+            "created_at": job.get("created_at"),
+            "updated_at": job.get("updated_at")
+        })
+    
+    return {"jobs": formatted_jobs}
 
 @router.put("/jobs/{job_id}")
 async def update_job_posting(job_id: str, job: JobPosting, request: Request):
