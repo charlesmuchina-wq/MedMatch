@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { 
   Bookmark, CheckSquare, Clock, TrendingUp, Upload, Search, 
   PenTool, Target, Mic, BarChart3, Sparkles, ArrowRight,
-  Zap, FileText, Bell, Video, MessageSquare
+  Zap, FileText, Bell, Video, MessageSquare, Play, HelpCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +17,40 @@ import MyReviewsSection from "@/components/MyReviewsSection";
 import axios from "axios";
 
 const API = process.env.REACT_APP_BACKEND_URL;
+
+// Watch Tutorials Card
+const TutorialsCard = () => {
+  const navigate = useNavigate();
+  
+  return (
+    <Card className="bg-gradient-to-br from-teal-500 to-teal-600 text-white border-0 overflow-hidden">
+      <CardContent className="p-5">
+        <div className="flex items-start justify-between">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Play className="w-5 h-5" />
+              <h3 className="font-semibold">Watch Tutorials</h3>
+            </div>
+            <p className="text-teal-100 text-sm mb-3">
+              Learn how to use MedMatch with video guides
+            </p>
+            <Button 
+              onClick={() => navigate('/tutorials')}
+              className="bg-white text-teal-600 hover:bg-teal-50 text-sm h-8"
+              data-testid="watch-tutorials-btn"
+            >
+              <HelpCircle className="w-4 h-4 mr-1" />
+              Get Started
+            </Button>
+          </div>
+          <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+            <Video className="w-8 h-8 text-white/80" />
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
 
 // Quick Actions based on user activity and state
 const QuickActionsWidget = ({ resume, savedJobs, applications, user }) => {
