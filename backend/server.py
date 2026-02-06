@@ -250,6 +250,7 @@ from routes.geolocation import router as geolocation_router
 from routes.enterprise_api import router as enterprise_api_router
 from routes.ats import router as ats_router
 from routes.tutorials import router as tutorials_router
+from routes.video_translation import router as video_translation_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
