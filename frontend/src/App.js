@@ -158,9 +158,8 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/id-verification", icon: ShieldCheck, labelKey: "nav.idVerification" },
     { path: "/privacy", icon: Shield, labelKey: "nav.privacy" },
     { path: "/membership", icon: Crown, labelKey: "nav.membership" },
+    { path: "/tutorials", icon: HelpCircle, labelKey: "Help & Tutorials" },
   ];
-  
-  const recruiterLinks = [
     { path: "/recruiter/dashboard", icon: LayoutDashboard, labelKey: "recruiter.dashboard" },
     { path: "/recruiter/jobs", icon: Briefcase, labelKey: "recruiter.myJobPostings" },
     { path: "/recruiter/ats", icon: Users, labelKey: "Applicant Tracking" },
