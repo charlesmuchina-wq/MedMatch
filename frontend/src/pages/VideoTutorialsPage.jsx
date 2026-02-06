@@ -248,7 +248,6 @@ const VideoTutorialsPage = () => {
               </button>
             )}
           </div>
-          </div>
         </div>
       </div>
     );
