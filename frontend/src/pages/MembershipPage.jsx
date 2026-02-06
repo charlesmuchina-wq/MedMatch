@@ -176,7 +176,7 @@ const MembershipPage = ({ user }) => {
         <p className="text-slate-500 dark:text-slate-400 mt-2 max-w-xl mx-auto">
           {isRecruiter 
             ? "Post jobs, access candidates, and build your dream team"
-            : "Your gateway to landing your dream remote job"}
+            : "Your gateway to landing your dream job in life sciences"}
         </p>
       </div>
 
