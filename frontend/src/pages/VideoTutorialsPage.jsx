@@ -1,14 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { Play, FileText, Users, Briefcase, Search, ClipboardList, ChevronRight, ExternalLink, Loader2 } from 'lucide-react';
+import { Play, FileText, Users, Briefcase, Search, ClipboardList, ChevronRight, ExternalLink, Loader2, Globe, Subtitles } from 'lucide-react';
 import axios from 'axios';
 
 const API = process.env.REACT_APP_BACKEND_URL;
+
+const LANGUAGES = [
+  { code: 'en', name: 'English' },
+  { code: 'es', name: 'Spanish' },
+  { code: 'fr', name: 'French' },
+  { code: 'de', name: 'German' },
+  { code: 'zh', name: 'Chinese' },
+  { code: 'ja', name: 'Japanese' },
+  { code: 'pt', name: 'Portuguese' },
+  { code: 'ar', name: 'Arabic' },
+  { code: 'hi', name: 'Hindi' },
+  { code: 'ko', name: 'Korean' },
+  { code: 'it', name: 'Italian' },
+  { code: 'ru', name: 'Russian' },
+  { code: 'sw', name: 'Swahili' },
+  { code: 'tl', name: 'Tagalog' },
+  { code: 'vi', name: 'Vietnamese' }
+];
 
 const VideoTutorialsPage = () => {
   const [activeTab, setActiveTab] = useState('videos');
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [showSubtitles, setShowSubtitles] = useState(true);
+  const [translating, setTranslating] = useState(false);
 
   useEffect(() => {
     fetchVideos();
