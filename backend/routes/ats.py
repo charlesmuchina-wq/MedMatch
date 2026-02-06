@@ -250,6 +250,8 @@ async def submit_external_application(
     application_doc = {
         "id": application_id,
         "job_id": link["job_id"],
+        "job_title": link["job_title"],
+        "company": link["company"],
         "recruiter_id": link["recruiter_id"],
         "link_id": link["id"],
         "tracking_token": tracking_token,
