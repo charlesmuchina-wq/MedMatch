@@ -356,7 +356,7 @@ async def update_application_status(
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
-    if user.get("role") != "recruiter":
+    if user.get("role") not in ["recruiter", "admin"]:
         raise HTTPException(status_code=403, detail="Only recruiters can update status")
     
     # Validate status
@@ -365,10 +365,11 @@ async def update_application_status(
         raise HTTPException(status_code=400, detail=f"Invalid status. Must be one of: {valid}")
     
     # Get application
-    application = await db.job_applicants.find_one(
-        {"id": application_id, "recruiter_id": user["user_id"]},
-        {"_id": 0}
-    )
+    query = {"id": application_id}
+    if user.get("role") != "admin":
+        query["recruiter_id"] = user["user_id"]
+    
+    application = await db.job_applicants.find_one(query, {"_id": 0})
     
     if not application:
         raise HTTPException(status_code=404, detail="Application not found")
