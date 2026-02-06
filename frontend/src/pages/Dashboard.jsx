@@ -337,6 +337,11 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
         user={user}
       />
 
+      {/* Tutorials Card - Prominent for new users */}
+      <div className="mb-8">
+        <TutorialsCard />
+      </div>
+
       {/* Trust Score - Prominent Display */}
       <div className="mb-8">
         <TrustScoreDisplay 
