@@ -429,7 +429,7 @@ const KarauDragonAI = ({ user, isOpen, onClose }) => {
 
           {/* Response Area */}
           {response && (
-            <Card className={`${isDark ? 'bg-slate-800 border-slate-700' : 'bg-slate-50'}`}>
+            <Card className={`${isDark ? 'bg-slate-800 border-slate-700' : 'bg-slate-50'} max-h-96 overflow-y-auto`}>
               <CardContent className="p-4">
                 <div className="flex items-start gap-3">
                   {response.action && (
