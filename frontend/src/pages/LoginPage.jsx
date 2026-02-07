@@ -450,7 +450,8 @@ const LoginPage = ({ onAuthSuccess }) => {
                 
                 <Button 
                   type="submit" 
-                  className="w-full h-11 bg-gradient-to-r from-turquoise to-teal-600 hover:from-teal-600 hover:to-turquoise"
+                  className="w-full h-11 bg-turquoise hover:bg-turquoise-light text-white font-semibold"
+                  style={{ backgroundColor: '#20b2aa' }}
                   disabled={isLoading}
                   data-testid="email-submit-btn"
                 >
