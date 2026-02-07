@@ -12,39 +12,43 @@ router = APIRouter(prefix="/tutorials", tags=["Tutorials"])
 
 VIDEOS_DIR = Path("/app/videos")
 
-# Video metadata
+# Video metadata - Updated with diverse presenters
 VIDEOS = [
     {
         "id": "01_jobseeker_features",
         "title": "Job Seeker Features",
         "description": "Complete guide to dashboard, job search, resume, applications, and interview prep",
-        "duration": "34 seconds",
+        "duration": "42 seconds",
         "category": "job_seeker",
-        "filename": "01_jobseeker_features.mp4"
+        "filename": "01_jobseeker_features.mp4",
+        "presenter": "Professional woman"
     },
     {
         "id": "02_recruiter_features",
         "title": "Recruiter Features",
         "description": "Dashboard, applicant tracking, job postings, and hiring tools",
-        "duration": "30 seconds",
+        "duration": "28 seconds",
         "category": "recruiter",
-        "filename": "02_recruiter_features.mp4"
+        "filename": "02_recruiter_features.mp4",
+        "presenter": "Pacific Islander woman"
     },
     {
         "id": "03_privacy_matters",
         "title": "Your Privacy Matters",
         "description": "How we protect your data and keep your job search secure",
-        "duration": "31 seconds",
+        "duration": "34 seconds",
         "category": "general",
-        "filename": "03_privacy_matters.mp4"
+        "filename": "03_privacy_matters.mp4",
+        "presenter": "Asian professional"
     },
     {
         "id": "04_faq_ai_compliance",
         "title": "FAQs: AI Compliance & Data Rights",
         "description": "Understanding AI usage, data ownership, GDPR compliance, and your rights",
-        "duration": "87 seconds",
+        "duration": "52 seconds",
         "category": "general",
-        "filename": "04_faq_ai_compliance.mp4"
+        "filename": "04_faq_ai_compliance.mp4",
+        "presenter": "Brazilian professional"
     }
 ]
 
