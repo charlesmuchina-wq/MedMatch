@@ -441,9 +441,22 @@ const KarauDragonAI = ({ user, isOpen, onClose }) => {
                     </div>
                   )}
                   <div className="flex-1">
-                    <p className={`${isDark ? 'text-slate-200' : 'text-slate-700'}`}>
-                      {response.speech}
-                    </p>
+                    {/* Show full response text with job listings */}
+                    <div className={`${isDark ? 'text-slate-200' : 'text-slate-700'} whitespace-pre-wrap`}>
+                      {response.text ? (
+                        <div 
+                          className="prose prose-sm max-w-none"
+                          dangerouslySetInnerHTML={{ 
+                            __html: response.text
+                              .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                              .replace(/\n/g, '<br/>')
+                              .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">$1</a>')
+                          }} 
+                        />
+                      ) : (
+                        <p>{response.speech}</p>
+                      )}
+                    </div>
                     
                     {response.action?.path && (
                       <div className="flex items-center gap-1 mt-2 text-sm text-purple-500">
