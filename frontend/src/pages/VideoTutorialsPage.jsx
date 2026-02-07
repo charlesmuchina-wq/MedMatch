@@ -108,8 +108,18 @@ const VideoTutorialsPage = () => {
     }
   ];
 
+  // Presenter images for each video
+  const PRESENTER_IMAGES = {
+    "01_jobseeker_features": "/images/presenter_1_black_woman.jpeg",
+    "02_recruiter_features": "/images/presenter_2_pacific_islander.jpeg",
+    "03_privacy_matters": "/images/presenter_3_asian_male.jpeg",
+    "04_faq_ai_compliance": "/images/presenter_4_brazilian_blonde.jpeg"
+  };
+
   const VideoCard = ({ video }) => {
     const Icon = video.icon;
+    const presenterImage = PRESENTER_IMAGES[video.id] || "/images/presenter.jpeg";
+    
     return (
       <div 
         className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all cursor-pointer group"
@@ -118,7 +128,7 @@ const VideoTutorialsPage = () => {
       >
         <div className="h-40 relative overflow-hidden">
           <img 
-            src="/images/presenter.jpeg" 
+            src={presenterImage} 
             alt="Tutorial Presenter"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           />
