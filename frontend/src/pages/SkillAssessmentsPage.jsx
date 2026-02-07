@@ -99,7 +99,7 @@ const SkillAssessmentsPage = ({ user }) => {
   }, [timeLeft, activeAssessment, handleSubmitAssessment]);
 
   const startAssessment = async (skillName, difficulty = "intermediate") => {
-    setSubmitting(true);
+    setLoadingSkill(skillName); // Track specific skill being loaded
     try {
       const response = await apiClient.post("/api/skills/start", {
         skill_name: skillName,
@@ -119,7 +119,7 @@ const SkillAssessmentsPage = ({ user }) => {
     } catch (e) {
       toast.error(e.data?.detail || t("errors.somethingWentWrong"));
     }
-    setSubmitting(false);
+    setLoadingSkill(null); // Clear loading state
   };
 
   const handleAnswer = (questionIndex, answer) => {
