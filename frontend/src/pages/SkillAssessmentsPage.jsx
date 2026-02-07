@@ -351,11 +351,11 @@ const SkillAssessmentsPage = ({ user }) => {
                       <Button
                         size="sm"
                         onClick={() => startAssessment(skill.skill_name)}
-                        disabled={submitting}
+                        disabled={loadingSkill !== null}
                         variant={earned ? "outline" : "default"}
                         data-testid={`start-assessment-${skill.skill_name.toLowerCase().replace(/\s+/g, '-')}`}
                       >
-                        {submitting ? (
+                        {loadingSkill === skill.skill_name ? (
                           <Loader2 className="w-4 h-4 animate-spin" />
                         ) : (
                           <>
