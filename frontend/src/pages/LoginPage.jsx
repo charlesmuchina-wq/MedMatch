@@ -501,7 +501,8 @@ const LoginPage = ({ onAuthSuccess }) => {
                 {!otpSent ? (
                   <Button 
                     onClick={handleSendOtp}
-                    className="w-full h-11 bg-gradient-to-r from-turquoise to-teal-600"
+                    className="w-full h-11 text-white font-semibold"
+                    style={{ backgroundColor: '#20b2aa' }}
                     disabled={isLoading || !phoneNumber}
                     data-testid="send-otp-btn"
                   >
@@ -529,7 +530,8 @@ const LoginPage = ({ onAuthSuccess }) => {
                     
                     <Button 
                       onClick={handleVerifyOtp}
-                      className="w-full h-11 bg-gradient-to-r from-turquoise to-teal-600"
+                      className="w-full h-11 text-white font-semibold"
+                      style={{ backgroundColor: '#20b2aa' }}
                       disabled={isLoading || otpCode.length < 4}
                       data-testid="verify-otp-btn"
                     >
