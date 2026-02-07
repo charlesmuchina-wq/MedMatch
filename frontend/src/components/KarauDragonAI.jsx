@@ -163,7 +163,7 @@ const KarauDragonAI = ({ user, isOpen, onClose }) => {
       }, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': application/json'
+          'Content-Type': 'application/json'
         }
       });
 
