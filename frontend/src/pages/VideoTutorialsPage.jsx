@@ -108,12 +108,12 @@ const VideoTutorialsPage = () => {
     }
   ];
 
-  // Presenter images for each video
+  // Presenter images for each video - using main presenter
   const PRESENTER_IMAGES = {
-    "01_jobseeker_features": "/images/presenter_1_black_woman.jpeg",
-    "02_recruiter_features": "/images/presenter_2_pacific_islander.jpeg",
-    "03_privacy_matters": "/images/presenter_3_asian_male.jpeg",
-    "04_faq_ai_compliance": "/images/presenter_4_native_american.jpeg"
+    "01_jobseeker_features": "/images/presenter_main.jpeg",
+    "02_recruiter_features": "/images/presenter_main.jpeg",
+    "03_privacy_matters": "/images/presenter_main.jpeg",
+    "04_faq_ai_compliance": "/images/presenter_main.jpeg"
   };
 
   // Custom category labels for display
