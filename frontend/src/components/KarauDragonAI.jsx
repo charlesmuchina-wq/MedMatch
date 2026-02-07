@@ -137,13 +137,22 @@ const KarauDragonAI = ({ user, isOpen, onClose }) => {
       // Determine context based on command keywords
       let context = "general";
       const lowerCommand = command.toLowerCase();
-      if (lowerCommand.includes("job") || lowerCommand.includes("search") || lowerCommand.includes("find")) {
+      
+      // Enhanced job search detection - trigger for job titles and career-related queries
+      const jobSearchKeywords = [
+        "job", "search", "find", "looking", "position", "role", "hiring", "vacancy",
+        "opportunities", "openings", "career", "work", "employ", "interested in",
+        "manager", "engineer", "developer", "analyst", "specialist", "director",
+        "coordinator", "lead", "senior", "junior", "quality", "supplier", "manufacturing"
+      ];
+      
+      if (jobSearchKeywords.some(keyword => lowerCommand.includes(keyword))) {
         context = "job_search";
       } else if (lowerCommand.includes("resume") || lowerCommand.includes("cv")) {
         context = "resume";
       } else if (lowerCommand.includes("interview") || lowerCommand.includes("question")) {
         context = "interview";
-      } else if (lowerCommand.includes("career") || lowerCommand.includes("advice")) {
+      } else if (lowerCommand.includes("advice")) {
         context = "career";
       }
       
@@ -154,7 +163,7 @@ const KarauDragonAI = ({ user, isOpen, onClose }) => {
       }, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json'
+          'Content-Type': application/json'
         }
       });
 
