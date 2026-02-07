@@ -113,12 +113,28 @@ const VideoTutorialsPage = () => {
     "01_jobseeker_features": "/images/presenter_1_black_woman.jpeg",
     "02_recruiter_features": "/images/presenter_2_pacific_islander.jpeg",
     "03_privacy_matters": "/images/presenter_3_asian_male.jpeg",
-    "04_faq_ai_compliance": "/images/presenter_4_brazilian_blonde.jpeg"
+    "04_faq_ai_compliance": "/images/presenter_4_native_american.jpeg"
+  };
+
+  // Custom category labels for display
+  const CATEGORY_LABELS = {
+    "job_seeker": "Job Seeker",
+    "recruiter": "Recruiter",
+    "03_privacy_matters": "Data Privacy",
+    "04_faq_ai_compliance": "FAQs - AI"
   };
 
   const VideoCard = ({ video }) => {
     const Icon = video.icon;
     const presenterImage = PRESENTER_IMAGES[video.id] || "/images/presenter.jpeg";
+    
+    // Get custom label for this video, or default to category-based label
+    const getCategoryLabel = () => {
+      if (CATEGORY_LABELS[video.id]) {
+        return CATEGORY_LABELS[video.id];
+      }
+      return video.category === 'job_seeker' ? 'Job Seeker' : video.category === 'recruiter' ? 'Recruiter' : 'Everyone';
+    };
     
     return (
       <div 
@@ -142,7 +158,7 @@ const VideoTutorialsPage = () => {
             {video.duration}
           </span>
           <span className={`absolute top-2 left-2 ${video.color} text-white text-xs px-2 py-1 rounded-full`}>
-            {video.category === 'job_seeker' ? 'Job Seeker' : video.category === 'recruiter' ? 'Recruiter' : 'Everyone'}
+            {getCategoryLabel()}
           </span>
         </div>
         <div className="p-4">
