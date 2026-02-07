@@ -32,6 +32,7 @@ const SkillAssessmentsPage = ({ user }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  const [loadingSkill, setLoadingSkill] = useState(null); // Track which specific skill is loading
   const [results, setResults] = useState(null);
   const [showResultsDialog, setShowResultsDialog] = useState(false);
   const [timeLeft, setTimeLeft] = useState(0);
