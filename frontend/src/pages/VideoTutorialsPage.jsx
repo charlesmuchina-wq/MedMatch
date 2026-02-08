@@ -170,6 +170,35 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
   const [buffering, setBuffering] = useState(true);
   const videoRef = useRef(null);
 
+  // Handle video events for loading states - defined before early return
+  const handleLoadedMetadata = useCallback(() => {
+    setVideoLoaded(true);
+  }, []);
+
+  const handleCanPlay = useCallback(() => {
+    setBuffering(false);
+  }, []);
+
+  const handleWaiting = useCallback(() => {
+    setBuffering(true);
+  }, []);
+
+  const handlePlaying = useCallback(() => {
+    setBuffering(false);
+  }, []);
+
+  // Cleanup on unmount - defined before early return
+  useEffect(() => {
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.src = '';
+        videoRef.current.load();
+      }
+    };
+  }, []);
+
+  // Early return AFTER all hooks
   if (!video) return null;
   
   const videoUrl = selectedLanguage === 'en' 
@@ -198,34 +227,6 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
       setTranslating(false);
     }
   };
-
-  // Handle video events for loading states
-  const handleLoadedMetadata = useCallback(() => {
-    setVideoLoaded(true);
-  }, []);
-
-  const handleCanPlay = useCallback(() => {
-    setBuffering(false);
-  }, []);
-
-  const handleWaiting = useCallback(() => {
-    setBuffering(true);
-  }, []);
-
-  const handlePlaying = useCallback(() => {
-    setBuffering(false);
-  }, []);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (videoRef.current) {
-        videoRef.current.pause();
-        videoRef.current.src = '';
-        videoRef.current.load();
-      }
-    };
-  }, []);
   
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={onClose}>
