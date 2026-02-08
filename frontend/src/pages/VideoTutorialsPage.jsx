@@ -122,7 +122,8 @@ const VideoTutorialsPage = () => {
     "job_seeker": "Job Seeker",
     "recruiter": "Recruiter",
     "03_privacy_matters": "Data Privacy",
-    "04_faq_ai_compliance": "FAQs - AI"
+    "04_faq_ai_compliance": "FAQs - AI",
+    "05_complete_overview": "Overview"
   };
 
   const VideoCard = ({ video }) => {
