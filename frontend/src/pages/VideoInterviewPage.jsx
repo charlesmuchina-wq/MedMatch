@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 import { toast } from "sonner";
 import { useTheme } from "@/App";
 import { 
@@ -13,6 +13,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
+import { OptimizedVideoPlayer, VideoSkeleton, PlayButton } from "@/components/OptimizedMedia";
 
 // TensorFlow.js imports
 let tf, faceLandmarksDetection;
