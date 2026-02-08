@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { useTheme } from "@/App";
@@ -15,6 +15,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
+import { PlayButton, ThumbnailSkeleton } from "@/components/OptimizedMedia";
 
 const SkillAssessmentsPage = ({ user }) => {
   const navigate = useNavigate();
