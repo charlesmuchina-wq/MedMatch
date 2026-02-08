@@ -18,7 +18,7 @@ VIDEOS = [
         "id": "01_jobseeker_features",
         "title": "Job Seeker Features",
         "description": "Complete guide to dashboard, job search, resume, applications, and interview prep",
-        "duration": "42 seconds",
+        "duration": "40 seconds",
         "category": "job_seeker",
         "filename": "01_jobseeker_features.mp4",
         "presenter": "Professional woman"
@@ -48,7 +48,16 @@ VIDEOS = [
         "duration": "52 seconds",
         "category": "general",
         "filename": "04_faq_ai_compliance.mp4",
-        "presenter": "Brazilian professional"
+        "presenter": "Native American woman"
+    },
+    {
+        "id": "05_complete_overview",
+        "title": "Complete MedMatch Overview",
+        "description": "Comprehensive summary of all MedMatch features for job seekers and recruiters",
+        "duration": "85 seconds",
+        "category": "overview",
+        "filename": "05_complete_overview.mp4",
+        "presenter": "MedMatch guide"
     }
 ]
 
