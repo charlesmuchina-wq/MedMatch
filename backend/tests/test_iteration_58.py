@@ -122,7 +122,7 @@ class TestDragonAIAssistant:
     def test_assistant_endpoint_exists(self):
         """Verify assistant endpoint is accessible (requires auth)"""
         response = requests.post(
-            f"{BASE_URL}/api/ai/assistant",
+            f"{BASE_URL}/api/assistant",
             json={"message": "test", "context": "general"}
         )
         # Should return 401 without auth, not 404
@@ -133,7 +133,7 @@ class TestDragonAIAssistant:
         # This test verifies the endpoint structure
         # Full job search requires authentication
         response = requests.post(
-            f"{BASE_URL}/api/ai/assistant",
+            f"{BASE_URL}/api/assistant",
             json={
                 "message": "Interested in Supplier Quality Manager",
                 "context": "job_search"
