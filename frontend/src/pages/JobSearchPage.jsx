@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
 import { 
   Search, MapPin, Globe, Calendar, Filter,
   Sparkles, Loader2, ShieldCheck, Award, CheckCircle, 
   FileText, Code, HeartPulse, Settings, FileSearch,
-  Building, Home, Laptop, ChevronDown, FlaskConical
+  Building, Home, Laptop, ChevronDown, FlaskConical, Mic
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,7 @@ import { JobCard } from "@/components/shared/JobCard";
 import { useTranslation } from "@/utils/i18n";
 import api from "@/utils/apiClient";
 import TaxonomyJobFilters from "@/components/TaxonomyJobFilters";
+import { VoiceSearchButton, VoiceSearchModal } from "@/components/VoiceSearch";
 
 // Icon mapping for presets
 const PresetIcons = {
