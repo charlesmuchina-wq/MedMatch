@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 import { toast } from "sonner";
 import { 
   Mic, MicOff, Play, Pause, RotateCcw, Sparkles, Loader2,
@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { useTranslation } from "@/utils/i18n";
 import { apiClient } from "@/utils/apiClient";
+import { OptimizedAudioPlayer, AudioSkeleton, PlayButton } from "@/components/OptimizedMedia";
 
 // Speech Recognition Hook
 const useSpeechRecognition = () => {
