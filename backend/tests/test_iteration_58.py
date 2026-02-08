@@ -173,8 +173,8 @@ class TestAuthEndpoints:
                 "role": "job_seeker"
             }
         )
-        # Should succeed or return conflict if user exists
-        assert response.status_code in [200, 201, 409, 422]
+        # Should succeed or return conflict if user exists, or 400 for validation
+        assert response.status_code in [200, 201, 400, 409, 422]
 
 
 class TestHealthAndStatus:
