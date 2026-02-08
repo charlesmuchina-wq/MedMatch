@@ -28,7 +28,7 @@ except ImportError:
     logging.warning("rapidfuzz not installed, falling back to basic fuzzy matching")
 
 # Database connection
-from utils.db import get_database
+from utils.database import db
 
 logger = logging.getLogger(__name__)
 
