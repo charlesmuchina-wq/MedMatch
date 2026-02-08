@@ -81,7 +81,7 @@ class SearchEngineService:
     """Enhanced search engine with fuzzy matching, autocomplete, and semantic search"""
     
     def __init__(self):
-        self.db = get_database()
+        self.db = db
         self.search_history = defaultdict(list)
         self.popular_searches = []
         self.ctr_data = defaultdict(lambda: {"impressions": 0, "clicks": 0})
