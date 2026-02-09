@@ -1,0 +1,183 @@
+{
+  "checklists": {
+    "eu_ai_act": {
+      "name": "EU AI Act Compliance",
+      "version": "2026",
+      "items": [
+        {
+          "id": "transparency-disclosure",
+          "category": "Transparency",
+          "requirement": "Pre-Use Disclosure - Notify candidates before data collection about AI scoring",
+          "standard": "Article 13",
+          "priority": "high"
+        },
+        {
+          "id": "fairness-bias-check",
+          "category": "Fairness",
+          "requirement": "Monthly bias spot-checks across protected classes (Gender, Race, Age)",
+          "standard": "Article 10",
+          "priority": "high"
+        },
+        {
+          "id": "control-opt-out",
+          "category": "Control",
+          "requirement": "Candidates can choose non-AI application path (human review)",
+          "standard": "Article 14",
+          "priority": "high"
+        },
+        {
+          "id": "traceability-logging",
+          "category": "Traceability",
+          "requirement": "Trace decisions from 6+ months ago to specific training data and logic",
+          "standard": "Article 12",
+          "priority": "high"
+        },
+        {
+          "id": "governance-risk-class",
+          "category": "Governance",
+          "requirement": "System classified as High-Risk with documented mitigation",
+          "standard": "Article 6, Annex III",
+          "priority": "high"
+        },
+        {
+          "id": "security-adversarial",
+          "category": "Security",
+          "requirement": "System tested against prompt injection and resume gaming",
+          "standard": "Article 15",
+          "priority": "medium"
+        },
+        {
+          "id": "human-oversight",
+          "category": "Human Oversight",
+          "requirement": "Qualified personnel can override/stop AI decisions",
+          "standard": "Article 14",
+          "priority": "high"
+        },
+        {
+          "id": "log-retention",
+          "category": "Retention",
+          "requirement": "Logs retained for minimum 6 months (3 years for recruitment)",
+          "standard": "Article 12",
+          "priority": "high"
+        },
+        {
+          "id": "fria-assessment",
+          "category": "Impact Assessment",
+          "requirement": "Fundamental Rights Impact Assessment completed before deployment",
+          "standard": "Article 27",
+          "priority": "high"
+        },
+        {
+          "id": "right-to-explanation",
+          "category": "Transparency",
+          "requirement": "Provide clear explanation of AI's role in decisions on request",
+          "standard": "Article 13",
+          "priority": "high"
+        }
+      ]
+    },
+    "gdpr": {
+      "name": "GDPR Compliance",
+      "version": "2018",
+      "items": [
+        {
+          "id": "gdpr-consent",
+          "category": "Consent",
+          "requirement": "Explicit consent obtained for data processing",
+          "standard": "Article 7",
+          "priority": "high"
+        },
+        {
+          "id": "gdpr-dsar",
+          "category": "Data Subject Rights",
+          "requirement": "DSAR automation for access, rectification, erasure",
+          "standard": "Articles 15-17",
+          "priority": "high"
+        },
+        {
+          "id": "gdpr-erasure",
+          "category": "Right to Erasure",
+          "requirement": "Crypto-shredding implemented for complete data deletion",
+          "standard": "Article 17",
+          "priority": "high"
+        },
+        {
+          "id": "gdpr-portability",
+          "category": "Data Portability",
+          "requirement": "Users can export their data in machine-readable format",
+          "standard": "Article 20",
+          "priority": "medium"
+        },
+        {
+          "id": "gdpr-breach",
+          "category": "Breach Notification",
+          "requirement": "72-hour breach notification process in place",
+          "standard": "Article 33",
+          "priority": "high"
+        }
+      ]
+    },
+    "china_pipl": {
+      "name": "China PIPL Compliance",
+      "version": "2021",
+      "items": [
+        {
+          "id": "pipl-consent",
+          "category": "Consent",
+          "requirement": "Separate consent pop-ups for sensitive biometrics",
+          "standard": "Article 29",
+          "priority": "high"
+        },
+        {
+          "id": "pipl-cross-border",
+          "category": "Cross-Border",
+          "requirement": "CAC Standard Contract for cross-border data transfers",
+          "standard": "Article 38",
+          "priority": "high"
+        },
+        {
+          "id": "pipl-pipia",
+          "category": "Impact Assessment",
+          "requirement": "Personal Information Protection Impact Assessment completed",
+          "standard": "Article 55",
+          "priority": "high"
+        },
+        {
+          "id": "pipl-local-storage",
+          "category": "Data Localization",
+          "requirement": "Critical data stored within mainland China",
+          "standard": "Article 40",
+          "priority": "high"
+        }
+      ]
+    },
+    "japan_appi": {
+      "name": "Japan APPI Compliance",
+      "version": "2022",
+      "items": [
+        {
+          "id": "appi-disclosure",
+          "category": "Disclosure",
+          "requirement": "Explicit disclosures on foreign recipient data laws",
+          "standard": "Article 28",
+          "priority": "high"
+        },
+        {
+          "id": "appi-special-care",
+          "category": "Special Care PI",
+          "requirement": "Strict opt-in for health/disability data",
+          "standard": "Article 20",
+          "priority": "high"
+        },
+        {
+          "id": "appi-ppc-report",
+          "category": "Reporting",
+          "requirement": "Reports submitted to PPC Japan as required",
+          "standard": "Article 26",
+          "priority": "medium"
+        }
+      ]
+    }
+  },
+  "assessments": []
+}

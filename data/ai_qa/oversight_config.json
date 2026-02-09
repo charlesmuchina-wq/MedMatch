@@ -1,0 +1,53 @@
+{
+  "enabled": true,
+  "system_status": "active",
+  "emergency_stop": false,
+  "emergency_stop_at": null,
+  "emergency_stop_by": null,
+  "settings": {
+    "require_two_person_confirmation": true,
+    "two_person_threshold": "final_selection",
+    "manual_review_percentage": 10,
+    "override_requires_reason": true,
+    "ai_literacy_required": true
+  },
+  "roles": {
+    "primary_overseer": {
+      "description": "Primary human overseer for AI decisions",
+      "permissions": [
+        "view",
+        "override",
+        "stop",
+        "configure"
+      ],
+      "required_training": [
+        "ai_literacy_basic",
+        "bias_awareness"
+      ]
+    },
+    "secondary_overseer": {
+      "description": "Secondary reviewer for two-person confirmation",
+      "permissions": [
+        "view",
+        "confirm",
+        "escalate"
+      ],
+      "required_training": [
+        "ai_literacy_basic"
+      ]
+    },
+    "auditor": {
+      "description": "Compliance auditor with read access",
+      "permissions": [
+        "view",
+        "export",
+        "audit"
+      ],
+      "required_training": [
+        "ai_literacy_basic",
+        "compliance_overview"
+      ]
+    }
+  },
+  "designated_overseers": []
+}

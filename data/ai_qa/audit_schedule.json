@@ -1,0 +1,65 @@
+{
+  "schedules": [
+    {
+      "id": "bias-monthly",
+      "name": "Monthly Bias Audit",
+      "audit_type": "bias",
+      "frequency": "monthly",
+      "day_of_month": 1,
+      "enabled": true,
+      "regions": [
+        "eu",
+        "us",
+        "uk"
+      ],
+      "created_at": "2026-02-09T14:59:08.565395+00:00"
+    },
+    {
+      "id": "transparency-quarterly",
+      "name": "Quarterly Transparency Review",
+      "audit_type": "transparency",
+      "frequency": "quarterly",
+      "months": [
+        1,
+        4,
+        7,
+        10
+      ],
+      "day_of_month": 15,
+      "enabled": true,
+      "regions": [
+        "eu"
+      ],
+      "created_at": "2026-02-09T14:59:08.565405+00:00"
+    },
+    {
+      "id": "comprehensive-weekly",
+      "name": "Weekly Comprehensive Check",
+      "audit_type": "comprehensive",
+      "frequency": "weekly",
+      "day_of_week": "sunday",
+      "enabled": true,
+      "regions": [
+        "eu",
+        "us",
+        "uk",
+        "japan",
+        "china"
+      ],
+      "created_at": "2026-02-09T14:59:08.565408+00:00"
+    },
+    {
+      "id": "data-quality-daily",
+      "name": "Daily Data Quality Check",
+      "audit_type": "data_quality",
+      "frequency": "daily",
+      "hour": 2,
+      "enabled": true,
+      "regions": [
+        "eu"
+      ],
+      "created_at": "2026-02-09T14:59:08.565410+00:00"
+    }
+  ],
+  "history": []
+}
