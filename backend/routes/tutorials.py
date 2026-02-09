@@ -59,9 +59,74 @@ VIDEOS = [
         "filename": "05_complete_overview.mp4",
         "presenter": "AI Avatar (D-ID)",
         "ai_generated": True,
-        "voice": "Jenny (en-US)"
+        "voice": "Jenny (en-US)",
+        "language": "en"
     }
 ]
+
+# Multi-language overview videos (AI Avatar generated)
+MULTILANG_VIDEOS = {
+    "es": {
+        "id": "overview_spanish",
+        "title": "Descripción General de MedMatch",
+        "description": "Visión completa impulsada por IA de todas las funciones de MedMatch",
+        "duration": "60 seconds",
+        "voice": "Elvira (es-ES)",
+        "language": "es"
+    },
+    "fr": {
+        "id": "overview_french",
+        "title": "Présentation de MedMatch",
+        "description": "Aperçu complet alimenté par l'IA de toutes les fonctionnalités MedMatch",
+        "duration": "60 seconds",
+        "voice": "Denise (fr-FR)",
+        "language": "fr"
+    },
+    "de": {
+        "id": "overview_german",
+        "title": "MedMatch Übersicht",
+        "description": "KI-gestützte umfassende Übersicht aller MedMatch-Funktionen",
+        "duration": "60 seconds",
+        "voice": "Katja (de-DE)",
+        "language": "de"
+    },
+    "ja": {
+        "id": "overview_japanese",
+        "title": "MedMatch 概要",
+        "description": "AIによるMedMatch全機能の包括的な概要",
+        "duration": "60 seconds",
+        "voice": "Nanami (ja-JP)",
+        "language": "ja"
+    },
+    "zh": {
+        "id": "overview_chinese",
+        "title": "MedMatch 概述",
+        "description": "AI驱动的MedMatch全功能综合概述",
+        "duration": "60 seconds",
+        "voice": "Xiaoxiao (zh-CN)",
+        "language": "zh"
+    }
+}
+
+# Role-specific videos
+ROLE_VIDEOS = {
+    "jobseeker_overview": {
+        "id": "jobseeker_overview_30s",
+        "title": "Job Seeker Quick Start",
+        "description": "30-second guide for job seekers using MedMatch",
+        "duration": "30 seconds",
+        "voice": "Jenny (en-US)",
+        "target_audience": "jobseeker"
+    },
+    "recruiter_overview": {
+        "id": "recruiter_overview_30s",
+        "title": "Recruiter Quick Start",
+        "description": "30-second guide for recruiters using MedMatch",
+        "duration": "30 seconds",
+        "voice": "Jenny (en-US)",
+        "target_audience": "recruiter"
+    }
+}
 
 
 @router.get("/videos")
