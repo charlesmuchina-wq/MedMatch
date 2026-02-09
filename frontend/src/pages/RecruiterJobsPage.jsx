@@ -39,8 +39,8 @@ const RecruiterJobsPage = ({ user }) => {
   });
 
   useEffect(() => {
-    // Check if user is a recruiter
-    if (user?.role !== "recruiter") {
+    // Check if user is a recruiter or admin
+    if (user?.role !== "recruiter" && !user?.is_admin) {
       toast.error("Only recruiters can access this page");
       navigate("/");
       return;
