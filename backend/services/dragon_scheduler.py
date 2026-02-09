@@ -124,6 +124,15 @@ async def run_weekly_maintenance():
         health_score = await calculate_system_health()
         report["summary"]["health_score"] = health_score
         
+        # Task 7: CAPA System Analysis (System-wide issue detection)
+        logging.info("🎯 Running CAPA system analysis...")
+        capa_result = await run_capa_system_analysis()
+        report["tasks"].append({
+            "name": "capa_analysis",
+            "status": "completed",
+            "result": capa_result
+        })
+        
     except Exception as e:
         logging.error(f"Weekly maintenance error: {e}")
         report["tasks"].append({
