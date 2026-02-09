@@ -521,16 +521,26 @@
     "capa_type": "both",
     "severity": "medium",
     "source": "translation_qa_system",
-    "status": "draft",
+    "status": "investigation",
     "created_at": "2026-02-09T22:01:16.424592+00:00",
-    "updated_at": "2026-02-09T22:01:16.424592+00:00",
+    "updated_at": "2026-02-09T22:02:22.939947+00:00",
     "created_by": "AI Agent",
     "assigned_to": "Translation Team",
     "investigation": {
-      "started_at": null,
+      "started_at": "2026-02-09T22:02:22.881682+00:00",
       "completed_at": null,
       "investigation_method": "5 Whys",
-      "probable_causes": [],
+      "probable_causes": [
+        {
+          "id": "f3e50db6",
+          "description": "Initial translation implementation was rushed, with English text used as fallback instead of proper translations for 377 Spanish keys and multiple German/French sections",
+          "category": "process",
+          "evidence": "Translation QA system report showing English fallback text in Spanish, German, and French locales",
+          "status": "probable",
+          "added_at": "2026-02-09T22:02:22.939935+00:00",
+          "added_by": "AI Agent"
+        }
+      ],
       "eliminated_causes": [],
       "retained_causes": []
     },
@@ -567,6 +577,12 @@
         "action": "created",
         "user": "AI Agent",
         "details": "CAPA initiated"
+      },
+      {
+        "timestamp": "2026-02-09T22:02:22.881682+00:00",
+        "action": "status_change",
+        "user": "AI Agent",
+        "details": "Status changed from draft to investigation. Starting investigation phase"
       }
     ],
     "attachments": [],
