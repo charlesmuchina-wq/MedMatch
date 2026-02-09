@@ -150,7 +150,7 @@ class TranslationQAService:
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 return json.load(f)
-        except json.JSONDecodeError as e:
+        except json.JSONDecodeError:
             return None
         except FileNotFoundError:
             return None
