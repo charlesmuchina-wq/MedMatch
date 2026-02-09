@@ -550,6 +550,11 @@ export default function DragonAutomatorPage() {
           <CAPADashboard />
         </TabsContent>
 
+        {/* AI QA Compliance Tab */}
+        <TabsContent value="ai-qa" className="mt-4">
+          <AIQADashboard />
+        </TabsContent>
+
         <TabsContent value="changelog" className="mt-4">
           <Card>
             <CardHeader>
