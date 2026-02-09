@@ -198,7 +198,7 @@
     "convertToPdf": "Bitte konvertieren Sie Ihr Dokument in PDF-Format und versuchen Sie es erneut",
     "uploadFailed": "Lebenslauf-Upload fehlgeschlagen",
     "name": "Name",
-    "dropHere": "Drop your resume here..."
+    "dropHere": "Legen Sie Ihren Lebenslauf hier ab..."
   },
   "applications": {
     "myApplications": "Meine Bewerbungen",
@@ -230,14 +230,14 @@
     "nextQuestion": "Nächste Frage",
     "saveFavorite": "Als Favorit speichern",
     "exportPDF": "Als PDF exportieren",
-    "saveFailed": "Failed to save",
-    "allAnswersGenerated": "All answers generated!",
-    "removedFromFavorites": "Removed from favorites",
-    "savedToFavorites": "Saved to favorites!",
-    "answerGenerated": "Answer generated!",
-    "enterQuestion": "Please enter a question",
-    "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "saveFailed": "Speichern fehlgeschlagen",
+    "allAnswersGenerated": "Alle Antworten generiert!",
+    "removedFromFavorites": "Aus Favoriten entfernt",
+    "savedToFavorites": "In Favoriten gespeichert!",
+    "answerGenerated": "Antwort generiert!",
+    "enterQuestion": "Bitte geben Sie eine Frage ein",
+    "answerFailed": "Antwort konnte nicht generiert werden",
+    "enterAtLeastOne": "Bitte geben Sie mindestens eine Frage ein"
   },
   "coverLetter": {
     "coverLetterGenerator": "Anschreiben-Generator",
@@ -253,10 +253,10 @@
     "generated": "Anschreiben generiert",
     "copy": "In Zwischenablage kopieren",
     "download": "Herunterladen",
-    "copied": "Cover letter copied to clipboard!",
-    "uploadResumeFirst": "Please upload your resume first",
-    "generationFailed": "Failed to generate cover letter",
-    "fillAllFields": "Please fill in all fields"
+    "copied": "Anschreiben in Zwischenablage kopiert!",
+    "uploadResumeFirst": "Bitte laden Sie zuerst Ihren Lebenslauf hoch",
+    "generationFailed": "Anschreiben konnte nicht generiert werden",
+    "fillAllFields": "Bitte füllen Sie alle Felder aus"
   },
   "membership": {
     "membership": "Mitgliedschaft",
