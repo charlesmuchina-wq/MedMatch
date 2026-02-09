@@ -16,6 +16,7 @@ router = APIRouter(prefix="/avatar", tags=["AI Avatar"])
 class CreateVideoRequest(BaseModel):
     script: str
     presenter_id: Optional[str] = None
+    source_url: Optional[str] = None
     voice_id: str = "en-US-JennyNeural"
     background_color: str = "#1a1a2e"
     title: str = "MedMatch Video"
