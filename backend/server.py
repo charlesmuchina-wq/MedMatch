@@ -254,6 +254,7 @@ from routes.video_translation import router as video_translation_router
 from routes.search_engine import router as search_engine_router
 from routes.translation_qa import router as translation_qa_router
 from routes.capa import router as capa_router
+from routes.ai_qa import router as ai_qa_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
