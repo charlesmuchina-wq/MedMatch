@@ -521,14 +521,14 @@
     "capa_type": "both",
     "severity": "medium",
     "source": "translation_qa_system",
-    "status": "investigation",
+    "status": "resolution",
     "created_at": "2026-02-09T22:01:16.424592+00:00",
-    "updated_at": "2026-02-09T22:02:22.939947+00:00",
+    "updated_at": "2026-02-09T22:02:41.263843+00:00",
     "created_by": "AI Agent",
     "assigned_to": "Translation Team",
     "investigation": {
       "started_at": "2026-02-09T22:02:22.881682+00:00",
-      "completed_at": null,
+      "completed_at": "2026-02-09T22:02:40.850144+00:00",
       "investigation_method": "5 Whys",
       "probable_causes": [
         {
@@ -545,18 +545,109 @@
       "retained_causes": []
     },
     "containment": {
-      "started_at": null,
-      "completed_at": null,
-      "actions": [],
+      "started_at": "2026-02-09T22:02:40.850144+00:00",
+      "completed_at": "2026-02-09T22:02:40.970745+00:00",
+      "actions": [
+        {
+          "id": "4294fce2",
+          "description": "Arabic RTL translations completed (372\u219213 issues, 96.5% fixed). Document remaining untranslated keys by language using Translation QA system.",
+          "action_type": "containment",
+          "addresses_cause_id": null,
+          "responsible": "AI Agent",
+          "due_date": "2026-02-10",
+          "status": "planned",
+          "created_at": "2026-02-09T22:02:40.909981+00:00",
+          "completed_at": null,
+          "completion_notes": "",
+          "verification": null
+        }
+      ],
       "is_contained": false,
       "containment_verified": false,
       "close_at_containment": false
     },
     "resolution": {
-      "started_at": null,
+      "started_at": "2026-02-09T22:02:40.970745+00:00",
       "completed_at": null,
-      "corrective_actions": [],
-      "preventive_actions": []
+      "corrective_actions": [
+        {
+          "id": "3d869bcc",
+          "description": "Complete Spanish translation - Fix 377 untranslated keys including auth, interview, onboarding sections",
+          "action_type": "corrective",
+          "addresses_cause_id": null,
+          "how_it_addresses_problem": "Eliminates English fallback text in Spanish locale",
+          "how_it_prevents_recurrence": "",
+          "responsible": "Translation Team",
+          "due_date": "2026-02-28",
+          "status": "planned",
+          "created_at": "2026-02-09T22:02:41.030767+00:00",
+          "completed_at": null,
+          "completion_notes": "",
+          "verification": null
+        },
+        {
+          "id": "5cb7ee44",
+          "description": "Complete German and French translations for all untranslated sections",
+          "action_type": "corrective",
+          "addresses_cause_id": null,
+          "how_it_addresses_problem": "Provides consistent native language experience for DE/FR users",
+          "how_it_prevents_recurrence": "",
+          "responsible": "Translation Team",
+          "due_date": "2026-03-15",
+          "status": "planned",
+          "created_at": "2026-02-09T22:02:41.089303+00:00",
+          "completed_at": null,
+          "completion_notes": "",
+          "verification": null
+        },
+        {
+          "id": "cc4e9488",
+          "description": "Address 52 expansion warnings - Review UI in DE/FR/ES/AR/PT-BR/JA for text overflow",
+          "action_type": "corrective",
+          "addresses_cause_id": null,
+          "how_it_addresses_problem": "Ensures translations fit properly in UI containers",
+          "how_it_prevents_recurrence": "",
+          "responsible": "QA Team",
+          "due_date": "2026-03-01",
+          "status": "planned",
+          "created_at": "2026-02-09T22:02:41.148703+00:00",
+          "completed_at": null,
+          "completion_notes": "",
+          "verification": null
+        }
+      ],
+      "preventive_actions": [
+        {
+          "id": "23fbec92",
+          "description": "Implement automated translation coverage check in CI/CD with 95% minimum threshold",
+          "action_type": "preventive",
+          "addresses_cause_id": null,
+          "safeguard_type": "",
+          "how_it_prevents_future": "",
+          "responsible": "DevOps Team",
+          "due_date": "2026-03-30",
+          "status": "planned",
+          "created_at": "2026-02-09T22:02:41.204779+00:00",
+          "completed_at": null,
+          "completion_notes": "",
+          "verification": null
+        },
+        {
+          "id": "bf7b8f27",
+          "description": "Add real-time translation health metrics to Dragon Automator dashboard",
+          "action_type": "preventive",
+          "addresses_cause_id": null,
+          "safeguard_type": "",
+          "how_it_prevents_future": "",
+          "responsible": "Development Team",
+          "due_date": "2026-03-15",
+          "status": "planned",
+          "created_at": "2026-02-09T22:02:41.263832+00:00",
+          "completed_at": null,
+          "completion_notes": "",
+          "verification": null
+        }
+      ]
     },
     "voe": {
       "started_at": null,
@@ -583,6 +674,18 @@
         "action": "status_change",
         "user": "AI Agent",
         "details": "Status changed from draft to investigation. Starting investigation phase"
+      },
+      {
+        "timestamp": "2026-02-09T22:02:40.850144+00:00",
+        "action": "status_change",
+        "user": "AI Agent",
+        "details": "Status changed from investigation to containment. Moving to containment phase"
+      },
+      {
+        "timestamp": "2026-02-09T22:02:40.970745+00:00",
+        "action": "status_change",
+        "user": "AI Agent",
+        "details": "Status changed from containment to resolution. Moving to resolution phase"
       }
     ],
     "attachments": [],
