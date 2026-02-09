@@ -984,12 +984,11 @@ async def create_credential(credential: CredentialRecord):
     doc["updated_at"] = datetime.now(timezone.utc).isoformat()
     
     result = await credentials_collection.insert_one(doc)
-    doc["_id"] = str(result.inserted_id)
-    del doc["_id"] if "_id" in doc else None
+    credential_id = str(result.inserted_id)
     
     return {
         "success": True,
-        "credential_id": str(result.inserted_id),
+        "credential_id": credential_id,
         "message": "Credential record created"
     }
 
