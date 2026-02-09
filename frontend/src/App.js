@@ -864,6 +864,8 @@ function AppContent() {
             <Route path="/enterprise/api" element={<EnterpriseAPIPage />} />
             <Route path="/tutorials" element={<VideoTutorialsPage />} />
             <Route path="/help" element={<VideoTutorialsPage />} />
+            <Route path="/psv" element={<PSVVerificationPage />} />
+            <Route path="/verification-hub" element={<PSVVerificationPage />} />
           </Routes>
         </main>
       </div>
