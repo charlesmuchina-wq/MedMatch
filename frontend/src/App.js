@@ -178,6 +178,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/recruiter/ats", icon: Users, labelKey: "Applicant Tracking" },
     { path: "/interviews", icon: Video, labelKey: "recruiter.interviews" },
     { path: "/recruiter/candidates", icon: UserSearch, labelKey: "recruiter.searchCandidates" },
+    { path: "/psv", icon: FileCheck, labelKey: "PSV Verification Hub" },
     { path: "/companies", icon: Briefcase, labelKey: "nav.companies" },
     { path: "/messages", icon: MessageSquare, labelKey: "nav.messages" },
     { path: "/notifications", icon: Bell, labelKey: "nav.notifications" },
