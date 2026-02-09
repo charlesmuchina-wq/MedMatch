@@ -951,5 +951,6 @@ __all__ = [
     'run_weekly_maintenance',
     'check_and_scale_resources',
     'analyze_trends_for_predictions',
-    'check_for_rollback_conditions'
+    'check_for_rollback_conditions',
+    'run_capa_system_analysis'
 ]
