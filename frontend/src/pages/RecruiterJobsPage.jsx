@@ -53,7 +53,8 @@ const RecruiterJobsPage = ({ user }) => {
       const response = await axios.get(`${API}/api/recruiter/jobs`, {
         withCredentials: true
       });
-      setJobs(response.data || []);
+      // API returns {jobs: [...]} so extract the jobs array
+      setJobs(response.data?.jobs || response.data || []);
     } catch (e) {
       console.error("Failed to fetch jobs");
     }
