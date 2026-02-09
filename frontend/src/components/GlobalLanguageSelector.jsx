@@ -40,15 +40,17 @@ const GlobalLanguageSelector = ({ compact = false }) => {
   useEffect(() => {
     const loadPreference = async () => {
       try {
-        const token = localStorage.getItem("access_token");
+        const token = localStorage.getItem("medmatch-token") || localStorage.getItem("access_token");
         if (!token) return;
         
         const response = await axios.get(`${API}/api/auth/preferences`, {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true
         });
         setGrammaticalGender(response.data.grammatical_gender || 'auto');
       } catch (e) {
-        // User might not be logged in
+        // User might not be logged in - silently fail
+        setGrammaticalGender('auto');
       }
     };
     loadPreference();
@@ -58,12 +60,12 @@ const GlobalLanguageSelector = ({ compact = false }) => {
   const updateGenderPreference = async (gender) => {
     setGrammaticalGender(gender);
     try {
-      const token = localStorage.getItem("access_token");
+      const token = localStorage.getItem("medmatch-token") || localStorage.getItem("access_token");
       if (!token) return;
       
       await axios.put(`${API}/api/auth/preferences`, 
         { grammatical_gender: gender === 'auto' ? '' : gender },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` }, withCredentials: true }
       );
     } catch (e) {
       console.warn("Failed to save gender preference:", e);
