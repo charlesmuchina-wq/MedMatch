@@ -467,7 +467,7 @@ export default function DragonAutomatorPage() {
 
       {/* Tabs for Details */}
       <Tabs defaultValue="diagnostics" className="w-full">
-        <TabsList className="grid w-full grid-cols-6">
+        <TabsList className="grid w-full grid-cols-7">
           <TabsTrigger value="diagnostics">Diagnostics</TabsTrigger>
           <TabsTrigger value="improvements">Improvements</TabsTrigger>
           <TabsTrigger value="translation-qa" className="flex items-center gap-1">
@@ -477,6 +477,10 @@ export default function DragonAutomatorPage() {
           <TabsTrigger value="capa" className="flex items-center gap-1">
             <Shield className="w-3 h-3" />
             CAPA
+          </TabsTrigger>
+          <TabsTrigger value="ai-qa" className="flex items-center gap-1">
+            <Bot className="w-3 h-3" />
+            AI QA
           </TabsTrigger>
           <TabsTrigger value="changelog">Changelog</TabsTrigger>
           <TabsTrigger value="reports">Reports</TabsTrigger>
