@@ -3,10 +3,10 @@
 ## Video Creation Summary - February 9, 2026
 
 ### D-ID API Usage
-- **Total Credits Used:** 59 credits (updated)
-- **Remaining Credits:** 341 / 400
+- **Total Credits Used:** ~65 credits (updated after new tutorials)
+- **Remaining Credits:** ~335 / 400
 - **Custom Presenter:** Your portrait (IMG_8422.jpeg)
-- **Note:** African language videos use D-ID presenter "Amy" due to custom image moderation limitations
+- **Note:** African language videos and new tutorials use D-ID presenter "Amy" due to custom image moderation limitations
 
 ---
 
@@ -37,6 +37,13 @@
 | 🇰🇪 Swahili (Kenya) | Zuri (sw-KE) | `tlk_7LhG-0hhG3ynEd2KxohrN` | ✅ Created |
 | 🇿🇦 Afrikaans (South Africa) | Adri (af-ZA) | `tlk_jKq2BCNU1NiVypyd2xJS4` | ✅ Created |
 | 🇳🇬 English (Nigeria) | Ezinne (en-NG) | `tlk_hq9691jXrjYhwEOv35sV2` | ✅ Created |
+
+### 4. NEW: Getting Started Tutorial Videos (45s each)
+
+| Language | Voice | Talk ID | Status |
+|----------|-------|---------|--------|
+| 🇩🇪 German Tutorial | Katja (de-DE) | `tlk_U_WgYRHRZvTazt9trvZpg` | ✅ Created Feb 9, 2026 |
+| 🇫🇷 French Tutorial | Denise (fr-FR) | `tlk_X0fd9qzrvTlsqBWynmMe6` | ✅ Created Feb 9, 2026 |
 
 ---
 
