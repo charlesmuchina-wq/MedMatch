@@ -156,7 +156,10 @@
     "getCallbackScores": "Get AI-powered callback probability scores",
     "practiceBodyLanguage": "Practice with AI body language analysis",
     "getNotifiedMatching": "Get notified when matching jobs appear",
-    "smartAlerts": "Smart Alerts"
+    "smartAlerts": "Smart Alerts",
+    "watchTutorials": "Watch Tutorials",
+    "learnWithVideos": "Learn how to use MedMatch with video guides",
+    "getStarted": "Get Started"
   },
   "jobs": {
     "searchJobs": "Search Jobs",
