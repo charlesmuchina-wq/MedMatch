@@ -2524,6 +2524,46 @@ Implemented grammatical gender-aware translations following ICU MessageFormat an
 - Job Postings page (view/create/edit jobs)
 - All recruiter features
 
+#### 2. Admin Profile Switcher (P0 - COMPLETED)
+**Issue**: Admin should have access to BOTH Job Seeker AND Recruiter profiles
+**Solution**: Added a "View as:" toggle in the sidebar for admin users
+
+**Files Modified**:
+- `/app/frontend/src/App.js`:
+  - Added `viewMode` state to track whether admin is viewing as Job Seeker or Recruiter
+  - Added "View as: Job Seeker | Recruiter" buttons in sidebar (only visible for admin)
+  - Admin can switch between full Job Seeker navigation and Recruiter navigation
+
+**Features**:
+- Toggle appears at top of sidebar for admin users only
+- Job Seeker view shows: Resume, Job Search, Applications, Interview Prep, etc.
+- Recruiter view shows: Dashboard, Job Postings, ATS, Candidate Search, etc.
+
+#### 3. Home Button Navigation (P1 - COMPLETED)
+**Issue**: Missing navigation to return to homepage/dashboard
+**Solution**: Added Home button in header and made sidebar logo clickable
+
+**Files Modified**:
+- `/app/frontend/src/App.js`:
+  - Added "🏠 Home" button in header (always visible)
+  - Made MedMatch logo in sidebar clickable (navigates to dashboard)
+  - Added `Home` icon from lucide-react
+
+**Features**:
+- Home button in header for quick access to dashboard
+- Logo click returns to main dashboard
+- Both work on desktop and mobile
+
+#### 4. Language Selector Fix (P2 - COMPLETED)
+**Issue**: Language dropdown stuck in loading/spinning state
+**Root Cause**: Component used wrong localStorage key for auth token
+
+**Files Modified**:
+- `/app/frontend/src/components/GlobalLanguageSelector.jsx`:
+  - Changed `localStorage.getItem("access_token")` to `localStorage.getItem("medmatch-token") || localStorage.getItem("access_token")`
+  - Added `withCredentials: true` to API calls
+  - Added fallback to prevent infinite loading state
+
 ---
 
 ### Test Credentials
