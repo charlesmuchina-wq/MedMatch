@@ -117,7 +117,8 @@ class DIDService:
         presenter_id: Optional[str] = None,
         voice_id: str = "en-US-JennyNeural",
         background_color: str = "#1a1a2e",
-        title: str = "MedMatch Video"
+        title: str = "MedMatch Video",
+        source_url: Optional[str] = None
     ) -> Dict[str, Any]:
         """
         Create a talking head video from text script.
