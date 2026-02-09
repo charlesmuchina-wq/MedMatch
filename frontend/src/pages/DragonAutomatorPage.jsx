@@ -34,6 +34,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import { apiClient } from '@/utils/apiClient';
 import TranslationQADashboard from '../components/TranslationQADashboard';
 import CAPADashboard from '../components/CAPADashboard';
+import AIQADashboard from '../components/AIQADashboard';
 
 // Status Badge Component
 const StatusBadge = ({ status }) => {
