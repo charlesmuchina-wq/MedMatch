@@ -105,6 +105,15 @@ async def create_custom_video(
         "de-DE": "de-DE-KatjaNeural",
         "ja-JP": "ja-JP-NanamiNeural",
         "zh-CN": "zh-CN-XiaoxiaoNeural",
+        "pt-BR": "pt-BR-FranciscaNeural",
+        "ar-SA": "ar-SA-ZariyahNeural",
+        "hi-IN": "hi-IN-SwaraNeural",
+        # African Languages
+        "sw-KE": "sw-KE-ZuriNeural",
+        "sw-TZ": "sw-TZ-RehemaNeural",
+        "af-ZA": "af-ZA-AdriNeural",
+        "en-KE": "en-KE-ChilembaNeural",
+        "en-NG": "en-NG-EzinneNeural",
     }
     
     voice_id = language_voices.get(language, voice)
