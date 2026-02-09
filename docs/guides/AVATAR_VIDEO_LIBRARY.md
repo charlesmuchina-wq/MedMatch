@@ -29,6 +29,14 @@
 | 🇯🇵 Japanese | Nanami (ja-JP) | ✅ Created |
 | 🇨🇳 Chinese | Xiaoxiao (zh-CN) | ✅ Created |
 
+### 3. African Language Videos (60s each)
+
+| Language | Voice | Talk ID | Status |
+|----------|-------|---------|--------|
+| 🇰🇪 Swahili (Kenya) | Zuri (sw-KE) | `tlk_7LhG-0hhG3ynEd2KxohrN` | ✅ Created |
+| 🇿🇦 Afrikaans (South Africa) | Adri (af-ZA) | `tlk_jKq2BCNU1NiVypyd2xJS4` | ✅ Created |
+| 🇳🇬 English (Nigeria) | Ezinne (en-NG) | `tlk_hq9691jXrjYhwEOv35sV2` | ✅ Created |
+
 ---
 
 ## 📝 Scripts
