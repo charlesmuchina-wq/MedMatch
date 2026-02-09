@@ -115,7 +115,10 @@
     "getCallbackScores": "AIによるコールバック確率スコアを取得",
     "practiceBodyLanguage": "AIのボディランゲージ分析で練習",
     "getNotifiedMatching": "条件に合う求人が表示されたら通知を受け取る",
-    "smartAlerts": "スマートアラート"
+    "smartAlerts": "スマートアラート",
+    "watchTutorials": "チュートリアルを見る",
+    "learnWithVideos": "ビデオガイドでMedMatchの使い方を学ぶ",
+    "getStarted": "始める"
   },
   "jobs": {
     "searchJobs": "求人検索",

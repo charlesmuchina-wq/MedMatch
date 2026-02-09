@@ -115,7 +115,9 @@
     "getCallbackScores": "Samu kimar yiwuwar a kira ka ta hanyar AI",
     "practiceBodyLanguage": "Yi atisaye tare da nazarin yaren jiki ta AI",
     "getNotifiedMatching": "A sanar da kai idan ayyukan da suka dace sun bayyana",
-    "smartAlerts": "Faɗakarwa Masu Kaifin Basira"
+    "smartAlerts": "Faɗakarwa Masu Kaifin Basira",
+    "watchTutorials": "Kalli Koyarwa",
+    "getStarted": "Fara"
   },
   "jobs": {
     "searchJobs": "Bincika Ayyuka",

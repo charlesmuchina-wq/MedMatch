@@ -115,7 +115,10 @@
     "getCallbackScores": "एआई-संचालित कॉलबैक संभावना स्कोर प्राप्त करें",
     "practiceBodyLanguage": "एआई बॉडी लैंग्वेज विश्लेषण के साथ अभ्यास करें",
     "getNotifiedMatching": "जब मेल खाने वाली नौकरियाँ उपलब्ध हों तो सूचना पाएँ",
-    "smartAlerts": "स्मार्ट अलर्ट्स"
+    "smartAlerts": "स्मार्ट अलर्ट्स",
+    "watchTutorials": "ट्यूटोरियल देखें",
+    "learnWithVideos": "वीडियो गाइड के साथ MedMatch का उपयोग सीखें",
+    "getStarted": "शुरू करें"
   },
   "jobs": {
     "searchJobs": "नौकरियाँ खोजें",

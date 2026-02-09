@@ -115,7 +115,10 @@
     "getCallbackScores": "Pata alama za uwezekano wa kuitwa tena zinazoendeshwa na AI",
     "practiceBodyLanguage": "Fanya mazoezi kwa uchambuzi wa lugha ya mwili wa AI",
     "getNotifiedMatching": "Pokea arifa kazi zinazolingana zinapotokea",
-    "smartAlerts": "Arifa Mahiri"
+    "smartAlerts": "Arifa Mahiri",
+    "watchTutorials": "Tazama Mafunzo",
+    "learnWithVideos": "Jifunze kutumia MedMatch na video",
+    "getStarted": "Anza"
   },
   "jobs": {
     "searchJobs": "Tafuta Kazi",

@@ -115,7 +115,10 @@
     "getCallbackScores": "Receba pontuações de probabilidade de retorno com IA",
     "practiceBodyLanguage": "Pratique com análise de linguagem corporal por IA",
     "getNotifiedMatching": "Seja notificado quando surgirem vagas compatíveis",
-    "smartAlerts": "Alertas inteligentes"
+    "smartAlerts": "Alertas inteligentes",
+    "watchTutorials": "Ver Tutoriais",
+    "learnWithVideos": "Aprenda a usar o MedMatch com guias em vídeo",
+    "getStarted": "Começar"
   },
   "jobs": {
     "searchJobs": "Buscar vagas",

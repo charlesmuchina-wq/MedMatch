@@ -115,7 +115,9 @@
     "getCallbackScores": "Thola amaphuzu amathuba okubizwa emuva anikwe amandla yi-AI",
     "practiceBodyLanguage": "Zijwayeze ngokuhlaziywa kolimi lomzimba yi-AI",
     "getNotifiedMatching": "Thola isaziso uma kuvela imisebenzi ehambisanayo",
-    "smartAlerts": "Izexwayiso Ezihlakaniphile"
+    "smartAlerts": "Izexwayiso Ezihlakaniphile",
+    "watchTutorials": "Bukela Izifundo",
+    "getStarted": "Qala"
   },
   "jobs": {
     "searchJobs": "Sesha Imisebenzi",
