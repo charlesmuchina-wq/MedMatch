@@ -2760,7 +2760,40 @@ Implemented grammatical gender-aware translations following ICU MessageFormat an
 
 **Impacted Processes**: Localization, UI Rendering, RTL Language Support
 
-#### 3. Translation QA Current Status
+#### 3. CAPA Automated Analysis Integration (P0 - COMPLETED)
+**Issue**: CAPA system needs to run on the same cadence as KARAU Dragon Automator for system-wide issue detection
+
+**Actions Taken**:
+1. **Integrated CAPA analysis into Dragon Scheduler**:
+   - Added `run_capa_system_analysis()` function that scans for system-wide recurring issues
+   - Added CAPA analysis job to scheduler (Sundays 1:15 AM PST, after weekly maintenance)
+   - CAPA analysis also runs during weekly maintenance as Task 7
+
+2. **System-wide Issue Detection** (7 categories):
+   - API Error Patterns (10+ recurring errors)
+   - Performance Degradation (>2s average response time)
+   - Data Integrity Issues (orphaned records)
+   - Authentication Failures (>100 failures/week)
+   - Translation QA Issues (score < 70)
+   - User Experience Issues (>20 negative feedback)
+   - Job Search Failures (>30% failure rate)
+
+3. **Automated CAPA Creation**:
+   - Auto-creates CAPAs for recurring issues if no existing open CAPA exists
+   - Tags CAPAs with category and "automated", "dragon-automator"
+   - Logs all analysis to `capa_analysis_reports` collection
+
+4. **New API Endpoints**:
+   - `POST /api/capa/automator/run-analysis`: Manual trigger for CAPA analysis
+   - `GET /api/capa/automator/analysis-reports`: View historical analysis reports
+
+**Files Modified**:
+- `/app/backend/services/dragon_scheduler.py`: Added CAPA analysis integration
+- `/app/backend/routes/capa.py`: Added manual trigger and reports endpoints
+
+**Test Report**: `/app/test_reports/iteration_60.json`
+
+#### 4. Translation QA Current Status
 **Overall Score**: 75 (Good)
 - Critical: 0
 - Missing Keys: 0
