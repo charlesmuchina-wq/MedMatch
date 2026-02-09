@@ -53,11 +53,13 @@ VIDEOS = [
     {
         "id": "05_complete_overview",
         "title": "Complete MedMatch Overview",
-        "description": "Comprehensive summary of all MedMatch features for job seekers and recruiters",
-        "duration": "85 seconds",
+        "description": "AI-powered comprehensive overview of all MedMatch features for job seekers and recruiters",
+        "duration": "60 seconds",
         "category": "overview",
         "filename": "05_complete_overview.mp4",
-        "presenter": "MedMatch guide"
+        "presenter": "AI Avatar (D-ID)",
+        "ai_generated": True,
+        "voice": "Jenny (en-US)"
     }
 ]
 
