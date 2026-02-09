@@ -423,19 +423,6 @@ async def search_oig_leie(request: OIGSearchRequest):
         "checked_at": datetime.now(timezone.utc).isoformat(),
         "disclaimer": "The OIG does not provide a public API. Manual verification is required via their official website."
     }
-            "success": False,
-            "error": "OIG API timeout",
-            "fallback_url": "https://exclusions.oig.hhs.gov/",
-            "instruction": "Please search manually on the OIG website"
-        }
-    except Exception as e:
-        logger.error(f"OIG search error: {e}")
-        return {
-            "success": False,
-            "error": str(e),
-            "fallback_url": "https://exclusions.oig.hhs.gov/",
-            "instruction": "Please search manually on the OIG website"
-        }
 
 
 # ==================== NPI REGISTRY ENDPOINTS ====================
