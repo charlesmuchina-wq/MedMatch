@@ -1,0 +1,71 @@
+{
+  "CAPA-20260209-DEA7D381": {
+    "id": "CAPA-20260209-DEA7D381",
+    "title": "Translation System RTL and Expansion Issues",
+    "problem_statement": "The Translation QA Agent identified 50 expansion warnings (text may be too long in some languages) and 372 RTL (Right-to-Left) issues where English fallback text is used instead of proper Arabic/Hebrew translations. This affects UI readability and user experience in RTL languages.",
+    "capa_type": "both",
+    "severity": "medium",
+    "source": "Translation QA Agent",
+    "status": "draft",
+    "created_at": "2026-02-09T13:21:23.965511+00:00",
+    "updated_at": "2026-02-09T13:21:23.965511+00:00",
+    "created_by": "system",
+    "assigned_to": "",
+    "investigation": {
+      "started_at": null,
+      "completed_at": null,
+      "investigation_method": "5 Whys",
+      "probable_causes": [],
+      "eliminated_causes": [],
+      "retained_causes": []
+    },
+    "containment": {
+      "started_at": null,
+      "completed_at": null,
+      "actions": [],
+      "is_contained": false,
+      "containment_verified": false,
+      "close_at_containment": false
+    },
+    "resolution": {
+      "started_at": null,
+      "completed_at": null,
+      "corrective_actions": [],
+      "preventive_actions": []
+    },
+    "voe": {
+      "started_at": null,
+      "completed_at": null,
+      "verifications": [],
+      "overall_effectiveness": null,
+      "attestation": null
+    },
+    "closure": {
+      "closed_at": null,
+      "closed_by": null,
+      "closure_notes": "",
+      "lessons_learned": ""
+    },
+    "history": [
+      {
+        "timestamp": "2026-02-09T13:21:23.965511+00:00",
+        "action": "created",
+        "user": "system",
+        "details": "CAPA initiated"
+      }
+    ],
+    "attachments": [],
+    "related_capas": [],
+    "impacted_processes": [
+      "Localization",
+      "UI Rendering",
+      "RTL Language Support"
+    ],
+    "tags": [
+      "translation",
+      "i18n",
+      "RTL",
+      "UX"
+    ]
+  }
+}
