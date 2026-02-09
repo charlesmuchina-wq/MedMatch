@@ -92,5 +92,426 @@
       "RTL",
       "UX"
     ]
+  },
+  "CAPA-20260209-1BD295F3": {
+    "id": "CAPA-20260209-1BD295F3",
+    "title": "TEST_CAPA_Automated Test Issue",
+    "problem_statement": "This is an automated test CAPA created by pytest",
+    "capa_type": "corrective",
+    "severity": "low",
+    "source": "Automated Testing",
+    "status": "draft",
+    "created_at": "2026-02-09T13:27:21.828811+00:00",
+    "updated_at": "2026-02-09T13:27:21.828811+00:00",
+    "created_by": "system",
+    "assigned_to": "",
+    "investigation": {
+      "started_at": null,
+      "completed_at": null,
+      "investigation_method": "5 Whys",
+      "probable_causes": [],
+      "eliminated_causes": [],
+      "retained_causes": []
+    },
+    "containment": {
+      "started_at": null,
+      "completed_at": null,
+      "actions": [],
+      "is_contained": false,
+      "containment_verified": false,
+      "close_at_containment": false
+    },
+    "resolution": {
+      "started_at": null,
+      "completed_at": null,
+      "corrective_actions": [],
+      "preventive_actions": []
+    },
+    "voe": {
+      "started_at": null,
+      "completed_at": null,
+      "verifications": [],
+      "overall_effectiveness": null,
+      "attestation": null
+    },
+    "closure": {
+      "closed_at": null,
+      "closed_by": null,
+      "closure_notes": "",
+      "lessons_learned": ""
+    },
+    "history": [
+      {
+        "timestamp": "2026-02-09T13:27:21.828811+00:00",
+        "action": "created",
+        "user": "system",
+        "details": "CAPA initiated"
+      }
+    ],
+    "attachments": [],
+    "related_capas": [],
+    "impacted_processes": [
+      "Testing",
+      "QA"
+    ],
+    "tags": [
+      "test",
+      "automated"
+    ]
+  },
+  "CAPA-20260209-924703C0": {
+    "id": "CAPA-20260209-924703C0",
+    "title": "TEST_CAPA_Minimal Fields Test",
+    "problem_statement": "Minimal test CAPA",
+    "capa_type": "both",
+    "severity": "medium",
+    "source": "",
+    "status": "draft",
+    "created_at": "2026-02-09T13:27:21.874188+00:00",
+    "updated_at": "2026-02-09T13:27:21.874188+00:00",
+    "created_by": "system",
+    "assigned_to": "",
+    "investigation": {
+      "started_at": null,
+      "completed_at": null,
+      "investigation_method": "5 Whys",
+      "probable_causes": [],
+      "eliminated_causes": [],
+      "retained_causes": []
+    },
+    "containment": {
+      "started_at": null,
+      "completed_at": null,
+      "actions": [],
+      "is_contained": false,
+      "containment_verified": false,
+      "close_at_containment": false
+    },
+    "resolution": {
+      "started_at": null,
+      "completed_at": null,
+      "corrective_actions": [],
+      "preventive_actions": []
+    },
+    "voe": {
+      "started_at": null,
+      "completed_at": null,
+      "verifications": [],
+      "overall_effectiveness": null,
+      "attestation": null
+    },
+    "closure": {
+      "closed_at": null,
+      "closed_by": null,
+      "closure_notes": "",
+      "lessons_learned": ""
+    },
+    "history": [
+      {
+        "timestamp": "2026-02-09T13:27:21.874188+00:00",
+        "action": "created",
+        "user": "system",
+        "details": "CAPA initiated"
+      }
+    ],
+    "attachments": [],
+    "related_capas": [],
+    "impacted_processes": [],
+    "tags": []
+  },
+  "CAPA-20260209-54A14A6C": {
+    "id": "CAPA-20260209-54A14A6C",
+    "title": "TEST_CAPA_Status Update Test",
+    "problem_statement": "Testing status transitions",
+    "capa_type": "both",
+    "severity": "medium",
+    "source": "",
+    "status": "investigation",
+    "created_at": "2026-02-09T13:27:22.043389+00:00",
+    "updated_at": "2026-02-09T13:27:22.561031+00:00",
+    "created_by": "system",
+    "assigned_to": "",
+    "investigation": {
+      "started_at": "2026-02-09T13:27:22.088853+00:00",
+      "completed_at": null,
+      "investigation_method": "5 Whys",
+      "probable_causes": [
+        {
+          "id": "6e5eeb60",
+          "description": "TEST_CAUSE_Root cause from automated testing",
+          "category": "technical",
+          "evidence": "Evidence from automated test",
+          "status": "probable",
+          "added_at": "2026-02-09T13:27:22.207048+00:00",
+          "added_by": "pytest"
+        }
+      ],
+      "eliminated_causes": [],
+      "retained_causes": []
+    },
+    "containment": {
+      "started_at": null,
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "5828f5ff",
+          "description": "TEST_ACTION_Immediate containment action from automated test",
+          "action_type": "containment",
+          "addresses_cause_id": null,
+          "responsible": "Test Engineer",
+          "due_date": "2026-02-15",
+          "status": "planned",
+          "created_at": "2026-02-09T13:27:22.326262+00:00",
+          "completed_at": null,
+          "completion_notes": "",
+          "verification": null
+        }
+      ],
+      "is_contained": false,
+      "containment_verified": false,
+      "close_at_containment": false
+    },
+    "resolution": {
+      "started_at": null,
+      "completed_at": null,
+      "corrective_actions": [
+        {
+          "id": "e3656963",
+          "description": "TEST_ACTION_Corrective action from automated test",
+          "action_type": "corrective",
+          "addresses_cause_id": null,
+          "how_it_addresses_problem": "Fixes the root cause",
+          "how_it_prevents_recurrence": "Prevents future occurrence",
+          "responsible": "Test Engineer",
+          "due_date": null,
+          "status": "planned",
+          "created_at": "2026-02-09T13:27:22.407414+00:00",
+          "completed_at": null,
+          "completion_notes": "",
+          "verification": null
+        }
+      ],
+      "preventive_actions": [
+        {
+          "id": "c4ec170e",
+          "description": "TEST_ACTION_Preventive action from automated test",
+          "action_type": "preventive",
+          "addresses_cause_id": null,
+          "safeguard_type": "process",
+          "how_it_prevents_future": "Adds safeguard to prevent future issues",
+          "responsible": "Test Engineer",
+          "due_date": null,
+          "status": "planned",
+          "created_at": "2026-02-09T13:27:22.486230+00:00",
+          "completed_at": null,
+          "completion_notes": "",
+          "verification": null
+        }
+      ]
+    },
+    "voe": {
+      "started_at": null,
+      "completed_at": null,
+      "verifications": [
+        {
+          "id": "5115910a",
+          "action_id": "test_action",
+          "verification_method": "TEST_VOE_Automated verification method",
+          "acceptance_criteria": "All tests pass",
+          "test_procedure": "Run automated tests",
+          "impacted_process": "",
+          "responsible": "QA Engineer",
+          "due_date": null,
+          "status": "pending",
+          "created_at": "2026-02-09T13:27:22.561019+00:00",
+          "executed_at": null,
+          "result": null,
+          "evidence": "",
+          "notes": ""
+        }
+      ],
+      "overall_effectiveness": null,
+      "attestation": null
+    },
+    "closure": {
+      "closed_at": null,
+      "closed_by": null,
+      "closure_notes": "",
+      "lessons_learned": ""
+    },
+    "history": [
+      {
+        "timestamp": "2026-02-09T13:27:22.043389+00:00",
+        "action": "created",
+        "user": "system",
+        "details": "CAPA initiated"
+      },
+      {
+        "timestamp": "2026-02-09T13:27:22.088853+00:00",
+        "action": "status_change",
+        "user": "test_user",
+        "details": "Status changed from draft to investigation. Starting investigation"
+      }
+    ],
+    "attachments": [],
+    "related_capas": [],
+    "impacted_processes": [],
+    "tags": []
+  },
+  "CAPA-20260209-C3646DA5": {
+    "id": "CAPA-20260209-C3646DA5",
+    "title": "TEST_CAPA_QA Finding from Automated Test",
+    "problem_statement": "Automated QA detected an issue",
+    "capa_type": "both",
+    "severity": "low",
+    "source": "Automated Testing",
+    "status": "draft",
+    "created_at": "2026-02-09T13:27:22.604486+00:00",
+    "updated_at": "2026-02-09T13:27:22.604486+00:00",
+    "created_by": "Karau Automator",
+    "assigned_to": "",
+    "investigation": {
+      "started_at": null,
+      "completed_at": null,
+      "investigation_method": "5 Whys",
+      "probable_causes": [],
+      "eliminated_causes": [],
+      "retained_causes": []
+    },
+    "containment": {
+      "started_at": null,
+      "completed_at": null,
+      "actions": [],
+      "is_contained": false,
+      "containment_verified": false,
+      "close_at_containment": false
+    },
+    "resolution": {
+      "started_at": null,
+      "completed_at": null,
+      "corrective_actions": [],
+      "preventive_actions": []
+    },
+    "voe": {
+      "started_at": null,
+      "completed_at": null,
+      "verifications": [],
+      "overall_effectiveness": null,
+      "attestation": null
+    },
+    "closure": {
+      "closed_at": null,
+      "closed_by": null,
+      "closure_notes": "",
+      "lessons_learned": ""
+    },
+    "history": [
+      {
+        "timestamp": "2026-02-09T13:27:22.604486+00:00",
+        "action": "created",
+        "user": "Karau Automator",
+        "details": "CAPA initiated"
+      }
+    ],
+    "attachments": [],
+    "related_capas": [],
+    "impacted_processes": [],
+    "tags": []
+  },
+  "CAPA-20260209-02CE6F7C": {
+    "id": "CAPA-20260209-02CE6F7C",
+    "title": "TEST_CAPA_Full Lifecycle Test",
+    "problem_statement": "Testing complete CAPA workflow",
+    "capa_type": "both",
+    "severity": "low",
+    "source": "Automated Testing",
+    "status": "containment",
+    "created_at": "2026-02-09T13:27:22.645475+00:00",
+    "updated_at": "2026-02-09T13:27:22.809757+00:00",
+    "created_by": "system",
+    "assigned_to": "",
+    "investigation": {
+      "started_at": "2026-02-09T13:27:22.684644+00:00",
+      "completed_at": "2026-02-09T13:27:22.765204+00:00",
+      "investigation_method": "5 Whys",
+      "probable_causes": [
+        {
+          "id": "084e95dd",
+          "description": "Test root cause",
+          "category": "process",
+          "evidence": "",
+          "status": "probable",
+          "added_at": "2026-02-09T13:27:22.724309+00:00",
+          "added_by": "system"
+        }
+      ],
+      "eliminated_causes": [],
+      "retained_causes": []
+    },
+    "containment": {
+      "started_at": "2026-02-09T13:27:22.765204+00:00",
+      "completed_at": null,
+      "actions": [
+        {
+          "id": "6460149e",
+          "description": "Immediate fix",
+          "action_type": "containment",
+          "addresses_cause_id": null,
+          "responsible": "Test",
+          "due_date": null,
+          "status": "planned",
+          "created_at": "2026-02-09T13:27:22.809745+00:00",
+          "completed_at": null,
+          "completion_notes": "",
+          "verification": null
+        }
+      ],
+      "is_contained": false,
+      "containment_verified": false,
+      "close_at_containment": false
+    },
+    "resolution": {
+      "started_at": null,
+      "completed_at": null,
+      "corrective_actions": [],
+      "preventive_actions": []
+    },
+    "voe": {
+      "started_at": null,
+      "completed_at": null,
+      "verifications": [],
+      "overall_effectiveness": null,
+      "attestation": null
+    },
+    "closure": {
+      "closed_at": null,
+      "closed_by": null,
+      "closure_notes": "",
+      "lessons_learned": ""
+    },
+    "history": [
+      {
+        "timestamp": "2026-02-09T13:27:22.645475+00:00",
+        "action": "created",
+        "user": "system",
+        "details": "CAPA initiated"
+      },
+      {
+        "timestamp": "2026-02-09T13:27:22.684644+00:00",
+        "action": "status_change",
+        "user": "system",
+        "details": "Status changed from draft to investigation. "
+      },
+      {
+        "timestamp": "2026-02-09T13:27:22.765204+00:00",
+        "action": "status_change",
+        "user": "system",
+        "details": "Status changed from investigation to containment. "
+      }
+    ],
+    "attachments": [],
+    "related_capas": [],
+    "impacted_processes": [],
+    "tags": []
   }
 }
