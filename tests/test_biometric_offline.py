@@ -6,7 +6,7 @@ import pytest
 import requests
 import os
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://lifesci-hiring.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://biocareer-hub.preview.emergentagent.com')
 
 class TestBiometricEndpoints:
     """Test WebAuthn/Biometric authentication endpoints"""

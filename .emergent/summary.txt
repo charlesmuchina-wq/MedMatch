@@ -1,0 +1,214 @@
+<analysis>**original_problem_statement:**
+The user wants to create a comprehensive, AI-powered application named MedMatch to automate their job search. The application's scope has expanded to become a specialized **Life Sciences & Engineering Talent Ecosystem**.
+
+Key requirements include:
+1.  **Global Talent Taxonomy:** A detailed hierarchy of sectors, roles, and skills.
+2.  **Primary Source Verification (PSV):** An enterprise-grade system to verify user credentials.
+3.  **Digital Badge Integration:** Allow users to import verified digital badges.
+4.  **Enterprise Compliance:** Adherence to HIPAA, GDPR, and SOC 2 standards.
+5.  **AI-Powered Tools:** Including a Trust Score, career pivot suggester, and advanced job matching.
+6.  **Comprehensive Job Search:** Significantly enhance the job search to crawl all job boards and the entire public internet.
+7.  **Ghost Job Prevention:** Implement technology to filter out expired or non-existent ghost jobs.
+8.  **Smart Notifications & Geofencing:** Create a smart notification system and location-based alerts for nearby jobs.
+9.  **Expanded Job Board Integration:** Increase the number of sourced job boards to 15+ specialized sites.
+10. **Applicant Tracking System (ATS):** A system for recruiters to generate application links, track candidate progress, and send automated email notifications.
+11. **Instructional Videos:** Create videos explaining how to use the platform for different user roles (Job Seeker, Recruiter).
+
+**User's preferred language**: English
+
+**what currently exists?**
+The application has a robust video tutorial system with 5 videos (4 specific, 1 overview) featuring diverse presenters, animated highlights, and on-demand translation. The AI assistant (Dragon AI) is now capable of performing real job searches and displaying formatted results.
+
+Significant work was done to improve performance across the app. All media components (video players, audio players, images) on pages like Tutorials, Video Interviews, Voice Coach, and Skill Assessments have been optimized with lazy loading, skeleton placeholders, and memoized components to ensure a faster, more responsive user experience.
+
+A new, advanced search engine backend has been built, featuring fuzzy matching for typo tolerance, autocomplete, and semantic query understanding. Based on this new backend, a voice search capability has been added to the main job search page.
+
+Additionally, several bugs were fixed, including a UI issue with skill assessment loading, 429 rate limit errors (by increasing tier limits), and a dark, hard-to-see login button.
+
+**Last working item**:
+- **Last item agent was working:** Implementing a voice search feature. The agent created a new  component and integrated it into the main  to allow users to initiate searches via speech.
+- **Status:** IN PROGRESS
+- **Agent Testing Done:** N
+- **Which testing method agent to use?** Frontend testing agent
+- **User Testing Done:** N
+
+**All Pending/In progress Issue list**:
+-   **Issue 1: Verify Voice Search Functionality (Priority: P0)**
+-   **Issue 2: Insufficient Emergent LLM Key Balance for Video Generation (Priority: P0)**
+-   **Issue 3: Monitor iOS Build Status and Resolve Potential Failures (Priority: P1)**
+-   **Issue 4: Trigger and Verify Android Build (Priority: P2)**
+
+**Issues Detail:**
+-   **Issue 1: Verify Voice Search Functionality**
+    -   **Attempted fixes:** A  component was created and added to the .
+    -   **Next debug checklist:**
+        1.  Take a screenshot of the  to visually confirm the microphone icon appears correctly next to the search input.
+        2.  Use the testing agent to simulate a click on the voice search button, provide a voice query (e.g., find supplier quality engineer jobs), and verify that the search results are populated based on the spoken query.
+        3.  Check browser console logs for any Web Speech API-related errors.
+    -   **Why fix this issue and what will be achieved with the fix?** To complete and validate the last feature request, providing a hands-free search experience for users.
+    -   **Status:** IN PROGRESS
+    -   **Is recurring issue?** N
+    -   **Should Test frontend/backend/both after fix?** frontend
+    -   **Blocked on other issue:** None
+
+-   **Issue 2: Insufficient Emergent LLM Key Balance for Video Generation**
+    -   **Attempted fixes:** Confirmed the key is valid but has an insufficient balance for high-cost generation tasks like Sora 2.
+    -   **Next debug checklist:** Guide the user to add funds to their Universal Key balance in their Emergent profile. This is required for any future AI avatar or advanced video generation tasks.
+    -   **Why fix this issue and what will be achieved with the fix?** Unblocks future generative AI features, including the user's request for an animated D-ID avatar.
+    -   **Status:** BLOCKED
+    -   **Is recurring issue?** Y
+    -   **Should Test frontend/backend/both after fix?** backend
+    -   **Blocked on other issue:** User action required.
+
+-   **Issue 3: Monitor iOS Build Status and Resolve Potential Failures**
+    -   **Attempted fixes:** None.
+    -   **Next debug checklist:** Blocked on the user providing access to a Mac environment for builds.
+    -   **Why fix this issue and what will be achieved with the fix?** To enable native mobile app deployment for iOS users.
+    -   **Status:** BLOCKED
+    -   **Is recurring issue?** Y
+    -   **Should Test frontend/backend/both after fix?** both
+    -   **Blocked on other issue:** User action required.
+
+-   **Issue 4: Trigger and Verify Android Build**
+    -   **Attempted fixes:** None.
+    -   **Next debug checklist:** Blocked pending the  from the user.
+    -   **Why fix this issue and what will be achieved with the fix?** To enable native mobile app deployment for Android users.
+    -   **Status:** BLOCKED
+    -   **Is recurring issue?** N
+    -   **Should Test frontend/backend/both after fix?** both
+    -   **Blocked on other issue:** User action required.
+
+**In progress Task List**:
+-   **Task 1: Finalize and Test Voice Search**
+    -   **Where to resume:** Test the  component on the .
+    -   **What will be achieved with this?** A fully functional, hands-free voice search interface for the main job search page.
+    -   **Status:** IN PROGRESS
+    -   **Should Test frontend/backend/both after fix?** frontend
+    -   **Blocked on something:** None
+
+**Upcoming and Future Tasks**
+Upcoming Tasks:
+-   **P0: Implement AI Animated Avatar (D-ID):** The integration playbook has been generated. This is blocked pending a D-ID API key from the user.
+-   **P1: Implement Full Primary Source Verification (PSV) API Logic:** Blocked on receiving API keys from the user.
+-   **P1: LinkedIn Profile Sync:** Needs  and .
+-   **P2: Enhance Native Mobile App UI Screens:** Build out more functionality for existing screens like  and .
+-   **P2: Dropbox/OneDrive Integration:** Blocked pending API keys from the user.
+-   **P2: PayPal Payment Integration:** Blocked on credentials.
+
+Future Tasks:
+-   Enhance Translation Memory Analytics with usage metrics.
+-   Deploy Desktop App to GitHub Releases.
+-   Implement remaining Enterprise tier features for recruiters (SSO/SAML).
+-   Implement Native Windows/Desktop App functionality.
+-   **Google Calendar OAuth:** Sync endpoint is ready, but requires OAuth setup from the user.
+-   Deprecate old job search logic in favor of the new, enhanced search engine service.
+
+**Completed work in this session**
+-   **Fixed Skill Test Loading Bug:** Corrected an issue where all skill assessments showed loading spinners simultaneously.
+-   **Fixed 429 Rate Limit Errors:** Increased backend rate limits to prevent Too Many Requests errors during testing and normal use.
+-   **Updated Login Page UI:** Brightened the sign-in button to a turquoise color for better visibility.
+-   **Enhanced Video Tutorial System:**
+    - Fixed a missing presenter image and re-synced subtitles with audio.
+    - Updated presenters for diversity and added a 5th summary video per user instructions.
+    - Added animated highlight circles to all videos to draw attention to key features.
+-   **Fixed and Enhanced Dragon AI Job Search:** Resolved a bug preventing job listings from displaying and improved the AI's ability to detect job search intent.
+-   **Implemented App-Wide Media Optimizations:** Applied performance enhancements (lazy loading, placeholders, memoization) to all media components to improve load times and UI responsiveness.
+-   **Built New Search Engine Backend:** Created a new search service () with fuzzy matching (), autocomplete, and semantic search capabilities.
+-   **Initiated Voice Search Feature:** Created and integrated a  component into the main job search page.
+
+**Earlier issues found/mentioned but not fixed**
+-   None beyond the currently blocked items.
+
+**Known issue recurrence from previous fork**
+-   **Issue recurrence in previous fork:** Monitor iOS Build Status
+-   **Recurrence count:** 8
+-   **Status:** BLOCKED
+
+**Code Architecture**
+
+
+**Key Technical Concepts**
+-   **App-wide Performance Optimization:** A major effort to improve frontend performance using , ,  (for lazy loading), skeleton placeholders, and hardware-accelerated CSS.
+-   **Advanced Backend Search Engine:** Implementation of a dedicated search service with fuzzy matching () for typo tolerance and semantic query parsing to understand user intent.
+-   **Web Speech API Integration:** Use of the browser's native speech recognition capabilities to implement a voice search feature.
+-   **Dynamic Video Generation & Composition:** Programmatic use of  to create and modify videos with picture-in-picture overlays, animated highlights, and synchronized audio/subtitles based on user feedback.
+
+**key DB schema**
+-   No changes made to the database schema.
+
+**changes in tech stack**
+-   **Backend:** Added  library for fuzzy string matching in the new search engine.
+
+**All files of reference**
+-    (Modified for voice search integration)
+-    (New component for voice functionality)
+-    (New reusable library for high-performance media)
+-    (Heavily modified for optimizations and video content updates)
+-    (Modified for bug fixes and performance optimization)
+-    (New core service for advanced search logic)
+-    (New API routes for the search service)
+-    (Modified to include the new search router)
+-    (Updated to reflect completed work)
+
+**Areas that need refactoring**:
+-   The  directory contains several single-use scripts for video generation (e.g., , ). This logic should be consolidated into a single, parameterized, and robust video generation service to improve maintainability and reduce code duplication.
+
+**key api endpoints**
+-   : New endpoint for providing real-time search suggestions.
+-   : New endpoint that performs an advanced, semantic search across jobs, candidates, and other content.
+-   : Existing AI assistant endpoint, which was enhanced to better detect job search intent and return formatted results.
+
+**Critical Info for New Agent**
+-   **Voice Search is the immediate priority.** The last task was implementing voice search on the job search page; your first step should be to test this feature thoroughly.
+-   **Performance is key.** A major app-wide media optimization was completed. All new components involving images, video, or audio should use the patterns from  (lazy loading, placeholders, memoization).
+-   **A new search backend exists.** The app now has a powerful search service in . Future search-related work should leverage this service.
+-   **AI Avatar is a pending request.** The user has requested an animated talking avatar for videos. The playbook for D-ID integration is ready, but it is blocked on the user providing an API key and having sufficient Universal Key balance.
+
+**documents and test reports created in this job**
+-   
+-   
+-    (Updated)
+
+**Last 10 User Messages and any pending HUMAN messages**
+1.  **User Request:** Fix the job search, complaining that filters were part of the query and it wasn't working. **Status:** Completed. Agent identified the issue was with the Dragon AI component not displaying results and fixed it.
+2.  **User Request:** Fix a missing presenter image and the Dragon AI search still not working. **Status:** Completed. Agent fixed both by downloading a new image and enhancing the AI's search detection.
+3.  **User Request:** Provided an image to use as a new presenter for videos. **Status:** Completed. Agent initially misunderstood and replaced all presenters but corrected this by reverting and creating a new 5th summary video.
+4.  **User Request:** Asked for an animated avatar with a pointer. **Status:** In Progress (Blocked). Agent proposed solutions and is waiting for the user to provide a D-ID API key.
+5.  **User Clarification:** Explained the new image was for a 5th summary video, not to replace existing ones. **Status:** Completed. Agent corrected the implementation.
+6.  **User Feedback:** Provided detailed technical requirements for optimizing media playback performance (lazy loading, adaptive streaming, etc.). **Status:** Completed. Agent implemented a comprehensive, app-wide media optimization.
+7.  **User Clarification:** Specified that media optimizations should apply to ALL media elements, including skill tests. **Status:** Completed. Agent expanded the scope of the optimization.
+8.  **User Request:** Asked for a comprehensive functional test of the updates. **Status:** Completed. Agent ran the testing agent.
+9.  **User Feedback:** Provided detailed technical requirements for optimizing the app's search engine functionality (SEO, ASO, latency testing, etc.). **Status:** Completed. Agent built a new, enhanced search backend.
+10. **User Confirmation:** Responded Yes to the agent's proposal to implement voice search. **Status:** In Progress. Agent created the voice search component.
+
+**Project Health Check:**
+-   **Healthy**: Web Application, Backend Services, AI Features (Dragon AI), Job Search, Video Tutorial System, Media Performance.
+-   **Broken**: None.
+-   **Blocked**: iOS Application, Android Build Verification, Primary Source Verification (PSV), Dropbox/OneDrive Integration, AI Avatar Generation (D-ID).
+-   **Mocked**: Desktop Application, Email Service.
+
+**3rd Party Integrations**
+-   **Credly:** For digital badge import.
+-   **Expo (EAS):** For mobile builds (BLOCKED).
+-   **Stripe:** For payments.
+-   **Google Calendar:** For scheduling.
+-   **Google Custom Search Engine (CSE):** Used to crawl major job boards.
+-   **Emergent LLM Key:**
+    -   **OpenAI Sora 2 (Video Generation):** BLOCKED due to insufficient balance.
+    -   **OpenAI TTS (Voice Generation):** WORKING. Used for video narration.
+-   **Moviepy:** Python library used for backend video composition.
+-   **D-ID:** Proposed for AI avatar generation (BLOCKED on API key).
+-   **rapidfuzz:** New backend dependency for fuzzy string matching.
+
+**Testing status**
+-   **Testing agent used after significant changes:** YES (Twice)
+-   **Troubleshoot agent used after agent stuck in loop:** NO
+-   **Test files created:** None.
+-   **Known regressions:** None.
+
+**Credentials to test flow:**
+-   **Job Seeker:**  / 
+-   **Admin/Recruiter (Starter Tier):**  / 
+
+**What agent forgot to execute**
+-   The agent did not perform any testing or verification after implementing the voice search feature. The code was created and integrated, but its functionality remains unconfirmed.</analysis>
