@@ -589,6 +589,366 @@ async def search_npi_registry(request: NPISearchRequest):
         }
 
 
+# ==================== ORCID PUBLIC API (FREE) ====================
+
+@router.post("/orcid/search")
+async def search_orcid(request: ORCIDSearchRequest):
+    """
+    Search the ORCID Public Registry - FREE API.
+    
+    ORCID is the global standard for researcher identity.
+    Returns verified education, employment, and publication history.
+    """
+    try:
+        # If we have an ORCID ID, fetch the full record
+        if request.orcid_id:
+            return await _fetch_orcid_record(request.orcid_id)
+        
+        # Otherwise, search by name/affiliation
+        query_parts = []
+        if request.family_name:
+            query_parts.append(f"family-name:{request.family_name}")
+        if request.given_names:
+            query_parts.append(f"given-names:{request.given_names}")
+        if request.affiliation:
+            query_parts.append(f"affiliation-org-name:{request.affiliation}")
+        if request.keyword:
+            query_parts.append(f"keyword:{request.keyword}")
+        
+        if not query_parts:
+            raise HTTPException(status_code=400, detail="At least one search parameter required")
+        
+        query = " AND ".join(query_parts)
+        
+        # ORCID Public API search endpoint
+        orcid_api_url = "https://pub.orcid.org/v3.0/search"
+        
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                orcid_api_url,
+                params={"q": query, "rows": 20},
+                headers={"Accept": "application/json"},
+                timeout=30.0
+            )
+            
+            if response.status_code == 200:
+                data = response.json()
+                results = data.get("result", [])
+                
+                parsed_results = []
+                for result in results[:10]:
+                    orcid_id = result.get("orcid-identifier", {}).get("path")
+                    parsed_results.append({
+                        "orcid_id": orcid_id,
+                        "orcid_url": f"https://orcid.org/{orcid_id}"
+                    })
+                
+                # Log the search
+                await verification_logs_collection.insert_one({
+                    "type": "orcid_search",
+                    "search_params": {"query": query},
+                    "results_count": len(parsed_results),
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "status": "success"
+                })
+                
+                return {
+                    "success": True,
+                    "source": "ORCID Public Registry",
+                    "source_url": "https://orcid.org/",
+                    "search_query": query,
+                    "results": parsed_results,
+                    "results_count": data.get("num-found", 0),
+                    "checked_at": datetime.now(timezone.utc).isoformat(),
+                    "note": "Click on an ORCID ID to fetch full verified record"
+                }
+            else:
+                return {
+                    "success": False,
+                    "error": f"ORCID API returned status {response.status_code}",
+                    "fallback_url": "https://orcid.org/orcid-search/search"
+                }
+                
+    except httpx.TimeoutException:
+        return {
+            "success": False,
+            "error": "ORCID API timeout",
+            "fallback_url": "https://orcid.org/orcid-search/search"
+        }
+    except Exception as e:
+        logger.error(f"ORCID search error: {e}")
+        return {
+            "success": False,
+            "error": str(e),
+            "fallback_url": "https://orcid.org/orcid-search/search"
+        }
+
+
+@router.get("/orcid/{orcid_id}")
+async def get_orcid_record(orcid_id: str):
+    """
+    Fetch a complete ORCID record by ID - FREE API.
+    
+    Returns verified education, employment, and works (publications).
+    """
+    return await _fetch_orcid_record(orcid_id)
+
+
+async def _fetch_orcid_record(orcid_id: str) -> Dict[str, Any]:
+    """Internal function to fetch and parse ORCID record."""
+    try:
+        # Validate ORCID format (0000-0000-0000-0000)
+        orcid_id = orcid_id.strip()
+        if not orcid_id or len(orcid_id) != 19:
+            raise HTTPException(status_code=400, detail="Invalid ORCID ID format. Expected: 0000-0000-0000-0000")
+        
+        # Fetch the full record
+        orcid_api_url = f"https://pub.orcid.org/v3.0/{orcid_id}/record"
+        
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                orcid_api_url,
+                headers={"Accept": "application/json"},
+                timeout=30.0
+            )
+            
+            if response.status_code == 200:
+                data = response.json()
+                
+                # Parse person info
+                person = data.get("person", {})
+                name_data = person.get("name", {})
+                
+                name = {
+                    "given_names": name_data.get("given-names", {}).get("value"),
+                    "family_name": name_data.get("family-name", {}).get("value"),
+                    "credit_name": name_data.get("credit-name", {}).get("value") if name_data.get("credit-name") else None
+                }
+                
+                # Parse education (VERIFIED by institutions)
+                activities = data.get("activities-summary", {})
+                educations_data = activities.get("educations", {}).get("affiliation-group", [])
+                educations = []
+                for edu_group in educations_data:
+                    for summary in edu_group.get("summaries", []):
+                        edu = summary.get("education-summary", {})
+                        educations.append({
+                            "institution": edu.get("organization", {}).get("name"),
+                            "department": edu.get("department-name"),
+                            "role": edu.get("role-title"),
+                            "degree": edu.get("role-title"),
+                            "start_year": edu.get("start-date", {}).get("year", {}).get("value") if edu.get("start-date") else None,
+                            "end_year": edu.get("end-date", {}).get("year", {}).get("value") if edu.get("end-date") else None,
+                            "source": edu.get("source", {}).get("source-name", {}).get("value"),
+                            "verified": edu.get("source", {}).get("source-name", {}).get("value") is not None
+                        })
+                
+                # Parse employment
+                employments_data = activities.get("employments", {}).get("affiliation-group", [])
+                employments = []
+                for emp_group in employments_data:
+                    for summary in emp_group.get("summaries", []):
+                        emp = summary.get("employment-summary", {})
+                        employments.append({
+                            "organization": emp.get("organization", {}).get("name"),
+                            "department": emp.get("department-name"),
+                            "role": emp.get("role-title"),
+                            "start_year": emp.get("start-date", {}).get("year", {}).get("value") if emp.get("start-date") else None,
+                            "end_year": emp.get("end-date", {}).get("year", {}).get("value") if emp.get("end-date") else None,
+                            "source": emp.get("source", {}).get("source-name", {}).get("value")
+                        })
+                
+                # Parse works (publications) count
+                works_data = activities.get("works", {}).get("group", [])
+                works_count = len(works_data)
+                
+                # Get recent works (last 5)
+                recent_works = []
+                for work_group in works_data[:5]:
+                    for summary in work_group.get("work-summary", []):
+                        recent_works.append({
+                            "title": summary.get("title", {}).get("title", {}).get("value"),
+                            "type": summary.get("type"),
+                            "year": summary.get("publication-date", {}).get("year", {}).get("value") if summary.get("publication-date") else None,
+                            "journal": summary.get("journal-title", {}).get("value") if summary.get("journal-title") else None
+                        })
+                        break  # Only get first summary per group
+                
+                # Log the verification
+                await verification_logs_collection.insert_one({
+                    "type": "orcid_record",
+                    "orcid_id": orcid_id,
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "status": "success"
+                })
+                
+                return {
+                    "success": True,
+                    "source": "ORCID Public Registry",
+                    "orcid_id": orcid_id,
+                    "orcid_url": f"https://orcid.org/{orcid_id}",
+                    "name": name,
+                    "education": educations,
+                    "employment": employments,
+                    "publications_count": works_count,
+                    "recent_publications": recent_works,
+                    "checked_at": datetime.now(timezone.utc).isoformat(),
+                    "verification_note": "Education and employment entries marked with 'source' are verified by the institution"
+                }
+            elif response.status_code == 404:
+                return {
+                    "success": False,
+                    "error": "ORCID ID not found",
+                    "orcid_id": orcid_id
+                }
+            else:
+                return {
+                    "success": False,
+                    "error": f"ORCID API returned status {response.status_code}"
+                }
+                
+    except httpx.TimeoutException:
+        return {
+            "success": False,
+            "error": "ORCID API timeout",
+            "fallback_url": f"https://orcid.org/{orcid_id}"
+        }
+    except Exception as e:
+        logger.error(f"ORCID record fetch error: {e}")
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+
+# ==================== UNIVERSITY SEARCH (HIPO API - FREE) ====================
+
+@router.post("/universities/search")
+async def search_universities(request: UniversitySearchRequest):
+    """
+    Search for universities worldwide - FREE Hipo University API.
+    
+    Useful for validating institution names and autocomplete.
+    Note: This does not verify accreditation status - use WHED for that.
+    """
+    try:
+        if not request.name and not request.country:
+            raise HTTPException(status_code=400, detail="Provide university name or country")
+        
+        # Hipo University API
+        hipo_api_url = "http://universities.hipolabs.com/search"
+        
+        params = {}
+        if request.name:
+            params["name"] = request.name
+        if request.country:
+            params["country"] = request.country
+        
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                hipo_api_url,
+                params=params,
+                timeout=30.0
+            )
+            
+            if response.status_code == 200:
+                universities = response.json()
+                
+                # Parse and clean results
+                parsed_results = []
+                for uni in universities[:50]:  # Limit results
+                    parsed_results.append({
+                        "name": uni.get("name"),
+                        "country": uni.get("country"),
+                        "alpha_two_code": uni.get("alpha_two_code"),
+                        "domains": uni.get("domains", []),
+                        "web_pages": uni.get("web_pages", []),
+                        "state_province": uni.get("state-province")
+                    })
+                
+                # Log the search
+                await verification_logs_collection.insert_one({
+                    "type": "university_search",
+                    "search_params": params,
+                    "results_count": len(parsed_results),
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "status": "success"
+                })
+                
+                return {
+                    "success": True,
+                    "source": "Hipo University Database",
+                    "search_params": params,
+                    "results": parsed_results,
+                    "results_count": len(parsed_results),
+                    "checked_at": datetime.now(timezone.utc).isoformat(),
+                    "note": "This database helps identify universities but does not verify accreditation. Use WHED (whed.net) to verify accreditation status."
+                }
+            else:
+                return {
+                    "success": False,
+                    "error": f"University API returned status {response.status_code}"
+                }
+                
+    except httpx.TimeoutException:
+        return {
+            "success": False,
+            "error": "University API timeout"
+        }
+    except Exception as e:
+        logger.error(f"University search error: {e}")
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+
+@router.get("/universities/country/{country_code}")
+async def get_universities_by_country(country_code: str):
+    """
+    Get all universities in a specific country - FREE API.
+    
+    Use 2-letter country codes (US, UK, DE, JP, CN, BR, etc.)
+    """
+    try:
+        hipo_api_url = "http://universities.hipolabs.com/search"
+        
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                hipo_api_url,
+                params={"country": country_code},
+                timeout=30.0
+            )
+            
+            if response.status_code == 200:
+                universities = response.json()
+                
+                return {
+                    "success": True,
+                    "country_code": country_code,
+                    "universities": [
+                        {
+                            "name": uni.get("name"),
+                            "domains": uni.get("domains", []),
+                            "web_pages": uni.get("web_pages", [])
+                        }
+                        for uni in universities
+                    ],
+                    "count": len(universities)
+                }
+            else:
+                return {
+                    "success": False,
+                    "error": f"API returned status {response.status_code}"
+                }
+                
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e)
+        }
+
+
 # ==================== VERIFICATION RESOURCES ENDPOINTS ====================
 
 @router.get("/resources")
