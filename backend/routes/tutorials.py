@@ -105,6 +105,34 @@ MULTILANG_VIDEOS = {
         "duration": "60 seconds",
         "voice": "Xiaoxiao (zh-CN)",
         "language": "zh"
+    },
+    # African Languages
+    "sw": {
+        "id": "overview_swahili",
+        "title": "Muhtasari wa MedMatch",
+        "description": "Muhtasari kamili wa MedMatch unaoendelea na AI kwa watafutaji wa kazi na waajiri",
+        "duration": "60 seconds",
+        "voice": "Zuri (sw-KE)",
+        "language": "sw",
+        "talk_id": "tlk_7LhG-0hhG3ynEd2KxohrN"
+    },
+    "af": {
+        "id": "overview_afrikaans",
+        "title": "MedMatch Oorsig",
+        "description": "KI-aangedrewe omvattende oorsig van alle MedMatch-funksies",
+        "duration": "60 seconds",
+        "voice": "Adri (af-ZA)",
+        "language": "af",
+        "talk_id": "tlk_jKq2BCNU1NiVypyd2xJS4"
+    },
+    "en-NG": {
+        "id": "overview_english_nigeria",
+        "title": "MedMatch Overview (Nigerian English)",
+        "description": "AI-powered comprehensive overview with Nigerian English accent",
+        "duration": "60 seconds",
+        "voice": "Ezinne (en-NG)",
+        "language": "en-NG",
+        "talk_id": "tlk_hq9691jXrjYhwEOv35sV2"
     }
 }
 
