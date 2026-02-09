@@ -33,6 +33,7 @@ import { Badge } from '../components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { apiClient } from '@/utils/apiClient';
 import TranslationQADashboard from '../components/TranslationQADashboard';
+import CAPADashboard from '../components/CAPADashboard';
 
 // Status Badge Component
 const StatusBadge = ({ status }) => {
@@ -465,12 +466,16 @@ export default function DragonAutomatorPage() {
 
       {/* Tabs for Details */}
       <Tabs defaultValue="diagnostics" className="w-full">
-        <TabsList className="grid w-full grid-cols-5">
+        <TabsList className="grid w-full grid-cols-6">
           <TabsTrigger value="diagnostics">Diagnostics</TabsTrigger>
           <TabsTrigger value="improvements">Improvements</TabsTrigger>
           <TabsTrigger value="translation-qa" className="flex items-center gap-1">
             <Languages className="w-3 h-3" />
             Translation QA
+          </TabsTrigger>
+          <TabsTrigger value="capa" className="flex items-center gap-1">
+            <Shield className="w-3 h-3" />
+            CAPA
           </TabsTrigger>
           <TabsTrigger value="changelog">Changelog</TabsTrigger>
           <TabsTrigger value="reports">Reports</TabsTrigger>
