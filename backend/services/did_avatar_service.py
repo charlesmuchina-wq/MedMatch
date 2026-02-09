@@ -106,6 +106,8 @@ class DIDService:
             {"voice_id": "en-GB-SoniaNeural", "name": "Sonia", "language": "en-GB", "gender": "female"},
             {"voice_id": "en-AU-NatashaNeural", "name": "Natasha", "language": "en-AU", "gender": "female"},
             {"voice_id": "en-KE-ChilembaNeural", "name": "Chilemba", "language": "en-KE", "gender": "male"},
+            {"voice_id": "en-NG-AbeoNeural", "name": "Abeo", "language": "en-NG", "gender": "male"},
+            {"voice_id": "en-NG-EzinneNeural", "name": "Ezinne", "language": "en-NG", "gender": "female"},
             # Spanish
             {"voice_id": "es-ES-ElviraNeural", "name": "Elvira", "language": "es-ES", "gender": "female"},
             {"voice_id": "es-MX-DaliaNeural", "name": "Dalia", "language": "es-MX", "gender": "female"},
@@ -126,6 +128,13 @@ class DIDService:
             {"voice_id": "ar-SA-ZariyahNeural", "name": "Zariyah", "language": "ar-SA", "gender": "female"},
             # Hindi
             {"voice_id": "hi-IN-SwaraNeural", "name": "Swara", "language": "hi-IN", "gender": "female"},
+            # African Languages
+            {"voice_id": "sw-KE-ZuriNeural", "name": "Zuri", "language": "sw-KE", "gender": "female"},
+            {"voice_id": "sw-KE-RafikiNeural", "name": "Rafiki", "language": "sw-KE", "gender": "male"},
+            {"voice_id": "sw-TZ-RehemaNeural", "name": "Rehema", "language": "sw-TZ", "gender": "female"},
+            {"voice_id": "sw-TZ-DaudiNeural", "name": "Daudi", "language": "sw-TZ", "gender": "male"},
+            {"voice_id": "af-ZA-AdriNeural", "name": "Adri", "language": "af-ZA", "gender": "female"},
+            {"voice_id": "af-ZA-WillemNeural", "name": "Willem", "language": "af-ZA", "gender": "male"},
             # Multilingual (41+ languages)
             {"voice_id": "en-US-JennyMultilingualNeural", "name": "Jenny Multilingual", "language": "multilingual", "gender": "female"},
         ]
