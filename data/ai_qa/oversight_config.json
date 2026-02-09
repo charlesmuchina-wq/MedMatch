@@ -49,5 +49,17 @@
       ]
     }
   },
-  "designated_overseers": []
+  "designated_overseers": [
+    {
+      "user_id": "admin_001",
+      "name": "Admin User",
+      "role": "primary_overseer",
+      "email": "admin@medmatch.com",
+      "department": "Recruitment",
+      "registered_at": "2026-02-09T15:00:31.907537+00:00",
+      "active": true,
+      "training_complete": false,
+      "completed_training": []
+    }
+  ]
 }
