@@ -911,6 +911,19 @@ def setup_scheduled_tasks():
     else:
         logging.info("   🔄 Restored: Rollback check (every 15 min)")
     
+    # CAPA System Analysis - runs with weekly maintenance (Sundays 1:15 AM PST)
+    if 'capa_analysis' not in existing_jobs:
+        scheduler.add_job(
+            run_capa_system_analysis,
+            CronTrigger(day_of_week='sun', hour=9, minute=15, timezone='UTC'),
+            id='capa_analysis',
+            name='CAPA System-Wide Analysis',
+            replace_existing=True
+        )
+        logging.info("   🎯 Added: CAPA analysis (Sundays 1:15 AM PST)")
+    else:
+        logging.info("   🎯 Restored: CAPA analysis (Sundays 1:15 AM PST)")
+    
     logging.info(f"🐉 KARAU DRAGON Scheduler configured with {len(scheduler.get_jobs())} jobs")
     logging.info(f"   💾 Job persistence: MongoDB ({DB_NAME}.apscheduler_jobs)")
 
