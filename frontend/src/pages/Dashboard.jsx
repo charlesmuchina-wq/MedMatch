@@ -21,6 +21,7 @@ const API = process.env.REACT_APP_BACKEND_URL;
 // Watch Tutorials Card
 const TutorialsCard = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   
   return (
     <Card className="bg-gradient-to-br from-teal-500 to-teal-600 text-white border-0 overflow-hidden">
@@ -29,10 +30,10 @@ const TutorialsCard = () => {
           <div>
             <div className="flex items-center gap-2 mb-2">
               <Play className="w-5 h-5" />
-              <h3 className="font-semibold">Watch Tutorials</h3>
+              <h3 className="font-semibold">{t("dashboard.watchTutorials") || "Watch Tutorials"}</h3>
             </div>
             <p className="text-teal-100 text-sm mb-3">
-              Learn how to use MedMatch with video guides
+              {t("dashboard.learnWithVideos") || "Learn how to use MedMatch with video guides"}
             </p>
             <Button 
               onClick={() => navigate('/tutorials')}
@@ -40,7 +41,7 @@ const TutorialsCard = () => {
               data-testid="watch-tutorials-btn"
             >
               <HelpCircle className="w-4 h-4 mr-1" />
-              Get Started
+              {t("dashboard.getStarted") || "Get Started"}
             </Button>
           </div>
           <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
