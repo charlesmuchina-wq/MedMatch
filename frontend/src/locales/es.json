@@ -760,17 +760,17 @@
     "noResume": "No se Encontró Currículum"
   },
   "candidates": {
-    "addSkillOrKeyword": "Please add at least one skill or keyword",
-    "loadFailed": "Failed to load profile",
-    "searchFailed": "Search failed"
+    "addSkillOrKeyword": "Por favor agrega al menos una habilidad o palabra clave",
+    "loadFailed": "Error al cargar perfil",
+    "searchFailed": "Búsqueda fallida"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "createFailed": "Error al crear empresa",
+    "created": "Perfil de empresa creado",
+    "followFailed": "Error al seguir empresa"
   },
   "savedJobs": {
-    "saveJobsHint": "Save jobs while searching to review them later",
-    "noSavedJobs": "No saved jobs"
+    "saveJobsHint": "Guarda empleos mientras buscas para revisarlos después",
+    "noSavedJobs": "Sin empleos guardados"
   }
 }
