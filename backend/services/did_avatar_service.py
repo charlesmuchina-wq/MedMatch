@@ -128,6 +128,7 @@ class DIDService:
             voice_id: Microsoft Azure voice ID
             background_color: Background color hex code
             title: Video title for storage
+            source_url: Custom image URL for the avatar presenter
         
         Returns:
             Video creation result with URL or status
@@ -135,8 +136,12 @@ class DIDService:
         if not self.api_key:
             return self._create_mock_video(script, title)
         
+        # Default MedMatch presenter image
+        default_source = "https://customer-assets.emergentagent.com/job_hirescience/artifacts/mux577io_MedMatch%20Image.jpeg"
+        
         # Prepare the request payload
         payload = {
+            "source_url": source_url or default_source,
             "script": {
                 "type": "text",
                 "input": script,
@@ -149,18 +154,13 @@ class DIDService:
                 "fluent": True,
                 "pad_audio": 0.5,
                 "stitch": True
-            },
-            "background": {
-                "color": background_color
             }
         }
         
-        # Add presenter if specified
+        # Add presenter if specified (overrides source_url)
         if presenter_id:
+            del payload["source_url"]
             payload["presenter_id"] = presenter_id
-        else:
-            # Use default source image URL
-            payload["source_url"] = "https://d-id.com/api/clips/api/source_url"
         
         try:
             async with httpx.AsyncClient() as client:
