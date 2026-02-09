@@ -1,6 +1,6 @@
 {
   "test_date": "2026-01-18T15:28:52.765656",
-  "api_url": "https://talentqa-hub.preview.emergentagent.com/api",
+  "api_url": "https://medmatch-qa.preview.emergentagent.com/api",
   "challenge_levels": [
     2000,
     4000,
