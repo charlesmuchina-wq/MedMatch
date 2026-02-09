@@ -530,6 +530,11 @@ export default function DragonAutomatorPage() {
           )}
         </TabsContent>
 
+        {/* Translation QA Tab */}
+        <TabsContent value="translation-qa" className="mt-4">
+          <TranslationQADashboard />
+        </TabsContent>
+
         <TabsContent value="changelog" className="mt-4">
           <Card>
             <CardHeader>
