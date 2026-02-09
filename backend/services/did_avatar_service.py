@@ -100,15 +100,34 @@ class DIDService:
         """Get available voices for text-to-speech."""
         # D-ID supports Microsoft Azure voices
         return [
+            # English
             {"voice_id": "en-US-JennyNeural", "name": "Jenny", "language": "en-US", "gender": "female"},
             {"voice_id": "en-US-GuyNeural", "name": "Guy", "language": "en-US", "gender": "male"},
             {"voice_id": "en-GB-SoniaNeural", "name": "Sonia", "language": "en-GB", "gender": "female"},
             {"voice_id": "en-AU-NatashaNeural", "name": "Natasha", "language": "en-AU", "gender": "female"},
+            {"voice_id": "en-KE-ChilembaNeural", "name": "Chilemba", "language": "en-KE", "gender": "male"},
+            # Spanish
             {"voice_id": "es-ES-ElviraNeural", "name": "Elvira", "language": "es-ES", "gender": "female"},
+            {"voice_id": "es-MX-DaliaNeural", "name": "Dalia", "language": "es-MX", "gender": "female"},
+            # Portuguese
+            {"voice_id": "pt-BR-FranciscaNeural", "name": "Francisca", "language": "pt-BR", "gender": "female"},
+            {"voice_id": "pt-BR-AntonioNeural", "name": "Antonio", "language": "pt-BR", "gender": "male"},
+            {"voice_id": "pt-PT-DuarteNeural", "name": "Duarte", "language": "pt-PT", "gender": "male"},
+            {"voice_id": "pt-PT-RaquelNeural", "name": "Raquel", "language": "pt-PT", "gender": "female"},
+            # French
             {"voice_id": "fr-FR-DeniseNeural", "name": "Denise", "language": "fr-FR", "gender": "female"},
+            # German
             {"voice_id": "de-DE-KatjaNeural", "name": "Katja", "language": "de-DE", "gender": "female"},
+            # Japanese
             {"voice_id": "ja-JP-NanamiNeural", "name": "Nanami", "language": "ja-JP", "gender": "female"},
+            # Chinese
             {"voice_id": "zh-CN-XiaoxiaoNeural", "name": "Xiaoxiao", "language": "zh-CN", "gender": "female"},
+            # Arabic
+            {"voice_id": "ar-SA-ZariyahNeural", "name": "Zariyah", "language": "ar-SA", "gender": "female"},
+            # Hindi
+            {"voice_id": "hi-IN-SwaraNeural", "name": "Swara", "language": "hi-IN", "gender": "female"},
+            # Multilingual (41+ languages)
+            {"voice_id": "en-US-JennyMultilingualNeural", "name": "Jenny Multilingual", "language": "multilingual", "gender": "female"},
         ]
     
     async def create_talk_video(
