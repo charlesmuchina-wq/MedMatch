@@ -1,0 +1,59 @@
+[
+  {
+    "log_id": "46edb713-b559-444f-9f9c-ec109d9baa84",
+    "timestamp": "2026-02-09T15:00:11.331800+00:00",
+    "ai_model": {
+      "model_id": "medmatch-match-v4.2",
+      "version": "2026.Q1.release",
+      "model_type": "job_matching",
+      "training_data_summary": "Life sciences job matching dataset v4",
+      "risk_level": "High-Risk (Annex III)"
+    },
+    "crypto_shredding_metadata": {
+      "data_subject_key_id": "DSK-D27E1A6F",
+      "key_status": "active",
+      "encryption_algorithm": "AES-256-GCM",
+      "kms_reference": "mock:kms:medmatch:key/ai-qa-dsk"
+    },
+    "encrypted_personal_payload": "Z0FBQUFBQnBpZlo3RmRVLVYtak04SnJXemtQX2pCenhhY3hOZDJxTzFIWTVqeUI1QjZUYml6SmNaWTd6MDF1bURSZ3pOWlEtYldpSTEtZXR2cU9yWFl5YkhhcDNCRFZRN1NRbW5JUVFveUROalY5dlJ3Y1JZNnV2WFNPUlVfM3J5amh4Z1ZQWXFGNGdzbWJKNUJJWnIybTc5VEF5bFRsMGZRPT0=",
+    "input_summary": {
+      "skills": [
+        "Molecular Biology",
+        "Lab Management",
+        "HPLC"
+      ],
+      "experience_years": 8
+    },
+    "ai_decision_trace": {
+      "decision_type": "match_score",
+      "output": {
+        "job_id": "job_456",
+        "score": 0.94
+      },
+      "confidence": 0.94,
+      "decision_logic": "Strong match due to 9/10 core technical requirements overlap",
+      "top_features": {
+        "technical_skills": 0.65,
+        "experience_years": 0.25,
+        "location_match": 0.1
+      },
+      "factors_considered": [
+        "skills_match",
+        "experience_match",
+        "location_preference"
+      ]
+    },
+    "human_oversight": {
+      "reviewer_id": null,
+      "action": "PENDING_REVIEW",
+      "override_reason": null,
+      "review_timestamp": null
+    },
+    "retention_info": {
+      "retention_period_months": 36,
+      "deletion_scheduled": "2029-02-08T15:00:11.350915+00:00",
+      "legal_basis": "EU AI Act Article 26, Employment Law"
+    },
+    "signature": "5d4e086413ba60ab859c42e8fb4548829cad538fbccfa009e49474250653ab48"
+  }
+]

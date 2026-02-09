@@ -1,0 +1,12 @@
+{
+  "keys": {
+    "test_user_123": {
+      "dsk_id": "DSK-D27E1A6F",
+      "key": "UtkCFohr4BZQesHbA1xlJPd1Wr_0jq93ymPwdX1TJT8=",
+      "created_at": "2026-02-09T15:00:11.331834+00:00",
+      "status": "active",
+      "algorithm": "AES-256-GCM"
+    }
+  },
+  "shredded": []
+}
