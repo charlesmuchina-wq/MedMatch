@@ -310,6 +310,7 @@ app.include_router(ats_router, prefix="/api")
 app.include_router(tutorials_router, prefix="/api")
 app.include_router(video_translation_router, prefix="/api")
 app.include_router(search_engine_router, prefix="/api")
+app.include_router(translation_qa_router, prefix="/api")
 
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
