@@ -17,6 +17,7 @@ from apscheduler.executors.asyncio import AsyncIOExecutor
 from pymongo import MongoClient
 
 from utils.database import db
+from services.capa_service import capa_service
 
 # Get MongoDB URL from environment
 MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
