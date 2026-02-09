@@ -235,14 +235,14 @@
     "nextQuestion": "Siguiente Pregunta",
     "saveFavorite": "Guardar en Favoritos",
     "exportPDF": "Exportar a PDF",
-    "saveFailed": "Failed to save",
-    "allAnswersGenerated": "All answers generated!",
-    "removedFromFavorites": "Removed from favorites",
-    "savedToFavorites": "Saved to favorites!",
-    "answerGenerated": "Answer generated!",
-    "enterQuestion": "Please enter a question",
-    "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "saveFailed": "Error al guardar",
+    "allAnswersGenerated": "¡Todas las respuestas generadas!",
+    "removedFromFavorites": "Eliminado de favoritos",
+    "savedToFavorites": "¡Guardado en favoritos!",
+    "answerGenerated": "¡Respuesta generada!",
+    "enterQuestion": "Por favor ingresa una pregunta",
+    "answerFailed": "Error al generar respuesta",
+    "enterAtLeastOne": "Por favor ingresa al menos una pregunta"
   },
   "coverLetter": {
     "coverLetterGenerator": "Generador de Cartas de Presentación",
@@ -258,10 +258,10 @@
     "generated": "Carta de presentación generada",
     "copy": "Copiar al Portapapeles",
     "download": "Descargar",
-    "copied": "Cover letter copied to clipboard!",
-    "uploadResumeFirst": "Please upload your resume first",
-    "generationFailed": "Failed to generate cover letter",
-    "fillAllFields": "Please fill in all fields"
+    "copied": "¡Carta de presentación copiada!",
+    "uploadResumeFirst": "Por favor sube tu currículum primero",
+    "generationFailed": "Error al generar carta de presentación",
+    "fillAllFields": "Por favor completa todos los campos"
   },
   "membership": {
     "membership": "Membresía",
