@@ -829,7 +829,7 @@ async def run_capa_system_analysis():
                 capas_created.append(capa["id"])
                 logging.info(f"🎯 CAPA Created: {capa['id']} - {issue['title']}")
         
-        # Store analysis report
+        # Build report (without _id for JSON serialization)
         report = {
             "timestamp": now.isoformat(),
             "issues_analyzed": len(issues_found),
@@ -837,7 +837,10 @@ async def run_capa_system_analysis():
             "capa_ids": capas_created,
             "issues": issues_found
         }
-        await db.capa_analysis_reports.insert_one(report)
+        
+        # Store in database (make a copy to avoid _id modification)
+        report_to_store = {**report}
+        await db.capa_analysis_reports.insert_one(report_to_store)
         
         logging.info(f"🔍 CAPA Analysis complete: {len(issues_found)} issues found, {len(capas_created)} CAPAs created")
         
