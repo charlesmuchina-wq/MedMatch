@@ -210,12 +210,21 @@ const JobSearchPage = ({ savedJobs = [], onSave, onApply, onAnalyze }) => {
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-3 w-5 h-5 text-slate-400" />
               <Input
-                placeholder={t("jobs.searchPlaceholder")}
+                placeholder={interimTranscript || t("jobs.searchPlaceholder")}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && searchJobs(query)}
-                className="pl-10"
+                className={`pl-10 pr-12 ${interimTranscript ? 'italic text-slate-400' : ''}`}
                 data-testid="job-search-input"
+              />
+              {/* Voice Search Button inside input */}
+              <VoiceSearchButton
+                onResult={handleVoiceResult}
+                onInterimResult={handleVoiceInterim}
+                className="absolute right-2 top-1/2 -translate-y-1/2"
+                size="sm"
+                variant="ghost"
+                data-testid="voice-search-btn"
               />
             </div>
             
