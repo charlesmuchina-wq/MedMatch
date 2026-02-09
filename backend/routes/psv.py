@@ -373,71 +373,56 @@ VERIFICATION_RESOURCES = {
 @router.post("/oig/search")
 async def search_oig_leie(request: OIGSearchRequest):
     """
-    Search the OIG LEIE (List of Excluded Individuals/Entities) database.
-    This is a FREE public API for checking healthcare exclusions.
+    OIG LEIE (List of Excluded Individuals/Entities) verification.
+    
+    Note: OIG does not provide a public REST API. This endpoint provides
+    guidance for manual verification via the official OIG website.
     
     An exclusion means the individual/entity cannot participate in 
     federal healthcare programs (Medicare, Medicaid, etc.)
     """
-    try:
-        # Build query parameters
-        params = {}
-        if request.first_name:
-            params["firstname"] = request.first_name
-        if request.last_name:
-            params["lastname"] = request.last_name
-        if request.npi:
-            params["npi"] = request.npi
-        if request.state:
-            params["state"] = request.state
-        
-        if not params:
-            raise HTTPException(status_code=400, detail="At least one search parameter required")
-        
-        # OIG LEIE REST API endpoint
-        oig_api_url = "https://oig.hhs.gov/exclusions/rest/api"
-        
-        async with httpx.AsyncClient() as client:
-            response = await client.get(
-                oig_api_url,
-                params=params,
-                timeout=30.0
-            )
-            
-            if response.status_code == 200:
-                data = response.json()
-                
-                # Log the verification
-                await verification_logs_collection.insert_one({
-                    "type": "oig_leie",
-                    "search_params": params,
-                    "results_count": len(data) if isinstance(data, list) else 0,
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
-                    "status": "success"
-                })
-                
-                return {
-                    "success": True,
-                    "source": "OIG LEIE Database",
-                    "source_url": "https://exclusions.oig.hhs.gov/",
-                    "search_params": params,
-                    "results": data if isinstance(data, list) else [],
-                    "results_count": len(data) if isinstance(data, list) else 0,
-                    "exclusion_found": len(data) > 0 if isinstance(data, list) else False,
-                    "checked_at": datetime.now(timezone.utc).isoformat(),
-                    "disclaimer": "This search queries the official OIG LEIE database. An exclusion means the individual cannot participate in federal healthcare programs."
-                }
-            else:
-                # API might be down, return guidance
-                return {
-                    "success": False,
-                    "error": f"OIG API returned status {response.status_code}",
-                    "fallback_url": "https://exclusions.oig.hhs.gov/",
-                    "instruction": "Please search manually on the OIG website"
-                }
-                
-    except httpx.TimeoutException:
-        return {
+    # Build search parameters for logging
+    params = {}
+    if request.first_name:
+        params["firstname"] = request.first_name
+    if request.last_name:
+        params["lastname"] = request.last_name
+    if request.npi:
+        params["npi"] = request.npi
+    if request.state:
+        params["state"] = request.state
+    
+    if not params:
+        raise HTTPException(status_code=400, detail="At least one search parameter required")
+    
+    # Build the manual search URL
+    search_url = "https://exclusions.oig.hhs.gov/"
+    
+    # Log the verification request
+    await verification_logs_collection.insert_one({
+        "type": "oig_leie",
+        "search_params": params,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "status": "redirect"
+    })
+    
+    return {
+        "success": True,
+        "source": "OIG LEIE Database",
+        "method": "manual_verification",
+        "search_params": params,
+        "search_url": search_url,
+        "download_url": "https://oig.hhs.gov/exclusions/exclusions_list.asp",
+        "instructions": {
+            "step1": f"Visit {search_url}",
+            "step2": "Enter the name or NPI in the search field",
+            "step3": "Review results - if found, the individual is EXCLUDED from federal healthcare programs",
+            "step4": "Print or save the search results for your records"
+        },
+        "alternative": "Download the monthly CSV file from the download URL for bulk screening",
+        "checked_at": datetime.now(timezone.utc).isoformat(),
+        "disclaimer": "The OIG does not provide a public API. Manual verification is required via their official website."
+    }
             "success": False,
             "error": "OIG API timeout",
             "fallback_url": "https://exclusions.oig.hhs.gov/",
