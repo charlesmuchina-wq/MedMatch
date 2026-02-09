@@ -5,7 +5,7 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { 
   Search, Briefcase, FileText, Bookmark, CheckSquare, 
-  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3, Users, Video, LogOut, Crown, DollarSign, MessageSquare, UserSearch, LayoutDashboard, Award, ShieldCheck, CalendarDays, Bot, Shield, Code, HelpCircle, Home
+  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3, Users, Video, LogOut, Crown, DollarSign, MessageSquare, UserSearch, LayoutDashboard, Award, ShieldCheck, CalendarDays, Bot, Shield, Code, HelpCircle, Home, FileCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
