@@ -40,6 +40,27 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - Both videos use D-ID presenter "Amy" (stock presenter)
 - ~6 credits used, ~335 remaining
 
+### NEW: PSV (Primary Source Verification) Hub ✅ (Feb 9, 2026)
+**FREE Self-Service Verification System - Zero Cost**
+
+| API | Type | Coverage | Status |
+|-----|------|----------|--------|
+| CMS NPI Registry | REST API | US Healthcare Providers | ✅ Working |
+| ORCID | REST API | Global Researchers | ✅ Working |
+| Hipo University | REST API | Global Universities | ✅ Working |
+| OIG LEIE | Manual Redirect | US Exclusions | ✅ Working |
+
+**Features:**
+- 3 free API integrations + manual verification links
+- Global coverage: WHED, NCEES, FSMB, Nursys, SAM.gov, FDA
+- Regional resources: Mexico Cédula, Peru SUNEDU, China CHSI, Brazil e-MEC, Europass
+- Credential tracking with expiration alerts
+- Verification activity logging
+
+**Routes:**
+- Frontend: `/psv` or `/verification-hub`
+- Backend: `/api/psv/*`
+
 ### Android Build Complete ✅
 - Build ID: `0e0a06e8-d6a4-41ef-929e-f167d89367b5`
 - Status: Finished
