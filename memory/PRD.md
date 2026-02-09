@@ -115,6 +115,9 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 107. **DSAR Manager**: GDPR Data Subject Access Request automation with 30-day deadline tracking ✅ NEW (Feb 9, 2026)
 108. **Transparency Dashboard**: Real-time AI QA metrics, compliance scores, alert monitoring ✅ NEW (Feb 9, 2026)
 109. **Regulatory Compliance Checklists**: EU AI Act, GDPR, PIPL, APPI pre-built compliance checklists ✅ NEW (Feb 9, 2026)
+110. **D-ID AI Avatar Integration**: Custom presenter avatar video generation with 9 voice options ✅ NEW (Feb 9, 2026)
+111. **Multi-Language Avatar Videos**: Overview videos in Spanish, French, German, Japanese, Chinese ✅ NEW (Feb 9, 2026)
+112. **Role-Specific Videos**: 30-second quick start guides for Job Seekers and Recruiters ✅ NEW (Feb 9, 2026)
 
 
 ---
