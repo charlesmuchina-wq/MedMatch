@@ -104,6 +104,8 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 96. **Tutorials API**: Backend endpoint serving video metadata and file streaming ✅ NEW (Feb 6, 2026)
 97. **Navigation Guide Documentation**: Comprehensive markdown guide at `/app/docs/guides/NAVIGATION_GUIDE.md` ✅ NEW (Feb 6, 2026)
 98. **6 Tutorial Videos**: Job Seeker Intro, Recruiter Dashboard, Job Search, ATS, Resume Upload, Interview Prep ✅ NEW (Feb 6, 2026)
+99. **Translation QA Agent**: Automated localization file scanner with health score, missing keys, placeholder errors ✅ NEW (Feb 9, 2026)
+100. **CAPA System**: Corrective Action Preventive Action quality management integrated in Karau Automator ✅ NEW (Feb 9, 2026)
 
 
 ---
