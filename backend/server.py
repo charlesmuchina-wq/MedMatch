@@ -318,6 +318,7 @@ app.include_router(translation_qa_router, prefix="/api")
 app.include_router(capa_router, prefix="/api")
 app.include_router(ai_qa_router, prefix="/api")
 app.include_router(avatar_router, prefix="/api")
+app.include_router(psv_router, prefix="/api")
 
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
