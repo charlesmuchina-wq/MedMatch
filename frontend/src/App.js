@@ -304,13 +304,30 @@ const Header = ({ onMenuClick, resume, user, onLogout }) => {
   return (
     <header className={`glass-header sticky top-0 z-30 px-6 py-4 ${isDark ? 'dark' : ''}`}>
       <div className="flex items-center justify-between">
-        <button 
-          className={`lg:hidden p-2 rounded-md ${isDark ? 'hover:bg-batik-dark-grey text-slate-300' : 'hover:bg-slate-100'}`}
-          onClick={onMenuClick}
-          data-testid="mobile-menu-btn"
-        >
-          <Menu className="w-5 h-5" />
-        </button>
+        <div className="flex items-center gap-2">
+          <button 
+            className={`lg:hidden p-2 rounded-md ${isDark ? 'hover:bg-batik-dark-grey text-slate-300' : 'hover:bg-slate-100'}`}
+            onClick={onMenuClick}
+            data-testid="mobile-menu-btn"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+          
+          {/* Home Button - always visible */}
+          <button
+            onClick={() => navigate('/')}
+            className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
+              isDark 
+                ? 'bg-slate-700/50 text-slate-300 hover:bg-slate-700' 
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+            data-testid="header-home-btn"
+            title="Go to Dashboard"
+          >
+            <Home className="w-4 h-4" />
+            <span className="text-sm font-medium hidden sm:block">Home</span>
+          </button>
+        </div>
         
         <div className="flex-1" />
         
