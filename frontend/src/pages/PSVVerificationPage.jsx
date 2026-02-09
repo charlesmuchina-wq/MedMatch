@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from '@/utils/i18n';
 import { 
   Search, Shield, GraduationCap, FlaskConical, Building2, 
   Globe, ExternalLink, CheckCircle2, AlertTriangle, Loader2,
