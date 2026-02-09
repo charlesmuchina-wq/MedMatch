@@ -337,3 +337,36 @@ async def create_capa_from_qa(
         "created_by": "Karau Automator"
     })
     return {"success": True, "capa": capa}
+
+
+@router.post("/automator/run-analysis")
+async def run_capa_analysis():
+    """
+    Manually trigger CAPA system-wide analysis.
+    Same analysis that runs during weekly KARAU DRAGON maintenance.
+    """
+    from services.dragon_scheduler import run_capa_system_analysis
+    result = await run_capa_system_analysis()
+    return {
+        "success": True,
+        "issues_found": result.get("issues_analyzed", 0),
+        "capas_created": result.get("capas_created", 0),
+        "capa_ids": result.get("capa_ids", []),
+        "details": result
+    }
+
+
+@router.get("/automator/analysis-reports")
+async def get_capa_analysis_reports(limit: int = Query(default=10, le=50)):
+    """Get recent CAPA analysis reports from automated scans"""
+    from utils.database import db
+    
+    reports = await db.capa_analysis_reports.find(
+        {},
+        {"_id": 0}
+    ).sort("timestamp", -1).limit(limit).to_list(limit)
+    
+    return {
+        "reports": reports,
+        "total": len(reports)
+    }
