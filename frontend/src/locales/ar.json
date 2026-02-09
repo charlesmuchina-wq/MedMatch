@@ -880,19 +880,19 @@
     "customize": "تخصيص"
   },
   "cloudStorage": {
-    "supportedTypes": "Supported: PDF, DOC, DOCX",
-    "listFailed": "Failed to load files",
-    "noFiles": "No compatible files found",
-    "comingSoon": "Coming soon",
-    "uploadSuccess": "File uploaded successfully!",
-    "uploadFailed": "Failed to upload file",
-    "noProviders": "Cloud storage providers are not configured. Contact support for help.",
-    "clickToConnect": "Click to connect",
-    "selectFile": "Select a File",
-    "connectFailed": "Failed to connect to cloud provider",
-    "import": "Import File",
-    "connected": "Connected",
-    "importFrom": "Import from Cloud Storage",
+    "supportedTypes": "المدعوم: PDF, DOC, DOCX",
+    "listFailed": "فشل في تحميل الملفات",
+    "noFiles": "لم يتم العثور على ملفات متوافقة",
+    "comingSoon": "قريباً",
+    "uploadSuccess": "تم رفع الملف بنجاح!",
+    "uploadFailed": "فشل في رفع الملف",
+    "noProviders": "خدمات التخزين السحابي غير مُعَدة. تواصل مع الدعم للمساعدة.",
+    "clickToConnect": "انقر للاتصال",
+    "selectFile": "اختر ملفاً",
+    "connectFailed": "فشل الاتصال بالتخزين السحابي",
+    "import": "استيراد ملف",
+    "connected": "متصل",
+    "importFrom": "استيراد من التخزين السحابي",
     "title": "التخزين السحابي",
     "connect": "ربط",
     "disconnect": "إلغاء الربط",
@@ -909,8 +909,8 @@
     "oneDrive": "ون درايف"
   },
   "extras": {
-    "later": "Later",
-    "refresh": "Refresh",
+    "later": "لاحقاً",
+    "refresh": "تحديث",
     "beta": "تجريبي"
   },
   "salary": {
