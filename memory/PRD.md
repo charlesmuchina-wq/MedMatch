@@ -34,6 +34,12 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - Remaining 5 are intentional brand names (Google, Apple, Premium, KARAU)
 - All critical user-facing sections translated
 
+### NEW: German & French Tutorial Videos Created ✅ (Feb 9, 2026)
+- **German Tutorial Video**: `tlk_U_WgYRHRZvTazt9trvZpg` - Katja voice (de-DE)
+- **French Tutorial Video**: `tlk_X0fd9qzrvTlsqBWynmMe6` - Denise voice (fr-FR)
+- Both videos use D-ID presenter "Amy" (stock presenter)
+- ~6 credits used, ~335 remaining
+
 ### Android Build Complete ✅
 - Build ID: `0e0a06e8-d6a4-41ef-929e-f167d89367b5`
 - Status: Finished
