@@ -134,11 +134,11 @@
     "watchTutorials": "Ver Tutoriales",
     "learnWithVideos": "Aprende a usar MedMatch con guías en video",
     "getStarted": "Comenzar",
-    "smartAlerts": "Smart Alerts",
-    "aiPoweredTools": "AI-Powered Tools",
-    "getCallbackScores": "Get AI-powered callback probability scores",
-    "getNotifiedMatching": "Get notified when matching jobs appear",
-    "practiceBodyLanguage": "Practice with AI body language analysis"
+    "smartAlerts": "Alertas Inteligentes",
+    "aiPoweredTools": "Herramientas con IA",
+    "getCallbackScores": "Obtén puntuaciones de probabilidad de respuesta con IA",
+    "getNotifiedMatching": "Recibe notificaciones cuando aparezcan empleos compatibles",
+    "practiceBodyLanguage": "Practica con análisis de lenguaje corporal con IA"
   },
   "jobs": {
     "searchJobs": "Buscar Empleos",
