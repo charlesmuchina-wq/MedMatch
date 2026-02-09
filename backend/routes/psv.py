@@ -929,12 +929,12 @@ async def get_verification_resources():
     return {
         "resources": VERIFICATION_RESOURCES,
         "free_apis": [
-            {"name": "OIG LEIE", "endpoint": "/api/psv/oig/search", "description": "Healthcare exclusion check"},
-            {"name": "CMS NPI Registry", "endpoint": "/api/psv/npi/search", "description": "Provider identifier lookup"},
-            {"name": "ORCID", "endpoint": "/api/psv/orcid/search", "description": "Researcher identity & publications"},
-            {"name": "University Search", "endpoint": "/api/psv/universities/search", "description": "Global university lookup"}
+            {"name": "CMS NPI Registry", "endpoint": "/api/psv/npi/search", "description": "Provider identifier lookup (API)"},
+            {"name": "ORCID", "endpoint": "/api/psv/orcid/search", "description": "Researcher identity & publications (API)"},
+            {"name": "University Search", "endpoint": "/api/psv/universities/search", "description": "Global university lookup (API)"},
+            {"name": "OIG LEIE", "endpoint": "/api/psv/oig/search", "description": "Healthcare exclusion check (manual redirect)"}
         ],
-        "description": "Self-service verification hub with 4 FREE API integrations"
+        "description": "Self-service verification hub with 3 FREE APIs + manual verification links"
     }
 
 
