@@ -6,16 +6,35 @@
     "capa_type": "both",
     "severity": "medium",
     "source": "Translation QA Agent",
-    "status": "draft",
+    "status": "investigation",
     "created_at": "2026-02-09T13:21:23.965511+00:00",
-    "updated_at": "2026-02-09T13:21:23.965511+00:00",
+    "updated_at": "2026-02-09T13:25:45.517319+00:00",
     "created_by": "system",
     "assigned_to": "",
     "investigation": {
-      "started_at": null,
+      "started_at": "2026-02-09T13:25:45.399109+00:00",
       "completed_at": null,
       "investigation_method": "5 Whys",
-      "probable_causes": [],
+      "probable_causes": [
+        {
+          "id": "21fa0cc1",
+          "description": "English fallback text used instead of proper translations for RTL languages",
+          "category": "process",
+          "evidence": "Translation QA Agent detected 372 RTL keys with English text",
+          "status": "probable",
+          "added_at": "2026-02-09T13:25:45.458313+00:00",
+          "added_by": "system"
+        },
+        {
+          "id": "90773cbc",
+          "description": "Text expansion warnings due to longer translations in some languages",
+          "category": "technical",
+          "evidence": "50 expansion warnings detected in languages like German, French",
+          "status": "probable",
+          "added_at": "2026-02-09T13:25:45.517307+00:00",
+          "added_by": "system"
+        }
+      ],
       "eliminated_causes": [],
       "retained_causes": []
     },
@@ -52,6 +71,12 @@
         "action": "created",
         "user": "system",
         "details": "CAPA initiated"
+      },
+      {
+        "timestamp": "2026-02-09T13:25:45.399109+00:00",
+        "action": "status_change",
+        "user": "system",
+        "details": "Status changed from draft to investigation. Starting investigation"
       }
     ],
     "attachments": [],
