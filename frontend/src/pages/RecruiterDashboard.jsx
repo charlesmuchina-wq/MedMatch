@@ -30,7 +30,8 @@ const RecruiterDashboard = ({ user }) => {
   }, []);
 
   useEffect(() => {
-    if (user?.role !== "recruiter") {
+    // Allow both recruiters and admins to access the dashboard
+    if (user?.role !== "recruiter" && !user?.is_admin) {
       navigate("/");
       return;
     }

@@ -263,6 +263,7 @@ async def login_user(login_data: UserLogin, response: Response):
                 "email": "admin@medmatch.com",
                 "name": "Admin",
                 "auth_method": "admin",
+                "role": "recruiter",
                 "is_admin": True,
                 "created_at": admin_user.get("created_at", ""),
                 "last_login": current_time,
