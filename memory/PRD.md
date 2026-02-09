@@ -5,6 +5,19 @@
 ### Original Problem Statement
 Create a comprehensive, AI-powered application named "MedMatch" to automate remote job search. The application should parse a resume, find matching jobs from various sources, and provide tools to aid in the application process.
 
+---
+
+## Latest Updates (February 9, 2026)
+
+### African Language Avatar Videos ✅
+- Created Swahili (Kenya) video with Zuri voice
+- Created Afrikaans (South Africa) video with Adri voice  
+- Created English (Nigeria) video with Ezinne voice
+- Updated tutorials API to serve new languages
+- D-ID Credits: 341/400 remaining
+
+---
+
 ### Core Requirements
 1. **Resume Management**: Parse PDF/DOC/DOCX resumes with AI
 2. **Job Sourcing**: Aggregate jobs from JobSpy, Google CSE
