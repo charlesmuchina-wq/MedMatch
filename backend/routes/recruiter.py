@@ -290,16 +290,21 @@ async def get_recruiter_dashboard_stats(request: Request):
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     
-    if user.get("role") != "recruiter":
+    # Allow both recruiters and admins
+    is_admin = user.get("is_admin") or user.get("email") == "admin@medmatch.com"
+    if user.get("role") != "recruiter" and not is_admin:
         raise HTTPException(status_code=403, detail="Only recruiters can view dashboard")
     
+    # Admin sees all stats, recruiter sees their own
+    recruiter_filter = {} if is_admin else {"recruiter_id": user["user_id"]}
+    
     # Get job counts
-    total_jobs = await db.posted_jobs.count_documents({"recruiter_id": user["user_id"]})
-    active_jobs = await db.posted_jobs.count_documents({"recruiter_id": user["user_id"], "status": "active"})
+    total_jobs = await db.posted_jobs.count_documents(recruiter_filter)
+    active_jobs = await db.posted_jobs.count_documents({**recruiter_filter, "status": "active"})
     
     # Get applicant counts by status
     pipeline = [
-        {"$match": {"recruiter_id": user["user_id"]}},
+        {"$match": recruiter_filter} if recruiter_filter else {"$match": {}},
         {"$group": {"_id": "$status", "count": {"$sum": 1}}}
     ]
     status_counts = await db.job_applicants.aggregate(pipeline).to_list(100)
@@ -309,7 +314,7 @@ async def get_recruiter_dashboard_stats(request: Request):
     
     # Get recent applicants
     recent_applicants = await db.job_applicants.find(
-        {"recruiter_id": user["user_id"]},
+        recruiter_filter,
         {"_id": 0}
     ).sort("applied_at", -1).limit(5).to_list(5)
     
