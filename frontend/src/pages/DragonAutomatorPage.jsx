@@ -23,7 +23,8 @@ import {
   Clock,
   ChevronRight,
   Play,
-  Bot
+  Bot,
+  Languages
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
 import { Button } from '../components/ui/button';
@@ -31,6 +32,7 @@ import { Progress } from '../components/ui/progress';
 import { Badge } from '../components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { apiClient } from '@/utils/apiClient';
+import TranslationQADashboard from '../components/TranslationQADashboard';
 
 // Status Badge Component
 const StatusBadge = ({ status }) => {
