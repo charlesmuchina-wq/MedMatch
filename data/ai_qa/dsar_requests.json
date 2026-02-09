@@ -1,0 +1,16 @@
+[
+  {
+    "request_id": "DSAR-20260209-0001",
+    "user_id": "test_user_123",
+    "request_type": "access",
+    "details": {
+      "reason": "Want to see all AI decisions about me"
+    },
+    "status": "pending",
+    "submitted_at": "2026-02-09T15:00:41.067604+00:00",
+    "deadline": "2026-03-11T15:00:41.067612+00:00",
+    "processed_at": null,
+    "processed_by": null,
+    "response": null
+  }
+]
