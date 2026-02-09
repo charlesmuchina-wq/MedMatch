@@ -5,7 +5,9 @@ Free self-service verification using public databases
 Integrations:
 - OIG LEIE (Office of Inspector General - List of Excluded Individuals/Entities)
 - CMS NPI Registry (National Provider Identifier)
-- Links to FSMB, NCEES, NSC for manual verification
+- ORCID Public API (Researcher identity & publications)
+- Hipo University API (Global university search)
+- Links to WHED, FSMB, NCEES, regional registries for manual verification
 """
 
 from fastapi import APIRouter, HTTPException, Query, Body
@@ -39,7 +41,7 @@ verification_logs_collection = db["psv_verification_logs"]
 class CredentialRecord(BaseModel):
     candidate_id: str
     candidate_name: str
-    credential_type: str  # license, degree, certification, npi, etc.
+    credential_type: str  # license, degree, certification, npi, orcid, etc.
     credential_number: Optional[str] = None
     issuing_authority: str
     issue_date: Optional[str] = None
@@ -66,109 +68,300 @@ class NPISearchRequest(BaseModel):
     organization_name: Optional[str] = None
 
 
+class ORCIDSearchRequest(BaseModel):
+    orcid_id: Optional[str] = None  # Format: 0000-0000-0000-0000
+    family_name: Optional[str] = None
+    given_names: Optional[str] = None
+    affiliation: Optional[str] = None
+    keyword: Optional[str] = None
+
+
+class UniversitySearchRequest(BaseModel):
+    name: Optional[str] = None
+    country: Optional[str] = None
+
+
 # ==================== VERIFICATION RESOURCES ====================
 
 VERIFICATION_RESOURCES = {
     "medical_license": {
         "name": "Medical License Verification",
+        "icon": "stethoscope",
         "sources": [
             {
                 "name": "Federation of State Medical Boards (FSMB)",
                 "url": "https://www.fsmb.org/physician-data-center/",
                 "description": "Verify physician licenses across all US states",
-                "cost": "Fee per search (paid by recruiter)"
+                "cost": "Fee per search (paid by recruiter)",
+                "region": "United States"
             },
             {
                 "name": "State Medical Boards Directory",
                 "url": "https://www.fsmb.org/contact-a-state-medical-board/",
                 "description": "Direct links to individual state medical boards",
-                "cost": "Free (varies by state)"
+                "cost": "Free (varies by state)",
+                "region": "United States"
+            },
+            {
+                "name": "GMC Register (UK)",
+                "url": "https://www.gmc-uk.org/registration-and-licensing/the-medical-register",
+                "description": "General Medical Council - UK physician register",
+                "cost": "Free",
+                "region": "United Kingdom"
             }
         ]
     },
     "nursing_license": {
         "name": "Nursing License Verification",
+        "icon": "heart-pulse",
         "sources": [
             {
                 "name": "Nursys License Verification",
                 "url": "https://www.nursys.com/",
                 "description": "National database for RN and LPN/VN licenses",
-                "cost": "Free quick confirm / Fee for detailed report"
+                "cost": "Free quick confirm / Fee for detailed report",
+                "region": "United States"
             }
         ]
     },
     "engineering_license": {
         "name": "Engineering License Verification",
+        "icon": "cog",
         "sources": [
             {
                 "name": "NCEES License Lookup",
                 "url": "https://account.ncees.org/profile/verification",
                 "description": "National Council of Examiners for Engineering and Surveying",
-                "cost": "Free"
+                "cost": "Free",
+                "region": "United States"
+            },
+            {
+                "name": "APEC Engineer Register",
+                "url": "https://www.apec-engineers.org/",
+                "description": "Professional engineers across Japan, Australia, and APEC nations",
+                "cost": "Free",
+                "region": "Asia-Pacific"
+            },
+            {
+                "name": "Engineering Council (UK)",
+                "url": "https://www.engc.org.uk/registrant-search/",
+                "description": "UK Chartered Engineer (CEng) verification",
+                "cost": "Free",
+                "region": "United Kingdom"
             }
         ]
     },
     "pharmacy_license": {
         "name": "Pharmacy License Verification",
+        "icon": "pill",
         "sources": [
             {
                 "name": "NABP License Verification",
                 "url": "https://nabp.pharmacy/",
                 "description": "National Association of Boards of Pharmacy",
-                "cost": "Varies by state"
+                "cost": "Varies by state",
+                "region": "United States"
             },
             {
                 "name": "DEA Registration Verification",
                 "url": "https://apps.deadiversion.usdoj.gov/webforms2/spring/validationLogin",
                 "description": "Verify DEA registration for controlled substances",
-                "cost": "Free"
+                "cost": "Free",
+                "region": "United States"
             }
         ]
     },
     "degree_verification": {
         "name": "Education/Degree Verification",
+        "icon": "graduation-cap",
         "sources": [
             {
                 "name": "National Student Clearinghouse",
                 "url": "https://www.studentclearinghouse.org/verifiers/",
-                "description": "Verify degrees from 3,600+ participating institutions",
-                "cost": "Fee per verification (paid by requester)"
+                "description": "Verify degrees from 3,600+ participating US institutions",
+                "cost": "Fee per verification",
+                "region": "United States"
+            },
+            {
+                "name": "WHED (World Higher Education Database)",
+                "url": "https://www.whed.net/home.php",
+                "description": "UNESCO/IAU database - 22,000+ accredited institutions globally",
+                "cost": "Free portal",
+                "region": "Global"
+            },
+            {
+                "name": "ENIC-NARIC Network",
+                "url": "https://www.enic-naric.net/",
+                "description": "Official credential recognition bodies in 55+ countries",
+                "cost": "Free directory",
+                "region": "Europe"
+            },
+            {
+                "name": "Europass Digital Credentials",
+                "url": "https://europa.eu/europass/digital-credentials/",
+                "description": "W3C Verifiable Credentials for EU degrees",
+                "cost": "Free",
+                "region": "European Union"
+            }
+        ]
+    },
+    "degree_regional": {
+        "name": "Regional Degree Verification",
+        "icon": "globe",
+        "sources": [
+            {
+                "name": "China CHSI (学信网)",
+                "url": "https://www.chsi.com.cn/en/",
+                "description": "Official Chinese degree verification (MOE-authorized)",
+                "cost": "Free verification code",
+                "region": "China"
+            },
+            {
+                "name": "Brazil e-MEC",
+                "url": "https://emec.mec.gov.br/",
+                "description": "Official Brazilian Ministry of Education registry",
+                "cost": "Free",
+                "region": "Brazil"
+            },
+            {
+                "name": "Mexico Cédula Profesional",
+                "url": "https://www.cedulaprofesional.sep.gob.mx/cedula/presidencia/indexAvanzada.action",
+                "description": "Free professional license database",
+                "cost": "Free",
+                "region": "Mexico"
+            },
+            {
+                "name": "Peru SUNEDU",
+                "url": "https://www.sunedu.gob.pe/sibe/",
+                "description": "Free university degree registry",
+                "cost": "Free",
+                "region": "Peru"
+            },
+            {
+                "name": "Chile - Superintendencia de Salud",
+                "url": "https://www.supersalud.gob.cl/consultas/571/w3-propertyvalue-4038.html",
+                "description": "Health & lab professionals registry",
+                "cost": "Free",
+                "region": "Chile"
+            }
+        ]
+    },
+    "researcher_identity": {
+        "name": "Researcher Identity & Publications",
+        "icon": "flask",
+        "sources": [
+            {
+                "name": "ORCID Registry",
+                "url": "https://orcid.org/",
+                "description": "Global researcher ID with verified education & publications - FREE API",
+                "cost": "Free",
+                "region": "Global",
+                "api_available": True
+            },
+            {
+                "name": "PubMed Author Search",
+                "url": "https://pubmed.ncbi.nlm.nih.gov/",
+                "description": "Verify life sciences publications",
+                "cost": "Free",
+                "region": "Global"
+            },
+            {
+                "name": "DBCLS (Japan Life Science)",
+                "url": "https://dbcls.rois.ac.jp/en/",
+                "description": "Japanese life science database center",
+                "cost": "Free",
+                "region": "Japan"
             }
         ]
     },
     "exclusion_sanction": {
         "name": "Exclusion & Sanction Checks",
+        "icon": "shield-exclamation",
         "sources": [
             {
                 "name": "OIG LEIE Database",
                 "url": "https://exclusions.oig.hhs.gov/",
                 "description": "List of Excluded Individuals/Entities - FREE API",
                 "cost": "Free",
+                "region": "United States",
                 "api_available": True
             },
             {
                 "name": "SAM.gov Exclusions",
                 "url": "https://sam.gov/content/exclusions",
                 "description": "System for Award Management exclusions",
-                "cost": "Free"
+                "cost": "Free",
+                "region": "United States"
             },
             {
                 "name": "FDA Debarment List",
                 "url": "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/compliance-actions-and-activities/fda-debarment-list-drug-product-applications",
                 "description": "FDA debarred individuals and firms",
-                "cost": "Free"
+                "cost": "Free",
+                "region": "United States"
             }
         ]
     },
     "npi_verification": {
         "name": "NPI Verification",
+        "icon": "id-card",
         "sources": [
             {
                 "name": "CMS NPI Registry",
                 "url": "https://npiregistry.cms.hhs.gov/",
                 "description": "National Provider Identifier lookup - FREE API",
                 "cost": "Free",
+                "region": "United States",
                 "api_available": True
+            }
+        ]
+    },
+    "business_verification": {
+        "name": "Business/Employer Verification",
+        "icon": "building",
+        "sources": [
+            {
+                "name": "Companies House (UK)",
+                "url": "https://find-and-update.company-information.service.gov.uk/",
+                "description": "Free API for UK business registration data",
+                "cost": "Free API",
+                "region": "United Kingdom",
+                "api_available": True
+            },
+            {
+                "name": "China NECIPS",
+                "url": "https://www.gsxt.gov.cn/",
+                "description": "National Enterprise Credit Information (Unified Social Credit Code)",
+                "cost": "Free",
+                "region": "China"
+            },
+            {
+                "name": "SEC EDGAR (US)",
+                "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany",
+                "description": "US public company filings",
+                "cost": "Free",
+                "region": "United States"
+            }
+        ]
+    },
+    "certifications": {
+        "name": "Professional Certifications",
+        "icon": "certificate",
+        "sources": [
+            {
+                "name": "Credential Engine Registry",
+                "url": "https://credentialfinder.org/",
+                "description": "Global registry of credentials, certifications, and licenses - FREE API",
+                "cost": "Free",
+                "region": "Global",
+                "api_available": True
+            },
+            {
+                "name": "Credly Verification",
+                "url": "https://www.credly.com/",
+                "description": "Digital badges and certifications",
+                "cost": "Free verification",
+                "region": "Global"
             }
         ]
     }
