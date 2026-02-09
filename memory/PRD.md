@@ -9,6 +9,22 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ## Latest Updates (February 9, 2026)
 
+### Android Build Triggered ✅
+- Build ID: `0e0a06e8-d6a4-41ef-929e-f167d89367b5`
+- Status: In Progress on EAS servers
+- Profile: Development (APK)
+- Track: https://expo.dev/accounts/cmuchina/projects/medmatch-ai-job-search-aid/builds
+
+### Dropbox Integration - Already Complete ✅
+- OAuth flow, file listing, and download endpoints working
+- Credentials configured in backend .env
+
+### Translation CAPA Created ✅
+- CAPA ID: `CAPA-20260209-4562CBD8`
+- Status: Resolution phase
+- Corrective Actions: Spanish (377 keys), German/French, Expansion warnings
+- Preventive Actions: CI/CD checks, Dashboard metrics
+
 ### Google Calendar Integration ✅
 - OAuth flow fully implemented (frontend + backend)
 - Import/Export interviews to Google Calendar
