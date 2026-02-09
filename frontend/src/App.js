@@ -206,7 +206,11 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
         flex flex-col
       `}>
         <div className={`flex items-center justify-between p-6 border-b ${isDark ? 'border-batik-dark-grey' : 'border-slate-100'} shrink-0`}>
-          <div className="flex items-center gap-3">
+          <button 
+            onClick={() => { navigate('/'); setIsOpen(false); }}
+            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+            data-testid="home-btn"
+          >
             <img 
               src="/logo-small.png" 
               alt="MedMatch Logo" 
@@ -216,7 +220,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
             <span className={`font-semibold text-lg ${isDark ? 'text-white' : 'text-slate-900'}`} style={{ fontFamily: 'IBM Plex Sans' }}>
               MedMatch
             </span>
-          </div>
+          </button>
           <button 
             className={`lg:hidden p-2 rounded-md ${isDark ? 'hover:bg-batik-dark-grey text-slate-300' : 'hover:bg-slate-100'}`}
             onClick={() => setIsOpen(false)}
@@ -225,7 +229,38 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
           </button>
         </div>
         
-        <nav className="p-4 space-y-1 flex-1 overflow-y-auto" key={`nav-${language}-${translationVersion}`}>
+        {/* Admin Profile Switcher */}
+        {isAdmin && (
+          <div className={`px-4 py-3 border-b ${isDark ? 'border-batik-dark-grey' : 'border-slate-100'}`}>
+            <p className={`text-xs mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>View as:</p>
+            <div className="flex gap-1">
+              <button
+                onClick={() => setViewMode("job_seeker")}
+                className={`flex-1 px-2 py-1.5 text-xs rounded-lg transition-all ${
+                  viewMode === "job_seeker"
+                    ? 'bg-turquoise text-white'
+                    : isDark ? 'bg-batik-dark-grey text-slate-300 hover:bg-batik-grey' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                }`}
+                data-testid="view-job-seeker-btn"
+              >
+                Job Seeker
+              </button>
+              <button
+                onClick={() => setViewMode("recruiter")}
+                className={`flex-1 px-2 py-1.5 text-xs rounded-lg transition-all ${
+                  viewMode === "recruiter"
+                    ? 'bg-turquoise text-white'
+                    : isDark ? 'bg-batik-dark-grey text-slate-300 hover:bg-batik-grey' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                }`}
+                data-testid="view-recruiter-btn"
+              >
+                Recruiter
+              </button>
+            </div>
+          </div>
+        )}
+        
+        <nav className="p-4 space-y-1 flex-1 overflow-y-auto" key={`nav-${language}-${translationVersion}-${viewMode}`}>
           {/* Translation loading indicator for AI languages */}
           {!isBundled(language) && isLoadingAI && (
             <div className="px-3 py-2 mb-2 text-xs text-turquoise flex items-center gap-2">
