@@ -631,6 +631,214 @@ async def check_for_rollback_conditions():
         logging.error(f"Rollback check error: {e}")
 
 
+# ============== CAPA Auto-Generation System ==============
+
+async def run_capa_system_analysis():
+    """
+    CAPA (Corrective Action Preventive Action) System Analysis
+    Runs alongside weekly maintenance to identify recurring system-wide issues.
+    
+    Analyzes:
+    1. Error patterns and recurring failures
+    2. Performance degradation trends
+    3. Data integrity issues
+    4. API failure patterns
+    5. User experience issues
+    6. Translation/Localization gaps
+    7. Security anomalies
+    """
+    logging.info("🔍 CAPA: Starting system-wide analysis for recurring issues...")
+    
+    issues_found = []
+    now = datetime.now(timezone.utc)
+    week_ago = (now - timedelta(days=7)).isoformat()
+    
+    try:
+        # 1. Analyze Error Patterns - Check for recurring errors
+        error_patterns = await db.error_logs.aggregate([
+            {"$match": {"timestamp": {"$gte": week_ago}}},
+            {"$group": {
+                "_id": {"path": "$path", "status_code": "$status_code"},
+                "count": {"$sum": 1},
+                "first_occurrence": {"$min": "$timestamp"},
+                "last_occurrence": {"$max": "$timestamp"}
+            }},
+            {"$match": {"count": {"$gte": 10}}},  # 10+ occurrences = recurring
+            {"$sort": {"count": -1}},
+            {"$limit": 10}
+        ]).to_list(10)
+        
+        for pattern in error_patterns:
+            issues_found.append({
+                "category": "api_errors",
+                "severity": "high" if pattern["count"] > 50 else "medium",
+                "title": f"Recurring API Error: {pattern['_id'].get('path', 'Unknown')}",
+                "description": f"Status {pattern['_id'].get('status_code', 'N/A')} occurred {pattern['count']} times this week",
+                "occurrences": pattern["count"],
+                "impacted_processes": ["API Services", "Backend"],
+                "source": "Error Log Analysis"
+            })
+        
+        # 2. Analyze Performance Degradation
+        slow_endpoints = await db.api_metrics.aggregate([
+            {"$match": {"timestamp": {"$gte": week_ago}}},
+            {"$group": {
+                "_id": "$endpoint",
+                "avg_response_time": {"$avg": "$response_time_ms"},
+                "max_response_time": {"$max": "$response_time_ms"},
+                "count": {"$sum": 1}
+            }},
+            {"$match": {"avg_response_time": {"$gte": 2000}}},  # >2s average
+            {"$sort": {"avg_response_time": -1}},
+            {"$limit": 5}
+        ]).to_list(5)
+        
+        for endpoint in slow_endpoints:
+            issues_found.append({
+                "category": "performance",
+                "severity": "high" if endpoint["avg_response_time"] > 5000 else "medium",
+                "title": f"Performance Degradation: {endpoint['_id']}",
+                "description": f"Average response time: {endpoint['avg_response_time']:.0f}ms (max: {endpoint['max_response_time']:.0f}ms)",
+                "occurrences": endpoint["count"],
+                "impacted_processes": ["Performance", "User Experience"],
+                "source": "API Metrics Analysis"
+            })
+        
+        # 3. Check Data Integrity Issues
+        integrity_issues = []
+        
+        # Orphaned records check
+        orphaned_apps = await db.applications.count_documents({"user_id": {"$exists": False}})
+        orphaned_resumes = await db.resumes.count_documents({"user_id": {"$exists": False}})
+        
+        if orphaned_apps > 10 or orphaned_resumes > 10:
+            issues_found.append({
+                "category": "data_integrity",
+                "severity": "medium",
+                "title": "Orphaned Records Detected",
+                "description": f"Found {orphaned_apps} orphaned applications and {orphaned_resumes} orphaned resumes",
+                "occurrences": orphaned_apps + orphaned_resumes,
+                "impacted_processes": ["Database", "Data Integrity"],
+                "source": "Data Integrity Check"
+            })
+        
+        # 4. Check for Authentication Failures
+        auth_failures = await db.auth_logs.count_documents({
+            "timestamp": {"$gte": week_ago},
+            "success": False
+        })
+        
+        if auth_failures > 100:
+            issues_found.append({
+                "category": "security",
+                "severity": "high" if auth_failures > 500 else "medium",
+                "title": "High Authentication Failure Rate",
+                "description": f"{auth_failures} failed authentication attempts this week",
+                "occurrences": auth_failures,
+                "impacted_processes": ["Authentication", "Security"],
+                "source": "Security Analysis"
+            })
+        
+        # 5. Check Translation QA Issues (system-wide scope)
+        try:
+            from services.translation_qa import translation_qa_service
+            qa_result = translation_qa_service.run_full_qa()
+            
+            if qa_result.get("health_score", 100) < 70:
+                issues_found.append({
+                    "category": "localization",
+                    "severity": "medium",
+                    "title": "Translation Quality Below Threshold",
+                    "description": f"Translation QA score: {qa_result.get('health_score', 0)}. Issues: {qa_result.get('total_issues', 0)}",
+                    "occurrences": qa_result.get("total_issues", 0),
+                    "impacted_processes": ["Localization", "UI Rendering", "User Experience"],
+                    "source": "Translation QA Agent"
+                })
+        except Exception as e:
+            logging.warning(f"Translation QA check skipped: {e}")
+        
+        # 6. Check User Experience Issues (from feedback)
+        negative_feedback = await db.user_feedback.count_documents({
+            "created_at": {"$gte": week_ago},
+            "rating": {"$lte": 2}
+        })
+        
+        if negative_feedback > 20:
+            issues_found.append({
+                "category": "user_experience",
+                "severity": "high" if negative_feedback > 50 else "medium",
+                "title": "High Negative User Feedback",
+                "description": f"{negative_feedback} low-rating feedback submissions this week",
+                "occurrences": negative_feedback,
+                "impacted_processes": ["User Experience", "Product Quality"],
+                "source": "User Feedback Analysis"
+            })
+        
+        # 7. Check Job Search Issues
+        failed_searches = await db.search_logs.count_documents({
+            "timestamp": {"$gte": week_ago},
+            "results_count": 0
+        })
+        total_searches = await db.search_logs.count_documents({
+            "timestamp": {"$gte": week_ago}
+        })
+        
+        if total_searches > 0 and (failed_searches / total_searches) > 0.3:  # 30%+ failure rate
+            issues_found.append({
+                "category": "search_functionality",
+                "severity": "high",
+                "title": "High Job Search Failure Rate",
+                "description": f"{failed_searches}/{total_searches} searches returned no results ({(failed_searches/total_searches)*100:.1f}%)",
+                "occurrences": failed_searches,
+                "impacted_processes": ["Job Search", "User Experience"],
+                "source": "Search Analysis"
+            })
+        
+        # Now create CAPAs for recurring issues
+        capas_created = []
+        
+        for issue in issues_found:
+            # Check if a similar CAPA already exists and is open
+            existing_capas = capa_service.list_capas()
+            already_exists = any(
+                c.get("status") not in ["closed", "cancelled"] and
+                c.get("tags") and issue["category"] in c.get("tags", [])
+                for c in existing_capas
+            )
+            
+            if not already_exists:
+                capa = capa_service.create_capa({
+                    "title": issue["title"],
+                    "problem_statement": issue["description"],
+                    "capa_type": "both",
+                    "severity": issue["severity"],
+                    "source": f"KARAU DRAGON Automator - {issue['source']}",
+                    "impacted_processes": issue.get("impacted_processes", []),
+                    "tags": [issue["category"], "automated", "dragon-automator"],
+                    "created_by": "KARAU DRAGON Automator"
+                })
+                capas_created.append(capa["id"])
+                logging.info(f"🎯 CAPA Created: {capa['id']} - {issue['title']}")
+        
+        # Store analysis report
+        report = {
+            "timestamp": now.isoformat(),
+            "issues_analyzed": len(issues_found),
+            "capas_created": len(capas_created),
+            "capa_ids": capas_created,
+            "issues": issues_found
+        }
+        await db.capa_analysis_reports.insert_one(report)
+        
+        logging.info(f"🔍 CAPA Analysis complete: {len(issues_found)} issues found, {len(capas_created)} CAPAs created")
+        
+        return report
+        
+    except Exception as e:
+        logging.error(f"CAPA system analysis error: {e}")
+        return {"error": str(e), "issues_analyzed": 0, "capas_created": 0}
+
+
 # ============== Scheduler Setup ==============
 
 def setup_scheduled_tasks():
