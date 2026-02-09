@@ -513,5 +513,78 @@
     "related_capas": [],
     "impacted_processes": [],
     "tags": []
+  },
+  "CAPA-20260209-4562CBD8": {
+    "id": "CAPA-20260209-4562CBD8",
+    "title": "Translation Quality Issues - Multi-Language Support",
+    "problem_statement": "CAPA to track and resolve all pending translation issues across Spanish, German, French and other languages. This includes:\n\n1. Spanish: 377 untranslated keys (English fallback text)\n2. German: Multiple untranslated sections\n3. French: Multiple untranslated sections\n4. 52 expansion warnings across DE/FR/ES/AR/PT-BR/JA (text may be too long for UI)\n5. Manual UI testing confirmed no visible overflow issues\n\nRoot Cause: Initial translation coverage was incomplete. Many keys still contain English fallback text in non-English locales.\n\nImpact: Users in non-English locales see mixed English/native text, reducing user experience quality.",
+    "capa_type": "both",
+    "severity": "medium",
+    "source": "translation_qa_system",
+    "status": "draft",
+    "created_at": "2026-02-09T22:01:16.424592+00:00",
+    "updated_at": "2026-02-09T22:01:16.424592+00:00",
+    "created_by": "AI Agent",
+    "assigned_to": "Translation Team",
+    "investigation": {
+      "started_at": null,
+      "completed_at": null,
+      "investigation_method": "5 Whys",
+      "probable_causes": [],
+      "eliminated_causes": [],
+      "retained_causes": []
+    },
+    "containment": {
+      "started_at": null,
+      "completed_at": null,
+      "actions": [],
+      "is_contained": false,
+      "containment_verified": false,
+      "close_at_containment": false
+    },
+    "resolution": {
+      "started_at": null,
+      "completed_at": null,
+      "corrective_actions": [],
+      "preventive_actions": []
+    },
+    "voe": {
+      "started_at": null,
+      "completed_at": null,
+      "verifications": [],
+      "overall_effectiveness": null,
+      "attestation": null
+    },
+    "closure": {
+      "closed_at": null,
+      "closed_by": null,
+      "closure_notes": "",
+      "lessons_learned": ""
+    },
+    "history": [
+      {
+        "timestamp": "2026-02-09T22:01:16.424592+00:00",
+        "action": "created",
+        "user": "AI Agent",
+        "details": "CAPA initiated"
+      }
+    ],
+    "attachments": [],
+    "related_capas": [],
+    "impacted_processes": [
+      "localization",
+      "i18n",
+      "user_experience",
+      "frontend"
+    ],
+    "tags": [
+      "translation",
+      "localization",
+      "i18n",
+      "spanish",
+      "german",
+      "french",
+      "ui"
+    ]
   }
 }
