@@ -54,6 +54,7 @@ async def create_avatar_video(request: CreateVideoRequest):
     
     - **script**: The text for the avatar to speak
     - **presenter_id**: Optional D-ID presenter ID
+    - **source_url**: Optional custom image URL for the avatar (must be a clear portrait)
     - **voice_id**: Microsoft Azure voice ID (default: en-US-JennyNeural)
     - **background_color**: Hex color for background (default: #1a1a2e)
     - **title**: Video title for storage
@@ -61,6 +62,7 @@ async def create_avatar_video(request: CreateVideoRequest):
     result = await did_service.create_talk_video(
         script=request.script,
         presenter_id=request.presenter_id,
+        source_url=request.source_url,
         voice_id=request.voice_id,
         background_color=request.background_color,
         title=request.title
