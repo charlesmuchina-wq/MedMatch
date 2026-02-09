@@ -58,13 +58,13 @@
     "careerExplorer": "Karriere-Explorer",
     "locationSettings": "Standorteinstellungen",
     "privacy": "Datenschutz",
-    "adminDashboard": "Admin Dashboard",
+    "adminDashboard": "Admin-Dashboard",
     "dragonAutomator": "KARAU Automator",
-    "analyticsFunnel": "Interview Funnel",
+    "analyticsFunnel": "Interview-Trichter",
     "realtimeSTT": "Echtzeit-Transkription",
     "credentials": "Qualifikationen",
-    "interviewCalendar": "Interview Calendar",
-    "meetingNotes": "Meeting Notes"
+    "interviewCalendar": "Interview-Kalender",
+    "meetingNotes": "Besprechungsnotizen"
   },
   "recruiter": {
     "dashboard": "Dashboard",
