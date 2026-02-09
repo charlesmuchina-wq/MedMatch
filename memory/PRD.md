@@ -9,6 +9,13 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ## Latest Updates (February 9, 2026)
 
+### Google Calendar Integration ✅
+- OAuth flow fully implemented (frontend + backend)
+- Import/Export interviews to Google Calendar
+- AI-powered interview preparation
+- Push reminders (24h and 1h before)
+- Credentials configured in backend .env
+
 ### RTL Translation Fixes Complete ✅
 - Arabic RTL Issues: 372 → 13 (96.5% reduction)
 - Arabic Score: 80%
