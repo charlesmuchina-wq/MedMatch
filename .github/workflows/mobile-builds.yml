@@ -1,0 +1,105 @@
+name: MedMatch Mobile Builds
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Platform to build'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - android
+          - ios
+      profile:
+        description: 'Build profile'
+        required: true
+        default: 'preview'
+        type: choice
+        options:
+          - development
+          - preview
+          - production
+
+env:
+  EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
+jobs:
+  build-android:
+    if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'android' }}
+    name: Build Android (${{ github.event.inputs.profile }})
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏗️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: yarn
+          cache-dependency-path: mobile/yarn.lock
+
+      - name: 📦 Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📥 Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🔨 Build Android
+        run: eas build --platform android --profile ${{ github.event.inputs.profile }} --non-interactive
+
+      - name: 📋 Get Build URL
+        run: |
+          echo "## 🤖 Android Build Complete" >> $GITHUB_STEP_SUMMARY
+          echo "Profile: ${{ github.event.inputs.profile }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "View at: https://expo.dev/accounts/cmuchina/projects/medmatch-ai-job-search-aid/builds" >> $GITHUB_STEP_SUMMARY
+
+  build-ios:
+    if: ${{ github.event.inputs.platform == 'all' || github.event.inputs.platform == 'ios' }}
+    name: Build iOS (${{ github.event.inputs.profile }})
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: mobile
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🏗️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: yarn
+          cache-dependency-path: mobile/yarn.lock
+
+      - name: 📦 Setup Expo and EAS
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📥 Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🍎 Build iOS
+        run: eas build --platform ios --profile ${{ github.event.inputs.profile }} --non-interactive
+
+      - name: 📋 Get Build URL
+        run: |
+          echo "## 🍎 iOS Build Complete" >> $GITHUB_STEP_SUMMARY
+          echo "Profile: ${{ github.event.inputs.profile }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "View at: https://expo.dev/accounts/cmuchina/projects/medmatch-ai-job-search-aid/builds" >> $GITHUB_STEP_SUMMARY
