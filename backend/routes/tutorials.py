@@ -130,8 +130,8 @@ ROLE_VIDEOS = {
 
 
 @router.get("/videos")
-async def list_videos(category: str = None):
-    """List all available tutorial videos"""
+async def list_videos(category: str = None, lang: str = None):
+    """List all available tutorial videos, optionally filtered by category or language"""
     videos = VIDEOS.copy()
     
     if category:
@@ -142,10 +142,69 @@ async def list_videos(category: str = None):
         video["url"] = f"/api/tutorials/videos/{video['id']}"
         video["exists"] = (VIDEOS_DIR / video["filename"]).exists()
     
+    # Include multi-language videos info
+    multilang_info = {
+        "available_languages": list(MULTILANG_VIDEOS.keys()),
+        "role_specific": list(ROLE_VIDEOS.keys())
+    }
+    
     return {
         "videos": videos,
-        "count": len(videos)
+        "count": len(videos),
+        "multilang": multilang_info
     }
+
+
+@router.get("/videos/multilang")
+async def get_multilang_videos():
+    """Get all available multi-language overview videos"""
+    return {
+        "languages": MULTILANG_VIDEOS,
+        "role_specific": ROLE_VIDEOS,
+        "default_language": "en"
+    }
+
+
+@router.get("/videos/overview/{language}")
+async def get_overview_by_language(language: str):
+    """Get overview video metadata for a specific language"""
+    if language == "en":
+        # Return the main English overview
+        video = next((v for v in VIDEOS if v["id"] == "05_complete_overview"), None)
+        if video:
+            return {
+                "video": video,
+                "url": f"/api/tutorials/videos/05_complete_overview"
+            }
+    
+    if language in MULTILANG_VIDEOS:
+        return {
+            "video": MULTILANG_VIDEOS[language],
+            "note": "AI Avatar video generated via D-ID API"
+        }
+    
+    # Default to English if language not found
+    video = next((v for v in VIDEOS if v["id"] == "05_complete_overview"), None)
+    return {
+        "video": video,
+        "url": f"/api/tutorials/videos/05_complete_overview",
+        "fallback": True,
+        "requested_language": language
+    }
+
+
+@router.get("/videos/role/{role}")
+async def get_role_specific_video(role: str):
+    """Get role-specific overview video (jobseeker or recruiter)"""
+    role_key = f"{role}_overview"
+    
+    if role_key in ROLE_VIDEOS:
+        return {
+            "video": ROLE_VIDEOS[role_key],
+            "note": "30-second quick start guide"
+        }
+    
+    raise HTTPException(status_code=404, detail=f"No video found for role: {role}")
 
 
 @router.get("/videos/{video_id}")
