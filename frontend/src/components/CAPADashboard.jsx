@@ -861,13 +861,13 @@ const CAPADashboard = () => {
             onChange={(e) => setFilter({...filter, search: e.target.value})}
           />
         </div>
-        <Select value={filter.status} onValueChange={(v) => setFilter({...filter, status: v})}>
+        <Select value={filter.status || "all"} onValueChange={(v) => setFilter({...filter, status: v === "all" ? "" : v})}>
           <SelectTrigger className="w-48">
             <Filter className="w-4 h-4 mr-2" />
             <SelectValue placeholder="All Statuses" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">All Statuses</SelectItem>
+            <SelectItem value="all">All Statuses</SelectItem>
             {Object.entries(statusConfig).map(([key, config]) => (
               <SelectItem key={key} value={key}>{config.label}</SelectItem>
             ))}
