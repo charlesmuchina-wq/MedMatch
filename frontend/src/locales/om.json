@@ -115,7 +115,10 @@
     "getCallbackScores": "Qabxiilee carraa deebii bilbilaa AI’n kennamu argadhu",
     "practiceBodyLanguage": "Xiinxala qaamaa (body language) AI’n gaggeeffamuun shaakali",
     "getNotifiedMatching": "Yeroo hojiiwwan siif mijatan mul’atan beeksifamii",
-    "smartAlerts": "Akeekkachiisa sammuu qabeessa"
+    "smartAlerts": "Akeekkachiisa sammuu qabeessa",
+    "watchTutorials": "Watch Tutorials",
+    "learnWithVideos": "Learn how to use MedMatch with video guides",
+    "getStarted": "Get Started"
   },
   "jobs": {
     "searchJobs": "Hojii barbaadi",

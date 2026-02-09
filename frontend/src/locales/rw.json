@@ -115,7 +115,10 @@
     "getCallbackScores": "Bona amanota agaragaza amahirwe yo guhamagarwa, ashingiye kuri AI",
     "practiceBodyLanguage": "Iyitoze ukoresheje isesengura ry'imvugo y'umubiri rishingiye kuri AI",
     "getNotifiedMatching": "Menyeshwa igihe hagaragaye akazi kaguhuje",
-    "smartAlerts": "Amamenyesha y'ubwenge"
+    "smartAlerts": "Amamenyesha y'ubwenge",
+    "watchTutorials": "Watch Tutorials",
+    "learnWithVideos": "Learn how to use MedMatch with video guides",
+    "getStarted": "Get Started"
   },
   "jobs": {
     "searchJobs": "Shakisha akazi",

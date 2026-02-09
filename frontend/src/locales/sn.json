@@ -115,7 +115,10 @@
     "getCallbackScores": "Wana zviyero zvemukana wekudanwa zvakare zvinofambiswa neAI",
     "practiceBodyLanguage": "Dzidzira uchishandisa ongororo yemutauro wemuviri inofambiswa neAI",
     "getNotifiedMatching": "Ziviswa kana mabasa anoenderana aonekwa",
-    "smartAlerts": "Yambiro Dzine Hungwaru"
+    "smartAlerts": "Yambiro Dzine Hungwaru",
+    "watchTutorials": "Watch Tutorials",
+    "learnWithVideos": "Learn how to use MedMatch with video guides",
+    "getStarted": "Get Started"
   },
   "jobs": {
     "searchJobs": "Tsvaga Mabasa",

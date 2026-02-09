@@ -115,7 +115,10 @@
     "getCallbackScores": "Kry KI-aangedrewe waarskynlikheidstellings vir terugskakeling",
     "practiceBodyLanguage": "Oefen met KI-lyftaalontleding",
     "getNotifiedMatching": "Kry kennisgewings wanneer passende poste verskyn",
-    "smartAlerts": "Slim waarskuwings"
+    "smartAlerts": "Slim waarskuwings",
+    "watchTutorials": "Watch Tutorials",
+    "learnWithVideos": "Learn how to use MedMatch with video guides",
+    "getStarted": "Get Started"
   },
   "jobs": {
     "searchJobs": "Soek werksgeleenthede",

@@ -115,7 +115,10 @@
     "getCallbackScores": "Hel qiimeyn (dhibco) muujinaysa suurtagalnimada in laguu soo waco oo ay AI taageerto",
     "practiceBodyLanguage": "Ku tababar falanqaynta luuqadda jirka ee AI",
     "getNotifiedMatching": "Ogeysiin hel marka shaqooyin kugu habboon soo baxaan",
-    "smartAlerts": "Digniino Casri ah"
+    "smartAlerts": "Digniino Casri ah",
+    "watchTutorials": "Watch Tutorials",
+    "learnWithVideos": "Learn how to use MedMatch with video guides",
+    "getStarted": "Get Started"
   },
   "jobs": {
     "searchJobs": "Ka raadi Shaqooyin",

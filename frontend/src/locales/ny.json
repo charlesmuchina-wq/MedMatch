@@ -115,7 +115,10 @@
     "getCallbackScores": "Pezani ma point a mwayi woyitanidwa omwe amachokera ku AI",
     "practiceBodyLanguage": "Phunzirani pochita ndi kusanthula kwa mmene thupi limayankhulira kwa AI",
     "getNotifiedMatching": "Landirani zidziwitso pamene ntchito zofanana zikutuluka",
-    "smartAlerts": "Zidziwitso Zanzeru"
+    "smartAlerts": "Zidziwitso Zanzeru",
+    "watchTutorials": "Watch Tutorials",
+    "learnWithVideos": "Learn how to use MedMatch with video guides",
+    "getStarted": "Get Started"
   },
   "jobs": {
     "searchJobs": "Sakani Ntchito",

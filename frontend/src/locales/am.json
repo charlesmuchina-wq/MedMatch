@@ -115,7 +115,10 @@
     "getCallbackScores": "በኤአይ የተጎለበቱ የመመለስ ዕድል ነጥቦችን ያግኙ",
     "practiceBodyLanguage": "በኤአይ የአካል ቋንቋ ትንተና ልምምድ ያድርጉ",
     "getNotifiedMatching": "የሚስማሙ ስራዎች ሲታዩ ማሳወቂያ ያግኙ",
-    "smartAlerts": "ብልህ ማሳወቂያዎች"
+    "smartAlerts": "ብልህ ማሳወቂያዎች",
+    "watchTutorials": "Watch Tutorials",
+    "learnWithVideos": "Learn how to use MedMatch with video guides",
+    "getStarted": "Get Started"
   },
   "jobs": {
     "searchJobs": "ስራዎችን ፈልግ",

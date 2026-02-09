@@ -115,7 +115,10 @@
     "getCallbackScores": "Fumana amanqaku amathuba okufowunelwa kwakhona aqhutywa yi-AI",
     "practiceBodyLanguage": "Ziqhelanise nohlalutyo lolwimi lomzimba lwe-AI",
     "getNotifiedMatching": "Fumana isaziso xa kuvela imisebenzi ehambelanayo",
-    "smartAlerts": "Izilumkiso ezikrelekrele"
+    "smartAlerts": "Izilumkiso ezikrelekrele",
+    "watchTutorials": "Watch Tutorials",
+    "learnWithVideos": "Learn how to use MedMatch with video guides",
+    "getStarted": "Get Started"
   },
   "jobs": {
     "searchJobs": "Khangela imisebenzi",

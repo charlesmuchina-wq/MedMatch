@@ -115,7 +115,10 @@
     "getCallbackScores": "Funa obubonero obulaga obusoboka okuyitibwa okuddamu obuyambibwako AI",
     "practiceBodyLanguage": "Yeedze ng'okozesa okwekenneenya olulimi lw'omubiri okuyambibwako AI",
     "getNotifiedMatching": "Funa obubaka bw’okumanyisa emirimu egikwatagana bw'egivaayo",
-    "smartAlerts": "Okulabula okw'amagezi"
+    "smartAlerts": "Okulabula okw'amagezi",
+    "watchTutorials": "Watch Tutorials",
+    "learnWithVideos": "Learn how to use MedMatch with video guides",
+    "getStarted": "Get Started"
   },
   "jobs": {
     "searchJobs": "Noonya emirimu",

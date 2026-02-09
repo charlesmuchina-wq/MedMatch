@@ -115,7 +115,10 @@
     "getCallbackScores": "Nya AI a ɛma wo callback ba a ebia bɛba no ho nkontaabu",
     "practiceBodyLanguage": "Sɔ hwɛ AI a ɛhwehwɛ nipadua kasa mu nsɛm no",
     "getNotifiedMatching": "Ma wɔnsoma nkaeɛ mma wo bere a adwuma a ɛne wo ho bɔ mu ba",
-    "smartAlerts": "Nkaeɛ a ɛyɛ anifere"
+    "smartAlerts": "Nkaeɛ a ɛyɛ anifere",
+    "watchTutorials": "Watch Tutorials",
+    "learnWithVideos": "Learn how to use MedMatch with video guides",
+    "getStarted": "Get Started"
   },
   "jobs": {
     "searchJobs": "Hwehwɛ Adwuma",
