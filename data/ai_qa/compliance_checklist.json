@@ -179,5 +179,12 @@
       ]
     }
   },
-  "assessments": []
+  "assessments": [
+    {
+      "id": "f415e9a5-7eda-4d36-bdb8-524a50574980",
+      "timestamp": "2026-02-09T15:00:20.568942+00:00",
+      "score": 60.0,
+      "critical_count": 0
+    }
+  ]
 }
