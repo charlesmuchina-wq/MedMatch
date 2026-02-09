@@ -106,6 +106,7 @@ const ThemeProvider = ({ children }) => {
 // Sidebar Component
 const Sidebar = ({ isOpen, setIsOpen, user }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { isDark } = useTheme();
   const { t, translationVersion, translationProgress, isLoadingAI, language, isBundled } = useTranslation();
   
@@ -121,9 +122,17 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     };
   }, [isOpen]);
   
-  // Different navigation for recruiters vs job seekers
-  // Admin users also see recruiter navigation
-  const isRecruiter = user?.role === "recruiter" || user?.role === "admin";
+  // User role state for admin profile switching
+  const [viewMode, setViewMode] = useState(() => {
+    // Default: recruiters see recruiter view, job seekers see job seeker view
+    // Admin users default to recruiter view but can switch
+    if (user?.is_admin || user?.role === "admin") return "recruiter";
+    return user?.role === "recruiter" ? "recruiter" : "job_seeker";
+  });
+  
+  // Admin users can switch between all views
+  const isAdmin = user?.is_admin || user?.role === "admin" || user?.email === "admin@medmatch.com";
+  const isRecruiter = viewMode === "recruiter";
   
   const jobSeekerLinks = [
     { path: "/", icon: TrendingUp, labelKey: "nav.dashboard" },
