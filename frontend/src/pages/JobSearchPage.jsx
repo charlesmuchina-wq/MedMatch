@@ -514,6 +514,13 @@ const JobSearchPage = ({ savedJobs = [], onSave, onApply, onAnalyze }) => {
           ))}
         </div>
       )}
+
+      {/* Voice Search Modal */}
+      <VoiceSearchModal
+        isOpen={showVoiceModal}
+        onClose={() => setShowVoiceModal(false)}
+        onResult={handleVoiceResult}
+      />
     </div>
   );
 };
