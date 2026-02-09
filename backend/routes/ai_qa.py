@@ -488,9 +488,3 @@ async def process_dsar(
     if "error" in result:
         raise HTTPException(status_code=400, detail=result["error"])
     return result
-
-
-@router.get("/dsar/stats")
-async def get_dsar_stats():
-    """Get DSAR processing statistics."""
-    return dsar_manager.get_dsar_stats()
