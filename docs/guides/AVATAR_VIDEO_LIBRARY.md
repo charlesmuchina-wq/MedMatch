@@ -65,6 +65,15 @@
 ### Chinese (60s)
 > "在生命科学领域找到梦想工作现在变得更加智能。认识MedMatch。上传您的简历，我们的AI会立即从15多个专业招聘网站为您匹配工作。没有虚假职位。没有无尽的滚动。获取每个匹配的信任评分，通过AI辅导准备面试，并接收附近工作的提醒。招聘人员：通过我们的ATS跟踪候选人，使用盲选消除偏见，并通过内置的欧盟AI法监控保持合规。每个决定都被记录并可审计。支持25种语言。网页、iOS、Android和桌面版本齐全。具备GDPR合规和加密销毁功能，可满足企业级数据保护需求。MedMatch——生命科学领域的智能招聘。今天就免费开始吧。"
 
+### Swahili - Kenya (60s)
+> "Kupata kazi yako ya ndoto katika sayansi ya maisha sasa ni rahisi zaidi. Karibu MedMatch. Pakia CV yako na AI yetu itakuunganisha moja kwa moja na kazi kutoka tovuti zaidi ya kumi na tano maalum za ajira. Hakuna kazi bandia tena. Hakuna kutafuta bila mwisho. Pata Alama ya Kuamini kwa kila mechi, jiandae kwa mahojiano na kocha wa AI, na upokee arifa za kazi karibu nawe. Wanaajiri, fuatilia wagombea kupitia ATS yetu, tumia uchaguzi wa siri kuondoa upendeleo, na uendelee kuzingatia sheria za EU AI Act. Kila uamuzi unaandikwa na unaweza kukaguliwa. Inapatikana katika lugha ishirini na tano. Wavuti, iOS, Android, na Desktop. Tayari kwa makampuni makubwa na kuzingatia GDPR na ulinzi wa data. MedMatch, ajira ya akili kwa sayansi ya maisha. Anza bure leo."
+
+### Afrikaans - South Africa (60s)
+> "Om jou droomwerk in lewenswetenskappe te vind het nou slimmer geword. Ontmoet MedMatch. Laai jou CV op en ons KI verbind jou onmiddellik met werk van meer as vyftien gespesialiseerde werkportale. Geen spookwerk meer nie. Geen eindelose blaai nie. Kry in Vertrouetelling vir elke passing, berei voor vir onderhoude met KI-afrigting, en ontvang waarskuwings vir werk naby jou. Werwers, volg kandidate deur ons ATS, gebruik blinde keuring om vooroordeel uit te skakel, en bly voldoen aan die ingeboude EU KI Wet-monitering. Elke besluit word aangeteken en kan nagegaan word. Beskikbaar in vyf-en-twintig tale. Web, iOS, Android, en Desktop. Gereed vir ondernemings met GDPR-nakoming en kripto-versnippering vir databeskerming. MedMatch, intelligente werwing vir lewenswetenskappe. Begin vandag gratis."
+
+### English - Nigeria (60s)
+> "Finding your dream job in life sciences just got smarter. Meet MedMatch. Upload your resume and our AI instantly matches you with jobs from over fifteen specialized job boards. No more ghost jobs. No more endless scrolling. Get a Trust Score for every match, prepare for interviews with AI coaching, and receive alerts for jobs near you. Recruiters, track candidates through our ATS, use blind screening to eliminate bias, and stay compliant with built-in EU AI Act monitoring. Every decision is logged and auditable. Available in twenty-five languages. Web, iOS, Android, and Desktop. Enterprise-ready with GDPR compliance and crypto-shredding for data protection. MedMatch, intelligent hiring for life sciences. Start free today."
+
 ---
 
 ## 🎬 Video Download Instructions
