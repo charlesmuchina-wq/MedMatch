@@ -82,6 +82,12 @@
 ### English - Nigeria (60s)
 > "Finding your dream job in life sciences just got smarter. Meet MedMatch. Upload your resume and our AI instantly matches you with jobs from over fifteen specialized job boards. No more ghost jobs. No more endless scrolling. Get a Trust Score for every match, prepare for interviews with AI coaching, and receive alerts for jobs near you. Recruiters, track candidates through our ATS, use blind screening to eliminate bias, and stay compliant with built-in EU AI Act monitoring. Every decision is logged and auditable. Available in twenty-five languages. Web, iOS, Android, and Desktop. Enterprise-ready with GDPR compliance and crypto-shredding for data protection. MedMatch, intelligent hiring for life sciences. Start free today."
 
+### NEW: German Getting Started Tutorial (45s)
+> "Willkommen bei MedMatch! Lassen Sie mich Ihnen zeigen, wie Sie in nur wenigen Minuten starten. Zuerst, laden Sie Ihren Lebenslauf hoch. Unsere KI analysiert ihn automatisch und extrahiert Ihre Fähigkeiten. Dann nutzen Sie die intelligente Jobsuche. Wir durchsuchen über fünfzehn spezialisierte Jobbörsen gleichzeitig. Drittens, prüfen Sie Ihre Erfolgswahrscheinlichkeit. Unser KI-Erfolgsvorhersager analysiert jede Stelle und zeigt Ihnen, wo Sie die besten Chancen haben. Viertens, bereiten Sie sich mit dem KI-Coach vor. Üben Sie Interviews mit Echtzeit-Feedback. MedMatch macht die Jobsuche einfach, intelligent und effektiv. Starten Sie jetzt kostenlos!"
+
+### NEW: French Getting Started Tutorial (45s)
+> "Bienvenue sur MedMatch! Laissez-moi vous montrer comment démarrer en quelques minutes. Premièrement, téléchargez votre CV. Notre IA le analysera automatiquement et extraira vos compétences. Ensuite, utilisez la recherche intelligente d'emplois. Nous parcourons plus de quinze sites d'emploi spécialisés simultanément. Troisièmement, vérifiez votre probabilité de succès. Notre prédicteur IA analyse chaque poste et vous montre où vous avez les meilleures chances. Quatrièmement, préparez-vous avec le coach IA. Entraînez-vous aux entretiens avec des retours en temps réel. MedMatch rend la recherche d'emploi simple, intelligente et efficace. Commencez gratuitement maintenant!"
+
 ---
 
 ## 🎬 Video Download Instructions
