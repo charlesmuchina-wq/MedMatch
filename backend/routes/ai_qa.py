@@ -436,6 +436,18 @@ async def complete_training(
 
 # ============== DSAR (Data Subject Access Requests) ==============
 
+@router.get("/dsar/stats")
+async def get_dsar_stats():
+    """Get DSAR processing statistics."""
+    return dsar_manager.get_dsar_stats()
+
+
+@router.get("/dsar/pending")
+async def get_pending_dsars():
+    """Get all pending DSAR requests."""
+    return dsar_manager.get_pending_requests()
+
+
 @router.post("/dsar/submit")
 async def submit_dsar(input: DSARRequest):
     """Submit a Data Subject Access Request."""
@@ -449,10 +461,10 @@ async def submit_dsar(input: DSARRequest):
     return result
 
 
-@router.get("/dsar/pending")
-async def get_pending_dsars():
-    """Get all pending DSAR requests."""
-    return dsar_manager.get_pending_requests()
+@router.get("/dsar/user/{user_id}")
+async def get_user_dsars(user_id: str):
+    """Get all DSAR requests for a user."""
+    return dsar_manager.get_user_requests(user_id)
 
 
 @router.get("/dsar/{request_id}")
@@ -462,12 +474,6 @@ async def get_dsar(request_id: str):
     if not result:
         raise HTTPException(status_code=404, detail="DSAR request not found")
     return result
-
-
-@router.get("/dsar/user/{user_id}")
-async def get_user_dsars(user_id: str):
-    """Get all DSAR requests for a user."""
-    return dsar_manager.get_user_requests(user_id)
 
 
 @router.post("/dsar/{request_id}/process")
