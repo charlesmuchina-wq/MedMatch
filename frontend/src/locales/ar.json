@@ -1111,13 +1111,13 @@
     "progress": "التقدم"
   },
   "verification": {
-    "uploadFailed": "Upload failed",
-    "companyFailed": "Company verification failed",
-    "companyVerified": "Company verified automatically!",
-    "documentUploaded": "document uploaded",
-    "requestCreated": "Verification request created",
-    "pendingReview": "Company verification pending review",
-    "startFailed": "Failed to start verification",
+    "uploadFailed": "فشل في الرفع",
+    "companyFailed": "فشل التحقق من الشركة",
+    "companyVerified": "تم التحقق من الشركة تلقائياً!",
+    "documentUploaded": "تم رفع المستند",
+    "requestCreated": "تم إنشاء طلب التحقق",
+    "pendingReview": "التحقق من الشركة قيد المراجعة",
+    "startFailed": "فشل في بدء التحقق",
     "title": "التحقق",
     "verify": "تحقق",
     "verified": "موثق",
@@ -1128,24 +1128,24 @@
     "phone": "الهاتف"
   },
   "analytics": {
-    "loadFailed": "Failed to load analytics",
+    "loadFailed": "فشل في تحميل التحليلات",
     "title": "التحليلات"
   },
   "autofill": {
-    "description": "Click any field to copy for job applications",
-    "copyAll": "Copy All",
-    "workHistory": "Work History",
+    "description": "انقر على أي حقل لنسخه لطلبات التوظيف",
+    "copyAll": "نسخ الكل",
+    "workHistory": "الخبرة العملية",
     "education": "التعليم",
-    "personal": "Personal Info",
-    "professional": "Professional",
-    "tip": "Tip: Click any field to instantly copy it for pasting into job application forms.",
-    "copied": "Copied to clipboard!",
+    "personal": "المعلومات الشخصية",
+    "professional": "المعلومات المهنية",
+    "tip": "نصيحة: انقر على أي حقل لنسخه فوراً للصقه في نماذج طلبات التوظيف.",
+    "copied": "تم النسخ!",
     "title": "الملء التلقائي",
-    "uploadFirst": "Upload your resume to enable auto-fill",
-    "noDataInCategory": "No data available in this category",
+    "uploadFirst": "ارفع سيرتك الذاتية لتفعيل الملء التلقائي",
+    "noDataInCategory": "لا تتوفر بيانات في هذه الفئة",
     "skills": "المهارات",
-    "copyFailed": "Failed to copy",
-    "noResume": "No Resume Found",
+    "copyFailed": "فشل في النسخ",
+    "noResume": "لم يتم العثور على سيرة ذاتية",
     "enable": "تفعيل",
     "disable": "تعطيل",
     "settings": "الإعدادات",
@@ -1159,25 +1159,25 @@
     "clear": "مسح"
   },
   "candidates": {
-    "addSkillOrKeyword": "Please add at least one skill or keyword",
-    "loadFailed": "Failed to load profile",
-    "searchFailed": "Search failed",
+    "addSkillOrKeyword": "يرجى إضافة مهارة أو كلمة مفتاحية واحدة على الأقل",
+    "loadFailed": "فشل في تحميل الملف الشخصي",
+    "searchFailed": "فشل البحث",
     "title": "المرشحين",
     "search": "بحث",
     "filter": "تصفية",
     "view": "عرض"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company",
+    "createFailed": "فشل في إنشاء الشركة",
+    "created": "تم إنشاء ملف الشركة",
+    "followFailed": "فشل في متابعة الشركة",
     "title": "الشركات",
     "search": "بحث",
     "view": "عرض"
   },
   "savedJobs": {
-    "saveJobsHint": "Save jobs while searching to review them later",
-    "noSavedJobs": "No saved jobs",
+    "saveJobsHint": "احفظ الوظائف أثناء البحث لمراجعتها لاحقاً",
+    "noSavedJobs": "لا توجد وظائف محفوظة",
     "title": "الوظائف المحفوظة"
   }
 }
