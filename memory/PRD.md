@@ -2600,6 +2600,27 @@ Implemented grammatical gender-aware translations following ICU MessageFormat an
 - Quick actions available: Write cover letter, Find jobs, Interview prep, My resume ✅
 - Response time: ~10 seconds for AI responses ✅
 
+#### 7. Translation System Fix (P0 - COMPLETED)
+**Issue**: Dashboard and UI elements showing raw translation keys or mixture of English and selected language
+**Root Cause**: Missing translation keys in both English and French locale files
+
+**Files Modified**:
+- `/app/frontend/src/locales/en.json`:
+  - Added missing `dashboard.watchTutorials`, `dashboard.learnWithVideos`, `dashboard.getStarted`
+- `/app/frontend/src/locales/fr.json`:
+  - Added comprehensive French translations for dashboard including:
+    - `personalizedDashboard`, `uploadToStart`, `aiPowered`, `recommendedSteps`
+    - `getAIMatches`, `findOpportunities`, `reviewSavedJobs`, `jobsWaiting`
+    - `writeCoverLetter`, `aiPoweredGeneration`, `prepareInterview`, `practiceWithCoach`
+    - `watchTutorials`, `learnWithVideos`, `getStarted`, and many more
+
+**Result**: Full French translation working:
+- "Bon retour, Charles" ✅
+- "Votre tableau de bord personnalisé de recherche d'emploi" ✅
+- "Actions Rapides" with French descriptions ✅
+- "Voir les Tutoriels" / "Apprenez à utiliser MedMatch" / "Commencer" ✅
+- Sidebar navigation fully translated ✅
+
 ---
 
 ### Test Credentials
