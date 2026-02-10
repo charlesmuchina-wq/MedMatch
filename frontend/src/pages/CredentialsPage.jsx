@@ -76,6 +76,7 @@ const CredentialsPage = () => {
 
   const tabs = [
     { id: 'my-credentials', label: 'My Credentials', icon: Award },
+    { id: 'orcid', label: 'ORCID', icon: Link2 },
     { id: 'browse', label: 'Browse Certifications', icon: Search },
     { id: 'hierarchy', label: 'Quality Hierarchy', icon: Building },
     { id: 'providers', label: 'Verification Providers', icon: Shield }
