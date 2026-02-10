@@ -150,6 +150,6 @@ def get_stored_videos() -> list:
             "filename": filepath.name,
             "language": filepath.stem.replace("tutorial_", ""),
             "size_mb": round(filepath.stat().st_size / (1024 * 1024), 2),
-            "url": f"/api/tutorials/static/{filepath.name}"
+            "url": f"/api/tutorials/video-file/{filepath.name}"
         })
     return videos
