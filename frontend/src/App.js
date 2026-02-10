@@ -472,6 +472,20 @@ function AppContent() {
   
   // Onboarding tour state
   const { showTour, completeTour } = useOnboardingTour();
+  
+  // Language tour state - show for new users
+  const [showLanguageTour, setShowLanguageTour] = useState(false);
+  
+  // Check if language tour should be shown
+  useEffect(() => {
+    if (user && !localStorage.getItem('medmatch_tour_completed') && !localStorage.getItem('medmatch_tour_skipped')) {
+      // Show tour for new users after a short delay
+      const timer = setTimeout(() => {
+        setShowLanguageTour(true);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [user]);
 
   // Check privacy consent status after login
   useEffect(() => {
