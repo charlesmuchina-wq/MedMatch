@@ -1,6 +1,7 @@
 /**
  * Admin Dashboard - Central hub for admin functions
  * Only accessible to users with admin role
+ * Feature: 3 View Options - Admin, Job Seeker, Recruiter
  */
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -29,13 +30,66 @@ import {
   History,
   Target,
   Globe,
-  Languages
+  Languages,
+  Briefcase,
+  UserCircle,
+  Eye
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import { Progress } from '../components/ui/progress';
 import { apiClient } from '@/utils/apiClient';
+
+// View Mode Selector Component
+const ViewModeSelector = ({ currentView, onViewChange }) => {
+  const views = [
+    { id: 'admin', label: 'Admin View', icon: Shield, description: 'Full administrative access' },
+    { id: 'recruiter', label: 'Recruiter View', icon: Briefcase, description: 'See platform as a recruiter' },
+    { id: 'jobseeker', label: 'Job Seeker View', icon: UserCircle, description: 'See platform as a job seeker' }
+  ];
+
+  return (
+    <Card className="mb-6 border-2 border-dashed border-turquoise/30">
+      <CardHeader className="pb-3">
+        <CardTitle className="text-lg flex items-center gap-2">
+          <Eye className="h-5 w-5 text-turquoise" />
+          Platform View Mode
+        </CardTitle>
+        <CardDescription>Switch between different user perspectives to test the platform experience</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {views.map((view) => (
+            <button
+              key={view.id}
+              onClick={() => onViewChange(view.id)}
+              className={`p-4 rounded-xl border-2 text-left transition-all ${
+                currentView === view.id
+                  ? 'border-turquoise bg-turquoise/10 shadow-md'
+                  : 'border-border hover:border-turquoise/50 hover:bg-muted/50'
+              }`}
+              data-testid={`view-mode-${view.id}`}
+            >
+              <div className="flex items-center gap-3">
+                <div className={`p-2 rounded-lg ${currentView === view.id ? 'bg-turquoise text-white' : 'bg-muted'}`}>
+                  <view.icon className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="font-semibold">{view.label}</p>
+                  <p className="text-xs text-muted-foreground">{view.description}</p>
+                </div>
+              </div>
+              {currentView === view.id && (
+                <Badge className="mt-2 bg-turquoise/20 text-turquoise text-xs">Active</Badge>
+              )}
+            </button>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
 
 // Admin Module Card
 const AdminModuleCard = ({ title, description, icon: Icon, path, status, stats, onClick }) => (
