@@ -390,55 +390,6 @@ async def get_role_specific_video(role: str):
     raise HTTPException(status_code=404, detail=f"No video found for role: {role}")
 
 
-@router.get("/videos/{video_id}")
-async def get_video(video_id: str, lang: str = "en"):
-    """Stream a tutorial video, optionally in a specific language"""
-    # Find video metadata
-    video_meta = next((v for v in VIDEOS if v["id"] == video_id), None)
-    
-    if not video_meta:
-        raise HTTPException(status_code=404, detail="Video not found")
-    
-    # Check for translated version first
-    if lang != "en":
-        translated_path = VIDEOS_DIR / f"{video_id}_{lang}.mp4"
-        if translated_path.exists():
-            return FileResponse(
-                path=str(translated_path),
-                media_type="video/mp4",
-                filename=f"{video_id}_{lang}.mp4"
-            )
-    
-    # Fall back to original (English) video
-    video_path = VIDEOS_DIR / video_meta["filename"]
-    
-    if not video_path.exists():
-        raise HTTPException(status_code=404, detail="Video file not available")
-    
-    return FileResponse(
-        path=str(video_path),
-        media_type="video/mp4",
-        filename=video_meta["filename"]
-    )
-
-
-@router.get("/guide")
-async def get_navigation_guide():
-    """Get the navigation guide content"""
-    guide_path = Path("/app/docs/guides/NAVIGATION_GUIDE.md")
-    
-    if not guide_path.exists():
-        raise HTTPException(status_code=404, detail="Guide not found")
-    
-    content = guide_path.read_text()
-    
-    return {
-        "title": "MedMatch Navigation Guide",
-        "content": content,
-        "format": "markdown"
-    }
-
-
 # ==================== PERMANENT VIDEO STORAGE ====================
 
 @router.post("/videos/download-all")
@@ -549,6 +500,39 @@ async def get_tutorial_video_url(language: str):
     }
 
 
+# This catch-all route MUST come after all specific /videos/xxx routes
+@router.get("/videos/{video_id}")
+async def get_video(video_id: str, lang: str = "en"):
+    """Stream a tutorial video, optionally in a specific language"""
+    # Find video metadata
+    video_meta = next((v for v in VIDEOS if v["id"] == video_id), None)
+    
+    if not video_meta:
+        raise HTTPException(status_code=404, detail="Video not found")
+    
+    # Check for translated version first
+    if lang != "en":
+        translated_path = VIDEOS_DIR / f"{video_id}_{lang}.mp4"
+        if translated_path.exists():
+            return FileResponse(
+                path=str(translated_path),
+                media_type="video/mp4",
+                filename=f"{video_id}_{lang}.mp4"
+            )
+    
+    # Fall back to original (English) video
+    video_path = VIDEOS_DIR / video_meta["filename"]
+    
+    if not video_path.exists():
+        raise HTTPException(status_code=404, detail="Video file not available")
+    
+    return FileResponse(
+        path=str(video_path),
+        media_type="video/mp4",
+        filename=video_meta["filename"]
+    )
+
+
 @router.get("/video-file/{filename}")
 async def serve_stored_video(filename: str):
     """Serve a permanently stored tutorial video"""
@@ -562,4 +546,21 @@ async def serve_stored_video(filename: str):
         media_type="video/mp4",
         filename=filename
     )
+
+
+@router.get("/guide")
+async def get_navigation_guide():
+    """Get the navigation guide content"""
+    guide_path = Path("/app/docs/guides/NAVIGATION_GUIDE.md")
+    
+    if not guide_path.exists():
+        raise HTTPException(status_code=404, detail="Guide not found")
+    
+    content = guide_path.read_text()
+    
+    return {
+        "title": "MedMatch Navigation Guide",
+        "content": content,
+        "format": "markdown"
+    }
 
