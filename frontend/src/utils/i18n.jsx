@@ -35,6 +35,10 @@ import wo from "@/locales/wo.json";  // Wolof
 import lg from "@/locales/lg.json";  // Luganda
 // European Languages - Generated
 import nl from "@/locales/nl.json";  // Dutch
+import it from "@/locales/it.json";  // Italian
+import vi from "@/locales/vi.json";  // Vietnamese
+import ko from "@/locales/ko.json";  // Korean
+import ru from "@/locales/ru.json";  // Russian
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
@@ -68,6 +72,10 @@ const translations = {
   lg,      // Luganda
   // European Languages - Generated
   nl,      // Dutch
+  it,      // Italian
+  vi,      // Vietnamese
+  ko,      // Korean
+  ru,      // Russian
 };
 
 // Fallback language
