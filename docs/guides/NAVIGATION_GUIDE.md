@@ -26,7 +26,7 @@ The following instructional videos are available in `/app/videos/`:
 ### Getting Started
 
 #### Step 1: Sign In
-1. Navigate to [MedMatch](https://medmatch-qa.preview.emergentagent.com)
+1. Navigate to [MedMatch](https://multilingual-help-5.preview.emergentagent.com)
 2. Choose your sign-in method:
    - **Google** - Quick sign-in with your Google account
    - **Apple** - Sign in with Apple ID

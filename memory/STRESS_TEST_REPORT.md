@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://medmatch-qa.preview.emergentagent.com/api
+**API Target:** https://multilingual-help-5.preview.emergentagent.com/api
 
 ---
 
