@@ -171,7 +171,7 @@
   "auth": {
     "signIn": "ログイン",
     "signUp": "新規登録",
-    "email": "メールアドレス",
+    "email": "メール",
     "password": "パスワード",
     "confirmPassword": "パスワード（確認）",
     "forgotPassword": "パスワードをお忘れですか？",
