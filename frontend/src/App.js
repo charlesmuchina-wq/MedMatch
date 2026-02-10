@@ -288,8 +288,8 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
               onClick={() => setIsOpen(false)}
               data-testid={`nav-${labelKey.split('.').pop().toLowerCase()}`}
             >
-              <Icon className="w-5 h-5" />
-              <span>{t(labelKey)}</span>
+              <Icon className="w-5 h-5 flex-shrink-0" />
+              <span className="truncate text-sm" title={t(labelKey)}>{t(labelKey)}</span>
             </NavLink>
           ))}
         </nav>
