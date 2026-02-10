@@ -44,6 +44,9 @@
 |----------|-------|---------|--------|
 | 🇩🇪 German Tutorial | Katja (de-DE) | `tlk_U_WgYRHRZvTazt9trvZpg` | ✅ Created Feb 9, 2026 |
 | 🇫🇷 French Tutorial | Denise (fr-FR) | `tlk_X0fd9qzrvTlsqBWynmMe6` | ✅ Created Feb 9, 2026 |
+| 🇪🇸 Spanish Tutorial | Elvira (es-ES) | `tlk_h4r6Fu-x5cHidSGm1xr_J` | ✅ Created Feb 10, 2026 |
+| 🇯🇵 Japanese Tutorial | Nanami (ja-JP) | `tlk_8q1WRtDgr1xmiBqucb1nR` | ✅ Created Feb 10, 2026 |
+| 🇨🇳 Chinese Tutorial | Xiaoxiao (zh-CN) | `tlk_uJmYXojHb0OsKyEEq-KrZ` | ✅ Created Feb 10, 2026 |
 
 ---
 
