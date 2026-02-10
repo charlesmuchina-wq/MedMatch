@@ -4,6 +4,68 @@
    =============================================== */
 
 /* ===============================================
+   i18n / Localization Support
+   Flexible layouts for text expansion (30-50% buffer)
+   =============================================== */
+
+/* Allow buttons and interactive elements to grow with text */
+.i18n-flex-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: min-content;
+  max-width: 100%;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* For buttons that can wrap to multiple lines if needed */
+.i18n-wrap-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  white-space: normal;
+  text-align: center;
+  min-height: 2.5rem;
+}
+
+/* Labels that should truncate with ellipsis */
+.i18n-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* Text that should wrap to multiple lines */
+.i18n-wrap {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Flex container that allows children to shrink */
+.i18n-flex-shrink {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+/* Table cells with text expansion support */
+.i18n-table-cell {
+  white-space: normal;
+  word-wrap: break-word;
+  min-width: 80px;
+  max-width: 250px;
+}
+
+/* ===============================================
    Sidebar Styles
    =============================================== */
 
