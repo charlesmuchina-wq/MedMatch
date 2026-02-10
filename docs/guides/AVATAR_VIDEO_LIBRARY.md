@@ -47,6 +47,8 @@
 | 🇪🇸 Spanish Tutorial | Elvira (es-ES) | `tlk_h4r6Fu-x5cHidSGm1xr_J` | ✅ Created Feb 10, 2026 |
 | 🇯🇵 Japanese Tutorial | Nanami (ja-JP) | `tlk_8q1WRtDgr1xmiBqucb1nR` | ✅ Created Feb 10, 2026 |
 | 🇨🇳 Chinese Tutorial | Xiaoxiao (zh-CN) | `tlk_uJmYXojHb0OsKyEEq-KrZ` | ✅ Created Feb 10, 2026 |
+| 🇧🇷 Portuguese Tutorial | Francisca (pt-BR) | `tlk_Lyp35W6ADuqPC23v43DpV` | ✅ Created Feb 10, 2026 |
+| 🇸🇦 Arabic Tutorial | Salma (ar-EG) | `tlk_64wv6WIrs1z5JG-NiRo6c` | ✅ Created Feb 10, 2026 |
 
 ---
 
