@@ -2,7 +2,7 @@
 Video Tutorials API Routes
 Serves instructional videos for MedMatch navigation
 """
-from fastapi import APIRouter, HTTPException, BackgroundTasks
+from fastapi import APIRouter, HTTPException, BackgroundTasks, Request
 from fastapi.responses import FileResponse
 from pathlib import Path
 from typing import List
