@@ -563,66 +563,18 @@ async def get_video(video_id: str, lang: str = "en"):
 @router.get("/video-file/{filename}")
 async def serve_stored_video(filename: str, request: Request):
     """Serve a permanently stored tutorial video with range support for streaming"""
-    from starlette.responses import StreamingResponse
-    import mimetypes
-    
     video_path = TUTORIAL_VIDEOS_DIR / filename
     
     if not video_path.exists():
         raise HTTPException(status_code=404, detail="Video not found")
     
-    file_size = video_path.stat().st_size
-    
-    # Handle Range requests for video streaming
-    range_header = request.headers.get("range")
-    
-    if range_header:
-        # Parse range header: bytes=0-1000
-        range_spec = range_header.replace("bytes=", "")
-        start, end = range_spec.split("-") if "-" in range_spec else (range_spec, "")
-        start = int(start) if start else 0
-        end = int(end) if end else file_size - 1
-        end = min(end, file_size - 1)
-        
-        content_length = end - start + 1
-        
-        def iter_file():
-            with open(video_path, "rb") as f:
-                f.seek(start)
-                remaining = content_length
-                while remaining > 0:
-                    chunk_size = min(8192, remaining)
-                    chunk = f.read(chunk_size)
-                    if not chunk:
-                        break
-                    remaining -= len(chunk)
-                    yield chunk
-        
-        return StreamingResponse(
-            iter_file(),
-            status_code=206,
-            media_type="video/mp4",
-            headers={
-                "Content-Range": f"bytes {start}-{end}/{file_size}",
-                "Accept-Ranges": "bytes",
-                "Content-Length": str(content_length),
-                "Cache-Control": "no-cache"
-            }
-        )
-    
-    # Full file response
-    def iter_full_file():
-        with open(video_path, "rb") as f:
-            while chunk := f.read(8192):
-                yield chunk
-    
-    return StreamingResponse(
-        iter_full_file(),
+    # Use FileResponse which handles range requests automatically
+    return FileResponse(
+        path=str(video_path),
         media_type="video/mp4",
         headers={
             "Accept-Ranges": "bytes",
-            "Content-Length": str(file_size),
-            "Cache-Control": "no-cache"
+            "Cache-Control": "public, max-age=3600"
         }
     )
 
