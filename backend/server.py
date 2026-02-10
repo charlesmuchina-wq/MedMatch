@@ -328,6 +328,11 @@ videos_dir = Path("/app/videos")
 if videos_dir.exists():
     app.mount("/videos", StaticFiles(directory=str(videos_dir)), name="videos")
 
+# Mount tutorial videos directory
+tutorial_videos_dir = Path("/app/backend/static/videos/tutorials")
+if tutorial_videos_dir.exists():
+    app.mount("/tutorial-videos", StaticFiles(directory=str(tutorial_videos_dir)), name="tutorial_videos")
+
 # ============== CORS Configuration ==============
 app.add_middleware(
     CORSMiddleware,
