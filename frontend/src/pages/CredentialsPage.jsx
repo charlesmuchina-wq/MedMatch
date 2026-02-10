@@ -124,6 +124,30 @@ const CredentialsPage = () => {
           <CredentialsManager />
         )}
 
+        {/* ORCID Tab */}
+        {activeTab === 'orcid' && (
+          <div className="max-w-2xl mx-auto space-y-6">
+            <ORCIDConnect 
+              userId={localStorage.getItem('userId') || 'current-user'}
+              onDataImported={(data) => {
+                console.log('ORCID data imported:', data);
+                toast.success('ORCID credentials imported!');
+              }}
+            />
+            
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
+              <h3 className="font-medium text-blue-900 dark:text-blue-200 mb-2">Why Connect ORCID?</h3>
+              <ul className="text-sm text-blue-800 dark:text-blue-300 space-y-1">
+                <li>• <strong>Verified credentials</strong> - Education verified by institutions</li>
+                <li>• <strong>Instant import</strong> - No manual data entry needed</li>
+                <li>• <strong>Global standard</strong> - ORCID is the researcher identity standard</li>
+                <li>• <strong>Publications</strong> - Show your research contributions</li>
+                <li>• <strong>Free</strong> - ORCID is free for researchers</li>
+              </ul>
+            </div>
+          </div>
+        )}
+
         {/* Browse Certifications Tab */}
         {activeTab === 'browse' && (
           <div className="space-y-6">
