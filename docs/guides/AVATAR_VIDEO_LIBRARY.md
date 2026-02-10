@@ -91,6 +91,15 @@
 ### NEW: French Getting Started Tutorial (45s)
 > "Bienvenue sur MedMatch! Laissez-moi vous montrer comment démarrer en quelques minutes. Premièrement, téléchargez votre CV. Notre IA le analysera automatiquement et extraira vos compétences. Ensuite, utilisez la recherche intelligente d'emplois. Nous parcourons plus de quinze sites d'emploi spécialisés simultanément. Troisièmement, vérifiez votre probabilité de succès. Notre prédicteur IA analyse chaque poste et vous montre où vous avez les meilleures chances. Quatrièmement, préparez-vous avec le coach IA. Entraînez-vous aux entretiens avec des retours en temps réel. MedMatch rend la recherche d'emploi simple, intelligente et efficace. Commencez gratuitement maintenant!"
 
+### NEW: Spanish Getting Started Tutorial (45s)
+> "¡Bienvenido a MedMatch! Permíteme mostrarte cómo empezar en solo unos minutos. Primero, sube tu currículum. Nuestra IA lo analizará automáticamente y extraerá tus habilidades. Luego, usa la búsqueda inteligente de empleo. Buscamos en más de quince bolsas de trabajo especializadas simultáneamente. Sin ofertas fantasma, solo puestos reales. Tercero, verifica tu probabilidad de éxito. Nuestro predictor de IA analiza cada puesto y te muestra dónde tienes las mejores oportunidades. Cuarto, prepárate con el coach de IA. Practica entrevistas con retroalimentación en tiempo real. MedMatch hace que la búsqueda de empleo sea simple, inteligente y efectiva. ¡Comienza gratis ahora!"
+
+### NEW: Japanese Getting Started Tutorial (45s)
+> "MedMatchへようこそ！数分で始める方法をご紹介します。まず、履歴書をアップロードしてください。AIが自動的に分析し、スキルを抽出します。次に、スマート求人検索を使用します。15以上の専門求人サイトを同時に検索します。ゴースト求人なし、本物の求人のみ。3番目に、成功確率を確認します。AI予測ツールが各求人を分析し、最も可能性の高い機会を表示します。4番目に、AIコーチで準備しましょう。リアルタイムフィードバックで面接練習ができます。MedMatchで、就職活動をシンプル、スマート、効果的に。今すぐ無料で始めましょう！"
+
+### NEW: Chinese Getting Started Tutorial (45s)
+> "欢迎使用MedMatch！让我向您展示如何在几分钟内开始。首先，上传您的简历。我们的人工智能会自动分析并提取您的技能。然后，使用智能求职搜索。我们同时搜索超过十五个专业求职网站。没有虚假职位，只有真实的工作机会。第三，检查您的成功概率。我们的AI预测工具分析每个职位，显示您最有可能成功的机会。第四，使用AI教练进行准备。通过实时反馈练习面试。MedMatch让求职变得简单、智能、高效。立即免费开始！"
+
 ---
 
 ## 🎬 Video Download Instructions
