@@ -33,6 +33,8 @@ import ny from "@/locales/ny.json";  // Chichewa
 import tw from "@/locales/tw.json";  // Twi
 import wo from "@/locales/wo.json";  // Wolof
 import lg from "@/locales/lg.json";  // Luganda
+// European Languages - Generated
+import nl from "@/locales/nl.json";  // Dutch
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
@@ -63,7 +65,9 @@ const translations = {
   ny,      // Chichewa
   tw,      // Twi
   wo,      // Wolof
-  lg       // Luganda
+  lg,      // Luganda
+  // European Languages - Generated
+  nl,      // Dutch
 };
 
 // Fallback language
