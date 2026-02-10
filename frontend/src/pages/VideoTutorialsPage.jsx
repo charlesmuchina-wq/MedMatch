@@ -329,6 +329,220 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
   );
 });
 
+// Getting Started Section - AI Avatar Tutorials in 16 Languages
+const TUTORIAL_LANGUAGES = [
+  { code: 'de', name: 'German', flag: '🇩🇪', title: 'Erste Schritte mit MedMatch' },
+  { code: 'fr', name: 'French', flag: '🇫🇷', title: 'Démarrer avec MedMatch' },
+  { code: 'es', name: 'Spanish', flag: '🇪🇸', title: 'Comenzar con MedMatch' },
+  { code: 'ja', name: 'Japanese', flag: '🇯🇵', title: 'MedMatchの使い方' },
+  { code: 'zh', name: 'Chinese', flag: '🇨🇳', title: 'MedMatch入门指南' },
+  { code: 'pt', name: 'Portuguese', flag: '🇧🇷', title: 'Começando com MedMatch' },
+  { code: 'ar', name: 'Arabic', flag: '🇸🇦', title: 'البدء مع MedMatch' },
+  { code: 'ko', name: 'Korean', flag: '🇰🇷', title: 'MedMatch 시작하기' },
+  { code: 'hi', name: 'Hindi', flag: '🇮🇳', title: 'MedMatch के साथ शुरुआत' },
+  { code: 'it', name: 'Italian', flag: '🇮🇹', title: 'Iniziare con MedMatch' },
+  { code: 'ru', name: 'Russian', flag: '🇷🇺', title: 'Начало работы с MedMatch' },
+  { code: 'nl', name: 'Dutch', flag: '🇳🇱', title: 'Aan de slag met MedMatch' },
+  { code: 'pl', name: 'Polish', flag: '🇵🇱', title: 'Rozpocznij z MedMatch' },
+  { code: 'sv', name: 'Swedish', flag: '🇸🇪', title: 'Kom igång med MedMatch' },
+  { code: 'tr', name: 'Turkish', flag: '🇹🇷', title: 'MedMatch\'e Başlayın' },
+  { code: 'vi', name: 'Vietnamese', flag: '🇻🇳', title: 'Bắt đầu với MedMatch' }
+];
+
+const GettingStartedSection = memo(() => {
+  const [selectedLang, setSelectedLang] = useState('de');
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [videoLoading, setVideoLoading] = useState(false);
+  const [videoError, setVideoError] = useState(null);
+  const videoRef = useRef(null);
+
+  const currentTutorial = TUTORIAL_LANGUAGES.find(l => l.code === selectedLang);
+  const videoUrl = `${API}/api/tutorials/video-file/tutorial_${selectedLang}.mp4`;
+
+  const handleLanguageChange = useCallback((langCode) => {
+    setSelectedLang(langCode);
+    setIsPlaying(false);
+    setVideoError(null);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.load();
+    }
+  }, []);
+
+  const handlePlayClick = useCallback(() => {
+    if (videoRef.current) {
+      setVideoLoading(true);
+      videoRef.current.play()
+        .then(() => {
+          setIsPlaying(true);
+          setVideoLoading(false);
+        })
+        .catch(err => {
+          console.error('Play failed:', err);
+          setVideoError('Failed to play video');
+          setVideoLoading(false);
+        });
+    }
+  }, []);
+
+  const handleVideoEnded = useCallback(() => {
+    setIsPlaying(false);
+  }, []);
+
+  const handleVideoError = useCallback(() => {
+    setVideoError('Video unavailable');
+    setVideoLoading(false);
+  }, []);
+
+  const handleCanPlay = useCallback(() => {
+    setVideoLoading(false);
+  }, []);
+
+  return (
+    <div className="space-y-6" data-testid="getting-started-section">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900">Getting Started with MedMatch</h2>
+          <p className="text-gray-600 mt-1">Watch our 45-second AI-powered tutorials in your preferred language</p>
+        </div>
+        <div className="flex items-center gap-2 bg-teal-50 px-3 py-2 rounded-lg">
+          <Globe className="w-5 h-5 text-teal-600" />
+          <span className="text-sm font-medium text-teal-700">{TUTORIAL_LANGUAGES.length} Languages Available</span>
+        </div>
+      </div>
+
+      {/* Main Content Grid */}
+      <div className="grid lg:grid-cols-3 gap-6">
+        {/* Video Player */}
+        <div className="lg:col-span-2">
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            {/* Video Container */}
+            <div className="aspect-video bg-gray-900 relative">
+              {videoError ? (
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+                  <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mb-3">
+                    <Play className="w-8 h-8 text-red-400" />
+                  </div>
+                  <p className="text-red-400">{videoError}</p>
+                  <button 
+                    onClick={() => setVideoError(null)}
+                    className="mt-3 text-sm text-gray-400 hover:text-white"
+                  >
+                    Try again
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <video
+                    ref={videoRef}
+                    src={videoUrl}
+                    className="w-full h-full object-contain"
+                    onEnded={handleVideoEnded}
+                    onError={handleVideoError}
+                    onCanPlay={handleCanPlay}
+                    onPlaying={() => setIsPlaying(true)}
+                    onPause={() => setIsPlaying(false)}
+                    preload="metadata"
+                    playsInline
+                    controls={isPlaying}
+                    data-testid="tutorial-video-player"
+                  />
+                  
+                  {/* Play Overlay */}
+                  {!isPlaying && (
+                    <div 
+                      className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 cursor-pointer transition-opacity hover:bg-black/50"
+                      onClick={handlePlayClick}
+                    >
+                      {videoLoading ? (
+                        <Loader2 className="w-16 h-16 text-white animate-spin" />
+                      ) : (
+                        <>
+                          <div className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+                            <Play className="w-10 h-10 text-teal-600 ml-1" />
+                          </div>
+                          <p className="text-white mt-4 text-lg font-medium">{currentTutorial?.title}</p>
+                          <p className="text-white/70 text-sm mt-1">45 seconds • AI Avatar Tutorial</p>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+
+            {/* Video Info Bar */}
+            <div className="p-4 border-t border-gray-100 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">{currentTutorial?.flag}</span>
+                <div>
+                  <p className="font-medium text-gray-900">{currentTutorial?.name} Tutorial</p>
+                  <p className="text-sm text-gray-500">Duration: 45 seconds</p>
+                </div>
+              </div>
+              <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm font-medium">
+                AI Generated
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Language Selector */}
+        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 h-fit max-h-[500px] overflow-y-auto">
+          <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+            <Globe className="w-5 h-5 text-teal-600" />
+            Select Language
+          </h3>
+          <div className="space-y-1">
+            {TUTORIAL_LANGUAGES.map((lang) => (
+              <button
+                key={lang.code}
+                onClick={() => handleLanguageChange(lang.code)}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-left ${
+                  selectedLang === lang.code
+                    ? 'bg-teal-50 border-2 border-teal-500 text-teal-700'
+                    : 'hover:bg-gray-50 border-2 border-transparent'
+                }`}
+                data-testid={`lang-btn-${lang.code}`}
+              >
+                <span className="text-xl">{lang.flag}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-sm truncate">{lang.name}</p>
+                  <p className="text-xs text-gray-500 truncate">{lang.title}</p>
+                </div>
+                {selectedLang === lang.code && (
+                  <div className="w-2 h-2 bg-teal-500 rounded-full" />
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Features Highlight */}
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+        {[
+          { icon: FileText, title: 'Upload Resume', desc: 'AI parses your skills automatically' },
+          { icon: Search, title: 'Smart Search', desc: 'Search 15+ job boards at once' },
+          { icon: ClipboardList, title: 'Success Predictor', desc: 'Know your chances before applying' },
+          { icon: Users, title: 'AI Interview Coach', desc: 'Practice with real-time feedback' }
+        ].map((feature, idx) => (
+          <div key={idx} className="bg-white rounded-lg p-4 border border-gray-100 flex items-start gap-3">
+            <div className="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0">
+              <feature.icon className="w-5 h-5 text-teal-600" />
+            </div>
+            <div>
+              <p className="font-medium text-gray-900 text-sm">{feature.title}</p>
+              <p className="text-xs text-gray-500">{feature.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+});
+
 const VideoTutorialsPage = () => {
   const [activeTab, setActiveTab] = useState('videos');
   const [selectedVideo, setSelectedVideo] = useState(null);
