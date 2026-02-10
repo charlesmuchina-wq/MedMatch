@@ -161,6 +161,7 @@ const QuickStatCard = ({ title, value, icon: Icon, trend, color = "turquoise" })
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [viewMode, setViewMode] = useState('admin');
   const [systemHealth, setSystemHealth] = useState(null);
   const [stats, setStats] = useState({
     total_users: 0,
@@ -172,6 +173,18 @@ export default function AdminDashboard() {
   const [mlPrediction, setMlPrediction] = useState(null);
   const [mlModelInfo, setMlModelInfo] = useState(null);
   const [rollbackStatus, setRollbackStatus] = useState(null);
+
+  // Handle view mode change
+  const handleViewChange = (mode) => {
+    setViewMode(mode);
+    if (mode === 'recruiter') {
+      toast.info('Viewing platform as Recruiter', { description: 'Navigate to see recruiter-specific features' });
+    } else if (mode === 'jobseeker') {
+      toast.info('Viewing platform as Job Seeker', { description: 'Navigate to see job seeker features' });
+    } else {
+      toast.success('Admin view activated', { description: 'Full administrative access enabled' });
+    }
+  };
 
   // Helper to add delay between requests to prevent rate limiting
   const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
