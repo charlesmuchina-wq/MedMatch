@@ -356,13 +356,26 @@ class TranslationQAService:
         """Check for RTL-specific issues"""
         issues = []
         
+        # Whitelist: brand names, technical terms, and common English words that should stay in Latin script
+        rtl_whitelist = {
+            # Brand names
+            'medmatch', 'linkedin', 'indeed', 'glassdoor', 'ziprecruiter', 'monster',
+            'stripe', 'paypal', 'google', 'apple', 'microsoft', 'facebook', 'meta',
+            # Browsers
+            'chrome', 'safari', 'firefox', 'edge', 'opera',
+            # Technical terms
+            'email', 'password', 'admin', 'api', 'url', 'http', 'https', 'oauth', 'sso',
+            'json', 'pdf', 'csv', 'xml', 'html', 'css',
+            # Template variables (these appear as words when extracted)
+            'current', 'total', 'count', 'name', 'date', 'time',
+        }
+        
         for key, translation in lang_keys.items():
             # Check for LTR characters that might cause issues
             ltr_chars = re.findall(r'[a-zA-Z]{3,}', translation)
             if ltr_chars:
-                # Some English words in RTL text are okay (brand names, etc.)
-                significant_ltr = [w for w in ltr_chars if len(w) > 5 and w.lower() not in 
-                                  ['medmatch', 'email', 'password', 'admin', 'api', 'url']]
+                # Filter out whitelisted words
+                significant_ltr = [w for w in ltr_chars if len(w) > 5 and w.lower() not in rtl_whitelist]
                 if significant_ltr:
                     issues.append({
                         "key": key,
