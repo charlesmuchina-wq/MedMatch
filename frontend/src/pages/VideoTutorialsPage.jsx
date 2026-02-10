@@ -413,12 +413,12 @@ const GettingStartedSection = memo(() => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Getting Started with MedMatch</h2>
-          <p className="text-gray-600 mt-1">Watch our 45-second AI-powered tutorials in your preferred language</p>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Getting Started with MedMatch</h2>
+          <p className="text-gray-700 dark:text-gray-300 mt-1">Watch our 45-second AI-powered tutorials in your preferred language</p>
         </div>
-        <div className="flex items-center gap-2 bg-teal-50 px-3 py-2 rounded-lg">
-          <Globe className="w-5 h-5 text-teal-600" />
-          <span className="text-sm font-medium text-teal-700">{TUTORIAL_LANGUAGES.length} Languages Available</span>
+        <div className="flex items-center gap-2 bg-teal-50 dark:bg-teal-900/30 px-3 py-2 rounded-lg">
+          <Globe className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+          <span className="text-sm font-medium text-teal-700 dark:text-teal-300">{TUTORIAL_LANGUAGES.length} Languages Available</span>
         </div>
       </div>
 
