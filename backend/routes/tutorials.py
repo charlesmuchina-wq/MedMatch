@@ -2,7 +2,7 @@
 Video Tutorials API Routes
 Serves instructional videos for MedMatch navigation
 """
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, BackgroundTasks
 from fastapi.responses import FileResponse
 from pathlib import Path
 from typing import List
@@ -11,6 +11,7 @@ import os
 router = APIRouter(prefix="/tutorials", tags=["Tutorials"])
 
 VIDEOS_DIR = Path("/app/videos")
+TUTORIAL_VIDEOS_DIR = Path("/app/backend/static/videos/tutorials")
 
 # Video metadata - Updated with diverse presenters
 VIDEOS = [
