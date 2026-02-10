@@ -507,21 +507,6 @@ async def list_stored_videos():
     }
 
 
-@router.get("/static/{filename}")
-async def serve_stored_video(filename: str):
-    """Serve a permanently stored tutorial video"""
-    video_path = TUTORIAL_VIDEOS_DIR / filename
-    
-    if not video_path.exists():
-        raise HTTPException(status_code=404, detail="Video not found")
-    
-    return FileResponse(
-        path=str(video_path),
-        media_type="video/mp4",
-        filename=filename
-    )
-
-
 @router.get("/videos/play/{language}")
 async def get_tutorial_video_url(language: str):
     """
@@ -537,7 +522,7 @@ async def get_tutorial_video_url(language: str):
         return {
             "language": language,
             "source": "local",
-            "url": f"/api/tutorials/static/tutorial_{language}.mp4",
+            "url": f"/api/tutorials/video-file/tutorial_{language}.mp4",
             "title": TUTORIAL_VIDEOS[language].get("title")
         }
     
@@ -562,4 +547,19 @@ async def get_tutorial_video_url(language: str):
         "error": result.get("error"),
         "talk_id": talk_id
     }
+
+
+@router.get("/video-file/{filename}")
+async def serve_stored_video(filename: str):
+    """Serve a permanently stored tutorial video"""
+    video_path = TUTORIAL_VIDEOS_DIR / filename
+    
+    if not video_path.exists():
+        raise HTTPException(status_code=404, detail="Video not found")
+    
+    return FileResponse(
+        path=str(video_path),
+        media_type="video/mp4",
+        filename=filename
+    )
 
