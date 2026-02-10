@@ -102,6 +102,12 @@
 ### NEW: Chinese Getting Started Tutorial (45s)
 > "欢迎使用MedMatch！让我向您展示如何在几分钟内开始。首先，上传您的简历。我们的人工智能会自动分析并提取您的技能。然后，使用智能求职搜索。我们同时搜索超过十五个专业求职网站。没有虚假职位，只有真实的工作机会。第三，检查您的成功概率。我们的AI预测工具分析每个职位，显示您最有可能成功的机会。第四，使用AI教练进行准备。通过实时反馈练习面试。MedMatch让求职变得简单、智能、高效。立即免费开始！"
 
+### NEW: Portuguese Getting Started Tutorial (45s)
+> "Bem-vindo ao MedMatch! Deixe-me mostrar como começar em apenas alguns minutos. Primeiro, faça upload do seu currículo. Nossa IA vai analisá-lo automaticamente e extrair suas habilidades. Depois, use a busca inteligente de empregos. Pesquisamos em mais de quinze sites de emprego especializados simultaneamente. Sem vagas fantasma, apenas posições reais. Terceiro, verifique sua probabilidade de sucesso. Nosso preditor de IA analisa cada vaga e mostra onde você tem as melhores chances. Quarto, prepare-se com o coach de IA. Pratique entrevistas com feedback em tempo real. MedMatch torna a busca de emprego simples, inteligente e eficaz. Comece grátis agora!"
+
+### NEW: Arabic Getting Started Tutorial (45s)
+> "مرحباً بك في MedMatch! دعني أريك كيف تبدأ في دقائق معدودة. أولاً، قم بتحميل سيرتك الذاتية. سيقوم الذكاء الاصطناعي بتحليلها تلقائياً واستخراج مهاراتك. ثم استخدم البحث الذكي عن الوظائف. نبحث في أكثر من خمسة عشر موقعاً متخصصاً في نفس الوقت. لا وظائف وهمية، فقط فرص حقيقية. ثالثاً، تحقق من احتمالية نجاحك. يحلل منبئ الذكاء الاصطناعي كل وظيفة ويظهر لك أفضل الفرص. رابعاً، استعد مع مدرب الذكاء الاصطناعي. تدرب على المقابلات مع تعليقات فورية. MedMatch يجعل البحث عن عمل بسيطاً وذكياً وفعالاً. ابدأ مجاناً الآن!"
+
 ---
 
 ## 🎬 Video Download Instructions
