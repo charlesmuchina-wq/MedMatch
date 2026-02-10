@@ -329,25 +329,34 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
   );
 });
 
-// Getting Started Section - AI Avatar Tutorials in 16 Languages
+// Getting Started Section - AI Avatar Tutorials in 20+ Languages
 // Updated Feb 10, 2026: Diverse male/female presenters for global representation
+// Now includes African languages with region-appropriate presenters
 const TUTORIAL_LANGUAGES = [
-  { code: 'de', name: 'German', flag: '🇩🇪', title: 'Erste Schritte mit MedMatch', presenter: 'Josh (Male)' },
-  { code: 'fr', name: 'French', flag: '🇫🇷', title: 'Démarrer avec MedMatch', presenter: 'Josh (Male)' },
-  { code: 'es', name: 'Spanish', flag: '🇪🇸', title: 'Comenzar con MedMatch', presenter: 'Amy (Female)' },
-  { code: 'ja', name: 'Japanese', flag: '🇯🇵', title: 'MedMatchの使い方', presenter: 'Josh (Male)' },
-  { code: 'zh', name: 'Chinese', flag: '🇨🇳', title: 'MedMatch入门指南', presenter: 'Josh (Male)' },
-  { code: 'pt', name: 'Portuguese', flag: '🇧🇷', title: 'Começando com MedMatch', presenter: 'Amy (Female)' },
-  { code: 'ar', name: 'Arabic', flag: '🇸🇦', title: 'البدء مع MedMatch', presenter: 'Amy (Female)' },
-  { code: 'ko', name: 'Korean', flag: '🇰🇷', title: 'MedMatch 시작하기', presenter: 'Josh (Male)' },
-  { code: 'hi', name: 'Hindi', flag: '🇮🇳', title: 'MedMatch के साथ शुरुआत', presenter: 'Josh (Male)' },
-  { code: 'it', name: 'Italian', flag: '🇮🇹', title: 'Iniziare con MedMatch', presenter: 'Josh (Male)' },
-  { code: 'ru', name: 'Russian', flag: '🇷🇺', title: 'Начало работы с MedMatch', presenter: 'Josh (Male)' },
-  { code: 'nl', name: 'Dutch', flag: '🇳🇱', title: 'Aan de slag met MedMatch', presenter: 'Josh (Male)' },
-  { code: 'pl', name: 'Polish', flag: '🇵🇱', title: 'Rozpocznij z MedMatch', presenter: 'Amy (Female)' },
-  { code: 'sv', name: 'Swedish', flag: '🇸🇪', title: 'Kom igång med MedMatch', presenter: 'Amy (Female)' },
-  { code: 'tr', name: 'Turkish', flag: '🇹🇷', title: 'MedMatch\'e Başlayın', presenter: 'Amy (Female)' },
-  { code: 'vi', name: 'Vietnamese', flag: '🇻🇳', title: 'Bắt đầu với MedMatch', presenter: 'Josh (Male)' }
+  // European Languages
+  { code: 'de', name: 'German', flag: '🇩🇪', title: 'Erste Schritte mit MedMatch', presenter: 'Josh (Male)', region: 'Europe' },
+  { code: 'fr', name: 'French', flag: '🇫🇷', title: 'Démarrer avec MedMatch', presenter: 'Josh (Male)', region: 'Europe' },
+  { code: 'es', name: 'Spanish', flag: '🇪🇸', title: 'Comenzar con MedMatch', presenter: 'Amy (Female)', region: 'Europe' },
+  { code: 'it', name: 'Italian', flag: '🇮🇹', title: 'Iniziare con MedMatch', presenter: 'Josh (Male)', region: 'Europe' },
+  { code: 'nl', name: 'Dutch', flag: '🇳🇱', title: 'Aan de slag met MedMatch', presenter: 'Josh (Male)', region: 'Europe' },
+  { code: 'pl', name: 'Polish', flag: '🇵🇱', title: 'Rozpocznij z MedMatch', presenter: 'Amy (Female)', region: 'Europe' },
+  { code: 'sv', name: 'Swedish', flag: '🇸🇪', title: 'Kom igång med MedMatch', presenter: 'Amy (Female)', region: 'Nordic' },
+  { code: 'ru', name: 'Russian', flag: '🇷🇺', title: 'Начало работы с MedMatch', presenter: 'Josh (Male)', region: 'Europe' },
+  // Asian Languages
+  { code: 'ja', name: 'Japanese', flag: '🇯🇵', title: 'MedMatchの使い方', presenter: 'Josh (Male)', region: 'Asia' },
+  { code: 'zh', name: 'Chinese', flag: '🇨🇳', title: 'MedMatch入门指南', presenter: 'Josh (Male)', region: 'Asia' },
+  { code: 'ko', name: 'Korean', flag: '🇰🇷', title: 'MedMatch 시작하기', presenter: 'Josh (Male)', region: 'Asia' },
+  { code: 'vi', name: 'Vietnamese', flag: '🇻🇳', title: 'Bắt đầu với MedMatch', presenter: 'Josh (Male)', region: 'Asia' },
+  { code: 'hi', name: 'Hindi', flag: '🇮🇳', title: 'MedMatch के साथ शुरुआत', presenter: 'Josh (Male)', region: 'South Asia' },
+  // Middle East & South America
+  { code: 'ar', name: 'Arabic', flag: '🇸🇦', title: 'البدء مع MedMatch', presenter: 'Amy (Female)', region: 'Middle East' },
+  { code: 'tr', name: 'Turkish', flag: '🇹🇷', title: 'MedMatch\'e Başlayın', presenter: 'Amy (Female)', region: 'Middle East' },
+  { code: 'pt', name: 'Portuguese', flag: '🇧🇷', title: 'Começando com MedMatch', presenter: 'Amy (Female)', region: 'South America' },
+  // African Languages (NEW)
+  { code: 'sw', name: 'Swahili', flag: '🇰🇪', title: 'Kuanza na MedMatch', presenter: 'Diana (Female)', region: 'Africa' },
+  { code: 'af', name: 'Afrikaans', flag: '🇿🇦', title: 'Begin met MedMatch', presenter: 'Matt (Male)', region: 'Africa' },
+  { code: 'ha', name: 'Hausa', flag: '🇳🇬', title: 'Fara da MedMatch', presenter: 'Eugene (Male)', region: 'Africa' },
+  { code: 'zu', name: 'Zulu', flag: '🇿🇦', title: 'Qala nge-MedMatch', presenter: 'Kayla (Female)', region: 'Africa' }
 ];
 
 const GettingStartedSection = memo(() => {
