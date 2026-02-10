@@ -136,6 +136,127 @@ MULTILANG_VIDEOS = {
     }
 }
 
+# Getting Started Tutorial Videos (45s each) - All Languages with D-ID Talk IDs
+TUTORIAL_VIDEOS = {
+    "de": {
+        "id": "tutorial_german",
+        "title": "Erste Schritte mit MedMatch",
+        "description": "Lernen Sie in wenigen Minuten, wie Sie MedMatch nutzen können",
+        "duration": "45 seconds",
+        "voice": "Katja (de-DE)",
+        "language": "de",
+        "talk_id": "tlk_U_WgYRHRZvTazt9trvZpg"
+    },
+    "fr": {
+        "id": "tutorial_french",
+        "title": "Démarrer avec MedMatch",
+        "description": "Apprenez à utiliser MedMatch en quelques minutes",
+        "duration": "45 seconds",
+        "voice": "Denise (fr-FR)",
+        "language": "fr",
+        "talk_id": "tlk_X0fd9qzrvTlsqBWynmMe6"
+    },
+    "es": {
+        "id": "tutorial_spanish",
+        "title": "Comenzar con MedMatch",
+        "description": "Aprende a usar MedMatch en pocos minutos",
+        "duration": "45 seconds",
+        "voice": "Elvira (es-ES)",
+        "language": "es",
+        "talk_id": "tlk_h4r6Fu-x5cHidSGm1xr_J"
+    },
+    "ja": {
+        "id": "tutorial_japanese",
+        "title": "MedMatchの使い方",
+        "description": "数分でMedMatchの使い方を学びましょう",
+        "duration": "45 seconds",
+        "voice": "Nanami (ja-JP)",
+        "language": "ja",
+        "talk_id": "tlk_8q1WRtDgr1xmiBqucb1nR"
+    },
+    "zh": {
+        "id": "tutorial_chinese",
+        "title": "MedMatch入门指南",
+        "description": "几分钟内学会如何使用MedMatch",
+        "duration": "45 seconds",
+        "voice": "Xiaoxiao (zh-CN)",
+        "language": "zh",
+        "talk_id": "tlk_uJmYXojHb0OsKyEEq-KrZ"
+    },
+    "pt": {
+        "id": "tutorial_portuguese",
+        "title": "Começando com MedMatch",
+        "description": "Aprenda a usar o MedMatch em poucos minutos",
+        "duration": "45 seconds",
+        "voice": "Francisca (pt-BR)",
+        "language": "pt",
+        "talk_id": "tlk_Lyp35W6ADuqPC23v43DpV"
+    },
+    "ar": {
+        "id": "tutorial_arabic",
+        "title": "البدء مع MedMatch",
+        "description": "تعلم كيفية استخدام MedMatch في دقائق",
+        "duration": "45 seconds",
+        "voice": "Salma (ar-EG)",
+        "language": "ar",
+        "talk_id": "tlk_64wv6WIrs1z5JG-NiRo6c"
+    },
+    "ko": {
+        "id": "tutorial_korean",
+        "title": "MedMatch 시작하기",
+        "description": "몇 분 안에 MedMatch 사용법을 배우세요",
+        "duration": "45 seconds",
+        "voice": "SunHi (ko-KR)",
+        "language": "ko",
+        "talk_id": "tlk_BqThujQ3B-8YX92KjkYf7"
+    },
+    "hi": {
+        "id": "tutorial_hindi",
+        "title": "MedMatch के साथ शुरुआत",
+        "description": "कुछ ही मिनटों में MedMatch का उपयोग करना सीखें",
+        "duration": "45 seconds",
+        "voice": "Swara (hi-IN)",
+        "language": "hi",
+        "talk_id": "tlk_vXxJt9acDRpN4LhZBkJJ7"
+    },
+    "it": {
+        "id": "tutorial_italian",
+        "title": "Iniziare con MedMatch",
+        "description": "Impara a usare MedMatch in pochi minuti",
+        "duration": "45 seconds",
+        "voice": "Elsa (it-IT)",
+        "language": "it",
+        "talk_id": "tlk__jTrzZfoNjpnPZ9R1feFS"
+    },
+    "ru": {
+        "id": "tutorial_russian",
+        "title": "Начало работы с MedMatch",
+        "description": "Узнайте, как использовать MedMatch за несколько минут",
+        "duration": "45 seconds",
+        "voice": "Svetlana (ru-RU)",
+        "language": "ru",
+        "talk_id": "tlk_0G_ntBt-SX1Iz15Jc232W"
+    },
+    "nl": {
+        "id": "tutorial_dutch",
+        "title": "Aan de slag met MedMatch",
+        "description": "Leer in een paar minuten hoe je MedMatch kunt gebruiken",
+        "duration": "45 seconds",
+        "voice": "Colette (nl-NL)",
+        "language": "nl",
+        "talk_id": "tlk_L-sAolNvFfXWpfQsUtgW3"
+    },
+    "pl": {
+        "id": "tutorial_polish",
+        "title": "Rozpocznij z MedMatch",
+        "description": "Naucz się korzystać z MedMatch w kilka minut",
+        "duration": "45 seconds",
+        "voice": "Zofia (pl-PL)",
+        "language": "pl",
+        "talk_id": "tlk_ikCuJjKUqU8JQ4ZVCV60e"
+    }
+}
+
 # Role-specific videos
 ROLE_VIDEOS = {
     "jobseeker_overview": {
