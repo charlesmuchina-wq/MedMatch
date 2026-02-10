@@ -705,7 +705,7 @@
     "disconnectFailed": "Impossibile disconnettere"
   },
   "autofill": {
-    "title": "Dati per la compilazione automatica",
+    "title": "Compilazione automatica",
     "description": "Fai clic su qualsiasi campo per copiarlo per le candidature di lavoro",
     "noResume": "Nessun curriculum trovato",
     "uploadFirst": "Carica il tuo curriculum per abilitare la compilazione automatica",
