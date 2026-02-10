@@ -52,6 +52,9 @@
 | 🇰🇷 Korean Tutorial | SunHi (ko-KR) | `tlk_BqThujQ3B-8YX92KjkYf7` | ✅ Created Feb 10, 2026 |
 | 🇮🇳 Hindi Tutorial | Swara (hi-IN) | `tlk_vXxJt9acDRpN4LhZBkJJ7` | ✅ Created Feb 10, 2026 |
 | 🇮🇹 Italian Tutorial | Elsa (it-IT) | `tlk__jTrzZfoNjpnPZ9R1feFS` | ✅ Created Feb 10, 2026 |
+| 🇷🇺 Russian Tutorial | Svetlana (ru-RU) | `tlk_0G_ntBt-SX1Iz15Jc232W` | ✅ Created Feb 10, 2026 |
+| 🇳🇱 Dutch Tutorial | Colette (nl-NL) | `tlk_L-sAolNvFfXWpfQsUtgW3` | ✅ Created Feb 10, 2026 |
+| 🇵🇱 Polish Tutorial | Zofia (pl-PL) | `tlk_ikCuJjKUqU8JQ4ZVCV60e` | ✅ Created Feb 10, 2026 |
 
 ---
 
