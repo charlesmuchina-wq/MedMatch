@@ -387,6 +387,32 @@ export default function AdminDashboard() {
         </div>
       </div>
 
+      {/* View Mode Selector - Admin, Recruiter, Job Seeker */}
+      <ViewModeSelector currentView={viewMode} onViewChange={handleViewChange} />
+
+      {/* Quick Navigation based on View Mode */}
+      {viewMode !== 'admin' && (
+        <Card className="bg-gradient-to-r from-turquoise/10 to-transparent border-turquoise/30">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Eye className="h-5 w-5 text-turquoise" />
+                <span className="font-medium">
+                  Currently viewing as: <span className="text-turquoise capitalize">{viewMode}</span>
+                </span>
+              </div>
+              <Button 
+                size="sm" 
+                onClick={() => navigate(viewMode === 'recruiter' ? '/' : '/jobs')}
+                className="bg-turquoise hover:bg-turquoise/90"
+              >
+                Go to {viewMode === 'recruiter' ? 'Recruiter Dashboard' : 'Job Search'}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* System Health Banner */}
       <Card className={`border-2 ${
         systemHealth?.overall_status === 'healthy' ? 'border-green-500/30 bg-green-500/5' :
