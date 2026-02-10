@@ -61,6 +61,33 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 - Frontend: `/psv` or `/verification-hub`
 - Backend: `/api/psv/*`
 
+### NEW: ORCID OAuth Integration ✅ (Feb 9, 2026)
+**Allows researchers to sign in with ORCID and auto-import verified credentials**
+
+| Feature | Status |
+|---------|--------|
+| OAuth 2.0 Flow | ✅ Implemented |
+| Token Exchange | ✅ Implemented |
+| Profile Import | ✅ Implemented |
+| Education (Verified) | ✅ Implemented |
+| Employment History | ✅ Implemented |
+| Publications Count | ✅ Implemented |
+| Sync/Refresh | ✅ Implemented |
+| Disconnect | ✅ Implemented |
+
+**Setup Required:**
+1. Register at https://orcid.org/developer-tools (FREE)
+2. Add to backend/.env: `ORCID_CLIENT_ID`, `ORCID_CLIENT_SECRET`, `ORCID_REDIRECT_URI`
+
+**Routes:**
+- Frontend: `/credentials` → ORCID tab
+- Backend: `/api/orcid/*`
+
+### Translation CAPA Closed ✅ (Feb 9, 2026)
+- CAPA ID: `CAPA-20260209-4562CBD8`
+- Status: **CLOSED**
+- Results: German 86.5%, French 91.7%, Spanish 98.7%, Arabic 96.5% complete
+
 ### Android Build Complete ✅
 - Build ID: `0e0a06e8-d6a4-41ef-929e-f167d89367b5`
 - Status: Finished
