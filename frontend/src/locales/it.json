@@ -306,7 +306,7 @@
   "predictor": {
     "title": "Previsore di successo della candidatura",
     "subtitle": "Analisi basata sull’IA della probabilità di essere ricontattati in base alla compatibilità tra CV e offerta di lavoro",
-    "jobDetails": "Dettagli dell’offerta di lavoro",
+    "jobDetails": "Info Offerta",
     "jobDetailsDesc": "Inserisci le informazioni sull’offerta per analizzare le tue possibilità",
     "jobTitleRequired": "Titolo della posizione *",
     "companyRequired": "Azienda *",
@@ -445,7 +445,7 @@
     "contentQuality": "Qualità dei contenuti",
     "deliveryPace": "Ritmo di esposizione",
     "structure": "Struttura",
-    "deliveryTip": "Suggerimento per l’esposizione",
+    "deliveryTip": "Tip Esposizione",
     "recordToReceive": "Registra la tua risposta per ricevere feedback dall’IA",
     "recordingHistory": "Cronologia delle registrazioni",
     "replayRecordings": "Riascolta le registrazioni di pratica di questa sessione",
