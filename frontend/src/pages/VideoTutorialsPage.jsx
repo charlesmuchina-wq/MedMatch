@@ -357,7 +357,8 @@ const GettingStartedSection = memo(() => {
   const videoRef = useRef(null);
 
   const currentTutorial = TUTORIAL_LANGUAGES.find(l => l.code === selectedLang);
-  const videoUrl = `${API}/api/tutorials/video-file/tutorial_${selectedLang}.mp4`;
+  // Cache-busting parameter to ensure fresh video is loaded
+  const videoUrl = `${API}/api/tutorials/video-file/tutorial_${selectedLang}.mp4?v=2`;
 
   const handleLanguageChange = useCallback((langCode) => {
     setSelectedLang(langCode);
