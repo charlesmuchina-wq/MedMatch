@@ -309,9 +309,42 @@ async def get_multilang_videos():
     """Get all available multi-language overview videos"""
     return {
         "languages": MULTILANG_VIDEOS,
+        "tutorials": TUTORIAL_VIDEOS,
         "role_specific": ROLE_VIDEOS,
         "default_language": "en"
     }
+
+
+@router.get("/videos/tutorials")
+async def get_tutorial_videos():
+    """Get all Getting Started tutorial videos (45s each)"""
+    return {
+        "tutorials": TUTORIAL_VIDEOS,
+        "total_languages": len(TUTORIAL_VIDEOS),
+        "duration": "45 seconds each",
+        "note": "AI Avatar videos generated via D-ID API. Use talk_id to fetch video URL."
+    }
+
+
+@router.get("/videos/tutorial/{language}")
+async def get_tutorial_by_language(language: str):
+    """Get Getting Started tutorial video for a specific language"""
+    if language in TUTORIAL_VIDEOS:
+        tutorial = TUTORIAL_VIDEOS[language]
+        return {
+            "video": tutorial,
+            "talk_id": tutorial.get("talk_id"),
+            "note": "Use D-ID API to fetch video URL: GET https://api.d-id.com/talks/{talk_id}"
+        }
+    
+    # List available languages if not found
+    raise HTTPException(
+        status_code=404, 
+        detail={
+            "error": f"Tutorial not available in '{language}'",
+            "available_languages": list(TUTORIAL_VIDEOS.keys())
+        }
+    )
 
 
 @router.get("/videos/overview/{language}")
