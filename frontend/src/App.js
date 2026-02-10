@@ -188,7 +188,17 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/membership", icon: Crown, labelKey: "nav.membership" },
   ];
   
-  const links = isRecruiter ? recruiterLinks : jobSeekerLinks;
+  // Filter links based on user role - admins see adminOnly items
+  const baseLinks = isRecruiter ? recruiterLinks : jobSeekerLinks;
+  const links = baseLinks.filter(link => {
+    if (link.adminOnly) return isAdmin;
+    return true;
+  });
+  
+  // Add admin dashboard to recruiter view for admin users
+  if (isAdmin && isRecruiter && !links.some(l => l.path === '/admin')) {
+    links.push({ path: "/admin", icon: Shield, labelKey: "nav.adminDashboard", adminOnly: true });
+  }
 
   return (
     <>
