@@ -3,8 +3,8 @@
 ## Video Creation Summary - February 10, 2026
 
 ### D-ID API Usage
-- **Total Credits Used:** ~89 credits (updated after Korean/Hindi/Italian tutorials)
-- **Remaining Credits:** ~311 / 400
+- **Total Credits Used:** ~98 credits (updated after Russian/Dutch/Polish tutorials)
+- **Remaining Credits:** ~302 / 400
 - **Custom Presenter:** Your portrait (IMG_8422.jpeg)
 - **Note:** African language videos and new tutorials use D-ID presenter "Amy" due to custom image moderation limitations
 
