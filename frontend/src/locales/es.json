@@ -229,7 +229,7 @@
     "yourAnswer": "Tu Respuesta",
     "submitAnswer": "Enviar Respuesta",
     "feedback": "Feedback",
-    "tips": "Consejos",
+    "tips": "Tips",
     "score": "Puntos",
     "tryAgain": "Reintentar",
     "nextQuestion": "Siguiente Pregunta",
@@ -557,7 +557,7 @@
   },
   "skills": {
     "retake": "Repetir",
-    "pass": "Aprobado",
+    "pass": "OK",
     "start": "Comenzar",
     "correct": "correctas",
     "myBadges": "Mis Insignias",
