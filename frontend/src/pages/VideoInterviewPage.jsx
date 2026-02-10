@@ -18,17 +18,25 @@ import { OptimizedVideoPlayer, VideoSkeleton, PlayButton } from "@/components/Op
 // TensorFlow.js imports
 let tf, faceLandmarksDetection;
 
-// Dynamic TensorFlow loading to avoid SSR issues
-const loadTensorFlow = async () => {
-  if (!tf) {
-    tf = await import('@tensorflow/tfjs');
-    await tf.setBackend('webgl');
-    await tf.ready();
-  }
-  if (!faceLandmarksDetection) {
-    faceLandmarksDetection = await import('@tensorflow-models/face-landmarks-detection');
-  }
-  return { tf, faceLandmarksDetection };
+// Dynamic TensorFlow loading to avoid SSR issues with timeout
+const loadTensorFlow = async (timeoutMs = 15000) => {
+  const timeoutPromise = new Promise((_, reject) => 
+    setTimeout(() => reject(new Error('Model loading timeout')), timeoutMs)
+  );
+  
+  const loadPromise = (async () => {
+    if (!tf) {
+      tf = await import('@tensorflow/tfjs');
+      await tf.setBackend('webgl');
+      await tf.ready();
+    }
+    if (!faceLandmarksDetection) {
+      faceLandmarksDetection = await import('@tensorflow-models/face-landmarks-detection');
+    }
+    return { tf, faceLandmarksDetection };
+  })();
+  
+  return Promise.race([loadPromise, timeoutPromise]);
 };
 
 // Circular Score Component
