@@ -325,7 +325,7 @@
   "auth": {
     "signIn": "Iniciar Sesión",
     "signUp": "Registrarse",
-    "email": "Correo Electrónico",
+    "email": "Email",
     "password": "Contraseña",
     "confirmPassword": "Confirmar Contraseña",
     "forgotPassword": "¿Olvidaste tu Contraseña?",
