@@ -1,10 +1,10 @@
 # MedMatch AI Avatar Video Library
 
-## Video Creation Summary - February 9, 2026
+## Video Creation Summary - February 10, 2026
 
 ### D-ID API Usage
-- **Total Credits Used:** ~65 credits (updated after new tutorials)
-- **Remaining Credits:** ~335 / 400
+- **Total Credits Used:** ~74 credits (updated after Spanish/Japanese/Chinese tutorials)
+- **Remaining Credits:** ~326 / 400
 - **Custom Presenter:** Your portrait (IMG_8422.jpeg)
 - **Note:** African language videos and new tutorials use D-ID presenter "Amy" due to custom image moderation limitations
 
