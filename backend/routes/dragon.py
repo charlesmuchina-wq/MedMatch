@@ -246,6 +246,12 @@ async def process_dragon_command(data: DragonCommand, request: Request):
     
     return result
 
+# Alias endpoint for /chat (same as /process)
+@router.post("/chat")
+async def dragon_chat(data: DragonCommand, request: Request):
+    """Alias for /process - Chat with KARAU Dragon AI"""
+    return await process_dragon_command(data, request)
+
 async def ai_intent_detection(command: str, user_context: Dict, language: str = "en") -> Dict:
     """Use AI to detect intent and generate response (multi-language support)"""
     
