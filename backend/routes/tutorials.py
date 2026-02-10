@@ -437,3 +437,129 @@ async def get_navigation_guide():
         "content": content,
         "format": "markdown"
     }
+
+
+# ==================== PERMANENT VIDEO STORAGE ====================
+
+@router.post("/videos/download-all")
+async def download_all_tutorial_videos(background_tasks: BackgroundTasks):
+    """
+    Download all D-ID tutorial videos for permanent storage.
+    This runs in background and may take several minutes.
+    """
+    from services.video_storage import download_all_tutorials
+    
+    # Run download in background
+    async def do_download():
+        result = await download_all_tutorials(TUTORIAL_VIDEOS)
+        import json
+        # Save result to a status file
+        status_file = TUTORIAL_VIDEOS_DIR / "download_status.json"
+        with open(status_file, "w") as f:
+            json.dump(result, f, indent=2)
+    
+    background_tasks.add_task(lambda: __import__('asyncio').get_event_loop().run_until_complete(do_download()))
+    
+    return {
+        "status": "started",
+        "message": f"Downloading {len(TUTORIAL_VIDEOS)} tutorial videos in background",
+        "check_status": "/api/tutorials/videos/download-status"
+    }
+
+
+@router.get("/videos/download-status")
+async def get_download_status():
+    """Check the status of video downloads"""
+    import json
+    status_file = TUTORIAL_VIDEOS_DIR / "download_status.json"
+    
+    if status_file.exists():
+        with open(status_file) as f:
+            return json.load(f)
+    
+    return {"status": "not_started", "message": "No download has been initiated"}
+
+
+@router.post("/videos/download/{language}")
+async def download_single_tutorial(language: str):
+    """Download a single tutorial video by language"""
+    from services.video_storage import download_video
+    
+    if language not in TUTORIAL_VIDEOS:
+        raise HTTPException(status_code=404, detail=f"No tutorial for language: {language}")
+    
+    talk_id = TUTORIAL_VIDEOS[language].get("talk_id")
+    result = await download_video(talk_id, language)
+    
+    return result
+
+
+@router.get("/videos/stored")
+async def list_stored_videos():
+    """List all permanently stored tutorial videos"""
+    from services.video_storage import get_stored_videos
+    
+    videos = get_stored_videos()
+    return {
+        "videos": videos,
+        "total": len(videos),
+        "storage_path": str(TUTORIAL_VIDEOS_DIR)
+    }
+
+
+@router.get("/static/{filename}")
+async def serve_stored_video(filename: str):
+    """Serve a permanently stored tutorial video"""
+    video_path = TUTORIAL_VIDEOS_DIR / filename
+    
+    if not video_path.exists():
+        raise HTTPException(status_code=404, detail="Video not found")
+    
+    return FileResponse(
+        path=str(video_path),
+        media_type="video/mp4",
+        filename=filename
+    )
+
+
+@router.get("/videos/play/{language}")
+async def get_tutorial_video_url(language: str):
+    """
+    Get the URL to play a tutorial video.
+    Returns local URL if downloaded, otherwise D-ID URL.
+    """
+    if language not in TUTORIAL_VIDEOS:
+        raise HTTPException(status_code=404, detail=f"No tutorial for language: {language}")
+    
+    # Check if we have a local copy
+    local_file = TUTORIAL_VIDEOS_DIR / f"tutorial_{language}.mp4"
+    if local_file.exists():
+        return {
+            "language": language,
+            "source": "local",
+            "url": f"/api/tutorials/static/tutorial_{language}.mp4",
+            "title": TUTORIAL_VIDEOS[language].get("title")
+        }
+    
+    # Otherwise return D-ID info
+    from services.video_storage import get_video_url
+    talk_id = TUTORIAL_VIDEOS[language].get("talk_id")
+    result = await get_video_url(talk_id)
+    
+    if result.get("success"):
+        return {
+            "language": language,
+            "source": "d-id",
+            "url": result.get("result_url"),
+            "talk_id": talk_id,
+            "title": TUTORIAL_VIDEOS[language].get("title"),
+            "note": "D-ID URLs expire in 24-48 hours. Use /download/{language} to store permanently."
+        }
+    
+    return {
+        "language": language,
+        "source": "unavailable",
+        "error": result.get("error"),
+        "talk_id": talk_id
+    }
+
