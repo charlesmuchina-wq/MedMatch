@@ -509,7 +509,7 @@
   "auth": {
     "signIn": "Войти",
     "signUp": "Регистрация",
-    "email": "Электронная почта",
+    "email": "Email",
     "password": "Пароль",
     "confirmPassword": "Подтвердите пароль",
     "forgotPassword": "Забыли пароль?",
