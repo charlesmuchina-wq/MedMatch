@@ -39,6 +39,9 @@ import it from "@/locales/it.json";  // Italian
 import vi from "@/locales/vi.json";  // Vietnamese
 import ko from "@/locales/ko.json";  // Korean
 import ru from "@/locales/ru.json";  // Russian
+import pl from "@/locales/pl.json";  // Polish
+import sv from "@/locales/sv.json";  // Swedish
+import tr from "@/locales/tr.json";  // Turkish
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
@@ -76,6 +79,9 @@ const translations = {
   vi,      // Vietnamese
   ko,      // Korean
   ru,      // Russian
+  pl,      // Polish
+  sv,      // Swedish
+  tr,      // Turkish
 };
 
 // Fallback language
