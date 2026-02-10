@@ -123,6 +123,15 @@
 ### NEW: Italian Getting Started Tutorial (45s)
 > "Benvenuto su MedMatch! Lascia che ti mostri come iniziare in pochi minuti. Prima, carica il tuo curriculum. La nostra IA lo analizzerà automaticamente ed estrarrà le tue competenze. Poi, usa la ricerca intelligente di lavoro. Cerchiamo su oltre quindici siti di lavoro specializzati contemporaneamente. Nessuna offerta fantasma, solo posizioni reali. Terzo, verifica la tua probabilità di successo. Il nostro predittore IA analizza ogni posizione e ti mostra dove hai le migliori opportunità. Quarto, preparati con il coach IA. Pratica i colloqui con feedback in tempo reale. MedMatch rende la ricerca di lavoro semplice, intelligente ed efficace. Inizia gratis ora!"
 
+### NEW: Russian Getting Started Tutorial (45s)
+> "Добро пожаловать в MedMatch! Позвольте показать, как начать за несколько минут. Сначала загрузите резюме. Наш ИИ автоматически проанализирует его и извлечёт ваши навыки. Затем используйте умный поиск работы. Мы ищем на более чем пятнадцати специализированных сайтах одновременно. Никаких фейковых вакансий, только реальные предложения. В-третьих, проверьте вероятность успеха. Наш ИИ-предсказатель анализирует каждую вакансию и показывает лучшие возможности. В-четвёртых, готовьтесь с ИИ-коучем. Практикуйте собеседования с обратной связью в реальном времени. MedMatch делает поиск работы простым, умным и эффективным. Начните бесплатно прямо сейчас!"
+
+### NEW: Dutch Getting Started Tutorial (45s)
+> "Welkom bij MedMatch! Laat me je laten zien hoe je in een paar minuten kunt beginnen. Upload eerst je CV. Onze AI analyseert het automatisch en haalt je vaardigheden eruit. Gebruik vervolgens de slimme zoekfunctie. We zoeken tegelijkertijd op meer dan vijftien gespecialiseerde vacaturesites. Geen nepvacatures, alleen echte banen. Ten derde, controleer je slagingskans. Onze AI-voorspeller analyseert elke vacature en toont je de beste kansen. Ten vierde, bereid je voor met de AI-coach. Oefen sollicitatiegesprekken met realtime feedback. MedMatch maakt het zoeken naar werk eenvoudig, slim en effectief. Begin nu gratis!"
+
+### NEW: Polish Getting Started Tutorial (45s)
+> "Witamy w MedMatch! Pozwól, że pokażę ci, jak zacząć w kilka minut. Najpierw prześlij swoje CV. Nasza sztuczna inteligencja automatycznie je przeanalizuje i wyodrębni twoje umiejętności. Następnie użyj inteligentnego wyszukiwania pracy. Przeszukujemy jednocześnie ponad piętnaście specjalistycznych portali z ofertami. Żadnych fałszywych ogłoszeń, tylko prawdziwe oferty. Po trzecie, sprawdź swoje szanse na sukces. Nasz predyktor AI analizuje każdą ofertę i pokazuje najlepsze możliwości. Po czwarte, przygotuj się z coachem AI. Ćwicz rozmowy kwalifikacyjne z informacją zwrotną w czasie rzeczywistym. MedMatch sprawia, że szukanie pracy jest proste, inteligentne i skuteczne. Zacznij za darmo już teraz!"
+
 ---
 
 ## 🎬 Video Download Instructions
