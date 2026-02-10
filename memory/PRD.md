@@ -9,6 +9,32 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ## Latest Updates (February 10, 2026)
 
+### NEW: Locale Files Generated for Missing Languages ✅ (Feb 10, 2026)
+**Permanent Bundled Translations for European Languages**
+
+| Language | Code | Status | File |
+|----------|------|--------|------|
+| Dutch | nl | ✅ Complete | nl.json (33KB) |
+| Italian | it | ✅ Complete | it.json (35KB) |
+| Vietnamese | vi | ✅ Complete | vi.json (39KB) |
+| Korean | ko | ✅ Complete | ko.json (35KB) |
+| Russian | ru | ✅ Complete | ru.json (49KB) |
+| Polish | pl | 🔄 Generating | In progress |
+| Swedish | sv | 🔄 Queued | In progress |
+| Turkish | tr | 🔄 Queued | In progress |
+
+**Total Bundled Languages:** 30 (was 25)
+
+### UI/UX Issues Fixed from User Report ✅ (Feb 10, 2026)
+
+| Issue | Status | Fix |
+|-------|--------|-----|
+| Issue 1: Admin Dashboard access | ✅ Fixed | Added admin link to recruiter view for admin users |
+| Issue 2: Audio/video spinning | ✅ Improved | Added 15s timeout to TensorFlow model loading |
+| Issue 3: Help text accessibility | ✅ Fixed | Changed grey text to darker for WCAG compliance |
+| Issue 4: Avatar gender mismatch | 📋 Noted | Requires video regeneration (D-ID) |
+| Issue 5: Performance bottlenecks | ✅ Improved | Skeleton loaders already in place, timeout handling added |
+
 ### NEW: Video Player Section on Tutorials Page ✅ (Feb 10, 2026)
 **"Getting Started" Tutorial Player with 16 Language Support**
 
