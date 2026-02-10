@@ -49,6 +49,9 @@
 | 🇨🇳 Chinese Tutorial | Xiaoxiao (zh-CN) | `tlk_uJmYXojHb0OsKyEEq-KrZ` | ✅ Created Feb 10, 2026 |
 | 🇧🇷 Portuguese Tutorial | Francisca (pt-BR) | `tlk_Lyp35W6ADuqPC23v43DpV` | ✅ Created Feb 10, 2026 |
 | 🇸🇦 Arabic Tutorial | Salma (ar-EG) | `tlk_64wv6WIrs1z5JG-NiRo6c` | ✅ Created Feb 10, 2026 |
+| 🇰🇷 Korean Tutorial | SunHi (ko-KR) | `tlk_BqThujQ3B-8YX92KjkYf7` | ✅ Created Feb 10, 2026 |
+| 🇮🇳 Hindi Tutorial | Swara (hi-IN) | `tlk_vXxJt9acDRpN4LhZBkJJ7` | ✅ Created Feb 10, 2026 |
+| 🇮🇹 Italian Tutorial | Elsa (it-IT) | `tlk__jTrzZfoNjpnPZ9R1feFS` | ✅ Created Feb 10, 2026 |
 
 ---
 
