@@ -297,6 +297,10 @@ class TranslationQAService:
         if lang_code not in self.EXPANSION_LANGUAGES:
             return None
         
+        # Skip very short English strings (< 4 chars) as they naturally expand more
+        if len(english) < 4:
+            return None
+        
         expected_ratio = self.EXPANSION_LANGUAGES[lang_code]
         actual_ratio = len(translation) / len(english) if english else 1
         
