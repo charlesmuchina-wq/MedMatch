@@ -207,7 +207,7 @@ export const BUNDLED_LANGUAGES = [
   "sw", "ha", "yo", "ig", "zu", "xh", "af", "am",
   "om", "so", "rw", "sn", "ny", "tw", "wo", "lg",
   // European Languages - Generated
-  "nl"
+  "nl", "it", "vi", "ko", "ru"
 ];
 
 // Popular languages order (including African languages and key regional variants)
