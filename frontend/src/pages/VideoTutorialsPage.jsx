@@ -330,23 +330,24 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
 });
 
 // Getting Started Section - AI Avatar Tutorials in 16 Languages
+// Updated Feb 10, 2026: Diverse male/female presenters for global representation
 const TUTORIAL_LANGUAGES = [
-  { code: 'de', name: 'German', flag: '🇩🇪', title: 'Erste Schritte mit MedMatch' },
-  { code: 'fr', name: 'French', flag: '🇫🇷', title: 'Démarrer avec MedMatch' },
-  { code: 'es', name: 'Spanish', flag: '🇪🇸', title: 'Comenzar con MedMatch' },
-  { code: 'ja', name: 'Japanese', flag: '🇯🇵', title: 'MedMatchの使い方' },
-  { code: 'zh', name: 'Chinese', flag: '🇨🇳', title: 'MedMatch入门指南' },
-  { code: 'pt', name: 'Portuguese', flag: '🇧🇷', title: 'Começando com MedMatch' },
-  { code: 'ar', name: 'Arabic', flag: '🇸🇦', title: 'البدء مع MedMatch' },
-  { code: 'ko', name: 'Korean', flag: '🇰🇷', title: 'MedMatch 시작하기' },
-  { code: 'hi', name: 'Hindi', flag: '🇮🇳', title: 'MedMatch के साथ शुरुआत' },
-  { code: 'it', name: 'Italian', flag: '🇮🇹', title: 'Iniziare con MedMatch' },
-  { code: 'ru', name: 'Russian', flag: '🇷🇺', title: 'Начало работы с MedMatch' },
-  { code: 'nl', name: 'Dutch', flag: '🇳🇱', title: 'Aan de slag met MedMatch' },
-  { code: 'pl', name: 'Polish', flag: '🇵🇱', title: 'Rozpocznij z MedMatch' },
-  { code: 'sv', name: 'Swedish', flag: '🇸🇪', title: 'Kom igång med MedMatch' },
-  { code: 'tr', name: 'Turkish', flag: '🇹🇷', title: 'MedMatch\'e Başlayın' },
-  { code: 'vi', name: 'Vietnamese', flag: '🇻🇳', title: 'Bắt đầu với MedMatch' }
+  { code: 'de', name: 'German', flag: '🇩🇪', title: 'Erste Schritte mit MedMatch', presenter: 'Josh (Male)' },
+  { code: 'fr', name: 'French', flag: '🇫🇷', title: 'Démarrer avec MedMatch', presenter: 'Josh (Male)' },
+  { code: 'es', name: 'Spanish', flag: '🇪🇸', title: 'Comenzar con MedMatch', presenter: 'Amy (Female)' },
+  { code: 'ja', name: 'Japanese', flag: '🇯🇵', title: 'MedMatchの使い方', presenter: 'Josh (Male)' },
+  { code: 'zh', name: 'Chinese', flag: '🇨🇳', title: 'MedMatch入门指南', presenter: 'Josh (Male)' },
+  { code: 'pt', name: 'Portuguese', flag: '🇧🇷', title: 'Começando com MedMatch', presenter: 'Amy (Female)' },
+  { code: 'ar', name: 'Arabic', flag: '🇸🇦', title: 'البدء مع MedMatch', presenter: 'Amy (Female)' },
+  { code: 'ko', name: 'Korean', flag: '🇰🇷', title: 'MedMatch 시작하기', presenter: 'Josh (Male)' },
+  { code: 'hi', name: 'Hindi', flag: '🇮🇳', title: 'MedMatch के साथ शुरुआत', presenter: 'Josh (Male)' },
+  { code: 'it', name: 'Italian', flag: '🇮🇹', title: 'Iniziare con MedMatch', presenter: 'Josh (Male)' },
+  { code: 'ru', name: 'Russian', flag: '🇷🇺', title: 'Начало работы с MedMatch', presenter: 'Josh (Male)' },
+  { code: 'nl', name: 'Dutch', flag: '🇳🇱', title: 'Aan de slag met MedMatch', presenter: 'Josh (Male)' },
+  { code: 'pl', name: 'Polish', flag: '🇵🇱', title: 'Rozpocznij z MedMatch', presenter: 'Amy (Female)' },
+  { code: 'sv', name: 'Swedish', flag: '🇸🇪', title: 'Kom igång med MedMatch', presenter: 'Amy (Female)' },
+  { code: 'tr', name: 'Turkish', flag: '🇹🇷', title: 'MedMatch\'e Başlayın', presenter: 'Amy (Female)' },
+  { code: 'vi', name: 'Vietnamese', flag: '🇻🇳', title: 'Bắt đầu với MedMatch', presenter: 'Josh (Male)' }
 ];
 
 const GettingStartedSection = memo(() => {
