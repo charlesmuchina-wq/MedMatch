@@ -17,6 +17,8 @@
   transition: all 0.2s ease;
   position: relative;
   border-left: 3px solid transparent;
+  overflow: hidden;
+  min-width: 0;
 }
 
 .sidebar-link.dark {
