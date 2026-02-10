@@ -389,7 +389,16 @@ const GettingStartedSection = memo(() => {
     setIsPlaying(false);
   }, []);
 
-  const handleVideoError = useCallback(() => {
+  const handleVideoError = useCallback((e) => {
+    const video = e.target;
+    const error = video?.error;
+    console.error('Video error:', {
+      code: error?.code,
+      message: error?.message,
+      src: video?.src,
+      networkState: video?.networkState,
+      readyState: video?.readyState
+    });
     setVideoError('Video unavailable');
     setVideoLoading(false);
   }, []);
