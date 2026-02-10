@@ -898,6 +898,13 @@ function AppContent() {
 
       {/* Onboarding Tour for first-time users */}
       {showTour && user && <OnboardingTour onComplete={completeTour} user={user} />}
+      
+      {/* Interactive Language Tour */}
+      <LanguageTour 
+        isOpen={showLanguageTour} 
+        onClose={() => setShowLanguageTour(false)} 
+        language={localStorage.getItem('medmatch_language') || 'en'}
+      />
 
       {/* PWA Install Prompts */}
       <InstallPrompt />
