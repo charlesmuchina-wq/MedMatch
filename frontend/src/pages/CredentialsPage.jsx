@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   Award, Shield, CheckCircle, Clock, Upload, Search,
-  ChevronRight, Building, FileText, AlertCircle, Plus
+  ChevronRight, Building, FileText, AlertCircle, Plus, Link2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
 import CredentialsManager, { VerificationConsentScreen } from '@/components/CredentialsManager';
 import TrustScoreDisplay, { TrustScoreBadge } from '@/components/TrustScoreDisplay';
+import ORCIDConnect from '@/components/ORCIDConnect';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
