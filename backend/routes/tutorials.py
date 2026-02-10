@@ -255,6 +255,33 @@ TUTORIAL_VIDEOS = {
         "voice": "Zofia (pl-PL)",
         "language": "pl",
         "talk_id": "tlk_ikCuJjKUqU8JQ4ZVCV60e"
+    },
+    "sv": {
+        "id": "tutorial_swedish",
+        "title": "Kom igång med MedMatch",
+        "description": "Lär dig använda MedMatch på några minuter",
+        "duration": "45 seconds",
+        "voice": "Sofie (sv-SE)",
+        "language": "sv",
+        "talk_id": "tlk_AjGkGAAH-1-xv_7CX6dob"
+    },
+    "tr": {
+        "id": "tutorial_turkish",
+        "title": "MedMatch'e Başlayın",
+        "description": "MedMatch'i birkaç dakikada kullanmayı öğrenin",
+        "duration": "45 seconds",
+        "voice": "Emel (tr-TR)",
+        "language": "tr",
+        "talk_id": "tlk_IYsGbvTgkp2UKbpfrPhxx"
+    },
+    "vi": {
+        "id": "tutorial_vietnamese",
+        "title": "Bắt đầu với MedMatch",
+        "description": "Học cách sử dụng MedMatch trong vài phút",
+        "duration": "45 seconds",
+        "voice": "HoaiMy (vi-VN)",
+        "language": "vi",
+        "talk_id": "tlk_aacDqHBufCqnl5ICyXO8J"
     }
 }
 
