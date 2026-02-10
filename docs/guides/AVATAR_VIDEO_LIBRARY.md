@@ -38,23 +38,32 @@
 | 🇿🇦 Afrikaans (South Africa) | Adri (af-ZA) | `tlk_jKq2BCNU1NiVypyd2xJS4` | ✅ Created |
 | 🇳🇬 English (Nigeria) | Ezinne (en-NG) | `tlk_hq9691jXrjYhwEOv35sV2` | ✅ Created |
 
-### 4. NEW: Getting Started Tutorial Videos (45s each)
+### 4. NEW: Getting Started Tutorial Videos (45s each) - UPDATED Feb 10, 2026
 
-| Language | Voice | Talk ID | Status |
-|----------|-------|---------|--------|
-| 🇩🇪 German Tutorial | Katja (de-DE) | `tlk_U_WgYRHRZvTazt9trvZpg` | ✅ Created Feb 9, 2026 |
-| 🇫🇷 French Tutorial | Denise (fr-FR) | `tlk_X0fd9qzrvTlsqBWynmMe6` | ✅ Created Feb 9, 2026 |
-| 🇪🇸 Spanish Tutorial | Elvira (es-ES) | `tlk_h4r6Fu-x5cHidSGm1xr_J` | ✅ Created Feb 10, 2026 |
-| 🇯🇵 Japanese Tutorial | Nanami (ja-JP) | `tlk_8q1WRtDgr1xmiBqucb1nR` | ✅ Created Feb 10, 2026 |
-| 🇨🇳 Chinese Tutorial | Xiaoxiao (zh-CN) | `tlk_uJmYXojHb0OsKyEEq-KrZ` | ✅ Created Feb 10, 2026 |
-| 🇧🇷 Portuguese Tutorial | Francisca (pt-BR) | `tlk_Lyp35W6ADuqPC23v43DpV` | ✅ Created Feb 10, 2026 |
-| 🇸🇦 Arabic Tutorial | Salma (ar-EG) | `tlk_64wv6WIrs1z5JG-NiRo6c` | ✅ Created Feb 10, 2026 |
-| 🇰🇷 Korean Tutorial | SunHi (ko-KR) | `tlk_BqThujQ3B-8YX92KjkYf7` | ✅ Created Feb 10, 2026 |
-| 🇮🇳 Hindi Tutorial | Swara (hi-IN) | `tlk_vXxJt9acDRpN4LhZBkJJ7` | ✅ Created Feb 10, 2026 |
-| 🇮🇹 Italian Tutorial | Elsa (it-IT) | `tlk__jTrzZfoNjpnPZ9R1feFS` | ✅ Created Feb 10, 2026 |
-| 🇷🇺 Russian Tutorial | Svetlana (ru-RU) | `tlk_0G_ntBt-SX1Iz15Jc232W` | ✅ Created Feb 10, 2026 |
-| 🇳🇱 Dutch Tutorial | Colette (nl-NL) | `tlk_L-sAolNvFfXWpfQsUtgW3` | ✅ Created Feb 10, 2026 |
-| 🇵🇱 Polish Tutorial | Zofia (pl-PL) | `tlk_ikCuJjKUqU8JQ4ZVCV60e` | ✅ Created Feb 10, 2026 |
+**Now with Diverse Male/Female Presenters!**
+
+| Language | Voice | Presenter | Talk ID | Status |
+|----------|-------|-----------|---------|--------|
+| 🇩🇪 German | Conrad (de-DE) | Josh (Male) | `tlk_3mBeV0RuN9xucskt6M3yx` | ✅ Diverse Feb 10, 2026 |
+| 🇫🇷 French | Henri (fr-FR) | Josh (Male) | `tlk_Ivecf0J4nLlfQPzmfG5Ep` | ✅ Diverse Feb 10, 2026 |
+| 🇪🇸 Spanish | Elvira (es-ES) | Amy (Female) | `tlk_uic6GrcyswDzMmEz9Jd73` | ✅ Diverse Feb 10, 2026 |
+| 🇯🇵 Japanese | Keita (ja-JP) | Josh (Male) | `tlk_LOFzHXel03kDGnrXorrCS` | ✅ Diverse Feb 10, 2026 |
+| 🇨🇳 Chinese | Yunxi (zh-CN) | Josh (Male) | `tlk__zs57G08J88hHJWIU56ez` | ✅ Diverse Feb 10, 2026 |
+| 🇧🇷 Portuguese | Francisca (pt-BR) | Amy (Female) | `tlk_WvsE8SyIMAVbZYd6xLU_J` | ✅ Diverse Feb 10, 2026 |
+| 🇸🇦 Arabic | Zariyah (ar-SA) | Amy (Female) | `tlk_wnI5VYhxOkBDVEcBbQpmN` | ✅ Diverse Feb 10, 2026 |
+| 🇰🇷 Korean | InJoon (ko-KR) | Josh (Male) | `tlk_lGfbuIbv2E3bJTSFMqRaa` | ✅ Diverse Feb 10, 2026 |
+| 🇮🇳 Hindi | Madhur (hi-IN) | Josh (Male) | `tlk_wgpIIEuVQ7OHmFvn7HIS8` | ✅ Diverse Feb 10, 2026 |
+| 🇮🇹 Italian | Diego (it-IT) | Josh (Male) | `tlk_fHZr-BcrhQM9Kx8yaYYLz` | ✅ Diverse Feb 10, 2026 |
+| 🇷🇺 Russian | Dmitry (ru-RU) | Josh (Male) | `tlk_vWWs6dMuhnbAHY96IpZA3` | ✅ Diverse Feb 10, 2026 |
+| 🇳🇱 Dutch | Maarten (nl-NL) | Josh (Male) | `tlk_AeLS5Lo6NLLqkoP3Sl0Li` | ✅ Diverse Feb 10, 2026 |
+| 🇵🇱 Polish | Zofia (pl-PL) | Amy (Female) | `tlk_1du2GHuSYfzblr0mbtw2r` | ✅ Diverse Feb 10, 2026 |
+| 🇸🇪 Swedish | Sofie (sv-SE) | Amy (Female) | `tlk_2ESIPffaBlwOIaskoRnLS` | ✅ Diverse Feb 10, 2026 |
+| 🇹🇷 Turkish | Emel (tr-TR) | Amy (Female) | `tlk_s8C-3z0uL4YbLRikVCCVg` | ✅ Diverse Feb 10, 2026 |
+| 🇻🇳 Vietnamese | NamMinh (vi-VN) | Josh (Male) | `tlk_MngLv17fOPvDks15juM25` | ✅ Diverse Feb 10, 2026 |
+
+**Presenter Distribution:**
+- Male (Josh): 10 languages - German, French, Japanese, Chinese, Korean, Hindi, Italian, Russian, Dutch, Vietnamese
+- Female (Amy): 6 languages - Spanish, Portuguese, Arabic, Polish, Swedish, Turkish
 
 ---
 
