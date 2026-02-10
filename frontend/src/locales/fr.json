@@ -610,7 +610,7 @@
     "actionHistory": "Historique des Actions"
   },
   "linkedin": {
-    "syncNow": "Synchroniser Maintenant",
+    "syncNow": "Synchroniser",
     "disconnectFailed": "Échec de la déconnexion",
     "disconnect": "Déconnecter",
     "contactAdmin": "Contactez l'administrateur pour activer la synchronisation LinkedIn",
