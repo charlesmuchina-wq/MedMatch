@@ -458,6 +458,12 @@ const VideoTutorialsPage = () => {
               </p>
               <div className="flex gap-3">
                 <button 
+                  onClick={() => setActiveTab('getting-started')}
+                  className={`px-4 py-2 rounded-lg font-medium transition-all ${activeTab === 'getting-started' ? 'bg-white text-teal-700' : 'bg-teal-500 text-white hover:bg-teal-400'}`}
+                >
+                  🎬 Getting Started
+                </button>
+                <button 
                   onClick={() => setActiveTab('videos')}
                   className={`px-4 py-2 rounded-lg font-medium transition-all ${activeTab === 'videos' ? 'bg-white text-teal-700' : 'bg-teal-500 text-white hover:bg-teal-400'}`}
                 >
@@ -484,6 +490,11 @@ const VideoTutorialsPage = () => {
 
       {/* Content Area */}
       <div className="max-w-6xl mx-auto py-8 px-4">
+        {/* Getting Started - AI Avatar Tutorials */}
+        {activeTab === 'getting-started' && (
+          <GettingStartedSection />
+        )}
+
         {activeTab === 'videos' ? (
           <div>
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Video Tutorials</h2>
