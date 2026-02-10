@@ -324,7 +324,7 @@
     "callbackProbability": "Probabilità di essere ricontattati",
     "interviewLikelihood": "Probabilità di colloquio",
     "matchBreakdown": "Dettaglio della corrispondenza",
-    "skillsMatch": "Corrispondenza delle competenze",
+    "skillsMatch": "Match skills",
     "experienceMatch": "Corrispondenza dell’esperienza",
     "educationMatch": "Corrispondenza del percorso di studi",
     "keywordsMatch": "Corrispondenza delle parole chiave",
@@ -373,7 +373,7 @@
     "cleanBackground": "Mantieni uno sfondo pulito e professionale"
   },
   "savedJobs": {
-    "noSavedJobs": "Nessuna offerta di lavoro salvata",
+    "noSavedJobs": "Nessun salvato",
     "saveJobsHint": "Salva le offerte di lavoro durante la ricerca per rivederle in seguito"
   },
   "coverLetter": {
@@ -466,8 +466,8 @@
     "checkScheduler": "Verifica lo stato della pianificazione",
     "notScheduled": "Non programmato",
     "jobsSent": "offerte di lavoro già inviate",
-    "noJobsSent": "Nessuna offerta di lavoro inviata finora",
-    "newJobs": "nuove offerte di lavoro",
+    "noJobsSent": "Nessuna inviata",
+    "newJobs": "nuovi lavori",
     "clearHistory": "Cancella cronologia",
     "historyCleared": "Cronologia del digest cancellata: riceverai di nuovo tutte le offerte di lavoro",
     "sendNow": "Invia il digest ora",
