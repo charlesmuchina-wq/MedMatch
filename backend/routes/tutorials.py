@@ -572,7 +572,12 @@ async def serve_stored_video(filename: str):
     # This allows the video to play inline in the browser
     return FileResponse(
         path=str(video_path),
-        media_type="video/mp4"
+        media_type="video/mp4",
+        headers={
+            "Accept-Ranges": "bytes",
+            "Cache-Control": "no-cache, must-revalidate",
+            "Access-Control-Allow-Origin": "*"
+        }
     )
 
 
