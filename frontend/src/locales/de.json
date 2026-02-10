@@ -614,7 +614,7 @@
     "actionHistory": "Aktionsverlauf"
   },
   "linkedin": {
-    "syncNow": "Jetzt synchronisieren",
+    "syncNow": "Sync",
     "disconnectFailed": "Trennung fehlgeschlagen",
     "disconnect": "Trennen",
     "contactAdmin": "Kontaktieren Sie den Administrator, um LinkedIn-Sync zu aktivieren",
