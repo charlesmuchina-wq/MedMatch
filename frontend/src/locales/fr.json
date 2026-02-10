@@ -1,7 +1,7 @@
 {
   "common": {
     "loading": "Chargement...",
-    "save": "Enregistrer",
+    "save": "Sauver",
     "cancel": "Annuler",
     "delete": "Supprimer",
     "edit": "Modifier",
