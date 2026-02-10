@@ -562,16 +562,17 @@ async def get_video(video_id: str, lang: str = "en"):
 
 @router.get("/video-file/{filename}")
 async def serve_stored_video(filename: str):
-    """Serve a permanently stored tutorial video"""
+    """Serve a permanently stored tutorial video for inline playback"""
     video_path = TUTORIAL_VIDEOS_DIR / filename
     
     if not video_path.exists():
         raise HTTPException(status_code=404, detail="Video not found")
     
+    # Don't set filename to avoid content-disposition: attachment
+    # This allows the video to play inline in the browser
     return FileResponse(
         path=str(video_path),
-        media_type="video/mp4",
-        filename=filename
+        media_type="video/mp4"
     )
 
 
