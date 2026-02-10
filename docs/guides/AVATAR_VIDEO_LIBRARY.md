@@ -111,6 +111,15 @@
 ### NEW: Arabic Getting Started Tutorial (45s)
 > "مرحباً بك في MedMatch! دعني أريك كيف تبدأ في دقائق معدودة. أولاً، قم بتحميل سيرتك الذاتية. سيقوم الذكاء الاصطناعي بتحليلها تلقائياً واستخراج مهاراتك. ثم استخدم البحث الذكي عن الوظائف. نبحث في أكثر من خمسة عشر موقعاً متخصصاً في نفس الوقت. لا وظائف وهمية، فقط فرص حقيقية. ثالثاً، تحقق من احتمالية نجاحك. يحلل منبئ الذكاء الاصطناعي كل وظيفة ويظهر لك أفضل الفرص. رابعاً، استعد مع مدرب الذكاء الاصطناعي. تدرب على المقابلات مع تعليقات فورية. MedMatch يجعل البحث عن عمل بسيطاً وذكياً وفعالاً. ابدأ مجاناً الآن!"
 
+### NEW: Korean Getting Started Tutorial (45s)
+> "MedMatch에 오신 것을 환영합니다! 몇 분 만에 시작하는 방법을 알려드리겠습니다. 먼저, 이력서를 업로드하세요. AI가 자동으로 분석하여 기술을 추출합니다. 다음으로, 스마트 채용 검색을 사용하세요. 15개 이상의 전문 취업 사이트를 동시에 검색합니다. 허위 공고 없이 실제 채용만 제공합니다. 셋째, 성공 확률을 확인하세요. AI 예측 도구가 각 채용을 분석하여 최고의 기회를 보여줍니다. 넷째, AI 코치로 준비하세요. 실시간 피드백으로 면접을 연습할 수 있습니다. MedMatch로 취업 활동을 간단하고 스마트하게 효과적으로 만드세요. 지금 무료로 시작하세요!"
+
+### NEW: Hindi Getting Started Tutorial (45s)
+> "MedMatch में आपका स्वागत है! मुझे दिखाने दीजिए कि कुछ ही मिनटों में कैसे शुरू करें। पहले, अपना रिज्यूमे अपलोड करें। हमारा AI इसे स्वचालित रूप से विश्लेषण करेगा और आपके कौशल निकालेगा। फिर, स्मार्ट जॉब सर्च का उपयोग करें। हम एक साथ पंद्रह से अधिक विशेष जॉब साइट्स पर खोज करते हैं। कोई फर्जी नौकरियां नहीं, केवल वास्तविक अवसर। तीसरा, अपनी सफलता की संभावना जांचें। हमारा AI भविष्यवक्ता हर नौकरी का विश्लेषण करता है और आपको सबसे अच्छे अवसर दिखाता है। चौथा, AI कोच के साथ तैयारी करें। रीयल-टाइम फीडबैक के साथ इंटरव्यू का अभ्यास करें। MedMatch नौकरी की खोज को सरल, स्मार्ट और प्रभावी बनाता है। अभी मुफ्त में शुरू करें!"
+
+### NEW: Italian Getting Started Tutorial (45s)
+> "Benvenuto su MedMatch! Lascia che ti mostri come iniziare in pochi minuti. Prima, carica il tuo curriculum. La nostra IA lo analizzerà automaticamente ed estrarrà le tue competenze. Poi, usa la ricerca intelligente di lavoro. Cerchiamo su oltre quindici siti di lavoro specializzati contemporaneamente. Nessuna offerta fantasma, solo posizioni reali. Terzo, verifica la tua probabilità di successo. Il nostro predittore IA analizza ogni posizione e ti mostra dove hai le migliori opportunità. Quarto, preparati con il coach IA. Pratica i colloqui con feedback in tempo reale. MedMatch rende la ricerca di lavoro semplice, intelligente ed efficace. Inizia gratis ora!"
+
 ---
 
 ## 🎬 Video Download Instructions
