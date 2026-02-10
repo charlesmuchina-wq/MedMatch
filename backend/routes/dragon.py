@@ -20,6 +20,17 @@ from routes.auth import get_current_user
 
 router = APIRouter(prefix="/dragon", tags=["KARAU Dragon AI"])
 
+# ============== Health Check ==============
+@router.get("/health")
+async def dragon_health():
+    """Check Dragon AI health status"""
+    return {
+        "status": "healthy",
+        "service": "KARAU Dragon AI",
+        "features": ["intent_detection", "web_search", "multi_language"],
+        "languages_supported": list(DRAGON_RESPONSES.keys())
+    }
+
 # ============== Models ==============
 
 class DragonCommand(BaseModel):
