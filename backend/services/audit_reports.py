@@ -378,8 +378,9 @@ class AuditReportService:
             }
         }
         
-        # Store report in database
-        await self.db.audit_reports.insert_one(report)
+        # Store report in database (use a copy to avoid _id mutation)
+        report_for_db = {**report}
+        await self.db.audit_reports.insert_one(report_for_db)
         
         return report
     
