@@ -7,7 +7,7 @@ import requests
 import os
 import time
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://talent-ecosystem-8.preview.emergentagent.com').rstrip('/')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://global-audit-dash.preview.emergentagent.com').rstrip('/')
 
 class TestResumeEndpoints:
     """Resume API endpoint tests"""

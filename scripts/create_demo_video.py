@@ -10,7 +10,7 @@ from datetime import datetime
 from playwright.async_api import async_playwright
 
 # Configuration
-BASE_URL = "https://talent-ecosystem-8.preview.emergentagent.com"
+BASE_URL = "https://global-audit-dash.preview.emergentagent.com"
 OUTPUT_DIR = "/tmp/medmatch_demo"
 FRAME_DELAY = 800  # ms between frames
 

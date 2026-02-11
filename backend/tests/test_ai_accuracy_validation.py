@@ -15,7 +15,7 @@ import time
 from typing import Dict
 
 # API Configuration
-API_BASE_URL = "https://talent-ecosystem-8.preview.emergentagent.com/api"
+API_BASE_URL = "https://global-audit-dash.preview.emergentagent.com/api"
 TIMEOUT = 30.0
 
 # Test credentials
