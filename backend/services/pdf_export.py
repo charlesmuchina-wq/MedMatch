@@ -240,12 +240,13 @@ class PDFExportService:
         story.extend(self._build_compliance_status(report_data))
         
         # Sections
-        sections = report_data.get("sections", {})
+        sections = report_data.get("sections", {}) or {}
         if include_sections:
             sections = {k: v for k, v in sections.items() if k in include_sections}
         
         for section_id, section_data in sections.items():
-            story.extend(self._build_section(section_id, section_data))
+            if section_data is not None:
+                story.extend(self._build_section(section_id, section_data))
         
         # Digital Signature
         story.extend(self._build_signature(report_data))
