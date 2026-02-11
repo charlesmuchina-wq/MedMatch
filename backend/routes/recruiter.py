@@ -546,6 +546,22 @@ REQUIRED TAGS/SKILLS:
             {"$set": {"ai_analysis": analysis, "ai_analyzed_at": datetime.now(timezone.utc).isoformat()}}
         )
         
+        # Log to GUAL for compliance (cross-border hiring decisions)
+        try:
+            from services.gual_integration import get_gual_service
+            gual_service = get_gual_service(db)
+            if gual_service:
+                await gual_service.log_hiring_decision(
+                    action_type="AI_RANKING",
+                    candidate_id=candidate.get("user_id", prescreen.candidate_id),
+                    employer_id=user["user_id"],
+                    ai_score=analysis.get("overall_score", 0) / 100,  # Normalize to 0-1
+                    contributing_factors=analysis.get("skills_analysis", {}).get("matched_skills", [])[:5],
+                    decision_outcome=analysis.get("recommendation", "REVIEWED")
+                )
+        except Exception as gual_error:
+            logging.warning(f"GUAL logging failed (non-blocking): {gual_error}")
+        
         return {
             "candidate_name": candidate.get('full_name', 'Unknown'),
             "job_title": job.get('title', ''),
