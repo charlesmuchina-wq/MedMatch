@@ -351,27 +351,6 @@ async def generate_gdpr_report(request: Request):
 
 # ============== PDF Export Endpoints ==============
 
-@router.get("/date-presets")
-async def get_date_presets(request: Request):
-    """
-    Get available date range presets for PDF export.
-    """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
-    
-    pdf_service = get_pdf_service(db)
-    if not pdf_service:
-        pdf_service = PDFExportService(db)
-    
-    presets = [
-        {"id": key, **value}
-        for key, value in pdf_service.DATE_PRESETS.items()
-    ]
-    
-    return {"presets": presets}
-
-
 @router.post("/export/pdf")
 async def export_report_pdf(config: PDFExportConfig, request: Request):
     """
