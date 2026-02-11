@@ -261,6 +261,7 @@ from routes.orcid_oauth import router as orcid_router
 from routes.data_integrity import router as data_integrity_router
 from routes.ai_compliance import router as ai_compliance_router
 from routes.global_compliance import router as global_compliance_router
+from routes.compliance_alerts import router as compliance_alerts_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
