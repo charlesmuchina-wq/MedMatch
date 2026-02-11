@@ -103,7 +103,7 @@ class PDFExportService:
         
         # Body text style
         styles.add(ParagraphStyle(
-            name='BodyText',
+            name='ReportBody',
             parent=styles['Normal'],
             fontSize=10,
             spaceAfter=8,
