@@ -958,9 +958,27 @@ export default function AdminDataIntegrityPage() {
                   </div>
                 </div>
 
-                {/* Quick Generate */}
+                {/* Quick Generate & PDF Export */}
                 <div>
-                  <h4 className="font-medium mb-3">Quick Generate</h4>
+                  <h4 className="font-medium mb-3">Date Range</h4>
+                  <Select value={selectedDatePreset} onValueChange={setSelectedDatePreset}>
+                    <SelectTrigger className="w-full mb-4">
+                      <SelectValue placeholder="Select date range..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="today">Today</SelectItem>
+                      <SelectItem value="last_7_days">Last 7 Days</SelectItem>
+                      <SelectItem value="last_30_days">Last 30 Days</SelectItem>
+                      <SelectItem value="this_month">This Month</SelectItem>
+                      <SelectItem value="last_month">Last Month</SelectItem>
+                      <SelectItem value="this_quarter">This Quarter</SelectItem>
+                      <SelectItem value="last_quarter">Last Quarter</SelectItem>
+                      <SelectItem value="this_year">This Year (Annual)</SelectItem>
+                      <SelectItem value="last_year">Last Year (Annual)</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <h4 className="font-medium mb-3">Quick Generate JSON</h4>
                   <div className="space-y-2">
                     <Button
                       className="w-full justify-start"
@@ -980,34 +998,73 @@ export default function AdminDataIntegrityPage() {
                       <Globe className="h-4 w-4 mr-2" />
                       EU AI Act Report
                     </Button>
+                  </div>
+
+                  <h4 className="font-medium mt-4 mb-3">Export as PDF</h4>
+                  <div className="space-y-2">
                     <Button
                       className="w-full justify-start"
                       variant="outline"
-                      onClick={() => generateReport('GDPR_ART22')}
-                      disabled={generatingReport}
+                      onClick={() => exportPdf('NYC_LL144', selectedDatePreset)}
+                      disabled={exportingPdf}
                     >
-                      <Lock className="h-4 w-4 mr-2" />
-                      GDPR Article 22
+                      <Download className="h-4 w-4 mr-2" />
+                      NYC LL 144 PDF
                     </Button>
                     <Button
                       className="w-full justify-start"
                       variant="outline"
-                      onClick={() => generateReport('CALIFORNIA_AEDT')}
-                      disabled={generatingReport}
+                      onClick={() => exportPdf('EU_AI_ACT', selectedDatePreset)}
+                      disabled={exportingPdf}
                     >
-                      <MapPin className="h-4 w-4 mr-2" />
-                      California AB 331
+                      <Download className="h-4 w-4 mr-2" />
+                      EU AI Act PDF
+                    </Button>
+                    <Button
+                      className="w-full justify-start"
+                      variant="outline"
+                      onClick={() => exportPdf('GDPR_ART22', selectedDatePreset)}
+                      disabled={exportingPdf}
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      GDPR Article 22 PDF
+                    </Button>
+                    <Button
+                      className="w-full justify-start"
+                      variant="outline"
+                      onClick={() => exportPdf('CALIFORNIA_AEDT', selectedDatePreset)}
+                      disabled={exportingPdf}
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      California AB 331 PDF
                     </Button>
                   </div>
 
                   <Button
                     className="w-full mt-4 bg-turquoise hover:bg-turquoise/90"
+                    onClick={() => selectedTemplate && exportPdf(selectedTemplate, selectedDatePreset)}
+                    disabled={!selectedTemplate || exportingPdf}
+                  >
+                    {exportingPdf ? (
+                      <>
+                        <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                        Exporting PDF...
+                      </>
+                    ) : (
+                      <>
+                        <Download className="h-4 w-4 mr-2" />
+                        Export Selected as PDF
+                      </>
+                    )}
+                  </Button>
+
+                  <Button
+                    className="w-full mt-2"
+                    variant="outline"
                     onClick={() => selectedTemplate && generateReport(selectedTemplate)}
                     disabled={!selectedTemplate || generatingReport}
                   >
                     {generatingReport ? (
-                      <>
-                        <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
                         Generating...
                       </>
                     ) : (
