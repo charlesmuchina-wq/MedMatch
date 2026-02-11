@@ -293,11 +293,12 @@ export default function AdminDataIntegrityPage() {
 
       {/* Main Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-grid">
+        <TabsList className="grid w-full grid-cols-5 lg:w-auto lg:inline-grid">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="privacy">Privacy & Data</TabsTrigger>
           <TabsTrigger value="ai-qa">AI Quality</TabsTrigger>
           <TabsTrigger value="governance">Governance</TabsTrigger>
+          <TabsTrigger value="audit-reports">Audit Reports</TabsTrigger>
         </TabsList>
 
         {/* OVERVIEW TAB */}
