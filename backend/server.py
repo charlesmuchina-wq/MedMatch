@@ -330,6 +330,7 @@ app.include_router(data_integrity_router, prefix="/api")
 app.include_router(ai_compliance_router, prefix="/api")
 app.include_router(global_compliance_router, prefix="/api")
 app.include_router(compliance_alerts_router, prefix="/api")
+app.include_router(audit_reports_router, prefix="/api")
 
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
