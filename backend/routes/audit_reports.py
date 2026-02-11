@@ -326,3 +326,220 @@ async def generate_gdpr_report(request: Request):
     )
     
     return {"success": True, "report": report}
+
+
+# ============== PDF Export Endpoints ==============
+
+@router.get("/date-presets")
+async def get_date_presets(request: Request):
+    """
+    Get available date range presets for PDF export.
+    """
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    pdf_service = get_pdf_service(db)
+    if not pdf_service:
+        pdf_service = PDFExportService(db)
+    
+    presets = [
+        {"id": key, **value}
+        for key, value in pdf_service.DATE_PRESETS.items()
+    ]
+    
+    return {"presets": presets}
+
+
+@router.post("/export/pdf")
+async def export_report_pdf(config: PDFExportConfig, request: Request):
+    """
+    Generate and export an audit report as PDF with date range filtering.
+    
+    Date presets available:
+    - today: Today only
+    - yesterday: Yesterday only
+    - last_7_days: Last 7 days
+    - last_30_days: Last 30 days (default)
+    - this_month: Current month
+    - last_month: Previous month
+    - this_quarter: Current quarter
+    - last_quarter: Previous quarter
+    - this_year: Current year
+    - last_year: Previous year
+    - custom: Custom date range (requires custom_start and custom_end)
+    """
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Initialize services
+    report_service = get_audit_report_service(db)
+    pdf_service = get_pdf_service(db)
+    
+    if not report_service:
+        report_service = AuditReportService(db)
+    if not pdf_service:
+        pdf_service = PDFExportService(db)
+    
+    try:
+        # Calculate date range
+        date_range = pdf_service.calculate_date_range(
+            preset=config.date_preset,
+            custom_start=config.custom_start,
+            custom_end=config.custom_end
+        )
+        
+        # Generate the report
+        report = await report_service.generate_report(
+            template_id=config.template_id,
+            report_config={
+                "date_range": {
+                    "start": date_range["start"],
+                    "end": date_range["end"]
+                },
+                "sections": config.sections
+            },
+            user_id=user["user_id"]
+        )
+        
+        # Generate PDF
+        pdf_bytes = await pdf_service.generate_pdf(
+            report_data=report,
+            date_range=date_range,
+            include_sections=config.sections
+        )
+        
+        # Generate filename
+        filename = f"{config.template_id.lower()}_{date_range['preset']}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+        
+        return Response(
+            content=pdf_bytes,
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f"attachment; filename={filename}"
+            }
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"PDF export failed: {str(e)}")
+
+
+@router.post("/export/pdf/quick/{template_id}")
+async def quick_export_pdf(
+    template_id: str,
+    date_preset: str = "last_30_days",
+    request: Request = None
+):
+    """
+    Quick export a PDF report with minimal configuration.
+    Just specify the template and date preset.
+    """
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Initialize services
+    report_service = get_audit_report_service(db)
+    pdf_service = get_pdf_service(db)
+    
+    if not report_service:
+        report_service = AuditReportService(db)
+    if not pdf_service:
+        pdf_service = PDFExportService(db)
+    
+    try:
+        # Calculate date range
+        date_range = pdf_service.calculate_date_range(preset=date_preset)
+        
+        # Generate the report
+        report = await report_service.generate_report(
+            template_id=template_id.upper(),
+            report_config={
+                "date_range": {
+                    "start": date_range["start"],
+                    "end": date_range["end"]
+                }
+            },
+            user_id=user["user_id"]
+        )
+        
+        # Generate PDF
+        pdf_bytes = await pdf_service.generate_pdf(
+            report_data=report,
+            date_range=date_range
+        )
+        
+        # Generate filename
+        filename = f"{template_id.lower()}_{date_preset}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+        
+        return Response(
+            content=pdf_bytes,
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f"attachment; filename={filename}"
+            }
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"PDF export failed: {str(e)}")
+
+
+@router.get("/{report_id}/pdf")
+async def export_existing_report_pdf(
+    report_id: str,
+    date_preset: str = "custom",
+    request: Request = None
+):
+    """
+    Export an existing report as PDF.
+    Uses the original report's date range.
+    """
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
+    # Get services
+    report_service = get_audit_report_service(db)
+    pdf_service = get_pdf_service(db)
+    
+    if not report_service:
+        report_service = AuditReportService(db)
+    if not pdf_service:
+        pdf_service = PDFExportService(db)
+    
+    # Get the existing report
+    report = await report_service.get_report_by_id(report_id)
+    
+    if not report:
+        raise HTTPException(status_code=404, detail="Report not found")
+    
+    try:
+        # Use the report's original date range
+        date_range = {
+            "start": report.get("reporting_period", {}).get("start", ""),
+            "end": report.get("reporting_period", {}).get("end", ""),
+            "label": "Report Period",
+            "preset": "custom"
+        }
+        
+        # Generate PDF
+        pdf_bytes = await pdf_service.generate_pdf(
+            report_data=report,
+            date_range=date_range
+        )
+        
+        # Generate filename
+        filename = f"{report.get('template_id', 'report').lower()}_{report_id}.pdf"
+        
+        return Response(
+            content=pdf_bytes,
+            media_type="application/pdf",
+            headers={
+                "Content-Disposition": f"attachment; filename={filename}"
+            }
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"PDF export failed: {str(e)}")
