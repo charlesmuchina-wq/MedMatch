@@ -47,6 +47,8 @@ import AnalyticsFunnelPage from "@/pages/AnalyticsFunnelPage";
 import DragonAutomatorPage from "@/pages/DragonAutomatorPage";
 import AdminDashboard from "@/pages/AdminDashboard";
 import AdminDataIntegrityPage from "@/pages/AdminDataIntegrityPage";
+import AdminAICompliancePage from "@/pages/AdminAICompliancePage";
+import CandidateTransparencyPage from "@/pages/CandidateTransparencyPage";
 import ProductionMetricsPage from "@/pages/ProductionMetricsPage";
 import TranslationAnalyticsPage from "@/pages/TranslationAnalyticsPage";
 import PrivacySettingsPage from "@/pages/PrivacySettingsPage";
