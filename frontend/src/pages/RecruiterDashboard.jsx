@@ -153,71 +153,81 @@ const RecruiterDashboard = ({ user }) => {
         ))}
       </div>
 
-      {/* Recent Applicants */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="flex items-center gap-2">
-                <Users className="w-5 h-5 text-turquoise" />
-                Recent Applicants
-              </CardTitle>
-              <CardDescription>Latest candidates who applied to your jobs</CardDescription>
-            </div>
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={() => navigate('/recruiter/jobs')}
-            >
-              View All Jobs
-              <ChevronRight className="w-4 h-4 ml-1" />
-            </Button>
-          </div>
-        </CardHeader>
-        <CardContent>
-          {stats?.applicants?.recent?.length > 0 ? (
-            <div className="space-y-3">
-              {stats.applicants.recent.map((applicant, idx) => (
-                <div
-                  key={applicant.id || idx}
-                  className="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 
-                    hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-                  onClick={() => navigate(`/recruiter/jobs/${applicant.job_id}/applicants`)}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-turquoise to-emerald-500 
-                      flex items-center justify-center text-white font-semibold">
-                      {(applicant.applicant_name || applicant.applicant_email || "?")[0].toUpperCase()}
-                    </div>
-                    <div>
-                      <p className="font-medium text-slate-900 dark:text-slate-100">
-                        {applicant.applicant_name || applicant.applicant_email}
-                      </p>
-                      <p className="text-sm text-slate-500">
-                        Applied for: {applicant.job_title}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge className={`${getStatusColor(applicant.status)} text-white`}>
-                      {applicant.status}
-                    </Badge>
-                    <span className="text-xs text-slate-400">
-                      {new Date(applicant.applied_at).toLocaleDateString()}
-                    </span>
-                  </div>
+      {/* Main Content Grid - Recent Applicants + Compliance Widget */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        {/* Recent Applicants - Takes 2 columns */}
+        <div className="lg:col-span-2">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Users className="w-5 h-5 text-turquoise" />
+                    Recent Applicants
+                  </CardTitle>
+                  <CardDescription>Latest candidates who applied to your jobs</CardDescription>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-8 text-slate-500">
-              <Users className="w-12 h-12 mx-auto mb-3 opacity-30" />
-              <p>No applicants yet</p>
-              <p className="text-sm">Post a job to start receiving applications</p>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => navigate('/recruiter/jobs')}
+                >
+                  View All Jobs
+                  <ChevronRight className="w-4 h-4 ml-1" />
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {stats?.applicants?.recent?.length > 0 ? (
+                <div className="space-y-3">
+                  {stats.applicants.recent.map((applicant, idx) => (
+                    <div
+                      key={applicant.id || idx}
+                      className="flex items-center justify-between p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 
+                        hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+                      onClick={() => navigate(`/recruiter/jobs/${applicant.job_id}/applicants`)}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-turquoise to-emerald-500 
+                          flex items-center justify-center text-white font-semibold">
+                          {(applicant.applicant_name || applicant.applicant_email || "?")[0].toUpperCase()}
+                        </div>
+                        <div>
+                          <p className="font-medium text-slate-900 dark:text-slate-100">
+                            {applicant.applicant_name || applicant.applicant_email}
+                          </p>
+                          <p className="text-sm text-slate-500">
+                            Applied for: {applicant.job_title}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Badge className={`${getStatusColor(applicant.status)} text-white`}>
+                          {applicant.status}
+                        </Badge>
+                        <span className="text-xs text-slate-400">
+                          {new Date(applicant.applied_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-slate-500">
+                  <Users className="w-12 h-12 mx-auto mb-3 opacity-30" />
+                  <p>No applicants yet</p>
+                  <p className="text-sm">Post a job to start receiving applications</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Compliance Widget - Takes 1 column */}
+        <div className="lg:col-span-1">
+          <ComplianceWidget />
+        </div>
+      </div>
 
       {/* Pipeline Overview */}
       {stats?.applicants?.total > 0 && (
