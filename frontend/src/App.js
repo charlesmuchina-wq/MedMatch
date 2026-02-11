@@ -48,6 +48,7 @@ import DragonAutomatorPage from "@/pages/DragonAutomatorPage";
 import AdminDashboard from "@/pages/AdminDashboard";
 import AdminDataIntegrityPage from "@/pages/AdminDataIntegrityPage";
 import AdminAICompliancePage from "@/pages/AdminAICompliancePage";
+import GlobalCompliancePage from "@/pages/GlobalCompliancePage";
 import CandidateTransparencyPage from "@/pages/CandidateTransparencyPage";
 import ProductionMetricsPage from "@/pages/ProductionMetricsPage";
 import TranslationAnalyticsPage from "@/pages/TranslationAnalyticsPage";
@@ -198,6 +199,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/admin", icon: Shield, labelKey: "Admin Dashboard" },
     { path: "/admin/data-integrity", icon: Database, labelKey: "Data Integrity & AI QA" },
     { path: "/admin/ai-compliance", icon: Gavel, labelKey: "AI Compliance" },
+    { path: "/admin/global-compliance", icon: Globe, labelKey: "Global Compliance" },
     { path: "/admin/recruiters", icon: Users, labelKey: "Recruiter Verification" },
     { path: "/admin/reviews", icon: FileText, labelKey: "Review Moderation" },
     { path: "/tutorials", icon: HelpCircle, labelKey: "Help & Tutorials" },
