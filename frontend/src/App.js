@@ -242,11 +242,22 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
           </button>
         </div>
         
-        {/* Admin Profile Switcher */}
+        {/* Admin Profile Switcher - 3 View Modes */}
         {isAdmin && (
           <div className={`px-4 py-3 border-b ${isDark ? 'border-batik-dark-grey' : 'border-slate-100'}`}>
             <p className={`text-xs mb-2 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>View as:</p>
             <div className="flex gap-1">
+              <button
+                onClick={() => setViewMode("admin")}
+                className={`flex-1 px-2 py-1.5 text-xs rounded-lg transition-all ${
+                  viewMode === "admin"
+                    ? 'bg-purple-600 text-white'
+                    : isDark ? 'bg-batik-dark-grey text-slate-300 hover:bg-batik-grey' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                }`}
+                data-testid="view-admin-btn"
+              >
+                Admin
+              </button>
               <button
                 onClick={() => setViewMode("job_seeker")}
                 className={`flex-1 px-2 py-1.5 text-xs rounded-lg transition-all ${
