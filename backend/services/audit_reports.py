@@ -317,7 +317,7 @@ class AuditReportService:
         
         # Generate report sections
         sections_data = {}
-        sections_to_include = report_config.get("sections", template["sections"])
+        sections_to_include = report_config.get("sections") or template["sections"]
         
         for section_id in sections_to_include:
             sections_data[section_id] = await self._generate_section(
