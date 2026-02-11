@@ -222,6 +222,67 @@ export default function AdminDataIntegrityPage() {
     setExpandedRegions(prev => ({ ...prev, [region]: !prev[region] }));
   };
 
+  // Load audit report templates
+  const loadReportTemplates = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/audit-reports/templates`, { credentials: 'include' });
+      if (response.ok) {
+        const data = await response.json();
+        setReportTemplates(data.templates || []);
+      }
+    } catch (error) {
+      console.error('Error loading templates:', error);
+    }
+  };
+
+  // Load report history
+  const loadReportHistory = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/audit-reports/history`, { credentials: 'include' });
+      if (response.ok) {
+        const data = await response.json();
+        setReportHistory(data.reports || []);
+      }
+    } catch (error) {
+      console.error('Error loading report history:', error);
+    }
+  };
+
+  // Generate a report
+  const generateReport = async (templateId) => {
+    setGeneratingReport(true);
+    try {
+      const response = await fetch(`${API_URL}/api/audit-reports/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ template_id: templateId })
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        setCurrentReport(data.report);
+        toast.success(`${data.report.template_name} generated successfully!`);
+        loadReportHistory();
+      } else {
+        toast.error('Failed to generate report');
+      }
+    } catch (error) {
+      console.error('Error generating report:', error);
+      toast.error('Failed to generate report');
+    } finally {
+      setGeneratingReport(false);
+    }
+  };
+
+  // Load templates when tab changes
+  useEffect(() => {
+    if (activeTab === 'audit-reports' && reportTemplates.length === 0) {
+      loadReportTemplates();
+      loadReportHistory();
+    }
+  }, [activeTab]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
