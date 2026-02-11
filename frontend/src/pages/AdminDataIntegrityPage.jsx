@@ -141,6 +141,13 @@ export default function AdminDataIntegrityPage() {
   const [automationTools, setAutomationTools] = useState(null);
   
   const [expandedRegions, setExpandedRegions] = useState({});
+  
+  // Audit Reports state
+  const [reportTemplates, setReportTemplates] = useState([]);
+  const [selectedTemplate, setSelectedTemplate] = useState('');
+  const [generatingReport, setGeneratingReport] = useState(false);
+  const [reportHistory, setReportHistory] = useState([]);
+  const [currentReport, setCurrentReport] = useState(null);
 
   useEffect(() => {
     loadAllData();
