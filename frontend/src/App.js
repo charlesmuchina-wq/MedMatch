@@ -195,6 +195,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
   const adminLinks = [
     { path: "/admin", icon: Shield, labelKey: "Admin Dashboard" },
     { path: "/admin/data-integrity", icon: Database, labelKey: "Data Integrity & AI QA" },
+    { path: "/admin/ai-compliance", icon: Gavel, labelKey: "AI Compliance" },
     { path: "/admin/recruiters", icon: Users, labelKey: "Recruiter Verification" },
     { path: "/admin/reviews", icon: FileText, labelKey: "Review Moderation" },
     { path: "/tutorials", icon: HelpCircle, labelKey: "Help & Tutorials" },
