@@ -38,6 +38,14 @@ class CustomReportConfig(BaseModel):
     custom_fields: Optional[Dict] = None
 
 
+class PDFExportConfig(BaseModel):
+    template_id: str
+    date_preset: str = "last_30_days"  # today, yesterday, last_7_days, last_30_days, this_month, last_month, this_quarter, last_quarter, this_year, last_year, custom
+    custom_start: Optional[str] = None  # ISO date string for custom range
+    custom_end: Optional[str] = None  # ISO date string for custom range
+    sections: Optional[List[str]] = None  # Specific sections to include
+
+
 # ============== Template Endpoints ==============
 
 @router.get("/templates")
