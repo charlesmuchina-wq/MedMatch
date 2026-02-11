@@ -189,15 +189,31 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/membership", icon: Crown, labelKey: "nav.membership" },
   ];
   
+  // Admin-specific navigation links
+  const adminLinks = [
+    { path: "/admin", icon: Shield, labelKey: "Admin Dashboard" },
+    { path: "/admin/recruiters", icon: Users, labelKey: "Recruiter Verification" },
+    { path: "/admin/reviews", icon: FileText, labelKey: "Review Moderation" },
+    { path: "/tutorials", icon: HelpCircle, labelKey: "Help & Tutorials" },
+    { path: "/qa-dashboard", icon: Languages, labelKey: "Translation QA" },
+    { path: "/notifications", icon: Bell, labelKey: "nav.notifications" },
+    { path: "/enterprise/api", icon: Code, labelKey: "Enterprise API" },
+    { path: "/membership", icon: Crown, labelKey: "nav.membership" },
+  ];
+  
+  // Determine which links to show based on view mode
+  const isAdminView = viewMode === "admin";
+  const isRecruiterView = viewMode === "recruiter";
+  
   // Filter links based on user role - admins see adminOnly items
-  const baseLinks = isRecruiter ? recruiterLinks : jobSeekerLinks;
+  const baseLinks = isAdminView ? adminLinks : (isRecruiterView ? recruiterLinks : jobSeekerLinks);
   const links = baseLinks.filter(link => {
     if (link.adminOnly) return isAdmin;
     return true;
   });
   
-  // Add admin dashboard to recruiter view for admin users
-  if (isAdmin && isRecruiter && !links.some(l => l.path === '/admin')) {
+  // Add admin dashboard link for non-admin views when user is admin
+  if (isAdmin && !isAdminView && !links.some(l => l.path === '/admin')) {
     links.push({ path: "/admin", icon: Shield, labelKey: "nav.adminDashboard", adminOnly: true });
   }
 
