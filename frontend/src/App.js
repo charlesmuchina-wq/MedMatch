@@ -134,7 +134,6 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
   
   // Admin users can switch between all views
   const isAdmin = user?.is_admin || user?.role === "admin" || user?.email === "admin@medmatch.com";
-  const isRecruiter = viewMode === "recruiter";
   
   const jobSeekerLinks = [
     { path: "/", icon: TrendingUp, labelKey: "nav.dashboard" },
