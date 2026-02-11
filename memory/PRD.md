@@ -30,10 +30,12 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 | OFFER_DECISION | AI-assisted offer | Yes |
 | REJECTION_DECISION | AI-assisted rejection | Yes |
 
-**Location Prompt System:**
-- Frontend modal prompts users for location when missing
-- Automatic jurisdiction detection for cross-border hiring
-- Supports 22 country/region codes with regulatory mapping
+**Recruiter Dashboard Compliance Widget:**
+- Real-time compliance status display
+- GUAL entries count and pending reviews
+- Quick stats (15 regions, 28 laws, GUAL active)
+- Alert notifications with severity badges
+- Location prompt for cross-border compliance
 
 **API Endpoints:**
 - `GET /api/compliance-alerts/check` - Run all compliance checks
