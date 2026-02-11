@@ -86,7 +86,7 @@ async def get_model_drift_status():
     Alerts when model accuracy degrades over time.
     """
     service = get_service()
-    # service already set
+
     return await service.get_model_drift_status()
 
 @router.get("/test-suite")
@@ -96,7 +96,7 @@ async def get_test_suite_status():
     Shows AI-powered test automation results.
     """
     service = get_service()
-    # service already set
+
     return await service.get_test_suite_status()
 
 @router.get("/output-validation")
@@ -106,7 +106,7 @@ async def get_output_validation(output_id: Optional[str] = None):
     Performs grounding checks against source data.
     """
     service = get_service()
-    # service already set
+
     return await service.validate_ai_output(output_id)
 
 @router.get("/red-team")
@@ -116,7 +116,7 @@ async def get_red_team_status():
     Shows results of prompt injection, jailbreak, and other security tests.
     """
     service = get_service()
-    # service already set
+
     return await service.get_red_team_status()
 
 # ==========================================
@@ -130,7 +130,7 @@ async def get_compliance_logs(limit: int = 100):
     100% logging of AI decisions for audit trails.
     """
     service = get_service()
-    # service already set
+
     return await service.get_compliance_logs(limit)
 
 @router.get("/bias-detection")
@@ -140,7 +140,7 @@ async def get_bias_detection_report():
     Monitors protected characteristics for disparate impact.
     """
     service = get_service()
-    # service already set
+
     return await service.get_bias_detection_report()
 
 @router.get("/risk-inventory")
@@ -150,7 +150,7 @@ async def get_ai_risk_inventory():
     Real-time inventory of all AI models and their risk levels.
     """
     service = get_service()
-    # service already set
+
     return await service.get_ai_risk_inventory()
 
 @router.get("/automation-tools")
@@ -160,7 +160,7 @@ async def get_automation_tools_status():
     Shows health of FairNow, mabl, Applitools, etc.
     """
     service = get_service()
-    # service already set
+
     return await service.get_automation_tools_status()
 
 # ==========================================
@@ -174,7 +174,7 @@ async def run_full_audit():
     Executes all checks and returns consolidated report.
     """
     service = get_service()
-    # service already set
+
     return await service.run_full_audit()
 
 @router.get("/summary")
@@ -183,7 +183,7 @@ async def get_summary():
     Get quick summary of data integrity and AI QA status.
     """
     service = get_service()
-    # service already set
+
     
     # Get key metrics
     compliance = await service.get_regional_compliance_status()
