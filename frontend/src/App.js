@@ -922,6 +922,7 @@ function AppContent() {
             <Route path="/admin/reviews" element={<AdminReviewModerationPage />} />
             <Route path="/admin/data-integrity" element={<AdminDataIntegrityPage />} />
             <Route path="/admin/ai-compliance" element={<AdminAICompliancePage />} />
+            <Route path="/admin/global-compliance" element={<GlobalCompliancePage />} />
             <Route path="/taxonomy" element={<TaxonomyExplorerPage />} />
             <Route path="/careers" element={<TaxonomyExplorerPage />} />
             <Route path="/credentials" element={<CredentialsPage />} />
