@@ -127,8 +127,8 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
   // User role state for admin profile switching
   const [viewMode, setViewMode] = useState(() => {
     // Default: recruiters see recruiter view, job seekers see job seeker view
-    // Admin users default to recruiter view but can switch
-    if (user?.is_admin || user?.role === "admin") return "recruiter";
+    // Admin users default to admin view but can switch to any view
+    if (user?.is_admin || user?.role === "admin") return "admin";
     return user?.role === "recruiter" ? "recruiter" : "job_seeker";
   });
   
