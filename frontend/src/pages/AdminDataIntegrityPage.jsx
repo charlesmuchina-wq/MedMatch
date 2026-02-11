@@ -867,6 +867,257 @@ export default function AdminDataIntegrityPage() {
             </CardContent>
           </Card>
         </TabsContent>
+
+        {/* AUDIT REPORTS TAB */}
+        <TabsContent value="audit-reports" className="space-y-6">
+          {/* Report Generator */}
+          <Card>
+            <CardHeader>
+              <SectionHeader
+                icon={FileText}
+                title="Compliance Audit Report Generator"
+                description="Generate customizable audit reports per government or regulatory request"
+              />
+            </CardHeader>
+            <CardContent>
+              {/* Template Selection */}
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="md:col-span-2">
+                  <h4 className="font-medium mb-3">Select Report Template</h4>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    {reportTemplates.map((template) => (
+                      <div
+                        key={template.id}
+                        onClick={() => setSelectedTemplate(template.id)}
+                        className={`p-4 border rounded-lg cursor-pointer transition-all hover:shadow-md ${
+                          selectedTemplate === template.id 
+                            ? 'border-turquoise bg-turquoise/5' 
+                            : 'hover:border-slate-300'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between">
+                          <div>
+                            <p className="font-medium text-sm">{template.name}</p>
+                            <p className="text-xs text-muted-foreground mt-1">{template.region}</p>
+                          </div>
+                          {selectedTemplate === template.id && (
+                            <CheckCircle className="h-5 w-5 text-turquoise" />
+                          )}
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-2 line-clamp-2">
+                          {template.description}
+                        </p>
+                        <div className="flex items-center gap-2 mt-2">
+                          <Badge variant="outline" className="text-xs">
+                            {template.sections_count} sections
+                          </Badge>
+                          <span className="text-xs text-muted-foreground">
+                            Deadline: {template.deadline}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quick Generate */}
+                <div>
+                  <h4 className="font-medium mb-3">Quick Generate</h4>
+                  <div className="space-y-2">
+                    <Button
+                      className="w-full justify-start"
+                      variant="outline"
+                      onClick={() => generateReport('NYC_LL144')}
+                      disabled={generatingReport}
+                    >
+                      <Scale className="h-4 w-4 mr-2" />
+                      NYC LL 144 Bias Audit
+                    </Button>
+                    <Button
+                      className="w-full justify-start"
+                      variant="outline"
+                      onClick={() => generateReport('EU_AI_ACT')}
+                      disabled={generatingReport}
+                    >
+                      <Globe className="h-4 w-4 mr-2" />
+                      EU AI Act Report
+                    </Button>
+                    <Button
+                      className="w-full justify-start"
+                      variant="outline"
+                      onClick={() => generateReport('GDPR_ART22')}
+                      disabled={generatingReport}
+                    >
+                      <Lock className="h-4 w-4 mr-2" />
+                      GDPR Article 22
+                    </Button>
+                    <Button
+                      className="w-full justify-start"
+                      variant="outline"
+                      onClick={() => generateReport('CALIFORNIA_AEDT')}
+                      disabled={generatingReport}
+                    >
+                      <MapPin className="h-4 w-4 mr-2" />
+                      California AB 331
+                    </Button>
+                  </div>
+
+                  <Button
+                    className="w-full mt-4 bg-turquoise hover:bg-turquoise/90"
+                    onClick={() => selectedTemplate && generateReport(selectedTemplate)}
+                    disabled={!selectedTemplate || generatingReport}
+                  >
+                    {generatingReport ? (
+                      <>
+                        <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                        Generating...
+                      </>
+                    ) : (
+                      <>
+                        <FileText className="h-4 w-4 mr-2" />
+                        Generate Selected Report
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Current Report Preview */}
+          {currentReport && (
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <SectionHeader
+                    icon={Eye}
+                    title={currentReport.template_name}
+                    description={`Generated: ${new Date(currentReport.generated_at).toLocaleString()}`}
+                  />
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm">
+                      <Download className="h-4 w-4 mr-2" />
+                      Download JSON
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={() => setCurrentReport(null)}>
+                      Close
+                    </Button>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {/* Report Summary */}
+                <div className="grid md:grid-cols-4 gap-4 mb-6">
+                  <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg text-center">
+                    <p className="text-2xl font-bold text-green-600">
+                      {currentReport.compliance_summary?.compliance_score}%
+                    </p>
+                    <p className="text-sm text-muted-foreground">Compliance Score</p>
+                  </div>
+                  <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg text-center">
+                    <p className="text-2xl font-bold text-blue-600">
+                      {Object.keys(currentReport.sections || {}).length}
+                    </p>
+                    <p className="text-sm text-muted-foreground">Sections</p>
+                  </div>
+                  <div className="p-4 border rounded-lg text-center">
+                    <p className="text-lg font-bold">{currentReport.region}</p>
+                    <p className="text-sm text-muted-foreground">Region</p>
+                  </div>
+                  <div className="p-4 border rounded-lg text-center">
+                    <StatusBadge status={currentReport.compliance_summary?.overall_status} />
+                    <p className="text-sm text-muted-foreground mt-1">Status</p>
+                  </div>
+                </div>
+
+                {/* Report Sections */}
+                <div className="space-y-4">
+                  <h4 className="font-medium">Report Sections</h4>
+                  <div className="grid md:grid-cols-2 gap-3 max-h-[400px] overflow-y-auto">
+                    {Object.entries(currentReport.sections || {}).map(([key, section]) => (
+                      <div key={key} className="p-3 border rounded-lg">
+                        <p className="font-medium text-sm">{section.title || key}</p>
+                        {section.status && <StatusBadge status={section.status} />}
+                        {section.compliance_score && (
+                          <p className="text-xs text-muted-foreground mt-1">
+                            Score: {section.compliance_score}%
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Digital Signature */}
+                {currentReport.digital_signature && (
+                  <div className="mt-4 p-3 bg-muted/50 rounded-lg">
+                    <div className="flex items-center gap-2">
+                      <Fingerprint className="h-4 w-4 text-turquoise" />
+                      <span className="text-sm font-medium">Digital Signature</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1 font-mono">
+                      SHA-256: {currentReport.digital_signature.hash?.substring(0, 32)}...
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Report History */}
+          <Card>
+            <CardHeader>
+              <SectionHeader
+                icon={Clock}
+                title="Report History"
+                description="Previously generated compliance reports"
+                action={
+                  <Button variant="outline" size="sm" onClick={loadReportHistory}>
+                    <RefreshCw className="h-4 w-4 mr-2" />
+                    Refresh
+                  </Button>
+                }
+              />
+            </CardHeader>
+            <CardContent>
+              {reportHistory.length > 0 ? (
+                <div className="space-y-2">
+                  {reportHistory.map((report) => (
+                    <div
+                      key={report.report_id}
+                      className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        <FileText className="h-5 w-5 text-turquoise" />
+                        <div>
+                          <p className="font-medium text-sm">{report.template_name}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {report.region} • {new Date(report.generated_at).toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <StatusBadge status={report.compliance_summary?.overall_status} />
+                        <Button variant="ghost" size="sm">
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="sm">
+                          <Download className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">
+                  <FileText className="h-12 w-12 mx-auto mb-3 opacity-30" />
+                  <p>No reports generated yet</p>
+                  <p className="text-sm">Generate a report using the templates above</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
       </Tabs>
     </div>
   );
