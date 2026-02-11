@@ -904,6 +904,8 @@ function AppContent() {
               <TranslationAnalyticsPage />
             } />
             <Route path="/privacy" element={<PrivacySettingsPage />} />
+            <Route path="/ai-transparency" element={<CandidateTransparencyPage />} />
+            <Route path="/recruiter/compliance" element={<AdminAICompliancePage />} />
             <Route path="/consent" element={
               <PrivacyConsentScreen 
                 onConsentGranted={() => navigate('/')}
