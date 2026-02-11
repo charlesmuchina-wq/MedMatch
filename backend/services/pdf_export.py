@@ -346,7 +346,7 @@ class PDFExportService:
             <b>Type:</b> {ai_system.get('type', 'N/A')}<br/>
             <b>Purpose:</b> {ai_system.get('intended_purpose', 'N/A')}
             """
-            elements.append(Paragraph(system_text, self.styles['BodyText']))
+            elements.append(Paragraph(system_text, self.styles['ReportBody']))
         
         elements.append(Spacer(1, 10))
         
@@ -425,7 +425,7 @@ class PDFExportService:
             elements.extend(self._build_certifications(section_data))
         elif section_data.get("content"):
             # Simple content
-            elements.append(Paragraph(section_data["content"], self.styles['BodyText']))
+            elements.append(Paragraph(section_data["content"], self.styles['ReportBody']))
         else:
             # Generic key-value display
             elements.extend(self._build_generic_section(section_data))
@@ -470,7 +470,7 @@ class PDFExportService:
         # Add conclusion if present
         if section_data.get("conclusion"):
             elements.append(Spacer(1, 10))
-            elements.append(Paragraph(f"<b>Conclusion:</b> {section_data['conclusion']}", self.styles['BodyText']))
+            elements.append(Paragraph(f"<b>Conclusion:</b> {section_data['conclusion']}", self.styles['ReportBody']))
         
         return elements
     
@@ -479,19 +479,19 @@ class PDFExportService:
         elements = []
         
         if section_data.get("content"):
-            elements.append(Paragraph(section_data["content"], self.styles['BodyText']))
+            elements.append(Paragraph(section_data["content"], self.styles['ReportBody']))
             elements.append(Spacer(1, 10))
         
         findings = section_data.get("key_findings", [])
         if findings:
-            elements.append(Paragraph("<b>Key Findings:</b>", self.styles['BodyText']))
+            elements.append(Paragraph("<b>Key Findings:</b>", self.styles['ReportBody']))
             
             items = []
             for finding in findings:
                 status = finding.get("status", "")
                 status_icon = "✓" if status == "PASS" else "✗" if status == "FAIL" else "•"
                 text = f"{status_icon} {finding.get('finding', str(finding))}"
-                items.append(ListItem(Paragraph(text, self.styles['BodyText'])))
+                items.append(ListItem(Paragraph(text, self.styles['ReportBody'])))
             
             elements.append(ListFlowable(items, bulletType='bullet'))
         
@@ -566,7 +566,7 @@ class PDFExportService:
             status = calc.get("status", "N/A")
             elements.append(Paragraph(
                 f"<b>Impact Ratio:</b> {impact} - <b>Status:</b> {status}",
-                self.styles['BodyText']
+                self.styles['ReportBody']
             ))
             elements.append(Spacer(1, 10))
         
@@ -618,7 +618,7 @@ class PDFExportService:
                     f"<b>Auditor:</b> {section_data.get('auditor', 'N/A')}<br/>"
                     f"<b>Certified:</b> {section_data.get('certified', 'N/A')}<br/>"
                     f"<b>Date:</b> {section_data.get('date', 'N/A')[:10] if section_data.get('date') else 'N/A'}",
-                    self.styles['BodyText']
+                    self.styles['ReportBody']
                 ))
             return elements
         
@@ -657,19 +657,19 @@ class PDFExportService:
             if isinstance(value, dict):
                 elements.append(Paragraph(f"<b>{key.replace('_', ' ').title()}:</b>", self.styles['Subsection']))
                 for k, v in value.items():
-                    elements.append(Paragraph(f"• {k.replace('_', ' ').title()}: {v}", self.styles['BodyText']))
+                    elements.append(Paragraph(f"• {k.replace('_', ' ').title()}: {v}", self.styles['ReportBody']))
             elif isinstance(value, list):
                 elements.append(Paragraph(f"<b>{key.replace('_', ' ').title()}:</b>", self.styles['Subsection']))
                 for item in value:
                     if isinstance(item, dict):
                         item_text = ", ".join([f"{k}: {v}" for k, v in item.items()])
-                        elements.append(Paragraph(f"• {item_text}", self.styles['BodyText']))
+                        elements.append(Paragraph(f"• {item_text}", self.styles['ReportBody']))
                     else:
-                        elements.append(Paragraph(f"• {item}", self.styles['BodyText']))
+                        elements.append(Paragraph(f"• {item}", self.styles['ReportBody']))
             else:
                 elements.append(Paragraph(
                     f"<b>{key.replace('_', ' ').title()}:</b> {value}",
-                    self.styles['BodyText']
+                    self.styles['ReportBody']
                 ))
         
         return elements
@@ -691,7 +691,7 @@ class PDFExportService:
             <b>Hash:</b> <font face="Courier" size="8">{sig.get('hash', 'N/A')}</font><br/>
             <b>Signed At:</b> {sig.get('timestamp', 'N/A')[:19].replace('T', ' ') if sig.get('timestamp') else 'N/A'}
             """
-            elements.append(Paragraph(sig_text, self.styles['BodyText']))
+            elements.append(Paragraph(sig_text, self.styles['ReportBody']))
         
         return elements
     
