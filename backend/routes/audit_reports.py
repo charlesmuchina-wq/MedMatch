@@ -406,6 +406,7 @@ async def export_report_pdf(config: PDFExportConfig, request: Request):
             },
             user_id=user["user_id"]
         )
+        logger.info(f"Report generated: {report.get('report_id')}, sections: {len(report.get('sections', {}))}")
         
         # Generate PDF
         pdf_bytes = await pdf_service.generate_pdf(
@@ -413,6 +414,7 @@ async def export_report_pdf(config: PDFExportConfig, request: Request):
             date_range=date_range,
             include_sections=config.sections
         )
+        logger.info(f"PDF generated: {len(pdf_bytes)} bytes")
         
         # Generate filename
         filename = f"{config.template_id.lower()}_{date_range['preset']}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
@@ -425,8 +427,11 @@ async def export_report_pdf(config: PDFExportConfig, request: Request):
             }
         )
     except ValueError as e:
+        logger.error(f"ValueError in PDF export: {e}")
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
+        import traceback
+        logger.error(f"PDF export failed: {e}\n{traceback.format_exc()}")
         raise HTTPException(status_code=500, detail=f"PDF export failed: {str(e)}")
 
 
