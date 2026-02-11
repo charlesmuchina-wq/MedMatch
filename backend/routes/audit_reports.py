@@ -1,9 +1,10 @@
 """
 Audit Report API Routes
 Customizable compliance audit reports per government/regulatory request
+Includes PDF export with date range filtering
 """
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 from pydantic import BaseModel
 from typing import Optional, List, Dict
 from datetime import datetime, timezone
@@ -11,6 +12,7 @@ from datetime import datetime, timezone
 from routes.auth import get_current_user
 from utils.database import db
 from services.audit_reports import get_audit_report_service, AuditReportService
+from services.pdf_export import get_pdf_service, PDFExportService
 
 router = APIRouter(prefix="/audit-reports", tags=["Audit Reports"])
 
