@@ -9,6 +9,46 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ## Latest Updates (February 11, 2026)
 
+### PDF Export with Date Range Filtering ✅ (Feb 11, 2026)
+**Professional PDF Reports for Regulatory Submissions**
+
+**Date Range Presets:**
+| Preset | Description |
+|--------|-------------|
+| today | Today only |
+| yesterday | Yesterday only |
+| last_7_days | Last 7 days (weekly) |
+| last_30_days | Last 30 days (monthly) |
+| this_month | Current month |
+| last_month | Previous month |
+| this_quarter | Current quarter |
+| last_quarter | Previous quarter |
+| this_year | Current year (annual) |
+| last_year | Previous year (annual) |
+| custom | Custom date range |
+
+**PDF Features:**
+- Professional formatting with MedMatch branding
+- Executive summary with compliance score
+- Compliance status matrix by regulation
+- Bias audit results with impact ratios
+- Human oversight mechanisms table
+- Certifications & attestations
+- Digital signature (SHA-256) for tamper-proofing
+
+**API Endpoints:**
+- `GET /api/audit-reports/date-presets` - Available date presets
+- `POST /api/audit-reports/export/pdf` - Full PDF export with config
+- `POST /api/audit-reports/export/pdf/quick/{template_id}` - Quick PDF export
+- `GET /api/audit-reports/{report_id}/pdf` - Export existing report as PDF
+
+**Frontend Updates:**
+- Date Range dropdown selector (9 presets)
+- Quick PDF export buttons for each template
+- "Export Selected as PDF" button for custom template selection
+
+---
+
 ### Customizable Audit Report Generator ✅ (Feb 11, 2026)
 **Per-Government/Compliance Customizable Reports**
 
