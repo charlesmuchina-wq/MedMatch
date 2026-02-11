@@ -148,6 +148,8 @@ export default function AdminDataIntegrityPage() {
   const [generatingReport, setGeneratingReport] = useState(false);
   const [reportHistory, setReportHistory] = useState([]);
   const [currentReport, setCurrentReport] = useState(null);
+  const [selectedDatePreset, setSelectedDatePreset] = useState('last_30_days');
+  const [exportingPdf, setExportingPdf] = useState(false);
 
   useEffect(() => {
     loadAllData();
