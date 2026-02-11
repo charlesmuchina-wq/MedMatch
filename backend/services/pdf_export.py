@@ -402,6 +402,10 @@ class PDFExportService:
         """Build a report section."""
         elements = []
         
+        # Ensure section_data is a dict
+        if not isinstance(section_data, dict):
+            section_data = {"content": str(section_data)} if section_data else {}
+        
         title = section_data.get("title", section_id.replace("_", " ").title())
         elements.append(Paragraph(title, self.styles['SectionHeader']))
         
