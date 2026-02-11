@@ -9,6 +9,43 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ## Latest Updates (February 11, 2026)
 
+### Real-Time Compliance Alerts & GUAL Integration ✅ (Feb 11, 2026)
+**Production-Ready Cross-Border Compliance Monitoring**
+
+**Compliance Alert System:**
+| Alert Type | Severity | Trigger |
+|------------|----------|---------|
+| BIAS_VIOLATION | CRITICAL | Disparate impact < 0.80 (Four-Fifths Rule) |
+| HUMAN_OVERSIGHT_MISSING | HIGH | AI decisions pending review > 24 hours |
+| DEADLINE_IMMINENT | HIGH | Regulatory deadline within 7 days |
+| DEADLINE_APPROACHING | MEDIUM | Regulatory deadline within 30 days |
+| INCIDENT_DETECTED | CRITICAL | Any compliance incident |
+
+**GUAL Integration (Automatic Logging):**
+| Action Type | Description | Human Review Required |
+|-------------|-------------|----------------------|
+| AI_RANKING | AI candidate scoring | No |
+| RESUME_SCREENING | AI resume screening | No |
+| INTERVIEW_SCHEDULING | AI scheduling recommendation | No |
+| OFFER_DECISION | AI-assisted offer | Yes |
+| REJECTION_DECISION | AI-assisted rejection | Yes |
+
+**Location Prompt System:**
+- Frontend modal prompts users for location when missing
+- Automatic jurisdiction detection for cross-border hiring
+- Supports 22 country/region codes with regulatory mapping
+
+**API Endpoints:**
+- `GET /api/compliance-alerts/check` - Run all compliance checks
+- `GET /api/compliance-alerts/active` - Get unacknowledged alerts
+- `POST /api/compliance-alerts/{alert_id}/acknowledge` - Acknowledge alert
+- `POST /api/compliance-alerts/gual/log` - Log hiring decision
+- `GET /api/compliance-alerts/gual/entries` - Get GUAL entries
+- `POST /api/compliance-alerts/location/update` - Update user location
+- `GET /api/compliance-alerts/summary` - Compliance summary
+
+---
+
 ### Global AI Compliance Dashboard ✅ (Feb 11, 2026)
 **Complete 2026 Global Coverage for Cross-Border AI Hiring Compliance**
 
