@@ -258,6 +258,7 @@ from routes.ai_qa import router as ai_qa_router
 from routes.avatar import router as avatar_router
 from routes.psv import router as psv_router
 from routes.orcid_oauth import router as orcid_router
+from routes.data_integrity import router as data_integrity_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
