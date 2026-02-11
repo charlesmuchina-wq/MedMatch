@@ -369,6 +369,9 @@ async def export_report_pdf(config: PDFExportConfig, request: Request):
     - last_year: Previous year
     - custom: Custom date range (requires custom_start and custom_end)
     """
+    import logging
+    logger = logging.getLogger(__name__)
+    
     user = await get_current_user(request)
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
@@ -389,6 +392,7 @@ async def export_report_pdf(config: PDFExportConfig, request: Request):
             custom_start=config.custom_start,
             custom_end=config.custom_end
         )
+        logger.info(f"Date range calculated: {date_range}")
         
         # Generate the report
         report = await report_service.generate_report(
