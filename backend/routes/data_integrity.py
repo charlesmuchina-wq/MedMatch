@@ -85,8 +85,8 @@ async def get_model_drift_status():
     Get model drift and performance monitoring status.
     Alerts when model accuracy degrades over time.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
+    # service already set
     return await service.get_model_drift_status()
 
 @router.get("/test-suite")
@@ -95,8 +95,8 @@ async def get_test_suite_status():
     Get self-healing test suite status and metrics.
     Shows AI-powered test automation results.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
+    # service already set
     return await service.get_test_suite_status()
 
 @router.get("/output-validation")
@@ -105,8 +105,8 @@ async def get_output_validation(output_id: Optional[str] = None):
     Validate AI outputs for hallucinations.
     Performs grounding checks against source data.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
+    # service already set
     return await service.validate_ai_output(output_id)
 
 @router.get("/red-team")
@@ -115,8 +115,8 @@ async def get_red_team_status():
     Get red-teaming and adversarial attack testing status.
     Shows results of prompt injection, jailbreak, and other security tests.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
+    # service already set
     return await service.get_red_team_status()
 
 # ==========================================
@@ -129,8 +129,8 @@ async def get_compliance_logs(limit: int = 100):
     Get continuous compliance logging status.
     100% logging of AI decisions for audit trails.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
+    # service already set
     return await service.get_compliance_logs(limit)
 
 @router.get("/bias-detection")
@@ -139,8 +139,8 @@ async def get_bias_detection_report():
     Get algorithmic bias detection report.
     Monitors protected characteristics for disparate impact.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
+    # service already set
     return await service.get_bias_detection_report()
 
 @router.get("/risk-inventory")
@@ -149,8 +149,8 @@ async def get_ai_risk_inventory():
     Get centralized AI model risk inventory.
     Real-time inventory of all AI models and their risk levels.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
+    # service already set
     return await service.get_ai_risk_inventory()
 
 @router.get("/automation-tools")
@@ -159,8 +159,8 @@ async def get_automation_tools_status():
     Get status of integrated automation tools.
     Shows health of FairNow, mabl, Applitools, etc.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
+    # service already set
     return await service.get_automation_tools_status()
 
 # ==========================================
@@ -173,8 +173,8 @@ async def run_full_audit():
     Run comprehensive data integrity and AI QA audit.
     Executes all checks and returns consolidated report.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
+    # service already set
     return await service.run_full_audit()
 
 @router.get("/summary")
@@ -182,8 +182,8 @@ async def get_summary():
     """
     Get quick summary of data integrity and AI QA status.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
+    # service already set
     
     # Get key metrics
     compliance = await service.get_regional_compliance_status()
