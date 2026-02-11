@@ -277,6 +277,42 @@ export default function AdminDataIntegrityPage() {
     }
   };
 
+  // Export report as PDF
+  const exportPdf = async (templateId, datePreset = 'last_30_days') => {
+    setExportingPdf(true);
+    try {
+      const response = await fetch(`${API_URL}/api/audit-reports/export/pdf`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ 
+          template_id: templateId,
+          date_preset: datePreset
+        })
+      });
+      
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${templateId.toLowerCase()}_${datePreset}_${new Date().toISOString().slice(0,10)}.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        toast.success('PDF downloaded successfully!');
+      } else {
+        toast.error('Failed to export PDF');
+      }
+    } catch (error) {
+      console.error('Error exporting PDF:', error);
+      toast.error('Failed to export PDF');
+    } finally {
+      setExportingPdf(false);
+    }
+  };
+
   // Load templates when tab changes
   useEffect(() => {
     if (activeTab === 'audit-reports' && reportTemplates.length === 0) {
