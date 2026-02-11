@@ -260,6 +260,7 @@ from routes.psv import router as psv_router
 from routes.orcid_oauth import router as orcid_router
 from routes.data_integrity import router as data_integrity_router
 from routes.ai_compliance import router as ai_compliance_router
+from routes.global_compliance import router as global_compliance_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
@@ -325,6 +326,7 @@ app.include_router(psv_router, prefix="/api")
 app.include_router(orcid_router, prefix="/api")
 app.include_router(data_integrity_router, prefix="/api")
 app.include_router(ai_compliance_router, prefix="/api")
+app.include_router(global_compliance_router, prefix="/api")
 
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
