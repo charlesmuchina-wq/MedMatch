@@ -911,6 +911,7 @@ function AppContent() {
             <Route path="/contact-requests" element={<ContactRequestScreen requests={[]} />} />
             <Route path="/admin/recruiters" element={<AdminRecruiterVerificationPage />} />
             <Route path="/admin/reviews" element={<AdminReviewModerationPage />} />
+            <Route path="/admin/data-integrity" element={<AdminDataIntegrityPage />} />
             <Route path="/taxonomy" element={<TaxonomyExplorerPage />} />
             <Route path="/careers" element={<TaxonomyExplorerPage />} />
             <Route path="/credentials" element={<CredentialsPage />} />
