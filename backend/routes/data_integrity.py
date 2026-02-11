@@ -9,9 +9,17 @@ from datetime import datetime
 
 router = APIRouter(prefix="/data-integrity", tags=["Data Integrity & AI QA"])
 
-# Import service
-from services.data_integrity_service import get_data_integrity_service
-from database import get_database
+# Import service - we'll pass db from server.py
+from services.data_integrity_service import DataIntegrityService
+
+# Create a singleton service instance
+_service_instance = None
+
+def get_service():
+    global _service_instance
+    if _service_instance is None:
+        _service_instance = DataIntegrityService(None)
+    return _service_instance
 
 # Pydantic models
 class PIIScanRequest(BaseModel):
@@ -36,8 +44,7 @@ async def get_data_lineage(data_type: str = "all"):
     Get automated data lineage and provenance tracking.
     Tracks origin and transformation of job-seeker data from input to model training.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
     return await service.get_data_lineage(data_type)
 
 @router.post("/pii-scan")
@@ -46,8 +53,7 @@ async def scan_for_pii(request: PIIScanRequest = None):
     Dynamic PII leakage testing.
     Scans AI outputs for personally identifiable information.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
     content = request.content if request else None
     return await service.scan_pii_leakage(content)
 
@@ -57,8 +63,7 @@ async def get_regional_compliance():
     Get regional compliance status for all supported jurisdictions.
     Includes China, EU, Brazil, US (California/NYC), Japan.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
     return await service.get_regional_compliance_status()
 
 @router.post("/generate-explanation")
@@ -67,8 +72,7 @@ async def generate_decision_explanation(request: ExplanationRequest):
     Generate human-readable explanation for AI decisions.
     Implements 'Right to Explanation' per EU AI Act and LGPD.
     """
-    db = get_database()
-    service = get_data_integrity_service(db)
+    service = get_service()
     return await service.generate_explanation(request.decision_id, request.decision_type)
 
 # ==========================================
