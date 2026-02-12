@@ -508,15 +508,27 @@ const GettingStartedSection = memo(() => {
             {/* Video Info Bar */}
             <div className="p-4 border-t border-gray-200 dark:border-slate-700 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="text-2xl">{currentTutorial?.flag}</span>
+                {/* Region-appropriate avatar thumbnail */}
+                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-teal-500 flex-shrink-0">
+                  <img 
+                    src={REGION_AVATARS[currentTutorial?.region] || REGION_AVATARS['Global']}
+                    alt={`${currentTutorial?.region} presenter`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 <div>
                   <p className="font-medium text-gray-900 dark:text-white">{currentTutorial?.name} Tutorial</p>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">Presenter: {currentTutorial?.presenter} • Duration: 45 seconds</p>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">
+                    Presenter: {currentTutorial?.presenter} • {currentTutorial?.region}
+                  </p>
                 </div>
               </div>
-              <span className="px-3 py-1 bg-teal-100 dark:bg-teal-900/50 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium">
-                AI Generated
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">{currentTutorial?.flag}</span>
+                <span className="px-3 py-1 bg-teal-100 dark:bg-teal-900/50 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium">
+                  AI Generated
+                </span>
+              </div>
             </div>
           </div>
         </div>
