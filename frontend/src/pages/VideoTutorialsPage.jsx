@@ -551,10 +551,19 @@ const GettingStartedSection = memo(() => {
                 }`}
                 data-testid={`lang-btn-${lang.code}`}
               >
-                <span className="text-xl">{lang.flag}</span>
+                {/* Region-appropriate avatar */}
+                <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 border border-gray-200 dark:border-slate-600">
+                  <img 
+                    src={REGION_AVATARS[lang.region] || REGION_AVATARS['Global']}
+                    alt={`${lang.region} avatar`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <span className="text-lg">{lang.flag}</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-sm truncate">{lang.name}</p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 truncate">{lang.title}</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 truncate">{lang.presenter}</p>
                 </div>
                 {selectedLang === lang.code && (
                   <div className="w-2 h-2 bg-teal-500 rounded-full" />
