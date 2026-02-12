@@ -383,6 +383,66 @@ MedMatch — Where life science careers meet AI. Try it free.""",
             title=f"MedMatch Overview ({duration})"
         )
     
+    def get_language_config(self, language_code: str) -> Dict[str, Any]:
+        """
+        Get the avatar and voice configuration for a specific language.
+        
+        Args:
+            language_code: ISO language code (e.g., 'de', 'fr', 'sw')
+        
+        Returns:
+            Configuration dict with avatar URL and voice settings
+        """
+        config = LANGUAGE_CONFIG.get(language_code, LANGUAGE_CONFIG.get("en"))
+        avatar_key = config["avatar"]
+        
+        return {
+            "language": language_code,
+            "avatar_url": AVATAR_IMAGES.get(avatar_key, AVATAR_IMAGES["default"]),
+            "avatar_type": avatar_key,
+            "voice_id": config["voice_id"],
+            "voice_name": config["voice_name"],
+            "gender": config["gender"],
+            "region": config["region"]
+        }
+    
+    async def create_tutorial_video(
+        self,
+        language_code: str,
+        script: str,
+        title: str = None
+    ) -> Dict[str, Any]:
+        """
+        Create a tutorial video with region-appropriate avatar and voice.
+        
+        Args:
+            language_code: ISO language code (e.g., 'de', 'fr', 'sw')
+            script: The tutorial script in the specified language
+            title: Optional video title
+        
+        Returns:
+            Video creation result with URL or status
+        """
+        # Get language-specific configuration
+        lang_config = self.get_language_config(language_code)
+        
+        logger.info(f"Creating tutorial for {language_code}: avatar={lang_config['avatar_type']}, voice={lang_config['voice_name']}")
+        
+        return await self.create_talk_video(
+            script=script,
+            voice_id=lang_config["voice_id"],
+            source_url=lang_config["avatar_url"],
+            background_color="#1a1a2e",
+            title=title or f"MedMatch Tutorial ({language_code})"
+        )
+    
+    def get_all_language_configs(self) -> Dict[str, Dict]:
+        """Get all available language configurations."""
+        return {
+            code: self.get_language_config(code)
+            for code in LANGUAGE_CONFIG.keys()
+        }
+    
     async def get_credits(self) -> Dict[str, Any]:
         """Check D-ID API credits/usage."""
         if not self.api_key:
