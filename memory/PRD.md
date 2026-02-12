@@ -7,7 +7,38 @@ Create a comprehensive, AI-powered application named "MedMatch" to automate remo
 
 ---
 
-## Latest Updates (February 11, 2026)
+## Latest Updates (February 11-12, 2026)
+
+### D-ID Avatar/Voice Integration Fix ✅ (Feb 12, 2026)
+**Region-Appropriate Avatars with Gender-Matching Voices**
+
+**26 Language Configurations with Proper Matching:**
+| Region | Languages | Avatar Type | Voice Gender |
+|--------|-----------|-------------|--------------|
+| Europe | DE, FR, IT, NL, PL, RU | european_female | Female |
+| Nordic | SV | nordic_female | Female |
+| Asia | JA, ZH, KO, VI | asian_female | Female |
+| South Asia | HI | south_asian_female | Female |
+| Middle East | AR, TR | middle_eastern_female | Female |
+| South America | PT | latina_female | Female |
+| Africa | SW, AF, HA, ZU | african_female | Female |
+
+**Key Voices (D-ID Integration):**
+- German: Katja, French: Denise, Spanish: Elvira, Italian: Elsa
+- Japanese: Nanami, Chinese: Xiaoxiao, Korean: SunHi, Hindi: Swara
+- Arabic: Salma, Turkish: Emel, Portuguese: Francisca
+- Swahili: Zuri, Afrikaans: Adri, Hausa: Ezinne, Zulu: Thandile
+
+**API Endpoints:**
+- `GET /api/tutorials/language-configs` - All language configurations
+- `GET /api/tutorials/language-config/{code}` - Single language config
+
+**Frontend Updates:**
+- Language selector shows region-appropriate avatar thumbnails
+- Video info bar shows presenter avatar with name and region
+- Improved font visibility (gray-700/900 instead of gray-500/600)
+
+---
 
 ### PDF Export with Date Range Filtering ✅ (Feb 11, 2026)
 **Professional PDF Reports for Regulatory Submissions**
