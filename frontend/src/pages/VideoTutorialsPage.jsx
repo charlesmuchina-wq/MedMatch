@@ -436,7 +436,7 @@ const GettingStartedSection = memo(() => {
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Video Player */}
         <div className="lg:col-span-2">
-          <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden">
             {/* Video Container */}
             <div className="aspect-video bg-gray-900 relative">
               {videoError ? (
