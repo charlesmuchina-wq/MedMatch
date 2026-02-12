@@ -330,33 +330,33 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
 });
 
 // Getting Started Section - AI Avatar Tutorials in 20+ Languages
-// Updated Feb 10, 2026: Diverse male/female presenters for global representation
+// Updated Feb 11, 2026: Fixed avatar/voice gender matching and region-appropriate presenters
 // Now includes African languages with region-appropriate presenters
 const TUTORIAL_LANGUAGES = [
-  // European Languages
-  { code: 'de', name: 'German', flag: '🇩🇪', title: 'Erste Schritte mit MedMatch', presenter: 'Josh (Male)', region: 'Europe' },
-  { code: 'fr', name: 'French', flag: '🇫🇷', title: 'Démarrer avec MedMatch', presenter: 'Josh (Male)', region: 'Europe' },
-  { code: 'es', name: 'Spanish', flag: '🇪🇸', title: 'Comenzar con MedMatch', presenter: 'Amy (Female)', region: 'Europe' },
-  { code: 'it', name: 'Italian', flag: '🇮🇹', title: 'Iniziare con MedMatch', presenter: 'Josh (Male)', region: 'Europe' },
-  { code: 'nl', name: 'Dutch', flag: '🇳🇱', title: 'Aan de slag met MedMatch', presenter: 'Josh (Male)', region: 'Europe' },
-  { code: 'pl', name: 'Polish', flag: '🇵🇱', title: 'Rozpocznij z MedMatch', presenter: 'Amy (Female)', region: 'Europe' },
-  { code: 'sv', name: 'Swedish', flag: '🇸🇪', title: 'Kom igång med MedMatch', presenter: 'Amy (Female)', region: 'Nordic' },
-  { code: 'ru', name: 'Russian', flag: '🇷🇺', title: 'Начало работы с MedMatch', presenter: 'Josh (Male)', region: 'Europe' },
-  // Asian Languages
-  { code: 'ja', name: 'Japanese', flag: '🇯🇵', title: 'MedMatchの使い方', presenter: 'Josh (Male)', region: 'Asia' },
-  { code: 'zh', name: 'Chinese', flag: '🇨🇳', title: 'MedMatch入门指南', presenter: 'Josh (Male)', region: 'Asia' },
-  { code: 'ko', name: 'Korean', flag: '🇰🇷', title: 'MedMatch 시작하기', presenter: 'Josh (Male)', region: 'Asia' },
-  { code: 'vi', name: 'Vietnamese', flag: '🇻🇳', title: 'Bắt đầu với MedMatch', presenter: 'Josh (Male)', region: 'Asia' },
-  { code: 'hi', name: 'Hindi', flag: '🇮🇳', title: 'MedMatch के साथ शुरुआत', presenter: 'Josh (Male)', region: 'South Asia' },
-  // Middle East & South America
-  { code: 'ar', name: 'Arabic', flag: '🇸🇦', title: 'البدء مع MedMatch', presenter: 'Amy (Female)', region: 'Middle East' },
-  { code: 'tr', name: 'Turkish', flag: '🇹🇷', title: 'MedMatch\'e Başlayın', presenter: 'Amy (Female)', region: 'Middle East' },
-  { code: 'pt', name: 'Portuguese', flag: '🇧🇷', title: 'Começando com MedMatch', presenter: 'Amy (Female)', region: 'South America' },
-  // African Languages (NEW)
-  { code: 'sw', name: 'Swahili', flag: '🇰🇪', title: 'Kuanza na MedMatch', presenter: 'Diana (Female)', region: 'Africa' },
-  { code: 'af', name: 'Afrikaans', flag: '🇿🇦', title: 'Begin met MedMatch', presenter: 'Matt (Male)', region: 'Africa' },
-  { code: 'ha', name: 'Hausa', flag: '🇳🇬', title: 'Fara da MedMatch', presenter: 'Eugene (Male)', region: 'Africa' },
-  { code: 'zu', name: 'Zulu', flag: '🇿🇦', title: 'Qala nge-MedMatch', presenter: 'Kayla (Female)', region: 'Africa' }
+  // European Languages - Use European-looking female avatar with female voice
+  { code: 'de', name: 'German', flag: '🇩🇪', title: 'Erste Schritte mit MedMatch', presenter: 'Sara (Female)', avatar: 'european_female', region: 'Europe' },
+  { code: 'fr', name: 'French', flag: '🇫🇷', title: 'Démarrer avec MedMatch', presenter: 'Claire (Female)', avatar: 'european_female', region: 'Europe' },
+  { code: 'es', name: 'Spanish', flag: '🇪🇸', title: 'Comenzar con MedMatch', presenter: 'Maria (Female)', avatar: 'latina_female', region: 'Europe' },
+  { code: 'it', name: 'Italian', flag: '🇮🇹', title: 'Iniziare con MedMatch', presenter: 'Giulia (Female)', avatar: 'european_female', region: 'Europe' },
+  { code: 'nl', name: 'Dutch', flag: '🇳🇱', title: 'Aan de slag met MedMatch', presenter: 'Sophie (Female)', avatar: 'european_female', region: 'Europe' },
+  { code: 'pl', name: 'Polish', flag: '🇵🇱', title: 'Rozpocznij z MedMatch', presenter: 'Anna (Female)', avatar: 'european_female', region: 'Europe' },
+  { code: 'sv', name: 'Swedish', flag: '🇸🇪', title: 'Kom igång med MedMatch', presenter: 'Emma (Female)', avatar: 'nordic_female', region: 'Nordic' },
+  { code: 'ru', name: 'Russian', flag: '🇷🇺', title: 'Начало работы с MedMatch', presenter: 'Natasha (Female)', avatar: 'european_female', region: 'Europe' },
+  // Asian Languages - Use Asian-looking avatars with matching voices
+  { code: 'ja', name: 'Japanese', flag: '🇯🇵', title: 'MedMatchの使い方', presenter: 'Yuki (Female)', avatar: 'asian_female', region: 'Asia' },
+  { code: 'zh', name: 'Chinese', flag: '🇨🇳', title: 'MedMatch入门指南', presenter: 'Wei (Female)', avatar: 'asian_female', region: 'Asia' },
+  { code: 'ko', name: 'Korean', flag: '🇰🇷', title: 'MedMatch 시작하기', presenter: 'Soo-Jin (Female)', avatar: 'asian_female', region: 'Asia' },
+  { code: 'vi', name: 'Vietnamese', flag: '🇻🇳', title: 'Bắt đầu với MedMatch', presenter: 'Linh (Female)', avatar: 'asian_female', region: 'Asia' },
+  { code: 'hi', name: 'Hindi', flag: '🇮🇳', title: 'MedMatch के साथ शुरुआत', presenter: 'Priya (Female)', avatar: 'south_asian_female', region: 'South Asia' },
+  // Middle East & South America - Region-appropriate avatars
+  { code: 'ar', name: 'Arabic', flag: '🇸🇦', title: 'البدء مع MedMatch', presenter: 'Fatima (Female)', avatar: 'middle_eastern_female', region: 'Middle East' },
+  { code: 'tr', name: 'Turkish', flag: '🇹🇷', title: 'MedMatch\'e Başlayın', presenter: 'Ayşe (Female)', avatar: 'middle_eastern_female', region: 'Middle East' },
+  { code: 'pt', name: 'Portuguese', flag: '🇧🇷', title: 'Começando com MedMatch', presenter: 'Ana (Female)', avatar: 'latina_female', region: 'South America' },
+  // African Languages - African-looking avatars with matching voices
+  { code: 'sw', name: 'Swahili', flag: '🇰🇪', title: 'Kuanza na MedMatch', presenter: 'Amani (Female)', avatar: 'african_female', region: 'Africa' },
+  { code: 'af', name: 'Afrikaans', flag: '🇿🇦', title: 'Begin met MedMatch', presenter: 'Lerato (Female)', avatar: 'african_female', region: 'Africa' },
+  { code: 'ha', name: 'Hausa', flag: '🇳🇬', title: 'Fara da MedMatch', presenter: 'Hauwa (Female)', avatar: 'african_female', region: 'Africa' },
+  { code: 'zu', name: 'Zulu', flag: '🇿🇦', title: 'Qala nge-MedMatch', presenter: 'Thandi (Female)', avatar: 'african_female', region: 'Africa' }
 ];
 
 const GettingStartedSection = memo(() => {
