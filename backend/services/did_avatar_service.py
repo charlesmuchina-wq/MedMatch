@@ -3,6 +3,7 @@ D-ID AI Avatar Video Generation Service
 
 Creates AI-powered talking head videos using D-ID's API.
 Supports multiple presenters, voices, and backgrounds.
+Updated Feb 11, 2026: Region-appropriate avatars and voice matching
 """
 
 import os
@@ -24,6 +25,72 @@ D_ID_BASE_URL = "https://api.d-id.com"
 # Video storage
 AVATAR_VIDEOS_DIR = Path("/app/videos/avatars")
 AVATAR_VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
+
+# Region-appropriate avatar source images
+# Using diverse stock photos that match regions and maintain consistent female presentation
+AVATAR_IMAGES = {
+    # European avatars (light skin, professional appearance)
+    "european_female": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=512&h=512&fit=crop",
+    "nordic_female": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=512&h=512&fit=crop",
+    
+    # Asian avatars
+    "asian_female": "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop",
+    "south_asian_female": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop",
+    
+    # African avatars
+    "african_female": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=512&h=512&fit=crop",
+    
+    # Middle Eastern avatars  
+    "middle_eastern_female": "https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=512&h=512&fit=crop",
+    
+    # Latina avatars
+    "latina_female": "https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=512&h=512&fit=crop",
+    
+    # Default MedMatch avatar
+    "default": "https://customer-assets.emergentagent.com/job_hirescience/artifacts/mux577io_MedMatch%20Image.jpeg"
+}
+
+# Language to Avatar and Voice mapping
+# Ensures region-appropriate avatar with matching female voice
+LANGUAGE_CONFIG = {
+    # European Languages
+    "de": {"avatar": "european_female", "voice_id": "de-DE-KatjaNeural", "voice_name": "Katja", "gender": "female", "region": "Europe"},
+    "fr": {"avatar": "european_female", "voice_id": "fr-FR-DeniseNeural", "voice_name": "Denise", "gender": "female", "region": "Europe"},
+    "es": {"avatar": "latina_female", "voice_id": "es-ES-ElviraNeural", "voice_name": "Elvira", "gender": "female", "region": "Europe"},
+    "it": {"avatar": "european_female", "voice_id": "it-IT-ElsaNeural", "voice_name": "Elsa", "gender": "female", "region": "Europe"},
+    "nl": {"avatar": "european_female", "voice_id": "nl-NL-ColetteNeural", "voice_name": "Colette", "gender": "female", "region": "Europe"},
+    "pl": {"avatar": "european_female", "voice_id": "pl-PL-ZofiaNeural", "voice_name": "Zofia", "gender": "female", "region": "Europe"},
+    "sv": {"avatar": "nordic_female", "voice_id": "sv-SE-SofieNeural", "voice_name": "Sofie", "gender": "female", "region": "Nordic"},
+    "ru": {"avatar": "european_female", "voice_id": "ru-RU-SvetlanaNeural", "voice_name": "Svetlana", "gender": "female", "region": "Europe"},
+    
+    # Asian Languages
+    "ja": {"avatar": "asian_female", "voice_id": "ja-JP-NanamiNeural", "voice_name": "Nanami", "gender": "female", "region": "Asia"},
+    "zh": {"avatar": "asian_female", "voice_id": "zh-CN-XiaoxiaoNeural", "voice_name": "Xiaoxiao", "gender": "female", "region": "Asia"},
+    "ko": {"avatar": "asian_female", "voice_id": "ko-KR-SunHiNeural", "voice_name": "SunHi", "gender": "female", "region": "Asia"},
+    "vi": {"avatar": "asian_female", "voice_id": "vi-VN-HoaiMyNeural", "voice_name": "HoaiMy", "gender": "female", "region": "Asia"},
+    "hi": {"avatar": "south_asian_female", "voice_id": "hi-IN-SwaraNeural", "voice_name": "Swara", "gender": "female", "region": "South Asia"},
+    
+    # Middle Eastern Languages
+    "ar": {"avatar": "middle_eastern_female", "voice_id": "ar-EG-SalmaNeural", "voice_name": "Salma", "gender": "female", "region": "Middle East"},
+    "tr": {"avatar": "middle_eastern_female", "voice_id": "tr-TR-EmelNeural", "voice_name": "Emel", "gender": "female", "region": "Middle East"},
+    
+    # South American
+    "pt": {"avatar": "latina_female", "voice_id": "pt-BR-FranciscaNeural", "voice_name": "Francisca", "gender": "female", "region": "South America"},
+    
+    # African Languages
+    "sw": {"avatar": "african_female", "voice_id": "sw-KE-ZuriNeural", "voice_name": "Zuri", "gender": "female", "region": "Africa"},
+    "af": {"avatar": "african_female", "voice_id": "af-ZA-AdriNeural", "voice_name": "Adri", "gender": "female", "region": "Africa"},
+    "zu": {"avatar": "african_female", "voice_id": "zu-ZA-ThandileNeural", "voice_name": "Thandile", "gender": "female", "region": "Africa"},
+    "ha": {"avatar": "african_female", "voice_id": "en-NG-EzinneNeural", "voice_name": "Ezinne", "gender": "female", "region": "Africa"},
+    
+    # English variants
+    "en": {"avatar": "default", "voice_id": "en-US-JennyNeural", "voice_name": "Jenny", "gender": "female", "region": "Global"},
+    "en-US": {"avatar": "default", "voice_id": "en-US-JennyNeural", "voice_name": "Jenny", "gender": "female", "region": "North America"},
+    "en-GB": {"avatar": "european_female", "voice_id": "en-GB-SoniaNeural", "voice_name": "Sonia", "gender": "female", "region": "UK"},
+    "en-AU": {"avatar": "european_female", "voice_id": "en-AU-NatashaNeural", "voice_name": "Natasha", "gender": "female", "region": "Australia"},
+    "en-NG": {"avatar": "african_female", "voice_id": "en-NG-EzinneNeural", "voice_name": "Ezinne", "gender": "female", "region": "Africa"},
+    "en-KE": {"avatar": "african_female", "voice_id": "en-KE-AsiliaNeural", "voice_name": "Asilia", "gender": "female", "region": "Africa"},
+}
 
 
 class DIDService:
