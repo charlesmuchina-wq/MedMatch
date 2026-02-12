@@ -548,13 +548,13 @@ const GettingStartedSection = memo(() => {
           { icon: ClipboardList, title: 'Success Predictor', desc: 'Know your chances before applying' },
           { icon: Users, title: 'AI Interview Coach', desc: 'Practice with real-time feedback' }
         ].map((feature, idx) => (
-          <div key={idx} className="bg-white rounded-lg p-4 border border-gray-100 flex items-start gap-3">
-            <div className="w-10 h-10 bg-teal-50 rounded-lg flex items-center justify-center flex-shrink-0">
-              <feature.icon className="w-5 h-5 text-teal-600" />
+          <div key={idx} className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-gray-200 dark:border-slate-700 flex items-start gap-3">
+            <div className="w-10 h-10 bg-teal-50 dark:bg-teal-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+              <feature.icon className="w-5 h-5 text-teal-600 dark:text-teal-400" />
             </div>
             <div>
-              <p className="font-medium text-gray-900 text-sm">{feature.title}</p>
-              <p className="text-xs text-gray-500">{feature.desc}</p>
+              <p className="font-medium text-gray-900 dark:text-white text-sm">{feature.title}</p>
+              <p className="text-xs text-gray-700 dark:text-gray-300">{feature.desc}</p>
             </div>
           </div>
         ))}
