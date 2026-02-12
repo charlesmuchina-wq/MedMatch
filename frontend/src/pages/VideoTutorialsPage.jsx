@@ -132,7 +132,7 @@ const VideoCard = memo(({ video, onSelect }) => {
   
   return (
     <div 
-      className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-all cursor-pointer group"
+      className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden hover:shadow-md transition-all cursor-pointer group"
       onClick={handleClick}
       data-testid={`video-card-${video.id}`}
     >
@@ -156,8 +156,8 @@ const VideoCard = memo(({ video, onSelect }) => {
         </span>
       </div>
       <div className="p-4">
-        <h3 className="font-semibold text-gray-900 mb-1">{video.title}</h3>
-        <p className="text-sm text-gray-600 line-clamp-2">{video.description}</p>
+        <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{video.title}</h3>
+        <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">{video.description}</p>
       </div>
     </div>
   );
