@@ -680,7 +680,7 @@ const VideoTutorialsPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-teal-600 to-teal-700 text-white py-12 px-4">
         <div className="max-w-6xl mx-auto">
@@ -731,7 +731,7 @@ const VideoTutorialsPage = () => {
 
         {activeTab === 'videos' ? (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Video Tutorials</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Video Tutorials</h2>
             
             {loading ? (
               // Skeleton loading state
