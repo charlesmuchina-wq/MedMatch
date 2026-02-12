@@ -354,6 +354,39 @@ async def get_tutorial_videos():
     }
 
 
+@router.get("/language-configs")
+async def get_language_configurations():
+    """
+    Get avatar and voice configurations for all supported languages.
+    Returns region-appropriate avatar images and matching female voices.
+    """
+    from services.did_avatar_service import did_service
+    
+    configs = did_service.get_all_language_configs()
+    
+    return {
+        "languages": configs,
+        "total": len(configs),
+        "note": "All avatars use region-appropriate images with matching female voices"
+    }
+
+
+@router.get("/language-config/{language}")
+async def get_language_config(language: str):
+    """Get avatar and voice configuration for a specific language."""
+    from services.did_avatar_service import did_service
+    
+    config = did_service.get_language_config(language)
+    
+    if not config:
+        raise HTTPException(status_code=404, detail=f"No configuration for language: {language}")
+    
+    return {
+        "language": language,
+        "config": config
+    }
+
+
 @router.get("/videos/tutorial/{language}")
 async def get_tutorial_by_language(language: str):
     """Get Getting Started tutorial video for a specific language"""
