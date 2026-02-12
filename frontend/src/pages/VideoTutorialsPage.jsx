@@ -493,15 +493,15 @@ const GettingStartedSection = memo(() => {
             </div>
 
             {/* Video Info Bar */}
-            <div className="p-4 border-t border-gray-100 flex items-center justify-between">
+            <div className="p-4 border-t border-gray-200 dark:border-slate-700 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">{currentTutorial?.flag}</span>
                 <div>
-                  <p className="font-medium text-gray-900">{currentTutorial?.name} Tutorial</p>
-                  <p className="text-sm text-gray-500">Duration: 45 seconds</p>
+                  <p className="font-medium text-gray-900 dark:text-white">{currentTutorial?.name} Tutorial</p>
+                  <p className="text-sm text-gray-700 dark:text-gray-300">Presenter: {currentTutorial?.presenter} • Duration: 45 seconds</p>
                 </div>
               </div>
-              <span className="px-3 py-1 bg-teal-100 text-teal-700 rounded-full text-sm font-medium">
+              <span className="px-3 py-1 bg-teal-100 dark:bg-teal-900/50 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium">
                 AI Generated
               </span>
             </div>
@@ -509,9 +509,9 @@ const GettingStartedSection = memo(() => {
         </div>
 
         {/* Language Selector */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 h-fit max-h-[500px] overflow-y-auto">
-          <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-            <Globe className="w-5 h-5 text-teal-600" />
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-4 h-fit max-h-[500px] overflow-y-auto">
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+            <Globe className="w-5 h-5 text-teal-600 dark:text-teal-400" />
             Select Language
           </h3>
           <div className="space-y-1">
@@ -521,15 +521,15 @@ const GettingStartedSection = memo(() => {
                 onClick={() => handleLanguageChange(lang.code)}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-left ${
                   selectedLang === lang.code
-                    ? 'bg-teal-50 border-2 border-teal-500 text-teal-700'
-                    : 'hover:bg-gray-50 border-2 border-transparent'
+                    ? 'bg-teal-50 dark:bg-teal-900/30 border-2 border-teal-500 text-teal-700 dark:text-teal-300'
+                    : 'hover:bg-gray-100 dark:hover:bg-slate-700 border-2 border-transparent text-gray-800 dark:text-gray-200'
                 }`}
                 data-testid={`lang-btn-${lang.code}`}
               >
                 <span className="text-xl">{lang.flag}</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-sm truncate">{lang.name}</p>
-                  <p className="text-xs text-gray-500 truncate">{lang.title}</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 truncate">{lang.title}</p>
                 </div>
                 {selectedLang === lang.code && (
                   <div className="w-2 h-2 bg-teal-500 rounded-full" />
