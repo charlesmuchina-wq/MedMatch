@@ -755,8 +755,8 @@ const VideoTutorialsPage = () => {
         ) : (
           <div className="space-y-8">
             {quickGuides.map((guide, idx) => (
-              <div key={idx} className="bg-white rounded-xl shadow-sm p-6">
-                <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <div key={idx} className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-slate-700">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   {idx === 0 ? <Users className="w-5 h-5 text-teal-500" /> : <Briefcase className="w-5 h-5 text-purple-500" />}
                   {guide.title}
                 </h2>
@@ -767,8 +767,8 @@ const VideoTutorialsPage = () => {
                         {item.step}
                       </div>
                       <div>
-                        <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                        <p className="text-sm text-gray-600">{item.desc}</p>
+                        <h3 className="font-semibold text-gray-900 dark:text-white">{item.title}</h3>
+                        <p className="text-sm text-gray-700 dark:text-gray-300">{item.desc}</p>
                       </div>
                     </div>
                   ))}
