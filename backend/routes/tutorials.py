@@ -5,8 +5,12 @@ Serves instructional videos for MedMatch navigation
 from fastapi import APIRouter, HTTPException, BackgroundTasks, Request
 from fastapi.responses import FileResponse
 from pathlib import Path
-from typing import List
+from typing import List, Dict
 import os
+from services.did_avatar_service import DIDService
+
+# Initialize DID service
+did_service = DIDService()
 
 router = APIRouter(prefix="/tutorials", tags=["Tutorials"])
 
