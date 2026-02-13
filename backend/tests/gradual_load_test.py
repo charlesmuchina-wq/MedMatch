@@ -11,7 +11,7 @@ import statistics
 import json
 from datetime import datetime
 
-API_URL = "https://global-audit-dash.preview.emergentagent.com/api"
+API_URL = "https://aimedfix.preview.emergentagent.com/api"
 
 # Endpoints to test
 ENDPOINTS = [
