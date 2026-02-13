@@ -663,3 +663,170 @@ async def get_navigation_guide():
         "format": "markdown"
     }
 
+
+# Track translation jobs in memory
+_translation_jobs: Dict[str, Dict] = {}
+
+
+@router.post("/translate/{video_id}")
+async def request_video_translation(video_id: str, lang: str, background_tasks: BackgroundTasks):
+    """
+    Request generation of a translated video using D-ID AI Avatar.
+    This is an async operation - use the status endpoint to check progress.
+    """
+    # Validate video exists
+    video = next((v for v in VIDEOS if v["id"] == video_id), None)
+    if not video:
+        raise HTTPException(status_code=404, detail=f"Video {video_id} not found")
+    
+    # Create job ID
+    job_id = f"{video_id}_{lang}"
+    
+    # Check if already processing
+    if job_id in _translation_jobs and _translation_jobs[job_id].get("status") == "generating":
+        return {
+            "job_id": job_id,
+            "status": "generating",
+            "message": "Translation already in progress"
+        }
+    
+    # Initialize job
+    _translation_jobs[job_id] = {
+        "status": "generating",
+        "video_id": video_id,
+        "language": lang,
+        "started_at": None,
+        "completed_at": None,
+        "video_url": None,
+        "error": None
+    }
+    
+    # Define the script based on the video
+    scripts = {
+        "01_jobseeker_features": "Welcome to MedMatch! As a job seeker, you have access to powerful AI tools. Upload your resume and our AI will parse your skills. Search across 15 job boards at once. Get interview preparation with real-time feedback. Your success predictor shows your chances before you apply!",
+        "02_recruiter_features": "Recruiters, streamline your hiring with MedMatch. Post jobs and reach qualified candidates. Use our AI-powered applicant tracking system. Screen candidates with blind evaluation. Schedule interviews seamlessly. Let AI help you find the perfect match!",
+        "03_privacy_matters": "Your privacy matters at MedMatch. We use bank-level encryption for your data. Control exactly what recruiters can see. Your job search stays confidential. We comply with GDPR and global privacy laws. You own your data and can delete it anytime.",
+        "04_faq_ai_compliance": "Let me answer common questions about AI compliance. Our AI is transparent and explainable. We follow EU AI Act guidelines. Your data trains no external models. All AI decisions can be appealed. We regularly audit our algorithms for bias.",
+        "05_complete_overview": "Welcome to MedMatch, your AI-powered career companion! Whether you're a job seeker or recruiter, we've got you covered. Upload resumes, search jobs, prepare for interviews, and connect with opportunities. Privacy-first, AI-powered, human-centered. Start your journey today!"
+    }
+    
+    script = scripts.get(video_id, scripts["05_complete_overview"])
+    
+    async def generate_translation():
+        try:
+            _translation_jobs[job_id]["started_at"] = str(Path)
+            
+            # Use DID service to create translated video
+            result = await did_service.create_tutorial_video(
+                language=lang,
+                script=script,
+                title=video.get("title", "MedMatch Tutorial")
+            )
+            
+            if result.get("success"):
+                _translation_jobs[job_id]["status"] = "ready"
+                _translation_jobs[job_id]["video_url"] = result.get("video_url")
+                _translation_jobs[job_id]["talk_id"] = result.get("talk_id")
+            else:
+                _translation_jobs[job_id]["status"] = "failed"
+                _translation_jobs[job_id]["error"] = result.get("error", "Unknown error")
+                
+        except Exception as e:
+            _translation_jobs[job_id]["status"] = "failed"
+            _translation_jobs[job_id]["error"] = str(e)
+    
+    # Run in background
+    background_tasks.add_task(generate_translation)
+    
+    return {
+        "job_id": job_id,
+        "status": "generating",
+        "message": f"Translation to {lang} started. Check status endpoint for progress."
+    }
+
+
+@router.get("/translate/{video_id}/status")
+async def get_translation_status(video_id: str, lang: str):
+    """
+    Get the status of a video translation job.
+    """
+    job_id = f"{video_id}_{lang}"
+    
+    if job_id not in _translation_jobs:
+        # Check if translated video already exists
+        translated_path = VIDEOS_DIR / f"{video_id}_{lang}.mp4"
+        if translated_path.exists():
+            return {
+                "job_id": job_id,
+                "status": "ready",
+                "video_url": f"/api/tutorials/videos/{video_id}?lang={lang}"
+            }
+        return {
+            "job_id": job_id,
+            "status": "not_found",
+            "message": "No translation job found. Start one with POST /translate/{video_id}"
+        }
+    
+    job = _translation_jobs[job_id]
+    return {
+        "job_id": job_id,
+        "status": job.get("status", "unknown"),
+        "video_url": job.get("video_url"),
+        "error": job.get("error"),
+        "talk_id": job.get("talk_id")
+    }
+
+
+@router.get("/subtitles/{video_id}")
+async def get_subtitles(video_id: str, lang: str = "en"):
+    """
+    Get subtitles/captions for a video in the specified language.
+    Returns WebVTT format.
+    """
+    # Generate basic subtitles based on video content
+    subtitles = {
+        "01_jobseeker_features": {
+            "en": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Welcome to MedMatch! As a job seeker, you have access to powerful AI tools.
+
+00:00:05.000 --> 00:00:12.000
+Upload your resume and our AI will parse your skills.
+
+00:00:12.000 --> 00:00:20.000
+Search across 15 job boards at once. Get interview preparation with real-time feedback.
+
+00:00:20.000 --> 00:00:30.000
+Your success predictor shows your chances before you apply!
+""",
+        },
+        "02_recruiter_features": {
+            "en": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Recruiters, streamline your hiring with MedMatch.
+
+00:00:05.000 --> 00:00:12.000
+Post jobs and reach qualified candidates.
+
+00:00:12.000 --> 00:00:20.000
+Use our AI-powered applicant tracking system.
+
+00:00:20.000 --> 00:00:28.000
+Let AI help you find the perfect match!
+""",
+        }
+    }
+    
+    # Get subtitles for video and language
+    video_subs = subtitles.get(video_id, {})
+    sub_content = video_subs.get(lang, video_subs.get("en", "WEBVTT\n\n"))
+    
+    from fastapi.responses import Response
+    return Response(
+        content=sub_content,
+        media_type="text/vtt",
+        headers={"Content-Type": "text/vtt; charset=utf-8"}
+    )
+
