@@ -45,6 +45,7 @@ import MeetingNotesPage from "@/pages/MeetingNotesPage";
 import InterviewCalendarPage from "@/pages/InterviewCalendarPage";
 import AnalyticsFunnelPage from "@/pages/AnalyticsFunnelPage";
 import DragonAutomatorPage from "@/pages/DragonAutomatorPage";
+import TranslationQADashboard from "@/components/TranslationQADashboard";
 import AdminDashboard from "@/pages/AdminDashboard";
 import AdminDataIntegrityPage from "@/pages/AdminDataIntegrityPage";
 import AdminAICompliancePage from "@/pages/AdminAICompliancePage";
