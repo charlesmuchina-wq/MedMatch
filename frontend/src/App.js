@@ -897,6 +897,7 @@ function AppContent() {
             <Route path="/dragon-automator" element={
               <DragonAutomatorPage />
             } />
+            <Route path="/qa-dashboard" element={<TranslationQADashboard />} />
             <Route path="/admin" element={
               <AdminDashboard />
             } />
