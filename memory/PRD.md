@@ -1,9 +1,32 @@
-# MedMatch - AI-Powered Job Search Platform
+# MedMatch-AI KARAU - AI-Powered Job Search Platform
 
 ## Product Requirements Document (PRD)
 
 ### Original Problem Statement
-Create a comprehensive, AI-powered application named "MedMatch" to automate remote job search. The application should parse a resume, find matching jobs from various sources, and provide tools to aid in the application process.
+Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to automate remote job search. The application should parse a resume, find matching jobs from various sources, and provide tools to aid in the application process.
+
+---
+
+## Latest Updates (February 14, 2026)
+
+### App Rebranding ✅ (Feb 14, 2026)
+**Rebranded from "MedMatch" to "MedMatch-AI KARAU"**
+
+| Component | Updated |
+|-----------|---------|
+| Sidebar Logo/Text | ✅ |
+| Login Page Title | ✅ |
+| Browser Tab Title | ✅ |
+| PWA Manifest | ✅ |
+| Meta Tags (SEO) | ✅ |
+| Backend API Title | ✅ |
+| Video Tutorials | ✅ |
+| Dashboard | ✅ |
+| All UI References | ✅ |
+
+### Admin Credentials Reset ✅ (Feb 14, 2026)
+- **Email:** `admin@medmatch.com`
+- **Password:** `Swampdrainer2026!`
 
 ---
 
