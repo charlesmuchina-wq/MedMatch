@@ -1,6 +1,6 @@
 {
-  "name": "MedMatch - AI Job Search",
-  "short_name": "MedMatch",
+  "name": "MedMatch-AI KARAU - AI Job Search",
+  "short_name": "MedMatch-AI KARAU",
   "description": "AI-powered remote job search companion. Find matching jobs, generate cover letters, and prepare for interviews.",
   "start_url": "/",
   "display": "standalone",
