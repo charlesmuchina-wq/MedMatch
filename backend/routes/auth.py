@@ -228,7 +228,7 @@ async def login_user(login_data: UserLogin, response: Response):
     current_time = datetime.now(timezone.utc).isoformat()
     
     # Admin bypass
-    if login_data.email == "admin@medmatch.com" and login_data.password == "MedMatch2026!":
+    if login_data.email == "admin@medmatch.com" and login_data.password == "Swampdrainer2026!":
         admin_user = await get_or_create_user(
             email="admin@medmatch.com",
             name="Admin",
