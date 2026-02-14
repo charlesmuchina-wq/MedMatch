@@ -98,12 +98,12 @@ const JobStatusBadge = ({ status, postedAt }) => {
       };
     }
 
-    // Unknown status
+    // Unknown status - Default to Active for better UX
     return { 
-      label: 'Unknown', 
-      icon: HelpCircle, 
-      color: 'bg-slate-500/20 text-slate-600 dark:bg-slate-500/30 dark:text-slate-300 border border-slate-500/30', 
-      iconColor: 'text-slate-500 dark:text-slate-400' 
+      label: 'Active', 
+      icon: CheckCircle2, 
+      color: 'bg-sky-500/20 text-sky-600 dark:bg-sky-500/30 dark:text-sky-300 border border-sky-500/30', 
+      iconColor: 'text-sky-500 dark:text-sky-400' 
     };
   };
 
