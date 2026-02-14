@@ -251,12 +251,12 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
           >
             <img 
               src="/logo-small.png" 
-              alt="MedMatch Logo" 
+              alt="MedMatch-AI KARAU Logo" 
               className="w-10 h-10 object-contain rounded-lg"
               data-testid="sidebar-logo"
             />
             <span className={`font-semibold text-lg ${isDark ? 'text-white' : 'text-slate-900'}`} style={{ fontFamily: 'IBM Plex Sans' }}>
-              MedMatch
+              MedMatch-AI KARAU
             </span>
           </button>
           <button 
