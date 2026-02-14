@@ -93,14 +93,14 @@ const PWAInstallPrompt = () => {
           <div className="flex items-start gap-3">
             <img 
               src="/logo-small.png" 
-              alt="MedMatch" 
+              alt="MedMatch-AI KARAU" 
               className="w-12 h-12 rounded-xl flex-shrink-0 object-contain"
               data-testid="pwa-prompt-logo"
             />
             
             <div className="flex-1 min-w-0">
               <h4 className="font-semibold text-slate-900 dark:text-slate-100 text-sm">
-                {t("pwa.installTitle") || "Install MedMatch"}
+                {t("pwa.installTitle") || "Install MedMatch-AI KARAU"}
               </h4>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                 {platform === "mobile" 

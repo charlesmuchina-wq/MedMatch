@@ -80,7 +80,7 @@ const InstallPrompt = () => {
             {/* Logo */}
             <img 
               src="/logo-small.png" 
-              alt="MedMatch" 
+              alt="MedMatch-AI KARAU" 
               className="w-12 h-12 rounded-xl flex-shrink-0 object-contain"
               data-testid="install-prompt-logo"
             />
@@ -89,7 +89,7 @@ const InstallPrompt = () => {
             <div className="flex-1 min-w-0">
               <div className="flex items-center justify-between mb-1">
                 <h3 className="font-semibold text-slate-900 dark:text-slate-100 text-sm">
-                  Install MedMatch
+                  Install MedMatch-AI KARAU
                 </h3>
                 <button 
                   onClick={handleDismiss}

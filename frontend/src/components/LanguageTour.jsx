@@ -66,10 +66,10 @@ const TOUR_STEPS = [
 // Default tour translations (fallback)
 const TOUR_TRANSLATIONS = {
   en: {
-    'tour.welcome.title': 'Welcome to MedMatch!',
+    'tour.welcome.title': 'Welcome to MedMatch-AI KARAU!',
     'tour.welcome.description': 'Let us guide you through the key features of your AI-powered career platform.',
     'tour.language.title': 'Choose Your Language',
-    'tour.language.description': 'MedMatch supports 33+ languages. Click here to switch anytime.',
+    'tour.language.description': 'MedMatch-AI KARAU supports 33+ languages. Click here to switch anytime.',
     'tour.dashboard.title': 'Your Dashboard',
     'tour.dashboard.description': 'See your job matches, applications, and career insights at a glance.',
     'tour.jobs.title': 'Smart Job Search',
@@ -77,7 +77,7 @@ const TOUR_TRANSLATIONS = {
     'tour.dragon.title': 'Meet KARAU Dragon AI',
     'tour.dragon.description': 'Your AI assistant that helps with everything from job search to interview prep.',
     'tour.complete.title': 'You\'re All Set!',
-    'tour.complete.description': 'Explore MedMatch and accelerate your career. Good luck!',
+    'tour.complete.description': 'Explore MedMatch-AI KARAU and accelerate your career. Good luck!',
     'tour.skip': 'Skip Tour',
     'tour.next': 'Next',
     'tour.prev': 'Back',
@@ -85,10 +85,10 @@ const TOUR_TRANSLATIONS = {
     'tour.step': 'Step'
   },
   de: {
-    'tour.welcome.title': 'Willkommen bei MedMatch!',
+    'tour.welcome.title': 'Willkommen bei MedMatch-AI KARAU!',
     'tour.welcome.description': 'Lassen Sie uns Sie durch die wichtigsten Funktionen Ihrer KI-gestützten Karriereplattform führen.',
     'tour.language.title': 'Wählen Sie Ihre Sprache',
-    'tour.language.description': 'MedMatch unterstützt 33+ Sprachen. Klicken Sie hier, um jederzeit zu wechseln.',
+    'tour.language.description': 'MedMatch-AI KARAU unterstützt 33+ Sprachen. Klicken Sie hier, um jederzeit zu wechseln.',
     'tour.dashboard.title': 'Ihr Dashboard',
     'tour.dashboard.description': 'Sehen Sie Ihre Job-Matches, Bewerbungen und Karriere-Einblicke auf einen Blick.',
     'tour.jobs.title': 'Intelligente Jobsuche',
@@ -96,7 +96,7 @@ const TOUR_TRANSLATIONS = {
     'tour.dragon.title': 'Lernen Sie KARAU Dragon AI kennen',
     'tour.dragon.description': 'Ihr KI-Assistent, der bei allem hilft - von der Jobsuche bis zur Interviewvorbereitung.',
     'tour.complete.title': 'Alles bereit!',
-    'tour.complete.description': 'Erkunden Sie MedMatch und beschleunigen Sie Ihre Karriere. Viel Erfolg!',
+    'tour.complete.description': 'Erkunden Sie MedMatch-AI KARAU und beschleunigen Sie Ihre Karriere. Viel Erfolg!',
     'tour.skip': 'Tour überspringen',
     'tour.next': 'Weiter',
     'tour.prev': 'Zurück',
@@ -104,10 +104,10 @@ const TOUR_TRANSLATIONS = {
     'tour.step': 'Schritt'
   },
   fr: {
-    'tour.welcome.title': 'Bienvenue sur MedMatch !',
+    'tour.welcome.title': 'Bienvenue sur MedMatch-AI KARAU !',
     'tour.welcome.description': 'Laissez-nous vous guider à travers les fonctionnalités clés de votre plateforme carrière alimentée par l\'IA.',
     'tour.language.title': 'Choisissez votre langue',
-    'tour.language.description': 'MedMatch prend en charge plus de 33 langues. Cliquez ici pour changer à tout moment.',
+    'tour.language.description': 'MedMatch-AI KARAU prend en charge plus de 33 langues. Cliquez ici pour changer à tout moment.',
     'tour.dashboard.title': 'Votre tableau de bord',
     'tour.dashboard.description': 'Voyez vos correspondances d\'emploi, candidatures et aperçus de carrière en un coup d\'œil.',
     'tour.jobs.title': 'Recherche d\'emploi intelligente',
@@ -115,7 +115,7 @@ const TOUR_TRANSLATIONS = {
     'tour.dragon.title': 'Découvrez KARAU Dragon AI',
     'tour.dragon.description': 'Votre assistant IA qui vous aide pour tout, de la recherche d\'emploi à la préparation aux entretiens.',
     'tour.complete.title': 'Vous êtes prêt !',
-    'tour.complete.description': 'Explorez MedMatch et accélérez votre carrière. Bonne chance !',
+    'tour.complete.description': 'Explorez MedMatch-AI KARAU et accélérez votre carrière. Bonne chance !',
     'tour.skip': 'Passer la visite',
     'tour.next': 'Suivant',
     'tour.prev': 'Précédent',
@@ -123,10 +123,10 @@ const TOUR_TRANSLATIONS = {
     'tour.step': 'Étape'
   },
   es: {
-    'tour.welcome.title': '¡Bienvenido a MedMatch!',
+    'tour.welcome.title': '¡Bienvenido a MedMatch-AI KARAU!',
     'tour.welcome.description': 'Permítanos guiarlo a través de las características clave de su plataforma de carrera impulsada por IA.',
     'tour.language.title': 'Elija su idioma',
-    'tour.language.description': 'MedMatch admite más de 33 idiomas. Haga clic aquí para cambiar en cualquier momento.',
+    'tour.language.description': 'MedMatch-AI KARAU admite más de 33 idiomas. Haga clic aquí para cambiar en cualquier momento.',
     'tour.dashboard.title': 'Su panel de control',
     'tour.dashboard.description': 'Vea sus coincidencias de empleo, solicitudes e información de carrera de un vistazo.',
     'tour.jobs.title': 'Búsqueda de empleo inteligente',
@@ -134,7 +134,7 @@ const TOUR_TRANSLATIONS = {
     'tour.dragon.title': 'Conozca a KARAU Dragon AI',
     'tour.dragon.description': 'Su asistente de IA que ayuda con todo, desde la búsqueda de empleo hasta la preparación de entrevistas.',
     'tour.complete.title': '¡Todo listo!',
-    'tour.complete.description': 'Explore MedMatch y acelere su carrera. ¡Buena suerte!',
+    'tour.complete.description': 'Explore MedMatch-AI KARAU y acelere su carrera. ¡Buena suerte!',
     'tour.skip': 'Saltar tour',
     'tour.next': 'Siguiente',
     'tour.prev': 'Anterior',

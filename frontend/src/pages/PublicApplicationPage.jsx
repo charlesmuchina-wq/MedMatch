@@ -109,7 +109,7 @@ export default function PublicApplicationPage() {
             <p className="text-muted-foreground mb-6">{error}</p>
             <Button onClick={() => navigate('/')} variant="outline">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Go to MedMatch
+              Go to MedMatch-AI KARAU
             </Button>
           </CardContent>
         </Card>
@@ -174,7 +174,7 @@ export default function PublicApplicationPage() {
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-turquoise mb-2">MedMatch</h1>
+          <h1 className="text-3xl font-bold text-turquoise mb-2">MedMatch-AI KARAU</h1>
           <p className="text-muted-foreground">Life Sciences & Engineering Talent Ecosystem</p>
         </div>
 
@@ -401,7 +401,7 @@ export default function PublicApplicationPage() {
               </Button>
 
               <p className="text-xs text-center text-muted-foreground">
-                By submitting, you agree to MedMatch's Terms of Service and Privacy Policy
+                By submitting, you agree to MedMatch-AI KARAU's Terms of Service and Privacy Policy
               </p>
             </form>
           </CardContent>
@@ -409,7 +409,7 @@ export default function PublicApplicationPage() {
 
         {/* Footer */}
         <div className="text-center mt-8 text-sm text-muted-foreground">
-          <p>Powered by <span className="text-turquoise font-semibold">MedMatch</span></p>
+          <p>Powered by <span className="text-turquoise font-semibold">MedMatch-AI KARAU</span></p>
           <p className="mt-1">Life Sciences & Engineering Talent Ecosystem</p>
         </div>
       </div>

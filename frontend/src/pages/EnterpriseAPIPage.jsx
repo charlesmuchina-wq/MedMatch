@@ -694,7 +694,7 @@ export default function EnterpriseAPIPage() {
                 API Documentation
               </CardTitle>
               <CardDescription>
-                Integrate MedMatch with your Applicant Tracking System
+                Integrate MedMatch-AI KARAU with your Applicant Tracking System
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
