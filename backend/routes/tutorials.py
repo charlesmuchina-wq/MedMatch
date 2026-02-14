@@ -1,6 +1,6 @@
 """
 Video Tutorials API Routes
-Serves instructional videos for MedMatch navigation
+Serves instructional videos for MedMatch-AI KARAU navigation
 """
 from fastapi import APIRouter, HTTPException, BackgroundTasks, Request
 from fastapi.responses import FileResponse
@@ -57,8 +57,8 @@ VIDEOS = [
     },
     {
         "id": "05_complete_overview",
-        "title": "Complete MedMatch Overview",
-        "description": "AI-powered comprehensive overview of all MedMatch features for job seekers and recruiters",
+        "title": "Complete MedMatch-AI KARAU Overview",
+        "description": "AI-powered comprehensive overview of all MedMatch-AI KARAU features for job seekers and recruiters",
         "duration": "60 seconds",
         "category": "overview",
         "filename": "05_complete_overview.mp4",
@@ -73,40 +73,40 @@ VIDEOS = [
 MULTILANG_VIDEOS = {
     "es": {
         "id": "overview_spanish",
-        "title": "Descripción General de MedMatch",
-        "description": "Visión completa impulsada por IA de todas las funciones de MedMatch",
+        "title": "Descripción General de MedMatch-AI KARAU",
+        "description": "Visión completa impulsada por IA de todas las funciones de MedMatch-AI KARAU",
         "duration": "60 seconds",
         "voice": "Elvira (es-ES)",
         "language": "es"
     },
     "fr": {
         "id": "overview_french",
-        "title": "Présentation de MedMatch",
-        "description": "Aperçu complet alimenté par l'IA de toutes les fonctionnalités MedMatch",
+        "title": "Présentation de MedMatch-AI KARAU",
+        "description": "Aperçu complet alimenté par l'IA de toutes les fonctionnalités MedMatch-AI KARAU",
         "duration": "60 seconds",
         "voice": "Denise (fr-FR)",
         "language": "fr"
     },
     "de": {
         "id": "overview_german",
-        "title": "MedMatch Übersicht",
-        "description": "KI-gestützte umfassende Übersicht aller MedMatch-Funktionen",
+        "title": "MedMatch-AI KARAU Übersicht",
+        "description": "KI-gestützte umfassende Übersicht aller MedMatch-AI KARAU-Funktionen",
         "duration": "60 seconds",
         "voice": "Katja (de-DE)",
         "language": "de"
     },
     "ja": {
         "id": "overview_japanese",
-        "title": "MedMatch 概要",
-        "description": "AIによるMedMatch全機能の包括的な概要",
+        "title": "MedMatch-AI KARAU 概要",
+        "description": "AIによるMedMatch-AI KARAU全機能の包括的な概要",
         "duration": "60 seconds",
         "voice": "Nanami (ja-JP)",
         "language": "ja"
     },
     "zh": {
         "id": "overview_chinese",
-        "title": "MedMatch 概述",
-        "description": "AI驱动的MedMatch全功能综合概述",
+        "title": "MedMatch-AI KARAU 概述",
+        "description": "AI驱动的MedMatch-AI KARAU全功能综合概述",
         "duration": "60 seconds",
         "voice": "Xiaoxiao (zh-CN)",
         "language": "zh"
@@ -114,8 +114,8 @@ MULTILANG_VIDEOS = {
     # African Languages
     "sw": {
         "id": "overview_swahili",
-        "title": "Muhtasari wa MedMatch",
-        "description": "Muhtasari kamili wa MedMatch unaoendelea na AI kwa watafutaji wa kazi na waajiri",
+        "title": "Muhtasari wa MedMatch-AI KARAU",
+        "description": "Muhtasari kamili wa MedMatch-AI KARAU unaoendelea na AI kwa watafutaji wa kazi na waajiri",
         "duration": "60 seconds",
         "voice": "Zuri (sw-KE)",
         "language": "sw",
@@ -123,8 +123,8 @@ MULTILANG_VIDEOS = {
     },
     "af": {
         "id": "overview_afrikaans",
-        "title": "MedMatch Oorsig",
-        "description": "KI-aangedrewe omvattende oorsig van alle MedMatch-funksies",
+        "title": "MedMatch-AI KARAU Oorsig",
+        "description": "KI-aangedrewe omvattende oorsig van alle MedMatch-AI KARAU-funksies",
         "duration": "60 seconds",
         "voice": "Adri (af-ZA)",
         "language": "af",
@@ -132,7 +132,7 @@ MULTILANG_VIDEOS = {
     },
     "en-NG": {
         "id": "overview_english_nigeria",
-        "title": "MedMatch Overview (Nigerian English)",
+        "title": "MedMatch-AI KARAU Overview (Nigerian English)",
         "description": "AI-powered comprehensive overview with Nigerian English accent",
         "duration": "60 seconds",
         "voice": "Ezinne (en-NG)",
@@ -145,8 +145,8 @@ MULTILANG_VIDEOS = {
 TUTORIAL_VIDEOS = {
     "de": {
         "id": "tutorial_german",
-        "title": "Erste Schritte mit MedMatch",
-        "description": "Lernen Sie in wenigen Minuten, wie Sie MedMatch nutzen können",
+        "title": "Erste Schritte mit MedMatch-AI KARAU",
+        "description": "Lernen Sie in wenigen Minuten, wie Sie MedMatch-AI KARAU nutzen können",
         "duration": "45 seconds",
         "voice": "Katja (de-DE)",
         "language": "de",
@@ -154,8 +154,8 @@ TUTORIAL_VIDEOS = {
     },
     "fr": {
         "id": "tutorial_french",
-        "title": "Démarrer avec MedMatch",
-        "description": "Apprenez à utiliser MedMatch en quelques minutes",
+        "title": "Démarrer avec MedMatch-AI KARAU",
+        "description": "Apprenez à utiliser MedMatch-AI KARAU en quelques minutes",
         "duration": "45 seconds",
         "voice": "Denise (fr-FR)",
         "language": "fr",
@@ -163,8 +163,8 @@ TUTORIAL_VIDEOS = {
     },
     "es": {
         "id": "tutorial_spanish",
-        "title": "Comenzar con MedMatch",
-        "description": "Aprende a usar MedMatch en pocos minutos",
+        "title": "Comenzar con MedMatch-AI KARAU",
+        "description": "Aprende a usar MedMatch-AI KARAU en pocos minutos",
         "duration": "45 seconds",
         "voice": "Elvira (es-ES)",
         "language": "es",
@@ -172,8 +172,8 @@ TUTORIAL_VIDEOS = {
     },
     "ja": {
         "id": "tutorial_japanese",
-        "title": "MedMatchの使い方",
-        "description": "数分でMedMatchの使い方を学びましょう",
+        "title": "MedMatch-AI KARAUの使い方",
+        "description": "数分でMedMatch-AI KARAUの使い方を学びましょう",
         "duration": "45 seconds",
         "voice": "Nanami (ja-JP)",
         "language": "ja",
@@ -181,8 +181,8 @@ TUTORIAL_VIDEOS = {
     },
     "zh": {
         "id": "tutorial_chinese",
-        "title": "MedMatch入门指南",
-        "description": "几分钟内学会如何使用MedMatch",
+        "title": "MedMatch-AI KARAU入门指南",
+        "description": "几分钟内学会如何使用MedMatch-AI KARAU",
         "duration": "45 seconds",
         "voice": "Xiaoxiao (zh-CN)",
         "language": "zh",
@@ -190,8 +190,8 @@ TUTORIAL_VIDEOS = {
     },
     "pt": {
         "id": "tutorial_portuguese",
-        "title": "Começando com MedMatch",
-        "description": "Aprenda a usar o MedMatch em poucos minutos",
+        "title": "Começando com MedMatch-AI KARAU",
+        "description": "Aprenda a usar o MedMatch-AI KARAU em poucos minutos",
         "duration": "45 seconds",
         "voice": "Francisca (pt-BR)",
         "language": "pt",
@@ -199,8 +199,8 @@ TUTORIAL_VIDEOS = {
     },
     "ar": {
         "id": "tutorial_arabic",
-        "title": "البدء مع MedMatch",
-        "description": "تعلم كيفية استخدام MedMatch في دقائق",
+        "title": "البدء مع MedMatch-AI KARAU",
+        "description": "تعلم كيفية استخدام MedMatch-AI KARAU في دقائق",
         "duration": "45 seconds",
         "voice": "Salma (ar-EG)",
         "language": "ar",
@@ -208,8 +208,8 @@ TUTORIAL_VIDEOS = {
     },
     "ko": {
         "id": "tutorial_korean",
-        "title": "MedMatch 시작하기",
-        "description": "몇 분 안에 MedMatch 사용법을 배우세요",
+        "title": "MedMatch-AI KARAU 시작하기",
+        "description": "몇 분 안에 MedMatch-AI KARAU 사용법을 배우세요",
         "duration": "45 seconds",
         "voice": "SunHi (ko-KR)",
         "language": "ko",
@@ -217,8 +217,8 @@ TUTORIAL_VIDEOS = {
     },
     "hi": {
         "id": "tutorial_hindi",
-        "title": "MedMatch के साथ शुरुआत",
-        "description": "कुछ ही मिनटों में MedMatch का उपयोग करना सीखें",
+        "title": "MedMatch-AI KARAU के साथ शुरुआत",
+        "description": "कुछ ही मिनटों में MedMatch-AI KARAU का उपयोग करना सीखें",
         "duration": "45 seconds",
         "voice": "Swara (hi-IN)",
         "language": "hi",
@@ -226,8 +226,8 @@ TUTORIAL_VIDEOS = {
     },
     "it": {
         "id": "tutorial_italian",
-        "title": "Iniziare con MedMatch",
-        "description": "Impara a usare MedMatch in pochi minuti",
+        "title": "Iniziare con MedMatch-AI KARAU",
+        "description": "Impara a usare MedMatch-AI KARAU in pochi minuti",
         "duration": "45 seconds",
         "voice": "Elsa (it-IT)",
         "language": "it",
@@ -235,8 +235,8 @@ TUTORIAL_VIDEOS = {
     },
     "ru": {
         "id": "tutorial_russian",
-        "title": "Начало работы с MedMatch",
-        "description": "Узнайте, как использовать MedMatch за несколько минут",
+        "title": "Начало работы с MedMatch-AI KARAU",
+        "description": "Узнайте, как использовать MedMatch-AI KARAU за несколько минут",
         "duration": "45 seconds",
         "voice": "Svetlana (ru-RU)",
         "language": "ru",
@@ -244,8 +244,8 @@ TUTORIAL_VIDEOS = {
     },
     "nl": {
         "id": "tutorial_dutch",
-        "title": "Aan de slag met MedMatch",
-        "description": "Leer in een paar minuten hoe je MedMatch kunt gebruiken",
+        "title": "Aan de slag met MedMatch-AI KARAU",
+        "description": "Leer in een paar minuten hoe je MedMatch-AI KARAU kunt gebruiken",
         "duration": "45 seconds",
         "voice": "Colette (nl-NL)",
         "language": "nl",
@@ -253,8 +253,8 @@ TUTORIAL_VIDEOS = {
     },
     "pl": {
         "id": "tutorial_polish",
-        "title": "Rozpocznij z MedMatch",
-        "description": "Naucz się korzystać z MedMatch w kilka minut",
+        "title": "Rozpocznij z MedMatch-AI KARAU",
+        "description": "Naucz się korzystać z MedMatch-AI KARAU w kilka minut",
         "duration": "45 seconds",
         "voice": "Zofia (pl-PL)",
         "language": "pl",
@@ -262,8 +262,8 @@ TUTORIAL_VIDEOS = {
     },
     "sv": {
         "id": "tutorial_swedish",
-        "title": "Kom igång med MedMatch",
-        "description": "Lär dig använda MedMatch på några minuter",
+        "title": "Kom igång med MedMatch-AI KARAU",
+        "description": "Lär dig använda MedMatch-AI KARAU på några minuter",
         "duration": "45 seconds",
         "voice": "Sofie (sv-SE)",
         "language": "sv",
@@ -271,8 +271,8 @@ TUTORIAL_VIDEOS = {
     },
     "tr": {
         "id": "tutorial_turkish",
-        "title": "MedMatch'e Başlayın",
-        "description": "MedMatch'i birkaç dakikada kullanmayı öğrenin",
+        "title": "MedMatch-AI KARAU'e Başlayın",
+        "description": "MedMatch-AI KARAU'i birkaç dakikada kullanmayı öğrenin",
         "duration": "45 seconds",
         "voice": "Emel (tr-TR)",
         "language": "tr",
@@ -280,8 +280,8 @@ TUTORIAL_VIDEOS = {
     },
     "vi": {
         "id": "tutorial_vietnamese",
-        "title": "Bắt đầu với MedMatch",
-        "description": "Học cách sử dụng MedMatch trong vài phút",
+        "title": "Bắt đầu với MedMatch-AI KARAU",
+        "description": "Học cách sử dụng MedMatch-AI KARAU trong vài phút",
         "duration": "45 seconds",
         "voice": "HoaiMy (vi-VN)",
         "language": "vi",
@@ -294,7 +294,7 @@ ROLE_VIDEOS = {
     "jobseeker_overview": {
         "id": "jobseeker_overview_30s",
         "title": "Job Seeker Quick Start",
-        "description": "30-second guide for job seekers using MedMatch",
+        "description": "30-second guide for job seekers using MedMatch-AI KARAU",
         "duration": "30 seconds",
         "voice": "Jenny (en-US)",
         "target_audience": "jobseeker"
@@ -302,7 +302,7 @@ ROLE_VIDEOS = {
     "recruiter_overview": {
         "id": "recruiter_overview_30s",
         "title": "Recruiter Quick Start",
-        "description": "30-second guide for recruiters using MedMatch",
+        "description": "30-second guide for recruiters using MedMatch-AI KARAU",
         "duration": "30 seconds",
         "voice": "Jenny (en-US)",
         "target_audience": "recruiter"
@@ -658,7 +658,7 @@ async def get_navigation_guide():
     content = guide_path.read_text()
     
     return {
-        "title": "MedMatch Navigation Guide",
+        "title": "MedMatch-AI KARAU Navigation Guide",
         "content": content,
         "format": "markdown"
     }
@@ -703,11 +703,11 @@ async def request_video_translation(video_id: str, lang: str, background_tasks: 
     
     # Define the script based on the video
     scripts = {
-        "01_jobseeker_features": "Welcome to MedMatch! As a job seeker, you have access to powerful AI tools. Upload your resume and our AI will parse your skills. Search across 15 job boards at once. Get interview preparation with real-time feedback. Your success predictor shows your chances before you apply!",
-        "02_recruiter_features": "Recruiters, streamline your hiring with MedMatch. Post jobs and reach qualified candidates. Use our AI-powered applicant tracking system. Screen candidates with blind evaluation. Schedule interviews seamlessly. Let AI help you find the perfect match!",
-        "03_privacy_matters": "Your privacy matters at MedMatch. We use bank-level encryption for your data. Control exactly what recruiters can see. Your job search stays confidential. We comply with GDPR and global privacy laws. You own your data and can delete it anytime.",
+        "01_jobseeker_features": "Welcome to MedMatch-AI KARAU! As a job seeker, you have access to powerful AI tools. Upload your resume and our AI will parse your skills. Search across 15 job boards at once. Get interview preparation with real-time feedback. Your success predictor shows your chances before you apply!",
+        "02_recruiter_features": "Recruiters, streamline your hiring with MedMatch-AI KARAU. Post jobs and reach qualified candidates. Use our AI-powered applicant tracking system. Screen candidates with blind evaluation. Schedule interviews seamlessly. Let AI help you find the perfect match!",
+        "03_privacy_matters": "Your privacy matters at MedMatch-AI KARAU. We use bank-level encryption for your data. Control exactly what recruiters can see. Your job search stays confidential. We comply with GDPR and global privacy laws. You own your data and can delete it anytime.",
         "04_faq_ai_compliance": "Let me answer common questions about AI compliance. Our AI is transparent and explainable. We follow EU AI Act guidelines. Your data trains no external models. All AI decisions can be appealed. We regularly audit our algorithms for bias.",
-        "05_complete_overview": "Welcome to MedMatch, your AI-powered career companion! Whether you're a job seeker or recruiter, we've got you covered. Upload resumes, search jobs, prepare for interviews, and connect with opportunities. Privacy-first, AI-powered, human-centered. Start your journey today!"
+        "05_complete_overview": "Welcome to MedMatch-AI KARAU, your AI-powered career companion! Whether you're a job seeker or recruiter, we've got you covered. Upload resumes, search jobs, prepare for interviews, and connect with opportunities. Privacy-first, AI-powered, human-centered. Start your journey today!"
     }
     
     script = scripts.get(video_id, scripts["05_complete_overview"])
@@ -720,7 +720,7 @@ async def request_video_translation(video_id: str, lang: str, background_tasks: 
             result = await did_service.create_tutorial_video(
                 language=lang,
                 script=script,
-                title=video.get("title", "MedMatch Tutorial")
+                title=video.get("title", "MedMatch-AI KARAU Tutorial")
             )
             
             if result.get("success"):
@@ -789,7 +789,7 @@ async def get_subtitles(video_id: str, lang: str = "en"):
             "en": """WEBVTT
 
 00:00:00.000 --> 00:00:05.000
-Welcome to MedMatch! As a job seeker, you have access to powerful AI tools.
+Welcome to MedMatch-AI KARAU! As a job seeker, you have access to powerful AI tools.
 
 00:00:05.000 --> 00:00:12.000
 Upload your resume and our AI will parse your skills.
@@ -805,7 +805,7 @@ Your success predictor shows your chances before you apply!
             "en": """WEBVTT
 
 00:00:00.000 --> 00:00:05.000
-Recruiters, streamline your hiring with MedMatch.
+Recruiters, streamline your hiring with MedMatch-AI KARAU.
 
 00:00:05.000 --> 00:00:12.000
 Post jobs and reach qualified candidates.

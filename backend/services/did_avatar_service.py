@@ -46,8 +46,8 @@ AVATAR_IMAGES = {
     # Latina avatars
     "latina_female": "https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=512&h=512&fit=crop",
     
-    # Default MedMatch avatar
-    "default": "https://customer-assets.emergentagent.com/job_hirescience/artifacts/mux577io_MedMatch%20Image.jpeg"
+    # Default MedMatch-AI KARAU avatar
+    "default": "https://customer-assets.emergentagent.com/job_hirescience/artifacts/mux577io_MedMatch-AI KARAU%20Image.jpeg"
 }
 
 # Language to Avatar and Voice mapping
@@ -212,7 +212,7 @@ class DIDService:
         presenter_id: Optional[str] = None,
         voice_id: str = "en-US-JennyNeural",
         background_color: str = "#1a1a2e",
-        title: str = "MedMatch Video",
+        title: str = "MedMatch-AI KARAU Video",
         source_url: Optional[str] = None
     ) -> Dict[str, Any]:
         """
@@ -232,8 +232,8 @@ class DIDService:
         if not self.api_key:
             return self._create_mock_video(script, title)
         
-        # Default MedMatch presenter image
-        default_source = "https://customer-assets.emergentagent.com/job_hirescience/artifacts/mux577io_MedMatch%20Image.jpeg"
+        # Default MedMatch-AI KARAU presenter image
+        default_source = "https://customer-assets.emergentagent.com/job_hirescience/artifacts/mux577io_MedMatch-AI KARAU%20Image.jpeg"
         
         # Prepare the request payload
         payload = {
@@ -351,9 +351,9 @@ class DIDService:
         }
     
     async def create_medmatch_overview(self, duration: str = "60s") -> Dict[str, Any]:
-        """Create a MedMatch overview video with predefined script."""
+        """Create a MedMatch-AI KARAU overview video with predefined script."""
         scripts = {
-            "60s": """Finding your dream job in life sciences just got smarter. Meet MedMatch.
+            "60s": """Finding your dream job in life sciences just got smarter. Meet MedMatch-AI KARAU.
             
 Upload your resume — our AI instantly matches you with jobs from 15+ specialized boards. 
 No more ghost jobs. No more endless scrolling. 
@@ -363,15 +363,15 @@ Recruiters — track candidates through our ATS, use blind screening to eliminat
 
 Available in 25 languages. Web, iOS, Android, and Desktop. Enterprise-ready with GDPR compliance and crypto-shredding for data protection.
 
-MedMatch — Intelligent hiring for life sciences. Start free today.""",
+MedMatch-AI KARAU — Intelligent hiring for life sciences. Start free today.""",
             
-            "30s": """Job hunting in life sciences? MedMatch's Dragon AI searches 15+ job boards and filters out ghost jobs — instantly.
+            "30s": """Job hunting in life sciences? MedMatch-AI KARAU's Dragon AI searches 15+ job boards and filters out ghost jobs — instantly.
 
 Upload your resume, get matched with verified positions, and prep for interviews with AI coaching. Available in 25 languages.
 
-MedMatch — Where life science careers meet AI. Try it free.""",
+MedMatch-AI KARAU — Where life science careers meet AI. Try it free.""",
             
-            "15s": """Still applying to ghost jobs? MedMatch's AI filters out fake listings and matches you with REAL opportunities in pharma, biotech, and medical devices. Link in bio. You're welcome."""
+            "15s": """Still applying to ghost jobs? MedMatch-AI KARAU's AI filters out fake listings and matches you with REAL opportunities in pharma, biotech, and medical devices. Link in bio. You're welcome."""
         }
         
         script = scripts.get(duration, scripts["60s"])
@@ -380,7 +380,7 @@ MedMatch — Where life science careers meet AI. Try it free.""",
             script=script,
             voice_id="en-US-JennyNeural",
             background_color="#1a1a2e",
-            title=f"MedMatch Overview ({duration})"
+            title=f"MedMatch-AI KARAU Overview ({duration})"
         )
     
     def get_language_config(self, language_code: str) -> Dict[str, Any]:
@@ -433,7 +433,7 @@ MedMatch — Where life science careers meet AI. Try it free.""",
             voice_id=lang_config["voice_id"],
             source_url=lang_config["avatar_url"],
             background_color="#1a1a2e",
-            title=title or f"MedMatch Tutorial ({language_code})"
+            title=title or f"MedMatch-AI KARAU Tutorial ({language_code})"
         )
     
     def get_all_language_configs(self) -> Dict[str, Dict]:
