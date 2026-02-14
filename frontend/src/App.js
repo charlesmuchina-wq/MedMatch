@@ -70,6 +70,8 @@ import TrackApplicationPage from "@/pages/TrackApplicationPage";
 import ATSManagementPage from "@/pages/ATSManagementPage";
 import VideoTutorialsPage from "@/pages/VideoTutorialsPage";
 import PSVVerificationPage from "@/pages/PSVVerificationPage";
+import KarauMeetLanding from "@/pages/KarauMeet/KarauMeetLanding";
+import MeetingRoom from "@/components/KarauMeet/MeetingRoom";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
 import OnboardingTour, { useOnboardingTour } from "@/components/OnboardingTour";
