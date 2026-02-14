@@ -174,7 +174,7 @@ const LoginPage = ({ onAuthSuccess }) => {
       const userRole = response.data.user?.role;
       const roleMessage = userRole === 'recruiter' 
         ? "Welcome, Recruiter! Complete verification to access candidates." 
-        : isRegister ? "Account created! Welcome to MedMatch." : "Logged in!";
+        : isRegister ? "Account created! Welcome to MedMatch-AI KARAU." : "Logged in!";
       toast.success(roleMessage);
       onAuthSuccess(response.data.user);
       
@@ -259,12 +259,12 @@ const LoginPage = ({ onAuthSuccess }) => {
         <CardHeader className="text-center pb-2">
           <img 
             src="/logo.png" 
-            alt="MedMatch Logo" 
+            alt="MedMatch-AI KARAU Logo" 
             className="w-16 h-16 object-contain mx-auto mb-4 rounded-2xl"
             data-testid="login-logo"
           />
           <CardTitle className="text-2xl font-bold text-slate-900 dark:text-slate-100" style={{ fontFamily: 'IBM Plex Sans' }}>
-            {t("auth.signIn")} - MedMatch
+            {t("auth.signIn")} - MedMatch-AI KARAU
           </CardTitle>
           <CardDescription>
             AI-powered job search for life sciences careers
