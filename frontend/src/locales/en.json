@@ -26,7 +26,16 @@
     "login": "Sign In",
     "signup": "Sign Up",
     "all": "All",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "download": "Download",
+    "filter": "Filter",
+    "help": "Help",
+    "less": "Less",
+    "more": "More",
+    "none": "None",
+    "previous": "Previous",
+    "sort": "Sort",
+    "upload": "Upload"
   },
   "notifications": {
     "title": "Notifications",
