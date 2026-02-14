@@ -335,29 +335,29 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
 // Avatar images are now fetched from backend D-ID configuration
 const TUTORIAL_LANGUAGES = [
   // European Languages - Use European-looking female avatar with female voice
-  { code: 'de', name: 'German', flag: '🇩🇪', title: 'Erste Schritte mit MedMatch', presenter: 'Katja (Female)', region: 'Europe' },
-  { code: 'fr', name: 'French', flag: '🇫🇷', title: 'Démarrer avec MedMatch', presenter: 'Denise (Female)', region: 'Europe' },
-  { code: 'es', name: 'Spanish', flag: '🇪🇸', title: 'Comenzar con MedMatch', presenter: 'Elvira (Female)', region: 'Europe' },
-  { code: 'it', name: 'Italian', flag: '🇮🇹', title: 'Iniziare con MedMatch', presenter: 'Elsa (Female)', region: 'Europe' },
-  { code: 'nl', name: 'Dutch', flag: '🇳🇱', title: 'Aan de slag met MedMatch', presenter: 'Colette (Female)', region: 'Europe' },
-  { code: 'pl', name: 'Polish', flag: '🇵🇱', title: 'Rozpocznij z MedMatch', presenter: 'Zofia (Female)', region: 'Europe' },
-  { code: 'sv', name: 'Swedish', flag: '🇸🇪', title: 'Kom igång med MedMatch', presenter: 'Sofie (Female)', region: 'Nordic' },
-  { code: 'ru', name: 'Russian', flag: '🇷🇺', title: 'Начало работы с MedMatch', presenter: 'Svetlana (Female)', region: 'Europe' },
+  { code: 'de', name: 'German', flag: '🇩🇪', title: 'Erste Schritte mit MedMatch-AI KARAU', presenter: 'Katja (Female)', region: 'Europe' },
+  { code: 'fr', name: 'French', flag: '🇫🇷', title: 'Démarrer avec MedMatch-AI KARAU', presenter: 'Denise (Female)', region: 'Europe' },
+  { code: 'es', name: 'Spanish', flag: '🇪🇸', title: 'Comenzar con MedMatch-AI KARAU', presenter: 'Elvira (Female)', region: 'Europe' },
+  { code: 'it', name: 'Italian', flag: '🇮🇹', title: 'Iniziare con MedMatch-AI KARAU', presenter: 'Elsa (Female)', region: 'Europe' },
+  { code: 'nl', name: 'Dutch', flag: '🇳🇱', title: 'Aan de slag met MedMatch-AI KARAU', presenter: 'Colette (Female)', region: 'Europe' },
+  { code: 'pl', name: 'Polish', flag: '🇵🇱', title: 'Rozpocznij z MedMatch-AI KARAU', presenter: 'Zofia (Female)', region: 'Europe' },
+  { code: 'sv', name: 'Swedish', flag: '🇸🇪', title: 'Kom igång med MedMatch-AI KARAU', presenter: 'Sofie (Female)', region: 'Nordic' },
+  { code: 'ru', name: 'Russian', flag: '🇷🇺', title: 'Начало работы с MedMatch-AI KARAU', presenter: 'Svetlana (Female)', region: 'Europe' },
   // Asian Languages - Use Asian-looking avatars with matching voices
-  { code: 'ja', name: 'Japanese', flag: '🇯🇵', title: 'MedMatchの使い方', presenter: 'Nanami (Female)', region: 'Asia' },
-  { code: 'zh', name: 'Chinese', flag: '🇨🇳', title: 'MedMatch入门指南', presenter: 'Xiaoxiao (Female)', region: 'Asia' },
-  { code: 'ko', name: 'Korean', flag: '🇰🇷', title: 'MedMatch 시작하기', presenter: 'SunHi (Female)', region: 'Asia' },
-  { code: 'vi', name: 'Vietnamese', flag: '🇻🇳', title: 'Bắt đầu với MedMatch', presenter: 'HoaiMy (Female)', region: 'Asia' },
-  { code: 'hi', name: 'Hindi', flag: '🇮🇳', title: 'MedMatch के साथ शुरुआत', presenter: 'Swara (Female)', region: 'South Asia' },
+  { code: 'ja', name: 'Japanese', flag: '🇯🇵', title: 'MedMatch-AI KARAUの使い方', presenter: 'Nanami (Female)', region: 'Asia' },
+  { code: 'zh', name: 'Chinese', flag: '🇨🇳', title: 'MedMatch-AI KARAU入门指南', presenter: 'Xiaoxiao (Female)', region: 'Asia' },
+  { code: 'ko', name: 'Korean', flag: '🇰🇷', title: 'MedMatch-AI KARAU 시작하기', presenter: 'SunHi (Female)', region: 'Asia' },
+  { code: 'vi', name: 'Vietnamese', flag: '🇻🇳', title: 'Bắt đầu với MedMatch-AI KARAU', presenter: 'HoaiMy (Female)', region: 'Asia' },
+  { code: 'hi', name: 'Hindi', flag: '🇮🇳', title: 'MedMatch-AI KARAU के साथ शुरुआत', presenter: 'Swara (Female)', region: 'South Asia' },
   // Middle East & South America - Region-appropriate avatars
-  { code: 'ar', name: 'Arabic', flag: '🇸🇦', title: 'البدء مع MedMatch', presenter: 'Salma (Female)', region: 'Middle East' },
-  { code: 'tr', name: 'Turkish', flag: '🇹🇷', title: 'MedMatch\'e Başlayın', presenter: 'Emel (Female)', region: 'Middle East' },
-  { code: 'pt', name: 'Portuguese', flag: '🇧🇷', title: 'Começando com MedMatch', presenter: 'Francisca (Female)', region: 'South America' },
+  { code: 'ar', name: 'Arabic', flag: '🇸🇦', title: 'البدء مع MedMatch-AI KARAU', presenter: 'Salma (Female)', region: 'Middle East' },
+  { code: 'tr', name: 'Turkish', flag: '🇹🇷', title: 'MedMatch-AI KARAU\'e Başlayın', presenter: 'Emel (Female)', region: 'Middle East' },
+  { code: 'pt', name: 'Portuguese', flag: '🇧🇷', title: 'Começando com MedMatch-AI KARAU', presenter: 'Francisca (Female)', region: 'South America' },
   // African Languages - African-looking avatars with matching voices
-  { code: 'sw', name: 'Swahili', flag: '🇰🇪', title: 'Kuanza na MedMatch', presenter: 'Zuri (Female)', region: 'Africa' },
-  { code: 'af', name: 'Afrikaans', flag: '🇿🇦', title: 'Begin met MedMatch', presenter: 'Adri (Female)', region: 'Africa' },
-  { code: 'ha', name: 'Hausa', flag: '🇳🇬', title: 'Fara da MedMatch', presenter: 'Ezinne (Female)', region: 'Africa' },
-  { code: 'zu', name: 'Zulu', flag: '🇿🇦', title: 'Qala nge-MedMatch', presenter: 'Thandile (Female)', region: 'Africa' }
+  { code: 'sw', name: 'Swahili', flag: '🇰🇪', title: 'Kuanza na MedMatch-AI KARAU', presenter: 'Zuri (Female)', region: 'Africa' },
+  { code: 'af', name: 'Afrikaans', flag: '🇿🇦', title: 'Begin met MedMatch-AI KARAU', presenter: 'Adri (Female)', region: 'Africa' },
+  { code: 'ha', name: 'Hausa', flag: '🇳🇬', title: 'Fara da MedMatch-AI KARAU', presenter: 'Ezinne (Female)', region: 'Africa' },
+  { code: 'zu', name: 'Zulu', flag: '🇿🇦', title: 'Qala nge-MedMatch-AI KARAU', presenter: 'Thandile (Female)', region: 'Africa' }
 ];
 
 // Region-appropriate avatar images (fallback if backend unavailable)
@@ -436,7 +436,7 @@ const GettingStartedSection = memo(() => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Getting Started with MedMatch</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Getting Started with MedMatch-AI KARAU</h2>
           <p className="text-gray-700 dark:text-gray-300 mt-1">Watch our AI-powered tutorials in your preferred language</p>
         </div>
         <div className="flex items-center gap-2 bg-teal-50 dark:bg-teal-900/30 px-3 py-2 rounded-lg">
@@ -665,8 +665,8 @@ const VideoTutorialsPage = () => {
         },
         {
           id: '05_complete_overview',
-          title: 'Complete MedMatch Overview',
-          description: 'Comprehensive summary of all MedMatch features',
+          title: 'Complete MedMatch-AI KARAU Overview',
+          description: 'Comprehensive summary of all MedMatch-AI KARAU features',
           duration: '85 seconds',
           category: 'overview',
           icon: Search,
@@ -722,7 +722,7 @@ const VideoTutorialsPage = () => {
             <div className="flex-1">
               <h1 className="text-3xl md:text-4xl font-bold mb-4">Help & Tutorials</h1>
               <p className="text-teal-100 text-lg mb-6">
-                Learn how to make the most of MedMatch with our video guides and quick-start tutorials.
+                Learn how to make the most of MedMatch-AI KARAU with our video guides and quick-start tutorials.
               </p>
               <div className="flex gap-3">
                 <button 
@@ -748,7 +748,7 @@ const VideoTutorialsPage = () => {
             <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-white/30 shadow-xl">
               <LazyImage 
                 src="/images/presenter.jpeg" 
-                alt="MedMatch Guide"
+                alt="MedMatch-AI KARAU Guide"
                 className="w-full h-full object-cover"
               />
             </div>

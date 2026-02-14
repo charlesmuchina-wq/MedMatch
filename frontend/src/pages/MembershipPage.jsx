@@ -36,7 +36,7 @@ const MembershipPage = ({ user }) => {
     } else if (success === 'true') {
       // If we have success but no session_id, just refresh membership status
       fetchMembershipStatus();
-      toast.success("🎉 Payment successful! Welcome to MedMatch Premium!");
+      toast.success("🎉 Payment successful! Welcome to MedMatch-AI KARAU Premium!");
     }
   }, [searchParams]);
 
@@ -64,7 +64,7 @@ const MembershipPage = ({ user }) => {
         const response = await api.client.get(`${API}/api/payments/status/${sessionId}`);
         
         if (response.data.status === 'success' || response.data.payment_status === 'paid') {
-          toast.success("🎉 Payment successful! Welcome to MedMatch Premium!");
+          toast.success("🎉 Payment successful! Welcome to MedMatch-AI KARAU Premium!");
           fetchMembershipStatus();
           navigate('/membership', { replace: true });
           break;
@@ -135,7 +135,7 @@ const MembershipPage = ({ user }) => {
       });
       
       if (response.data.success) {
-        toast.success("🎉 Payment successful! Welcome to MedMatch Premium!");
+        toast.success("🎉 Payment successful! Welcome to MedMatch-AI KARAU Premium!");
         fetchMembershipStatus();
         navigate('/membership', { replace: true });
       }
@@ -171,7 +171,7 @@ const MembershipPage = ({ user }) => {
           {isRecruiter ? <Briefcase className="w-10 h-10 text-white" /> : <Crown className="w-10 h-10 text-white" />}
         </div>
         <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100" style={{ fontFamily: 'IBM Plex Sans' }}>
-          {isRecruiter ? "Recruiter Pro" : "MedMatch Membership"}
+          {isRecruiter ? "Recruiter Pro" : "MedMatch-AI KARAU Membership"}
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-2 max-w-xl mx-auto">
           {isRecruiter 

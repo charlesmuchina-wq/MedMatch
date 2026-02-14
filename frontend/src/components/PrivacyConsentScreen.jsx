@@ -154,10 +154,10 @@ const PrivacyConsentScreen = ({ onConsentGranted, onSkip, showSkip = false }) =>
             <Shield className="w-8 h-8 text-turquoise" />
           </div>
           <h1 className="text-2xl md:text-3xl font-semibold text-slate-900 dark:text-slate-100" style={{ fontFamily: 'IBM Plex Sans' }}>
-            🔒 Your Privacy at MedMatch AI
+            🔒 Your Privacy at MedMatch-AI KARAU AI
           </h1>
           <p className="text-slate-500 dark:text-slate-400 mt-2">
-            To help you land your next role, MedMatch AI uses advanced technology to analyze your experience. 
+            To help you land your next role, MedMatch-AI KARAU AI uses advanced technology to analyze your experience. 
             Here is exactly how we handle your data:
           </p>
         </div>

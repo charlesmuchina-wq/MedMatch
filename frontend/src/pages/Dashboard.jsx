@@ -33,7 +33,7 @@ const TutorialsCard = () => {
               <h3 className="font-semibold">{t("dashboard.watchTutorials") || "Watch Tutorials"}</h3>
             </div>
             <p className="text-teal-100 text-sm mb-3">
-              {t("dashboard.learnWithVideos") || "Learn how to use MedMatch with video guides"}
+              {t("dashboard.learnWithVideos") || "Learn how to use MedMatch-AI KARAU with video guides"}
             </p>
             <Button 
               onClick={() => navigate('/tutorials')}
@@ -310,7 +310,7 @@ const Dashboard = ({ resume, savedJobs, applications, onNavigate, user }) => {
         <h1 className="text-3xl md:text-4xl font-semibold text-slate-900 dark:text-slate-100 tracking-tight" style={{ fontFamily: 'IBM Plex Sans' }} data-testid="welcome-greeting">
           {firstName 
             ? `${t("dashboard.welcomeBack") || "Welcome back"}, ${firstName}` 
-            : t("dashboard.welcomeToMedMatch") || "Welcome to MedMatch"}
+            : t("dashboard.welcomeToMedMatch-AI KARAU") || "Welcome to MedMatch-AI KARAU"}
         </h1>
         <p className="text-slate-500 dark:text-slate-400 mt-2">
           {resume ? (t("dashboard.personalizedDashboard") || "Your personalized job search dashboard") : (t("dashboard.uploadToStart") || "Upload your resume to get started")}
