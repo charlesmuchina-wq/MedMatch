@@ -1,5 +1,5 @@
 """
-MedMatch API Server
+MedMatch-AI KARAU API Server
 Clean, modular FastAPI application with route organization
 Production-ready with AI Supervisor for scaling up to 1M+ concurrent users
 """
@@ -131,7 +131,7 @@ scheduler = AsyncIOScheduler()
 async def lifespan(app: FastAPI):
     """Application lifespan management"""
     # Startup
-    logger.info("🚀 Starting MedMatch API server...")
+    logger.info("🚀 Starting MedMatch-AI KARAU API server...")
     
     # Initialize in-memory cache backend
     FastAPICache.init(InMemoryBackend(), prefix="medmatch-cache")
@@ -170,23 +170,23 @@ async def lifespan(app: FastAPI):
     await ml_collector.initialize(mongo_url, os.environ.get('DB_NAME', 'medmatch'))
     logger.info("🧠 ML Data Collector initialized - Training data collection active")
     
-    logger.info("🚀 MedMatch API server started successfully - Ready for 1M+ users!")
+    logger.info("🚀 MedMatch-AI KARAU API server started successfully - Ready for 1M+ users!")
     
     yield
     
     # Shutdown
-    logger.info("👋 Shutting down MedMatch API server...")
+    logger.info("👋 Shutting down MedMatch-AI KARAU API server...")
     await ai_supervisor.stop()
     await ml_collector.shutdown()
     scheduler.shutdown()
     stop_scheduler()
     client.close()
     response_cache.clear()
-    logger.info("👋 MedMatch API server shutdown complete")
+    logger.info("👋 MedMatch-AI KARAU API server shutdown complete")
 
 # ============== Initialize FastAPI App ==============
 app = FastAPI(
-    title="MedMatch API",
+    title="MedMatch-AI KARAU API",
     description="AI-Powered Job Search Platform with AI Supervisor",
     version="2.2.0",
     lifespan=lifespan
@@ -472,7 +472,7 @@ async def health_check():
     """Health check endpoint"""
     return {
         "status": "healthy",
-        "service": "MedMatch API",
+        "service": "MedMatch-AI KARAU API",
         "version": "2.2.0",
         "ai_supervisor": ai_supervisor.health.value,
         "cache_stats": response_cache.stats()
@@ -636,7 +636,7 @@ async def scheduled_digest_task():
                 
                 success = send_email_gmail(
                     email,
-                    f"🎯 MedMatch Daily Digest: {len(new_jobs[:20])} New Quality Jobs",
+                    f"🎯 MedMatch-AI KARAU Daily Digest: {len(new_jobs[:20])} New Quality Jobs",
                     html_content
                 )
                 
