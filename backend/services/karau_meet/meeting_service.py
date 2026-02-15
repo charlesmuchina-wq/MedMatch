@@ -72,7 +72,8 @@ async def create_meeting(
         "chat_messages": [],
         "ai_notes": [],
         "recordings": [],
-        "breakout_rooms": []
+        "breakout_rooms": [],
+        "waiting_room": []
     }
     
     # Store in database
@@ -82,6 +83,8 @@ async def create_meeting(
     active_meetings[meeting_id] = meeting
     meeting_participants[meeting_id] = {}
     breakout_rooms[meeting_id] = {}
+    waiting_rooms[meeting_id] = {}
+    meeting_locks[meeting_id] = False
     
     logger.info(f"Meeting created: {meeting_id} by {host_name}")
     
@@ -112,6 +115,10 @@ async def get_meeting(meeting_id: str) -> Optional[Dict]:
             meeting_participants[meeting_id] = {}
         if meeting_id not in breakout_rooms:
             breakout_rooms[meeting_id] = {}
+        if meeting_id not in waiting_rooms:
+            waiting_rooms[meeting_id] = {}
+        if meeting_id not in meeting_locks:
+            meeting_locks[meeting_id] = meeting.get("settings", {}).get("lock_meeting", False)
     
     return meeting
 
