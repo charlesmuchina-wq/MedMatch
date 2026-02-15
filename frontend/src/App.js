@@ -26,6 +26,7 @@ import AnalyticsDashboard from "@/pages/AnalyticsDashboard";
 import ResumeProfilesPage from "@/pages/ResumeProfilesPage";
 import VideoInterviewPage from "@/pages/VideoInterviewPage";
 import LoginPage from "@/pages/LoginPage";
+import PortalSelector from "@/pages/PortalSelector";
 import MembershipPage from "@/pages/MembershipPage";
 import RecruiterJobsPage from "@/pages/RecruiterJobsPage";
 import SalaryInsightsPage from "@/pages/SalaryInsightsPage";
