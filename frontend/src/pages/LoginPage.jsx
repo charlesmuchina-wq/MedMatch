@@ -6,7 +6,7 @@ import { useTheme } from "@/App";
 import { useTranslation } from "@/utils/i18n";
 import { 
   Mail, Phone, Lock, User, Loader2, ArrowRight, Eye, EyeOff,
-  Smartphone, Fingerprint
+  Smartphone, Fingerprint, Video
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
