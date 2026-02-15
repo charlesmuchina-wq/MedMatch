@@ -23,12 +23,13 @@ const LANGUAGES = [
 ];
 
 // Presenter images for each video - diverse presenters
+// FIXED Feb 15, 2026: Ensured gender matching with video voice
 const PRESENTER_IMAGES = {
-  "01_jobseeker_features": "/images/presenter_1_black_woman.jpeg",
-  "02_recruiter_features": "/images/presenter_2_pacific_islander.jpeg",
-  "03_privacy_matters": "/images/presenter_3_asian_male.jpeg",
-  "04_faq_ai_compliance": "/images/presenter_4_native_american.jpeg",
-  "05_complete_overview": "/images/presenter_main.jpeg"
+  "01_jobseeker_features": "/images/presenter_1_black_woman.jpeg",      // Female voice (nova)
+  "02_recruiter_features": "/images/presenter_2_pacific_islander.jpeg", // Female voice (nova)
+  "03_privacy_matters": "/images/presenter_male.jpeg",                  // Male voice (onyx) - FIXED: was using asian_male image with wrong voice
+  "04_faq_ai_compliance": "/images/presenter_4_native_american.jpeg",   // Female voice
+  "05_complete_overview": "/images/presenter_main.jpeg"                 // Female voice
 };
 
 // Custom category labels for display
