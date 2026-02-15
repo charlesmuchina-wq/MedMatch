@@ -789,18 +789,21 @@ function AppContent() {
     );
   }
 
-  // Show login page if not authenticated (but allow hash with session_id to pass through)
-  if (!user && !window.location.hash.includes('session_id')) {
+  // Check if we're on the login page specifically
+  const isLoginPage = location.pathname === '/login';
+
+  // Show Portal Selector if not authenticated (except for login page or session_id hash)
+  if (!user && !window.location.hash.includes('session_id') && !isLoginPage) {
     return (
       <>
-        <LoginPage onAuthSuccess={handleAuthSuccess} />
-        <Toaster position="top-right" richColors theme={isDark ? 'dark' : 'light'} />
+        <PortalSelector />
+        <Toaster position="top-right" richColors theme="dark" />
       </>
     );
   }
 
-  // If we have a session_id in hash, show login page to process it
-  if (window.location.hash.includes('session_id')) {
+  // Show login page if on /login route or processing session_id
+  if (!user && (isLoginPage || window.location.hash.includes('session_id'))) {
     return (
       <>
         <LoginPage onAuthSuccess={handleAuthSuccess} />
