@@ -793,10 +793,9 @@ const MeetingRoom = ({ user }) => {
     pc.onicecandidate = (event) => {
       if (event.candidate && wsRef.current) {
         wsRef.current.send(JSON.stringify({
-          type: 'webrtc_signal',
-          target_user_id: userId,
-          signal_type: 'ice-candidate',
-          signal_data: event.candidate
+          type: 'ice_candidate',
+          target: userId,
+          candidate: event.candidate
         }));
       }
     };
@@ -807,10 +806,9 @@ const MeetingRoom = ({ user }) => {
       
       if (wsRef.current) {
         wsRef.current.send(JSON.stringify({
-          type: 'webrtc_signal',
-          target_user_id: userId,
-          signal_type: 'offer',
-          signal_data: offer
+          type: 'offer',
+          target: userId,
+          offer: offer
         }));
       }
     }
