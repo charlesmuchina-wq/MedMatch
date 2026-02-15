@@ -69,7 +69,7 @@ class TestEmailVerificationEndpoint:
             "password": "Swampdrainer2026!"
         })
         if response.status_code == 200:
-            return response.json().get("token")
+            return response.json().get("access_token")
         pytest.skip("Authentication failed - skipping authenticated tests")
         
     def test_send_verification_code_requires_auth(self):
