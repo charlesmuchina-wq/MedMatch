@@ -24,6 +24,8 @@ db = client[DB_NAME]
 active_meetings: Dict[str, Dict] = {}
 meeting_participants: Dict[str, Dict[str, Any]] = {}  # meeting_id -> {user_id: participant_data}
 breakout_rooms: Dict[str, Dict[str, List[str]]] = {}  # meeting_id -> {room_id: [user_ids]}
+waiting_rooms: Dict[str, Dict[str, Any]] = {}  # meeting_id -> {user_id: user_data}
+meeting_locks: Dict[str, bool] = {}  # meeting_id -> is_locked
 
 
 async def create_meeting(
@@ -44,7 +46,10 @@ async def create_meeting(
         "recording_enabled": True,
         "ai_notes_enabled": True,
         "breakout_rooms_enabled": True,
-        "waiting_room_enabled": False,
+        "waiting_room_enabled": True,  # Enabled by default
+        "mute_on_entry": True,         # New: Mute participants on entry
+        "allow_participants_unmute": True,
+        "lock_meeting": False,         # New: Meeting lock status
         "max_participants": 100,
         "e2e_encryption": True
     }
