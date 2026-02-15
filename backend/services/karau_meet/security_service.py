@@ -39,12 +39,12 @@ def generate_verification_code(length: int = 6) -> str:
     return ''.join(random.choices(string.digits, k=length))
 
 
-async def send_verification_email(user_id: str, user_email: str) -> Dict:
+async def send_verification_email(user_id: str, user_email: str, user_name: str = "User") -> Dict:
     """
     Generate and store a verification code for email-based MFA.
-    In production, this would integrate with an email service.
-    For now, it stores the code and returns it (mock mode).
+    Uses Resend email service if configured, otherwise falls back to mock mode.
     """
+    from services.karau_meet.email_service import send_verification_code as send_code_email
     
     code = generate_verification_code()
     expires_at = datetime.now(timezone.utc) + timedelta(minutes=10)
@@ -68,18 +68,31 @@ async def send_verification_email(user_id: str, user_email: str) -> Dict:
     
     await log_security_event(user_id, "verification_code_sent", f"Email verification code sent to {user_email}")
     
-    # In production, send actual email here
-    # For now, return code (MOCK MODE)
-    logger.info(f"[MOCK EMAIL] Verification code for {user_email}: {code}")
+    # Send email using Resend (or mock if not configured)
+    email_result = await send_code_email(
+        to_email=user_email,
+        code=code,
+        user_name=user_name
+    )
     
-    return {
+    is_mock = email_result.get("mock_mode", False)
+    
+    response = {
         "success": True,
         "message": f"Verification code sent to {user_email}",
-        "expires_in_minutes": 10,
-        # MOCK MODE: Include code in response for testing
-        "mock_mode": True,
-        "code": code
+        "expires_in_minutes": 10
     }
+    
+    # Include code in response only in mock mode for testing
+    if is_mock:
+        response["mock_mode"] = True
+        response["code"] = code
+        logger.info(f"[MOCK EMAIL] Verification code for {user_email}: {code}")
+    else:
+        response["email_id"] = email_result.get("email_id")
+        logger.info(f"Verification code email sent to {user_email}")
+    
+    return response
 
 
 async def verify_email_code(user_id: str, code: str) -> Dict:
