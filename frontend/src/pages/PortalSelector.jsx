@@ -29,8 +29,8 @@ const PortalSelector = () => {
       ],
       route: '/login',
       buttonText: 'Enter Job Toolkit',
-      // MedMatch AI logo - medical briefcase with cross
-      logo: 'https://static.prod-images.emergentagent.com/jobs/f139deea-35f2-4b55-91b9-9aab4dc4c84b/images/c8fd6993d17e1d1ee50c4a9b4d72e70ff0a955005b92943bb7226b9c8d245ce5.png'
+      // Official MedMatch AI logo
+      logo: 'https://customer-assets.emergentagent.com/job_f139deea-35f2-4b55-91b9-9aab4dc4c84b/artifacts/9uzkkm0w_MedMatch%20Logo%20-%201MB.png'
     },
     {
       id: 'meeting',
