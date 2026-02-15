@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="19" failures="1" skipped="0" tests="21" time="2.857" timestamp="2026-02-15T14:44:51.684740+00:00" hostname="agent-env-431f8495-43c2-4b1a-8181-ff469be8aa35"><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestAuthentication" name="test_login_success" time="0.339"><failure message="AssertionError: assert 'token' in {'access_token': '_cy1O7dIvsk5YUxn0M4OsdCzGR6-hNvGN9Qe_bSGE4o', 'token_type': 'bearer', 'user': {'auth_method': 'admin', 'created_at': '2026-01-14T13:58:31.077920+00:00', 'email': 'admin@medmatch.com', 'is_admin': True, ...}}">backend/tests/test_karau_comprehensive_iteration78.py:43: in test_login_success
+    assert "token" in data
+E   AssertionError: assert 'token' in {'access_token': '_cy1O7dIvsk5YUxn0M4OsdCzGR6-hNvGN9Qe_bSGE4o', 'token_type': 'bearer', 'user': {'auth_method': 'admin', 'created_at': '2026-01-14T13:58:31.077920+00:00', 'email': 'admin@medmatch.com', 'is_admin': True, ...}}</failure></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestMeetingManagement" name="test_create_meeting" time="0.167"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:59: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestMeetingManagement" name="test_list_meetings" time="0.000"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:59: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestIceServersXirsys" name="test_ice_servers_endpoint" time="1.044" /><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestResendEmailIntegration" name="test_send_verification_code" time="0.163"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:124: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestResendEmailIntegration" name="test_verify_code" time="0.000"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:124: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestSecurityCompliance" name="test_compliance_status" time="0.108"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:178: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestAccessibility" name="test_get_accessibility_settings" time="0.156"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:207: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestAccessibility" name="test_update_accessibility_settings" time="0.000"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:207: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestAIFeatures" name="test_get_transcript" time="0.117"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:241: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestAIFeatures" name="test_generate_summary" time="0.001"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:241: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestAIFeatures" name="test_get_action_items" time="0.000"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:241: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestRecordings" name="test_save_recording_metadata" time="0.147"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:293: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestRecordings" name="test_get_user_recordings" time="0.000"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:293: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestRecordings" name="test_get_recording_stats" time="0.000"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:293: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestScheduling" name="test_schedule_meeting" time="0.142"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:344: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestScheduling" name="test_google_calendar_link" time="0.000"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:344: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestCollaboration" name="test_create_whiteboard" time="0.105"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:401: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestCollaboration" name="test_lock_meeting" time="0.000"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:401: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestWebRTCEndpoints" name="test_room_status" time="0.125"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:444: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase><testcase classname="backend.tests.test_karau_comprehensive_iteration78.TestWebRTCEndpoints" name="test_room_participants" time="0.000"><error message="failed on setup with &quot;KeyError: 'token'&quot;">backend/tests/test_karau_comprehensive_iteration78.py:444: in auth_token
+    return response.json()["token"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'token'</error></testcase></testsuite></testsuites>
