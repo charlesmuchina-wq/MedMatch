@@ -60,20 +60,25 @@ const KarauMeetLogin = ({ onLogin }) => {
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
           backgroundImage: `radial-gradient(circle at 25% 25%, rgba(20, 184, 166, 0.3) 0%, transparent 50%),
-                           radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.3) 0%, transparent 50%)`
+                           radial-gradient(circle at 75% 75%, rgba(212, 175, 55, 0.3) 0%, transparent 50%)`
         }} />
       </div>
       
       <Card className="w-full max-w-md bg-slate-800/80 border-slate-700 backdrop-blur-xl relative z-10">
         <CardHeader className="text-center pb-2">
-          <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-turquoise to-cyan-400 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-turquoise/20">
-            <Video className="w-10 h-10 text-white" />
+          {/* AI KARAU Logo */}
+          <div className="mx-auto mb-4">
+            <img 
+              src="https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg"
+              alt="AI KARAU - The Meeting Place"
+              className="w-32 h-32 rounded-2xl object-cover shadow-lg shadow-teal-500/20"
+            />
           </div>
-          <CardTitle className="text-2xl font-bold text-white">
+          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-teal-400 via-cyan-300 to-amber-400 bg-clip-text text-transparent">
             AI KARAU Meeting
           </CardTitle>
           <CardDescription className="text-slate-400">
-            Secure video conferencing with AI-powered features
+            The Meeting Place - Secure & AI-Powered
           </CardDescription>
         </CardHeader>
         
