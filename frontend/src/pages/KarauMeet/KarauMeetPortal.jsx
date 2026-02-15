@@ -704,19 +704,333 @@ const SchedulePage = () => (
   </div>
 );
 
-const RecordingsPage = () => (
-  <div className="p-6">
-    <h1 className="text-2xl font-bold text-white mb-4">Recordings</h1>
-    <p className="text-slate-400">Access your meeting recordings</p>
-  </div>
-);
+// Recordings Page with actual recording history
+const RecordingsPage = () => {
+  const [recordings, setRecordings] = useState([]);
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-const NotesPage = () => (
-  <div className="p-6">
-    <h1 className="text-2xl font-bold text-white mb-4">Meeting Notes</h1>
-    <p className="text-slate-400">AI-generated notes and transcriptions</p>
-  </div>
-);
+  useEffect(() => {
+    fetchRecordings();
+  }, []);
+
+  const fetchRecordings = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const [recordingsRes, statsRes] = await Promise.all([
+        fetch(`${API}/api/karau-meet/recordings/`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }),
+        fetch(`${API}/api/karau-meet/recordings/stats`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+      ]);
+
+      if (recordingsRes.ok) {
+        const data = await recordingsRes.json();
+        setRecordings(data.recordings || []);
+      }
+      if (statsRes.ok) {
+        setStats(await statsRes.json());
+      }
+    } catch (error) {
+      console.error('Error fetching recordings:', error);
+    }
+    setLoading(false);
+  };
+
+  const formatDuration = (seconds) => {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    if (hrs > 0) return `${hrs}h ${mins}m`;
+    if (mins > 0) return `${mins}m ${secs}s`;
+    return `${secs}s`;
+  };
+
+  const formatFileSize = (bytes) => {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+    if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
+  };
+
+  const deleteRecording = async (recordingId) => {
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`${API}/api/karau-meet/recordings/${recordingId}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        setRecordings(prev => prev.filter(r => r.recording_id !== recordingId));
+        toast.success('Recording deleted');
+      }
+    } catch (error) {
+      toast.error('Failed to delete recording');
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="p-6 flex items-center justify-center">
+        <Loader2 className="w-6 h-6 text-turquoise animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-6 space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-white">Recordings</h1>
+        <p className="text-slate-400">Access your meeting recordings</p>
+      </div>
+
+      {/* Stats */}
+      {stats && (
+        <div className="grid grid-cols-3 gap-4">
+          <Card className="bg-slate-800/50 border-slate-700 p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-violet-500/20 flex items-center justify-center">
+                <Video className="w-5 h-5 text-violet-400" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-white">{stats.total_recordings}</p>
+                <p className="text-xs text-slate-400">Total Recordings</p>
+              </div>
+            </div>
+          </Card>
+          <Card className="bg-slate-800/50 border-slate-700 p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-turquoise/20 flex items-center justify-center">
+                <Clock className="w-5 h-5 text-turquoise" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-white">{formatDuration(stats.total_duration_seconds)}</p>
+                <p className="text-xs text-slate-400">Total Duration</p>
+              </div>
+            </div>
+          </Card>
+          <Card className="bg-slate-800/50 border-slate-700 p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                <Archive className="w-5 h-5 text-amber-400" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold text-white">{formatFileSize(stats.total_size_bytes)}</p>
+                <p className="text-xs text-slate-400">Storage Used</p>
+              </div>
+            </div>
+          </Card>
+        </div>
+      )}
+
+      {/* Recordings List */}
+      <Card className="bg-slate-800/50 border-slate-700">
+        <CardHeader>
+          <CardTitle className="text-white">Your Recordings</CardTitle>
+          <CardDescription className="text-slate-400">
+            Recordings are saved to your local device
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {recordings.length === 0 ? (
+            <div className="text-center py-8">
+              <Video className="w-12 h-12 text-slate-600 mx-auto mb-3" />
+              <p className="text-slate-400">No recordings yet</p>
+              <p className="text-sm text-slate-500">Start recording in a meeting to see them here</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {recordings.map((rec) => (
+                <div key={rec.recording_id} className="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-lg bg-violet-500/20 flex items-center justify-center">
+                      <Video className="w-6 h-6 text-violet-400" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-white">{rec.meeting_title}</p>
+                      <div className="flex items-center gap-3 text-xs text-slate-400">
+                        <span>{new Date(rec.recorded_at).toLocaleDateString()}</span>
+                        <span>•</span>
+                        <span>{formatDuration(rec.duration_seconds)}</span>
+                        <span>•</span>
+                        <span>{formatFileSize(rec.file_size_bytes)}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="text-slate-400 border-slate-600">
+                      Local
+                    </Badge>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => deleteRecording(rec.recording_id)}
+                      className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
+
+// Notes Page with AI summaries and transcripts
+const NotesPage = () => {
+  const [summaries, setSummaries] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedSummary, setSelectedSummary] = useState(null);
+
+  useEffect(() => {
+    fetchNotes();
+  }, []);
+
+  const fetchNotes = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      // Get user's meetings first, then fetch summaries
+      const meetingsRes = await fetch(`${API}/api/karau-meet/meetings`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      
+      if (meetingsRes.ok) {
+        const meetingsData = await meetingsRes.json();
+        const meetings = meetingsData.meetings || [];
+        
+        // Fetch summaries for each meeting
+        const summaryPromises = meetings.slice(0, 20).map(async (meeting) => {
+          try {
+            const res = await fetch(`${API}/api/karau-meet/ai/summary/${meeting.meeting_id}`, {
+              headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (res.ok) {
+              const summary = await res.json();
+              return { ...summary, meeting };
+            }
+          } catch (e) {}
+          return null;
+        });
+        
+        const results = await Promise.all(summaryPromises);
+        setSummaries(results.filter(s => s !== null));
+      }
+    } catch (error) {
+      console.error('Error fetching notes:', error);
+    }
+    setLoading(false);
+  };
+
+  if (loading) {
+    return (
+      <div className="p-6 flex items-center justify-center">
+        <Loader2 className="w-6 h-6 text-turquoise animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-6 space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-white">Meeting Notes</h1>
+        <p className="text-slate-400">AI-generated summaries and transcriptions</p>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Notes List */}
+        <Card className="bg-slate-800/50 border-slate-700">
+          <CardHeader>
+            <CardTitle className="text-white">Recent Summaries</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {summaries.length === 0 ? (
+              <div className="text-center py-8">
+                <FileText className="w-12 h-12 text-slate-600 mx-auto mb-3" />
+                <p className="text-slate-400">No summaries yet</p>
+                <p className="text-sm text-slate-500">AI summaries will appear after meetings end</p>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {summaries.map((item, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setSelectedSummary(item)}
+                    className={`w-full text-left p-3 rounded-lg transition-colors ${
+                      selectedSummary === item
+                        ? 'bg-turquoise/20 border border-turquoise/50'
+                        : 'bg-slate-900/50 hover:bg-slate-900'
+                    }`}
+                  >
+                    <p className="font-medium text-white">{item.meeting_title || 'Meeting'}</p>
+                    <p className="text-xs text-slate-400">
+                      {item.generated_at ? new Date(item.generated_at).toLocaleDateString() : 'Unknown date'}
+                    </p>
+                  </button>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Summary Detail */}
+        <Card className="bg-slate-800/50 border-slate-700">
+          <CardHeader>
+            <CardTitle className="text-white">
+              {selectedSummary ? selectedSummary.meeting_title : 'Select a Summary'}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {selectedSummary ? (
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-sm font-medium text-turquoise mb-2">Summary</h4>
+                  <p className="text-slate-300 text-sm">{selectedSummary.summary}</p>
+                </div>
+                
+                {selectedSummary.key_points?.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium text-turquoise mb-2">Key Points</h4>
+                    <ul className="list-disc list-inside text-slate-300 text-sm space-y-1">
+                      {selectedSummary.key_points.map((point, i) => (
+                        <li key={i}>{point}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                
+                {selectedSummary.action_items?.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium text-amber-400 mb-2">Action Items</h4>
+                    <div className="space-y-2">
+                      {selectedSummary.action_items.map((item, i) => (
+                        <div key={i} className="p-2 bg-slate-900/50 rounded text-sm">
+                          <p className="text-white">{item.task}</p>
+                          <p className="text-xs text-slate-400">
+                            Assignee: {item.assignee} • Due: {item.deadline || 'TBD'}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="text-center py-8 text-slate-500">
+                Select a summary to view details
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+};
 
 const AnalyticsPage = () => (
   <div className="p-6">
