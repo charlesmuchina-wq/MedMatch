@@ -576,6 +576,89 @@ const MeetingRoom = ({ user }) => {
 
   const handleWebSocketMessage = async (message) => {
     switch (message.type) {
+      // Room state when joining
+      case 'room_state':
+        setParticipants(message.participants || []);
+        break;
+        
+      // User joined (from backend signaling)
+      case 'user_joined':
+        setParticipants(message.participants || []);
+        if (message.user_id !== user?.user_id) {
+          await createPeerConnection(message.user_id, true);
+          toast.info(`${message.user_name} joined the meeting`);
+        }
+        break;
+        
+      // User left
+      case 'user_left':
+        setParticipants(message.participants || []);
+        if (peerConnectionsRef.current[message.user_id]) {
+          peerConnectionsRef.current[message.user_id].close();
+          delete peerConnectionsRef.current[message.user_id];
+        }
+        setRemoteStreams(prev => {
+          const updated = { ...prev };
+          delete updated[message.user_id];
+          return updated;
+        });
+        toast.info(`${message.user_name} left the meeting`);
+        break;
+        
+      // Participant state changed (audio/video/screen)
+      case 'participant_state_changed':
+        setParticipants(prev => prev.map(p =>
+          p.user_id === message.user_id ? { ...p, ...message.participant } : p
+        ));
+        break;
+        
+      // WebRTC signaling - offer
+      case 'offer':
+        await handleOffer(message);
+        break;
+        
+      // WebRTC signaling - answer
+      case 'answer':
+        await handleAnswer(message);
+        break;
+        
+      // WebRTC signaling - ICE candidate
+      case 'ice_candidate':
+        await handleIceCandidate(message);
+        break;
+        
+      // Chat message
+      case 'chat':
+        setChatMessages(prev => [...prev, {
+          sender: message.from_name,
+          senderId: message.from_user,
+          message: message.message,
+          timestamp: message.timestamp
+        }]);
+        break;
+        
+      // Emoji reaction
+      case 'reaction':
+        toast(
+          <div className="flex items-center gap-2">
+            <span className="text-2xl">{message.emoji}</span>
+            <span>{message.from_name}</span>
+          </div>,
+          { duration: 2000 }
+        );
+        break;
+        
+      // Host actions
+      case 'host_action':
+        if (message.action === 'mute_request') {
+          toast.warning(`${message.from_host} asked you to mute`);
+        } else if (message.action === 'removed') {
+          toast.error(message.reason);
+          navigate('/karau-meet/dashboard');
+        }
+        break;
+        
+      // Legacy support
       case 'participant_joined':
         setParticipants(prev => [...prev, {
           user_id: message.user_id,
