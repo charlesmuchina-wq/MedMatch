@@ -268,6 +268,8 @@ from routes.karau_scheduling import router as karau_scheduling_router
 from routes.karau_collaboration import router as karau_collaboration_router
 from routes.karau_security import router as karau_security_router
 from routes.karau_accessibility import router as karau_accessibility_router
+from routes.karau_ai import router as karau_ai_router
+from routes.karau_webrtc import router as karau_webrtc_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
