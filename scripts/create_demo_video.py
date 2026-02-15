@@ -10,7 +10,7 @@ from datetime import datetime
 from playwright.async_api import async_playwright
 
 # Configuration
-BASE_URL = "https://aimedfix.preview.emergentagent.com"
+BASE_URL = "https://medmeet-4.preview.emergentagent.com"
 OUTPUT_DIR = "/tmp/medmatch_demo"
 FRAME_DELAY = 800  # ms between frames
 

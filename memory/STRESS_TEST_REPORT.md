@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://aimedfix.preview.emergentagent.com/api
+**API Target:** https://medmeet-4.preview.emergentagent.com/api
 
 ---
 
