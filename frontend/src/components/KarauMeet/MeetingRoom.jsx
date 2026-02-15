@@ -995,9 +995,8 @@ const MeetingRoom = ({ user }) => {
   const sendChatMessage = (message) => {
     if (wsRef.current) {
       wsRef.current.send(JSON.stringify({
-        type: 'chat_message',
-        message: message,
-        message_type: 'text'
+        type: 'chat',
+        message: message
       }));
     }
   };
