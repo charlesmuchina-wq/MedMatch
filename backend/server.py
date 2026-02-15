@@ -335,6 +335,8 @@ app.include_router(global_compliance_router, prefix="/api")
 app.include_router(compliance_alerts_router, prefix="/api")
 app.include_router(audit_reports_router, prefix="/api")
 app.include_router(karau_meet_router, prefix="/api")
+app.include_router(karau_scheduling_router, prefix="/api")
+app.include_router(karau_collaboration_router, prefix="/api")
 
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
