@@ -5,7 +5,8 @@ Smart scheduling with calendar sync (Google, Outlook) and RSVP
 
 import os
 import uuid
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timedelta
+from datetime import timezone as tz
 from typing import Dict, List, Optional, Any
 from motor.motor_asyncio import AsyncIOMotorClient
 import logging
