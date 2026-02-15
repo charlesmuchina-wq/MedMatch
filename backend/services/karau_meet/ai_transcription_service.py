@@ -259,7 +259,7 @@ Please format your response as JSON with the following structure:
             session_id=f"summary_{meeting_id}",
             system_message="You are a professional meeting summarizer. Always respond with valid JSON."
         )
-        llm = llm.with_model("gpt-5.2")
+        llm = llm.with_model("openai", "gpt-5.2")
         
         response_text = await llm.send_message(UserMessage(text=prompt))
         
@@ -421,7 +421,7 @@ Respond with a JSON array of action items:
             session_id=f"actions_{meeting_id}",
             system_message="You extract action items from meeting transcripts. Always respond with valid JSON array."
         )
-        llm = llm.with_model("gpt-5.2")
+        llm = llm.with_model("openai", "gpt-5.2")
         
         response_text = await llm.send_message(UserMessage(text=prompt))
         
