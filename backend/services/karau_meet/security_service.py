@@ -1,6 +1,6 @@
 """
 AI KARAU Meeting - Security & Compliance Service
-MFA, GDPR/HIPAA compliance, and security features
+MFA (Email-based), GDPR/HIPAA compliance, and security features
 """
 
 import os
@@ -8,8 +8,10 @@ import uuid
 import hmac
 import hashlib
 import base64
+import random
+import string
 import pyotp
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Dict, List, Optional, Any
 from motor.motor_asyncio import AsyncIOMotorClient
 import logging
@@ -27,9 +29,120 @@ mfa_settings = db.karau_mfa_settings
 security_logs = db.karau_security_logs
 consent_records = db.karau_consent_records
 data_retention = db.karau_data_retention
+email_verification_codes = db.karau_email_verification_codes
 
 
-# ============ MULTI-FACTOR AUTHENTICATION ============
+# ============ EMAIL-BASED VERIFICATION (Simple MFA) ============
+
+def generate_verification_code(length: int = 6) -> str:
+    """Generate a numeric verification code"""
+    return ''.join(random.choices(string.digits, k=length))
+
+
+async def send_verification_email(user_id: str, user_email: str) -> Dict:
+    """
+    Generate and store a verification code for email-based MFA.
+    In production, this would integrate with an email service.
+    For now, it stores the code and returns it (mock mode).
+    """
+    
+    code = generate_verification_code()
+    expires_at = datetime.now(timezone.utc) + timedelta(minutes=10)
+    
+    verification_data = {
+        "user_id": user_id,
+        "user_email": user_email,
+        "code": code,
+        "expires_at": expires_at.isoformat(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "verified": False,
+        "attempts": 0
+    }
+    
+    # Store the verification code
+    await email_verification_codes.update_one(
+        {"user_id": user_id},
+        {"$set": verification_data},
+        upsert=True
+    )
+    
+    await log_security_event(user_id, "verification_code_sent", f"Email verification code sent to {user_email}")
+    
+    # In production, send actual email here
+    # For now, return code (MOCK MODE)
+    logger.info(f"[MOCK EMAIL] Verification code for {user_email}: {code}")
+    
+    return {
+        "success": True,
+        "message": f"Verification code sent to {user_email}",
+        "expires_in_minutes": 10,
+        # MOCK MODE: Include code in response for testing
+        "mock_mode": True,
+        "code": code
+    }
+
+
+async def verify_email_code(user_id: str, code: str) -> Dict:
+    """Verify an email-based verification code"""
+    
+    verification = await email_verification_codes.find_one({"user_id": user_id})
+    
+    if not verification:
+        return {"success": False, "error": "No verification code found. Request a new one."}
+    
+    # Check if code is expired
+    expires_at = datetime.fromisoformat(verification["expires_at"].replace('Z', '+00:00'))
+    if datetime.now(timezone.utc) > expires_at:
+        return {"success": False, "error": "Verification code expired. Request a new one."}
+    
+    # Check attempts (max 5)
+    attempts = verification.get("attempts", 0)
+    if attempts >= 5:
+        return {"success": False, "error": "Too many failed attempts. Request a new code."}
+    
+    # Verify the code
+    if verification["code"] == code:
+        await email_verification_codes.update_one(
+            {"user_id": user_id},
+            {"$set": {"verified": True, "verified_at": datetime.now(timezone.utc).isoformat()}}
+        )
+        
+        await log_security_event(user_id, "email_verified", "Email verification successful")
+        
+        return {"success": True, "verified": True}
+    
+    # Increment failed attempts
+    await email_verification_codes.update_one(
+        {"user_id": user_id},
+        {"$inc": {"attempts": 1}}
+    )
+    
+    return {
+        "success": False, 
+        "error": "Invalid verification code",
+        "attempts_remaining": max(0, 4 - attempts)
+    }
+
+
+async def get_email_verification_status(user_id: str) -> Dict:
+    """Check if user has verified email recently"""
+    
+    verification = await email_verification_codes.find_one(
+        {"user_id": user_id, "verified": True},
+        {"_id": 0, "code": 0}
+    )
+    
+    if not verification:
+        return {"verified": False}
+    
+    return {
+        "verified": True,
+        "verified_at": verification.get("verified_at"),
+        "email": verification.get("user_email")
+    }
+
+
+# ============ TOTP MULTI-FACTOR AUTHENTICATION (Advanced) ============
 
 async def setup_mfa(user_id: str, user_email: str) -> Dict:
     """Set up MFA for a user - generates TOTP secret"""
