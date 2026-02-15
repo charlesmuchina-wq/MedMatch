@@ -200,7 +200,7 @@ async def generate_meeting_summary(
         Dict with summary, key points, and decisions
     """
     try:
-        from emergentintegrations.llm.openai import LlmChat
+        from emergentintegrations.llm.openai import LlmChat, UserMessage
         
         # Get the meeting transcript
         transcript_data = await get_meeting_transcript(meeting_id)
@@ -216,10 +216,8 @@ async def generate_meeting_summary(
             logger.warning("EMERGENT_LLM_KEY not configured, using mock summary")
             return await _mock_summary(meeting_id, meeting_title, participants or [])
         
-        llm = LlmChat(api_key=EMERGENT_LLM_KEY)
-        
         # Create the prompt for summary generation
-        prompt = f"""You are an AI meeting assistant. Analyze the following meeting transcript and provide:
+        prompt = f"""Analyze the following meeting transcript and provide:
 1. A concise summary (2-3 paragraphs)
 2. Key discussion points (bullet points)
 3. Decisions made (bullet points)
@@ -230,7 +228,7 @@ Meeting Title: {meeting_title}
 Participants: {', '.join(participants or transcript_data.get('speakers', []))}
 
 Transcript:
-{full_transcript[:8000]}  # Limit to avoid token limits
+{full_transcript[:8000]}
 
 Please format your response as JSON with the following structure:
 {{
@@ -242,19 +240,15 @@ Please format your response as JSON with the following structure:
 }}
 """
         
-        # Generate summary with GPT-5.2
-        response = await llm.chat_completion(
-            model="gpt-5.2",
-            messages=[
-                {"role": "system", "content": "You are a professional meeting summarizer. Always respond with valid JSON."},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.3,
-            max_tokens=2000
+        # Generate summary with GPT-5.2 using LlmChat
+        llm = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=f"summary_{meeting_id}",
+            system_message="You are a professional meeting summarizer. Always respond with valid JSON."
         )
+        llm = llm.with_model("gpt-5.2")
         
-        # Parse the response
-        response_text = response.choices[0].message.content
+        response_text = await llm.send_message(UserMessage(text=prompt))
         
         # Try to extract JSON from response
         try:
