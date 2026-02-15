@@ -6,8 +6,8 @@ import {
   Monitor, MonitorOff, MessageSquare, Users, Settings,
   Hand, MoreVertical, Grid, Maximize, Minimize,
   Copy, Share2, Shield, Sparkles, FileText, Loader2,
-  Circle, Square, Image, Blur, Calendar, Download,
-  AlertTriangle, Check, X
+  Circle, Square, Image, Calendar, Download,
+  AlertTriangle, Check, X, Palette
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
