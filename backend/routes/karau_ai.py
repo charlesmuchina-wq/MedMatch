@@ -77,6 +77,9 @@ async def get_transcript_endpoint(
 ):
     """Get full transcript for a meeting"""
     
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
     transcript = await get_meeting_transcript(meeting_id)
     return transcript
 
@@ -101,6 +104,9 @@ async def generate_summary_endpoint(
     - Generates summary, key points, decisions, action items
     """
     
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
     result = await generate_meeting_summary(
         meeting_id=meeting_id,
         meeting_title=request.meeting_title,
@@ -119,6 +125,9 @@ async def get_summary_endpoint(
     user: dict = Depends(get_current_user)
 ):
     """Get summary for a meeting"""
+    
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
     
     summary = await get_meeting_summary(meeting_id)
     
@@ -142,6 +151,9 @@ async def extract_action_items_endpoint(
     - Stores action items for tracking
     """
     
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
     result = await extract_action_items(meeting_id)
     
     if not result.get("success"):
@@ -156,6 +168,9 @@ async def get_action_items_endpoint(
     user: dict = Depends(get_current_user)
 ):
     """Get action items for a meeting"""
+    
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
     
     items = await get_action_items(meeting_id)
     return {"meeting_id": meeting_id, "action_items": items, "count": len(items)}
@@ -172,6 +187,9 @@ async def update_action_item_endpoint(
     user: dict = Depends(get_current_user)
 ):
     """Update action item status"""
+    
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
     
     result = await update_action_item_status(
         action_id=action_id,
