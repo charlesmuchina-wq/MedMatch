@@ -9,6 +9,39 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 
 ## Latest Updates (February 15, 2026)
 
+### AI KARAU Meeting - Phase 3: AI-Driven Tools & WebRTC ✅ (Feb 15, 2026)
+
+**Phase 3: AI-Driven Tools (OpenAI Whisper + GPT-5.2)**
+| Feature | Status | API Endpoint |
+|---------|--------|--------------|
+| Audio Transcription (Whisper) | ✅ | `POST /api/karau-meet/ai/transcribe` |
+| Get Transcript | ✅ | `GET /api/karau-meet/ai/transcript/{meeting_id}` |
+| AI Meeting Summary (GPT-5.2) | ✅ | `POST /api/karau-meet/ai/summary/{meeting_id}` |
+| Get Summary | ✅ | `GET /api/karau-meet/ai/summary/{meeting_id}` |
+| Action Item Extraction | ✅ | `POST /api/karau-meet/ai/action-items/extract/{meeting_id}` |
+| Get Action Items | ✅ | `GET /api/karau-meet/ai/action-items/{meeting_id}` |
+| Update Action Item Status | ✅ | `PUT /api/karau-meet/ai/action-items/{action_id}/status` |
+
+**WebRTC Video/Audio Signaling:**
+| Feature | Status | API Endpoint |
+|---------|--------|--------------|
+| WebSocket Signaling | ✅ | `WS /api/karau-meet/ws/{meeting_id}` |
+| Room Status | ✅ | `GET /api/karau-meet/room/{meeting_id}/status` |
+| Get Participants | ✅ | `GET /api/karau-meet/room/{meeting_id}/participants` |
+| ICE Candidate Exchange | ✅ | Via WebSocket |
+| SDP Offer/Answer | ✅ | Via WebSocket |
+| Chat Messages | ✅ | Via WebSocket |
+| Emoji Reactions | ✅ | Via WebSocket |
+| Host Controls | ✅ | Via WebSocket |
+
+**Files Created:**
+- `/app/backend/routes/karau_ai.py` - AI transcription/summary routes
+- `/app/backend/routes/karau_webrtc.py` - WebRTC signaling routes  
+- `/app/backend/services/karau_meet/ai_transcription_service.py` - Whisper/GPT-5.2 integration
+- `/app/backend/services/karau_meet/webrtc_signaling.py` - Connection manager
+
+---
+
 ### AI KARAU Meeting - Phase 2: Security & Accessibility ✅ (Feb 15, 2026)
 
 **Phase 2: Non-Functional Features**
