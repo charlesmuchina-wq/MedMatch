@@ -484,12 +484,16 @@ const MeetingRoom = ({ user }) => {
   const mediaRecorderRef = useRef(null);
   const recordedChunksRef = useRef([]);
   
-  // WebRTC configuration
+  // WebRTC configuration with multiple STUN servers for better connectivity
   const rtcConfig = {
     iceServers: [
       { urls: 'stun:stun.l.google.com:19302' },
       { urls: 'stun:stun1.l.google.com:19302' },
-    ]
+      { urls: 'stun:stun2.l.google.com:19302' },
+      { urls: 'stun:stun3.l.google.com:19302' },
+      { urls: 'stun:stun4.l.google.com:19302' },
+    ],
+    iceCandidatePoolSize: 10
   };
 
   // Initialize media and join meeting
