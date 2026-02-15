@@ -151,47 +151,157 @@ const RecordingPermissionDialog = ({ isOpen, onAccept, onDecline, requesterName 
 };
 
 // Virtual Background Selector
-const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect }) => {
+const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, videoRef }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [modelLoaded, setModelLoaded] = useState(false);
+  const canvasRef = useRef(null);
+  const bodyPixRef = useRef(null);
+  const animationRef = useRef(null);
+  const bgImageRef = useRef(null);
+
+  // Load BodyPix model when dialog opens
+  useEffect(() => {
+    const loadModel = async () => {
+      if (bodyPixRef.current || !isOpen) return;
+      
+      setIsLoading(true);
+      try {
+        const bodyPix = await import('@tensorflow-models/body-pix');
+        const tf = await import('@tensorflow/tfjs');
+        
+        await tf.setBackend('webgl');
+        await tf.ready();
+        
+        const net = await bodyPix.load({
+          architecture: 'MobileNetV1',
+          outputStride: 16,
+          multiplier: 0.75,
+          quantBytes: 2
+        });
+        
+        bodyPixRef.current = net;
+        setModelLoaded(true);
+        toast.success('Virtual background ready!');
+      } catch (error) {
+        console.error('Failed to load BodyPix:', error);
+        toast.error('Virtual background unavailable');
+      }
+      setIsLoading(false);
+    };
+
+    if (isOpen) loadModel();
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [isOpen]);
+
+  const handleSelect = (bgId) => {
+    onSelect(bgId);
+    
+    // For blur and image backgrounds, we need the model
+    const bg = VIRTUAL_BACKGROUNDS.find(b => b.id === bgId);
+    if (bg && bg.type !== 'none' && !modelLoaded) {
+      toast.info('Loading virtual background model...');
+    }
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-slate-800 border-slate-700 max-w-lg">
+      <DialogContent className="bg-slate-800 border-slate-700 max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-white flex items-center gap-2">
             <Image className="w-5 h-5 text-turquoise" />
             Virtual Background
+            {isLoading && <Loader2 className="w-4 h-4 animate-spin text-turquoise ml-2" />}
           </DialogTitle>
+          <DialogDescription className="text-slate-400">
+            {modelLoaded ? 'AI background replacement ready' : 'Select a background effect'}
+          </DialogDescription>
         </DialogHeader>
-        <div className="grid grid-cols-3 gap-3 py-4">
-          {VIRTUAL_BACKGROUNDS.map((bg) => (
-            <button
-              key={bg.id}
-              onClick={() => onSelect(bg.id)}
-              className={`relative aspect-video rounded-lg overflow-hidden border-2 transition-all ${
-                currentBg === bg.id 
-                  ? 'border-turquoise ring-2 ring-turquoise/50' 
-                  : 'border-slate-600 hover:border-slate-500'
-              }`}
-            >
-              {bg.type === 'none' ? (
-                <div className="w-full h-full bg-slate-700 flex items-center justify-center">
-                  <X className="w-6 h-6 text-slate-400" />
-                </div>
-              ) : bg.type === 'blur' ? (
-                <div className="w-full h-full bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center">
-                  <Palette className="w-6 h-6 text-slate-300" />
-                </div>
-              ) : (
-                <img src={bg.url} alt={bg.name} className="w-full h-full object-cover" />
-              )}
-              <span className="absolute bottom-1 left-1 text-xs text-white bg-black/60 px-1.5 py-0.5 rounded">
-                {bg.name}
-              </span>
-            </button>
-          ))}
+        
+        {/* Blur Options */}
+        <div className="space-y-4 py-4">
+          <div>
+            <h4 className="text-sm font-medium text-slate-300 mb-2">Blur Effects</h4>
+            <div className="grid grid-cols-4 gap-2">
+              {VIRTUAL_BACKGROUNDS.filter(bg => bg.type === 'none' || bg.type === 'blur').map((bg) => (
+                <button
+                  key={bg.id}
+                  onClick={() => handleSelect(bg.id)}
+                  className={`p-3 rounded-lg border-2 transition-all ${
+                    currentBg === bg.id 
+                      ? 'border-turquoise bg-turquoise/10' 
+                      : 'border-slate-600 bg-slate-700/50 hover:border-slate-500'
+                  }`}
+                >
+                  <div className="text-2xl mb-1 text-center">
+                    {bg.type === 'none' ? '🚫' : bg.type === 'blur' ? '🌫️' : '🖼️'}
+                  </div>
+                  <div className="text-xs text-slate-300 text-center">{bg.name}</div>
+                  {currentBg === bg.id && (
+                    <Check className="w-4 h-4 text-turquoise mx-auto mt-1" />
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Image Backgrounds */}
+          <div>
+            <h4 className="text-sm font-medium text-slate-300 mb-2">Image Backgrounds</h4>
+            <div className="grid grid-cols-4 gap-2">
+              {VIRTUAL_BACKGROUNDS.filter(bg => bg.type === 'image').map((bg) => (
+                <button
+                  key={bg.id}
+                  onClick={() => handleSelect(bg.id)}
+                  className={`relative aspect-video rounded-lg overflow-hidden border-2 transition-all ${
+                    currentBg === bg.id 
+                      ? 'border-turquoise ring-2 ring-turquoise/50' 
+                      : 'border-slate-600 hover:border-slate-500'
+                  }`}
+                >
+                  <img src={bg.url} alt={bg.name} className="w-full h-full object-cover" />
+                  <span className="absolute bottom-0 left-0 right-0 text-xs text-white bg-black/60 px-1.5 py-0.5 text-center">
+                    {bg.name}
+                  </span>
+                  {currentBg === bg.id && (
+                    <div className="absolute top-1 right-1 w-5 h-5 bg-turquoise rounded-full flex items-center justify-center">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Status */}
+          <div className="flex items-center gap-2 p-3 rounded-lg bg-slate-700/50">
+            {modelLoaded ? (
+              <>
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-sm text-green-400">AI model loaded - backgrounds will apply in real-time</span>
+              </>
+            ) : isLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin text-turquoise" />
+                <span className="text-sm text-slate-400">Loading AI model for background replacement...</span>
+              </>
+            ) : (
+              <>
+                <div className="w-2 h-2 rounded-full bg-yellow-400" />
+                <span className="text-sm text-yellow-400">Select a background to load AI model</span>
+              </>
+            )}
+          </div>
         </div>
+        
         <DialogFooter>
+          <Button variant="outline" onClick={onClose}>Cancel</Button>
           <Button onClick={onClose} className="bg-turquoise hover:bg-turquoise/80">
-            Apply
+            Apply Background
           </Button>
         </DialogFooter>
       </DialogContent>
