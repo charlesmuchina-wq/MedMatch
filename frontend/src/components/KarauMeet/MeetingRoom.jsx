@@ -548,10 +548,25 @@ const MeetingRoom = ({ user }) => {
 
   // WebSocket connection
   const connectWebSocket = (token) => {
-    const wsUrl = `${API.replace('https://', 'wss://').replace('http://', 'ws://')}/api/karau-meet/ws/${meetingId}?token=${token}&user_id=${user?.user_id}&user_name=${encodeURIComponent(user?.name || user?.email || 'User')}`;
+    const wsUrl = `${API.replace('https://', 'wss://').replace('http://', 'ws://')}/api/karau-meet/ws/${meetingId}?token=${token}&user_name=${encodeURIComponent(user?.name || user?.email || 'User')}&is_host=true`;
     
     const ws = new WebSocket(wsUrl);
     wsRef.current = ws;
+    
+    ws.onopen = () => {
+      console.log('WebSocket connected to meeting:', meetingId);
+      setIsConnected(true);
+    };
+    
+    ws.onclose = () => {
+      console.log('WebSocket disconnected');
+      setIsConnected(false);
+    };
+    
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+      toast.error('Connection error. Trying to reconnect...');
+    };
     
     ws.onmessage = async (event) => {
       const message = JSON.parse(event.data);
