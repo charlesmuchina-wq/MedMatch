@@ -157,16 +157,19 @@ const KarauMeetLogin = ({ onLogin }) => {
                 
                 <Button 
                   type="submit" 
-                  className="w-full h-11 bg-gradient-to-r from-turquoise to-cyan-500 hover:from-turquoise/90 hover:to-cyan-500/90 text-white font-semibold"
+                  className="w-full h-12 bg-turquoise hover:bg-turquoise/90 text-white font-semibold text-base"
                   disabled={isLoading}
                   data-testid="btn-signin"
                 >
                   {isLoading ? (
-                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin mr-2" />
+                      Signing In...
+                    </>
                   ) : (
                     <>
                       <Video className="w-5 h-5 mr-2" />
-                      Sign In to AI KARAU
+                      Sign In
                     </>
                   )}
                 </Button>
