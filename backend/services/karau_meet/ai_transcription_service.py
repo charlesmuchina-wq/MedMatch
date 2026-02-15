@@ -367,7 +367,7 @@ async def extract_action_items(
         Dict with extracted action items
     """
     try:
-        from emergentintegrations.llm.openai import LlmChat
+        from emergentintegrations.llm.openai import LlmChat, UserMessage
         
         # Get transcript if not provided
         if not transcript_text:
@@ -387,8 +387,6 @@ async def extract_action_items(
                 "mock_mode": True
             }
         
-        llm = LlmChat(api_key=EMERGENT_LLM_KEY)
-        
         prompt = f"""Extract action items from this meeting transcript. For each action item, identify:
 1. The task description
 2. The assignee (who should do it)
@@ -404,17 +402,15 @@ Respond with a JSON array of action items:
 ]
 """
         
-        response = await llm.chat_completion(
-            model="gpt-5.2",
-            messages=[
-                {"role": "system", "content": "You extract action items from meeting transcripts. Always respond with valid JSON array."},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.2,
-            max_tokens=1000
+        # Use LlmChat with correct API
+        llm = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=f"actions_{meeting_id}",
+            system_message="You extract action items from meeting transcripts. Always respond with valid JSON array."
         )
+        llm = llm.with_model("gpt-5.2")
         
-        response_text = response.choices[0].message.content
+        response_text = await llm.send_message(UserMessage(text=prompt))
         
         # Parse action items
         try:
