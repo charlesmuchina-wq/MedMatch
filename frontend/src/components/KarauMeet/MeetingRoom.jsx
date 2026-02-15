@@ -984,10 +984,12 @@ const MeetingRoom = ({ user }) => {
   };
 
   const toggleHandRaise = () => {
-    setIsHandRaised(!isHandRaised);
+    const newState = !isHandRaised;
+    setIsHandRaised(newState);
     if (wsRef.current) {
       wsRef.current.send(JSON.stringify({
-        type: isHandRaised ? 'lower_hand' : 'raise_hand'
+        type: 'raise_hand',
+        raised: newState
       }));
     }
   };
