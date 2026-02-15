@@ -315,6 +315,19 @@ const LoginPage = ({ onAuthSuccess }) => {
               </span>
             </button>
           </div>
+          
+          {/* AI KARAU Meeting Quick Join */}
+          <div className="pt-2 border-t border-slate-200 dark:border-slate-700">
+            <Button 
+              variant="outline" 
+              className="w-full h-12 font-medium border-turquoise/30 text-turquoise hover:bg-turquoise/10 hover:text-turquoise"
+              onClick={() => navigate('/karau-meet')}
+              data-testid="karau-meet-btn"
+            >
+              <Video className="w-5 h-5 mr-3" />
+              Join AI KARAU Meeting
+            </Button>
+          </div>
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
