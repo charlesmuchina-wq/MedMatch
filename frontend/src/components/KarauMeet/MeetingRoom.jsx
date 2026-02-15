@@ -469,6 +469,7 @@ const MeetingRoom = ({ user }) => {
   const [showRecordingPermission, setShowRecordingPermission] = useState(false);
   const [recordingRequester, setRecordingRequester] = useState('');
   const [isTranscribing, setIsTranscribing] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
   const [meetingSettings, setMeetingSettings] = useState({
     ai_transcription: true,
     auto_summary: true,
