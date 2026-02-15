@@ -57,7 +57,7 @@ class TestMeetingManagement:
             "password": TEST_PASSWORD
         })
         assert response.status_code == 200
-        return response.json()["token"]
+        return response.json()["access_token"]
     
     @pytest.fixture(scope="class")
     def headers(self, auth_token):
@@ -122,7 +122,7 @@ class TestResendEmailIntegration:
             "password": TEST_PASSWORD
         })
         assert response.status_code == 200
-        return response.json()["token"]
+        return response.json()["access_token"]
     
     @pytest.fixture(scope="class")
     def headers(self, auth_token):
@@ -176,7 +176,7 @@ class TestSecurityCompliance:
             "password": TEST_PASSWORD
         })
         assert response.status_code == 200
-        return response.json()["token"]
+        return response.json()["access_token"]
     
     @pytest.fixture(scope="class")
     def headers(self, auth_token):
@@ -205,7 +205,7 @@ class TestAccessibility:
             "password": TEST_PASSWORD
         })
         assert response.status_code == 200
-        return response.json()["token"]
+        return response.json()["access_token"]
     
     @pytest.fixture(scope="class")
     def headers(self, auth_token):
@@ -239,7 +239,7 @@ class TestAIFeatures:
             "password": TEST_PASSWORD
         })
         assert response.status_code == 200
-        return response.json()["token"]
+        return response.json()["access_token"]
     
     @pytest.fixture(scope="class")
     def headers(self, auth_token):
@@ -291,7 +291,7 @@ class TestRecordings:
             "password": TEST_PASSWORD
         })
         assert response.status_code == 200
-        return response.json()["token"]
+        return response.json()["access_token"]
     
     @pytest.fixture(scope="class")
     def headers(self, auth_token):
@@ -342,7 +342,7 @@ class TestScheduling:
             "password": TEST_PASSWORD
         })
         assert response.status_code == 200
-        return response.json()["token"]
+        return response.json()["access_token"]
     
     @pytest.fixture(scope="class")
     def headers(self, auth_token):
@@ -399,7 +399,7 @@ class TestCollaboration:
             "password": TEST_PASSWORD
         })
         assert response.status_code == 200
-        return response.json()["token"]
+        return response.json()["access_token"]
     
     @pytest.fixture(scope="class")
     def headers(self, auth_token):
@@ -442,7 +442,7 @@ class TestWebRTCEndpoints:
             "password": TEST_PASSWORD
         })
         assert response.status_code == 200
-        return response.json()["token"]
+        return response.json()["access_token"]
     
     @pytest.fixture(scope="class")
     def headers(self, auth_token):
