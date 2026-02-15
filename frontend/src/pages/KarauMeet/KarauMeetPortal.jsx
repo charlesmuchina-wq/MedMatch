@@ -179,11 +179,20 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
       <div className="h-16 flex items-center justify-between px-4 border-b border-slate-700">
         {!isCollapsed && (
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-turquoise to-cyan-400 flex items-center justify-center">
-              <Video className="w-4 h-4 text-white" />
-            </div>
-            <span className="font-semibold text-white">AI KARAU</span>
+            <img 
+              src="https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg"
+              alt="AI KARAU"
+              className="w-8 h-8 rounded-lg object-cover"
+            />
+            <span className="font-semibold bg-gradient-to-r from-teal-400 to-amber-400 bg-clip-text text-transparent">AI KARAU</span>
           </div>
+        )}
+        {isCollapsed && (
+          <img 
+            src="https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg"
+            alt="AI KARAU"
+            className="w-8 h-8 rounded-lg object-cover mx-auto"
+          />
         )}
         <Button
           variant="ghost"
