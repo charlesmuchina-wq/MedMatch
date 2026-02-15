@@ -9,6 +9,40 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 
 ## Latest Updates (February 15, 2026)
 
+### AI KARAU Meeting - WebRTC & Recording Features ✅ (Feb 15, 2026)
+
+**WebRTC Video/Audio:**
+| Feature | Status | Details |
+|---------|--------|---------|
+| WebSocket Signaling | ✅ | Full peer-to-peer connection setup |
+| 5x Google STUN Servers | ✅ | For NAT traversal |
+| ICE Candidate Exchange | ✅ | Via WebSocket |
+| SDP Offer/Answer | ✅ | Via WebSocket |
+| Chat Messages | ✅ | Real-time via WebSocket |
+| Emoji Reactions | ✅ | Broadcast to all participants |
+| Connection State Tracking | ✅ | isConnected state |
+
+**Browser-Side Recording:**
+| Feature | Status | API Endpoint |
+|---------|--------|--------------|
+| MediaRecorder Recording | ✅ | Browser API |
+| Auto-download on Stop | ✅ | Blob URL download |
+| Save Recording Metadata | ✅ | `POST /api/karau-meet/recordings/metadata` |
+| Get User Recordings | ✅ | `GET /api/karau-meet/recordings/` |
+| Get Recording Stats | ✅ | `GET /api/karau-meet/recordings/stats` |
+| Delete Recording | ✅ | `DELETE /api/karau-meet/recordings/{id}` |
+
+**Enhanced Pages:**
+| Page | Features |
+|------|----------|
+| RecordingsPage | Stats dashboard (count, duration, size), recordings list with delete |
+| NotesPage | AI summaries list, summary detail view with key points & action items |
+
+**Files Created:**
+- `/app/backend/routes/karau_recordings.py` - Recordings metadata API
+
+---
+
 ### AI KARAU Meeting - Phase 3: AI-Driven Tools & WebRTC ✅ (Feb 15, 2026)
 
 **Phase 3: AI-Driven Tools (OpenAI Whisper + GPT-5.2)**
