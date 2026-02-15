@@ -9,6 +9,41 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 
 ## Latest Updates (February 15, 2026)
 
+### WebRTC, Animations & Mobile Responsiveness ✅ (Feb 15, 2026)
+
+**WebRTC Video Call Testing:**
+| Test | Status |
+|------|--------|
+| WebSocket connection | ✅ PASSED |
+| Room state on connect | ✅ PASSED |
+| Ping/pong keep-alive | ✅ PASSED |
+| Chat messages | ✅ PASSED |
+| Guest connection | ✅ PASSED |
+| State updates broadcast | ✅ PASSED |
+
+**Portal Card Animations:**
+| Animation | Description |
+|-----------|-------------|
+| Hover Lift | Cards lift 12px and scale 1.02 on hover |
+| Glow Shadow | Turquoise glow for Job Toolkit, violet for Meeting |
+| Shimmer Effect | Animated gradient shine sweeps across card |
+| Icon Pulse | Icons gently pulse on hover |
+| Feature Stagger | Features animate in sequence |
+| CTA Shine | Button has shine sweep effect on hover |
+
+**Mobile Responsiveness:**
+| Breakpoint | Layout |
+|------------|--------|
+| Mobile (<768px) | Cards stacked vertically |
+| Tablet (768px+) | Cards side by side |
+| Desktop (1024px+) | Cards side by side with more spacing |
+
+**Fixed Issues:**
+- Removed duplicate WebSocket endpoint from karau_meet.py
+- Fixed JWT_SECRET_KEY environment variable name in karau_webrtc.py
+
+---
+
 ### Portal Selector - Clean UX Landing Page ✅ (Feb 15, 2026)
 
 **New User Flow:**
