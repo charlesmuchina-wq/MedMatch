@@ -78,13 +78,21 @@ async def transcribe_audio(
             timestamp_granularities=["segment"]
         )
         
+        # Handle response - could be dict or object
+        if isinstance(response, dict):
+            text = response.get("text", "")
+            segments = response.get("segments", [])
+        else:
+            text = getattr(response, 'text', "")
+            segments = getattr(response, 'segments', [])
+        
         # Create transcript entry
         transcript_entry = {
             "transcript_id": str(uuid.uuid4())[:12],
             "meeting_id": meeting_id,
             "speaker_id": speaker_id,
             "speaker_name": speaker_name,
-            "text": response.text,
+            "text": text,
             "language": language,
             "segments": [],
             "confidence": 1.0,
@@ -93,17 +101,22 @@ async def transcribe_audio(
         }
         
         # Extract segments if available
-        if hasattr(response, 'segments') and response.segments:
-            transcript_entry["segments"] = [
-                {
-                    "start": seg.start,
-                    "end": seg.end,
-                    "text": seg.text
-                }
-                for seg in response.segments
-            ]
-            if response.segments:
-                transcript_entry["duration_seconds"] = response.segments[-1].end
+        if segments:
+            for seg in segments:
+                if isinstance(seg, dict):
+                    transcript_entry["segments"].append({
+                        "start": seg.get("start", 0),
+                        "end": seg.get("end", 0),
+                        "text": seg.get("text", "")
+                    })
+                else:
+                    transcript_entry["segments"].append({
+                        "start": getattr(seg, 'start', 0),
+                        "end": getattr(seg, 'end', 0),
+                        "text": getattr(seg, 'text', "")
+                    })
+            if transcript_entry["segments"]:
+                transcript_entry["duration_seconds"] = transcript_entry["segments"][-1]["end"]
         
         # Store in database
         await transcripts.insert_one(transcript_entry)
@@ -111,7 +124,7 @@ async def transcribe_audio(
         # Remove MongoDB _id before returning
         transcript_entry.pop("_id", None)
         
-        logger.info(f"Transcribed {len(response.text)} chars for meeting {meeting_id}")
+        logger.info(f"Transcribed {len(text)} chars for meeting {meeting_id}")
         
         return {
             "success": True,
