@@ -937,11 +937,6 @@ function AppContent() {
             <Route path="/help" element={<VideoTutorialsPage />} />
             <Route path="/psv" element={<PSVVerificationPage />} />
             <Route path="/verification-hub" element={<PSVVerificationPage />} />
-            
-            {/* AI KARAU Meeting */}
-            <Route path="/karau-meet" element={<KarauMeetLanding user={user} />} />
-            <Route path="/karau-meet/room/:meetingId" element={<MeetingRoom user={user} />} />
-            <Route path="/karau-meet/join/:meetingId" element={<MeetingRoom user={user} />} />
           </Routes>
         </main>
       </div>
