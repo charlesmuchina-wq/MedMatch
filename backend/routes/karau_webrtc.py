@@ -15,7 +15,7 @@ from routes.auth import get_current_user
 
 router = APIRouter(prefix="/karau-meet", tags=["AI KARAU WebRTC"])
 
-JWT_SECRET = os.environ.get("JWT_SECRET", "your-secret-key-change-in-production")
+JWT_SECRET = os.environ.get("JWT_SECRET_KEY", "your-secret-key-change-in-production")
 
 
 def verify_token(token: str) -> Optional[dict]:
