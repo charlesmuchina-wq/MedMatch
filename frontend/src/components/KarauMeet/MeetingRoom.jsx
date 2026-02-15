@@ -230,10 +230,10 @@ const ChatPanel = ({ messages, onSendMessage }) => {
         <div className="space-y-3">
           {messages.map((msg, idx) => (
             <div key={idx} className="text-sm">
-              <span className="font-medium text-turquoise">{msg.user_name}: </span>
+              <span className="font-medium text-turquoise">{msg.sender || msg.user_name}: </span>
               <span className="text-slate-300">{msg.message}</span>
               <span className="text-xs text-slate-500 ml-2">
-                {new Date(msg.timestamp).toLocaleTimeString()}
+                {msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : ''}
               </span>
             </div>
           ))}
