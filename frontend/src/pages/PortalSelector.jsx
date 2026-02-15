@@ -28,7 +28,9 @@ const PortalSelector = () => {
         { icon: Users, text: 'Recruiter Network' },
       ],
       route: '/login',
-      buttonText: 'Enter Job Toolkit'
+      buttonText: 'Enter Job Toolkit',
+      // MedMatch logo - turquoise medical briefcase icon
+      logoText: 'MM'
     },
     {
       id: 'meeting',
