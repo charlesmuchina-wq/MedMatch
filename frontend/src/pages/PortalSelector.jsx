@@ -226,6 +226,15 @@ const PortalSelector = () => {
                         alt={portal.title}
                         className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-cover shadow-lg ring-2 ring-white/10"
                       />
+                    ) : portal.logoText ? (
+                      <div className={`
+                        w-14 h-14 sm:w-16 sm:h-16 rounded-xl 
+                        bg-gradient-to-br ${portal.gradient} 
+                        flex items-center justify-center shadow-lg
+                        ring-2 ring-white/10
+                      `}>
+                        <span className="text-xl sm:text-2xl font-bold text-white">{portal.logoText}</span>
+                      </div>
                     ) : (
                       <div className={`
                         w-14 h-14 sm:w-16 sm:h-16 rounded-xl 
