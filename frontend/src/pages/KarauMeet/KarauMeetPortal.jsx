@@ -277,7 +277,7 @@ const KarauMeetLogin = ({ onLogin }) => {
           
           <div className="text-center">
             <Link to="/" className="text-sm text-slate-400 hover:text-turquoise transition-colors">
-              ← Back to MedMatch-AI KARAU
+              ← Back to Portal Selection
             </Link>
           </div>
         </CardContent>
