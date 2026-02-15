@@ -5,19 +5,35 @@ import {
   Video, VideoOff, Mic, MicOff, Phone, PhoneOff,
   Monitor, MonitorOff, MessageSquare, Users, Settings,
   Hand, MoreVertical, Grid, Maximize, Minimize,
-  Copy, Share2, Shield, Sparkles, FileText, Loader2
+  Copy, Share2, Shield, Sparkles, FileText, Loader2,
+  Circle, Square, Image, Blur, Calendar, Download,
+  AlertTriangle, Check, X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-// Video participant component
-const VideoParticipant = ({ participant, isLocal, stream, isSpeaking }) => {
+// Virtual Background Options
+const VIRTUAL_BACKGROUNDS = [
+  { id: 'none', name: 'None', type: 'none' },
+  { id: 'blur', name: 'Blur', type: 'blur' },
+  { id: 'office', name: 'Office', type: 'image', url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800' },
+  { id: 'nature', name: 'Nature', type: 'image', url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800' },
+  { id: 'abstract', name: 'Abstract', type: 'image', url: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=800' },
+  { id: 'city', name: 'City', type: 'image', url: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800' },
+];
+
+// Video participant component with virtual background support
+const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg }) => {
   const videoRef = useRef(null);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     if (videoRef.current && stream) {
@@ -25,18 +41,33 @@ const VideoParticipant = ({ participant, isLocal, stream, isSpeaking }) => {
     }
   }, [stream]);
 
+  // Apply virtual background effect (simplified - real implementation would use ML)
+  useEffect(() => {
+    if (isLocal && virtualBg && virtualBg !== 'none' && canvasRef.current && videoRef.current) {
+      // In production, use TensorFlow.js or MediaPipe for segmentation
+      // This is a placeholder for the blur effect
+      if (virtualBg === 'blur') {
+        canvasRef.current.style.filter = 'blur(0px)';
+        canvasRef.current.style.backdropFilter = 'blur(10px)';
+      }
+    }
+  }, [virtualBg, isLocal]);
+
   return (
     <div className={`relative rounded-xl overflow-hidden bg-slate-900 ${isSpeaking ? 'ring-2 ring-turquoise' : ''}`}>
       {participant?.video_enabled && stream ? (
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          muted={isLocal}
-          className="w-full h-full object-cover"
-        />
+        <>
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted={isLocal}
+            className="w-full h-full object-cover"
+          />
+          <canvas ref={canvasRef} className="hidden" />
+        </>
       ) : (
-        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
+        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 min-h-[200px]">
           <div className="w-20 h-20 rounded-full bg-turquoise/20 flex items-center justify-center">
             <span className="text-3xl font-bold text-turquoise">
               {participant?.user_name?.charAt(0)?.toUpperCase() || '?'}
@@ -68,7 +99,103 @@ const VideoParticipant = ({ participant, isLocal, stream, isSpeaking }) => {
           Host
         </Badge>
       )}
+      
+      {/* Recording indicator */}
+      {participant?.is_recording && (
+        <Badge className="absolute top-3 right-3 bg-red-500 text-white border-0 animate-pulse">
+          <Circle className="w-2 h-2 mr-1 fill-current" />
+          REC
+        </Badge>
+      )}
     </div>
+  );
+};
+
+// Recording Permission Dialog
+const RecordingPermissionDialog = ({ isOpen, onAccept, onDecline, requesterName }) => {
+  return (
+    <Dialog open={isOpen} onOpenChange={() => {}}>
+      <DialogContent className="bg-slate-800 border-slate-700">
+        <DialogHeader>
+          <DialogTitle className="text-white flex items-center gap-2">
+            <Circle className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" />
+            Recording Permission Request
+          </DialogTitle>
+          <DialogDescription className="text-slate-300">
+            <strong>{requesterName}</strong> wants to record this meeting. 
+            The recording will capture video, audio, and screen shares.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="py-4">
+          <div className="flex items-start gap-3 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+            <AlertTriangle className="w-5 h-5 text-yellow-500 mt-0.5" />
+            <div className="text-sm text-slate-300">
+              <p className="font-medium text-yellow-500 mb-1">Privacy Notice</p>
+              <p>By accepting, you consent to being recorded. You can leave the meeting if you don't wish to be recorded.</p>
+            </div>
+          </div>
+        </div>
+        <DialogFooter className="gap-2">
+          <Button variant="outline" onClick={onDecline} className="text-slate-300 border-slate-600">
+            <X className="w-4 h-4 mr-2" />
+            Decline & Leave
+          </Button>
+          <Button onClick={onAccept} className="bg-turquoise hover:bg-turquoise/80">
+            <Check className="w-4 h-4 mr-2" />
+            Accept Recording
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+// Virtual Background Selector
+const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect }) => {
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="bg-slate-800 border-slate-700 max-w-lg">
+        <DialogHeader>
+          <DialogTitle className="text-white flex items-center gap-2">
+            <Image className="w-5 h-5 text-turquoise" />
+            Virtual Background
+          </DialogTitle>
+        </DialogHeader>
+        <div className="grid grid-cols-3 gap-3 py-4">
+          {VIRTUAL_BACKGROUNDS.map((bg) => (
+            <button
+              key={bg.id}
+              onClick={() => onSelect(bg.id)}
+              className={`relative aspect-video rounded-lg overflow-hidden border-2 transition-all ${
+                currentBg === bg.id 
+                  ? 'border-turquoise ring-2 ring-turquoise/50' 
+                  : 'border-slate-600 hover:border-slate-500'
+              }`}
+            >
+              {bg.type === 'none' ? (
+                <div className="w-full h-full bg-slate-700 flex items-center justify-center">
+                  <X className="w-6 h-6 text-slate-400" />
+                </div>
+              ) : bg.type === 'blur' ? (
+                <div className="w-full h-full bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center">
+                  <Blur className="w-6 h-6 text-slate-300" />
+                </div>
+              ) : (
+                <img src={bg.url} alt={bg.name} className="w-full h-full object-cover" />
+              )}
+              <span className="absolute bottom-1 left-1 text-xs text-white bg-black/60 px-1.5 py-0.5 rounded">
+                {bg.name}
+              </span>
+            </button>
+          ))}
+        </div>
+        <DialogFooter>
+          <Button onClick={onClose} className="bg-turquoise hover:bg-turquoise/80">
+            Apply
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
 
@@ -131,39 +258,68 @@ const ChatPanel = ({ messages, onSendMessage }) => {
   );
 };
 
-// AI Notes panel
-const AINotesPanel = ({ notes }) => {
+// AI Notes panel with transcription
+const AINotesPanel = ({ notes, isTranscribing }) => {
   return (
     <div className="flex flex-col h-full">
       <div className="p-3 border-b border-slate-700">
         <h3 className="font-semibold text-white flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-turquoise" />
           AI Notes
+          {isTranscribing && (
+            <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
+              <Circle className="w-2 h-2 mr-1 fill-current animate-pulse" />
+              Live
+            </Badge>
+          )}
         </h3>
       </div>
       
       <ScrollArea className="flex-1 p-3">
         <div className="space-y-3">
           {notes.length === 0 ? (
-            <p className="text-slate-400 text-sm">AI notes will appear here during the meeting...</p>
+            <div className="text-center py-8">
+              <Sparkles className="w-8 h-8 text-slate-600 mx-auto mb-2" />
+              <p className="text-slate-400 text-sm">AI notes will appear here during the meeting...</p>
+              <p className="text-slate-500 text-xs mt-1">Transcription, summaries, and action items</p>
+            </div>
           ) : (
             notes.map((note, idx) => (
               <div key={idx} className="p-2 bg-slate-800 rounded-lg text-sm">
-                <Badge className="mb-1 text-xs" variant="outline">
+                <Badge className={`mb-1 text-xs ${
+                  note.type === 'transcription' ? 'bg-blue-500/20 text-blue-400' :
+                  note.type === 'summary' ? 'bg-purple-500/20 text-purple-400' :
+                  note.type === 'action_item' ? 'bg-orange-500/20 text-orange-400' :
+                  'bg-slate-500/20 text-slate-400'
+                }`} variant="outline">
                   {note.type}
                 </Badge>
                 <p className="text-slate-300">{note.content}</p>
+                <span className="text-xs text-slate-500">
+                  {new Date(note.timestamp).toLocaleTimeString()}
+                </span>
               </div>
             ))
           )}
         </div>
       </ScrollArea>
+      
+      <div className="p-3 border-t border-slate-700 space-y-2">
+        <Button variant="outline" size="sm" className="w-full text-slate-300 border-slate-600">
+          <FileText className="w-4 h-4 mr-2" />
+          Generate Summary
+        </Button>
+        <Button variant="outline" size="sm" className="w-full text-slate-300 border-slate-600">
+          <Download className="w-4 h-4 mr-2" />
+          Export Notes
+        </Button>
+      </div>
     </div>
   );
 };
 
 // Participants panel
-const ParticipantsPanel = ({ participants }) => {
+const ParticipantsPanel = ({ participants, onMuteParticipant, isHost }) => {
   return (
     <div className="flex flex-col h-full">
       <div className="p-3 border-b border-slate-700">
@@ -183,8 +339,10 @@ const ParticipantsPanel = ({ participants }) => {
                     {p.user_name?.charAt(0)?.toUpperCase()}
                   </span>
                 </div>
-                <span className="text-sm text-white">{p.user_name}</span>
-                {p.is_host && <Badge className="text-xs">Host</Badge>}
+                <div>
+                  <span className="text-sm text-white">{p.user_name}</span>
+                  {p.is_host && <Badge className="text-xs ml-2">Host</Badge>}
+                </div>
               </div>
               <div className="flex items-center gap-1">
                 {p.video_enabled ? (
@@ -197,9 +355,90 @@ const ParticipantsPanel = ({ participants }) => {
                 ) : (
                   <MicOff className="w-4 h-4 text-red-400" />
                 )}
+                {isHost && !p.is_host && (
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="h-6 w-6 p-0 text-slate-400 hover:text-white"
+                    onClick={() => onMuteParticipant(p.user_id)}
+                  >
+                    <MoreVertical className="w-4 h-4" />
+                  </Button>
+                )}
               </div>
             </div>
           ))}
+        </div>
+      </ScrollArea>
+      
+      {isHost && (
+        <div className="p-3 border-t border-slate-700">
+          <Button variant="outline" size="sm" className="w-full text-slate-300 border-slate-600">
+            <Users className="w-4 h-4 mr-2" />
+            Create Breakout Rooms
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Settings panel
+const SettingsPanel = ({ settings, onUpdateSettings }) => {
+  return (
+    <div className="flex flex-col h-full">
+      <div className="p-3 border-b border-slate-700">
+        <h3 className="font-semibold text-white flex items-center gap-2">
+          <Settings className="w-4 h-4" />
+          Settings
+        </h3>
+      </div>
+      
+      <ScrollArea className="flex-1 p-3">
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <Label className="text-white">AI Transcription</Label>
+              <p className="text-xs text-slate-500">Real-time speech to text</p>
+            </div>
+            <Switch 
+              checked={settings.ai_transcription} 
+              onCheckedChange={(checked) => onUpdateSettings({ ai_transcription: checked })}
+            />
+          </div>
+          
+          <div className="flex items-center justify-between">
+            <div>
+              <Label className="text-white">Auto-generate Summary</Label>
+              <p className="text-xs text-slate-500">Create meeting summary at end</p>
+            </div>
+            <Switch 
+              checked={settings.auto_summary} 
+              onCheckedChange={(checked) => onUpdateSettings({ auto_summary: checked })}
+            />
+          </div>
+          
+          <div className="flex items-center justify-between">
+            <div>
+              <Label className="text-white">Noise Cancellation</Label>
+              <p className="text-xs text-slate-500">Reduce background noise</p>
+            </div>
+            <Switch 
+              checked={settings.noise_cancellation} 
+              onCheckedChange={(checked) => onUpdateSettings({ noise_cancellation: checked })}
+            />
+          </div>
+          
+          <div className="flex items-center justify-between">
+            <div>
+              <Label className="text-white">HD Video</Label>
+              <p className="text-xs text-slate-500">Higher quality video (uses more bandwidth)</p>
+            </div>
+            <Switch 
+              checked={settings.hd_video} 
+              onCheckedChange={(checked) => onUpdateSettings({ hd_video: checked })}
+            />
+          </div>
         </div>
       </ScrollArea>
     </div>
@@ -221,15 +460,28 @@ const MeetingRoom = ({ user }) => {
   const [isAudioEnabled, setIsAudioEnabled] = useState(true);
   const [isScreenSharing, setIsScreenSharing] = useState(false);
   const [isHandRaised, setIsHandRaised] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
   const [chatMessages, setChatMessages] = useState([]);
   const [aiNotes, setAiNotes] = useState([]);
-  const [activePanel, setActivePanel] = useState(null); // 'chat', 'participants', 'ai-notes'
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [activePanel, setActivePanel] = useState(null);
+  const [virtualBackground, setVirtualBackground] = useState('none');
+  const [showBgSelector, setShowBgSelector] = useState(false);
+  const [showRecordingPermission, setShowRecordingPermission] = useState(false);
+  const [recordingRequester, setRecordingRequester] = useState('');
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const [meetingSettings, setMeetingSettings] = useState({
+    ai_transcription: true,
+    auto_summary: true,
+    noise_cancellation: true,
+    hd_video: false
+  });
   
   // Refs
   const wsRef = useRef(null);
   const peerConnectionsRef = useRef({});
   const localStreamRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
+  const recordedChunksRef = useRef([]);
   
   // WebRTC configuration
   const rtcConfig = {
@@ -243,15 +495,13 @@ const MeetingRoom = ({ user }) => {
   useEffect(() => {
     const initMeeting = async () => {
       try {
-        // Get user media
         const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-          audio: true
+          video: { width: 1280, height: 720 },
+          audio: { echoCancellation: true, noiseSuppression: true }
         });
         setLocalStream(stream);
         localStreamRef.current = stream;
         
-        // Join meeting via API
         const token = localStorage.getItem('token');
         const response = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/join`, {
           method: 'POST',
@@ -265,23 +515,19 @@ const MeetingRoom = ({ user }) => {
           })
         });
         
-        if (!response.ok) {
-          throw new Error('Failed to join meeting');
-        }
+        if (!response.ok) throw new Error('Failed to join meeting');
         
         const data = await response.json();
         setMeeting(data.meeting);
         setParticipants(data.other_participants || []);
         
-        // Connect WebSocket
         connectWebSocket(token);
-        
         setIsConnecting(false);
         toast.success('Joined meeting successfully!');
         
       } catch (error) {
         console.error('Error joining meeting:', error);
-        toast.error('Failed to join meeting');
+        toast.error('Failed to join meeting. Please check camera/microphone permissions.');
         setIsConnecting(false);
       }
     };
@@ -289,14 +535,14 @@ const MeetingRoom = ({ user }) => {
     initMeeting();
     
     return () => {
-      // Cleanup
       if (localStreamRef.current) {
         localStreamRef.current.getTracks().forEach(track => track.stop());
       }
-      if (wsRef.current) {
-        wsRef.current.close();
-      }
+      if (wsRef.current) wsRef.current.close();
       Object.values(peerConnectionsRef.current).forEach(pc => pc.close());
+      if (mediaRecorderRef.current && isRecording) {
+        mediaRecorderRef.current.stop();
+      }
     };
   }, [meetingId]);
 
@@ -307,25 +553,12 @@ const MeetingRoom = ({ user }) => {
     const ws = new WebSocket(wsUrl);
     wsRef.current = ws;
     
-    ws.onopen = () => {
-      console.log('WebSocket connected');
-    };
-    
     ws.onmessage = async (event) => {
       const message = JSON.parse(event.data);
       handleWebSocketMessage(message);
     };
-    
-    ws.onclose = () => {
-      console.log('WebSocket disconnected');
-    };
-    
-    ws.onerror = (error) => {
-      console.error('WebSocket error:', error);
-    };
   };
 
-  // Handle WebSocket messages
   const handleWebSocketMessage = async (message) => {
     switch (message.type) {
       case 'participant_joined':
@@ -335,14 +568,12 @@ const MeetingRoom = ({ user }) => {
           video_enabled: true,
           audio_enabled: true
         }]);
-        // Create peer connection for new participant
         await createPeerConnection(message.user_id, true);
         toast.info(`${message.user_name} joined the meeting`);
         break;
         
       case 'participant_left':
         setParticipants(prev => prev.filter(p => p.user_id !== message.user_id));
-        // Close peer connection
         if (peerConnectionsRef.current[message.user_id]) {
           peerConnectionsRef.current[message.user_id].close();
           delete peerConnectionsRef.current[message.user_id];
@@ -372,8 +603,19 @@ const MeetingRoom = ({ user }) => {
         await handleWebRTCSignal(message);
         break;
         
-      case 'hand_raised':
-        toast.info(`${message.user_name} raised their hand`);
+      case 'recording_request':
+        setRecordingRequester(message.requester_name);
+        setShowRecordingPermission(true);
+        break;
+        
+      case 'recording_started':
+        setIsRecording(true);
+        toast.info('Recording has started');
+        break;
+        
+      case 'recording_stopped':
+        setIsRecording(false);
+        toast.info('Recording has stopped');
         break;
         
       case 'meeting_ended':
@@ -383,27 +625,20 @@ const MeetingRoom = ({ user }) => {
     }
   };
 
-  // Create peer connection
   const createPeerConnection = async (userId, initiator = false) => {
     const pc = new RTCPeerConnection(rtcConfig);
     peerConnectionsRef.current[userId] = pc;
     
-    // Add local tracks
     if (localStreamRef.current) {
       localStreamRef.current.getTracks().forEach(track => {
         pc.addTrack(track, localStreamRef.current);
       });
     }
     
-    // Handle incoming tracks
     pc.ontrack = (event) => {
-      setRemoteStreams(prev => ({
-        ...prev,
-        [userId]: event.streams[0]
-      }));
+      setRemoteStreams(prev => ({ ...prev, [userId]: event.streams[0] }));
     };
     
-    // Handle ICE candidates
     pc.onicecandidate = (event) => {
       if (event.candidate && wsRef.current) {
         wsRef.current.send(JSON.stringify({
@@ -415,7 +650,6 @@ const MeetingRoom = ({ user }) => {
       }
     };
     
-    // Create and send offer if initiator
     if (initiator) {
       const offer = await pc.createOffer();
       await pc.setLocalDescription(offer);
@@ -433,10 +667,8 @@ const MeetingRoom = ({ user }) => {
     return pc;
   };
 
-  // Handle WebRTC signaling
   const handleWebRTCSignal = async (message) => {
     const { from_user_id, signal_type, signal_data } = message;
-    
     let pc = peerConnectionsRef.current[from_user_id];
     
     if (!pc && signal_type === 'offer') {
@@ -450,7 +682,6 @@ const MeetingRoom = ({ user }) => {
         await pc.setRemoteDescription(new RTCSessionDescription(signal_data));
         const answer = await pc.createAnswer();
         await pc.setLocalDescription(answer);
-        
         if (wsRef.current) {
           wsRef.current.send(JSON.stringify({
             type: 'webrtc_signal',
@@ -460,26 +691,21 @@ const MeetingRoom = ({ user }) => {
           }));
         }
         break;
-        
       case 'answer':
         await pc.setRemoteDescription(new RTCSessionDescription(signal_data));
         break;
-        
       case 'ice-candidate':
         await pc.addIceCandidate(new RTCIceCandidate(signal_data));
         break;
     }
   };
 
-  // Toggle video
   const toggleVideo = () => {
     if (localStreamRef.current) {
       const videoTrack = localStreamRef.current.getVideoTracks()[0];
       if (videoTrack) {
         videoTrack.enabled = !videoTrack.enabled;
         setIsVideoEnabled(videoTrack.enabled);
-        
-        // Notify others
         if (wsRef.current) {
           wsRef.current.send(JSON.stringify({
             type: 'participant_update',
@@ -490,15 +716,12 @@ const MeetingRoom = ({ user }) => {
     }
   };
 
-  // Toggle audio
   const toggleAudio = () => {
     if (localStreamRef.current) {
       const audioTrack = localStreamRef.current.getAudioTracks()[0];
       if (audioTrack) {
         audioTrack.enabled = !audioTrack.enabled;
         setIsAudioEnabled(audioTrack.enabled);
-        
-        // Notify others
         if (wsRef.current) {
           wsRef.current.send(JSON.stringify({
             type: 'participant_update',
@@ -509,52 +732,33 @@ const MeetingRoom = ({ user }) => {
     }
   };
 
-  // Toggle screen share
   const toggleScreenShare = async () => {
     try {
       if (isScreenSharing) {
-        // Stop screen sharing
-        const videoTrack = localStreamRef.current?.getVideoTracks()[0];
-        if (videoTrack) {
-          videoTrack.stop();
-        }
-        
-        // Get new camera stream
         const newStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
         const newVideoTrack = newStream.getVideoTracks()[0];
         
-        // Replace track in all peer connections
         Object.values(peerConnectionsRef.current).forEach(pc => {
           const sender = pc.getSenders().find(s => s.track?.kind === 'video');
-          if (sender) {
-            sender.replaceTrack(newVideoTrack);
-          }
+          if (sender) sender.replaceTrack(newVideoTrack);
         });
         
         localStreamRef.current = newStream;
         setLocalStream(newStream);
         setIsScreenSharing(false);
       } else {
-        // Start screen sharing
         const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
         const screenTrack = screenStream.getVideoTracks()[0];
         
-        // Replace track in all peer connections
         Object.values(peerConnectionsRef.current).forEach(pc => {
           const sender = pc.getSenders().find(s => s.track?.kind === 'video');
-          if (sender) {
-            sender.replaceTrack(screenTrack);
-          }
+          if (sender) sender.replaceTrack(screenTrack);
         });
         
-        screenTrack.onended = () => {
-          toggleScreenShare();
-        };
-        
+        screenTrack.onended = () => toggleScreenShare();
         setIsScreenSharing(true);
       }
       
-      // Notify others
       if (wsRef.current) {
         wsRef.current.send(JSON.stringify({
           type: 'participant_update',
@@ -567,19 +771,77 @@ const MeetingRoom = ({ user }) => {
     }
   };
 
-  // Toggle hand raise
+  const toggleRecording = async () => {
+    if (isRecording) {
+      if (mediaRecorderRef.current) {
+        mediaRecorderRef.current.stop();
+      }
+      setIsRecording(false);
+      
+      if (wsRef.current) {
+        wsRef.current.send(JSON.stringify({ type: 'recording_stopped' }));
+      }
+      toast.success('Recording stopped');
+    } else {
+      // Request permission from all participants
+      if (wsRef.current) {
+        wsRef.current.send(JSON.stringify({
+          type: 'recording_request',
+          requester_name: user?.name || user?.email || 'Host'
+        }));
+      }
+      
+      // Start recording locally
+      try {
+        const stream = localStreamRef.current;
+        if (stream) {
+          const mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+          mediaRecorderRef.current = mediaRecorder;
+          recordedChunksRef.current = [];
+          
+          mediaRecorder.ondataavailable = (event) => {
+            if (event.data.size > 0) {
+              recordedChunksRef.current.push(event.data);
+            }
+          };
+          
+          mediaRecorder.onstop = () => {
+            const blob = new Blob(recordedChunksRef.current, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `karau-meeting-${meetingId}-${new Date().toISOString()}.webm`;
+            a.click();
+          };
+          
+          mediaRecorder.start(1000);
+          setIsRecording(true);
+          toast.success('Recording started');
+        }
+      } catch (error) {
+        console.error('Recording error:', error);
+        toast.error('Failed to start recording');
+      }
+    }
+  };
+
+  const handleRecordingPermissionResponse = (accepted) => {
+    setShowRecordingPermission(false);
+    if (!accepted) {
+      toast.info('You declined the recording. Leaving meeting...');
+      leaveMeeting();
+    }
+  };
+
   const toggleHandRaise = () => {
-    const newState = !isHandRaised;
-    setIsHandRaised(newState);
-    
+    setIsHandRaised(!isHandRaised);
     if (wsRef.current) {
       wsRef.current.send(JSON.stringify({
-        type: newState ? 'raise_hand' : 'lower_hand'
+        type: isHandRaised ? 'lower_hand' : 'raise_hand'
       }));
     }
   };
 
-  // Send chat message
   const sendChatMessage = (message) => {
     if (wsRef.current) {
       wsRef.current.send(JSON.stringify({
@@ -590,28 +852,34 @@ const MeetingRoom = ({ user }) => {
     }
   };
 
-  // Leave meeting
   const leaveMeeting = async () => {
     try {
       const token = localStorage.getItem('token');
       await fetch(`${API}/api/karau-meet/meetings/${meetingId}/leave`, {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+        headers: { 'Authorization': `Bearer ${token}` }
       });
     } catch (error) {
       console.error('Error leaving meeting:', error);
     }
-    
     navigate('/karau-meet');
   };
 
-  // Copy meeting link
   const copyMeetingLink = () => {
     const link = `${window.location.origin}/karau-meet/join/${meetingId}`;
     navigator.clipboard.writeText(link);
     toast.success('Meeting link copied!');
+  };
+
+  const addToCalendar = () => {
+    const title = encodeURIComponent(meeting?.title || 'AI KARAU Meeting');
+    const details = encodeURIComponent(`Join: ${window.location.origin}/karau-meet/join/${meetingId}`);
+    const startDate = new Date().toISOString().replace(/-|:|\.\d\d\d/g, '');
+    const endDate = new Date(Date.now() + 3600000).toISOString().replace(/-|:|\.\d\d\d/g, '');
+    
+    const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${startDate}/${endDate}`;
+    window.open(googleCalUrl, '_blank');
+    toast.success('Opening Google Calendar...');
   };
 
   if (isConnecting) {
@@ -627,7 +895,15 @@ const MeetingRoom = ({ user }) => {
   }
 
   const allParticipants = [
-    { ...user, user_id: user?.user_id, user_name: user?.name || user?.email, video_enabled: isVideoEnabled, audio_enabled: isAudioEnabled, is_host: meeting?.host_id === user?.user_id },
+    { 
+      ...user, 
+      user_id: user?.user_id, 
+      user_name: user?.name || user?.email, 
+      video_enabled: isVideoEnabled, 
+      audio_enabled: isAudioEnabled, 
+      is_host: meeting?.host_id === user?.user_id,
+      is_recording: isRecording 
+    },
     ...participants
   ];
 
@@ -644,11 +920,22 @@ const MeetingRoom = ({ user }) => {
             {meeting?.title || 'Meeting'}
           </Badge>
           <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
-            Encrypted
+            <Shield className="w-3 h-3 mr-1" />
+            E2E Encrypted
           </Badge>
+          {isRecording && (
+            <Badge className="bg-red-500/20 text-red-400 border-red-500/30 animate-pulse">
+              <Circle className="w-2 h-2 mr-1 fill-current" />
+              Recording
+            </Badge>
+          )}
         </div>
         
         <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" onClick={addToCalendar} className="text-slate-300 hover:text-white">
+            <Calendar className="w-4 h-4 mr-1" />
+            Add to Calendar
+          </Button>
           <Button variant="ghost" size="sm" onClick={copyMeetingLink} className="text-slate-300 hover:text-white">
             <Copy className="w-4 h-4 mr-1" />
             Copy Link
@@ -673,6 +960,7 @@ const MeetingRoom = ({ user }) => {
                 participant={p}
                 isLocal={p.user_id === user?.user_id}
                 stream={p.user_id === user?.user_id ? localStream : remoteStreams[p.user_id]}
+                virtualBg={p.user_id === user?.user_id ? virtualBackground : null}
               />
             ))}
           </div>
@@ -685,101 +973,169 @@ const MeetingRoom = ({ user }) => {
               <ChatPanel messages={chatMessages} onSendMessage={sendChatMessage} />
             )}
             {activePanel === 'participants' && (
-              <ParticipantsPanel participants={allParticipants} />
+              <ParticipantsPanel 
+                participants={allParticipants} 
+                isHost={meeting?.host_id === user?.user_id}
+                onMuteParticipant={() => {}}
+              />
             )}
             {activePanel === 'ai-notes' && (
-              <AINotesPanel notes={aiNotes} />
+              <AINotesPanel notes={aiNotes} isTranscribing={isTranscribing} />
+            )}
+            {activePanel === 'settings' && (
+              <SettingsPanel 
+                settings={meetingSettings} 
+                onUpdateSettings={(updates) => setMeetingSettings(prev => ({ ...prev, ...updates }))}
+              />
             )}
           </div>
         )}
       </div>
 
       {/* Control bar */}
-      <div className="h-20 bg-slate-800 border-t border-slate-700 flex items-center justify-center gap-3">
+      <div className="h-20 bg-slate-800 border-t border-slate-700 flex items-center justify-center gap-2">
         {/* Audio */}
         <Button
           variant={isAudioEnabled ? 'secondary' : 'destructive'}
           size="lg"
-          className="rounded-full w-14 h-14"
+          className="rounded-full w-12 h-12"
           onClick={toggleAudio}
+          title={isAudioEnabled ? 'Mute' : 'Unmute'}
         >
-          {isAudioEnabled ? <Mic className="w-6 h-6" /> : <MicOff className="w-6 h-6" />}
+          {isAudioEnabled ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
         </Button>
 
         {/* Video */}
         <Button
           variant={isVideoEnabled ? 'secondary' : 'destructive'}
           size="lg"
-          className="rounded-full w-14 h-14"
+          className="rounded-full w-12 h-12"
           onClick={toggleVideo}
+          title={isVideoEnabled ? 'Stop Video' : 'Start Video'}
         >
-          {isVideoEnabled ? <Video className="w-6 h-6" /> : <VideoOff className="w-6 h-6" />}
+          {isVideoEnabled ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
+        </Button>
+
+        {/* Virtual Background */}
+        <Button
+          variant="secondary"
+          size="lg"
+          className="rounded-full w-12 h-12"
+          onClick={() => setShowBgSelector(true)}
+          title="Virtual Background"
+        >
+          <Image className="w-5 h-5" />
         </Button>
 
         {/* Screen share */}
         <Button
           variant={isScreenSharing ? 'default' : 'secondary'}
           size="lg"
-          className={`rounded-full w-14 h-14 ${isScreenSharing ? 'bg-turquoise' : ''}`}
+          className={`rounded-full w-12 h-12 ${isScreenSharing ? 'bg-turquoise' : ''}`}
           onClick={toggleScreenShare}
+          title={isScreenSharing ? 'Stop Sharing' : 'Share Screen'}
         >
-          {isScreenSharing ? <MonitorOff className="w-6 h-6" /> : <Monitor className="w-6 h-6" />}
+          {isScreenSharing ? <MonitorOff className="w-5 h-5" /> : <Monitor className="w-5 h-5" />}
         </Button>
+
+        {/* Record */}
+        {meeting?.host_id === user?.user_id && (
+          <Button
+            variant={isRecording ? 'destructive' : 'secondary'}
+            size="lg"
+            className={`rounded-full w-12 h-12 ${isRecording ? 'animate-pulse' : ''}`}
+            onClick={toggleRecording}
+            title={isRecording ? 'Stop Recording' : 'Start Recording'}
+          >
+            {isRecording ? <Square className="w-5 h-5" /> : <Circle className="w-5 h-5" />}
+          </Button>
+        )}
 
         {/* Raise hand */}
         <Button
           variant={isHandRaised ? 'default' : 'secondary'}
           size="lg"
-          className={`rounded-full w-14 h-14 ${isHandRaised ? 'bg-yellow-500' : ''}`}
+          className={`rounded-full w-12 h-12 ${isHandRaised ? 'bg-yellow-500' : ''}`}
           onClick={toggleHandRaise}
+          title={isHandRaised ? 'Lower Hand' : 'Raise Hand'}
         >
-          <Hand className="w-6 h-6" />
+          <Hand className="w-5 h-5" />
         </Button>
 
-        <div className="w-px h-10 bg-slate-600 mx-2" />
+        <div className="w-px h-8 bg-slate-600 mx-1" />
 
         {/* Chat */}
         <Button
           variant={activePanel === 'chat' ? 'default' : 'secondary'}
           size="lg"
-          className="rounded-full w-14 h-14"
+          className="rounded-full w-12 h-12"
           onClick={() => setActivePanel(activePanel === 'chat' ? null : 'chat')}
+          title="Chat"
         >
-          <MessageSquare className="w-6 h-6" />
+          <MessageSquare className="w-5 h-5" />
         </Button>
 
         {/* Participants */}
         <Button
           variant={activePanel === 'participants' ? 'default' : 'secondary'}
           size="lg"
-          className="rounded-full w-14 h-14"
+          className="rounded-full w-12 h-12"
           onClick={() => setActivePanel(activePanel === 'participants' ? null : 'participants')}
+          title="Participants"
         >
-          <Users className="w-6 h-6" />
+          <Users className="w-5 h-5" />
         </Button>
 
         {/* AI Notes */}
         <Button
           variant={activePanel === 'ai-notes' ? 'default' : 'secondary'}
           size="lg"
-          className={`rounded-full w-14 h-14 ${activePanel === 'ai-notes' ? 'bg-turquoise' : ''}`}
+          className={`rounded-full w-12 h-12 ${activePanel === 'ai-notes' ? 'bg-turquoise' : ''}`}
           onClick={() => setActivePanel(activePanel === 'ai-notes' ? null : 'ai-notes')}
+          title="AI Notes"
         >
-          <Sparkles className="w-6 h-6" />
+          <Sparkles className="w-5 h-5" />
         </Button>
 
-        <div className="w-px h-10 bg-slate-600 mx-2" />
+        {/* Settings */}
+        <Button
+          variant={activePanel === 'settings' ? 'default' : 'secondary'}
+          size="lg"
+          className="rounded-full w-12 h-12"
+          onClick={() => setActivePanel(activePanel === 'settings' ? null : 'settings')}
+          title="Settings"
+        >
+          <Settings className="w-5 h-5" />
+        </Button>
+
+        <div className="w-px h-8 bg-slate-600 mx-1" />
 
         {/* Leave */}
         <Button
           variant="destructive"
           size="lg"
-          className="rounded-full w-14 h-14"
+          className="rounded-full w-12 h-12"
           onClick={leaveMeeting}
+          title="Leave Meeting"
         >
-          <PhoneOff className="w-6 h-6" />
+          <PhoneOff className="w-5 h-5" />
         </Button>
       </div>
+
+      {/* Dialogs */}
+      <RecordingPermissionDialog
+        isOpen={showRecordingPermission}
+        onAccept={() => handleRecordingPermissionResponse(true)}
+        onDecline={() => handleRecordingPermissionResponse(false)}
+        requesterName={recordingRequester}
+      />
+      
+      <VirtualBackgroundSelector
+        isOpen={showBgSelector}
+        onClose={() => setShowBgSelector(false)}
+        currentBg={virtualBackground}
+        onSelect={setVirtualBackground}
+      />
     </div>
   );
 };
