@@ -16,6 +16,9 @@ import requests
 import websockets
 import uuid
 
+# Configure pytest-asyncio
+pytest_plugins = ('pytest_asyncio',)
+
 BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', '').rstrip('/')
 WS_BASE_URL = BASE_URL.replace('https://', 'wss://').replace('http://', 'ws://')
 
