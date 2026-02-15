@@ -953,19 +953,49 @@ const MeetingRoom = ({ user }) => {
           mediaRecorderRef.current = mediaRecorder;
           recordedChunksRef.current = [];
           
+          const startTime = Date.now();
+          
           mediaRecorder.ondataavailable = (event) => {
             if (event.data.size > 0) {
               recordedChunksRef.current.push(event.data);
             }
           };
           
-          mediaRecorder.onstop = () => {
+          mediaRecorder.onstop = async () => {
             const blob = new Blob(recordedChunksRef.current, { type: 'video/webm' });
             const url = URL.createObjectURL(blob);
+            const fileName = `karau-meeting-${meetingId}-${new Date().toISOString()}.webm`;
+            
+            // Download the recording
             const a = document.createElement('a');
             a.href = url;
-            a.download = `karau-meeting-${meetingId}-${new Date().toISOString()}.webm`;
+            a.download = fileName;
             a.click();
+            
+            // Calculate duration
+            const durationSeconds = Math.round((Date.now() - startTime) / 1000);
+            
+            // Save recording metadata to backend
+            try {
+              const token = localStorage.getItem('token');
+              await fetch(`${API}/api/karau-meet/recordings/metadata`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                  meeting_id: meetingId,
+                  meeting_title: meeting?.title || 'Meeting',
+                  duration_seconds: durationSeconds,
+                  file_size_bytes: blob.size,
+                  file_name: fileName
+                })
+              });
+              toast.success('Recording saved to your device');
+            } catch (err) {
+              console.error('Failed to save recording metadata:', err);
+            }
           };
           
           mediaRecorder.start(1000);
