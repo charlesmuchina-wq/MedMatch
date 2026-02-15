@@ -200,7 +200,7 @@ async def generate_meeting_summary(
         Dict with summary, key points, and decisions
     """
     try:
-        from emergentintegrations.llm.openai import OpenAILLM
+        from emergentintegrations.llm.openai import LlmChat
         
         # Get the meeting transcript
         transcript_data = await get_meeting_transcript(meeting_id)
@@ -216,7 +216,7 @@ async def generate_meeting_summary(
             logger.warning("EMERGENT_LLM_KEY not configured, using mock summary")
             return await _mock_summary(meeting_id, meeting_title, participants or [])
         
-        llm = OpenAILLM(api_key=EMERGENT_LLM_KEY)
+        llm = LlmChat(api_key=EMERGENT_LLM_KEY)
         
         # Create the prompt for summary generation
         prompt = f"""You are an AI meeting assistant. Analyze the following meeting transcript and provide:
@@ -373,7 +373,7 @@ async def extract_action_items(
         Dict with extracted action items
     """
     try:
-        from emergentintegrations.llm.openai import OpenAILLM
+        from emergentintegrations.llm.openai import LlmChat
         
         # Get transcript if not provided
         if not transcript_text:
@@ -393,7 +393,7 @@ async def extract_action_items(
                 "mock_mode": True
             }
         
-        llm = OpenAILLM(api_key=EMERGENT_LLM_KEY)
+        llm = LlmChat(api_key=EMERGENT_LLM_KEY)
         
         prompt = f"""Extract action items from this meeting transcript. For each action item, identify:
 1. The task description
