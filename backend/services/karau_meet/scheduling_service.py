@@ -80,8 +80,8 @@ async def create_scheduled_meeting(
         "recurrence": recurrence,  # {type: "daily|weekly|monthly", interval: 1, end_date: "..."}
         "settings": default_settings,
         "status": "scheduled",  # scheduled, in_progress, completed, cancelled
-        "created_at": datetime.now(timezone.utc).isoformat() if hasattr(datetime.now(), 'isoformat') else datetime.utcnow().isoformat(),
-        "updated_at": datetime.now(timezone.utc).isoformat() if hasattr(datetime.now(), 'isoformat') else datetime.utcnow().isoformat(),
+        "created_at": datetime.now(tz.utc).isoformat() if hasattr(datetime.now(), 'isoformat') else datetime.utcnow().isoformat(),
+        "updated_at": datetime.now(tz.utc).isoformat() if hasattr(datetime.now(), 'isoformat') else datetime.utcnow().isoformat(),
         "join_url": f"/karau-meet/join/{meeting_id}",
         "calendar_event_ids": {},  # {google: "...", outlook: "..."}
         "invitees": [],
