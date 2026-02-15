@@ -359,3 +359,285 @@ def get_ice_servers() -> List[Dict]:
         {"urls": "stun:stun3.l.google.com:19302"},
         {"urls": "stun:stun4.l.google.com:19302"},
     ]
+
+
+# ============ WAITING ROOM FUNCTIONS ============
+
+async def add_to_waiting_room(
+    meeting_id: str,
+    user_id: str,
+    user_name: str,
+    user_email: str = ""
+) -> Dict:
+    """Add a participant to the waiting room"""
+    
+    if meeting_id not in waiting_rooms:
+        waiting_rooms[meeting_id] = {}
+    
+    waiting_user = {
+        "user_id": user_id,
+        "user_name": user_name,
+        "user_email": user_email,
+        "joined_at": datetime.now(timezone.utc).isoformat(),
+        "status": "waiting"  # waiting, admitted, rejected
+    }
+    
+    waiting_rooms[meeting_id][user_id] = waiting_user
+    
+    logger.info(f"User {user_name} added to waiting room for meeting {meeting_id}")
+    
+    return waiting_user
+
+
+async def get_waiting_room(meeting_id: str) -> List[Dict]:
+    """Get all users in the waiting room"""
+    
+    if meeting_id not in waiting_rooms:
+        return []
+    
+    return [
+        user for user in waiting_rooms[meeting_id].values()
+        if user.get("status") == "waiting"
+    ]
+
+
+async def admit_from_waiting_room(
+    meeting_id: str,
+    user_id: str,
+    host_id: str
+) -> Dict:
+    """Admit a user from the waiting room (host only)"""
+    
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        return {"error": "Meeting not found"}
+    
+    if meeting["host_id"] != host_id:
+        return {"error": "Only the host can admit participants"}
+    
+    if meeting_id not in waiting_rooms or user_id not in waiting_rooms[meeting_id]:
+        return {"error": "User not in waiting room"}
+    
+    # Update status
+    waiting_rooms[meeting_id][user_id]["status"] = "admitted"
+    
+    logger.info(f"User {user_id} admitted from waiting room in meeting {meeting_id}")
+    
+    return {
+        "success": True,
+        "user_id": user_id,
+        "admitted": True
+    }
+
+
+async def admit_all_from_waiting_room(meeting_id: str, host_id: str) -> Dict:
+    """Admit all users from the waiting room"""
+    
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        return {"error": "Meeting not found"}
+    
+    if meeting["host_id"] != host_id:
+        return {"error": "Only the host can admit participants"}
+    
+    if meeting_id not in waiting_rooms:
+        return {"admitted": 0}
+    
+    admitted = 0
+    for user_id in waiting_rooms[meeting_id]:
+        if waiting_rooms[meeting_id][user_id].get("status") == "waiting":
+            waiting_rooms[meeting_id][user_id]["status"] = "admitted"
+            admitted += 1
+    
+    return {"admitted": admitted}
+
+
+async def reject_from_waiting_room(
+    meeting_id: str,
+    user_id: str,
+    host_id: str
+) -> Dict:
+    """Reject a user from joining the meeting"""
+    
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        return {"error": "Meeting not found"}
+    
+    if meeting["host_id"] != host_id:
+        return {"error": "Only the host can reject participants"}
+    
+    if meeting_id in waiting_rooms and user_id in waiting_rooms[meeting_id]:
+        waiting_rooms[meeting_id][user_id]["status"] = "rejected"
+    
+    return {"success": True, "user_id": user_id, "rejected": True}
+
+
+def is_user_admitted(meeting_id: str, user_id: str) -> bool:
+    """Check if user has been admitted from waiting room"""
+    
+    if meeting_id not in waiting_rooms:
+        return True  # No waiting room, allow entry
+    
+    if user_id not in waiting_rooms[meeting_id]:
+        return False  # Not in waiting room yet
+    
+    return waiting_rooms[meeting_id][user_id].get("status") == "admitted"
+
+
+# ============ MEETING LOCK FUNCTIONS ============
+
+async def lock_meeting(meeting_id: str, host_id: str) -> Dict:
+    """Lock a meeting to prevent new participants"""
+    
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        return {"error": "Meeting not found"}
+    
+    if meeting["host_id"] != host_id:
+        return {"error": "Only the host can lock the meeting"}
+    
+    meeting_locks[meeting_id] = True
+    
+    # Update in database
+    await db.karau_meetings.update_one(
+        {"meeting_id": meeting_id},
+        {"$set": {"settings.lock_meeting": True}}
+    )
+    
+    logger.info(f"Meeting {meeting_id} locked by host")
+    
+    return {"success": True, "locked": True}
+
+
+async def unlock_meeting(meeting_id: str, host_id: str) -> Dict:
+    """Unlock a meeting to allow new participants"""
+    
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        return {"error": "Meeting not found"}
+    
+    if meeting["host_id"] != host_id:
+        return {"error": "Only the host can unlock the meeting"}
+    
+    meeting_locks[meeting_id] = False
+    
+    # Update in database
+    await db.karau_meetings.update_one(
+        {"meeting_id": meeting_id},
+        {"$set": {"settings.lock_meeting": False}}
+    )
+    
+    logger.info(f"Meeting {meeting_id} unlocked by host")
+    
+    return {"success": True, "locked": False}
+
+
+def is_meeting_locked(meeting_id: str) -> bool:
+    """Check if meeting is locked"""
+    return meeting_locks.get(meeting_id, False)
+
+
+# ============ HOST CONTROL FUNCTIONS ============
+
+async def mute_participant(
+    meeting_id: str,
+    target_user_id: str,
+    host_id: str
+) -> Dict:
+    """Mute a participant (host only)"""
+    
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        return {"error": "Meeting not found"}
+    
+    if meeting["host_id"] != host_id:
+        return {"error": "Only the host can mute participants"}
+    
+    if meeting_id in meeting_participants and target_user_id in meeting_participants[meeting_id]:
+        meeting_participants[meeting_id][target_user_id]["audio_enabled"] = False
+        return {"success": True, "user_id": target_user_id, "muted": True}
+    
+    return {"error": "Participant not found"}
+
+
+async def mute_all_participants(meeting_id: str, host_id: str) -> Dict:
+    """Mute all participants except host"""
+    
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        return {"error": "Meeting not found"}
+    
+    if meeting["host_id"] != host_id:
+        return {"error": "Only the host can mute participants"}
+    
+    muted = 0
+    if meeting_id in meeting_participants:
+        for user_id, participant in meeting_participants[meeting_id].items():
+            if user_id != host_id:
+                participant["audio_enabled"] = False
+                muted += 1
+    
+    return {"success": True, "muted_count": muted}
+
+
+async def remove_participant(
+    meeting_id: str,
+    target_user_id: str,
+    host_id: str
+) -> Dict:
+    """Remove a participant from the meeting (host only)"""
+    
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        return {"error": "Meeting not found"}
+    
+    if meeting["host_id"] != host_id:
+        return {"error": "Only the host can remove participants"}
+    
+    if target_user_id == host_id:
+        return {"error": "Host cannot remove themselves"}
+    
+    if meeting_id in meeting_participants and target_user_id in meeting_participants[meeting_id]:
+        del meeting_participants[meeting_id][target_user_id]
+        logger.info(f"User {target_user_id} removed from meeting {meeting_id}")
+        return {"success": True, "user_id": target_user_id, "removed": True}
+    
+    return {"error": "Participant not found"}
+
+
+async def update_meeting_settings(
+    meeting_id: str,
+    host_id: str,
+    settings: Dict
+) -> Dict:
+    """Update meeting settings (host only)"""
+    
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        return {"error": "Meeting not found"}
+    
+    if meeting["host_id"] != host_id:
+        return {"error": "Only the host can update settings"}
+    
+    allowed_settings = [
+        "waiting_room_enabled", "mute_on_entry", "allow_participants_unmute",
+        "screen_share_enabled", "chat_enabled", "recording_enabled",
+        "ai_notes_enabled", "breakout_rooms_enabled"
+    ]
+    
+    update_data = {f"settings.{k}": v for k, v in settings.items() if k in allowed_settings}
+    
+    if update_data:
+        await db.karau_meetings.update_one(
+            {"meeting_id": meeting_id},
+            {"$set": update_data}
+        )
+        
+        # Update in-memory
+        if meeting_id in active_meetings:
+            for key, value in settings.items():
+                if key in allowed_settings:
+                    active_meetings[meeting_id]["settings"][key] = value
+    
+    return {"success": True, "updated": list(update_data.keys())}
+
