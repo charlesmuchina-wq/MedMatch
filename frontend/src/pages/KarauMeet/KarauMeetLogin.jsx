@@ -157,6 +157,11 @@ const KarauMeetLogin = ({ onLogin }) => {
                 
                 <Button 
                   type="submit" 
+                  onClick={(e) => {
+                    if (!isLoading) {
+                      handleLogin(e);
+                    }
+                  }}
                   className="w-full h-12 bg-turquoise hover:bg-turquoise/90 text-white font-semibold text-base"
                   disabled={isLoading}
                   data-testid="btn-signin"
