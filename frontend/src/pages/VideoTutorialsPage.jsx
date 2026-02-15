@@ -363,20 +363,20 @@ const TUTORIAL_LANGUAGES = [
 // Region-appropriate avatar images - FIXED Feb 15, 2026
 // Using properly matched female avatars for all regions to match female voices
 const REGION_AVATARS = {
-  // European female professional
+  // European female professional - blonde/brunette professional woman
   'Europe': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=512&h=512&fit=crop&crop=face',
-  // Nordic female professional  
+  // Nordic female professional - Scandinavian look
   'Nordic': 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=512&h=512&fit=crop&crop=face',
-  // Asian female professional
+  // Asian female professional - East Asian woman
   'Asia': 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop&crop=face',
-  // South Asian female professional
+  // South Asian female professional - Indian subcontinent
   'South Asia': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop&crop=face',
-  // Middle Eastern female professional (with hijab option)
-  'Middle East': 'https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=512&h=512&fit=crop&crop=face',
+  // Middle Eastern female professional - Arab woman with hijab
+  'Middle East': 'https://images.unsplash.com/photo-1625987306773-8b9e554b25e2?w=512&h=512&fit=crop&crop=face',
   // South American/Latina female professional
   'South America': 'https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=512&h=512&fit=crop&crop=face',
-  // African female professional
-  'Africa': 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=512&h=512&fit=crop&crop=face',
+  // African female professional - Black woman
+  'Africa': 'https://images.unsplash.com/photo-1633419798503-0b0c628f267c?w=512&h=512&fit=crop&crop=face',
   // Global/Default female presenter
   'Global': '/images/presenter.jpeg'
 };
