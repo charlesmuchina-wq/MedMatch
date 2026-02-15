@@ -1,6 +1,6 @@
 """
 AI KARAU Meeting - Security & Compliance API Routes
-MFA, GDPR/HIPAA compliance
+Email-based MFA, GDPR/HIPAA compliance
 """
 
 from fastapi import APIRouter, HTTPException, Depends, Request
@@ -8,17 +8,25 @@ from pydantic import BaseModel
 from typing import Optional, Dict
 
 from services.karau_meet.security_service import (
+    # Email-based verification (simple MFA)
+    send_verification_email,
+    verify_email_code,
+    get_email_verification_status,
+    # TOTP MFA (advanced)
     setup_mfa,
     verify_mfa_setup,
     verify_mfa_code,
     disable_mfa,
     get_mfa_status,
     regenerate_backup_codes,
+    # Security logging
     log_security_event,
     get_security_logs,
+    # Consent management
     record_consent,
     get_user_consents,
     check_consent,
+    # GDPR
     export_user_data,
     delete_user_data,
     get_compliance_status,
@@ -30,7 +38,51 @@ from routes.auth import get_current_user
 router = APIRouter(prefix="/karau-meet/security", tags=["AI KARAU Security"])
 
 
-# ============ MFA ENDPOINTS ============
+# ============ EMAIL VERIFICATION (Simple MFA) ============
+
+@router.post("/email/send-code")
+async def send_email_verification_code(
+    user: dict = Depends(get_current_user)
+):
+    """Send a verification code to user's email"""
+    
+    result = await send_verification_email(
+        user_id=user["user_id"],
+        user_email=user.get("email", "")
+    )
+    
+    return result
+
+
+class EmailVerificationRequest(BaseModel):
+    code: str
+
+
+@router.post("/email/verify")
+async def verify_email_verification_code(
+    request: EmailVerificationRequest,
+    user: dict = Depends(get_current_user)
+):
+    """Verify the email verification code"""
+    
+    result = await verify_email_code(user["user_id"], request.code)
+    
+    if not result.get("success"):
+        raise HTTPException(status_code=400, detail=result.get("error", "Verification failed"))
+    
+    return result
+
+
+@router.get("/email/status")
+async def get_email_verification_status_endpoint(
+    user: dict = Depends(get_current_user)
+):
+    """Check email verification status"""
+    
+    return await get_email_verification_status(user["user_id"])
+
+
+# ============ TOTP MFA ENDPOINTS (Advanced) ============
 
 class MFACodeRequest(BaseModel):
     code: str
