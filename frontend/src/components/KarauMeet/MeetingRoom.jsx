@@ -593,16 +593,35 @@ const MeetingRoom = ({ user }) => {
   const localStreamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const recordedChunksRef = useRef([]);
+  const [iceServers, setIceServers] = useState([
+    { urls: 'stun:stun.l.google.com:19302' },
+    { urls: 'stun:stun1.l.google.com:19302' },
+  ]);
   
-  // WebRTC configuration with multiple STUN servers for better connectivity
+  // Fetch ICE servers (STUN + TURN) from backend
+  useEffect(() => {
+    const fetchIceServers = async () => {
+      try {
+        const res = await fetch(`${API}/api/karau-meet/ice-servers`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.ice_servers && data.ice_servers.length > 0) {
+            setIceServers(data.ice_servers);
+            if (data.turn_enabled) {
+              console.log('TURN servers enabled for NAT traversal');
+            }
+          }
+        }
+      } catch (e) {
+        console.log('Using default STUN servers');
+      }
+    };
+    fetchIceServers();
+  }, []);
+  
+  // WebRTC configuration - uses dynamically fetched ICE servers
   const rtcConfig = {
-    iceServers: [
-      { urls: 'stun:stun.l.google.com:19302' },
-      { urls: 'stun:stun1.l.google.com:19302' },
-      { urls: 'stun:stun2.l.google.com:19302' },
-      { urls: 'stun:stun3.l.google.com:19302' },
-      { urls: 'stun:stun4.l.google.com:19302' },
-    ],
+    iceServers: iceServers,
     iceCandidatePoolSize: 10
   };
 
