@@ -266,6 +266,8 @@ from routes.audit_reports import router as audit_reports_router
 from routes.karau_meet import router as karau_meet_router
 from routes.karau_scheduling import router as karau_scheduling_router
 from routes.karau_collaboration import router as karau_collaboration_router
+from routes.karau_security import router as karau_security_router
+from routes.karau_accessibility import router as karau_accessibility_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
@@ -337,6 +339,8 @@ app.include_router(audit_reports_router, prefix="/api")
 app.include_router(karau_meet_router, prefix="/api")
 app.include_router(karau_scheduling_router, prefix="/api")
 app.include_router(karau_collaboration_router, prefix="/api")
+app.include_router(karau_security_router, prefix="/api")
+app.include_router(karau_accessibility_router, prefix="/api")
 
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
