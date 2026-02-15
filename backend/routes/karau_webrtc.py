@@ -77,6 +77,20 @@ async def websocket_endpoint(
     )
 
 
+@router.get("/ice-servers")
+async def get_ice_servers_endpoint():
+    """
+    Get ICE servers for WebRTC connection
+    
+    Returns STUN + TURN servers from Xirsys if configured,
+    otherwise falls back to free Google STUN servers
+    """
+    from services.karau_meet.turn_service import get_ice_servers
+    
+    result = await get_ice_servers()
+    return result
+
+
 @router.get("/room/{meeting_id}/participants")
 async def get_room_participants(
     meeting_id: str,
