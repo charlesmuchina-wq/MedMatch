@@ -46,6 +46,9 @@ async def send_email_verification_code(
 ):
     """Send a verification code to user's email"""
     
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
     result = await send_verification_email(
         user_id=user["user_id"],
         user_email=user.get("email", "")
@@ -65,6 +68,9 @@ async def verify_email_verification_code(
 ):
     """Verify the email verification code"""
     
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    
     result = await verify_email_code(user["user_id"], request.code)
     
     if not result.get("success"):
@@ -78,6 +84,9 @@ async def get_email_verification_status_endpoint(
     user: dict = Depends(get_current_user)
 ):
     """Check email verification status"""
+    
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
     
     return await get_email_verification_status(user["user_id"])
 
