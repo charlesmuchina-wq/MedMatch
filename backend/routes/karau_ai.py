@@ -37,6 +37,10 @@ async def transcribe_audio_endpoint(
     - Returns transcribed text with timestamps
     """
     
+    # Check authentication
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    
     # Validate file type
     allowed_types = ["audio/webm", "audio/mp3", "audio/wav", "audio/mpeg", "audio/mp4", "audio/m4a"]
     content_type = audio_file.content_type or ""
