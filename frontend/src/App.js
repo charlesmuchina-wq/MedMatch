@@ -750,13 +750,28 @@ function AppContent() {
 
   // Check if current path is a public route (no auth required)
   const isPublicRoute = location.pathname.startsWith('/apply/') || location.pathname.startsWith('/track-application/');
+  
+  // Check if current path is AI KARAU Meeting standalone portal
+  const isKarauMeetPortal = location.pathname.startsWith('/karau-meet');
 
-  // Show loading while checking auth (except for public routes)
-  if (isAuthChecking && !isPublicRoute) {
+  // Show loading while checking auth (except for public routes and karau-meet)
+  if (isAuthChecking && !isPublicRoute && !isKarauMeetPortal) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${isDark ? 'bg-batik-black' : 'bg-slate-50'}`}>
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-turquoise"></div>
       </div>
+    );
+  }
+  
+  // Render AI KARAU Meeting standalone portal (has its own auth)
+  if (isKarauMeetPortal) {
+    return (
+      <>
+        <Routes>
+          <Route path="/karau-meet/*" element={<KarauMeetPortal />} />
+        </Routes>
+        <Toaster position="top-right" richColors theme="dark" />
+      </>
     );
   }
 
