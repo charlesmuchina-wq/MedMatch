@@ -178,7 +178,7 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect }) => 
                 </div>
               ) : bg.type === 'blur' ? (
                 <div className="w-full h-full bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center">
-                  <Blur className="w-6 h-6 text-slate-300" />
+                  <Palette className="w-6 h-6 text-slate-300" />
                 </div>
               ) : (
                 <img src={bg.url} alt={bg.name} className="w-full h-full object-cover" />
