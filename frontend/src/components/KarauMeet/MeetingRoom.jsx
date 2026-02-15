@@ -720,6 +720,59 @@ const MeetingRoom = ({ user }) => {
         toast.info('Meeting has ended');
         navigate('/karau-meet');
         break;
+        
+      case 'pong':
+        // Keep-alive response - ignore
+        break;
+        
+      default:
+        console.log('Unknown message type:', message.type);
+    }
+  };
+  
+  // Handle incoming WebRTC offer
+  const handleOffer = async (message) => {
+    const { from_user, from_name, offer } = message;
+    let pc = peerConnectionsRef.current[from_user];
+    
+    if (!pc) {
+      pc = await createPeerConnection(from_user, false);
+    }
+    
+    await pc.setRemoteDescription(new RTCSessionDescription(offer));
+    const answer = await pc.createAnswer();
+    await pc.setLocalDescription(answer);
+    
+    if (wsRef.current) {
+      wsRef.current.send(JSON.stringify({
+        type: 'answer',
+        target: from_user,
+        answer: answer
+      }));
+    }
+  };
+  
+  // Handle incoming WebRTC answer
+  const handleAnswer = async (message) => {
+    const { from_user, answer } = message;
+    const pc = peerConnectionsRef.current[from_user];
+    
+    if (pc) {
+      await pc.setRemoteDescription(new RTCSessionDescription(answer));
+    }
+  };
+  
+  // Handle incoming ICE candidate
+  const handleIceCandidate = async (message) => {
+    const { from_user, candidate } = message;
+    const pc = peerConnectionsRef.current[from_user];
+    
+    if (pc && candidate) {
+      try {
+        await pc.addIceCandidate(new RTCIceCandidate(candidate));
+      } catch (e) {
+        console.error('Error adding ICE candidate:', e);
+      }
     }
   };
 
