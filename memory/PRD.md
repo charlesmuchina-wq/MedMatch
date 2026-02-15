@@ -9,6 +9,27 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 
 ## Latest Updates (February 15, 2026)
 
+### Portal Selector - Clean UX Landing Page ✅ (Feb 15, 2026)
+
+**New User Flow:**
+| Step | Description |
+|------|-------------|
+| 1 | User lands on Portal Selector (root URL) |
+| 2 | User chooses: MedMatch AI Job Toolkit OR AI KARAU Meeting |
+| 3 | User is directed to respective login page |
+| 4 | "Back to Portal Selection" link available on both login pages |
+
+**Portal Cards:**
+| Portal | Description | Features | Route |
+|--------|-------------|----------|-------|
+| MedMatch AI Job Toolkit | Recruiting platform | Resume Parser, AI Job Matching, Recruiter Network | /login |
+| AI KARAU Meeting | Video conferencing | HD Video, AI Transcription, E2E Encrypted | /karau-meet |
+
+**Files Created:**
+- `/app/frontend/src/pages/PortalSelector.jsx` - New landing page
+
+---
+
 ### AI KARAU Meeting - WebRTC & Recording Features ✅ (Feb 15, 2026)
 
 **WebRTC Video/Audio:**
