@@ -264,6 +264,8 @@ from routes.global_compliance import router as global_compliance_router
 from routes.compliance_alerts import router as compliance_alerts_router
 from routes.audit_reports import router as audit_reports_router
 from routes.karau_meet import router as karau_meet_router
+from routes.karau_scheduling import router as karau_scheduling_router
+from routes.karau_collaboration import router as karau_collaboration_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
