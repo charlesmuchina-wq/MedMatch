@@ -913,10 +913,11 @@ const MeetingRoom = ({ user }) => {
         setIsScreenSharing(true);
       }
       
+      // Notify other participants about screen sharing state change
       if (wsRef.current) {
         wsRef.current.send(JSON.stringify({
-          type: 'participant_update',
-          updates: { screen_sharing: !isScreenSharing }
+          type: 'state_update',
+          state: { screen_sharing: !isScreenSharing }
         }));
       }
     } catch (error) {
