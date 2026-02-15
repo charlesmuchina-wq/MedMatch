@@ -188,10 +188,13 @@ class TestSecurityCompliance:
         assert response.status_code == 200, f"Compliance status failed: {response.text}"
         data = response.json()
         
-        # Check for compliance fields
-        assert "gdpr_compliant" in data or "hipaa_compliant" in data or "compliance" in data
-        print(f"✓ Compliance status endpoint working")
-        print(f"  Response: {json.dumps(data, indent=2)[:200]}")
+        # Check for compliance fields - API returns gdpr and hipaa objects
+        assert "gdpr" in data or "hipaa" in data or "security" in data
+        if "gdpr" in data:
+            assert data["gdpr"].get("compliant") == True
+        if "hipaa" in data:
+            assert data["hipaa"].get("compliant") == True
+        print(f"✓ Compliance status endpoint working - GDPR/HIPAA compliant")
 
 
 class TestAccessibility:
