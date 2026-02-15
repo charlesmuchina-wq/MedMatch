@@ -316,17 +316,21 @@ const LoginPage = ({ onAuthSuccess }) => {
             </button>
           </div>
           
-          {/* AI KARAU Meeting Quick Join */}
-          <div className="pt-2 border-t border-slate-200 dark:border-slate-700">
+          {/* AI KARAU Meeting Standalone Portal */}
+          <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
+            <p className="text-center text-xs text-slate-500 mb-3">Or access our standalone meeting platform</p>
             <Button 
               variant="outline" 
-              className="w-full h-12 font-medium border-turquoise/30 text-turquoise hover:bg-turquoise/10 hover:text-turquoise"
+              className="w-full h-12 font-medium border-turquoise/50 bg-turquoise/5 text-turquoise hover:bg-turquoise/10 hover:border-turquoise"
               onClick={() => navigate('/karau-meet')}
               data-testid="karau-meet-btn"
             >
               <Video className="w-5 h-5 mr-3" />
-              Join AI KARAU Meeting
+              Enter AI KARAU Meeting Portal
             </Button>
+            <p className="text-center text-xs text-slate-400 mt-2">
+              Video conferencing • Screen sharing • AI transcription
+            </p>
           </div>
 
           <div className="relative">
