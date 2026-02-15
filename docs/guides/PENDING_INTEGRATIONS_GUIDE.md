@@ -322,7 +322,7 @@ FSMB_API_KEY=your_key
      - Client Secret
 
 4. **Set Redirect URLs:**
-   - Add: `https://medmeet-4.preview.emergentagent.com/api/linkedin/callback`
+   - Add: `https://karau-videoconf.preview.emergentagent.com/api/linkedin/callback`
 
 5. **Add to Environment:**
    ```bash
@@ -354,7 +354,7 @@ FSMB_API_KEY=your_key
 
 2. **Get Credentials:**
    - Copy App key and App secret
-   - Set OAuth 2 redirect: `https://medmeet-4.preview.emergentagent.com/api/cloud/dropbox/callback`
+   - Set OAuth 2 redirect: `https://karau-videoconf.preview.emergentagent.com/api/cloud/dropbox/callback`
 
 3. **Add to Environment:**
    ```bash
@@ -368,7 +368,7 @@ FSMB_API_KEY=your_key
    - Go to: https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade
    - Click "New registration"
    - Name: "MedMatch Integration"
-   - Redirect URI: `https://medmeet-4.preview.emergentagent.com/api/cloud/onedrive/callback`
+   - Redirect URI: `https://karau-videoconf.preview.emergentagent.com/api/cloud/onedrive/callback`
 
 2. **Configure Permissions:**
    - API permissions → Add → Microsoft Graph

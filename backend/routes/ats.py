@@ -109,7 +109,7 @@ async def create_application_link(data: ApplicationLinkCreate, request: Request)
     await db.application_links.insert_one(link_doc)
     
     # Generate shareable URL
-    app_url = "https://medmeet-4.preview.emergentagent.com"
+    app_url = "https://karau-videoconf.preview.emergentagent.com"
     application_url = f"{app_url}/apply/{link_token}"
     
     return {
@@ -306,7 +306,7 @@ async def submit_external_application(
         "message": "Application submitted successfully",
         "application_id": application_id,
         "tracking_token": tracking_token,
-        "tracking_url": f"https://medmeet-4.preview.emergentagent.com/track-application/{application_id}?token={tracking_token}"
+        "tracking_url": f"https://karau-videoconf.preview.emergentagent.com/track-application/{application_id}?token={tracking_token}"
     }
 
 # ============== Application Tracking (Public) ==============
@@ -565,7 +565,7 @@ async def invite_candidate_to_apply(
         await db.application_links.insert_one(link_doc)
     
     # Generate application URL
-    application_url = f"https://medmeet-4.preview.emergentagent.com/apply/{link_token}"
+    application_url = f"https://karau-videoconf.preview.emergentagent.com/apply/{link_token}"
     
     # Record invitation
     invitation_doc = {
