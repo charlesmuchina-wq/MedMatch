@@ -599,11 +599,11 @@ const GettingStartedSection = memo(() => {
                 }`}
                 data-testid={`lang-btn-${lang.code}`}
               >
-                {/* Region-appropriate avatar */}
+                {/* Language-specific avatar - matches actual video presenter */}
                 <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 border border-gray-200 dark:border-slate-600">
                   <img 
-                    src={REGION_AVATARS[lang.region] || REGION_AVATARS['Global']}
-                    alt={`${lang.region} avatar`}
+                    src={getLanguageAvatar(lang.code)}
+                    alt={`${lang.name} avatar`}
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
