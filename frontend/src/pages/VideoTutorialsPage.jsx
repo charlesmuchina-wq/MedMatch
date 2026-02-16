@@ -362,43 +362,42 @@ const TUTORIAL_LANGUAGES = [
 ];
 
 // Per-language avatar mapping - MATCHES ACTUAL VIDEO CONTENT
-// These avatars are based on what presenter is ACTUALLY in each D-ID video file
-// Many videos have incorrect presenters (generated at different times)
-// This mapping ensures thumbnails match actual video content
+// Updated Feb 16, 2026: Videos regenerated with correct D-ID avatars
+// All avatars now match what's actually in the D-ID generated videos
 const LANGUAGE_AVATAR_MAPPING = {
-  // African languages - mixed presenters in actual videos
-  'sw': 'african',       // Swahili - CORRECT: African woman
-  'af': 'asian_female',  // Afrikaans - Actually has Asian female
-  'ha': 'asian_male',    // Hausa - Actually has Asian MALE (wrong)
-  'zu': 'asian_female',  // Zulu - Actually has Asian female (wrong)
-  'xh': 'asian_female',  // Xhosa - needs verification
+  // African languages - ALL NOW USE AFRICAN FEMALE AVATAR ✅
+  'sw': 'african',       // Swahili - African woman
+  'af': 'african',       // Afrikaans - African woman (REGENERATED)
+  'ha': 'african',       // Hausa - African woman (REGENERATED)
+  'zu': 'african',       // Zulu - African woman (REGENERATED)
+  'xh': 'african',       // Xhosa - African woman
   
-  // Asian languages - mixed presenters
-  'ja': 'european',      // Japanese - has European/default presenter
-  'ko': 'european',      // Korean - has European/default presenter
-  'zh': 'european',      // Chinese - has European/default presenter
-  'vi': 'european',      // Vietnamese - has European/default presenter
+  // Asian languages - ALL NOW USE ASIAN FEMALE AVATAR ✅
+  'ja': 'asian',         // Japanese - Asian woman (REGENERATED)
+  'ko': 'asian',         // Korean - Asian woman (REGENERATED)
+  'zh': 'asian',         // Chinese - Asian woman (REGENERATED)
+  'vi': 'asian',         // Vietnamese - Asian woman (REGENERATED)
   
-  // South Asian
-  'hi': 'european',      // Hindi - has European/default presenter
+  // South Asian - USES SOUTH ASIAN FEMALE AVATAR ✅
+  'hi': 'south_asian',   // Hindi - South Asian woman (REGENERATED)
   
-  // Middle Eastern
-  'ar': 'european',      // Arabic - has European/default presenter
-  'tr': 'european',      // Turkish - has European/default presenter
+  // Middle Eastern - ALL NOW USE MIDDLE EASTERN FEMALE AVATAR ✅
+  'ar': 'middle_eastern', // Arabic - Middle Eastern woman (REGENERATED)
+  'tr': 'middle_eastern', // Turkish - Middle Eastern woman (REGENERATED)
   
-  // European languages - all use default presenter
+  // European languages - use default presenter
   'de': 'european', 'fr': 'european', 'es': 'european', 'it': 'european',
   'nl': 'european', 'pl': 'european', 'ru': 'european', 'sv': 'european',
   'pt': 'european',
 };
 
-// Avatar type to image URL mapping
+// Avatar type to image URL mapping - matches D-ID hosted images
 const AVATAR_TYPE_IMAGES = {
   'african': 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=512&h=512&fit=crop',
-  'asian_female': 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop',
-  'asian_male': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=512&h=512&fit=crop',
-  'european': '/images/presenter_main.jpeg',
+  'asian': 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop',
   'south_asian': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop',
+  'middle_eastern': 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=512&h=512&fit=crop',
+  'european': '/images/presenter_main.jpeg',
 };
 
 // Get avatar URL for a specific language code
