@@ -27,22 +27,22 @@ AVATAR_VIDEOS_DIR = Path("/app/videos/avatars")
 AVATAR_VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Region-appropriate avatar source images
-# Using diverse stock photos that match regions and maintain consistent female presentation
-# URLs MUST end with image extension for D-ID API compatibility
+# Images uploaded to D-ID's S3 storage for API compatibility
+# Updated Feb 16, 2026: Using D-ID hosted images
 AVATAR_IMAGES = {
     # European avatars (light skin, professional appearance)
     "european_female": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2.jpg",
     "nordic_female": "https://images.unsplash.com/photo-1580489944761-15a19d654956.jpg",
     
-    # Asian avatars
-    "asian_female": "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5.jpg",
-    "south_asian_female": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e.jpg",
+    # Asian avatars - D-ID hosted
+    "asian_female": "s3://d-id-images-prod/google-oauth2|110650682359864325385/img_5TQIKszNfYDUiLzO5agSm/asian_female.jpg",
+    "south_asian_female": "s3://d-id-images-prod/google-oauth2|110650682359864325385/img_zK2i4CKEgIs23tYACFRRg/south_asian_female.jpg",
     
-    # African avatars
-    "african_female": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce.jpg",
+    # African avatars - D-ID hosted
+    "african_female": "s3://d-id-images-prod/google-oauth2|110650682359864325385/img_2HWpRuSJNvN0UPRWHJ9VR/african_female.jpg",
     
-    # Middle Eastern avatars  
-    "middle_eastern_female": "https://images.unsplash.com/photo-1598550874175-4d0ef436c909.jpg",
+    # Middle Eastern avatars - D-ID hosted
+    "middle_eastern_female": "s3://d-id-images-prod/google-oauth2|110650682359864325385/img_E0mRHqyb_5v8Lwq6zSHXi/middle_eastern_female.jpg",
     
     # Latina avatars
     "latina_female": "https://images.unsplash.com/photo-1573497019418-b400bb3ab074.jpg",
