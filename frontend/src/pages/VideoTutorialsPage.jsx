@@ -361,22 +361,62 @@ const TUTORIAL_LANGUAGES = [
   { code: 'zu', name: 'Zulu', flag: '🇿🇦', title: 'Qala nge-MedMatch-AI KARAU', presenter: 'Thandile (Female)', region: 'Africa' }
 ];
 
-// Region-appropriate avatar images - FIXED Feb 15, 2026
-// NOTE: Most D-ID videos were generated with the default presenter (reddish-brown haired woman)
-// Only African language videos were regenerated with correct African avatars
-// This mapping matches what's ACTUALLY in the videos, not what was intended
+// Per-language avatar mapping - MATCHES ACTUAL VIDEO CONTENT
+// These avatars are based on what presenter is ACTUALLY in each D-ID video file
+// Many videos have incorrect presenters (generated at different times)
+// This mapping ensures thumbnails match actual video content
+const LANGUAGE_AVATAR_MAPPING = {
+  // African languages - mixed presenters in actual videos
+  'sw': 'african',       // Swahili - CORRECT: African woman
+  'af': 'asian_female',  // Afrikaans - Actually has Asian female
+  'ha': 'asian_male',    // Hausa - Actually has Asian MALE (wrong)
+  'zu': 'asian_female',  // Zulu - Actually has Asian female (wrong)
+  'xh': 'asian_female',  // Xhosa - needs verification
+  
+  // Asian languages - mixed presenters
+  'ja': 'european',      // Japanese - has European/default presenter
+  'ko': 'european',      // Korean - has European/default presenter
+  'zh': 'european',      // Chinese - has European/default presenter
+  'vi': 'european',      // Vietnamese - has European/default presenter
+  
+  // South Asian
+  'hi': 'european',      // Hindi - has European/default presenter
+  
+  // Middle Eastern
+  'ar': 'european',      // Arabic - has European/default presenter
+  'tr': 'european',      // Turkish - has European/default presenter
+  
+  // European languages - all use default presenter
+  'de': 'european', 'fr': 'european', 'es': 'european', 'it': 'european',
+  'nl': 'european', 'pl': 'european', 'ru': 'european', 'sv': 'european',
+  'pt': 'european',
+};
+
+// Avatar type to image URL mapping
+const AVATAR_TYPE_IMAGES = {
+  'african': 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=512&h=512&fit=crop',
+  'asian_female': 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop',
+  'asian_male': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=512&h=512&fit=crop',
+  'european': '/images/presenter_main.jpeg',
+  'south_asian': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop',
+};
+
+// Get avatar URL for a specific language code
+const getLanguageAvatar = (langCode) => {
+  const avatarType = LANGUAGE_AVATAR_MAPPING[langCode] || 'european';
+  return AVATAR_TYPE_IMAGES[avatarType] || AVATAR_TYPE_IMAGES['european'];
+};
+
+// Region-appropriate avatar images - FALLBACK for region-based lookups
+// NOTE: These are used when we don't have a specific language code
 const REGION_AVATARS = {
-  // Most videos use the default MedMatch presenter (woman with reddish-brown hair)
-  // This is the actual presenter shown in the D-ID generated videos
   'Europe': '/images/presenter_main.jpeg',
   'Nordic': '/images/presenter_main.jpeg',
   'Asia': '/images/presenter_main.jpeg',
   'South Asia': '/images/presenter_main.jpeg',
   'Middle East': '/images/presenter_main.jpeg',
   'South America': '/images/presenter_main.jpeg',
-  // African videos were correctly generated with African avatar
   'Africa': 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=512&h=512&fit=crop',
-  // Global/Default - same as most videos
   'Global': '/images/presenter_main.jpeg'
 };
 
