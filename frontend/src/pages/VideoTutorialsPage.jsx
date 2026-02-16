@@ -361,26 +361,23 @@ const TUTORIAL_LANGUAGES = [
   { code: 'zu', name: 'Zulu', flag: '🇿🇦', title: 'Qala nge-MedMatch-AI KARAU', presenter: 'Thandile (Female)', region: 'Africa' }
 ];
 
-// Region-appropriate avatar images - SYNCED Feb 15, 2026
-// These MUST match the AVATAR_IMAGES in /app/backend/services/did_avatar_service.py
-// to ensure thumbnails match the actual D-ID video presenters
+// Region-appropriate avatar images - FIXED Feb 15, 2026
+// NOTE: Most D-ID videos were generated with the default presenter (reddish-brown haired woman)
+// Only African language videos were regenerated with correct African avatars
+// This mapping matches what's ACTUALLY in the videos, not what was intended
 const REGION_AVATARS = {
-  // European female professional (light skin, professional appearance)
-  'Europe': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=512&h=512&fit=crop',
-  // Nordic female professional
-  'Nordic': 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=512&h=512&fit=crop',
-  // Asian female professional
-  'Asia': 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop',
-  // South Asian female professional
-  'South Asia': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop',
-  // Middle Eastern female professional
-  'Middle East': 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=512&h=512&fit=crop',
-  // South American/Latina female professional
-  'South America': 'https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=512&h=512&fit=crop',
-  // African female professional
+  // Most videos use the default MedMatch presenter (woman with reddish-brown hair)
+  // This is the actual presenter shown in the D-ID generated videos
+  'Europe': '/images/presenter_main.jpeg',
+  'Nordic': '/images/presenter_main.jpeg',
+  'Asia': '/images/presenter_main.jpeg',
+  'South Asia': '/images/presenter_main.jpeg',
+  'Middle East': '/images/presenter_main.jpeg',
+  'South America': '/images/presenter_main.jpeg',
+  // African videos were correctly generated with African avatar
   'Africa': 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=512&h=512&fit=crop',
-  // Global/Default - MedMatch presenter
-  'Global': '/images/presenter.jpeg'
+  // Global/Default - same as most videos
+  'Global': '/images/presenter_main.jpeg'
 };
 
 const GettingStartedSection = memo(() => {
