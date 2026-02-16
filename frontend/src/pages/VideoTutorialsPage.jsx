@@ -556,10 +556,10 @@ const GettingStartedSection = memo(() => {
             {/* Video Info Bar */}
             <div className="p-4 border-t border-gray-200 dark:border-slate-700 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                {/* Region-appropriate avatar thumbnail */}
+                {/* Language-specific avatar thumbnail - matches actual video presenter */}
                 <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-teal-500 flex-shrink-0">
                   <img 
-                    src={REGION_AVATARS[currentTutorial?.region] || REGION_AVATARS['Global']}
+                    src={getLanguageAvatar(selectedLang)}
                     alt={`${currentTutorial?.region} presenter`}
                     className="w-full h-full object-cover"
                   />
