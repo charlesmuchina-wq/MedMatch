@@ -8,7 +8,45 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 ---
 
 
-## Latest Updates (February 15, 2026 - Evening)
+## Latest Updates (February 16, 2026)
+
+### D-ID Tutorial Videos Regenerated ✅ (Feb 16, 2026)
+
+**10 Tutorial Videos Regenerated with Correct Regional Avatars:**
+| Language | Region | Avatar | Status |
+|----------|--------|--------|--------|
+| Hausa (ha) | Africa | African female | ✅ REGENERATED |
+| Zulu (zu) | Africa | African female | ✅ REGENERATED |
+| Afrikaans (af) | Africa | African female | ✅ REGENERATED |
+| Japanese (ja) | Asia | Asian female | ✅ REGENERATED |
+| Chinese (zh) | Asia | Asian female | ✅ REGENERATED |
+| Korean (ko) | Asia | Asian female | ✅ REGENERATED |
+| Vietnamese (vi) | Asia | Asian female | ✅ REGENERATED |
+| Hindi (hi) | South Asia | South Asian female | ✅ REGENERATED |
+| Arabic (ar) | Middle East | Middle Eastern female | ✅ REGENERATED |
+| Turkish (tr) | Middle East | Middle Eastern female | ✅ REGENERATED |
+
+**D-ID Image Assets Uploaded:**
+- African female avatar: `img_2HWpRuSJNvN0UPRWHJ9VR`
+- Asian female avatar: `img_5TQIKszNfYDUiLzO5agSm`
+- South Asian female avatar: `img_zK2i4CKEgIs23tYACFRRg`
+- Middle Eastern female avatar: `img_E0mRHqyb_5v8Lwq6zSHXi`
+
+**E2E Multi-User Video Call Test (iteration_81):**
+| Feature | Status |
+|---------|--------|
+| Login flow | ✅ PASSED |
+| Create meeting | ✅ PASSED |
+| Meeting room controls (10 buttons) | ✅ PASSED |
+| WebSocket signaling | ✅ PASSED |
+| Multi-user connections (3 users) | ✅ PASSED |
+| Chat functionality | ✅ PASSED |
+| ICE servers (5 STUN) | ✅ PASSED |
+| Leave meeting | ✅ PASSED |
+
+---
+
+## Previous Updates (February 15, 2026 - Evening)
 
 ### Avatar/Region Fixes & E2E Multi-User Video Test ✅ (Feb 15, 2026)
 
