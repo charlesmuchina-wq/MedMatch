@@ -28,23 +28,24 @@ AVATAR_VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Region-appropriate avatar source images
 # Using diverse stock photos that match regions and maintain consistent female presentation
+# URLs MUST end with image extension for D-ID API compatibility
 AVATAR_IMAGES = {
     # European avatars (light skin, professional appearance)
-    "european_female": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=512&h=512&fit=crop",
-    "nordic_female": "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=512&h=512&fit=crop",
+    "european_female": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2.jpg",
+    "nordic_female": "https://images.unsplash.com/photo-1580489944761-15a19d654956.jpg",
     
     # Asian avatars
-    "asian_female": "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop",
-    "south_asian_female": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop",
+    "asian_female": "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5.jpg",
+    "south_asian_female": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e.jpg",
     
     # African avatars
-    "african_female": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=512&h=512&fit=crop",
+    "african_female": "https://images.unsplash.com/photo-1531123897727-8f129e1688ce.jpg",
     
     # Middle Eastern avatars  
-    "middle_eastern_female": "https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=512&h=512&fit=crop",
+    "middle_eastern_female": "https://images.unsplash.com/photo-1598550874175-4d0ef436c909.jpg",
     
     # Latina avatars
-    "latina_female": "https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=512&h=512&fit=crop",
+    "latina_female": "https://images.unsplash.com/photo-1573497019418-b400bb3ab074.jpg",
     
     # Default MedMatch-AI KARAU avatar
     "default": "https://customer-assets.emergentagent.com/job_hirescience/artifacts/mux577io_MedMatch-AI KARAU%20Image.jpeg"
