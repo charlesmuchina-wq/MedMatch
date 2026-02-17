@@ -44,8 +44,8 @@ AVATAR_IMAGES = {
     # Middle Eastern avatars - D-ID hosted (Updated Feb 17, 2026 - professional headshot)
     "middle_eastern_female": "s3://d-id-images-prod/google-oauth2|110650682359864325385/img_0acaICzHICdlu2XzTLV6L/middle_eastern_new.jpg",
     
-    # Latina avatars
-    "latina_female": "https://images.unsplash.com/photo-1573497019418-b400bb3ab074.jpg",
+    # Latina avatars - D-ID hosted (Updated Feb 17, 2026 - brown skin professional)
+    "latina_female": "s3://d-id-images-prod/google-oauth2|110650682359864325385/img_cywknVA-8PRJBTL1_x0_x/latina_avatar.jpg",
     
     # Default MedMatch-AI KARAU avatar
     "default": "https://customer-assets.emergentagent.com/job_hirescience/artifacts/mux577io_MedMatch-AI KARAU%20Image.jpeg"
