@@ -41,8 +41,8 @@ AVATAR_IMAGES = {
     # African avatars - D-ID hosted
     "african_female": "s3://d-id-images-prod/google-oauth2|110650682359864325385/img_2HWpRuSJNvN0UPRWHJ9VR/african_female.jpg",
     
-    # Middle Eastern avatars - D-ID hosted
-    "middle_eastern_female": "s3://d-id-images-prod/google-oauth2|110650682359864325385/img_E0mRHqyb_5v8Lwq6zSHXi/middle_eastern_female.jpg",
+    # Middle Eastern avatars - D-ID hosted (Updated Feb 17, 2026 - professional headshot)
+    "middle_eastern_female": "s3://d-id-images-prod/google-oauth2|110650682359864325385/img_0acaICzHICdlu2XzTLV6L/middle_eastern_new.jpg",
     
     # Latina avatars
     "latina_female": "https://images.unsplash.com/photo-1573497019418-b400bb3ab074.jpg",
