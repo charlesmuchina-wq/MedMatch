@@ -414,7 +414,7 @@ const REGION_AVATARS = {
   'Nordic': '/images/presenter_main.jpeg',
   'Asia': 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop',
   'South Asia': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop',
-  'Middle East': 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=512&h=512&fit=crop',
+  'Middle East': 'https://images.unsplash.com/photo-1600600457585-570c2eb88b89?w=512&h=512&fit=crop',
   'South America': '/images/presenter_main.jpeg',
   'Africa': 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=512&h=512&fit=crop',
   'Global': '/images/presenter_main.jpeg'
