@@ -392,12 +392,13 @@ const LANGUAGE_AVATAR_MAPPING = {
 };
 
 // Avatar type to image URL mapping - matches D-ID hosted images
+// Added cache-busting timestamp Feb 17, 2026
 const AVATAR_TYPE_IMAGES = {
-  'african': 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=512&h=512&fit=crop',
-  'asian': 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop',
-  'south_asian': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop',
-  'middle_eastern': 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=512&h=512&fit=crop',
-  'european': '/images/presenter_main.jpeg',
+  'african': 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=512&h=512&fit=crop&v=20260217',
+  'asian': 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop&v=20260217',
+  'south_asian': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop&v=20260217',
+  'middle_eastern': 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=512&h=512&fit=crop&v=20260217',
+  'european': '/images/presenter_main.jpeg?v=20260217',
 };
 
 // Get avatar URL for a specific language code
