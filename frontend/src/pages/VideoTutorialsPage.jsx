@@ -407,13 +407,13 @@ const getLanguageAvatar = (langCode) => {
 };
 
 // Region-appropriate avatar images - FALLBACK for region-based lookups
-// NOTE: These are used when we don't have a specific language code
+// Updated Feb 17, 2026: Now uses correct regional avatars matching D-ID videos
 const REGION_AVATARS = {
   'Europe': '/images/presenter_main.jpeg',
   'Nordic': '/images/presenter_main.jpeg',
-  'Asia': '/images/presenter_main.jpeg',
-  'South Asia': '/images/presenter_main.jpeg',
-  'Middle East': '/images/presenter_main.jpeg',
+  'Asia': 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop',
+  'South Asia': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop',
+  'Middle East': 'https://images.unsplash.com/photo-1598550874175-4d0ef436c909?w=512&h=512&fit=crop',
   'South America': '/images/presenter_main.jpeg',
   'Africa': 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=512&h=512&fit=crop',
   'Global': '/images/presenter_main.jpeg'
