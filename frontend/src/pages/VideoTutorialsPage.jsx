@@ -362,8 +362,7 @@ const TUTORIAL_LANGUAGES = [
 ];
 
 // Per-language avatar mapping - MATCHES ACTUAL VIDEO CONTENT
-// Updated Feb 16, 2026: Videos regenerated with correct D-ID avatars
-// All avatars now match what's actually in the D-ID generated videos
+// Updated Feb 17, 2026: Added Latina avatar for South/Central American languages
 const LANGUAGE_AVATAR_MAPPING = {
   // African languages - ALL NOW USE AFRICAN FEMALE AVATAR ✅
   'sw': 'african',       // Swahili - African woman
@@ -385,10 +384,13 @@ const LANGUAGE_AVATAR_MAPPING = {
   'ar': 'middle_eastern', // Arabic - Middle Eastern woman (REGENERATED)
   'tr': 'middle_eastern', // Turkish - Middle Eastern woman (REGENERATED)
   
+  // South/Central American - LATINA AVATAR (brown skin) ✅
+  'pt': 'latina',        // Portuguese (Brazil) - Latina woman
+  'es': 'latina',        // Spanish - Latina woman (for Latin America)
+  
   // European languages - use default presenter
-  'de': 'european', 'fr': 'european', 'es': 'european', 'it': 'european',
+  'de': 'european', 'fr': 'european', 'it': 'european',
   'nl': 'european', 'pl': 'european', 'ru': 'european', 'sv': 'european',
-  'pt': 'european',
 };
 
 // Avatar type to image URL mapping - matches D-ID hosted images
