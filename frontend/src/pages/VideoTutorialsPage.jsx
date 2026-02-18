@@ -492,7 +492,10 @@ const GettingStartedSection = memo(() => {
       networkState: video?.networkState,
       readyState: video?.readyState
     });
-    setVideoError('Video unavailable');
+    // Only show error if video actually failed to load (not just stalled)
+    if (error?.code === 4 || video?.networkState === 3) {
+      setVideoError('Video unavailable');
+    }
     setVideoLoading(false);
   }, []);
 
