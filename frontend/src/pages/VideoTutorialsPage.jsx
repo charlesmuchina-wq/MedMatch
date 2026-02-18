@@ -449,8 +449,8 @@ const GettingStartedSection = memo(() => {
   const videoRef = useRef(null);
 
   const currentTutorial = TUTORIAL_LANGUAGES.find(l => l.code === selectedLang);
-  // Cache-busting parameter v=3 for new diverse presenter videos (Feb 10, 2026)
-  const videoUrl = `${API}/api/tutorials/video-file/tutorial_${selectedLang}.mp4?v=3`;
+  // Cache-busting parameter v=4 for freshly regenerated videos (Feb 18, 2026)
+  const videoUrl = `${API}/api/tutorials/video-file/tutorial_${selectedLang}.mp4?v=4`;
 
   const handleLanguageChange = useCallback((langCode) => {
     setSelectedLang(langCode);
