@@ -286,6 +286,39 @@ TUTORIAL_VIDEOS = {
         "voice": "HoaiMy (vi-VN)",
         "language": "vi",
         "talk_id": "tlk_aacDqHBufCqnl5ICyXO8J"
+    },
+    # African Languages - Added Feb 18, 2026
+    "sw": {
+        "id": "tutorial_swahili",
+        "title": "Kuanza na MedMatch-AI KARAU",
+        "description": "Jifunze kutumia MedMatch-AI KARAU kwa dakika chache",
+        "duration": "45 seconds",
+        "voice": "Zuri (sw-KE)",
+        "language": "sw"
+    },
+    "af": {
+        "id": "tutorial_afrikaans",
+        "title": "Begin met MedMatch-AI KARAU",
+        "description": "Leer hoe om MedMatch-AI KARAU binne minute te gebruik",
+        "duration": "45 seconds",
+        "voice": "Adri (af-ZA)",
+        "language": "af"
+    },
+    "ha": {
+        "id": "tutorial_hausa",
+        "title": "Fara da MedMatch-AI KARAU",
+        "description": "Koyi yadda ake amfani da MedMatch-AI KARAU cikin mintuna",
+        "duration": "45 seconds",
+        "voice": "Ezinne (en-NG)",
+        "language": "ha"
+    },
+    "zu": {
+        "id": "tutorial_zulu",
+        "title": "Qala nge-MedMatch-AI KARAU",
+        "description": "Funda ukusebenzisa i-MedMatch-AI KARAU ngomzuzu nje",
+        "duration": "45 seconds",
+        "voice": "Thandile (zu-ZA)",
+        "language": "zu"
     }
 }
 
