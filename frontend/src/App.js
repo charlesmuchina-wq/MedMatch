@@ -990,23 +990,36 @@ const SubdomainRouter = () => {
   
   // Extract subdomain from hostname
   const getSubdomain = () => {
+    // Check URL param for testing in any environment: ?portal=meet or ?portal=jobs
+    const params = new URLSearchParams(window.location.search);
+    const portalParam = params.get('portal');
+    if (portalParam) {
+      return portalParam.toLowerCase();
+    }
+    
     // Handle localhost development
     if (hostname === 'localhost' || hostname === '127.0.0.1') {
-      // Check URL param for testing: ?portal=meet or ?portal=jobs
-      const params = new URLSearchParams(window.location.search);
-      return params.get('portal') || null;
+      return null;
     }
     
-    // Handle production domains
+    // Handle production domains (e.g., meet.aikarau.com)
     const parts = hostname.split('.');
     
-    // If we have a subdomain (e.g., meet.aikarau.com has 3 parts)
-    if (parts.length >= 3) {
-      const subdomain = parts[0].toLowerCase();
-      return subdomain;
+    // For aikarau.com domain structure
+    // meet.aikarau.com -> ['meet', 'aikarau', 'com'] -> subdomain = 'meet'
+    // aikarau.com -> ['aikarau', 'com'] -> no subdomain
+    
+    // Check if this is our main domain (aikarau.com)
+    if (parts.includes('aikarau')) {
+      const aikarauIndex = parts.indexOf('aikarau');
+      if (aikarauIndex > 0) {
+        return parts[0].toLowerCase(); // Return the subdomain
+      }
+      return null; // Main domain, no subdomain
     }
     
-    // Main domain (aikarau.com) - no subdomain
+    // For preview/staging environments (e.g., medkonnect.preview.emergentagent.com)
+    // These don't have subdomains in the traditional sense
     return null;
   };
   
@@ -1018,12 +1031,13 @@ const SubdomainRouter = () => {
     return <KarauMeetPortal />;
   }
   
-  // medmatch.aikarau.com, careers.aikarau.com, jobs.aikarau.com -> MedMatch Jobs
+  // medmatch.aikarau.com, careers.aikarau.com, jobs.aikarau.com -> MedMatch Jobs (skip portal selector)
   if (subdomain === 'medmatch' || subdomain === 'careers' || subdomain === 'jobs') {
-    return <AppContent />;
+    // For job portal subdomains, we skip the Portal Selector and go directly to login/app
+    return <AppContent skipPortalSelector={true} />;
   }
   
-  // Main domain (aikarau.com) or unknown subdomain -> Portal Selector
+  // Main domain (aikarau.com) or unknown subdomain -> Show Portal Selector first
   return <AppContent />;
 };
 
