@@ -414,14 +414,14 @@ const getLanguageAvatar = (langCode) => {
 // Region-appropriate avatar images - FALLBACK for region-based lookups
 // Updated Feb 18, 2026: Fixed African (no hands blocking) and Asian avatars
 const REGION_AVATARS = {
-  'Europe': '/images/presenter_main.jpeg',
-  'Nordic': '/images/presenter_main.jpeg',
-  'Asia': 'https://images.unsplash.com/photo-1736939623985-90002e1f48c6?w=512&h=512&fit=crop',
-  'South Asia': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop',
-  'Middle East': 'https://images.unsplash.com/photo-1600600457585-570c2eb88b89?w=512&h=512&fit=crop',
-  'South America': 'https://images.unsplash.com/photo-1689600944138-da3b150d9cb8?w=512&h=512&fit=crop',
-  'Africa': 'https://images.unsplash.com/photo-1686628332798-757c624c4b08?w=512&h=512&fit=crop',
-  'Global': '/images/presenter_main.jpeg'
+  'Europe': '/images/presenter_main.jpeg?v=20260218b',
+  'Nordic': '/images/presenter_main.jpeg?v=20260218b',
+  'Asia': 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=512&h=512&fit=crop&v=20260218b',
+  'South Asia': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop&v=20260218b',
+  'Middle East': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=512&h=512&fit=crop&v=20260218b',
+  'South America': 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop&v=20260218b',
+  'Africa': 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=512&h=512&fit=crop&v=20260218b',
+  'Global': '/images/presenter_main.jpeg?v=20260218b'
 };
 
 const GettingStartedSection = memo(() => {
