@@ -792,8 +792,8 @@ function AppContent({ skipPortalSelector = false }) {
   // Check if we're on the login page specifically
   const isLoginPage = location.pathname === '/login';
 
-  // Show Portal Selector if not authenticated (except for login page or session_id hash)
-  if (!user && !window.location.hash.includes('session_id') && !isLoginPage) {
+  // Show Portal Selector if not authenticated (except for login page, session_id hash, or when skipPortalSelector is true)
+  if (!user && !window.location.hash.includes('session_id') && !isLoginPage && !skipPortalSelector) {
     return (
       <>
         <PortalSelector />
@@ -802,8 +802,8 @@ function AppContent({ skipPortalSelector = false }) {
     );
   }
 
-  // Show login page if on /login route or processing session_id
-  if (!user && (isLoginPage || window.location.hash.includes('session_id'))) {
+  // Show login page if on /login route, processing session_id, or skipPortalSelector is true
+  if (!user && (isLoginPage || window.location.hash.includes('session_id') || skipPortalSelector)) {
     return (
       <>
         <LoginPage onAuthSuccess={handleAuthSuccess} />
