@@ -984,13 +984,56 @@ function AppContent() {
   );
 }
 
+// Subdomain Router - Routes to correct portal based on hostname
+const SubdomainRouter = () => {
+  const hostname = window.location.hostname;
+  
+  // Extract subdomain from hostname
+  const getSubdomain = () => {
+    // Handle localhost development
+    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+      // Check URL param for testing: ?portal=meet or ?portal=jobs
+      const params = new URLSearchParams(window.location.search);
+      return params.get('portal') || null;
+    }
+    
+    // Handle production domains
+    const parts = hostname.split('.');
+    
+    // If we have a subdomain (e.g., meet.aikarau.com has 3 parts)
+    if (parts.length >= 3) {
+      const subdomain = parts[0].toLowerCase();
+      return subdomain;
+    }
+    
+    // Main domain (aikarau.com) - no subdomain
+    return null;
+  };
+  
+  const subdomain = getSubdomain();
+  
+  // Route based on subdomain
+  // meet.aikarau.com -> AI KARAU Meeting Portal
+  if (subdomain === 'meet') {
+    return <KarauMeetPortal />;
+  }
+  
+  // medmatch.aikarau.com, careers.aikarau.com, jobs.aikarau.com -> MedMatch Jobs
+  if (subdomain === 'medmatch' || subdomain === 'careers' || subdomain === 'jobs') {
+    return <AppContent />;
+  }
+  
+  // Main domain (aikarau.com) or unknown subdomain -> Portal Selector
+  return <AppContent />;
+};
+
 // Main App Component with Theme Provider
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
         <I18nProvider>
-          <AppContent />
+          <SubdomainRouter />
         </I18nProvider>
       </ThemeProvider>
     </BrowserRouter>
