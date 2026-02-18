@@ -635,7 +635,7 @@ const GettingStartedSection = memo(() => {
                 <span className="text-lg">{lang.flag}</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-sm truncate">{lang.name}</p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 truncate">{lang.presenter}</p>
+                  <p className="text-xs text-gray-700 dark:text-gray-400 truncate">{lang.presenter}</p>
                 </div>
                 {selectedLang === lang.code && (
                   <div className="w-2 h-2 bg-teal-500 rounded-full" />
