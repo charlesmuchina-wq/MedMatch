@@ -410,23 +410,35 @@ const AVATAR_TYPE_IMAGES = {
   'vietnamese': 'https://images.unsplash.com/photo-1624091844772-554661d10173?w=512&h=512&fit=crop&t=20260218',
 };
 
-// Get avatar URL for a specific language code
+// Get avatar URL for a specific language code - IMPROVED with sub-regional support
 const getLanguageAvatar = (langCode) => {
+  // Check for sub-regional specific avatars first
+  const subRegionalMap = {
+    'ja': 'japanese',
+    'ko': 'korean', 
+    'zh': 'chinese',
+    'vi': 'vietnamese'
+  };
+  
+  if (subRegionalMap[langCode] && AVATAR_TYPE_IMAGES[subRegionalMap[langCode]]) {
+    return AVATAR_TYPE_IMAGES[subRegionalMap[langCode]];
+  }
+  
   const avatarType = LANGUAGE_AVATAR_MAPPING[langCode] || 'european';
   return AVATAR_TYPE_IMAGES[avatarType] || AVATAR_TYPE_IMAGES['european'];
 };
 
-// Region-appropriate avatar images - FALLBACK for region-based lookups
-// Updated Feb 18, 2026: Fixed African (no hands blocking) and Asian avatars
+// Region-appropriate avatar images - FRESH REBUILD Feb 18, 2026
+// All Pexels images - NO hands blocking faces
 const REGION_AVATARS = {
-  'Europe': '/images/presenter_main.jpeg?v=20260218b',
-  'Nordic': '/images/presenter_main.jpeg?v=20260218b',
-  'Asia': 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=512&h=512&fit=crop&v=20260218b',
-  'South Asia': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop&v=20260218b',
-  'Middle East': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=512&h=512&fit=crop&v=20260218b',
-  'South America': 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop&v=20260218b',
-  'Africa': 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=512&h=512&fit=crop&v=20260218b',
-  'Global': '/images/presenter_main.jpeg?v=20260218b'
+  'Europe': '/images/presenter_main.jpeg?t=20260218',
+  'Nordic': '/images/presenter_main.jpeg?t=20260218',
+  'Asia': 'https://images.pexels.com/photos/6572210/pexels-photo-6572210.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
+  'South Asia': 'https://images.pexels.com/photos/4057039/pexels-photo-4057039.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
+  'Middle East': 'https://images.unsplash.com/photo-1600600457585-570c2eb88b89?w=512&h=512&fit=crop&t=20260218',
+  'South America': 'https://images.pexels.com/photos/10041243/pexels-photo-10041243.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
+  'Africa': 'https://images.pexels.com/photos/3727462/pexels-photo-3727462.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
+  'Global': '/images/presenter_main.jpeg?t=20260218'
 };
 
 const GettingStartedSection = memo(() => {
