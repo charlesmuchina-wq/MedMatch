@@ -10,6 +10,41 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 
 ## Latest Updates (February 18, 2026)
 
+### D-ID Tutorial Videos FRESH REGENERATION ✅ (Feb 18, 2026)
+
+**Complete Avatar Rebuild - All videos regenerated with verified professional headshots:**
+
+| Language | Region | Voice | New File | Status |
+|----------|--------|-------|----------|--------|
+| Swahili (sw) | Africa | sw-KE-ZuriNeural | 4.9 MB | ✅ REGENERATED |
+| Afrikaans (af) | Africa | af-ZA-AdriNeural | 4.7 MB | ✅ REGENERATED |
+| Hausa (ha) | Africa | en-NG-EzinneNeural | 4.9 MB | ✅ REGENERATED |
+| Zulu (zu) | Africa | en-ZA-LeahNeural | 5.5 MB | ✅ REGENERATED |
+| Japanese (ja) | Asia | ja-JP-NanamiNeural | 6.1 MB | ✅ REGENERATED |
+| Korean (ko) | Asia | ko-KR-SunHiNeural | 6.7 MB | ✅ REGENERATED |
+| Chinese (zh) | Asia | zh-CN-XiaoxiaoNeural | 4.9 MB | ✅ REGENERATED |
+| Vietnamese (vi) | Asia | vi-VN-HoaiMyNeural | 5.1 MB | ✅ REGENERATED |
+| Hindi (hi) | South Asia | hi-IN-SwaraNeural | 2.5 MB | ✅ REGENERATED |
+| Arabic (ar) | Middle East | ar-EG-SalmaNeural | 5.5 MB | ✅ REGENERATED |
+| Turkish (tr) | Middle East | tr-TR-EmelNeural | 4.8 MB | ✅ REGENERATED |
+| Portuguese (pt) | Latin America | pt-BR-FranciscaNeural | 1.2 MB | ✅ REGENERATED |
+| Spanish (es) | Latin America | es-ES-ElviraNeural | 1.1 MB | ✅ REGENERATED |
+
+**Avatar Sources (Fresh Pexels/Unsplash - NO hands blocking faces):**
+- African: `pexels-photo-3727462.jpeg` - Professional African businesswoman
+- Asian: `pexels-photo-6572210.jpeg` - Professional Asian woman
+- South Asian: `pexels-photo-4057039.jpeg` - Indian professional woman  
+- Middle Eastern: `unsplash-photo-1600600457585` - Arab woman with hijab smiling
+- Latina: `pexels-photo-10041243.jpeg` - Latina professional
+
+**Frontend Updates:**
+- Updated `AVATAR_TYPE_IMAGES` with fresh Pexels URLs
+- Updated `REGION_AVATARS` mapping
+- Added cache-busting parameter `v=4` for video URLs
+- Improved video error handling
+
+---
+
 ### MeetingRoom.jsx Refactoring Complete ✅ (Feb 18, 2026)
 
 **Refactoring Verified:**
