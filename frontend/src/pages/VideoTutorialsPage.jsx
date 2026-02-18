@@ -395,13 +395,14 @@ const LANGUAGE_AVATAR_MAPPING = {
 
 // Avatar type to image URL mapping - matches D-ID hosted images
 // Updated Feb 18, 2026 - Fixed African (no hands blocking) and Asian avatars
+// Added cache-busting parameter for fresh images
 const AVATAR_TYPE_IMAGES = {
-  'african': 'https://images.unsplash.com/photo-1686628332798-757c624c4b08?w=512&h=512&fit=crop&v=20260218',  // Professional black woman in blazer
-  'asian': 'https://images.unsplash.com/photo-1736939623985-90002e1f48c6?w=512&h=512&fit=crop&v=20260218',    // Professional Asian woman in suit
-  'south_asian': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop&v=20260218',
-  'middle_eastern': 'https://images.unsplash.com/photo-1600600457585-570c2eb88b89?w=512&h=512&fit=crop&v=20260218',
-  'latina': 'https://images.unsplash.com/photo-1689600944138-da3b150d9cb8?w=512&h=512&fit=crop&v=20260218',
-  'european': '/images/presenter_main.jpeg?v=20260218',
+  'african': 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=512&h=512&fit=crop&v=20260218b',  // Professional black businesswoman headshot
+  'asian': 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=512&h=512&fit=crop&v=20260218b',    // Professional Asian woman
+  'south_asian': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop&v=20260218b',
+  'middle_eastern': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=512&h=512&fit=crop&v=20260218b',  // Professional woman with hijab
+  'latina': 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop&v=20260218b',  // Professional latina woman
+  'european': '/images/presenter_main.jpeg?v=20260218b',
 };
 
 // Get avatar URL for a specific language code
