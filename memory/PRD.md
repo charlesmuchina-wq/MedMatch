@@ -3865,3 +3865,58 @@ Implemented grammatical gender-aware translations following ICU MessageFormat an
 - All hooks must be called before conditional returns in components
 - Video cleanup required on unmount to prevent memory leaks
 - IntersectionObserver with 100px rootMargin for preloading
+
+---
+
+## Latest Updates (February 18, 2026)
+
+### Subdomain-Based Routing Implemented ✅ (Feb 18, 2026)
+
+**Routing Configuration:**
+| Domain | Route |
+|--------|-------|
+| `aikarau.com` | Portal Selector page |
+| `medmatch.aikarau.com` | MedMatch Jobs (skip Portal Selector) |
+| `careers.aikarau.com` | MedMatch Jobs (skip Portal Selector) |
+| `jobs.aikarau.com` | MedMatch Jobs (skip Portal Selector) |
+| `meet.aikarau.com` | AI KARAU Meeting Portal |
+
+**Testing in Preview Environment:**
+- Use `?portal=meet` to simulate meet.aikarau.com
+- Use `?portal=jobs` to simulate jobs.aikarau.com
+- No param shows Portal Selector (main domain behavior)
+
+**Implementation:**
+- Added `SubdomainRouter` component in `/app/frontend/src/App.js`
+- `AppContent` now accepts `skipPortalSelector` prop
+- Detects subdomain from hostname or query param
+
+### Avatar Fixes ✅ (Feb 18, 2026)
+
+**Japanese Avatar Fixed:**
+- Updated AVATAR_TYPE_IMAGES['asian'] to professional Asian woman in suit
+- Image: `photo-1736939623985-90002e1f48c6`
+
+**African Avatar Fixed:**
+- Updated AVATAR_TYPE_IMAGES['african'] to professional black woman in blazer (no hands blocking face)
+- Image: `photo-1686628332798-757c624c4b08`
+- Affects: Swahili (sw), Afrikaans (af), Hausa (ha), Zulu (zu)
+
+**Data Privacy Video:**
+- Already correctly configured with male presenter (`/images/presenter_male.jpeg`)
+- Voice: Male (onyx)
+
+**Files Updated:**
+- `/app/frontend/src/pages/VideoTutorialsPage.jsx` - AVATAR_TYPE_IMAGES and REGION_AVATARS
+
+### Test Results (iteration_82)
+| Feature | Status |
+|---------|--------|
+| Main domain → Portal Selector | ✅ PASSED |
+| ?portal=meet → AI KARAU Meeting | ✅ PASSED |
+| ?portal=jobs → MedMatch Jobs | ✅ PASSED |
+| Tutorial page loads | ✅ PASSED |
+| Japanese avatar (Asian woman) | ✅ PASSED |
+| African avatars | ✅ PASSED |
+| Data Privacy male presenter | ✅ PASSED |
+
