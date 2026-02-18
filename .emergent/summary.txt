@@ -1,38 +1,66 @@
 <analysis>**original_problem_statement:**
-The user's initial goal was to build MedMatch, an AI-powered Life Sciences & Engineering Talent Ecosystem. After fixing a series of critical UI/UX bugs and rebranding the app to MedMatch-AI KARAU, the user requested a major new feature: cloning Microsoft Visio's functionality to create AI KARAU Meeting, a standalone, secure video conferencing application.
+The user's initial goal was to build MedMatch, an AI-powered Life Sciences & Engineering Talent Ecosystem. This evolved into a dual-application platform featuring:
+1.  **MedMatch-AI KARAU:** A talent ecosystem platform.
+2.  **AI KARAU Meeting Portal:** A standalone, secure video conferencing application modeled after Microsoft Visio, with features like smart scheduling, HD video, collaboration tools, and AI-driven transcription/summaries.
 
-This new portal must be accessible with the same credentials as the main recruiting app but function as a separate, independent platform with its own dashboard. The user has provided a detailed list of required features, including smart scheduling, HD video/audio, collaboration tools (whiteboard, file sharing), AI-driven post-meeting tools (transcription, summaries), host controls, and enterprise-grade security (E2EE, MFA, compliance). The implementation has been executed in phases.
+The current focus is on finalizing the application's deployment architecture by implementing subdomain-based routing to direct users to the correct portal based on the URL they visit. The user has also reported and worked with the agent to fix numerous issues related to mismatched avatars in the D-ID generated tutorial videos.
+
+**PRODUCT REQUIREMENTS:**
+-   **Main Domain ():** Should display a portal selector page, allowing users to choose between the Job Toolkit and the Meeting Portal.
+-   **Job Toolkit Subdomains (, , ):** Should navigate directly to the MedMatch Jobs application.
+-   **Meeting Portal Subdomain ():** Should navigate directly to the AI KARAU Meeting application.
 
 **User's preferred language**: English
 
 **what currently exists?**
-The project is a dual-application platform accessible from a single domain. A new **Portal Selector** page at the root directs users to one of two applications:
-1.  **MedMatch-AI KARAU:** A stable, full-stack talent ecosystem platform.
-2.  **AI KARAU Meeting Portal:** A new, feature-complete video conferencing application.
-    *   **Backend:** Fully implemented services and APIs for meeting creation, scheduling, security (email MFA), AI transcription (OpenAI Whisper), AI summaries (GPT-5.2), WebRTC signaling (WebSockets), real email sending (Resend), and STUN/TURN server provisioning (Xirsys).
-    *   **Frontend:** A dedicated login page and dashboard for the meeting portal. The  component is fully functional with WebRTC video/audio, client-side recording, screen sharing, chat, and an AI-powered virtual background feature using TensorFlow.js. A comprehensive settings page allows users to manage security and accessibility options.
+The project is a dual-application platform running on a single codebase. A **Portal Selector** page at the root directs users to either the MedMatch AI Job Toolkit or the AI KARAU Meeting portal.
+-   **AI KARAU Meeting Portal:** A feature-complete video conferencing app with a dedicated login and dashboard. WebRTC, signaling, AI features (transcription/summaries), and third-party integrations (Resend, Xirsys, D-ID) are fully functional.
+-   **MedMatch-AI KARAU Portal:** A stable talent platform. The main recent work here has been on the tutorial videos.
+-   **Tutorial Videos:** A persistent issue with mismatched avatars in D-ID generated videos has been addressed. The agent has regenerated numerous videos for African, Asian, Middle Eastern, and Latin American languages to ensure the presenter's appearance matches the region and language. The frontend thumbnails have also been updated to match the actual video content.
+-   **Code Refactoring:** The monolithic  has been successfully broken down into smaller, page-specific components. The refactoring of  was started but is incomplete.
 
 **Last working item**:
--   **Last item agent was working:** The agent addressed the user's question about domain architecture for the two co-existing portals (MedMatch AI Job Toolkit and AI KARAU Meeting). The agent provided a detailed breakdown of three options: Subdomain, Path-based routing, and Separate Domains, outlining the pros and cons of each for scalability, branding, and management.
--   **Status:** USER VERIFICATION PENDING
--   **Agent Testing Done:** N/A (The last action was providing a conceptual explanation).
--   **Which testing method agent to use?** N/A
+-   **Last item agent was working:** The agent acknowledged the user's request to implement subdomain-based routing for the two portals and was about to begin implementation.
+-   **Status:** NOT STARTED
+-   **Agent Testing Done:** N
+-   **Which testing method agent to use?** Frontend testing agent (to verify redirection logic across different subdomains).
 -   **User Testing Done:** N
 
 **All Pending/In progress Issue list**:
-There are no pending issues or bugs.
+-   **Issue 1: Avatar for Japanese Language Still Mismatched (P1)**
+    -   **Description:** Despite numerous fixes, the user reported that the Japanese tutorial video avatar is still incorrect. The thumbnail in the UI shows a different presenter than the one in the actual video.
+    -   **Attempted fixes:** The agent regenerated videos, updated image mappings, and added cache-busting parameters. The issue appears to be a stubborn caching problem or a subtle mapping error in the frontend code.
+    -   **Next debug checklist:**
+        1.  Verify the URL being loaded for the Japanese avatar in the browser's network tab.
+        2.  Inspect the  function output in  during runtime.
+        3.  Re-confirm that the  and  arrays in  are correct for Japanese ().
+        4.  If it's a caching issue, explore forcing a hard reload via JavaScript or altering the file names/paths.
+    -   **Why fix this issue and what will be achieved with the fix?** To resolve a recurring visual bug and ensure a consistent, professional user experience in the tutorials section.
+    -   **Status:** IN PROGRESS
+    -   **Is recurring issue?** Y
+    -   **Should Test frontend/backend/both after fix?** Frontend
+    -   **Blocked on other issue:** No
 
 **In progress Task List**:
--   **Task 1: Decide on Domain Architecture** (P0)
-    -   **Where to resume:** Awaiting the user's decision on the preferred domain strategy (Subdomain, Path-based, or Separate Domains) based on the options provided by the agent.
-    -   **What will be achieved with this?** This will finalize the deployment strategy and URL structure for the application.
-    -   **Status:** BLOCKED
-    -   **Should Test frontend/backend/both after fix?** N/A
-    -   **Blocked on something:** User's decision.
+-   **Task 1: Implement Subdomain-Based Routing (P0)**
+    -   **Description**: The primary task is to implement the logic that directs users to the correct portal based on the subdomain.
+    -   **Where to resume:** Update  to read  and use React Router to conditionally render the ,  (MedMatch), or  based on the subdomain.
+    -   **What will be achieved with this?** The application will function as per the user's specified domain architecture, providing direct access to the portals via their respective subdomains.
+    -   **Status:** IN PROGRESS
+    -   **Should Test frontend/backend/both after fix?** Frontend
+    -   **Blocked on something:** No
+
+-   **Task 2: Complete Refactoring of  (P2)**
+    -   **Description:** The agent created child components (, , ) but never updated the parent  to use them. The parent component is still a large, monolithic file.
+    -   **Where to resume:** Edit . Import the new child components and replace the existing JSX with them, passing down props as needed.
+    -   **What will be achieved with this?** Improved code maintainability, readability, and separation of concerns for the core video call component.
+    -   **Status:** IN PROGRESS
+    -   **Should Test frontend/backend/both after fix?** Frontend
+    -   **Blocked on something:** No
 
 **Upcoming and Future Tasks**
 -   **Upcoming Tasks:**
-    -   **(P0) E2E Multi-User Video Call Test:** Guide the user to perform a live, end-to-end video call test with at least two different browser windows or devices. This is to validate that the full WebRTC, signaling, and TURN server integration works correctly in a real-world scenario.
+    -   **(P1) E2E Multi-User Video Call Test:** Guide the user to perform a live, end-to-end video call test with at least two different browser windows or devices. This is to validate that the full WebRTC, signaling, and TURN server integration works correctly in a real-world scenario after all the recent changes.
 -   **Future Tasks (Blocked on user credentials):**
     -   **(P1) LinkedIn Profile Sync:** Blocked, awaiting user-provided Client ID and Secret.
     -   **(P1) ORCID OAuth Login:** Blocked, awaiting user-provided credentials.
@@ -41,15 +69,22 @@ There are no pending issues or bugs.
     -   **(P2) iOS build.**
 
 **Completed work in this session**
--   **Portal Selector UX Overhaul:** Created a new primary landing page () to cleanly separate the entry points for the MedMatch AI Job Toolkit and AI KARAU Meeting. This page features animated, mobile-responsive cards.
--   **AI KARAU Meeting - Phase 2 (Security & Accessibility):** Implemented email-based MFA, created accessibility routes, integrated the user's logo and branding, and added UI placeholders for social logins.
--   **AI KARAU Meeting - Phase 3 (AI & WebRTC):** Built backend services for AI transcription (Whisper) and summaries (GPT-5.2), along with a robust WebSocket-based WebRTC signaling server.
--   **WebRTC & Recording:** Fully implemented peer-to-peer video/audio, screen sharing, and browser-side recording in the  component. Created backend endpoints and UI pages to manage recordings.
--   **Third-Party Integrations:**
-    -   **Resend:** Integrated for sending real verification emails using the user's API key.
-    -   **Xirsys:** Integrated for providing STUN/TURN servers to ensure robust WebRTC connectivity, using user-provided credentials.
-    -   **TensorFlow.js:** Integrated for a client-side AI virtual background feature.
--   **Bug Fix:** Resolved a critical WebSocket connection failure by removing a duplicate, outdated endpoint.
+-   **D-ID Video Avatar Overhaul:**
+    -   Identified and fixed numerous mismatches between video presenters and UI thumbnails for various languages.
+    -   Regenerated over a dozen tutorial videos using the D-ID API with correct region-appropriate avatars (African, Middle Eastern, Latin American, Asian).
+    -   Fixed the Data Privacy video to have a matching male presenter and voice.
+    -   Updated frontend mappings ( in ) and image assets to align with the new videos.
+    -   Debugged D-ID API issues by uploading images to S3 buckets before generation.
+-   **Code Refactoring (Partial):**
+    -   Successfully broke down the monolithic  into smaller page components (, , etc.).
+    -   Created new component files for  (, , ).
+-   **UI Fixes:**
+    -   Replaced the placeholder text logo on the Portal Selector with the user's official MedMatch logo.
+    -   Fixed a bug where the AI KARAU Meeting login button was stuck in a loading state.
+-   **Infrastructure & Testing:**
+    -   Provided the user with a comprehensive list of testing URLs for all portals and direct video links.
+    -   Ran E2E tests using the testing agent to verify video call functionality.
+    -   Cleared all application and system caches to help resolve visual bugs.
 
 **Earlier issues found/mentioned but not fixed**
 - None.
@@ -61,88 +96,74 @@ There are no pending issues or bugs.
 
 
 **Key Technical Concepts**
--   **Portal Selector Architecture:** Using a root-level React component to direct users to one of two distinct applications within the same project.
--   **WebRTC & Signaling:** Full implementation of peer-to-peer video calls using WebRTC for media and a FastAPI WebSocket backend for signaling.
--   **Third-Party Integrations:** Successful integration of **Resend** (email), **Xirsys** (TURN servers), and **TensorFlow.js** (AI virtual background) using user-provided keys and free-tier services.
--   **Client-Side Media Processing:** Use of the browser's  API for local video recording and TensorFlow.js for real-time video manipulation.
+-   **D-ID Video Generation:** Programmatic regeneration of AI avatar videos via the D-ID API. This involves uploading source images to a D-ID-compatible S3 bucket and then initiating a talk with the correct voice and script.
+-   **Dynamic Frontend Theming:** Using JavaScript mappings () to dynamically change UI elements (like avatars) based on application state (selected language).
+-   **Subdomain Routing (To be implemented):** Using  in the root  component to direct traffic to different React components based on the subdomain.
+-   **Component Refactoring:** Breaking down large, monolithic React components into smaller, single-responsibility components to improve maintainability.
 
 **key DB schema**
--   : { meeting_id, title, status, recording_enabled, ... }
--   : { recording_id, meeting_id, user_id, file_name, created_at, ... }
--   : { ..., mfa_enabled, email_verification_code, email_verification_expiry }
+- No changes.
 
 **changes in tech stack**
--   **Frontend:** Added  and  for the virtual background feature.
--   **Backend:** Added the  Python package for email integration.
+- No new packages were installed, but  was used via bash to extract video frames for analysis.
 
 **All files of reference**
--    (The new main landing page)
--    (Core component for all video call functionality)
--    (Backend for WebRTC signaling and TURN server configuration)
--    (Service for sending emails via Resend)
--    (Contains new keys: , , )
--    (Updated with all completed work)
+-    (Target for subdomain routing)
+-    (Contains all the complex avatar logic)
+-    (Main landing page)
+-    (Manages D-ID API calls and avatar mappings)
+-    (Ad-hoc script for fixing videos)
+-    (Core video component, needs refactoring to be completed)
 
 **Areas that need refactoring**:
--    has grown excessively large (>1000 lines) and manages too much state. It should be broken down into smaller, specialized components (e.g., , , , ).
--    contains the definitions for multiple distinct pages (, , ). These should be extracted into their own files within the  directory for better organization.
+-   **:** The refactoring of this component is **incomplete**. The child components have been created, but the parent file has not been updated to use them. This should be completed to finalize the refactoring effort.
 
 **key api endpoints**
--   
--   
--   
--   
--   
+-   : Serves the static tutorial video files.
+-   : D-ID endpoint to create a new video talk (used extensively for regeneration).
+-   : D-ID endpoint to upload source images for avatars.
 
 **Critical Info for New Agent**
--   The immediate priority is to get a decision from the user regarding the domain architecture (Subdomain vs. Path vs. Separate Domains). The agent is currently blocked waiting for this response.
--   After the domain decision, the next logical step is to guide the user through a real-world, end-to-end test of a multi-user video call to fully validate the WebRTC and TURN server setup.
--   User has provided API keys for **Resend** and **Xirsys**, which are configured in . These services are critical for email verification and video call connectivity.
--   Be aware of the large component files (, ) that are candidates for refactoring to improve code maintainability.
+-   The user's immediate priority is **subdomain routing**. This should be the first task.
+-   The tutorial avatar issue has been a major source of user frustration. The latest report is about the **Japanese avatar still being wrong**. Be prepared to debug this frontend visual issue, which is likely related to caching or a subtle mapping error in .
+-   The refactoring of  is **half-done**. The new component files exist but are not used. This is a technical debt item that should be addressed to improve code quality.
+-   The agent has access to D-ID credits (218 remaining as of last check) and a working regeneration script () if more videos need to be fixed.
 
 **documents and test reports created in this job**
--    (Updated)
--   
--   
--   
--   
--   
+-    (Updated with refactoring and video fix details)
 -   
 -   
 -   
 
 **Last 10 User Messages and any pending HUMAN messages**
-10. **User:** Asked about domain architecture for the two portals.
-9.  **Agent:** Confirmed all tests passed after final integration tests.
-8.  **User:** Test all features
-7.  **Agent:** Confirmed Xirsys TURN server was configured and working.
-6.  **User:** Provided Xirsys credentials.
-5.  **Agent:** Confirmed Resend email integration was working and asked user to verify received emails.
-4.  **User:** Provided Resend API key and an example send script.
-3.  **Agent:** Asked the user for help setting up Resend/Xirsys or if it should proceed with other features.
-2.  **User:** 1. Yes 2. Free 3.yes - Confirming agent should proceed with Resend (free tier), TURN (free tier), and Virtual Backgrounds.
-1.  **Agent:** Asked if it should implement Real Email, TURN server, or Virtual backgrounds.
-
-**Pending Message:** The user needs to respond to the agent's question about the preferred domain architecture.
+10. **User:** Asks for web URLs to use for testing. (Agent provided)
+9.  **User:** Provides the desired subdomain architecture. (Agent acknowledged)
+8.  **User:** Asks about the Middle Eastern avatar's pose (hand raised). (Agent fixed)
+7.  **User:** Requests a browser cache clear. (Agent performed and instructed user)
+6.  **User:** States that the avatar fixes didn't work and the Data Privacy video has a gender mismatch. (Agent fixed)
+5.  **User:** Acknowledges the agent's summary and requests to proceed with the suggested next steps (regenerate videos).
+4.  **User:** Reports that other African languages (Hausa, Zulu) and all Asian languages have incorrect avatars. (Agent investigated and fixed)
+3.  **User:** Reports that old avatars are still rendering for some languages despite fixes. (Agent investigated)
+2.  **User:** Requests to verify avatar fixes and run an E2E multi-user video call test. (Agent ran tests)
+1.  **User:** Points out the MedMatch logo is missing on the landing page. (Agent fixed)
 
 **Project Health Check:**
--   **Broken:** Nothing is broken.
--   **Mocked:** The Google and Apple social sign-in buttons on the AI KARAU Meeting login page are UI-only and do not have functional backends.
--   **Healthy:** The core recruiting platform (MedMatch-AI KARAU) is stable. The new AI KARAU Meeting portal is feature-complete for all user-approved phases and fully integrated with necessary third-party services (Email, TURN, AI).
+-   **Broken:** Nothing is functionally broken.
+-   **Mocked:** The Google and Apple social sign-in buttons are UI-only.
+-   **Healthy:** The core platforms (Job Toolkit, Meeting Portal) are stable. The D-ID video avatars are now mostly consistent, with one lingering issue reported for the Japanese language.
 
 **3rd Party Integrations**
--   **D-ID:** For AI avatar video generation.
+-   **D-ID:** For AI avatar video generation. The integration is complex, requiring source images to be uploaded to D-ID's S3 service before video generation can be triggered. The agent has remaining credits on the user's key.
 -   **WebRTC:** For real-time video/audio communication.
--   **OpenAI Whisper:** via  for audio transcription — uses Emergent LLM Key.
--   **OpenAI GPT-5.2:** via  for meeting summaries — uses Emergent LLM Key.
+-   **OpenAI Whisper & GPT-5.2:** via  for transcription and summaries (uses Emergent LLM Key).
 -   **TensorFlow.js:** For client-side AI virtual backgrounds.
--   **Resend:** For transactional emails — requires User API Key (provided).
--   **Xirsys:** For STUN/TURN servers — requires User API Key (provided).
+-   **Resend:** For transactional emails (requires User API Key).
+-   **Xirsys:** For STUN/TURN servers (requires User API Key).
 
 **Testing status**
--   **Testing agent used after significant changes:** YES. It was used after every major feature implementation and integration phase, ensuring high stability.
--   **Test files created:** None. Testing was performed using , ad-hoc Python scripts, and the testing agent's comprehensive suites.
--   **Known regressions:** None.
+-   **Testing agent used after significant changes:** YES. Used multiple times to verify video call functionality and avatar fixes.
+-   **Test files created:** None. Testing was performed ad-hoc via  and using the testing agent.
+-   **Known regressions:** The avatar for the Japanese language tutorial seems to have regressed or was never fully fixed.
 
 **Credentials to test flow:**
 -   **User Account:**
@@ -150,4 +171,4 @@ There are no pending issues or bugs.
     -   Password: 
 
 **What agent forgot to execute**
--   The agent has followed the user's requests sequentially and is currently blocked on a user decision. Nothing has been forgotten.</analysis>
+-   The agent created the new, smaller components for the  refactoring but **forgot to update the  file itself** to use these new components. The refactoring is therefore incomplete.</analysis>

@@ -10,7 +10,7 @@ from datetime import datetime
 from playwright.async_api import async_playwright
 
 # Configuration
-BASE_URL = "https://karau-videoconf.preview.emergentagent.com"
+BASE_URL = "https://medkonnect.preview.emergentagent.com"
 OUTPUT_DIR = "/tmp/medmatch_demo"
 FRAME_DELAY = 800  # ms between frames
 
