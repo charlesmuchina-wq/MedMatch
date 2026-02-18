@@ -494,7 +494,7 @@ const ApplyDialog = ({ job, open, onClose, onConfirm }) => {
 };
 
 // Main App Content Component
-function AppContent() {
+function AppContent({ skipPortalSelector = false }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [resume, setResume] = useState(null);
   const [savedJobs, setSavedJobs] = useState([]);
