@@ -393,16 +393,21 @@ const LANGUAGE_AVATAR_MAPPING = {
   'nl': 'european', 'pl': 'european', 'ru': 'european', 'sv': 'european',
 };
 
-// Avatar type to image URL mapping - matches D-ID hosted images
-// Updated Feb 18, 2026 - Fixed African (no hands blocking) and Asian avatars
-// Added cache-busting parameter for fresh images
+// Avatar type to image URL mapping - FRESH REBUILD Feb 18, 2026
+// All images are professional headshots with NO hands blocking faces
+// Using Pexels for reliable, consistent images
 const AVATAR_TYPE_IMAGES = {
-  'african': 'https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=512&h=512&fit=crop&v=20260218b',  // Professional black businesswoman headshot
-  'asian': 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=512&h=512&fit=crop&v=20260218b',    // Professional Asian woman
-  'south_asian': 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=512&h=512&fit=crop&v=20260218b',
-  'middle_eastern': 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=512&h=512&fit=crop&v=20260218b',  // Professional woman with hijab
-  'latina': 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=512&h=512&fit=crop&v=20260218b',  // Professional latina woman
-  'european': '/images/presenter_main.jpeg?v=20260218b',
+  'african': 'https://images.pexels.com/photos/3727462/pexels-photo-3727462.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',  // Professional African businesswoman - clear face
+  'asian': 'https://images.pexels.com/photos/6572210/pexels-photo-6572210.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',    // Professional Asian woman in hijab - clear face
+  'south_asian': 'https://images.pexels.com/photos/4057039/pexels-photo-4057039.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop', // South Asian professional woman
+  'middle_eastern': 'https://images.unsplash.com/photo-1600600457585-570c2eb88b89?w=512&h=512&fit=crop&t=20260218', // Arab woman with hijab smiling
+  'latina': 'https://images.pexels.com/photos/10041243/pexels-photo-10041243.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',  // Latina professional woman - dark features
+  'european': '/images/presenter_main.jpeg?t=20260218',
+  // Sub-regional Asian avatars for better matching
+  'japanese': 'https://images.unsplash.com/photo-1624091844772-554661d10173?w=512&h=512&fit=crop&t=20260218', // Japanese woman clear headshot
+  'korean': 'https://images.pexels.com/photos/6572210/pexels-photo-6572210.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
+  'chinese': 'https://images.pexels.com/photos/6572210/pexels-photo-6572210.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
+  'vietnamese': 'https://images.unsplash.com/photo-1624091844772-554661d10173?w=512&h=512&fit=crop&t=20260218',
 };
 
 // Get avatar URL for a specific language code
