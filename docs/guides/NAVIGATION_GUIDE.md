@@ -26,7 +26,7 @@ The following instructional videos are available in `/app/videos/`:
 ### Getting Started
 
 #### Step 1: Sign In
-1. Navigate to [MedMatch](https://medkonnect.preview.emergentagent.com)
+1. Navigate to [MedMatch](https://aiconfer.preview.emergentagent.com)
 2. Choose your sign-in method:
    - **Google** - Quick sign-in with your Google account
    - **Apple** - Sign in with Apple ID
