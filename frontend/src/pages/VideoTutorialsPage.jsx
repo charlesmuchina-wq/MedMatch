@@ -429,13 +429,13 @@ const getLanguageAvatar = (langCode) => {
 };
 
 // Region-appropriate avatar images - FRESH REBUILD Feb 18, 2026
-// All Pexels images - NO hands blocking faces
+// All Pexels images - FEMALE headshots, NO hands blocking faces
 const REGION_AVATARS = {
   'Europe': '/images/presenter_main.jpeg?t=20260218',
   'Nordic': '/images/presenter_main.jpeg?t=20260218',
   'Asia': 'https://images.pexels.com/photos/6572210/pexels-photo-6572210.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
-  'South Asia': 'https://images.pexels.com/photos/4057039/pexels-photo-4057039.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
-  'Middle East': 'https://images.unsplash.com/photo-1600600457585-570c2eb88b89?w=512&h=512&fit=crop&t=20260218',
+  'South Asia': 'https://images.pexels.com/photos/14156490/pexels-photo-14156490.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',  // Indian woman (UPDATED)
+  'Middle East': 'https://images.pexels.com/photos/8154925/pexels-photo-8154925.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',  // Arab woman office (UPDATED)
   'South America': 'https://images.pexels.com/photos/10041243/pexels-photo-10041243.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
   'Africa': 'https://images.pexels.com/photos/3727462/pexels-photo-3727462.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
   'Global': '/images/presenter_main.jpeg?t=20260218'
