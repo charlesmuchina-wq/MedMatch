@@ -25,6 +25,7 @@ import api from "@/utils/apiClient";
 import { useTranslation } from "@/utils/i18n";
 
 const LocationSettings = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [geocoding, setGeocoding] = useState(false);
