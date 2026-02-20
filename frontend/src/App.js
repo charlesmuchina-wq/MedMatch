@@ -50,6 +50,7 @@ import TranslationQADashboard from "@/components/TranslationQADashboard";
 import AdminDashboard from "@/pages/AdminDashboard";
 import AdminDataIntegrityPage from "@/pages/AdminDataIntegrityPage";
 import AdminAICompliancePage from "@/pages/AdminAICompliancePage";
+import AdminTranslationCoveragePage from "@/pages/AdminTranslationCoveragePage";
 import GlobalCompliancePage from "@/pages/GlobalCompliancePage";
 import CandidateTransparencyPage from "@/pages/CandidateTransparencyPage";
 import ProductionMetricsPage from "@/pages/ProductionMetricsPage";
