@@ -42,6 +42,7 @@ import ru from "@/locales/ru.json";  // Russian
 import pl from "@/locales/pl.json";  // Polish
 import sv from "@/locales/sv.json";  // Swedish
 import tr from "@/locales/tr.json";  // Turkish
+import pseudo from "@/locales/pseudo.json";  // Pseudo-locale for testing
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
@@ -82,6 +83,8 @@ const translations = {
   pl,      // Polish
   sv,      // Swedish
   tr,      // Turkish
+  // Testing
+  pseudo,  // Pseudo-locale for identifying hardcoded strings
 };
 
 // Fallback language
