@@ -498,7 +498,7 @@ const GettingStartedSection = memo(() => {
         </div>
         <div className="flex items-center gap-2 bg-teal-50 dark:bg-teal-900/30 px-3 py-2 rounded-lg">
           <Globe className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-          <span className="text-sm font-medium text-teal-700 dark:text-teal-300">{TUTORIAL_LANGUAGES.length} Languages</span>
+          <span className="text-sm font-medium text-teal-700 dark:text-teal-300">{languageList.length} Languages</span>
         </div>
       </div>
 
