@@ -375,11 +375,67 @@ const GettingStartedSection = memo(() => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoLoading, setVideoLoading] = useState(false);
   const [videoError, setVideoError] = useState(null);
+  const [backendConfig, setBackendConfig] = useState(null);
+  const [configLoading, setConfigLoading] = useState(true);
   const videoRef = useRef(null);
 
-  const currentTutorial = TUTORIAL_LANGUAGES.find(l => l.code === selectedLang);
-  // Cache-busting parameter v=5 for freshly regenerated videos (Feb 18, 2026 - Hindi/Arabic fixed)
-  const videoUrl = `${API}/api/tutorials/video-file/tutorial_${selectedLang}.mp4?v=5`;
+  // Fetch video configurations from backend (Source of Truth)
+  useEffect(() => {
+    const fetchConfig = async () => {
+      try {
+        const response = await axios.get(`${API}/api/video-assets/config`);
+        setBackendConfig(response.data);
+        setConfigLoading(false);
+      } catch (error) {
+        console.error('Failed to fetch video config:', error);
+        setConfigLoading(false);
+        // Will use fallback avatars
+      }
+    };
+    fetchConfig();
+  }, []);
+
+  // Get avatar URL - uses backend config as source of truth, falls back to static
+  const getAvatarUrl = useCallback((langCode) => {
+    if (backendConfig?.languages?.[langCode]?.avatar_url) {
+      return backendConfig.languages[langCode].avatar_url;
+    }
+    // Fallback to static mapping if backend not available
+    const avatarType = backendConfig?.languages?.[langCode]?.avatar_type || 'european';
+    return FALLBACK_AVATARS[avatarType] || FALLBACK_AVATARS['european'];
+  }, [backendConfig]);
+
+  // Build language list from backend config or use display info
+  const languageList = useMemo(() => {
+    const displayInfo = LANGUAGE_DISPLAY_INFO;
+    if (backendConfig?.languages) {
+      return Object.keys(backendConfig.languages).map(code => ({
+        code,
+        name: displayInfo[code]?.name || code.toUpperCase(),
+        flag: displayInfo[code]?.flag || '🌐',
+        title: displayInfo[code]?.title || 'Tutorial',
+        presenter: `${backendConfig.languages[code]?.voice_name || 'AI'} (Female)`,
+        region: backendConfig.languages[code]?.region || 'Global',
+        avatarUrl: backendConfig.languages[code]?.avatar_url,
+        isReady: backendConfig.languages[code]?.is_ready
+      }));
+    }
+    // Fallback to static list
+    return Object.entries(displayInfo).map(([code, info]) => ({
+      code,
+      ...info,
+      presenter: 'AI (Female)',
+      region: 'Global'
+    }));
+  }, [backendConfig]);
+
+  const currentTutorial = languageList.find(l => l.code === selectedLang) || languageList[0];
+  
+  // Build video URL with cache-busting from backend hash
+  const videoUrl = useMemo(() => {
+    const contentHash = backendConfig?.languages?.[selectedLang]?.content_hash || 'v6';
+    return `${API}/api/tutorials/video-file/tutorial_${selectedLang}.mp4?v=${contentHash}`;
+  }, [selectedLang, backendConfig]);
 
   const handleLanguageChange = useCallback((langCode) => {
     setSelectedLang(langCode);
