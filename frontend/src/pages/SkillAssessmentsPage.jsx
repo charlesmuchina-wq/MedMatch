@@ -101,11 +101,17 @@ const SkillAssessmentsPage = ({ user }) => {
 
   const startAssessment = async (skillName, difficulty = "intermediate") => {
     setLoadingSkill(skillName); // Track specific skill being loaded
+    // Show toast that questions are being generated
+    const toastId = toast.loading(t("skills.generatingQuestions") || "Generating AI questions... This may take 20-30 seconds");
+    
     try {
       const response = await apiClient.post("/api/skills/start", {
         skill_name: skillName,
         difficulty
       });
+      
+      toast.dismiss(toastId);
+      toast.success(t("skills.assessmentReady") || "Assessment ready!");
       
       setActiveAssessment({
         id: response.data.assessment_id,
@@ -118,6 +124,7 @@ const SkillAssessmentsPage = ({ user }) => {
       setTimeLeft(response.data.time_limit * 60); // Convert to seconds
       
     } catch (e) {
+      toast.dismiss(toastId);
       toast.error(e.data?.detail || t("errors.somethingWentWrong"));
     }
     setLoadingSkill(null); // Clear loading state
