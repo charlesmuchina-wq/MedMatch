@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "@/utils/i18n";
 import { toast } from "sonner";
 import { 
   CreditCard, Calendar, Clock, AlertCircle, CheckCircle, 

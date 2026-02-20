@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useTranslation } from "@/utils/i18n";
 import { Bell, Check, CheckCheck, Trash2, X, Briefcase, Calendar, FileText, Mail, Lightbulb, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

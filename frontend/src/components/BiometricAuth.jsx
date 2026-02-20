@@ -1,4 +1,5 @@
 import { useState, useCallback } from "react";
+import { useTranslation } from "@/utils/i18n";
 import axios from "axios";
 import { toast } from "sonner";
 import { Fingerprint, Loader2, ShieldCheck, Smartphone, AlertCircle } from "lucide-react";

@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * CAPA (Corrective Action Preventive Action) Dashboard
  * Part of Karau Automator
  * 

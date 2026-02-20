@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * My Reviews Section Component
  * Displays reviews received by a candidate with response capability
  */

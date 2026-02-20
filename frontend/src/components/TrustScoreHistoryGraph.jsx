@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * Trust Score History Graph Component
  * Displays trust score progression over time with interactive chart
  */

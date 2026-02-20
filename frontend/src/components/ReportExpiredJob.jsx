@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "@/utils/i18n";
 import { Flag, AlertTriangle, CheckCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {

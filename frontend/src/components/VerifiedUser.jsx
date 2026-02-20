@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext, useContext } from "react";
+import { useTranslation } from "@/utils/i18n";
 import { ShieldCheck, Award, BadgeCheck, Star, Crown, Verified } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";

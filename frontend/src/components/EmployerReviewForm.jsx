@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * Employer Review Form Component
  * For recruiters to submit reviews for candidates
  */

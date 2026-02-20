@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * Employer Review Card Component
  * Displays employer reviews for candidates
  */

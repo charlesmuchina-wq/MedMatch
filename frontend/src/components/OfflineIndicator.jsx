@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "@/utils/i18n";
 import { Wifi, WifiOff, Cloud, CloudOff, RefreshCw, Check, AlertCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
