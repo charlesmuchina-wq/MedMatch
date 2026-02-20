@@ -123,13 +123,13 @@ const LocationSettings = () => {
           ...prev,
           home_lat: latitude,
           home_lon: longitude,
-          home_address: "Current Location",
+          home_address: t('components.locationSettings.currentLocation') || "Current Location",
         }));
         fetchNearestHub(latitude, longitude);
-        toast.success("Location updated!");
+        toast.success(t('components.locationSettings.locationDetected') || "Location updated!");
       },
       (error) => {
-        toast.error("Failed to get your location. Please enter manually.");
+        toast.error(t('components.locationSettings.locationFailed') || "Failed to get your location. Please enter manually.");
       }
     );
   };
