@@ -89,7 +89,7 @@ LANGUAGE_AVATAR_CONFIG = {
     "sw": {"avatar_type": "african", "voice_id": "sw-KE-ZuriNeural", "voice_name": "Zuri", "region": "Africa"},
     "af": {"avatar_type": "african", "voice_id": "af-ZA-AdriNeural", "voice_name": "Adri", "region": "Africa"},
     "ha": {"avatar_type": "african", "voice_id": "en-NG-EzinneNeural", "voice_name": "Ezinne", "region": "Africa"},
-    "zu": {"avatar_type": "african", "voice_id": "zu-ZA-ThandileNeural", "voice_name": "Thandile", "region": "Africa"},
+    "zu": {"avatar_type": "african", "voice_id": "en-ZA-LeahNeural", "voice_name": "Leah", "region": "Africa"},
     
     # Asian Languages
     "ja": {"avatar_type": "asian", "voice_id": "ja-JP-NanamiNeural", "voice_name": "Nanami", "region": "Asia"},
