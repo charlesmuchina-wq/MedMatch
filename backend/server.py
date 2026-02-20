@@ -257,6 +257,7 @@ from routes.capa import router as capa_router
 from routes.ai_qa import router as ai_qa_router
 from routes.avatar import router as avatar_router
 from routes.psv import router as psv_router
+from routes.video_assets import router as video_assets_router
 from routes.orcid_oauth import router as orcid_router
 from routes.data_integrity import router as data_integrity_router
 from routes.ai_compliance import router as ai_compliance_router
