@@ -92,6 +92,9 @@ const DEFAULT_LANGUAGE = "en";
 
 // Language metadata
 export const LANGUAGE_META = {
+  // Testing - Pseudo-locale for identifying hardcoded strings
+  pseudo: { name: "Pseudo (Test)", native: "[!!! Þšëüđö !!!]", flag: "🧪", rtl: false },
+  
   // Bundled languages (full translations available)
   en: { name: "English (US)", native: "English (US)", flag: "🇺🇸", rtl: false },
   "en-GB": { name: "English (UK)", native: "English (UK)", flag: "🇬🇧", rtl: false },
