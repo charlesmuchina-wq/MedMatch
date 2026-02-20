@@ -408,6 +408,9 @@ const SkillAssessmentsPage = ({ user }) => {
                     </div>
                   )}
                 </DialogTitle>
+                <DialogDescription className="sr-only">
+                  {t("skills.resultsSummary") || "Assessment results showing your score and performance"}
+                </DialogDescription>
               </DialogHeader>
               
               <div className="py-6 text-center">
