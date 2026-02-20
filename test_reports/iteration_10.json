@@ -43,7 +43,7 @@
     "backend_config": "WORKING - Returns correct configuration",
     "backend_callback": "WORKING - Properly validates tokens and handles errors",
     "frontend_button": "WORKING - Displays correctly and redirects to Apple",
-    "apple_authorization": "CONFIGURATION NEEDED - Apple shows 'invalid_client' error. The Services ID (com.medmatch.signin.web) and redirect URL (https://karau-meet.preview.emergentagent.com/login) need to be registered in Apple Developer Console"
+    "apple_authorization": "CONFIGURATION NEEDED - Apple shows 'invalid_client' error. The Services ID (com.medmatch.signin.web) and redirect URL (https://eval-engine.preview.emergentagent.com/login) need to be registered in Apple Developer Console"
   },
   
   "test_report_links": [
@@ -52,7 +52,7 @@
   ],
   
   "action_items": [
-    "APPLE DEVELOPER CONSOLE: Register the redirect URL 'https://karau-meet.preview.emergentagent.com/login' in Apple Developer Console under Services IDs > com.medmatch.signin.web > Website URLs",
+    "APPLE DEVELOPER CONSOLE: Register the redirect URL 'https://eval-engine.preview.emergentagent.com/login' in Apple Developer Console under Services IDs > com.medmatch.signin.web > Website URLs",
     "APPLE DEVELOPER CONSOLE: Verify the Services ID 'com.medmatch.signin.web' is properly configured with Sign In with Apple capability"
   ],
   

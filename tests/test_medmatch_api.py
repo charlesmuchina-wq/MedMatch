@@ -7,7 +7,7 @@ import requests
 import os
 import time
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://karau-meet.preview.emergentagent.com').rstrip('/')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://eval-engine.preview.emergentagent.com').rstrip('/')
 
 class TestResumeEndpoints:
     """Resume API endpoint tests"""
