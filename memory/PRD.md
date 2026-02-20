@@ -7,8 +7,77 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 
 ---
 
+## Latest Updates (February 20, 2026)
 
-## Latest Updates (February 18, 2026)
+### CAPA Implementation: D-ID Video Asset Management System ✅
+
+**Root Cause Analysis Completed:**
+- Videos not playing due to browser caching and file conflicts
+- Avatar mismatches due to lack of Source of Truth database
+- Hardcoded frontend mappings falling out of sync with backend
+
+**CAPA Solution Implemented:**
+
+#### Phase 1: Database Schema (MongoDB)
+New `video_assets` collection created with:
+- `language_code`: Unique identifier
+- `avatar_type`: Region-appropriate avatar (african, asian, south_asian, middle_eastern, latina, european)
+- `content_hash`: MD5 hash of (avatar_url + script + voice_id)
+- `local_file_path`: Path to regenerated video
+- `status`: ready | generating | failed
+- `d_id_talk_id`: D-ID API tracking ID
+
+#### Phase 2: Video Asset Manager Service
+New file: `/app/backend/services/video_asset_manager.py`
+- Centralized configuration for all 21 languages
+- Content hash validation to detect mismatches
+- Async video generation with D-ID API
+- Proper status tracking
+
+#### Phase 3: API Endpoints
+New router: `/app/backend/routes/video_assets.py`
+- `GET /api/video-assets/config` - Frontend Source of Truth
+- `GET /api/video-assets/validate/{language}` - Validate asset
+- `POST /api/video-assets/generate/{language}` - Trigger regeneration
+- `GET /api/video-assets/status/{language}` - Check status
+
+#### Phase 4: Frontend Updates
+Updated `/app/frontend/src/pages/VideoTutorialsPage.jsx`:
+- Fetches configuration from backend (Source of Truth)
+- Uses backend avatar URLs instead of hardcoded mappings
+- Cache-busting with content hash from database
+
+**Complete Video Regeneration Results:**
+
+| Language | Region | Avatar Type | Voice | Status |
+|----------|--------|-------------|-------|--------|
+| Swahili (sw) | Africa | african | Zuri | ✅ 3.8MB |
+| Afrikaans (af) | Africa | african | Adri | ✅ 3.2MB |
+| Hausa (ha) | Africa | african | Ezinne | ✅ 3.7MB |
+| Zulu (zu) | Africa | african | Leah | ✅ 4.3MB |
+| Japanese (ja) | Asia | asian | Nanami | ✅ 3.0MB |
+| Chinese (zh) | Asia | asian | Xiaoxiao | ✅ 2.4MB |
+| Korean (ko) | Asia | asian | SunHi | ✅ 3.0MB |
+| Vietnamese (vi) | Asia | asian | HoaiMy | ✅ 2.7MB |
+| Hindi (hi) | South Asia | south_asian | Swara | ✅ 1.0MB |
+| Arabic (ar) | Middle East | middle_eastern | Salma | ✅ 1.2MB |
+| Turkish (tr) | Middle East | middle_eastern | Emel | ✅ 0.9MB |
+| Portuguese (pt) | South America | latina | Francisca | ✅ 0.9MB |
+| Spanish (es) | Latin America | latina | Elvira | ✅ 1.0MB |
+| German (de) | Europe | european | Katja | ✅ 0.8MB |
+| French (fr) | Europe | european | Denise | ✅ 0.7MB |
+| Italian (it) | Europe | european | Elsa | ✅ 0.7MB |
+| Dutch (nl) | Europe | european | Colette | ✅ 0.8MB |
+| Polish (pl) | Europe | european | Zofia | ✅ 0.7MB |
+| Russian (ru) | Europe | european | Svetlana | ✅ 0.8MB |
+| Swedish (sv) | Nordic | nordic | Sofie | ✅ 0.8MB |
+| English (en) | Global | european | Jenny | ✅ 0.7MB |
+
+**Total: 21/21 languages ready**
+
+---
+
+## Previous Updates (February 18, 2026)
 
 ### D-ID Tutorial Videos FRESH REGENERATION ✅ (Feb 18, 2026)
 
