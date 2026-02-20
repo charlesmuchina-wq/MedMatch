@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * Enterprise API Management Page
  * Premium tier feature for managing API keys and webhooks
  */

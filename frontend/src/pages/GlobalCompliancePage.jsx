@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * Global AI Compliance Dashboard
  * Complete 2026 Global Coverage: EU, UK, US, Canada, Singapore, China, South Korea, Japan, Brazil, Africa, ASEAN
  * Implements Global Unified Audit Log (GUAL) for cross-border compliance

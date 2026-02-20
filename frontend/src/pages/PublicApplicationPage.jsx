@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * Public Application Form Page
  * Allows external candidates to apply via shareable link
  */

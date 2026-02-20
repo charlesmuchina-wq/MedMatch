@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * Production Metrics Dashboard
  * Visualizes user engagement, AI usage, business metrics, and conversion funnels
  */

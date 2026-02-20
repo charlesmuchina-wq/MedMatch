@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * Admin Dashboard - Central hub for admin functions
  * Only accessible to users with admin role
  * Feature: 3 View Options - Admin, Job Seeker, Recruiter

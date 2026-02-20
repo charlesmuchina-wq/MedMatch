@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * Job Seeker AI Transparency Page
  * Shows candidate rights, AI notice, and allows opt-out/explanation requests
  * Compliant with EU AI Act, NYC LL 144, California AEDT

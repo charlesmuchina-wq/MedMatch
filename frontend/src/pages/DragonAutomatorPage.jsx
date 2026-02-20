@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * KARAU DRAGON AI Automator Dashboard
  * System diagnostics, auto-fixes, improvements, and version management
  */

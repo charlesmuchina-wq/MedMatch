@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * Admin AI Compliance Dashboard
  * Full compliance monitoring for EU AI Act, NYC LL 144, California AEDT
  */

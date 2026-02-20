@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * Admin Review Moderation Page
  * Allows admins to approve or reject pending employer reviews
  */

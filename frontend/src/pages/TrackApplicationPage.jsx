@@ -1,4 +1,5 @@
 /**
+import { useTranslation } from "@/utils/i18n";
  * Track Application Page
  * Allows candidates to track their application status via tracking link
  */

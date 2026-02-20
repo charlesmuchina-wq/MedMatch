@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "@/utils/i18n";
 import { 
   Shield, Check, X, Building2, Linkedin, Clock, 
   User, Mail, Phone, AlertTriangle, Search, Filter,

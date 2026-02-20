@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from "@/utils/i18n";
 import { useNavigate } from 'react-router-dom';
 import { 
   FlaskConical, HeartPulse, Cog, Building2, Cpu, Search,
