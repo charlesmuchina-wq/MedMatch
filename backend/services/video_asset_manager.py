@@ -225,7 +225,7 @@ class VideoAssetManager:
     def get_language_config(self, language_code: str) -> Dict[str, Any]:
         """Get complete configuration for a language."""
         config = LANGUAGE_AVATAR_CONFIG.get(language_code, LANGUAGE_AVATAR_CONFIG["en"])
-        avatar_info = VERIFIED_AVATAR_SOURCES.get(config["avatar_type"], VERIFIED_AVATAR_SOURCES["european"])
+        avatar_info = VERIFIED_AVATAR_SOURCES.get(config["avatar_type"], VERIFIED_AVATAR_SOURCES["european_female"])
         script = TUTORIAL_SCRIPT_TEMPLATE.get(language_code, TUTORIAL_SCRIPT_TEMPLATE["en"])
         
         content_hash = self.generate_content_hash(
