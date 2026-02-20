@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Video, Briefcase, ArrowRight, Sparkles, Users, FileText, Shield } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import GlobalLanguageSelector from '@/components/GlobalLanguageSelector';
+import { useTranslation } from "@/utils/i18n";
 
 /**
  * PortalSelector - Clean landing page for users to choose between platforms
@@ -12,6 +13,7 @@ import GlobalLanguageSelector from '@/components/GlobalLanguageSelector';
 const PortalSelector = () => {
   const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null);
+  const { t } = useTranslation();
 
   const portals = [
     {
