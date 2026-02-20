@@ -181,10 +181,10 @@ const LocationSettings = () => {
         <CardContent className="space-y-4">
           <div className="flex gap-2">
             <div className="flex-1">
-              <Label htmlFor="address">Address or City</Label>
+              <Label htmlFor="address">{t('components.locationSettings.addressOrCity') || 'Address or City'}</Label>
               <Input
                 id="address"
-                placeholder="e.g., San Francisco, Boston, Austin"
+                placeholder={t('components.locationSettings.addressPlaceholder') || "e.g., San Francisco, Boston, Austin"}
                 value={preferences.home_address}
                 onChange={(e) =>
                   setPreferences((prev) => ({ ...prev, home_address: e.target.value }))
@@ -203,8 +203,8 @@ const LocationSettings = () => {
               <Button
                 variant="outline"
                 onClick={handleUseCurrentLocation}
-                title="Use current location"
-                aria-label="Use current location"
+                title={t('components.locationSettings.useCurrentLocation') || "Use current location"}
+                aria-label={t('components.locationSettings.useCurrentLocation') || "Use current location"}
               >
                 <Navigation className="h-4 w-4" aria-hidden="true" />
               </Button>
