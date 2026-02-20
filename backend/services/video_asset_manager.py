@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 from motor.motor_asyncio import AsyncIOMotorClient
 
 MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
-DB_NAME = os.environ.get("DB_NAME", "medmatch")
+DB_NAME = os.environ.get("DB_NAME", "MedMatch")
 
 # D-ID Configuration
 D_ID_API_KEY = os.environ.get("D_ID_API_KEY", "")
