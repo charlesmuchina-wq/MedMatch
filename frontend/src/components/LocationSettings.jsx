@@ -236,18 +236,18 @@ const LocationSettings = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <MapPin className="h-5 w-5 text-turquoise" aria-hidden="true" />
-            Job Search Radius
+            {t('components.locationSettings.searchRadius') || 'Job Search Radius'}
           </CardTitle>
           <CardDescription>
-            Only show hybrid and onsite jobs within this distance
+            {t('components.locationSettings.searchRadiusDesc') || 'Only show hybrid and onsite jobs within this distance'}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-4">
             <div className="flex justify-between items-center">
-              <Label>Maximum Distance</Label>
+              <Label>{t('components.locationSettings.maxDistance') || 'Maximum Distance'}</Label>
               <Badge variant="outline" className="text-lg font-bold">
-                {preferences.preferred_radius_miles} miles
+                {preferences.preferred_radius_miles} {t('components.locationSettings.miles') || 'miles'}
               </Badge>
             </div>
             <Slider
