@@ -10,6 +10,7 @@ import { toast } from 'sonner';
 import CredentialsManager, { VerificationConsentScreen } from '@/components/CredentialsManager';
 import TrustScoreDisplay, { TrustScoreBadge } from '@/components/TrustScoreDisplay';
 import ORCIDConnect from '@/components/ORCIDConnect';
+import { useTranslation } from "@/utils/i18n";
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
