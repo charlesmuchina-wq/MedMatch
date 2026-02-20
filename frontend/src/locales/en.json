@@ -1134,5 +1134,9 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "admin": {
+    "translationCoverage": "Translation Coverage",
+    "translationCoverageDesc": "Monitor translation completion across all languages"
   }
 }
