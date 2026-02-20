@@ -310,7 +310,10 @@
     "congratulations": "Congratulations!",
     "keepPracticing": "Keep Practicing",
     "correct": "correct",
-    "badgeEarned": "Badge Earned!"
+    "badgeEarned": "Badge Earned!",
+    "generatingQuestions": "Generating AI questions... This may take 20-30 seconds",
+    "assessmentReady": "Assessment ready! Let's begin",
+    "generating": "Generating..."
   },
   "predictor": {
     "title": "Application Success Predictor",
