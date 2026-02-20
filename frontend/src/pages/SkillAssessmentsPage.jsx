@@ -361,10 +361,14 @@ const SkillAssessmentsPage = ({ user }) => {
                         onClick={() => startAssessment(skill.skill_name)}
                         disabled={loadingSkill !== null}
                         variant={earned ? "outline" : "default"}
+                        className={loadingSkill === skill.skill_name ? "min-w-[140px]" : ""}
                         data-testid={`start-assessment-${skill.skill_name.toLowerCase().replace(/\s+/g, '-')}`}
                       >
                         {loadingSkill === skill.skill_name ? (
-                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                            <span className="text-xs">{t("skills.generating") || "Generating..."}</span>
+                          </>
                         ) : (
                           <>
                             <Play className="w-4 h-4 mr-1" />
