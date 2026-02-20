@@ -15,7 +15,7 @@ import time
 from typing import Dict
 
 # API Configuration
-API_BASE_URL = "https://aiconfer.preview.emergentagent.com/api"
+API_BASE_URL = "https://karau-meet.preview.emergentagent.com/api"
 TIMEOUT = 30.0
 
 # Test credentials

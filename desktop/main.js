@@ -28,7 +28,7 @@ const store = new Store({
 });
 
 // Configuration
-const APP_URL = process.env.MEDMATCH_URL || 'https://aiconfer.preview.emergentagent.com';
+const APP_URL = process.env.MEDMATCH_URL || 'https://karau-meet.preview.emergentagent.com';
 const isDev = process.env.NODE_ENV === 'development';
 
 let mainWindow = null;
