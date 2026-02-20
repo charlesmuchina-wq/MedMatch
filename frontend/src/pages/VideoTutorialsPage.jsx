@@ -633,6 +633,7 @@ const GettingStartedSection = memo(() => {
               </button>
             ))}
           </div>
+          )}
         </div>
       </div>
 
