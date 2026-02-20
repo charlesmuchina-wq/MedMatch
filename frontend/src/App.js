@@ -207,6 +207,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/admin/global-compliance", icon: Globe, labelKey: "Global Compliance" },
     { path: "/admin/recruiters", icon: Users, labelKey: "Recruiter Verification" },
     { path: "/admin/reviews", icon: FileText, labelKey: "Review Moderation" },
+    { path: "/admin/translation-coverage", icon: Languages, labelKey: "Translation Coverage" },
     { path: "/tutorials", icon: HelpCircle, labelKey: "Help & Tutorials" },
     { path: "/qa-dashboard", icon: Languages, labelKey: "Translation QA" },
     { path: "/notifications", icon: Bell, labelKey: "nav.notifications" },
