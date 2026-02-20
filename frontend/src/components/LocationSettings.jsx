@@ -172,10 +172,10 @@ const LocationSettings = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Home className="h-5 w-5 text-turquoise" />
-            Home Location
+            {t('components.locationSettings.homeLocation') || 'Home Location'}
           </CardTitle>
           <CardDescription>
-            Set your home address to get commute times and proximity-based job alerts
+            {t('components.locationSettings.homeLocationDesc') || 'Set your home address to get commute times and proximity-based job alerts'}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
