@@ -9,6 +9,37 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 
 ## Latest Updates (February 20, 2026)
 
+### Skill Assessments Feature Fix - COMPLETE ✅
+
+**Issue Reported:** Users reported that the "Skill Assessments" feature was unusable - the play button would just spin and never open skill tests.
+
+**Root Cause Analysis:**
+- The AI-powered question generation via OpenAI GPT-5.2 takes 20-40 seconds to complete
+- There was no user feedback during this wait time, causing users to think the feature was broken
+
+**Fix Implemented:**
+1. **Loading Toast Notification:** Added clear feedback message: "Generating AI questions... This may take 20-30 seconds"
+2. **Button State Change:** Button now shows "Generating..." with spinner icon during AI generation
+3. **Other buttons disabled** during loading to prevent multiple simultaneous requests
+4. **Accessibility fix:** Added DialogDescription to results dialog for screen readers
+
+**Testing Results (iteration_86): 100% PASSED**
+
+| Test Area | Result |
+|-----------|--------|
+| Backend API Tests | 11/11 passed |
+| Frontend UI Tests | All verified |
+| Loading Toast | ✅ Shows "20-30 seconds" message |
+| Button Loading State | ✅ Shows "Generating..." |
+| Assessment Flow | ✅ Complete flow works |
+| Results Dialog | ✅ Shows pass/fail and badges |
+
+**Files Modified:**
+- `/app/frontend/src/pages/SkillAssessmentsPage.jsx` - Added loading feedback
+- `/app/frontend/src/locales/en.json` - Added new translation keys
+
+---
+
 ### CAPA-002 Implementation: Video Avatars & Translation System - COMPLETE ✅
 
 #### Phase 1: Video Avatar Regeneration - COMPLETE ✅
