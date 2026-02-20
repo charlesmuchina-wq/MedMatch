@@ -8,6 +8,13 @@ Run with: python3 /app/backend/services/capa_video_regen.py
 import asyncio
 import os
 import sys
+from pathlib import Path
+
+# Load environment variables
+from dotenv import load_dotenv
+env_path = Path('/app/backend/.env')
+load_dotenv(env_path)
+
 sys.path.insert(0, '/app/backend')
 
 from services.video_asset_manager import video_asset_manager, LANGUAGE_AVATAR_CONFIG
