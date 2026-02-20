@@ -565,10 +565,10 @@ const GettingStartedSection = memo(() => {
             {/* Video Info Bar */}
             <div className="p-4 border-t border-gray-200 dark:border-slate-700 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                {/* Language-specific avatar thumbnail - matches actual video presenter */}
+                {/* Language-specific avatar thumbnail - from backend Source of Truth */}
                 <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-teal-500 flex-shrink-0">
                   <img 
-                    src={getLanguageAvatar(selectedLang)}
+                    src={getAvatarUrl(selectedLang)}
                     alt={`${currentTutorial?.region} presenter`}
                     className="w-full h-full object-cover"
                   />
@@ -596,8 +596,13 @@ const GettingStartedSection = memo(() => {
             <Globe className="w-5 h-5 text-teal-600 dark:text-teal-400" />
             Select Language
           </h3>
+          {configLoading ? (
+            <div className="flex items-center justify-center py-4">
+              <Loader2 className="w-6 h-6 animate-spin text-teal-500" />
+            </div>
+          ) : (
           <div className="space-y-1">
-            {TUTORIAL_LANGUAGES.map((lang) => (
+            {languageList.map((lang) => (
               <button
                 key={lang.code}
                 onClick={() => handleLanguageChange(lang.code)}
@@ -608,10 +613,10 @@ const GettingStartedSection = memo(() => {
                 }`}
                 data-testid={`lang-btn-${lang.code}`}
               >
-                {/* Language-specific avatar - matches actual video presenter */}
+                {/* Language-specific avatar - from backend Source of Truth */}
                 <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 border border-gray-200 dark:border-slate-600">
                   <img 
-                    src={getLanguageAvatar(lang.code)}
+                    src={getAvatarUrl(lang.code)}
                     alt={`${lang.name} avatar`}
                     className="w-full h-full object-cover"
                     loading="lazy"
