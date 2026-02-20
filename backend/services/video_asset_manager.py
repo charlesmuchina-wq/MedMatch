@@ -121,41 +121,42 @@ VERIFIED_AVATAR_SOURCES = {
 }
 
 # Language to Avatar mapping with voice configuration
+# CAPA-002: 50/50 male/female split for diversity
 LANGUAGE_AVATAR_CONFIG = {
-    # African Languages
-    "sw": {"avatar_type": "african", "voice_id": "sw-KE-ZuriNeural", "voice_name": "Zuri", "region": "Africa"},
-    "af": {"avatar_type": "african", "voice_id": "af-ZA-AdriNeural", "voice_name": "Adri", "region": "Africa"},
-    "ha": {"avatar_type": "african", "voice_id": "en-NG-EzinneNeural", "voice_name": "Ezinne", "region": "Africa"},
-    "zu": {"avatar_type": "african", "voice_id": "en-ZA-LeahNeural", "voice_name": "Leah", "region": "Africa"},
+    # African Languages - 2 male, 2 female
+    "sw": {"avatar_type": "african_male", "voice_id": "sw-KE-RafikiNeural", "voice_name": "Rafiki", "region": "Africa", "gender": "male"},
+    "af": {"avatar_type": "african_female", "voice_id": "af-ZA-AdriNeural", "voice_name": "Adri", "region": "Africa", "gender": "female"},
+    "ha": {"avatar_type": "african_male", "voice_id": "en-NG-AbeoNeural", "voice_name": "Abeo", "region": "Africa", "gender": "male"},
+    "zu": {"avatar_type": "african_female", "voice_id": "en-ZA-LeahNeural", "voice_name": "Leah", "region": "Africa", "gender": "female"},
     
-    # Asian Languages
-    "ja": {"avatar_type": "asian", "voice_id": "ja-JP-NanamiNeural", "voice_name": "Nanami", "region": "Asia"},
-    "zh": {"avatar_type": "asian", "voice_id": "zh-CN-XiaoxiaoNeural", "voice_name": "Xiaoxiao", "region": "Asia"},
-    "ko": {"avatar_type": "asian", "voice_id": "ko-KR-SunHiNeural", "voice_name": "SunHi", "region": "Asia"},
-    "vi": {"avatar_type": "asian", "voice_id": "vi-VN-HoaiMyNeural", "voice_name": "HoaiMy", "region": "Asia"},
+    # Asian Languages - 2 male, 2 female
+    "ja": {"avatar_type": "asian_male", "voice_id": "ja-JP-KeitaNeural", "voice_name": "Keita", "region": "Asia", "gender": "male"},
+    "zh": {"avatar_type": "asian_female", "voice_id": "zh-CN-XiaoxiaoNeural", "voice_name": "Xiaoxiao", "region": "Asia", "gender": "female"},
+    "ko": {"avatar_type": "asian_male", "voice_id": "ko-KR-InJoonNeural", "voice_name": "InJoon", "region": "Asia", "gender": "male"},
+    "vi": {"avatar_type": "asian_female", "voice_id": "vi-VN-HoaiMyNeural", "voice_name": "HoaiMy", "region": "Asia", "gender": "female"},
     
-    # South Asian
-    "hi": {"avatar_type": "south_asian", "voice_id": "hi-IN-SwaraNeural", "voice_name": "Swara", "region": "South Asia"},
+    # South Asian - male (1)
+    "hi": {"avatar_type": "south_asian_male", "voice_id": "hi-IN-MadhurNeural", "voice_name": "Madhur", "region": "South Asia", "gender": "male"},
     
-    # Middle Eastern
-    "ar": {"avatar_type": "middle_eastern", "voice_id": "ar-EG-SalmaNeural", "voice_name": "Salma", "region": "Middle East"},
-    "tr": {"avatar_type": "middle_eastern", "voice_id": "tr-TR-EmelNeural", "voice_name": "Emel", "region": "Middle East"},
+    # Middle Eastern - 1 male, 1 female
+    "ar": {"avatar_type": "middle_eastern_male", "voice_id": "ar-EG-ShakirNeural", "voice_name": "Shakir", "region": "Middle East", "gender": "male"},
+    "tr": {"avatar_type": "middle_eastern_female", "voice_id": "tr-TR-EmelNeural", "voice_name": "Emel", "region": "Middle East", "gender": "female"},
     
-    # Latin American
-    "pt": {"avatar_type": "latina", "voice_id": "pt-BR-FranciscaNeural", "voice_name": "Francisca", "region": "South America"},
-    "es": {"avatar_type": "latina", "voice_id": "es-ES-ElviraNeural", "voice_name": "Elvira", "region": "Latin America"},
+    # Latin American - 1 male, 1 female
+    "pt": {"avatar_type": "latino_male", "voice_id": "pt-BR-AntonioNeural", "voice_name": "Antonio", "region": "South America", "gender": "male"},
+    "es": {"avatar_type": "latina_female", "voice_id": "es-ES-ElviraNeural", "voice_name": "Elvira", "region": "Latin America", "gender": "female"},
     
-    # European Languages
-    "de": {"avatar_type": "european", "voice_id": "de-DE-KatjaNeural", "voice_name": "Katja", "region": "Europe"},
-    "fr": {"avatar_type": "european", "voice_id": "fr-FR-DeniseNeural", "voice_name": "Denise", "region": "Europe"},
-    "it": {"avatar_type": "european", "voice_id": "it-IT-ElsaNeural", "voice_name": "Elsa", "region": "Europe"},
-    "nl": {"avatar_type": "european", "voice_id": "nl-NL-ColetteNeural", "voice_name": "Colette", "region": "Europe"},
-    "pl": {"avatar_type": "european", "voice_id": "pl-PL-ZofiaNeural", "voice_name": "Zofia", "region": "Europe"},
-    "ru": {"avatar_type": "european", "voice_id": "ru-RU-SvetlanaNeural", "voice_name": "Svetlana", "region": "Europe"},
-    "sv": {"avatar_type": "nordic", "voice_id": "sv-SE-SofieNeural", "voice_name": "Sofie", "region": "Nordic"},
+    # European Languages - 4 male, 4 female (alternating)
+    "de": {"avatar_type": "european_male", "voice_id": "de-DE-ConradNeural", "voice_name": "Conrad", "region": "Europe", "gender": "male"},
+    "fr": {"avatar_type": "european_female", "voice_id": "fr-FR-DeniseNeural", "voice_name": "Denise", "region": "Europe", "gender": "female"},
+    "it": {"avatar_type": "european_male", "voice_id": "it-IT-DiegoNeural", "voice_name": "Diego", "region": "Europe", "gender": "male"},
+    "nl": {"avatar_type": "european_female", "voice_id": "nl-NL-ColetteNeural", "voice_name": "Colette", "region": "Europe", "gender": "female"},
+    "pl": {"avatar_type": "european_male", "voice_id": "pl-PL-MarekNeural", "voice_name": "Marek", "region": "Europe", "gender": "male"},
+    "ru": {"avatar_type": "european_female", "voice_id": "ru-RU-SvetlanaNeural", "voice_name": "Svetlana", "region": "Europe", "gender": "female"},
+    "sv": {"avatar_type": "european_male", "voice_id": "sv-SE-MattiasNeural", "voice_name": "Mattias", "region": "Nordic", "gender": "male"},
     
-    # English (default)
-    "en": {"avatar_type": "european", "voice_id": "en-US-JennyNeural", "voice_name": "Jenny", "region": "Global"}
+    # English (default) - female
+    "en": {"avatar_type": "european_female", "voice_id": "en-US-JennyNeural", "voice_name": "Jenny", "region": "Global", "gender": "female"}
 }
 
 # Tutorial script template
