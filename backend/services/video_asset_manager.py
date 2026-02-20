@@ -36,50 +36,87 @@ D_ID_BASE_URL = "https://api.d-id.com"
 TUTORIAL_VIDEOS_DIR = Path("/app/backend/static/videos/tutorials")
 TUTORIAL_VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
 
-# Avatar source images - Verified professional headshots (NO hands blocking faces)
-# All from Pexels/Unsplash with consistent professional appearance
+# Avatar source images - AI Generated Professional Headshots (CAPA-002)
+# All images are front-facing, direct eye contact, no accessories
+# Generated Feb 20, 2026 for optimal D-ID face animation
 VERIFIED_AVATAR_SOURCES = {
-    "african": {
-        "url": "https://images.pexels.com/photos/3727462/pexels-photo-3727462.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop",
-        "description": "Professional African businesswoman - clear face, office setting",
+    # African - AI Generated
+    "african_male": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/ad0165677daa15befb8fbbbf0b83f45164174b1629e639ea10b55c15da59bacd.png",
+        "description": "African businessman - navy suit, professional headshot",
+        "gender": "male",
+        "region": "Africa"
+    },
+    "african_female": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/81c1105c19c603997dbbb12f78e9896a6d5414ee2ee3747ba849009fa3fa4d99.png",
+        "description": "African businesswoman - teal blazer, professional headshot",
         "gender": "female",
         "region": "Africa"
     },
-    "asian": {
-        "url": "https://images.pexels.com/photos/6572210/pexels-photo-6572210.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop",
-        "description": "Professional Asian woman - clear face, neutral background",
+    # Asian - AI Generated
+    "asian_male": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/36a4c263dd23955115971c84c044ac92cbbaf88e49b522fb57e9e93ca0c603e3.png",
+        "description": "East Asian businessman - gray suit, professional headshot",
+        "gender": "male",
+        "region": "Asia"
+    },
+    "asian_female": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/081a5d0d9f641456ae58f5f1b520a66b27acb55bf4611af5db211f86a4060a0e.png",
+        "description": "East Asian businesswoman - burgundy blazer, professional headshot",
         "gender": "female",
         "region": "Asia"
     },
-    "south_asian": {
-        "url": "https://images.pexels.com/photos/14156490/pexels-photo-14156490.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop",
-        "description": "Indian professional woman - clear face, office attire",
+    # South Asian - AI Generated
+    "south_asian_male": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/059c84fd288a9d557c4ae9e6c5c0745ed5936746588a11e5debc245bf6df5f86.png",
+        "description": "South Asian businessman - charcoal suit, professional headshot",
+        "gender": "male",
+        "region": "South Asia"
+    },
+    "south_asian_female": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/5a837b5260c7e822a99a4650e229a916443a0876de3b0577e1a2eacf8293589a.png",
+        "description": "South Asian businesswoman - coral blazer, professional headshot",
         "gender": "female",
         "region": "South Asia"
     },
-    "middle_eastern": {
-        "url": "https://images.pexels.com/photos/8154925/pexels-photo-8154925.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop",
-        "description": "Arab professional woman - office setting, NO hands near face",
+    # Middle Eastern - AI Generated
+    "middle_eastern_male": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/236cf172ac2c3d49b4862c30b5ecf43bd0c63012a82be44bed83ec001edf1ae4.png",
+        "description": "Middle Eastern businessman - navy suit, professional headshot",
+        "gender": "male",
+        "region": "Middle East"
+    },
+    "middle_eastern_female": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/844d7596bac1a2f9d840e966770394dacc11366fef6c4a27ad08e1287bcff745.png",
+        "description": "Middle Eastern businesswoman - emerald blazer, professional headshot",
         "gender": "female",
         "region": "Middle East"
     },
-    "latina": {
-        "url": "https://images.pexels.com/photos/10041243/pexels-photo-10041243.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop",
-        "description": "Latina professional woman - clear face, business casual",
+    # Latino/Latina - AI Generated
+    "latino_male": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/4c15bccad14909b76966332c2c8d273e654b2263591e1edcad30721a62996fa9.png",
+        "description": "Latino businessman - gray suit, professional headshot",
+        "gender": "male",
+        "region": "Latin America"
+    },
+    "latina_female": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/f778352e22c0afc342008b266def7d86a68ad702e7add783a9325380b25a771f.png",
+        "description": "Latina businesswoman - blue blazer, professional headshot",
         "gender": "female",
         "region": "Latin America"
     },
-    "european": {
-        "url": "https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop",
-        "description": "European professional woman - clear face, office setting",
-        "gender": "female",
+    # European - AI Generated
+    "european_male": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/cf5da23a2fb6427392f714c45463fce4f63e11971dde9f77e8b3d3e7abfacb26.png",
+        "description": "European businessman - navy suit, professional headshot",
+        "gender": "male",
         "region": "Europe"
     },
-    "nordic": {
-        "url": "https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop",
-        "description": "Nordic professional woman - clear face, office setting",
+    "european_female": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/58d59de8735da7216fa3ec98d7adbb0430161a330b16f918d9351307d1ad5060.png",
+        "description": "European businesswoman - black blazer, professional headshot",
         "gender": "female",
-        "region": "Nordic"
+        "region": "Europe"
     }
 }
 
