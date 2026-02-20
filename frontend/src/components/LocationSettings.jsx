@@ -320,9 +320,9 @@ const LocationSettings = () => {
       {/* Work Type Preferences Card */}
       <Card>
         <CardHeader>
-          <CardTitle>Preferred Work Types</CardTitle>
+          <CardTitle>{t('components.locationSettings.preferredWorkTypes') || 'Preferred Work Types'}</CardTitle>
           <CardDescription>
-            Select the work arrangements you are interested in
+            {t('components.locationSettings.selectWorkArrangements') || 'Select the work arrangements you are interested in'}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -339,7 +339,7 @@ const LocationSettings = () => {
                 onClick={() => toggleWorkType(type)}
                 data-testid={`work-type-${type}`}
               >
-                {type}
+                {t(`components.locationSettings.${type}`) || type}
               </Badge>
             ))}
           </div>
@@ -351,18 +351,18 @@ const LocationSettings = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Bell className="h-5 w-5 text-turquoise" />
-            Location-Based Alerts
+            {t('components.locationSettings.locationAlerts') || 'Location-Based Alerts'}
           </CardTitle>
           <CardDescription>
-            Get notified when new jobs are posted near you
+            {t('components.locationSettings.alertsDescription') || 'Get notified when new jobs are posted near you'}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium">Enable Proximity Alerts</p>
+              <p className="font-medium">{t('components.locationSettings.enableProximityAlerts') || 'Enable Proximity Alerts'}</p>
               <p className="text-sm text-slate-500">
-                Receive notifications for jobs within your search radius
+                {t('components.locationSettings.proximityAlertsDesc') || 'Receive notifications for jobs within your search radius'}
               </p>
             </div>
             <Switch
@@ -387,12 +387,12 @@ const LocationSettings = () => {
         {saving ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Saving...
+            {t('components.locationSettings.saving') || 'Saving...'}
           </>
         ) : (
           <>
             <Save className="mr-2 h-4 w-4" />
-            Save Location Preferences
+            {t('components.locationSettings.savePreferences') || 'Save Location Preferences'}
           </>
         )}
       </Button>
