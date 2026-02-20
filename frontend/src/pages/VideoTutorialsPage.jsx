@@ -360,14 +360,20 @@ const LANGUAGE_DISPLAY_INFO = {
 };
 
 // Fallback avatar URLs (used while backend config is loading)
+// CAPA-002: AI-generated professional headshots
 const FALLBACK_AVATARS = {
-  'african': 'https://images.pexels.com/photos/3727462/pexels-photo-3727462.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
-  'asian': 'https://images.pexels.com/photos/6572210/pexels-photo-6572210.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
-  'south_asian': 'https://images.pexels.com/photos/14156490/pexels-photo-14156490.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
-  'middle_eastern': 'https://images.pexels.com/photos/8154925/pexels-photo-8154925.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
-  'latina': 'https://images.pexels.com/photos/10041243/pexels-photo-10041243.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
-  'european': 'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
-  'nordic': 'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop'
+  'african_male': 'https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/ad0165677daa15befb8fbbbf0b83f45164174b1629e639ea10b55c15da59bacd.png',
+  'african_female': 'https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/81c1105c19c603997dbbb12f78e9896a6d5414ee2ee3747ba849009fa3fa4d99.png',
+  'asian_male': 'https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/36a4c263dd23955115971c84c044ac92cbbaf88e49b522fb57e9e93ca0c603e3.png',
+  'asian_female': 'https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/081a5d0d9f641456ae58f5f1b520a66b27acb55bf4611af5db211f86a4060a0e.png',
+  'south_asian_male': 'https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/059c84fd288a9d557c4ae9e6c5c0745ed5936746588a11e5debc245bf6df5f86.png',
+  'south_asian_female': 'https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/5a837b5260c7e822a99a4650e229a916443a0876de3b0577e1a2eacf8293589a.png',
+  'middle_eastern_male': 'https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/236cf172ac2c3d49b4862c30b5ecf43bd0c63012a82be44bed83ec001edf1ae4.png',
+  'middle_eastern_female': 'https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/844d7596bac1a2f9d840e966770394dacc11366fef6c4a27ad08e1287bcff745.png',
+  'latino_male': 'https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/4c15bccad14909b76966332c2c8d273e654b2263591e1edcad30721a62996fa9.png',
+  'latina_female': 'https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/f778352e22c0afc342008b266def7d86a68ad702e7add783a9325380b25a771f.png',
+  'european_male': 'https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/cf5da23a2fb6427392f714c45463fce4f63e11971dde9f77e8b3d3e7abfacb26.png',
+  'european_female': 'https://static.prod-images.emergentagent.com/jobs/44ec086b-16b8-40d4-9af6-8689f2b88051/images/58d59de8735da7216fa3ec98d7adbb0430161a330b16f918d9351307d1ad5060.png'
 };
 
 const GettingStartedSection = memo(() => {
