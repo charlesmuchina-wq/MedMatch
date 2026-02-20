@@ -331,114 +331,43 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
 });
 
 // Getting Started Section - AI Avatar Tutorials in 20+ Languages
-// Updated Feb 11, 2026: Fixed avatar/voice gender matching and region-appropriate presenters
-// Now includes African languages with region-appropriate presenters
-// Avatar images are now fetched from backend D-ID configuration
-const TUTORIAL_LANGUAGES = [
-  // European Languages - Use European-looking female avatar with female voice
-  { code: 'de', name: 'German', flag: '🇩🇪', title: 'Erste Schritte mit MedMatch-AI KARAU', presenter: 'Katja (Female)', region: 'Europe' },
-  { code: 'fr', name: 'French', flag: '🇫🇷', title: 'Démarrer avec MedMatch-AI KARAU', presenter: 'Denise (Female)', region: 'Europe' },
-  { code: 'es', name: 'Spanish', flag: '🇪🇸', title: 'Comenzar con MedMatch-AI KARAU', presenter: 'Elvira (Female)', region: 'Europe' },
-  { code: 'it', name: 'Italian', flag: '🇮🇹', title: 'Iniziare con MedMatch-AI KARAU', presenter: 'Elsa (Female)', region: 'Europe' },
-  { code: 'nl', name: 'Dutch', flag: '🇳🇱', title: 'Aan de slag met MedMatch-AI KARAU', presenter: 'Colette (Female)', region: 'Europe' },
-  { code: 'pl', name: 'Polish', flag: '🇵🇱', title: 'Rozpocznij z MedMatch-AI KARAU', presenter: 'Zofia (Female)', region: 'Europe' },
-  { code: 'sv', name: 'Swedish', flag: '🇸🇪', title: 'Kom igång med MedMatch-AI KARAU', presenter: 'Sofie (Female)', region: 'Nordic' },
-  { code: 'ru', name: 'Russian', flag: '🇷🇺', title: 'Начало работы с MedMatch-AI KARAU', presenter: 'Svetlana (Female)', region: 'Europe' },
-  // Asian Languages - Use Asian-looking avatars with matching voices
-  { code: 'ja', name: 'Japanese', flag: '🇯🇵', title: 'MedMatch-AI KARAUの使い方', presenter: 'Nanami (Female)', region: 'Asia' },
-  { code: 'zh', name: 'Chinese', flag: '🇨🇳', title: 'MedMatch-AI KARAU入门指南', presenter: 'Xiaoxiao (Female)', region: 'Asia' },
-  { code: 'ko', name: 'Korean', flag: '🇰🇷', title: 'MedMatch-AI KARAU 시작하기', presenter: 'SunHi (Female)', region: 'Asia' },
-  { code: 'vi', name: 'Vietnamese', flag: '🇻🇳', title: 'Bắt đầu với MedMatch-AI KARAU', presenter: 'HoaiMy (Female)', region: 'Asia' },
-  { code: 'hi', name: 'Hindi', flag: '🇮🇳', title: 'MedMatch-AI KARAU के साथ शुरुआत', presenter: 'Swara (Female)', region: 'South Asia' },
-  // Middle East & South America - Region-appropriate avatars
-  { code: 'ar', name: 'Arabic', flag: '🇸🇦', title: 'البدء مع MedMatch-AI KARAU', presenter: 'Salma (Female)', region: 'Middle East' },
-  { code: 'tr', name: 'Turkish', flag: '🇹🇷', title: 'MedMatch-AI KARAU\'e Başlayın', presenter: 'Emel (Female)', region: 'Middle East' },
-  { code: 'pt', name: 'Portuguese', flag: '🇧🇷', title: 'Começando com MedMatch-AI KARAU', presenter: 'Francisca (Female)', region: 'South America' },
-  // African Languages - African-looking avatars with matching voices
-  { code: 'sw', name: 'Swahili', flag: '🇰🇪', title: 'Kuanza na MedMatch-AI KARAU', presenter: 'Zuri (Female)', region: 'Africa' },
-  { code: 'af', name: 'Afrikaans', flag: '🇿🇦', title: 'Begin met MedMatch-AI KARAU', presenter: 'Adri (Female)', region: 'Africa' },
-  { code: 'ha', name: 'Hausa', flag: '🇳🇬', title: 'Fara da MedMatch-AI KARAU', presenter: 'Ezinne (Female)', region: 'Africa' },
-  { code: 'zu', name: 'Zulu', flag: '🇿🇦', title: 'Qala nge-MedMatch-AI KARAU', presenter: 'Thandile (Female)', region: 'Africa' }
-];
+// CAPA REBUILD Feb 20, 2026: Now fetches configurations from backend (Source of Truth)
+// This eliminates avatar mismatch by using validated backend data
 
-// Per-language avatar mapping - MATCHES ACTUAL VIDEO CONTENT
-// Updated Feb 17, 2026: Added Latina avatar for South/Central American languages
-const LANGUAGE_AVATAR_MAPPING = {
-  // African languages - ALL NOW USE AFRICAN FEMALE AVATAR ✅
-  'sw': 'african',       // Swahili - African woman
-  'af': 'african',       // Afrikaans - African woman (REGENERATED)
-  'ha': 'african',       // Hausa - African woman (REGENERATED)
-  'zu': 'african',       // Zulu - African woman (REGENERATED)
-  'xh': 'african',       // Xhosa - African woman
-  
-  // Asian languages - ALL NOW USE ASIAN FEMALE AVATAR ✅
-  'ja': 'asian',         // Japanese - Asian woman (REGENERATED)
-  'ko': 'asian',         // Korean - Asian woman (REGENERATED)
-  'zh': 'asian',         // Chinese - Asian woman (REGENERATED)
-  'vi': 'asian',         // Vietnamese - Asian woman (REGENERATED)
-  
-  // South Asian - USES SOUTH ASIAN FEMALE AVATAR ✅
-  'hi': 'south_asian',   // Hindi - South Asian woman (REGENERATED)
-  
-  // Middle Eastern - ALL NOW USE MIDDLE EASTERN FEMALE AVATAR ✅
-  'ar': 'middle_eastern', // Arabic - Middle Eastern woman (REGENERATED)
-  'tr': 'middle_eastern', // Turkish - Middle Eastern woman (REGENERATED)
-  
-  // South/Central American - LATINA AVATAR (brown skin) ✅
-  'pt': 'latina',        // Portuguese (Brazil) - Latina woman
-  'es': 'latina',        // Spanish - Latina woman (for Latin America)
-  
-  // European languages - use default presenter
-  'de': 'european', 'fr': 'european', 'it': 'european',
-  'nl': 'european', 'pl': 'european', 'ru': 'european', 'sv': 'european',
+// Static language metadata (flags and display names only - avatar URLs come from backend)
+const LANGUAGE_DISPLAY_INFO = {
+  'de': { name: 'German', flag: '🇩🇪', title: 'Erste Schritte mit MedMatch-AI KARAU' },
+  'fr': { name: 'French', flag: '🇫🇷', title: 'Démarrer avec MedMatch-AI KARAU' },
+  'es': { name: 'Spanish', flag: '🇪🇸', title: 'Comenzar con MedMatch-AI KARAU' },
+  'it': { name: 'Italian', flag: '🇮🇹', title: 'Iniziare con MedMatch-AI KARAU' },
+  'nl': { name: 'Dutch', flag: '🇳🇱', title: 'Aan de slag met MedMatch-AI KARAU' },
+  'pl': { name: 'Polish', flag: '🇵🇱', title: 'Rozpocznij z MedMatch-AI KARAU' },
+  'sv': { name: 'Swedish', flag: '🇸🇪', title: 'Kom igång med MedMatch-AI KARAU' },
+  'ru': { name: 'Russian', flag: '🇷🇺', title: 'Начало работы с MedMatch-AI KARAU' },
+  'ja': { name: 'Japanese', flag: '🇯🇵', title: 'MedMatch-AI KARAUの使い方' },
+  'zh': { name: 'Chinese', flag: '🇨🇳', title: 'MedMatch-AI KARAU入门指南' },
+  'ko': { name: 'Korean', flag: '🇰🇷', title: 'MedMatch-AI KARAU 시작하기' },
+  'vi': { name: 'Vietnamese', flag: '🇻🇳', title: 'Bắt đầu với MedMatch-AI KARAU' },
+  'hi': { name: 'Hindi', flag: '🇮🇳', title: 'MedMatch-AI KARAU के साथ शुरुआत' },
+  'ar': { name: 'Arabic', flag: '🇸🇦', title: 'البدء مع MedMatch-AI KARAU' },
+  'tr': { name: 'Turkish', flag: '🇹🇷', title: "MedMatch-AI KARAU'e Başlayın" },
+  'pt': { name: 'Portuguese', flag: '🇧🇷', title: 'Começando com MedMatch-AI KARAU' },
+  'sw': { name: 'Swahili', flag: '🇰🇪', title: 'Kuanza na MedMatch-AI KARAU' },
+  'af': { name: 'Afrikaans', flag: '🇿🇦', title: 'Begin met MedMatch-AI KARAU' },
+  'ha': { name: 'Hausa', flag: '🇳🇬', title: 'Fara da MedMatch-AI KARAU' },
+  'zu': { name: 'Zulu', flag: '🇿🇦', title: 'Qala nge-MedMatch-AI KARAU' },
+  'en': { name: 'English', flag: '🇺🇸', title: 'Getting Started with MedMatch-AI KARAU' }
 };
 
-// Avatar type to image URL mapping - FRESH REBUILD Feb 18, 2026
-// All images are professional FEMALE headshots with NO hands blocking faces
-// Using Pexels for reliable, consistent images
-const AVATAR_TYPE_IMAGES = {
-  'african': 'https://images.pexels.com/photos/3727462/pexels-photo-3727462.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',  // Professional African businesswoman
-  'asian': 'https://images.pexels.com/photos/6572210/pexels-photo-6572210.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',    // Professional Asian woman
-  'south_asian': 'https://images.pexels.com/photos/14156490/pexels-photo-14156490.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop', // Indian professional woman (UPDATED)
-  'middle_eastern': 'https://images.pexels.com/photos/8154925/pexels-photo-8154925.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop', // Arab woman - office setting, NO hands near face (UPDATED)
-  'latina': 'https://images.pexels.com/photos/10041243/pexels-photo-10041243.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',  // Latina professional woman
-  'european': '/images/presenter_main.jpeg?t=20260218',
-  // Sub-regional Asian avatars for better matching
-  'japanese': 'https://images.unsplash.com/photo-1624091844772-554661d10173?w=512&h=512&fit=crop&t=20260218',
-  'korean': 'https://images.pexels.com/photos/6572210/pexels-photo-6572210.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
-  'chinese': 'https://images.pexels.com/photos/6572210/pexels-photo-6572210.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
-  'vietnamese': 'https://images.unsplash.com/photo-1624091844772-554661d10173?w=512&h=512&fit=crop&t=20260218',
-};
-
-// Get avatar URL for a specific language code - IMPROVED with sub-regional support
-const getLanguageAvatar = (langCode) => {
-  // Check for sub-regional specific avatars first
-  const subRegionalMap = {
-    'ja': 'japanese',
-    'ko': 'korean', 
-    'zh': 'chinese',
-    'vi': 'vietnamese'
-  };
-  
-  if (subRegionalMap[langCode] && AVATAR_TYPE_IMAGES[subRegionalMap[langCode]]) {
-    return AVATAR_TYPE_IMAGES[subRegionalMap[langCode]];
-  }
-  
-  const avatarType = LANGUAGE_AVATAR_MAPPING[langCode] || 'european';
-  return AVATAR_TYPE_IMAGES[avatarType] || AVATAR_TYPE_IMAGES['european'];
-};
-
-// Region-appropriate avatar images - FRESH REBUILD Feb 18, 2026
-// All Pexels images - FEMALE headshots, NO hands blocking faces
-const REGION_AVATARS = {
-  'Europe': '/images/presenter_main.jpeg?t=20260218',
-  'Nordic': '/images/presenter_main.jpeg?t=20260218',
-  'Asia': 'https://images.pexels.com/photos/6572210/pexels-photo-6572210.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
-  'South Asia': 'https://images.pexels.com/photos/14156490/pexels-photo-14156490.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',  // Indian woman (UPDATED)
-  'Middle East': 'https://images.pexels.com/photos/8154925/pexels-photo-8154925.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',  // Arab woman office (UPDATED)
-  'South America': 'https://images.pexels.com/photos/10041243/pexels-photo-10041243.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
-  'Africa': 'https://images.pexels.com/photos/3727462/pexels-photo-3727462.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
-  'Global': '/images/presenter_main.jpeg?t=20260218'
+// Fallback avatar URLs (used while backend config is loading)
+const FALLBACK_AVATARS = {
+  'african': 'https://images.pexels.com/photos/3727462/pexels-photo-3727462.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
+  'asian': 'https://images.pexels.com/photos/6572210/pexels-photo-6572210.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
+  'south_asian': 'https://images.pexels.com/photos/14156490/pexels-photo-14156490.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
+  'middle_eastern': 'https://images.pexels.com/photos/8154925/pexels-photo-8154925.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
+  'latina': 'https://images.pexels.com/photos/10041243/pexels-photo-10041243.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
+  'european': 'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop',
+  'nordic': 'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=512&h=512&fit=crop'
 };
 
 const GettingStartedSection = memo(() => {
