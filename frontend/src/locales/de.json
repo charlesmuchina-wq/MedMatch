@@ -767,5 +767,265 @@
   "savedJobs": {
     "saveJobsHint": "Speichern Sie Jobs während der Suche, um sie später zu überprüfen",
     "noSavedJobs": "Keine gespeicherten Jobs"
+  },
+  "pages": {
+    "credentials": {
+      "title": "Credentials & Certifications",
+      "subtitle": "Manage your professional credentials and certifications",
+      "verifiedCredentials": "Verified credentials",
+      "instantImport": "Instant import",
+      "globalStandard": "Global standard",
+      "publications": "Publications",
+      "free": "Free",
+      "addCredential": "Add Credential",
+      "noCredentials": "No credentials added yet",
+      "verifyNow": "Verify Now",
+      "verified": "Verified",
+      "pending": "Pending",
+      "expired": "Expired"
+    },
+    "adminDashboard": {
+      "title": "Admin Dashboard",
+      "subtitle": "System overview and management",
+      "switchPerspective": "Switch between different user perspectives to test",
+      "active": "Active",
+      "warning": "Warning",
+      "modelTrained": "Model Trained",
+      "systemStatus": "System Status",
+      "userStats": "User Statistics",
+      "recentActivity": "Recent Activity",
+      "systemHealth": "System Health",
+      "apiUsage": "API Usage",
+      "errorRate": "Error Rate",
+      "responseTime": "Response Time"
+    },
+    "recruiterDashboard": {
+      "title": "Recruiter Dashboard",
+      "subtitle": "Manage your recruitment pipeline",
+      "activeJobs": "Active Jobs",
+      "totalApplicants": "Total Applicants",
+      "shortlisted": "Shortlisted",
+      "interviewing": "Interviewing",
+      "latestCandidates": "Latest candidates who applied to your jobs",
+      "viewAll": "View All",
+      "postNewJob": "Post New Job",
+      "noJobs": "No jobs posted yet"
+    },
+    "recruiterJobs": {
+      "title": "Job Postings",
+      "subtitle": "Manage your job listings",
+      "noJobsPosted": "No jobs posted yet",
+      "salaryRange": "Salary Range",
+      "applicationUrl": "Application URL",
+      "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
+      "companyNamePlaceholder": "Your company name",
+      "createJob": "Create Job",
+      "editJob": "Edit Job",
+      "deleteJob": "Delete Job",
+      "applicants": "Applicants",
+      "views": "Views"
+    },
+    "resumeProfiles": {
+      "title": "Resume Profiles",
+      "subtitle": "Manage multiple resume versions",
+      "createProfile": "Create Resume Profile",
+      "uploadPdf": "Upload a PDF resume to create a new profile",
+      "profileName": "Profile Name",
+      "cancel": "Cancel",
+      "noProfiles": "No Resume Profiles",
+      "createFirst": "Create your first resume profile to get started",
+      "primary": "Primary",
+      "setPrimary": "Set as Primary",
+      "lastUpdated": "Last Updated"
+    },
+    "companyProfile": {
+      "title": "Company Profile",
+      "subtitle": "Manage your company information",
+      "overview": "Overview",
+      "jobs": "Jobs",
+      "reviews": "Reviews",
+      "benefits": "Benefits",
+      "culture": "Culture",
+      "editProfile": "Edit Profile",
+      "verifiedCompany": "Verified Company",
+      "employeeCount": "Employees",
+      "founded": "Founded",
+      "headquarters": "Headquarters"
+    },
+    "portalSelector": {
+      "title": "AI KARAU Portal",
+      "subtitle": "Choose your destination",
+      "jobToolkit": "Job Toolkit",
+      "jobToolkitDesc": "AI-powered job search and career tools",
+      "meetingPortal": "Meeting Portal",
+      "meetingPortalDesc": "Secure video conferencing",
+      "enterPortal": "Enter Portal"
+    },
+    "dragonAutomator": {
+      "title": "KARAU Automator",
+      "subtitle": "Automate your job search workflow",
+      "startAutomation": "Start Automation",
+      "stopAutomation": "Stop Automation",
+      "automationStatus": "Automation Status",
+      "tasksCompleted": "Tasks Completed",
+      "tasksQueued": "Tasks Queued",
+      "lastRun": "Last Run"
+    },
+    "blindScreening": {
+      "title": "Blind Screening Dashboard",
+      "subtitle": "Review candidates without bias",
+      "candidatePool": "Candidate Pool",
+      "screeningQueue": "Screening Queue",
+      "reviewed": "Reviewed",
+      "pending": "Pending",
+      "qualificationMatch": "Qualification Match",
+      "experienceLevel": "Experience Level",
+      "skillsMatch": "Skills Match"
+    },
+    "locationSettings": {
+      "title": "Location Settings",
+      "subtitle": "Manage your location preferences for job search",
+      "currentLocation": "Current Location",
+      "preferredLocations": "Preferred Locations",
+      "remoteOnly": "Remote Only",
+      "hybridOk": "Hybrid OK",
+      "onSiteOk": "On-Site OK",
+      "willingToRelocate": "Willing to Relocate",
+      "searchRadius": "Search Radius",
+      "savePreferences": "Save Preferences"
+    },
+    "taxonomyExplorer": {
+      "title": "Taxonomy Explorer",
+      "subtitle": "Browse job categories and skills",
+      "categories": "Categories",
+      "skills": "Skills",
+      "industries": "Industries",
+      "jobTypes": "Job Types",
+      "searchTaxonomy": "Search taxonomy..."
+    },
+    "enterpriseApi": {
+      "title": "Enterprise API",
+      "subtitle": "API documentation and management",
+      "apiKeys": "API Keys",
+      "documentation": "Documentation",
+      "usage": "Usage",
+      "rateLimits": "Rate Limits",
+      "generateKey": "Generate New Key",
+      "revokeKey": "Revoke Key"
+    },
+    "globalCompliance": {
+      "title": "Global Compliance",
+      "subtitle": "Compliance status across regions",
+      "gdpr": "GDPR",
+      "ccpa": "CCPA",
+      "hipaa": "HIPAA",
+      "soc2": "SOC 2",
+      "compliant": "Compliant",
+      "nonCompliant": "Non-Compliant",
+      "inProgress": "In Progress"
+    },
+    "aiCompliance": {
+      "title": "AI Compliance",
+      "subtitle": "AI model compliance and ethics",
+      "modelAudits": "Model Audits",
+      "biasReports": "Bias Reports",
+      "fairnessMetrics": "Fairness Metrics",
+      "lastAudit": "Last Audit"
+    },
+    "candidateTransparency": {
+      "title": "Candidate Transparency",
+      "subtitle": "View how your profile is evaluated",
+      "matchScore": "Match Score",
+      "evaluationCriteria": "Evaluation Criteria",
+      "skillsAssessment": "Skills Assessment",
+      "experienceMatch": "Experience Match"
+    },
+    "publicApplication": {
+      "title": "Job Application",
+      "subtitle": "Apply for this position",
+      "applyNow": "Apply Now",
+      "uploadResume": "Upload Resume",
+      "coverLetter": "Cover Letter",
+      "submitApplication": "Submit Application"
+    },
+    "trackApplication": {
+      "title": "Track Application",
+      "subtitle": "Check the status of your application",
+      "applicationStatus": "Application Status",
+      "submitted": "Submitted",
+      "underReview": "Under Review",
+      "shortlisted": "Shortlisted",
+      "interview": "Interview",
+      "offer": "Offer",
+      "rejected": "Rejected"
+    },
+    "dataIntegrity": {
+      "title": "Data Integrity",
+      "subtitle": "Monitor data quality and consistency",
+      "dataQuality": "Data Quality",
+      "duplicates": "Duplicates",
+      "missingFields": "Missing Fields",
+      "validationErrors": "Validation Errors",
+      "runCheck": "Run Integrity Check"
+    },
+    "recruiterVerification": {
+      "title": "Recruiter Verification",
+      "subtitle": "Verify recruiter accounts",
+      "pendingVerifications": "Pending Verifications",
+      "verified": "Verified",
+      "rejected": "Rejected",
+      "verifyRecruiter": "Verify Recruiter",
+      "rejectRecruiter": "Reject Recruiter"
+    },
+    "reviewModeration": {
+      "title": "Review Moderation",
+      "subtitle": "Moderate user reviews",
+      "pendingReviews": "Pending Reviews",
+      "approved": "Approved",
+      "flagged": "Flagged",
+      "approveReview": "Approve",
+      "rejectReview": "Reject",
+      "flagReview": "Flag for Review"
+    },
+    "productionMetrics": {
+      "title": "Production Metrics",
+      "subtitle": "System performance and health metrics",
+      "uptime": "Uptime",
+      "requestsPerSecond": "Requests/Second",
+      "averageLatency": "Avg Latency",
+      "errorRate": "Error Rate",
+      "activeUsers": "Active Users",
+      "cpuUsage": "CPU Usage",
+      "memoryUsage": "Memory Usage"
+    }
+  },
+  "videoTutorials": {
+    "title": "Video Tutorials",
+    "subtitle": "Learn how to use MedMatch-AI KARAU with our comprehensive video guides",
+    "allVideos": "All Videos",
+    "gettingStarted": "Getting Started",
+    "quickGuides": "Quick Guides",
+    "featuredVideo": "Featured Video",
+    "watchNow": "Watch Now",
+    "aiGenerated": "AI Generated",
+    "languages": "Languages",
+    "selectLanguage": "Select Language",
+    "videoUnavailable": "Video unavailable",
+    "loadingVideo": "Loading video...",
+    "presenter": "Presenter",
+    "categories": {
+      "jobSeeker": "Job Seeker",
+      "recruiter": "Recruiter",
+      "dataPrivacy": "Data Privacy",
+      "overview": "Overview"
+    },
+    "sections": {
+      "allVideosTitle": "Video Library",
+      "allVideosSubtitle": "Browse our complete collection of tutorial videos",
+      "gettingStartedTitle": "AI-Powered Getting Started Guide",
+      "gettingStartedSubtitle": "Watch our AI presenter explain platform features",
+      "quickGuidesTitle": "Quick Reference Guides",
+      "quickGuidesSubtitle": "Step-by-step instructions for common tasks"
+    }
   }
 }
