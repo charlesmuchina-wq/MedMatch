@@ -949,6 +949,7 @@ function AppContent({ skipPortalSelector = false }) {
             <Route path="/admin/data-integrity" element={<AdminDataIntegrityPage />} />
             <Route path="/admin/ai-compliance" element={<AdminAICompliancePage />} />
             <Route path="/admin/global-compliance" element={<GlobalCompliancePage />} />
+            <Route path="/admin/translation-coverage" element={<AdminTranslationCoveragePage />} />
             <Route path="/taxonomy" element={<TaxonomyExplorerPage />} />
             <Route path="/careers" element={<TaxonomyExplorerPage />} />
             <Route path="/credentials" element={<CredentialsPage />} />
