@@ -211,6 +211,8 @@ export const LANGUAGE_GENDER_RULES = {
 
 // Bundled languages (full translations available)
 export const BUNDLED_LANGUAGES = [
+  // Testing
+  "pseudo",
   // Core languages
   "en", "es", "fr", "zh", "de",
   // High-demand languages
