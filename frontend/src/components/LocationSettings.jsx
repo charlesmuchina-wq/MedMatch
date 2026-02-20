@@ -138,9 +138,9 @@ const LocationSettings = () => {
     setSaving(true);
     try {
       await api.client.put("/api/geolocation/preferences", preferences);
-      toast.success("Location preferences saved!");
+      toast.success(t('components.locationSettings.preferencesSaved') || "Location preferences saved!");
     } catch (error) {
-      toast.error("Failed to save preferences");
+      toast.error(t('components.locationSettings.saveFailed') || "Failed to save preferences");
     } finally {
       setSaving(false);
     }
