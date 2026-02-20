@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import api from "@/utils/apiClient";
+import { useTranslation } from "@/utils/i18n";
 
 const LocationSettings = () => {
   const [loading, setLoading] = useState(true);
