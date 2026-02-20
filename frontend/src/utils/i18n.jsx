@@ -224,6 +224,8 @@ export const BUNDLED_LANGUAGES = [
 
 // Popular languages order (including African languages and key regional variants)
 export const POPULAR_LANGUAGES = [
+  // Testing - Pseudo locale for finding hardcoded strings
+  "pseudo",
   // English variants
   "en", "en-GB", "en-IE", "en-SG",
   // Major European languages
