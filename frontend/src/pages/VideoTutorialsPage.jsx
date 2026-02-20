@@ -415,23 +415,30 @@ const GettingStartedSection = memo(() => {
   const languageList = useMemo(() => {
     const displayInfo = LANGUAGE_DISPLAY_INFO;
     if (backendConfig?.languages) {
-      return Object.keys(backendConfig.languages).map(code => ({
-        code,
-        name: displayInfo[code]?.name || code.toUpperCase(),
-        flag: displayInfo[code]?.flag || '🌐',
-        title: displayInfo[code]?.title || 'Tutorial',
-        presenter: `${backendConfig.languages[code]?.voice_name || 'AI'} (Female)`,
-        region: backendConfig.languages[code]?.region || 'Global',
-        avatarUrl: backendConfig.languages[code]?.avatar_url,
-        isReady: backendConfig.languages[code]?.is_ready
-      }));
+      return Object.keys(backendConfig.languages).map(code => {
+        const langConfig = backendConfig.languages[code];
+        const gender = langConfig?.gender || 'female';
+        const genderLabel = gender === 'male' ? '(Male)' : '(Female)';
+        return {
+          code,
+          name: displayInfo[code]?.name || code.toUpperCase(),
+          flag: displayInfo[code]?.flag || '🌐',
+          title: displayInfo[code]?.title || 'Tutorial',
+          presenter: `${langConfig?.voice_name || 'AI'} ${genderLabel}`,
+          region: langConfig?.region || 'Global',
+          avatarUrl: langConfig?.avatar_url,
+          isReady: langConfig?.is_ready,
+          gender: gender
+        };
+      });
     }
     // Fallback to static list
     return Object.entries(displayInfo).map(([code, info]) => ({
       code,
       ...info,
-      presenter: 'AI (Female)',
-      region: 'Global'
+      presenter: 'AI',
+      region: 'Global',
+      gender: 'unknown'
     }));
   }, [backendConfig]);
 
