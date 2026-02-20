@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef, memo } from 'react';
 import { Play, FileText, Users, Briefcase, Search, ClipboardList, ChevronRight, ExternalLink, Loader2, Globe, Subtitles } from 'lucide-react';
 import axios from 'axios';
+import { useTranslation } from "@/utils/i18n";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
