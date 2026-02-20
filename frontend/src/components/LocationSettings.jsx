@@ -262,9 +262,9 @@ const LocationSettings = () => {
               data-testid="radius-slider"
             />
             <div className="flex justify-between text-xs text-slate-500">
-              <span>5 mi (Urban)</span>
-              <span>25 mi (Standard)</span>
-              <span>100 mi (Rural)</span>
+              <span>5 mi ({t('components.locationSettings.urban') || 'Urban'})</span>
+              <span>25 mi ({t('components.locationSettings.standard') || 'Standard'})</span>
+              <span>100 mi ({t('components.locationSettings.rural') || 'Rural'})</span>
             </div>
           </div>
         </CardContent>
@@ -275,12 +275,12 @@ const LocationSettings = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Car className="h-5 w-5 text-turquoise" />
-            Commute Preferences
+            {t('components.locationSettings.commutePreferences') || 'Commute Preferences'}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label>Primary Commute Mode</Label>
+            <Label>{t('components.locationSettings.primaryCommuteMode') || 'Primary Commute Mode'}</Label>
             <Select
               value={preferences.commute_preference}
               onValueChange={(value) =>
@@ -293,22 +293,22 @@ const LocationSettings = () => {
               <SelectContent>
                 <SelectItem value="driving">
                   <div className="flex items-center gap-2">
-                    <Car className="h-4 w-4" /> Driving (City)
+                    <Car className="h-4 w-4" /> {t('components.locationSettings.drivingCity') || 'Driving (City)'}
                   </div>
                 </SelectItem>
                 <SelectItem value="driving_highway">
                   <div className="flex items-center gap-2">
-                    <Car className="h-4 w-4" /> Driving (Highway)
+                    <Car className="h-4 w-4" /> {t('components.locationSettings.drivingHighway') || 'Driving (Highway)'}
                   </div>
                 </SelectItem>
                 <SelectItem value="transit">
                   <div className="flex items-center gap-2">
-                    <Train className="h-4 w-4" /> Public Transit
+                    <Train className="h-4 w-4" /> {t('components.locationSettings.publicTransit') || 'Public Transit'}
                   </div>
                 </SelectItem>
                 <SelectItem value="cycling">
                   <div className="flex items-center gap-2">
-                    <Bike className="h-4 w-4" /> Cycling
+                    <Bike className="h-4 w-4" /> {t('components.locationSettings.cycling') || 'Cycling'}
                   </div>
                 </SelectItem>
               </SelectContent>
