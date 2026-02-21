@@ -221,6 +221,13 @@
     "videoOn": "Video On",
     "videoOff": "Video Off",
     "shareScreen": "Share Screen",
+    "stopSharing": "Stop Sharing",
+    "startRecording": "Start Recording",
+    "stopRecording": "Stop Recording",
+    "raiseHand": "Raise Hand",
+    "lowerHand": "Lower Hand",
+    "virtualBackground": "Virtual Background",
+    "aiNotes": "AI Notes",
     "chat": "Chat",
     "settings": "Settings",
     "typeMessage": "Type a message...",
@@ -228,7 +235,9 @@
     "noMessages": "No messages yet",
     "aiAssistant": "AI Assistant",
     "transcript": "Transcript",
-    "notes": "Notes"
+    "notes": "Notes",
+    "joinMeeting": "Join Meeting",
+    "enterMeetingId": "Enter meeting ID"
   },
   "subscription": {
     "title": "Subscription",
