@@ -194,7 +194,17 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
 
   const handleCanPlay = useCallback(() => {
     setBuffering(false);
-  }, []);
+    
+    // Programmatically enable captions track if showSubtitles is true
+    if (videoRef.current && showSubtitles) {
+      const tracks = videoRef.current.textTracks;
+      if (tracks && tracks.length > 0) {
+        for (let i = 0; i < tracks.length; i++) {
+          tracks[i].mode = 'showing';
+        }
+      }
+    }
+  }, [showSubtitles]);
 
   const handleWaiting = useCallback(() => {
     setBuffering(true);
