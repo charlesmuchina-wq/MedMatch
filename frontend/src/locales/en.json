@@ -857,7 +857,13 @@
     "genderMasculine": "Masculine",
     "genderFeminine": "Feminine",
     "genderNeutral": "Neutral",
-    "genderAuto": "Auto (Language Default)"
+    "genderAuto": "Auto (Language Default)",
+    "useGoogleTranslate": "Use Google Translate",
+    "openGoogleTranslate": "Open in Google Translate",
+    "useBrowserTranslate": "Use Browser Translation",
+    "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
+    "browserTranslationActive": "Browser translation is active",
+    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts."
   },
   "dragon": {
     "webSearch": "Web Search",

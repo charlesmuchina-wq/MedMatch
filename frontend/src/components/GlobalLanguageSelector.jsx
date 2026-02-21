@@ -1,4 +1,4 @@
-import { Globe, Check, ChevronDown, Loader2, Sparkles, User } from "lucide-react";
+import { Globe, Check, ChevronDown, Loader2, Sparkles, User, ExternalLink, Languages } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
