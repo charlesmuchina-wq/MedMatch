@@ -1,9 +1,24 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef, memo } from 'react';
 import { Play, FileText, Users, Briefcase, Search, ClipboardList, ChevronRight, ExternalLink, Loader2, Globe, Subtitles } from 'lucide-react';
 import axios from 'axios';
-import { useTranslation } from "@/utils/i18n";
+import { useTranslation, LANGUAGE_META } from "@/utils/i18n";
 
 const API = process.env.REACT_APP_BACKEND_URL;
+
+// Map app language codes to tutorial language codes (some may differ)
+const mapAppLangToTutorial = (appLang) => {
+  // Most are direct matches, but handle special cases
+  const mapping = {
+    'pt-BR': 'pt',
+    'zh-TW': 'zh',
+    'ar-AE': 'ar',
+    'ar-EG': 'ar',
+    'en-GB': 'en',
+    'en-IE': 'en',
+    'en-SG': 'en',
+  };
+  return mapping[appLang] || appLang;
+};
 
 const LANGUAGES = [
   { code: 'en', name: 'English' },
