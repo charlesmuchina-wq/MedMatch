@@ -856,7 +856,7 @@ const CAPADashboard = () => {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-2.5 w-4 h-4 text-slate-400" />
           <Input
-            placeholder="Search CAPAs..."
+            placeholder={t("capa.searchCapas")}
             className="pl-9"
             value={filter.search}
             onChange={(e) => setFilter({...filter, search: e.target.value})}
@@ -865,10 +865,10 @@ const CAPADashboard = () => {
         <Select value={filter.status || "all"} onValueChange={(v) => setFilter({...filter, status: v === "all" ? "" : v})}>
           <SelectTrigger className="w-48">
             <Filter className="w-4 h-4 mr-2" />
-            <SelectValue placeholder="All Statuses" />
+            <SelectValue placeholder={t("capa.allStatuses")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Statuses</SelectItem>
+            <SelectItem value="all">{t("capa.allStatuses")}</SelectItem>
             {Object.entries(statusConfig).map(([key, config]) => (
               <SelectItem key={key} value={key}>{config.label}</SelectItem>
             ))}
