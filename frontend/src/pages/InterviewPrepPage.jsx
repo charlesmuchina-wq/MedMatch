@@ -96,6 +96,7 @@ const StarMethodHelper = ({ question, onGenerate, generating, t }) => {
 };
 
 const InterviewPrepPage = ({ resume }) => {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("questions");
   const [jobTitle, setJobTitle] = useState("");
   const [company, setCompany] = useState("");
@@ -1011,6 +1012,7 @@ Make it more concise, impactful, and professional while keeping the STAR structu
 
 // Mock Interview Mode Component
 const MockInterviewMode = ({ question, questionNumber, totalQuestions, onSubmit, onSkip }) => {
+  const { t } = useTranslation();
   const [answer, setAnswer] = useState("");
   const [timeLeft, setTimeLeft] = useState(120); // 2 minutes per question
   const answerRef = useRef("");
