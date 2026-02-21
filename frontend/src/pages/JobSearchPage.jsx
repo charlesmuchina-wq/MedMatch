@@ -235,7 +235,7 @@ const JobSearchPage = ({ savedJobs = [], onSave, onApply, onAnalyze }) => {
                 {locationType === "hybrid" && <Home className="w-4 h-4 mr-2 text-purple-500" />}
                 {locationType === "onsite" && <Building className="w-4 h-4 mr-2 text-orange-500" />}
                 {locationType === "all" && <Globe className="w-4 h-4 mr-2 text-slate-400" />}
-                <SelectValue placeholder="Work Type" />
+                <SelectValue placeholder={t("jobs.workType")} />
               </SelectTrigger>
               <SelectContent>
                 {LOCATION_TYPES.map(type => {
@@ -268,7 +268,7 @@ const JobSearchPage = ({ savedJobs = [], onSave, onApply, onAnalyze }) => {
               className="md:w-auto"
             >
               <Filter className="w-4 h-4 mr-2" />
-              {showAdvanced ? "Less Filters" : "More Filters"}
+                            {showAdvanced ? t("jobs.lessFilters") : t("jobs.moreFilters")}
               <ChevronDown className={`w-4 h-4 ml-2 transition-transform ${showAdvanced ? 'rotate-180' : ''}`} />
             </Button>
           </div>
@@ -280,7 +280,7 @@ const JobSearchPage = ({ savedJobs = [], onSave, onApply, onAnalyze }) => {
               <Select value={country} onValueChange={setCountry}>
                 <SelectTrigger className="w-full md:w-48" data-testid="country-select">
                   <Globe className="w-4 h-4 mr-2 text-slate-400" />
-                  <SelectValue placeholder="Select Country" />
+                  <SelectValue placeholder={t("jobs.selectCountry")} />
                 </SelectTrigger>
                 <SelectContent className="max-h-[300px]">
                   <SelectItem value="any">🌍 Any Country</SelectItem>
