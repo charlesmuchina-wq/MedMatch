@@ -218,7 +218,7 @@ const ContactRequestScreen = ({ requests: propRequests, onRequestUpdate }) => {
                   <textarea
                     className="w-full mt-1.5 p-3 border rounded-lg resize-none"
                     rows={2}
-                    placeholder="e.g., Not looking for new opportunities right now"
+                    placeholder={t("contact.declineReason")}
                     value={declineMessage}
                     onChange={(e) => setDeclineMessage(e.target.value)}
                   />
