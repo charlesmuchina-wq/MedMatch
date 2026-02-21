@@ -123,6 +123,7 @@ const SectionHeader = ({ icon: Icon, title, description, action }) => (
 );
 
 export default function AdminDataIntegrityPage() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('overview');
   const [loading, setLoading] = useState(true);
   const [runningAudit, setRunningAudit] = useState(false);
