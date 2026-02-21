@@ -983,6 +983,10 @@ function AppContent({ skipPortalSelector = false }) {
       <KarauDragonAI user={user} isOpen={showDragonAI} onClose={() => setShowDragonAI(false)} />
 
       <ApplyDialog job={applyDialogJob} open={!!applyDialogJob} onClose={() => setApplyDialogJob(null)} onConfirm={handleConfirmApply} />
+      
+      {/* Language Detection Banner - shows when browser language differs */}
+      <LanguageDetectionBanner />
+      
       <Toaster position="top-right" richColors theme={isDark ? 'dark' : 'light'} />
     </div>
   );
