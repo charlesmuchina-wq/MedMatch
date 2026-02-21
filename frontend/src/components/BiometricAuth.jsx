@@ -138,18 +138,19 @@ export const BiometricRegistration = ({ onSuccess, email, username }) => {
 
 // Biometric Login Component
 export const BiometricLogin = ({ onSuccess }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const supported = isWebAuthnSupported();
 
   const handleLogin = useCallback(async () => {
     if (!supported) {
-      toast.error("Biometric authentication is not supported");
+      toast.error(t("biometric.notSupported"));
       return;
     }
 
     if (!email) {
-      toast.error("Please enter your email");
+      toast.error(t("biometric.enterEmail"));
       return;
     }
 
