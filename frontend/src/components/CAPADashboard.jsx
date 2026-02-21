@@ -184,7 +184,7 @@ const CreateCAPADialog = ({ open, onClose, onCreated, t }) => {
             </div>
             
             <div>
-              <label className="text-sm font-medium">Severity</label>
+              <label className="text-sm font-medium">{t("capa.severity")}</label>
               <Select 
                 value={formData.severity} 
                 onValueChange={(v) => setFormData({...formData, severity: v})}
@@ -193,28 +193,28 @@ const CreateCAPADialog = ({ open, onClose, onCreated, t }) => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="critical">Critical</SelectItem>
-                  <SelectItem value="high">High</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="low">Low</SelectItem>
+                  <SelectItem value="critical">{t("capa.severityCritical")}</SelectItem>
+                  <SelectItem value="high">{t("capa.severityHigh")}</SelectItem>
+                  <SelectItem value="medium">{t("capa.severityMedium")}</SelectItem>
+                  <SelectItem value="low">{t("capa.severityLow")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
           
           <div>
-            <label className="text-sm font-medium">Source</label>
+            <label className="text-sm font-medium">{t("capa.source")}</label>
             <Input
-              placeholder="Where the issue was identified (e.g., QA, Audit, Customer)"
+              placeholder={t("capa.sourcePlaceholder")}
               value={formData.source}
               onChange={(e) => setFormData({...formData, source: e.target.value})}
             />
           </div>
           
           <div>
-            <label className="text-sm font-medium">Impacted Processes (comma-separated)</label>
+            <label className="text-sm font-medium">{t("capa.impactedProcesses")}</label>
             <Input
-              placeholder="e.g., Translation, UI Rendering, Localization"
+              placeholder={t("capa.impactedProcessesPlaceholder")}
               value={formData.impacted_processes}
               onChange={(e) => setFormData({...formData, impacted_processes: e.target.value})}
             />
