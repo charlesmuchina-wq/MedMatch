@@ -87,6 +87,7 @@ import { I18nProvider, useTranslation } from "@/utils/i18n";
 import { OfflineBanner, OfflineIndicator } from "@/components/OfflineIndicator";
 import { offlineStorage } from "@/utils/offlineStorage";
 import LanguageTour from "@/components/LanguageTour";
+import LanguageDetectionBanner from "@/components/LanguageDetectionBanner";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
