@@ -318,31 +318,31 @@ const PSVVerificationPage = () => {
               <CardHeader>
                 <CardTitle>CMS NPI Registry Search</CardTitle>
                 <CardDescription>
-                  Verify National Provider Identifiers for healthcare providers (FREE API)
+                  {t("psv.npiDescription")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4">
                   <Input
-                    placeholder="Last Name"
+                    placeholder={t("psv.lastName")}
                     value={npiForm.last_name}
                     onChange={(e) => setNpiForm({ ...npiForm, last_name: e.target.value })}
                     data-testid="npi-last-name"
                   />
                   <Input
-                    placeholder="First Name"
+                    placeholder={t("psv.firstName")}
                     value={npiForm.first_name}
                     onChange={(e) => setNpiForm({ ...npiForm, first_name: e.target.value })}
                     data-testid="npi-first-name"
                   />
                   <Input
-                    placeholder="State (e.g., CA, NY)"
+                    placeholder={t("psv.statePlaceholder")}
                     value={npiForm.state}
                     onChange={(e) => setNpiForm({ ...npiForm, state: e.target.value })}
                     data-testid="npi-state"
                   />
                   <Input
-                    placeholder="NPI Number (optional)"
+                    placeholder={t("psv.npiNumber")}
                     value={npiForm.npi}
                     onChange={(e) => setNpiForm({ ...npiForm, npi: e.target.value })}
                     data-testid="npi-number"
