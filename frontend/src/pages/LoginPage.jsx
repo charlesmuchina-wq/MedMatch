@@ -529,7 +529,7 @@ const LoginPage = ({ onAuthSuccess }) => {
                       <Input
                         id="otp"
                         type="text"
-                        placeholder="Enter 6-digit code"
+                        placeholder={t("auth.enterCode")}
                         value={otpCode}
                         onChange={(e) => setOtpCode(e.target.value)}
                         maxLength={6}
@@ -548,7 +548,7 @@ const LoginPage = ({ onAuthSuccess }) => {
                       {isLoading ? (
                         <Loader2 className="w-4 h-4 animate-spin" />
                       ) : (
-                        <>Verify & Sign In <ArrowRight className="w-4 h-4 ml-2" /></>
+                        <>{t("auth.verifyAndSignIn")} <ArrowRight className="w-4 h-4 ml-2" /></>
                       )}
                     </Button>
 
@@ -557,7 +557,7 @@ const LoginPage = ({ onAuthSuccess }) => {
                       onClick={() => { setOtpSent(false); setOtpCode(""); }}
                       className="w-full text-center text-sm text-slate-500 hover:text-turquoise"
                     >
-                      Change phone number
+                      {t("auth.changePhoneNumber")}
                     </button>
                   </>
                 )}
