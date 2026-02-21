@@ -418,7 +418,7 @@ const KarauDragonAI = ({ user, isOpen, onClose }) => {
             <Input
               value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
-              placeholder="Or type your request..."
+              placeholder={t("dragon.typeRequest")}
               className="flex-1"
               disabled={processing}
             />
