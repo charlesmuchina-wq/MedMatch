@@ -1066,7 +1066,7 @@ const MockInterviewMode = ({ question, questionNumber, totalQuestions, onSubmit,
       </CardHeader>
       <CardContent className="space-y-4">
         <Textarea
-          placeholder="Type your answer here... (You have 2 minutes)"
+          placeholder={t("interview.typeAnswerPlaceholder")}
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
           className="min-h-[200px] dark:bg-slate-800"
@@ -1074,14 +1074,14 @@ const MockInterviewMode = ({ question, questionNumber, totalQuestions, onSubmit,
         />
         <div className="flex gap-3">
           <Button onClick={onSkip} variant="outline">
-            Skip Question
+            {t("interview.skipQuestion")}
           </Button>
           <Button 
             onClick={() => onSubmit(answer)} 
             disabled={!answer.trim()}
             className="flex-1 bg-gradient-to-r from-violet-500 to-purple-600"
           >
-            Submit Answer <ChevronRight className="w-4 h-4 ml-1" />
+            {t("interview.submitAnswer")} <ChevronRight className="w-4 h-4 ml-1" />
           </Button>
         </div>
       </CardContent>
