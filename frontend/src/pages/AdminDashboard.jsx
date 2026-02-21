@@ -1,10 +1,10 @@
 /**
-import { useTranslation } from "@/utils/i18n";
  * Admin Dashboard - Central hub for admin functions
  * Only accessible to users with admin role
  * Feature: 3 View Options - Admin, Job Seeker, Recruiter
  */
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from "@/utils/i18n";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import {
