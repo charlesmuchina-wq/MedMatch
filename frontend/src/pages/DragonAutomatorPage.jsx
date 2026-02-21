@@ -1,9 +1,9 @@
 /**
-import { useTranslation } from "@/utils/i18n";
  * KARAU DRAGON AI Automator Dashboard
  * System diagnostics, auto-fixes, improvements, and version management
  */
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from "@/utils/i18n";
 import { toast } from 'sonner';
 import {
   Activity,
