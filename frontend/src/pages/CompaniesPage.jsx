@@ -207,7 +207,7 @@ const CompaniesPage = ({ user }) => {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <Input
-            placeholder="Search companies..."
+            placeholder={t("companiesPage.searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && searchCompanies()}
@@ -217,7 +217,7 @@ const CompaniesPage = ({ user }) => {
         
         <Select value={selectedIndustry || "all"} onValueChange={(v) => setSelectedIndustry(v === "all" ? "" : v)}>
           <SelectTrigger className="w-full md:w-48">
-            <SelectValue placeholder="Industry" />
+            <SelectValue placeholder={t("companiesPage.industryPlaceholder")} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Industries</SelectItem>
@@ -229,7 +229,7 @@ const CompaniesPage = ({ user }) => {
         
         <Select value={selectedSize || "all"} onValueChange={(v) => setSelectedSize(v === "all" ? "" : v)}>
           <SelectTrigger className="w-full md:w-48">
-            <SelectValue placeholder="Company Size" />
+            <SelectValue placeholder={t("companiesPage.companySizePlaceholder")} />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Sizes</SelectItem>
