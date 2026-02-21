@@ -808,7 +808,7 @@
       "instantImport": "Importação instantânea",
       "globalStandard": "Padrão global",
       "publications": "Publicações",
-      "free": "Gratuito",
+      "free": "Grátis",
       "addCredential": "Adicionar credencial",
       "noCredentials": "Nenhuma credencial adicionada ainda",
       "verifyNow": "Verificar agora",
@@ -817,7 +817,7 @@
       "expired": "Expirado"
     },
     "adminDashboard": {
-      "title": "Painel do Administrador",
+      "title": "Painel do administrador",
       "subtitle": "Visão geral e gerenciamento do sistema",
       "switchPerspective": "Alterne entre diferentes perspectivas de usuário para testar",
       "active": "Ativo",
@@ -828,28 +828,28 @@
       "recentActivity": "Atividade recente",
       "systemHealth": "Saúde do sistema",
       "apiUsage": "Uso da API",
-      "errorRate": "Taxa de erro",
+      "errorRate": "Taxa de erros",
       "responseTime": "Tempo de resposta"
     },
     "recruiterDashboard": {
-      "title": "Painel do Recrutador",
-      "subtitle": "Gerencie seu pipeline de recrutamento",
+      "title": "Painel do recrutador",
+      "subtitle": "Gerencie seu funil de recrutamento",
       "activeJobs": "Vagas ativas",
       "totalApplicants": "Total de candidatos",
       "shortlisted": "Pré-selecionados",
       "interviewing": "Em entrevista",
-      "latestCandidates": "Candidatos mais recentes que se candidataram às suas vagas",
+      "latestCandidates": "Últimos candidatos que se candidataram às suas vagas",
       "viewAll": "Ver tudo",
       "postNewJob": "Publicar nova vaga",
       "noJobs": "Nenhuma vaga publicada ainda"
     },
     "recruiterJobs": {
-      "title": "Anúncios de Vagas",
-      "subtitle": "Gerencie suas vagas",
+      "title": "Anúncios de vagas",
+      "subtitle": "Gerencie suas vagas anunciadas",
       "noJobsPosted": "Nenhuma vaga publicada ainda",
       "salaryRange": "Faixa salarial",
       "applicationUrl": "URL de candidatura",
-      "jobTitlePlaceholder": "ex.: Engenheiro de Qualidade Sênior",
+      "jobTitlePlaceholder": "ex.: Engenheiro(a) de Qualidade Sênior",
       "companyNamePlaceholder": "Nome da sua empresa",
       "createJob": "Criar vaga",
       "editJob": "Editar vaga",
@@ -858,7 +858,7 @@
       "views": "Visualizações"
     },
     "resumeProfiles": {
-      "title": "Perfis de Currículo",
+      "title": "Perfis de currículo",
       "subtitle": "Gerencie várias versões do currículo",
       "createProfile": "Criar perfil de currículo",
       "uploadPdf": "Envie um currículo em PDF para criar um novo perfil",
@@ -871,7 +871,7 @@
       "lastUpdated": "Última atualização"
     },
     "companyProfile": {
-      "title": "Perfil da Empresa",
+      "title": "Perfil da empresa",
       "subtitle": "Gerencie as informações da sua empresa",
       "overview": "Visão geral",
       "jobs": "Vagas",
@@ -881,21 +881,21 @@
       "editProfile": "Editar perfil",
       "verifiedCompany": "Empresa verificada",
       "employeeCount": "Funcionários",
-      "founded": "Fundação",
+      "founded": "Fundada em",
       "headquarters": "Sede"
     },
     "portalSelector": {
       "title": "Portal AI KARAU",
       "subtitle": "Escolha seu destino",
-      "jobToolkit": "Kit de ferramentas de emprego",
-      "jobToolkitDesc": "Busca de vagas e ferramentas de carreira com tecnologia de AI",
+      "jobToolkit": "Kit de ferramentas de vagas",
+      "jobToolkitDesc": "Ferramentas de busca de emprego e carreira com tecnologia de AI",
       "meetingPortal": "Portal de reuniões",
       "meetingPortalDesc": "Videoconferência segura",
-      "enterPortal": "Entrar no portal"
+      "enterPortal": "Acessar portal"
     },
     "dragonAutomator": {
       "title": "Automatizador KARAU",
-      "subtitle": "Automatize seu fluxo de trabalho de busca de vagas",
+      "subtitle": "Automatize seu fluxo de busca de emprego",
       "startAutomation": "Iniciar automação",
       "stopAutomation": "Parar automação",
       "automationStatus": "Status da automação",
@@ -904,39 +904,39 @@
       "lastRun": "Última execução"
     },
     "blindScreening": {
-      "title": "Painel de Triagem Cega",
-      "subtitle": "Avalie candidatos sem viés",
+      "title": "Painel de triagem às cegas",
+      "subtitle": "Revise candidatos sem vieses",
       "candidatePool": "Banco de candidatos",
       "screeningQueue": "Fila de triagem",
-      "reviewed": "Analisados",
+      "reviewed": "Revisado",
       "pending": "Pendente",
       "qualificationMatch": "Compatibilidade de qualificações",
       "experienceLevel": "Nível de experiência",
       "skillsMatch": "Compatibilidade de habilidades"
     },
     "locationSettings": {
-      "title": "Configurações de Localização",
-      "subtitle": "Gerencie suas preferências de localização para a busca de vagas",
+      "title": "Configurações de localização",
+      "subtitle": "Gerencie suas preferências de localização para busca de vagas",
       "currentLocation": "Localização atual",
       "preferredLocations": "Localizações preferidas",
-      "remoteOnly": "Somente remoto",
-      "hybridOk": "Híbrido ok",
-      "onSiteOk": "Presencial ok",
+      "remoteOnly": "Apenas remoto",
+      "hybridOk": "Híbrido OK",
+      "onSiteOk": "Presencial OK",
       "willingToRelocate": "Disposto(a) a se mudar",
       "searchRadius": "Raio de busca",
       "savePreferences": "Salvar preferências"
     },
     "taxonomyExplorer": {
-      "title": "Explorador de Taxonomia",
+      "title": "Explorador de taxonomia",
       "subtitle": "Navegue por categorias de vagas e habilidades",
       "categories": "Categorias",
       "skills": "Habilidades",
       "industries": "Setores",
       "jobTypes": "Tipos de vaga",
-      "searchTaxonomy": "Pesquisar taxonomia..."
+      "searchTaxonomy": "Buscar na taxonomia..."
     },
     "enterpriseApi": {
-      "title": "API Empresarial",
+      "title": "API empresarial",
       "subtitle": "Documentação e gerenciamento da API",
       "apiKeys": "Chaves de API",
       "documentation": "Documentação",
@@ -946,14 +946,14 @@
       "revokeKey": "Revogar chave"
     },
     "globalCompliance": {
-      "title": "Conformidade Global",
-      "subtitle": "Status de conformidade por região",
+      "title": "Conformidade global",
+      "subtitle": "Status de conformidade por regiões",
       "gdpr": "GDPR",
       "ccpa": "CCPA",
       "hipaa": "HIPAA",
       "soc2": "SOC 2",
       "compliant": "Em conformidade",
-      "nonCompliant": "Em não conformidade",
+      "nonCompliant": "Fora de conformidade",
       "inProgress": "Em andamento"
     },
     "aiCompliance": {
@@ -965,7 +965,7 @@
       "lastAudit": "Última auditoria"
     },
     "candidateTransparency": {
-      "title": "Transparência do Candidato",
+      "title": "Transparência para candidatos",
       "subtitle": "Veja como seu perfil é avaliado",
       "matchScore": "Pontuação de compatibilidade",
       "evaluationCriteria": "Critérios de avaliação",
@@ -973,7 +973,7 @@
       "experienceMatch": "Compatibilidade de experiência"
     },
     "publicApplication": {
-      "title": "Candidatura à Vaga",
+      "title": "Candidatura à vaga",
       "subtitle": "Candidate-se a esta posição",
       "applyNow": "Candidatar-se agora",
       "uploadResume": "Enviar currículo",
@@ -981,18 +981,18 @@
       "submitApplication": "Enviar candidatura"
     },
     "trackApplication": {
-      "title": "Acompanhar Candidatura",
+      "title": "Acompanhar candidatura",
       "subtitle": "Verifique o status da sua candidatura",
       "applicationStatus": "Status da candidatura",
-      "submitted": "Enviado",
+      "submitted": "Enviada",
       "underReview": "Em análise",
-      "shortlisted": "Pré-selecionado",
+      "shortlisted": "Pré-selecionada",
       "interview": "Entrevista",
-      "offer": "Proposta",
-      "rejected": "Rejeitado"
+      "offer": "Oferta",
+      "rejected": "Rejeitada"
     },
     "dataIntegrity": {
-      "title": "Integridade de Dados",
+      "title": "Integridade de dados",
       "subtitle": "Monitore a qualidade e a consistência dos dados",
       "dataQuality": "Qualidade dos dados",
       "duplicates": "Duplicados",
@@ -1001,7 +1001,7 @@
       "runCheck": "Executar verificação de integridade"
     },
     "recruiterVerification": {
-      "title": "Verificação de Recrutador",
+      "title": "Verificação de recrutador",
       "subtitle": "Verifique contas de recrutadores",
       "pendingVerifications": "Verificações pendentes",
       "verified": "Verificado",
@@ -1010,29 +1010,29 @@
       "rejectRecruiter": "Rejeitar recrutador"
     },
     "reviewModeration": {
-      "title": "Moderação de Avaliações",
-      "subtitle": "Modere as avaliações dos usuários",
+      "title": "Moderação de avaliações",
+      "subtitle": "Modere avaliações de usuários",
       "pendingReviews": "Avaliações pendentes",
       "approved": "Aprovado",
       "flagged": "Sinalizado",
       "approveReview": "Aprovar",
       "rejectReview": "Rejeitar",
-      "flagReview": "Sinalizar para análise"
+      "flagReview": "Sinalizar para revisão"
     },
     "productionMetrics": {
-      "title": "Métricas de Produção",
+      "title": "Métricas de produção",
       "subtitle": "Métricas de desempenho e saúde do sistema",
       "uptime": "Tempo de atividade",
       "requestsPerSecond": "Requisições/segundo",
       "averageLatency": "Latência média",
-      "errorRate": "Taxa de erro",
+      "errorRate": "Taxa de erros",
       "activeUsers": "Usuários ativos",
       "cpuUsage": "Uso de CPU",
       "memoryUsage": "Uso de memória"
     }
   },
   "videoTutorials": {
-    "title": "Tutoriais em Vídeo",
+    "title": "Tutoriais em vídeo",
     "subtitle": "Aprenda a usar o MedMatch-AI KARAU com nossos guias em vídeo abrangentes",
     "allVideos": "Todos os vídeos",
     "gettingStarted": "Primeiros passos",
@@ -1046,8 +1046,8 @@
     "loadingVideo": "Carregando vídeo...",
     "presenter": "Apresentador(a)",
     "categories": {
-      "jobSeeker": "Candidato",
-      "recruiter": "Recrutador",
+      "jobSeeker": "Candidato(a)",
+      "recruiter": "Recrutador(a)",
       "dataPrivacy": "Privacidade de dados",
       "overview": "Visão geral"
     },
@@ -1065,7 +1065,7 @@
       "homeLocation": "Localização residencial",
       "homeLocationDesc": "Defina seu endereço residencial para obter tempos de deslocamento precisos e correspondência de vagas com base na localização",
       "addressOrCity": "Endereço ou cidade",
-      "addressPlaceholder": "Digite seu endereço ou cidade...",
+      "addressPlaceholder": "Informe seu endereço ou cidade...",
       "useCurrentLocation": "Usar localização atual",
       "searchRadius": "Raio de busca de vagas",
       "searchRadiusDesc": "Distância máxima que você está disposto(a) a se deslocar",
@@ -1073,8 +1073,8 @@
       "miles": "milhas",
       "km": "km",
       "commutePreferences": "Preferências de deslocamento",
-      "commutePreferencesDesc": "Como você prefere ir ao trabalho?",
-      "primaryCommuteMode": "Modo principal de deslocamento",
+      "commutePreferencesDesc": "Como você prefere ir para o trabalho?",
+      "primaryCommuteMode": "Meio de deslocamento principal",
       "driving": "De carro",
       "transit": "Transporte público",
       "cycling": "De bicicleta",
@@ -1084,9 +1084,9 @@
       "remote": "Remoto",
       "hybrid": "Híbrido",
       "onsite": "Presencial",
-      "locationAlerts": "Alertas por localização",
-      "locationAlertsDesc": "Receba notificações sobre vagas perto de você",
-      "enableAlerts": "Ativar alertas por localização",
+      "locationAlerts": "Alertas baseados em localização",
+      "locationAlertsDesc": "Receba notificações sobre vagas perto da sua localização",
+      "enableAlerts": "Ativar alertas baseados em localização",
       "nearestHub": "Hub MedMatch mais próximo",
       "savePreferences": "Salvar preferências",
       "saving": "Salvando...",
@@ -1104,7 +1104,7 @@
       "selectWorkArrangements": "Selecione as modalidades de trabalho de seu interesse",
       "alertsDescription": "Receba notificações quando novas vagas forem publicadas perto de você",
       "enableProximityAlerts": "Ativar alertas de proximidade",
-      "proximityAlertsDesc": "Receba notificações de vagas dentro do seu raio de busca",
+      "proximityAlertsDesc": "Receba notificações sobre vagas dentro do seu raio de busca",
       "enterAddress": "Por favor, informe um endereço",
       "locationFound": "Localização encontrada!"
     },
@@ -1120,7 +1120,7 @@
     "subscriptionManager": {
       "title": "Assinatura",
       "currentPlan": "Plano atual",
-      "free": "Gratuito",
+      "free": "Grátis",
       "premium": "Premium",
       "enterprise": "Enterprise",
       "upgrade": "Fazer upgrade",
@@ -1134,11 +1134,11 @@
       "rating": "Avaliação",
       "pros": "Pontos positivos",
       "cons": "Pontos negativos",
-      "advice": "Conselho para a gestão",
+      "advice": "Conselhos para a gestão",
       "recommend": "Recomendaria",
       "submitReview": "Enviar avaliação",
       "anonymous": "Publicar anonimamente",
-      "verified": "Funcionário verificado"
+      "verified": "Funcionário(a) verificado(a)"
     },
     "offlineIndicator": {
       "offline": "Você está offline",
