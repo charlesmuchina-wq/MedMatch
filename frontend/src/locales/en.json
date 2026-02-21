@@ -1412,7 +1412,9 @@
   },
   "karauMeet": {
     "meetingTitlePlaceholder": "AI KARAU Meeting",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "your@email.com",
+    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Enter 6-digit code"
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."
