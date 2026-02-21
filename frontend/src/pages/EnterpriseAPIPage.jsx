@@ -1,9 +1,9 @@
 /**
-import { useTranslation } from "@/utils/i18n";
  * Enterprise API Management Page
  * Premium tier feature for managing API keys and webhooks
  */
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from "@/utils/i18n";
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import {
@@ -65,6 +65,7 @@ const WEBHOOK_EVENTS = [
 ];
 
 export default function EnterpriseAPIPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('api-keys');

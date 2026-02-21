@@ -1,10 +1,10 @@
 /**
-import { useTranslation } from "@/utils/i18n";
  * Job Seeker AI Transparency Page
  * Shows candidate rights, AI notice, and allows opt-out/explanation requests
  * Compliant with EU AI Act, NYC LL 144, California AEDT
  */
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from "@/utils/i18n";
 import { toast } from 'sonner';
 import {
   Shield,
@@ -33,6 +33,7 @@ import { Textarea } from '../components/ui/textarea';
 const API_URL = process.env.REACT_APP_BACKEND_URL || '';
 
 export default function CandidateTransparencyPage() {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [notice, setNotice] = useState(null);
   const [candidateView, setCandidateView] = useState(null);

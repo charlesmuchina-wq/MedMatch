@@ -15,6 +15,7 @@ import { useTranslation } from "@/utils/i18n";
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const CredentialsPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('my-credentials');
   const [certifications, setCertifications] = useState([]);

@@ -12,6 +12,7 @@ import CareerPivotSuggester from '../components/CareerPivotSuggester';
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
 const TaxonomyExplorerPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [summary, setSummary] = useState(null);
   const [selectedSector, setSelectedSector] = useState(null);
