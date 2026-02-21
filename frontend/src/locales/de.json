@@ -842,36 +842,36 @@
       "modelTrained": "Modell trainiert",
       "systemStatus": "Systemstatus",
       "userStats": "Nutzerstatistiken",
-      "recentActivity": "Neueste Aktivitäten",
+      "recentActivity": "Letzte Aktivitäten",
       "systemHealth": "Systemzustand",
       "apiUsage": "API-Nutzung",
-      "errorRate": "Fehlerrate",
+      "errorRate": "Fehlerquote",
       "responseTime": "Antwortzeit"
     },
     "recruiterDashboard": {
       "title": "Recruiter-Dashboard",
       "subtitle": "Verwalten Sie Ihre Recruiting-Pipeline",
       "activeJobs": "Aktive Stellen",
-      "totalApplicants": "Bewerbungen insgesamt",
+      "totalApplicants": "Bewerbungen gesamt",
       "shortlisted": "In der engeren Auswahl",
       "interviewing": "Im Interviewprozess",
-      "latestCandidates": "Neueste Kandidatinnen und Kandidaten, die sich auf Ihre Stellen beworben haben",
-      "viewAll": "Alle ansehen",
+      "latestCandidates": "Neueste Kandidat:innen, die sich auf Ihre Stellen beworben haben",
+      "viewAll": "Alle anzeigen",
       "postNewJob": "Neue Stelle veröffentlichen",
       "noJobs": "Noch keine Stellen veröffentlicht"
     },
     "recruiterJobs": {
-      "title": "Stellenanzeigen",
-      "subtitle": "Verwalten Sie Ihre Stellenangebote",
+      "title": "Stellenausschreibungen",
+      "subtitle": "Verwalten Sie Ihre Stellenanzeigen",
       "noJobsPosted": "Noch keine Stellen veröffentlicht",
-      "salaryRange": "Gehaltsrahmen",
+      "salaryRange": "Gehaltsrange",
       "applicationUrl": "Bewerbungs-URL",
       "jobTitlePlaceholder": "z. B. Senior Quality Engineer",
-      "companyNamePlaceholder": "Ihr Unternehmensname",
+      "companyNamePlaceholder": "Ihr Firmenname",
       "createJob": "Stelle erstellen",
       "editJob": "Stelle bearbeiten",
       "deleteJob": "Stelle löschen",
-      "applicants": "Bewerbungen",
+      "applicants": "Bewerber:innen",
       "views": "Aufrufe"
     },
     "resumeProfiles": {
@@ -882,7 +882,7 @@
       "profileName": "Profilname",
       "cancel": "Abbrechen",
       "noProfiles": "Keine Lebenslaufprofile",
-      "createFirst": "Erstellen Sie Ihr erstes Lebenslaufprofil, um zu beginnen",
+      "createFirst": "Erstellen Sie Ihr erstes Lebenslaufprofil, um loszulegen",
       "primary": "Primär",
       "setPrimary": "Als primär festlegen",
       "lastUpdated": "Zuletzt aktualisiert"
@@ -894,7 +894,7 @@
       "jobs": "Stellen",
       "reviews": "Bewertungen",
       "benefits": "Benefits",
-      "culture": "Unternehmenskultur",
+      "culture": "Kultur",
       "editProfile": "Profil bearbeiten",
       "verifiedCompany": "Verifiziertes Unternehmen",
       "employeeCount": "Mitarbeitende",
@@ -905,31 +905,31 @@
       "title": "AI KARAU Portal",
       "subtitle": "Wählen Sie Ihr Ziel",
       "jobToolkit": "Job-Toolkit",
-      "jobToolkitDesc": "KI-gestützte Jobsuche und Karrieretools",
+      "jobToolkitDesc": "KI-gestützte Jobsuche- und Karriere-Tools",
       "meetingPortal": "Meeting-Portal",
       "meetingPortalDesc": "Sichere Videokonferenzen",
-      "enterPortal": "Portal betreten"
+      "enterPortal": "Portal öffnen"
     },
     "dragonAutomator": {
       "title": "KARAU Automator",
-      "subtitle": "Automatisieren Sie Ihren Jobsuche-Workflow",
+      "subtitle": "Automatisieren Sie Ihren Workflow für die Jobsuche",
       "startAutomation": "Automatisierung starten",
       "stopAutomation": "Automatisierung stoppen",
       "automationStatus": "Automatisierungsstatus",
-      "tasksCompleted": "Aufgaben abgeschlossen",
-      "tasksQueued": "Aufgaben in der Warteschlange",
+      "tasksCompleted": "Abgeschlossene Aufgaben",
+      "tasksQueued": "Aufgaben in Warteschlange",
       "lastRun": "Letzter Lauf"
     },
     "blindScreening": {
-      "title": "Dashboard für Blind Screening",
-      "subtitle": "Prüfen Sie Kandidatinnen und Kandidaten ohne Bias",
-      "candidatePool": "Kandidatenpool",
+      "title": "Blind-Screening-Dashboard",
+      "subtitle": "Prüfen Sie Kandidat:innen ohne Bias",
+      "candidatePool": "Kandidat:innenpool",
       "screeningQueue": "Screening-Warteschlange",
       "reviewed": "Geprüft",
       "pending": "Ausstehend",
-      "qualificationMatch": "Qualifikationsabgleich",
+      "qualificationMatch": "Qualifikationsmatch",
       "experienceLevel": "Erfahrungslevel",
-      "skillsMatch": "Kompetenzabgleich"
+      "skillsMatch": "Skills-Match"
     },
     "locationSettings": {
       "title": "Standorteinstellungen",
@@ -937,30 +937,30 @@
       "currentLocation": "Aktueller Standort",
       "preferredLocations": "Bevorzugte Standorte",
       "remoteOnly": "Nur Remote",
-      "hybridOk": "Hybrid möglich",
-      "onSiteOk": "Vor Ort möglich",
+      "hybridOk": "Hybrid OK",
+      "onSiteOk": "Vor Ort OK",
       "willingToRelocate": "Umzugsbereit",
       "searchRadius": "Suchradius",
-      "savePreferences": "Präferenzen speichern"
+      "savePreferences": "Einstellungen speichern"
     },
     "taxonomyExplorer": {
       "title": "Taxonomie-Explorer",
-      "subtitle": "Durchsuchen Sie Jobkategorien und Kompetenzen",
+      "subtitle": "Durchsuchen Sie Jobkategorien und Skills",
       "categories": "Kategorien",
-      "skills": "Kompetenzen",
+      "skills": "Skills",
       "industries": "Branchen",
-      "jobTypes": "Beschäftigungsarten",
-      "searchTaxonomy": "Taxonomie suchen..."
+      "jobTypes": "Anstellungsarten",
+      "searchTaxonomy": "Taxonomie durchsuchen..."
     },
     "enterpriseApi": {
-      "title": "Enterprise API",
+      "title": "Enterprise-API",
       "subtitle": "API-Dokumentation und Verwaltung",
-      "apiKeys": "API-Schlüssel",
+      "apiKeys": "API-Keys",
       "documentation": "Dokumentation",
       "usage": "Nutzung",
-      "rateLimits": "Rate-Limits",
-      "generateKey": "Neuen Schlüssel generieren",
-      "revokeKey": "Schlüssel widerrufen"
+      "rateLimits": "Rate Limits",
+      "generateKey": "Neuen Key generieren",
+      "revokeKey": "Key widerrufen"
     },
     "globalCompliance": {
       "title": "Globale Compliance",
@@ -974,7 +974,7 @@
       "inProgress": "In Bearbeitung"
     },
     "aiCompliance": {
-      "title": "AI Compliance",
+      "title": "AI-Compliance",
       "subtitle": "Compliance und Ethik des AI-Modells",
       "modelAudits": "Modell-Audits",
       "biasReports": "Bias-Berichte",
@@ -982,12 +982,12 @@
       "lastAudit": "Letztes Audit"
     },
     "candidateTransparency": {
-      "title": "Transparenz für Kandidatinnen und Kandidaten",
+      "title": "Transparenz für Kandidat:innen",
       "subtitle": "Sehen Sie, wie Ihr Profil bewertet wird",
       "matchScore": "Match-Score",
       "evaluationCriteria": "Bewertungskriterien",
-      "skillsAssessment": "Kompetenzbewertung",
-      "experienceMatch": "Erfahrungsabgleich"
+      "skillsAssessment": "Skills-Bewertung",
+      "experienceMatch": "Erfahrungsmatch"
     },
     "publicApplication": {
       "title": "Bewerbung",
@@ -1015,11 +1015,11 @@
       "duplicates": "Duplikate",
       "missingFields": "Fehlende Felder",
       "validationErrors": "Validierungsfehler",
-      "runCheck": "Integritätsprüfung starten"
+      "runCheck": "Integritätsprüfung ausführen"
     },
     "recruiterVerification": {
       "title": "Recruiter-Verifizierung",
-      "subtitle": "Verifizieren Sie Recruiter-Konten",
+      "subtitle": "Recruiter-Konten verifizieren",
       "pendingVerifications": "Ausstehende Verifizierungen",
       "verified": "Verifiziert",
       "rejected": "Abgelehnt",
@@ -1038,12 +1038,12 @@
     },
     "productionMetrics": {
       "title": "Produktionsmetriken",
-      "subtitle": "Systemleistung und Zustandsmetriken",
-      "uptime": "Betriebszeit",
+      "subtitle": "Kennzahlen zu Systemleistung und -zustand",
+      "uptime": "Uptime",
       "requestsPerSecond": "Anfragen/Sekunde",
-      "averageLatency": "Durchschn. Latenz",
-      "errorRate": "Fehlerrate",
-      "activeUsers": "Aktive Nutzer",
+      "averageLatency": "Ø Latenz",
+      "errorRate": "Fehlerquote",
+      "activeUsers": "Aktive Nutzer:innen",
       "cpuUsage": "CPU-Auslastung",
       "memoryUsage": "Speicherauslastung"
     }
@@ -1053,7 +1053,7 @@
     "subtitle": "Erfahren Sie mit unseren umfassenden Videoanleitungen, wie Sie MedMatch-AI KARAU nutzen",
     "allVideos": "Alle Videos",
     "gettingStarted": "Erste Schritte",
-    "quickGuides": "Kurzanleitungen",
+    "quickGuides": "Schnellanleitungen",
     "featuredVideo": "Empfohlenes Video",
     "watchNow": "Jetzt ansehen",
     "aiGenerated": "AI-generiert",
@@ -1061,7 +1061,7 @@
     "selectLanguage": "Sprache auswählen",
     "videoUnavailable": "Video nicht verfügbar",
     "loadingVideo": "Video wird geladen...",
-    "presenter": "Moderation",
+    "presenter": "Moderator:in",
     "categories": {
       "jobSeeker": "Jobsuchende",
       "recruiter": "Recruiter",
@@ -1069,11 +1069,11 @@
       "overview": "Übersicht"
     },
     "sections": {
-      "allVideosTitle": "Videobibliothek",
-      "allVideosSubtitle": "Durchsuchen Sie unsere vollständige Sammlung an Tutorial-Videos",
-      "gettingStartedTitle": "AI-gestützter Einstiegsleitfaden",
-      "gettingStartedSubtitle": "Sehen Sie, wie unsere AI-Moderation die Plattformfunktionen erklärt",
-      "quickGuidesTitle": "Schnellreferenzen",
+      "allVideosTitle": "Videothek",
+      "allVideosSubtitle": "Stöbern Sie in unserer vollständigen Sammlung von Tutorial-Videos",
+      "gettingStartedTitle": "AI-gestützter Einstieg",
+      "gettingStartedSubtitle": "Sehen Sie sich an, wie unser AI-Moderator die Plattformfunktionen erklärt",
+      "quickGuidesTitle": "Kurzanleitungen",
       "quickGuidesSubtitle": "Schritt-für-Schritt-Anleitungen für häufige Aufgaben"
     }
   },
@@ -1089,15 +1089,15 @@
       "maxDistance": "Maximale Entfernung",
       "miles": "Meilen",
       "km": "km",
-      "commutePreferences": "Pendlerpräferenzen",
-      "commutePreferencesDesc": "Wie möchten Sie bevorzugt zur Arbeit kommen?",
-      "primaryCommuteMode": "Hauptverkehrsmittel",
+      "commutePreferences": "Pendelpräferenzen",
+      "commutePreferencesDesc": "Wie möchten Sie am liebsten zur Arbeit kommen?",
+      "primaryCommuteMode": "Bevorzugtes Verkehrsmittel",
       "driving": "Auto",
       "transit": "Öffentliche Verkehrsmittel",
       "cycling": "Fahrrad",
       "walking": "Zu Fuß",
       "workTypePreferences": "Präferenzen zur Arbeitsform",
-      "workTypePreferencesDesc": "Wählen Sie alle Arbeitsmodelle aus, für die Sie offen sind",
+      "workTypePreferencesDesc": "Wählen Sie alle Arbeitsmodelle aus, die für Sie infrage kommen",
       "remote": "Remote",
       "hybrid": "Hybrid",
       "onsite": "Vor Ort",
@@ -1105,29 +1105,29 @@
       "locationAlertsDesc": "Erhalten Sie Benachrichtigungen zu Jobs in Ihrer Nähe",
       "enableAlerts": "Standortbasierte Benachrichtigungen aktivieren",
       "nearestHub": "Nächster MedMatch Hub",
-      "savePreferences": "Präferenzen speichern",
-      "saving": "Speichern...",
-      "preferencesSaved": "Standortpräferenzen erfolgreich gespeichert",
+      "savePreferences": "Einstellungen speichern",
+      "saving": "Wird gespeichert...",
+      "preferencesSaved": "Standortpräferenzen wurden erfolgreich gespeichert",
       "saveFailed": "Standortpräferenzen konnten nicht gespeichert werden",
       "locationDetected": "Standort erfolgreich erkannt",
       "locationFailed": "Standort konnte nicht erkannt werden",
       "urban": "Städtisch",
       "standard": "Standard",
       "rural": "Ländlich",
-      "drivingCity": "Auto fahren (Stadt)",
-      "drivingHighway": "Auto fahren (Autobahn)",
+      "drivingCity": "Auto (Stadt)",
+      "drivingHighway": "Auto (Autobahn)",
       "publicTransit": "Öffentliche Verkehrsmittel",
-      "preferredWorkTypes": "Bevorzugte Arbeitsmodelle",
-      "selectWorkArrangements": "Wähle die Arbeitsmodelle aus, die dich interessieren",
-      "alertsDescription": "Erhalte Benachrichtigungen, wenn neue Jobs in deiner Nähe veröffentlicht werden",
-      "enableProximityAlerts": "Umgebungsbenachrichtigungen aktivieren",
-      "proximityAlertsDesc": "Erhalte Benachrichtigungen zu Jobs innerhalb deines Suchradius",
-      "enterAddress": "Bitte gib eine Adresse ein",
+      "preferredWorkTypes": "Bevorzugte Arbeitsformen",
+      "selectWorkArrangements": "Wählen Sie die Arbeitsmodelle aus, die Sie interessieren",
+      "alertsDescription": "Erhalten Sie eine Benachrichtigung, wenn neue Jobs in Ihrer Nähe veröffentlicht werden",
+      "enableProximityAlerts": "Nähe-Benachrichtigungen aktivieren",
+      "proximityAlertsDesc": "Erhalten Sie Benachrichtigungen zu Jobs innerhalb Ihres Suchradius",
+      "enterAddress": "Bitte geben Sie eine Adresse ein",
       "locationFound": "Standort gefunden!"
     },
     "biometricAuth": {
       "title": "Biometrische Authentifizierung",
-      "enableBiometric": "Biometrische Anmeldung aktivieren",
+      "enableBiometric": "Biometrischen Login aktivieren",
       "faceId": "Face ID",
       "touchId": "Touch ID",
       "fingerprint": "Fingerabdruck",
@@ -1151,11 +1151,11 @@
       "rating": "Bewertung",
       "pros": "Vorteile",
       "cons": "Nachteile",
-      "advice": "Ratschläge an das Management",
-      "recommend": "Würde empfehlen",
+      "advice": "Rat an die Geschäftsleitung",
+      "recommend": "Würde ich empfehlen",
       "submitReview": "Bewertung absenden",
       "anonymous": "Anonym veröffentlichen",
-      "verified": "Verifizierte/r Mitarbeiter/in"
+      "verified": "Verifizierte:r Mitarbeiter:in"
     },
     "offlineIndicator": {
       "offline": "Sie sind offline",
@@ -1166,7 +1166,7 @@
       "title": "Benachrichtigungen",
       "markAllRead": "Alle als gelesen markieren",
       "noNotifications": "Keine neuen Benachrichtigungen",
-      "viewAll": "Alle ansehen"
+      "viewAll": "Alle anzeigen"
     },
     "capaDashboard": {
       "title": "CAPA-Dashboard",
