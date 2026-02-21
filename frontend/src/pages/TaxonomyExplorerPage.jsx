@@ -114,7 +114,7 @@ const TaxonomyExplorerPage = () => {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+                placeholder={t("taxonomy.searchPlaceholder")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSearch()}

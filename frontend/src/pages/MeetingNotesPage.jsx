@@ -430,7 +430,7 @@ const MeetingNotesPage = () => {
               <div>
                 <label className="text-sm font-medium mb-2 block">Title *</label>
                 <Input
-                  placeholder="e.g., Interview with Acme Corp"
+                  placeholder={t("meetingNotes.meetingTitlePlaceholder")}
                   value={newMeeting.title}
                   onChange={(e) => setNewMeeting(prev => ({ ...prev, title: e.target.value }))}
                   data-testid="meeting-title-input"
@@ -456,7 +456,7 @@ const MeetingNotesPage = () => {
                 <div>
                   <label className="text-sm font-medium mb-2 block">Company</label>
                   <Input
-                    placeholder="Company name"
+                    placeholder={t("meetingNotes.companyNamePlaceholder")}
                     value={newMeeting.company}
                     onChange={(e) => setNewMeeting(prev => ({ ...prev, company: e.target.value }))}
                   />
@@ -464,7 +464,7 @@ const MeetingNotesPage = () => {
                 <div>
                   <label className="text-sm font-medium mb-2 block">Position</label>
                   <Input
-                    placeholder="Job title"
+                    placeholder={t("meetingNotes.jobTitlePlaceholder")}
                     value={newMeeting.position}
                     onChange={(e) => setNewMeeting(prev => ({ ...prev, position: e.target.value }))}
                   />
