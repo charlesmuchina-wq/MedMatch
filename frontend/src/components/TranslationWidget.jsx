@@ -276,7 +276,7 @@ const TranslationContent = ({
         <div className="flex-1">
           <Select value={targetLanguage} onValueChange={setTargetLanguage}>
             <SelectTrigger>
-              <SelectValue placeholder="Select target language" />
+              <SelectValue placeholder={t("translation.selectTargetLanguage")} />
             </SelectTrigger>
             <SelectContent className="max-h-[300px]">
               {languages.map((lang) => (
