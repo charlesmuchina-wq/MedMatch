@@ -1125,5 +1125,45 @@
       "translated": "Переведено",
       "showOriginal": "Показать оригинал"
     }
+  },
+  "meeting": {
+    "start": "Начать",
+    "rejoin": "Переподключиться",
+    "join": "Присоединиться",
+    "leave": "Выйти",
+    "end": "Завершить встречу",
+    "create": "Создать встречу",
+    "schedule": "Запланировать",
+    "title": "Название встречи",
+    "participants": "Участники",
+    "duration": "Длительность",
+    "recording": "Запись",
+    "mute": "Выключить звук",
+    "unmute": "Включить звук",
+    "videoOn": "Видео включено",
+    "videoOff": "Видео выключено",
+    "shareScreen": "Демонстрация экрана",
+    "chat": "Чат",
+    "settings": "Настройки",
+    "typeMessage": "Введите сообщение...",
+    "send": "Отправить",
+    "noMessages": "Сообщений пока нет",
+    "aiAssistant": "ИИ-ассистент",
+    "transcript": "Транскрипция",
+    "notes": "Заметки"
+  },
+  "subscription": {
+    "title": "Подписка",
+    "currentPlan": "Текущий план",
+    "freePlan": "Бесплатный план",
+    "proPlan": "План Pro",
+    "enterprisePlan": "Корпоративный план",
+    "cancelSubscription": "Отменить подписку",
+    "keepSubscription": "Сохранить подписку",
+    "renewsOn": "Продлевается",
+    "billingHistory": "История платежей",
+    "upgrade": "Повысить план",
+    "downgrade": "Понизить план",
+    "manageBilling": "Управление оплатой"
   }
 }

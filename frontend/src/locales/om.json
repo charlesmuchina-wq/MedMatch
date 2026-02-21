@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "Jalqabi",
+    "rejoin": "Irra deebi'ii seeni",
+    "join": "Seeni",
+    "leave": "Ba'i",
+    "end": "Walga'ii Xumuri",
+    "create": "Walga'ii Uumi",
+    "schedule": "Sagantaa qopheessi",
+    "title": "Mata-duree Walga'ii",
+    "participants": "Hirmaattota",
+    "duration": "Yeroo dheerina",
+    "recording": "Galmeessuu",
+    "mute": "Sagalee cufii",
+    "unmute": "Sagalee bani",
+    "videoOn": "Viidiyoon Banaa",
+    "videoOff": "Viidiyoon Cufaa",
+    "shareScreen": "Iskiriinii Qoodi",
+    "chat": "Waliigala",
+    "settings": "Qindaa'inoota",
+    "typeMessage": "Ergaa barreessi...",
+    "send": "Ergi",
+    "noMessages": "Ammatti ergaan hin jiru",
+    "aiAssistant": "Gargaaraa AI",
+    "transcript": "Barreeffama",
+    "notes": "Yaadannoo"
+  },
+  "subscription": {
+    "title": "Abunama",
+    "currentPlan": "Karoora Ammaa",
+    "freePlan": "Karoora Bilisaa",
+    "proPlan": "Karoora Pro",
+    "enterprisePlan": "Karoora Dhaabbataa",
+    "cancelSubscription": "Abunama Haqi",
+    "keepSubscription": "Abunama Itti Fufi",
+    "renewsOn": "Irra deebi'ee haaromsa",
+    "billingHistory": "Seenaa Kaffaltii",
+    "upgrade": "Sadarkaa Olkaasi",
+    "downgrade": "Sadarkaa Gadbuusi",
+    "manageBilling": "Kaffaltii Bulchi"
   }
 }

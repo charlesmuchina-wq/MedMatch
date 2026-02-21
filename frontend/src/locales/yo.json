@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "Bẹrẹ",
+    "rejoin": "Darapọ mọ lẹ́ẹ̀kansi",
+    "join": "Darapọ mọ",
+    "leave": "Kúrò",
+    "end": "Parí Ìpàdé",
+    "create": "Dá Ìpàdé sílẹ̀",
+    "schedule": "Ṣètò",
+    "title": "Àkọlé Ìpàdé",
+    "participants": "Àwọn olùkópa",
+    "duration": "Àkókò",
+    "recording": "Ìgbasilẹ",
+    "mute": "Pa ohùn",
+    "unmute": "Tan ohùn",
+    "videoOn": "Fídíò tàn",
+    "videoOff": "Fídíò pa",
+    "shareScreen": "Pín iboju",
+    "chat": "Ìbánisọ̀rọ̀",
+    "settings": "Àwọn àtúnṣe",
+    "typeMessage": "Kọ ìfiranṣẹ...",
+    "send": "Ránṣẹ́",
+    "noMessages": "Kò sí ìfiranṣẹ kankan sibẹ̀",
+    "aiAssistant": "Olùrànlọ́wọ́ AI",
+    "transcript": "Ìtẹ̀síwájú Ọ̀rọ̀",
+    "notes": "Àwọn àkọsílẹ̀"
+  },
+  "subscription": {
+    "title": "Ìforúkọsílẹ̀",
+    "currentPlan": "Eto Lọwọlọwọ",
+    "freePlan": "Eto Ọfẹ́",
+    "proPlan": "Eto Pro",
+    "enterprisePlan": "Eto Ajọ-ńlá",
+    "cancelSubscription": "Fagilé Ìforúkọsílẹ̀",
+    "keepSubscription": "Pa Ìforúkọsílẹ̀ mọ́",
+    "renewsOn": "Yóò tún jẹ́sí ní",
+    "billingHistory": "Ìtàn Ìsanwó",
+    "upgrade": "Gbéga",
+    "downgrade": "Dínkù",
+    "manageBilling": "Ṣàkóso Ìsanwó"
   }
 }

@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "Fara",
+    "rejoin": "Sake shiga",
+    "join": "Shiga",
+    "leave": "Fita",
+    "end": "Kammala Taro",
+    "create": "Ƙirƙiri Taro",
+    "schedule": "Tsara jadawali",
+    "title": "Taken Taro",
+    "participants": "Masu halarta",
+    "duration": "Tsawon lokaci",
+    "recording": "Rikodi",
+    "mute": "Kashe sauti",
+    "unmute": "Kunna sauti",
+    "videoOn": "Kunna bidiyo",
+    "videoOff": "Kashe bidiyo",
+    "shareScreen": "Raba allo",
+    "chat": "Tattaunawa",
+    "settings": "Saituna",
+    "typeMessage": "Rubuta saƙo...",
+    "send": "Aika",
+    "noMessages": "Babu saƙonni tukuna",
+    "aiAssistant": "Mataimakin AI",
+    "transcript": "Rubutaccen bayani",
+    "notes": "Bayanan kula"
+  },
+  "subscription": {
+    "title": "Biyan Kuɗi",
+    "currentPlan": "Shirin yanzu",
+    "freePlan": "Shiri kyauta",
+    "proPlan": "Shirin Pro",
+    "enterprisePlan": "Shirin Enterprise",
+    "cancelSubscription": "Soke biyan kuɗi",
+    "keepSubscription": "Ci gaba da biyan kuɗi",
+    "renewsOn": "Zai sabunta a",
+    "billingHistory": "Tarihin biyan kuɗi",
+    "upgrade": "Haɓaka",
+    "downgrade": "Rage",
+    "manageBilling": "Gudanar da biyan kuɗi"
   }
 }

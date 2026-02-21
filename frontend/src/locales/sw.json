@@ -1125,5 +1125,45 @@
       "translated": "Imetafsiriwa",
       "showOriginal": "Onyesha Asili"
     }
+  },
+  "meeting": {
+    "start": "Anza",
+    "rejoin": "Jiunge tena",
+    "join": "Jiunge",
+    "leave": "Ondoka",
+    "end": "Maliza mkutano",
+    "create": "Unda mkutano",
+    "schedule": "Ratibu",
+    "title": "Kichwa cha mkutano",
+    "participants": "Washiriki",
+    "duration": "Muda",
+    "recording": "Rekodi",
+    "mute": "Zima sauti",
+    "unmute": "Washa sauti",
+    "videoOn": "Video imewashwa",
+    "videoOff": "Video imezimwa",
+    "shareScreen": "Shiriki skrini",
+    "chat": "Gumzo",
+    "settings": "Mipangilio",
+    "typeMessage": "Andika ujumbe...",
+    "send": "Tuma",
+    "noMessages": "Bado hakuna ujumbe",
+    "aiAssistant": "Msaidizi wa AI",
+    "transcript": "Nakala",
+    "notes": "Dondoo"
+  },
+  "subscription": {
+    "title": "Usajili",
+    "currentPlan": "Mpango wa sasa",
+    "freePlan": "Mpango wa bure",
+    "proPlan": "Mpango wa Pro",
+    "enterprisePlan": "Mpango wa Enterprise",
+    "cancelSubscription": "Ghairi usajili",
+    "keepSubscription": "Endelea na usajili",
+    "renewsOn": "Husanywa upya tarehe",
+    "billingHistory": "Historia ya malipo",
+    "upgrade": "Boresha",
+    "downgrade": "Shusha hadhi",
+    "manageBilling": "Dhibiti malipo"
   }
 }

@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "Bilow",
+    "rejoin": "Dib ugu biir",
+    "join": "Ku biir",
+    "leave": "Ka bax",
+    "end": "Dhammee Kulanka",
+    "create": "Abuur Kulan",
+    "schedule": "Jadwal",
+    "title": "Cinwaanka Kulanka",
+    "participants": "Ka-qaybgalayaasha",
+    "duration": "Muddada",
+    "recording": "Duubis",
+    "mute": "Aamus",
+    "unmute": "Ka saar aamusnaanta",
+    "videoOn": "Fiidiyow shid",
+    "videoOff": "Fiidiyow dami",
+    "shareScreen": "Wadaag Shaashadda",
+    "chat": "Sheekaysi",
+    "settings": "Dejinta",
+    "typeMessage": "Qor farriin...",
+    "send": "Dir",
+    "noMessages": "Weli farriimo ma jiraan",
+    "aiAssistant": "Kaaliyaha AI",
+    "transcript": "Qoraalka",
+    "notes": "Qoraallo"
+  },
+  "subscription": {
+    "title": "Rukunka",
+    "currentPlan": "Qorshaha Hadda",
+    "freePlan": "Qorshe Bilaash ah",
+    "proPlan": "Qorshaha Pro",
+    "enterprisePlan": "Qorshaha Enterprise",
+    "cancelSubscription": "Jooji Rukunka",
+    "keepSubscription": "Sii hay Rukunka",
+    "renewsOn": "Wuxuu dib u cusboonaanayaa",
+    "billingHistory": "Taariikhda Lacag-bixinta",
+    "upgrade": "Kor u qaad",
+    "downgrade": "Hoos u dhig",
+    "manageBilling": "Maamul Lacag-bixinta"
   }
 }

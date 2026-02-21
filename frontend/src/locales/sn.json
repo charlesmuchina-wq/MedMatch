@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "Tanga",
+    "rejoin": "Pindazve",
+    "join": "Pinda",
+    "leave": "Buda",
+    "end": "Pedza Musangano",
+    "create": "Gadzira Musangano",
+    "schedule": "Ronga",
+    "title": "Zita reMusangano",
+    "participants": "Vatori veChikamu",
+    "duration": "Nguva",
+    "recording": "Kurekodha",
+    "mute": "Dzima ruzha",
+    "unmute": "Batidza ruzha",
+    "videoOn": "Vhidhiyo Yakabatidzwa",
+    "videoOff": "Vhidhiyo Yakadzimwa",
+    "shareScreen": "Goverana Skrini",
+    "chat": "Hurukuro",
+    "settings": "Zvirongwa",
+    "typeMessage": "Nyora meseji...",
+    "send": "Tumira",
+    "noMessages": "Hapana mameseji parizvino",
+    "aiAssistant": "Mubatsiri weAI",
+    "transcript": "Zvinyorwa zveHurukuro",
+    "notes": "Manotsi"
+  },
+  "subscription": {
+    "title": "Kunyoresa",
+    "currentPlan": "Chirongwa Chazvino",
+    "freePlan": "Chirongwa Chemahara",
+    "proPlan": "Chirongwa chePro",
+    "enterprisePlan": "Chirongwa cheEnterprise",
+    "cancelSubscription": "Kanzura Kunyoresa",
+    "keepSubscription": "Ramba Uchienderera neKunyoresa",
+    "renewsOn": "Inovandudzwa pa",
+    "billingHistory": "Nhoroondo yeKubhadhara",
+    "upgrade": "Simudzira",
+    "downgrade": "Dzora",
+    "manageBilling": "Tungamira Kubhadhara"
   }
 }

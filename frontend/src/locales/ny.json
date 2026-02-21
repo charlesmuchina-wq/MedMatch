@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "Yambani",
+    "rejoin": "Lowaniko kachiwiri",
+    "join": "Lowani",
+    "leave": "Tulukani",
+    "end": "Malizitsani msonkhano",
+    "create": "Pangani msonkhano",
+    "schedule": "Konzani nthawi",
+    "title": "Mutu wa msonkhano",
+    "participants": "Otenga nawo mbali",
+    "duration": "Nthawi",
+    "recording": "Kujambula",
+    "mute": "Chepetsani mawu",
+    "unmute": "Yatsani mawu",
+    "videoOn": "Kanema wayatsidwa",
+    "videoOff": "Kanema wazimitsidwa",
+    "shareScreen": "Gawani chinsalu",
+    "chat": "Macheza",
+    "settings": "Zokonda",
+    "typeMessage": "Lembani uthenga...",
+    "send": "Titumizeni",
+    "noMessages": "Palibe mauthenga pano",
+    "aiAssistant": "Wothandizira wa AI",
+    "transcript": "Zolemba za zokambirana",
+    "notes": "Zolemba"
+  },
+  "subscription": {
+    "title": "Kulembetsa",
+    "currentPlan": "Pulogalamu yapano",
+    "freePlan": "Pulogalamu yaulere",
+    "proPlan": "Pulogalamu ya Pro",
+    "enterprisePlan": "Pulogalamu ya Enterprise",
+    "cancelSubscription": "Letsani kulembetsa",
+    "keepSubscription": "Pitilizani kulembetsa",
+    "renewsOn": "Imakonzedwanso pa",
+    "billingHistory": "Mbiri ya zolipiritsa",
+    "upgrade": "Kwezani",
+    "downgrade": "Chepetsani",
+    "manageBilling": "Sungani zolipiritsa"
   }
 }

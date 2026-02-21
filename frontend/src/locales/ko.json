@@ -1125,5 +1125,45 @@
       "translated": "번역됨",
       "showOriginal": "원문 보기"
     }
+  },
+  "meeting": {
+    "start": "시작",
+    "rejoin": "다시 참여",
+    "join": "참여",
+    "leave": "나가기",
+    "end": "회의 종료",
+    "create": "회의 만들기",
+    "schedule": "예약",
+    "title": "회의 제목",
+    "participants": "참가자",
+    "duration": "기간",
+    "recording": "녹화",
+    "mute": "음소거",
+    "unmute": "음소거 해제",
+    "videoOn": "비디오 켜기",
+    "videoOff": "비디오 끄기",
+    "shareScreen": "화면 공유",
+    "chat": "채팅",
+    "settings": "설정",
+    "typeMessage": "메시지를 입력하세요...",
+    "send": "전송",
+    "noMessages": "아직 메시지가 없습니다",
+    "aiAssistant": "AI 어시스턴트",
+    "transcript": "전사",
+    "notes": "메모"
+  },
+  "subscription": {
+    "title": "구독",
+    "currentPlan": "현재 요금제",
+    "freePlan": "무료 요금제",
+    "proPlan": "프로 요금제",
+    "enterprisePlan": "엔터프라이즈 요금제",
+    "cancelSubscription": "구독 취소",
+    "keepSubscription": "구독 유지",
+    "renewsOn": "갱신일",
+    "billingHistory": "결제 내역",
+    "upgrade": "업그레이드",
+    "downgrade": "다운그레이드",
+    "manageBilling": "결제 관리"
   }
 }

@@ -1125,5 +1125,45 @@
       "translated": "Đã dịch",
       "showOriginal": "Hiển thị bản gốc"
     }
+  },
+  "meeting": {
+    "start": "Bắt đầu",
+    "rejoin": "Tham gia lại",
+    "join": "Tham gia",
+    "leave": "Rời khỏi",
+    "end": "Kết thúc cuộc họp",
+    "create": "Tạo cuộc họp",
+    "schedule": "Lên lịch",
+    "title": "Tiêu đề cuộc họp",
+    "participants": "Người tham gia",
+    "duration": "Thời lượng",
+    "recording": "Ghi âm",
+    "mute": "Tắt mic",
+    "unmute": "Bật mic",
+    "videoOn": "Bật video",
+    "videoOff": "Tắt video",
+    "shareScreen": "Chia sẻ màn hình",
+    "chat": "Trò chuyện",
+    "settings": "Cài đặt",
+    "typeMessage": "Nhập tin nhắn...",
+    "send": "Gửi",
+    "noMessages": "Chưa có tin nhắn",
+    "aiAssistant": "Trợ lý AI",
+    "transcript": "Bản ghi",
+    "notes": "Ghi chú"
+  },
+  "subscription": {
+    "title": "Gói đăng ký",
+    "currentPlan": "Gói hiện tại",
+    "freePlan": "Gói miễn phí",
+    "proPlan": "Gói Pro",
+    "enterprisePlan": "Gói Doanh nghiệp",
+    "cancelSubscription": "Hủy gói đăng ký",
+    "keepSubscription": "Giữ gói đăng ký",
+    "renewsOn": "Gia hạn vào",
+    "billingHistory": "Lịch sử thanh toán",
+    "upgrade": "Nâng cấp",
+    "downgrade": "Hạ cấp",
+    "manageBilling": "Quản lý thanh toán"
   }
 }

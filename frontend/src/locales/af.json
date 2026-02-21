@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "Begin",
+    "rejoin": "Sluit weer aan",
+    "join": "Sluit aan",
+    "leave": "Verlaat",
+    "end": "Beëindig vergadering",
+    "create": "Skep vergadering",
+    "schedule": "Skeduleer",
+    "title": "Vergaderingstitel",
+    "participants": "Deelnemers",
+    "duration": "Duur",
+    "recording": "Opname",
+    "mute": "Demp",
+    "unmute": "Ontdemp",
+    "videoOn": "Video aan",
+    "videoOff": "Video af",
+    "shareScreen": "Deel skerm",
+    "chat": "Klets",
+    "settings": "Instellings",
+    "typeMessage": "Tik 'n boodskap...",
+    "send": "Stuur",
+    "noMessages": "Nog geen boodskappe nie",
+    "aiAssistant": "KI-assistent",
+    "transcript": "Transkripsie",
+    "notes": "Notas"
+  },
+  "subscription": {
+    "title": "Intekening",
+    "currentPlan": "Huidige plan",
+    "freePlan": "Gratis plan",
+    "proPlan": "Pro-plan",
+    "enterprisePlan": "Ondernemingsplan",
+    "cancelSubscription": "Kanselleer intekening",
+    "keepSubscription": "Behou intekening",
+    "renewsOn": "Hernu op",
+    "billingHistory": "Faktureringgeskiedenis",
+    "upgrade": "Gradeer op",
+    "downgrade": "Gradeer af",
+    "manageBilling": "Bestuur fakturering"
   }
 }

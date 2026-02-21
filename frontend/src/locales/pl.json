@@ -1125,5 +1125,45 @@
       "translated": "Przetłumaczone",
       "showOriginal": "Pokaż oryginał"
     }
+  },
+  "meeting": {
+    "start": "Rozpocznij",
+    "rejoin": "Dołącz ponownie",
+    "join": "Dołącz",
+    "leave": "Opuść",
+    "end": "Zakończ spotkanie",
+    "create": "Utwórz spotkanie",
+    "schedule": "Zaplanuj",
+    "title": "Tytuł spotkania",
+    "participants": "Uczestnicy",
+    "duration": "Czas trwania",
+    "recording": "Nagrywanie",
+    "mute": "Wycisz",
+    "unmute": "Wyłącz wyciszenie",
+    "videoOn": "Wideo włączone",
+    "videoOff": "Wideo wyłączone",
+    "shareScreen": "Udostępnij ekran",
+    "chat": "Czat",
+    "settings": "Ustawienia",
+    "typeMessage": "Wpisz wiadomość...",
+    "send": "Wyślij",
+    "noMessages": "Brak wiadomości",
+    "aiAssistant": "Asystent AI",
+    "transcript": "Transkrypcja",
+    "notes": "Notatki"
+  },
+  "subscription": {
+    "title": "Subskrypcja",
+    "currentPlan": "Aktualny plan",
+    "freePlan": "Plan bezpłatny",
+    "proPlan": "Plan Pro",
+    "enterprisePlan": "Plan Enterprise",
+    "cancelSubscription": "Anuluj subskrypcję",
+    "keepSubscription": "Zachowaj subskrypcję",
+    "renewsOn": "Odnawia się",
+    "billingHistory": "Historia rozliczeń",
+    "upgrade": "Przejdź na wyższy plan",
+    "downgrade": "Przejdź na niższy plan",
+    "manageBilling": "Zarządzaj rozliczeniami"
   }
 }

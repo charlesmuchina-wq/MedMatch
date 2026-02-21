@@ -1125,5 +1125,45 @@
       "translated": "अनुवादित",
       "showOriginal": "मूल दिखाएँ"
     }
+  },
+  "meeting": {
+    "start": "शुरू करें",
+    "rejoin": "फिर से शामिल हों",
+    "join": "शामिल हों",
+    "leave": "छोड़ें",
+    "end": "मीटिंग समाप्त करें",
+    "create": "मीटिंग बनाएं",
+    "schedule": "शेड्यूल",
+    "title": "मीटिंग का शीर्षक",
+    "participants": "प्रतिभागी",
+    "duration": "अवधि",
+    "recording": "रिकॉर्डिंग",
+    "mute": "म्यूट",
+    "unmute": "अनम्यूट",
+    "videoOn": "वीडियो चालू",
+    "videoOff": "वीडियो बंद",
+    "shareScreen": "स्क्रीन साझा करें",
+    "chat": "चैट",
+    "settings": "सेटिंग्स",
+    "typeMessage": "एक संदेश लिखें...",
+    "send": "भेजें",
+    "noMessages": "अभी तक कोई संदेश नहीं",
+    "aiAssistant": "एआई सहायक",
+    "transcript": "प्रतिलेख",
+    "notes": "नोट्स"
+  },
+  "subscription": {
+    "title": "सब्सक्रिप्शन",
+    "currentPlan": "वर्तमान प्लान",
+    "freePlan": "मुफ़्त प्लान",
+    "proPlan": "प्रो प्लान",
+    "enterprisePlan": "एंटरप्राइज प्लान",
+    "cancelSubscription": "सब्सक्रिप्शन रद्द करें",
+    "keepSubscription": "सब्सक्रिप्शन जारी रखें",
+    "renewsOn": "नवीनीकरण की तिथि",
+    "billingHistory": "बिलिंग इतिहास",
+    "upgrade": "अपग्रेड",
+    "downgrade": "डाउनग्रेड",
+    "manageBilling": "बिलिंग प्रबंधित करें"
   }
 }

@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "Qala",
+    "rejoin": "Phinda ujoyine",
+    "join": "Joyina",
+    "leave": "Phuma",
+    "end": "Qeda umhlangano",
+    "create": "Dala umhlangano",
+    "schedule": "Hlela",
+    "title": "Isihloko somhlangano",
+    "participants": "Ababambiqhaza",
+    "duration": "Isikhathi",
+    "recording": "Ukuqopha",
+    "mute": "Thulisa",
+    "unmute": "Vula umsindo",
+    "videoOn": "Ividiyo ivuliwe",
+    "videoOff": "Ividiyo icishiwe",
+    "shareScreen": "Yabelana ngesikrini",
+    "chat": "Ingxoxo",
+    "settings": "Izilungiselelo",
+    "typeMessage": "Thayipha umlayezo...",
+    "send": "Thumela",
+    "noMessages": "Awekho imiyalezo okwamanje",
+    "aiAssistant": "Umsizi we-AI",
+    "transcript": "Ukulotshwa",
+    "notes": "Amanothi"
+  },
+  "subscription": {
+    "title": "Ukubhalisa",
+    "currentPlan": "Uhlelo lwamanje",
+    "freePlan": "Uhlelo lwamahhala",
+    "proPlan": "Uhlelo lwe-Pro",
+    "enterprisePlan": "Uhlelo lwe-Enterprise",
+    "cancelSubscription": "Khansela ukubhalisa",
+    "keepSubscription": "Qhubeka nokubhalisa",
+    "renewsOn": "Luvuselelwa ngomhla ka-",
+    "billingHistory": "Umlando wokukhokha",
+    "upgrade": "Thuthukisa",
+    "downgrade": "Yehlisa",
+    "manageBilling": "Phatha ukukhokha"
   }
 }

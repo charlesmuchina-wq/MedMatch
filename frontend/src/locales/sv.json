@@ -1125,5 +1125,45 @@
       "translated": "Översatt",
       "showOriginal": "Visa original"
     }
+  },
+  "meeting": {
+    "start": "Starta",
+    "rejoin": "Återanslut",
+    "join": "Gå med",
+    "leave": "Lämna",
+    "end": "Avsluta mötet",
+    "create": "Skapa möte",
+    "schedule": "Schemalägg",
+    "title": "Mötestitel",
+    "participants": "Deltagare",
+    "duration": "Varaktighet",
+    "recording": "Inspelning",
+    "mute": "Stäng av ljudet",
+    "unmute": "Slå på ljudet",
+    "videoOn": "Video på",
+    "videoOff": "Video av",
+    "shareScreen": "Dela skärm",
+    "chat": "Chatt",
+    "settings": "Inställningar",
+    "typeMessage": "Skriv ett meddelande...",
+    "send": "Skicka",
+    "noMessages": "Inga meddelanden än",
+    "aiAssistant": "AI-assistent",
+    "transcript": "Transkript",
+    "notes": "Anteckningar"
+  },
+  "subscription": {
+    "title": "Prenumeration",
+    "currentPlan": "Nuvarande plan",
+    "freePlan": "Gratisplan",
+    "proPlan": "Pro-plan",
+    "enterprisePlan": "Företagsplan",
+    "cancelSubscription": "Avsluta prenumeration",
+    "keepSubscription": "Behåll prenumeration",
+    "renewsOn": "Förnyas den",
+    "billingHistory": "Faktureringshistorik",
+    "upgrade": "Uppgradera",
+    "downgrade": "Nedgradera",
+    "manageBilling": "Hantera fakturering"
   }
 }

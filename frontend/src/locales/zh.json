@@ -1142,5 +1142,45 @@
       "translated": "已翻译",
       "showOriginal": "显示原文"
     }
+  },
+  "meeting": {
+    "start": "开始",
+    "rejoin": "重新加入",
+    "join": "加入",
+    "leave": "离开",
+    "end": "结束会议",
+    "create": "创建会议",
+    "schedule": "安排",
+    "title": "会议标题",
+    "participants": "参与者",
+    "duration": "时长",
+    "recording": "录制",
+    "mute": "静音",
+    "unmute": "取消静音",
+    "videoOn": "开启视频",
+    "videoOff": "关闭视频",
+    "shareScreen": "共享屏幕",
+    "chat": "聊天",
+    "settings": "设置",
+    "typeMessage": "输入消息...",
+    "send": "发送",
+    "noMessages": "暂无消息",
+    "aiAssistant": "AI 助手",
+    "transcript": "转录",
+    "notes": "笔记"
+  },
+  "subscription": {
+    "title": "订阅",
+    "currentPlan": "当前方案",
+    "freePlan": "免费方案",
+    "proPlan": "专业版",
+    "enterprisePlan": "企业版",
+    "cancelSubscription": "取消订阅",
+    "keepSubscription": "保留订阅",
+    "renewsOn": "续订日期",
+    "billingHistory": "账单历史",
+    "upgrade": "升级",
+    "downgrade": "降级",
+    "manageBilling": "管理账单"
   }
 }

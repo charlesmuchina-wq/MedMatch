@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "Tangira",
+    "rejoin": "Ongera winjire",
+    "join": "Injira",
+    "leave": "Sohoka",
+    "end": "Soza inama",
+    "create": "Kora inama",
+    "schedule": "Teganya",
+    "title": "Umutwe w'inama",
+    "participants": "Abitabiriye",
+    "duration": "Igihe",
+    "recording": "Gufata amajwi n'amashusho",
+    "mute": "Cecekesha",
+    "unmute": "Fungura ijwi",
+    "videoOn": "Video irafunguye",
+    "videoOff": "Video irafunze",
+    "shareScreen": "Sangiza ecran",
+    "chat": "Ubutumwa",
+    "settings": "Igenamiterere",
+    "typeMessage": "Andika ubutumwa...",
+    "send": "Ohereza",
+    "noMessages": "Nta butumwa buraboneka",
+    "aiAssistant": "Umufasha wa AI",
+    "transcript": "Inyandiko y'ibiganiro",
+    "notes": "Inyandiko"
+  },
+  "subscription": {
+    "title": "Kwiyandikisha",
+    "currentPlan": "Gahunda ukoresha ubu",
+    "freePlan": "Gahunda y'ubuntu",
+    "proPlan": "Gahunda ya Pro",
+    "enterprisePlan": "Gahunda y'ikigo",
+    "cancelSubscription": "Hagarika kwiyandikisha",
+    "keepSubscription": "Komeza kwiyandikisha",
+    "renewsOn": "Izongera kuvugururwa ku",
+    "billingHistory": "Amateka y'ubwishyu",
+    "upgrade": "Kuzamura gahunda",
+    "downgrade": "Kugabanya gahunda",
+    "manageBilling": "Gucunga ubwishyu"
   }
 }

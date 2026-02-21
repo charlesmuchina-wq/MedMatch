@@ -1554,5 +1554,45 @@
       "translated": "تمت الترجمة",
       "showOriginal": "عرض الأصل"
     }
+  },
+  "meeting": {
+    "start": "بدء",
+    "rejoin": "إعادة الانضمام",
+    "join": "انضمام",
+    "leave": "مغادرة",
+    "end": "إنهاء الاجتماع",
+    "create": "إنشاء اجتماع",
+    "schedule": "جدولة",
+    "title": "عنوان الاجتماع",
+    "participants": "المشاركون",
+    "duration": "المدة",
+    "recording": "التسجيل",
+    "mute": "كتم الصوت",
+    "unmute": "إلغاء كتم الصوت",
+    "videoOn": "تشغيل الفيديو",
+    "videoOff": "إيقاف الفيديو",
+    "shareScreen": "مشاركة الشاشة",
+    "chat": "الدردشة",
+    "settings": "الإعدادات",
+    "typeMessage": "اكتب رسالة...",
+    "send": "إرسال",
+    "noMessages": "لا توجد رسائل بعد",
+    "aiAssistant": "مساعد الذكاء الاصطناعي",
+    "transcript": "النص المكتوب",
+    "notes": "ملاحظات"
+  },
+  "subscription": {
+    "title": "الاشتراك",
+    "currentPlan": "الخطة الحالية",
+    "freePlan": "الخطة المجانية",
+    "proPlan": "الخطة الاحترافية",
+    "enterprisePlan": "خطة المؤسسات",
+    "cancelSubscription": "إلغاء الاشتراك",
+    "keepSubscription": "الاحتفاظ بالاشتراك",
+    "renewsOn": "يتجدد في",
+    "billingHistory": "سجل الفواتير",
+    "upgrade": "ترقية",
+    "downgrade": "خفض المستوى",
+    "manageBilling": "إدارة الفوترة"
   }
 }

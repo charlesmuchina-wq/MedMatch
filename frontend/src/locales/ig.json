@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "Malite",
+    "rejoin": "Sonia ọzọ",
+    "join": "Sonia",
+    "leave": "Pụọ",
+    "end": "Kwụsị Nzute",
+    "create": "Mepụta Nzute",
+    "schedule": "Hazie",
+    "title": "Aha Nzute",
+    "participants": "Ndị Sonyere",
+    "duration": "Oge",
+    "recording": "Ndekọ",
+    "mute": "Mee ka ụda kwụsị",
+    "unmute": "Weghachite ụda",
+    "videoOn": "Vidiyo Gbaa",
+    "videoOff": "Vidiyo Kwụsị",
+    "shareScreen": "Kekọrịta Ihuenyo",
+    "chat": "Mkparịta ụka",
+    "settings": "Ntọala",
+    "typeMessage": "Dee ozi...",
+    "send": "Zipu",
+    "noMessages": "Enweghị ozi ka",
+    "aiAssistant": "Onye Enyemaka AI",
+    "transcript": "Ntụgharị okwu",
+    "notes": "Ndetu"
+  },
+  "subscription": {
+    "title": "Ndebanye Aha",
+    "currentPlan": "Atụmatụ Ugbu a",
+    "freePlan": "Atụmatụ N'efu",
+    "proPlan": "Atụmatụ Pro",
+    "enterprisePlan": "Atụmatụ Enterprise",
+    "cancelSubscription": "Kagbuo Ndebanye Aha",
+    "keepSubscription": "Debe Ndebanye Aha",
+    "renewsOn": "Na-emegharị na",
+    "billingHistory": "Akụkọ Ịkwụ Ụgwọ",
+    "upgrade": "Melite",
+    "downgrade": "Belata",
+    "manageBilling": "Jikwaa Ịkwụ Ụgwọ"
   }
 }

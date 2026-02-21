@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "Tambali",
+    "rejoin": "Dellu ci",
+    "join": "Dugg",
+    "leave": "Genn",
+    "end": "Jeexal ndaje",
+    "create": "Sos ndaje",
+    "schedule": "Teral",
+    "title": "Tur u ndaje",
+    "participants": "Bokkkat yi",
+    "duration": "Diir",
+    "recording": "Rekordiŋ",
+    "mute": "Dakkal baat",
+    "unmute": "Ubbil baat",
+    "videoOn": "Widewo ON",
+    "videoOff": "Widewo OFF",
+    "shareScreen": "Seddoo seetu ekran",
+    "chat": "Waxant",
+    "settings": "Jekkal yi",
+    "typeMessage": "Bind ab bataaxal...",
+    "send": "Yónnee",
+    "noMessages": "Amul dara ba leegi",
+    "aiAssistant": "Jëfandikukat AI",
+    "transcript": "Transkrip",
+    "notes": "Ñaari bind"
+  },
+  "subscription": {
+    "title": "Abonmaa",
+    "currentPlan": "Palaŋ bi nga nekk",
+    "freePlan": "Palaŋ bu amul ñaari xaalis",
+    "proPlan": "Palaŋ Pro",
+    "enterprisePlan": "Palaŋ Enterprise",
+    "cancelSubscription": "Neenal abonmaa",
+    "keepSubscription": "Bayyi abonmaa bi",
+    "renewsOn": "Dina yeesal",
+    "billingHistory": "Jaar-jaaru pey",
+    "upgrade": "Yokk pali",
+    "downgrade": "Waññi pali",
+    "manageBilling": "Saytu pey"
   }
 }

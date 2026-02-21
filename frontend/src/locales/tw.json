@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "Fi ase",
+    "rejoin": "San-kɔ mu bio",
+    "join": "Kɔ mu",
+    "leave": "Fi mu",
+    "end": "Wie nhyiam no",
+    "create": "Yɛ nhyiam",
+    "schedule": "Hyehyɛ bere",
+    "title": "Nhyiam no din",
+    "participants": "Nnipa a wɔde wɔn ho bɛka ho",
+    "duration": "Berɛ a ɛbɛkyɛ",
+    "recording": "Kyerɛw so",
+    "mute": "Dum asɛm",
+    "unmute": "Sɔ asɛm",
+    "videoOn": "Video bue",
+    "videoOff": "Video dum",
+    "shareScreen": "Kyɛ screen",
+    "chat": "Nkɔmmɔ",
+    "settings": "Nhyehyɛe",
+    "typeMessage": "Kyerɛw asɛm...",
+    "send": "Soma",
+    "noMessages": "Asɛm biara nni hɔ seesei",
+    "aiAssistant": "AI Boafo",
+    "transcript": "Kyerɛw nsɛm",
+    "notes": "Nsɛm a wɔakyerɛw"
+  },
+  "subscription": {
+    "title": "Nkrataa a wode kɔ so",
+    "currentPlan": "Nhyehyɛe a wode di dwuma seesei",
+    "freePlan": "Nhyehyɛe a ɛyɛ kwa",
+    "proPlan": "Nhyehyɛe a ɛyɛ Pro",
+    "enterprisePlan": "Nhyehyɛe a ɛyɛ Adwumakuw",
+    "cancelSubscription": "Twa nkrataa a wode kɔ so no mu",
+    "keepSubscription": "Kora nkrataa a wode kɔ so no so",
+    "renewsOn": "Ɛbɛsan ayɛ adwuma bio wɔ",
+    "billingHistory": "Sika a woatua no abakɔsɛm",
+    "upgrade": "Ma ɛnyɛ kɛse",
+    "downgrade": "Te ase",
+    "manageBilling": "Hwɛ sika a woatua so"
   }
 }

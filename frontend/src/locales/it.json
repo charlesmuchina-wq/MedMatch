@@ -1125,5 +1125,45 @@
       "translated": "Tradotto",
       "showOriginal": "Mostra originale"
     }
+  },
+  "meeting": {
+    "start": "Avvia",
+    "rejoin": "Rientra",
+    "join": "Partecipa",
+    "leave": "Esci",
+    "end": "Termina riunione",
+    "create": "Crea riunione",
+    "schedule": "Programma",
+    "title": "Titolo della riunione",
+    "participants": "Partecipanti",
+    "duration": "Durata",
+    "recording": "Registrazione",
+    "mute": "Disattiva audio",
+    "unmute": "Attiva audio",
+    "videoOn": "Video attivo",
+    "videoOff": "Video disattivato",
+    "shareScreen": "Condividi schermo",
+    "chat": "Chat",
+    "settings": "Impostazioni",
+    "typeMessage": "Scrivi un messaggio...",
+    "send": "Invia",
+    "noMessages": "Nessun messaggio ancora",
+    "aiAssistant": "Assistente IA",
+    "transcript": "Trascrizione",
+    "notes": "Note"
+  },
+  "subscription": {
+    "title": "Abbonamento",
+    "currentPlan": "Piano attuale",
+    "freePlan": "Piano gratuito",
+    "proPlan": "Piano Pro",
+    "enterprisePlan": "Piano Enterprise",
+    "cancelSubscription": "Annulla abbonamento",
+    "keepSubscription": "Mantieni abbonamento",
+    "renewsOn": "Si rinnova il",
+    "billingHistory": "Cronologia di fatturazione",
+    "upgrade": "Passa a un piano superiore",
+    "downgrade": "Passa a un piano inferiore",
+    "manageBilling": "Gestisci fatturazione"
   }
 }

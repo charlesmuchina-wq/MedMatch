@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "Tandika",
+    "rejoin": "Ddamu oyingire",
+    "join": "Yingira",
+    "leave": "Vaayo",
+    "end": "Komekkereza olukiiko",
+    "create": "Tondawo olukiiko",
+    "schedule": "Teekateeka",
+    "title": "Omutwe gw'olukiiko",
+    "participants": "Abeetabye",
+    "duration": "Obuwanvu bw'ekiseera",
+    "recording": "Okukwata ku vidiyo",
+    "mute": "Sirikira",
+    "unmute": "Gyako okusirika",
+    "videoOn": "Vidiyo eri ku",
+    "videoOff": "Vidiyo eri ku nkomerero",
+    "shareScreen": "Ggabana ku ssikirini",
+    "chat": "Okuteesa",
+    "settings": "Enteekateeka",
+    "typeMessage": "Wandiika obubaka...",
+    "send": "Weereza",
+    "noMessages": "Tewali bubaka n'akatono",
+    "aiAssistant": "Omuyambi wa AI",
+    "transcript": "Ebiwandiiko by'ebyogeddwa",
+    "notes": "Obuwandiike"
+  },
+  "subscription": {
+    "title": "Okwewandiisa",
+    "currentPlan": "Pulaani eriwo kati",
+    "freePlan": "Pulaani ya bwereere",
+    "proPlan": "Pulaani ya Pro",
+    "enterprisePlan": "Pulaani ya Kampuni",
+    "cancelSubscription": "Sazaamu okwewandiisa",
+    "keepSubscription": "Sigaza okwewandiisa",
+    "renewsOn": "Eddamu okuggibwa ku",
+    "billingHistory": "Ebyafaanisiddwa mu kusasula ebyayita",
+    "upgrade": "Yongerako",
+    "downgrade": "Kendeeza",
+    "manageBilling": "Ddukanya okusasula"
   }
 }

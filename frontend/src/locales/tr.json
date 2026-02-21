@@ -1125,5 +1125,45 @@
       "translated": "Çevrildi",
       "showOriginal": "Orijinali Göster"
     }
+  },
+  "meeting": {
+    "start": "Başlat",
+    "rejoin": "Yeniden Katıl",
+    "join": "Katıl",
+    "leave": "Ayrıl",
+    "end": "Toplantıyı Sonlandır",
+    "create": "Toplantı Oluştur",
+    "schedule": "Planla",
+    "title": "Toplantı Başlığı",
+    "participants": "Katılımcılar",
+    "duration": "Süre",
+    "recording": "Kayıt",
+    "mute": "Sesi Kapat",
+    "unmute": "Sesi Aç",
+    "videoOn": "Kamera Açık",
+    "videoOff": "Kamera Kapalı",
+    "shareScreen": "Ekranı Paylaş",
+    "chat": "Sohbet",
+    "settings": "Ayarlar",
+    "typeMessage": "Bir mesaj yazın...",
+    "send": "Gönder",
+    "noMessages": "Henüz mesaj yok",
+    "aiAssistant": "Yapay Zekâ Asistanı",
+    "transcript": "Transkript",
+    "notes": "Notlar"
+  },
+  "subscription": {
+    "title": "Abonelik",
+    "currentPlan": "Mevcut Plan",
+    "freePlan": "Ücretsiz Plan",
+    "proPlan": "Pro Plan",
+    "enterprisePlan": "Kurumsal Plan",
+    "cancelSubscription": "Aboneliği İptal Et",
+    "keepSubscription": "Aboneliği Sürdür",
+    "renewsOn": "Yenilenme tarihi",
+    "billingHistory": "Fatura Geçmişi",
+    "upgrade": "Yükselt",
+    "downgrade": "Düşür",
+    "manageBilling": "Faturalandırmayı Yönet"
   }
 }

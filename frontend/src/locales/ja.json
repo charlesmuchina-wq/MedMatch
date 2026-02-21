@@ -1125,5 +1125,45 @@
       "translated": "翻訳済み",
       "showOriginal": "原文を表示"
     }
+  },
+  "meeting": {
+    "start": "開始",
+    "rejoin": "再参加",
+    "join": "参加",
+    "leave": "退出",
+    "end": "会議を終了",
+    "create": "会議を作成",
+    "schedule": "スケジュール",
+    "title": "会議タイトル",
+    "participants": "参加者",
+    "duration": "所要時間",
+    "recording": "録画",
+    "mute": "ミュート",
+    "unmute": "ミュート解除",
+    "videoOn": "ビデオオン",
+    "videoOff": "ビデオオフ",
+    "shareScreen": "画面共有",
+    "chat": "チャット",
+    "settings": "設定",
+    "typeMessage": "メッセージを入力...",
+    "send": "送信",
+    "noMessages": "まだメッセージはありません",
+    "aiAssistant": "AIアシスタント",
+    "transcript": "文字起こし",
+    "notes": "メモ"
+  },
+  "subscription": {
+    "title": "サブスクリプション",
+    "currentPlan": "現在のプラン",
+    "freePlan": "無料プラン",
+    "proPlan": "プロプラン",
+    "enterprisePlan": "エンタープライズプラン",
+    "cancelSubscription": "サブスクリプションをキャンセル",
+    "keepSubscription": "サブスクリプションを継続",
+    "renewsOn": "更新日",
+    "billingHistory": "請求履歴",
+    "upgrade": "アップグレード",
+    "downgrade": "ダウングレード",
+    "manageBilling": "請求情報を管理"
   }
 }

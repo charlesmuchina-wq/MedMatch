@@ -1125,5 +1125,45 @@
       "translated": "Translated",
       "showOriginal": "Show Original"
     }
+  },
+  "meeting": {
+    "start": "ጀምር",
+    "rejoin": "እንደገና ተቀላቀል",
+    "join": "ተቀላቀል",
+    "leave": "ውጣ",
+    "end": "ስብሰባውን ጨርስ",
+    "create": "ስብሰባ ፍጠር",
+    "schedule": "መርሃ ግብር",
+    "title": "የስብሰባ ርዕስ",
+    "participants": "ተሳታፊዎች",
+    "duration": "ቆይታ",
+    "recording": "ቀረጻ",
+    "mute": "ማይክ ዝም አድርግ",
+    "unmute": "ማይክ ክፈት",
+    "videoOn": "ቪዲዮ አብራ",
+    "videoOff": "ቪዲዮ አጥፋ",
+    "shareScreen": "ስክሪን አጋራ",
+    "chat": "ቻት",
+    "settings": "ቅንብሮች",
+    "typeMessage": "መልዕክት ጻፍ...",
+    "send": "ላክ",
+    "noMessages": "እስካሁን መልዕክቶች የሉም",
+    "aiAssistant": "የአይአይ ረዳት",
+    "transcript": "ጽሑፍ ቅጂ",
+    "notes": "ማስታወሻዎች"
+  },
+  "subscription": {
+    "title": "ደንብ ክፍያ",
+    "currentPlan": "የአሁኑ እቅድ",
+    "freePlan": "ነጻ እቅድ",
+    "proPlan": "ፕሮ እቅድ",
+    "enterprisePlan": "የኩባንያ እቅድ",
+    "cancelSubscription": "ደንብ ክፍያን ሰርዝ",
+    "keepSubscription": "ደንብ ክፍያን አቆይ",
+    "renewsOn": "የሚታደስበት ቀን",
+    "billingHistory": "የክፍያ ታሪክ",
+    "upgrade": "ወደ ከፍ አድርግ",
+    "downgrade": "ወደ ታች አድርግ",
+    "manageBilling": "ክፍያን አስተዳድር"
   }
 }
