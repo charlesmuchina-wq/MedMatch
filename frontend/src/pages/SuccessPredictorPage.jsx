@@ -186,7 +186,7 @@ const SuccessPredictorPage = ({ resume }) => {
               <div>
                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{t("predictor.jobTitleRequired")}</label>
                 <Input
-                  placeholder="e.g., Supplier Quality Manager"
+                  placeholder={t("predictor.jobTitlePlaceholder")}
                   value={jobTitle}
                   onChange={(e) => setJobTitle(e.target.value)}
                   className="mt-1"
@@ -196,7 +196,7 @@ const SuccessPredictorPage = ({ resume }) => {
               <div>
                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{t("predictor.companyRequired")}</label>
                 <Input
-                  placeholder="e.g., Medtronic"
+                  placeholder={t("predictor.companyPlaceholder")}
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
                   className="mt-1"
