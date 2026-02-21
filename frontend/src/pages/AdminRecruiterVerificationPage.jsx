@@ -163,7 +163,7 @@ const AdminRecruiterVerificationPage = () => {
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
           <Input
-            placeholder="Search by company name or email..."
+            placeholder={t("admin.searchByCompanyOrEmail")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"

@@ -91,7 +91,7 @@ export default function LocationPromptModal({ isOpen, onClose, onLocationSet }) 
             <label className="text-sm font-medium">Where are you located?</label>
             <Select value={selectedLocation} onValueChange={setSelectedLocation}>
               <SelectTrigger className="w-full" data-testid="location-select">
-                <SelectValue placeholder="Select your location..." />
+                <SelectValue placeholder={t("location.selectLocationPlaceholder")} />
               </SelectTrigger>
               <SelectContent className="max-h-[300px]">
                 {LOCATIONS.map((loc) => (
