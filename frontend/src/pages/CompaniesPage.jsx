@@ -426,7 +426,7 @@ const CompaniesPage = ({ user }) => {
               <div>
                 <label className="text-sm font-medium mb-2 block">Website</label>
                 <Input
-                  placeholder="https://..."
+                  placeholder={t("companiesPage.websitePlaceholder")}
                   value={createForm.website}
                   onChange={(e) => setCreateForm({...createForm, website: e.target.value})}
                 />
@@ -435,7 +435,7 @@ const CompaniesPage = ({ user }) => {
               <div>
                 <label className="text-sm font-medium mb-2 block">Founded Year</label>
                 <Input
-                  placeholder="2020"
+                  placeholder={t("companiesPage.foundedPlaceholder")}
                   value={createForm.founded}
                   onChange={(e) => setCreateForm({...createForm, founded: e.target.value})}
                 />
@@ -445,7 +445,7 @@ const CompaniesPage = ({ user }) => {
             <div>
               <label className="text-sm font-medium mb-2 block">Specialties</label>
               <Input
-                placeholder="AI, Machine Learning, Healthcare (comma separated)"
+                placeholder={t("companiesPage.techStackPlaceholder")}
                 value={createForm.specialties}
                 onChange={(e) => setCreateForm({...createForm, specialties: e.target.value})}
               />
@@ -454,7 +454,7 @@ const CompaniesPage = ({ user }) => {
             <div>
               <label className="text-sm font-medium mb-2 block">Benefits</label>
               <Input
-                placeholder="Remote work, Health insurance, 401k (comma separated)"
+                placeholder={t("companiesPage.benefitsPlaceholder")}
                 value={createForm.benefits}
                 onChange={(e) => setCreateForm({...createForm, benefits: e.target.value})}
               />
@@ -463,7 +463,7 @@ const CompaniesPage = ({ user }) => {
             <div>
               <label className="text-sm font-medium mb-2 block">Culture & Values</label>
               <Input
-                placeholder="Innovation, Collaboration, Diversity (comma separated)"
+                placeholder={t("companiesPage.culturePlaceholder")}
                 value={createForm.culture_values}
                 onChange={(e) => setCreateForm({...createForm, culture_values: e.target.value})}
               />
