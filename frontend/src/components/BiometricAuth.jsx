@@ -103,12 +103,12 @@ export const BiometricRegistration = ({ onSuccess, email, username }) => {
       <div className="flex items-center gap-2 p-3 bg-turquoise/10 rounded-lg">
         <ShieldCheck className="w-5 h-5 text-turquoise" />
         <span className="text-sm text-slate-600 dark:text-slate-300">
-          Secure passwordless login using your device's biometrics
+          {t("biometric.secureLogin")}
         </span>
       </div>
 
       <Input
-        placeholder="Device name (e.g., My MacBook)"
+        placeholder={t("biometric.deviceName")}
         value={deviceName}
         onChange={(e) => setDeviceName(e.target.value)}
         className="dark:bg-slate-800"
@@ -123,12 +123,12 @@ export const BiometricRegistration = ({ onSuccess, email, username }) => {
         {loading ? (
           <>
             <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            Setting up biometrics...
+            {t("biometric.settingUp")}
           </>
         ) : (
           <>
             <Fingerprint className="w-4 h-4 mr-2" />
-            Register with Biometrics
+            {t("biometric.registerWith")}
           </>
         )}
       </Button>
