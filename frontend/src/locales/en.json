@@ -573,7 +573,9 @@
     "uploadResumeFirst": "Please upload your resume first",
     "generationFailed": "Failed to generate cover letter",
     "pasteJobDescription": "Paste the job description here...",
-    "generate": "Generate Cover Letter"
+    "generate": "Generate Cover Letter",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
+    "companyPlaceholder": "e.g., Medtronic"
   },
   "membership": {
     "membership": "Membership",
