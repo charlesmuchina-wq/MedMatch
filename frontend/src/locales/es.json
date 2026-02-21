@@ -840,7 +840,7 @@
     },
     "adminDashboard": {
       "title": "Panel de administración",
-      "subtitle": "Visión general y gestión del sistema",
+      "subtitle": "Resumen y gestión del sistema",
       "switchPerspective": "Cambie entre diferentes perspectivas de usuario para realizar pruebas",
       "active": "Activo",
       "warning": "Advertencia",
@@ -855,11 +855,11 @@
     },
     "recruiterDashboard": {
       "title": "Panel de reclutamiento",
-      "subtitle": "Gestione su flujo de reclutamiento",
+      "subtitle": "Gestione su canal de reclutamiento",
       "activeJobs": "Vacantes activas",
       "totalApplicants": "Total de postulantes",
       "shortlisted": "Preseleccionados",
-      "interviewing": "En entrevistas",
+      "interviewing": "En entrevista",
       "latestCandidates": "Últimos candidatos que postularon a sus vacantes",
       "viewAll": "Ver todo",
       "postNewJob": "Publicar nueva vacante",
@@ -871,11 +871,11 @@
       "noJobsPosted": "Aún no se han publicado vacantes",
       "salaryRange": "Rango salarial",
       "applicationUrl": "URL de postulación",
-      "jobTitlePlaceholder": "p. ej., Ingeniero/a de Calidad Senior",
+      "jobTitlePlaceholder": "p. ej., Ingeniero de calidad sénior",
       "companyNamePlaceholder": "Nombre de su empresa",
-      "createJob": "Crear oferta",
-      "editJob": "Editar oferta",
-      "deleteJob": "Eliminar oferta",
+      "createJob": "Crear vacante",
+      "editJob": "Editar vacante",
+      "deleteJob": "Eliminar vacante",
       "applicants": "Postulantes",
       "views": "Vistas"
     },
@@ -887,7 +887,7 @@
       "profileName": "Nombre del perfil",
       "cancel": "Cancelar",
       "noProfiles": "No hay perfiles de currículum",
-      "createFirst": "Cree su primer perfil de currículum para empezar",
+      "createFirst": "Cree su primer perfil de currículum para comenzar",
       "primary": "Principal",
       "setPrimary": "Establecer como principal",
       "lastUpdated": "Última actualización"
@@ -896,7 +896,7 @@
       "title": "Perfil de la empresa",
       "subtitle": "Gestione la información de su empresa",
       "overview": "Resumen",
-      "jobs": "Empleos",
+      "jobs": "Vacantes",
       "reviews": "Reseñas",
       "benefits": "Beneficios",
       "culture": "Cultura",
@@ -910,7 +910,7 @@
       "title": "Portal AI KARAU",
       "subtitle": "Elija su destino",
       "jobToolkit": "Kit de herramientas de empleo",
-      "jobToolkitDesc": "Búsqueda de empleo y herramientas de carrera impulsadas por AI",
+      "jobToolkitDesc": "Búsqueda de empleo y herramientas profesionales impulsadas por AI",
       "meetingPortal": "Portal de reuniones",
       "meetingPortalDesc": "Videoconferencias seguras",
       "enterPortal": "Entrar al portal"
@@ -926,10 +926,10 @@
       "lastRun": "Última ejecución"
     },
     "blindScreening": {
-      "title": "Panel de selección a ciegas",
+      "title": "Panel de preselección ciega",
       "subtitle": "Revise candidatos sin sesgos",
       "candidatePool": "Banco de candidatos",
-      "screeningQueue": "Cola de selección",
+      "screeningQueue": "Cola de preselección",
       "reviewed": "Revisado",
       "pending": "Pendiente",
       "qualificationMatch": "Coincidencia de cualificaciones",
@@ -942,9 +942,9 @@
       "currentLocation": "Ubicación actual",
       "preferredLocations": "Ubicaciones preferidas",
       "remoteOnly": "Solo remoto",
-      "hybridOk": "Híbrido aceptado",
-      "onSiteOk": "Presencial aceptado",
-      "willingToRelocate": "Dispuesto/a a reubicarse",
+      "hybridOk": "Híbrido aceptable",
+      "onSiteOk": "Presencial aceptable",
+      "willingToRelocate": "Dispuesto a reubicarse",
       "searchRadius": "Radio de búsqueda",
       "savePreferences": "Guardar preferencias"
     },
@@ -969,7 +969,7 @@
     },
     "globalCompliance": {
       "title": "Cumplimiento global",
-      "subtitle": "Estado de cumplimiento en distintas regiones",
+      "subtitle": "Estado de cumplimiento por regiones",
       "gdpr": "GDPR",
       "ccpa": "CCPA",
       "hipaa": "HIPAA",
@@ -982,7 +982,7 @@
       "title": "Cumplimiento de AI",
       "subtitle": "Cumplimiento y ética del modelo de AI",
       "modelAudits": "Auditorías del modelo",
-      "biasReports": "Informes de sesgos",
+      "biasReports": "Informes de sesgo",
       "fairnessMetrics": "Métricas de imparcialidad",
       "lastAudit": "Última auditoría"
     },
@@ -995,17 +995,17 @@
       "experienceMatch": "Coincidencia de experiencia"
     },
     "publicApplication": {
-      "title": "Solicitud de empleo",
+      "title": "Postulación a la vacante",
       "subtitle": "Postúlese a este puesto",
       "applyNow": "Postularse ahora",
       "uploadResume": "Subir currículum",
       "coverLetter": "Carta de presentación",
-      "submitApplication": "Enviar solicitud"
+      "submitApplication": "Enviar postulación"
     },
     "trackApplication": {
-      "title": "Seguimiento de la solicitud",
-      "subtitle": "Consulte el estado de su solicitud",
-      "applicationStatus": "Estado de la solicitud",
+      "title": "Seguimiento de postulación",
+      "subtitle": "Compruebe el estado de su postulación",
+      "applicationStatus": "Estado de la postulación",
       "submitted": "Enviada",
       "underReview": "En revisión",
       "shortlisted": "Preseleccionada",
@@ -1015,8 +1015,8 @@
     },
     "dataIntegrity": {
       "title": "Integridad de datos",
-      "subtitle": "Supervise la calidad y la consistencia de los datos",
-      "dataQuality": "Calidad de los datos",
+      "subtitle": "Supervise la calidad y consistencia de los datos",
+      "dataQuality": "Calidad de datos",
       "duplicates": "Duplicados",
       "missingFields": "Campos faltantes",
       "validationErrors": "Errores de validación",
@@ -1024,7 +1024,7 @@
     },
     "recruiterVerification": {
       "title": "Verificación de reclutadores",
-      "subtitle": "Verifique las cuentas de reclutadores",
+      "subtitle": "Verifique cuentas de reclutadores",
       "pendingVerifications": "Verificaciones pendientes",
       "verified": "Verificado",
       "rejected": "Rechazado",
@@ -1033,7 +1033,7 @@
     },
     "reviewModeration": {
       "title": "Moderación de reseñas",
-      "subtitle": "Modere las reseñas de usuarios",
+      "subtitle": "Modere las reseñas de los usuarios",
       "pendingReviews": "Reseñas pendientes",
       "approved": "Aprobado",
       "flagged": "Marcado",
@@ -1046,7 +1046,7 @@
       "subtitle": "Métricas de rendimiento y salud del sistema",
       "uptime": "Tiempo de actividad",
       "requestsPerSecond": "Solicitudes/segundo",
-      "averageLatency": "Latencia prom.",
+      "averageLatency": "Latencia media",
       "errorRate": "Tasa de errores",
       "activeUsers": "Usuarios activos",
       "cpuUsage": "Uso de CPU",
@@ -1055,7 +1055,7 @@
   },
   "videoTutorials": {
     "title": "Tutoriales en video",
-    "subtitle": "Aprenda a usar MedMatch-AI KARAU con nuestras completas guías en video",
+    "subtitle": "Aprenda a usar MedMatch-AI KARAU con nuestras guías en video completas",
     "allVideos": "Todos los videos",
     "gettingStarted": "Primeros pasos",
     "quickGuides": "Guías rápidas",
@@ -1075,17 +1075,17 @@
     },
     "sections": {
       "allVideosTitle": "Videoteca",
-      "allVideosSubtitle": "Explore nuestra colección completa de videos tutoriales",
-      "gettingStartedTitle": "Guía de primeros pasos impulsada por AI",
-      "gettingStartedSubtitle": "Vea a nuestro/a presentador/a de AI explicar las funciones de la plataforma",
-      "quickGuidesTitle": "Guías rápidas de referencia",
+      "allVideosSubtitle": "Explore nuestra colección completa de tutoriales en video",
+      "gettingStartedTitle": "Guía de primeros pasos con tecnología de AI",
+      "gettingStartedSubtitle": "Vea a nuestro presentador de AI explicar las funciones de la plataforma",
+      "quickGuidesTitle": "Guías de referencia rápida",
       "quickGuidesSubtitle": "Instrucciones paso a paso para tareas comunes"
     }
   },
   "components": {
     "locationSettings": {
-      "homeLocation": "Ubicación de residencia",
-      "homeLocationDesc": "Configure su dirección de residencia para obtener tiempos de desplazamiento precisos y coincidencias de empleo basadas en la ubicación",
+      "homeLocation": "Ubicación del domicilio",
+      "homeLocationDesc": "Establezca su dirección de domicilio para obtener tiempos de desplazamiento precisos y coincidencias de empleo según la ubicación",
       "addressOrCity": "Dirección o ciudad",
       "addressPlaceholder": "Introduzca su dirección o ciudad...",
       "useCurrentLocation": "Usar ubicación actual",
@@ -1112,9 +1112,9 @@
       "nearestHub": "Centro MedMatch más cercano",
       "savePreferences": "Guardar preferencias",
       "saving": "Guardando...",
-      "preferencesSaved": "Las preferencias de ubicación se guardaron correctamente",
+      "preferencesSaved": "Las preferencias de ubicación se han guardado correctamente",
       "saveFailed": "No se pudieron guardar las preferencias de ubicación",
-      "locationDetected": "La ubicación se detectó correctamente",
+      "locationDetected": "Ubicación detectada correctamente",
       "locationFailed": "No se pudo detectar la ubicación",
       "urban": "Urbano",
       "standard": "Estándar",
@@ -1146,7 +1146,7 @@
       "premium": "Premium",
       "enterprise": "Enterprise",
       "upgrade": "Mejorar",
-      "downgrade": "Cambiar a un plan inferior",
+      "downgrade": "Bajar de plan",
       "cancel": "Cancelar suscripción",
       "billingCycle": "Ciclo de facturación",
       "nextBilling": "Próxima fecha de facturación"
@@ -1191,7 +1191,7 @@
     "translationWidget": {
       "translateTo": "Traducir a",
       "originalLanguage": "Idioma original",
-      "autoDetect": "Detectar automáticamente",
+      "autoDetect": "Detección automática",
       "translating": "Traduciendo...",
       "translated": "Traducido",
       "showOriginal": "Mostrar original"
