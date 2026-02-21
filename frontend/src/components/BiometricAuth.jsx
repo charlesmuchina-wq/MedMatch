@@ -214,16 +214,16 @@ export const BiometricLogin = ({ onSuccess }) => {
       <CardHeader className="pb-3">
         <CardTitle className="flex items-center gap-2 text-lg">
           <Fingerprint className="w-5 h-5 text-turquoise" />
-          Biometric Login
+          {t("biometric.title")}
         </CardTitle>
         <CardDescription>
-          Sign in securely using your fingerprint or face
+          {t("biometric.description")}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <Input
           type="email"
-          placeholder="Enter your email"
+          placeholder={t("biometric.emailPlaceholder")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="dark:bg-slate-700"
