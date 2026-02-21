@@ -1150,7 +1150,16 @@
     "noMessages": "Chưa có tin nhắn",
     "aiAssistant": "Trợ lý AI",
     "transcript": "Bản ghi",
-    "notes": "Ghi chú"
+    "notes": "Ghi chú",
+    "stopSharing": "Dừng chia sẻ",
+    "startRecording": "Bắt đầu ghi âm",
+    "stopRecording": "Dừng ghi âm",
+    "raiseHand": "Giơ tay",
+    "lowerHand": "Hạ tay",
+    "virtualBackground": "Nền ảo",
+    "aiNotes": "Ghi chú AI",
+    "joinMeeting": "Tham gia cuộc họp",
+    "enterMeetingId": "Nhập ID cuộc họp"
   },
   "subscription": {
     "title": "Gói đăng ký",

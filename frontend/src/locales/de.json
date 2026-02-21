@@ -1167,7 +1167,16 @@
     "noMessages": "Noch keine Nachrichten",
     "aiAssistant": "KI-Assistent",
     "transcript": "Transkript",
-    "notes": "Notizen"
+    "notes": "Notizen",
+    "stopSharing": "Freigabe beenden",
+    "startRecording": "Aufzeichnung starten",
+    "stopRecording": "Aufzeichnung beenden",
+    "raiseHand": "Hand heben",
+    "lowerHand": "Hand senken",
+    "virtualBackground": "Virtueller Hintergrund",
+    "aiNotes": "KI-Notizen",
+    "joinMeeting": "Meeting beitreten",
+    "enterMeetingId": "Meeting-ID eingeben"
   },
   "subscription": {
     "title": "Abonnement",

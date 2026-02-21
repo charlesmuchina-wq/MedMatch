@@ -1150,7 +1150,16 @@
     "noMessages": "아직 메시지가 없습니다",
     "aiAssistant": "AI 어시스턴트",
     "transcript": "전사",
-    "notes": "메모"
+    "notes": "메모",
+    "stopSharing": "공유 중지",
+    "startRecording": "녹화 시작",
+    "stopRecording": "녹화 중지",
+    "raiseHand": "손 들기",
+    "lowerHand": "손 내리기",
+    "virtualBackground": "가상 배경",
+    "aiNotes": "AI 노트",
+    "joinMeeting": "회의 참가",
+    "enterMeetingId": "회의 ID 입력"
   },
   "subscription": {
     "title": "구독",

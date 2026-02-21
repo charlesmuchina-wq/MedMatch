@@ -1150,7 +1150,16 @@
     "noMessages": "Amul dara ba leegi",
     "aiAssistant": "Jëfandikukat AI",
     "transcript": "Transkrip",
-    "notes": "Ñaari bind"
+    "notes": "Ñaari bind",
+    "stopSharing": "Doxalul wàll",
+    "startRecording": "Tambali bind",
+    "stopRecording": "Bayyi bind",
+    "raiseHand": "Yekkati loxo",
+    "lowerHand": "Wàcce loxo",
+    "virtualBackground": "Ginnaaw bu daldi",
+    "aiNotes": "Xët yi AI",
+    "joinMeeting": "Dugg ci ndaje",
+    "enterMeetingId": "Dugal ID bu ndaje"
   },
   "subscription": {
     "title": "Abonmaa",

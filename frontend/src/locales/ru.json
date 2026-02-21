@@ -1150,7 +1150,16 @@
     "noMessages": "Сообщений пока нет",
     "aiAssistant": "ИИ-ассистент",
     "transcript": "Транскрипция",
-    "notes": "Заметки"
+    "notes": "Заметки",
+    "stopSharing": "Остановить показ",
+    "startRecording": "Начать запись",
+    "stopRecording": "Остановить запись",
+    "raiseHand": "Поднять руку",
+    "lowerHand": "Опустить руку",
+    "virtualBackground": "Виртуальный фон",
+    "aiNotes": "Заметки ИИ",
+    "joinMeeting": "Присоединиться к встрече",
+    "enterMeetingId": "Введите ID встречи"
   },
   "subscription": {
     "title": "Подписка",

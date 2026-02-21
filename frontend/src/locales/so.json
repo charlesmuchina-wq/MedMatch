@@ -1150,7 +1150,16 @@
     "noMessages": "Weli farriimo ma jiraan",
     "aiAssistant": "Kaaliyaha AI",
     "transcript": "Qoraalka",
-    "notes": "Qoraallo"
+    "notes": "Qoraallo",
+    "stopSharing": "Jooji Wadaagista",
+    "startRecording": "Bilow Duubista",
+    "stopRecording": "Jooji Duubista",
+    "raiseHand": "Kor u Qaad Gacanta",
+    "lowerHand": "Hoos u Dhig Gacanta",
+    "virtualBackground": "Asalka Muuqaalka ee Dalwaddii",
+    "aiNotes": "Qoraallo AI",
+    "joinMeeting": "Ku Biir Kulanka",
+    "enterMeetingId": "Geli Aqoonsiga Kulanka"
   },
   "subscription": {
     "title": "Rukunka",

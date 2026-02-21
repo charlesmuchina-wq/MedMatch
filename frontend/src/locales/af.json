@@ -1150,7 +1150,16 @@
     "noMessages": "Nog geen boodskappe nie",
     "aiAssistant": "KI-assistent",
     "transcript": "Transkripsie",
-    "notes": "Notas"
+    "notes": "Notas",
+    "stopSharing": "Hou op deel",
+    "startRecording": "Begin opname",
+    "stopRecording": "Stop opname",
+    "raiseHand": "Steek hand op",
+    "lowerHand": "Laat sak hand",
+    "virtualBackground": "Virtuele agtergrond",
+    "aiNotes": "KI-notas",
+    "joinMeeting": "Sluit aan by vergadering",
+    "enterMeetingId": "Voer vergadering-ID in"
   },
   "subscription": {
     "title": "Intekening",

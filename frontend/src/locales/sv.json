@@ -1150,7 +1150,16 @@
     "noMessages": "Inga meddelanden än",
     "aiAssistant": "AI-assistent",
     "transcript": "Transkript",
-    "notes": "Anteckningar"
+    "notes": "Anteckningar",
+    "stopSharing": "Sluta dela",
+    "startRecording": "Starta inspelning",
+    "stopRecording": "Stoppa inspelning",
+    "raiseHand": "Räck upp handen",
+    "lowerHand": "Sänk handen",
+    "virtualBackground": "Virtuell bakgrund",
+    "aiNotes": "AI-anteckningar",
+    "joinMeeting": "Gå med i mötet",
+    "enterMeetingId": "Ange mötes-ID"
   },
   "subscription": {
     "title": "Prenumeration",

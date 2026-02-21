@@ -1150,7 +1150,16 @@
     "noMessages": "Brak wiadomości",
     "aiAssistant": "Asystent AI",
     "transcript": "Transkrypcja",
-    "notes": "Notatki"
+    "notes": "Notatki",
+    "stopSharing": "Zatrzymaj udostępnianie",
+    "startRecording": "Rozpocznij nagrywanie",
+    "stopRecording": "Zatrzymaj nagrywanie",
+    "raiseHand": "Podnieś rękę",
+    "lowerHand": "Opuść rękę",
+    "virtualBackground": "Wirtualne tło",
+    "aiNotes": "Notatki AI",
+    "joinMeeting": "Dołącz do spotkania",
+    "enterMeetingId": "Wpisz identyfikator spotkania"
   },
   "subscription": {
     "title": "Subskrypcja",

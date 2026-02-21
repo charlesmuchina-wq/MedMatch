@@ -1150,7 +1150,16 @@
     "noMessages": "Enweghị ozi ka",
     "aiAssistant": "Onye Enyemaka AI",
     "transcript": "Ntụgharị okwu",
-    "notes": "Ndetu"
+    "notes": "Ndetu",
+    "stopSharing": "Kwụsị Ikekọrịta",
+    "startRecording": "Malite Ndekọ",
+    "stopRecording": "Kwụsị Ndekọ",
+    "raiseHand": "Welie Aka",
+    "lowerHand": "Weda Aka",
+    "virtualBackground": "Ndabere Nkwado",
+    "aiNotes": "Ndetu AI",
+    "joinMeeting": "Soro na Nzụkọ",
+    "enterMeetingId": "Tinye ID nzụkọ"
   },
   "subscription": {
     "title": "Ndebanye Aha",

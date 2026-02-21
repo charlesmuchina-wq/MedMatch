@@ -1150,7 +1150,16 @@
     "noMessages": "Tewali bubaka n'akatono",
     "aiAssistant": "Omuyambi wa AI",
     "transcript": "Ebiwandiiko by'ebyogeddwa",
-    "notes": "Obuwandiike"
+    "notes": "Obuwandiike",
+    "stopSharing": "Lekera awo okugabana",
+    "startRecording": "Tandika okukwata vidiyo",
+    "stopRecording": "Lekera awo okukwata vidiyo",
+    "raiseHand": "Yimusa omukono",
+    "lowerHand": "Ssa omukono wansi",
+    "virtualBackground": "Ekyeyimirira eky'okulabirako",
+    "aiNotes": "Ebiwandiiko bya AI",
+    "joinMeeting": "Yingira mu lukuŋŋaana",
+    "enterMeetingId": "Yingiza ID y'olukuŋŋaana"
   },
   "subscription": {
     "title": "Okwewandiisa",

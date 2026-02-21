@@ -1150,7 +1150,16 @@
     "noMessages": "Bado hakuna ujumbe",
     "aiAssistant": "Msaidizi wa AI",
     "transcript": "Nakala",
-    "notes": "Dondoo"
+    "notes": "Dondoo",
+    "stopSharing": "Acha Kushiriki",
+    "startRecording": "Anza Kurekodi",
+    "stopRecording": "Acha Kurekodi",
+    "raiseHand": "Inua Mkono",
+    "lowerHand": "Shusha Mkono",
+    "virtualBackground": "Mandharinyuma Pepe",
+    "aiNotes": "Vidokezo vya AI",
+    "joinMeeting": "Jiunge na Mkutano",
+    "enterMeetingId": "Weka kitambulisho cha mkutano"
   },
   "subscription": {
     "title": "Usajili",

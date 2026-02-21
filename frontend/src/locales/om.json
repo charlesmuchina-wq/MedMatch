@@ -1150,7 +1150,16 @@
     "noMessages": "Ammatti ergaan hin jiru",
     "aiAssistant": "Gargaaraa AI",
     "transcript": "Barreeffama",
-    "notes": "Yaadannoo"
+    "notes": "Yaadannoo",
+    "stopSharing": "Wali-qooduu dhaabi",
+    "startRecording": "Galmeessuu jalqabi",
+    "stopRecording": "Galmeessuu dhaabi",
+    "raiseHand": "Harka ol kaasi",
+    "lowerHand": "Harka gadi buusi",
+    "virtualBackground": "Duubbee viirchuaalii",
+    "aiNotes": "Yaadannoo AI",
+    "joinMeeting": "Walga’ii keessatti hirmaadhu",
+    "enterMeetingId": "ID walga’ii galchi"
   },
   "subscription": {
     "title": "Abunama",

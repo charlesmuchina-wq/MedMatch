@@ -1150,7 +1150,16 @@
     "noMessages": "Nta butumwa buraboneka",
     "aiAssistant": "Umufasha wa AI",
     "transcript": "Inyandiko y'ibiganiro",
-    "notes": "Inyandiko"
+    "notes": "Inyandiko",
+    "stopSharing": "Hagarika gusangiza",
+    "startRecording": "Tangira gufata amajwi n'amashusho",
+    "stopRecording": "Hagarika gufata amajwi n'amashusho",
+    "raiseHand": "Zamura ikiganza",
+    "lowerHand": "Manura ikiganza",
+    "virtualBackground": "Inyuma y'ikoranabuhanga",
+    "aiNotes": "Inyandiko za AI",
+    "joinMeeting": "Injira mu nama",
+    "enterMeetingId": "Injiza indangamuntu y'inama"
   },
   "subscription": {
     "title": "Kwiyandikisha",

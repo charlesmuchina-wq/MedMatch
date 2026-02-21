@@ -1150,7 +1150,16 @@
     "noMessages": "Asɛm biara nni hɔ seesei",
     "aiAssistant": "AI Boafo",
     "transcript": "Kyerɛw nsɛm",
-    "notes": "Nsɛm a wɔakyerɛw"
+    "notes": "Nsɛm a wɔakyerɛw",
+    "stopSharing": "Gyae Kyɛ",
+    "startRecording": "Fi Ase Kyerɛw",
+    "stopRecording": "Gyae Kyerɛw",
+    "raiseHand": "Ma Wo Nsa So",
+    "lowerHand": "Brɛ Wo Nsa Ase",
+    "virtualBackground": "Virtual Background",
+    "aiNotes": "AI Nkrataa",
+    "joinMeeting": "Kɔhyɛ Nhyiamu No Mu",
+    "enterMeetingId": "Kyerɛw Nhyiamu ID No"
   },
   "subscription": {
     "title": "Nkrataa a wode kɔ so",

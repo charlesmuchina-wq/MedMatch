@@ -1579,7 +1579,16 @@
     "noMessages": "لا توجد رسائل بعد",
     "aiAssistant": "مساعد الذكاء الاصطناعي",
     "transcript": "النص المكتوب",
-    "notes": "ملاحظات"
+    "notes": "ملاحظات",
+    "stopSharing": "إيقاف المشاركة",
+    "startRecording": "بدء التسجيل",
+    "stopRecording": "إيقاف التسجيل",
+    "raiseHand": "رفع اليد",
+    "lowerHand": "خفض اليد",
+    "virtualBackground": "خلفية افتراضية",
+    "aiNotes": "ملاحظات الذكاء الاصطناعي",
+    "joinMeeting": "الانضمام إلى الاجتماع",
+    "enterMeetingId": "أدخل معرّف الاجتماع"
   },
   "subscription": {
     "title": "الاشتراك",

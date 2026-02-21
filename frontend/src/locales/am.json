@@ -1150,7 +1150,16 @@
     "noMessages": "እስካሁን መልዕክቶች የሉም",
     "aiAssistant": "የአይአይ ረዳት",
     "transcript": "ጽሑፍ ቅጂ",
-    "notes": "ማስታወሻዎች"
+    "notes": "ማስታወሻዎች",
+    "stopSharing": "ማጋራት አቁም",
+    "startRecording": "መቅዳት ጀምር",
+    "stopRecording": "መቅዳት አቁም",
+    "raiseHand": "እጅ አንሳ",
+    "lowerHand": "እጅ አውርድ",
+    "virtualBackground": "ምናባዊ ዳራ",
+    "aiNotes": "የAI ማስታወሻዎች",
+    "joinMeeting": "ስብሰባ ተቀላቀል",
+    "enterMeetingId": "የስብሰባ መታወቂያ አስገባ"
   },
   "subscription": {
     "title": "ደንብ ክፍያ",

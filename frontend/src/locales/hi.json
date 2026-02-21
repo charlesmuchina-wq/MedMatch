@@ -1150,7 +1150,16 @@
     "noMessages": "अभी तक कोई संदेश नहीं",
     "aiAssistant": "एआई सहायक",
     "transcript": "प्रतिलेख",
-    "notes": "नोट्स"
+    "notes": "नोट्स",
+    "stopSharing": "साझा करना बंद करें",
+    "startRecording": "रिकॉर्डिंग शुरू करें",
+    "stopRecording": "रिकॉर्डिंग बंद करें",
+    "raiseHand": "हाथ उठाएँ",
+    "lowerHand": "हाथ नीचे करें",
+    "virtualBackground": "वर्चुअल पृष्ठभूमि",
+    "aiNotes": "एआई नोट्स",
+    "joinMeeting": "मीटिंग में शामिल हों",
+    "enterMeetingId": "मीटिंग आईडी दर्ज करें"
   },
   "subscription": {
     "title": "सब्सक्रिप्शन",

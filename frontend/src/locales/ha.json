@@ -1150,7 +1150,16 @@
     "noMessages": "Babu saƙonni tukuna",
     "aiAssistant": "Mataimakin AI",
     "transcript": "Rubutaccen bayani",
-    "notes": "Bayanan kula"
+    "notes": "Bayanan kula",
+    "stopSharing": "Dakatar da Raba allo",
+    "startRecording": "Fara Rikodi",
+    "stopRecording": "Dakatar da Rikodi",
+    "raiseHand": "Daga Hannu",
+    "lowerHand": "Sauke Hannu",
+    "virtualBackground": "Bayanan Baya na Kama-da-wane",
+    "aiNotes": "Bayanan Rubutu na AI",
+    "joinMeeting": "Shiga Taro",
+    "enterMeetingId": "Shigar da ID na taro"
   },
   "subscription": {
     "title": "Biyan Kuɗi",

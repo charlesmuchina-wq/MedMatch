@@ -1150,7 +1150,16 @@
     "noMessages": "Kò sí ìfiranṣẹ kankan sibẹ̀",
     "aiAssistant": "Olùrànlọ́wọ́ AI",
     "transcript": "Ìtẹ̀síwájú Ọ̀rọ̀",
-    "notes": "Àwọn àkọsílẹ̀"
+    "notes": "Àwọn àkọsílẹ̀",
+    "stopSharing": "Dá pínpín dúró",
+    "startRecording": "Bẹrẹ ìgbasilẹ",
+    "stopRecording": "Dá ìgbasilẹ dúró",
+    "raiseHand": "Gbé ọwọ́ sókè",
+    "lowerHand": "Sọ ọwọ́ kalẹ̀",
+    "virtualBackground": "Àyíká àfọwọ́kọ",
+    "aiNotes": "Àwọn àkọsílẹ̀ AI",
+    "joinMeeting": "Darapọ̀ mọ́ ìpàdé",
+    "enterMeetingId": "Tẹ ID ìpàdé wọlé"
   },
   "subscription": {
     "title": "Ìforúkọsílẹ̀",

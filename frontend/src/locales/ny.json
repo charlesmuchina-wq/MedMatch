@@ -1150,7 +1150,16 @@
     "noMessages": "Palibe mauthenga pano",
     "aiAssistant": "Wothandizira wa AI",
     "transcript": "Zolemba za zokambirana",
-    "notes": "Zolemba"
+    "notes": "Zolemba",
+    "stopSharing": "Siyani Kugawana",
+    "startRecording": "Yambani Kujambula",
+    "stopRecording": "Siyani Kujambula",
+    "raiseHand": "Kwezani Dzanja",
+    "lowerHand": "Tsitsani Dzanja",
+    "virtualBackground": "Chithunzi Chakumbuyo cha pa Virtual",
+    "aiNotes": "Zolemba za AI",
+    "joinMeeting": "Lowani Pamsonkhano",
+    "enterMeetingId": "Lowetsani ID ya msonkhano"
   },
   "subscription": {
     "title": "Kulembetsa",

@@ -1150,7 +1150,16 @@
     "noMessages": "Ainda não há mensagens",
     "aiAssistant": "Assistente de IA",
     "transcript": "Transcrição",
-    "notes": "Anotações"
+    "notes": "Anotações",
+    "stopSharing": "Parar de compartilhar",
+    "startRecording": "Iniciar gravação",
+    "stopRecording": "Parar gravação",
+    "raiseHand": "Levantar a mão",
+    "lowerHand": "Abaixar a mão",
+    "virtualBackground": "Fundo virtual",
+    "aiNotes": "Notas de IA",
+    "joinMeeting": "Entrar na reunião",
+    "enterMeetingId": "Digite o ID da reunião"
   },
   "subscription": {
     "title": "Assinatura",

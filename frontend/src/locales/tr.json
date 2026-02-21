@@ -1150,7 +1150,16 @@
     "noMessages": "Henüz mesaj yok",
     "aiAssistant": "Yapay Zekâ Asistanı",
     "transcript": "Transkript",
-    "notes": "Notlar"
+    "notes": "Notlar",
+    "stopSharing": "Paylaşımı Durdur",
+    "startRecording": "Kaydı Başlat",
+    "stopRecording": "Kaydı Durdur",
+    "raiseHand": "El Kaldır",
+    "lowerHand": "El İndir",
+    "virtualBackground": "Sanal Arka Plan",
+    "aiNotes": "Yapay Zekâ Notları",
+    "joinMeeting": "Toplantıya Katıl",
+    "enterMeetingId": "Toplantı kimliğini girin"
   },
   "subscription": {
     "title": "Abonelik",

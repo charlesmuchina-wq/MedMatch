@@ -1150,7 +1150,16 @@
     "noMessages": "まだメッセージはありません",
     "aiAssistant": "AIアシスタント",
     "transcript": "文字起こし",
-    "notes": "メモ"
+    "notes": "メモ",
+    "stopSharing": "共有を停止",
+    "startRecording": "録画を開始",
+    "stopRecording": "録画を停止",
+    "raiseHand": "挙手",
+    "lowerHand": "挙手を下げる",
+    "virtualBackground": "バーチャル背景",
+    "aiNotes": "AIノート",
+    "joinMeeting": "会議に参加",
+    "enterMeetingId": "会議IDを入力"
   },
   "subscription": {
     "title": "サブスクリプション",

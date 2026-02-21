@@ -1150,7 +1150,16 @@
     "noMessages": "Hapana mameseji parizvino",
     "aiAssistant": "Mubatsiri weAI",
     "transcript": "Zvinyorwa zveHurukuro",
-    "notes": "Manotsi"
+    "notes": "Manotsi",
+    "stopSharing": "Misa Kugovera",
+    "startRecording": "Tanga Kurekodha",
+    "stopRecording": "Misa Kurekodha",
+    "raiseHand": "Simudza Ruoko",
+    "lowerHand": "Dzika Ruoko",
+    "virtualBackground": "Kumashure Kwepamhepo",
+    "aiNotes": "Zvinyorwa zveAI",
+    "joinMeeting": "Pinda Musangano",
+    "enterMeetingId": "Isa ID yemusangano"
   },
   "subscription": {
     "title": "Kunyoresa",

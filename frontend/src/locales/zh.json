@@ -1167,7 +1167,16 @@
     "noMessages": "暂无消息",
     "aiAssistant": "AI 助手",
     "transcript": "转录",
-    "notes": "笔记"
+    "notes": "笔记",
+    "stopSharing": "停止共享",
+    "startRecording": "开始录制",
+    "stopRecording": "停止录制",
+    "raiseHand": "举手",
+    "lowerHand": "放下手",
+    "virtualBackground": "虚拟背景",
+    "aiNotes": "AI 笔记",
+    "joinMeeting": "加入会议",
+    "enterMeetingId": "输入会议 ID"
   },
   "subscription": {
     "title": "订阅",

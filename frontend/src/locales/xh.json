@@ -1150,7 +1150,16 @@
     "noMessages": "Akukho miyalezo okwangoku",
     "aiAssistant": "Umncedisi we-AI",
     "transcript": "Ingxelo ebhaliweyo",
-    "notes": "Amanqaku"
+    "notes": "Amanqaku",
+    "stopSharing": "Yeka ukwabelana",
+    "startRecording": "Qalisa ukurekhoda",
+    "stopRecording": "Yeka ukurekhoda",
+    "raiseHand": "Phakamisa isandla",
+    "lowerHand": "Yehlisa isandla",
+    "virtualBackground": "Imvelaphi ebonakalayo",
+    "aiNotes": "Amanqaku e-AI",
+    "joinMeeting": "Joyina intlanganiso",
+    "enterMeetingId": "Faka i-ID yentlanganiso"
   },
   "subscription": {
     "title": "Umrhumo",
