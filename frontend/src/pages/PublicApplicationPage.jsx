@@ -255,7 +255,7 @@ export default function PublicApplicationPage() {
                   </Label>
                   <Input
                     id="name"
-                    placeholder="John Doe"
+                    placeholder={t("publicApplication.namePlaceholder")}
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
@@ -269,7 +269,7 @@ export default function PublicApplicationPage() {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="john@example.com"
+                    placeholder={t("publicApplication.emailPlaceholder")}
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
@@ -286,7 +286,7 @@ export default function PublicApplicationPage() {
                   <Input
                     id="phone"
                     type="tel"
-                    placeholder="+1 (555) 123-4567"
+                    placeholder={t("publicApplication.phonePlaceholder")}
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   />
@@ -299,7 +299,7 @@ export default function PublicApplicationPage() {
                   <Input
                     id="linkedin"
                     type="url"
-                    placeholder="https://linkedin.com/in/yourprofile"
+                    placeholder={t("publicApplication.linkedinPlaceholder")}
                     value={formData.linkedin_url}
                     onChange={(e) => setFormData({ ...formData, linkedin_url: e.target.value })}
                   />
@@ -314,7 +314,7 @@ export default function PublicApplicationPage() {
                 <Input
                   id="portfolio"
                   type="url"
-                  placeholder="https://yourportfolio.com"
+                  placeholder={t("publicApplication.portfolioPlaceholder")}
                   value={formData.portfolio_url}
                   onChange={(e) => setFormData({ ...formData, portfolio_url: e.target.value })}
                 />
@@ -329,7 +329,7 @@ export default function PublicApplicationPage() {
                   <Input
                     id="resume"
                     type="url"
-                    placeholder="Link to your resume (Google Drive, Dropbox, etc.)"
+                    placeholder={t("publicApplication.resumeLinkPlaceholder")}
                     value={formData.resume_url}
                     onChange={(e) => setFormData({ ...formData, resume_url: e.target.value })}
                   />
@@ -346,7 +346,7 @@ export default function PublicApplicationPage() {
                 </Label>
                 <Textarea
                   id="cover_letter"
-                  placeholder="Tell us why you're a great fit for this role..."
+                  placeholder={t("publicApplication.coverLetterPlaceholder")}
                   rows={5}
                   value={formData.cover_letter}
                   onChange={(e) => setFormData({ ...formData, cover_letter: e.target.value })}
