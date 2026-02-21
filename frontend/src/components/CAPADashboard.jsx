@@ -147,18 +147,18 @@ const CreateCAPADialog = ({ open, onClose, onCreated, t }) => {
         
         <div className="space-y-4 py-4">
           <div>
-            <label className="text-sm font-medium">Title *</label>
+            <label className="text-sm font-medium">{t("capa.title")} *</label>
             <Input
-              placeholder="Brief title of the nonconformance"
+              placeholder={t("capa.titlePlaceholder")}
               value={formData.title}
               onChange={(e) => setFormData({...formData, title: e.target.value})}
             />
           </div>
           
           <div>
-            <label className="text-sm font-medium">Problem Statement *</label>
+            <label className="text-sm font-medium">{t("capa.problemStatement")} *</label>
             <Textarea
-              placeholder="Detailed description of the issue..."
+              placeholder={t("capa.problemStatementPlaceholder")}
               rows={4}
               value={formData.problem_statement}
               onChange={(e) => setFormData({...formData, problem_statement: e.target.value})}
@@ -167,7 +167,7 @@ const CreateCAPADialog = ({ open, onClose, onCreated, t }) => {
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium">CAPA Type</label>
+              <label className="text-sm font-medium">{t("capa.capaType")}</label>
               <Select 
                 value={formData.capa_type} 
                 onValueChange={(v) => setFormData({...formData, capa_type: v})}
