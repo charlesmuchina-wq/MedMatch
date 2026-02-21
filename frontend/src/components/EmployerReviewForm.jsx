@@ -1,5 +1,4 @@
 /**
-import { useTranslation } from "@/utils/i18n";
  * Employer Review Form Component
  * For recruiters to submit reviews for candidates
  */
@@ -13,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
 import axios from "axios";
+import { useTranslation } from "@/utils/i18n";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
