@@ -320,7 +320,7 @@ const RecruiterJobsPage = ({ user }) => {
                 <Label htmlFor="title">Job Title *</Label>
                 <Input
                   id="title"
-                  placeholder="e.g., Senior Quality Engineer"
+                  placeholder={t("recruiterJobs.jobTitlePlaceholder")}
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   data-testid="job-title-input"
@@ -376,7 +376,7 @@ const RecruiterJobsPage = ({ user }) => {
               <Label htmlFor="url">Application URL</Label>
               <Input
                 id="url"
-                placeholder="https://your-company.com/careers/apply"
+                placeholder={t("recruiterJobs.externalUrlPlaceholder")}
                 value={formData.url}
                 onChange={(e) => setFormData({ ...formData, url: e.target.value })}
               />
@@ -386,7 +386,7 @@ const RecruiterJobsPage = ({ user }) => {
               <Label htmlFor="tags">Tags (comma separated)</Label>
               <Input
                 id="tags"
-                placeholder="e.g., Remote, Full-time, Quality, Medical Device"
+                placeholder={t("recruiterJobs.tagsPlaceholder")}
                 value={formData.tags}
                 onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
               />
