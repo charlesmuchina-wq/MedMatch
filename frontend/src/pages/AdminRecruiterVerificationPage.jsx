@@ -21,6 +21,7 @@ const API = process.env.REACT_APP_BACKEND_URL;
  * Allows admins to review and approve/reject recruiter verification requests
  */
 const AdminRecruiterVerificationPage = () => {
+  const { t } = useTranslation();
   const [requests, setRequests] = useState([]);
   const [recruiters, setRecruiters] = useState([]);
   const [loading, setLoading] = useState(true);

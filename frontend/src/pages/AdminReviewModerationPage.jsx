@@ -351,6 +351,7 @@ const RejectDialog = ({ review, isOpen, onClose, onConfirm }) => {
  * Main Admin Review Moderation Page
  */
 const AdminReviewModerationPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [pendingReviews, setPendingReviews] = useState([]);

@@ -160,6 +160,7 @@ const QuickStatCard = ({ title, value, icon: Icon, trend, color = "turquoise" })
 };
 
 export default function AdminDashboard() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState('admin');

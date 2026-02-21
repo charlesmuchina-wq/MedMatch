@@ -54,6 +54,7 @@ const StatusBadge = ({ status }) => {
 };
 
 export default function AdminAICompliancePage() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState('overview');
   const [loading, setLoading] = useState(true);
   const [summary, setSummary] = useState(null);
