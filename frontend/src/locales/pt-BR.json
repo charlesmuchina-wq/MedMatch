@@ -808,7 +808,7 @@
       "instantImport": "Importação instantânea",
       "globalStandard": "Padrão global",
       "publications": "Publicações",
-      "free": "Grátis",
+      "free": "Gratuito",
       "addCredential": "Adicionar credencial",
       "noCredentials": "Nenhuma credencial adicionada ainda",
       "verifyNow": "Verificar agora",
@@ -817,7 +817,7 @@
       "expired": "Expirado"
     },
     "adminDashboard": {
-      "title": "Painel do administrador",
+      "title": "Painel do Administrador",
       "subtitle": "Visão geral e gerenciamento do sistema",
       "switchPerspective": "Alterne entre diferentes perspectivas de usuário para testar",
       "active": "Ativo",
@@ -832,8 +832,8 @@
       "responseTime": "Tempo de resposta"
     },
     "recruiterDashboard": {
-      "title": "Painel do recrutador",
-      "subtitle": "Gerencie seu funil de recrutamento",
+      "title": "Painel do Recrutador",
+      "subtitle": "Gerencie seu pipeline de recrutamento",
       "activeJobs": "Vagas ativas",
       "totalApplicants": "Total de candidatos",
       "shortlisted": "Pré-selecionados",
@@ -844,8 +844,8 @@
       "noJobs": "Nenhuma vaga publicada ainda"
     },
     "recruiterJobs": {
-      "title": "Anúncios de vagas",
-      "subtitle": "Gerencie suas vagas",
+      "title": "Publicações de vagas",
+      "subtitle": "Gerencie suas listagens de vagas",
       "noJobsPosted": "Nenhuma vaga publicada ainda",
       "salaryRange": "Faixa salarial",
       "applicationUrl": "URL de candidatura",
@@ -859,7 +859,7 @@
     },
     "resumeProfiles": {
       "title": "Perfis de currículo",
-      "subtitle": "Gerencie várias versões do currículo",
+      "subtitle": "Gerencie várias versões de currículo",
       "createProfile": "Criar perfil de currículo",
       "uploadPdf": "Envie um currículo em PDF para criar um novo perfil",
       "profileName": "Nome do perfil",
@@ -887,11 +887,11 @@
     "portalSelector": {
       "title": "Portal AI KARAU",
       "subtitle": "Escolha seu destino",
-      "jobToolkit": "Kit de ferramentas de emprego",
-      "jobToolkitDesc": "Ferramentas de busca de emprego e carreira com tecnologia de AI",
+      "jobToolkit": "Kit de ferramentas de vagas",
+      "jobToolkitDesc": "Ferramentas de busca de emprego e carreira com IA",
       "meetingPortal": "Portal de reuniões",
       "meetingPortalDesc": "Videoconferência segura",
-      "enterPortal": "Entrar no portal"
+      "enterPortal": "Acessar o portal"
     },
     "dragonAutomator": {
       "title": "Automatizador KARAU",
@@ -904,8 +904,8 @@
       "lastRun": "Última execução"
     },
     "blindScreening": {
-      "title": "Painel de triagem cega",
-      "subtitle": "Avalie candidatos sem viés",
+      "title": "Painel de triagem às cegas",
+      "subtitle": "Avalie candidatos sem vieses",
       "candidatePool": "Banco de candidatos",
       "screeningQueue": "Fila de triagem",
       "reviewed": "Revisados",
@@ -916,9 +916,9 @@
     },
     "locationSettings": {
       "title": "Configurações de localização",
-      "subtitle": "Gerencie suas preferências de localização para busca de emprego",
+      "subtitle": "Gerencie suas preferências de localização para busca de vagas",
       "currentLocation": "Localização atual",
-      "preferredLocations": "Localizações preferidas",
+      "preferredLocations": "Locais preferidos",
       "remoteOnly": "Apenas remoto",
       "hybridOk": "Híbrido ok",
       "onSiteOk": "Presencial ok",
@@ -957,15 +957,15 @@
       "inProgress": "Em andamento"
     },
     "aiCompliance": {
-      "title": "Conformidade de AI",
-      "subtitle": "Conformidade e ética do modelo de AI",
+      "title": "Conformidade de IA",
+      "subtitle": "Conformidade e ética do modelo de IA",
       "modelAudits": "Auditorias do modelo",
       "biasReports": "Relatórios de viés",
       "fairnessMetrics": "Métricas de equidade",
       "lastAudit": "Última auditoria"
     },
     "candidateTransparency": {
-      "title": "Transparência para candidatos",
+      "title": "Transparência do candidato",
       "subtitle": "Veja como seu perfil é avaliado",
       "matchScore": "Pontuação de compatibilidade",
       "evaluationCriteria": "Critérios de avaliação",
@@ -973,8 +973,8 @@
       "experienceMatch": "Compatibilidade de experiência"
     },
     "publicApplication": {
-      "title": "Candidatura a vaga",
-      "subtitle": "Candidate-se a esta posição",
+      "title": "Candidatura à vaga",
+      "subtitle": "Candidate-se a esta vaga",
       "applyNow": "Candidatar-se agora",
       "uploadResume": "Enviar currículo",
       "coverLetter": "Carta de apresentação",
@@ -988,14 +988,14 @@
       "underReview": "Em análise",
       "shortlisted": "Pré-selecionada",
       "interview": "Entrevista",
-      "offer": "Proposta",
+      "offer": "Oferta",
       "rejected": "Rejeitada"
     },
     "dataIntegrity": {
       "title": "Integridade de dados",
       "subtitle": "Monitore a qualidade e a consistência dos dados",
       "dataQuality": "Qualidade dos dados",
-      "duplicates": "Duplicados",
+      "duplicates": "Duplicatas",
       "missingFields": "Campos ausentes",
       "validationErrors": "Erros de validação",
       "runCheck": "Executar verificação de integridade"
@@ -1013,8 +1013,8 @@
       "title": "Moderação de avaliações",
       "subtitle": "Modere avaliações de usuários",
       "pendingReviews": "Avaliações pendentes",
-      "approved": "Aprovadas",
-      "flagged": "Sinalizadas",
+      "approved": "Aprovado",
+      "flagged": "Sinalizado",
       "approveReview": "Aprovar",
       "rejectReview": "Rejeitar",
       "flagReview": "Sinalizar para revisão"
@@ -1039,7 +1039,7 @@
     "quickGuides": "Guias rápidos",
     "featuredVideo": "Vídeo em destaque",
     "watchNow": "Assistir agora",
-    "aiGenerated": "Gerado por AI",
+    "aiGenerated": "Gerado por IA",
     "languages": "Idiomas",
     "selectLanguage": "Selecionar idioma",
     "videoUnavailable": "Vídeo indisponível",
@@ -1054,8 +1054,8 @@
     "sections": {
       "allVideosTitle": "Biblioteca de vídeos",
       "allVideosSubtitle": "Navegue por nossa coleção completa de vídeos tutoriais",
-      "gettingStartedTitle": "Guia de primeiros passos com AI",
-      "gettingStartedSubtitle": "Assista ao nosso apresentador de AI explicar os recursos da plataforma",
+      "gettingStartedTitle": "Guia de primeiros passos com IA",
+      "gettingStartedSubtitle": "Assista ao nosso apresentador de IA explicar os recursos da plataforma",
       "quickGuidesTitle": "Guias de referência rápida",
       "quickGuidesSubtitle": "Instruções passo a passo para tarefas comuns"
     }
@@ -1068,24 +1068,24 @@
       "addressPlaceholder": "Digite seu endereço ou cidade...",
       "useCurrentLocation": "Usar localização atual",
       "searchRadius": "Raio de busca de vagas",
-      "searchRadiusDesc": "Distância máxima que você está disposto(a) a se deslocar",
+      "searchRadiusDesc": "Distância máxima que você está disposto a se deslocar",
       "maxDistance": "Distância máxima",
       "miles": "milhas",
       "km": "km",
       "commutePreferences": "Preferências de deslocamento",
       "commutePreferencesDesc": "Como você prefere ir ao trabalho?",
-      "primaryCommuteMode": "Modo principal de deslocamento",
+      "primaryCommuteMode": "Principal meio de deslocamento",
       "driving": "Carro",
       "transit": "Transporte público",
-      "cycling": "Ciclismo",
+      "cycling": "Bicicleta",
       "walking": "A pé",
-      "workTypePreferences": "Preferências de modalidade de trabalho",
-      "workTypePreferencesDesc": "Selecione todas as modalidades em que você aceita trabalhar",
+      "workTypePreferences": "Preferências de tipo de trabalho",
+      "workTypePreferencesDesc": "Selecione todos os formatos de trabalho aos quais você está aberto",
       "remote": "Remoto",
       "hybrid": "Híbrido",
       "onsite": "Presencial",
-      "locationAlerts": "Alertas baseados em localização",
-      "locationAlertsDesc": "Receba notificações sobre vagas perto da sua localização",
+      "locationAlerts": "Alertas com base na localização",
+      "locationAlertsDesc": "Receba notificações sobre vagas próximas à sua localização",
       "enableAlerts": "Ativar alertas com base na localização",
       "nearestHub": "Hub MedMatch mais próximo",
       "savePreferences": "Salvar preferências",
@@ -1097,15 +1097,15 @@
       "urban": "Urbano",
       "standard": "Padrão",
       "rural": "Rural",
-      "drivingCity": "Dirigir (cidade)",
-      "drivingHighway": "Dirigir (estrada)",
+      "drivingCity": "Carro (cidade)",
+      "drivingHighway": "Carro (rodovia)",
       "publicTransit": "Transporte público",
       "preferredWorkTypes": "Tipos de trabalho preferidos",
-      "selectWorkArrangements": "Selecione os regimes de trabalho de seu interesse",
+      "selectWorkArrangements": "Selecione os formatos de trabalho de seu interesse",
       "alertsDescription": "Receba notificações quando novas vagas forem publicadas perto de você",
       "enableProximityAlerts": "Ativar alertas de proximidade",
       "proximityAlertsDesc": "Receba notificações de vagas dentro do seu raio de busca",
-      "enterAddress": "Por favor, insira um endereço",
+      "enterAddress": "Por favor, informe um endereço",
       "locationFound": "Localização encontrada!"
     },
     "biometricAuth": {
@@ -1120,7 +1120,7 @@
     "subscriptionManager": {
       "title": "Assinatura",
       "currentPlan": "Plano atual",
-      "free": "Grátis",
+      "free": "Gratuito",
       "premium": "Premium",
       "enterprise": "Enterprise",
       "upgrade": "Fazer upgrade",
@@ -1153,11 +1153,11 @@
     },
     "capaDashboard": {
       "title": "Painel de CAPA",
-      "subtitle": "Ações corretivas e preventivas",
+      "subtitle": "Ações Corretivas e Preventivas",
       "openCAPAs": "CAPAs em aberto",
       "closedCAPAs": "CAPAs encerradas",
-      "overdue": "Atrasadas",
-      "createNew": "Criar nova CAPA",
+      "overdue": "Em atraso",
+      "createNew": "Criar novo CAPA",
       "status": "Status",
       "priority": "Prioridade",
       "assignee": "Responsável",
@@ -1169,7 +1169,7 @@
     "translationWidget": {
       "translateTo": "Traduzir para",
       "originalLanguage": "Idioma original",
-      "autoDetect": "Detecção automática",
+      "autoDetect": "Detectar automaticamente",
       "translating": "Traduzindo...",
       "translated": "Traduzido",
       "showOriginal": "Mostrar original"

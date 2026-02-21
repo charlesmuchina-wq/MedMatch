@@ -804,7 +804,7 @@
     "credentials": {
       "title": "資格・認定",
       "subtitle": "専門資格・認定を管理します",
-      "verifiedCredentials": "確認済みの資格",
+      "verifiedCredentials": "確認済み資格",
       "instantImport": "即時インポート",
       "globalStandard": "グローバル標準",
       "publications": "出版物",
@@ -818,12 +818,12 @@
     },
     "adminDashboard": {
       "title": "管理者ダッシュボード",
-      "subtitle": "システムの概要と管理",
-      "switchPerspective": "テストのために異なるユーザー視点を切り替えます",
+      "subtitle": "システム全体の概要と管理",
+      "switchPerspective": "テストのためにユーザーの視点を切り替えます",
       "active": "稼働中",
       "warning": "警告",
       "modelTrained": "モデル学習済み",
-      "systemStatus": "システム状態",
+      "systemStatus": "システム状況",
       "userStats": "ユーザー統計",
       "recentActivity": "最近のアクティビティ",
       "systemHealth": "システム健全性",
@@ -835,10 +835,10 @@
       "title": "採用担当者ダッシュボード",
       "subtitle": "採用パイプラインを管理します",
       "activeJobs": "募集中の求人",
-      "totalApplicants": "応募者合計",
-      "shortlisted": "選考通過",
+      "totalApplicants": "応募者総数",
+      "shortlisted": "候補者リスト",
       "interviewing": "面接中",
-      "latestCandidates": "求人に応募した最新の候補者",
+      "latestCandidates": "あなたの求人に応募した最新の候補者",
       "viewAll": "すべて表示",
       "postNewJob": "新しい求人を掲載",
       "noJobs": "まだ求人が掲載されていません"
@@ -847,7 +847,7 @@
       "title": "求人掲載",
       "subtitle": "求人リストを管理します",
       "noJobsPosted": "まだ求人が掲載されていません",
-      "salaryRange": "給与レンジ",
+      "salaryRange": "給与範囲",
       "applicationUrl": "応募URL",
       "jobTitlePlaceholder": "例：シニア品質エンジニア",
       "companyNamePlaceholder": "貴社名",
@@ -861,37 +861,37 @@
       "title": "履歴書プロファイル",
       "subtitle": "複数の履歴書バージョンを管理します",
       "createProfile": "履歴書プロファイルを作成",
-      "uploadPdf": "PDFの履歴書をアップロードして新しいプロファイルを作成します",
+      "uploadPdf": "PDF履歴書をアップロードして新しいプロファイルを作成します",
       "profileName": "プロファイル名",
       "cancel": "キャンセル",
       "noProfiles": "履歴書プロファイルがありません",
-      "createFirst": "まず最初の履歴書プロファイルを作成して始めましょう",
+      "createFirst": "まずは最初の履歴書プロファイルを作成して始めましょう",
       "primary": "メイン",
       "setPrimary": "メインに設定",
       "lastUpdated": "最終更新"
     },
     "companyProfile": {
-      "title": "企業プロファイル",
+      "title": "企業プロフィール",
       "subtitle": "企業情報を管理します",
       "overview": "概要",
       "jobs": "求人",
       "reviews": "レビュー",
       "benefits": "福利厚生",
       "culture": "企業文化",
-      "editProfile": "プロファイルを編集",
+      "editProfile": "プロフィールを編集",
       "verifiedCompany": "確認済み企業",
       "employeeCount": "従業員数",
       "founded": "設立",
-      "headquarters": "本社"
+      "headquarters": "本社所在地"
     },
     "portalSelector": {
       "title": "AI KARAU ポータル",
-      "subtitle": "行き先を選択してください",
-      "jobToolkit": "ジョブツールキット",
-      "jobToolkitDesc": "AIを活用した求人検索・キャリアツール",
+      "subtitle": "移動先を選択してください",
+      "jobToolkit": "求人ツールキット",
+      "jobToolkitDesc": "AIによる求人検索・キャリア支援ツール",
       "meetingPortal": "ミーティングポータル",
       "meetingPortalDesc": "安全なビデオ会議",
-      "enterPortal": "ポータルに入る"
+      "enterPortal": "ポータルへ"
     },
     "dragonAutomator": {
       "title": "KARAU Automator",
@@ -904,11 +904,11 @@
       "lastRun": "最終実行"
     },
     "blindScreening": {
-      "title": "ブラインド選考ダッシュボード",
-      "subtitle": "偏見なく候補者をレビューします",
+      "title": "ブラインドスクリーニング・ダッシュボード",
+      "subtitle": "偏りなく候補者を確認します",
       "candidatePool": "候補者プール",
-      "screeningQueue": "選考キュー",
-      "reviewed": "レビュー済み",
+      "screeningQueue": "審査キュー",
+      "reviewed": "確認済み",
       "pending": "保留中",
       "qualificationMatch": "資格の一致度",
       "experienceLevel": "経験レベル",
@@ -916,27 +916,27 @@
     },
     "locationSettings": {
       "title": "勤務地設定",
-      "subtitle": "求人検索の勤務地希望を管理します",
+      "subtitle": "求人検索の勤務地の希望を管理します",
       "currentLocation": "現在地",
       "preferredLocations": "希望勤務地",
       "remoteOnly": "フルリモートのみ",
       "hybridOk": "ハイブリッド可",
       "onSiteOk": "出社可",
-      "willingToRelocate": "転居可能",
-      "searchRadius": "検索半径",
-      "savePreferences": "設定を保存"
+      "willingToRelocate": "転居可",
+      "searchRadius": "検索範囲",
+      "savePreferences": "希望を保存"
     },
     "taxonomyExplorer": {
-      "title": "タクソノミーエクスプローラー",
+      "title": "分類エクスプローラー",
       "subtitle": "職種カテゴリとスキルを閲覧します",
       "categories": "カテゴリ",
       "skills": "スキル",
       "industries": "業界",
       "jobTypes": "雇用形態",
-      "searchTaxonomy": "タクソノミーを検索..."
+      "searchTaxonomy": "分類を検索..."
     },
     "enterpriseApi": {
-      "title": "Enterprise API",
+      "title": "エンタープライズAPI",
       "subtitle": "APIドキュメントと管理",
       "apiKeys": "APIキー",
       "documentation": "ドキュメント",
@@ -954,7 +954,7 @@
       "soc2": "SOC 2",
       "compliant": "準拠",
       "nonCompliant": "非準拠",
-      "inProgress": "進行中"
+      "inProgress": "対応中"
     },
     "aiCompliance": {
       "title": "AIコンプライアンス",
@@ -966,7 +966,7 @@
     },
     "candidateTransparency": {
       "title": "候補者向け透明性",
-      "subtitle": "プロファイルがどのように評価されるかを確認できます",
+      "subtitle": "プロフィールがどのように評価されるかを確認します",
       "matchScore": "マッチスコア",
       "evaluationCriteria": "評価基準",
       "skillsAssessment": "スキル評価",
@@ -977,7 +977,7 @@
       "subtitle": "このポジションに応募します",
       "applyNow": "今すぐ応募",
       "uploadResume": "履歴書をアップロード",
-      "coverLetter": "カバーレター",
+      "coverLetter": "職務経歴書",
       "submitApplication": "応募を送信"
     },
     "trackApplication": {
@@ -986,9 +986,9 @@
       "applicationStatus": "応募ステータス",
       "submitted": "提出済み",
       "underReview": "審査中",
-      "shortlisted": "選考通過",
+      "shortlisted": "候補者リスト",
       "interview": "面接",
-      "offer": "内定",
+      "offer": "オファー",
       "rejected": "不採用"
     },
     "dataIntegrity": {
@@ -1001,7 +1001,7 @@
       "runCheck": "整合性チェックを実行"
     },
     "recruiterVerification": {
-      "title": "採用担当者の確認",
+      "title": "採用担当者の認証",
       "subtitle": "採用担当者アカウントを確認します",
       "pendingVerifications": "確認待ち",
       "verified": "確認済み",
@@ -1010,18 +1010,18 @@
       "rejectRecruiter": "採用担当者を却下"
     },
     "reviewModeration": {
-      "title": "レビュー管理",
-      "subtitle": "ユーザーレビューをモデレートします",
-      "pendingReviews": "承認待ちのレビュー",
+      "title": "レビューのモデレーション",
+      "subtitle": "ユーザーレビューを審査します",
+      "pendingReviews": "審査待ちレビュー",
       "approved": "承認済み",
       "flagged": "要確認",
       "approveReview": "承認",
       "rejectReview": "却下",
-      "flagReview": "要確認としてマーク"
+      "flagReview": "レビュー対象としてフラグ"
     },
     "productionMetrics": {
       "title": "本番メトリクス",
-      "subtitle": "システムのパフォーマンスと健全性指標",
+      "subtitle": "システム性能と健全性の指標",
       "uptime": "稼働時間",
       "requestsPerSecond": "リクエスト/秒",
       "averageLatency": "平均レイテンシ",
@@ -1032,8 +1032,8 @@
     }
   },
   "videoTutorials": {
-    "title": "動画チュートリアル",
-    "subtitle": "充実した動画ガイドでMedMatch-AI KARAUの使い方を学びましょう",
+    "title": "ビデオチュートリアル",
+    "subtitle": "充実したビデオガイドでMedMatch-AI KARAUの使い方を学べます",
     "allVideos": "すべての動画",
     "gettingStarted": "はじめに",
     "quickGuides": "クイックガイド",
@@ -1054,57 +1054,57 @@
     "sections": {
       "allVideosTitle": "動画ライブラリ",
       "allVideosSubtitle": "チュートリアル動画の全コレクションをご覧いただけます",
-      "gettingStartedTitle": "AIを活用したスタートガイド",
-      "gettingStartedSubtitle": "AIプレゼンターがプラットフォームの機能を解説します",
-      "quickGuidesTitle": "クイック参照ガイド",
+      "gettingStartedTitle": "AI活用 はじめてガイド",
+      "gettingStartedSubtitle": "AIプレゼンターがプラットフォーム機能を解説します",
+      "quickGuidesTitle": "クイックリファレンスガイド",
       "quickGuidesSubtitle": "よくある操作をステップごとにご案内します"
     }
   },
   "components": {
     "locationSettings": {
       "homeLocation": "自宅所在地",
-      "homeLocationDesc": "通勤時間の精度向上と、場所に基づく求人マッチングのために自宅住所を設定します",
+      "homeLocationDesc": "自宅住所を設定すると、通勤時間の精度向上や所在地に基づく求人マッチングに役立ちます",
       "addressOrCity": "住所または市区町村",
-      "addressPlaceholder": "住所または市区町村を入力してください...",
+      "addressPlaceholder": "住所または市区町村を入力...",
       "useCurrentLocation": "現在地を使用",
-      "searchRadius": "求人検索半径",
+      "searchRadius": "求人検索範囲",
       "searchRadiusDesc": "通勤可能な最大距離",
       "maxDistance": "最大距離",
       "miles": "マイル",
       "km": "km",
       "commutePreferences": "通勤の希望",
-      "commutePreferencesDesc": "主にどのような方法で通勤しますか？",
+      "commutePreferencesDesc": "どのように通勤したいですか？",
       "primaryCommuteMode": "主な通勤手段",
-      "driving": "車",
+      "driving": "自動車",
       "transit": "公共交通機関",
       "cycling": "自転車",
       "walking": "徒歩",
       "workTypePreferences": "勤務形態の希望",
-      "workTypePreferencesDesc": "対応可能な勤務形態をすべて選択してください",
+      "workTypePreferencesDesc": "希望する勤務形態をすべて選択してください",
       "remote": "リモート",
       "hybrid": "ハイブリッド",
       "onsite": "出社",
-      "locationAlerts": "位置情報ベースの通知",
-      "locationAlertsDesc": "現在地付近の求人通知を受け取ります",
-      "enableAlerts": "位置情報ベースの通知を有効化",
+      "locationAlerts": "所在地ベースの通知",
+      "locationAlertsDesc": "現在地付近の求人について通知を受け取ります",
+      "enableAlerts": "所在地ベースの通知を有効化",
       "nearestHub": "最寄りのMedMatch Hub",
       "savePreferences": "設定を保存",
       "saving": "保存中...",
-      "preferencesSaved": "勤務地設定を保存しました",
-      "saveFailed": "勤務地設定の保存に失敗しました",
+      "preferencesSaved": "所在地の設定を保存しました",
+      "saveFailed": "所在地の設定を保存できませんでした",
       "locationDetected": "位置情報を正常に取得しました",
-      "locationFailed": "位置情報の取得に失敗しました",
+      "locationFailed": "位置情報を取得できませんでした",
       "urban": "都市部",
       "standard": "標準",
       "rural": "地方",
-      "drivingCity": "車（市街地）",
-      "drivingHighway": "車（高速道路）",
+      "drivingCity": "自動車（市街地）",
+      "drivingHighway": "自動車（高速道路）",
       "publicTransit": "公共交通機関",
       "preferredWorkTypes": "希望する勤務形態",
-      "selectWorkArrangements": "希望する勤務形態を選択してください",
-      "alertsDescription": "近くで新しい求人が掲載された際に通知を受け取ります",
+      "selectWorkArrangements": "興味のある勤務形態を選択してください",
+      "alertsDescription": "近くに新しい求人が掲載されたら通知を受け取ります",
       "enableProximityAlerts": "近接通知を有効化",
-      "proximityAlertsDesc": "検索半径内の求人について通知を受け取ります",
+      "proximityAlertsDesc": "検索範囲内の求人について通知を受け取ります",
       "enterAddress": "住所を入力してください",
       "locationFound": "位置情報が見つかりました！"
     },
@@ -1122,12 +1122,12 @@
       "currentPlan": "現在のプラン",
       "free": "無料",
       "premium": "プレミアム",
-      "enterprise": "Enterprise",
+      "enterprise": "エンタープライズ",
       "upgrade": "アップグレード",
       "downgrade": "ダウングレード",
       "cancel": "サブスクリプションを解約",
       "billingCycle": "請求サイクル",
-      "nextBilling": "次回の請求日"
+      "nextBilling": "次回請求日"
     },
     "employerReview": {
       "writeReview": "レビューを書く",
@@ -1136,9 +1136,9 @@
       "cons": "悪い点",
       "advice": "経営陣へのアドバイス",
       "recommend": "おすすめしますか",
-      "submitReview": "レビューを送信",
+      "submitReview": "レビューを投稿",
       "anonymous": "匿名で投稿",
-      "verified": "在籍確認済みの社員"
+      "verified": "在籍確認済み社員"
     },
     "offlineIndicator": {
       "offline": "オフラインです",
@@ -1153,7 +1153,7 @@
     },
     "capaDashboard": {
       "title": "CAPAダッシュボード",
-      "subtitle": "是正措置・予防措置",
+      "subtitle": "是正措置および予防措置",
       "openCAPAs": "未完了のCAPA",
       "closedCAPAs": "完了したCAPA",
       "overdue": "期限超過",
