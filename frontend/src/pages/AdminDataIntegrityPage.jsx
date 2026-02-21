@@ -1,10 +1,10 @@
 /**
-import { useTranslation } from "@/utils/i18n";
  * Admin Data Integrity & AI QA Dashboard
  * Comprehensive automated governance for global job-seeker applications
  * Compliant with EU AI Act, China AI regulations, US AEDT laws, Brazil LGPD
  */
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from "@/utils/i18n";
 import { toast } from 'sonner';
 import {
   Shield,
