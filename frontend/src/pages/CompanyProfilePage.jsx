@@ -22,6 +22,7 @@ const CompanyProfilePage = ({ user }) => {
   const { companyId } = useParams();
   const navigate = useNavigate();
   const { isDark } = useTheme();
+  const { t } = useTranslation();
   
   const [company, setCompany] = useState(null);
   const [reviews, setReviews] = useState([]);
