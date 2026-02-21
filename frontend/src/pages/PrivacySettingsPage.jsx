@@ -368,6 +368,69 @@ const PrivacySettingsPage = () => {
         </CardContent>
       </Card>
 
+      {/* Language & Translation Settings */}
+      <Card className="mb-6" data-testid="translation-settings-card">
+        <CardHeader>
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Languages className="w-5 h-5" />
+            {t("language.useGoogleTranslate")}
+          </CardTitle>
+          <CardDescription>{t("language.googleTranslateDisclaimer")}</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {/* Browser Translation Status */}
+          {isBrowserTranslating && (
+            <div className="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+              <Languages className="w-5 h-5 text-blue-600" />
+              <div>
+                <p className="font-medium text-blue-900 dark:text-blue-100">{t("language.browserTranslationActive")}</p>
+                <p className="text-xs text-blue-700 dark:text-blue-300">{t("language.browserTranslationNote")}</p>
+              </div>
+            </div>
+          )}
+
+          {/* Google Translate Button */}
+          <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+            <div className="flex items-center gap-3">
+              <ExternalLink className="w-5 h-5 text-blue-500" />
+              <div>
+                <p className="font-medium text-slate-900 dark:text-slate-100">{t("language.openGoogleTranslate")}</p>
+                <p className="text-xs text-slate-500">Open this page in Google Translate for automatic translation</p>
+              </div>
+            </div>
+            <Button
+              variant="outline"
+              onClick={openGoogleTranslate}
+              className="text-blue-600 border-blue-200 hover:bg-blue-50"
+              data-testid="settings-google-translate-btn"
+            >
+              <ExternalLink className="w-4 h-4 mr-2" />
+              Open
+            </Button>
+          </div>
+
+          {/* Browser Translate Button */}
+          <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+            <div className="flex items-center gap-3">
+              <Globe className="w-5 h-5 text-blue-500" />
+              <div>
+                <p className="font-medium text-slate-900 dark:text-slate-100">{t("language.useBrowserTranslate")}</p>
+                <p className="text-xs text-slate-500">Get instructions on how to use your browser's built-in translation</p>
+              </div>
+            </div>
+            <Button
+              variant="outline"
+              onClick={triggerBrowserTranslate}
+              className="text-blue-600 border-blue-200 hover:bg-blue-50"
+              data-testid="settings-browser-translate-btn"
+            >
+              <Globe className="w-4 h-4 mr-2" />
+              How-to
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Audit Log */}
       <Card>
         <CardHeader>
