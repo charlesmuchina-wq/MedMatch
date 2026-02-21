@@ -599,7 +599,7 @@ const LoginPage = ({ onAuthSuccess }) => {
                         <Input
                           id="bio-email"
                           type="email"
-                          placeholder="you@example.com"
+                          placeholder={t("auth.emailPlaceholder")}
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           className="pl-10"
