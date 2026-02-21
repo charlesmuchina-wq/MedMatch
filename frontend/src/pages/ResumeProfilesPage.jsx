@@ -113,6 +113,7 @@ const ProfileCard = ({ profile, isActive, onSelect, onSetDefault, onDelete, onEd
 
 // Upload Dialog Component
 const UploadDialog = ({ open, onClose, onUpload }) => {
+  const { t } = useTranslation();
   const [profileName, setProfileName] = useState("");
   const [uploading, setUploading] = useState(false);
   const [file, setFile] = useState(null);
