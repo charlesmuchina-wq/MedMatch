@@ -355,7 +355,7 @@ const IDVerificationPage = ({ user }) => {
                       <Input 
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
-                        placeholder="John Doe"
+                        placeholder={t("idVerification.namePlaceholder")}
                         data-testid="full-name-input"
                       />
                     </div>
