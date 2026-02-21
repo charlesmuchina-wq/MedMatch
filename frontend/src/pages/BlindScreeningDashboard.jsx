@@ -25,6 +25,7 @@ const API = process.env.REACT_APP_BACKEND_URL;
  * GDPR-compliant candidate search with identity masking
  */
 const BlindScreeningDashboard = () => {
+  const { t } = useTranslation();
   const [blindMode, setBlindMode] = useState(true);
   const [candidates, setCandidates] = useState([]);
   const [loading, setLoading] = useState(false);
