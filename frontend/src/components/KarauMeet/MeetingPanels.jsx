@@ -9,6 +9,7 @@ import {
   MessageSquare, Users, Sparkles, Settings,
   FileText, Download, MoreVertical, Circle
 } from 'lucide-react';
+import { useTranslation } from '@/utils/i18n';
 
 /**
  * Chat panel component for in-meeting messaging
