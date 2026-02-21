@@ -157,7 +157,7 @@ const CredentialsPage = () => {
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <Input
-                  placeholder="Search certifications (e.g., CQE, ISO 13485, RN)..."
+                  placeholder={t("credentialsPage.searchPlaceholder")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10"

@@ -170,7 +170,7 @@ const UploadDialog = ({ open, onClose, onUpload }) => {
           <div>
             <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Profile Name</label>
             <Input
-              placeholder="e.g., Tech Resume, Management Resume"
+              placeholder={t("resumeProfiles.profileNamePlaceholder")}
               value={profileName}
               onChange={(e) => setProfileName(e.target.value)}
               className="mt-1"
