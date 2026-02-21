@@ -400,13 +400,13 @@ const LoginPage = ({ onAuthSuccess }) => {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="name">Name</Label>
+                      <Label htmlFor="name">{t("auth.name")}</Label>
                       <div className="relative">
                         <User className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                         <Input
                           id="name"
                           type="text"
-                          placeholder="Your name"
+                          placeholder={t("auth.yourName")}
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           className="pl-10"
