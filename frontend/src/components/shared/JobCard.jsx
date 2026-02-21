@@ -14,6 +14,7 @@ import { QuickTranslateButton } from "@/components/TranslationWidget";
 import MatchExplanation from "@/components/MatchExplanation";
 import ReportExpiredJob from "@/components/ReportExpiredJob";
 import FreshnessBadge from "@/components/FreshnessBadge";
+import { useTranslation } from "@/utils/i18n";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
