@@ -1198,12 +1198,19 @@
     "view": "عرض"
   },
   "companies": {
-    "createFailed": "فشل في إنشاء الشركة",
-    "created": "تم إنشاء ملف الشركة",
-    "followFailed": "فشل في متابعة الشركة",
     "title": "الشركات",
-    "search": "بحث",
-    "view": "عرض"
+    "searchCompanies": "ابحث عن الشركات",
+    "addCompany": "إضافة شركة",
+    "companyName": "اسم الشركة",
+    "companyNamePlaceholder": "اسم الشركة",
+    "industry": "القطاع",
+    "selectIndustry": "اختر القطاع",
+    "description": "الوصف",
+    "descriptionPlaceholder": "أخبر المرشحين عن شركتك...",
+    "companySize": "حجم الشركة",
+    "selectSize": "اختر الحجم",
+    "headquarters": "المقر الرئيسي",
+    "headquartersPlaceholder": "المدينة، الدولة"
   },
   "savedJobs": {
     "saveJobsHint": "احفظ الوظائف أثناء البحث لمراجعتها لاحقاً",
@@ -1644,5 +1651,13 @@
     "notSupported": "المصادقة بالقياسات الحيوية غير مدعومة على هذا الجهاز",
     "enterEmail": "يرجى إدخال بريدك الإلكتروني",
     "emailPlaceholder": "أدخل بريدك الإلكتروني"
+  },
+  "translation": {
+    "selectLanguage": "اختر اللغة",
+    "selectTargetLanguage": "اختر اللغة المستهدفة",
+    "translate": "ترجمة",
+    "translating": "جارٍ الترجمة...",
+    "translated": "تمت الترجمة!",
+    "failed": "فشلت الترجمة"
   }
 }

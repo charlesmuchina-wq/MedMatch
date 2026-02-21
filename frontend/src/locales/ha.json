@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Kamfanoni",
+    "searchCompanies": "Nemo kamfanoni",
+    "addCompany": "Ƙara kamfani",
+    "companyName": "Sunan kamfani",
+    "companyNamePlaceholder": "Sunan kamfani",
+    "industry": "Masana'antu",
+    "selectIndustry": "Zaɓi masana'antu",
+    "description": "Bayani",
+    "descriptionPlaceholder": "Faɗa wa 'yan takara game da kamfaninku...",
+    "companySize": "Girman kamfani",
+    "selectSize": "Zaɓi girma",
+    "headquarters": "Hedkwata",
+    "headquartersPlaceholder": "Birni, Ƙasa"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Ba a tallafa wa tantancewa ta bayanan halitta a wannan na'ura ba",
     "enterEmail": "Da fatan za a shigar da imel ɗinka",
     "emailPlaceholder": "Shigar da imel ɗinka"
+  },
+  "translation": {
+    "selectLanguage": "Zaɓi harshe",
+    "selectTargetLanguage": "Zaɓi harshen da za a fassara zuwa",
+    "translate": "Fassara",
+    "translating": "Ana fassara...",
+    "translated": "An fassara!",
+    "failed": "Fassarar ta gaza"
   }
 }

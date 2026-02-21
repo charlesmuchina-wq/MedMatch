@@ -641,9 +641,19 @@
     "companyFailed": "Företagsverifieringen misslyckades"
   },
   "companies": {
-    "created": "Företagsprofil skapad",
-    "createFailed": "Det gick inte att skapa företaget",
-    "followFailed": "Det gick inte att följa företaget"
+    "title": "Företag",
+    "searchCompanies": "Sök företag",
+    "addCompany": "Lägg till företag",
+    "companyName": "Företagsnamn",
+    "companyNamePlaceholder": "Företagsnamn",
+    "industry": "Bransch",
+    "selectIndustry": "Välj bransch",
+    "description": "Beskrivning",
+    "descriptionPlaceholder": "Berätta för kandidater om ditt företag...",
+    "companySize": "Företagsstorlek",
+    "selectSize": "Välj storlek",
+    "headquarters": "Huvudkontor",
+    "headquartersPlaceholder": "Stad, land"
   },
   "analytics": {
     "loadFailed": "Det gick inte att läsa in analysdata"
@@ -1216,5 +1226,13 @@
     "notSupported": "Biometrisk autentisering stöds inte på den här enheten",
     "enterEmail": "Vänligen ange din e-postadress",
     "emailPlaceholder": "Ange din e-postadress"
+  },
+  "translation": {
+    "selectLanguage": "Välj språk",
+    "selectTargetLanguage": "Välj målspråk",
+    "translate": "Översätt",
+    "translating": "Översätter...",
+    "translated": "Översatt!",
+    "failed": "Översättningen misslyckades"
   }
 }

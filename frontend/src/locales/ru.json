@@ -641,9 +641,19 @@
     "companyFailed": "Проверка компании не пройдена"
   },
   "companies": {
-    "created": "Профиль компании создан",
-    "createFailed": "Не удалось создать компанию",
-    "followFailed": "Не удалось подписаться на компанию"
+    "title": "Компании",
+    "searchCompanies": "Поиск компаний",
+    "addCompany": "Добавить компанию",
+    "companyName": "Название компании",
+    "companyNamePlaceholder": "Название компании",
+    "industry": "Отрасль",
+    "selectIndustry": "Выберите отрасль",
+    "description": "Описание",
+    "descriptionPlaceholder": "Расскажите кандидатам о вашей компании...",
+    "companySize": "Размер компании",
+    "selectSize": "Выберите размер",
+    "headquarters": "Штаб-квартира",
+    "headquartersPlaceholder": "Город, страна"
   },
   "analytics": {
     "loadFailed": "Не удалось загрузить аналитику"
@@ -1216,5 +1226,13 @@
     "notSupported": "Биометрическая аутентификация не поддерживается на этом устройстве",
     "enterEmail": "Пожалуйста, введите ваш адрес электронной почты",
     "emailPlaceholder": "Введите ваш адрес электронной почты"
+  },
+  "translation": {
+    "selectLanguage": "Выберите язык",
+    "selectTargetLanguage": "Выберите целевой язык",
+    "translate": "Перевести",
+    "translating": "Переводим...",
+    "translated": "Переведено!",
+    "failed": "Не удалось выполнить перевод"
   }
 }

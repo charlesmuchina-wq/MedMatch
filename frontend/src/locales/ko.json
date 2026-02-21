@@ -641,9 +641,19 @@
     "companyFailed": "회사 인증에 실패했습니다"
   },
   "companies": {
-    "created": "회사 프로필이 생성되었습니다",
-    "createFailed": "회사를 생성하지 못했습니다",
-    "followFailed": "회사를 팔로우하지 못했습니다"
+    "title": "회사",
+    "searchCompanies": "회사 검색",
+    "addCompany": "회사 추가",
+    "companyName": "회사명",
+    "companyNamePlaceholder": "회사명",
+    "industry": "산업",
+    "selectIndustry": "산업 선택",
+    "description": "설명",
+    "descriptionPlaceholder": "지원자에게 회사에 대해 알려주세요...",
+    "companySize": "회사 규모",
+    "selectSize": "규모 선택",
+    "headquarters": "본사",
+    "headquartersPlaceholder": "도시, 국가"
   },
   "analytics": {
     "loadFailed": "분석을 불러오는 데 실패했습니다"
@@ -1216,5 +1226,13 @@
     "notSupported": "이 기기에서는 생체 인증이 지원되지 않습니다",
     "enterEmail": "이메일을 입력해 주세요",
     "emailPlaceholder": "이메일을 입력하세요"
+  },
+  "translation": {
+    "selectLanguage": "언어 선택",
+    "selectTargetLanguage": "대상 언어 선택",
+    "translate": "번역",
+    "translating": "번역 중...",
+    "translated": "번역 완료!",
+    "failed": "번역 실패"
   }
 }

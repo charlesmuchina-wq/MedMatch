@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Adwumakuw",
+    "searchCompanies": "Hwehwɛ adwumakuw",
+    "addCompany": "Fa adwumakuw ka ho",
+    "companyName": "Adwumakuw din",
+    "companyNamePlaceholder": "Adwumakuw din",
+    "industry": "Adwuma mu",
+    "selectIndustry": "Paw adwuma mu",
+    "description": "Nkyerɛmu",
+    "descriptionPlaceholder": "Ka wo adwumakuw ho asɛm kyerɛ wɔn a wɔrehwehwɛ adwuma...",
+    "companySize": "Adwumakuw kɛse",
+    "selectSize": "Paw kɛse",
+    "headquarters": "Ti adwumadan",
+    "headquartersPlaceholder": "Kuropɔn, ɔman"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Biometric authentication nni hɔ wɔ device yi so",
     "enterEmail": "Yɛsrɛ wo kyerɛw wo email",
     "emailPlaceholder": "Kyerɛw wo email"
+  },
+  "translation": {
+    "selectLanguage": "Paw kasa",
+    "selectTargetLanguage": "Paw kasa a wopɛ sɛ wode kyerɛ mu",
+    "translate": "Kyerɛ mu",
+    "translating": "Rekyerɛ mu...",
+    "translated": "Wɔakyerɛ mu!",
+    "failed": "Nkyerɛ mu no dii nkoguo"
   }
 }

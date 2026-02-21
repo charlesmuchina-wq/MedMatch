@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Ụlọ ọrụ",
+    "searchCompanies": "Chọọ ụlọ ọrụ",
+    "addCompany": "Tinye ụlọ ọrụ",
+    "companyName": "Aha ụlọ ọrụ",
+    "companyNamePlaceholder": "Aha ụlọ ọrụ",
+    "industry": "Ụlọ ọrụ mmepụta",
+    "selectIndustry": "Họrọ ụlọ ọrụ mmepụta",
+    "description": "Nkọwa",
+    "descriptionPlaceholder": "Kọọrọ ndị na-achọ ọrụ gbasara ụlọ ọrụ gị...",
+    "companySize": "Ogo ụlọ ọrụ",
+    "selectSize": "Họrọ ogo",
+    "headquarters": "Isi ụlọ ọrụ",
+    "headquartersPlaceholder": "Obodo, Mba"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Nkwenye biometrik anaghị akwado na ngwaọrụ a",
     "enterEmail": "Biko tinye email gị",
     "emailPlaceholder": "Tinye email gị"
+  },
+  "translation": {
+    "selectLanguage": "Họrọ asụsụ",
+    "selectTargetLanguage": "Họrọ asụsụ ebu n’uche",
+    "translate": "Tụgharịa",
+    "translating": "Na-atụgharị...",
+    "translated": "Atụgharịrịla!",
+    "failed": "Ntụgharị asụsụ dara"
   }
 }

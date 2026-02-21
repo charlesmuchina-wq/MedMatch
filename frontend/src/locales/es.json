@@ -796,9 +796,19 @@
     "searchFailed": "Búsqueda fallida"
   },
   "companies": {
-    "createFailed": "Error al crear empresa",
-    "created": "Perfil de empresa creado",
-    "followFailed": "Error al seguir empresa"
+    "title": "Empresas",
+    "searchCompanies": "Buscar empresas",
+    "addCompany": "Agregar empresa",
+    "companyName": "Nombre de la empresa",
+    "companyNamePlaceholder": "Nombre de la empresa",
+    "industry": "Industria",
+    "selectIndustry": "Seleccionar industria",
+    "description": "Descripción",
+    "descriptionPlaceholder": "Cuéntales a los candidatos sobre tu empresa...",
+    "companySize": "Tamaño de la empresa",
+    "selectSize": "Seleccionar tamaño",
+    "headquarters": "Sede",
+    "headquartersPlaceholder": "Ciudad, País"
   },
   "savedJobs": {
     "saveJobsHint": "Guarda empleos mientras buscas para revisarlos después",
@@ -1238,5 +1248,13 @@
     "notSupported": "La autenticación biométrica no es compatible con este dispositivo",
     "enterEmail": "Por favor, introduce tu correo electrónico",
     "emailPlaceholder": "Introduce tu correo electrónico"
+  },
+  "translation": {
+    "selectLanguage": "Seleccionar idioma",
+    "selectTargetLanguage": "Seleccionar idioma de destino",
+    "translate": "Traducir",
+    "translating": "Traduciendo...",
+    "translated": "¡Traducido!",
+    "failed": "La traducción falló"
   }
 }

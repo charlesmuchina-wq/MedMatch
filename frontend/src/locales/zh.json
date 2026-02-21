@@ -791,9 +791,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "公司",
+    "searchCompanies": "搜索公司",
+    "addCompany": "添加公司",
+    "companyName": "公司名称",
+    "companyNamePlaceholder": "公司名称",
+    "industry": "行业",
+    "selectIndustry": "选择行业",
+    "description": "描述",
+    "descriptionPlaceholder": "向候选人介绍你的公司...",
+    "companySize": "公司规模",
+    "selectSize": "选择规模",
+    "headquarters": "总部",
+    "headquartersPlaceholder": "城市，国家"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1233,5 +1243,13 @@
     "notSupported": "此设备不支持生物识别身份验证",
     "enterEmail": "请输入您的邮箱",
     "emailPlaceholder": "输入您的邮箱"
+  },
+  "translation": {
+    "selectLanguage": "选择语言",
+    "selectTargetLanguage": "选择目标语言",
+    "translate": "翻译",
+    "translating": "正在翻译...",
+    "translated": "已翻译！",
+    "failed": "翻译失败"
   }
 }

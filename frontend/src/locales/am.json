@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "ኩባንያዎች",
+    "searchCompanies": "ኩባንያዎችን ፈልግ",
+    "addCompany": "ኩባንያ አክል",
+    "companyName": "የኩባንያ ስም",
+    "companyNamePlaceholder": "የኩባንያ ስም",
+    "industry": "የኢንዱስትሪ ዘርፍ",
+    "selectIndustry": "የኢንዱስትሪ ዘርፍ ምረጥ",
+    "description": "መግለጫ",
+    "descriptionPlaceholder": "ስለ ኩባንያዎ ለእጩ ተወዳዳሪዎች ይንገሩ...",
+    "companySize": "የኩባንያ መጠን",
+    "selectSize": "መጠን ምረጥ",
+    "headquarters": "ዋና መሥሪያ ቤት",
+    "headquartersPlaceholder": "ከተማ፣ አገር"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "በዚህ መሣሪያ ላይ የባዮሜትሪክ ማረጋገጫ አይደገፍም",
     "enterEmail": "እባክዎ ኢሜይልዎን ያስገቡ",
     "emailPlaceholder": "ኢሜይልዎን ያስገቡ"
+  },
+  "translation": {
+    "selectLanguage": "ቋንቋ ምረጥ",
+    "selectTargetLanguage": "የመድረሻ ቋንቋ ምረጥ",
+    "translate": "ተርጉም",
+    "translating": "በመተርጎም ላይ...",
+    "translated": "ተተርጉሟል!",
+    "failed": "ትርጉም አልተሳካም"
   }
 }

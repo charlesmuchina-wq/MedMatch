@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Izinkampani",
+    "searchCompanies": "Sesha izinkampani",
+    "addCompany": "Engeza Inkampani",
+    "companyName": "Igama Lenkampani",
+    "companyNamePlaceholder": "Igama lenkampani",
+    "industry": "Imboni",
+    "selectIndustry": "Khetha imboni",
+    "description": "Incazelo",
+    "descriptionPlaceholder": "Tshela abafake izicelo ngenkampani yakho...",
+    "companySize": "Usayizi Wenkampani",
+    "selectSize": "Khetha usayizi",
+    "headquarters": "Ihhovisi Elikhulu",
+    "headquartersPlaceholder": "Idolobha, Izwe"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Ukuqinisekisa nge-bhayomethrikhi akusekelwa kule divayisi",
     "enterEmail": "Sicela ufake i-imeyili yakho",
     "emailPlaceholder": "Faka i-imeyili yakho"
+  },
+  "translation": {
+    "selectLanguage": "Khetha ulimi",
+    "selectTargetLanguage": "Khetha ulimi ohlosiwe",
+    "translate": "Humusha",
+    "translating": "Kuyahunyushwa...",
+    "translated": "Kuhunyushiwe!",
+    "failed": "Ukuhumusha kuhlulekile"
   }
 }

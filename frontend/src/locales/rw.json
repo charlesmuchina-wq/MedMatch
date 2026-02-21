@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Ibigo",
+    "searchCompanies": "Shakisha ibigo",
+    "addCompany": "Ongeraho ikigo",
+    "companyName": "Izina ry’ikigo",
+    "companyNamePlaceholder": "Izina ry’ikigo",
+    "industry": "Urwego rw’ubucuruzi",
+    "selectIndustry": "Hitamo urwego",
+    "description": "Ibisobanuro",
+    "descriptionPlaceholder": "Bwira abakandida ku bijyanye n’ikigo cyawe...",
+    "companySize": "Ingano y’ikigo",
+    "selectSize": "Hitamo ingano",
+    "headquarters": "Icyicaro gikuru",
+    "headquartersPlaceholder": "Umujyi, Igihugu"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Kwinjira ukoresheje ibimenyetso by'umubiri ntibishyigikiwe kuri iki gikoresho",
     "enterEmail": "Nyamuneka andika imeri yawe",
     "emailPlaceholder": "Andika imeri yawe"
+  },
+  "translation": {
+    "selectLanguage": "Hitamo ururimi",
+    "selectTargetLanguage": "Hitamo ururimi rugenewe",
+    "translate": "Hindura ururimi",
+    "translating": "Birimo guhindura ururimi...",
+    "translated": "Byahinduwe!",
+    "failed": "Guhindura ururimi byananiranye"
   }
 }

@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Maatskappye",
+    "searchCompanies": "Soek maatskappye",
+    "addCompany": "Voeg maatskappy by",
+    "companyName": "Maatskappynaam",
+    "companyNamePlaceholder": "Maatskappynaam",
+    "industry": "Bedryf",
+    "selectIndustry": "Kies bedryf",
+    "description": "Beskrywing",
+    "descriptionPlaceholder": "Vertel kandidate van jou maatskappy...",
+    "companySize": "Maatskappygrootte",
+    "selectSize": "Kies grootte",
+    "headquarters": "Hoofkwartier",
+    "headquartersPlaceholder": "Stad, Land"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Biometriese verifikasie word nie op hierdie toestel ondersteun nie",
     "enterEmail": "Voer asseblief jou e-posadres in",
     "emailPlaceholder": "Voer jou e-posadres in"
+  },
+  "translation": {
+    "selectLanguage": "Kies taal",
+    "selectTargetLanguage": "Kies doeltaal",
+    "translate": "Vertaal",
+    "translating": "Besig om te vertaal...",
+    "translated": "Vertaal!",
+    "failed": "Vertaling het misluk"
   }
 }

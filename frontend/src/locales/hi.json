@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "कंपनियाँ",
+    "searchCompanies": "कंपनियाँ खोजें",
+    "addCompany": "कंपनी जोड़ें",
+    "companyName": "कंपनी का नाम",
+    "companyNamePlaceholder": "कंपनी का नाम",
+    "industry": "उद्योग",
+    "selectIndustry": "उद्योग चुनें",
+    "description": "विवरण",
+    "descriptionPlaceholder": "उम्मीदवारों को अपनी कंपनी के बारे में बताएं...",
+    "companySize": "कंपनी का आकार",
+    "selectSize": "आकार चुनें",
+    "headquarters": "मुख्यालय",
+    "headquartersPlaceholder": "शहर, देश"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "इस डिवाइस पर बायोमेट्रिक प्रमाणीकरण समर्थित नहीं है",
     "enterEmail": "कृपया अपना ईमेल दर्ज करें",
     "emailPlaceholder": "अपना ईमेल दर्ज करें"
+  },
+  "translation": {
+    "selectLanguage": "भाषा चुनें",
+    "selectTargetLanguage": "लक्ष्य भाषा चुनें",
+    "translate": "अनुवाद करें",
+    "translating": "अनुवाद हो रहा है...",
+    "translated": "अनुवाद हो गया!",
+    "failed": "अनुवाद विफल रहा"
   }
 }

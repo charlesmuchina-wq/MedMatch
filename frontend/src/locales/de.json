@@ -791,9 +791,19 @@
     "searchFailed": "Suche fehlgeschlagen"
   },
   "companies": {
-    "createFailed": "Unternehmen konnte nicht erstellt werden",
-    "created": "Unternehmensprofil erstellt",
-    "followFailed": "Unternehmen konnte nicht gefolgt werden"
+    "title": "Unternehmen",
+    "searchCompanies": "Unternehmen suchen",
+    "addCompany": "Unternehmen hinzufügen",
+    "companyName": "Unternehmensname",
+    "companyNamePlaceholder": "Unternehmensname",
+    "industry": "Branche",
+    "selectIndustry": "Branche auswählen",
+    "description": "Beschreibung",
+    "descriptionPlaceholder": "Erzählen Sie Kandidaten von Ihrem Unternehmen...",
+    "companySize": "Unternehmensgröße",
+    "selectSize": "Größe auswählen",
+    "headquarters": "Hauptsitz",
+    "headquartersPlaceholder": "Stadt, Land"
   },
   "savedJobs": {
     "saveJobsHint": "Speichern Sie Jobs während der Suche, um sie später zu überprüfen",
@@ -1233,5 +1243,13 @@
     "notSupported": "Biometrische Authentifizierung wird auf diesem Gerät nicht unterstützt",
     "enterEmail": "Bitte geben Sie Ihre E-Mail-Adresse ein",
     "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein"
+  },
+  "translation": {
+    "selectLanguage": "Sprache auswählen",
+    "selectTargetLanguage": "Zielsprache auswählen",
+    "translate": "Übersetzen",
+    "translating": "Wird übersetzt...",
+    "translated": "Übersetzt!",
+    "failed": "Übersetzung fehlgeschlagen"
   }
 }

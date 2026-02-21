@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "企業",
+    "searchCompanies": "企業を検索",
+    "addCompany": "企業を追加",
+    "companyName": "企業名",
+    "companyNamePlaceholder": "企業名",
+    "industry": "業界",
+    "selectIndustry": "業界を選択",
+    "description": "説明",
+    "descriptionPlaceholder": "候補者に貴社について伝えてください...",
+    "companySize": "企業規模",
+    "selectSize": "規模を選択",
+    "headquarters": "本社所在地",
+    "headquartersPlaceholder": "市区町村、国"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "このデバイスでは生体認証はサポートされていません",
     "enterEmail": "メールアドレスを入力してください",
     "emailPlaceholder": "メールアドレスを入力"
+  },
+  "translation": {
+    "selectLanguage": "言語を選択",
+    "selectTargetLanguage": "翻訳先の言語を選択",
+    "translate": "翻訳",
+    "translating": "翻訳中...",
+    "translated": "翻訳完了！",
+    "failed": "翻訳に失敗しました"
   }
 }

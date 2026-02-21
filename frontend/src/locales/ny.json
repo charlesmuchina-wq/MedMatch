@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Makampani",
+    "searchCompanies": "Sakani makampani",
+    "addCompany": "Onjezani kampani",
+    "companyName": "Dzina la kampani",
+    "companyNamePlaceholder": "Dzina la kampani",
+    "industry": "Makampani (gawo la ntchito)",
+    "selectIndustry": "Sankhani gawo la ntchito",
+    "description": "Kufotokozera",
+    "descriptionPlaceholder": "Uzani ofuna ntchito za kampani yanu...",
+    "companySize": "Kukula kwa kampani",
+    "selectSize": "Sankhani kukula",
+    "headquarters": "Likulu",
+    "headquartersPlaceholder": "Mzinda, Dziko"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Kutsimikizira kudzera mu biometric sikugwirizana ndi chipangizo ichi",
     "enterEmail": "Chonde lowetsani imelo yanu",
     "emailPlaceholder": "Lowetsani imelo yanu"
+  },
+  "translation": {
+    "selectLanguage": "Sankhani chilankhulo",
+    "selectTargetLanguage": "Sankhani chilankhulo chomwe mukufuna kutanthauzirako",
+    "translate": "Tanthauzirani",
+    "translating": "Kukutanthauzira...",
+    "translated": "Zatanthauziridwa!",
+    "failed": "Kutanthauzira kwalephera"
   }
 }

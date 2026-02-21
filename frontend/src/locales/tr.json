@@ -641,9 +641,19 @@
     "companyFailed": "Şirket doğrulaması başarısız oldu"
   },
   "companies": {
-    "created": "Şirket profili oluşturuldu",
-    "createFailed": "Şirket oluşturulamadı",
-    "followFailed": "Şirket takip edilemedi"
+    "title": "Şirketler",
+    "searchCompanies": "Şirket ara",
+    "addCompany": "Şirket Ekle",
+    "companyName": "Şirket Adı",
+    "companyNamePlaceholder": "Şirket adı",
+    "industry": "Sektör",
+    "selectIndustry": "Sektör seçin",
+    "description": "Açıklama",
+    "descriptionPlaceholder": "Adaylara şirketinizden bahsedin...",
+    "companySize": "Şirket Büyüklüğü",
+    "selectSize": "Büyüklük seçin",
+    "headquarters": "Merkez",
+    "headquartersPlaceholder": "Şehir, Ülke"
   },
   "analytics": {
     "loadFailed": "Analitik veriler yüklenemedi"
@@ -1216,5 +1226,13 @@
     "notSupported": "Bu cihazda biyometrik kimlik doğrulama desteklenmiyor",
     "enterEmail": "Lütfen e-posta adresinizi girin",
     "emailPlaceholder": "E-posta adresinizi girin"
+  },
+  "translation": {
+    "selectLanguage": "Dil seçin",
+    "selectTargetLanguage": "Hedef dili seçin",
+    "translate": "Çevir",
+    "translating": "Çevriliyor...",
+    "translated": "Çevrildi!",
+    "failed": "Çeviri başarısız oldu"
   }
 }

@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Àwọn ilé-iṣẹ́",
+    "searchCompanies": "Wá àwọn ilé-iṣẹ́",
+    "addCompany": "Fi ilé-iṣẹ́ kún un",
+    "companyName": "Orúkọ ilé-iṣẹ́",
+    "companyNamePlaceholder": "Orúkọ ilé-iṣẹ́",
+    "industry": "Ilé-iṣẹ́/Ọjà",
+    "selectIndustry": "Yan ilé-iṣẹ́/ọjà",
+    "description": "Àpejuwe",
+    "descriptionPlaceholder": "Sọ fún àwọn olùdíje nípa ilé-iṣẹ́ rẹ...",
+    "companySize": "Ìwọn ilé-iṣẹ́",
+    "selectSize": "Yan ìwọn",
+    "headquarters": "Ọ́fíìsì àgbà",
+    "headquartersPlaceholder": "Ìlú, Orílẹ̀-èdè"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Ìmúlò ìdánimọ̀ biometrics kò ṣeé lo lórí ẹrọ yìí",
     "enterEmail": "Jọ̀wọ́ tẹ imeeli rẹ wọlé",
     "emailPlaceholder": "Tẹ imeeli rẹ wọlé"
+  },
+  "translation": {
+    "selectLanguage": "Yan èdè",
+    "selectTargetLanguage": "Yan èdè ibi-afẹ́",
+    "translate": "Tumọ̀",
+    "translating": "Ń tumọ̀...",
+    "translated": "Ti tumọ̀!",
+    "failed": "Ìtumọ̀ kùnà"
   }
 }

@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Makambani",
+    "searchCompanies": "Tsvaga makambani",
+    "addCompany": "Wedzera Kambani",
+    "companyName": "Zita reKambani",
+    "companyNamePlaceholder": "Zita rekambani",
+    "industry": "Indasitiri",
+    "selectIndustry": "Sarudza indasitiri",
+    "description": "Tsananguro",
+    "descriptionPlaceholder": "Udza vanokumbira mabasa nezvekambani yako...",
+    "companySize": "Hukuru hweKambani",
+    "selectSize": "Sarudza hukuru",
+    "headquarters": "Hofisi huru",
+    "headquartersPlaceholder": "Guta, Nyika"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Kusimbisa kuzivikanwa nezviyero zvemuviri hakutsigirwi pamudziyo uyu",
     "enterEmail": "Ndapota isa email yako",
     "emailPlaceholder": "Isa email yako"
+  },
+  "translation": {
+    "selectLanguage": "Sarudza mutauro",
+    "selectTargetLanguage": "Sarudza mutauro waunoda kushandurira",
+    "translate": "Shandura",
+    "translating": "Kushandura...",
+    "translated": "Zvashandurwa!",
+    "failed": "Kushandura kwatadza"
   }
 }

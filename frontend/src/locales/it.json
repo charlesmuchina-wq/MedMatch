@@ -641,9 +641,19 @@
     "companyFailed": "Verifica dell’azienda non riuscita"
   },
   "companies": {
-    "created": "Profilo aziendale creato",
-    "createFailed": "Impossibile creare l'azienda",
-    "followFailed": "Impossibile seguire l'azienda"
+    "title": "Aziende",
+    "searchCompanies": "Cerca aziende",
+    "addCompany": "Aggiungi azienda",
+    "companyName": "Nome azienda",
+    "companyNamePlaceholder": "Nome dell'azienda",
+    "industry": "Settore",
+    "selectIndustry": "Seleziona settore",
+    "description": "Descrizione",
+    "descriptionPlaceholder": "Racconta ai candidati della tua azienda...",
+    "companySize": "Dimensioni dell'azienda",
+    "selectSize": "Seleziona dimensione",
+    "headquarters": "Sede centrale",
+    "headquartersPlaceholder": "Città, Paese"
   },
   "analytics": {
     "loadFailed": "Impossibile caricare le analisi"
@@ -1216,5 +1226,13 @@
     "notSupported": "L'autenticazione biometrica non è supportata su questo dispositivo",
     "enterEmail": "Inserisci il tuo indirizzo email",
     "emailPlaceholder": "Inserisci la tua email"
+  },
+  "translation": {
+    "selectLanguage": "Seleziona la lingua",
+    "selectTargetLanguage": "Seleziona la lingua di destinazione",
+    "translate": "Traduci",
+    "translating": "Traduzione in corso...",
+    "translated": "Tradotto!",
+    "failed": "Traduzione non riuscita"
   }
 }

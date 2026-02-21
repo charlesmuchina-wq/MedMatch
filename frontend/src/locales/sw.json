@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Makampuni",
+    "searchCompanies": "Tafuta makampuni",
+    "addCompany": "Ongeza kampuni",
+    "companyName": "Jina la kampuni",
+    "companyNamePlaceholder": "Jina la kampuni",
+    "industry": "Sekta",
+    "selectIndustry": "Chagua sekta",
+    "description": "Maelezo",
+    "descriptionPlaceholder": "Waeleze waombaji kuhusu kampuni yako...",
+    "companySize": "Ukubwa wa kampuni",
+    "selectSize": "Chagua ukubwa",
+    "headquarters": "Makao makuu",
+    "headquartersPlaceholder": "Jiji, Nchi"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Uthibitishaji wa biometria hauauniwi kwenye kifaa hiki",
     "enterEmail": "Tafadhali ingiza barua pepe yako",
     "emailPlaceholder": "Ingiza barua pepe yako"
+  },
+  "translation": {
+    "selectLanguage": "Chagua lugha",
+    "selectTargetLanguage": "Chagua lugha lengwa",
+    "translate": "Tafsiri",
+    "translating": "Inatafsiri...",
+    "translated": "Imetafsiriwa!",
+    "failed": "Tafsiri imeshindwa"
   }
 }

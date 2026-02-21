@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Kompaniilee",
+    "searchCompanies": "Kompaniilee barbaadi",
+    "addCompany": "Kompaanii dabali",
+    "companyName": "Maqaa Kompaanii",
+    "companyNamePlaceholder": "Maqaa kompaanii",
+    "industry": "Indaastirii",
+    "selectIndustry": "Indaastirii filadhu",
+    "description": "Ibsa",
+    "descriptionPlaceholder": "Kaadhimamtootaaf waa'ee kompaanii kee himi...",
+    "companySize": "Hammamtaa Kompaanii",
+    "selectSize": "Hammamtaa filadhu",
+    "headquarters": "Waajjira Guddaa",
+    "headquartersPlaceholder": "Magaalaa, Biyya"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Meeshaa kana irratti mirkaneessi baayomeetiriikii hin deeggaramu",
     "enterEmail": "Maaloo iimeelii kee galchi",
     "emailPlaceholder": "Iimeelii kee galchi"
+  },
+  "translation": {
+    "selectLanguage": "Afaan filadhu",
+    "selectTargetLanguage": "Afaan galtee filadhu",
+    "translate": "Hiiki",
+    "translating": "Hiikaa jira...",
+    "translated": "Hiikameera!",
+    "failed": "Hiikni hin milkoofne"
   }
 }

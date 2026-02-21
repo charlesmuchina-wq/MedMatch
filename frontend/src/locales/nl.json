@@ -641,9 +641,19 @@
     "companyFailed": "Bedrijfsverificatie mislukt"
   },
   "companies": {
-    "created": "Bedrijfsprofiel aangemaakt",
-    "createFailed": "Kon het bedrijf niet aanmaken",
-    "followFailed": "Kon het bedrijf niet volgen"
+    "title": "Bedrijven",
+    "searchCompanies": "Bedrijven zoeken",
+    "addCompany": "Bedrijf toevoegen",
+    "companyName": "Bedrijfsnaam",
+    "companyNamePlaceholder": "Bedrijfsnaam",
+    "industry": "Branche",
+    "selectIndustry": "Selecteer branche",
+    "description": "Beschrijving",
+    "descriptionPlaceholder": "Vertel kandidaten over je bedrijf...",
+    "companySize": "Bedrijfsgrootte",
+    "selectSize": "Selecteer grootte",
+    "headquarters": "Hoofdkantoor",
+    "headquartersPlaceholder": "Stad, land"
   },
   "analytics": {
     "loadFailed": "Kan analytics niet laden"
@@ -1216,5 +1226,13 @@
     "notSupported": "Biometrische authenticatie wordt niet ondersteund op dit apparaat",
     "enterEmail": "Voer je e-mailadres in",
     "emailPlaceholder": "Voer je e-mailadres in"
+  },
+  "translation": {
+    "selectLanguage": "Selecteer taal",
+    "selectTargetLanguage": "Selecteer doeltaal",
+    "translate": "Vertalen",
+    "translating": "Bezig met vertalen...",
+    "translated": "Vertaald!",
+    "failed": "Vertaling mislukt"
   }
 }

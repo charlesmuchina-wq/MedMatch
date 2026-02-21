@@ -641,9 +641,19 @@
     "companyFailed": "Xác minh công ty thất bại"
   },
   "companies": {
-    "created": "Hồ sơ công ty đã được tạo",
-    "createFailed": "Không thể tạo công ty",
-    "followFailed": "Không thể theo dõi công ty"
+    "title": "Công ty",
+    "searchCompanies": "Tìm kiếm công ty",
+    "addCompany": "Thêm công ty",
+    "companyName": "Tên công ty",
+    "companyNamePlaceholder": "Tên công ty",
+    "industry": "Ngành nghề",
+    "selectIndustry": "Chọn ngành nghề",
+    "description": "Mô tả",
+    "descriptionPlaceholder": "Giới thiệu với ứng viên về công ty của bạn...",
+    "companySize": "Quy mô công ty",
+    "selectSize": "Chọn quy mô",
+    "headquarters": "Trụ sở chính",
+    "headquartersPlaceholder": "Thành phố, Quốc gia"
   },
   "analytics": {
     "loadFailed": "Không thể tải dữ liệu phân tích"
@@ -1216,5 +1226,13 @@
     "notSupported": "Thiết bị này không hỗ trợ xác thực sinh trắc học",
     "enterEmail": "Vui lòng nhập email của bạn",
     "emailPlaceholder": "Nhập email của bạn"
+  },
+  "translation": {
+    "selectLanguage": "Chọn ngôn ngữ",
+    "selectTargetLanguage": "Chọn ngôn ngữ đích",
+    "translate": "Dịch",
+    "translating": "Đang dịch...",
+    "translated": "Đã dịch!",
+    "failed": "Dịch thất bại"
   }
 }

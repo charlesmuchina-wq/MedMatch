@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Amakampuni",
+    "searchCompanies": "Noonya amakampuni",
+    "addCompany": "Yongera Kompanyi",
+    "companyName": "Erinnya lya Kampuni",
+    "companyNamePlaceholder": "Erinnya lya kampuni",
+    "industry": "Ekitongole",
+    "selectIndustry": "Londa ekitongole",
+    "description": "Ennyonnyola",
+    "descriptionPlaceholder": "Tegeeza abeesimbyewo ku kampuni yo...",
+    "companySize": "Obunene bwa Kampuni",
+    "selectSize": "Londa obunene",
+    "headquarters": "Ekitundu ekikulu",
+    "headquartersPlaceholder": "Ekibuga, Eggwanga"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Okukakasa nga okozesa ebikwata ku mubiri tekukolagana na kyuma kino",
     "enterEmail": "Nsaba oteeke email yo",
     "emailPlaceholder": "Teeka email yo"
+  },
+  "translation": {
+    "selectLanguage": "Londa olulimi",
+    "selectTargetLanguage": "Londa olulimi lw’ogenderera",
+    "translate": "Vvuunula",
+    "translating": "Kivvuunulwa...",
+    "translated": "Kivvuunuddwa!",
+    "failed": "Okuvvuunula kulemye"
   }
 }

@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Kompani yi",
+    "searchCompanies": "Wut kompani yi",
+    "addCompany": "Yokk kompani",
+    "companyName": "Tur-u kompani",
+    "companyNamePlaceholder": "Tur-u kompani",
+    "industry": "Sektëër",
+    "selectIndustry": "Tànn sektëër",
+    "description": "Melo",
+    "descriptionPlaceholder": "Waxal kandidaa yi seen kompani...",
+    "companySize": "Rëyaay-u kompani",
+    "selectSize": "Tànn rëyaay",
+    "headquarters": "Boppu dëkk",
+    "headquartersPlaceholder": "Dëkk, Réew"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Wóorug biometri du ñu ko taage ci aparey bii",
     "enterEmail": "Jëfandikooal, dugal sa imeel",
     "emailPlaceholder": "Dugal sa imeel"
+  },
+  "translation": {
+    "selectLanguage": "Tànn làkk",
+    "selectTargetLanguage": "Tànn làkk bi ñuy tekki",
+    "translate": "Tekki",
+    "translating": "Mi ngi tekki...",
+    "translated": "Ñu tekki na!",
+    "failed": "Tekki bi jàllul"
   }
 }

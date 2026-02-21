@@ -641,9 +641,19 @@
     "companyFailed": "Weryfikacja firmy nie powiodła się"
   },
   "companies": {
-    "created": "Profil firmy został utworzony",
-    "createFailed": "Nie udało się utworzyć firmy",
-    "followFailed": "Nie udało się obserwować firmy"
+    "title": "Firmy",
+    "searchCompanies": "Szukaj firm",
+    "addCompany": "Dodaj firmę",
+    "companyName": "Nazwa firmy",
+    "companyNamePlaceholder": "Nazwa firmy",
+    "industry": "Branża",
+    "selectIndustry": "Wybierz branżę",
+    "description": "Opis",
+    "descriptionPlaceholder": "Opowiedz kandydatom o swojej firmie...",
+    "companySize": "Wielkość firmy",
+    "selectSize": "Wybierz wielkość",
+    "headquarters": "Siedziba",
+    "headquartersPlaceholder": "Miasto, kraj"
   },
   "analytics": {
     "loadFailed": "Nie udało się załadować analityki"
@@ -1216,5 +1226,13 @@
     "notSupported": "Uwierzytelnianie biometryczne nie jest obsługiwane na tym urządzeniu",
     "enterEmail": "Wpisz swój adres e-mail",
     "emailPlaceholder": "Wpisz swój adres e-mail"
+  },
+  "translation": {
+    "selectLanguage": "Wybierz język",
+    "selectTargetLanguage": "Wybierz język docelowy",
+    "translate": "Tłumacz",
+    "translating": "Tłumaczenie...",
+    "translated": "Przetłumaczono!",
+    "failed": "Tłumaczenie nie powiodło się"
   }
 }

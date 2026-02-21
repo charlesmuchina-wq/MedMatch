@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Iinkampani",
+    "searchCompanies": "Khangela iinkampani",
+    "addCompany": "Yongeza inkampani",
+    "companyName": "Igama lenkampani",
+    "companyNamePlaceholder": "Igama lenkampani",
+    "industry": "Icandelo",
+    "selectIndustry": "Khetha icandelo",
+    "description": "Inkcazelo",
+    "descriptionPlaceholder": "Xelela abagqatswa ngenkampani yakho...",
+    "companySize": "Ubungakanani benkampani",
+    "selectSize": "Khetha ubungakanani",
+    "headquarters": "Ikomkhulu",
+    "headquartersPlaceholder": "Isixeko, Ilizwe"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Uqinisekiso lwebhiyometriki aluxhaswanga kwesi sixhobo",
     "enterEmail": "Nceda ngenisa i-imeyile yakho",
     "emailPlaceholder": "Ngenisa i-imeyile yakho"
+  },
+  "translation": {
+    "selectLanguage": "Khetha ulwimi",
+    "selectTargetLanguage": "Khetha ulwimi olujoliswe kulo",
+    "translate": "Guqulela",
+    "translating": "Kuyaguqulelwa...",
+    "translated": "Kuguqulelwe!",
+    "failed": "Uguqulelo aluphumelelanga"
   }
 }

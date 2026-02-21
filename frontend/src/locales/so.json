@@ -774,9 +774,19 @@
     "searchFailed": "Search failed"
   },
   "companies": {
-    "createFailed": "Failed to create company",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company"
+    "title": "Shirkado",
+    "searchCompanies": "Raadi shirkado",
+    "addCompany": "Ku dar shirkad",
+    "companyName": "Magaca shirkadda",
+    "companyNamePlaceholder": "Magaca shirkadda",
+    "industry": "Warshad",
+    "selectIndustry": "Dooro warshad",
+    "description": "Sharaxaad",
+    "descriptionPlaceholder": "U sheeg musharraxiinta wax ku saabsan shirkaddaada...",
+    "companySize": "Cabbirka shirkadda",
+    "selectSize": "Dooro cabbirka",
+    "headquarters": "Xarunta dhexe",
+    "headquartersPlaceholder": "Magaalo, Dal"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1216,5 +1226,13 @@
     "notSupported": "Xaqiijinta bayometriga laguma taageero qalabkan",
     "enterEmail": "Fadlan geli iimaylkaaga",
     "emailPlaceholder": "Geli iimaylkaaga"
+  },
+  "translation": {
+    "selectLanguage": "Dooro luqad",
+    "selectTargetLanguage": "Dooro luqadda la beegsanayo",
+    "translate": "Turjun",
+    "translating": "Turjumid...",
+    "translated": "Waa la turjumay!",
+    "failed": "Turjumaaddu waa guuldareysatay"
   }
 }
