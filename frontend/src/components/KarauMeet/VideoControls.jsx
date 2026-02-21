@@ -5,6 +5,7 @@ import {
   MessageSquare, Users, Settings, Sparkles,
   Circle, Square
 } from 'lucide-react';
+import { useTranslation } from '@/utils/i18n';
 
 /**
  * Video call control bar component
@@ -27,6 +28,7 @@ const VideoControls = ({
   onSetActivePanel,
   onLeaveMeeting
 }) => {
+  const { t } = useTranslation();
   return (
     <div className="h-20 bg-slate-800 border-t border-slate-700 flex items-center justify-center gap-2">
       {/* Audio */}
