@@ -15,6 +15,7 @@ import { useTranslation } from '@/utils/i18n';
  * Chat panel component for in-meeting messaging
  */
 export const ChatPanel = ({ messages, onSendMessage }) => {
+  const { t } = useTranslation();
   const [message, setMessage] = useState('');
   const scrollRef = useRef(null);
 
