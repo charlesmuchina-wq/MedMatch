@@ -131,6 +131,7 @@ const GlobalLanguageSelector = ({ compact = false }) => {
   const genderRules = useGenderRules();
   const currentLang = getLanguageInfo(language);
   const [grammaticalGender, setGrammaticalGender] = useState(null);
+  const isBrowserTranslating = useBrowserTranslationDetection();
 
   // Load user's gender preference
   useEffect(() => {
@@ -192,6 +193,18 @@ const GlobalLanguageSelector = ({ compact = false }) => {
 
   // Check if current language has grammatical gender
   const currentLangHasGender = LANGUAGE_GENDER_RULES[language]?.hasGender || false;
+
+  // If browser translation is active, show indicator instead of selector
+  if (isBrowserTranslating) {
+    return (
+      <div className="flex items-center gap-2 px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800" data-testid="browser-translation-indicator">
+        <Languages className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+        <span className="text-xs text-blue-700 dark:text-blue-300 hidden sm:inline">
+          {t("language.browserTranslationActive")}
+        </span>
+      </div>
+    );
+  }
 
   if (compact) {
     return (
