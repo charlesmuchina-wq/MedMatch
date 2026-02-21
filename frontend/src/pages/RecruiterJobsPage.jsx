@@ -327,10 +327,10 @@ const RecruiterJobsPage = ({ user }) => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="company">Company *</Label>
+                <Label htmlFor="company">{t("recruiter.companyName")} *</Label>
                 <Input
                   id="company"
-                  placeholder="Your company name"
+                  placeholder={t("recruiter.companyNamePlaceholder")}
                   value={formData.company}
                   onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                   data-testid="job-company-input"
@@ -340,20 +340,20 @@ const RecruiterJobsPage = ({ user }) => {
 
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="location">Location *</Label>
+                <Label htmlFor="location">{t("recruiter.location")} *</Label>
                 <Input
                   id="location"
-                  placeholder="e.g., Remote, USA"
+                  placeholder={t("recruiter.locationPlaceholder")}
                   value={formData.location}
                   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                   data-testid="job-location-input"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="salary">Salary Range</Label>
+                <Label htmlFor="salary">{t("recruiter.salaryRange")}</Label>
                 <Input
                   id="salary"
-                  placeholder="e.g., $80,000 - $120,000"
+                  placeholder={t("recruiter.salaryPlaceholder")}
                   value={formData.salary}
                   onChange={(e) => setFormData({ ...formData, salary: e.target.value })}
                 />
@@ -361,10 +361,10 @@ const RecruiterJobsPage = ({ user }) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description">Job Description *</Label>
+              <Label htmlFor="description">{t("recruiter.jobDescription")} *</Label>
               <Textarea
                 id="description"
-                placeholder="Describe the role, responsibilities, and requirements..."
+                placeholder={t("recruiter.descriptionPlaceholder")}
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 className="min-h-[150px]"
