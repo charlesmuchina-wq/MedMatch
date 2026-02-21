@@ -13,11 +13,13 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
 const KarauMeetLanding = ({ user }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [meetings, setMeetings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [joinMeetingId, setJoinMeetingId] = useState('');
@@ -237,7 +239,7 @@ const KarauMeetLanding = ({ user }) => {
                           onClick={() => navigate(`/karau-meet/room/${meeting.meeting_id}`)}
                           className="bg-turquoise hover:bg-turquoise/80"
                         >
-                          {meeting.status === 'active' ? 'Rejoin' : 'Start'}
+                          {meeting.status === 'active' ? t("meeting.rejoin") : t("meeting.start")}
                         </Button>
                       )}
                     </div>
