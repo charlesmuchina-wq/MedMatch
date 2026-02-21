@@ -25,6 +25,7 @@ import api from "@/utils/apiClient";
 const API = process.env.REACT_APP_BACKEND_URL;
 
 const SubscriptionManager = ({ user }) => {
+  const { t } = useTranslation();
   const [subscription, setSubscription] = useState(null);
   const [billingHistory, setBillingHistory] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -323,12 +324,12 @@ const SubscriptionManager = ({ user }) => {
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                  <AlertDialogCancel>Keep Subscription</AlertDialogCancel>
+                  <AlertDialogCancel>{t("subscription.keepSubscription")}</AlertDialogCancel>
                   <AlertDialogAction 
                     onClick={handleCancelSubscription}
                     className="bg-red-600 hover:bg-red-700"
                   >
-                    {actionLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Cancel Subscription"}
+                    {actionLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("subscription.cancelSubscription")}
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
