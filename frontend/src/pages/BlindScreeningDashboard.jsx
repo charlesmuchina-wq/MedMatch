@@ -221,7 +221,7 @@ const BlindScreeningDashboard = () => {
                 Skills (comma-separated)
               </label>
               <Input
-                placeholder="e.g., ICU, Critical Care, Python"
+                placeholder={t("blindScreening.skillsPlaceholder")}
                 value={searchSkills}
                 onChange={(e) => setSearchSkills(e.target.value)}
                 data-testid="search-skills-input"
@@ -232,7 +232,7 @@ const BlindScreeningDashboard = () => {
                 Keywords
               </label>
               <Input
-                placeholder="e.g., Senior, Manager, Remote"
+                placeholder={t("blindScreening.keywordsPlaceholder")}
                 value={searchKeywords}
                 onChange={(e) => setSearchKeywords(e.target.value)}
                 data-testid="search-keywords-input"
@@ -297,7 +297,7 @@ const BlindScreeningDashboard = () => {
               <textarea
                 className="w-full mt-1.5 p-3 border rounded-lg resize-none"
                 rows={3}
-                placeholder="Hi, I found your profile interesting for our open position..."
+                placeholder={t("blindScreening.messagePlaceholder")}
                 value={requestMessage}
                 onChange={(e) => setRequestMessage(e.target.value)}
               />
