@@ -414,7 +414,9 @@
     "research": "Research",
     "researchFor": "Research for",
     "typeAnswerPlaceholder": "Type your answer here... (You have 2 minutes)",
-    "skipQuestion": "Skip Question"
+    "skipQuestion": "Skip Question",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
+    "companyPlaceholder": "e.g., Medtronic"
   },
   "biometric": {
     "title": "Biometric Login",
