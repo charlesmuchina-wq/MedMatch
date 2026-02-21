@@ -690,12 +690,25 @@ const GettingStartedSection = memo(() => {
 });
 
 const VideoTutorialsPage = () => {
+  const { t, language: appLanguage } = useTranslation();
   const [activeTab, setActiveTab] = useState('videos');
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  // Initialize with app language, mapped to tutorial language code
+  const [selectedLanguage, setSelectedLanguage] = useState(() => {
+    const mappedLang = mapAppLangToTutorial(appLanguage);
+    return LANGUAGES.find(l => l.code === mappedLang) ? mappedLang : 'en';
+  });
   const [showSubtitles, setShowSubtitles] = useState(true);
+
+  // Sync video language when app language changes
+  useEffect(() => {
+    const mappedLang = mapAppLangToTutorial(appLanguage);
+    if (LANGUAGES.find(l => l.code === mappedLang)) {
+      setSelectedLanguage(mappedLang);
+    }
+  }, [appLanguage]);
 
   useEffect(() => {
     fetchVideos();
