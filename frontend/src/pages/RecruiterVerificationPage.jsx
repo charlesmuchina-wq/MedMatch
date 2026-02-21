@@ -155,7 +155,7 @@ const RecruiterVerificationPage = () => {
                 <div className="col-span-2">
                   <label className="text-sm font-medium">Company Name *</label>
                   <Input
-                    placeholder="e.g., City Medical Center"
+                    placeholder={t("recruiterVerification.companyPlaceholder")}
                     value={formData.company_name}
                     onChange={(e) => handleChange("company_name", e.target.value)}
                     data-testid="company-name-input"
@@ -165,7 +165,7 @@ const RecruiterVerificationPage = () => {
                 <div>
                   <label className="text-sm font-medium">Company Website</label>
                   <Input
-                    placeholder="https://example.com"
+                    placeholder={t("recruiterVerification.websitePlaceholder")}
                     value={formData.company_website}
                     onChange={(e) => handleChange("company_website", e.target.value)}
                   />
@@ -174,7 +174,7 @@ const RecruiterVerificationPage = () => {
                 <div>
                   <label className="text-sm font-medium">LinkedIn Company Page</label>
                   <Input
-                    placeholder="https://linkedin.com/company/..."
+                    placeholder={t("recruiterVerification.linkedinPlaceholder")}
                     value={formData.company_linkedin}
                     onChange={(e) => handleChange("company_linkedin", e.target.value)}
                   />
