@@ -713,7 +713,10 @@
     "yourName": "Your name",
     "enterCode": "Enter 6-digit code",
     "verifyAndSignIn": "Verify & Sign In",
-    "changePhoneNumber": "Change phone number"
+    "changePhoneNumber": "Change phone number",
+    "emailPlaceholder": "you@example.com",
+    "passwordPlaceholder": "••••••••",
+    "phonePlaceholder": "+1 (555) 123-4567"
   },
   "onboarding": {
     "welcome": "Welcome to MedMatch!",
