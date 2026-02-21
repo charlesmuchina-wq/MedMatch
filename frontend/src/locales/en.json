@@ -83,6 +83,44 @@
     "daily": "Daily Digest",
     "weekly": "Weekly Summary"
   },
+  "reviews": {
+    "title": "Reviews",
+    "yourResponse": "Your Response",
+    "responsePlaceholder": "Thank the reviewer, provide context, or address any feedback professionally...",
+    "responseVisibility": "Your response will be visible to recruiters viewing your profile",
+    "submitResponse": "Submit Response",
+    "noReviews": "No reviews yet"
+  },
+  "capa": {
+    "title": "Title",
+    "titlePlaceholder": "Brief title of the nonconformance",
+    "problemStatement": "Problem Statement",
+    "problemStatementPlaceholder": "Detailed description of the issue...",
+    "capaType": "CAPA Type",
+    "severity": "Severity",
+    "severityCritical": "Critical",
+    "severityHigh": "High",
+    "severityMedium": "Medium",
+    "severityLow": "Low",
+    "source": "Source",
+    "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
+    "impactedProcesses": "Impacted Processes",
+    "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
+    "titleAndStatementRequired": "Title and problem statement are required"
+  },
+  "recruiter": {
+    "companyName": "Company",
+    "companyNamePlaceholder": "Your company name",
+    "location": "Location",
+    "locationPlaceholder": "e.g., Remote, USA",
+    "salaryRange": "Salary Range",
+    "salaryPlaceholder": "e.g., $80,000 - $120,000",
+    "jobDescription": "Job Description",
+    "descriptionPlaceholder": "Describe the role, responsibilities, and requirements...",
+    "postJob": "Post Job",
+    "editJob": "Edit Job",
+    "viewApplicants": "View Applicants"
+  },
   "nav": {
     "dashboard": "Dashboard",
     "myResume": "My Resume",
