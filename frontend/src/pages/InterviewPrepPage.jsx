@@ -897,16 +897,16 @@ Make it more concise, impactful, and professional while keeping the STAR structu
             <CardContent className="space-y-4">
               <div className="flex gap-3">
                 <Input
-                  placeholder="Enter company name"
+                  placeholder={t("interview.enterCompanyName")}
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
                   className="flex-1 dark:bg-slate-800"
                 />
                 <Button onClick={researchCompany} disabled={researchingCompany || !company}>
                   {researchingCompany ? (
-                    <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Researching...</>
+                    <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("interview.researching")}</>
                   ) : (
-                    <><BookOpen className="w-4 h-4 mr-2" /> Research</>
+                    <><BookOpen className="w-4 h-4 mr-2" /> {t("interview.research")}</>
                   )}
                 </Button>
               </div>
@@ -914,7 +914,7 @@ Make it more concise, impactful, and professional while keeping the STAR structu
               {companyResearch && (
                 <div className="space-y-4 mt-4">
                   <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
-                    <h4 className="font-medium text-slate-900 dark:text-slate-100 mb-2">Research for {companyResearch.company}</h4>
+                    <h4 className="font-medium text-slate-900 dark:text-slate-100 mb-2">{t("interview.researchFor")} {companyResearch.company}</h4>
                     <div className="text-sm text-slate-600 dark:text-slate-400 whitespace-pre-wrap">{companyResearch.research}</div>
                   </div>
                 </div>
