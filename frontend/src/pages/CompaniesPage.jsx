@@ -385,9 +385,9 @@ const CompaniesPage = ({ user }) => {
             </div>
 
             <div>
-              <label className="text-sm font-medium mb-2 block">Description *</label>
+              <label className="text-sm font-medium mb-2 block">{t("companies.description")} *</label>
               <Textarea
-                placeholder="Tell candidates about your company..."
+                placeholder={t("companies.descriptionPlaceholder")}
                 value={createForm.description}
                 onChange={(e) => setCreateForm({...createForm, description: e.target.value})}
                 rows={4}
@@ -396,13 +396,13 @@ const CompaniesPage = ({ user }) => {
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium mb-2 block">Company Size</label>
+                <label className="text-sm font-medium mb-2 block">{t("companies.companySize")}</label>
                 <Select
                   value={createForm.size}
                   onValueChange={(value) => setCreateForm({...createForm, size: value})}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select size" />
+                    <SelectValue placeholder={t("companies.selectSize")} />
                   </SelectTrigger>
                   <SelectContent>
                     {COMPANY_SIZES.map((size) => (
@@ -413,9 +413,9 @@ const CompaniesPage = ({ user }) => {
               </div>
               
               <div>
-                <label className="text-sm font-medium mb-2 block">Headquarters</label>
+                <label className="text-sm font-medium mb-2 block">{t("companies.headquarters")}</label>
                 <Input
-                  placeholder="City, Country"
+                  placeholder={t("companies.headquartersPlaceholder")}
                   value={createForm.headquarters}
                   onChange={(e) => setCreateForm({...createForm, headquarters: e.target.value})}
                 />
