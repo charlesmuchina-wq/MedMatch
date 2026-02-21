@@ -379,7 +379,7 @@ export const LanguageSelector = ({ value, onChange, label = "Preferred Language"
       {label && <label className="text-sm font-medium">{label}</label>}
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger>
-          <SelectValue placeholder="Select language">
+          <SelectValue placeholder={t("translation.selectLanguage")}>
             {value && languages.find(l => l.code === value) && (
               <span className="flex items-center gap-2">
                 <span>{languages.find(l => l.code === value)?.flag}</span>
