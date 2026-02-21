@@ -322,7 +322,7 @@ const RejectDialog = ({ review, isOpen, onClose, onConfirm }) => {
               Rejection Reason (optional)
             </label>
             <Textarea
-              placeholder="Provide a reason for rejection..."
+              placeholder={t("adminReviewModeration.rejectionReasonPlaceholder")}
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               rows={3}
@@ -502,7 +502,7 @@ const AdminReviewModerationPage = () => {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
             <Input
-              placeholder="Search by reviewer, candidate, or content..."
+              placeholder={t("adminReviewModeration.searchPlaceholder")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"

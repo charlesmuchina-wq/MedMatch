@@ -184,7 +184,7 @@ const RecruiterVerificationPage = () => {
                   <label className="text-sm font-medium">Business Email *</label>
                   <Input
                     type="email"
-                    placeholder="you@yourcompany.com"
+                    placeholder={t("recruiterVerification.emailPlaceholder")}
                     value={formData.business_email}
                     onChange={(e) => handleChange("business_email", e.target.value)}
                     data-testid="business-email-input"
@@ -197,7 +197,7 @@ const RecruiterVerificationPage = () => {
                 <div>
                   <label className="text-sm font-medium">Your Job Title *</label>
                   <Input
-                    placeholder="e.g., HR Manager"
+                    placeholder={t("recruiterVerification.rolePlaceholder")}
                     value={formData.job_title}
                     onChange={(e) => handleChange("job_title", e.target.value)}
                   />
@@ -207,7 +207,7 @@ const RecruiterVerificationPage = () => {
                   <label className="text-sm font-medium">Phone Number *</label>
                   <Input
                     type="tel"
-                    placeholder="+1 (555) 123-4567"
+                    placeholder={t("recruiterVerification.phonePlaceholder")}
                     value={formData.phone_number}
                     onChange={(e) => handleChange("phone_number", e.target.value)}
                   />
