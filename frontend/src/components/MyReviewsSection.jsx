@@ -1,5 +1,4 @@
 /**
-import { useTranslation } from "@/utils/i18n";
  * My Reviews Section Component
  * Displays reviews received by a candidate with response capability
  */
@@ -13,10 +12,12 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import axios from "axios";
 import EmployerReviewCard, { ReviewSummary } from "./EmployerReviewCard";
+import { useTranslation } from "@/utils/i18n";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
 const MyReviewsSection = ({ userId }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [reviewData, setReviewData] = useState(null);
   const [responseDialog, setResponseDialog] = useState({ open: false, review: null });
