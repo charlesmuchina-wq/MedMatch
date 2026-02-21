@@ -143,17 +143,17 @@ const KarauMeetLanding = ({ user }) => {
                   <Users className="w-7 h-7 text-violet-400" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-white mb-2">Join Meeting</h3>
+                  <h3 className="text-xl font-semibold text-white mb-2">{t("meeting.joinMeeting")}</h3>
                   <div className="flex gap-2">
                     <Input
-                      placeholder="Enter meeting ID"
+                      placeholder={t("meeting.enterMeetingId")}
                       value={joinMeetingId}
                       onChange={(e) => setJoinMeetingId(e.target.value.toUpperCase())}
                       className="bg-slate-900 border-slate-600 text-white"
                       onKeyPress={(e) => e.key === 'Enter' && joinMeeting()}
                     />
                     <Button onClick={joinMeeting} className="bg-violet-500 hover:bg-violet-600">
-                      Join
+                      {t("meeting.join")}
                     </Button>
                   </div>
                 </div>
