@@ -319,7 +319,7 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
           >
             {showSubtitles && (
               <track 
-                kind="subtitles" 
+                kind="captions" 
                 src={subtitleUrl}
                 srcLang={selectedLanguage}
                 label={LANGUAGES.find(l => l.code === selectedLanguage)?.name || 'English'}
@@ -328,18 +328,40 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
             )}
             Your browser does not support video playback.
           </video>
-        </div>
-        <div className="p-4">
-          <p className="text-gray-600 mb-3">{video.description}</p>
-          {selectedLanguage !== 'en' && (
-            <button
-              onClick={requestTranslation}
-              disabled={translating}
-              className="text-sm bg-teal-500 text-white px-3 py-1 rounded hover:bg-teal-600 disabled:opacity-50"
-            >
-              {translating ? 'Generating...' : `Generate ${LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio`}
-            </button>
+          
+          {/* Custom Caption Overlay for better visibility */}
+          {showSubtitles && (
+            <div className="absolute bottom-12 left-0 right-0 text-center px-4 pointer-events-none">
+              <div className="inline-block bg-black/80 text-white px-4 py-2 rounded text-sm max-w-lg" id={`caption-display-${video.id}`}>
+                {/* Captions will be rendered by the video element */}
+              </div>
+            </div>
           )}
+        </div>
+        <div className="p-4 bg-gray-50">
+          <p className="text-gray-600 mb-3">{video.description}</p>
+          <div className="flex items-center gap-3 flex-wrap">
+            {/* Caption Status */}
+            <span className={`text-xs px-2 py-1 rounded-full ${showSubtitles ? 'bg-teal-100 text-teal-700' : 'bg-gray-100 text-gray-500'}`}>
+              {showSubtitles ? '✓ Captions On' : 'Captions Off'}
+            </span>
+            
+            {/* Language Info */}
+            <span className="text-xs text-gray-500">
+              Audio & Captions: {LANGUAGES.find(l => l.code === selectedLanguage)?.name || 'English'}
+            </span>
+            
+            {/* Generate Translation Button */}
+            {selectedLanguage !== 'en' && (
+              <button
+                onClick={requestTranslation}
+                disabled={translating}
+                className="text-sm bg-teal-500 text-white px-3 py-1 rounded hover:bg-teal-600 disabled:opacity-50 ml-auto"
+              >
+                {translating ? 'Generating...' : `Generate ${LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio`}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
