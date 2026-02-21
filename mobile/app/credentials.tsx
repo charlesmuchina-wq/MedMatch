@@ -21,7 +21,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { useAuth } from '../contexts/AuthContext';
 import { colors, spacing, borderRadius, fontSize, fontWeight, shadows } from '../constants/theme';
 
-const API_URL = process.env.EXPO_PUBLIC_API_URL || 'https://eval-engine.preview.emergentagent.com';
+const API_URL = process.env.EXPO_PUBLIC_API_URL || 'https://medmatch-multi-lang.preview.emergentagent.com';
 
 // Trust Score Component
 const TrustScoreCard = ({ scoreData }: { scoreData: any }) => {

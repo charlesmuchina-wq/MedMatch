@@ -6,7 +6,7 @@ import pytest
 import requests
 import os
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://eval-engine.preview.emergentagent.com').rstrip('/')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-multi-lang.preview.emergentagent.com').rstrip('/')
 
 class TestTranslationAPI:
     """Translation API - 39 languages with EFIGS, CJK, expanding markets"""
