@@ -1423,5 +1423,29 @@
     "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
     "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
     "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
+  },
+  "idVerification": {
+    "companyPlaceholder": "Acme Corporation",
+    "websitePlaceholder": "https://acme.com",
+    "domainPlaceholder": "acme.com",
+    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "namePlaceholder": "John Doe"
+  },
+  "atsManagement": {
+    "selectJobPlaceholder": "Select a job posting",
+    "maxApplicantsPlaceholder": "Unlimited",
+    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateNamePlaceholder": "John Doe",
+    "inviteNotePlaceholder": "Add a personal note to your invitation..."
+  },
+  "recruiterVerification": {
+    "companyPlaceholder": "e.g., City Medical Center",
+    "websitePlaceholder": "https://example.com",
+    "linkedinPlaceholder": "https://linkedin.com/company/..."
+  },
+  "jobSearch": {
+    "selectCountryFirst": "Select Country First",
+    "selectCity": "Select City"
   }
 }
