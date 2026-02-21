@@ -964,7 +964,7 @@ export default function AdminDataIntegrityPage() {
                   <h4 className="font-medium mb-3">Date Range</h4>
                   <Select value={selectedDatePreset} onValueChange={setSelectedDatePreset}>
                     <SelectTrigger className="w-full mb-4">
-                      <SelectValue placeholder="Select date range..." />
+                      <SelectValue placeholder={t("adminDataIntegrity.selectDateRangePlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="today">Today</SelectItem>

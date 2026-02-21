@@ -312,7 +312,7 @@ export default function CandidateTransparencyPage() {
             <Textarea
               value={optOutReason}
               onChange={(e) => setOptOutReason(e.target.value)}
-              placeholder="Please share why you'd prefer an alternative process..."
+              placeholder={t("candidateTransparency.alternativeProcessPlaceholder")}
               className="mt-2"
             />
           </div>
