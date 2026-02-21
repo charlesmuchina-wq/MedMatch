@@ -38,6 +38,31 @@
     "upload": "Upload",
     "generating": "Generating..."
   },
+  "translation": {
+    "selectLanguage": "Select language",
+    "selectTargetLanguage": "Select target language",
+    "translate": "Translate",
+    "translating": "Translating...",
+    "translated": "Translated!",
+    "failed": "Translation failed"
+  },
+  "companies": {
+    "title": "Companies",
+    "searchCompanies": "Search companies",
+    "addCompany": "Add Company",
+    "companyName": "Company Name",
+    "companyNamePlaceholder": "Company name",
+    "industry": "Industry",
+    "selectIndustry": "Select industry",
+    "description": "Description",
+    "descriptionPlaceholder": "Tell candidates about your company...",
+    "companySize": "Company Size",
+    "selectSize": "Select size",
+    "headquarters": "Headquarters",
+    "headquartersPlaceholder": "City, Country",
+    "website": "Website",
+    "founded": "Founded"
+  },
   "notifications": {
     "title": "Notifications",
     "noNotifications": "No notifications yet",
