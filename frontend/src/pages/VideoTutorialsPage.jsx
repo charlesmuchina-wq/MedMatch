@@ -393,13 +393,28 @@ const FALLBACK_AVATARS = {
 };
 
 const GettingStartedSection = memo(() => {
-  const [selectedLang, setSelectedLang] = useState('de');
+  const { language: appLanguage } = useTranslation();
+  // Initialize with app language, mapped to tutorial language
+  const [selectedLang, setSelectedLang] = useState(() => {
+    const mapped = mapAppLangToTutorial(appLanguage);
+    // Check if mapped language exists in our tutorial list
+    if (LANGUAGE_DISPLAY_INFO[mapped]) return mapped;
+    return 'de'; // Default to German if no match
+  });
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoLoading, setVideoLoading] = useState(false);
   const [videoError, setVideoError] = useState(null);
   const [backendConfig, setBackendConfig] = useState(null);
   const [configLoading, setConfigLoading] = useState(true);
   const videoRef = useRef(null);
+
+  // Sync tutorial language when app language changes
+  useEffect(() => {
+    const mapped = mapAppLangToTutorial(appLanguage);
+    if (LANGUAGE_DISPLAY_INFO[mapped]) {
+      setSelectedLang(mapped);
+    }
+  }, [appLanguage]);
 
   // Fetch video configurations from backend (Source of Truth)
   useEffect(() => {
