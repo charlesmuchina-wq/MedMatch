@@ -27,7 +27,7 @@ const QUESTION_CATEGORIES = [
 ];
 
 // STAR Method Helper
-const StarMethodHelper = ({ question, onGenerate, generating }) => {
+const StarMethodHelper = ({ question, onGenerate, generating, t }) => {
   const [situation, setSituation] = useState("");
   const [task, setTask] = useState("");
   const [action, setAction] = useState("");
@@ -37,15 +37,15 @@ const StarMethodHelper = ({ question, onGenerate, generating }) => {
     <div className="space-y-4 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
       <h4 className="font-medium text-slate-900 dark:text-slate-100 flex items-center gap-2">
         <Star className="w-4 h-4 text-amber-500" />
-        STAR Method Builder
+        {t("interview.starBuilder")}
       </h4>
-      <p className="text-sm text-slate-500 dark:text-slate-400">Structure your answer using the STAR method</p>
+      <p className="text-sm text-slate-500 dark:text-slate-400">{t("interview.starDescription")}</p>
       
       <div className="grid gap-3">
         <div>
-          <label className="text-xs font-medium text-slate-600 dark:text-slate-300">S - Situation</label>
+          <label className="text-xs font-medium text-slate-600 dark:text-slate-300">{t("interview.situation")}</label>
           <Textarea 
-            placeholder="Describe the context or background..."
+            placeholder={t("interview.situationPlaceholder")}
             value={situation}
             onChange={(e) => setSituation(e.target.value)}
             className="mt-1 h-20 dark:bg-slate-700"
