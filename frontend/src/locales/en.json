@@ -1313,6 +1313,106 @@
   },
   "admin": {
     "translationCoverage": "Translation Coverage",
-    "translationCoverageDesc": "Monitor translation completion across all languages"
+    "translationCoverageDesc": "Monitor translation completion across all languages",
+    "searchLanguages": "Search languages...",
+    "searchByCompanyOrEmail": "Search by company name or email..."
+  },
+  "psv": {
+    "title": "Primary Source Verification Hub",
+    "subtitle": "Free self-service verification using public databases",
+    "lastName": "Last Name",
+    "firstName": "First Name",
+    "statePlaceholder": "State (e.g., CA, NY)",
+    "npiNumber": "NPI Number (optional)",
+    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
+    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
+    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
+    "orSearchByName": "or search by name",
+    "familyName": "Family Name",
+    "givenNames": "Given Names",
+    "searchOrcid": "Search ORCID Registry",
+    "globalUniversitySearch": "Global University Database",
+    "universityDescription": "Verify educational institutions through the global university database",
+    "universityName": "University Name",
+    "countryOptional": "Country (optional)",
+    "searchUniversities": "Search Universities",
+    "oigDescription": "Check if an individual is excluded from federal healthcare programs"
+  },
+  "contact": {
+    "declineReason": "e.g., Not looking for new opportunities right now"
+  },
+  "predictor": {
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
+    "companyPlaceholder": "e.g., Medtronic"
+  },
+  "taxonomy": {
+    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+  },
+  "meetingNotes": {
+    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
+    "companyNamePlaceholder": "Company name",
+    "jobTitlePlaceholder": "Job title"
+  },
+  "scheduling": {
+    "selectCandidate": "Select a candidate",
+    "meetingLinkPlaceholder": "https://zoom.us/j/...",
+    "officeAddressPlaceholder": "Office address",
+    "additionalInfoPlaceholder": "Any additional information...",
+    "messageToRecruiterPlaceholder": "Add a message to the recruiter..."
+  },
+  "resumeProfiles": {
+    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+  },
+  "credentialsPage": {
+    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+  },
+  "companiesPage": {
+    "searchPlaceholder": "Search companies...",
+    "industryPlaceholder": "Industry",
+    "companySizePlaceholder": "Company Size",
+    "websitePlaceholder": "https://...",
+    "foundedPlaceholder": "2020",
+    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
+    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
+    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)"
+  },
+  "interviewCalendar": {
+    "companyPlaceholder": "e.g., Google",
+    "positionPlaceholder": "e.g., Software Engineer",
+    "locationPlaceholder": "https://meet.google.com/... or office address",
+    "interviewerNamePlaceholder": "John Smith",
+    "interviewerEmailPlaceholder": "john@company.com",
+    "notesPlaceholder": "Any additional details about the interview..."
+  },
+  "publicApplication": {
+    "namePlaceholder": "John Doe",
+    "emailPlaceholder": "john@example.com",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "portfolioPlaceholder": "https://yourportfolio.com",
+    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
+    "coverLetterPlaceholder": "Tell us why you're a great fit for this role..."
+  },
+  "candidateSearch": {
+    "skillsPlaceholder": "Type a skill and press Enter...",
+    "keywordsPlaceholder": "e.g., senior, remote, healthcare..."
+  },
+  "companyReview": {
+    "summaryPlaceholder": "Summarize your experience",
+    "prosPlaceholder": "What did you like?",
+    "consPlaceholder": "What could be improved?",
+    "jobTitlePlaceholder": "e.g., Software Engineer"
+  },
+  "karauMeet": {
+    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "emailPlaceholder": "your@email.com"
+  },
+  "location": {
+    "selectLocationPlaceholder": "Select your location..."
+  },
+  "feedback": {
+    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
+    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
+    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
   }
 }
