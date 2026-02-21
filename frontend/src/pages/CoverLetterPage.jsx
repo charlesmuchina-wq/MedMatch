@@ -153,9 +153,9 @@ const CoverLetterPage = ({ resume }) => {
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Job Description *</label>
+                <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{t("coverLetter.jobDescription")} *</label>
                 <Textarea
-                  placeholder="Paste the job description here..."
+                  placeholder={t("coverLetter.pasteJobDescription")}
                   value={jobDescription}
                   onChange={(e) => setJobDescription(e.target.value)}
                   className="mt-1 min-h-[200px]"
@@ -169,9 +169,9 @@ const CoverLetterPage = ({ resume }) => {
                 data-testid="generate-btn"
               >
                 {generating ? (
-                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Generating...</>
+                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("common.generating")}</>
                 ) : (
-                  <><Sparkles className="w-4 h-4 mr-2" /> Generate Cover Letter</>
+                  <><Sparkles className="w-4 h-4 mr-2" /> {t("coverLetter.generate")}</>
                 )}
               </Button>
               {!resume && (
