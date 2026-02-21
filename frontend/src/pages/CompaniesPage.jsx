@@ -358,22 +358,22 @@ const CompaniesPage = ({ user }) => {
           <div className="space-y-4 py-4">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium mb-2 block">Company Name *</label>
+                <label className="text-sm font-medium mb-2 block">{t("companies.companyName")} *</label>
                 <Input
-                  placeholder="Company name"
+                  placeholder={t("companies.companyNamePlaceholder")}
                   value={createForm.name}
                   onChange={(e) => setCreateForm({...createForm, name: e.target.value})}
                 />
               </div>
               
               <div>
-                <label className="text-sm font-medium mb-2 block">Industry *</label>
+                <label className="text-sm font-medium mb-2 block">{t("companies.industry")} *</label>
                 <Select
                   value={createForm.industry}
                   onValueChange={(value) => setCreateForm({...createForm, industry: value})}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Select industry" />
+                    <SelectValue placeholder={t("companies.selectIndustry")} />
                   </SelectTrigger>
                   <SelectContent>
                     {INDUSTRIES.map((ind) => (
