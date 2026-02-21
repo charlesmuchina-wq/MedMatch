@@ -834,7 +834,7 @@
       "expired": "已过期"
     },
     "adminDashboard": {
-      "title": "管理员控制台",
+      "title": "管理员仪表板",
       "subtitle": "系统概览与管理",
       "switchPerspective": "切换不同用户视角进行测试",
       "active": "正常",
@@ -842,18 +842,18 @@
       "modelTrained": "模型已训练",
       "systemStatus": "系统状态",
       "userStats": "用户统计",
-      "recentActivity": "近期活动",
+      "recentActivity": "最近活动",
       "systemHealth": "系统健康状况",
       "apiUsage": "API 使用情况",
       "errorRate": "错误率",
       "responseTime": "响应时间"
     },
     "recruiterDashboard": {
-      "title": "招聘方控制台",
+      "title": "招聘方仪表板",
       "subtitle": "管理您的招聘流程",
       "activeJobs": "在招职位",
       "totalApplicants": "申请总数",
-      "shortlisted": "入围",
+      "shortlisted": "已入围",
       "interviewing": "面试中",
       "latestCandidates": "最新申请您职位的候选人",
       "viewAll": "查看全部",
@@ -878,11 +878,11 @@
       "title": "简历档案",
       "subtitle": "管理多个简历版本",
       "createProfile": "创建简历档案",
-      "uploadPdf": "上传 PDF 简历以创建新的档案",
+      "uploadPdf": "上传 PDF 简历以创建新档案",
       "profileName": "档案名称",
       "cancel": "取消",
       "noProfiles": "暂无简历档案",
-      "createFirst": "先创建您的第一份简历档案以开始使用",
+      "createFirst": "创建您的第一份简历档案以开始使用",
       "primary": "主档案",
       "setPrimary": "设为主档案",
       "lastUpdated": "最后更新"
@@ -896,7 +896,7 @@
       "benefits": "福利",
       "culture": "文化",
       "editProfile": "编辑资料",
-      "verifiedCompany": "已验证公司",
+      "verifiedCompany": "已认证公司",
       "employeeCount": "员工人数",
       "founded": "成立时间",
       "headquarters": "总部"
@@ -904,8 +904,8 @@
     "portalSelector": {
       "title": "AI KARAU 门户",
       "subtitle": "选择您的目的地",
-      "jobToolkit": "求职工具包",
-      "jobToolkitDesc": "由 AI 驱动的求职与职业工具",
+      "jobToolkit": "求职工具箱",
+      "jobToolkitDesc": "由 AI 驱动的求职与职业发展工具",
       "meetingPortal": "会议门户",
       "meetingPortalDesc": "安全的视频会议",
       "enterPortal": "进入门户"
@@ -921,7 +921,7 @@
       "lastRun": "上次运行"
     },
     "blindScreening": {
-      "title": "匿名筛选控制台",
+      "title": "匿名筛选仪表板",
       "subtitle": "无偏见地审核候选人",
       "candidatePool": "候选人库",
       "screeningQueue": "筛选队列",
@@ -932,8 +932,8 @@
       "skillsMatch": "技能匹配度"
     },
     "locationSettings": {
-      "title": "地点设置",
-      "subtitle": "管理您的求职地点偏好",
+      "title": "位置设置",
+      "subtitle": "管理您用于求职的位置偏好",
       "currentLocation": "当前位置",
       "preferredLocations": "偏好地点",
       "remoteOnly": "仅远程",
@@ -964,7 +964,7 @@
     },
     "globalCompliance": {
       "title": "全球合规",
-      "subtitle": "跨地区的合规状态",
+      "subtitle": "跨地区合规状态",
       "gdpr": "GDPR",
       "ccpa": "CCPA",
       "hipaa": "HIPAA",
@@ -983,8 +983,8 @@
     },
     "candidateTransparency": {
       "title": "候选人透明度",
-      "subtitle": "查看您的资料如何被评估",
-      "matchScore": "匹配评分",
+      "subtitle": "查看您的资料是如何被评估的",
+      "matchScore": "匹配分",
       "evaluationCriteria": "评估标准",
       "skillsAssessment": "技能评估",
       "experienceMatch": "经验匹配度"
@@ -1003,10 +1003,10 @@
       "applicationStatus": "申请状态",
       "submitted": "已提交",
       "underReview": "审核中",
-      "shortlisted": "入围",
+      "shortlisted": "已入围",
       "interview": "面试",
-      "offer": "录用意向",
-      "rejected": "未通过"
+      "offer": "录用通知",
+      "rejected": "已拒绝"
     },
     "dataIntegrity": {
       "title": "数据完整性",
@@ -1018,7 +1018,7 @@
       "runCheck": "运行完整性检查"
     },
     "recruiterVerification": {
-      "title": "招聘方验证",
+      "title": "招聘方认证",
       "subtitle": "验证招聘方账号",
       "pendingVerifications": "待验证",
       "verified": "已验证",
@@ -1034,10 +1034,10 @@
       "flagged": "已标记",
       "approveReview": "通过",
       "rejectReview": "拒绝",
-      "flagReview": "标记以复核"
+      "flagReview": "标记以审核"
     },
     "productionMetrics": {
-      "title": "生产指标",
+      "title": "生产环境指标",
       "subtitle": "系统性能与健康指标",
       "uptime": "运行时间",
       "requestsPerSecond": "每秒请求数",
@@ -1050,9 +1050,9 @@
   },
   "videoTutorials": {
     "title": "视频教程",
-    "subtitle": "通过我们全面的视频指南，学习如何使用 MedMatch-AI KARAU",
+    "subtitle": "通过我们全面的视频指南学习如何使用 MedMatch-AI KARAU",
     "allVideos": "全部视频",
-    "gettingStarted": "快速入门",
+    "gettingStarted": "快速上手",
     "quickGuides": "快速指南",
     "featuredVideo": "精选视频",
     "watchNow": "立即观看",
@@ -1060,8 +1060,8 @@
     "languages": "语言",
     "selectLanguage": "选择语言",
     "videoUnavailable": "视频不可用",
-    "loadingVideo": "正在加载视频...",
-    "presenter": "讲解员",
+    "loadingVideo": "正在加载视频…",
+    "presenter": "讲解人",
     "categories": {
       "jobSeeker": "求职者",
       "recruiter": "招聘方",
@@ -1071,56 +1071,56 @@
     "sections": {
       "allVideosTitle": "视频库",
       "allVideosSubtitle": "浏览我们完整的教程视频合集",
-      "gettingStartedTitle": "AI 驱动的入门指南",
-      "gettingStartedSubtitle": "观看我们的 AI 讲解员介绍平台功能",
+      "gettingStartedTitle": "AI 驱动的新手入门指南",
+      "gettingStartedSubtitle": "观看我们的 AI 讲解人介绍平台功能",
       "quickGuidesTitle": "快速参考指南",
-      "quickGuidesSubtitle": "常用任务的分步操作说明"
+      "quickGuidesSubtitle": "常见任务的分步操作说明"
     }
   },
   "components": {
     "locationSettings": {
       "homeLocation": "居住地点",
-      "homeLocationDesc": "设置您的居住地址，以获得准确的通勤时间和基于地点的职位匹配",
+      "homeLocationDesc": "设置您的居住地址，以获得更准确的通勤时间和基于位置的职位匹配",
       "addressOrCity": "地址或城市",
-      "addressPlaceholder": "请输入您的地址或城市...",
+      "addressPlaceholder": "请输入您的地址或城市…",
       "useCurrentLocation": "使用当前位置",
-      "searchRadius": "求职半径",
-      "searchRadiusDesc": "您愿意通勤的最远距离",
+      "searchRadius": "求职搜索半径",
+      "searchRadiusDesc": "您愿意通勤的最大距离",
       "maxDistance": "最大距离",
       "miles": "英里",
       "km": "公里",
       "commutePreferences": "通勤偏好",
-      "commutePreferencesDesc": "您更喜欢如何通勤上班？",
+      "commutePreferencesDesc": "您更偏好如何通勤上班？",
       "primaryCommuteMode": "主要通勤方式",
-      "driving": "驾车",
+      "driving": "自驾",
       "transit": "公共交通",
       "cycling": "骑行",
       "walking": "步行",
-      "workTypePreferences": "工作方式偏好",
-      "workTypePreferencesDesc": "请选择所有您可接受的工作安排",
+      "workTypePreferences": "工作形式偏好",
+      "workTypePreferencesDesc": "请选择您愿意接受的所有工作安排",
       "remote": "远程",
       "hybrid": "混合办公",
       "onsite": "现场办公",
-      "locationAlerts": "基于地点的提醒",
-      "locationAlertsDesc": "接收您附近职位的通知",
-      "enableAlerts": "启用基于地点的提醒",
+      "locationAlerts": "基于位置的提醒",
+      "locationAlertsDesc": "获取您附近职位的通知",
+      "enableAlerts": "启用基于位置的提醒",
       "nearestHub": "最近的 MedMatch Hub",
       "savePreferences": "保存偏好",
-      "saving": "正在保存...",
-      "preferencesSaved": "地点偏好已成功保存",
-      "saveFailed": "保存地点偏好失败",
+      "saving": "正在保存…",
+      "preferencesSaved": "位置偏好已成功保存",
+      "saveFailed": "保存位置偏好失败",
       "locationDetected": "位置检测成功",
       "locationFailed": "位置检测失败",
       "urban": "城市",
       "standard": "标准",
       "rural": "乡村",
-      "drivingCity": "驾车（市区）",
-      "drivingHighway": "驾车（高速）",
+      "drivingCity": "自驾（市区）",
+      "drivingHighway": "自驾（高速）",
       "publicTransit": "公共交通",
-      "preferredWorkTypes": "偏好的工作方式",
+      "preferredWorkTypes": "偏好工作形式",
       "selectWorkArrangements": "请选择您感兴趣的工作安排",
       "alertsDescription": "当您附近发布新职位时接收通知",
-      "enableProximityAlerts": "启用距离提醒",
+      "enableProximityAlerts": "启用邻近提醒",
       "proximityAlertsDesc": "接收搜索半径范围内职位的通知",
       "enterAddress": "请输入地址",
       "locationFound": "已找到位置！"
@@ -1151,25 +1151,25 @@
       "rating": "评分",
       "pros": "优点",
       "cons": "缺点",
-      "advice": "给管理层的建议",
+      "advice": "对管理层的建议",
       "recommend": "愿意推荐",
       "submitReview": "提交评价",
       "anonymous": "匿名发布",
       "verified": "已验证员工"
     },
     "offlineIndicator": {
-      "offline": "您已离线",
-      "reconnecting": "正在重新连接...",
+      "offline": "您当前处于离线状态",
+      "reconnecting": "正在重新连接…",
       "changesWillSync": "恢复联网后将同步更改"
     },
     "notificationCenter": {
       "title": "通知",
-      "markAllRead": "全部标记为已读",
+      "markAllRead": "全部标为已读",
       "noNotifications": "暂无新通知",
       "viewAll": "查看全部"
     },
     "capaDashboard": {
-      "title": "CAPA 控制台",
+      "title": "CAPA 仪表板",
       "subtitle": "纠正与预防措施",
       "openCAPAs": "未关闭的 CAPA",
       "closedCAPAs": "已关闭的 CAPA",
@@ -1178,7 +1178,7 @@
       "status": "状态",
       "priority": "优先级",
       "assignee": "负责人",
-      "dueDate": "到期日期",
+      "dueDate": "截止日期",
       "rootCause": "根本原因",
       "correctiveAction": "纠正措施",
       "preventiveAction": "预防措施"
@@ -1187,7 +1187,7 @@
       "translateTo": "翻译为",
       "originalLanguage": "原始语言",
       "autoDetect": "自动检测",
-      "translating": "正在翻译...",
+      "translating": "正在翻译…",
       "translated": "已翻译",
       "showOriginal": "显示原文"
     }
