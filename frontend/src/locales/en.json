@@ -106,7 +106,18 @@
     "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
     "impactedProcesses": "Impacted Processes",
     "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
-    "titleAndStatementRequired": "Title and problem statement are required"
+    "titleAndStatementRequired": "Title and problem statement are required",
+    "addProbableCause": "Add Probable Cause",
+    "probableCausePlaceholder": "Description of the probable cause...",
+    "category": "Category",
+    "categoryTechnical": "Technical",
+    "categoryProcess": "Process",
+    "categoryHuman": "Human",
+    "categoryEnvironmental": "Environmental",
+    "evidencePlaceholder": "Evidence...",
+    "addCause": "Add Cause",
+    "searchCapas": "Search CAPAs...",
+    "allStatuses": "All Statuses"
   },
   "recruiter": {
     "companyName": "Company",
