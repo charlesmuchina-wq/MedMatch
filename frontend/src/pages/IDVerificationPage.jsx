@@ -247,7 +247,7 @@ const IDVerificationPage = ({ user }) => {
                     <Input 
                       value={companyName}
                       onChange={(e) => setCompanyName(e.target.value)}
-                      placeholder="Acme Corporation"
+                      placeholder={t("idVerification.companyPlaceholder")}
                       data-testid="company-name-input"
                     />
                   </div>
@@ -256,7 +256,7 @@ const IDVerificationPage = ({ user }) => {
                     <Input 
                       value={companyWebsite}
                       onChange={(e) => setCompanyWebsite(e.target.value)}
-                      placeholder="https://acme.com"
+                      placeholder={t("idVerification.websitePlaceholder")}
                     />
                   </div>
                   <div>
@@ -264,7 +264,7 @@ const IDVerificationPage = ({ user }) => {
                     <Input 
                       value={companyEmailDomain}
                       onChange={(e) => setCompanyEmailDomain(e.target.value)}
-                      placeholder="acme.com"
+                      placeholder={t("idVerification.domainPlaceholder")}
                       data-testid="company-domain-input"
                     />
                     <p className="text-xs text-slate-500 mt-1">
@@ -276,7 +276,7 @@ const IDVerificationPage = ({ user }) => {
                     <Input 
                       value={roleAtCompany}
                       onChange={(e) => setRoleAtCompany(e.target.value)}
-                      placeholder="Talent Acquisition Manager"
+                      placeholder={t("idVerification.jobTitlePlaceholder")}
                     />
                   </div>
                   <div className="sm:col-span-2">
@@ -284,7 +284,7 @@ const IDVerificationPage = ({ user }) => {
                     <Input 
                       value={linkedinUrl}
                       onChange={(e) => setLinkedinUrl(e.target.value)}
-                      placeholder="https://linkedin.com/in/yourprofile"
+                      placeholder={t("idVerification.linkedinPlaceholder")}
                     />
                   </div>
                 </div>
