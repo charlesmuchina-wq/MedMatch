@@ -357,7 +357,7 @@ const InterviewSchedulingPage = ({ user }) => {
                 }}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a candidate" />
+                  <SelectValue placeholder={t("scheduling.selectCandidate")} />
                 </SelectTrigger>
                 <SelectContent>
                   {applicants.map((applicant) => (
@@ -444,7 +444,7 @@ const InterviewSchedulingPage = ({ user }) => {
               <div>
                 <label className="text-sm font-medium mb-2 block">Meeting Link</label>
                 <Input
-                  placeholder="https://zoom.us/j/..."
+                  placeholder={t("scheduling.meetingLinkPlaceholder")}
                   value={scheduleForm.meeting_link}
                   onChange={(e) => setScheduleForm({...scheduleForm, meeting_link: e.target.value})}
                 />
@@ -455,7 +455,7 @@ const InterviewSchedulingPage = ({ user }) => {
               <div>
                 <label className="text-sm font-medium mb-2 block">Location</label>
                 <Input
-                  placeholder="Office address"
+                  placeholder={t("scheduling.officeAddressPlaceholder")}
                   value={scheduleForm.location}
                   onChange={(e) => setScheduleForm({...scheduleForm, location: e.target.value})}
                 />
@@ -466,7 +466,7 @@ const InterviewSchedulingPage = ({ user }) => {
             <div>
               <label className="text-sm font-medium mb-2 block">Notes for Candidate</label>
               <Textarea
-                placeholder="Any additional information..."
+                placeholder={t("scheduling.additionalInfoPlaceholder")}
                 value={scheduleForm.notes}
                 onChange={(e) => setScheduleForm({...scheduleForm, notes: e.target.value})}
                 rows={3}
@@ -522,7 +522,7 @@ const InterviewSchedulingPage = ({ user }) => {
               <div>
                 <label className="text-sm font-medium mb-2 block">Message (optional)</label>
                 <Textarea
-                  placeholder="Add a message to the recruiter..."
+                  placeholder={t("scheduling.messageToRecruiterPlaceholder")}
                   value={responseMessage}
                   onChange={(e) => setResponseMessage(e.target.value)}
                   rows={3}
