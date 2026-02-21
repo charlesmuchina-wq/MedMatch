@@ -399,7 +399,7 @@ const CompanyProfilePage = ({ user }) => {
             <div>
               <label className="text-sm font-medium mb-2 block">Review Title</label>
               <Input
-                placeholder="Summarize your experience"
+                placeholder={t("companyReview.summaryPlaceholder")}
                 value={reviewForm.title}
                 onChange={(e) => setReviewForm({...reviewForm, title: e.target.value})}
               />
@@ -408,7 +408,7 @@ const CompanyProfilePage = ({ user }) => {
             <div>
               <label className="text-sm font-medium mb-2 block">Pros</label>
               <Textarea
-                placeholder="What did you like?"
+                placeholder={t("companyReview.prosPlaceholder")}
                 value={reviewForm.pros}
                 onChange={(e) => setReviewForm({...reviewForm, pros: e.target.value})}
               />
@@ -417,7 +417,7 @@ const CompanyProfilePage = ({ user }) => {
             <div>
               <label className="text-sm font-medium mb-2 block">Cons</label>
               <Textarea
-                placeholder="What could be improved?"
+                placeholder={t("companyReview.consPlaceholder")}
                 value={reviewForm.cons}
                 onChange={(e) => setReviewForm({...reviewForm, cons: e.target.value})}
               />
@@ -426,7 +426,7 @@ const CompanyProfilePage = ({ user }) => {
             <div>
               <label className="text-sm font-medium mb-2 block">Your Position (optional)</label>
               <Input
-                placeholder="e.g., Software Engineer"
+                placeholder={t("companyReview.jobTitlePlaceholder")}
                 value={reviewForm.position}
                 onChange={(e) => setReviewForm({...reviewForm, position: e.target.value})}
               />
