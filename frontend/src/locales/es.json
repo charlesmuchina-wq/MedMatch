@@ -850,44 +850,44 @@
       "recentActivity": "Actividad reciente",
       "systemHealth": "Salud del sistema",
       "apiUsage": "Uso de la API",
-      "errorRate": "Tasa de error",
+      "errorRate": "Tasa de errores",
       "responseTime": "Tiempo de respuesta"
     },
     "recruiterDashboard": {
-      "title": "Panel del reclutador",
-      "subtitle": "Gestione su canal de reclutamiento",
-      "activeJobs": "Ofertas activas",
+      "title": "Panel de reclutamiento",
+      "subtitle": "Gestione su flujo de reclutamiento",
+      "activeJobs": "Vacantes activas",
       "totalApplicants": "Total de postulantes",
       "shortlisted": "Preseleccionados",
-      "interviewing": "En entrevista",
-      "latestCandidates": "Últimos candidatos que se postularon a sus ofertas",
+      "interviewing": "En entrevistas",
+      "latestCandidates": "Últimos candidatos que postularon a sus vacantes",
       "viewAll": "Ver todo",
-      "postNewJob": "Publicar nueva oferta",
-      "noJobs": "Aún no se han publicado ofertas"
+      "postNewJob": "Publicar nueva vacante",
+      "noJobs": "Aún no se han publicado vacantes"
     },
     "recruiterJobs": {
-      "title": "Publicaciones de empleo",
+      "title": "Ofertas de empleo",
       "subtitle": "Gestione sus ofertas de empleo",
-      "noJobsPosted": "Aún no se han publicado ofertas",
+      "noJobsPosted": "Aún no se han publicado vacantes",
       "salaryRange": "Rango salarial",
-      "applicationUrl": "URL de solicitud",
-      "jobTitlePlaceholder": "p. ej., Ingeniero de Calidad Senior",
+      "applicationUrl": "URL de postulación",
+      "jobTitlePlaceholder": "p. ej., Ingeniero/a de Calidad Senior",
       "companyNamePlaceholder": "Nombre de su empresa",
       "createJob": "Crear oferta",
       "editJob": "Editar oferta",
       "deleteJob": "Eliminar oferta",
       "applicants": "Postulantes",
-      "views": "Visualizaciones"
+      "views": "Vistas"
     },
     "resumeProfiles": {
       "title": "Perfiles de currículum",
-      "subtitle": "Gestione varias versiones de su currículum",
+      "subtitle": "Gestione varias versiones del currículum",
       "createProfile": "Crear perfil de currículum",
       "uploadPdf": "Suba un currículum en PDF para crear un nuevo perfil",
       "profileName": "Nombre del perfil",
       "cancel": "Cancelar",
       "noProfiles": "No hay perfiles de currículum",
-      "createFirst": "Cree su primer perfil de currículum para comenzar",
+      "createFirst": "Cree su primer perfil de currículum para empezar",
       "primary": "Principal",
       "setPrimary": "Establecer como principal",
       "lastUpdated": "Última actualización"
@@ -926,10 +926,10 @@
       "lastRun": "Última ejecución"
     },
     "blindScreening": {
-      "title": "Panel de evaluación a ciegas",
+      "title": "Panel de selección a ciegas",
       "subtitle": "Revise candidatos sin sesgos",
       "candidatePool": "Banco de candidatos",
-      "screeningQueue": "Cola de evaluación",
+      "screeningQueue": "Cola de selección",
       "reviewed": "Revisado",
       "pending": "Pendiente",
       "qualificationMatch": "Coincidencia de cualificaciones",
@@ -942,9 +942,9 @@
       "currentLocation": "Ubicación actual",
       "preferredLocations": "Ubicaciones preferidas",
       "remoteOnly": "Solo remoto",
-      "hybridOk": "Híbrido: OK",
-      "onSiteOk": "Presencial: OK",
-      "willingToRelocate": "Dispuesto a reubicarse",
+      "hybridOk": "Híbrido aceptado",
+      "onSiteOk": "Presencial aceptado",
+      "willingToRelocate": "Dispuesto/a a reubicarse",
       "searchRadius": "Radio de búsqueda",
       "savePreferences": "Guardar preferencias"
     },
@@ -974,7 +974,7 @@
       "ccpa": "CCPA",
       "hipaa": "HIPAA",
       "soc2": "SOC 2",
-      "compliant": "En cumplimiento",
+      "compliant": "Conforme",
       "nonCompliant": "No conforme",
       "inProgress": "En curso"
     },
@@ -982,12 +982,12 @@
       "title": "Cumplimiento de AI",
       "subtitle": "Cumplimiento y ética del modelo de AI",
       "modelAudits": "Auditorías del modelo",
-      "biasReports": "Informes de sesgo",
-      "fairnessMetrics": "Métricas de equidad",
+      "biasReports": "Informes de sesgos",
+      "fairnessMetrics": "Métricas de imparcialidad",
       "lastAudit": "Última auditoría"
     },
     "candidateTransparency": {
-      "title": "Transparencia del candidato",
+      "title": "Transparencia para candidatos",
       "subtitle": "Vea cómo se evalúa su perfil",
       "matchScore": "Puntuación de coincidencia",
       "evaluationCriteria": "Criterios de evaluación",
@@ -1003,7 +1003,7 @@
       "submitApplication": "Enviar solicitud"
     },
     "trackApplication": {
-      "title": "Seguimiento de solicitud",
+      "title": "Seguimiento de la solicitud",
       "subtitle": "Consulte el estado de su solicitud",
       "applicationStatus": "Estado de la solicitud",
       "submitted": "Enviada",
@@ -1015,8 +1015,8 @@
     },
     "dataIntegrity": {
       "title": "Integridad de datos",
-      "subtitle": "Supervise la calidad y consistencia de los datos",
-      "dataQuality": "Calidad de datos",
+      "subtitle": "Supervise la calidad y la consistencia de los datos",
+      "dataQuality": "Calidad de los datos",
       "duplicates": "Duplicados",
       "missingFields": "Campos faltantes",
       "validationErrors": "Errores de validación",
@@ -1024,7 +1024,7 @@
     },
     "recruiterVerification": {
       "title": "Verificación de reclutadores",
-      "subtitle": "Verifique cuentas de reclutadores",
+      "subtitle": "Verifique las cuentas de reclutadores",
       "pendingVerifications": "Verificaciones pendientes",
       "verified": "Verificado",
       "rejected": "Rechazado",
@@ -1033,7 +1033,7 @@
     },
     "reviewModeration": {
       "title": "Moderación de reseñas",
-      "subtitle": "Modere las reseñas de los usuarios",
+      "subtitle": "Modere las reseñas de usuarios",
       "pendingReviews": "Reseñas pendientes",
       "approved": "Aprobado",
       "flagged": "Marcado",
@@ -1046,8 +1046,8 @@
       "subtitle": "Métricas de rendimiento y salud del sistema",
       "uptime": "Tiempo de actividad",
       "requestsPerSecond": "Solicitudes/segundo",
-      "averageLatency": "Latencia promedio",
-      "errorRate": "Tasa de error",
+      "averageLatency": "Latencia prom.",
+      "errorRate": "Tasa de errores",
       "activeUsers": "Usuarios activos",
       "cpuUsage": "Uso de CPU",
       "memoryUsage": "Uso de memoria"
@@ -1078,14 +1078,14 @@
       "allVideosSubtitle": "Explore nuestra colección completa de videos tutoriales",
       "gettingStartedTitle": "Guía de primeros pasos impulsada por AI",
       "gettingStartedSubtitle": "Vea a nuestro/a presentador/a de AI explicar las funciones de la plataforma",
-      "quickGuidesTitle": "Guías de referencia rápida",
-      "quickGuidesSubtitle": "Instrucciones paso a paso para tareas habituales"
+      "quickGuidesTitle": "Guías rápidas de referencia",
+      "quickGuidesSubtitle": "Instrucciones paso a paso para tareas comunes"
     }
   },
   "components": {
     "locationSettings": {
-      "homeLocation": "Ubicación del domicilio",
-      "homeLocationDesc": "Configure su dirección de domicilio para obtener tiempos de desplazamiento precisos y coincidencias de empleo basadas en la ubicación",
+      "homeLocation": "Ubicación de residencia",
+      "homeLocationDesc": "Configure su dirección de residencia para obtener tiempos de desplazamiento precisos y coincidencias de empleo basadas en la ubicación",
       "addressOrCity": "Dirección o ciudad",
       "addressPlaceholder": "Introduzca su dirección o ciudad...",
       "useCurrentLocation": "Usar ubicación actual",
@@ -1096,12 +1096,12 @@
       "km": "km",
       "commutePreferences": "Preferencias de desplazamiento",
       "commutePreferencesDesc": "¿Cómo prefiere ir al trabajo?",
-      "primaryCommuteMode": "Medio principal de desplazamiento",
+      "primaryCommuteMode": "Modo de desplazamiento principal",
       "driving": "En coche",
       "transit": "Transporte público",
       "cycling": "En bicicleta",
       "walking": "A pie",
-      "workTypePreferences": "Preferencias de tipo de trabajo",
+      "workTypePreferences": "Preferencias de modalidad de trabajo",
       "workTypePreferencesDesc": "Seleccione todas las modalidades de trabajo que le interesen",
       "remote": "Remoto",
       "hybrid": "Híbrido",
@@ -1109,12 +1109,12 @@
       "locationAlerts": "Alertas basadas en la ubicación",
       "locationAlertsDesc": "Reciba notificaciones sobre empleos cerca de su ubicación",
       "enableAlerts": "Activar alertas basadas en la ubicación",
-      "nearestHub": "Hub de MedMatch más cercano",
+      "nearestHub": "Centro MedMatch más cercano",
       "savePreferences": "Guardar preferencias",
       "saving": "Guardando...",
-      "preferencesSaved": "Las preferencias de ubicación se han guardado correctamente",
+      "preferencesSaved": "Las preferencias de ubicación se guardaron correctamente",
       "saveFailed": "No se pudieron guardar las preferencias de ubicación",
-      "locationDetected": "Ubicación detectada correctamente",
+      "locationDetected": "La ubicación se detectó correctamente",
       "locationFailed": "No se pudo detectar la ubicación",
       "urban": "Urbano",
       "standard": "Estándar",
@@ -1122,7 +1122,7 @@
       "drivingCity": "En coche (ciudad)",
       "drivingHighway": "En coche (autopista)",
       "publicTransit": "Transporte público",
-      "preferredWorkTypes": "Tipos de trabajo preferidos",
+      "preferredWorkTypes": "Modalidades de trabajo preferidas",
       "selectWorkArrangements": "Seleccione las modalidades de trabajo que le interesan",
       "alertsDescription": "Reciba notificaciones cuando se publiquen nuevos empleos cerca de usted",
       "enableProximityAlerts": "Activar alertas de proximidad",
@@ -1136,17 +1136,17 @@
       "faceId": "Face ID",
       "touchId": "Touch ID",
       "fingerprint": "Huella dactilar",
-      "setupRequired": "Configuración requerida",
-      "notSupported": "No es compatible con este dispositivo"
+      "setupRequired": "Se requiere configuración",
+      "notSupported": "No compatible con este dispositivo"
     },
     "subscriptionManager": {
       "title": "Suscripción",
       "currentPlan": "Plan actual",
       "free": "Gratis",
       "premium": "Premium",
-      "enterprise": "Empresarial",
-      "upgrade": "Mejorar plan",
-      "downgrade": "Bajar de plan",
+      "enterprise": "Enterprise",
+      "upgrade": "Mejorar",
+      "downgrade": "Cambiar a un plan inferior",
       "cancel": "Cancelar suscripción",
       "billingCycle": "Ciclo de facturación",
       "nextBilling": "Próxima fecha de facturación"
@@ -1163,7 +1163,7 @@
       "verified": "Empleado verificado"
     },
     "offlineIndicator": {
-      "offline": "No tiene conexión",
+      "offline": "Está sin conexión",
       "reconnecting": "Reconectando...",
       "changesWillSync": "Los cambios se sincronizarán cuando vuelva a estar en línea"
     },
@@ -1182,7 +1182,7 @@
       "createNew": "Crear nueva CAPA",
       "status": "Estado",
       "priority": "Prioridad",
-      "assignee": "Asignado/a",
+      "assignee": "Responsable",
       "dueDate": "Fecha de vencimiento",
       "rootCause": "Causa raíz",
       "correctiveAction": "Acción correctiva",
@@ -1191,7 +1191,7 @@
     "translationWidget": {
       "translateTo": "Traducir a",
       "originalLanguage": "Idioma original",
-      "autoDetect": "Detección automática",
+      "autoDetect": "Detectar automáticamente",
       "translating": "Traduciendo...",
       "translated": "Traducido",
       "showOriginal": "Mostrar original"
