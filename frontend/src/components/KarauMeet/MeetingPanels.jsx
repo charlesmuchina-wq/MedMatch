@@ -60,13 +60,13 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
           <Input
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Type a message..."
+            placeholder={t("meeting.typeMessage")}
             className="bg-slate-800 border-slate-600 text-white"
             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
             data-testid="chat-input"
           />
           <Button onClick={handleSend} size="sm" className="bg-turquoise hover:bg-turquoise/80" data-testid="chat-send">
-            Send
+            {t("meeting.send")}
           </Button>
         </div>
       </div>
