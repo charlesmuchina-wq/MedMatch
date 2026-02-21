@@ -431,15 +431,15 @@ export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions 
                   data-testid={`save-btn-${job.id}`}
                 >
                   <Bookmark className={`w-4 h-4 mr-1 ${isSaved ? 'fill-current' : ''}`} />
-                  {isSaved ? "Saved" : "Save"}
+                  {isSaved ? t("jobs.saved") : t("common.save")}
                 </Button>
                 <Button size="sm" onClick={() => onApply(job)} data-testid={`apply-btn-${job.id}`}>
-                  Apply <ChevronRight className="w-4 h-4 ml-1" />
+                  {t("jobs.apply")} <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
                 {job.url && (
                   <a href={job.url} target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-sm text-sky-600 hover:text-sky-700 dark:text-sky-400 dark:hover:text-sky-300">
-                    View Original <ExternalLink className="w-3 h-3" />
+                    {t("jobs.viewOriginal")} <ExternalLink className="w-3 h-3" />
                   </a>
                 )}
                 {/* Report Ghost Job Button */}

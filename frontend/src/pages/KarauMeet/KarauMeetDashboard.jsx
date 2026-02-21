@@ -272,7 +272,7 @@ const KarauMeetDashboard = ({ user }) => {
                         onClick={() => navigate(`/karau-meet/room/${meeting.meeting_id}`)}
                         className="bg-turquoise hover:bg-turquoise/80"
                       >
-                        {meeting.status === 'active' ? 'Rejoin' : 'Start'}
+                        {meeting.status === 'active' ? t("meeting.rejoin") : t("meeting.start")}
                       </Button>
                     )}
                   </div>
