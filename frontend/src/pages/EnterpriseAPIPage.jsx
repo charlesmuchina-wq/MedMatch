@@ -401,7 +401,7 @@ export default function EnterpriseAPIPage() {
                     <div>
                       <Label>Key Name</Label>
                       <Input
-                        placeholder="e.g., Production ATS Integration"
+                        placeholder={t("enterpriseAPI.apiKeyNamePlaceholder")}
                         value={newKeyData.name}
                         onChange={(e) => setNewKeyData({ ...newKeyData, name: e.target.value })}
                       />
@@ -571,7 +571,7 @@ export default function EnterpriseAPIPage() {
                     <div>
                       <Label>Endpoint URL</Label>
                       <Input
-                        placeholder="https://your-ats.com/webhooks/medmatch"
+                        placeholder={t("enterpriseAPI.webhookUrlPlaceholder")}
                         value={newWebhookData.url}
                         onChange={(e) => setNewWebhookData({ ...newWebhookData, url: e.target.value })}
                       />
@@ -580,7 +580,7 @@ export default function EnterpriseAPIPage() {
                     <div>
                       <Label>Description (optional)</Label>
                       <Input
-                        placeholder="e.g., Production ATS webhook"
+                        placeholder={t("enterpriseAPI.webhookDescPlaceholder")}
                         value={newWebhookData.description}
                         onChange={(e) => setNewWebhookData({ ...newWebhookData, description: e.target.value })}
                       />
