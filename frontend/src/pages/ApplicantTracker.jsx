@@ -214,7 +214,7 @@ const ApplicantTracker = ({ user }) => {
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <Input 
-                placeholder="Search applicants..."
+                placeholder={t("applicantTracker.searchPlaceholder")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-9 w-64"
@@ -541,7 +541,7 @@ const ApplicantTracker = ({ user }) => {
                   </div>
                   <div className="flex gap-2">
                     <Textarea
-                      placeholder="Add a note..."
+                      placeholder={t("applicantTracker.addNotePlaceholder")}
                       value={noteText}
                       onChange={(e) => setNoteText(e.target.value)}
                       className="flex-1"
