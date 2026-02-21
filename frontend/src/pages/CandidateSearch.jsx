@@ -119,7 +119,7 @@ const CandidateSearch = ({ user }) => {
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <Input
-                  placeholder="Type a skill and press Enter..."
+                  placeholder={t("candidateSearch.skillsPlaceholder")}
                   value={skillInput}
                   onChange={(e) => setSkillInput(e.target.value)}
                   onKeyPress={(e) => {
@@ -177,7 +177,7 @@ const CandidateSearch = ({ user }) => {
               Additional Keywords (comma-separated)
             </label>
             <Input
-              placeholder="e.g., senior, remote, healthcare..."
+              placeholder={t("candidateSearch.keywordsPlaceholder")}
               value={searchKeywords}
               onChange={(e) => setSearchKeywords(e.target.value)}
             />
