@@ -816,50 +816,204 @@ async def get_subtitles(video_id: str, lang: str = "en"):
     Get subtitles/captions for a video in the specified language.
     Returns WebVTT format.
     """
-    # Generate basic subtitles based on video content
-    subtitles = {
-        "01_jobseeker_features": {
-            "en": """WEBVTT
+    # Complete subtitles for all videos in English
+    subtitles_en = {
+        "01_jobseeker_features": """WEBVTT
 
 00:00:00.000 --> 00:00:05.000
 Welcome to MedMatch-AI KARAU! As a job seeker, you have access to powerful AI tools.
 
 00:00:05.000 --> 00:00:12.000
-Upload your resume and our AI will parse your skills.
+Upload your resume and our AI will parse your skills automatically.
 
 00:00:12.000 --> 00:00:20.000
 Search across 15 job boards at once. Get interview preparation with real-time feedback.
 
 00:00:20.000 --> 00:00:30.000
-Your success predictor shows your chances before you apply!
+Your success predictor shows your chances before you apply.
+
+00:00:30.000 --> 00:00:40.000
+Track all your applications in one place. Start your career journey today!
 """,
-        },
-        "02_recruiter_features": {
-            "en": """WEBVTT
+        "02_recruiter_features": """WEBVTT
 
 00:00:00.000 --> 00:00:05.000
 Recruiters, streamline your hiring with MedMatch-AI KARAU.
 
+00:00:05.000 --> 00:00:10.000
+Post jobs and reach qualified candidates instantly.
+
+00:00:10.000 --> 00:00:18.000
+Use our AI-powered applicant tracking system for efficient screening.
+
+00:00:18.000 --> 00:00:24.000
+Schedule interviews seamlessly. Let AI help you find the perfect match!
+
+00:00:24.000 --> 00:00:28.000
+Transform your hiring process today.
+""",
+        "03_privacy_matters": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Your privacy matters at MedMatch-AI KARAU.
+
 00:00:05.000 --> 00:00:12.000
-Post jobs and reach qualified candidates.
+We use bank-level encryption for all your personal data.
+
+00:00:12.000 --> 00:00:18.000
+Control exactly what recruiters can see about you.
+
+00:00:18.000 --> 00:00:25.000
+Your job search stays completely confidential. We comply with GDPR and global privacy laws.
+
+00:00:25.000 --> 00:00:34.000
+You own your data and can delete it anytime. Your trust is our priority.
+""",
+        "04_faq_ai_compliance": """WEBVTT
+
+00:00:00.000 --> 00:00:06.000
+Let me answer common questions about AI compliance at MedMatch-AI KARAU.
+
+00:00:06.000 --> 00:00:15.000
+Our AI is transparent and explainable. We follow EU AI Act guidelines.
+
+00:00:15.000 --> 00:00:25.000
+Your data trains no external models. All AI decisions can be appealed.
+
+00:00:25.000 --> 00:00:35.000
+We regularly audit our algorithms for bias. Fair and ethical AI is our commitment.
+
+00:00:35.000 --> 00:00:45.000
+Questions? Contact our compliance team anytime.
+
+00:00:45.000 --> 00:00:52.000
+We're committed to responsible AI use.
+""",
+        "05_complete_overview": """WEBVTT
+
+00:00:00.000 --> 00:00:08.000
+Welcome to MedMatch-AI KARAU, your AI-powered career companion!
+
+00:00:08.000 --> 00:00:18.000
+Whether you're a job seeker or recruiter, we've got you covered.
+
+00:00:18.000 --> 00:00:28.000
+Upload resumes, search jobs, prepare for interviews, and connect with opportunities.
+
+00:00:28.000 --> 00:00:40.000
+Privacy-first, AI-powered, human-centered. Start your journey today!
+
+00:00:40.000 --> 00:00:50.000
+Join thousands of life sciences professionals already using MedMatch-AI KARAU.
+
+00:00:50.000 --> 00:01:00.000
+Your next career move starts here.
+"""
+    }
+    
+    # Spanish translations
+    subtitles_es = {
+        "01_jobseeker_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+¡Bienvenido a MedMatch-AI KARAU! Como buscador de empleo, tienes acceso a potentes herramientas de IA.
+
+00:00:05.000 --> 00:00:12.000
+Sube tu currículum y nuestra IA analizará tus habilidades automáticamente.
 
 00:00:12.000 --> 00:00:20.000
-Use our AI-powered applicant tracking system.
+Busca en 15 bolsas de trabajo a la vez. Prepárate para entrevistas con retroalimentación en tiempo real.
 
-00:00:20.000 --> 00:00:28.000
-Let AI help you find the perfect match!
+00:00:20.000 --> 00:00:30.000
+El predictor de éxito te muestra tus posibilidades antes de aplicar.
+
+00:00:30.000 --> 00:00:40.000
+Rastrea todas tus aplicaciones en un solo lugar. ¡Comienza tu viaje profesional hoy!
 """,
-        }
+        "02_recruiter_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Reclutadores, optimicen sus contrataciones con MedMatch-AI KARAU.
+
+00:00:05.000 --> 00:00:10.000
+Publiquen empleos y lleguen a candidatos calificados al instante.
+
+00:00:10.000 --> 00:00:18.000
+Usen nuestro sistema de seguimiento de candidatos impulsado por IA.
+
+00:00:18.000 --> 00:00:24.000
+Programen entrevistas sin problemas. ¡Dejen que la IA les ayude a encontrar al candidato perfecto!
+
+00:00:24.000 --> 00:00:28.000
+Transformen su proceso de contratación hoy.
+"""
+    }
+    
+    # French translations
+    subtitles_fr = {
+        "01_jobseeker_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Bienvenue sur MedMatch-AI KARAU ! En tant que chercheur d'emploi, vous avez accès à des outils IA puissants.
+
+00:00:05.000 --> 00:00:12.000
+Téléchargez votre CV et notre IA analysera vos compétences automatiquement.
+
+00:00:12.000 --> 00:00:20.000
+Recherchez sur 15 sites d'emploi à la fois. Préparez vos entretiens avec des retours en temps réel.
+
+00:00:20.000 --> 00:00:30.000
+Le prédicteur de succès vous montre vos chances avant de postuler.
+
+00:00:30.000 --> 00:00:40.000
+Suivez toutes vos candidatures en un seul endroit. Commencez votre parcours professionnel aujourd'hui !
+"""
+    }
+    
+    # German translations
+    subtitles_de = {
+        "01_jobseeker_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Willkommen bei MedMatch-AI KARAU! Als Jobsuchender haben Sie Zugang zu leistungsstarken KI-Tools.
+
+00:00:05.000 --> 00:00:12.000
+Laden Sie Ihren Lebenslauf hoch und unsere KI analysiert Ihre Fähigkeiten automatisch.
+
+00:00:12.000 --> 00:00:20.000
+Suchen Sie auf 15 Jobbörsen gleichzeitig. Bereiten Sie sich auf Interviews mit Echtzeit-Feedback vor.
+
+00:00:20.000 --> 00:00:30.000
+Der Erfolgsprädiktor zeigt Ihre Chancen vor der Bewerbung.
+
+00:00:30.000 --> 00:00:40.000
+Verfolgen Sie alle Ihre Bewerbungen an einem Ort. Starten Sie heute Ihre Karrierereise!
+"""
+    }
+    
+    # Select subtitle set based on language
+    subtitle_sets = {
+        "en": subtitles_en,
+        "es": subtitles_es,
+        "fr": subtitles_fr,
+        "de": subtitles_de
     }
     
     # Get subtitles for video and language
-    video_subs = subtitles.get(video_id, {})
-    sub_content = video_subs.get(lang, video_subs.get("en", "WEBVTT\n\n"))
+    selected_subs = subtitle_sets.get(lang, subtitles_en)
+    sub_content = selected_subs.get(video_id, subtitles_en.get(video_id, "WEBVTT\n\n"))
+    
+    # If no subtitle for this language, fall back to English with a note
+    if lang not in subtitle_sets and video_id in subtitles_en:
+        sub_content = subtitles_en[video_id]
     
     from fastapi.responses import Response
     return Response(
         content=sub_content,
         media_type="text/vtt",
-        headers={"Content-Type": "text/vtt; charset=utf-8"}
+        headers={
+            "Content-Type": "text/vtt; charset=utf-8",
+            "Access-Control-Allow-Origin": "*"
+        }
     )
 
