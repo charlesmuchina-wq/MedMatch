@@ -284,7 +284,7 @@ const RecruiterVerificationPage = () => {
               <div>
                 <label className="text-sm font-medium">Your LinkedIn Profile URL *</label>
                 <Input
-                  placeholder="https://linkedin.com/in/yourprofile"
+                  placeholder={t("recruiterVerification.personalLinkedinPlaceholder")}
                   value={formData.linkedin_profile}
                   onChange={(e) => handleChange("linkedin_profile", e.target.value)}
                   data-testid="linkedin-profile-input"

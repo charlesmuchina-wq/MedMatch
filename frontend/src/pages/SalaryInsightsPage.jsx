@@ -122,7 +122,7 @@ const SalaryInsightsPage = ({ resume }) => {
                 type="number"
                 value={experience}
                 onChange={(e) => setExperience(e.target.value)}
-                placeholder="5"
+                placeholder={t("salaryInsights.yearsPlaceholder")}
                 min="0"
                 max="40"
                 className="dark:bg-slate-900 dark:border-slate-600"
