@@ -367,27 +367,27 @@ const PSVVerificationPage = () => {
               <CardHeader>
                 <CardTitle>ORCID Researcher Registry</CardTitle>
                 <CardDescription>
-                  Verify researcher identity, education, and publications (FREE API)
+                  {t("psv.orcidDescription")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 gap-4">
                   <Input
-                    placeholder="ORCID ID (e.g., 0000-0002-1825-0097)"
+                    placeholder={t("psv.orcidIdPlaceholder")}
                     value={orcidForm.orcid_id}
                     onChange={(e) => setOrcidForm({ ...orcidForm, orcid_id: e.target.value })}
                     data-testid="orcid-id"
                   />
-                  <p className="text-sm text-slate-500 text-center">— or search by name —</p>
+                  <p className="text-sm text-slate-500 text-center">— {t("psv.orSearchByName")} —</p>
                   <div className="grid grid-cols-2 gap-4">
                     <Input
-                      placeholder="Family Name"
+                      placeholder={t("psv.familyName")}
                       value={orcidForm.family_name}
                       onChange={(e) => setOrcidForm({ ...orcidForm, family_name: e.target.value })}
                       data-testid="orcid-family-name"
                     />
                     <Input
-                      placeholder="Given Names"
+                      placeholder={t("psv.givenNames")}
                       value={orcidForm.given_names}
                       onChange={(e) => setOrcidForm({ ...orcidForm, given_names: e.target.value })}
                       data-testid="orcid-given-names"
@@ -401,7 +401,7 @@ const PSVVerificationPage = () => {
                   data-testid="orcid-search-btn"
                 >
                   {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4" />}
-                  Search ORCID Registry
+                  {t("psv.searchOrcid")}
                 </Button>
               </CardContent>
             </Card>
@@ -411,21 +411,21 @@ const PSVVerificationPage = () => {
           <TabsContent value="university">
             <Card>
               <CardHeader>
-                <CardTitle>Global University Search</CardTitle>
+                <CardTitle>{t("psv.globalUniversitySearch")}</CardTitle>
                 <CardDescription>
-                  Search universities worldwide to validate institution names (FREE API)
+                  {t("psv.universityDescription")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4">
                   <Input
-                    placeholder="University Name"
+                    placeholder={t("psv.universityName")}
                     value={uniForm.name}
                     onChange={(e) => setUniForm({ ...uniForm, name: e.target.value })}
                     data-testid="uni-name"
                   />
                   <Input
-                    placeholder="Country (optional)"
+                    placeholder={t("psv.countryOptional")}
                     value={uniForm.country}
                     onChange={(e) => setUniForm({ ...uniForm, country: e.target.value })}
                     data-testid="uni-country"
