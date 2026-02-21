@@ -357,7 +357,7 @@ const KarauSettingsPage = () => {
 
                   <div className="flex gap-2">
                     <Input
-                      placeholder="Enter 6-digit code"
+                      placeholder={t("karauMeet.verificationCodePlaceholder")}
                       value={verificationCode}
                       onChange={(e) => setVerificationCode(e.target.value)}
                       className="bg-slate-900 border-slate-600 text-white"
