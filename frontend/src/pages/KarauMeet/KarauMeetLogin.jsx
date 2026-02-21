@@ -126,7 +126,7 @@ const KarauMeetLogin = ({ onLogin }) => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="your@email.com"
+                    placeholder={t("karauMeet.emailPlaceholder")}
                     className="bg-slate-900/50 border-slate-600 text-white mt-1"
                     required
                     data-testid="input-email"
@@ -140,7 +140,7 @@ const KarauMeetLogin = ({ onLogin }) => {
                       type={showPassword ? 'text' : 'password'}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="••••••••"
+                      placeholder={t("auth.passwordPlaceholder")}
                       className="bg-slate-900/50 border-slate-600 text-white mt-1 pr-10"
                       required
                       data-testid="input-password"
