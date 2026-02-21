@@ -224,6 +224,20 @@
     "chat": "Chat",
     "settings": "Settings"
   },
+  "subscription": {
+    "title": "Subscription",
+    "currentPlan": "Current Plan",
+    "freePlan": "Free Plan",
+    "proPlan": "Pro Plan",
+    "enterprisePlan": "Enterprise Plan",
+    "cancelSubscription": "Cancel Subscription",
+    "keepSubscription": "Keep Subscription",
+    "renewsOn": "Renews on",
+    "billingHistory": "Billing History",
+    "upgrade": "Upgrade",
+    "downgrade": "Downgrade",
+    "manageBilling": "Manage Billing"
+  },
   "resume": {
     "myResume": "My Resume",
     "uploadResume": "Upload Resume",
