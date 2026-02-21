@@ -30,6 +30,7 @@ const base64urlDecode = (str) => {
 
 // Biometric Registration Component
 export const BiometricRegistration = ({ onSuccess, email, username }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [deviceName, setDeviceName] = useState("My Device");
   const supported = isWebAuthnSupported();
