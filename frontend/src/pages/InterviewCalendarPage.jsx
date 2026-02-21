@@ -604,7 +604,7 @@ const InterviewCalendarPage = () => {
                 <div>
                   <label className="text-sm font-medium mb-2 block">Company *</label>
                   <Input
-                    placeholder="e.g., Google"
+                    placeholder={t("interviewCalendar.companyPlaceholder")}
                     value={newEvent.company}
                     onChange={(e) => setNewEvent(prev => ({ ...prev, company: e.target.value }))}
                   />
@@ -612,7 +612,7 @@ const InterviewCalendarPage = () => {
                 <div>
                   <label className="text-sm font-medium mb-2 block">Position *</label>
                   <Input
-                    placeholder="e.g., Software Engineer"
+                    placeholder={t("interviewCalendar.positionPlaceholder")}
                     value={newEvent.position}
                     onChange={(e) => setNewEvent(prev => ({ ...prev, position: e.target.value }))}
                   />
@@ -658,7 +658,7 @@ const InterviewCalendarPage = () => {
               <div>
                 <label className="text-sm font-medium mb-2 block">Meeting Link / Location</label>
                 <Input
-                  placeholder="https://meet.google.com/... or office address"
+                  placeholder={t("interviewCalendar.locationPlaceholder")}
                   value={newEvent.meeting_link || newEvent.location}
                   onChange={(e) => setNewEvent(prev => ({ 
                     ...prev, 
@@ -672,7 +672,7 @@ const InterviewCalendarPage = () => {
                 <div>
                   <label className="text-sm font-medium mb-2 block">Interviewer Name</label>
                   <Input
-                    placeholder="John Smith"
+                    placeholder={t("interviewCalendar.interviewerNamePlaceholder")}
                     value={newEvent.interviewer_name}
                     onChange={(e) => setNewEvent(prev => ({ ...prev, interviewer_name: e.target.value }))}
                   />
@@ -681,7 +681,7 @@ const InterviewCalendarPage = () => {
                   <label className="text-sm font-medium mb-2 block">Interviewer Email</label>
                   <Input
                     type="email"
-                    placeholder="john@company.com"
+                    placeholder={t("interviewCalendar.interviewerEmailPlaceholder")}
                     value={newEvent.interviewer_email}
                     onChange={(e) => setNewEvent(prev => ({ ...prev, interviewer_email: e.target.value }))}
                   />
@@ -691,7 +691,7 @@ const InterviewCalendarPage = () => {
               <div>
                 <label className="text-sm font-medium mb-2 block">Notes</label>
                 <Textarea
-                  placeholder="Any additional details about the interview..."
+                  placeholder={t("interviewCalendar.notesPlaceholder")}
                   value={newEvent.notes}
                   onChange={(e) => setNewEvent(prev => ({ ...prev, notes: e.target.value }))}
                   rows={3}
