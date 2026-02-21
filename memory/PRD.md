@@ -2492,7 +2492,7 @@ APPLICATION_STATUSES = {
 
 **Usage:**
 ```bash
-locust -f stress_test_locust.py --host=https://medmatch-multi-lang.preview.emergentagent.com
+locust -f stress_test_locust.py --host=https://medmatch-translate.preview.emergentagent.com
 ```
 
 #### 3. AI Accuracy Validation Suite (P1 - COMPLETED)

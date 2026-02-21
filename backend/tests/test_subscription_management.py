@@ -6,7 +6,7 @@ import pytest
 import requests
 import os
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-multi-lang.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-translate.preview.emergentagent.com')
 
 # Test credentials
 RECRUITER_EMAIL = "recruiter_test_1769122141@example.com"
@@ -77,8 +77,8 @@ class TestSubscriptionEndpoints:
         
         # Create checkout session for recruiter plan
         response = self.session.post(f"{BASE_URL}/api/payments/create-checkout", json={
-            "success_url": "https://medmatch-multi-lang.preview.emergentagent.com/membership?success=true",
-            "cancel_url": "https://medmatch-multi-lang.preview.emergentagent.com/membership?canceled=true",
+            "success_url": "https://medmatch-translate.preview.emergentagent.com/membership?success=true",
+            "cancel_url": "https://medmatch-translate.preview.emergentagent.com/membership?canceled=true",
             "plan": "recruiter_monthly"
         })
         
@@ -101,8 +101,8 @@ class TestSubscriptionEndpoints:
         
         # Create checkout session
         response = self.session.post(f"{BASE_URL}/api/payments/create-checkout", json={
-            "success_url": "https://medmatch-multi-lang.preview.emergentagent.com/membership?success=true",
-            "cancel_url": "https://medmatch-multi-lang.preview.emergentagent.com/membership?canceled=true",
+            "success_url": "https://medmatch-translate.preview.emergentagent.com/membership?success=true",
+            "cancel_url": "https://medmatch-translate.preview.emergentagent.com/membership?canceled=true",
             "plan": "lifetime"
         })
         
@@ -355,8 +355,8 @@ class TestRecruiterSubscriptionFlow:
             
             # Step 4: Create checkout session
             checkout_resp = self.session.post(f"{BASE_URL}/api/payments/create-checkout", json={
-                "success_url": "https://medmatch-multi-lang.preview.emergentagent.com/membership?success=true",
-                "cancel_url": "https://medmatch-multi-lang.preview.emergentagent.com/membership?canceled=true",
+                "success_url": "https://medmatch-translate.preview.emergentagent.com/membership?success=true",
+                "cancel_url": "https://medmatch-translate.preview.emergentagent.com/membership?canceled=true",
                 "plan": "recruiter_monthly"
             })
             assert checkout_resp.status_code == 200
