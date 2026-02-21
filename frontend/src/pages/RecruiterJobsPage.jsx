@@ -21,6 +21,7 @@ const API = process.env.REACT_APP_BACKEND_URL;
 
 const RecruiterJobsPage = ({ user }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { isDark } = useTheme();
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
