@@ -1,5 +1,4 @@
 /**
-import { useTranslation } from "@/utils/i18n";
  * CAPA (Corrective Action Preventive Action) Dashboard
  * Part of Karau Automator
  * 
@@ -24,6 +23,7 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import { toast } from "sonner";
+import { useTranslation } from "@/utils/i18n";
 
 const API = process.env.REACT_APP_BACKEND_URL || "";
 
