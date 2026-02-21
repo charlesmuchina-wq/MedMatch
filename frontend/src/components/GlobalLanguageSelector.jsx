@@ -359,6 +359,28 @@ const GlobalLanguageSelector = ({ compact = false }) => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         
+        {/* Google Translate Options */}
+        <DropdownMenuLabel className="text-xs text-slate-400 font-normal flex items-center gap-1">
+          <Languages className="w-3 h-3" /> {t("language.useGoogleTranslate")}
+        </DropdownMenuLabel>
+        <DropdownMenuItem
+          onClick={openGoogleTranslate}
+          className="flex items-center gap-2 cursor-pointer text-blue-600 hover:text-blue-700"
+          data-testid="google-translate-btn-full"
+        >
+          <ExternalLink className="w-4 h-4" />
+          <span>{t("language.openGoogleTranslate")}</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={triggerBrowserTranslate}
+          className="flex items-center gap-2 cursor-pointer text-blue-600 hover:text-blue-700"
+          data-testid="browser-translate-btn-full"
+        >
+          <Globe className="w-4 h-4" />
+          <span>{t("language.useBrowserTranslate")}</span>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        
         {/* Gender Preference (for gendered languages) */}
         {currentLangHasGender && (
           <>
@@ -472,5 +494,8 @@ const GlobalLanguageSelector = ({ compact = false }) => {
     </DropdownMenu>
   );
 };
+
+// Export the browser translation detection hook for use in other components
+export { useBrowserTranslationDetection, openGoogleTranslate, triggerBrowserTranslate };
 
 export default GlobalLanguageSelector;
