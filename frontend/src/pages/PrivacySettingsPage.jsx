@@ -22,6 +22,7 @@ const API = process.env.REACT_APP_BACKEND_URL;
  */
 const PrivacySettingsPage = () => {
   const { t } = useTranslation();
+  const isBrowserTranslating = useBrowserTranslationDetection();
   const [consentStatus, setConsentStatus] = useState(null);
   const [auditLogs, setAuditLogs] = useState([]);
   const [subProcessors, setSubProcessors] = useState([]);
