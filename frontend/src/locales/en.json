@@ -201,7 +201,28 @@
     "deepSearchResults": "AI Deep Search Results",
     "foundJobs": "Found {{count}} jobs",
     "queriesUsed": "queries used",
-    "searchFailed": "Failed to fetch jobs"
+    "searchFailed": "Failed to fetch jobs",
+    "viewOriginal": "View Original"
+  },
+  "meeting": {
+    "start": "Start",
+    "rejoin": "Rejoin",
+    "join": "Join",
+    "leave": "Leave",
+    "end": "End Meeting",
+    "create": "Create Meeting",
+    "schedule": "Schedule",
+    "title": "Meeting Title",
+    "participants": "Participants",
+    "duration": "Duration",
+    "recording": "Recording",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "videoOn": "Video On",
+    "videoOff": "Video Off",
+    "shareScreen": "Share Screen",
+    "chat": "Chat",
+    "settings": "Settings"
   },
   "resume": {
     "myResume": "My Resume",
