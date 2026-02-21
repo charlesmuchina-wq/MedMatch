@@ -261,7 +261,7 @@ const KarauMeetLanding = ({ user }) => {
             <div>
               <Label className="text-slate-300">Meeting Title</Label>
               <Input
-                placeholder="AI KARAU Meeting"
+                placeholder={t("karauMeet.meetingTitlePlaceholder")}
                 value={newMeetingTitle}
                 onChange={(e) => setNewMeetingTitle(e.target.value)}
                 className="bg-slate-900 border-slate-600 text-white mt-2"

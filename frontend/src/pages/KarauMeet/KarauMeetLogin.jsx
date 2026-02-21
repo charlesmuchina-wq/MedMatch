@@ -240,7 +240,7 @@ const KarauMeetLogin = ({ onLogin }) => {
                   type="text"
                   value={meetingId}
                   onChange={(e) => setMeetingId(e.target.value.toUpperCase())}
-                  placeholder="Enter meeting ID (e.g., ABC-123-XYZ)"
+                  placeholder={t("karauMeet.meetingIdPlaceholder")}
                   className="bg-slate-900/50 border-slate-600 text-white mt-1 text-center uppercase tracking-widest"
                   data-testid="input-meeting-id"
                 />
