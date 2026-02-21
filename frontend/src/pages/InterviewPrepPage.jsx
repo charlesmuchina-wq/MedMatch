@@ -461,7 +461,7 @@ Make it more concise, impactful, and professional while keeping the STAR structu
               <div className="flex-1">
                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Target Job Title</label>
                 <Input
-                  placeholder="e.g., Supplier Quality Manager"
+                  placeholder={t("interview.jobTitlePlaceholder")}
                   value={jobTitle}
                   onChange={(e) => setJobTitle(e.target.value)}
                   className="mt-1 dark:bg-slate-800"
@@ -471,7 +471,7 @@ Make it more concise, impactful, and professional while keeping the STAR structu
               <div className="flex-1">
                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Company (optional)</label>
                 <Input
-                  placeholder="e.g., Medtronic"
+                  placeholder={t("interview.companyPlaceholder")}
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
                   className="mt-1 dark:bg-slate-800"
