@@ -1,9 +1,9 @@
 /**
-import { useTranslation } from "@/utils/i18n";
  * Track Application Page
  * Allows candidates to track their application status via tracking link
  */
 import React, { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from "@/utils/i18n";
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import {
