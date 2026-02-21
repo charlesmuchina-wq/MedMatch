@@ -61,7 +61,7 @@ const VideoControls = ({
         size="lg"
         className="rounded-full w-12 h-12"
         onClick={onOpenVirtualBg}
-        title="Virtual Background"
+        title={t("meeting.virtualBackground")}
         data-testid="control-virtual-bg"
       >
         <Image className="w-5 h-5" />
@@ -73,7 +73,7 @@ const VideoControls = ({
         size="lg"
         className={`rounded-full w-12 h-12 ${isScreenSharing ? 'bg-turquoise' : ''}`}
         onClick={onToggleScreenShare}
-        title={isScreenSharing ? 'Stop Sharing' : 'Share Screen'}
+        title={isScreenSharing ? t("meeting.stopSharing") : t("meeting.shareScreen")}
         data-testid="control-screen-share"
       >
         {isScreenSharing ? <MonitorOff className="w-5 h-5" /> : <Monitor className="w-5 h-5" />}
@@ -86,7 +86,7 @@ const VideoControls = ({
           size="lg"
           className={`rounded-full w-12 h-12 ${isRecording ? 'animate-pulse' : ''}`}
           onClick={onToggleRecording}
-          title={isRecording ? 'Stop Recording' : 'Start Recording'}
+          title={isRecording ? t("meeting.stopRecording") : t("meeting.startRecording")}
           data-testid="control-record"
         >
           {isRecording ? <Square className="w-5 h-5" /> : <Circle className="w-5 h-5" />}
@@ -99,7 +99,7 @@ const VideoControls = ({
         size="lg"
         className={`rounded-full w-12 h-12 ${isHandRaised ? 'bg-yellow-500' : ''}`}
         onClick={onToggleHandRaise}
-        title={isHandRaised ? 'Lower Hand' : 'Raise Hand'}
+        title={isHandRaised ? t("meeting.lowerHand") : t("meeting.raiseHand")}
         data-testid="control-raise-hand"
       >
         <Hand className="w-5 h-5" />
@@ -113,7 +113,7 @@ const VideoControls = ({
         size="lg"
         className="rounded-full w-12 h-12"
         onClick={() => onSetActivePanel(activePanel === 'chat' ? null : 'chat')}
-        title="Chat"
+        title={t("meeting.chat")}
         data-testid="control-chat"
       >
         <MessageSquare className="w-5 h-5" />
@@ -125,7 +125,7 @@ const VideoControls = ({
         size="lg"
         className="rounded-full w-12 h-12"
         onClick={() => onSetActivePanel(activePanel === 'participants' ? null : 'participants')}
-        title="Participants"
+        title={t("meeting.participants")}
         data-testid="control-participants"
       >
         <Users className="w-5 h-5" />
@@ -137,7 +137,7 @@ const VideoControls = ({
         size="lg"
         className={`rounded-full w-12 h-12 ${activePanel === 'ai-notes' ? 'bg-turquoise' : ''}`}
         onClick={() => onSetActivePanel(activePanel === 'ai-notes' ? null : 'ai-notes')}
-        title="AI Notes"
+        title={t("meeting.aiNotes")}
         data-testid="control-ai-notes"
       >
         <Sparkles className="w-5 h-5" />
@@ -149,7 +149,7 @@ const VideoControls = ({
         size="lg"
         className="rounded-full w-12 h-12"
         onClick={() => onSetActivePanel(activePanel === 'settings' ? null : 'settings')}
-        title="Settings"
+        title={t("meeting.settings")}
         data-testid="control-settings"
       >
         <Settings className="w-5 h-5" />
@@ -163,7 +163,7 @@ const VideoControls = ({
         size="lg"
         className="rounded-full w-12 h-12"
         onClick={onLeaveMeeting}
-        title="Leave Meeting"
+        title={t("meeting.leave")}
         data-testid="control-leave"
       >
         <PhoneOff className="w-5 h-5" />
