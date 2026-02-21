@@ -454,7 +454,7 @@ async def get_overview_by_language(language: str):
         if video:
             return {
                 "video": video,
-                "url": f"/api/tutorials/videos/05_complete_overview"
+                "url": "/api/tutorials/videos/05_complete_overview"
             }
     
     if language in MULTILANG_VIDEOS:
@@ -467,7 +467,7 @@ async def get_overview_by_language(language: str):
     video = next((v for v in VIDEOS if v["id"] == "05_complete_overview"), None)
     return {
         "video": video,
-        "url": f"/api/tutorials/videos/05_complete_overview",
+        "url": "/api/tutorials/videos/05_complete_overview",
         "fallback": True,
         "requested_language": language
     }
