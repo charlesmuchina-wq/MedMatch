@@ -244,17 +244,17 @@ const MyReviewsSection = ({ userId }) => {
             {/* Response Input */}
             <div>
               <label className="text-sm font-medium text-slate-700 dark:text-slate-300 block mb-2">
-                Your Response
+                {t("reviews.yourResponse")}
               </label>
               <Textarea
-                placeholder="Thank the reviewer, provide context, or address any feedback professionally..."
+                placeholder={t("reviews.responsePlaceholder")}
                 value={responseText}
                 onChange={(e) => setResponseText(e.target.value)}
                 rows={4}
                 className="resize-none"
               />
               <p className="text-xs text-slate-400 mt-1">
-                Your response will be visible to recruiters viewing your profile
+                {t("reviews.responseVisibility")}
               </p>
             </div>
           </div>
