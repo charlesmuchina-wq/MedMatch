@@ -807,7 +807,7 @@
       "verifiedCredentials": "검증된 자격",
       "instantImport": "즉시 가져오기",
       "globalStandard": "글로벌 표준",
-      "publications": "발행물",
+      "publications": "출판물",
       "free": "무료",
       "addCredential": "자격 추가",
       "noCredentials": "아직 추가된 자격이 없습니다",
@@ -826,7 +826,7 @@
       "systemStatus": "시스템 상태",
       "userStats": "사용자 통계",
       "recentActivity": "최근 활동",
-      "systemHealth": "시스템 상태",
+      "systemHealth": "시스템 건강 상태",
       "apiUsage": "API 사용량",
       "errorRate": "오류율",
       "responseTime": "응답 시간"
@@ -836,23 +836,23 @@
       "subtitle": "채용 파이프라인을 관리하세요",
       "activeJobs": "진행 중인 채용 공고",
       "totalApplicants": "총 지원자",
-      "shortlisted": "최종 후보",
+      "shortlisted": "1차 합격",
       "interviewing": "면접 진행 중",
-      "latestCandidates": "귀하의 공고에 지원한 최신 후보자",
+      "latestCandidates": "귀하의 공고에 최근 지원한 지원자",
       "viewAll": "전체 보기",
       "postNewJob": "새 공고 등록",
-      "noJobs": "아직 등록된 공고가 없습니다"
+      "noJobs": "아직 등록된 채용 공고가 없습니다"
     },
     "recruiterJobs": {
       "title": "채용 공고",
       "subtitle": "채용 공고 목록을 관리하세요",
-      "noJobsPosted": "아직 등록된 공고가 없습니다",
+      "noJobsPosted": "아직 등록된 채용 공고가 없습니다",
       "salaryRange": "급여 범위",
       "applicationUrl": "지원 URL",
-      "jobTitlePlaceholder": "예: 선임 품질 엔지니어",
+      "jobTitlePlaceholder": "예: 시니어 품질 엔지니어",
       "companyNamePlaceholder": "회사명",
       "createJob": "공고 생성",
-      "editJob": "공고 편집",
+      "editJob": "공고 수정",
       "deleteJob": "공고 삭제",
       "applicants": "지원자",
       "views": "조회수"
@@ -865,7 +865,7 @@
       "profileName": "프로필 이름",
       "cancel": "취소",
       "noProfiles": "이력서 프로필이 없습니다",
-      "createFirst": "시작하려면 첫 이력서 프로필을 생성하세요",
+      "createFirst": "시작하려면 첫 번째 이력서 프로필을 생성하세요",
       "primary": "기본",
       "setPrimary": "기본으로 설정",
       "lastUpdated": "마지막 업데이트"
@@ -875,10 +875,10 @@
       "subtitle": "회사 정보를 관리하세요",
       "overview": "개요",
       "jobs": "채용 공고",
-      "reviews": "후기",
+      "reviews": "리뷰",
       "benefits": "복지",
       "culture": "문화",
-      "editProfile": "프로필 편집",
+      "editProfile": "프로필 수정",
       "verifiedCompany": "검증된 회사",
       "employeeCount": "직원 수",
       "founded": "설립",
@@ -887,15 +887,15 @@
     "portalSelector": {
       "title": "AI KARAU 포털",
       "subtitle": "이동할 곳을 선택하세요",
-      "jobToolkit": "취업 툴킷",
-      "jobToolkitDesc": "AI 기반 취업 검색 및 커리어 도구",
+      "jobToolkit": "Job Toolkit",
+      "jobToolkitDesc": "AI 기반 구직 및 커리어 도구",
       "meetingPortal": "미팅 포털",
-      "meetingPortalDesc": "안전한 화상 회의",
-      "enterPortal": "포털 입장"
+      "meetingPortalDesc": "보안 화상 회의",
+      "enterPortal": "포털 들어가기"
     },
     "dragonAutomator": {
-      "title": "KARAU 자동화 도구",
-      "subtitle": "취업 검색 워크플로를 자동화하세요",
+      "title": "KARAU Automator",
+      "subtitle": "구직 워크플로를 자동화하세요",
       "startAutomation": "자동화 시작",
       "stopAutomation": "자동화 중지",
       "automationStatus": "자동화 상태",
@@ -904,27 +904,27 @@
       "lastRun": "마지막 실행"
     },
     "blindScreening": {
-      "title": "블라인드 심사 대시보드",
-      "subtitle": "편견 없이 후보자를 검토하세요",
+      "title": "블라인드 스크리닝 대시보드",
+      "subtitle": "편향 없이 후보자를 검토하세요",
       "candidatePool": "후보자 풀",
-      "screeningQueue": "심사 대기열",
+      "screeningQueue": "스크리닝 대기열",
       "reviewed": "검토 완료",
       "pending": "대기 중",
-      "qualificationMatch": "자격 요건 일치도",
+      "qualificationMatch": "자격 요건 일치",
       "experienceLevel": "경력 수준",
-      "skillsMatch": "기술 일치도"
+      "skillsMatch": "기술 일치"
     },
     "locationSettings": {
       "title": "위치 설정",
-      "subtitle": "취업 검색을 위한 위치 선호도를 관리하세요",
+      "subtitle": "구직을 위한 위치 선호도를 관리하세요",
       "currentLocation": "현재 위치",
-      "preferredLocations": "선호 위치",
+      "preferredLocations": "선호 지역",
       "remoteOnly": "원격만",
       "hybridOk": "하이브리드 가능",
-      "onSiteOk": "출근 가능",
-      "willingToRelocate": "이사 가능",
+      "onSiteOk": "현장 근무 가능",
+      "willingToRelocate": "이전 근무 가능",
       "searchRadius": "검색 반경",
-      "savePreferences": "선호도 저장"
+      "savePreferences": "선호 설정 저장"
     },
     "taxonomyExplorer": {
       "title": "분류 체계 탐색기",
@@ -936,7 +936,7 @@
       "searchTaxonomy": "분류 체계 검색..."
     },
     "enterpriseApi": {
-      "title": "Enterprise API",
+      "title": "엔터프라이즈 API",
       "subtitle": "API 문서 및 관리",
       "apiKeys": "API 키",
       "documentation": "문서",
@@ -969,12 +969,12 @@
       "subtitle": "프로필이 어떻게 평가되는지 확인하세요",
       "matchScore": "매칭 점수",
       "evaluationCriteria": "평가 기준",
-      "skillsAssessment": "기술 평가",
-      "experienceMatch": "경력 일치도"
+      "skillsAssessment": "역량 평가",
+      "experienceMatch": "경력 일치"
     },
     "publicApplication": {
       "title": "입사 지원",
-      "subtitle": "이 직무에 지원하세요",
+      "subtitle": "이 포지션에 지원하세요",
       "applyNow": "지금 지원하기",
       "uploadResume": "이력서 업로드",
       "coverLetter": "자기소개서",
@@ -986,7 +986,7 @@
       "applicationStatus": "지원 상태",
       "submitted": "제출됨",
       "underReview": "검토 중",
-      "shortlisted": "최종 후보",
+      "shortlisted": "1차 합격",
       "interview": "면접",
       "offer": "오퍼",
       "rejected": "불합격"
@@ -997,7 +997,7 @@
       "dataQuality": "데이터 품질",
       "duplicates": "중복",
       "missingFields": "누락된 필드",
-      "validationErrors": "검증 오류",
+      "validationErrors": "유효성 검사 오류",
       "runCheck": "무결성 검사 실행"
     },
     "recruiterVerification": {
@@ -1010,9 +1010,9 @@
       "rejectRecruiter": "리크루터 거절"
     },
     "reviewModeration": {
-      "title": "후기 검토",
-      "subtitle": "사용자 후기를 검토하고 관리하세요",
-      "pendingReviews": "검토 대기 후기",
+      "title": "리뷰 검수",
+      "subtitle": "사용자 리뷰를 검수하세요",
+      "pendingReviews": "검수 대기 리뷰",
       "approved": "승인됨",
       "flagged": "표시됨",
       "approveReview": "승인",
@@ -1033,18 +1033,18 @@
   },
   "videoTutorials": {
     "title": "비디오 튜토리얼",
-    "subtitle": "종합 비디오 가이드로 MedMatch-AI KARAU 사용 방법을 알아보세요",
+    "subtitle": "종합 비디오 가이드를 통해 MedMatch-AI KARAU 사용 방법을 알아보세요",
     "allVideos": "전체 비디오",
     "gettingStarted": "시작하기",
     "quickGuides": "빠른 가이드",
     "featuredVideo": "추천 비디오",
-    "watchNow": "지금 시청",
+    "watchNow": "지금 시청하기",
     "aiGenerated": "AI 생성",
     "languages": "언어",
     "selectLanguage": "언어 선택",
     "videoUnavailable": "비디오를 사용할 수 없습니다",
-    "loadingVideo": "비디오 로딩 중...",
-    "presenter": "진행자",
+    "loadingVideo": "비디오를 불러오는 중...",
+    "presenter": "발표자",
     "categories": {
       "jobSeeker": "구직자",
       "recruiter": "리크루터",
@@ -1053,9 +1053,9 @@
     },
     "sections": {
       "allVideosTitle": "비디오 라이브러리",
-      "allVideosSubtitle": "튜토리얼 비디오 전체 컬렉션을 살펴보세요",
+      "allVideosSubtitle": "전체 튜토리얼 비디오 컬렉션을 살펴보세요",
       "gettingStartedTitle": "AI 기반 시작하기 가이드",
-      "gettingStartedSubtitle": "AI 진행자가 플랫폼 기능을 설명하는 영상을 시청하세요",
+      "gettingStartedSubtitle": "AI 발표자가 플랫폼 기능을 설명하는 영상을 시청하세요",
       "quickGuidesTitle": "빠른 참고 가이드",
       "quickGuidesSubtitle": "자주 사용하는 작업을 위한 단계별 안내"
     }
@@ -1063,18 +1063,18 @@
   "components": {
     "locationSettings": {
       "homeLocation": "거주지",
-      "homeLocationDesc": "정확한 통근 시간과 위치 기반 채용 매칭을 위해 거주지 주소를 설정하세요",
+      "homeLocationDesc": "정확한 출퇴근 시간과 위치 기반 채용 매칭을 위해 거주지 주소를 설정하세요",
       "addressOrCity": "주소 또는 도시",
       "addressPlaceholder": "주소 또는 도시를 입력하세요...",
       "useCurrentLocation": "현재 위치 사용",
-      "searchRadius": "채용 검색 반경",
-      "searchRadiusDesc": "통근 가능한 최대 거리",
+      "searchRadius": "구직 검색 반경",
+      "searchRadiusDesc": "출퇴근 가능한 최대 거리",
       "maxDistance": "최대 거리",
       "miles": "마일",
       "km": "km",
-      "commutePreferences": "통근 선호",
+      "commutePreferences": "출퇴근 선호 설정",
       "commutePreferencesDesc": "어떤 방식으로 출근하는 것을 선호하시나요?",
-      "primaryCommuteMode": "주요 통근 수단",
+      "primaryCommuteMode": "주요 출퇴근 수단",
       "driving": "자동차",
       "transit": "대중교통",
       "cycling": "자전거",
@@ -1085,14 +1085,14 @@
       "hybrid": "하이브리드",
       "onsite": "현장 근무",
       "locationAlerts": "위치 기반 알림",
-      "locationAlertsDesc": "내 위치 근처의 채용 공고 알림을 받으세요",
+      "locationAlertsDesc": "내 위치 근처의 채용 공고 알림을 받아보세요",
       "enableAlerts": "위치 기반 알림 사용",
       "nearestHub": "가장 가까운 MedMatch 허브",
-      "savePreferences": "선호도 저장",
+      "savePreferences": "선호 설정 저장",
       "saving": "저장 중...",
-      "preferencesSaved": "위치 선호도가 성공적으로 저장되었습니다",
-      "saveFailed": "위치 선호도 저장에 실패했습니다",
-      "locationDetected": "위치를 성공적으로 감지했습니다",
+      "preferencesSaved": "위치 선호 설정이 성공적으로 저장되었습니다",
+      "saveFailed": "위치 선호 설정 저장에 실패했습니다",
+      "locationDetected": "위치가 성공적으로 감지되었습니다",
       "locationFailed": "위치 감지에 실패했습니다",
       "urban": "도시",
       "standard": "일반",
@@ -1102,7 +1102,7 @@
       "publicTransit": "대중교통",
       "preferredWorkTypes": "선호 근무 형태",
       "selectWorkArrangements": "관심 있는 근무 형태를 선택하세요",
-      "alertsDescription": "내 주변에 새 채용 공고가 등록되면 알림을 받으세요",
+      "alertsDescription": "근처에 새로운 채용 공고가 등록되면 알림을 받아보세요",
       "enableProximityAlerts": "근접 알림 사용",
       "proximityAlertsDesc": "검색 반경 내 채용 공고에 대한 알림을 받습니다",
       "enterAddress": "주소를 입력해 주세요",
@@ -1110,7 +1110,7 @@
     },
     "biometricAuth": {
       "title": "생체 인증",
-      "enableBiometric": "생체 로그인 사용",
+      "enableBiometric": "생체 인증 로그인 사용",
       "faceId": "Face ID",
       "touchId": "Touch ID",
       "fingerprint": "지문",
@@ -1130,19 +1130,19 @@
       "nextBilling": "다음 결제일"
     },
     "employerReview": {
-      "writeReview": "후기 작성",
+      "writeReview": "리뷰 작성",
       "rating": "평점",
       "pros": "장점",
       "cons": "단점",
       "advice": "경영진에게 조언",
       "recommend": "추천 여부",
-      "submitReview": "후기 제출",
+      "submitReview": "리뷰 제출",
       "anonymous": "익명으로 게시",
-      "verified": "인증된 재직자"
+      "verified": "인증된 직원"
     },
     "offlineIndicator": {
       "offline": "오프라인 상태입니다",
-      "reconnecting": "다시 연결 중...",
+      "reconnecting": "재연결 중...",
       "changesWillSync": "온라인으로 돌아오면 변경 사항이 동기화됩니다"
     },
     "notificationCenter": {
