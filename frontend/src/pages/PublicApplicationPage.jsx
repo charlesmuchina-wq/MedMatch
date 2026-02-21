@@ -1,5 +1,4 @@
 /**
-import { useTranslation } from "@/utils/i18n";
  * Public Application Form Page
  * Allows external candidates to apply via shareable link
  */
@@ -17,6 +16,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Textarea } from '../components/ui/textarea';
 import { Badge } from '../components/ui/badge';
+import { useTranslation } from "@/utils/i18n";
 import axios from 'axios';
 
 const API = process.env.REACT_APP_BACKEND_URL;
@@ -24,6 +24,7 @@ const API = process.env.REACT_APP_BACKEND_URL;
 export default function PublicApplicationPage() {
   const { token } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
