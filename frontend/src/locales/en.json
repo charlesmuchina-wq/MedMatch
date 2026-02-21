@@ -863,7 +863,11 @@
     "useBrowserTranslate": "Use Browser Translation",
     "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
     "browserTranslationActive": "Browser translation is active",
-    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts."
+    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
+    "detectedBrowserLanguage": "We detected your browser language is {{language}}",
+    "switchToLanguage": "Switch to {{language}}",
+    "keepCurrentLanguage": "Keep English",
+    "languageSwitched": "Language switched to {{language}}"
   },
   "dragon": {
     "webSearch": "Web Search",
