@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { 
   Shield, Download, Trash2, FileText, Mic, Brain, 
   ChevronRight, AlertTriangle, Check, ExternalLink,
-  Clock, Eye, Building2
+  Clock, Eye, Building2, Languages, Globe
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -10,6 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
 import { useTranslation } from "@/utils/i18n";
+import { useBrowserTranslationDetection, openGoogleTranslate, triggerBrowserTranslate } from "@/components/GlobalLanguageSelector";
 import axios from "axios";
 import { toast } from "sonner";
 
