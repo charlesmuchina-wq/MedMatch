@@ -26,7 +26,8 @@
     "login": "Ingia",
     "signup": "Jisajili",
     "all": "Zote",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "Inazalishwa..."
   },
   "nav": {
     "dashboard": "Dashibodi",
@@ -166,7 +167,11 @@
     "deepSearchResults": "Matokeo ya Utafutaji wa Kina wa AI",
     "foundJobs": "Imepatikana kazi {{count}}",
     "queriesUsed": "hoji zilizotumiwa",
-    "searchFailed": "Imeshindwa kupata kazi"
+    "searchFailed": "Imeshindwa kupata kazi",
+    "workType": "Aina ya Kazi",
+    "moreFilters": "Vichujio Zaidi",
+    "lessFilters": "Vichujio Vichache",
+    "selectCountry": "Chagua Nchi"
   },
   "auth": {
     "signIn": "Ingia",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "Jina",
+    "yourName": "Jina lako",
+    "enterCode": "Weka msimbo wa tarakimu 6",
+    "verifyAndSignIn": "Thibitisha na Ingia",
+    "changePhoneNumber": "Badilisha nambari ya simu"
   },
   "errors": {
     "somethingWentWrong": "Kuna hitilafu imetokea",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "Bandika maelezo ya kazi hapa...",
+    "generate": "Tengeneza Barua ya Maombi ya Kazi"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

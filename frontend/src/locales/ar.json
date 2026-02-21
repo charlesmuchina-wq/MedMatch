@@ -44,7 +44,8 @@
     "disable": "تعطيل",
     "help": "مساعدة",
     "about": "حول",
-    "register": "تسجيل"
+    "register": "تسجيل",
+    "generating": "جارٍ الإنشاء..."
   },
   "nav": {
     "dashboard": "لوحة التحكم",
@@ -197,7 +198,11 @@
     "benefits": "المزايا",
     "freelance": "عمل حر",
     "deadline": "آخر موعد للتقديم",
-    "industry": "الصناعة"
+    "industry": "الصناعة",
+    "workType": "نوع العمل",
+    "moreFilters": "مزيد من الفلاتر",
+    "lessFilters": "فلاتر أقل",
+    "selectCountry": "اختر الدولة"
   },
   "auth": {
     "signIn": "تسجيل الدخول",
@@ -225,7 +230,12 @@
     "resetPassword": "إعادة تعيين كلمة المرور",
     "signOut": "تسجيل الخروج",
     "welcomeBack": "مرحباً بعودتك",
-    "agreeToTerms": "أوافق على الشروط والأحكام"
+    "agreeToTerms": "أوافق على الشروط والأحكام",
+    "name": "الاسم",
+    "yourName": "اسمك",
+    "enterCode": "أدخل رمزًا مكوّنًا من 6 أرقام",
+    "verifyAndSignIn": "تحقق وتسجيل الدخول",
+    "changePhoneNumber": "تغيير رقم الهاتف"
   },
   "errors": {
     "somethingWentWrong": "حدث خطأ ما",
@@ -864,7 +874,7 @@
     "jobTitle": "المسمى الوظيفي",
     "fillAllFields": "يرجى ملء جميع الحقول",
     "title": "خطاب التقديم",
-    "generate": "إنشاء",
+    "generate": "إنشاء خطاب تغطية",
     "edit": "تعديل",
     "preview": "معاينة",
     "save": "حفظ",
@@ -877,7 +887,8 @@
     "medium": "متوسط",
     "long": "طويل",
     "company": "الشركة",
-    "customize": "تخصيص"
+    "customize": "تخصيص",
+    "pasteJobDescription": "الصق وصف الوظيفة هنا..."
   },
   "cloudStorage": {
     "supportedTypes": "المدعوم: PDF, DOC, DOCX",

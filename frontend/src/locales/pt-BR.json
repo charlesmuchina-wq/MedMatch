@@ -26,7 +26,8 @@
     "login": "Entrar",
     "signup": "Cadastrar-se",
     "all": "Todos",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "Gerando..."
   },
   "nav": {
     "dashboard": "Painel",
@@ -166,7 +167,11 @@
     "deepSearchResults": "Resultados da Busca Profunda com IA",
     "foundJobs": "Encontramos {{count}} vagas",
     "queriesUsed": "consultas usadas",
-    "searchFailed": "Falha ao buscar vagas"
+    "searchFailed": "Falha ao buscar vagas",
+    "workType": "Tipo de trabalho",
+    "moreFilters": "Mais filtros",
+    "lessFilters": "Menos filtros",
+    "selectCountry": "Selecione o país"
   },
   "auth": {
     "signIn": "Entrar",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "Nome",
+    "yourName": "Seu nome",
+    "enterCode": "Digite o código de 6 dígitos",
+    "verifyAndSignIn": "Verificar e entrar",
+    "changePhoneNumber": "Alterar número de telefone"
   },
   "errors": {
     "somethingWentWrong": "Algo deu errado",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "Cole a descrição da vaga aqui...",
+    "generate": "Gerar carta de apresentação"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

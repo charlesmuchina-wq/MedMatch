@@ -26,7 +26,8 @@
     "login": "Dugg",
     "signup": "Bindu",
     "all": "Lépp",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "Mi ngiy sos..."
   },
   "nav": {
     "dashboard": "Taabal bu mag",
@@ -166,7 +167,11 @@
     "deepSearchResults": "Nattali Seet bu xóot ak AI",
     "foundJobs": "Gisnañu {{count}} liggéey",
     "queriesUsed": "laaj yi ñu jëfandikoo",
-    "searchFailed": "Mëneesula jël liggéey yi"
+    "searchFailed": "Mëneesula jël liggéey yi",
+    "workType": "Xeetu liggéey",
+    "moreFilters": "Yeneen filtaaru",
+    "lessFilters": "Waññi filtaaru",
+    "selectCountry": "Tànn réew"
   },
   "auth": {
     "signIn": "Dugg",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "Tur",
+    "yourName": "Sa tur",
+    "enterCode": "Dugal koodu 6 simili",
+    "verifyAndSignIn": "Seet & Dugg",
+    "changePhoneNumber": "Soppi nimero telefon"
   },
   "errors": {
     "somethingWentWrong": "Dafa am lu ñaaw",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "Tàllal fii bennu melokaanu liggéey bi...",
+    "generate": "Jëfandikoo benn létaru ubbite"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

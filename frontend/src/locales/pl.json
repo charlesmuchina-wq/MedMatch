@@ -26,7 +26,8 @@
     "login": "Zaloguj się",
     "signup": "Zarejestruj się",
     "all": "Wszystkie",
-    "refresh": "Odśwież"
+    "refresh": "Odśwież",
+    "generating": "Generowanie..."
   },
   "notifications": {
     "title": "Powiadomienia",
@@ -192,7 +193,11 @@
     "deepSearchResults": "Wyniki głębokiego wyszukiwania AI",
     "foundJobs": "Znaleziono {{count}} ofert pracy",
     "queriesUsed": "użyte zapytania",
-    "searchFailed": "Nie udało się pobrać ofert pracy"
+    "searchFailed": "Nie udało się pobrać ofert pracy",
+    "workType": "Rodzaj pracy",
+    "moreFilters": "Więcej filtrów",
+    "lessFilters": "Mniej filtrów",
+    "selectCountry": "Wybierz kraj"
   },
   "resume": {
     "myResume": "Moje CV",
@@ -393,7 +398,9 @@
     "download": "Pobierz",
     "fillAllFields": "Proszę wypełnić wszystkie pola",
     "uploadResumeFirst": "Najpierw prześlij swoje CV",
-    "generationFailed": "Nie udało się wygenerować listu motywacyjnego"
+    "generationFailed": "Nie udało się wygenerować listu motywacyjnego",
+    "pasteJobDescription": "Wklej tutaj opis stanowiska...",
+    "generate": "Wygeneruj list motywacyjny"
   },
   "membership": {
     "membership": "Członkostwo",
@@ -528,7 +535,12 @@
     "jobSeeker": "Osoba poszukująca pracy",
     "jobSeekerDesc": "Znajdź wymarzoną pracę dzięki AI",
     "recruiter": "Rekruter",
-    "recruiterDesc": "Zatrudnij najlepszych specjalistów w ochronie zdrowia"
+    "recruiterDesc": "Zatrudnij najlepszych specjalistów w ochronie zdrowia",
+    "name": "Imię i nazwisko",
+    "yourName": "Twoje imię i nazwisko",
+    "enterCode": "Wprowadź 6-cyfrowy kod",
+    "verifyAndSignIn": "Zweryfikuj i zaloguj się",
+    "changePhoneNumber": "Zmień numer telefonu"
   },
   "onboarding": {
     "welcome": "Witamy w MedMatch!",

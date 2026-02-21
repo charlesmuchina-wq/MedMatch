@@ -26,7 +26,8 @@
     "login": "Connexion",
     "signup": "S'inscrire",
     "all": "Tous",
-    "refresh": "Actualiser"
+    "refresh": "Actualiser",
+    "generating": "Génération..."
   },
   "nav": {
     "dashboard": "Tableau de Bord",
@@ -172,7 +173,11 @@
     "deepSearchResults": "Résultats de Recherche IA Approfondie",
     "foundJobs": "{{count}} emplois trouvés",
     "queriesUsed": "requêtes utilisées",
-    "lastMonth": "Dernier Mois"
+    "lastMonth": "Dernier Mois",
+    "workType": "Type de travail",
+    "moreFilters": "Plus de filtres",
+    "lessFilters": "Moins de filtres",
+    "selectCountry": "Sélectionner un pays"
   },
   "resume": {
     "myResume": "Mon CV",
@@ -252,7 +257,9 @@
     "copied": "Lettre de motivation copiée dans le presse-papiers!",
     "uploadResumeFirst": "Veuillez d'abord télécharger votre CV",
     "generationFailed": "Échec de la génération de la lettre de motivation",
-    "fillAllFields": "Veuillez remplir tous les champs"
+    "fillAllFields": "Veuillez remplir tous les champs",
+    "pasteJobDescription": "Collez la description du poste ici...",
+    "generate": "Générer une lettre de motivation"
   },
   "membership": {
     "membership": "Abonnement",
@@ -335,7 +342,12 @@
     "jobSeekerDesc": "Trouvez votre emploi de rêve avec l'IA",
     "jobSeeker": "Chercheur d'Emploi",
     "iAmA": "Je suis",
-    "recruiterDesc": "Recrutez les meilleurs talents en santé"
+    "recruiterDesc": "Recrutez les meilleurs talents en santé",
+    "name": "Nom",
+    "yourName": "Votre nom",
+    "enterCode": "Saisissez le code à 6 chiffres",
+    "verifyAndSignIn": "Vérifier et se connecter",
+    "changePhoneNumber": "Changer de numéro de téléphone"
   },
   "onboarding": {
     "welcome": "Bienvenue sur MedMatch!",

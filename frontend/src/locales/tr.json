@@ -26,7 +26,8 @@
     "login": "Giriş yap",
     "signup": "Kayıt ol",
     "all": "Tümü",
-    "refresh": "Yenile"
+    "refresh": "Yenile",
+    "generating": "Oluşturuluyor..."
   },
   "notifications": {
     "title": "Bildirimler",
@@ -192,7 +193,11 @@
     "deepSearchResults": "Yapay Zekâ Derin Arama Sonuçları",
     "foundJobs": "{{count}} iş bulundu",
     "queriesUsed": "kullanılan sorgular",
-    "searchFailed": "İşler getirilemedi"
+    "searchFailed": "İşler getirilemedi",
+    "workType": "Çalışma Türü",
+    "moreFilters": "Daha Fazla Filtre",
+    "lessFilters": "Daha Az Filtre",
+    "selectCountry": "Ülke Seçin"
   },
   "resume": {
     "myResume": "Özgeçmişim",
@@ -393,7 +398,9 @@
     "download": "İndir",
     "fillAllFields": "Lütfen tüm alanları doldurun",
     "uploadResumeFirst": "Lütfen önce özgeçmişinizi yükleyin",
-    "generationFailed": "Ön yazı oluşturulamadı"
+    "generationFailed": "Ön yazı oluşturulamadı",
+    "pasteJobDescription": "İş tanımını buraya yapıştırın...",
+    "generate": "Ön Yazı Oluştur"
   },
   "membership": {
     "membership": "Üyelik",
@@ -528,7 +535,12 @@
     "jobSeeker": "İş Arayan",
     "jobSeekerDesc": "Yapay zekâ ile hayalinizdeki işi bulun",
     "recruiter": "İşe Alım Uzmanı",
-    "recruiterDesc": "En iyi sağlık profesyonellerini işe alın"
+    "recruiterDesc": "En iyi sağlık profesyonellerini işe alın",
+    "name": "İsim",
+    "yourName": "Adınız",
+    "enterCode": "6 haneli kodu girin",
+    "verifyAndSignIn": "Doğrula ve Giriş Yap",
+    "changePhoneNumber": "Telefon numarasını değiştir"
   },
   "onboarding": {
     "welcome": "MedMatch’e hoş geldiniz!",

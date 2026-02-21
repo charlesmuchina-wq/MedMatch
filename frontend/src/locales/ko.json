@@ -26,7 +26,8 @@
     "login": "로그인",
     "signup": "회원가입",
     "all": "전체",
-    "refresh": "새로고침"
+    "refresh": "새로고침",
+    "generating": "생성 중..."
   },
   "notifications": {
     "title": "알림",
@@ -192,7 +193,11 @@
     "deepSearchResults": "AI 심층 검색 결과",
     "foundJobs": "채용 공고 {{count}}개를 찾았습니다",
     "queriesUsed": "사용된 쿼리",
-    "searchFailed": "채용 공고를 불러오지 못했습니다"
+    "searchFailed": "채용 공고를 불러오지 못했습니다",
+    "workType": "근무 형태",
+    "moreFilters": "필터 더 보기",
+    "lessFilters": "필터 접기",
+    "selectCountry": "국가 선택"
   },
   "resume": {
     "myResume": "내 이력서",
@@ -393,7 +398,9 @@
     "download": "다운로드",
     "fillAllFields": "모든 항목을 입력해 주세요",
     "uploadResumeFirst": "먼저 이력서를 업로드해 주세요.",
-    "generationFailed": "자기소개서 생성에 실패했습니다."
+    "generationFailed": "자기소개서 생성에 실패했습니다.",
+    "pasteJobDescription": "여기에 직무 설명을 붙여넣으세요...",
+    "generate": "커버 레터 생성"
   },
   "membership": {
     "membership": "멤버십",
@@ -528,7 +535,12 @@
     "jobSeeker": "구직자",
     "jobSeekerDesc": "AI로 꿈의 직업을 찾아보세요",
     "recruiter": "채용 담당자",
-    "recruiterDesc": "최고의 헬스케어 인재를 채용하세요"
+    "recruiterDesc": "최고의 헬스케어 인재를 채용하세요",
+    "name": "이름",
+    "yourName": "이름을 입력하세요",
+    "enterCode": "6자리 코드를 입력하세요",
+    "verifyAndSignIn": "확인하고 로그인",
+    "changePhoneNumber": "전화번호 변경"
   },
   "onboarding": {
     "welcome": "MedMatch에 오신 것을 환영합니다!",

@@ -30,7 +30,8 @@
     "previous": "上一步",
     "filter": "筛选",
     "sort": "排序",
-    "help": "帮助"
+    "help": "帮助",
+    "generating": "正在生成..."
   },
   "nav": {
     "dashboard": "仪表板",
@@ -176,7 +177,11 @@
     "deepSearchResults": "AI Deep Search Results",
     "foundJobs": "Found {{count}} jobs",
     "queriesUsed": "queries used",
-    "lastMonth": "Last Month"
+    "lastMonth": "Last Month",
+    "workType": "工作类型",
+    "moreFilters": "更多筛选",
+    "lessFilters": "更少筛选",
+    "selectCountry": "选择国家"
   },
   "resume": {
     "myResume": "我的简历",
@@ -256,7 +261,9 @@
     "copied": "Cover letter copied to clipboard!",
     "uploadResumeFirst": "Please upload your resume first",
     "generationFailed": "Failed to generate cover letter",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "在此粘贴职位描述...",
+    "generate": "生成求职信"
   },
   "membership": {
     "membership": "会员",
@@ -339,7 +346,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "姓名",
+    "yourName": "你的姓名",
+    "enterCode": "输入6位验证码",
+    "verifyAndSignIn": "验证并登录",
+    "changePhoneNumber": "更换手机号"
   },
   "onboarding": {
     "welcome": "欢迎来到MedMatch！",

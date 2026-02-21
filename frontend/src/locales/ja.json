@@ -26,7 +26,8 @@
     "login": "サインイン",
     "signup": "新規登録",
     "all": "すべて",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "生成中..."
   },
   "nav": {
     "dashboard": "ダッシュボード",
@@ -166,7 +167,11 @@
     "deepSearchResults": "AIディープ検索結果",
     "foundJobs": "{{count}}件の求人が見つかりました",
     "queriesUsed": "使用したクエリ数",
-    "searchFailed": "求人の取得に失敗しました"
+    "searchFailed": "求人の取得に失敗しました",
+    "workType": "勤務形態",
+    "moreFilters": "フィルターをもっと表示",
+    "lessFilters": "フィルターを少なく表示",
+    "selectCountry": "国を選択"
   },
   "auth": {
     "signIn": "ログイン",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "名前",
+    "yourName": "あなたの名前",
+    "enterCode": "6桁のコードを入力",
+    "verifyAndSignIn": "確認してサインイン",
+    "changePhoneNumber": "電話番号を変更"
   },
   "errors": {
     "somethingWentWrong": "問題が発生しました",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "ここに求人内容を貼り付けてください...",
+    "generate": "カバーレターを作成"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

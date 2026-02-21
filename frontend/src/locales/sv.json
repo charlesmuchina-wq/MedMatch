@@ -26,7 +26,8 @@
     "login": "Logga in",
     "signup": "Registrera dig",
     "all": "Alla",
-    "refresh": "Uppdatera"
+    "refresh": "Uppdatera",
+    "generating": "Genererar..."
   },
   "notifications": {
     "title": "Notiser",
@@ -192,7 +193,11 @@
     "deepSearchResults": "Resultat för AI-djupsökning",
     "foundJobs": "Hittade {{count}} jobb",
     "queriesUsed": "använda sökfrågor",
-    "searchFailed": "Det gick inte att hämta jobb"
+    "searchFailed": "Det gick inte att hämta jobb",
+    "workType": "Arbetstyp",
+    "moreFilters": "Fler filter",
+    "lessFilters": "Färre filter",
+    "selectCountry": "Välj land"
   },
   "resume": {
     "myResume": "Mitt CV",
@@ -393,7 +398,9 @@
     "download": "Ladda ner",
     "fillAllFields": "Vänligen fyll i alla fält",
     "uploadResumeFirst": "Vänligen ladda upp ditt CV först",
-    "generationFailed": "Misslyckades med att generera personligt brev"
+    "generationFailed": "Misslyckades med att generera personligt brev",
+    "pasteJobDescription": "Klistra in jobbannonsen här...",
+    "generate": "Generera personligt brev"
   },
   "membership": {
     "membership": "Medlemskap",
@@ -528,7 +535,12 @@
     "jobSeeker": "Jobbsökande",
     "jobSeekerDesc": "Hitta ditt drömjobb med AI",
     "recruiter": "Rekryterare",
-    "recruiterDesc": "Rekrytera topptalanger inom hälso- och sjukvården"
+    "recruiterDesc": "Rekrytera topptalanger inom hälso- och sjukvården",
+    "name": "Namn",
+    "yourName": "Ditt namn",
+    "enterCode": "Ange 6-siffrig kod",
+    "verifyAndSignIn": "Verifiera och logga in",
+    "changePhoneNumber": "Ändra telefonnummer"
   },
   "onboarding": {
     "welcome": "Välkommen till MedMatch!",

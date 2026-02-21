@@ -30,7 +30,8 @@
     "previous": "Vorherige",
     "filter": "Filtern",
     "sort": "Sortieren",
-    "help": "Hilfe"
+    "help": "Hilfe",
+    "generating": "Wird generiert..."
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -176,7 +177,11 @@
     "deepSearchResults": "KI-Tiefensuche Ergebnisse",
     "foundJobs": "{{count}} Jobs gefunden",
     "queriesUsed": "Abfragen verwendet",
-    "lastMonth": "Letzter Monat"
+    "lastMonth": "Letzter Monat",
+    "workType": "Arbeitsart",
+    "moreFilters": "Mehr Filter",
+    "lessFilters": "Weniger Filter",
+    "selectCountry": "Land auswählen"
   },
   "resume": {
     "myResume": "Mein Lebenslauf",
@@ -256,7 +261,9 @@
     "copied": "Anschreiben in Zwischenablage kopiert!",
     "uploadResumeFirst": "Bitte laden Sie zuerst Ihren Lebenslauf hoch",
     "generationFailed": "Anschreiben konnte nicht generiert werden",
-    "fillAllFields": "Bitte füllen Sie alle Felder aus"
+    "fillAllFields": "Bitte füllen Sie alle Felder aus",
+    "pasteJobDescription": "Fügen Sie die Stellenbeschreibung hier ein...",
+    "generate": "Anschreiben generieren"
   },
   "membership": {
     "membership": "Mitgliedschaft",
@@ -339,7 +346,12 @@
     "jobSeekerDesc": "Finden Sie Ihren Traumjob mit KI",
     "jobSeeker": "Arbeitssuchender",
     "iAmA": "Ich bin",
-    "recruiterDesc": "Stellen Sie Top-Talente im Gesundheitswesen ein"
+    "recruiterDesc": "Stellen Sie Top-Talente im Gesundheitswesen ein",
+    "name": "Name",
+    "yourName": "Ihr Name",
+    "enterCode": "6-stelligen Code eingeben",
+    "verifyAndSignIn": "Bestätigen & Anmelden",
+    "changePhoneNumber": "Telefonnummer ändern"
   },
   "onboarding": {
     "welcome": "Willkommen bei MedMatch!",

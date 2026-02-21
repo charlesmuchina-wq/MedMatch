@@ -26,7 +26,8 @@
     "login": "Accedi",
     "signup": "Registrati",
     "all": "Tutti",
-    "refresh": "Aggiorna"
+    "refresh": "Aggiorna",
+    "generating": "Generazione in corso..."
   },
   "notifications": {
     "title": "Notifiche",
@@ -192,7 +193,11 @@
     "deepSearchResults": "Risultati IA",
     "foundJobs": "Trovate {{count}} offerte di lavoro",
     "queriesUsed": "query utilizzate",
-    "searchFailed": "Errore ricerca"
+    "searchFailed": "Errore ricerca",
+    "workType": "Tipo di lavoro",
+    "moreFilters": "Più filtri",
+    "lessFilters": "Meno filtri",
+    "selectCountry": "Seleziona Paese"
   },
   "resume": {
     "myResume": "Il mio CV",
@@ -393,7 +398,9 @@
     "download": "Scarica",
     "fillAllFields": "Compila tutti i campi",
     "uploadResumeFirst": "Per favore carica prima il tuo curriculum",
-    "generationFailed": "Impossibile generare la lettera di presentazione"
+    "generationFailed": "Impossibile generare la lettera di presentazione",
+    "pasteJobDescription": "Incolla qui la descrizione del lavoro...",
+    "generate": "Genera lettera di presentazione"
   },
   "membership": {
     "membership": "Abbonamento",
@@ -528,7 +535,12 @@
     "jobSeeker": "In cerca di lavoro",
     "jobSeekerDesc": "Trova il lavoro dei tuoi sogni con l'IA",
     "recruiter": "Recruiter",
-    "recruiterDesc": "Assumi i migliori talenti nel settore sanitario"
+    "recruiterDesc": "Assumi i migliori talenti nel settore sanitario",
+    "name": "Nome",
+    "yourName": "Il tuo nome",
+    "enterCode": "Inserisci il codice a 6 cifre",
+    "verifyAndSignIn": "Verifica e accedi",
+    "changePhoneNumber": "Cambia numero di telefono"
   },
   "onboarding": {
     "welcome": "Benvenuto su MedMatch!",

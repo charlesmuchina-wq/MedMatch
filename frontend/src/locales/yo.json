@@ -26,7 +26,8 @@
     "login": "Wọlé",
     "signup": "Forúkọsílẹ̀",
     "all": "Gbogbo",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "Ń ṣelọpọ..."
   },
   "nav": {
     "dashboard": "Pátákó ìṣàkóso",
@@ -166,7 +167,11 @@
     "deepSearchResults": "Àbájáde Ìwádìí Jinlẹ̀ AI",
     "foundJobs": "A rí iṣẹ́ {{count}}",
     "queriesUsed": "àwọn ìwádìí tí a lò",
-    "searchFailed": "Kò ṣàṣeyọrí láti gba àwọn iṣẹ́"
+    "searchFailed": "Kò ṣàṣeyọrí láti gba àwọn iṣẹ́",
+    "workType": "Iru iṣẹ́",
+    "moreFilters": "Àwọn àlẹ̀mọ́ míì",
+    "lessFilters": "Àwọn àlẹ̀mọ́ díẹ̀",
+    "selectCountry": "Yan orílẹ̀-èdè"
   },
   "auth": {
     "signIn": "Wọlé",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "Orúkọ",
+    "yourName": "Orúkọ rẹ",
+    "enterCode": "Tẹ kóòdù oní-dígíìtì 6 wọlé",
+    "verifyAndSignIn": "Jẹ́rìí & Wọlé",
+    "changePhoneNumber": "Yí nọ́mbà fóònù padà"
   },
   "errors": {
     "somethingWentWrong": "Nǹkan kan lọ ní àṣìṣe",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "Lẹ̀ ẹ̀kọ́ iṣẹ́ síbí...",
+    "generate": "Ṣelọpọ lẹ́tà ìdárí"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

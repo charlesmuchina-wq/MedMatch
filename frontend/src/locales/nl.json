@@ -26,7 +26,8 @@
     "login": "Inloggen",
     "signup": "Registreren",
     "all": "Alles",
-    "refresh": "Vernieuwen"
+    "refresh": "Vernieuwen",
+    "generating": "Genereren..."
   },
   "notifications": {
     "title": "Meldingen",
@@ -192,7 +193,11 @@
     "deepSearchResults": "AI Deep Search-resultaten",
     "foundJobs": "{{count}} vacatures gevonden",
     "queriesUsed": "gebruikte zoekopdrachten",
-    "searchFailed": "Ophalen van vacatures mislukt"
+    "searchFailed": "Ophalen van vacatures mislukt",
+    "workType": "Soort werk",
+    "moreFilters": "Meer filters",
+    "lessFilters": "Minder filters",
+    "selectCountry": "Selecteer land"
   },
   "resume": {
     "myResume": "Mijn cv",
@@ -393,7 +398,9 @@
     "download": "Downloaden",
     "fillAllFields": "Vul alle velden in",
     "uploadResumeFirst": "Upload eerst je cv.",
-    "generationFailed": "Het genereren van de sollicitatiebrief is mislukt."
+    "generationFailed": "Het genereren van de sollicitatiebrief is mislukt.",
+    "pasteJobDescription": "Plak de functiebeschrijving hier...",
+    "generate": "Sollicitatiebrief genereren"
   },
   "membership": {
     "membership": "Lidmaatschap",
@@ -528,7 +535,12 @@
     "jobSeeker": "Werkzoekende",
     "jobSeekerDesc": "Vind je droombaan met AI",
     "recruiter": "Recruiter",
-    "recruiterDesc": "Werf toptalent in de zorg"
+    "recruiterDesc": "Werf toptalent in de zorg",
+    "name": "Naam",
+    "yourName": "Jouw naam",
+    "enterCode": "Voer de 6-cijferige code in",
+    "verifyAndSignIn": "Verifiëren & inloggen",
+    "changePhoneNumber": "Telefoonnummer wijzigen"
   },
   "onboarding": {
     "welcome": "Welkom bij MedMatch!",

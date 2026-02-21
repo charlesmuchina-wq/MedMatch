@@ -26,7 +26,8 @@
     "login": "Đăng nhập",
     "signup": "Đăng ký",
     "all": "Tất cả",
-    "refresh": "Làm mới"
+    "refresh": "Làm mới",
+    "generating": "Đang tạo..."
   },
   "notifications": {
     "title": "Thông báo",
@@ -192,7 +193,11 @@
     "deepSearchResults": "Kết quả tìm kiếm sâu bằng AI",
     "foundJobs": "Đã tìm thấy {{count}} việc làm",
     "queriesUsed": "các truy vấn đã sử dụng",
-    "searchFailed": "Không thể tải danh sách việc làm"
+    "searchFailed": "Không thể tải danh sách việc làm",
+    "workType": "Loại công việc",
+    "moreFilters": "Thêm bộ lọc",
+    "lessFilters": "Ít bộ lọc hơn",
+    "selectCountry": "Chọn quốc gia"
   },
   "resume": {
     "myResume": "Hồ sơ xin việc của tôi",
@@ -393,7 +398,9 @@
     "download": "Tải xuống",
     "fillAllFields": "Vui lòng điền đầy đủ tất cả các trường",
     "uploadResumeFirst": "Vui lòng tải lên sơ yếu lý lịch của bạn trước",
-    "generationFailed": "Không thể tạo thư xin việc"
+    "generationFailed": "Không thể tạo thư xin việc",
+    "pasteJobDescription": "Dán mô tả công việc vào đây...",
+    "generate": "Tạo thư xin việc"
   },
   "membership": {
     "membership": "Tư cách thành viên",
@@ -528,7 +535,12 @@
     "jobSeeker": "Người tìm việc",
     "jobSeekerDesc": "Tìm công việc mơ ước của bạn với AI",
     "recruiter": "Nhà tuyển dụng",
-    "recruiterDesc": "Tuyển dụng nhân tài y tế hàng đầu"
+    "recruiterDesc": "Tuyển dụng nhân tài y tế hàng đầu",
+    "name": "Tên",
+    "yourName": "Tên của bạn",
+    "enterCode": "Nhập mã gồm 6 chữ số",
+    "verifyAndSignIn": "Xác minh & Đăng nhập",
+    "changePhoneNumber": "Đổi số điện thoại"
   },
   "onboarding": {
     "welcome": "Chào mừng bạn đến với MedMatch!",

@@ -26,7 +26,8 @@
     "login": "साइन इन",
     "signup": "साइन अप",
     "all": "सभी",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "तैयार किया जा रहा है..."
   },
   "nav": {
     "dashboard": "डैशबोर्ड",
@@ -166,7 +167,11 @@
     "deepSearchResults": "एआई डीप सर्च के परिणाम",
     "foundJobs": "{{count}} नौकरियां मिलीं",
     "queriesUsed": "उपयोग की गई क्वेरियां",
-    "searchFailed": "नौकरियां प्राप्त करने में विफल"
+    "searchFailed": "नौकरियां प्राप्त करने में विफल",
+    "workType": "कार्य प्रकार",
+    "moreFilters": "और फ़िल्टर",
+    "lessFilters": "कम फ़िल्टर",
+    "selectCountry": "देश चुनें"
   },
   "auth": {
     "signIn": "साइन इन",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "नाम",
+    "yourName": "आपका नाम",
+    "enterCode": "6-अंकीय कोड दर्ज करें",
+    "verifyAndSignIn": "सत्यापित करें और साइन इन करें",
+    "changePhoneNumber": "फ़ोन नंबर बदलें"
   },
   "errors": {
     "somethingWentWrong": "कुछ गलत हो गया",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "यहाँ नौकरी का विवरण पेस्ट करें...",
+    "generate": "कवर लेटर जनरेट करें"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

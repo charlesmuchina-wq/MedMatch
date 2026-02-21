@@ -35,7 +35,8 @@
     "less": "Menos",
     "download": "Descargar",
     "upload": "Subir",
-    "help": "Ayuda"
+    "help": "Ayuda",
+    "generating": "Generando..."
   },
   "nav": {
     "dashboard": "Panel Principal",
@@ -181,7 +182,11 @@
     "deepSearchResults": "Resultados de Búsqueda Profunda IA",
     "foundJobs": "Encontrados {{count}} empleos",
     "queriesUsed": "consultas usadas",
-    "searchFailed": "Error al buscar empleos"
+    "searchFailed": "Error al buscar empleos",
+    "workType": "Tipo de trabajo",
+    "moreFilters": "Más filtros",
+    "lessFilters": "Menos filtros",
+    "selectCountry": "Seleccionar país"
   },
   "resume": {
     "myResume": "Mi Currículum",
@@ -261,7 +266,9 @@
     "copied": "¡Carta de presentación copiada!",
     "uploadResumeFirst": "Por favor sube tu currículum primero",
     "generationFailed": "Error al generar carta de presentación",
-    "fillAllFields": "Por favor completa todos los campos"
+    "fillAllFields": "Por favor completa todos los campos",
+    "pasteJobDescription": "Pega la descripción del puesto aquí...",
+    "generate": "Generar carta de presentación"
   },
   "membership": {
     "membership": "Membresía",
@@ -344,7 +351,12 @@
     "jobSeekerDesc": "Encuentra tu empleo soñado con IA",
     "jobSeeker": "Buscador de Empleo",
     "iAmA": "Soy un",
-    "recruiterDesc": "Contrata el mejor talento en salud"
+    "recruiterDesc": "Contrata el mejor talento en salud",
+    "name": "Nombre",
+    "yourName": "Tu nombre",
+    "enterCode": "Introduce el código de 6 dígitos",
+    "verifyAndSignIn": "Verificar e iniciar sesión",
+    "changePhoneNumber": "Cambiar número de teléfono"
   },
   "onboarding": {
     "welcome": "¡Bienvenido a MedMatch!",

@@ -26,7 +26,8 @@
     "login": "Teken in",
     "signup": "Registreer",
     "all": "Alles",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "Genereer..."
   },
   "nav": {
     "dashboard": "Kontroleskerm",
@@ -166,7 +167,11 @@
     "deepSearchResults": "KI-diepsoektogresultate",
     "foundJobs": "{{count}} poste gevind",
     "queriesUsed": "navrae gebruik",
-    "searchFailed": "Kon nie poste ophaal nie"
+    "searchFailed": "Kon nie poste ophaal nie",
+    "workType": "Werktipe",
+    "moreFilters": "Meer filters",
+    "lessFilters": "Minder filters",
+    "selectCountry": "Kies land"
   },
   "auth": {
     "signIn": "Meld aan",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "Naam",
+    "yourName": "Jou naam",
+    "enterCode": "Voer 6-syfer-kode in",
+    "verifyAndSignIn": "Verifieer en meld aan",
+    "changePhoneNumber": "Verander telefoonnommer"
   },
   "errors": {
     "somethingWentWrong": "Iets het verkeerd geloop",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "Plak die posbeskrywing hier...",
+    "generate": "Genereer dekbrief"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

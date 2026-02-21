@@ -26,7 +26,8 @@
     "login": "Injira",
     "signup": "Iyandikishe",
     "all": "Byose",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "Birimo gutegurwa..."
   },
   "nav": {
     "dashboard": "Imbonerahamwe y'ibikorwa",
@@ -166,7 +167,11 @@
     "deepSearchResults": "Ibisubizo by'ishakisha ryimbitse rya AI",
     "foundJobs": "Habonetse akazi {{count}}",
     "queriesUsed": "ibisabwa byakoreshejwe",
-    "searchFailed": "Ntibyashobotse kubona akazi"
+    "searchFailed": "Ntibyashobotse kubona akazi",
+    "workType": "Ubwoko bw’akazi",
+    "moreFilters": "Muyunguruzi nyinshi",
+    "lessFilters": "Muyunguruzi nke",
+    "selectCountry": "Hitamo igihugu"
   },
   "auth": {
     "signIn": "Injira",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "Izina",
+    "yourName": "Izina ryawe",
+    "enterCode": "Injiza kode y’imibare 6",
+    "verifyAndSignIn": "Emeza & Injira",
+    "changePhoneNumber": "Hindura nimero ya telefoni"
   },
   "errors": {
     "somethingWentWrong": "Hari ibitagenze neza",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "Shyira ibisobanuro by’akazi hano...",
+    "generate": "Tegura ibaruwa yo gusaba akazi"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

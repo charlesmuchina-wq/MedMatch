@@ -26,7 +26,8 @@
     "login": "ግባ",
     "signup": "ይመዝገቡ",
     "all": "ሁሉም",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "በመፍጠር ላይ..."
   },
   "nav": {
     "dashboard": "ዳሽቦርድ",
@@ -166,7 +167,11 @@
     "deepSearchResults": "የኤአይ ጥልቅ ፍለጋ ውጤቶች",
     "foundJobs": "{{count}} ስራዎች ተገኝተዋል",
     "queriesUsed": "የተጠቀሙ ጥያቄዎች",
-    "searchFailed": "ስራዎችን ማምጣት አልተሳካም"
+    "searchFailed": "ስራዎችን ማምጣት አልተሳካም",
+    "workType": "የሥራ ዓይነት",
+    "moreFilters": "ተጨማሪ ማጣሪያዎች",
+    "lessFilters": "ያነሱ ማጣሪያዎች",
+    "selectCountry": "ሀገር ይምረጡ"
   },
   "auth": {
     "signIn": "ግባ",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "ስም",
+    "yourName": "የእርስዎ ስም",
+    "enterCode": "6-አሃዝ ኮድ ያስገቡ",
+    "verifyAndSignIn": "ያረጋግጡ እና ይግቡ",
+    "changePhoneNumber": "የስልክ ቁጥር ይቀይሩ"
   },
   "errors": {
     "somethingWentWrong": "አንድ ነገር ተሳስቷል",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "የሥራ መግለጫውን እዚህ ላይ ይለጥፉ...",
+    "generate": "የሽፋን ደብዳቤ ፍጠር"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

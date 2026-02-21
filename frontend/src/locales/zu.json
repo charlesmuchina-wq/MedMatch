@@ -26,7 +26,8 @@
     "login": "Ngena",
     "signup": "Bhalisa",
     "all": "Konke",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "Kuyakhiwa..."
   },
   "nav": {
     "dashboard": "Ideshibhodi",
@@ -166,7 +167,11 @@
     "deepSearchResults": "Imiphumela Yokusesha Okujulile kwe-AI",
     "foundJobs": "Kutholakele imisebenzi engu-{{count}}",
     "queriesUsed": "imibuzo esetshenzisiwe",
-    "searchFailed": "Kwehlulekile ukuthola imisebenzi"
+    "searchFailed": "Kwehlulekile ukuthola imisebenzi",
+    "workType": "Uhlobo Lomsebenzi",
+    "moreFilters": "Izihlungi Eziningi",
+    "lessFilters": "Izihlungi Ezimbalwa",
+    "selectCountry": "Khetha Izwe"
   },
   "auth": {
     "signIn": "Ngena",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "Igama",
+    "yourName": "Igama lakho",
+    "enterCode": "Faka ikhodi enamadijithi ayi-6",
+    "verifyAndSignIn": "Qinisekisa futhi Ungene",
+    "changePhoneNumber": "Shintsha inombolo yocingo"
   },
   "errors": {
     "somethingWentWrong": "Kukhona okungahambanga kahle",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "Namathisela incazelo yomsebenzi lapha...",
+    "generate": "Khiqiza Incwadi Yokuzifaka Isicelo"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

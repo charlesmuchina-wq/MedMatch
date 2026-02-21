@@ -26,7 +26,8 @@
     "login": "Lowani",
     "signup": "Lembetsani",
     "all": "Zonse",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "Kupanga..."
   },
   "nav": {
     "dashboard": "Bolodi lolamulira",
@@ -166,7 +167,11 @@
     "deepSearchResults": "Zotsatira za Kusaka Mozama kwa AI",
     "foundJobs": "Zapezeka ntchito {{count}}",
     "queriesUsed": "mafunso ogwiritsidwa ntchito",
-    "searchFailed": "Zalephera kutenga ntchito"
+    "searchFailed": "Zalephera kutenga ntchito",
+    "workType": "Mtundu wa Ntchito",
+    "moreFilters": "Zosefera Zambiri",
+    "lessFilters": "Zosefera Zochepa",
+    "selectCountry": "Sankhani Dziko"
   },
   "auth": {
     "signIn": "Lowani",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "Dzina",
+    "yourName": "Dzina lanu",
+    "enterCode": "Lowetsani nambala ya manambala 6",
+    "verifyAndSignIn": "Tsimikizani & Lowani",
+    "changePhoneNumber": "Sinthani nambala ya foni"
   },
   "errors": {
     "somethingWentWrong": "Pali vuto lina lachitika",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "Matirani kufotokozera kwa ntchito pano...",
+    "generate": "Pangani Kalata Yofunsira Ntchito"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

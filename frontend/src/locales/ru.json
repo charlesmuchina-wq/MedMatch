@@ -26,7 +26,8 @@
     "login": "Войти",
     "signup": "Регистрация",
     "all": "Все",
-    "refresh": "Обновить"
+    "refresh": "Обновить",
+    "generating": "Создание..."
   },
   "notifications": {
     "title": "Уведомления",
@@ -192,7 +193,11 @@
     "deepSearchResults": "Результаты глубокого поиска ИИ",
     "foundJobs": "Найдено вакансий: {{count}}",
     "queriesUsed": "использованные запросы",
-    "searchFailed": "Не удалось получить вакансии"
+    "searchFailed": "Не удалось получить вакансии",
+    "workType": "Тип работы",
+    "moreFilters": "Больше фильтров",
+    "lessFilters": "Меньше фильтров",
+    "selectCountry": "Выберите страну"
   },
   "resume": {
     "myResume": "Моё резюме",
@@ -393,7 +398,9 @@
     "download": "Скачать",
     "fillAllFields": "Пожалуйста, заполните все поля",
     "uploadResumeFirst": "Пожалуйста, сначала загрузите своё резюме",
-    "generationFailed": "Не удалось сгенерировать сопроводительное письмо"
+    "generationFailed": "Не удалось сгенерировать сопроводительное письмо",
+    "pasteJobDescription": "Вставьте описание вакансии сюда...",
+    "generate": "Сгенерировать сопроводительное письмо"
   },
   "membership": {
     "membership": "Подписка",
@@ -528,7 +535,12 @@
     "jobSeeker": "Соискатель",
     "jobSeekerDesc": "Найдите работу мечты с помощью ИИ",
     "recruiter": "Рекрутер",
-    "recruiterDesc": "Для рекрутеров"
+    "recruiterDesc": "Для рекрутеров",
+    "name": "Имя",
+    "yourName": "Ваше имя",
+    "enterCode": "Введите 6-значный код",
+    "verifyAndSignIn": "Подтвердить и войти",
+    "changePhoneNumber": "Изменить номер телефона"
   },
   "onboarding": {
     "welcome": "Добро пожаловать в MedMatch!",

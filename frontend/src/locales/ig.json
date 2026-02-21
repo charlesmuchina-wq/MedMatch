@@ -26,7 +26,8 @@
     "login": "Banye",
     "signup": "Debanye aha",
     "all": "Niile",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "Na-emepụta..."
   },
   "nav": {
     "dashboard": "Dasbọọdụ",
@@ -166,7 +167,11 @@
     "deepSearchResults": "Nsonaazụ Nchọgharị miri emi AI",
     "foundJobs": "Achọpụtara ọrụ {{count}}",
     "queriesUsed": "ajụjụ ejiri",
-    "searchFailed": "Enweghị ike ibudata ọrụ"
+    "searchFailed": "Enweghị ike ibudata ọrụ",
+    "workType": "Ụdị ọrụ",
+    "moreFilters": "Nzacha ndị ọzọ",
+    "lessFilters": "Nzacha ole na ole",
+    "selectCountry": "Họrọ obodo"
   },
   "auth": {
     "signIn": "Banye",
@@ -190,7 +195,12 @@
     "iAmA": "I am a",
     "recruiterDesc": "Hire top healthcare talent",
     "sendCode": "Send Code",
-    "createAccount": "Create Account"
+    "createAccount": "Create Account",
+    "name": "Aha",
+    "yourName": "Aha gị",
+    "enterCode": "Tinye koodu nke digit 6",
+    "verifyAndSignIn": "Nyochaa & Banye",
+    "changePhoneNumber": "Gbanwee nọmba ekwentị"
   },
   "video": {
     "sitStraight": "Sit up straight with shoulders back",
@@ -563,7 +573,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "Detuo ma tinye nkọwa ọrụ ebe a...",
+    "generate": "Mepụta akwụkwọ mkpuchi"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

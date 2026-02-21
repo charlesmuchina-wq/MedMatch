@@ -26,7 +26,8 @@
     "login": "Pinda",
     "signup": "Nyoresa",
     "all": "Zvese",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "Kugadzira..."
   },
   "nav": {
     "dashboard": "Bhodi rekutonga",
@@ -166,7 +167,11 @@
     "deepSearchResults": "Mhedzisiro yekutsvaga kwakadzama kweAI",
     "foundJobs": "Wawanikwa mabasa {{count}}",
     "queriesUsed": "mibvunzo yakashandiswa",
-    "searchFailed": "Kutora mabasa kwatadza"
+    "searchFailed": "Kutora mabasa kwatadza",
+    "workType": "Rudzi rwebasa",
+    "moreFilters": "Mafirita akawanda",
+    "lessFilters": "Mafirita mashoma",
+    "selectCountry": "Sarudza nyika"
   },
   "auth": {
     "signIn": "Pinda",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "Zita",
+    "yourName": "Zita rako",
+    "enterCode": "Isa kodhi ine manhamba 6",
+    "verifyAndSignIn": "Simbisa & Pinda",
+    "changePhoneNumber": "Chinja nhamba yefoni"
   },
   "errors": {
     "somethingWentWrong": "Pane chakanganisika",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "Namira tsananguro yebasa pano...",
+    "generate": "Gadzira tsamba yekukumbira basa"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

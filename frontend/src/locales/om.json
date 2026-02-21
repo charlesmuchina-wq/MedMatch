@@ -26,7 +26,8 @@
     "login": "Seeni",
     "signup": "Galmaa'i",
     "all": "Hunda",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "Uumaa jira..."
   },
   "nav": {
     "dashboard": "Gabatee To'annoo",
@@ -166,7 +167,11 @@
     "deepSearchResults": "Bu'aa Barbaacha Gad-fagoo AI",
     "foundJobs": "Hojiiwwan {{count}} argame",
     "queriesUsed": "gaafatoota itti fayyadaman",
-    "searchFailed": "Hojiiwwan fiduu hin dandeenye"
+    "searchFailed": "Hojiiwwan fiduu hin dandeenye",
+    "workType": "Gosa Hojii",
+    "moreFilters": "Filannoowwan Dabalataa",
+    "lessFilters": "Filannoowwan Xiqqaa",
+    "selectCountry": "Biyya Filadhu"
   },
   "auth": {
     "signIn": "Seeni",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "Maqaa",
+    "yourName": "Maqaa kee",
+    "enterCode": "Koodii digitii 6 galchi",
+    "verifyAndSignIn": "Mirkaneessi & Seeni",
+    "changePhoneNumber": "Lakkoofsa bilbila jijjiiri"
   },
   "errors": {
     "somethingWentWrong": "Wantoonni dogoggoran",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "Ibsa hojii asitti maxxansi...",
+    "generate": "Xalayaa Uwwisaa Uumi"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

@@ -26,7 +26,8 @@
     "login": "Shiga",
     "signup": "Yi rajista",
     "all": "Duka",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "Ana ƙirƙira..."
   },
   "nav": {
     "dashboard": "Allon sarrafawa",
@@ -166,7 +167,11 @@
     "deepSearchResults": "Sakamakon Bincike Mai Zurfi na AI",
     "foundJobs": "An sami ayyuka {{count}}",
     "queriesUsed": "tambayoyin da aka yi amfani da su",
-    "searchFailed": "An kasa kawo ayyuka"
+    "searchFailed": "An kasa kawo ayyuka",
+    "workType": "Nau'in Aiki",
+    "moreFilters": "Ƙarin Tacewa",
+    "lessFilters": "Ƙananan Tacewa",
+    "selectCountry": "Zaɓi Ƙasa"
   },
   "auth": {
     "signIn": "Shiga",
@@ -190,7 +195,12 @@
     "jobSeekerDesc": "Find your dream job with AI",
     "jobSeeker": "Job Seeker",
     "iAmA": "I am a",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "Suna",
+    "yourName": "Sunanka",
+    "enterCode": "Shigar da lambar mai lambobi 6",
+    "verifyAndSignIn": "Tabbatar & Shiga",
+    "changePhoneNumber": "Canja lambar waya"
   },
   "errors": {
     "somethingWentWrong": "Wani abu ya tafi ba daidai ba",
@@ -571,7 +581,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "Manna bayanin aikin a nan...",
+    "generate": "Ƙirƙiri Wasiƙar Neman Aiki"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",

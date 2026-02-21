@@ -26,7 +26,8 @@
     "login": "Kɔ mu",
     "signup": "Kyerɛw wo din",
     "all": "Nyinaa",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "generating": "Reyɛ..."
   },
   "nav": {
     "dashboard": "Adwuma sohwɛ adaka",
@@ -166,7 +167,11 @@
     "deepSearchResults": "AI Hwehwɛ a ɛkɔ akyiri no nsonsonoeɛ",
     "foundJobs": "Wɔahu adwuma {{count}}",
     "queriesUsed": "nsɛmmisa a wɔde dii dwuma",
-    "searchFailed": "Antumi annye adwuma no"
+    "searchFailed": "Antumi annye adwuma no",
+    "workType": "Adwuma No Su",
+    "moreFilters": "Nsɔw Nneɛma Bio",
+    "lessFilters": "Nsɔw Nneɛma Kakra",
+    "selectCountry": "Paw Ɔman"
   },
   "auth": {
     "signIn": "Kɔ mu",
@@ -190,7 +195,12 @@
     "iAmA": "I am a",
     "recruiterDesc": "Hire top healthcare talent",
     "sendCode": "Send Code",
-    "createAccount": "Create Account"
+    "createAccount": "Create Account",
+    "name": "Din",
+    "yourName": "Wo din",
+    "enterCode": "Hyehyɛ nɔma 6 koodu no",
+    "verifyAndSignIn": "Si so na Kɔ mu",
+    "changePhoneNumber": "Sesa telefon nɔma"
   },
   "video": {
     "sitStraight": "Sit up straight with shoulders back",
@@ -563,7 +573,9 @@
     "professional": "Professional",
     "coverLetterGenerator": "Cover Letter Generator",
     "jobTitle": "Job Title",
-    "fillAllFields": "Please fill in all fields"
+    "fillAllFields": "Please fill in all fields",
+    "pasteJobDescription": "Fa adwuma no nkyerɛmu no bɛhyɛ ha...",
+    "generate": "Yɛ Kɔvɛ Leta"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",
