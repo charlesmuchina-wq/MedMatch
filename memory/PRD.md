@@ -21,13 +21,43 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 | **AI KARAU Meeting** | ✅ Working | Login fixed, dashboard operational |
 | **Admin Dashboards** | ✅ Working | All 5 QA dashboards functional |
 | **Translations** | ✅ 100% | 34 languages, all placeholders translated |
-| **Tutorial Videos** | ✅ Ready | 5 videos with AI avatars |
+| **Tutorial Videos** | ✅ Ready | 5 videos with CC in 4 languages |
 | **Compliance** | ✅ COMPLIANT | 15 regions, 28 laws tracked |
-| **Google Translate Fallback** | ✅ NEW | Browser translation detection, settings integration |
+| **Google Translate Fallback** | ✅ Complete | Browser translation detection, settings integration |
+| **Closed Captions** | ✅ NEW | WebVTT subtitles for all videos |
 
 ---
 
 ## Latest Updates (February 21, 2026)
+
+### Video Closed Captions (CC) - COMPLETE ✅
+
+**Issue Reported:** Tutorial videos didn't show closed captions when CC button clicked.
+
+**Fix Implemented:**
+1. **Enhanced Subtitle API** (`/api/tutorials/subtitles/{video_id}?lang=XX`)
+   - Added complete WebVTT subtitles for all 5 tutorial videos
+   - Multi-language support: English, Spanish, French, German
+   - Proper timestamps synced with video content
+
+2. **Improved Video Player**
+   - Changed track `kind` from 'subtitles' to 'captions' for better browser support
+   - Programmatically enables captions: `textTracks[i].mode = 'showing'` on video load
+   - Added caption status indicator showing "✓ Captions On" or "Captions Off"
+
+3. **CSS Caption Styling**
+   - Added `video::cue` styles for better visibility
+   - Black background with white text
+   - Responsive font sizing for mobile
+
+**Files Modified:**
+- `/app/backend/routes/tutorials.py` - Enhanced subtitle endpoint
+- `/app/frontend/src/pages/VideoTutorialsPage.jsx` - Better CC handling
+- `/app/frontend/src/App.css` - Caption styling
+
+**Testing:** iteration_94.json - 100% pass rate, all 5 videos verified
+
+---
 
 ### Google Translate Fallback Features - COMPLETE ✅
 
