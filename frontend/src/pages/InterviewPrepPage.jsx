@@ -52,27 +52,27 @@ const StarMethodHelper = ({ question, onGenerate, generating, t }) => {
           />
         </div>
         <div>
-          <label className="text-xs font-medium text-slate-600 dark:text-slate-300">T - Task</label>
+          <label className="text-xs font-medium text-slate-600 dark:text-slate-300">{t("interview.task")}</label>
           <Textarea 
-            placeholder="What was your responsibility?"
+            placeholder={t("interview.taskPlaceholder")}
             value={task}
             onChange={(e) => setTask(e.target.value)}
             className="mt-1 h-20 dark:bg-slate-700"
           />
         </div>
         <div>
-          <label className="text-xs font-medium text-slate-600 dark:text-slate-300">A - Action</label>
+          <label className="text-xs font-medium text-slate-600 dark:text-slate-300">{t("interview.action")}</label>
           <Textarea 
-            placeholder="What steps did you take?"
+            placeholder={t("interview.actionPlaceholder")}
             value={action}
             onChange={(e) => setAction(e.target.value)}
             className="mt-1 h-20 dark:bg-slate-700"
           />
         </div>
         <div>
-          <label className="text-xs font-medium text-slate-600 dark:text-slate-300">R - Result</label>
+          <label className="text-xs font-medium text-slate-600 dark:text-slate-300">{t("interview.result")}</label>
           <Textarea 
-            placeholder="What was the outcome? Include metrics if possible..."
+            placeholder={t("interview.resultPlaceholder")}
             value={result}
             onChange={(e) => setResult(e.target.value)}
             className="mt-1 h-20 dark:bg-slate-700"
