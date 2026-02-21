@@ -213,6 +213,7 @@ const CallbackBadge = ({ job }) => {
 
 // Job Card Component
 export const JobCard = ({ job, onSave, onApply, onAnalyze, isSaved, showActions = true, showProbability = true }) => {
+  const { t } = useTranslation();
   const [analyzing, setAnalyzing] = useState(false);
   const [verifyingStatus, setVerifyingStatus] = useState(false);
   const [verifiedStatus, setVerifiedStatus] = useState(null);

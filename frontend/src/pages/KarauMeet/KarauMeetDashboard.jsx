@@ -21,6 +21,7 @@ const API = process.env.REACT_APP_BACKEND_URL;
  */
 const KarauMeetDashboard = ({ user }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [meetings, setMeetings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [joinMeetingId, setJoinMeetingId] = useState('');
