@@ -463,7 +463,7 @@ export default function ATSManagementPage() {
                 onValueChange={(v) => setNewLink({ ...newLink, job_id: v })}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a job posting" />
+                  <SelectValue placeholder={t("atsManagement.selectJobPlaceholder")} />
                 </SelectTrigger>
                 <SelectContent>
                   {jobs.map((job) => (
@@ -488,7 +488,7 @@ export default function ATSManagementPage() {
                 <Label>Max Applications</Label>
                 <Input
                   type="number"
-                  placeholder="Unlimited"
+                  placeholder={t("atsManagement.maxApplicantsPlaceholder")}
                   value={newLink.max_applications}
                   onChange={(e) => setNewLink({ ...newLink, max_applications: e.target.value })}
                 />
@@ -543,7 +543,7 @@ export default function ATSManagementPage() {
                 onValueChange={(v) => setInviteData({ ...inviteData, job_id: v })}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a job posting" />
+                  <SelectValue placeholder={t("atsManagement.selectJobPlaceholder")} />
                 </SelectTrigger>
                 <SelectContent>
                   {jobs.map((job) => (
@@ -559,7 +559,7 @@ export default function ATSManagementPage() {
               <Label>Candidate Email *</Label>
               <Input
                 type="email"
-                placeholder="candidate@example.com"
+                placeholder={t("atsManagement.candidateEmailPlaceholder")}
                 value={inviteData.candidate_email}
                 onChange={(e) => setInviteData({ ...inviteData, candidate_email: e.target.value })}
               />
@@ -568,7 +568,7 @@ export default function ATSManagementPage() {
             <div>
               <Label>Candidate Name</Label>
               <Input
-                placeholder="John Doe"
+                placeholder={t("atsManagement.candidateNamePlaceholder")}
                 value={inviteData.candidate_name}
                 onChange={(e) => setInviteData({ ...inviteData, candidate_name: e.target.value })}
               />
@@ -577,7 +577,7 @@ export default function ATSManagementPage() {
             <div>
               <Label>Personal Message</Label>
               <Textarea
-                placeholder="Add a personal note to your invitation..."
+                placeholder={t("atsManagement.inviteNotePlaceholder")}
                 rows={3}
                 value={inviteData.personal_message}
                 onChange={(e) => setInviteData({ ...inviteData, personal_message: e.target.value })}
