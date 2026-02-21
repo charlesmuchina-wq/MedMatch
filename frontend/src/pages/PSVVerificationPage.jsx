@@ -460,19 +460,19 @@ const PSVVerificationPage = () => {
               <CardContent>
                 <div className="grid grid-cols-3 gap-4">
                   <Input
-                    placeholder="Last Name"
+                    placeholder={t("psv.lastName")}
                     value={oigForm.last_name}
                     onChange={(e) => setOigForm({ ...oigForm, last_name: e.target.value })}
                     data-testid="oig-last-name"
                   />
                   <Input
-                    placeholder="First Name"
+                    placeholder={t("psv.firstName")}
                     value={oigForm.first_name}
                     onChange={(e) => setOigForm({ ...oigForm, first_name: e.target.value })}
                     data-testid="oig-first-name"
                   />
                   <Input
-                    placeholder="State"
+                    placeholder={t("psv.statePlaceholder")}
                     value={oigForm.state}
                     onChange={(e) => setOigForm({ ...oigForm, state: e.target.value })}
                     data-testid="oig-state"
