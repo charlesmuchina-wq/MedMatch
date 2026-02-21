@@ -135,7 +135,7 @@ const CoverLetterPage = ({ resume }) => {
               <div>
                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Job Title *</label>
                 <Input
-                  placeholder="e.g., Supplier Quality Manager"
+                  placeholder={t("coverLetter.jobTitlePlaceholder")}
                   value={jobTitle}
                   onChange={(e) => setJobTitle(e.target.value)}
                   className="mt-1"
@@ -145,7 +145,7 @@ const CoverLetterPage = ({ resume }) => {
               <div>
                 <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Company *</label>
                 <Input
-                  placeholder="e.g., Medtronic"
+                  placeholder={t("coverLetter.companyPlaceholder")}
                   value={company}
                   onChange={(e) => setCompany(e.target.value)}
                   className="mt-1"
