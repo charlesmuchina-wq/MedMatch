@@ -35,7 +35,8 @@
     "none": "None",
     "previous": "Previous",
     "sort": "Sort",
-    "upload": "Upload"
+    "upload": "Upload",
+    "generating": "Generating..."
   },
   "notifications": {
     "title": "Notifications",
