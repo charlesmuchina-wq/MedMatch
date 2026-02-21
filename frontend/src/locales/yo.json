@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Ilé-iṣẹ́",
+    "companyNamePlaceholder": "Orúkọ ilé-iṣẹ́ rẹ",
+    "location": "Ibi",
+    "locationPlaceholder": "àpẹẹrẹ: Latọ́ọ̀kàn, USA",
+    "salaryRange": "Iwọn Owo-oṣù",
+    "salaryPlaceholder": "àpẹẹrẹ: $80,000 - $120,000",
+    "jobDescription": "Àpejuwe Iṣẹ́",
+    "descriptionPlaceholder": "Ṣàlàyé ipa iṣẹ́, ojúṣe, àti àwọn ìbéèrè..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Ń tumọ̀...",
     "translated": "Ti tumọ̀!",
     "failed": "Ìtumọ̀ kùnà"
+  },
+  "reviews": {
+    "yourResponse": "Ìdáhùn rẹ",
+    "responsePlaceholder": "Dúpẹ́ lọwọ olùyẹ̀wò, pèsè àlàyé, tàbí dáhùn sí èyíkéyìí ìbáṣepọ̀/àbá pẹ̀lú ìmọ̀lára ọ̀jọ̀gbọ́n...",
+    "responseVisibility": "Ìdáhùn rẹ yóò hàn sí àwọn alágbàṣe tó ń wo profaili rẹ",
+    "submitResponse": "Fìdáhùn ránṣẹ́"
+  },
+  "capa": {
+    "addProbableCause": "Ṣàfikún Okunfa Tó Ṣeé Ṣe",
+    "probableCausePlaceholder": "Àpejuwe okunfa tó ṣeé ṣe...",
+    "category": "Ẹ̀ka",
+    "categoryTechnical": "Imọ̀-ẹrọ",
+    "categoryProcess": "Ìlànà iṣẹ́",
+    "categoryHuman": "Ènìyàn",
+    "categoryEnvironmental": "Ayíká",
+    "evidencePlaceholder": "Ẹ̀rí...",
+    "addCause": "Ṣàfikún Okunfa",
+    "searchCapas": "Wá àwọn CAPA...",
+    "allStatuses": "Gbogbo Ìpò"
   }
 }

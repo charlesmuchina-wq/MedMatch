@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Kampani",
+    "companyNamePlaceholder": "Dzina la kampani yanu",
+    "location": "Malo",
+    "locationPlaceholder": "mwachitsanzo, Kutali, USA",
+    "salaryRange": "Mtundu wa Malipiro",
+    "salaryPlaceholder": "mwachitsanzo, $80,000 - $120,000",
+    "jobDescription": "Kufotokozera Ntchito",
+    "descriptionPlaceholder": "Fotokozani udindo, maudindo, ndi zofunikira..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Kukutanthauzira...",
     "translated": "Zatanthauziridwa!",
     "failed": "Kutanthauzira kwalephera"
+  },
+  "reviews": {
+    "yourResponse": "Yankho Lanu",
+    "responsePlaceholder": "Yamikani amene apereka ndemanga, perekani mfundo zothandiza, kapena yankhani ndemanga iliyonse mwaukadaulo...",
+    "responseVisibility": "Yankho lanu lidzawoneka kwa olemba ntchito omwe akuwona mbiri yanu",
+    "submitResponse": "Tumizani Yankho"
+  },
+  "capa": {
+    "addProbableCause": "Onjezani Chifukwa Chotheka",
+    "probableCausePlaceholder": "Kufotokozera kwa chifukwa chotheka...",
+    "category": "Gulu",
+    "categoryTechnical": "Zaukadaulo",
+    "categoryProcess": "Njira",
+    "categoryHuman": "Za Anthu",
+    "categoryEnvironmental": "Za Chilengedwe",
+    "evidencePlaceholder": "Umboni...",
+    "addCause": "Onjezani Chifukwa",
+    "searchCapas": "Sakani ma CAPA...",
+    "allStatuses": "Mikhalidwe Yonse"
   }
 }

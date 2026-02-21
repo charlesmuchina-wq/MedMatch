@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Kompani",
+    "companyNamePlaceholder": "Sa turu kompani",
+    "location": "Fekk",
+    "locationPlaceholder": "misaal: Remote, USA",
+    "salaryRange": "Ràngu pey",
+    "salaryPlaceholder": "misaal: $80,000 - $120,000",
+    "jobDescription": "Jëfandikoo liggéey",
+    "descriptionPlaceholder": "Mënalal wàllu liggéey bi, yoon wi, ak liñu laaj..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Mi ngi tekki...",
     "translated": "Ñu tekki na!",
     "failed": "Tekki bi jàllul"
+  },
+  "reviews": {
+    "yourResponse": "Sa tontu",
+    "responsePlaceholder": "Gërëmalal nit ki wonee la, jox ay leeral, walla nga jëfandikoo ci anam bu profesyonel ngir wuutu ay jàngat...",
+    "responseVisibility": "Sa tontu dina feeñ ci jëkkër yi seet sa profil",
+    "submitResponse": "Yónnee tontu"
+  },
+  "capa": {
+    "addProbableCause": "Yokk benn sababu bu possible",
+    "probableCausePlaceholder": "Melokaanu sabab bu possible...",
+    "category": "Wàll",
+    "categoryTechnical": "Teknik",
+    "categoryProcess": "Jëfandikoo",
+    "categoryHuman": "Nit",
+    "categoryEnvironmental": "Gëstu ëmbyënt",
+    "evidencePlaceholder": "Dencukaay...",
+    "addCause": "Yokk sabab",
+    "searchCapas": "Wut CAPA yi...",
+    "allStatuses": "Bépp xaalis"
   }
 }

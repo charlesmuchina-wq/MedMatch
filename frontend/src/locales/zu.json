@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Inkampani",
+    "companyNamePlaceholder": "Igama lenkampani yakho",
+    "location": "Indawo",
+    "locationPlaceholder": "isb., Ukusebenza kude, e-USA",
+    "salaryRange": "Ibanga lomholo",
+    "salaryPlaceholder": "isb., $80,000 - $120,000",
+    "jobDescription": "Incazelo yomsebenzi",
+    "descriptionPlaceholder": "Chaza indima, imithwalo yemfanelo, nezidingo..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Kuyahunyushwa...",
     "translated": "Kuhunyushiwe!",
     "failed": "Ukuhumusha kuhlulekile"
+  },
+  "reviews": {
+    "yourResponse": "Impendulo yakho",
+    "responsePlaceholder": "Bonga umbuyekezi, nikeza umongo, noma uphendule kunoma yikuphi ukuphawula ngobungcweti...",
+    "responseVisibility": "Impendulo yakho izobonakala kubaqashi ababuka iphrofayela yakho",
+    "submitResponse": "Thumela impendulo"
+  },
+  "capa": {
+    "addProbableCause": "Engeza imbangela okungenzeka",
+    "probableCausePlaceholder": "Incazelo yembangela okungenzeka...",
+    "category": "Isigaba",
+    "categoryTechnical": "Ezobuchwepheshe",
+    "categoryProcess": "Inqubo",
+    "categoryHuman": "Okuphathelene nabantu",
+    "categoryEnvironmental": "Imvelo",
+    "evidencePlaceholder": "Ubufakazi...",
+    "addCause": "Engeza imbangela",
+    "searchCapas": "Sesha ama-CAPA...",
+    "allStatuses": "Zonke izimo"
   }
 }

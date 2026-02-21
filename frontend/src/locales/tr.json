@@ -87,7 +87,15 @@
     "dashboard": "Kontrol Paneli",
     "myJobPostings": "İş İlanlarım",
     "interviews": "Mülakatlar",
-    "searchCandidates": "Adayları Ara"
+    "searchCandidates": "Adayları Ara",
+    "companyName": "Şirket",
+    "companyNamePlaceholder": "Şirket adınız",
+    "location": "Konum",
+    "locationPlaceholder": "örn., Uzaktan, ABD",
+    "salaryRange": "Maaş Aralığı",
+    "salaryPlaceholder": "örn., 80.000$ - 120.000$",
+    "jobDescription": "İş Tanımı",
+    "descriptionPlaceholder": "Rolü, sorumlulukları ve gereksinimleri açıklayın..."
   },
   "dashboard": {
     "welcomeBack": "Tekrar hoş geldiniz",
@@ -1234,5 +1242,24 @@
     "translating": "Çevriliyor...",
     "translated": "Çevrildi!",
     "failed": "Çeviri başarısız oldu"
+  },
+  "reviews": {
+    "yourResponse": "Yanıtınız",
+    "responsePlaceholder": "Değerlendirmeyi yapan kişiye teşekkür edin, bağlam sağlayın veya geri bildirimleri profesyonelce ele alın...",
+    "responseVisibility": "Yanıtınız, profilinizi görüntüleyen işe alım uzmanları tarafından görülebilir",
+    "submitResponse": "Yanıtı Gönder"
+  },
+  "capa": {
+    "addProbableCause": "Olası Neden Ekle",
+    "probableCausePlaceholder": "Olası nedenin açıklaması...",
+    "category": "Kategori",
+    "categoryTechnical": "Teknik",
+    "categoryProcess": "Süreç",
+    "categoryHuman": "İnsan",
+    "categoryEnvironmental": "Çevresel",
+    "evidencePlaceholder": "Kanıt...",
+    "addCause": "Neden Ekle",
+    "searchCapas": "CAPA'ları Ara...",
+    "allStatuses": "Tüm Durumlar"
   }
 }

@@ -87,7 +87,15 @@
     "dashboard": "Панель управления",
     "myJobPostings": "Мои вакансии",
     "interviews": "Собеседования",
-    "searchCandidates": "Поиск кандидатов"
+    "searchCandidates": "Поиск кандидатов",
+    "companyName": "Компания",
+    "companyNamePlaceholder": "Название вашей компании",
+    "location": "Местоположение",
+    "locationPlaceholder": "например: удалённо, США",
+    "salaryRange": "Диапазон зарплаты",
+    "salaryPlaceholder": "например: $80 000 – $120 000",
+    "jobDescription": "Описание вакансии",
+    "descriptionPlaceholder": "Опишите роль, обязанности и требования..."
   },
   "dashboard": {
     "welcomeBack": "С возвращением",
@@ -1234,5 +1242,24 @@
     "translating": "Переводим...",
     "translated": "Переведено!",
     "failed": "Не удалось выполнить перевод"
+  },
+  "reviews": {
+    "yourResponse": "Ваш ответ",
+    "responsePlaceholder": "Поблагодарите автора отзыва, предоставьте контекст или профессионально ответьте на любые замечания...",
+    "responseVisibility": "Ваш ответ будет виден рекрутерам, просматривающим ваш профиль",
+    "submitResponse": "Отправить ответ"
+  },
+  "capa": {
+    "addProbableCause": "Добавить вероятную причину",
+    "probableCausePlaceholder": "Описание вероятной причины...",
+    "category": "Категория",
+    "categoryTechnical": "Техническая",
+    "categoryProcess": "Процессная",
+    "categoryHuman": "Человеческий фактор",
+    "categoryEnvironmental": "Факторы окружающей среды",
+    "evidencePlaceholder": "Доказательства...",
+    "addCause": "Добавить причину",
+    "searchCapas": "Поиск CAPA...",
+    "allStatuses": "Все статусы"
   }
 }

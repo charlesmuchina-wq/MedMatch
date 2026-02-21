@@ -87,7 +87,15 @@
     "dashboard": "Dashboard",
     "myJobPostings": "Mijn vacatures",
     "interviews": "Sollicitatiegesprekken",
-    "searchCandidates": "Zoek kandidaten"
+    "searchCandidates": "Zoek kandidaten",
+    "companyName": "Bedrijf",
+    "companyNamePlaceholder": "Naam van je bedrijf",
+    "location": "Locatie",
+    "locationPlaceholder": "bijv. Remote, VS",
+    "salaryRange": "Salarisrange",
+    "salaryPlaceholder": "bijv. $80.000 - $120.000",
+    "jobDescription": "Functieomschrijving",
+    "descriptionPlaceholder": "Beschrijf de functie, verantwoordelijkheden en vereisten..."
   },
   "dashboard": {
     "welcomeBack": "Welkom terug",
@@ -1234,5 +1242,24 @@
     "translating": "Bezig met vertalen...",
     "translated": "Vertaald!",
     "failed": "Vertaling mislukt"
+  },
+  "reviews": {
+    "yourResponse": "Jouw reactie",
+    "responsePlaceholder": "Bedank de reviewer, geef context of ga professioneel in op eventuele feedback...",
+    "responseVisibility": "Je reactie is zichtbaar voor recruiters die je profiel bekijken",
+    "submitResponse": "Reactie verzenden"
+  },
+  "capa": {
+    "addProbableCause": "Waarschijnlijke oorzaak toevoegen",
+    "probableCausePlaceholder": "Beschrijving van de waarschijnlijke oorzaak...",
+    "category": "Categorie",
+    "categoryTechnical": "Technisch",
+    "categoryProcess": "Proces",
+    "categoryHuman": "Menselijk",
+    "categoryEnvironmental": "Omgeving",
+    "evidencePlaceholder": "Bewijsmateriaal...",
+    "addCause": "Oorzaak toevoegen",
+    "searchCapas": "CAPA's zoeken...",
+    "allStatuses": "Alle statussen"
   }
 }

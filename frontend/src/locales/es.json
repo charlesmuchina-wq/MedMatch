@@ -76,7 +76,15 @@
     "dashboard": "Panel Principal",
     "myJobPostings": "Mis Ofertas de Empleo",
     "interviews": "Entrevistas",
-    "searchCandidates": "Buscar Candidatos"
+    "searchCandidates": "Buscar Candidatos",
+    "companyName": "Empresa",
+    "companyNamePlaceholder": "Nombre de tu empresa",
+    "location": "Ubicación",
+    "locationPlaceholder": "p. ej., Remoto, EE. UU.",
+    "salaryRange": "Rango salarial",
+    "salaryPlaceholder": "p. ej., $80,000 - $120,000",
+    "jobDescription": "Descripción del puesto",
+    "descriptionPlaceholder": "Describe el puesto, las responsabilidades y los requisitos..."
   },
   "dashboard": {
     "welcomeBack": "Bienvenido de nuevo",
@@ -1256,5 +1264,24 @@
     "translating": "Traduciendo...",
     "translated": "¡Traducido!",
     "failed": "La traducción falló"
+  },
+  "reviews": {
+    "yourResponse": "Tu respuesta",
+    "responsePlaceholder": "Agradece al evaluador, proporciona contexto o aborda cualquier comentario de forma profesional...",
+    "responseVisibility": "Tu respuesta será visible para los reclutadores que vean tu perfil",
+    "submitResponse": "Enviar respuesta"
+  },
+  "capa": {
+    "addProbableCause": "Agregar causa probable",
+    "probableCausePlaceholder": "Descripción de la causa probable...",
+    "category": "Categoría",
+    "categoryTechnical": "Técnica",
+    "categoryProcess": "Proceso",
+    "categoryHuman": "Humana",
+    "categoryEnvironmental": "Ambiental",
+    "evidencePlaceholder": "Evidencia...",
+    "addCause": "Agregar causa",
+    "searchCapas": "Buscar CAPAs...",
+    "allStatuses": "Todos los estados"
   }
 }

@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "कंपनी",
+    "companyNamePlaceholder": "आपकी कंपनी का नाम",
+    "location": "स्थान",
+    "locationPlaceholder": "उदा., रिमोट, USA",
+    "salaryRange": "वेतन सीमा",
+    "salaryPlaceholder": "उदा., $80,000 - $120,000",
+    "jobDescription": "नौकरी का विवरण",
+    "descriptionPlaceholder": "भूमिका, जिम्मेदारियों और आवश्यकताओं का वर्णन करें..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "अनुवाद हो रहा है...",
     "translated": "अनुवाद हो गया!",
     "failed": "अनुवाद विफल रहा"
+  },
+  "reviews": {
+    "yourResponse": "आपकी प्रतिक्रिया",
+    "responsePlaceholder": "समीक्षक को धन्यवाद दें, संदर्भ प्रदान करें, या किसी भी प्रतिक्रिया को पेशेवर तरीके से संबोधित करें...",
+    "responseVisibility": "आपकी प्रतिक्रिया आपके प्रोफ़ाइल को देखने वाले भर्तीकर्ताओं को दिखाई देगी",
+    "submitResponse": "प्रतिक्रिया सबमिट करें"
+  },
+  "capa": {
+    "addProbableCause": "संभावित कारण जोड़ें",
+    "probableCausePlaceholder": "संभावित कारण का विवरण...",
+    "category": "श्रेणी",
+    "categoryTechnical": "तकनीकी",
+    "categoryProcess": "प्रक्रिया",
+    "categoryHuman": "मानवीय",
+    "categoryEnvironmental": "पर्यावरणीय",
+    "evidencePlaceholder": "साक्ष्य...",
+    "addCause": "कारण जोड़ें",
+    "searchCapas": "CAPA खोजें...",
+    "allStatuses": "सभी स्थितियाँ"
   }
 }

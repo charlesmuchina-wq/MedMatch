@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Kampuni",
+    "companyNamePlaceholder": "Jina la kampuni yako",
+    "location": "Mahali",
+    "locationPlaceholder": "mfano, Mbali, Marekani",
+    "salaryRange": "Kiwango cha Mshahara",
+    "salaryPlaceholder": "mfano, $80,000 - $120,000",
+    "jobDescription": "Maelezo ya Kazi",
+    "descriptionPlaceholder": "Eleza jukumu, majukumu, na mahitaji..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Inatafsiri...",
     "translated": "Imetafsiriwa!",
     "failed": "Tafsiri imeshindwa"
+  },
+  "reviews": {
+    "yourResponse": "Jibu lako",
+    "responsePlaceholder": "Mshukuru mkaguzi, toa muktadha, au shughulikia maoni yoyote kwa weledi...",
+    "responseVisibility": "Jibu lako litaonekana kwa waajiri wanaotazama wasifu wako",
+    "submitResponse": "Wasilisha Jibu"
+  },
+  "capa": {
+    "addProbableCause": "Ongeza Sababu Inayowezekana",
+    "probableCausePlaceholder": "Maelezo ya sababu inayowezekana...",
+    "category": "Kategoria",
+    "categoryTechnical": "Kiufundi",
+    "categoryProcess": "Mchakato",
+    "categoryHuman": "Kibinadamu",
+    "categoryEnvironmental": "Kimazingira",
+    "evidencePlaceholder": "Ushahidi...",
+    "addCause": "Ongeza Sababu",
+    "searchCapas": "Tafuta CAPA...",
+    "allStatuses": "Hali Zote"
   }
 }

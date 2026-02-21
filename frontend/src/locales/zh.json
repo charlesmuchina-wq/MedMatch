@@ -71,7 +71,15 @@
     "dashboard": "仪表板",
     "myJobPostings": "我的招聘信息",
     "interviews": "面试",
-    "searchCandidates": "搜索候选人"
+    "searchCandidates": "搜索候选人",
+    "companyName": "公司",
+    "companyNamePlaceholder": "您的公司名称",
+    "location": "地点",
+    "locationPlaceholder": "例如：远程，美国",
+    "salaryRange": "薪资范围",
+    "salaryPlaceholder": "例如：$80,000 - $120,000",
+    "jobDescription": "职位描述",
+    "descriptionPlaceholder": "描述该职位、职责和任职要求……"
   },
   "dashboard": {
     "welcomeBack": "欢迎回来",
@@ -1251,5 +1259,24 @@
     "translating": "正在翻译...",
     "translated": "已翻译！",
     "failed": "翻译失败"
+  },
+  "reviews": {
+    "yourResponse": "您的回复",
+    "responsePlaceholder": "感谢评价者，提供背景信息，或以专业方式回应任何反馈……",
+    "responseVisibility": "查看您个人资料的招聘人员将看到您的回复",
+    "submitResponse": "提交回复"
+  },
+  "capa": {
+    "addProbableCause": "添加可能原因",
+    "probableCausePlaceholder": "可能原因描述……",
+    "category": "类别",
+    "categoryTechnical": "技术",
+    "categoryProcess": "流程",
+    "categoryHuman": "人为",
+    "categoryEnvironmental": "环境",
+    "evidencePlaceholder": "证据……",
+    "addCause": "添加原因",
+    "searchCapas": "搜索 CAPA……",
+    "allStatuses": "所有状态"
   }
 }

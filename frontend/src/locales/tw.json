@@ -477,7 +477,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Adwumakuo",
+    "companyNamePlaceholder": "Wo adwumakuo din",
+    "location": "Beae",
+    "locationPlaceholder": "te sɛ: Remote, USA",
+    "salaryRange": "Akatua Ntam",
+    "salaryPlaceholder": "te sɛ: $80,000 - $120,000",
+    "jobDescription": "Adwuma Ho Nkyerɛkyerɛmu",
+    "descriptionPlaceholder": "Kyerɛ adwuma no, asɛyɛde ahorow, ne nea ɛhia..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Rekyerɛ mu...",
     "translated": "Wɔakyerɛ mu!",
     "failed": "Nkyerɛ mu no dii nkoguo"
+  },
+  "reviews": {
+    "yourResponse": "Wo mmuae",
+    "responsePlaceholder": "Da adwenefo no ase, ma nsɛm mu nkyerɛkyerɛ mu, anaa gye nsusuwii biara ho akyinnye mu wɔ adwumayɛ mu...",
+    "responseVisibility": "Wo mmuae no bɛda adi ama adwumafɔhwɛfo a wɔrehwɛ wo profile no",
+    "submitResponse": "Fa mmuae no kɔma"
+  },
+  "capa": {
+    "addProbableCause": "Fa nea ɛbɛtumi ayɛ nea ɛde asɛm no bae ka ho",
+    "probableCausePlaceholder": "Nkyerɛmu fa nea ɛbɛtumi ayɛ nea ɛde asɛm no bae ho...",
+    "category": "Nkyekyɛmu",
+    "categoryTechnical": "Tekinikal",
+    "categoryProcess": "Adwumakwan",
+    "categoryHuman": "Onipa",
+    "categoryEnvironmental": "Atwa yɛn ho ahyia",
+    "evidencePlaceholder": "Adanse...",
+    "addCause": "Fa asɛmti ka ho",
+    "searchCapas": "Hwehwɛ CAPA ahorow...",
+    "allStatuses": "Tebea nyinaa"
   }
 }

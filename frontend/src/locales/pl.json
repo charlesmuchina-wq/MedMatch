@@ -87,7 +87,15 @@
     "dashboard": "Panel główny",
     "myJobPostings": "Moje ogłoszenia o pracę",
     "interviews": "Rozmowy kwalifikacyjne",
-    "searchCandidates": "Wyszukaj kandydatów"
+    "searchCandidates": "Wyszukaj kandydatów",
+    "companyName": "Firma",
+    "companyNamePlaceholder": "Nazwa Twojej firmy",
+    "location": "Lokalizacja",
+    "locationPlaceholder": "np. zdalnie, USA",
+    "salaryRange": "Przedział wynagrodzenia",
+    "salaryPlaceholder": "np. 80 000–120 000 USD",
+    "jobDescription": "Opis stanowiska",
+    "descriptionPlaceholder": "Opisz rolę, obowiązki i wymagania..."
   },
   "dashboard": {
     "welcomeBack": "Witaj ponownie",
@@ -1234,5 +1242,24 @@
     "translating": "Tłumaczenie...",
     "translated": "Przetłumaczono!",
     "failed": "Tłumaczenie nie powiodło się"
+  },
+  "reviews": {
+    "yourResponse": "Twoja odpowiedź",
+    "responsePlaceholder": "Podziękuj recenzentowi, podaj kontekst lub profesjonalnie odnieś się do wszelkich uwag...",
+    "responseVisibility": "Twoja odpowiedź będzie widoczna dla rekruterów przeglądających Twój profil",
+    "submitResponse": "Wyślij odpowiedź"
+  },
+  "capa": {
+    "addProbableCause": "Dodaj prawdopodobną przyczynę",
+    "probableCausePlaceholder": "Opis prawdopodobnej przyczyny...",
+    "category": "Kategoria",
+    "categoryTechnical": "Techniczna",
+    "categoryProcess": "Procesowa",
+    "categoryHuman": "Ludzka",
+    "categoryEnvironmental": "Środowiskowa",
+    "evidencePlaceholder": "Dowody...",
+    "addCause": "Dodaj przyczynę",
+    "searchCapas": "Szukaj CAPA...",
+    "allStatuses": "Wszystkie statusy"
   }
 }

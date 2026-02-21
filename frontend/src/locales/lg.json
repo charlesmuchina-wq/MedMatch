@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Kkampuni",
+    "companyNamePlaceholder": "Erinnya lya kkampuni yo",
+    "location": "Ekifo",
+    "locationPlaceholder": "nga, Okuva ewala (Remote), USA",
+    "salaryRange": "Ekipimo ky’omusaala",
+    "salaryPlaceholder": "nga, $80,000 - $120,000",
+    "jobDescription": "Ennyonnyola y’omulimu",
+    "descriptionPlaceholder": "Nyumya ku kifo ky’omulimu, obuvunaanyizibwa, n’ebisaabibwa..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Kivvuunulwa...",
     "translated": "Kivvuunuddwa!",
     "failed": "Okuvvuunula kulemye"
+  },
+  "reviews": {
+    "yourResponse": "Okuddamu kwo",
+    "responsePlaceholder": "Weebale omukebera, waayo embeera y’ensonga, oba ddamu ku buli kyawuliddwa mu ngeri ey’obukugu...",
+    "responseVisibility": "Okuddamu kwo kujja kulabibwa abanoonya abakozi abalaba profayiro yo",
+    "submitResponse": "Weereza okuddamu"
+  },
+  "capa": {
+    "addProbableCause": "Yongerako ekikyasobozesa okuba ensonga",
+    "probableCausePlaceholder": "Ennyonnyola y’ekikyasobozesa okuba ensonga...",
+    "category": "Ekika",
+    "categoryTechnical": "Eby’obukugu",
+    "categoryProcess": "Enkola",
+    "categoryHuman": "Abantu",
+    "categoryEnvironmental": "Ebya butonde bw’ensi",
+    "evidencePlaceholder": "Obujulizi...",
+    "addCause": "Yongerako ensonga",
+    "searchCapas": "Noonya CAPAs...",
+    "allStatuses": "Embeera zonna"
   }
 }

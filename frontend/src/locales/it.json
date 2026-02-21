@@ -87,7 +87,15 @@
     "dashboard": "Bacheca",
     "myJobPostings": "I miei annunci di lavoro",
     "interviews": "Colloqui",
-    "searchCandidates": "Cerca candidati"
+    "searchCandidates": "Cerca candidati",
+    "companyName": "Azienda",
+    "companyNamePlaceholder": "Nome della tua azienda",
+    "location": "Località",
+    "locationPlaceholder": "ad es., Da remoto, USA",
+    "salaryRange": "Fascia retributiva",
+    "salaryPlaceholder": "ad es., 80.000$ - 120.000$",
+    "jobDescription": "Descrizione del lavoro",
+    "descriptionPlaceholder": "Descrivi il ruolo, le responsabilità e i requisiti..."
   },
   "dashboard": {
     "welcomeBack": "Bentornato",
@@ -1234,5 +1242,24 @@
     "translating": "Traduzione in corso...",
     "translated": "Tradotto!",
     "failed": "Traduzione non riuscita"
+  },
+  "reviews": {
+    "yourResponse": "La tua risposta",
+    "responsePlaceholder": "Ringrazia chi ha recensito, fornisci contesto o affronta eventuali feedback in modo professionale...",
+    "responseVisibility": "La tua risposta sarà visibile ai recruiter che visualizzano il tuo profilo",
+    "submitResponse": "Invia risposta"
+  },
+  "capa": {
+    "addProbableCause": "Aggiungi causa probabile",
+    "probableCausePlaceholder": "Descrizione della causa probabile...",
+    "category": "Categoria",
+    "categoryTechnical": "Tecnica",
+    "categoryProcess": "Processo",
+    "categoryHuman": "Umana",
+    "categoryEnvironmental": "Ambientale",
+    "evidencePlaceholder": "Evidenze...",
+    "addCause": "Aggiungi causa",
+    "searchCapas": "Cerca CAPA...",
+    "allStatuses": "Tutti gli stati"
   }
 }

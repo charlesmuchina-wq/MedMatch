@@ -67,7 +67,15 @@
     "dashboard": "Tableau de Bord",
     "myJobPostings": "Mes Offres d'Emploi",
     "interviews": "Entretiens",
-    "searchCandidates": "Rechercher des Candidats"
+    "searchCandidates": "Rechercher des Candidats",
+    "companyName": "Entreprise",
+    "companyNamePlaceholder": "Le nom de votre entreprise",
+    "location": "Lieu",
+    "locationPlaceholder": "p. ex., Télétravail, États-Unis",
+    "salaryRange": "Fourchette salariale",
+    "salaryPlaceholder": "p. ex., 80 000 $ - 120 000 $",
+    "jobDescription": "Description du poste",
+    "descriptionPlaceholder": "Décrivez le poste, les responsabilités et les exigences..."
   },
   "dashboard": {
     "welcomeBack": "Bon retour",
@@ -1247,5 +1255,24 @@
     "translating": "Traduction en cours...",
     "translated": "Traduit !",
     "failed": "La traduction a échoué"
+  },
+  "reviews": {
+    "yourResponse": "Votre réponse",
+    "responsePlaceholder": "Remerciez l’évaluateur, apportez du contexte ou répondez à tout commentaire de manière professionnelle…",
+    "responseVisibility": "Votre réponse sera visible par les recruteurs consultant votre profil",
+    "submitResponse": "Envoyer la réponse"
+  },
+  "capa": {
+    "addProbableCause": "Ajouter une cause probable",
+    "probableCausePlaceholder": "Description de la cause probable...",
+    "category": "Catégorie",
+    "categoryTechnical": "Technique",
+    "categoryProcess": "Processus",
+    "categoryHuman": "Humaine",
+    "categoryEnvironmental": "Environnementale",
+    "evidencePlaceholder": "Preuves...",
+    "addCause": "Ajouter une cause",
+    "searchCapas": "Rechercher des CAPA...",
+    "allStatuses": "Tous les statuts"
   }
 }

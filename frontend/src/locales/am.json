@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "ኩባንያ",
+    "companyNamePlaceholder": "የኩባንያዎ ስም",
+    "location": "አካባቢ",
+    "locationPlaceholder": "ምሳሌ፡ ርቀት ሥራ (Remote), አሜሪካ",
+    "salaryRange": "የደመወዝ ክልል",
+    "salaryPlaceholder": "ምሳሌ፡ $80,000 - $120,000",
+    "jobDescription": "የሥራ መግለጫ",
+    "descriptionPlaceholder": "ሚናውን፣ ኃላፊነቶቹን እና መስፈርቶቹን ይግለጹ..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "በመተርጎም ላይ...",
     "translated": "ተተርጉሟል!",
     "failed": "ትርጉም አልተሳካም"
+  },
+  "reviews": {
+    "yourResponse": "መልስዎ",
+    "responsePlaceholder": "ገምጋሚውን ያመስግኑ፣ አውድ ይስጡ ወይም ማንኛውንም አስተያየት በሙያዊ መንገድ ይመልሱ...",
+    "responseVisibility": "መልስዎ ፕሮፋይልዎን የሚመለከቱ ቅጥር አስፈጻሚዎች ዘንድ ይታያል",
+    "submitResponse": "መልስ አስገባ"
+  },
+  "capa": {
+    "addProbableCause": "ሊሆን የሚችል መንስኤ አክል",
+    "probableCausePlaceholder": "ሊሆን የሚችል መንስኤ መግለጫ...",
+    "category": "ምድብ",
+    "categoryTechnical": "ቴክኒካዊ",
+    "categoryProcess": "ሂደት",
+    "categoryHuman": "ሰው",
+    "categoryEnvironmental": "አካባቢያዊ",
+    "evidencePlaceholder": "ማስረጃ...",
+    "addCause": "መንስኤ አክል",
+    "searchCapas": "CAPAs ፈልግ...",
+    "allStatuses": "ሁሉም ሁኔታዎች"
   }
 }

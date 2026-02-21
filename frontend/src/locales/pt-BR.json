@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Empresa",
+    "companyNamePlaceholder": "Nome da sua empresa",
+    "location": "Localização",
+    "locationPlaceholder": "ex.: Remoto, EUA",
+    "salaryRange": "Faixa salarial",
+    "salaryPlaceholder": "ex.: US$ 80.000 - US$ 120.000",
+    "jobDescription": "Descrição da vaga",
+    "descriptionPlaceholder": "Descreva a função, as responsabilidades e os requisitos..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Traduzindo...",
     "translated": "Traduzido!",
     "failed": "Falha na tradução"
+  },
+  "reviews": {
+    "yourResponse": "Sua resposta",
+    "responsePlaceholder": "Agradeça ao avaliador, forneça contexto ou responda a qualquer feedback de forma profissional...",
+    "responseVisibility": "Sua resposta ficará visível para recrutadores que visualizam seu perfil",
+    "submitResponse": "Enviar resposta"
+  },
+  "capa": {
+    "addProbableCause": "Adicionar causa provável",
+    "probableCausePlaceholder": "Descrição da causa provável...",
+    "category": "Categoria",
+    "categoryTechnical": "Técnica",
+    "categoryProcess": "Processo",
+    "categoryHuman": "Humana",
+    "categoryEnvironmental": "Ambiental",
+    "evidencePlaceholder": "Evidências...",
+    "addCause": "Adicionar causa",
+    "searchCapas": "Pesquisar CAPAs...",
+    "allStatuses": "Todos os status"
   }
 }

@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Kambani",
+    "companyNamePlaceholder": "Zita rekambani yako",
+    "location": "Nzvimbo",
+    "locationPlaceholder": "semuenzaniso, Kushanda kure, USA",
+    "salaryRange": "Muganho wemuhoro",
+    "salaryPlaceholder": "semuenzaniso, $80,000 - $120,000",
+    "jobDescription": "Tsananguro yebasa",
+    "descriptionPlaceholder": "Tsanangura basa, zvinotarisirwa, uye zvinodiwa..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Kushandura...",
     "translated": "Zvashandurwa!",
     "failed": "Kushandura kwatadza"
+  },
+  "reviews": {
+    "yourResponse": "Mhinduro yako",
+    "responsePlaceholder": "Tenda muongorori, ipa mamiriro, kana kupindura chero mhinduro nenzira yehunyanzvi...",
+    "responseVisibility": "Mhinduro yako ichaonekwa nevashandirwi vari kuona profaira yako",
+    "submitResponse": "Tumira mhinduro"
+  },
+  "capa": {
+    "addProbableCause": "Wedzera Chikonzero Chinofungidzirwa",
+    "probableCausePlaceholder": "Tsananguro yechikonzero chinofungidzirwa...",
+    "category": "Chikamu",
+    "categoryTechnical": "Zvehunyanzvi",
+    "categoryProcess": "Maitiro",
+    "categoryHuman": "Zvevanhu",
+    "categoryEnvironmental": "Zvezvakatipoteredza",
+    "evidencePlaceholder": "Humbowo...",
+    "addCause": "Wedzera Chikonzero",
+    "searchCapas": "Tsvaga maCAPA...",
+    "allStatuses": "Mamiriro ese"
   }
 }

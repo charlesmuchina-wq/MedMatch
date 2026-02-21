@@ -71,7 +71,15 @@
     "dashboard": "Dashboard",
     "myJobPostings": "Meine Stellenausschreibungen",
     "interviews": "Interviews",
-    "searchCandidates": "Kandidaten suchen"
+    "searchCandidates": "Kandidaten suchen",
+    "companyName": "Unternehmen",
+    "companyNamePlaceholder": "Name Ihres Unternehmens",
+    "location": "Standort",
+    "locationPlaceholder": "z. B. Remote, USA",
+    "salaryRange": "Gehaltsrahmen",
+    "salaryPlaceholder": "z. B. 80.000 $ - 120.000 $",
+    "jobDescription": "Stellenbeschreibung",
+    "descriptionPlaceholder": "Beschreiben Sie die Rolle, Verantwortlichkeiten und Anforderungen..."
   },
   "dashboard": {
     "welcomeBack": "Willkommen zurück",
@@ -1251,5 +1259,24 @@
     "translating": "Wird übersetzt...",
     "translated": "Übersetzt!",
     "failed": "Übersetzung fehlgeschlagen"
+  },
+  "reviews": {
+    "yourResponse": "Ihre Antwort",
+    "responsePlaceholder": "Danken Sie dem Rezensenten, geben Sie Kontext oder gehen Sie professionell auf Feedback ein...",
+    "responseVisibility": "Ihre Antwort wird für Recruiter sichtbar sein, die Ihr Profil ansehen",
+    "submitResponse": "Antwort absenden"
+  },
+  "capa": {
+    "addProbableCause": "Wahrscheinliche Ursache hinzufügen",
+    "probableCausePlaceholder": "Beschreibung der wahrscheinlichen Ursache...",
+    "category": "Kategorie",
+    "categoryTechnical": "Technisch",
+    "categoryProcess": "Prozess",
+    "categoryHuman": "Menschlich",
+    "categoryEnvironmental": "Umweltbedingt",
+    "evidencePlaceholder": "Nachweise...",
+    "addCause": "Ursache hinzufügen",
+    "searchCapas": "CAPAs durchsuchen...",
+    "allStatuses": "Alle Status"
   }
 }

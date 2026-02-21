@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Maatskappy",
+    "companyNamePlaceholder": "Jou maatskappy se naam",
+    "location": "Ligging",
+    "locationPlaceholder": "bv. Afgeleë, VSA",
+    "salaryRange": "Salarisreeks",
+    "salaryPlaceholder": "bv. $80 000 - $120 000",
+    "jobDescription": "Posbeskrywing",
+    "descriptionPlaceholder": "Beskryf die rol, verantwoordelikhede en vereistes..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Besig om te vertaal...",
     "translated": "Vertaal!",
     "failed": "Vertaling het misluk"
+  },
+  "reviews": {
+    "yourResponse": "Jou antwoord",
+    "responsePlaceholder": "Bedank die resensent, verskaf konteks, of spreek enige terugvoer professioneel aan...",
+    "responseVisibility": "Jou antwoord sal sigbaar wees vir werwers wat jou profiel besigtig",
+    "submitResponse": "Dien antwoord in"
+  },
+  "capa": {
+    "addProbableCause": "Voeg waarskynlike oorsaak by",
+    "probableCausePlaceholder": "Beskrywing van die waarskynlike oorsaak...",
+    "category": "Kategorie",
+    "categoryTechnical": "Tegnies",
+    "categoryProcess": "Proses",
+    "categoryHuman": "Menslik",
+    "categoryEnvironmental": "Omgewings-",
+    "evidencePlaceholder": "Bewyse...",
+    "addCause": "Voeg oorsaak by",
+    "searchCapas": "Soek CAPA's...",
+    "allStatuses": "Alle statusse"
   }
 }

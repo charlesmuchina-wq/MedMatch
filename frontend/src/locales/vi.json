@@ -87,7 +87,15 @@
     "dashboard": "Bảng điều khiển",
     "myJobPostings": "Tin tuyển dụng của tôi",
     "interviews": "Phỏng vấn",
-    "searchCandidates": "Tìm kiếm ứng viên"
+    "searchCandidates": "Tìm kiếm ứng viên",
+    "companyName": "Công ty",
+    "companyNamePlaceholder": "Tên công ty của bạn",
+    "location": "Địa điểm",
+    "locationPlaceholder": "ví dụ: Làm việc từ xa, Mỹ",
+    "salaryRange": "Khoảng lương",
+    "salaryPlaceholder": "ví dụ: 80.000$ - 120.000$",
+    "jobDescription": "Mô tả công việc",
+    "descriptionPlaceholder": "Mô tả vai trò, trách nhiệm và yêu cầu..."
   },
   "dashboard": {
     "welcomeBack": "Chào mừng bạn quay lại",
@@ -1234,5 +1242,24 @@
     "translating": "Đang dịch...",
     "translated": "Đã dịch!",
     "failed": "Dịch thất bại"
+  },
+  "reviews": {
+    "yourResponse": "Phản hồi của bạn",
+    "responsePlaceholder": "Cảm ơn người đánh giá, cung cấp bối cảnh hoặc phản hồi một cách chuyên nghiệp về mọi ý kiến đóng góp...",
+    "responseVisibility": "Phản hồi của bạn sẽ hiển thị với nhà tuyển dụng khi xem hồ sơ của bạn",
+    "submitResponse": "Gửi phản hồi"
+  },
+  "capa": {
+    "addProbableCause": "Thêm nguyên nhân có khả năng",
+    "probableCausePlaceholder": "Mô tả nguyên nhân có khả năng...",
+    "category": "Danh mục",
+    "categoryTechnical": "Kỹ thuật",
+    "categoryProcess": "Quy trình",
+    "categoryHuman": "Con người",
+    "categoryEnvironmental": "Môi trường",
+    "evidencePlaceholder": "Bằng chứng...",
+    "addCause": "Thêm nguyên nhân",
+    "searchCapas": "Tìm kiếm CAPA...",
+    "allStatuses": "Tất cả trạng thái"
   }
 }

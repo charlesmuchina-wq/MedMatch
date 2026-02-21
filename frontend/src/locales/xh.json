@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Inkampani",
+    "companyNamePlaceholder": "Igama lenkampani yakho",
+    "location": "Indawo",
+    "locationPlaceholder": "umz., Ukusebenza kude, e-USA",
+    "salaryRange": "Uluhlu Lomvuzo",
+    "salaryPlaceholder": "umz., $80,000 - $120,000",
+    "jobDescription": "Inkcazo Yomsebenzi",
+    "descriptionPlaceholder": "Chaza indima, uxanduva, kunye neemfuno..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Kuyaguqulelwa...",
     "translated": "Kuguqulelwe!",
     "failed": "Uguqulelo aluphumelelanga"
+  },
+  "reviews": {
+    "yourResponse": "Impendulo Yakho",
+    "responsePlaceholder": "Bulela umhloli, nikezela ngomxholo, okanye ujongane nayo nayiphi na ingxelo ngobuqu nangobungcali...",
+    "responseVisibility": "Impendulo yakho iya kubonakala kubaqeshi abajonga iprofayile yakho",
+    "submitResponse": "Ngenisa Impendulo"
+  },
+  "capa": {
+    "addProbableCause": "Yongeza Unobangela Onokwenzeka",
+    "probableCausePlaceholder": "Inkcazo yonobangela onokwenzeka...",
+    "category": "Udidi",
+    "categoryTechnical": "Ubuchwephesha",
+    "categoryProcess": "Inkqubo",
+    "categoryHuman": "Abantu",
+    "categoryEnvironmental": "Okusingqongileyo",
+    "evidencePlaceholder": "Ubungqina...",
+    "addCause": "Yongeza Unobangela",
+    "searchCapas": "Khangela ii-CAPA...",
+    "allStatuses": "Zonke Iimeko"
   }
 }

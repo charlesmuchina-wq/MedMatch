@@ -713,7 +713,15 @@
     "searchCandidates": "البحث عن مرشحين",
     "title": "التوظيف",
     "jobs": "الوظائف",
-    "candidates": "المرشحين"
+    "candidates": "المرشحين",
+    "companyName": "الشركة",
+    "companyNamePlaceholder": "اسم شركتك",
+    "location": "الموقع",
+    "locationPlaceholder": "مثال: عن بُعد، الولايات المتحدة",
+    "salaryRange": "نطاق الراتب",
+    "salaryPlaceholder": "مثال: 80,000$ - 120,000$",
+    "jobDescription": "وصف الوظيفة",
+    "descriptionPlaceholder": "صِف الدور والمسؤوليات والمتطلبات..."
   },
   "pwa": {
     "installTitle": "تثبيت MedMatch",
@@ -1659,5 +1667,24 @@
     "translating": "جارٍ الترجمة...",
     "translated": "تمت الترجمة!",
     "failed": "فشلت الترجمة"
+  },
+  "reviews": {
+    "yourResponse": "ردّك",
+    "responsePlaceholder": "اشكر المراجع، وقدّم سياقًا، أو عالج أي ملاحظات باحترافية...",
+    "responseVisibility": "سيكون ردّك مرئيًا لمسؤولي التوظيف الذين يعرضون ملفك الشخصي",
+    "submitResponse": "إرسال الرد"
+  },
+  "capa": {
+    "addProbableCause": "إضافة السبب المحتمل",
+    "probableCausePlaceholder": "وصف السبب المحتمل...",
+    "category": "الفئة",
+    "categoryTechnical": "تقني",
+    "categoryProcess": "إجرائي",
+    "categoryHuman": "بشري",
+    "categoryEnvironmental": "بيئي",
+    "evidencePlaceholder": "الأدلة...",
+    "addCause": "إضافة سبب",
+    "searchCapas": "البحث في CAPA...",
+    "allStatuses": "جميع الحالات"
   }
 }

@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Isosiyete",
+    "companyNamePlaceholder": "Izina ry’isosiyete yawe",
+    "location": "Aho",
+    "locationPlaceholder": "urugero: Hafi, Leta Zunze Ubumwe za Amerika",
+    "salaryRange": "Intera y’umushahara",
+    "salaryPlaceholder": "urugero: $80,000 - $120,000",
+    "jobDescription": "Ibisobanuro by’umurimo",
+    "descriptionPlaceholder": "Sobanura inshingano z’uyu mwanya, ibyo uzajya ukora, n’ibisabwa..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Birimo guhindura ururimi...",
     "translated": "Byahinduwe!",
     "failed": "Guhindura ururimi byananiranye"
+  },
+  "reviews": {
+    "yourResponse": "Igisubizo cyawe",
+    "responsePlaceholder": "Shimira uwatanze isuzuma, tanga ibisobanuro, cyangwa usubize ku bitekerezo mu buryo bw’umwuga...",
+    "responseVisibility": "Igisubizo cyawe kizagaragara ku bashaka abakozi bareba umwirondoro wawe",
+    "submitResponse": "Ohereza igisubizo"
+  },
+  "capa": {
+    "addProbableCause": "Ongeraho impamvu ishoboka",
+    "probableCausePlaceholder": "Ibisobanuro by’impamvu ishoboka...",
+    "category": "Icyiciro",
+    "categoryTechnical": "Tekiniki",
+    "categoryProcess": "Uburyo bw’akazi",
+    "categoryHuman": "Umunthu",
+    "categoryEnvironmental": "Ibidukikije",
+    "evidencePlaceholder": "Ibimenyetso...",
+    "addCause": "Ongeraho impamvu",
+    "searchCapas": "Shakisha CAPA...",
+    "allStatuses": "Imiterere yose"
   }
 }

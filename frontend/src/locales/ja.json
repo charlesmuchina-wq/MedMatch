@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "会社",
+    "companyNamePlaceholder": "会社名",
+    "location": "勤務地",
+    "locationPlaceholder": "例：リモート、米国",
+    "salaryRange": "給与範囲",
+    "salaryPlaceholder": "例：$80,000～$120,000",
+    "jobDescription": "職務内容",
+    "descriptionPlaceholder": "職務、責任範囲、要件を説明してください…"
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "翻訳中...",
     "translated": "翻訳完了！",
     "failed": "翻訳に失敗しました"
+  },
+  "reviews": {
+    "yourResponse": "あなたの返信",
+    "responsePlaceholder": "レビュー投稿者に感謝し、背景情報を共有するか、フィードバックに対して丁寧かつプロフェッショナルに対応してください…",
+    "responseVisibility": "あなたの返信は、プロフィールを閲覧する採用担当者に表示されます",
+    "submitResponse": "返信を送信"
+  },
+  "capa": {
+    "addProbableCause": "推定原因を追加",
+    "probableCausePlaceholder": "推定原因の説明…",
+    "category": "カテゴリ",
+    "categoryTechnical": "技術",
+    "categoryProcess": "プロセス",
+    "categoryHuman": "人的",
+    "categoryEnvironmental": "環境",
+    "evidencePlaceholder": "証拠…",
+    "addCause": "原因を追加",
+    "searchCapas": "CAPAを検索…",
+    "allStatuses": "すべてのステータス"
   }
 }

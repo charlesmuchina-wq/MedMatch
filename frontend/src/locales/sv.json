@@ -87,7 +87,15 @@
     "dashboard": "Instrumentpanel",
     "myJobPostings": "Mina jobbannonser",
     "interviews": "Intervjuer",
-    "searchCandidates": "Sök kandidater"
+    "searchCandidates": "Sök kandidater",
+    "companyName": "Företag",
+    "companyNamePlaceholder": "Ditt företagsnamn",
+    "location": "Plats",
+    "locationPlaceholder": "t.ex. Distans, USA",
+    "salaryRange": "Lönespann",
+    "salaryPlaceholder": "t.ex. 80 000 $ - 120 000 $",
+    "jobDescription": "Jobbeskrivning",
+    "descriptionPlaceholder": "Beskriv rollen, ansvarsområdena och kraven..."
   },
   "dashboard": {
     "welcomeBack": "Välkommen tillbaka",
@@ -1234,5 +1242,24 @@
     "translating": "Översätter...",
     "translated": "Översatt!",
     "failed": "Översättningen misslyckades"
+  },
+  "reviews": {
+    "yourResponse": "Ditt svar",
+    "responsePlaceholder": "Tacka recensenten, ge sammanhang eller bemöt eventuella synpunkter på ett professionellt sätt...",
+    "responseVisibility": "Ditt svar kommer att vara synligt för rekryterare som tittar på din profil",
+    "submitResponse": "Skicka svar"
+  },
+  "capa": {
+    "addProbableCause": "Lägg till trolig orsak",
+    "probableCausePlaceholder": "Beskrivning av den troliga orsaken...",
+    "category": "Kategori",
+    "categoryTechnical": "Teknisk",
+    "categoryProcess": "Process",
+    "categoryHuman": "Mänsklig",
+    "categoryEnvironmental": "Miljö",
+    "evidencePlaceholder": "Bevis...",
+    "addCause": "Lägg till orsak",
+    "searchCapas": "Sök efter CAPA:er...",
+    "allStatuses": "Alla statusar"
   }
 }

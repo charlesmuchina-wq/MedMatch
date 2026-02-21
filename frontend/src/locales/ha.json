@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Kamfani",
+    "companyNamePlaceholder": "Sunan kamfaninka",
+    "location": "Wuri",
+    "locationPlaceholder": "misali, Aiki daga nesa, Amurka",
+    "salaryRange": "Matsayin Albashi",
+    "salaryPlaceholder": "misali, $80,000 - $120,000",
+    "jobDescription": "Bayanin Aiki",
+    "descriptionPlaceholder": "Bayyana aikin, nauyin da ke kansa, da bukatu..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Ana fassara...",
     "translated": "An fassara!",
     "failed": "Fassarar ta gaza"
+  },
+  "reviews": {
+    "yourResponse": "Amsarka",
+    "responsePlaceholder": "Ka gode wa mai bita, ka bayar da bayani, ko ka magance duk wani ra'ayi cikin kwarewa...",
+    "responseVisibility": "Za a iya ganin amsarka ga masu daukar ma'aikata da ke duba bayanan martabarka",
+    "submitResponse": "Mika Amsa"
+  },
+  "capa": {
+    "addProbableCause": "Ƙara Dalili Mai Yiwuwa",
+    "probableCausePlaceholder": "Bayanin dalilin da ake zargi mai yiwuwa...",
+    "category": "Rukuni",
+    "categoryTechnical": "Na Fasaha",
+    "categoryProcess": "Na Tsari",
+    "categoryHuman": "Na Dan Adam",
+    "categoryEnvironmental": "Na Muhalli",
+    "evidencePlaceholder": "Shaida...",
+    "addCause": "Ƙara Dalili",
+    "searchCapas": "Nemo CAPA...",
+    "allStatuses": "Dukkan Matsayi"
   }
 }

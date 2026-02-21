@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Kampaanii",
+    "companyNamePlaceholder": "Maqaa kampaanii keessan",
+    "location": "Bakka",
+    "locationPlaceholder": "fkn., Fagoo irraa, Ameerikaa",
+    "salaryRange": "Daangaa Miindaa",
+    "salaryPlaceholder": "fkn., $80,000 - $120,000",
+    "jobDescription": "Ibsa Hojii",
+    "descriptionPlaceholder": "Gahee, itti gaafatamummaa, fi barbaachisummaa ibsaa..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Hiikaa jira...",
     "translated": "Hiikameera!",
     "failed": "Hiikni hin milkoofne"
+  },
+  "reviews": {
+    "yourResponse": "Deebii Keessan",
+    "responsePlaceholder": "Gamaaggamaa galateeffadhaa, haala ibsaa, yookaan yaada kenname kamiyyuu ogummaa irratti hunda'uun deebisaa...",
+    "responseVisibility": "Deebiin keessan haalota piroofaayila keessan ilaalan irratti qacarrii hojjettootaa ilaaluuf ni mul'ata",
+    "submitResponse": "Deebii Ergaa"
+  },
+  "capa": {
+    "addProbableCause": "Sababa Shakkiin Ta’u Dabali",
+    "probableCausePlaceholder": "Ibsa sababaa shakkiin ta’u...",
+    "category": "Ramaddii",
+    "categoryTechnical": "Teknikaa",
+    "categoryProcess": "Adeemsa",
+    "categoryHuman": "Nama",
+    "categoryEnvironmental": "Naannoo",
+    "evidencePlaceholder": "Ragaa...",
+    "addCause": "Sababa Dabali",
+    "searchCapas": "CAPA barbaadi...",
+    "allStatuses": "Haala Hunda"
   }
 }

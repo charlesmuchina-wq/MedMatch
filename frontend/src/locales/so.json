@@ -485,7 +485,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Shirkad",
+    "companyNamePlaceholder": "Magaca shirkaddaada",
+    "location": "Goobta",
+    "locationPlaceholder": "tusaale, Meel fog (Remote), USA",
+    "salaryRange": "Xadka mushaharka",
+    "salaryPlaceholder": "tusaale, $80,000 - $120,000",
+    "jobDescription": "Sharaxaadda shaqada",
+    "descriptionPlaceholder": "Sharax doorka, mas’uuliyadaha, iyo shuruudaha..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Turjumid...",
     "translated": "Waa la turjumay!",
     "failed": "Turjumaaddu waa guuldareysatay"
+  },
+  "reviews": {
+    "yourResponse": "Jawaabtaada",
+    "responsePlaceholder": "U mahadceli qofka dib-u-eegista sameeyay, bixi macluumaad dheeraad ah, ama si xirfad leh uga jawaab wixii faallo ah...",
+    "responseVisibility": "Jawaabtaada waxay u muuqan doontaa shaqaaleysiiyayaasha daawanaya astaantaada",
+    "submitResponse": "Gudbi Jawaabta"
+  },
+  "capa": {
+    "addProbableCause": "Ku dar sababta macquulka ah",
+    "probableCausePlaceholder": "Sharaxaad ku saabsan sababta macquulka ah...",
+    "category": "Qayb",
+    "categoryTechnical": "Farsamo",
+    "categoryProcess": "Habraac",
+    "categoryHuman": "Bani’aadam",
+    "categoryEnvironmental": "Deegaanka",
+    "evidencePlaceholder": "Caddayn...",
+    "addCause": "Ku dar sabab",
+    "searchCapas": "Raadi CAPA-yada...",
+    "allStatuses": "Dhammaan xaaladaha"
   }
 }

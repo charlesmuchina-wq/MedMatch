@@ -87,7 +87,15 @@
     "dashboard": "대시보드",
     "myJobPostings": "내 채용 공고",
     "interviews": "면접",
-    "searchCandidates": "지원자 검색"
+    "searchCandidates": "지원자 검색",
+    "companyName": "회사",
+    "companyNamePlaceholder": "회사명",
+    "location": "근무지",
+    "locationPlaceholder": "예: 원격, 미국",
+    "salaryRange": "급여 범위",
+    "salaryPlaceholder": "예: $80,000 - $120,000",
+    "jobDescription": "직무 설명",
+    "descriptionPlaceholder": "직무, 책임, 요구 사항을 설명해 주세요..."
   },
   "dashboard": {
     "welcomeBack": "다시 오신 것을 환영합니다",
@@ -1234,5 +1242,24 @@
     "translating": "번역 중...",
     "translated": "번역 완료!",
     "failed": "번역 실패"
+  },
+  "reviews": {
+    "yourResponse": "답변",
+    "responsePlaceholder": "리뷰어에게 감사 인사를 전하고, 맥락을 제공하거나, 피드백을 전문적으로 반영해 주세요...",
+    "responseVisibility": "작성하신 답변은 프로필을 보는 채용 담당자에게 공개됩니다",
+    "submitResponse": "답변 제출"
+  },
+  "capa": {
+    "addProbableCause": "가능성 있는 원인 추가",
+    "probableCausePlaceholder": "가능성 있는 원인에 대한 설명...",
+    "category": "분류",
+    "categoryTechnical": "기술",
+    "categoryProcess": "프로세스",
+    "categoryHuman": "인적 요인",
+    "categoryEnvironmental": "환경",
+    "evidencePlaceholder": "증거...",
+    "addCause": "원인 추가",
+    "searchCapas": "CAPA 검색...",
+    "allStatuses": "모든 상태"
   }
 }

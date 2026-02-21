@@ -477,7 +477,15 @@
     "interviews": "Interviews",
     "myJobPostings": "My Job Postings",
     "dashboard": "Dashboard",
-    "searchCandidates": "Search Candidates"
+    "searchCandidates": "Search Candidates",
+    "companyName": "Ụlọ ọrụ",
+    "companyNamePlaceholder": "Aha ụlọ ọrụ gị",
+    "location": "Ebe",
+    "locationPlaceholder": "dịka, Rịmọt, USA",
+    "salaryRange": "Oke Ụgwọ Ọrụ",
+    "salaryPlaceholder": "dịka, $80,000 - $120,000",
+    "jobDescription": "Nkọwa Ọrụ",
+    "descriptionPlaceholder": "Kọwaa ọrụ ahụ, ọrụ/ọrụ ndị a ga-arụ, na ihe a chọrọ..."
   },
   "pwa": {
     "installTitle": "Install MedMatch",
@@ -1234,5 +1242,24 @@
     "translating": "Na-atụgharị...",
     "translated": "Atụgharịrịla!",
     "failed": "Ntụgharị asụsụ dara"
+  },
+  "reviews": {
+    "yourResponse": "Azịza gị",
+    "responsePlaceholder": "Kele onye nyochara, nye nkọwa, ma ọ bụ zaa nzaghachi ọ bụla n'ụzọ ọkachamara...",
+    "responseVisibility": "Azịza gị ga-adị ndị na-ewe ndị ọrụ ahụ na-ahụ mgbe ha na-ele profaịlụ gị",
+    "submitResponse": "Ziga Azịza"
+  },
+  "capa": {
+    "addProbableCause": "Tinye Ihe Kpatara O Yikarịrị",
+    "probableCausePlaceholder": "Nkọwa gbasara ihe kpatara o yikarịrị...",
+    "category": "Udi",
+    "categoryTechnical": "Teknụzụ",
+    "categoryProcess": "Usoro",
+    "categoryHuman": "Mmadu",
+    "categoryEnvironmental": "Gburugburu Ebe Obibi",
+    "evidencePlaceholder": "Ihe akaebe...",
+    "addCause": "Tinye Ihe Kpatara",
+    "searchCapas": "Chọọ CAPA...",
+    "allStatuses": "Ọnọdụ niile"
   }
 }
