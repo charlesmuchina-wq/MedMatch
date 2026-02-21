@@ -91,7 +91,7 @@ const CAPACard = ({ capa, onClick }) => {
 };
 
 // Create CAPA Dialog
-const CreateCAPADialog = ({ open, onClose, onCreated }) => {
+const CreateCAPADialog = ({ open, onClose, onCreated, t }) => {
   const [formData, setFormData] = useState({
     title: "",
     problem_statement: "",
@@ -105,7 +105,7 @@ const CreateCAPADialog = ({ open, onClose, onCreated }) => {
 
   const handleSubmit = async () => {
     if (!formData.title || !formData.problem_statement) {
-      toast.error("Title and problem statement are required");
+      toast.error(t("capa.titleAndStatementRequired"));
       return;
     }
 
