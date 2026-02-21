@@ -459,7 +459,9 @@
     "download": "Download",
     "fillAllFields": "Please fill in all fields",
     "uploadResumeFirst": "Please upload your resume first",
-    "generationFailed": "Failed to generate cover letter"
+    "generationFailed": "Failed to generate cover letter",
+    "pasteJobDescription": "Paste the job description here...",
+    "generate": "Generate Cover Letter"
   },
   "membership": {
     "membership": "Membership",
