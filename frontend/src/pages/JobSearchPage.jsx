@@ -301,7 +301,7 @@ const JobSearchPage = ({ savedJobs = [], onSave, onApply, onAnalyze }) => {
               >
                 <SelectTrigger className="w-full md:w-48" data-testid="city-select">
                   <MapPin className="w-4 h-4 mr-2 text-slate-400" />
-                  <SelectValue placeholder={country === "any" ? "Select Country First" : "Select City"} />
+                  <SelectValue placeholder={country === "any" ? t("jobSearch.selectCountryFirst") : t("jobSearch.selectCity")} />
                 </SelectTrigger>
                 <SelectContent className="max-h-[300px]">
                   <SelectItem value="any">All Cities in {country}</SelectItem>
