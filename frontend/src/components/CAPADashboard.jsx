@@ -408,11 +408,11 @@ const CAPADetailView = ({ capa, onUpdate, onClose }) => {
               {/* Add Probable Cause */}
               <Card>
                 <CardHeader className="py-3">
-                  <CardTitle className="text-sm">Add Probable Cause</CardTitle>
+                  <CardTitle className="text-sm">{t("capa.addProbableCause")}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <Input
-                    placeholder="Description of the probable cause..."
+                    placeholder={t("capa.probableCausePlaceholder")}
                     value={newCause.description}
                     onChange={(e) => setNewCause({...newCause, description: e.target.value})}
                   />
@@ -422,23 +422,23 @@ const CAPADetailView = ({ capa, onUpdate, onClose }) => {
                       onValueChange={(v) => setNewCause({...newCause, category: v})}
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Category" />
+                        <SelectValue placeholder={t("capa.category")} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="technical">Technical</SelectItem>
-                        <SelectItem value="process">Process</SelectItem>
-                        <SelectItem value="human">Human</SelectItem>
-                        <SelectItem value="environmental">Environmental</SelectItem>
+                        <SelectItem value="technical">{t("capa.categoryTechnical")}</SelectItem>
+                        <SelectItem value="process">{t("capa.categoryProcess")}</SelectItem>
+                        <SelectItem value="human">{t("capa.categoryHuman")}</SelectItem>
+                        <SelectItem value="environmental">{t("capa.categoryEnvironmental")}</SelectItem>
                       </SelectContent>
                     </Select>
                     <Input
-                      placeholder="Evidence..."
+                      placeholder={t("capa.evidencePlaceholder")}
                       value={newCause.evidence}
                       onChange={(e) => setNewCause({...newCause, evidence: e.target.value})}
                     />
                   </div>
                   <Button onClick={addProbableCause} disabled={loading} size="sm">
-                    <Plus className="w-4 h-4 mr-1" /> Add Cause
+                    <Plus className="w-4 h-4 mr-1" /> {t("capa.addCause")}
                   </Button>
                 </CardContent>
               </Card>
