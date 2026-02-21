@@ -578,13 +578,13 @@ const LoginPage = ({ onAuthSuccess }) => {
                 ) : (
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="bio-name">Name</Label>
+                      <Label htmlFor="bio-name">{t("auth.name")}</Label>
                       <div className="relative">
                         <User className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                         <Input
                           id="bio-name"
                           type="text"
-                          placeholder="Your name"
+                          placeholder={t("auth.yourName")}
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           className="pl-10"
@@ -593,7 +593,7 @@ const LoginPage = ({ onAuthSuccess }) => {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="bio-email">Email</Label>
+                      <Label htmlFor="bio-email">{t("auth.email")}</Label>
                       <div className="relative">
                         <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                         <Input
