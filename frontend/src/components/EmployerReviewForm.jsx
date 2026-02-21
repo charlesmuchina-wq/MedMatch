@@ -262,10 +262,10 @@ const EmployerReviewForm = ({
           {/* Written Review */}
           <div>
             <label className="text-sm font-medium text-slate-700 dark:text-slate-300 block mb-2">
-              Your Review
+              {t("employerReview.yourReview")}
             </label>
             <Textarea
-              placeholder="Share your experience working with this candidate..."
+              placeholder={t("employerReview.reviewPlaceholder")}
               value={formData.comment}
               onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
               rows={4}
@@ -275,7 +275,7 @@ const EmployerReviewForm = ({
 
           {/* Strengths */}
           <TagSelector
-            label="Strengths (select all that apply)"
+            label={t("employerReview.strengths")}
             options={strengthOptions}
             selected={formData.strengths}
             onChange={(strengths) => setFormData({ ...formData, strengths })}
