@@ -590,7 +590,12 @@
     "jobSeeker": "Job Seeker",
     "jobSeekerDesc": "Find your dream job with AI",
     "recruiter": "Recruiter",
-    "recruiterDesc": "Hire top healthcare talent"
+    "recruiterDesc": "Hire top healthcare talent",
+    "name": "Name",
+    "yourName": "Your name",
+    "enterCode": "Enter 6-digit code",
+    "verifyAndSignIn": "Verify & Sign In",
+    "changePhoneNumber": "Change phone number"
   },
   "onboarding": {
     "welcome": "Welcome to MedMatch!",
