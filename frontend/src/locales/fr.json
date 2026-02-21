@@ -815,15 +815,15 @@
   },
   "pages": {
     "credentials": {
-      "title": "Identifiants & certifications",
-      "subtitle": "Gérez vos identifiants et certifications professionnelles",
-      "verifiedCredentials": "Identifiants vérifiés",
+      "title": "Titres & Certifications",
+      "subtitle": "Gérez vos titres professionnels et certifications",
+      "verifiedCredentials": "Titres vérifiés",
       "instantImport": "Importation instantanée",
       "globalStandard": "Norme mondiale",
       "publications": "Publications",
       "free": "Gratuit",
-      "addCredential": "Ajouter un identifiant",
-      "noCredentials": "Aucun identifiant ajouté pour le moment",
+      "addCredential": "Ajouter un titre",
+      "noCredentials": "Aucun titre ajouté pour le moment",
       "verifyNow": "Vérifier maintenant",
       "verified": "Vérifié",
       "pending": "En attente",
@@ -837,11 +837,11 @@
       "warning": "Avertissement",
       "modelTrained": "Modèle entraîné",
       "systemStatus": "État du système",
-      "userStats": "Statistiques utilisateurs",
+      "userStats": "Statistiques des utilisateurs",
       "recentActivity": "Activité récente",
       "systemHealth": "Santé du système",
       "apiUsage": "Utilisation de l’API",
-      "errorRate": "Taux d’erreurs",
+      "errorRate": "Taux d’erreur",
       "responseTime": "Temps de réponse"
     },
     "recruiterDashboard": {
@@ -852,7 +852,7 @@
       "shortlisted": "Présélectionnés",
       "interviewing": "En entretien",
       "latestCandidates": "Derniers candidats ayant postulé à vos offres",
-      "viewAll": "Voir tout",
+      "viewAll": "Tout afficher",
       "postNewJob": "Publier une nouvelle offre",
       "noJobs": "Aucune offre publiée pour le moment"
     },
@@ -862,7 +862,7 @@
       "noJobsPosted": "Aucune offre publiée pour le moment",
       "salaryRange": "Fourchette salariale",
       "applicationUrl": "URL de candidature",
-      "jobTitlePlaceholder": "p. ex., Ingénieur qualité senior",
+      "jobTitlePlaceholder": "ex. : Ingénieur qualité senior",
       "companyNamePlaceholder": "Le nom de votre entreprise",
       "createJob": "Créer une offre",
       "editJob": "Modifier l’offre",
@@ -894,16 +894,16 @@
       "editProfile": "Modifier le profil",
       "verifiedCompany": "Entreprise vérifiée",
       "employeeCount": "Employés",
-      "founded": "Fondée",
-      "headquarters": "Siège social"
+      "founded": "Fondée en",
+      "headquarters": "Siège"
     },
     "portalSelector": {
       "title": "Portail AI KARAU",
       "subtitle": "Choisissez votre destination",
       "jobToolkit": "Boîte à outils emploi",
-      "jobToolkitDesc": "Outils de recherche d’emploi et de carrière propulsés par l’IA",
+      "jobToolkitDesc": "Recherche d’emploi et outils de carrière propulsés par l’AI",
       "meetingPortal": "Portail de réunion",
-      "meetingPortalDesc": "Visioconférence sécurisée",
+      "meetingPortalDesc": "Vidéoconférence sécurisée",
       "enterPortal": "Accéder au portail"
     },
     "dragonAutomator": {
@@ -917,8 +917,8 @@
       "lastRun": "Dernière exécution"
     },
     "blindScreening": {
-      "title": "Tableau de bord de présélection à l’aveugle",
-      "subtitle": "Évaluez les candidats sans biais",
+      "title": "Tableau de bord de présélection anonyme",
+      "subtitle": "Examinez les candidats sans biais",
       "candidatePool": "Viviers de candidats",
       "screeningQueue": "File d’attente de présélection",
       "reviewed": "Examiné",
@@ -931,10 +931,10 @@
       "title": "Paramètres de localisation",
       "subtitle": "Gérez vos préférences de localisation pour la recherche d’emploi",
       "currentLocation": "Localisation actuelle",
-      "preferredLocations": "Lieux préférés",
+      "preferredLocations": "Localisations préférées",
       "remoteOnly": "Télétravail uniquement",
-      "hybridOk": "Hybride OK",
-      "onSiteOk": "Sur site OK",
+      "hybridOk": "Hybride accepté",
+      "onSiteOk": "Sur site accepté",
       "willingToRelocate": "Prêt(e) à déménager",
       "searchRadius": "Rayon de recherche",
       "savePreferences": "Enregistrer les préférences"
@@ -945,13 +945,13 @@
       "categories": "Catégories",
       "skills": "Compétences",
       "industries": "Secteurs",
-      "jobTypes": "Types d’emploi",
+      "jobTypes": "Types de poste",
       "searchTaxonomy": "Rechercher dans la taxonomie..."
     },
     "enterpriseApi": {
       "title": "API Enterprise",
       "subtitle": "Documentation et gestion de l’API",
-      "apiKeys": "Clés d’API",
+      "apiKeys": "Clés API",
       "documentation": "Documentation",
       "usage": "Utilisation",
       "rateLimits": "Limites de débit",
@@ -960,7 +960,7 @@
     },
     "globalCompliance": {
       "title": "Conformité mondiale",
-      "subtitle": "État de conformité selon les régions",
+      "subtitle": "Statut de conformité selon les régions",
       "gdpr": "RGPD",
       "ccpa": "CCPA",
       "hipaa": "HIPAA",
@@ -970,15 +970,15 @@
       "inProgress": "En cours"
     },
     "aiCompliance": {
-      "title": "Conformité de l’IA",
-      "subtitle": "Conformité et éthique des modèles d’IA",
+      "title": "Conformité de l’AI",
+      "subtitle": "Conformité et éthique des modèles d’AI",
       "modelAudits": "Audits de modèles",
       "biasReports": "Rapports de biais",
       "fairnessMetrics": "Indicateurs d’équité",
       "lastAudit": "Dernier audit"
     },
     "candidateTransparency": {
-      "title": "Transparence candidat",
+      "title": "Transparence pour les candidats",
       "subtitle": "Découvrez comment votre profil est évalué",
       "matchScore": "Score de correspondance",
       "evaluationCriteria": "Critères d’évaluation",
@@ -994,15 +994,15 @@
       "submitApplication": "Soumettre la candidature"
     },
     "trackApplication": {
-      "title": "Suivi de candidature",
-      "subtitle": "Consultez le statut de votre candidature",
-      "applicationStatus": "Statut de la candidature",
+      "title": "Suivre la candidature",
+      "subtitle": "Vérifiez l’état de votre candidature",
+      "applicationStatus": "État de la candidature",
       "submitted": "Soumise",
       "underReview": "En cours d’examen",
       "shortlisted": "Présélectionnée",
       "interview": "Entretien",
       "offer": "Offre",
-      "rejected": "Rejetée"
+      "rejected": "Refusée"
     },
     "dataIntegrity": {
       "title": "Intégrité des données",
@@ -1015,7 +1015,7 @@
     },
     "recruiterVerification": {
       "title": "Vérification des recruteurs",
-      "subtitle": "Vérifiez les comptes recruteur",
+      "subtitle": "Vérifiez les comptes recruteurs",
       "pendingVerifications": "Vérifications en attente",
       "verified": "Vérifié",
       "rejected": "Rejeté",
@@ -1038,9 +1038,9 @@
       "uptime": "Disponibilité",
       "requestsPerSecond": "Requêtes/seconde",
       "averageLatency": "Latence moyenne",
-      "errorRate": "Taux d’erreurs",
+      "errorRate": "Taux d’erreur",
       "activeUsers": "Utilisateurs actifs",
-      "cpuUsage": "Utilisation CPU",
+      "cpuUsage": "Utilisation du CPU",
       "memoryUsage": "Utilisation de la mémoire"
     }
   },
@@ -1052,7 +1052,7 @@
     "quickGuides": "Guides rapides",
     "featuredVideo": "Vidéo à la une",
     "watchNow": "Regarder maintenant",
-    "aiGenerated": "Généré par l’IA",
+    "aiGenerated": "Généré par l’AI",
     "languages": "Langues",
     "selectLanguage": "Sélectionner une langue",
     "videoUnavailable": "Vidéo indisponible",
@@ -1065,18 +1065,18 @@
       "overview": "Aperçu"
     },
     "sections": {
-      "allVideosTitle": "Vidéothèque",
-      "allVideosSubtitle": "Parcourez notre collection complète de vidéos de tutoriel",
-      "gettingStartedTitle": "Guide de démarrage propulsé par l’IA",
-      "gettingStartedSubtitle": "Regardez notre présentateur IA expliquer les fonctionnalités de la plateforme",
+      "allVideosTitle": "Bibliothèque de vidéos",
+      "allVideosSubtitle": "Parcourez l’ensemble de notre collection de vidéos tutorielles",
+      "gettingStartedTitle": "Guide de démarrage propulsé par l’AI",
+      "gettingStartedSubtitle": "Regardez notre présentateur AI expliquer les fonctionnalités de la plateforme",
       "quickGuidesTitle": "Guides de référence rapide",
       "quickGuidesSubtitle": "Instructions étape par étape pour les tâches courantes"
     }
   },
   "components": {
     "locationSettings": {
-      "homeLocation": "Adresse de domicile",
-      "homeLocationDesc": "Définissez votre adresse de domicile pour obtenir des temps de trajet précis et une mise en correspondance d’offres selon votre localisation",
+      "homeLocation": "Domicile",
+      "homeLocationDesc": "Définissez votre adresse de domicile afin d’obtenir des temps de trajet précis et des correspondances d’emploi basées sur la localisation",
       "addressOrCity": "Adresse ou ville",
       "addressPlaceholder": "Saisissez votre adresse ou votre ville...",
       "useCurrentLocation": "Utiliser la localisation actuelle",
@@ -1087,37 +1087,37 @@
       "km": "km",
       "commutePreferences": "Préférences de trajet",
       "commutePreferencesDesc": "Comment préférez-vous vous rendre au travail ?",
-      "primaryCommuteMode": "Mode de transport principal",
-      "driving": "Voiture",
+      "primaryCommuteMode": "Mode de trajet principal",
+      "driving": "En voiture",
       "transit": "Transports en commun",
-      "cycling": "Vélo",
-      "walking": "Marche",
+      "cycling": "À vélo",
+      "walking": "À pied",
       "workTypePreferences": "Préférences de type de travail",
-      "workTypePreferencesDesc": "Sélectionnez tous les modes d’organisation qui vous conviennent",
-      "remote": "Télétravail",
+      "workTypePreferencesDesc": "Sélectionnez tous les modes de travail qui vous conviennent",
+      "remote": "À distance",
       "hybrid": "Hybride",
       "onsite": "Sur site",
       "locationAlerts": "Alertes basées sur la localisation",
-      "locationAlertsDesc": "Recevez des notifications concernant les offres proches de votre localisation",
+      "locationAlertsDesc": "Recevez des notifications concernant des emplois près de chez vous",
       "enableAlerts": "Activer les alertes basées sur la localisation",
       "nearestHub": "Hub MedMatch le plus proche",
       "savePreferences": "Enregistrer les préférences",
       "saving": "Enregistrement...",
       "preferencesSaved": "Préférences de localisation enregistrées avec succès",
-      "saveFailed": "Impossible d’enregistrer les préférences de localisation",
+      "saveFailed": "Échec de l’enregistrement des préférences de localisation",
       "locationDetected": "Localisation détectée avec succès",
       "locationFailed": "Impossible de détecter la localisation",
       "urban": "Urbain",
       "standard": "Standard",
       "rural": "Rural",
-      "drivingCity": "Voiture (ville)",
-      "drivingHighway": "Voiture (autoroute)",
+      "drivingCity": "En voiture (ville)",
+      "drivingHighway": "En voiture (autoroute)",
       "publicTransit": "Transports en commun",
       "preferredWorkTypes": "Types de travail préférés",
-      "selectWorkArrangements": "Sélectionnez les modalités de travail qui vous intéressent",
-      "alertsDescription": "Recevez une notification lorsque de nouvelles offres sont publiées près de chez vous",
+      "selectWorkArrangements": "Sélectionnez les modes de travail qui vous intéressent",
+      "alertsDescription": "Recevez une notification lorsque de nouveaux emplois sont publiés près de chez vous",
       "enableProximityAlerts": "Activer les alertes de proximité",
-      "proximityAlertsDesc": "Recevez des notifications pour les offres dans votre rayon de recherche",
+      "proximityAlertsDesc": "Recevez des notifications pour les emplois situés dans votre rayon de recherche",
       "enterAddress": "Veuillez saisir une adresse",
       "locationFound": "Localisation trouvée !"
     },
@@ -1132,13 +1132,13 @@
     },
     "subscriptionManager": {
       "title": "Abonnement",
-      "currentPlan": "Forfait actuel",
+      "currentPlan": "Offre actuelle",
       "free": "Gratuit",
       "premium": "Premium",
       "enterprise": "Enterprise",
-      "upgrade": "Mettre à niveau",
-      "downgrade": "Rétrograder",
-      "cancel": "Annuler l’abonnement",
+      "upgrade": "Passer à l’offre supérieure",
+      "downgrade": "Passer à l’offre inférieure",
+      "cancel": "Résilier l’abonnement",
       "billingCycle": "Cycle de facturation",
       "nextBilling": "Prochaine date de facturation"
     },
@@ -1149,9 +1149,9 @@
       "cons": "Points négatifs",
       "advice": "Conseils à la direction",
       "recommend": "Recommanderait",
-      "submitReview": "Soumettre l’avis",
+      "submitReview": "Envoyer l’avis",
       "anonymous": "Publier anonymement",
-      "verified": "Employé vérifié"
+      "verified": "Employé(e) vérifié(e)"
     },
     "offlineIndicator": {
       "offline": "Vous êtes hors ligne",
@@ -1162,7 +1162,7 @@
       "title": "Notifications",
       "markAllRead": "Tout marquer comme lu",
       "noNotifications": "Aucune nouvelle notification",
-      "viewAll": "Voir tout"
+      "viewAll": "Tout afficher"
     },
     "capaDashboard": {
       "title": "Tableau de bord CAPA",
