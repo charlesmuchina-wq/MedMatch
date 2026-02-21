@@ -110,6 +110,7 @@ const EmployerReviewForm = ({
   jobId = null,
   onSubmitSuccess 
 }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [strengthOptions, setStrengthOptions] = useState([]);
   const [improvementOptions, setImprovementOptions] = useState([]);
