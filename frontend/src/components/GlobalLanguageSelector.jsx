@@ -230,6 +230,28 @@ const GlobalLanguageSelector = ({ compact = false }) => {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           
+          {/* Google Translate Options */}
+          <DropdownMenuLabel className="text-xs text-slate-400 font-normal px-2 py-1 flex items-center gap-1">
+            <Languages className="w-3 h-3" /> {t("language.useGoogleTranslate")}
+          </DropdownMenuLabel>
+          <DropdownMenuItem
+            onClick={openGoogleTranslate}
+            className="flex items-center gap-2 cursor-pointer text-blue-600 hover:text-blue-700"
+            data-testid="google-translate-btn"
+          >
+            <ExternalLink className="w-4 h-4" />
+            <span className="text-sm">{t("language.openGoogleTranslate")}</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={triggerBrowserTranslate}
+            className="flex items-center gap-2 cursor-pointer text-blue-600 hover:text-blue-700"
+            data-testid="browser-translate-btn"
+          >
+            <Globe className="w-4 h-4" />
+            <span className="text-sm">{t("language.useBrowserTranslate")}</span>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          
           {/* Popular Languages */}
           <DropdownMenuLabel className="text-xs text-slate-400 font-normal px-2 py-1">
             {t("language.popular")}
