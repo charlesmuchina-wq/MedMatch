@@ -258,7 +258,26 @@
     "allAnswersGenerated": "Tüm yanıtlar oluşturuldu!",
     "savedToFavorites": "Favorilere kaydedildi!",
     "saveFailed": "Kaydetme başarısız oldu",
-    "removedFromFavorites": "Favorilerden kaldırıldı"
+    "removedFromFavorites": "Favorilerden kaldırıldı",
+    "starBuilder": "STAR Yöntemi Oluşturucu",
+    "starDescription": "Yanıtınızı STAR yöntemini kullanarak yapılandırın",
+    "situation": "S - Durum",
+    "situationPlaceholder": "Bağlamı veya arka planı açıklayın...",
+    "task": "T - Görev",
+    "taskPlaceholder": "Sorumluluğunuz neydi?",
+    "action": "A - Eylem",
+    "actionPlaceholder": "Hangi adımları attınız?",
+    "result": "R - Sonuç",
+    "resultPlaceholder": "Sonuç neydi? Mümkünse metrikleri ekleyin...",
+    "pasteJobDescription": "İş Tanımını Yapıştır",
+    "analyzing": "Analiz ediliyor...",
+    "generateFromJD": "İş Tanımından Oluştur",
+    "pasteYourQuestions": "Sorularınızı Yapıştırın",
+    "enterCompanyName": "Şirket adını girin",
+    "researching": "Araştırılıyor...",
+    "research": "Araştırma",
+    "researchFor": "Şunun için araştırma",
+    "skipQuestion": "Soruyu Atla"
   },
   "qaPractice": {
     "title": "Soru-Cevap Yanıt Oluşturucu",
@@ -1186,5 +1205,16 @@
     "upgrade": "Yükselt",
     "downgrade": "Düşür",
     "manageBilling": "Faturalandırmayı Yönet"
+  },
+  "biometric": {
+    "title": "Biyometrik Giriş",
+    "description": "Parmak iziniz veya yüzünüzle güvenli şekilde oturum açın",
+    "secureLogin": "Cihazınızın biyometrik özelliklerini kullanarak güvenli, şifresiz giriş",
+    "deviceName": "Cihaz adı (ör. MacBook'um)",
+    "settingUp": "Biyometrik ayarlanıyor...",
+    "registerWith": "Biyometri ile Kaydol",
+    "notSupported": "Bu cihazda biyometrik kimlik doğrulama desteklenmiyor",
+    "enterEmail": "Lütfen e-posta adresinizi girin",
+    "emailPlaceholder": "E-posta adresinizi girin"
   }
 }

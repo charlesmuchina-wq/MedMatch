@@ -258,7 +258,26 @@
     "allAnswersGenerated": "Wszystkie odpowiedzi zostały wygenerowane!",
     "savedToFavorites": "Zapisano w ulubionych!",
     "saveFailed": "Nie udało się zapisać",
-    "removedFromFavorites": "Usunięto z ulubionych"
+    "removedFromFavorites": "Usunięto z ulubionych",
+    "starBuilder": "Kreator metody STAR",
+    "starDescription": "Ustrukturyzuj swoją odpowiedź, korzystając z metody STAR",
+    "situation": "S - Sytuacja",
+    "situationPlaceholder": "Opisz kontekst lub tło...",
+    "task": "T - Zadanie",
+    "taskPlaceholder": "Jaka była Twoja odpowiedzialność?",
+    "action": "A - Działanie",
+    "actionPlaceholder": "Jakie kroki podjąłeś/podjęłaś?",
+    "result": "R - Rezultat",
+    "resultPlaceholder": "Jaki był wynik? Uwzględnij metryki, jeśli to możliwe...",
+    "pasteJobDescription": "Wklej opis stanowiska",
+    "analyzing": "Analizowanie...",
+    "generateFromJD": "Wygeneruj na podstawie opisu stanowiska",
+    "pasteYourQuestions": "Wklej swoje pytania",
+    "enterCompanyName": "Wpisz nazwę firmy",
+    "researching": "Wyszukiwanie...",
+    "research": "Research",
+    "researchFor": "Research dla",
+    "skipQuestion": "Pomiń pytanie"
   },
   "qaPractice": {
     "title": "Generator odpowiedzi do pytań i odpowiedzi",
@@ -1186,5 +1205,16 @@
     "upgrade": "Przejdź na wyższy plan",
     "downgrade": "Przejdź na niższy plan",
     "manageBilling": "Zarządzaj rozliczeniami"
+  },
+  "biometric": {
+    "title": "Logowanie biometryczne",
+    "description": "Zaloguj się bezpiecznie, używając odcisku palca lub twarzy",
+    "secureLogin": "Bezpieczne logowanie bez hasła przy użyciu biometrii Twojego urządzenia",
+    "deviceName": "Nazwa urządzenia (np. Mój MacBook)",
+    "settingUp": "Konfigurowanie biometrii...",
+    "registerWith": "Zarejestruj się za pomocą biometrii",
+    "notSupported": "Uwierzytelnianie biometryczne nie jest obsługiwane na tym urządzeniu",
+    "enterEmail": "Wpisz swój adres e-mail",
+    "emailPlaceholder": "Wpisz swój adres e-mail"
   }
 }

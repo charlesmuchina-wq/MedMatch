@@ -238,7 +238,26 @@
     "answerGenerated": "Réponse générée!",
     "enterQuestion": "Veuillez entrer une question",
     "answerFailed": "Échec de la génération de réponse",
-    "enterAtLeastOne": "Veuillez entrer au moins une question"
+    "enterAtLeastOne": "Veuillez entrer au moins une question",
+    "starBuilder": "Générateur de méthode STAR",
+    "starDescription": "Structurez votre réponse à l’aide de la méthode STAR",
+    "situation": "S - Situation",
+    "situationPlaceholder": "Décrivez le contexte ou l’arrière-plan...",
+    "task": "T - Tâche",
+    "taskPlaceholder": "Quelle était votre responsabilité ?",
+    "action": "A - Action",
+    "actionPlaceholder": "Quelles étapes avez-vous suivies ?",
+    "result": "R - Résultat",
+    "resultPlaceholder": "Quel a été le résultat ? Incluez des indicateurs si possible...",
+    "pasteJobDescription": "Collez la description du poste",
+    "analyzing": "Analyse en cours...",
+    "generateFromJD": "Générer à partir de la description du poste",
+    "pasteYourQuestions": "Collez vos questions",
+    "enterCompanyName": "Saisissez le nom de l’entreprise",
+    "researching": "Recherche en cours...",
+    "research": "Rechercher",
+    "researchFor": "Recherche pour",
+    "skipQuestion": "Passer la question"
   },
   "coverLetter": {
     "coverLetterGenerator": "Générateur de Lettre de Motivation",
@@ -1199,5 +1218,16 @@
     "upgrade": "Mettre à niveau",
     "downgrade": "Rétrograder",
     "manageBilling": "Gérer la facturation"
+  },
+  "biometric": {
+    "title": "Connexion biométrique",
+    "description": "Connectez-vous en toute sécurité avec votre empreinte digitale ou votre visage",
+    "secureLogin": "Connexion sécurisée sans mot de passe grâce aux données biométriques de votre appareil",
+    "deviceName": "Nom de l’appareil (ex. : Mon MacBook)",
+    "settingUp": "Configuration des données biométriques...",
+    "registerWith": "S’inscrire avec la biométrie",
+    "notSupported": "L’authentification biométrique n’est pas prise en charge sur cet appareil",
+    "enterEmail": "Veuillez saisir votre adresse e-mail",
+    "emailPlaceholder": "Saisissez votre adresse e-mail"
   }
 }

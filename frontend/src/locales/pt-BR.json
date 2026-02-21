@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Construtor do Método STAR",
+    "starDescription": "Estruture sua resposta usando o método STAR",
+    "situation": "S - Situação",
+    "situationPlaceholder": "Descreva o contexto ou histórico...",
+    "task": "T - Tarefa",
+    "taskPlaceholder": "Qual era sua responsabilidade?",
+    "action": "A - Ação",
+    "actionPlaceholder": "Quais passos você tomou?",
+    "result": "R - Resultado",
+    "resultPlaceholder": "Qual foi o resultado? Inclua métricas se possível...",
+    "pasteJobDescription": "Cole a descrição da vaga",
+    "analyzing": "Analisando...",
+    "generateFromJD": "Gerar a partir da descrição da vaga",
+    "pasteYourQuestions": "Cole suas perguntas",
+    "enterCompanyName": "Digite o nome da empresa",
+    "researching": "Pesquisando...",
+    "research": "Pesquisar",
+    "researchFor": "Pesquisar para",
+    "skipQuestion": "Pular pergunta"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Fazer upgrade",
     "downgrade": "Fazer downgrade",
     "manageBilling": "Gerenciar faturamento"
+  },
+  "biometric": {
+    "title": "Login biométrico",
+    "description": "Faça login com segurança usando sua impressão digital ou rosto",
+    "secureLogin": "Login seguro sem senha usando a biometria do seu dispositivo",
+    "deviceName": "Nome do dispositivo (por exemplo, Meu MacBook)",
+    "settingUp": "Configurando a biometria...",
+    "registerWith": "Cadastrar com biometria",
+    "notSupported": "A autenticação biométrica não é compatível com este dispositivo",
+    "enterEmail": "Por favor, informe seu e-mail",
+    "emailPlaceholder": "Digite seu e-mail"
   }
 }

@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Omuzimbi w’Enkola ya STAR",
+    "starDescription": "Tereeza obudde bwo bw’addamu nga okozesa enkola ya STAR",
+    "situation": "S - Embeera",
+    "situationPlaceholder": "Nnyonnyola embeera oba emabega w’ensonga...",
+    "task": "T - Omulimu",
+    "taskPlaceholder": "Obuvunaanyizibwa bwo bwali ki?",
+    "action": "A - Ekikolwa",
+    "actionPlaceholder": "Mitendera ki gye watwala?",
+    "result": "R - Ekivaamu",
+    "resultPlaceholder": "Kiki ekyavaamu? Teekamu n’emiwendo/obupimo bw’okukakasa bwe kisoboka...",
+    "pasteJobDescription": "Paasta Ennyonnyola y’Omulimu",
+    "analyzing": "Tukebuula...",
+    "generateFromJD": "Kolawo okuva mu Nnyonnyola y’Omulimu",
+    "pasteYourQuestions": "Paasta Ebibuuzo byo",
+    "enterCompanyName": "Yingiza erinnya ly’ekitongole",
+    "researching": "Tunoonyereza...",
+    "research": "Okunoonyereza",
+    "researchFor": "Okunoonyereza ku",
+    "skipQuestion": "Buuka ekibuuzo"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Yongerako",
     "downgrade": "Kendeeza",
     "manageBilling": "Ddukanya okusasula"
+  },
+  "biometric": {
+    "title": "Okuyingira nga okozesa ebikwata ku mubiri",
+    "description": "Yingira mu mutekateke nga okozesa akabonero k’ekkonde ery’omu ngalo oba endabika y’amaaso",
+    "secureLogin": "Okuyingira okutalina kasumuluzo (password) nga kukumiddwa, nga okozesa ebikwata ku mubiri eby’oku ssimu/kyuma kyo",
+    "deviceName": "Erinnya ly’ekyuma (okugeza, MacBook yange)",
+    "settingUp": "Tuteekateeka ebikwata ku mubiri...",
+    "registerWith": "Wewandiise nga okozesa ebikwata ku mubiri",
+    "notSupported": "Okukakasa nga okozesa ebikwata ku mubiri tekukolagana na kyuma kino",
+    "enterEmail": "Nsaba oteeke email yo",
+    "emailPlaceholder": "Teeka email yo"
   }
 }

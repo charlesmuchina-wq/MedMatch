@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "STAR विधि बिल्डर",
+    "starDescription": "STAR विधि का उपयोग करके अपना उत्तर संरचित करें",
+    "situation": "S - स्थिति",
+    "situationPlaceholder": "संदर्भ या पृष्ठभूमि का वर्णन करें...",
+    "task": "T - कार्य",
+    "taskPlaceholder": "आपकी ज़िम्मेदारी क्या थी?",
+    "action": "A - कार्रवाई",
+    "actionPlaceholder": "आपने कौन-कौन से कदम उठाए?",
+    "result": "R - परिणाम",
+    "resultPlaceholder": "नतीजा क्या था? संभव हो तो मेट्रिक्स शामिल करें...",
+    "pasteJobDescription": "जॉब डिस्क्रिप्शन पेस्ट करें",
+    "analyzing": "विश्लेषण किया जा रहा है...",
+    "generateFromJD": "जॉब डिस्क्रिप्शन से जनरेट करें",
+    "pasteYourQuestions": "अपने प्रश्न पेस्ट करें",
+    "enterCompanyName": "कंपनी का नाम दर्ज करें",
+    "researching": "शोध किया जा रहा है...",
+    "research": "शोध",
+    "researchFor": "के लिए शोध",
+    "skipQuestion": "प्रश्न छोड़ें"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "अपग्रेड",
     "downgrade": "डाउनग्रेड",
     "manageBilling": "बिलिंग प्रबंधित करें"
+  },
+  "biometric": {
+    "title": "बायोमेट्रिक लॉगिन",
+    "description": "अपने फिंगरप्रिंट या चेहरे से सुरक्षित रूप से साइन इन करें",
+    "secureLogin": "अपने डिवाइस के बायोमेट्रिक्स का उपयोग करके सुरक्षित, पासवर्ड-रहित लॉगिन",
+    "deviceName": "डिवाइस का नाम (जैसे, मेरा मैकबुक)",
+    "settingUp": "बायोमेट्रिक्स सेट अप किया जा रहा है...",
+    "registerWith": "बायोमेट्रिक्स के साथ पंजीकरण करें",
+    "notSupported": "इस डिवाइस पर बायोमेट्रिक प्रमाणीकरण समर्थित नहीं है",
+    "enterEmail": "कृपया अपना ईमेल दर्ज करें",
+    "emailPlaceholder": "अपना ईमेल दर्ज करें"
   }
 }

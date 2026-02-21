@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Ẹlẹ́dà Ọ̀nà STAR",
+    "starDescription": "Ṣètò ìdáhùn rẹ ní lílo ọ̀nà STAR",
+    "situation": "S - Ìpò",
+    "situationPlaceholder": "Ṣàlàyé àyíká tàbí ìtàn àbẹ́lẹ̀...",
+    "task": "T - Ìṣẹ́",
+    "taskPlaceholder": "Kí ni ojúṣe rẹ?",
+    "action": "A - Ìgbésẹ̀",
+    "actionPlaceholder": "Àwọn ìgbésẹ̀ wo ni o gbà?",
+    "result": "R - Àbájáde",
+    "resultPlaceholder": "Kí ni àbájáde? Fi ìwọ̀n/àwọn nǹkan ìṣírò kún un bí ó bá ṣeé ṣe...",
+    "pasteJobDescription": "Lẹ̀ Job Description síbí",
+    "analyzing": "Ń ṣàtúpalẹ̀...",
+    "generateFromJD": "Ṣẹ̀dá láti inú Job Description",
+    "pasteYourQuestions": "Lẹ̀ Àwọn Ìbéèrè Rẹ síbí",
+    "enterCompanyName": "Tẹ orúkọ ilé iṣẹ́ wọlé",
+    "researching": "Ń ṣe ìwádìí...",
+    "research": "Ṣe ìwádìí",
+    "researchFor": "Ṣe ìwádìí fún",
+    "skipQuestion": "Fò Ìbéèrè Kọjá"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Gbéga",
     "downgrade": "Dínkù",
     "manageBilling": "Ṣàkóso Ìsanwó"
+  },
+  "biometric": {
+    "title": "Wiwọle Pẹlu Biometrics",
+    "description": "Wọle ní ààbò ní lílo ìka ọwọ́ rẹ tàbí ojú rẹ",
+    "secureLogin": "Wiwọle aláàbò láìsí ọ̀rọ̀ aṣínà ní lílo biometrics ti ẹrọ rẹ",
+    "deviceName": "Orúkọ ẹrọ (àpẹẹrẹ, My MacBook)",
+    "settingUp": "Ń ṣètò biometrics...",
+    "registerWith": "Forúkọsílẹ̀ Pẹlu Biometrics",
+    "notSupported": "Ìmúlò ìdánimọ̀ biometrics kò ṣeé lo lórí ẹrọ yìí",
+    "enterEmail": "Jọ̀wọ́ tẹ imeeli rẹ wọlé",
+    "emailPlaceholder": "Tẹ imeeli rẹ wọlé"
   }
 }

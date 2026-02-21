@@ -242,7 +242,26 @@
     "answerGenerated": "Antwort generiert!",
     "enterQuestion": "Bitte geben Sie eine Frage ein",
     "answerFailed": "Antwort konnte nicht generiert werden",
-    "enterAtLeastOne": "Bitte geben Sie mindestens eine Frage ein"
+    "enterAtLeastOne": "Bitte geben Sie mindestens eine Frage ein",
+    "starBuilder": "STAR-Methoden-Builder",
+    "starDescription": "Strukturieren Sie Ihre Antwort mit der STAR-Methode",
+    "situation": "S - Situation",
+    "situationPlaceholder": "Beschreiben Sie den Kontext oder Hintergrund...",
+    "task": "T - Aufgabe",
+    "taskPlaceholder": "Wofür waren Sie verantwortlich?",
+    "action": "A - Handlung",
+    "actionPlaceholder": "Welche Schritte haben Sie unternommen?",
+    "result": "R - Ergebnis",
+    "resultPlaceholder": "Was war das Ergebnis? Wenn möglich, fügen Sie Kennzahlen hinzu...",
+    "pasteJobDescription": "Stellenbeschreibung einfügen",
+    "analyzing": "Analysiere...",
+    "generateFromJD": "Aus Stellenbeschreibung generieren",
+    "pasteYourQuestions": "Ihre Fragen einfügen",
+    "enterCompanyName": "Unternehmensnamen eingeben",
+    "researching": "Recherchiere...",
+    "research": "Recherche",
+    "researchFor": "Recherche für",
+    "skipQuestion": "Frage überspringen"
   },
   "coverLetter": {
     "coverLetterGenerator": "Anschreiben-Generator",
@@ -1203,5 +1222,16 @@
     "upgrade": "Upgrade",
     "downgrade": "Downgrade",
     "manageBilling": "Abrechnung verwalten"
+  },
+  "biometric": {
+    "title": "Biometrische Anmeldung",
+    "description": "Melden Sie sich sicher mit Ihrem Fingerabdruck oder Gesicht an",
+    "secureLogin": "Sichere, passwortlose Anmeldung mit den biometrischen Daten Ihres Geräts",
+    "deviceName": "Gerätename (z. B. Mein MacBook)",
+    "settingUp": "Biometrie wird eingerichtet...",
+    "registerWith": "Mit Biometrie registrieren",
+    "notSupported": "Biometrische Authentifizierung wird auf diesem Gerät nicht unterstützt",
+    "enterEmail": "Bitte geben Sie Ihre E-Mail-Adresse ein",
+    "emailPlaceholder": "Geben Sie Ihre E-Mail-Adresse ein"
   }
 }

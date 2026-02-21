@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Umakhi weNdlela ye-STAR",
+    "starDescription": "Cwangcisa impendulo yakho usebenzisa indlela ye-STAR",
+    "situation": "S - Imeko",
+    "situationPlaceholder": "Chaza imeko okanye imvelaphi...",
+    "task": "T - Umsebenzi",
+    "taskPlaceholder": "Yayiyintoni uxanduva lwakho?",
+    "action": "A - Isenzo",
+    "actionPlaceholder": "Ngawaphi amanyathelo owawathathayo?",
+    "result": "R - Isiphumo",
+    "resultPlaceholder": "Sasiyintoni isiphumo? Bandakanya iimetriki ukuba kunokwenzeka...",
+    "pasteJobDescription": "Ncamathelisa iNkcazo yoMsebenzi",
+    "analyzing": "Kuyahlaziywa...",
+    "generateFromJD": "Yenza ukusuka kwiNkcazo yoMsebenzi",
+    "pasteYourQuestions": "Ncamathelisa Imibuzo Yakho",
+    "enterCompanyName": "Ngenisa igama lenkampani",
+    "researching": "Kuphengululwa...",
+    "research": "Phanda",
+    "researchFor": "Uphando lwe",
+    "skipQuestion": "Tsiba Umbuzo"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Nyusela",
     "downgrade": "Yehlisa",
     "manageBilling": "Lawula ukuhlawula"
+  },
+  "biometric": {
+    "title": "Ukungena ngeBhiyometriki",
+    "description": "Ngena ngokukhuselekileyo usebenzisa umnwe wakho okanye ubuso",
+    "secureLogin": "Ukungena okukhuselekileyo ngaphandle kwephasiwedi usebenzisa ibhiyometriki yesixhobo sakho",
+    "deviceName": "Igama lesixhobo (umz., iMacBook yam)",
+    "settingUp": "Kusetyenzwa ukuseta ibhiyometriki...",
+    "registerWith": "Bhalisa ngeBhiyometriki",
+    "notSupported": "Uqinisekiso lwebhiyometriki aluxhaswanga kwesi sixhobo",
+    "enterEmail": "Nceda ngenisa i-imeyile yakho",
+    "emailPlaceholder": "Ngenisa i-imeyile yakho"
   }
 }

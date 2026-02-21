@@ -242,7 +242,26 @@
     "answerGenerated": "Answer generated!",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "STAR 方法构建器",
+    "starDescription": "使用 STAR 方法组织你的回答",
+    "situation": "S - 情境",
+    "situationPlaceholder": "描述背景或上下文...",
+    "task": "T - 任务",
+    "taskPlaceholder": "你的职责是什么？",
+    "action": "A - 行动",
+    "actionPlaceholder": "你采取了哪些步骤？",
+    "result": "R - 结果",
+    "resultPlaceholder": "结果如何？如有可能请包含量化指标...",
+    "pasteJobDescription": "粘贴职位描述",
+    "analyzing": "分析中...",
+    "generateFromJD": "根据职位描述生成",
+    "pasteYourQuestions": "粘贴你的问题",
+    "enterCompanyName": "输入公司名称",
+    "researching": "调研中...",
+    "research": "调研",
+    "researchFor": "为以下内容调研",
+    "skipQuestion": "跳过问题"
   },
   "coverLetter": {
     "coverLetterGenerator": "求职信生成器",
@@ -1203,5 +1222,16 @@
     "upgrade": "升级",
     "downgrade": "降级",
     "manageBilling": "管理账单"
+  },
+  "biometric": {
+    "title": "生物识别登录",
+    "description": "使用指纹或面容安全登录",
+    "secureLogin": "使用设备的生物识别功能实现安全的免密码登录",
+    "deviceName": "设备名称（例如：我的 MacBook）",
+    "settingUp": "正在设置生物识别...",
+    "registerWith": "使用生物识别注册",
+    "notSupported": "此设备不支持生物识别身份验证",
+    "enterEmail": "请输入您的邮箱",
+    "emailPlaceholder": "输入您的邮箱"
   }
 }

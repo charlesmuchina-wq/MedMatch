@@ -247,7 +247,26 @@
     "answerGenerated": "¡Respuesta generada!",
     "enterQuestion": "Por favor ingresa una pregunta",
     "answerFailed": "Error al generar respuesta",
-    "enterAtLeastOne": "Por favor ingresa al menos una pregunta"
+    "enterAtLeastOne": "Por favor ingresa al menos una pregunta",
+    "starBuilder": "Constructor del método STAR",
+    "starDescription": "Estructura tu respuesta utilizando el método STAR",
+    "situation": "S - Situación",
+    "situationPlaceholder": "Describe el contexto o los antecedentes...",
+    "task": "T - Tarea",
+    "taskPlaceholder": "¿Cuál era tu responsabilidad?",
+    "action": "A - Acción",
+    "actionPlaceholder": "¿Qué pasos seguiste?",
+    "result": "R - Resultado",
+    "resultPlaceholder": "¿Cuál fue el resultado? Incluye métricas si es posible...",
+    "pasteJobDescription": "Pegar descripción del puesto",
+    "analyzing": "Analizando...",
+    "generateFromJD": "Generar a partir de la descripción del puesto",
+    "pasteYourQuestions": "Pega tus preguntas",
+    "enterCompanyName": "Introduce el nombre de la empresa",
+    "researching": "Investigando...",
+    "research": "Investigar",
+    "researchFor": "Investigar para",
+    "skipQuestion": "Omitir pregunta"
   },
   "coverLetter": {
     "coverLetterGenerator": "Generador de Cartas de Presentación",
@@ -1208,5 +1227,16 @@
     "upgrade": "Mejorar plan",
     "downgrade": "Bajar de plan",
     "manageBilling": "Gestionar facturación"
+  },
+  "biometric": {
+    "title": "Inicio de sesión biométrico",
+    "description": "Inicia sesión de forma segura usando tu huella digital o rostro",
+    "secureLogin": "Inicio de sesión seguro sin contraseña usando los datos biométricos de tu dispositivo",
+    "deviceName": "Nombre del dispositivo (p. ej., Mi MacBook)",
+    "settingUp": "Configurando la biometría...",
+    "registerWith": "Registrarse con biometría",
+    "notSupported": "La autenticación biométrica no es compatible con este dispositivo",
+    "enterEmail": "Por favor, introduce tu correo electrónico",
+    "emailPlaceholder": "Introduce tu correo electrónico"
   }
 }

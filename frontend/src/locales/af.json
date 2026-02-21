@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "STAR-metodebouer",
+    "starDescription": "Struktureer jou antwoord met die STAR-metode",
+    "situation": "S - Situasie",
+    "situationPlaceholder": "Beskryf die konteks of agtergrond...",
+    "task": "T - Taak",
+    "taskPlaceholder": "Wat was jou verantwoordelikheid?",
+    "action": "A - Aksie",
+    "actionPlaceholder": "Watter stappe het jy geneem?",
+    "result": "R - Resultaat",
+    "resultPlaceholder": "Wat was die uitkoms? Sluit maatstawwe in indien moontlik...",
+    "pasteJobDescription": "Plak posbeskrywing",
+    "analyzing": "Besig om te analiseer...",
+    "generateFromJD": "Genereer vanuit posbeskrywing",
+    "pasteYourQuestions": "Plak jou vrae",
+    "enterCompanyName": "Voer maatskappynaam in",
+    "researching": "Besig om navorsing te doen...",
+    "research": "Navorsing",
+    "researchFor": "Navorsing vir",
+    "skipQuestion": "Slaan vraag oor"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Gradeer op",
     "downgrade": "Gradeer af",
     "manageBilling": "Bestuur fakturering"
+  },
+  "biometric": {
+    "title": "Biometriese aanmelding",
+    "description": "Meld veilig aan met jou vingerafdruk of gesig",
+    "secureLogin": "Veilige, wagwoordlose aanmelding met jou toestel se biometrie",
+    "deviceName": "Toestelnaam (bv. My MacBook)",
+    "settingUp": "Besig om biometrie op te stel...",
+    "registerWith": "Registreer met Biometrie",
+    "notSupported": "Biometriese verifikasie word nie op hierdie toestel ondersteun nie",
+    "enterEmail": "Voer asseblief jou e-posadres in",
+    "emailPlaceholder": "Voer jou e-posadres in"
   }
 }

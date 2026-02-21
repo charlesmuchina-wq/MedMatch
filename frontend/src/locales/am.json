@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "የSTAR ዘዴ አቀናባሪ",
+    "starDescription": "መልስዎን በSTAR ዘዴ በመጠቀም ያዋቅሩ",
+    "situation": "S - ሁኔታ",
+    "situationPlaceholder": "አውድ ወይም የበስተጀርባ መረጃውን ይግለጹ...",
+    "task": "T - ተግባር",
+    "taskPlaceholder": "ኃላፊነትዎ ምን ነበር?",
+    "action": "A - እርምጃ",
+    "actionPlaceholder": "ምን እርምጃዎች ወሰዱ?",
+    "result": "R - ውጤት",
+    "resultPlaceholder": "ውጤቱ ምን ነበር? ካስቻሉ መለኪያዎችን ያካትቱ...",
+    "pasteJobDescription": "የስራ መግለጫ ይለጥፉ",
+    "analyzing": "በመተንተን ላይ...",
+    "generateFromJD": "ከስራ መግለጫ ይፍጠሩ",
+    "pasteYourQuestions": "ጥያቄዎችዎን ይለጥፉ",
+    "enterCompanyName": "የኩባንያ ስም ያስገቡ",
+    "researching": "በመረመር ላይ...",
+    "research": "ምርምር",
+    "researchFor": "ምርምር ለ",
+    "skipQuestion": "ጥያቄውን ይዝለሉ"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "ወደ ከፍ አድርግ",
     "downgrade": "ወደ ታች አድርግ",
     "manageBilling": "ክፍያን አስተዳድር"
+  },
+  "biometric": {
+    "title": "በባዮሜትሪክ መግቢያ",
+    "description": "በጣት አሻራዎ ወይም በፊት መለያዎ በደህና ይግቡ",
+    "secureLogin": "የመሣሪያዎን ባዮሜትሪክ በመጠቀም የይለፍ ቃል ያልፈለገ ደህንነታማ መግቢያ",
+    "deviceName": "የመሣሪያ ስም (ለምሳሌ፣ የእኔ ማክቡክ)",
+    "settingUp": "ባዮሜትሪክ በማዘጋጀት ላይ...",
+    "registerWith": "በባዮሜትሪክ ይመዝገቡ",
+    "notSupported": "በዚህ መሣሪያ ላይ የባዮሜትሪክ ማረጋገጫ አይደገፍም",
+    "enterEmail": "እባክዎ ኢሜይልዎን ያስገቡ",
+    "emailPlaceholder": "ኢሜይልዎን ያስገቡ"
   }
 }

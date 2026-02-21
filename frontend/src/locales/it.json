@@ -258,7 +258,26 @@
     "allAnswersGenerated": "Tutte le risposte sono state generate!",
     "savedToFavorites": "Salvato nei preferiti!",
     "saveFailed": "Impossibile salvare",
-    "removedFromFavorites": "Rimosso dai preferiti"
+    "removedFromFavorites": "Rimosso dai preferiti",
+    "starBuilder": "Creatore del metodo STAR",
+    "starDescription": "Struttura la tua risposta usando il metodo STAR",
+    "situation": "S - Situazione",
+    "situationPlaceholder": "Descrivi il contesto o il background...",
+    "task": "T - Compito",
+    "taskPlaceholder": "Qual era la tua responsabilità?",
+    "action": "A - Azione",
+    "actionPlaceholder": "Quali passi hai intrapreso?",
+    "result": "R - Risultato",
+    "resultPlaceholder": "Qual è stato l'esito? Includi metriche se possibile...",
+    "pasteJobDescription": "Incolla la descrizione del lavoro",
+    "analyzing": "Analisi in corso...",
+    "generateFromJD": "Genera dalla descrizione del lavoro",
+    "pasteYourQuestions": "Incolla le tue domande",
+    "enterCompanyName": "Inserisci il nome dell'azienda",
+    "researching": "Ricerca in corso...",
+    "research": "Ricerca",
+    "researchFor": "Ricerca per",
+    "skipQuestion": "Salta domanda"
   },
   "qaPractice": {
     "title": "Pratica Q&A",
@@ -1186,5 +1205,16 @@
     "upgrade": "Passa a un piano superiore",
     "downgrade": "Passa a un piano inferiore",
     "manageBilling": "Gestisci fatturazione"
+  },
+  "biometric": {
+    "title": "Accesso biometrico",
+    "description": "Accedi in modo sicuro usando l'impronta digitale o il volto",
+    "secureLogin": "Accesso sicuro senza password tramite la biometria del tuo dispositivo",
+    "deviceName": "Nome del dispositivo (ad es., Il mio MacBook)",
+    "settingUp": "Configurazione della biometria in corso...",
+    "registerWith": "Registrati con la biometria",
+    "notSupported": "L'autenticazione biometrica non è supportata su questo dispositivo",
+    "enterEmail": "Inserisci il tuo indirizzo email",
+    "emailPlaceholder": "Inserisci la tua email"
   }
 }

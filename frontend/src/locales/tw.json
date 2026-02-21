@@ -510,7 +510,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "STAR Ɔkwan Yɛfo",
+    "starDescription": "Fa STAR ɔkwan no na hyehyɛ wo mmuae no",
+    "situation": "S - Tebea",
+    "situationPlaceholder": "Kyerɛkyerɛ nsɛm a ɛwɔ akyi anaa asɛm no mu nsɛm...",
+    "task": "T - Dwumadie",
+    "taskPlaceholder": "Na wo asodie no yɛ dɛn?",
+    "action": "A - Nneyɛe",
+    "actionPlaceholder": "Anammɔn bɛn na wogyee?",
+    "result": "R - Asɔre",
+    "resultPlaceholder": "Dɛn na ɛbaa mu? Fa nsusui/akontaabu ka ho sɛ ɛbɛyɛ a...",
+    "pasteJobDescription": "Fa Adwuma no Ho Nkyerɛmu no To Mu",
+    "analyzing": "Rehwehwɛ mu...",
+    "generateFromJD": "Yi fi Adwuma no Ho Nkyerɛmu mu",
+    "pasteYourQuestions": "Fa Wo Nsɛmmisa No To Mu",
+    "enterCompanyName": "Kyerɛw adwumakuo no din",
+    "researching": "Reyɛ nhwehwɛmu...",
+    "research": "Nhwehwɛmu",
+    "researchFor": "Nhwehwɛmu ma",
+    "skipQuestion": "Twe Nsɛmmisa no Mu"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Ma ɛnyɛ kɛse",
     "downgrade": "Te ase",
     "manageBilling": "Hwɛ sika a woatua so"
+  },
+  "biometric": {
+    "title": "Biometric Login",
+    "description": "Fa wo nsateaa anaa w'anim na kɔ so hyɛ mu dwoodwoo",
+    "secureLogin": "Wo device no biometrics ma wo tumi kɔ so hyɛ mu a enhia password, na ɛyɛ ahobammɔ",
+    "deviceName": "Device din (te sɛ, Me MacBook)",
+    "settingUp": "Rehyehyɛ biometrics...",
+    "registerWith": "Kyerɛw wo din kɔ Biometrics so",
+    "notSupported": "Biometric authentication nni hɔ wɔ device yi so",
+    "enterEmail": "Yɛsrɛ wo kyerɛw wo email",
+    "emailPlaceholder": "Kyerɛw wo email"
   }
 }

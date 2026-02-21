@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Igikoresho cyo kubaka uburyo bwa STAR",
+    "starDescription": "Tunganya igisubizo cyawe ukoresheje uburyo bwa STAR",
+    "situation": "S - Ibihe",
+    "situationPlaceholder": "Sobanura uko byari bimeze cyangwa amateka y'ibintu...",
+    "task": "T - Inshingano",
+    "taskPlaceholder": "Ni iyihe nshingano wari ufite?",
+    "action": "A - Igikorwa",
+    "actionPlaceholder": "Ni izihe ntambwe wafashe?",
+    "result": "R - Ibisubizo",
+    "resultPlaceholder": "Ni iki cyavuyemo? Shyiramo imibare y'ibipimo niba bishoboka...",
+    "pasteJobDescription": "Shyiramo ibisobanuro by'umurimo",
+    "analyzing": "Turimo gusesengura...",
+    "generateFromJD": "Kora uhereye ku bisobanuro by'umurimo",
+    "pasteYourQuestions": "Shyiramo ibibazo byawe",
+    "enterCompanyName": "Andika izina ry'ikigo",
+    "researching": "Turimo gukora ubushakashatsi...",
+    "research": "Ubushakashatsi",
+    "researchFor": "Ubushakashatsi ku",
+    "skipQuestion": "Simbuka ikibazo"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Kuzamura gahunda",
     "downgrade": "Kugabanya gahunda",
     "manageBilling": "Gucunga ubwishyu"
+  },
+  "biometric": {
+    "title": "Kwinjira ukoresheje ibimenyetso by'umubiri",
+    "description": "Injira mu buryo bwizewe ukoresheje igikumwe cyawe cyangwa isura",
+    "secureLogin": "Kwinjira bitekanye udakoresheje ijambo ry'ibanga ukoresheje ibimenyetso by'umubiri by'igikoresho cyawe",
+    "deviceName": "Izina ry'igikoresho (urugero, MacBook yanjye)",
+    "settingUp": "Gushyiraho ibimenyetso by'umubiri...",
+    "registerWith": "Iyandikishe ukoresheje ibimenyetso by'umubiri",
+    "notSupported": "Kwinjira ukoresheje ibimenyetso by'umubiri ntibishyigikiwe kuri iki gikoresho",
+    "enterEmail": "Nyamuneka andika imeri yawe",
+    "emailPlaceholder": "Andika imeri yawe"
   }
 }

@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Tabaxu Méetoodu STAR",
+    "starDescription": "Mëna taxaw sa tontu jigéen ak méetoodu STAR",
+    "situation": "S - Situwaasioŋ",
+    "situationPlaceholder": "Tëddal kontekst bi walla li ëmb taarix...",
+    "task": "T - Sas",
+    "taskPlaceholder": "Lan la sa warugar?",
+    "action": "A - Jëf",
+    "actionPlaceholder": "Yan jéego la nga jël?",
+    "result": "R - Njàngat",
+    "resultPlaceholder": "Lan la nekk njariñ bi? Tàmbalee ak lim yi su mënee...",
+    "pasteJobDescription": "Takkal waxtaanu liggéey bi",
+    "analyzing": "Mingi seet...",
+    "generateFromJD": "Jëme ci waxtaanu liggéey bi",
+    "pasteYourQuestions": "Takkal say laaj",
+    "enterCompanyName": "Dugal turu kompanyi bi",
+    "researching": "Mingi seetlu...",
+    "research": "Seetlu",
+    "researchFor": "Seetlu ngir",
+    "skipQuestion": "Topp laaj bi"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Yokk pali",
     "downgrade": "Waññi pali",
     "manageBilling": "Saytu pey"
+  },
+  "biometric": {
+    "title": "Dugg ak biometri",
+    "description": "Dugg ci sàñ-sàñ ak sa baaraam walla sa kanam",
+    "secureLogin": "Dugg bu am kaarange te amul baatujàll, ak biometri yu sa aparey bi",
+    "deviceName": "Tur u aparey bi (misaal: Sama MacBook)",
+    "settingUp": "Mingi samp biometri...",
+    "registerWith": "Bindu ak biometri",
+    "notSupported": "Wóorug biometri du ñu ko taage ci aparey bii",
+    "enterEmail": "Jëfandikooal, dugal sa imeel",
+    "emailPlaceholder": "Dugal sa imeel"
   }
 }

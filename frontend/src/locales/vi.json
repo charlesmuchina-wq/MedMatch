@@ -258,7 +258,26 @@
     "allAnswersGenerated": "Đã tạo tất cả câu trả lời!",
     "savedToFavorites": "Đã lưu vào mục yêu thích!",
     "saveFailed": "Không thể lưu",
-    "removedFromFavorites": "Đã xóa khỏi mục yêu thích"
+    "removedFromFavorites": "Đã xóa khỏi mục yêu thích",
+    "starBuilder": "Trình tạo phương pháp STAR",
+    "starDescription": "Cấu trúc câu trả lời của bạn bằng phương pháp STAR",
+    "situation": "S - Tình huống",
+    "situationPlaceholder": "Mô tả bối cảnh hoặc nền tảng...",
+    "task": "T - Nhiệm vụ",
+    "taskPlaceholder": "Trách nhiệm của bạn là gì?",
+    "action": "A - Hành động",
+    "actionPlaceholder": "Bạn đã thực hiện những bước nào?",
+    "result": "R - Kết quả",
+    "resultPlaceholder": "Kết quả ra sao? Hãy bao gồm các chỉ số nếu có thể...",
+    "pasteJobDescription": "Dán mô tả công việc",
+    "analyzing": "Đang phân tích...",
+    "generateFromJD": "Tạo từ mô tả công việc",
+    "pasteYourQuestions": "Dán câu hỏi của bạn",
+    "enterCompanyName": "Nhập tên công ty",
+    "researching": "Đang nghiên cứu...",
+    "research": "Nghiên cứu",
+    "researchFor": "Nghiên cứu cho",
+    "skipQuestion": "Bỏ qua câu hỏi"
   },
   "qaPractice": {
     "title": "Trình tạo câu trả lời Hỏi & Đáp",
@@ -1186,5 +1205,16 @@
     "upgrade": "Nâng cấp",
     "downgrade": "Hạ cấp",
     "manageBilling": "Quản lý thanh toán"
+  },
+  "biometric": {
+    "title": "Đăng nhập sinh trắc học",
+    "description": "Đăng nhập an toàn bằng vân tay hoặc khuôn mặt của bạn",
+    "secureLogin": "Đăng nhập an toàn không cần mật khẩu bằng sinh trắc học của thiết bị",
+    "deviceName": "Tên thiết bị (ví dụ: MacBook của tôi)",
+    "settingUp": "Đang thiết lập sinh trắc học...",
+    "registerWith": "Đăng ký bằng sinh trắc học",
+    "notSupported": "Thiết bị này không hỗ trợ xác thực sinh trắc học",
+    "enterEmail": "Vui lòng nhập email của bạn",
+    "emailPlaceholder": "Nhập email của bạn"
   }
 }

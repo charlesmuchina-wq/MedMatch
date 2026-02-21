@@ -775,7 +775,26 @@
     "technical": "تقني",
     "behavioral": "سلوكي",
     "panel": "لجنة",
-    "final": "نهائي"
+    "final": "نهائي",
+    "starBuilder": "أداة إنشاء طريقة STAR",
+    "starDescription": "نظّم إجابتك باستخدام طريقة STAR",
+    "situation": "S - الموقف",
+    "situationPlaceholder": "صف السياق أو الخلفية...",
+    "task": "T - المهمة",
+    "taskPlaceholder": "ما كانت مسؤوليتك؟",
+    "action": "A - الإجراء",
+    "actionPlaceholder": "ما الخطوات التي اتخذتها؟",
+    "result": "R - النتيجة",
+    "resultPlaceholder": "ما كانت النتيجة؟ أدرج مؤشرات رقمية إن أمكن...",
+    "pasteJobDescription": "الصق الوصف الوظيفي",
+    "analyzing": "جارٍ التحليل...",
+    "generateFromJD": "إنشاء من الوصف الوظيفي",
+    "pasteYourQuestions": "الصق أسئلتك",
+    "enterCompanyName": "أدخل اسم الشركة",
+    "researching": "جارٍ البحث...",
+    "research": "بحث",
+    "researchFor": "بحث عن",
+    "skipQuestion": "تخطي السؤال"
   },
   "membership": {
     "premium": "مميز",
@@ -1614,5 +1633,16 @@
     "upgrade": "ترقية",
     "downgrade": "خفض المستوى",
     "manageBilling": "إدارة الفوترة"
+  },
+  "biometric": {
+    "title": "تسجيل الدخول البيومتري",
+    "description": "سجّل الدخول بأمان باستخدام بصمة إصبعك أو وجهك",
+    "secureLogin": "تسجيل دخول آمن بدون كلمة مرور باستخدام القياسات الحيوية على جهازك",
+    "deviceName": "اسم الجهاز (مثال: جهاز MacBook الخاص بي)",
+    "settingUp": "جارٍ إعداد القياسات الحيوية...",
+    "registerWith": "التسجيل باستخدام القياسات الحيوية",
+    "notSupported": "المصادقة بالقياسات الحيوية غير مدعومة على هذا الجهاز",
+    "enterEmail": "يرجى إدخال بريدك الإلكتروني",
+    "emailPlaceholder": "أدخل بريدك الإلكتروني"
   }
 }

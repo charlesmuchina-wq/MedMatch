@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Mai Gina Hanyar STAR",
+    "starDescription": "Tsara amsarka ta amfani da hanyar STAR",
+    "situation": "S - Yanayi",
+    "situationPlaceholder": "Bayyana mahallin ko asalin lamarin...",
+    "task": "T - Aiki",
+    "taskPlaceholder": "Menene nauyinka?",
+    "action": "A - Mataki",
+    "actionPlaceholder": "Wadanne matakai ka dauka?",
+    "result": "R - Sakamako",
+    "resultPlaceholder": "Menene sakamakon? Ka hada da ma'auni idan zai yiwu...",
+    "pasteJobDescription": "Manna Bayanin Aiki",
+    "analyzing": "Ana nazari...",
+    "generateFromJD": "Ƙirƙira daga Bayanin Aiki",
+    "pasteYourQuestions": "Manna Tambayoyinka",
+    "enterCompanyName": "Shigar da sunan kamfani",
+    "researching": "Ana bincike...",
+    "research": "Bincike",
+    "researchFor": "Bincike don",
+    "skipQuestion": "Tsallake Tambaya"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Haɓaka",
     "downgrade": "Rage",
     "manageBilling": "Gudanar da biyan kuɗi"
+  },
+  "biometric": {
+    "title": "Shiga da Bayanan Halitta",
+    "description": "Shiga cikin tsaro ta amfani da sawun yatsa ko fuska",
+    "secureLogin": "Shiga cikin tsaro ba tare da kalmar sirri ba ta amfani da bayanan halittar na'urarka",
+    "deviceName": "Sunan na'ura (misali, MacBook dina)",
+    "settingUp": "Ana saita bayanan halitta...",
+    "registerWith": "Yi rajista da Bayanan Halitta",
+    "notSupported": "Ba a tallafa wa tantancewa ta bayanan halitta a wannan na'ura ba",
+    "enterEmail": "Da fatan za a shigar da imel ɗinka",
+    "emailPlaceholder": "Shigar da imel ɗinka"
   }
 }

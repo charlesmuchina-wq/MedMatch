@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Mugadziri weNzira yeSTAR",
+    "starDescription": "Ronga mhinduro yako uchishandisa nzira yeSTAR",
+    "situation": "S - Mamiriro",
+    "situationPlaceholder": "Tsanangura mamiriro kana nhoroondo...",
+    "task": "T - Basa",
+    "taskPlaceholder": "Chii chaiva basa rako?",
+    "action": "A - Chiito",
+    "actionPlaceholder": "Ndeapi matanho awakatora?",
+    "result": "R - Mhedzisiro",
+    "resultPlaceholder": "Mhedzisiro yakanga yakadii? Sanganisirawo manhamba kana zvichibvira...",
+    "pasteJobDescription": "Namira Tsananguro yeBasa",
+    "analyzing": "Kuongorora...",
+    "generateFromJD": "Gadzira kubva kuTsananguro yeBasa",
+    "pasteYourQuestions": "Namira Mibvunzo Yako",
+    "enterCompanyName": "Isa zita rekambani",
+    "researching": "Kutsvakurudza...",
+    "research": "Tsvakurudza",
+    "researchFor": "Tsvakurudza nezve",
+    "skipQuestion": "Svetuka Mubvunzo"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Simudzira",
     "downgrade": "Dzora",
     "manageBilling": "Tungamira Kubhadhara"
+  },
+  "biometric": {
+    "title": "Kupinda Nezviyero Zvemuviri",
+    "description": "Pinda zvakachengeteka uchishandisa chigunwe chako kana chiso",
+    "secureLogin": "Kupinda kwakachengeteka pasina password uchishandisa zviyero zvemuviri zvemudziyo wako",
+    "deviceName": "Zita remudziyo (semuenzaniso, MacBook yangu)",
+    "settingUp": "Kugadzirisa zviyero zvemuviri...",
+    "registerWith": "Nyoresa Nezviyero Zvemuviri",
+    "notSupported": "Kusimbisa kuzivikanwa nezviyero zvemuviri hakutsigirwi pamudziyo uyu",
+    "enterEmail": "Ndapota isa email yako",
+    "emailPlaceholder": "Isa email yako"
   }
 }

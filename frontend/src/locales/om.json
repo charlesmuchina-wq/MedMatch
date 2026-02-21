@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Ijaaraa Mala STAR",
+    "starDescription": "Deebii kee mala STAR fayyadamuun ijaari",
+    "situation": "S - Haala",
+    "situationPlaceholder": "Haala yookaan duubbee ibsi...",
+    "task": "T - Hojii",
+    "taskPlaceholder": "Gahee kee maal ture?",
+    "action": "A - Tarkaanfii",
+    "actionPlaceholder": "Tarkaanfiiwwan maal fudhatte?",
+    "result": "R - Bu'aa",
+    "resultPlaceholder": "Bu'aan maal ture? Yoo danda'ame lakkoofsa (metrics) dabali...",
+    "pasteJobDescription": "Ibsa Hojii Maxxansi",
+    "analyzing": "Xiinxalaa...",
+    "generateFromJD": "Ibsa Hojii irraa uumi",
+    "pasteYourQuestions": "Gaaffiiwwan kee maxxansi",
+    "enterCompanyName": "Maqaa dhaabbataa galchi",
+    "researching": "Qorannoo gochaa...",
+    "research": "Qorannoo",
+    "researchFor": "Qorannoo irratti",
+    "skipQuestion": "Gaaffii irra darbii"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Sadarkaa Olkaasi",
     "downgrade": "Sadarkaa Gadbuusi",
     "manageBilling": "Kaffaltii Bulchi"
+  },
+  "biometric": {
+    "title": "Seensa Baayomeetiriikii",
+    "description": "Mallattoo qubaa ykn fuula kee fayyadamuun nageenyaan seeni",
+    "secureLogin": "Baayomeetiriikii meeshaa keetii fayyadamuun seensa jecha iccitii hin barbaachisne nagaa",
+    "deviceName": "Maqaa meeshaa (fakkeenyaaf, MaakiBuuk koo)",
+    "settingUp": "Baayomeetiriikii qopheessaa jira...",
+    "registerWith": "Baayomeetiriikiidhaan galmaa'i",
+    "notSupported": "Meeshaa kana irratti mirkaneessi baayomeetiriikii hin deeggaramu",
+    "enterEmail": "Maaloo iimeelii kee galchi",
+    "emailPlaceholder": "Iimeelii kee galchi"
   }
 }

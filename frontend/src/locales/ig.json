@@ -510,7 +510,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Onye nrụpụta Usoro STAR",
+    "starDescription": "Hazie azịza gị site n'iji usoro STAR",
+    "situation": "S - Ọnọdụ",
+    "situationPlaceholder": "Kọwaa ọnọdụ ma ọ bụ ndabere...",
+    "task": "T - Ọrụ",
+    "taskPlaceholder": "Gịnị bụ ọrụ dịịrị gị?",
+    "action": "A - Omume",
+    "actionPlaceholder": "Kedu nzọụkwụ ndị i mere?",
+    "result": "R - Nsonaazụ",
+    "resultPlaceholder": "Gịnị bụ ihe si na ya pụta? Tinye metrik ma ọ bụrụ na o kwere omume...",
+    "pasteJobDescription": "Tapawa Nkọwa Ọrụ",
+    "analyzing": "Na-enyocha...",
+    "generateFromJD": "Mepụta site na Nkọwa Ọrụ",
+    "pasteYourQuestions": "Tapawa Ajụjụ Gị",
+    "enterCompanyName": "Tinye aha ụlọ ọrụ",
+    "researching": "Na-eme nyocha...",
+    "research": "Nnyocha",
+    "researchFor": "Nnyocha maka",
+    "skipQuestion": "Wepụ Ajụjụ"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Melite",
     "downgrade": "Belata",
     "manageBilling": "Jikwaa Ịkwụ Ụgwọ"
+  },
+  "biometric": {
+    "title": "Nbanye Biometrik",
+    "description": "Banye n'enweghị egwu site n'iji mkpịsịaka gị ma ọ bụ ihu",
+    "secureLogin": "Nbanye echekwara nke na-enweghị paswọọdụ site n'iji biometrik nke ngwaọrụ gị",
+    "deviceName": "Aha ngwaọrụ (dịka, MacBook m)",
+    "settingUp": "Na-ahazi biometrik...",
+    "registerWith": "Debanye aha na Biometrik",
+    "notSupported": "Nkwenye biometrik anaghị akwado na ngwaọrụ a",
+    "enterEmail": "Biko tinye email gị",
+    "emailPlaceholder": "Tinye email gị"
   }
 }

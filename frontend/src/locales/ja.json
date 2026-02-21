@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "STARメソッド作成ツール",
+    "starDescription": "STARメソッドを使って回答を構成しましょう",
+    "situation": "S - 状況",
+    "situationPlaceholder": "状況や背景を説明してください...",
+    "task": "T - 課題",
+    "taskPlaceholder": "あなたの責任は何でしたか？",
+    "action": "A - 行動",
+    "actionPlaceholder": "どのような手順を踏みましたか？",
+    "result": "R - 結果",
+    "resultPlaceholder": "結果はどうでしたか？可能であれば数値も含めてください...",
+    "pasteJobDescription": "求人内容を貼り付け",
+    "analyzing": "分析中...",
+    "generateFromJD": "求人内容から生成",
+    "pasteYourQuestions": "質問を貼り付け",
+    "enterCompanyName": "会社名を入力",
+    "researching": "調査中...",
+    "research": "調査",
+    "researchFor": "調査対象：",
+    "skipQuestion": "質問をスキップ"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "アップグレード",
     "downgrade": "ダウングレード",
     "manageBilling": "請求情報を管理"
+  },
+  "biometric": {
+    "title": "生体認証ログイン",
+    "description": "指紋または顔で安全にサインイン",
+    "secureLogin": "デバイスの生体認証を使用した安全なパスワード不要ログイン",
+    "deviceName": "デバイス名（例：My MacBook）",
+    "settingUp": "生体認証を設定中...",
+    "registerWith": "生体認証で登録",
+    "notSupported": "このデバイスでは生体認証はサポートされていません",
+    "enterEmail": "メールアドレスを入力してください",
+    "emailPlaceholder": "メールアドレスを入力"
   }
 }

@@ -258,7 +258,26 @@
     "allAnswersGenerated": "Alla svar har genererats!",
     "savedToFavorites": "Sparat i favoriter!",
     "saveFailed": "Misslyckades med att spara",
-    "removedFromFavorites": "Borttaget från favoriter"
+    "removedFromFavorites": "Borttaget från favoriter",
+    "starBuilder": "STAR-metodbyggare",
+    "starDescription": "Strukturera ditt svar med STAR-metoden",
+    "situation": "S - Situation",
+    "situationPlaceholder": "Beskriv sammanhanget eller bakgrunden...",
+    "task": "T - Uppgift",
+    "taskPlaceholder": "Vilket ansvar hade du?",
+    "action": "A - Åtgärd",
+    "actionPlaceholder": "Vilka steg tog du?",
+    "result": "R - Resultat",
+    "resultPlaceholder": "Vad blev utfallet? Inkludera mätetal om möjligt...",
+    "pasteJobDescription": "Klistra in arbetsbeskrivning",
+    "analyzing": "Analyserar...",
+    "generateFromJD": "Generera från arbetsbeskrivning",
+    "pasteYourQuestions": "Klistra in dina frågor",
+    "enterCompanyName": "Ange företagsnamn",
+    "researching": "Researchar...",
+    "research": "Research",
+    "researchFor": "Research för",
+    "skipQuestion": "Hoppa över fråga"
   },
   "qaPractice": {
     "title": "Generator för svar på frågor och svar",
@@ -1186,5 +1205,16 @@
     "upgrade": "Uppgradera",
     "downgrade": "Nedgradera",
     "manageBilling": "Hantera fakturering"
+  },
+  "biometric": {
+    "title": "Biometrisk inloggning",
+    "description": "Logga in säkert med ditt fingeravtryck eller ansikte",
+    "secureLogin": "Säker lösenordsfri inloggning med enhetens biometri",
+    "deviceName": "Enhetsnamn (t.ex. Min MacBook)",
+    "settingUp": "Konfigurerar biometri...",
+    "registerWith": "Registrera med biometri",
+    "notSupported": "Biometrisk autentisering stöds inte på den här enheten",
+    "enterEmail": "Vänligen ange din e-postadress",
+    "emailPlaceholder": "Ange din e-postadress"
   }
 }

@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Umakhi Wendlela ye-STAR",
+    "starDescription": "Hlela impendulo yakho usebenzisa indlela ye-STAR",
+    "situation": "S - Isimo",
+    "situationPlaceholder": "Chaza umongo noma isizinda...",
+    "task": "T - Umsebenzi",
+    "taskPlaceholder": "Yayiyini imithwalo yakho yemfanelo?",
+    "action": "A - Isenzo",
+    "actionPlaceholder": "Yiziphi izinyathelo ozithathile?",
+    "result": "R - Umphumela",
+    "resultPlaceholder": "Kwaba yini umphumela? Faka izilinganiso uma kungenzeka...",
+    "pasteJobDescription": "Namathisela Incazelo Yomsebenzi",
+    "analyzing": "Kuyahlaziywa...",
+    "generateFromJD": "Khiqiza kusuka Encazelweni Yomsebenzi",
+    "pasteYourQuestions": "Namathisela Imibuzo Yakho",
+    "enterCompanyName": "Faka igama lenkampani",
+    "researching": "Kuyacwaningwa...",
+    "research": "Ucwaningo",
+    "researchFor": "Ucwaningo lwe",
+    "skipQuestion": "Yeqa Umbuzo"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Thuthukisa",
     "downgrade": "Yehlisa",
     "manageBilling": "Phatha ukukhokha"
+  },
+  "biometric": {
+    "title": "Ukungena nge-Bhayomethrikhi",
+    "description": "Ngena ngokuphephile usebenzisa umunwe wakho noma ubuso",
+    "secureLogin": "Ukungena okuphephile ngaphandle kwephasiwedi usebenzisa i-bhayomethrikhi yedivayisi yakho",
+    "deviceName": "Igama lediveyisi (isb., i-MacBook yami)",
+    "settingUp": "Kusethwa i-bhayomethrikhi...",
+    "registerWith": "Bhalisa nge-Bhayomethrikhi",
+    "notSupported": "Ukuqinisekisa nge-bhayomethrikhi akusekelwa kule divayisi",
+    "enterEmail": "Sicela ufake i-imeyili yakho",
+    "emailPlaceholder": "Faka i-imeyili yakho"
   }
 }

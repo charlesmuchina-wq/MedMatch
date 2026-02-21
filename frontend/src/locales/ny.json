@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Wopanga Njira ya STAR",
+    "starDescription": "Konzani yankho lanu pogwiritsa ntchito njira ya STAR",
+    "situation": "S - Mmene zinalili",
+    "situationPlaceholder": "Fotokozani momwe zinalili kapena maziko ake...",
+    "task": "T - Udindo",
+    "taskPlaceholder": "Udindo wanu unali wotani?",
+    "action": "A - Zochita",
+    "actionPlaceholder": "Munatenga njira ziti?",
+    "result": "R - Zotsatira",
+    "resultPlaceholder": "Zotsatira zinali zotani? Phatikizani manambala/miyezo ngati n’kotheka...",
+    "pasteJobDescription": "Matirani Kufotokozera Ntchito",
+    "analyzing": "Kusanthula...",
+    "generateFromJD": "Pangani kuchokera ku Kufotokozera Ntchito",
+    "pasteYourQuestions": "Matirani Mafunso Anu",
+    "enterCompanyName": "Lowetsani dzina la kampani",
+    "researching": "Kufufuza...",
+    "research": "Kafukufuku",
+    "researchFor": "Kafukufuku wa",
+    "skipQuestion": "Dumphani funso"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Kwezani",
     "downgrade": "Chepetsani",
     "manageBilling": "Sungani zolipiritsa"
+  },
+  "biometric": {
+    "title": "Kulowa ndi Biometric",
+    "description": "Lowani motetezeka pogwiritsa ntchito zala zanu kapena nkhope",
+    "secureLogin": "Kulowa motetezeka popanda mawu achinsinsi pogwiritsa ntchito ma biometric a pa chipangizo chanu",
+    "deviceName": "Dzina la chipangizo (mwachitsanzo, MacBook yanga)",
+    "settingUp": "Kukonzekera ma biometric...",
+    "registerWith": "Lembetsani ndi Ma Biometric",
+    "notSupported": "Kutsimikizira kudzera mu biometric sikugwirizana ndi chipangizo ichi",
+    "enterEmail": "Chonde lowetsani imelo yanu",
+    "emailPlaceholder": "Lowetsani imelo yanu"
   }
 }

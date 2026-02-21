@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Dhise Habka STAR",
+    "starDescription": "U qaabee jawaabtaada adigoo adeegsanaya habka STAR",
+    "situation": "S - Xaaladda",
+    "situationPlaceholder": "Sharax duruufaha ama asalka...",
+    "task": "T - Hawsha",
+    "taskPlaceholder": "Maxay ahayd mas'uuliyaddaada?",
+    "action": "A - Ficilka",
+    "actionPlaceholder": "Tallaabooyinkee ayaad qaaday?",
+    "result": "R - Natiijada",
+    "resultPlaceholder": "Maxay ahayd natiijadu? Ku dar cabbirro haddii ay suurtagal tahay...",
+    "pasteJobDescription": "Ku dheji Sharaxaadda Shaqada",
+    "analyzing": "Falanqeynaya...",
+    "generateFromJD": "Ka soo saar Sharaxaadda Shaqada",
+    "pasteYourQuestions": "Ku dheji Su'aalahaaga",
+    "enterCompanyName": "Geli magaca shirkadda",
+    "researching": "Baadhaya...",
+    "research": "Baadhitaan",
+    "researchFor": "Baadhitaan ku saabsan",
+    "skipQuestion": "Ka bood Su'aasha"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Kor u qaad",
     "downgrade": "Hoos u dhig",
     "manageBilling": "Maamul Lacag-bixinta"
+  },
+  "biometric": {
+    "title": "Gelitaanka Bayometriga",
+    "description": "Si ammaan ah u gal adigoo isticmaalaya farahaaga ama wejigaaga",
+    "secureLogin": "Gelitaan ammaan ah oo aan eray-sir lahayn adigoo isticmaalaya bayometriga qalabkaaga",
+    "deviceName": "Magaca qalabka (tusaale, MacBook-kayga)",
+    "settingUp": "Dejinaya bayometriga...",
+    "registerWith": "Isdiiwaangeli adigoo adeegsanaya Bayometriga",
+    "notSupported": "Xaqiijinta bayometriga laguma taageero qalabkan",
+    "enterEmail": "Fadlan geli iimaylkaaga",
+    "emailPlaceholder": "Geli iimaylkaaga"
   }
 }

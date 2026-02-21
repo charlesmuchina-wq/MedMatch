@@ -518,7 +518,26 @@
     "interviewPrep": "Interview Preparation",
     "enterQuestion": "Please enter a question",
     "answerFailed": "Failed to generate answer",
-    "enterAtLeastOne": "Please enter at least one question"
+    "enterAtLeastOne": "Please enter at least one question",
+    "starBuilder": "Kijenga cha Mbinu ya STAR",
+    "starDescription": "Panga jibu lako kwa kutumia mbinu ya STAR",
+    "situation": "S - Hali",
+    "situationPlaceholder": "Eleza muktadha au usuli...",
+    "task": "T - Jukumu",
+    "taskPlaceholder": "Jukumu lako lilikuwa nini?",
+    "action": "A - Hatua",
+    "actionPlaceholder": "Ulichukua hatua gani?",
+    "result": "R - Matokeo",
+    "resultPlaceholder": "Matokeo yalikuwa nini? Jumuisha vipimo ikiwezekana...",
+    "pasteJobDescription": "Bandika Maelezo ya Kazi",
+    "analyzing": "Inachambua...",
+    "generateFromJD": "Tengeneza kutoka Maelezo ya Kazi",
+    "pasteYourQuestions": "Bandika Maswali Yako",
+    "enterCompanyName": "Ingiza jina la kampuni",
+    "researching": "Inatafiti...",
+    "research": "Tafiti",
+    "researchFor": "Tafiti kwa",
+    "skipQuestion": "Ruka Swali"
   },
   "membership": {
     "premium": "Premium",
@@ -1186,5 +1205,16 @@
     "upgrade": "Boresha",
     "downgrade": "Shusha hadhi",
     "manageBilling": "Dhibiti malipo"
+  },
+  "biometric": {
+    "title": "Kuingia kwa Biometria",
+    "description": "Ingia kwa usalama ukitumia alama ya kidole au uso wako",
+    "secureLogin": "Kuingia salama bila nenosiri kwa kutumia biometria za kifaa chako",
+    "deviceName": "Jina la kifaa (mfano, MacBook yangu)",
+    "settingUp": "Inaandaa biometria...",
+    "registerWith": "Jisajili kwa Biometria",
+    "notSupported": "Uthibitishaji wa biometria hauauniwi kwenye kifaa hiki",
+    "enterEmail": "Tafadhali ingiza barua pepe yako",
+    "emailPlaceholder": "Ingiza barua pepe yako"
   }
 }

@@ -258,7 +258,26 @@
     "allAnswersGenerated": "모든 답변이 생성되었습니다!",
     "savedToFavorites": "즐겨찾기에 저장되었습니다!",
     "saveFailed": "저장에 실패했습니다",
-    "removedFromFavorites": "즐겨찾기에서 삭제되었습니다"
+    "removedFromFavorites": "즐겨찾기에서 삭제되었습니다",
+    "starBuilder": "STAR 방법 작성기",
+    "starDescription": "STAR 방법을 사용해 답변을 구조화하세요",
+    "situation": "S - 상황",
+    "situationPlaceholder": "맥락이나 배경을 설명하세요...",
+    "task": "T - 과제",
+    "taskPlaceholder": "당신의 책임은 무엇이었나요?",
+    "action": "A - 행동",
+    "actionPlaceholder": "어떤 단계들을 수행했나요?",
+    "result": "R - 결과",
+    "resultPlaceholder": "결과는 어땠나요? 가능하면 지표를 포함하세요...",
+    "pasteJobDescription": "채용 공고 붙여넣기",
+    "analyzing": "분석 중...",
+    "generateFromJD": "채용 공고로부터 생성",
+    "pasteYourQuestions": "질문을 붙여넣기",
+    "enterCompanyName": "회사명을 입력하세요",
+    "researching": "리서치 중...",
+    "research": "리서치",
+    "researchFor": "리서치 대상",
+    "skipQuestion": "질문 건너뛰기"
   },
   "qaPractice": {
     "title": "Q&A 답변 생성기",
@@ -1186,5 +1205,16 @@
     "upgrade": "업그레이드",
     "downgrade": "다운그레이드",
     "manageBilling": "결제 관리"
+  },
+  "biometric": {
+    "title": "생체 인증 로그인",
+    "description": "지문 또는 얼굴로 안전하게 로그인하세요",
+    "secureLogin": "기기의 생체 인증을 사용해 비밀번호 없이 안전하게 로그인",
+    "deviceName": "기기 이름(예: 내 MacBook)",
+    "settingUp": "생체 인증 설정 중...",
+    "registerWith": "생체 인증으로 등록",
+    "notSupported": "이 기기에서는 생체 인증이 지원되지 않습니다",
+    "enterEmail": "이메일을 입력해 주세요",
+    "emailPlaceholder": "이메일을 입력하세요"
   }
 }

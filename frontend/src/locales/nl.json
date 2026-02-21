@@ -258,7 +258,26 @@
     "allAnswersGenerated": "Alle antwoorden gegenereerd!",
     "savedToFavorites": "Opgeslagen in favorieten!",
     "saveFailed": "Opslaan mislukt",
-    "removedFromFavorites": "Verwijderd uit favorieten"
+    "removedFromFavorites": "Verwijderd uit favorieten",
+    "starBuilder": "STAR-methodebouwer",
+    "starDescription": "Structureer je antwoord met de STAR-methode",
+    "situation": "S - Situatie",
+    "situationPlaceholder": "Beschrijf de context of achtergrond...",
+    "task": "T - Taak",
+    "taskPlaceholder": "Wat was jouw verantwoordelijkheid?",
+    "action": "A - Actie",
+    "actionPlaceholder": "Welke stappen heb je genomen?",
+    "result": "R - Resultaat",
+    "resultPlaceholder": "Wat was het resultaat? Voeg waar mogelijk cijfers toe...",
+    "pasteJobDescription": "Plak functiebeschrijving",
+    "analyzing": "Analyseren...",
+    "generateFromJD": "Genereren op basis van functiebeschrijving",
+    "pasteYourQuestions": "Plak je vragen",
+    "enterCompanyName": "Voer bedrijfsnaam in",
+    "researching": "Onderzoeken...",
+    "research": "Onderzoek",
+    "researchFor": "Onderzoek voor",
+    "skipQuestion": "Vraag overslaan"
   },
   "qaPractice": {
     "title": "Q&A-antwoordgenerator",
@@ -1186,5 +1205,16 @@
     "upgrade": "Upgraden",
     "downgrade": "Downgraden",
     "manageBilling": "Facturatie beheren"
+  },
+  "biometric": {
+    "title": "Biometrische aanmelding",
+    "description": "Meld je veilig aan met je vingerafdruk of gezicht",
+    "secureLogin": "Veilige aanmelding zonder wachtwoord met de biometrie van je apparaat",
+    "deviceName": "Apparaatnaam (bijv. Mijn MacBook)",
+    "settingUp": "Biometrie instellen...",
+    "registerWith": "Registreren met biometrie",
+    "notSupported": "Biometrische authenticatie wordt niet ondersteund op dit apparaat",
+    "enterEmail": "Voer je e-mailadres in",
+    "emailPlaceholder": "Voer je e-mailadres in"
   }
 }
