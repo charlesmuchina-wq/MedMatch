@@ -20,6 +20,102 @@ const API = process.env.REACT_APP_BACKEND_URL;
 // African language codes for separate section
 const AFRICAN_LANGUAGES = ["sw", "ha", "yo", "ig", "zu", "xh", "af", "am", "om", "so", "rw", "sn", "ny", "tw", "wo", "lg"];
 
+/**
+ * Detect if browser translation is active
+ * Checks for Google Translate, Microsoft Translator, and other common translation extensions
+ */
+const useBrowserTranslationDetection = () => {
+  const [isBrowserTranslating, setIsBrowserTranslating] = useState(false);
+
+  useEffect(() => {
+    const checkBrowserTranslation = () => {
+      // Check for Google Translate
+      const googleTranslate = document.querySelector('.goog-te-banner-frame') ||
+                             document.querySelector('#goog-gt-tt') ||
+                             document.querySelector('.skiptranslate') ||
+                             document.body.classList.contains('translated-ltr') ||
+                             document.body.classList.contains('translated-rtl') ||
+                             document.documentElement.classList.contains('translated-ltr') ||
+                             document.documentElement.classList.contains('translated-rtl');
+      
+      // Check for html lang attribute change (common translation indicator)
+      const htmlLang = document.documentElement.lang;
+      const storedLang = localStorage.getItem("medmatch-language") || "en";
+      const langMismatch = htmlLang && htmlLang !== storedLang && htmlLang !== storedLang.split('-')[0];
+      
+      // Check for Microsoft Translator
+      const msTranslate = document.querySelector('#MicrosoftTranslatorWidget');
+      
+      // Check for common translation meta tags
+      const translateMeta = document.querySelector('meta[name="google-translate-customization"]');
+      
+      setIsBrowserTranslating(!!(googleTranslate || msTranslate || translateMeta || langMismatch));
+    };
+
+    // Initial check
+    checkBrowserTranslation();
+
+    // Set up mutation observer to detect translation changes
+    const observer = new MutationObserver(checkBrowserTranslation);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class', 'lang'],
+      subtree: false
+    });
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ['class'],
+      childList: true,
+      subtree: false
+    });
+
+    // Check periodically as some translators load async
+    const interval = setInterval(checkBrowserTranslation, 2000);
+
+    return () => {
+      observer.disconnect();
+      clearInterval(interval);
+    };
+  }, []);
+
+  return isBrowserTranslating;
+};
+
+/**
+ * Open Google Translate with current page
+ */
+const openGoogleTranslate = () => {
+  const currentUrl = window.location.href;
+  const googleTranslateUrl = `https://translate.google.com/translate?sl=auto&tl=auto&u=${encodeURIComponent(currentUrl)}`;
+  window.open(googleTranslateUrl, '_blank');
+};
+
+/**
+ * Trigger browser's native translate feature
+ * This works differently across browsers - we'll show instructions
+ */
+const triggerBrowserTranslate = () => {
+  // Most browsers don't have a programmatic way to trigger translation
+  // We'll show a helpful tooltip/alert with instructions
+  const isChrome = navigator.userAgent.includes('Chrome');
+  const isFirefox = navigator.userAgent.includes('Firefox');
+  const isSafari = navigator.userAgent.includes('Safari') && !navigator.userAgent.includes('Chrome');
+  const isEdge = navigator.userAgent.includes('Edg');
+
+  let instructions = '';
+  if (isChrome || isEdge) {
+    instructions = 'Right-click anywhere on the page and select "Translate to [Your Language]", or click the translate icon in the address bar.';
+  } else if (isFirefox) {
+    instructions = 'Install the "To Google Translate" extension, or right-click and select a translation option.';
+  } else if (isSafari) {
+    instructions = 'Click the "aA" button in the address bar and select "Translate to [Your Language]".';
+  } else {
+    instructions = 'Right-click on the page and look for a translation option, or check your browser settings.';
+  }
+
+  alert(instructions);
+};
+
 // Gender preference labels
 const GENDER_LABELS = {
   masculine: { label: "Masculine", icon: "♂️", description: "Use masculine grammatical forms" },
