@@ -168,7 +168,7 @@ const RejectionFeedbackForm = ({
               <Textarea
                 value={missingSkills}
                 onChange={(e) => setMissingSkills(e.target.value)}
-                placeholder="e.g., Python, AWS, Team Leadership"
+                placeholder={t("feedback.skillsPlaceholder")}
                 className="h-20"
               />
             </div>
@@ -183,7 +183,7 @@ const RejectionFeedbackForm = ({
               <Textarea
                 value={experienceGap}
                 onChange={(e) => setExperienceGap(e.target.value)}
-                placeholder="e.g., Needed 5+ years in similar role, candidate has 2 years"
+                placeholder={t("feedback.experienceGapPlaceholder")}
                 className="h-20"
               />
             </div>
@@ -210,7 +210,7 @@ const RejectionFeedbackForm = ({
             <Textarea
               value={suggestions}
               onChange={(e) => setSuggestions(e.target.value)}
-              placeholder="e.g., Get AWS certification, More project management experience"
+              placeholder={t("feedback.improvementPlaceholder")}
               className="h-20"
             />
           </div>
