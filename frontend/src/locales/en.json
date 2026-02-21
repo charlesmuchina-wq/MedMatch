@@ -222,7 +222,13 @@
     "videoOff": "Video Off",
     "shareScreen": "Share Screen",
     "chat": "Chat",
-    "settings": "Settings"
+    "settings": "Settings",
+    "typeMessage": "Type a message...",
+    "send": "Send",
+    "noMessages": "No messages yet",
+    "aiAssistant": "AI Assistant",
+    "transcript": "Transcript",
+    "notes": "Notes"
   },
   "subscription": {
     "title": "Subscription",
