@@ -541,9 +541,9 @@ Make it more concise, impactful, and professional while keeping the STAR structu
               {inputMode === "description" && (
                 <div className="space-y-3">
                   <div>
-                    <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Paste Job Description</label>
+                    <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{t("interview.pasteJobDescription")}</label>
                     <Textarea
-                      placeholder="Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills..."
+                      placeholder={t("interview.jobDescriptionPlaceholder")}
                       value={jobDescription}
                       onChange={(e) => setJobDescription(e.target.value)}
                       rows={6}
@@ -553,7 +553,7 @@ Make it more concise, impactful, and professional while keeping the STAR structu
                   </div>
                   {resume?.skills?.length > 0 && (
                     <div className="text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 p-2 rounded">
-                      <strong>Your Resume Skills:</strong> {resume.skills.slice(0, 8).join(", ")}{resume.skills.length > 8 ? "..." : ""}
+                      <strong>{t("interview.yourResumeSkills")}:</strong> {resume.skills.slice(0, 8).join(", ")}{resume.skills.length > 8 ? "..." : ""}
                     </div>
                   )}
                   <div className="flex gap-2">
@@ -564,9 +564,9 @@ Make it more concise, impactful, and professional while keeping the STAR structu
                       data-testid="generate-from-jd-btn"
                     >
                       {generatingQuestions ? (
-                        <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Analyzing...</>
+                        <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("interview.analyzing")}</>
                       ) : (
-                        <><Sparkles className="w-4 h-4 mr-2" /> Generate from Job Description</>
+                        <><Sparkles className="w-4 h-4 mr-2" /> {t("interview.generateFromJD")}</>
                       )}
                     </Button>
                     {questions.length > 0 && (
@@ -575,7 +575,7 @@ Make it more concise, impactful, and professional while keeping the STAR structu
                         onClick={exportToPDF}
                         className="text-turquoise border-turquoise hover:bg-turquoise/10"
                       >
-                        <FileText className="w-4 h-4 mr-2" /> Export PDF
+                        <FileText className="w-4 h-4 mr-2" /> {t("interview.exportPDF")}
                       </Button>
                     )}
                   </div>
@@ -586,12 +586,9 @@ Make it more concise, impactful, and professional while keeping the STAR structu
               {inputMode === "paste" && (
                 <div className="space-y-3">
                   <div>
-                    <label className="text-sm font-medium text-slate-700 dark:text-slate-300">Paste Your Questions</label>
+                    <label className="text-sm font-medium text-slate-700 dark:text-slate-300">{t("interview.pasteYourQuestions")}</label>
                     <Textarea
-                      placeholder="Enter questions, one per line. For example:
-1. Tell me about a time you led a cross-functional team.
-2. How do you handle conflicting priorities?
-3. What experience do you have with supplier audits?"
+                      placeholder={t("interview.questionsPlaceholder")}
                       value={customQuestions}
                       onChange={(e) => setCustomQuestions(e.target.value)}
                       rows={6}
