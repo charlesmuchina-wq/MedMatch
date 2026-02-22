@@ -184,9 +184,10 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
           ) : (
             <div className="space-y-2">
               <div className="flex items-center gap-2 mb-3">
-                <Badge variant="outline" className="text-xs text-amber-400 border-amber-400/50">
-                  AI Required - Coming Soon
+                <Badge variant="outline" className="text-xs text-turquoise border-turquoise/50">
+                  AI-Powered
                 </Badge>
+                <span className="text-xs text-slate-500">First use loads ~5MB model</span>
               </div>
               <div className="grid grid-cols-3 gap-2">
                 {categories[activeCategory]?.items.map((bg) => (
