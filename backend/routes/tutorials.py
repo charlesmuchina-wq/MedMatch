@@ -749,19 +749,17 @@ async def request_video_translation(video_id: str, lang: str, background_tasks: 
     
     async def generate_translation():
         try:
-            _translation_jobs[job_id]["started_at"] = str(Path)
+            from datetime import datetime
+            _translation_jobs[job_id]["started_at"] = datetime.now().isoformat()
             
-            # Use DID service to create translated video
-            result = await did_service.create_tutorial_video(
-                language_code=lang,
-                script=script,
-                title=video.get("title", "MedMatch-AI KARAU Tutorial")
-            )
+            # Use FREE edge-tts to generate audio (instead of paid D-ID)
+            result = await generate_tutorial_audio(video_id, lang)
             
             if result.get("success"):
                 _translation_jobs[job_id]["status"] = "ready"
-                _translation_jobs[job_id]["video_url"] = result.get("video_url")
-                _translation_jobs[job_id]["talk_id"] = result.get("talk_id")
+                _translation_jobs[job_id]["audio_url"] = result.get("audio_url")
+                _translation_jobs[job_id]["video_url"] = result.get("audio_url")  # For backwards compatibility
+                _translation_jobs[job_id]["completed_at"] = datetime.now().isoformat()
             else:
                 _translation_jobs[job_id]["status"] = "failed"
                 _translation_jobs[job_id]["error"] = result.get("error", "Unknown error")
@@ -776,7 +774,7 @@ async def request_video_translation(video_id: str, lang: str, background_tasks: 
     return {
         "job_id": job_id,
         "status": "generating",
-        "message": f"Translation to {lang} started. Check status endpoint for progress."
+        "message": f"Generating {lang} audio with Microsoft Neural Voice (FREE). Check status endpoint."
     }
 
 
