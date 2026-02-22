@@ -21,7 +21,7 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 | **AI KARAU Meeting** | ✅ Working | Login fixed, dashboard operational |
 | **Admin Dashboards** | ✅ Working | All 5 QA dashboards functional |
 | **Translations** | ✅ 100% | 34 languages, all placeholders translated |
-| **Tutorial Videos** | ✅ Ready | 5 videos with CC in 4 languages |
+| **Tutorial Videos** | ✅ Ready | 5 videos with CC in 14 languages |
 | **Compliance** | ✅ COMPLIANT | 15 regions, 28 laws tracked |
 | **Google Translate Fallback** | ✅ Complete | Browser translation detection, settings integration |
 | **Closed Captions** | ✅ NEW | WebVTT subtitles for all videos |
