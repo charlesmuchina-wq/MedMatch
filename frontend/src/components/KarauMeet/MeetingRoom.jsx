@@ -205,12 +205,15 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   const meetingId = meetingIdProp || params.meetingId;
   const navigate = useNavigate();
   
-  // State
+  // State - Decoupled media and API states
   const [meeting, setMeeting] = useState(null);
   const [participants, setParticipants] = useState([]);
   const [localStream, setLocalStream] = useState(null);
   const [remoteStreams, setRemoteStreams] = useState({});
-  const [isConnecting, setIsConnecting] = useState(true);
+  const [isMediaReady, setIsMediaReady] = useState(false);  // Media stream ready
+  const [isApiConnected, setIsApiConnected] = useState(false);  // API/WebSocket connected
+  const [isConnecting, setIsConnecting] = useState(true);  // Overall loading state
+  const [connectionError, setConnectionError] = useState(null);  // Specific error message
   const [isVideoEnabled, setIsVideoEnabled] = useState(true);
   const [isAudioEnabled, setIsAudioEnabled] = useState(true);
   const [isScreenSharing, setIsScreenSharing] = useState(false);
@@ -232,12 +235,15 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
     hd_video: false
   });
   
-  // Refs
+  // Refs - MediaStream as single source of truth
   const wsRef = useRef(null);
   const peerConnectionsRef = useRef({});
   const localStreamRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const recordedChunksRef = useRef([]);
+  const mountedRef = useRef(true);
+  const apiRetryCountRef = useRef(0);
+  const maxApiRetries = 3;
   const [iceServers, setIceServers] = useState([
     { urls: 'stun:stun.l.google.com:19302' },
     { urls: 'stun:stun1.l.google.com:19302' },
@@ -262,6 +268,180 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   }, []);
   
   const rtcConfig = { iceServers, iceCandidatePoolSize: 10 };
+
+  // Helper: Get specific error message for getUserMedia errors
+  const getMediaErrorMessage = (error) => {
+    const errorName = error.name || 'UnknownError';
+    console.error(`Media error [${errorName}]:`, error.message);
+    
+    switch (errorName) {
+      case 'NotAllowedError':
+      case 'PermissionDeniedError':
+        return {
+          title: 'Camera/Microphone Access Denied',
+          message: 'Please allow camera and microphone permissions in your browser settings and refresh the page.',
+          canRetry: false
+        };
+      case 'NotFoundError':
+      case 'DevicesNotFoundError':
+        return {
+          title: 'No Camera or Microphone Found',
+          message: 'No camera or microphone was detected. Please connect a device and try again.',
+          canRetry: true
+        };
+      case 'NotReadableError':
+      case 'TrackStartError':
+        return {
+          title: 'Camera/Microphone In Use',
+          message: 'Your camera or microphone is being used by another application. Please close other apps and try again.',
+          canRetry: true
+        };
+      case 'OverconstrainedError':
+        return {
+          title: 'Camera Settings Not Supported',
+          message: 'Your camera does not support the requested settings. Trying with default settings...',
+          canRetry: true
+        };
+      case 'AbortError':
+        return {
+          title: 'Connection Aborted',
+          message: 'The media connection was interrupted. Please try again.',
+          canRetry: true
+        };
+      case 'SecurityError':
+        return {
+          title: 'Security Error',
+          message: 'Media access is blocked due to security settings. Please use HTTPS.',
+          canRetry: false
+        };
+      default:
+        return {
+          title: 'Media Error',
+          message: `Unable to access camera/microphone: ${error.message}`,
+          canRetry: true
+        };
+    }
+  };
+
+  // Pre-flight check: Verify device availability before joining
+  const checkDeviceAvailability = async () => {
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const hasVideo = devices.some(d => d.kind === 'videoinput');
+      const hasAudio = devices.some(d => d.kind === 'audioinput');
+      return { hasVideo, hasAudio, devices };
+    } catch (error) {
+      console.error('Device enumeration failed:', error);
+      return { hasVideo: false, hasAudio: false, devices: [] };
+    }
+  };
+
+  // Initialize media stream (decoupled from API)
+  const initializeMedia = async () => {
+    // Pre-flight device check
+    const { hasVideo, hasAudio } = await checkDeviceAvailability();
+    
+    if (!hasVideo && !hasAudio) {
+      console.warn('No media devices found during pre-flight check');
+    }
+    
+    // Request both camera and microphone simultaneously
+    const constraints = {
+      video: hasVideo ? { 
+        width: { ideal: 1280, max: 1920 }, 
+        height: { ideal: 720, max: 1080 },
+        facingMode: 'user'
+      } : false,
+      audio: hasAudio ? { 
+        echoCancellation: true, 
+        noiseSuppression: true,
+        autoGainControl: true
+      } : false
+    };
+    
+    // If no devices at all, try anyway (browser might prompt for permission)
+    if (!hasVideo && !hasAudio) {
+      constraints.video = { facingMode: 'user' };
+      constraints.audio = true;
+    }
+    
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      return { success: true, stream };
+    } catch (error) {
+      // If high-quality constraints fail, try basic constraints
+      if (error.name === 'OverconstrainedError') {
+        try {
+          const basicStream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: true
+          });
+          return { success: true, stream: basicStream };
+        } catch (fallbackError) {
+          return { success: false, error: fallbackError };
+        }
+      }
+      return { success: false, error };
+    }
+  };
+
+  // Join meeting API with retry logic
+  const joinMeetingApi = async (retryCount = 0) => {
+    const token = localStorage.getItem('token');
+    const isGuest = user?.is_guest || !token;
+    
+    try {
+      let response;
+      let joinData;
+      
+      if (isGuest) {
+        response = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/join-guest`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            guest_name: user?.name || 'Guest',
+            video_enabled: true, 
+            audio_enabled: true 
+          })
+        });
+      } else {
+        response = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/join`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ video_enabled: true, audio_enabled: true })
+        });
+      }
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`API ${response.status}: ${errorText}`);
+      }
+      
+      joinData = await response.json();
+      
+      if (isGuest) {
+        user.user_id = joinData.guest_user_id;
+        user.name = joinData.guest_name;
+      }
+      
+      return { success: true, data: joinData, isGuest };
+      
+    } catch (error) {
+      console.error(`API join attempt ${retryCount + 1} failed:`, error);
+      
+      // Retry logic - don't tear down media stream
+      if (retryCount < maxApiRetries && !error.message.includes('404')) {
+        const delay = Math.min(1000 * Math.pow(2, retryCount), 5000);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        return joinMeetingApi(retryCount + 1);
+      }
+      
+      return { success: false, error };
+    }
+  };
 
   // Initialize media and join meeting
   useEffect(() => {
