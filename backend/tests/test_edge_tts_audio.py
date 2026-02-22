@@ -134,13 +134,14 @@ class TestEdgeTTSAudioGeneration:
         print("⚠️ Audio generation timed out (may still be processing)")
     
     def test_static_audio_directory_accessible(self):
-        """Test that static audio directory is properly mounted"""
+        """Test that audio files can be served via API endpoint"""
         # List files that should exist from previous tests
-        audio_url = "/static/audio/tutorials/01_jobseeker_features_ja_6ea378f2.mp3"
-        response = requests.head(f"{BASE_URL}{audio_url}")
-        # 200 if file exists, 404 if not (but directory should be mounted)
+        audio_url = "/api/tutorials/audio/01_jobseeker_features_ja_6ea378f2.mp3"
+        response = requests.get(f"{BASE_URL}{audio_url}", stream=True)
+        # 200 if file exists, 404 if not generated yet
         assert response.status_code in [200, 404]
-        print(f"✅ Static audio directory check: {response.status_code}")
+        print(f"✅ Audio API endpoint check: {response.status_code}")
+        response.close()
     
     def test_recruiter_video_translation(self):
         """Test audio generation for recruiter features video"""
