@@ -301,28 +301,6 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
     }
   };
   
-  // Sync audio with video
-  useEffect(() => {
-    if (videoRef.current && audioRef.current && generatedAudioUrl) {
-      const syncAudio = () => {
-        if (audioRef.current) {
-          audioRef.current.currentTime = videoRef.current.currentTime;
-        }
-      };
-      videoRef.current.addEventListener('play', () => audioRef.current?.play());
-      videoRef.current.addEventListener('pause', () => audioRef.current?.pause());
-      videoRef.current.addEventListener('seeked', syncAudio);
-      
-      return () => {
-        if (videoRef.current) {
-          videoRef.current.removeEventListener('play', () => {});
-          videoRef.current.removeEventListener('pause', () => {});
-          videoRef.current.removeEventListener('seeked', syncAudio);
-        }
-      };
-    }
-  }, [generatedAudioUrl]);
-  
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div className="bg-white rounded-xl max-w-4xl w-full overflow-hidden" onClick={e => e.stopPropagation()}>
