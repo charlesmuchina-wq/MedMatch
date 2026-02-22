@@ -585,24 +585,24 @@ const MeetingRoom = ({ user }) => {
     if (videoTrack) {
       videoTrack.enabled = !videoTrack.enabled;
       setIsVideoEnabled(videoTrack.enabled);
-      wsRef.current?.send(JSON.stringify({
+      safeSend({
         type: 'participant_update',
         updates: { video_enabled: videoTrack.enabled }
-      }));
+      });
     }
-  }, []);
+  }, [safeSend]);
 
   const toggleAudio = useCallback(() => {
     const audioTrack = localStreamRef.current?.getAudioTracks()[0];
     if (audioTrack) {
       audioTrack.enabled = !audioTrack.enabled;
       setIsAudioEnabled(audioTrack.enabled);
-      wsRef.current?.send(JSON.stringify({
+      safeSend({
         type: 'participant_update',
         updates: { audio_enabled: audioTrack.enabled }
-      }));
+      });
     }
-  }, []);
+  }, [safeSend]);
 
   const toggleScreenShare = useCallback(async () => {
     try {
@@ -631,21 +631,21 @@ const MeetingRoom = ({ user }) => {
         setIsScreenSharing(true);
       }
       
-      wsRef.current?.send(JSON.stringify({
+      safeSend({
         type: 'state_update',
         state: { screen_sharing: !isScreenSharing }
-      }));
+      });
     } catch (error) {
       console.error('Screen share error:', error);
       toast.error('Failed to share screen');
     }
-  }, [isScreenSharing]);
+  }, [isScreenSharing, safeSend]);
 
   const toggleRecording = useCallback(async () => {
     if (isRecording) {
       mediaRecorderRef.current?.stop();
       setIsRecording(false);
-      wsRef.current?.send(JSON.stringify({ type: 'recording_stopped' }));
+      safeSend({ type: 'recording_stopped' });
       toast.success('Recording stopped');
     } else {
       wsRef.current?.send(JSON.stringify({
