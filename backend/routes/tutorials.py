@@ -959,6 +959,77 @@ Programen entrevistas sin problemas. ¡Dejen que la IA les ayude a encontrar al 
 
 00:00:24.000 --> 00:00:28.000
 Transformen su proceso de contratación hoy.
+""",
+        "03_privacy_matters": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Tu privacidad importa en MedMatch-AI KARAU.
+
+00:00:05.000 --> 00:00:12.000
+Usamos encriptación de nivel bancario para todos tus datos personales.
+
+00:00:12.000 --> 00:00:18.000
+Controla exactamente qué pueden ver los reclutadores sobre ti.
+
+00:00:18.000 --> 00:00:25.000
+Tu búsqueda de empleo permanece completamente confidencial. Cumplimos con GDPR y leyes de privacidad globales.
+
+00:00:25.000 --> 00:00:34.000
+Eres dueño de tus datos y puedes eliminarlos en cualquier momento. Tu confianza es nuestra prioridad.
+""",
+        "04_faq_ai_compliance": """WEBVTT
+
+00:00:00.000 --> 00:00:06.000
+Permíteme responder preguntas comunes sobre cumplimiento de IA en MedMatch-AI KARAU.
+
+00:00:06.000 --> 00:00:15.000
+Nuestra IA es transparente y explicable. Seguimos las directrices del Acta de IA de la UE.
+
+00:00:15.000 --> 00:00:25.000
+Tus datos no entrenan modelos externos. Todas las decisiones de IA pueden ser apeladas.
+
+00:00:25.000 --> 00:00:35.000
+Auditamos regularmente nuestros algoritmos para detectar sesgos. IA justa y ética es nuestro compromiso.
+
+00:00:35.000 --> 00:00:45.000
+¿Preguntas? Contacta a nuestro equipo de cumplimiento en cualquier momento.
+
+00:00:45.000 --> 00:00:52.000
+Estamos comprometidos con el uso responsable de la IA.
+""",
+        "05_complete_overview": """WEBVTT
+
+00:00:00.000 --> 00:00:08.000
+¡Bienvenido a MedMatch-AI KARAU, tu compañero de carrera impulsado por IA!
+
+00:00:08.000 --> 00:00:18.000
+Ya seas buscador de empleo o reclutador, te tenemos cubierto.
+
+00:00:18.000 --> 00:00:28.000
+Sube currículums, busca empleos, prepárate para entrevistas y conecta con oportunidades.
+
+00:00:28.000 --> 00:00:40.000
+Privacidad primero, impulsado por IA, centrado en el humano. ¡Comienza tu viaje hoy!
+
+00:00:40.000 --> 00:00:50.000
+Únete a miles de profesionales de ciencias de la vida que ya usan MedMatch-AI KARAU.
+
+00:00:50.000 --> 00:01:00.000
+Tu próximo movimiento de carrera comienza aquí.
+"""
+    }
+
+00:00:05.000 --> 00:00:10.000
+Publiquen empleos y lleguen a candidatos calificados al instante.
+
+00:00:10.000 --> 00:00:18.000
+Usen nuestro sistema de seguimiento de candidatos impulsado por IA.
+
+00:00:18.000 --> 00:00:24.000
+Programen entrevistas sin problemas. ¡Dejen que la IA les ayude a encontrar al candidato perfecto!
+
+00:00:24.000 --> 00:00:28.000
+Transformen su proceso de contratación hoy.
 """
     }
     
