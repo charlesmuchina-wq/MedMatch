@@ -1264,10 +1264,12 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         onCopyLink={copyMeetingLink}
       />
 
-      {/* Main content */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Video grid */}
-        <div className={`flex-1 p-4 ${activePanel ? 'pr-0' : ''}`}>
+      {/* Main content - responsive layout */}
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative">
+        {/* Video grid - takes full width on mobile when panel is closed */}
+        <div className={`flex-1 p-2 md:p-4 transition-all duration-300 ${
+          activePanel ? 'h-[50vh] md:h-auto md:pr-0' : 'h-full'
+        }`}>
           <ParticipantGrid
             participants={allParticipants}
             localStream={localStream}
@@ -1277,28 +1279,41 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
           />
         </div>
 
-        {/* Side panel */}
+        {/* Side panel - bottom sheet on mobile, sidebar on desktop */}
         {activePanel && (
-          <div className="w-80 bg-slate-800 border-l border-slate-700">
-            {activePanel === 'chat' && (
-              <ChatPanel messages={chatMessages} onSendMessage={sendChatMessage} />
-            )}
-            {activePanel === 'participants' && (
-              <ParticipantsPanel 
-                participants={allParticipants} 
-                isHost={isHost}
-                onMuteParticipant={() => {}}
-              />
-            )}
-            {activePanel === 'ai-notes' && (
-              <AINotesPanel notes={aiNotes} isTranscribing={isTranscribing} />
-            )}
-            {activePanel === 'settings' && (
-              <SettingsPanel 
-                settings={meetingSettings} 
-                onUpdateSettings={(updates) => setMeetingSettings(prev => ({ ...prev, ...updates }))}
-              />
-            )}
+          <div className="h-[50vh] md:h-auto md:w-80 bg-slate-800 border-t md:border-t-0 md:border-l border-slate-700 flex flex-col">
+            {/* Panel header with close button on mobile */}
+            <div className="md:hidden flex items-center justify-between p-2 border-b border-slate-700">
+              <span className="text-white font-medium capitalize">{activePanel}</span>
+              <button 
+                onClick={() => setActivePanel(null)}
+                className="p-1 text-slate-400 hover:text-white"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="flex-1 overflow-hidden">
+              {activePanel === 'chat' && (
+                <ChatPanel messages={chatMessages} onSendMessage={sendChatMessage} />
+              )}
+              {activePanel === 'participants' && (
+                <ParticipantsPanel 
+                  participants={allParticipants} 
+                  isHost={isHost}
+                  onMuteParticipant={() => {}}
+                />
+              )}
+              {activePanel === 'ai-notes' && (
+                <AINotesPanel notes={aiNotes} isTranscribing={isTranscribing} />
+              )}
+              {activePanel === 'settings' && (
+                <SettingsPanel 
+                  settings={meetingSettings} 
+                  onUpdateSettings={(updates) => setMeetingSettings(prev => ({ ...prev, ...updates }))}
+                />
+              )}
+            </div>
           </div>
         )}
       </div>
