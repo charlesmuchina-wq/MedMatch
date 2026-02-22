@@ -95,7 +95,7 @@ class TestEdgeTTSAudioGeneration:
         if data.get("status") == "ready":
             assert "audio_url" in data or "video_url" in data
             audio_url = data.get("audio_url") or data.get("video_url")
-            assert audio_url.startswith("/static/audio/tutorials/")
+            assert audio_url.startswith("/api/tutorials/audio/")
             print(f"✅ Audio URL returned: {audio_url}")
     
     def test_wait_for_audio_ready_and_verify_url(self):
