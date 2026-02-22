@@ -708,12 +708,12 @@ const MeetingRoom = ({ user }) => {
   const toggleHandRaise = useCallback(() => {
     const newState = !isHandRaised;
     setIsHandRaised(newState);
-    wsRef.current?.send(JSON.stringify({ type: 'raise_hand', raised: newState }));
-  }, [isHandRaised]);
+    safeSend({ type: 'raise_hand', raised: newState });
+  }, [isHandRaised, safeSend]);
 
   const sendChatMessage = useCallback((message) => {
-    wsRef.current?.send(JSON.stringify({ type: 'chat', message }));
-  }, []);
+    safeSend({ type: 'chat', message });
+  }, [safeSend]);
 
   const leaveMeeting = useCallback(async () => {
     try {
