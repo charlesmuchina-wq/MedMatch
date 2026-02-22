@@ -858,16 +858,9 @@ async def get_subtitle_languages():
     }
 
 
-# LEGACY: Old inline subtitles kept for reference but not used
-# The new implementation uses services/tutorial_subtitles.py
-_LEGACY_subtitles_en = {
-    "01_jobseeker_features": """WEBVTT
 
-00:00:00.000 --> 00:00:05.000
-Welcome to MedMatch-AI KARAU! As a job seeker, you have access to powerful AI tools.
+# End of tutorials router - all subtitles now served from services/tutorial_subtitles.py
 
-00:00:05.000 --> 00:00:12.000
-Upload your resume and our AI will parse your skills automatically.
 
 00:00:12.000 --> 00:00:20.000
 Search across 15 job boards at once. Get interview preparation with real-time feedback.
