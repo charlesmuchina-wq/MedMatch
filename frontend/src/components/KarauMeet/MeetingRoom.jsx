@@ -323,9 +323,13 @@ const MeetingRoom = ({ user }) => {
       setIsConnected(true);
     };
     
-    ws.onclose = () => {
-      console.log('WebSocket disconnected');
+    ws.onclose = (event) => {
+      console.log('WebSocket disconnected', event.code, event.reason);
       setIsConnected(false);
+      // Don't show error for intentional close (duplicate connection)
+      if (event.code !== 4001) {
+        // Could implement reconnection logic here if needed
+      }
     };
     
     ws.onerror = () => toast.error('Connection error. Trying to reconnect...');
@@ -335,6 +339,22 @@ const MeetingRoom = ({ user }) => {
       await handleWebSocketMessage(message);
     };
   }, [meetingId, user]);
+
+  // FIX: Safe WebSocket send function that checks connection state
+  const safeSend = useCallback((data) => {
+    try {
+      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+        wsRef.current.send(JSON.stringify(data));
+        return true;
+      } else {
+        console.warn('WebSocket not ready, message not sent:', data.type);
+        return false;
+      }
+    } catch (error) {
+      console.error('Error sending WebSocket message:', error);
+      return false;
+    }
+  }, []);
 
   // WebSocket message handler
   const handleWebSocketMessage = useCallback(async (message) => {
