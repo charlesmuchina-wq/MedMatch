@@ -16,14 +16,42 @@ import { ChatPanel, AINotesPanel, ParticipantsPanel, SettingsPanel } from './Mee
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-// Virtual Background Options
+// Virtual Background Options - Expanded with AI backgrounds
 const VIRTUAL_BACKGROUNDS = [
+  // Basic Effects (Available Now)
   { id: 'none', name: 'None', type: 'none' },
   { id: 'blur', name: 'Blur', type: 'blur' },
+  { id: 'blur-light', name: 'Light Blur', type: 'blur', level: 'light' },
+  { id: 'blur-heavy', name: 'Heavy Blur', type: 'blur', level: 'heavy' },
+  
+  // Professional Backgrounds
   { id: 'office', name: 'Office', type: 'image', url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800' },
-  { id: 'nature', name: 'Nature', type: 'image', url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800' },
-  { id: 'abstract', name: 'Abstract', type: 'image', url: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=800' },
-  { id: 'city', name: 'City', type: 'image', url: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800' },
+  { id: 'modern-office', name: 'Modern Office', type: 'image', url: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800' },
+  { id: 'home-office', name: 'Home Office', type: 'image', url: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800' },
+  { id: 'library', name: 'Library', type: 'image', url: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800' },
+  { id: 'conference', name: 'Conference Room', type: 'image', url: 'https://images.unsplash.com/photo-1431540015161-0bf868a2d407?w=800' },
+  
+  // Nature & Scenic
+  { id: 'nature', name: 'Forest', type: 'image', url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800' },
+  { id: 'beach', name: 'Beach', type: 'image', url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800' },
+  { id: 'mountains', name: 'Mountains', type: 'image', url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800' },
+  { id: 'sunset', name: 'Sunset', type: 'image', url: 'https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?w=800' },
+  { id: 'garden', name: 'Garden', type: 'image', url: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800' },
+  
+  // Urban & City
+  { id: 'city', name: 'City Skyline', type: 'image', url: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800' },
+  { id: 'night-city', name: 'Night City', type: 'image', url: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800' },
+  { id: 'coffee-shop', name: 'Coffee Shop', type: 'image', url: 'https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=800' },
+  
+  // Abstract & Creative
+  { id: 'abstract', name: 'Abstract Purple', type: 'image', url: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=800' },
+  { id: 'gradient-blue', name: 'Blue Gradient', type: 'image', url: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=800' },
+  { id: 'geometric', name: 'Geometric', type: 'image', url: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800' },
+  { id: 'space', name: 'Space', type: 'image', url: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800' },
+  
+  // MedMatch/KARAU Branded (placeholder - replace with actual branded images)
+  { id: 'karau-branded', name: 'AI KARAU', type: 'image', url: 'https://images.unsplash.com/photo-1639322537228-f710d846310a?w=800' },
+  { id: 'medical', name: 'Medical Lab', type: 'image', url: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800' },
 ];
 
 // Recording Permission Dialog
