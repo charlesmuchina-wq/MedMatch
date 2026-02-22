@@ -198,6 +198,20 @@ const KarauMeetPortal = () => {
 
   // Check if we're in a meeting room (join or room routes)
   const isInMeeting = location.pathname.includes('/room/') || location.pathname.includes('/join/');
+  
+  // Extract meeting ID from URL for meeting routes
+  const extractMeetingId = () => {
+    const pathParts = location.pathname.split('/');
+    const joinIndex = pathParts.indexOf('join');
+    const roomIndex = pathParts.indexOf('room');
+    if (joinIndex !== -1 && pathParts[joinIndex + 1]) {
+      return pathParts[joinIndex + 1];
+    }
+    if (roomIndex !== -1 && pathParts[roomIndex + 1]) {
+      return pathParts[roomIndex + 1];
+    }
+    return null;
+  };
 
   if (isLoading) {
     return (
@@ -209,13 +223,39 @@ const KarauMeetPortal = () => {
 
   // Allow guests to join meetings - create a temporary guest user
   if (isInMeeting) {
+    const meetingId = extractMeetingId();
+    
+    if (!meetingId) {
+      return (
+        <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-red-400 text-lg">Invalid meeting URL</p>
+            <button 
+              onClick={() => navigate('/karau-meet')}
+              className="mt-4 text-turquoise hover:underline"
+            >
+              Back to Portal
+            </button>
+          </div>
+        </div>
+      );
+    }
+    
     const meetingUser = user || {
       user_id: `guest_${Date.now()}`,
       name: 'Guest',
       email: 'guest@meeting.local',
       is_guest: true
     };
-    return <MeetingRoom user={meetingUser} />;
+    
+    // Use Routes to properly set up the meetingId param
+    return (
+      <Routes>
+        <Route path="join/:meetingId" element={<MeetingRoom user={meetingUser} />} />
+        <Route path="room/:meetingId" element={<MeetingRoom user={meetingUser} />} />
+        <Route path="*" element={<MeetingRoom user={meetingUser} />} />
+      </Routes>
+    );
   }
 
   // For non-meeting routes, require login
