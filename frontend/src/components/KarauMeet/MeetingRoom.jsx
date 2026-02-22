@@ -135,7 +135,7 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
       <DialogContent className="bg-slate-800 border-slate-700 max-w-lg mx-4 max-h-[85vh] flex flex-col">
         <DialogHeader>
           <DialogTitle className="text-white flex items-center gap-2">
-            <Image className="w-5 h-5 text-turquoise" />
+            <ImageIcon className="w-5 h-5 text-turquoise" />
             AI Virtual Background
           </DialogTitle>
           <DialogDescription className="text-slate-400 text-sm">
