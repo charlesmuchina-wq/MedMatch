@@ -79,7 +79,6 @@ class ConnectionManager:
             self.participants[meeting_id] = {}
         
         # Check connection state - handle reconnection vs new connection
-        previous_state = self.connection_states.get(user_id)
         is_reconnection = False
         
         # Validate session token for reconnection
@@ -232,7 +231,7 @@ class ConnectionManager:
         if websocket:
             try:
                 await websocket.close(code=4002, reason="Connection timeout - zombie detected")
-            except:
+            except Exception:
                 pass
         
         # Don't fully disconnect yet - allow time for reconnection
