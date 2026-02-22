@@ -736,17 +736,6 @@ async def request_video_translation(video_id: str, lang: str, background_tasks: 
         "error": None
     }
     
-    # Define the script based on the video
-    scripts = {
-        "01_jobseeker_features": "Welcome to MedMatch-AI KARAU! As a job seeker, you have access to powerful AI tools. Upload your resume and our AI will parse your skills. Search across 15 job boards at once. Get interview preparation with real-time feedback. Your success predictor shows your chances before you apply!",
-        "02_recruiter_features": "Recruiters, streamline your hiring with MedMatch-AI KARAU. Post jobs and reach qualified candidates. Use our AI-powered applicant tracking system. Screen candidates with blind evaluation. Schedule interviews seamlessly. Let AI help you find the perfect match!",
-        "03_privacy_matters": "Your privacy matters at MedMatch-AI KARAU. We use bank-level encryption for your data. Control exactly what recruiters can see. Your job search stays confidential. We comply with GDPR and global privacy laws. You own your data and can delete it anytime.",
-        "04_faq_ai_compliance": "Let me answer common questions about AI compliance. Our AI is transparent and explainable. We follow EU AI Act guidelines. Your data trains no external models. All AI decisions can be appealed. We regularly audit our algorithms for bias.",
-        "05_complete_overview": "Welcome to MedMatch-AI KARAU, your AI-powered career companion! Whether you're a job seeker or recruiter, we've got you covered. Upload resumes, search jobs, prepare for interviews, and connect with opportunities. Privacy-first, AI-powered, human-centered. Start your journey today!"
-    }
-    
-    script = scripts.get(video_id, scripts["05_complete_overview"])
-    
     async def generate_translation():
         try:
             from datetime import datetime
