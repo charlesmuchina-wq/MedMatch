@@ -313,42 +313,6 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
     }
   };
   
-  // Sync audio with video - handle muting when translated audio is playing
-  useEffect(() => {
-    if (videoRef.current && audioRef.current && generatedAudioUrl) {
-      const video = videoRef.current;
-      const audio = audioRef.current;
-      
-      const syncAudio = () => {
-        if (audio) {
-          audio.currentTime = video.currentTime;
-        }
-      };
-      
-      const onPlay = () => {
-        if (video.muted && audio) {
-          audio.play();
-        }
-      };
-      
-      const onPause = () => {
-        if (audio) {
-          audio.pause();
-        }
-      };
-      
-      video.addEventListener('play', onPlay);
-      video.addEventListener('pause', onPause);
-      video.addEventListener('seeked', syncAudio);
-      
-      return () => {
-        video.removeEventListener('play', onPlay);
-        video.removeEventListener('pause', onPause);
-        video.removeEventListener('seeked', syncAudio);
-      };
-    }
-  }, [generatedAudioUrl]);
-  
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div className="bg-white rounded-xl max-w-4xl w-full overflow-hidden" onClick={e => e.stopPropagation()}>
