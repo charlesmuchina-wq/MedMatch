@@ -232,7 +232,7 @@ async def generate_tutorial_audio(video_id: str, language: str) -> Dict[str, Any
             logger.info(f"Audio already exists: {filepath}")
             return {
                 "success": True,
-                "audio_url": f"/static/audio/tutorials/{filename}",
+                "audio_url": f"/api/tutorials/audio/{filename}",
                 "filepath": str(filepath),
                 "cached": True
             }
