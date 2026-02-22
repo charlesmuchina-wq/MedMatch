@@ -263,18 +263,44 @@ const MeetingRoom = ({ user }) => {
 
   // Initialize media and join meeting
   useEffect(() => {
+    let mounted = true;
+    
     const initMeeting = async () => {
+      // Step 1: Get camera/microphone access
+      let stream;
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { width: 1280, height: 720 },
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { width: 1280, height: 720, facingMode: 'user' },
           audio: { echoCancellation: true, noiseSuppression: true }
         });
+        
+        if (!mounted) {
+          stream.getTracks().forEach(track => track.stop());
+          return;
+        }
+        
         setLocalStream(stream);
         localStreamRef.current = stream;
+        console.log('Camera/microphone initialized successfully');
         
-        const token = localStorage.getItem('token');
-        const isGuest = user?.is_guest || !token;
-        
+      } catch (mediaError) {
+        console.error('Media access error:', mediaError);
+        if (mediaError.name === 'NotAllowedError') {
+          toast.error('Camera/microphone access denied. Please allow permissions and refresh.');
+        } else if (mediaError.name === 'NotFoundError') {
+          toast.error('No camera or microphone found on this device.');
+        } else {
+          toast.error(`Media error: ${mediaError.message}`);
+        }
+        setIsConnecting(false);
+        return;
+      }
+      
+      // Step 2: Join the meeting via API
+      const token = localStorage.getItem('token');
+      const isGuest = user?.is_guest || !token;
+      
+      try {
         let response;
         let joinData;
         
@@ -290,7 +316,10 @@ const MeetingRoom = ({ user }) => {
             })
           });
           
-          if (!response.ok) throw new Error('Failed to join meeting as guest');
+          if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Meeting join failed: ${errorText}`);
+          }
           
           joinData = await response.json();
           // Update user with guest ID from server
@@ -307,28 +336,39 @@ const MeetingRoom = ({ user }) => {
             body: JSON.stringify({ video_enabled: true, audio_enabled: true })
           });
           
-          if (!response.ok) throw new Error('Failed to join meeting');
+          if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Meeting join failed: ${errorText}`);
+          }
           joinData = await response.json();
         }
+        
+        if (!mounted) return;
         
         setMeeting(joinData.meeting);
         setParticipants(joinData.other_participants || []);
         
-        // Connect WebSocket - for guests, use guest ID instead of token
+        // Step 3: Connect WebSocket - for guests, use guest ID instead of token
         connectWebSocket(isGuest ? null : token, false, isGuest ? user.user_id : null);
         setIsConnecting(false);
         toast.success('Joined meeting successfully!');
         
-      } catch (error) {
-        console.error('Error joining meeting:', error);
-        toast.error('Failed to join meeting. Please check camera/microphone permissions.');
+      } catch (joinError) {
+        console.error('Meeting join error:', joinError);
+        // Still show the video feed, just show an error about the meeting
         setIsConnecting(false);
+        if (joinError.message.includes('404') || joinError.message.includes('not found')) {
+          toast.error('Meeting not found. Please check the meeting ID.');
+        } else {
+          toast.error(`Failed to connect: ${joinError.message}`);
+        }
       }
     };
     
     initMeeting();
     
     return () => {
+      mounted = false;
       localStreamRef.current?.getTracks().forEach(track => track.stop());
       wsRef.current?.close();
       Object.values(peerConnectionsRef.current).forEach(pc => pc.close());
