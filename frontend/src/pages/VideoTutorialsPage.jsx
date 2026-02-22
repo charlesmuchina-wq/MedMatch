@@ -235,8 +235,6 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
   
   const subtitleUrl = `${API}/api/tutorials/subtitles/${video.id}?lang=${selectedLanguage}`;
   
-  const [translationError, setTranslationError] = useState(null);
-  
   const requestTranslation = async () => {
     setTranslating(true);
     setTranslationError(null);
