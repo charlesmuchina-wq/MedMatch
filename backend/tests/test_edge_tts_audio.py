@@ -247,7 +247,7 @@ class TestAudioFileServing:
             audio_url = data.get("audio_url") or data.get("video_url")
             if audio_url:
                 full_url = f"{BASE_URL}{audio_url}"
-                response = requests.head(full_url)
+                response = requests.get(full_url, stream=True)
                 if response.status_code == 200:
                     content_length = response.headers.get('content-length')
                     if content_length:
@@ -255,6 +255,7 @@ class TestAudioFileServing:
                         # Audio should be between 10KB and 10MB
                         assert 10 < size_kb < 10240
                         print(f"✅ Audio file size: {size_kb:.1f} KB")
+                        response.close()
                         return
         
         print("⚠️ Audio file not yet ready for size test")
