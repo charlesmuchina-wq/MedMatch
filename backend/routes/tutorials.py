@@ -1,6 +1,7 @@
 """
 Video Tutorials API Routes
 Serves instructional videos for MedMatch-AI KARAU navigation
+Updated: Feb 21, 2026 - Added free edge-tts audio generation
 """
 from fastapi import APIRouter, HTTPException, BackgroundTasks, Request
 from fastapi.responses import FileResponse
@@ -8,6 +9,7 @@ from pathlib import Path
 from typing import List, Dict
 import os
 from services.did_avatar_service import DIDService
+from services.edge_tts_service import generate_tutorial_audio, get_supported_languages
 
 # Initialize DID service
 did_service = DIDService()
