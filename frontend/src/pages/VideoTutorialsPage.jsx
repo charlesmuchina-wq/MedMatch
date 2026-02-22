@@ -294,26 +294,75 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
     }
   };
   
-  // Play generated audio alongside video
+  // Play generated audio alongside video - MUTE original video audio
   const playAudioWithVideo = () => {
-    if (audioRef.current && generatedAudioUrl) {
+    if (videoRef.current && audioRef.current && generatedAudioUrl) {
+      // Mute the original video audio
+      videoRef.current.muted = true;
+      // Play the translated audio
       audioRef.current.play();
     }
   };
   
+  // Stop translated audio and unmute video
+  const stopTranslatedAudio = () => {
+    if (videoRef.current && audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      videoRef.current.muted = false;
+    }
+  };
+  
+  // Sync audio with video - handle muting when translated audio is playing
+  useEffect(() => {
+    if (videoRef.current && audioRef.current && generatedAudioUrl) {
+      const video = videoRef.current;
+      const audio = audioRef.current;
+      
+      const syncAudio = () => {
+        if (audio) {
+          audio.currentTime = video.currentTime;
+        }
+      };
+      
+      const onPlay = () => {
+        if (video.muted && audio) {
+          audio.play();
+        }
+      };
+      
+      const onPause = () => {
+        if (audio) {
+          audio.pause();
+        }
+      };
+      
+      video.addEventListener('play', onPlay);
+      video.addEventListener('pause', onPause);
+      video.addEventListener('seeked', syncAudio);
+      
+      return () => {
+        video.removeEventListener('play', onPlay);
+        video.removeEventListener('pause', onPause);
+        video.removeEventListener('seeked', syncAudio);
+      };
+    }
+  }, [generatedAudioUrl]);
+  
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div className="bg-white rounded-xl max-w-4xl w-full overflow-hidden" onClick={e => e.stopPropagation()}>
-        <div className="p-4 border-b flex justify-between items-center">
-          <h3 className="font-semibold text-lg">{video.title}</h3>
+        {/* Header with improved contrast - dark text on light background */}
+        <div className="p-4 border-b flex justify-between items-center bg-slate-50">
+          <h3 className="font-semibold text-lg text-slate-900">{video.title}</h3>
           <div className="flex items-center gap-4">
             {/* Language Selector */}
             <div className="flex items-center gap-2">
-              <Globe className="w-4 h-4 text-gray-500" />
+              <Globe className="w-4 h-4 text-slate-600" />
               <select 
                 value={selectedLanguage}
                 onChange={(e) => setSelectedLanguage(e.target.value)}
-                className="text-sm border rounded px-2 py-1"
+                className="text-sm border border-slate-300 rounded px-2 py-1 text-slate-800 bg-white"
               >
                 {LANGUAGES.map(lang => (
                   <option key={lang.code} value={lang.code}>{lang.name}</option>
@@ -323,12 +372,12 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
             {/* Subtitles Toggle */}
             <button 
               onClick={() => setShowSubtitles(!showSubtitles)}
-              className={`flex items-center gap-1 text-sm px-2 py-1 rounded ${showSubtitles ? 'bg-teal-100 text-teal-700' : 'bg-gray-100 text-gray-600'}`}
+              className={`flex items-center gap-1 text-sm px-2 py-1 rounded border ${showSubtitles ? 'bg-teal-100 text-teal-700 border-teal-300' : 'bg-slate-100 text-slate-700 border-slate-300'}`}
             >
               <Subtitles className="w-4 h-4" />
               CC
             </button>
-            <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+            <button onClick={onClose} className="text-slate-500 hover:text-slate-700">
               ✕
             </button>
           </div>
