@@ -15,7 +15,7 @@ import time
 from typing import Dict
 
 # API Configuration
-API_BASE_URL = "https://medmatch-translate.preview.emergentagent.com/api"
+API_BASE_URL = "https://ai-tts-portal.preview.emergentagent.com/api"
 TIMEOUT = 30.0
 
 # Test credentials

@@ -10,7 +10,7 @@ from datetime import datetime
 from playwright.async_api import async_playwright
 
 # Configuration
-BASE_URL = "https://medmatch-translate.preview.emergentagent.com"
+BASE_URL = "https://ai-tts-portal.preview.emergentagent.com"
 OUTPUT_DIR = "/tmp/medmatch_demo"
 FRAME_DELAY = 800  # ms between frames
 
