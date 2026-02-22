@@ -1335,7 +1335,7 @@ Include a mix of conceptual and practical questions."""
         "total_questions": len(questions),
         "instant_start": not use_ai_fallback  # Let frontend know if instant or AI-generated
     }
-        raise HTTPException(status_code=500, detail="Failed to generate assessment")
+
 
 @router.post("/submit")
 async def submit_assessment(submission: SubmitAssessmentRequest, request: Request):
