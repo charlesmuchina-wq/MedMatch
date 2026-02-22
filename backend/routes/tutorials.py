@@ -1018,20 +1018,6 @@ Privacidad primero, impulsado por IA, centrado en el humano. ¡Comienza tu viaje
 Tu próximo movimiento de carrera comienza aquí.
 """
     }
-
-00:00:05.000 --> 00:00:10.000
-Publiquen empleos y lleguen a candidatos calificados al instante.
-
-00:00:10.000 --> 00:00:18.000
-Usen nuestro sistema de seguimiento de candidatos impulsado por IA.
-
-00:00:18.000 --> 00:00:24.000
-Programen entrevistas sin problemas. ¡Dejen que la IA les ayude a encontrar al candidato perfecto!
-
-00:00:24.000 --> 00:00:28.000
-Transformen su proceso de contratación hoy.
-"""
-    }
     
     # French translations
     subtitles_fr = {
