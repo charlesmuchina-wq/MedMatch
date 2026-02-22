@@ -443,29 +443,37 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
             </div>
           )}
         </div>
-        <div className="p-4 bg-gray-50">
-          <p className="text-gray-600 mb-3">{video.description}</p>
+        {/* Bottom panel with improved text contrast */}
+        <div className="p-4 bg-slate-50 border-t border-slate-200">
+          <p className="text-slate-700 mb-3">{video.description}</p>
           <div className="flex items-center gap-3 flex-wrap">
             {/* Caption Status */}
-            <span className={`text-xs px-2 py-1 rounded-full ${showSubtitles ? 'bg-teal-100 text-teal-700' : 'bg-gray-100 text-gray-500'}`}>
+            <span className={`text-xs px-2 py-1 rounded-full font-medium ${showSubtitles ? 'bg-teal-100 text-teal-800' : 'bg-slate-200 text-slate-600'}`}>
               {showSubtitles ? '✓ Captions On' : 'Captions Off'}
             </span>
             
             {/* Language Info */}
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-slate-600 font-medium">
               Captions: {LANGUAGES.find(l => l.code === selectedLanguage)?.name || 'English'}
             </span>
             
             {/* Audio Status */}
             {selectedLanguage !== 'en' && !generatedAudioUrl && (
-              <span className="text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded">
+              <span className="text-xs text-amber-700 bg-amber-100 px-2 py-1 rounded font-medium">
                 Audio in English • Captions in {LANGUAGES.find(l => l.code === selectedLanguage)?.name}
               </span>
             )}
             
-            {/* Generated Audio Status */}
-            {generatedAudioUrl && (
-              <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded flex items-center gap-1">
+            {/* Generated Audio Active Status */}
+            {generatedAudioUrl && videoRef.current?.muted && (
+              <span className="text-xs text-green-700 bg-green-100 px-2 py-1 rounded font-medium flex items-center gap-1">
+                🔊 Playing {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio
+              </span>
+            )}
+            
+            {/* Generated Audio Ready Status */}
+            {generatedAudioUrl && !videoRef.current?.muted && (
+              <span className="text-xs text-green-700 bg-green-100 px-2 py-1 rounded font-medium flex items-center gap-1">
                 ✓ {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio Ready
               </span>
             )}
@@ -478,14 +486,14 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
           
           {/* AI Audio Generation Section */}
           {selectedLanguage !== 'en' && (
-            <div className="mt-3 pt-3 border-t border-gray-200">
+            <div className="mt-3 pt-3 border-t border-slate-200">
               <div className="flex items-center gap-2 flex-wrap">
                 {!generatedAudioUrl ? (
                   <>
                     <button
                       onClick={requestTranslation}
                       disabled={translating}
-                      className="text-sm bg-purple-500 text-white px-3 py-1.5 rounded hover:bg-purple-600 disabled:opacity-50 flex items-center gap-1"
+                      className="text-sm bg-purple-600 text-white px-3 py-1.5 rounded hover:bg-purple-700 disabled:opacity-50 flex items-center gap-1 font-medium"
                     >
                       {translating ? (
                         <>
