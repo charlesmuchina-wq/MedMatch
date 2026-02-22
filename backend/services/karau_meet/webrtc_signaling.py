@@ -183,12 +183,106 @@ class ConnectionManager:
         
         return True
     
+    async def _heartbeat_monitor(self, meeting_id: str, user_id: str):
+        """Monitor connection health with ping/pong mechanism"""
+        try:
+            while True:
+                await asyncio.sleep(HEARTBEAT_INTERVAL)
+                
+                # Check if user is still connected
+                if user_id not in self.active_connections.get(meeting_id, {}):
+                    break
+                
+                websocket = self.active_connections[meeting_id].get(user_id)
+                if not websocket:
+                    break
+                
+                # Send ping
+                try:
+                    await websocket.send_json({
+                        "type": "ping",
+                        "timestamp": datetime.now(timezone.utc).isoformat()
+                    })
+                except Exception as e:
+                    logger.warning(f"Failed to send ping to {user_id}: {e}")
+                    # Mark as zombie and trigger disconnect
+                    await self._handle_zombie_connection(meeting_id, user_id)
+                    break
+                
+                # Check if we received a pong recently
+                last_pong_time = self.last_pong.get(user_id)
+                if last_pong_time:
+                    time_since_pong = (datetime.now(timezone.utc) - last_pong_time).total_seconds()
+                    if time_since_pong > HEARTBEAT_TIMEOUT:
+                        logger.warning(f"User {user_id} hasn't responded in {time_since_pong}s - marking as zombie")
+                        await self._handle_zombie_connection(meeting_id, user_id)
+                        break
+                        
+        except asyncio.CancelledError:
+            logger.debug(f"Heartbeat monitor cancelled for {user_id}")
+        except Exception as e:
+            logger.error(f"Heartbeat monitor error for {user_id}: {e}")
+    
+    async def _handle_zombie_connection(self, meeting_id: str, user_id: str):
+        """Handle a connection that's become unresponsive"""
+        self.connection_states[user_id] = "disconnected"
+        
+        # Close the websocket if possible
+        websocket = self.active_connections.get(meeting_id, {}).get(user_id)
+        if websocket:
+            try:
+                await websocket.close(code=4002, reason="Connection timeout - zombie detected")
+            except:
+                pass
+        
+        # Don't fully disconnect yet - allow time for reconnection
+        # Mark participant as temporarily disconnected
+        if meeting_id in self.participants and user_id in self.participants[meeting_id]:
+            self.participants[meeting_id][user_id]["connection_status"] = "disconnected"
+            
+            # Notify others
+            await self.broadcast_to_meeting(
+                meeting_id,
+                {
+                    "type": "participant_connection_changed",
+                    "user_id": user_id,
+                    "status": "disconnected",
+                    "participants": list(self.participants[meeting_id].values())
+                },
+                exclude_user=user_id
+            )
+        
+        logger.info(f"Marked user {user_id} as disconnected (zombie) in meeting {meeting_id}")
+    
+    def handle_pong(self, user_id: str):
+        """Handle pong response from client"""
+        self.last_pong[user_id] = datetime.now(timezone.utc)
+        self.connection_states[user_id] = "active"
+    
+    def is_event_processed(self, event_id: str) -> bool:
+        """Check if an event has already been processed (idempotency)"""
+        if event_id in self.processed_events:
+            return True
+        
+        # Clean up old events if cache is too large
+        if len(self.processed_events) > self.max_processed_events:
+            # Remove oldest half
+            self.processed_events = set(list(self.processed_events)[self.max_processed_events // 2:])
+        
+        self.processed_events.add(event_id)
+        return False
+    
     async def disconnect(self, user_id: str):
         """Disconnect a user from their meeting"""
         
         meeting_id = self.user_meetings.get(user_id)
         if not meeting_id:
             return
+        
+        # Cancel heartbeat task
+        if user_id in self.heartbeat_tasks:
+            self.heartbeat_tasks[user_id].cancel()
+            del self.heartbeat_tasks[user_id]
         
         # Remove from connections
         if meeting_id in self.active_connections:
@@ -206,8 +300,14 @@ class ConnectionManager:
             if not self.participants[meeting_id]:
                 del self.participants[meeting_id]
         
-        # Remove user mapping
+        # Remove user mapping and state
         self.user_meetings.pop(user_id, None)
+        self.connection_states.pop(user_id, None)
+        self.last_pong.pop(user_id, None)
+        # Keep session token briefly for potential reconnection
+        
+        # Generate idempotent event ID for leave
+        event_id = f"leave_{user_id}_{meeting_id}_{int(datetime.now(timezone.utc).timestamp())}"
         
         # Notify remaining participants
         if meeting_id in self.active_connections:
@@ -215,6 +315,7 @@ class ConnectionManager:
                 meeting_id,
                 {
                     "type": "user_left",
+                    "event_id": event_id,
                     "user_id": user_id,
                     "user_name": participant_info.get("user_name") if participant_info else "Unknown",
                     "participants": list(self.participants.get(meeting_id, {}).values())
