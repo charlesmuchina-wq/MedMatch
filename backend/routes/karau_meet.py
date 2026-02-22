@@ -137,6 +137,47 @@ async def join_meeting_room(
     return result
 
 
+class GuestJoinRequest(BaseModel):
+    guest_name: str = "Guest"
+    video_enabled: bool = True
+    audio_enabled: bool = True
+
+
+@router.post("/meetings/{meeting_id}/join-guest")
+async def join_meeting_as_guest(
+    meeting_id: str,
+    request: GuestJoinRequest
+):
+    """Join a meeting as a guest (no authentication required)"""
+    import uuid
+    
+    # Generate a guest user ID
+    guest_id = f"guest_{uuid.uuid4().hex[:12]}"
+    guest_name = request.guest_name or "Guest"
+    
+    result = await join_meeting(
+        meeting_id=meeting_id,
+        user_id=guest_id,
+        user_name=guest_name,
+        video_enabled=request.video_enabled,
+        audio_enabled=request.audio_enabled
+    )
+    
+    if not result:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+    
+    if "error" in result:
+        raise HTTPException(status_code=400, detail=result["error"])
+    
+    # Add ICE servers for WebRTC
+    result["ice_servers"] = get_ice_servers()
+    # Include the generated guest ID for the client
+    result["guest_user_id"] = guest_id
+    result["guest_name"] = guest_name
+    
+    return result
+
+
 @router.post("/meetings/{meeting_id}/leave")
 async def leave_meeting_room(
     meeting_id: str,
