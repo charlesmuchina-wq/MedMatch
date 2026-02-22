@@ -83,10 +83,14 @@ const useBrowserTranslationDetection = () => {
 
 /**
  * Open Google Translate with current page
+ * Uses the most compatible URL format for Google Translate
  */
 const openGoogleTranslate = () => {
   const currentUrl = window.location.href;
-  const googleTranslateUrl = `https://translate.google.com/translate?sl=auto&tl=auto&u=${encodeURIComponent(currentUrl)}`;
+  // Use the direct translation URL format which is more reliable
+  // Format: https://translate.google.com/translate?hl=en&sl=auto&tl={target_lang}&u={url}
+  const targetLang = navigator.language?.split('-')[0] || 'en';
+  const googleTranslateUrl = `https://translate.google.com/translate?hl=${targetLang}&sl=en&tl=${targetLang}&u=${encodeURIComponent(currentUrl)}`;
   window.open(googleTranslateUrl, '_blank');
 };
 
