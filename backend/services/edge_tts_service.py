@@ -1,10 +1,11 @@
 """
 Edge TTS Service - Free Multi-Language Text-to-Speech
+Comprehensive support for 22+ languages across all 5 tutorial videos
 
 Uses Microsoft's neural TTS voices via edge-tts library.
 100+ voices across 40+ languages, no API key required.
 
-Created: Feb 21, 2026
+Updated: Feb 22, 2026 - Added full multi-language support
 """
 
 import edge_tts
@@ -56,12 +57,14 @@ LANGUAGE_VOICES = {
     # African languages
     "sw": "sw-KE-ZuriNeural",
     "af": "af-ZA-AdriNeural",
+    "zu": "zu-ZA-ThandoNeural",
     
     # Other languages
     "tl": "fil-PH-BlessicaNeural",  # Filipino/Tagalog
+    "am": "am-ET-MekdesNeural",     # Amharic
 }
 
-# Tutorial scripts in different languages
+# Complete tutorial scripts for all 5 videos in all supported languages
 TUTORIAL_SCRIPTS = {
     "01_jobseeker_features": {
         "en": """Welcome to MedMatch-AI KARAU! As a job seeker, you have access to powerful AI tools.
@@ -146,8 +149,63 @@ Fuatilia maombi yako yote mahali pamoja. Anza safari yako ya kazi leo!""",
 Tải CV của bạn lên và AI của chúng tôi sẽ tự động phân tích kỹ năng của bạn.
 Tìm kiếm trên 15 trang việc làm cùng lúc. Chuẩn bị phỏng vấn với phản hồi thời gian thực.
 Công cụ dự đoán thành công cho thấy cơ hội của bạn trước khi ứng tuyển.
-Theo dõi tất cả đơn ứng tuyển tại một nơi. Bắt đầu hành trình nghề nghiệp ngay hôm nay!"""
+Theo dõi tất cả đơn ứng tuyển tại một nơi. Bắt đầu hành trình nghề nghiệp ngay hôm nay!""",
+        
+        "nl": """Welkom bij MedMatch-AI KARAU! Als werkzoekende heb je toegang tot krachtige AI-tools.
+Upload je CV en onze AI analyseert automatisch je vaardigheden.
+Zoek op 15 vacaturesites tegelijk. Bereid je voor op sollicitatiegesprekken met realtime feedback.
+De succesvoorspeller toont je kansen voordat je solliciteert.
+Volg al je sollicitaties op één plek. Begin vandaag nog je carrièrereis!""",
+        
+        "pl": """Witamy w MedMatch-AI KARAU! Jako osoba szukająca pracy, masz dostęp do potężnych narzędzi AI.
+Prześlij swoje CV, a nasza AI automatycznie przeanalizuje Twoje umiejętności.
+Szukaj na 15 portalach pracy jednocześnie. Przygotuj się do rozmów z informacją zwrotną w czasie rzeczywistym.
+Predyktor sukcesu pokazuje Twoje szanse przed aplikowaniem.
+Śledź wszystkie swoje aplikacje w jednym miejscu. Rozpocznij swoją karierę już dziś!""",
+        
+        "sv": """Välkommen till MedMatch-AI KARAU! Som jobbsökande har du tillgång till kraftfulla AI-verktyg.
+Ladda upp ditt CV och vår AI analyserar dina färdigheter automatiskt.
+Sök på 15 jobbsajter samtidigt. Förbered dig för intervjuer med feedback i realtid.
+Framgångsprediktorn visar dina chanser innan du ansöker.
+Följ alla dina ansökningar på ett ställe. Börja din karriärresa idag!""",
+        
+        "tr": """MedMatch-AI KARAU'ya hoş geldiniz! İş arayan olarak güçlü AI araçlarına erişiminiz var.
+CV'nizi yükleyin ve AI'mız becerilerinizi otomatik olarak analiz etsin.
+15 iş sitesinde aynı anda arama yapın. Gerçek zamanlı geri bildirimle mülakata hazırlanın.
+Başarı tahmincisi başvurmadan önce şansınızı gösterir.
+Tüm başvurularınızı tek bir yerde takip edin. Kariyer yolculuğunuza bugün başlayın!""",
+        
+        "af": """Welkom by MedMatch-AI KARAU! As werksoeker het jy toegang tot kragtige AI-gereedskap.
+Laai jou CV op en ons AI sal jou vaardighede outomaties ontleed.
+Soek op 15 werkgewer webwerwe gelyktydig. Berei voor vir onderhoude met intydse terugvoer.
+Die suksesvoorspeller wys jou kanse voordat jy aansoek doen.
+Volg al jou aansoeke op een plek. Begin vandag jou loopbaanreis!""",
+        
+        "tl": """Maligayang pagdating sa MedMatch-AI KARAU! Bilang naghahanap ng trabaho, may access ka sa makapangyarihang AI tools.
+I-upload ang iyong resume at awtomatikong susuriin ng AI namin ang iyong mga kasanayan.
+Maghanap sa 15 job sites nang sabay-sabay. Maghanda sa mga interview na may real-time feedback.
+Ipinapakita ng success predictor ang iyong mga pagkakataon bago mag-apply.
+Subaybayan ang lahat ng iyong aplikasyon sa isang lugar. Simulan ang iyong career journey ngayon!""",
+        
+        "th": """ยินดีต้อนรับสู่ MedMatch-AI KARAU! ในฐานะผู้หางาน คุณสามารถเข้าถึงเครื่องมือ AI ที่ทรงพลัง
+อัปโหลดเรซูเม่ของคุณ และ AI ของเราจะวิเคราะห์ทักษะของคุณโดยอัตโนมัติ
+ค้นหาใน 15 เว็บไซต์หางานพร้อมกัน เตรียมสัมภาษณ์พร้อมฟีดแบ็กแบบเรียลไทม์
+ตัวทำนายความสำเร็จแสดงโอกาสของคุณก่อนสมัคร
+ติดตามการสมัครทั้งหมดของคุณในที่เดียว เริ่มเส้นทางอาชีพของคุณวันนี้!""",
+        
+        "id": """Selamat datang di MedMatch-AI KARAU! Sebagai pencari kerja, Anda memiliki akses ke alat AI yang powerful.
+Unggah CV Anda dan AI kami akan menganalisis keterampilan Anda secara otomatis.
+Cari di 15 situs lowongan sekaligus. Persiapkan wawancara dengan feedback real-time.
+Prediktor sukses menunjukkan peluang Anda sebelum melamar.
+Lacak semua lamaran Anda di satu tempat. Mulai perjalanan karir Anda hari ini!""",
+        
+        "he": """ברוכים הבאים ל-MedMatch-AI KARAU! כמחפש עבודה, יש לך גישה לכלי AI חזקים.
+העלה את קורות החיים שלך וה-AI שלנו ינתח את הכישורים שלך אוטומטית.
+חפש ב-15 אתרי דרושים בבת אחת. התכונן לראיונות עם משוב בזמן אמת.
+מנבא ההצלחה מציג את הסיכויים שלך לפני שאתה מגיש מועמדות.
+עקוב אחר כל הבקשות שלך במקום אחד. התחל את מסע הקריירה שלך היום!"""
     },
+    
     "02_recruiter_features": {
         "en": """Recruiters, streamline your hiring with MedMatch-AI KARAU.
 Post jobs and reach qualified candidates instantly.
@@ -161,34 +219,170 @@ Usen nuestro sistema de seguimiento de candidatos impulsado por IA.
 Programen entrevistas sin problemas. ¡Dejen que la IA les ayude a encontrar al candidato perfecto!
 Transformen su proceso de contratación hoy.""",
         
+        "fr": """Recruteurs, optimisez vos embauches avec MedMatch-AI KARAU.
+Publiez des offres et atteignez des candidats qualifiés instantanément.
+Utilisez notre système de suivi des candidats alimenté par l'IA.
+Planifiez des entretiens facilement. Laissez l'IA vous aider à trouver le candidat parfait!
+Transformez votre processus de recrutement aujourd'hui.""",
+        
+        "de": """Recruiter, optimieren Sie Ihre Einstellungen mit MedMatch-AI KARAU.
+Veröffentlichen Sie Stellen und erreichen Sie qualifizierte Kandidaten sofort.
+Nutzen Sie unser KI-gestütztes Bewerbermanagementsystem für effizientes Screening.
+Planen Sie Interviews nahtlos. Lassen Sie KI Ihnen helfen, den perfekten Kandidaten zu finden!
+Transformieren Sie Ihren Einstellungsprozess heute.""",
+        
         "ja": """採用担当者の皆様、MedMatch-AI KARAUで採用を効率化しましょう。
 求人を投稿し、即座に適格な候補者にリーチ。
 AI搭載の応募者追跡システムで効率的なスクリーニング。
 シームレスな面接スケジュール。AIが最適な人材探しをサポート！
-今日から採用プロセスを変革しましょう。"""
+今日から採用プロセスを変革しましょう。""",
+        
+        "zh": """招聘人员，使用MedMatch-AI KARAU简化您的招聘流程。
+发布职位，立即触达合格候选人。
+使用我们的AI驱动的申请人跟踪系统进行高效筛选。
+无缝安排面试。让AI帮您找到完美匹配！
+今天就改变您的招聘流程。""",
+        
+        "ko": """채용 담당자 여러분, MedMatch-AI KARAU로 채용을 간소화하세요.
+채용 공고를 게시하고 자격을 갖춘 후보자에게 즉시 도달하세요.
+효율적인 스크리닝을 위해 AI 기반 지원자 추적 시스템을 사용하세요.
+면접을 원활하게 예약하세요. AI가 완벽한 인재를 찾도록 도와드립니다!
+오늘 채용 프로세스를 혁신하세요.""",
+        
+        "pt": """Recrutadores, otimizem suas contratações com MedMatch-AI KARAU.
+Publiquem vagas e alcancem candidatos qualificados instantaneamente.
+Usem nosso sistema de rastreamento de candidatos com IA para triagem eficiente.
+Agendem entrevistas facilmente. Deixem a IA ajudar a encontrar o candidato perfeito!
+Transformem seu processo de contratação hoje.""",
+        
+        "nl": """Recruiters, stroomlijn uw werving met MedMatch-AI KARAU.
+Plaats vacatures en bereik direct gekwalificeerde kandidaten.
+Gebruik ons AI-aangedreven sollicitant volgsysteem voor efficiënte screening.
+Plan interviews naadloos. Laat AI u helpen de perfecte match te vinden!
+Transformeer uw wervingsproces vandaag.""",
+        
+        "pl": """Rekruterzy, usprawnijcie rekrutację z MedMatch-AI KARAU.
+Publikujcie oferty pracy i natychmiast docierajcie do kwalifikowanych kandydatów.
+Korzystajcie z naszego systemu śledzenia kandydatów opartego na AI do efektywnej selekcji.
+Planujcie rozmowy bezproblemowo. Pozwólcie AI pomóc znaleźć idealne dopasowanie!
+Przekształćcie swój proces rekrutacji już dziś.""",
+        
+        "tr": """İşe alım uzmanları, MedMatch-AI KARAU ile işe alımı kolaylaştırın.
+İş ilanı yayınlayın ve nitelikli adaylara anında ulaşın.
+Verimli tarama için AI destekli aday takip sistemimizi kullanın.
+Mülakatları sorunsuz planlayın. AI'ın mükemmel eşleşmeyi bulmanıza yardımcı olmasına izin verin!
+İşe alım sürecinizi bugün dönüştürün.""",
+        
+        "vi": """Nhà tuyển dụng, hãy tối ưu hóa quy trình tuyển dụng với MedMatch-AI KARAU.
+Đăng việc làm và tiếp cận ứng viên phù hợp ngay lập tức.
+Sử dụng hệ thống theo dõi ứng viên được hỗ trợ bởi AI để sàng lọc hiệu quả.
+Lên lịch phỏng vấn dễ dàng. Để AI giúp bạn tìm ứng viên hoàn hảo!
+Thay đổi quy trình tuyển dụng của bạn ngay hôm nay.""",
+        
+        "tl": """Mga recruiter, i-streamline ang inyong hiring gamit ang MedMatch-AI KARAU.
+Mag-post ng trabaho at maabot kaagad ang mga kwalipikadong kandidato.
+Gamitin ang aming AI-powered applicant tracking system para sa efficient na screening.
+Mag-schedule ng interviews nang walang hassle. Hayaan ang AI na tumulong sa paghahanap ng perfect match!
+I-transform ang inyong hiring process ngayon."""
     },
+    
     "03_privacy_matters": {
         "en": """Your privacy matters at MedMatch-AI KARAU.
 We use bank-level encryption for all your personal data.
 Control exactly what recruiters can see about you.
 Your job search stays completely confidential. We comply with GDPR and global privacy laws.
-You own your data and can delete it anytime. Your trust is our priority."""
+You own your data and can delete it anytime. Your trust is our priority.""",
+        
+        "es": """Tu privacidad importa en MedMatch-AI KARAU.
+Usamos encriptación de nivel bancario para todos tus datos personales.
+Controla exactamente lo que los reclutadores pueden ver sobre ti.
+Tu búsqueda de empleo permanece completamente confidencial. Cumplimos con GDPR y leyes de privacidad globales.
+Eres dueño de tus datos y puedes eliminarlos en cualquier momento. Tu confianza es nuestra prioridad.""",
+        
+        "fr": """Votre vie privée compte chez MedMatch-AI KARAU.
+Nous utilisons un cryptage de niveau bancaire pour toutes vos données personnelles.
+Contrôlez exactement ce que les recruteurs peuvent voir sur vous.
+Votre recherche d'emploi reste entièrement confidentielle. Nous respectons le RGPD et les lois mondiales sur la vie privée.
+Vous êtes propriétaire de vos données et pouvez les supprimer à tout moment. Votre confiance est notre priorité.""",
+        
+        "de": """Ihre Privatsphäre ist uns bei MedMatch-AI KARAU wichtig.
+Wir verwenden Verschlüsselung auf Bankniveau für alle Ihre persönlichen Daten.
+Kontrollieren Sie genau, was Recruiter über Sie sehen können.
+Ihre Jobsuche bleibt vollständig vertraulich. Wir erfüllen DSGVO und globale Datenschutzgesetze.
+Sie besitzen Ihre Daten und können sie jederzeit löschen. Ihr Vertrauen ist unsere Priorität.""",
+        
+        "ja": """MedMatch-AI KARAUではプライバシーを大切にしています。
+すべての個人データに銀行レベルの暗号化を使用しています。
+採用担当者に見せる情報を正確にコントロールできます。
+求職活動は完全に機密保持されます。GDPRおよびグローバルなプライバシー法を遵守しています。
+データはあなたのものであり、いつでも削除できます。信頼が私たちの優先事項です。"""
     },
+    
     "04_faq_ai_compliance": {
         "en": """Let me answer common questions about AI compliance at MedMatch-AI KARAU.
 Our AI is transparent and explainable. We follow EU AI Act guidelines.
 Your data trains no external models. All AI decisions can be appealed.
 We regularly audit our algorithms for bias. Fair and ethical AI is our commitment.
 Questions? Contact our compliance team anytime.
-We're committed to responsible AI use."""
+We're committed to responsible AI use.""",
+        
+        "es": """Permítanme responder preguntas comunes sobre el cumplimiento de IA en MedMatch-AI KARAU.
+Nuestra IA es transparente y explicable. Seguimos las directrices de la Ley de IA de la UE.
+Sus datos no entrenan modelos externos. Todas las decisiones de IA pueden ser apeladas.
+Auditamos regularmente nuestros algoritmos en busca de sesgos. La IA justa y ética es nuestro compromiso.
+¿Preguntas? Contacte a nuestro equipo de cumplimiento en cualquier momento.
+Estamos comprometidos con el uso responsable de la IA.""",
+        
+        "fr": """Permettez-moi de répondre aux questions courantes sur la conformité IA chez MedMatch-AI KARAU.
+Notre IA est transparente et explicable. Nous suivons les directives de la loi européenne sur l'IA.
+Vos données n'entraînent aucun modèle externe. Toutes les décisions IA peuvent être contestées.
+Nous auditons régulièrement nos algorithmes pour détecter les biais. Une IA juste et éthique est notre engagement.
+Des questions? Contactez notre équipe de conformité à tout moment.
+Nous nous engageons à une utilisation responsable de l'IA.""",
+        
+        "de": """Lassen Sie mich häufige Fragen zur KI-Compliance bei MedMatch-AI KARAU beantworten.
+Unsere KI ist transparent und erklärbar. Wir folgen den Richtlinien des EU-KI-Gesetzes.
+Ihre Daten trainieren keine externen Modelle. Alle KI-Entscheidungen können angefochten werden.
+Wir überprüfen unsere Algorithmen regelmäßig auf Voreingenommenheit. Faire und ethische KI ist unsere Verpflichtung.
+Fragen? Kontaktieren Sie unser Compliance-Team jederzeit.
+Wir sind dem verantwortungsvollen KI-Einsatz verpflichtet."""
     },
+    
     "05_complete_overview": {
         "en": """Welcome to MedMatch-AI KARAU, your AI-powered career companion!
 Whether you're a job seeker or recruiter, we've got you covered.
 Upload resumes, search jobs, prepare for interviews, and connect with opportunities.
 Privacy-first, AI-powered, human-centered. Start your journey today!
 Join thousands of life sciences professionals already using MedMatch-AI KARAU.
-Your next career move starts here."""
+Your next career move starts here.""",
+        
+        "es": """¡Bienvenido a MedMatch-AI KARAU, tu compañero de carrera impulsado por IA!
+Ya seas buscador de empleo o reclutador, te tenemos cubierto.
+Sube currículums, busca empleos, prepárate para entrevistas y conéctate con oportunidades.
+Privacidad primero, impulsado por IA, centrado en el humano. ¡Comienza tu viaje hoy!
+Únete a miles de profesionales de ciencias de la vida que ya usan MedMatch-AI KARAU.
+Tu próximo movimiento de carrera comienza aquí.""",
+        
+        "fr": """Bienvenue sur MedMatch-AI KARAU, votre compagnon de carrière alimenté par l'IA!
+Que vous soyez chercheur d'emploi ou recruteur, nous vous couvrons.
+Téléchargez des CV, recherchez des emplois, préparez-vous aux entretiens et connectez-vous aux opportunités.
+Confidentialité d'abord, alimenté par l'IA, centré sur l'humain. Commencez votre parcours aujourd'hui!
+Rejoignez des milliers de professionnels des sciences de la vie qui utilisent déjà MedMatch-AI KARAU.
+Votre prochain mouvement de carrière commence ici.""",
+        
+        "de": """Willkommen bei MedMatch-AI KARAU, Ihrem KI-gestützten Karrierebegleiter!
+Ob Jobsuchender oder Recruiter, wir haben Sie abgedeckt.
+Laden Sie Lebensläufe hoch, suchen Sie Jobs, bereiten Sie sich auf Interviews vor und verbinden Sie sich mit Chancen.
+Datenschutz zuerst, KI-gestützt, menschenzentriert. Starten Sie Ihre Reise heute!
+Schließen Sie sich Tausenden von Life-Sciences-Fachleuten an, die bereits MedMatch-AI KARAU nutzen.
+Ihr nächster Karriereschritt beginnt hier.""",
+        
+        "ja": """MedMatch-AI KARAUへようこそ、あなたのAI搭載キャリアパートナー！
+求職者でも採用担当者でも、私たちがサポートします。
+履歴書をアップロード、仕事を検索、面接準備、そして機会とつながりましょう。
+プライバシー優先、AI搭載、人間中心。今日から旅を始めましょう！
+すでにMedMatch-AI KARAUを使用している何千人ものライフサイエンス専門家に加わりましょう。
+次のキャリアの一歩はここから始まります。"""
     }
 }
 
@@ -277,3 +471,8 @@ async def get_available_voices() -> list:
 def get_supported_languages() -> list:
     """Get list of languages with audio support."""
     return list(LANGUAGE_VOICES.keys())
+
+
+def get_supported_videos() -> list:
+    """Get list of video IDs with script support."""
+    return list(TUTORIAL_SCRIPTS.keys())
