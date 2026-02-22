@@ -113,9 +113,9 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
     if (selectedBg === 'none') {
       toast.success('Background removed');
     } else if (selectedBg.includes('blur')) {
-      toast.success('Background blur applied');
+      toast.success('AI blur effect applied - loading model...');
     } else {
-      toast.info('Image backgrounds require AI processing. Feature coming soon!');
+      toast.success('AI background applied - loading model...');
     }
   };
 
@@ -135,10 +135,10 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
         <DialogHeader>
           <DialogTitle className="text-white flex items-center gap-2">
             <Image className="w-5 h-5 text-turquoise" />
-            Virtual Background
+            AI Virtual Background
           </DialogTitle>
           <DialogDescription className="text-slate-400 text-sm">
-            Blur effects work now. Image backgrounds require AI model (coming soon).
+            Powered by MediaPipe AI. First use may take a few seconds to load the model.
           </DialogDescription>
         </DialogHeader>
         
