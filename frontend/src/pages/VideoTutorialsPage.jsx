@@ -235,6 +235,9 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
   
   const subtitleUrl = `${API}/api/tutorials/subtitles/${video.id}?lang=${selectedLanguage}`;
   
+  const [generatedAudioUrl, setGeneratedAudioUrl] = useState(null);
+  const audioRef = useRef(null);
+  
   const requestTranslation = async () => {
     setTranslating(true);
     setTranslationError(null);
@@ -244,15 +247,16 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
         const res = await axios.get(`${API}/api/tutorials/translate/${video.id}/status?lang=${selectedLanguage}`);
         if (res.data.status === 'ready') {
           setTranslating(false);
-          // Reload video with new language audio
-          if (videoRef.current) {
-            videoRef.current.load();
+          // Set the generated audio URL
+          const audioUrl = res.data.audio_url || res.data.video_url;
+          if (audioUrl) {
+            setGeneratedAudioUrl(`${API}${audioUrl}`);
           }
         } else if (res.data.status === 'generating') {
-          setTimeout(checkStatus, 3000);
+          setTimeout(checkStatus, 2000);
         } else if (res.data.status === 'failed') {
           setTranslating(false);
-          setTranslationError(res.data.error || 'Audio generation failed. D-ID API credits may be required.');
+          setTranslationError(res.data.error || 'Audio generation failed.');
         } else {
           setTranslating(false);
         }
@@ -264,6 +268,35 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
       setTranslationError('Could not connect to translation service.');
     }
   };
+  
+  // Play generated audio alongside video
+  const playAudioWithVideo = () => {
+    if (audioRef.current && generatedAudioUrl) {
+      audioRef.current.play();
+    }
+  };
+  
+  // Sync audio with video
+  useEffect(() => {
+    if (videoRef.current && audioRef.current && generatedAudioUrl) {
+      const syncAudio = () => {
+        if (audioRef.current) {
+          audioRef.current.currentTime = videoRef.current.currentTime;
+        }
+      };
+      videoRef.current.addEventListener('play', () => audioRef.current?.play());
+      videoRef.current.addEventListener('pause', () => audioRef.current?.pause());
+      videoRef.current.addEventListener('seeked', syncAudio);
+      
+      return () => {
+        if (videoRef.current) {
+          videoRef.current.removeEventListener('play', () => {});
+          videoRef.current.removeEventListener('pause', () => {});
+          videoRef.current.removeEventListener('seeked', syncAudio);
+        }
+      };
+    }
+  }, [generatedAudioUrl]);
   
   return (
     <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4" onClick={onClose}>
