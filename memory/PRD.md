@@ -37,25 +37,31 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 **Fix Implemented:**
 1. **Enhanced Subtitle API** (`/api/tutorials/subtitles/{video_id}?lang=XX`)
    - Added complete WebVTT subtitles for all 5 tutorial videos
-   - Multi-language support: English, Spanish, French, German
+   - **14 languages supported:** English, Spanish, French, German, Japanese, Chinese, Portuguese, Arabic, Hindi, Korean, Italian, Russian, Swahili, Vietnamese
    - Proper timestamps synced with video content
 
 2. **Improved Video Player**
    - Changed track `kind` from 'subtitles' to 'captions' for better browser support
    - Programmatically enables captions: `textTracks[i].mode = 'showing'` on video load
    - Added caption status indicator showing "✓ Captions On" or "Captions Off"
+   - Shows "Audio in English • Captions in [Language]" when non-English selected
 
-3. **CSS Caption Styling**
+3. **AI Audio Generation (D-ID)**
+   - Fixed parameter name: `language` → `language_code`
+   - Added error handling with user-friendly messages
+   - Note: Requires D-ID API credits to generate AI audio in other languages
+
+4. **CSS Caption Styling**
    - Added `video::cue` styles for better visibility
    - Black background with white text
    - Responsive font sizing for mobile
 
 **Files Modified:**
-- `/app/backend/routes/tutorials.py` - Enhanced subtitle endpoint
-- `/app/frontend/src/pages/VideoTutorialsPage.jsx` - Better CC handling
+- `/app/backend/routes/tutorials.py` - 14-language subtitle support
+- `/app/frontend/src/pages/VideoTutorialsPage.jsx` - Better CC handling & error display
 - `/app/frontend/src/App.css` - Caption styling
 
-**Testing:** iteration_94.json - 100% pass rate, all 5 videos verified
+**Testing:** iteration_95.json - 100% pass rate (14/14 backend tests, all frontend features verified)
 
 ---
 
