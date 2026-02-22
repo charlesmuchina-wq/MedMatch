@@ -141,13 +141,12 @@ const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg 
 
 /**
  * Grid layout for all participants in a meeting
- * Deduplicated participants by user_id
+ * Zoom-style horizontal layout with proper aspect ratios
  */
 const ParticipantGrid = ({ participants, localStream, remoteStreams, localUserId, virtualBackground }) => {
   // Deduplicate participants by user_id - keep only the most recent entry
   const uniqueParticipants = useMemo(() => {
     const seen = new Map();
-    // Process in order - later entries override earlier ones
     participants.forEach(p => {
       if (p.user_id) {
         seen.set(p.user_id, p);
@@ -156,24 +155,44 @@ const ParticipantGrid = ({ participants, localStream, remoteStreams, localUserId
     return Array.from(seen.values());
   }, [participants]);
   
-  const getGridClass = () => {
-    const count = uniqueParticipants.length;
-    if (count === 1) return 'grid-cols-1';
-    if (count === 2) return 'grid-cols-2';
-    if (count <= 4) return 'grid-cols-2';
-    return 'grid-cols-2 md:grid-cols-3';
+  const count = uniqueParticipants.length;
+  
+  // Zoom-style responsive grid layout
+  const getGridLayout = () => {
+    if (count === 1) {
+      return 'flex justify-center items-center';
+    }
+    if (count === 2) {
+      return 'grid grid-cols-2 gap-2';
+    }
+    if (count <= 4) {
+      return 'grid grid-cols-2 gap-2';
+    }
+    if (count <= 6) {
+      return 'grid grid-cols-2 md:grid-cols-3 gap-2';
+    }
+    return 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2';
+  };
+
+  // Calculate optimal tile size
+  const getTileClass = () => {
+    if (count === 1) {
+      return 'w-full max-w-2xl aspect-video';
+    }
+    return 'aspect-video';
   };
 
   return (
-    <div className={`h-full grid gap-2 md:gap-3 auto-rows-fr ${getGridClass()}`}>
+    <div className={`w-full h-full ${getGridLayout()}`}>
       {uniqueParticipants.map((p, idx) => (
-        <VideoParticipant
-          key={p.user_id || `participant-${idx}`}
-          participant={p}
-          isLocal={p.user_id === localUserId}
-          stream={p.user_id === localUserId ? localStream : remoteStreams[p.user_id]}
-          virtualBg={p.user_id === localUserId ? virtualBackground : null}
-        />
+        <div key={p.user_id || `participant-${idx}`} className={getTileClass()}>
+          <VideoParticipant
+            participant={p}
+            isLocal={p.user_id === localUserId}
+            stream={p.user_id === localUserId ? localStream : remoteStreams[p.user_id]}
+            virtualBg={p.user_id === localUserId ? virtualBackground : null}
+          />
+        </div>
       ))}
     </div>
   );
