@@ -384,7 +384,6 @@ class ConnectionManager:
             self._store_message(meeting_id, message)
         
         # Broadcast to all participants
-        disconnected_users = []
         for user_id, websocket in list(self.active_connections[meeting_id].items()):
             if user_id != exclude_user:
                 try:
