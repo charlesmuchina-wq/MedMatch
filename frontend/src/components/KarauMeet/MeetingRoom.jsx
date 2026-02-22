@@ -199,8 +199,10 @@ const MeetingHeader = ({ meeting, meetingId, isRecording, onAddToCalendar, onCop
 );
 
 // Main Meeting Room Component (Refactored)
-const MeetingRoom = ({ user }) => {
-  const { meetingId } = useParams();
+const MeetingRoom = ({ user, meetingIdProp }) => {
+  const params = useParams();
+  // Use prop if provided, otherwise try params (for backward compatibility)
+  const meetingId = meetingIdProp || params.meetingId;
   const navigate = useNavigate();
   
   // State
