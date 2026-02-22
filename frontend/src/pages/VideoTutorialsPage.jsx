@@ -186,7 +186,9 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [buffering, setBuffering] = useState(true);
   const [translationError, setTranslationError] = useState(null);
+  const [generatedAudioUrl, setGeneratedAudioUrl] = useState(null);
   const videoRef = useRef(null);
+  const audioRef = useRef(null);
 
   // Handle video events for loading states - defined before early return
   const handleLoadedMetadata = useCallback(() => {
@@ -225,6 +227,32 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
       }
     };
   }, []);
+  
+  // Sync audio with video - defined before early return
+  useEffect(() => {
+    if (videoRef.current && audioRef.current && generatedAudioUrl) {
+      const syncAudio = () => {
+        if (audioRef.current) {
+          audioRef.current.currentTime = videoRef.current.currentTime;
+        }
+      };
+      const videoElement = videoRef.current;
+      const audioElement = audioRef.current;
+      
+      const handlePlay = () => audioElement?.play();
+      const handlePause = () => audioElement?.pause();
+      
+      videoElement.addEventListener('play', handlePlay);
+      videoElement.addEventListener('pause', handlePause);
+      videoElement.addEventListener('seeked', syncAudio);
+      
+      return () => {
+        videoElement.removeEventListener('play', handlePlay);
+        videoElement.removeEventListener('pause', handlePause);
+        videoElement.removeEventListener('seeked', syncAudio);
+      };
+    }
+  }, [generatedAudioUrl]);
 
   // Early return AFTER all hooks
   if (!video) return null;
