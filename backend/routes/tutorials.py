@@ -991,12 +991,266 @@ Verfolgen Sie alle Ihre Bewerbungen an einem Ort. Starten Sie heute Ihre Karrier
 """
     }
     
+    # Japanese translations
+    subtitles_ja = {
+        "01_jobseeker_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+MedMatch-AI KARAUへようこそ！求職者として、強力なAIツールにアクセスできます。
+
+00:00:05.000 --> 00:00:12.000
+履歴書をアップロードすると、AIが自動的にスキルを分析します。
+
+00:00:12.000 --> 00:00:20.000
+15の求人サイトを一度に検索。リアルタイムフィードバックで面接準備。
+
+00:00:20.000 --> 00:00:30.000
+成功予測機能で応募前にチャンスを確認できます。
+
+00:00:30.000 --> 00:00:40.000
+すべての応募を一か所で管理。今日からキャリアの旅を始めましょう！
+""",
+        "02_recruiter_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+採用担当者の皆様、MedMatch-AI KARAUで採用を効率化しましょう。
+
+00:00:05.000 --> 00:00:10.000
+求人を投稿し、即座に適格な候補者にリーチ。
+
+00:00:10.000 --> 00:00:18.000
+AI搭載の応募者追跡システムで効率的なスクリーニング。
+
+00:00:18.000 --> 00:00:24.000
+シームレスな面接スケジュール。AIが最適な人材探しをサポート！
+
+00:00:24.000 --> 00:00:28.000
+今日から採用プロセスを変革しましょう。
+"""
+    }
+    
+    # Chinese (Simplified) translations
+    subtitles_zh = {
+        "01_jobseeker_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+欢迎使用MedMatch-AI KARAU！作为求职者，您可以使用强大的AI工具。
+
+00:00:05.000 --> 00:00:12.000
+上传您的简历，我们的AI将自动分析您的技能。
+
+00:00:12.000 --> 00:00:20.000
+同时搜索15个招聘网站。通过实时反馈准备面试。
+
+00:00:20.000 --> 00:00:30.000
+成功预测器在申请前显示您的机会。
+
+00:00:30.000 --> 00:00:40.000
+在一个地方跟踪所有申请。今天就开始您的职业之旅！
+""",
+        "02_recruiter_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+招聘人员，使用MedMatch-AI KARAU简化您的招聘流程。
+
+00:00:05.000 --> 00:00:10.000
+发布职位，即时接触合格候选人。
+
+00:00:10.000 --> 00:00:18.000
+使用AI驱动的申请人跟踪系统进行高效筛选。
+
+00:00:18.000 --> 00:00:24.000
+无缝安排面试。让AI帮助您找到最佳人选！
+
+00:00:24.000 --> 00:00:28.000
+今天就变革您的招聘流程。
+"""
+    }
+    
+    # Portuguese translations
+    subtitles_pt = {
+        "01_jobseeker_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Bem-vindo ao MedMatch-AI KARAU! Como candidato, você tem acesso a ferramentas poderosas de IA.
+
+00:00:05.000 --> 00:00:12.000
+Carregue seu currículo e nossa IA analisará suas habilidades automaticamente.
+
+00:00:12.000 --> 00:00:20.000
+Pesquise em 15 sites de emprego de uma vez. Prepare-se para entrevistas com feedback em tempo real.
+
+00:00:20.000 --> 00:00:30.000
+O preditor de sucesso mostra suas chances antes de se candidatar.
+
+00:00:30.000 --> 00:00:40.000
+Acompanhe todas as suas candidaturas em um só lugar. Comece sua jornada profissional hoje!
+"""
+    }
+    
+    # Arabic translations
+    subtitles_ar = {
+        "01_jobseeker_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+مرحبًا بك في MedMatch-AI KARAU! كباحث عن عمل، لديك إمكانية الوصول إلى أدوات ذكاء اصطناعي قوية.
+
+00:00:05.000 --> 00:00:12.000
+قم بتحميل سيرتك الذاتية وسيقوم الذكاء الاصطناعي بتحليل مهاراتك تلقائيًا.
+
+00:00:12.000 --> 00:00:20.000
+ابحث في 15 موقع توظيف في وقت واحد. استعد للمقابلات مع تعليقات فورية.
+
+00:00:20.000 --> 00:00:30.000
+يُظهر لك متنبئ النجاح فرصك قبل التقديم.
+
+00:00:30.000 --> 00:00:40.000
+تتبع جميع طلباتك في مكان واحد. ابدأ رحلتك المهنية اليوم!
+"""
+    }
+    
+    # Hindi translations
+    subtitles_hi = {
+        "01_jobseeker_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+MedMatch-AI KARAU में आपका स्वागत है! नौकरी चाहने वाले के रूप में, आपके पास शक्तिशाली AI उपकरण उपलब्ध हैं।
+
+00:00:05.000 --> 00:00:12.000
+अपना रिज्यूमे अपलोड करें और हमारा AI स्वचालित रूप से आपके कौशल का विश्लेषण करेगा।
+
+00:00:12.000 --> 00:00:20.000
+एक साथ 15 जॉब बोर्ड पर खोजें। रीयल-टाइम फीडबैक के साथ इंटरव्यू की तैयारी करें।
+
+00:00:20.000 --> 00:00:30.000
+सफलता भविष्यवक्ता आवेदन करने से पहले आपकी संभावनाएं दिखाता है।
+
+00:00:30.000 --> 00:00:40.000
+अपने सभी आवेदनों को एक जगह ट्रैक करें। आज ही अपनी करियर यात्रा शुरू करें!
+"""
+    }
+    
+    # Korean translations
+    subtitles_ko = {
+        "01_jobseeker_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+MedMatch-AI KARAU에 오신 것을 환영합니다! 구직자로서 강력한 AI 도구를 사용할 수 있습니다.
+
+00:00:05.000 --> 00:00:12.000
+이력서를 업로드하면 AI가 자동으로 기술을 분석합니다.
+
+00:00:12.000 --> 00:00:20.000
+15개 구직 사이트를 한 번에 검색하세요. 실시간 피드백으로 면접을 준비하세요.
+
+00:00:20.000 --> 00:00:30.000
+성공 예측기가 지원 전에 가능성을 보여줍니다.
+
+00:00:30.000 --> 00:00:40.000
+모든 지원서를 한 곳에서 추적하세요. 오늘 커리어 여정을 시작하세요!
+"""
+    }
+    
+    # Italian translations
+    subtitles_it = {
+        "01_jobseeker_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Benvenuto su MedMatch-AI KARAU! Come cercatore di lavoro, hai accesso a potenti strumenti AI.
+
+00:00:05.000 --> 00:00:12.000
+Carica il tuo CV e la nostra AI analizzerà automaticamente le tue competenze.
+
+00:00:12.000 --> 00:00:20.000
+Cerca su 15 siti di lavoro contemporaneamente. Preparati ai colloqui con feedback in tempo reale.
+
+00:00:20.000 --> 00:00:30.000
+Il predittore di successo mostra le tue possibilità prima di candidarti.
+
+00:00:30.000 --> 00:00:40.000
+Monitora tutte le tue candidature in un unico posto. Inizia oggi il tuo percorso professionale!
+"""
+    }
+    
+    # Russian translations
+    subtitles_ru = {
+        "01_jobseeker_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Добро пожаловать в MedMatch-AI KARAU! Как соискатель, вы имеете доступ к мощным инструментам ИИ.
+
+00:00:05.000 --> 00:00:12.000
+Загрузите резюме, и наш ИИ автоматически проанализирует ваши навыки.
+
+00:00:12.000 --> 00:00:20.000
+Ищите на 15 сайтах вакансий одновременно. Готовьтесь к собеседованиям с обратной связью в реальном времени.
+
+00:00:20.000 --> 00:00:30.000
+Предиктор успеха показывает ваши шансы перед подачей заявки.
+
+00:00:30.000 --> 00:00:40.000
+Отслеживайте все заявки в одном месте. Начните свой карьерный путь сегодня!
+"""
+    }
+    
+    # Swahili translations
+    subtitles_sw = {
+        "01_jobseeker_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Karibu MedMatch-AI KARAU! Kama mtafutaji wa kazi, una ufikiaji wa zana za AI zenye nguvu.
+
+00:00:05.000 --> 00:00:12.000
+Pakia CV yako na AI yetu itachambua ujuzi wako kiotomatiki.
+
+00:00:12.000 --> 00:00:20.000
+Tafuta kwenye tovuti 15 za kazi mara moja. Jiandae kwa mahojiano na maoni ya wakati halisi.
+
+00:00:20.000 --> 00:00:30.000
+Kitabiri cha mafanikio kinakuonyesha nafasi zako kabla ya kuomba.
+
+00:00:30.000 --> 00:00:40.000
+Fuatilia maombi yako yote mahali pamoja. Anza safari yako ya kazi leo!
+"""
+    }
+    
+    # Vietnamese translations
+    subtitles_vi = {
+        "01_jobseeker_features": """WEBVTT
+
+00:00:00.000 --> 00:00:05.000
+Chào mừng đến với MedMatch-AI KARAU! Là người tìm việc, bạn có quyền truy cập các công cụ AI mạnh mẽ.
+
+00:00:05.000 --> 00:00:12.000
+Tải CV của bạn lên và AI của chúng tôi sẽ tự động phân tích kỹ năng của bạn.
+
+00:00:12.000 --> 00:00:20.000
+Tìm kiếm trên 15 trang việc làm cùng lúc. Chuẩn bị phỏng vấn với phản hồi thời gian thực.
+
+00:00:20.000 --> 00:00:30.000
+Công cụ dự đoán thành công cho thấy cơ hội của bạn trước khi ứng tuyển.
+
+00:00:30.000 --> 00:00:40.000
+Theo dõi tất cả đơn ứng tuyển tại một nơi. Bắt đầu hành trình nghề nghiệp ngay hôm nay!
+"""
+    }
+    
     # Select subtitle set based on language
     subtitle_sets = {
         "en": subtitles_en,
         "es": subtitles_es,
         "fr": subtitles_fr,
-        "de": subtitles_de
+        "de": subtitles_de,
+        "ja": subtitles_ja,
+        "zh": subtitles_zh,
+        "pt": subtitles_pt,
+        "ar": subtitles_ar,
+        "hi": subtitles_hi,
+        "ko": subtitles_ko,
+        "it": subtitles_it,
+        "ru": subtitles_ru,
+        "sw": subtitles_sw,
+        "vi": subtitles_vi
     }
     
     # Get subtitles for video and language
