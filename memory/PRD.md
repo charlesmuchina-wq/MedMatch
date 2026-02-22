@@ -79,6 +79,34 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 - Redirect to dashboard works
 - Issue was likely due to stale localStorage data from previous session
 
+### WebSocket Connection Robustness - COMPLETE ✅ (Feb 22, 2026)
+
+**Issues Reported by User:**
+1. Duplicate admin participants when joining from same account
+2. "Invalid state" errors (object is in an invalid state)
+
+**Root Cause Analysis:**
+- Server was treating reconnections as new participants
+- WebSocket send() called on closed/connecting sockets
+- No heartbeat mechanism to detect zombie connections
+
+**Solutions Implemented:**
+
+**Backend (`/app/backend/services/karau_meet/webrtc_signaling.py`):**
+1. **Server-side heartbeats** - Ping every 15s, zombie detection at 30s timeout
+2. **Unique client identifiers** - Close old connection before accepting new
+3. **Idempotency keys** - Event IDs prevent duplicate processing
+4. **Session recovery tokens** - Reconnection resumes existing session
+5. **Connection state tracking** - "active", "reconnecting", "disconnected"
+
+**Frontend (`/app/frontend/src/components/KarauMeet/MeetingRoom.jsx`):**
+1. **Connection ready guards** - `safeSend()` checks WebSocket.OPEN state
+2. **Message queuing** - Messages stored when disconnected, flushed on reconnect
+3. **Exponential backoff with jitter** - 1s, 2s, 4s... up to 30s max, +10-20% jitter
+4. **App lifecycle awareness** - Visibility API detects background/foreground
+5. **Network monitoring** - online/offline events trigger reconnection
+6. **Signaling state checks** - WebRTC operations only when state allows
+
 ---
 
 ## Updates (February 21, 2026)
