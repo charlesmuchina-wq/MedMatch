@@ -34,6 +34,7 @@ async def websocket_endpoint(
     websocket: WebSocket,
     meeting_id: str,
     token: str = Query(None),
+    user_id: str = Query(None),
     user_name: str = Query(default="Guest"),
     is_host: str = Query(default="false"),
     session_token: str = Query(default=None)
@@ -42,6 +43,7 @@ async def websocket_endpoint(
     WebSocket endpoint for WebRTC signaling
     
     Connect with: ws://{host}/api/karau-meet/ws/{meeting_id}?token={jwt}&user_name={name}
+    For guests: ws://{host}/api/karau-meet/ws/{meeting_id}?user_id={guest_id}&user_name={name}
     
     Message types:
     - offer: WebRTC SDP offer
@@ -57,27 +59,32 @@ async def websocket_endpoint(
     - session_token: Optional token for session resumption after reconnection
     """
     
-    # Verify token
+    # Verify token for authenticated users
     user_data = None
-    user_id = None
+    effective_user_id = None
+    effective_user_name = user_name
     
     if token:
         user_data = verify_token(token)
         if user_data:
-            user_id = user_data.get("user_id", user_data.get("sub"))
-            user_name = user_data.get("name", user_name)
+            effective_user_id = user_data.get("user_id", user_data.get("sub"))
+            effective_user_name = user_data.get("name", user_name)
     
-    # Generate guest ID if no valid token
-    if not user_id:
+    # Use provided user_id for guests (allows reconnection with same ID)
+    if not effective_user_id and user_id:
+        effective_user_id = user_id
+    
+    # Generate guest ID only if nothing else is available
+    if not effective_user_id:
         import uuid
-        user_id = f"guest_{str(uuid.uuid4())[:8]}"
+        effective_user_id = f"guest_{str(uuid.uuid4())[:8]}"
     
     # Handle signaling with session token support
     await handle_webrtc_signaling(
         websocket=websocket,
         meeting_id=meeting_id,
-        user_id=user_id,
-        user_name=user_name,
+        user_id=effective_user_id,
+        user_name=effective_user_name,
         is_host=is_host.lower() == "true",
         session_token=session_token
     )
