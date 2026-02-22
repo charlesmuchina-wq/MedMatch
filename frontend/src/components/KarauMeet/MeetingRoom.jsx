@@ -273,22 +273,49 @@ const MeetingRoom = ({ user }) => {
         localStreamRef.current = stream;
         
         const token = localStorage.getItem('token');
-        const response = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/join`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({ video_enabled: true, audio_enabled: true })
-        });
+        const isGuest = user?.is_guest || !token;
         
-        if (!response.ok) throw new Error('Failed to join meeting');
+        let response;
+        let joinData;
         
-        const data = await response.json();
-        setMeeting(data.meeting);
-        setParticipants(data.other_participants || []);
+        if (isGuest) {
+          // Guest join - no authentication required
+          response = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/join-guest`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+              guest_name: user?.name || 'Guest',
+              video_enabled: true, 
+              audio_enabled: true 
+            })
+          });
+          
+          if (!response.ok) throw new Error('Failed to join meeting as guest');
+          
+          joinData = await response.json();
+          // Update user with guest ID from server
+          user.user_id = joinData.guest_user_id;
+          user.name = joinData.guest_name;
+        } else {
+          // Authenticated join
+          response = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/join`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ video_enabled: true, audio_enabled: true })
+          });
+          
+          if (!response.ok) throw new Error('Failed to join meeting');
+          joinData = await response.json();
+        }
         
-        connectWebSocket(token);
+        setMeeting(joinData.meeting);
+        setParticipants(joinData.other_participants || []);
+        
+        // Connect WebSocket - for guests, use guest ID instead of token
+        connectWebSocket(isGuest ? null : token, false, isGuest ? user.user_id : null);
         setIsConnecting(false);
         toast.success('Joined meeting successfully!');
         
