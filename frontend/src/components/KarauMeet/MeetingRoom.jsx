@@ -1318,40 +1318,191 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   const isHost = meeting?.host_id === user?.user_id;
 
   return (
-    <div className="h-screen bg-slate-900 flex flex-col">
-      {/* Header */}
-      <MeetingHeader
-        meeting={meeting}
-        meetingId={meetingId}
-        isRecording={isRecording}
-        onAddToCalendar={addToCalendar}
-        onCopyLink={copyMeetingLink}
-      />
+    <div className="h-screen bg-slate-900 flex flex-col overflow-hidden">
+      {/* Compact Header */}
+      <header className="h-12 bg-slate-800/90 backdrop-blur border-b border-slate-700 flex items-center justify-between px-3 flex-shrink-0">
+        <div className="flex items-center gap-2">
+          <Shield className="w-4 h-4 text-turquoise" />
+          <span className="text-white font-medium text-sm">AI KARAU</span>
+          {isRecording && (
+            <Badge className="bg-red-500 text-white border-0 text-xs animate-pulse">
+              <Circle className="w-2 h-2 mr-1 fill-current" />
+              REC
+            </Badge>
+          )}
+        </div>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" onClick={addToCalendar} className="text-slate-300 hover:text-white h-8 px-2">
+            <Calendar className="w-4 h-4" />
+          </Button>
+          <Button variant="ghost" size="sm" onClick={copyMeetingLink} className="text-slate-300 hover:text-white h-8 px-2">
+            <Copy className="w-4 h-4" />
+          </Button>
+          <Badge variant="outline" className="text-slate-400 border-slate-600 text-xs">
+            {meetingId}
+          </Badge>
+        </div>
+      </header>
 
-      {/* Main content - responsive layout */}
-      <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative">
-        {/* Video grid - takes full width on mobile when panel is closed */}
-        <div className={`flex-1 p-2 md:p-4 transition-all duration-300 ${
-          activePanel ? 'h-[50vh] md:h-auto md:pr-0' : 'h-full'
-        }`}>
-          <ParticipantGrid
-            participants={allParticipants}
-            localStream={localStream}
-            remoteStreams={remoteStreams}
-            localUserId={user?.user_id}
-            virtualBackground={virtualBackground}
-          />
+      {/* Main Content Area */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Video Area - Zoom-style horizontal layout */}
+        <div className={`flex-1 flex flex-col transition-all duration-300 ${activePanel ? 'md:mr-80' : ''}`}>
+          {/* Video Grid Container */}
+          <div className="flex-1 p-2 md:p-3 overflow-hidden">
+            <div className="h-full flex items-center justify-center">
+              <ParticipantGrid
+                participants={allParticipants}
+                localStream={localStream}
+                remoteStreams={remoteStreams}
+                localUserId={user?.user_id}
+                virtualBackground={virtualBackground}
+              />
+            </div>
+          </div>
+
+          {/* Quick Actions Bar - Above main controls */}
+          <div className="px-3 pb-2 flex justify-center gap-2 flex-shrink-0">
+            <Button
+              variant={activePanel === 'chat' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setActivePanel(activePanel === 'chat' ? null : 'chat')}
+              className={`h-9 ${activePanel === 'chat' ? 'bg-turquoise' : 'border-slate-600 text-slate-300'}`}
+            >
+              <MessageSquare className="w-4 h-4 mr-1.5" />
+              Chat
+              {chatMessages.length > 0 && (
+                <Badge className="ml-1.5 bg-red-500 text-white text-xs px-1.5 py-0">{chatMessages.length}</Badge>
+              )}
+            </Button>
+            <Button
+              variant={activePanel === 'participants' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setActivePanel(activePanel === 'participants' ? null : 'participants')}
+              className={`h-9 ${activePanel === 'participants' ? 'bg-turquoise' : 'border-slate-600 text-slate-300'}`}
+            >
+              <Users className="w-4 h-4 mr-1.5" />
+              {allParticipants.length}
+            </Button>
+            <Button
+              variant={activePanel === 'ai-notes' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setActivePanel(activePanel === 'ai-notes' ? null : 'ai-notes')}
+              className={`h-9 ${activePanel === 'ai-notes' ? 'bg-turquoise' : 'border-slate-600 text-slate-300'}`}
+            >
+              <Sparkles className="w-4 h-4 mr-1.5" />
+              AI Notes
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowBgSelector(true)}
+              className="h-9 border-slate-600 text-slate-300"
+            >
+              <ImageIcon className="w-4 h-4 mr-1.5" />
+              Background
+            </Button>
+          </div>
+
+          {/* Main Control Bar - Zoom style */}
+          <div className="h-16 bg-slate-800 border-t border-slate-700 flex items-center justify-center gap-3 px-4 flex-shrink-0">
+            {/* Audio Control */}
+            <div className="flex flex-col items-center">
+              <Button
+                variant={isAudioEnabled ? 'secondary' : 'destructive'}
+                size="lg"
+                className="rounded-full w-11 h-11"
+                onClick={toggleAudio}
+                data-testid="control-audio"
+              >
+                {isAudioEnabled ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
+              </Button>
+              <span className="text-xs text-slate-400 mt-1">{isAudioEnabled ? 'Mute' : 'Unmute'}</span>
+            </div>
+
+            {/* Video Control */}
+            <div className="flex flex-col items-center">
+              <Button
+                variant={isVideoEnabled ? 'secondary' : 'destructive'}
+                size="lg"
+                className="rounded-full w-11 h-11"
+                onClick={toggleVideo}
+                data-testid="control-video"
+              >
+                {isVideoEnabled ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
+              </Button>
+              <span className="text-xs text-slate-400 mt-1">{isVideoEnabled ? 'Stop' : 'Start'}</span>
+            </div>
+
+            {/* Screen Share */}
+            <div className="flex flex-col items-center">
+              <Button
+                variant={isScreenSharing ? 'default' : 'secondary'}
+                size="lg"
+                className={`rounded-full w-11 h-11 ${isScreenSharing ? 'bg-green-500 hover:bg-green-600' : ''}`}
+                onClick={toggleScreenShare}
+                data-testid="control-screen-share"
+              >
+                {isScreenSharing ? <MonitorOff className="w-5 h-5" /> : <Monitor className="w-5 h-5" />}
+              </Button>
+              <span className="text-xs text-slate-400 mt-1">Share</span>
+            </div>
+
+            {/* Record (Host only) */}
+            {isHost && (
+              <div className="flex flex-col items-center">
+                <Button
+                  variant={isRecording ? 'destructive' : 'secondary'}
+                  size="lg"
+                  className={`rounded-full w-11 h-11 ${isRecording ? 'animate-pulse' : ''}`}
+                  onClick={toggleRecording}
+                  data-testid="control-record"
+                >
+                  {isRecording ? <Square className="w-5 h-5" /> : <Circle className="w-5 h-5" />}
+                </Button>
+                <span className="text-xs text-slate-400 mt-1">{isRecording ? 'Stop' : 'Record'}</span>
+              </div>
+            )}
+
+            {/* Raise Hand */}
+            <div className="flex flex-col items-center">
+              <Button
+                variant={isHandRaised ? 'default' : 'secondary'}
+                size="lg"
+                className={`rounded-full w-11 h-11 ${isHandRaised ? 'bg-yellow-500 hover:bg-yellow-600' : ''}`}
+                onClick={toggleHandRaise}
+                data-testid="control-hand"
+              >
+                <Hand className="w-5 h-5" />
+              </Button>
+              <span className="text-xs text-slate-400 mt-1">Raise</span>
+            </div>
+
+            {/* Leave Button */}
+            <div className="flex flex-col items-center ml-4">
+              <Button
+                variant="destructive"
+                size="lg"
+                className="rounded-full w-11 h-11 bg-red-600 hover:bg-red-700"
+                onClick={leaveMeeting}
+                data-testid="control-leave"
+              >
+                <PhoneOff className="w-5 h-5" />
+              </Button>
+              <span className="text-xs text-red-400 mt-1">Leave</span>
+            </div>
+          </div>
         </div>
 
-        {/* Side panel - bottom sheet on mobile, sidebar on desktop */}
+        {/* Side Panel - Desktop only, slides in */}
         {activePanel && (
-          <div className="h-[50vh] md:h-auto md:w-80 bg-slate-800 border-t md:border-t-0 md:border-l border-slate-700 flex flex-col">
-            {/* Panel header with close button on mobile */}
-            <div className="md:hidden flex items-center justify-between p-2 border-b border-slate-700">
-              <span className="text-white font-medium capitalize">{activePanel}</span>
+          <div className="hidden md:flex absolute right-0 top-12 bottom-0 w-80 bg-slate-800 border-l border-slate-700 flex-col z-10">
+            {/* Panel Header */}
+            <div className="flex items-center justify-between p-3 border-b border-slate-700">
+              <span className="text-white font-medium capitalize">{activePanel === 'ai-notes' ? 'AI Notes' : activePanel}</span>
               <button 
                 onClick={() => setActivePanel(null)}
-                className="p-1 text-slate-400 hover:text-white"
+                className="p-1 text-slate-400 hover:text-white rounded"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1382,24 +1533,35 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         )}
       </div>
 
-      {/* Control bar - using refactored component */}
-      <VideoControls
-        isAudioEnabled={isAudioEnabled}
-        isVideoEnabled={isVideoEnabled}
-        isScreenSharing={isScreenSharing}
-        isRecording={isRecording}
-        isHandRaised={isHandRaised}
-        isHost={isHost}
-        activePanel={activePanel}
-        onToggleAudio={toggleAudio}
-        onToggleVideo={toggleVideo}
-        onToggleScreenShare={toggleScreenShare}
-        onToggleRecording={toggleRecording}
-        onToggleHandRaise={toggleHandRaise}
-        onOpenVirtualBg={() => setShowBgSelector(true)}
-        onSetActivePanel={setActivePanel}
-        onLeaveMeeting={leaveMeeting}
-      />
+      {/* Mobile Bottom Sheet Panel */}
+      {activePanel && (
+        <div className="md:hidden fixed inset-x-0 bottom-0 h-[60vh] bg-slate-800 border-t border-slate-700 z-20 rounded-t-xl">
+          <div className="flex items-center justify-between p-3 border-b border-slate-700">
+            <span className="text-white font-medium capitalize">{activePanel === 'ai-notes' ? 'AI Notes' : activePanel}</span>
+            <button 
+              onClick={() => setActivePanel(null)}
+              className="p-1 text-slate-400 hover:text-white"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+          <div className="h-[calc(60vh-48px)] overflow-hidden">
+            {activePanel === 'chat' && (
+              <ChatPanel messages={chatMessages} onSendMessage={sendChatMessage} />
+            )}
+            {activePanel === 'participants' && (
+              <ParticipantsPanel 
+                participants={allParticipants} 
+                isHost={isHost}
+                onMuteParticipant={() => {}}
+              />
+            )}
+            {activePanel === 'ai-notes' && (
+              <AINotesPanel notes={aiNotes} isTranscribing={isTranscribing} />
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Dialogs */}
       <RecordingPermissionDialog
