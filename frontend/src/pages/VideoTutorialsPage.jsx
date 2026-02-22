@@ -504,22 +504,28 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
                         <>Generate {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio (FREE)</>
                       )}
                     </button>
-                    <span className="text-xs text-green-600">Microsoft Neural Voice • No cost</span>
+                    <span className="text-xs text-green-700 font-medium">Microsoft Neural Voice • No cost</span>
                   </>
                 ) : (
                   <>
                     <button
                       onClick={playAudioWithVideo}
-                      className="text-sm bg-green-500 text-white px-3 py-1.5 rounded hover:bg-green-600 flex items-center gap-1"
+                      className="text-sm bg-green-600 text-white px-3 py-1.5 rounded hover:bg-green-700 flex items-center gap-1 font-medium"
                     >
-                      ▶ Play with {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio
+                      🔊 Play {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio
                     </button>
-                    <span className="text-xs text-gray-500">Audio syncs with video</span>
+                    <button
+                      onClick={stopTranslatedAudio}
+                      className="text-sm bg-slate-600 text-white px-3 py-1.5 rounded hover:bg-slate-700 flex items-center gap-1 font-medium"
+                    >
+                      🔇 Use Original Audio
+                    </button>
+                    <span className="text-xs text-slate-600 font-medium">Audio syncs with video playback</span>
                   </>
                 )}
               </div>
               {translationError && (
-                <p className="text-xs text-red-500 mt-2">{translationError}</p>
+                <p className="text-xs text-red-600 mt-2 font-medium">{translationError}</p>
               )}
             </div>
           )}
