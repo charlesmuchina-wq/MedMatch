@@ -518,8 +518,12 @@ async def handle_webrtc_signaling(
                 )
             
             elif message_type == "ping":
-                # Keep-alive ping
+                # Keep-alive ping from client
                 await manager.send_personal(websocket, {"type": "pong"})
+            
+            elif message_type == "pong":
+                # Pong response from client - update last activity
+                manager.handle_pong(user_id)
             
             # Host controls
             elif message_type == "mute_participant" and is_host:
