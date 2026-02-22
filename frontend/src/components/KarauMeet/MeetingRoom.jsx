@@ -443,117 +443,112 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
     }
   };
 
-  // Initialize media and join meeting
+  // Initialize media and join meeting - DECOUPLED APPROACH
   useEffect(() => {
-    let mounted = true;
+    mountedRef.current = true;
     
     const initMeeting = async () => {
-      // Step 1: Get camera/microphone access
-      let stream;
-      try {
-        stream = await navigator.mediaDevices.getUserMedia({
-          video: { width: 1280, height: 720, facingMode: 'user' },
-          audio: { echoCancellation: true, noiseSuppression: true }
-        });
-        
-        if (!mounted) {
-          stream.getTracks().forEach(track => track.stop());
-          return;
-        }
-        
-        setLocalStream(stream);
-        localStreamRef.current = stream;
-        console.log('Camera/microphone initialized successfully');
-        
-      } catch (mediaError) {
-        console.error('Media access error:', mediaError);
-        if (mediaError.name === 'NotAllowedError') {
-          toast.error('Camera/microphone access denied. Please allow permissions and refresh.');
-        } else if (mediaError.name === 'NotFoundError') {
-          toast.error('No camera or microphone found on this device.');
-        } else {
-          toast.error(`Media error: ${mediaError.message}`);
-        }
-        setIsConnecting(false);
+      // STEP 1: Initialize Media (Independent of API)
+      // Prioritize getting the video stream first
+      console.log('Step 1: Initializing media devices...');
+      const mediaResult = await initializeMedia();
+      
+      if (!mountedRef.current) {
+        mediaResult.stream?.getTracks().forEach(track => track.stop());
         return;
       }
       
-      // Step 2: Join the meeting via API
-      const token = localStorage.getItem('token');
-      const isGuest = user?.is_guest || !token;
-      
-      try {
-        let response;
-        let joinData;
+      if (mediaResult.success && mediaResult.stream) {
+        // Store stream in ref as single source of truth
+        localStreamRef.current = mediaResult.stream;
+        setLocalStream(mediaResult.stream);
+        setIsMediaReady(true);
+        console.log('Media initialized successfully');
+      } else {
+        // Show specific error but continue - user might still want to join audio-only
+        const errorInfo = getMediaErrorMessage(mediaResult.error);
+        setConnectionError(errorInfo);
+        toast.error(errorInfo.message);
         
-        if (isGuest) {
-          // Guest join - no authentication required
-          response = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/join-guest`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              guest_name: user?.name || 'Guest',
-              video_enabled: true, 
-              audio_enabled: true 
-            })
-          });
-          
-          if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Meeting join failed: ${errorText}`);
-          }
-          
-          joinData = await response.json();
-          // Update user with guest ID from server
-          user.user_id = joinData.guest_user_id;
-          user.name = joinData.guest_name;
-        } else {
-          // Authenticated join
-          response = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/join`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({ video_enabled: true, audio_enabled: true })
-          });
-          
-          if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Meeting join failed: ${errorText}`);
-          }
-          joinData = await response.json();
+        // If permission denied, stop here
+        if (!errorInfo.canRetry) {
+          setIsConnecting(false);
+          return;
         }
+      }
+      
+      // STEP 2: Join Meeting API (Independent - doesn't affect video display)
+      console.log('Step 2: Joining meeting via API...');
+      const apiResult = await joinMeetingApi();
+      
+      if (!mountedRef.current) return;
+      
+      if (apiResult.success) {
+        setMeeting(apiResult.data.meeting);
+        setParticipants(apiResult.data.other_participants || []);
+        setIsApiConnected(true);
         
-        if (!mounted) return;
+        // STEP 3: Connect WebSocket
+        console.log('Step 3: Connecting WebSocket...');
+        const token = localStorage.getItem('token');
+        connectWebSocket(
+          apiResult.isGuest ? null : token, 
+          false, 
+          apiResult.isGuest ? user.user_id : null
+        );
         
-        setMeeting(joinData.meeting);
-        setParticipants(joinData.other_participants || []);
-        
-        // Step 3: Connect WebSocket - for guests, use guest ID instead of token
-        connectWebSocket(isGuest ? null : token, false, isGuest ? user.user_id : null);
         setIsConnecting(false);
         toast.success('Joined meeting successfully!');
-        
-      } catch (joinError) {
-        console.error('Meeting join error:', joinError);
-        // Still show the video feed, just show an error about the meeting
+      } else {
+        // API failed but video should still display
         setIsConnecting(false);
-        if (joinError.message.includes('404') || joinError.message.includes('not found')) {
+        
+        const errorMsg = apiResult.error?.message || 'Unknown error';
+        if (errorMsg.includes('404')) {
           toast.error('Meeting not found. Please check the meeting ID.');
+        } else if (errorMsg.includes('401')) {
+          toast.error('Session expired. Please sign in again.');
         } else {
-          toast.error(`Failed to connect: ${joinError.message}`);
+          toast.error(`Connection error: ${errorMsg}. Your video is still active.`);
         }
+        
+        // Set partial connection state - video works but not connected to meeting
+        setConnectionError({
+          title: 'Connection Issue',
+          message: 'Unable to connect to meeting server. Your video is active locally.',
+          canRetry: true
+        });
       }
     };
     
     initMeeting();
     
+    // Cleanup: Properly stop all tracks when component unmounts
     return () => {
-      mounted = false;
-      localStreamRef.current?.getTracks().forEach(track => track.stop());
-      wsRef.current?.close();
-      Object.values(peerConnectionsRef.current).forEach(pc => pc.close());
+      mountedRef.current = false;
+      
+      // Stop all media tracks
+      if (localStreamRef.current) {
+        localStreamRef.current.getTracks().forEach(track => {
+          track.stop();
+          console.log(`Stopped track: ${track.kind}`);
+        });
+        localStreamRef.current = null;
+      }
+      
+      // Close WebSocket
+      if (wsRef.current) {
+        wsRef.current.close(1000, 'Component unmounting');
+        wsRef.current = null;
+      }
+      
+      // Close all peer connections
+      Object.values(peerConnectionsRef.current).forEach(pc => {
+        pc.close();
+      });
+      peerConnectionsRef.current = {};
+      
+      // Stop recording if active
       if (mediaRecorderRef.current && isRecording) {
         mediaRecorderRef.current.stop();
       }
