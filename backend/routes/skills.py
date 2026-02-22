@@ -1221,7 +1221,7 @@ async def get_my_badges(request: Request):
 
 @router.post("/start")
 async def start_assessment(req: StartAssessmentRequest, request: Request):
-    """Start a skill assessment"""
+    """Start a skill assessment - uses pre-generated questions for instant start, falls back to AI if needed"""
     user = await get_current_user(request)
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
@@ -1242,16 +1242,30 @@ async def start_assessment(req: StartAssessmentRequest, request: Request):
     if recent_attempt:
         raise HTTPException(status_code=400, detail="Please wait 24 hours before retaking this assessment")
     
-    # Generate questions using AI
-    if not EMERGENT_LLM_KEY:
-        raise HTTPException(status_code=500, detail="AI features not configured")
+    # Try to get questions from pre-generated bank first (INSTANT - no wait!)
+    from services.question_bank import get_questions_from_bank, has_questions_for_skill
     
-    from emergentintegrations.llm.chat import LlmChat, UserMessage
+    questions = []
+    use_ai_fallback = False
     
-    chat = LlmChat(
-        api_key=EMERGENT_LLM_KEY,
-        session_id=str(uuid.uuid4()),
-        system_message=f"""You are an expert assessment creator for {req.skill_name}. 
+    if has_questions_for_skill(req.skill_name):
+        questions = get_questions_from_bank(req.skill_name, req.difficulty, config['questions'])
+        logging.info(f"Using pre-generated questions for {req.skill_name} ({len(questions)} questions)")
+    
+    # Fall back to AI generation only if no pre-generated questions
+    if not questions:
+        use_ai_fallback = True
+        logging.info(f"No pre-generated questions for {req.skill_name}, using AI generation")
+        
+        if not EMERGENT_LLM_KEY:
+            raise HTTPException(status_code=500, detail="AI features not configured")
+        
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=str(uuid.uuid4()),
+            system_message=f"""You are an expert assessment creator for {req.skill_name}. 
 Generate {config['questions']} multiple choice questions to test {req.difficulty} level knowledge.
 
 Return ONLY valid JSON array with this structure:
@@ -1267,57 +1281,60 @@ Return ONLY valid JSON array with this structure:
 
 Questions should cover practical, real-world scenarios and test genuine understanding.
 Include a mix of conceptual and practical questions."""
-    ).with_model("openai", "gpt-5.2")
+        ).with_model("openai", "gpt-5.2")
+        
+        try:
+            response = await chat.send_message(UserMessage(
+                text=f"Generate {config['questions']} {req.difficulty} level assessment questions for {req.skill_name}."
+            ))
+            
+            clean_response = response.strip()
+            if clean_response.startswith("```"):
+                clean_response = clean_response.split("```")[1]
+                if clean_response.startswith("json"):
+                    clean_response = clean_response[4:]
+            
+            questions = json.loads(clean_response)
+            
+        except Exception as e:
+            logging.error(f"AI Assessment generation error: {e}")
+            raise HTTPException(status_code=500, detail="Failed to generate assessment questions")
     
-    try:
-        response = await chat.send_message(UserMessage(
-            text=f"Generate {config['questions']} {req.difficulty} level assessment questions for {req.skill_name}."
-        ))
-        
-        clean_response = response.strip()
-        if clean_response.startswith("```"):
-            clean_response = clean_response.split("```")[1]
-            if clean_response.startswith("json"):
-                clean_response = clean_response[4:]
-        
-        questions = json.loads(clean_response)
-        
-        # Store questions but remove answers from response
-        assessment = {
-            "id": f"assess_{uuid.uuid4().hex[:12]}",
-            "user_id": user["user_id"],
-            "skill_name": req.skill_name,
-            "difficulty": req.difficulty,
-            "questions": questions,  # Full questions with answers (server-side only)
-            "status": "in_progress",
-            "started_at": datetime.now(timezone.utc).isoformat(),
-            "time_limit": config["time_limit"],
-            "passing_score": config["passing_score"],
-            "answers_submitted": [],
-            "score": None
-        }
-        
-        await db.skill_assessments.insert_one(assessment)
-        
-        # Return questions without correct answers
-        client_questions = []
-        for i, q in enumerate(questions):
-            client_questions.append({
-                "index": i,
-                "question": q["question"],
-                "options": q["options"]
-            })
-        
-        return {
-            "assessment_id": assessment["id"],
-            "skill_name": req.skill_name,
-            "questions": client_questions,
-            "time_limit": config["time_limit"],
-            "total_questions": len(questions)
-        }
-        
-    except Exception as e:
-        logging.error(f"Assessment generation error: {e}")
+    # Store assessment in database
+    assessment = {
+        "id": f"assess_{uuid.uuid4().hex[:12]}",
+        "user_id": user["user_id"],
+        "skill_name": req.skill_name,
+        "difficulty": req.difficulty,
+        "questions": questions,  # Full questions with answers (server-side only)
+        "status": "in_progress",
+        "started_at": datetime.now(timezone.utc).isoformat(),
+        "time_limit": config["time_limit"],
+        "passing_score": config["passing_score"],
+        "answers_submitted": [],
+        "score": None,
+        "used_ai_generation": use_ai_fallback
+    }
+    
+    await db.skill_assessments.insert_one(assessment)
+    
+    # Return questions without correct answers
+    client_questions = []
+    for i, q in enumerate(questions):
+        client_questions.append({
+            "index": i,
+            "question": q["question"],
+            "options": q["options"]
+        })
+    
+    return {
+        "assessment_id": assessment["id"],
+        "skill_name": req.skill_name,
+        "questions": client_questions,
+        "time_limit": config["time_limit"],
+        "total_questions": len(questions),
+        "instant_start": not use_ai_fallback  # Let frontend know if instant or AI-generated
+    }
         raise HTTPException(status_code=500, detail="Failed to generate assessment")
 
 @router.post("/submit")
