@@ -751,7 +751,7 @@ async def request_video_translation(video_id: str, lang: str, background_tasks: 
             
             # Use DID service to create translated video
             result = await did_service.create_tutorial_video(
-                language=lang,
+                language_code=lang,
                 script=script,
                 title=video.get("title", "MedMatch-AI KARAU Tutorial")
             )
