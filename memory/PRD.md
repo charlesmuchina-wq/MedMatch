@@ -49,6 +49,26 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 **Files Modified:**
 - `/app/frontend/src/pages/VideoTutorialsPage.jsx`
 
+### Multi-Language CC & Audio Expansion - COMPLETE ✅ (Feb 22, 2026)
+
+**Closed Captions (CC) - 28 Languages:**
+- en, es, fr, de, ja, zh, pt, ar, hi, ko, it, ru, sw, vi (original 14)
+- nl, pl, sv, tr, af, ha, zu, yo, ig, am, tl, th, id, he (14 NEW)
+- All 5 tutorial videos have CC in all 28 languages
+
+**AI Audio Generation (edge-tts) - 27 Voice Languages:**
+- Full voice support for: en, es, fr, de, ja, zh, ko, pt, ar, hi, ru, it, sw, vi, nl, pl, sv, tr, af, tl, th, id, he, zu, am
+
+**Audio Scripts Coverage:**
+- Video 01 (Job Seeker): 23 languages
+- Video 02 (Recruiter): 13 languages  
+- Video 03-05: 4-5 languages each (primarily major languages)
+
+**Files Created/Modified:**
+- `/app/backend/services/tutorial_subtitles.py` (NEW - comprehensive CC data)
+- `/app/backend/services/edge_tts_service.py` (UPDATED - expanded scripts)
+- `/app/backend/routes/tutorials.py` (UPDATED - new endpoint structure)
+
 ### AI KARAU Meeting Portal Login - VERIFIED WORKING ✅
 
 **Issue Reported:** Login doesn't redirect to dashboard after authentication.
