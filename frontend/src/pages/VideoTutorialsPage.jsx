@@ -234,16 +234,26 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
   
   const subtitleUrl = `${API}/api/tutorials/subtitles/${video.id}?lang=${selectedLanguage}`;
   
+  const [translationError, setTranslationError] = useState(null);
+  
   const requestTranslation = async () => {
     setTranslating(true);
+    setTranslationError(null);
     try {
       await axios.post(`${API}/api/tutorials/translate/${video.id}?lang=${selectedLanguage}`);
       const checkStatus = async () => {
         const res = await axios.get(`${API}/api/tutorials/translate/${video.id}/status?lang=${selectedLanguage}`);
         if (res.data.status === 'ready') {
           setTranslating(false);
+          // Reload video with new language audio
+          if (videoRef.current) {
+            videoRef.current.load();
+          }
         } else if (res.data.status === 'generating') {
           setTimeout(checkStatus, 3000);
+        } else if (res.data.status === 'failed') {
+          setTranslating(false);
+          setTranslationError(res.data.error || 'Audio generation failed. D-ID API credits may be required.');
         } else {
           setTranslating(false);
         }
@@ -252,6 +262,7 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
     } catch (error) {
       console.error('Translation request failed:', error);
       setTranslating(false);
+      setTranslationError('Could not connect to translation service.');
     }
   };
   
