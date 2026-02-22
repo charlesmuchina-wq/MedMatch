@@ -823,6 +823,16 @@ async def serve_audio_file(filename: str):
     )
 
 
+@router.get("/subtitles/languages")
+async def get_subtitle_languages():
+    """Get list of all supported subtitle languages"""
+    from services.tutorial_subtitles import get_supported_subtitle_languages
+    return {
+        "languages": get_supported_subtitle_languages(),
+        "count": len(get_supported_subtitle_languages())
+    }
+
+
 @router.get("/subtitles/{video_id}")
 async def get_subtitles(video_id: str, lang: str = "en"):
     """
@@ -846,16 +856,6 @@ async def get_subtitles(video_id: str, lang: str = "en"):
             "Access-Control-Allow-Origin": "*"
         }
     )
-
-
-@router.get("/subtitles/languages")
-async def get_subtitle_languages():
-    """Get list of all supported subtitle languages"""
-    from services.tutorial_subtitles import get_supported_subtitle_languages
-    return {
-        "languages": get_supported_subtitle_languages(),
-        "count": len(get_supported_subtitle_languages())
-    }
 
 
 
