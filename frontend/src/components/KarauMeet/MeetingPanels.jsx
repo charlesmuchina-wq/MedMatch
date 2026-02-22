@@ -18,6 +18,7 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
   const { t } = useTranslation();
   const [message, setMessage] = useState('');
   const scrollRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -29,12 +30,21 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
     if (message.trim()) {
       onSendMessage(message);
       setMessage('');
+      // Keep focus on input for continuous typing
+      inputRef.current?.focus();
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
     }
   };
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-3 border-b border-slate-700">
+      <div className="p-3 border-b border-slate-700 hidden md:block">
         <h3 className="font-semibold text-white flex items-center gap-2">
           <MessageSquare className="w-4 h-4" />
           Chat
@@ -43,30 +53,48 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
       
       <ScrollArea ref={scrollRef} className="flex-1 p-3">
         <div className="space-y-3">
-          {messages.map((msg, idx) => (
-            <div key={idx} className="text-sm" data-testid={`chat-message-${idx}`}>
-              <span className="font-medium text-turquoise">{msg.sender || msg.user_name}: </span>
-              <span className="text-slate-300">{msg.message}</span>
-              <span className="text-xs text-slate-500 ml-2">
-                {msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : ''}
-              </span>
+          {messages.length === 0 ? (
+            <div className="text-center py-4 text-slate-500 text-sm">
+              No messages yet. Start the conversation!
             </div>
-          ))}
+          ) : (
+            messages.map((msg, idx) => (
+              <div key={idx} className="text-sm" data-testid={`chat-message-${idx}`}>
+                <span className="font-medium text-turquoise">{msg.sender || msg.user_name}: </span>
+                <span className="text-slate-300">{msg.message}</span>
+                <span className="text-xs text-slate-500 ml-2">
+                  {msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : ''}
+                </span>
+              </div>
+            ))
+          )}
         </div>
       </ScrollArea>
       
       <div className="p-3 border-t border-slate-700">
         <div className="flex gap-2">
-          <Input
+          <input
+            ref={inputRef}
+            type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder={t("meeting.typeMessage")}
-            className="bg-slate-800 border-slate-600 text-white"
-            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+            onKeyDown={handleKeyDown}
+            placeholder="Type a message..."
+            className="flex-1 bg-slate-800 border border-slate-600 text-white rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-turquoise focus:border-transparent"
+            inputMode="text"
+            enterKeyHint="send"
+            autoComplete="off"
+            autoCorrect="on"
+            spellCheck="true"
             data-testid="chat-input"
           />
-          <Button onClick={handleSend} size="sm" className="bg-turquoise hover:bg-turquoise/80" data-testid="chat-send">
-            {t("meeting.send")}
+          <Button 
+            onClick={handleSend} 
+            size="sm" 
+            className="bg-turquoise hover:bg-turquoise/80 px-4" 
+            data-testid="chat-send"
+          >
+            Send
           </Button>
         </div>
       </div>
