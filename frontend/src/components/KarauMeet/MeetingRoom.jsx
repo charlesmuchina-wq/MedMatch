@@ -317,6 +317,8 @@ const MeetingRoom = ({ user }) => {
   const messageQueueRef = useRef([]);
   const sessionTokenRef = useRef(null);
   const processedEventsRef = useRef(new Set());
+  const iceCandidateQueueRef = useRef({}); // Queue ICE candidates per peer
+  const isReconnectingRef = useRef(false);
   
   // Calculate exponential backoff with jitter
   const getReconnectDelay = useCallback(() => {
@@ -330,11 +332,33 @@ const MeetingRoom = ({ user }) => {
   
   // WebSocket connection with reconnection support
   const connectWebSocket = useCallback((token, isReconnect = false) => {
+    // Prevent multiple simultaneous reconnection attempts
+    if (isReconnectingRef.current && isReconnect) {
+      console.log('Reconnection already in progress, skipping');
+      return;
+    }
+    
+    if (isReconnect) {
+      isReconnectingRef.current = true;
+    }
+    
     let wsUrl = `${API.replace('https://', 'wss://').replace('http://', 'ws://')}/api/karau-meet/ws/${meetingId}?token=${token}&user_name=${encodeURIComponent(user?.name || user?.email || 'User')}&is_host=true`;
     
     // Add session token for reconnection
     if (isReconnect && sessionTokenRef.current) {
       wsUrl += `&session_token=${sessionTokenRef.current}`;
+    }
+    
+    // Close existing connection if any
+    if (wsRef.current) {
+      try {
+        if (wsRef.current.readyState === WebSocket.OPEN || 
+            wsRef.current.readyState === WebSocket.CONNECTING) {
+          wsRef.current.close(1000, 'Reconnecting');
+        }
+      } catch (e) {
+        console.warn('Error closing existing WebSocket:', e);
+      }
     }
     
     const ws = new WebSocket(wsUrl);
@@ -344,21 +368,29 @@ const MeetingRoom = ({ user }) => {
       console.log('WebSocket connected');
       setIsConnected(true);
       reconnectAttemptsRef.current = 0;
+      isReconnectingRef.current = false;
       
-      // Flush message queue
-      while (messageQueueRef.current.length > 0) {
-        const queuedMessage = messageQueueRef.current.shift();
+      // Flush message queue safely
+      const queue = [...messageQueueRef.current];
+      messageQueueRef.current = [];
+      
+      queue.forEach(queuedMessage => {
         try {
-          ws.send(JSON.stringify(queuedMessage));
+          if (ws.readyState === WebSocket.OPEN) {
+            ws.send(JSON.stringify(queuedMessage));
+          }
         } catch (e) {
           console.error('Failed to send queued message:', e);
+          // Re-queue for next attempt
+          messageQueueRef.current.push(queuedMessage);
         }
-      }
+      });
     };
     
     ws.onclose = (event) => {
       console.log('WebSocket disconnected', event.code, event.reason);
       setIsConnected(false);
+      isReconnectingRef.current = false;
       
       // Handle different close codes
       if (event.code === 4001) {
@@ -376,12 +408,17 @@ const MeetingRoom = ({ user }) => {
     
     ws.onerror = (error) => {
       console.error('WebSocket error:', error);
+      isReconnectingRef.current = false;
       // Don't show toast for every error - let onclose handle it
     };
     
     ws.onmessage = async (event) => {
-      const message = JSON.parse(event.data);
-      await handleWebSocketMessage(message);
+      try {
+        const message = JSON.parse(event.data);
+        await handleWebSocketMessage(message);
+      } catch (e) {
+        console.error('Error processing WebSocket message:', e);
+      }
     };
   }, [meetingId, user]);
   
@@ -389,6 +426,12 @@ const MeetingRoom = ({ user }) => {
   const attemptReconnect = useCallback((token) => {
     if (reconnectAttemptsRef.current >= maxReconnectAttempts) {
       toast.error('Unable to reconnect. Please refresh the page.');
+      isReconnectingRef.current = false;
+      return;
+    }
+    
+    if (isReconnectingRef.current) {
+      console.log('Reconnection already scheduled');
       return;
     }
     
@@ -398,7 +441,7 @@ const MeetingRoom = ({ user }) => {
     console.log(`Reconnecting in ${Math.round(delay / 1000)}s (attempt ${reconnectAttemptsRef.current}/${maxReconnectAttempts})`);
     
     setTimeout(() => {
-      if (!isConnected) {
+      if (!isConnected && !isReconnectingRef.current) {
         connectWebSocket(token, true);
       }
     }, delay);
@@ -414,8 +457,9 @@ const MeetingRoom = ({ user }) => {
       } else if (document.visibilityState === 'visible') {
         // App returning to foreground - check connection
         console.log('App returning to foreground');
-        if (wsRef.current?.readyState !== WebSocket.OPEN) {
+        if (wsRef.current?.readyState !== WebSocket.OPEN && !isReconnectingRef.current) {
           console.log('Reconnecting after returning to foreground');
+          reconnectAttemptsRef.current = 0; // Reset on visibility change
           connectWebSocket(token, true);
         }
       }
@@ -425,7 +469,7 @@ const MeetingRoom = ({ user }) => {
     const handleOnline = () => {
       console.log('Network restored');
       const token = localStorage.getItem('token');
-      if (wsRef.current?.readyState !== WebSocket.OPEN) {
+      if (wsRef.current?.readyState !== WebSocket.OPEN && !isReconnectingRef.current) {
         toast.info('Network restored. Reconnecting...');
         reconnectAttemptsRef.current = 0; // Reset backoff on network restore
         connectWebSocket(token, true);
@@ -448,21 +492,30 @@ const MeetingRoom = ({ user }) => {
     };
   }, [connectWebSocket]);
 
-  // Safe WebSocket send function with message queuing
+  // Safe WebSocket send function with message queuing - NEVER throws
   const safeSend = useCallback((data) => {
+    // Double-check WebSocket state before sending
+    const ws = wsRef.current;
+    
+    if (!ws) {
+      console.warn('WebSocket not initialized, queuing message:', data.type);
+      messageQueueRef.current.push(data);
+      return false;
+    }
+    
+    // Check readyState synchronously right before send
+    if (ws.readyState !== WebSocket.OPEN) {
+      console.warn(`WebSocket state ${ws.readyState}, queuing message:`, data.type);
+      messageQueueRef.current.push(data);
+      return false;
+    }
+    
     try {
-      if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-        wsRef.current.send(JSON.stringify(data));
-        return true;
-      } else {
-        // Queue message for later delivery
-        console.warn('WebSocket not ready, queuing message:', data.type);
-        messageQueueRef.current.push(data);
-        return false;
-      }
+      ws.send(JSON.stringify(data));
+      return true;
     } catch (error) {
-      console.error('Error sending WebSocket message:', error);
-      // Queue on error
+      // Catch any synchronous errors (InvalidStateError, etc.)
+      console.error('Error sending WebSocket message:', error.name, error.message);
       messageQueueRef.current.push(data);
       return false;
     }
