@@ -404,33 +404,59 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
               Captions: {LANGUAGES.find(l => l.code === selectedLanguage)?.name || 'English'}
             </span>
             
-            {/* Note about audio */}
-            {selectedLanguage !== 'en' && (
+            {/* Audio Status */}
+            {selectedLanguage !== 'en' && !generatedAudioUrl && (
               <span className="text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded">
                 Audio in English • Captions in {LANGUAGES.find(l => l.code === selectedLanguage)?.name}
               </span>
             )}
+            
+            {/* Generated Audio Status */}
+            {generatedAudioUrl && (
+              <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded flex items-center gap-1">
+                ✓ {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio Ready
+              </span>
+            )}
           </div>
+          
+          {/* Hidden Audio Element for Generated Audio */}
+          {generatedAudioUrl && (
+            <audio ref={audioRef} src={generatedAudioUrl} preload="auto" />
+          )}
           
           {/* AI Audio Generation Section */}
           {selectedLanguage !== 'en' && (
             <div className="mt-3 pt-3 border-t border-gray-200">
               <div className="flex items-center gap-2 flex-wrap">
-                <button
-                  onClick={requestTranslation}
-                  disabled={translating}
-                  className="text-sm bg-purple-500 text-white px-3 py-1.5 rounded hover:bg-purple-600 disabled:opacity-50 flex items-center gap-1"
-                >
-                  {translating ? (
-                    <>
-                      <Loader2 className="w-3 h-3 animate-spin" />
-                      Generating AI Audio...
-                    </>
-                  ) : (
-                    <>Generate {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio (AI)</>
-                  )}
-                </button>
-                <span className="text-xs text-gray-400">Requires D-ID API credits</span>
+                {!generatedAudioUrl ? (
+                  <>
+                    <button
+                      onClick={requestTranslation}
+                      disabled={translating}
+                      className="text-sm bg-purple-500 text-white px-3 py-1.5 rounded hover:bg-purple-600 disabled:opacity-50 flex items-center gap-1"
+                    >
+                      {translating ? (
+                        <>
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                          Generating Audio...
+                        </>
+                      ) : (
+                        <>Generate {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio (FREE)</>
+                      )}
+                    </button>
+                    <span className="text-xs text-green-600">Microsoft Neural Voice • No cost</span>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={playAudioWithVideo}
+                      className="text-sm bg-green-500 text-white px-3 py-1.5 rounded hover:bg-green-600 flex items-center gap-1"
+                    >
+                      ▶ Play with {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio
+                    </button>
+                    <span className="text-xs text-gray-500">Audio syncs with video</span>
+                  </>
+                )}
               </div>
               {translationError && (
                 <p className="text-xs text-red-500 mt-2">{translationError}</p>
