@@ -229,17 +229,25 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
   }, []);
   
   // Sync audio with video - defined before early return
+  // Handle muting original video when translated audio plays
   useEffect(() => {
     if (videoRef.current && audioRef.current && generatedAudioUrl) {
-      const syncAudio = () => {
-        if (audioRef.current) {
-          audioRef.current.currentTime = videoRef.current.currentTime;
-        }
-      };
       const videoElement = videoRef.current;
       const audioElement = audioRef.current;
       
-      const handlePlay = () => audioElement?.play();
+      const syncAudio = () => {
+        if (audioElement) {
+          audioElement.currentTime = videoElement.currentTime;
+        }
+      };
+      
+      // When video plays, sync translated audio if video is muted (translated mode)
+      const handlePlay = () => {
+        if (videoElement.muted && audioElement) {
+          audioElement.play();
+        }
+      };
+      
       const handlePause = () => audioElement?.pause();
       
       videoElement.addEventListener('play', handlePlay);
