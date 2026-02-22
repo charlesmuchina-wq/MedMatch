@@ -223,29 +223,6 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
     </Dialog>
   );
 };
-                  </span>
-                  {selectedBg === bg.id && (
-                    <div className="absolute top-1 right-1 w-4 h-4 bg-turquoise rounded-full flex items-center justify-center">
-                      <Check className="w-3 h-3 text-white" />
-                    </div>
-                  )}
-                </button>
-              ))}
-            </div>
-            <p className="text-xs text-slate-500 mt-2">
-              Image backgrounds require TensorFlow.js AI model for person segmentation.
-            </p>
-          </div>
-        </div>
-        
-        <DialogFooter className="gap-2">
-          <Button variant="outline" onClick={onClose} className="text-slate-300">Cancel</Button>
-          <Button onClick={handleApply} className="bg-turquoise hover:bg-turquoise/80">Apply</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-};
 
 // Meeting Header Component - Mobile Responsive
 const MeetingHeader = ({ meeting, meetingId, isRecording, onAddToCalendar, onCopyLink }) => (
