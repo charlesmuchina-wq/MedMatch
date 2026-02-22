@@ -799,6 +799,30 @@ async def get_translation_status(video_id: str, lang: str):
     }
 
 
+@router.get("/audio/{filename}")
+async def serve_audio_file(filename: str):
+    """
+    Serve generated audio files (edge-tts MP3 files).
+    This endpoint provides audio files via /api/tutorials/audio/{filename}
+    """
+    from services.edge_tts_service import AUDIO_DIR
+    
+    audio_path = AUDIO_DIR / filename
+    
+    if not audio_path.exists():
+        raise HTTPException(status_code=404, detail="Audio file not found")
+    
+    return FileResponse(
+        path=str(audio_path),
+        media_type="audio/mpeg",
+        filename=filename,
+        headers={
+            "Accept-Ranges": "bytes",
+            "Cache-Control": "public, max-age=3600"
+        }
+    )
+
+
 @router.get("/subtitles/{video_id}")
 async def get_subtitles(video_id: str, lang: str = "en"):
     """
