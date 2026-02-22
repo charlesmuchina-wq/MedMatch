@@ -174,39 +174,39 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
   );
 };
 
-// Meeting Header Component
+// Meeting Header Component - Mobile Responsive
 const MeetingHeader = ({ meeting, meetingId, isRecording, onAddToCalendar, onCopyLink }) => (
-  <header className="h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-4">
-    <div className="flex items-center gap-3">
-      <div className="flex items-center gap-2">
-        <Shield className="w-5 h-5 text-turquoise" />
-        <span className="text-white font-semibold">AI KARAU Meeting</span>
+  <header className="min-h-[48px] md:h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-2 md:px-4 py-2">
+    <div className="flex items-center gap-1 md:gap-3 flex-wrap">
+      <div className="flex items-center gap-1 md:gap-2">
+        <Shield className="w-4 h-4 md:w-5 md:h-5 text-turquoise flex-shrink-0" />
+        <span className="text-white font-semibold text-sm md:text-base hidden sm:inline">AI KARAU Meeting</span>
+        <span className="text-white font-semibold text-sm md:text-base sm:hidden">KARAU</span>
       </div>
-      <Badge variant="outline" className="text-slate-300 border-slate-600">
+      <Badge variant="outline" className="text-slate-300 border-slate-600 text-xs md:text-sm max-w-[100px] md:max-w-none truncate">
         {meeting?.title || 'Meeting'}
       </Badge>
-      <Badge className="bg-green-500/20 text-green-400 border-green-500/30">
-        <Shield className="w-3 h-3 mr-1" />
-        E2E Encrypted
+      <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
+        <Shield className="w-3 h-3 mr-0.5 md:mr-1" />
+        <span className="hidden xs:inline">E2E </span>Encrypted
       </Badge>
       {isRecording && (
-        <Badge className="bg-red-500/20 text-red-400 border-red-500/30 animate-pulse">
-          <Circle className="w-2 h-2 mr-1 fill-current" />
-          Recording
+        <Badge className="bg-red-500/20 text-red-400 border-red-500/30 animate-pulse text-xs">
+          <Circle className="w-2 h-2 mr-0.5 fill-current" />
+          REC
         </Badge>
       )}
     </div>
     
-    <div className="flex items-center gap-2">
-      <Button variant="ghost" size="sm" onClick={onAddToCalendar} className="text-slate-300 hover:text-white">
-        <Calendar className="w-4 h-4 mr-1" />
-        Add to Calendar
+    <div className="flex items-center gap-1 md:gap-2">
+      <Button variant="ghost" size="sm" onClick={onAddToCalendar} className="text-slate-300 hover:text-white px-1.5 md:px-3">
+        <Calendar className="w-4 h-4" />
+        <span className="hidden md:inline ml-1">Add to Calendar</span>
       </Button>
-      <Button variant="ghost" size="sm" onClick={onCopyLink} className="text-slate-300 hover:text-white">
-        <Copy className="w-4 h-4 mr-1" />
-        Copy Link
+      <Button variant="ghost" size="sm" onClick={onCopyLink} className="text-slate-300 hover:text-white px-1.5 md:px-3">
+        <Copy className="w-4 h-4" />
+        <span className="hidden md:inline ml-1">Copy Link</span>
       </Button>
-      <span className="text-slate-400 text-sm">ID: {meetingId}</span>
     </div>
   </header>
 );
