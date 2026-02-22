@@ -247,7 +247,7 @@ async def generate_tutorial_audio(video_id: str, language: str) -> Dict[str, Any
         
         return {
             "success": True,
-            "audio_url": f"/static/audio/tutorials/{filename}",
+            "audio_url": f"/api/tutorials/audio/{filename}",
             "filepath": str(filepath),
             "cached": False
         }
