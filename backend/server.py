@@ -361,6 +361,11 @@ tutorial_videos_dir = Path("/app/backend/static/videos/tutorials")
 if tutorial_videos_dir.exists():
     app.mount("/tutorial-videos", StaticFiles(directory=str(tutorial_videos_dir)), name="tutorial_videos")
 
+# Mount tutorial audio directory (for edge-tts generated audio)
+tutorial_audio_dir = Path("/app/backend/static/audio/tutorials")
+tutorial_audio_dir.mkdir(parents=True, exist_ok=True)
+app.mount("/static/audio/tutorials", StaticFiles(directory=str(tutorial_audio_dir)), name="tutorial_audio")
+
 # ============== CORS Configuration ==============
 app.add_middleware(
     CORSMiddleware,
