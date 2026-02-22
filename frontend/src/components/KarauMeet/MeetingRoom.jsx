@@ -707,14 +707,30 @@ const MeetingRoom = ({ user }) => {
     const pc = peerConnectionsRef.current[message.from_user];
     if (pc && message.candidate) {
       try {
-        // FIX: Only add ICE candidate if remote description is set
+        // Only add ICE candidate if remote description is set
         if (pc.remoteDescription && pc.remoteDescription.type) {
           await pc.addIceCandidate(new RTCIceCandidate(message.candidate));
+          
+          // Process any queued candidates for this peer
+          const queuedCandidates = iceCandidateQueueRef.current[message.from_user] || [];
+          for (const candidate of queuedCandidates) {
+            try {
+              await pc.addIceCandidate(new RTCIceCandidate(candidate));
+            } catch (e) {
+              console.warn('Error adding queued ICE candidate:', e);
+            }
+          }
+          iceCandidateQueueRef.current[message.from_user] = [];
         } else {
-          console.warn('Remote description not set, queuing ICE candidate');
+          // Queue ICE candidate for later
+          console.log('Remote description not set, queuing ICE candidate for', message.from_user);
+          if (!iceCandidateQueueRef.current[message.from_user]) {
+            iceCandidateQueueRef.current[message.from_user] = [];
+          }
+          iceCandidateQueueRef.current[message.from_user].push(message.candidate);
         }
       } catch (e) {
-        // Ignore errors for ICE candidates after connection is established
+        // Ignore InvalidStateError - connection might be in wrong state
         if (e.name !== 'InvalidStateError') {
           console.error('Error adding ICE candidate:', e);
         }
