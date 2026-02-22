@@ -115,11 +115,15 @@ class TestEdgeTTSAudioGeneration:
                 assert audio_url is not None
                 print(f"✅ Spanish audio ready: {audio_url}")
                 
-                # Verify audio file is accessible
+                # Verify audio file is accessible (use GET, not HEAD)
                 full_url = f"{BASE_URL}{audio_url}"
-                audio_response = requests.head(full_url)
+                audio_response = requests.get(full_url, stream=True)
                 assert audio_response.status_code == 200
+                # Check content type
+                content_type = audio_response.headers.get('content-type', '')
+                assert 'audio' in content_type or 'mpeg' in content_type
                 print(f"✅ Audio file accessible at: {full_url}")
+                audio_response.close()
                 return
             elif data.get("status") == "failed":
                 print(f"⚠️ Audio generation failed: {data.get('error')}")
