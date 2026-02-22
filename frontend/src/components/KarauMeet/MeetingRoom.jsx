@@ -463,35 +463,79 @@ const MeetingRoom = ({ user }) => {
     }
   }, [user, navigate]);
 
-  // WebRTC handlers
+  // WebRTC handlers with proper state checks
   const handleOffer = async (message) => {
     const { from_user, offer } = message;
-    let pc = peerConnectionsRef.current[from_user] || await createPeerConnection(from_user, false);
-    
-    await pc.setRemoteDescription(new RTCSessionDescription(offer));
-    const answer = await pc.createAnswer();
-    await pc.setLocalDescription(answer);
-    
-    wsRef.current?.send(JSON.stringify({ type: 'answer', target: from_user, answer }));
+    try {
+      let pc = peerConnectionsRef.current[from_user];
+      
+      // FIX: Check signaling state before setting remote description
+      if (pc && pc.signalingState !== 'stable' && pc.signalingState !== 'have-local-offer') {
+        console.log(`Recreating peer connection for ${from_user}, current state: ${pc.signalingState}`);
+        pc.close();
+        delete peerConnectionsRef.current[from_user];
+        pc = null;
+      }
+      
+      if (!pc) {
+        pc = await createPeerConnection(from_user, false);
+      }
+      
+      await pc.setRemoteDescription(new RTCSessionDescription(offer));
+      const answer = await pc.createAnswer();
+      await pc.setLocalDescription(answer);
+      
+      safeSend({ type: 'answer', target: from_user, answer });
+    } catch (error) {
+      console.error('Error handling offer:', error);
+    }
   };
   
   const handleAnswer = async (message) => {
     const pc = peerConnectionsRef.current[message.from_user];
-    if (pc) await pc.setRemoteDescription(new RTCSessionDescription(message.answer));
+    if (pc) {
+      try {
+        // FIX: Only set remote description if in correct state
+        if (pc.signalingState === 'have-local-offer') {
+          await pc.setRemoteDescription(new RTCSessionDescription(message.answer));
+        } else {
+          console.warn(`Cannot set answer, signaling state: ${pc.signalingState}`);
+        }
+      } catch (error) {
+        console.error('Error handling answer:', error);
+      }
+    }
   };
   
   const handleIceCandidate = async (message) => {
     const pc = peerConnectionsRef.current[message.from_user];
     if (pc && message.candidate) {
       try {
-        await pc.addIceCandidate(new RTCIceCandidate(message.candidate));
+        // FIX: Only add ICE candidate if remote description is set
+        if (pc.remoteDescription && pc.remoteDescription.type) {
+          await pc.addIceCandidate(new RTCIceCandidate(message.candidate));
+        } else {
+          console.warn('Remote description not set, queuing ICE candidate');
+        }
       } catch (e) {
-        console.error('Error adding ICE candidate:', e);
+        // Ignore errors for ICE candidates after connection is established
+        if (e.name !== 'InvalidStateError') {
+          console.error('Error adding ICE candidate:', e);
+        }
       }
     }
   };
 
   const createPeerConnection = async (userId, initiator = false) => {
+    // FIX: Close existing connection if any
+    if (peerConnectionsRef.current[userId]) {
+      try {
+        peerConnectionsRef.current[userId].close();
+      } catch (e) {
+        console.warn('Error closing existing peer connection:', e);
+      }
+    }
+    
     const pc = new RTCPeerConnection(rtcConfig);
     peerConnectionsRef.current[userId] = pc;
     
@@ -504,19 +548,32 @@ const MeetingRoom = ({ user }) => {
     };
     
     pc.onicecandidate = (event) => {
-      if (event.candidate && wsRef.current) {
-        wsRef.current.send(JSON.stringify({
+      if (event.candidate) {
+        safeSend({
           type: 'ice_candidate',
           target: userId,
           candidate: event.candidate
-        }));
+        });
+      }
+    };
+    
+    // FIX: Add connection state monitoring
+    pc.onconnectionstatechange = () => {
+      console.log(`Peer ${userId} connection state: ${pc.connectionState}`);
+      if (pc.connectionState === 'failed') {
+        // Could implement reconnection logic here
+        console.warn(`Connection to ${userId} failed`);
       }
     };
     
     if (initiator) {
-      const offer = await pc.createOffer();
-      await pc.setLocalDescription(offer);
-      wsRef.current?.send(JSON.stringify({ type: 'offer', target: userId, offer }));
+      try {
+        const offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
+        safeSend({ type: 'offer', target: userId, offer });
+      } catch (error) {
+        console.error('Error creating offer:', error);
+      }
     }
     
     return pc;
