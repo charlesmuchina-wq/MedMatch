@@ -178,7 +178,7 @@ class TestCORSConfiguration:
             json={"email": ADMIN_EMAIL, "password": ADMIN_PASSWORD},
             headers={
                 "Content-Type": "application/json",
-                "Origin": "https://ai-tts-portal.preview.emergentagent.com"
+                "Origin": "https://karau-portal.preview.emergentagent.com"
             }
         )
         

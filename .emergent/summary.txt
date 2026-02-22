@@ -1,134 +1,139 @@
 <analysis>**original_problem_statement:**
-The user's initial goal was to build MedMatch, an AI-powered Life Sciences & Engineering Talent Ecosystem, and a standalone AI KARAU Meeting Portal. The project addressed major recurring issues with videos and translations. Recently, the focus was on achieving 100% UI translation coverage, which has been completed. The latest user request is to integrate Google Translate as a fallback mechanism for the application's built-in internationalization system.
+The user's initial goal was to build MedMatch, an AI-powered Life Sciences & Engineering Talent Ecosystem, and a standalone AI KARAU Meeting Portal. The project addressed major recurring issues with videos and translations. The focus of recent sessions has been on enhancing the user experience by adding Google Translate fallbacks, improving the tutorial video features with multi-language audio and closed captions, and fixing critical performance bottlenecks. The most recent user request was to fix persistent stability issues in the AI KARAU Meeting Portal's video call feature, specifically addressing duplicate participants and invalid state errors during connection.
 
 **PRODUCT REQUIREMENTS:**
--   Achieve 100% translation coverage for the UI, removing all hardcoded English text. (DONE)
--   Fix all bugs preventing QA dashboards and the AI KARAU Meeting portal from functioning. (DONE)
--   Implement Google Translate fallback features. (NOT STARTED)
--   Ensure all tutorial videos and core meeting functionalities are ready for user verification.
+-   Achieve 100% translation coverage for the UI. (DONE)
+-   Fix all bugs preventing QA dashboards and the AI KARAU Meeting portal from functioning. (In Progress - Core meeting functionality is unstable)
+-   Implement Google Translate fallback features. (DONE)
+-   Implement multi-language audio and closed captions for tutorial videos. (DONE, expanded to 28 languages)
+-   Fix performance issues with the Skills Testing module. (DONE)
+-   Ensure all tutorial videos and core meeting functionalities are ready for user verification. (BLOCKED by meeting portal instability)
 
 **User's preferred language**: English
 
 **what currently exists?**
-A full-stack application with a React frontend, FastAPI backend, and MongoDB. The platform has two main applications: MedMatch-AI KARAU (talent ecosystem) and AI KARAU Meeting Portal (video conferencing). The application is now fully internationalized, with all hardcoded English strings replaced by  keys. All major known bugs, including login issues with the Meeting Portal and non-functional QA dashboards, have been resolved and verified through extensive automated testing.
+A full-stack application with a React frontend, FastAPI backend, and MongoDB. The app features a full internationalization system,  for free text-to-speech, and a performant skills assessment module. The tutorial system now supports 28 languages for Closed Captions. The agent was in the process of a major refactor of the AI KARAU Meeting Portal's WebSocket and WebRTC logic to address critical stability bugs, implementing advanced resiliency patterns like server-side heartbeats, session recovery, and client-side exponential backoff.
 
 **Last working item**:
--   **Last item agent was working:** The agent was about to begin implementing the user's request for Google Translate fallback features. This involves three parts:
-    1.  Adding a Use Google Translate button when a translation is incomplete.
-    2.  Detecting active browser translation to hide the app's internal language selector.
-    3.  Adding a disclaimer in the settings page about using browser translation.
--   **Status:** NOT STARTED
--   **Agent Testing Done:** N
--   **Which testing method agent to use?** Frontend testing agent. This task involves UI changes (new button, hiding elements) and potentially some logic to interact with the browser's state, which is best validated with an end-to-end frontend test.
--   **User Testing Done:** N
+-   **Last item agent was working:** Implementing a robust, multi-layered fix for the AI KARAU Meeting Portal's WebRTC instability, based on user-provided research. This involved adding resiliency patterns to both the frontend and backend to prevent duplicate participants and  errors. The agent had just finished adding sequence numbers to backend messages and ICE candidate queuing on the frontend.
+-   **Status:** IN PROGRESS
+-   **Agent Testing Done:** N (The latest set of comprehensive fixes has not been tested.)
+-   **Which testing method agent to use?** Manual testing is required first to validate the complex resiliency logic. The next agent must guide the user through a structured test plan. If bugs persist,  can be used with a detailed scenario.
+-   **User Testing Done:** N (User last tested before the latest resiliency patterns were fully implemented and confirmed the bugs were still present.)
 
 **All Pending/In progress Issue list**:
-There are no pending bugs or issues. The remaining work consists of new feature implementation and user verification tasks.
+-   **Issue 1: AI KARAU Meeting Portal Instability (P0)**
+    -   **Description:** Users experience two critical bugs during video calls: 1) The same participant appears multiple times if they join from different tabs/devices. 2) The connection frequently breaks with an  error, especially on page refresh or network change.
+    -   **Attempted fixes:**
+        1.  **Initial Fix:** A simple  wrapper and backend logic to close old connections. This was insufficient.
+        2.  **Major Refactor:** A comprehensive solution was implemented based on user research:
+            -   **Backend ():** Added server-side heartbeats (ping/pong), session tokens for recovery, kill-old-on-new connection logic, and sequence numbers on all broadcasted messages.
+            -   **Frontend ():** Implemented exponential backoff with jitter for reconnection, a message queue for when the socket is not , Page Visibility API listeners to handle background/foreground state, and ICE candidate queuing.
+    -   **Next debug checklist:**
+        1.  The latest changes (sequence numbers, ICE queuing) are implemented but untested. A full end-to-end test is mandatory.
+        2.  Guide the user through a structured test plan covering these scenarios:
+            -   **Duplicate User:** Join from two tabs with the same account. Verify only one participant appears.
+            -   **Network Interruption:** Join, disable network for 15s, then re-enable. Verify automatic reconnection without errors or duplicates.
+            -   **Page Refresh:** Join, then refresh the page. Verify a clean rejoin.
+            -   **Background Tab:** Join, switch to another tab for 30s, then return. Verify the connection remains stable.
+        3.  Carefully monitor the browser console for  errors throughout the test.
+    -   **Why fix this issue and what will be achieved with the fix?** This is a complete blocker for the product's core video communication feature. Fixing it will make the meeting portal usable and ready for user acceptance testing.
+    -   **Status:** IN PROGRESS
+    -   **Is recurring issue?** Y
+    -   **Should Test frontend/backend/both after fix?** Both.
+    -   **Blocked on other issue:** No.
 
 **In progress Task List**:
-There are no tasks currently in progress. The previous large task (UI translation) was completed.
+-   There are no other in-progress tasks.
 
 **Upcoming and Future Tasks**
 -   **Upcoming Tasks:**
-    -   **(P0) Implement Google Translate Fallback Features:**
-        -   **Task 1:** Add a Use Google Translate button.
-        -   **Task 2:** Implement logic to detect when the browser's native translation is active and hide the app's language selector to avoid conflicts.
-        -   **Task 3:** Add a disclaimer to the settings page informing users they can use their browser's built-in translation feature.
-    -   **(P1) User Verification of Tutorial Videos:** Guide the user to perform a final review of the tutorial videos.
-    -   **(P1) E2E Multi-User Video Call Test:** Guide the user to perform a live, end-to-end video call test.
-
--   **Future Tasks (Blocked on user credentials):**
+    -   **(P0) E2E Multi-User Video Call Test:** Guide the user to perform a live, end-to-end video call test once the stability issues are confirmed as resolved.
+-   **Future Tasks:**
     -   (P1) LinkedIn Profile Sync
     -   (P1) ORCID OAuth Login
     -   (P1) PayPal Integration
+    -   (P2) Complete AI audio script generation for all videos and languages.
     -   (P2) Enterprise SSO/SAML
     -   (P2) iOS build
 
 **Completed work in this session**
--   **100% UI Translation Coverage (DONE):**
-    -   Systematically identified and replaced all remaining hardcoded  strings (~88 instances) across dozens of frontend components with  translation keys.
-    -   Updated  with all new keys.
-    -   Successfully ran the  script to generate translations for 33 languages.
--   **AI KARAU Meeting Portal Login Fixed (DONE):**
-    -   Resolved a bug in  where the login would not redirect. The issue was caused by a duplicate event handler on the submit button. The fix was verified, and the portal is now fully accessible.
--   **QA & Admin Dashboards Restored (DONE):**
-    -   Fixed over a dozen critical bugs across multiple pages (, , etc.) caused by missing or malformed  hook imports. These pages are now functional and render correctly.
--   **Comprehensive Full-Stack Testing (DONE):**
-    -   Executed multiple end-to-end test suites using the . The agent found and automatically fixed numerous bugs, primarily related to the i18n implementation. All final tests passed with a 100% success rate.
+-   **Video Tutorial Bugs (VERIFIED & FIXED):** Confirmed that all previously reported video player bugs (audio overlap, text contrast, CC loading) are resolved.
+-   **AI KARAU Meeting Portal Login (VERIFIED & FIXED):** Verified that the  page works correctly.
+-   **Expanded Language Support (DONE):** Expanded Closed Captions (CC) support to 28 languages for all 5 tutorial videos and consolidated the backend subtitle logic.
 
 **Earlier issues found/mentioned but not fixed**
--   None.
+-   All known issues are captured in the All Pending/In progress Issue list.
 
 **Known issue recurrence from previous fork**
--   **Issue recurrence in previous fork:** Mismatched and buggy D-ID tutorial videos.
--   **Recurrence count:** High
--   **Status:** RESOLVED. This was permanently fixed by implementing a database-backed asset management system as a single source of truth.
+-   The WebRTC instability ( error and duplicate participants) is a persistent issue that has recurred through multiple fix attempts in this session.
 
 **Code Architecture**
 
 
 **Key Technical Concepts**
--   **Systematic I18n Refactoring:** Using  to find hardcoded strings, updating a central  file, and using a script to auto-generate translations.
--   **Automated Testing & Healing:** Extensive use of  to not only find but also automatically fix critical frontend bugs (like missing React hook imports).
--   **React Event Handling:** Debugging and fixing issues related to  and  handlers in forms.
+-   **WebSocket Resiliency:** The core focus has been stabilizing the WebSocket connection by implementing server-side heartbeats (ping/pong), exponential backoff with jitter, session recovery tokens, message queuing, and app lifecycle awareness (Page Visibility API).
+-   **WebRTC Signaling:** Deep debugging of signaling states, race conditions, and participant lifecycle management to prevent errors and data corruption.
+-   **Message Sequencing:** Added sequence numbers to backend messages to enable future implementation of message replay for clients that disconnect and reconnect.
 
 **key DB schema**
--   No changes in this session.
+-   No changes to the DB schema in this session.
 
 **changes in tech stack**
--   No changes.
+-   No changes to the tech stack.
 
 **All files of reference**
--    (Core logic for the translation system)
--    (Source of truth for all English text)
--    (Script used to generate translations)
--    (Location of the recent meeting portal login fix)
+-   : The primary location for the frontend resiliency logic.
+-   : The primary location for the backend resiliency logic.
+-   : The WebSocket API route.
+-   : The refactored subtitle and language endpoints.
 
 **Areas that need refactoring**:
--   None. The major refactoring task (i18n) is now complete.
+-   The  file has incomplete audio script coverage for videos  through . This could be completed in a future task.
 
 **key api endpoints**
--    (Verified working)
--    (Verified working)
--    (Verified working)
--    (Verified working)
+-   : The main WebSocket endpoint for the meeting room. It now accepts a  query parameter for session recovery.
+-   : Creates a new meeting.
+-   : New endpoint that lists the 28 available CC languages.
 
 **Critical Info for New Agent**
--   The previous agent completed a massive effort to fully internationalize the UI and fix numerous critical bugs. The application is in a very stable state.
--   Your new highest priority task (P0) is to implement the user's request for Google Translate fallback features. This task is clearly defined in three parts and has not been started.
--   After completing the Google Translate integration, the next steps are to guide the user through verifying the tutorial videos and conducting a live video call test. The application is ready for this user acceptance testing.
+-   You are resuming work mid-refactor on a critical stability issue in the WebRTC meeting feature. Do not assume previous fixes worked. The immediate priority is to conduct a thorough, structured test of the newly implemented resiliency patterns.
+-   The user is technically knowledgeable and has been guiding the solution based on their research. Closely follow their feedback and the established plan.
+-   Your first action should be to create a new test meeting and guide the user through the detailed test plan outlined in the All Pending/In progress Issue list to check for duplicate users and  errors under various conditions (network loss, page refresh).
 
 **documents and test reports created in this job**
--   
--   
--   
--   
--   
--    (Updated multiple times to reflect completed tasks)
+-    (Updated with latest progress).
 
 **Last 10 User Messages and any pending HUMAN messages**
--   User requested to update and run all automated QA processes. (Completed)
--   User requested to verify all pending actions are completed. (Completed)
--   User asked if the app has a Google Translate fallback. (Answered)
--   User requested the implementation of all three proposed Google Translate fallback features. **(This is the main pending task).**
+The user has been actively involved in debugging the WebRTC issues, providing detailed test results, screenshots, and research links to guide the implementation of a more robust solution.
+1.  **User:** Reports the invalid state error is still occurring after initial fixes, providing a screenshot.
+2.  **User:** Provides detailed research on how to solve WebSocket instability (heartbeats, session recovery, exponential backoff, etc.).
+3.  **Agent:** Acknowledges the research and begins implementing the robust solution.
+4.  **User:** Asks to verify that the duplicate participant and state error issues were addressed, providing more research on best practices.
+5.  **Agent:** Continues implementation, adding more layers of resiliency like ICE candidate queuing and message sequencing.
+6.  **User:** Asks for a new meeting to test.
+7.  **Agent:** Provides a new test meeting ID.
+8.  **User:** Reports test results: join success, calendar save success, but also **duplicate participants** and **uncaught invalid state errors**, confirming the bugs persist.
+9.  **User:** Asks about language coverage for CC/audio.
+10. **User:** Requests expansion of language support.
 
 **Project Health Check:**
--   **Broken:** None.
+-   **Broken:** AI KARAU Meeting Portal (core WebRTC functionality is unstable).
 -   **Mocked:** Google and Apple social sign-in.
--   **Healthy:** The entire application, including both MedMatch and the AI KARAU Meeting Portal, is stable, fully translated, and has passed extensive automated testing.
+-   **Healthy:** Main MedMatch application, Dashboards, Skill Assessments, Tutorial Video system.
 
 **3rd Party Integrations**
--   **D-ID:** For AI avatar video generation (uses User API Key).
--   **emergentintegrations:** For AI-powered language translation (uses Emergent LLM Key) and AI question generation.
+-   **edge-tts:** For AI audio generation for tutorials.
+-   **emergentintegrations:** For AI-powered language translation and AI question generation.
 -   **WebRTC/Xirsys:** For real-time communication.
 -   **TensorFlow.js:** For client-side AI features.
 -   **Resend:** For transactional emails (requires User API Key).
 
 **Testing status**
--   **Testing agent used after significant changes:** YES. The agent was used multiple times to test the i18n implementation and other fixes, successfully identifying and healing over a dozen bugs.
--   **Troubleshoot agent used after agent stuck in loop:** NO.
--   **Test files created:** Multiple test reports in .
--   **Known regressions:** None.
+-   **Testing agent used after significant changes:** No, the recent major WebRTC refactoring has not been validated by the testing agent.
+-   **Troubleshoot agent used after agent stuck in loop:** No.
+-   **Test files created:** None.
+-   **Known regressions:** The WebRTC stability issues are a persistent regression that has not yet been successfully resolved.
 
 **Credentials to test flow:**
 -   **User Account:**
@@ -136,4 +141,4 @@ There are no tasks currently in progress. The previous large task (UI translatio
     -   Password: 
 
 **What agent forgot to execute**
--   The agent did not forget any tasks. The session ended after receiving a new feature request from the user, which is now the top priority for the next session.</analysis>
+-   The agent did not forget a task but was in the middle of a complex implementation. The critical missing piece is the final, comprehensive test to validate that the extensive resiliency logic added to the frontend and backend has actually fixed the  and duplicate participant bugs.</analysis>

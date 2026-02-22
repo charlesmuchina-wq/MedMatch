@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://ai-tts-portal.preview.emergentagent.com/api
+**API Target:** https://karau-portal.preview.emergentagent.com/api
 
 ---
 
