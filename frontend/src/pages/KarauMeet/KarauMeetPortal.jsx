@@ -248,14 +248,8 @@ const KarauMeetPortal = () => {
       is_guest: true
     };
     
-    // Use Routes to properly set up the meetingId param
-    return (
-      <Routes>
-        <Route path="join/:meetingId" element={<MeetingRoom user={meetingUser} />} />
-        <Route path="room/:meetingId" element={<MeetingRoom user={meetingUser} />} />
-        <Route path="*" element={<MeetingRoom user={meetingUser} />} />
-      </Routes>
-    );
+    // Pass meetingId as prop directly
+    return <MeetingRoom user={meetingUser} meetingIdProp={meetingId} />;
   }
 
   // For non-meeting routes, require login
