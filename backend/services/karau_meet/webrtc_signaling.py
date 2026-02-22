@@ -1,12 +1,19 @@
 """
 AI KARAU Meeting - WebRTC Signaling Service
 Handles peer-to-peer connection setup for video/audio calls
+
+Enhanced with:
+- Server-side heartbeats (ping/pong) for zombie connection detection
+- Idempotency keys for event deduplication
+- Session recovery tokens for reconnection state
+- Proper connection lifecycle management
 """
 
 import os
 import uuid
 import json
 import asyncio
+import random
 from datetime import datetime, timezone
 from typing import Dict, List, Optional, Set
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -25,9 +32,13 @@ db = client[DB_NAME]
 meetings_collection = db.karau_meetings
 participants_collection = db.karau_participants
 
+# Heartbeat settings
+HEARTBEAT_INTERVAL = 15  # seconds
+HEARTBEAT_TIMEOUT = 30   # seconds - mark as zombie if no pong received
+
 
 class ConnectionManager:
-    """Manages WebSocket connections for WebRTC signaling"""
+    """Manages WebSocket connections for WebRTC signaling with robust lifecycle handling"""
     
     def __init__(self):
         # meeting_id -> {user_id -> websocket}
@@ -36,6 +47,18 @@ class ConnectionManager:
         self.user_meetings: Dict[str, str] = {}
         # meeting_id -> {user_id -> participant_info}
         self.participants: Dict[str, Dict[str, Dict]] = {}
+        # Session tokens for reconnection: user_id -> session_token
+        self.session_tokens: Dict[str, str] = {}
+        # Last pong received: user_id -> timestamp
+        self.last_pong: Dict[str, datetime] = {}
+        # Processed event IDs for idempotency: Set of event_ids
+        self.processed_events: Set[str] = set()
+        # Max size for processed events cache
+        self.max_processed_events = 10000
+        # Connection state: user_id -> "active" | "reconnecting" | "disconnected"
+        self.connection_states: Dict[str, str] = {}
+        # Heartbeat tasks
+        self.heartbeat_tasks: Dict[str, asyncio.Task] = {}
     
     async def connect(
         self,
