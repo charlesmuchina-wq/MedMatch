@@ -3,14 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import {
   Shield, Copy, Calendar, Loader2, Circle,
-  Check, X, AlertTriangle, Image
+  Check, X, AlertTriangle, Image as ImageIcon,
+  Mic, MicOff, Video, VideoOff, Monitor, MonitorOff,
+  Hand, PhoneOff, Square, MessageSquare, Users, Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 
 // Import refactored child components
-import VideoControls from './VideoControls';
 import { ParticipantGrid } from './ParticipantGrid';
 import { ChatPanel, AINotesPanel, ParticipantsPanel, SettingsPanel } from './MeetingPanels';
 
