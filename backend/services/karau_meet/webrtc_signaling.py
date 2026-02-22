@@ -66,9 +66,10 @@ class ConnectionManager:
         meeting_id: str,
         user_id: str,
         user_name: str,
-        is_host: bool = False
+        is_host: bool = False,
+        session_token: Optional[str] = None
     ) -> bool:
-        """Connect a user to a meeting room"""
+        """Connect a user to a meeting room with robust lifecycle management"""
         
         await websocket.accept()
         
@@ -77,22 +78,41 @@ class ConnectionManager:
             self.active_connections[meeting_id] = {}
             self.participants[meeting_id] = {}
         
-        # FIX: Check if user already exists in this meeting (duplicate connection)
-        # If so, close the old connection first
+        # Check connection state - handle reconnection vs new connection
+        previous_state = self.connection_states.get(user_id)
+        is_reconnection = False
+        
+        # Validate session token for reconnection
+        if session_token and session_token == self.session_tokens.get(user_id):
+            is_reconnection = True
+            logger.info(f"Valid session token for user {user_id} - resuming session")
+        
+        # Check if user already has an active connection (duplicate)
         if user_id in self.active_connections.get(meeting_id, {}):
             old_websocket = self.active_connections[meeting_id][user_id]
+            # Cancel old heartbeat task
+            if user_id in self.heartbeat_tasks:
+                self.heartbeat_tasks[user_id].cancel()
+                del self.heartbeat_tasks[user_id]
             try:
                 await old_websocket.close(code=4001, reason="Duplicate connection - reconnecting")
                 logger.info(f"Closed duplicate connection for user {user_id} in meeting {meeting_id}")
             except Exception as e:
                 logger.warning(f"Error closing duplicate connection: {e}")
+            is_reconnection = True
+        
+        # Generate new session token for this connection
+        new_session_token = str(uuid.uuid4())
+        self.session_tokens[user_id] = new_session_token
         
         # Store connection
         self.active_connections[meeting_id][user_id] = websocket
         self.user_meetings[user_id] = meeting_id
+        self.connection_states[user_id] = "active"
+        self.last_pong[user_id] = datetime.now(timezone.utc)
         
-        # FIX: Only add new participant if they don't already exist
-        is_new_participant = user_id not in self.participants.get(meeting_id, {})
+        # Determine if this is a new participant or reconnection
+        is_new_participant = user_id not in self.participants.get(meeting_id, {}) and not is_reconnection
         
         # Store/Update participant info
         participant_info = {
@@ -107,13 +127,17 @@ class ConnectionManager:
         }
         self.participants[meeting_id][user_id] = participant_info
         
+        # Generate idempotent event ID
+        event_id = f"join_{user_id}_{meeting_id}_{int(datetime.now(timezone.utc).timestamp())}"
+        
         # Only notify others if this is a NEW participant (not a reconnect)
         if is_new_participant:
-            # Notify existing participants
+            # Notify existing participants with idempotency key
             await self.broadcast_to_meeting(
                 meeting_id,
                 {
                     "type": "user_joined",
+                    "event_id": event_id,
                     "user_id": user_id,
                     "user_name": user_name,
                     "participant": participant_info,
@@ -127,26 +151,35 @@ class ConnectionManager:
                 meeting_id,
                 {
                     "type": "participant_state_changed",
+                    "event_id": event_id,
                     "user_id": user_id,
                     "participant": participant_info,
-                    "participants": list(self.participants[meeting_id].values())
+                    "participants": list(self.participants[meeting_id].values()),
+                    "is_reconnection": True
                 },
                 exclude_user=user_id
             )
             logger.info(f"User {user_id} reconnected to meeting {meeting_id}")
         
-        # Send current participants to new user
+        # Send current state to user with session token for future reconnection
         await self.send_personal(
             websocket,
             {
                 "type": "room_state",
                 "meeting_id": meeting_id,
                 "participants": list(self.participants[meeting_id].values()),
-                "your_id": user_id
+                "your_id": user_id,
+                "session_token": new_session_token,
+                "is_reconnection": is_reconnection
             }
         )
         
-        logger.info(f"User {user_id} joined meeting {meeting_id}")
+        # Start heartbeat monitoring for this user
+        self.heartbeat_tasks[user_id] = asyncio.create_task(
+            self._heartbeat_monitor(meeting_id, user_id)
+        )
+        
+        logger.info(f"User {user_id} joined meeting {meeting_id} (reconnection: {is_reconnection})")
         
         return True
     
