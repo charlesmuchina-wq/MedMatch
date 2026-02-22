@@ -224,11 +224,12 @@ class TestAudioFileServing:
             audio_url = data.get("audio_url") or data.get("video_url")
             if audio_url:
                 full_url = f"{BASE_URL}{audio_url}"
-                response = requests.head(full_url)
+                response = requests.get(full_url, stream=True)
                 if response.status_code == 200:
                     content_type = response.headers.get('content-type', '')
                     assert 'audio' in content_type or 'mpeg' in content_type
                     print(f"✅ Audio content type: {content_type}")
+                    response.close()
                     return
         
         print("⚠️ Audio file not yet ready for content type test")
