@@ -54,11 +54,24 @@ class ConnectionManager:
             self.active_connections[meeting_id] = {}
             self.participants[meeting_id] = {}
         
+        # FIX: Check if user already exists in this meeting (duplicate connection)
+        # If so, close the old connection first
+        if user_id in self.active_connections.get(meeting_id, {}):
+            old_websocket = self.active_connections[meeting_id][user_id]
+            try:
+                await old_websocket.close(code=4001, reason="Duplicate connection - reconnecting")
+                logger.info(f"Closed duplicate connection for user {user_id} in meeting {meeting_id}")
+            except Exception as e:
+                logger.warning(f"Error closing duplicate connection: {e}")
+        
         # Store connection
         self.active_connections[meeting_id][user_id] = websocket
         self.user_meetings[user_id] = meeting_id
         
-        # Store participant info
+        # FIX: Only add new participant if they don't already exist
+        is_new_participant = user_id not in self.participants.get(meeting_id, {})
+        
+        # Store/Update participant info
         participant_info = {
             "user_id": user_id,
             "user_name": user_name,
@@ -71,18 +84,33 @@ class ConnectionManager:
         }
         self.participants[meeting_id][user_id] = participant_info
         
-        # Notify existing participants
-        await self.broadcast_to_meeting(
-            meeting_id,
-            {
-                "type": "user_joined",
-                "user_id": user_id,
-                "user_name": user_name,
-                "participant": participant_info,
-                "participants": list(self.participants[meeting_id].values())
-            },
-            exclude_user=user_id
-        )
+        # Only notify others if this is a NEW participant (not a reconnect)
+        if is_new_participant:
+            # Notify existing participants
+            await self.broadcast_to_meeting(
+                meeting_id,
+                {
+                    "type": "user_joined",
+                    "user_id": user_id,
+                    "user_name": user_name,
+                    "participant": participant_info,
+                    "participants": list(self.participants[meeting_id].values())
+                },
+                exclude_user=user_id
+            )
+        else:
+            # This is a reconnect - just notify about participant list update
+            await self.broadcast_to_meeting(
+                meeting_id,
+                {
+                    "type": "participant_state_changed",
+                    "user_id": user_id,
+                    "participant": participant_info,
+                    "participants": list(self.participants[meeting_id].values())
+                },
+                exclude_user=user_id
+            )
+            logger.info(f"User {user_id} reconnected to meeting {meeting_id}")
         
         # Send current participants to new user
         await self.send_personal(
