@@ -35,7 +35,8 @@ async def websocket_endpoint(
     meeting_id: str,
     token: str = Query(None),
     user_name: str = Query(default="Guest"),
-    is_host: str = Query(default="false")
+    is_host: str = Query(default="false"),
+    session_token: str = Query(default=None)
 ):
     """
     WebSocket endpoint for WebRTC signaling
@@ -50,6 +51,10 @@ async def websocket_endpoint(
     - chat: Chat message
     - raise_hand: Hand raise toggle
     - reaction: Emoji reaction
+    - pong: Heartbeat response
+    
+    Session tokens:
+    - session_token: Optional token for session resumption after reconnection
     """
     
     # Verify token
@@ -67,13 +72,14 @@ async def websocket_endpoint(
         import uuid
         user_id = f"guest_{str(uuid.uuid4())[:8]}"
     
-    # Handle signaling
+    # Handle signaling with session token support
     await handle_webrtc_signaling(
         websocket=websocket,
         meeting_id=meeting_id,
         user_id=user_id,
         user_name=user_name,
-        is_host=is_host.lower() == "true"
+        is_host=is_host.lower() == "true",
+        session_token=session_token
     )
 
 
