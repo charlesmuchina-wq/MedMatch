@@ -369,20 +369,42 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
             
             {/* Language Info */}
             <span className="text-xs text-gray-500">
-              Audio & Captions: {LANGUAGES.find(l => l.code === selectedLanguage)?.name || 'English'}
+              Captions: {LANGUAGES.find(l => l.code === selectedLanguage)?.name || 'English'}
             </span>
             
-            {/* Generate Translation Button */}
+            {/* Note about audio */}
             {selectedLanguage !== 'en' && (
-              <button
-                onClick={requestTranslation}
-                disabled={translating}
-                className="text-sm bg-teal-500 text-white px-3 py-1 rounded hover:bg-teal-600 disabled:opacity-50 ml-auto"
-              >
-                {translating ? 'Generating...' : `Generate ${LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio`}
-              </button>
+              <span className="text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded">
+                Audio in English • Captions in {LANGUAGES.find(l => l.code === selectedLanguage)?.name}
+              </span>
             )}
           </div>
+          
+          {/* AI Audio Generation Section */}
+          {selectedLanguage !== 'en' && (
+            <div className="mt-3 pt-3 border-t border-gray-200">
+              <div className="flex items-center gap-2 flex-wrap">
+                <button
+                  onClick={requestTranslation}
+                  disabled={translating}
+                  className="text-sm bg-purple-500 text-white px-3 py-1.5 rounded hover:bg-purple-600 disabled:opacity-50 flex items-center gap-1"
+                >
+                  {translating ? (
+                    <>
+                      <Loader2 className="w-3 h-3 animate-spin" />
+                      Generating AI Audio...
+                    </>
+                  ) : (
+                    <>Generate {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio (AI)</>
+                  )}
+                </button>
+                <span className="text-xs text-gray-400">Requires D-ID API credits</span>
+              </div>
+              {translationError && (
+                <p className="text-xs text-red-500 mt-2">{translationError}</p>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
