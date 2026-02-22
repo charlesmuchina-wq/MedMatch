@@ -386,9 +386,14 @@ const MeetingRoom = ({ user }) => {
         break;
         
       case 'participant_state_changed':
-        setParticipants(prev => prev.map(p =>
-          p.user_id === message.user_id ? { ...p, ...message.participant } : p
-        ));
+        // FIX: Update participant list from server (handles reconnections)
+        if (message.participants) {
+          setParticipants(message.participants);
+        } else {
+          setParticipants(prev => prev.map(p =>
+            p.user_id === message.user_id ? { ...p, ...message.participant } : p
+          ));
+        }
         break;
         
       case 'offer':
