@@ -828,10 +828,40 @@ async def get_subtitles(video_id: str, lang: str = "en"):
     """
     Get subtitles/captions for a video in the specified language.
     Returns WebVTT format.
+    
+    Supports 22+ languages for all 5 tutorial videos.
+    Updated: Feb 22, 2026
     """
-    # Complete subtitles for all videos in English
-    subtitles_en = {
-        "01_jobseeker_features": """WEBVTT
+    from services.tutorial_subtitles import get_subtitle, get_supported_subtitle_languages
+    from fastapi.responses import Response
+    
+    # Get subtitle content from comprehensive subtitle service
+    sub_content = get_subtitle(video_id, lang)
+    
+    return Response(
+        content=sub_content,
+        media_type="text/vtt",
+        headers={
+            "Content-Type": "text/vtt; charset=utf-8",
+            "Access-Control-Allow-Origin": "*"
+        }
+    )
+
+
+@router.get("/subtitles/languages")
+async def get_subtitle_languages():
+    """Get list of all supported subtitle languages"""
+    from services.tutorial_subtitles import get_supported_subtitle_languages
+    return {
+        "languages": get_supported_subtitle_languages(),
+        "count": len(get_supported_subtitle_languages())
+    }
+
+
+# LEGACY: Old inline subtitles kept for reference but not used
+# The new implementation uses services/tutorial_subtitles.py
+_LEGACY_subtitles_en = {
+    "01_jobseeker_features": """WEBVTT
 
 00:00:00.000 --> 00:00:05.000
 Welcome to MedMatch-AI KARAU! As a job seeker, you have access to powerful AI tools.
