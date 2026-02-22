@@ -59,6 +59,39 @@ class ConnectionManager:
         self.connection_states: Dict[str, str] = {}
         # Heartbeat tasks
         self.heartbeat_tasks: Dict[str, asyncio.Task] = {}
+        # Sequence numbers for message ordering: meeting_id -> sequence
+        self.message_sequences: Dict[str, int] = {}
+        # Message history for replay: meeting_id -> list of recent messages
+        self.message_history: Dict[str, List[Dict]] = {}
+        self.max_message_history = 100  # Keep last 100 messages per meeting
+    
+    def _get_next_sequence(self, meeting_id: str) -> int:
+        """Get next sequence number for a meeting"""
+        if meeting_id not in self.message_sequences:
+            self.message_sequences[meeting_id] = 0
+        self.message_sequences[meeting_id] += 1
+        return self.message_sequences[meeting_id]
+    
+    def _store_message(self, meeting_id: str, message: Dict):
+        """Store message in history for replay"""
+        if meeting_id not in self.message_history:
+            self.message_history[meeting_id] = []
+        
+        self.message_history[meeting_id].append(message)
+        
+        # Trim to max size
+        if len(self.message_history[meeting_id]) > self.max_message_history:
+            self.message_history[meeting_id] = self.message_history[meeting_id][-self.max_message_history:]
+    
+    def get_messages_since(self, meeting_id: str, last_sequence: int) -> List[Dict]:
+        """Get all messages since a sequence number for replay"""
+        if meeting_id not in self.message_history:
+            return []
+        
+        return [
+            msg for msg in self.message_history[meeting_id]
+            if msg.get('sequence', 0) > last_sequence
+        ]
     
     async def connect(
         self,
