@@ -414,7 +414,8 @@ async def handle_webrtc_signaling(
     meeting_id: str,
     user_id: str,
     user_name: str,
-    is_host: bool = False
+    is_host: bool = False,
+    session_token: Optional[str] = None
 ):
     """
     Handle WebRTC signaling for a meeting participant
@@ -424,10 +425,12 @@ async def handle_webrtc_signaling(
     - SDP offer/answer exchange
     - Participant state updates
     - Chat messages
+    - Heartbeat ping/pong
+    - Session recovery on reconnection
     """
     
-    # Connect the user
-    await manager.connect(websocket, meeting_id, user_id, user_name, is_host)
+    # Connect the user with session token for reconnection support
+    await manager.connect(websocket, meeting_id, user_id, user_name, is_host, session_token)
     
     try:
         while True:
