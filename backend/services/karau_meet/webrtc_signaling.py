@@ -367,14 +367,25 @@ class ConnectionManager:
         self,
         meeting_id: str,
         message: Dict,
-        exclude_user: str = None
+        exclude_user: str = None,
+        store_in_history: bool = True
     ):
-        """Broadcast a message to all participants in a meeting"""
+        """Broadcast a message to all participants in a meeting with sequence numbers"""
         
         if meeting_id not in self.active_connections:
             return
         
-        for user_id, websocket in self.active_connections[meeting_id].items():
+        # Add sequence number to message
+        message['sequence'] = self._get_next_sequence(meeting_id)
+        message['timestamp'] = datetime.now(timezone.utc).isoformat()
+        
+        # Store important messages in history for replay
+        if store_in_history and message.get('type') in ['chat', 'ai_note', 'user_joined', 'user_left']:
+            self._store_message(meeting_id, message)
+        
+        # Broadcast to all participants
+        disconnected_users = []
+        for user_id, websocket in list(self.active_connections[meeting_id].items()):
             if user_id != exclude_user:
                 try:
                     await websocket.send_json(message)
