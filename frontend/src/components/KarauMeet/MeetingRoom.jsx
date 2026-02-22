@@ -66,95 +66,108 @@ const RecordingPermissionDialog = ({ isOpen, onAccept, onDecline, requesterName 
 };
 
 // Virtual Background Selector Dialog
-const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect }) => {
+const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApply }) => {
+  const [selectedBg, setSelectedBg] = useState(currentBg);
   const [isLoading, setIsLoading] = useState(false);
-  const [modelLoaded, setModelLoaded] = useState(false);
 
   useEffect(() => {
-    const loadModel = async () => {
-      if (!isOpen) return;
-      setIsLoading(true);
-      try {
-        // In production, load TensorFlow.js BodyPix model here
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setModelLoaded(true);
-      } catch (error) {
-        console.error('Failed to load virtual background model:', error);
-      }
-      setIsLoading(false);
-    };
+    if (isOpen) {
+      setSelectedBg(currentBg);
+    }
+  }, [isOpen, currentBg]);
 
-    if (isOpen && !modelLoaded) loadModel();
-  }, [isOpen, modelLoaded]);
+  const handleApply = () => {
+    onSelect(selectedBg);
+    if (onApply) onApply(selectedBg);
+    onClose();
+    
+    // Show feedback based on selection
+    if (selectedBg === 'none') {
+      toast.success('Background removed');
+    } else if (selectedBg === 'blur') {
+      toast.success('Background blur applied');
+    } else {
+      toast.info('Virtual backgrounds require AI processing. Feature coming soon!');
+    }
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-slate-800 border-slate-700 max-w-2xl">
+      <DialogContent className="bg-slate-800 border-slate-700 max-w-md mx-4">
         <DialogHeader>
           <DialogTitle className="text-white flex items-center gap-2">
             <Image className="w-5 h-5 text-turquoise" />
             Virtual Background
-            {isLoading && <Loader2 className="w-4 h-4 animate-spin text-turquoise ml-2" />}
           </DialogTitle>
+          <DialogDescription className="text-slate-400 text-sm">
+            Blur is available now. Image backgrounds require AI model (coming soon).
+          </DialogDescription>
         </DialogHeader>
         
         <div className="space-y-4 py-4">
-          {/* Blur Options */}
+          {/* Effects - Available Now */}
           <div>
-            <h4 className="text-sm font-medium text-slate-300 mb-2">Effects</h4>
-            <div className="grid grid-cols-4 gap-2">
+            <h4 className="text-sm font-medium text-slate-300 mb-2">Available Effects</h4>
+            <div className="grid grid-cols-2 gap-3">
               {VIRTUAL_BACKGROUNDS.filter(bg => bg.type === 'none' || bg.type === 'blur').map((bg) => (
                 <button
                   key={bg.id}
-                  onClick={() => onSelect(bg.id)}
-                  className={`p-3 rounded-lg border-2 transition-all ${
-                    currentBg === bg.id 
+                  onClick={() => setSelectedBg(bg.id)}
+                  className={`p-4 rounded-lg border-2 transition-all ${
+                    selectedBg === bg.id 
                       ? 'border-turquoise bg-turquoise/10' 
                       : 'border-slate-600 bg-slate-700/50 hover:border-slate-500'
                   }`}
                 >
-                  <div className="text-2xl mb-1 text-center">
+                  <div className="text-3xl mb-2 text-center">
                     {bg.type === 'none' ? '🚫' : '🌫️'}
                   </div>
-                  <div className="text-xs text-slate-300 text-center">{bg.name}</div>
-                  {currentBg === bg.id && <Check className="w-4 h-4 text-turquoise mx-auto mt-1" />}
+                  <div className="text-sm text-slate-300 text-center font-medium">{bg.name}</div>
+                  {selectedBg === bg.id && <Check className="w-5 h-5 text-turquoise mx-auto mt-2" />}
                 </button>
               ))}
             </div>
           </div>
           
-          {/* Image Backgrounds */}
+          {/* Image Backgrounds - Coming Soon */}
           <div>
-            <h4 className="text-sm font-medium text-slate-300 mb-2">Image Backgrounds</h4>
-            <div className="grid grid-cols-4 gap-2">
+            <h4 className="text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">
+              Image Backgrounds 
+              <Badge variant="outline" className="text-xs text-amber-400 border-amber-400/50">Coming Soon</Badge>
+            </h4>
+            <div className="grid grid-cols-4 gap-2 opacity-60">
               {VIRTUAL_BACKGROUNDS.filter(bg => bg.type === 'image').map((bg) => (
                 <button
                   key={bg.id}
-                  onClick={() => onSelect(bg.id)}
+                  onClick={() => setSelectedBg(bg.id)}
+                  disabled={false}
                   className={`relative aspect-video rounded-lg overflow-hidden border-2 transition-all ${
-                    currentBg === bg.id 
+                    selectedBg === bg.id 
                       ? 'border-turquoise ring-2 ring-turquoise/50' 
                       : 'border-slate-600 hover:border-slate-500'
                   }`}
                 >
                   <img src={bg.url} alt={bg.name} className="w-full h-full object-cover" />
-                  <span className="absolute bottom-0 left-0 right-0 text-xs text-white bg-black/60 px-1.5 py-0.5 text-center">
+                  <span className="absolute bottom-0 left-0 right-0 text-xs text-white bg-black/60 px-1 py-0.5 text-center truncate">
                     {bg.name}
                   </span>
-                  {currentBg === bg.id && (
-                    <div className="absolute top-1 right-1 w-5 h-5 bg-turquoise rounded-full flex items-center justify-center">
+                  {selectedBg === bg.id && (
+                    <div className="absolute top-1 right-1 w-4 h-4 bg-turquoise rounded-full flex items-center justify-center">
                       <Check className="w-3 h-3 text-white" />
                     </div>
                   )}
                 </button>
               ))}
             </div>
+            <p className="text-xs text-slate-500 mt-2">
+              Image backgrounds require TensorFlow.js AI model for person segmentation.
+            </p>
           </div>
         </div>
         
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose}>Cancel</Button>
-          <Button onClick={onClose} className="bg-turquoise hover:bg-turquoise/80">Apply</Button>
+        <DialogFooter className="gap-2">
+          <Button variant="outline" onClick={onClose} className="text-slate-300">Cancel</Button>
+          <Button onClick={handleApply} className="bg-turquoise hover:bg-turquoise/80">Apply</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
