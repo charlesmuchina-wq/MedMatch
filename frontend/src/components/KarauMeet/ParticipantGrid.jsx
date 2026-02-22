@@ -4,9 +4,11 @@ import { Video, VideoOff, MicOff, Hand, Circle } from 'lucide-react';
 
 /**
  * Individual video participant tile component
+ * Supports blur effects - image backgrounds require ML (TensorFlow.js BodyPix)
  */
 const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg }) => {
   const videoRef = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     if (videoRef.current && stream) {
@@ -14,26 +16,80 @@ const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg 
     }
   }, [stream]);
 
-  // Blur filter style based on virtual background setting
-  const videoStyle = useMemo(() => {
-    if (isLocal && virtualBg === 'blur') {
-      return { filter: 'blur(0px)' }; // Video itself isn't blurred - the background would be
+  // Apply blur effect based on virtual background setting
+  const getBlurStyles = useMemo(() => {
+    if (!isLocal || !virtualBg) return {};
+    
+    switch (virtualBg) {
+      case 'blur':
+        // Standard blur - adds a frosted glass effect around the edges
+        return {
+          containerClass: 'blur-bg-active',
+          videoStyle: {},
+          overlayStyle: {
+            position: 'absolute',
+            inset: 0,
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
+            maskImage: 'radial-gradient(ellipse 70% 80% at 50% 40%, transparent 50%, black 70%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 70% 80% at 50% 40%, transparent 50%, black 70%)',
+            pointerEvents: 'none',
+          }
+        };
+      case 'blur-light':
+        return {
+          containerClass: 'blur-bg-light',
+          videoStyle: {},
+          overlayStyle: {
+            position: 'absolute',
+            inset: 0,
+            backdropFilter: 'blur(4px)',
+            WebkitBackdropFilter: 'blur(4px)',
+            maskImage: 'radial-gradient(ellipse 75% 85% at 50% 40%, transparent 55%, black 75%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 75% 85% at 50% 40%, transparent 55%, black 75%)',
+            pointerEvents: 'none',
+          }
+        };
+      case 'blur-heavy':
+        return {
+          containerClass: 'blur-bg-heavy',
+          videoStyle: {},
+          overlayStyle: {
+            position: 'absolute',
+            inset: 0,
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            maskImage: 'radial-gradient(ellipse 60% 70% at 50% 40%, transparent 40%, black 60%)',
+            WebkitMaskImage: 'radial-gradient(ellipse 60% 70% at 50% 40%, transparent 40%, black 60%)',
+            pointerEvents: 'none',
+          }
+        };
+      default:
+        return {};
     }
-    return {};
   }, [virtualBg, isLocal]);
 
+  const { containerClass = '', videoStyle = {}, overlayStyle } = getBlurStyles;
+
   return (
-    <div className={`relative rounded-xl overflow-hidden bg-slate-900 ${isSpeaking ? 'ring-2 ring-turquoise' : ''}`}>
+    <div 
+      ref={containerRef}
+      className={`relative rounded-xl overflow-hidden bg-slate-900 ${isSpeaking ? 'ring-2 ring-turquoise' : ''} ${containerClass}`}
+    >
       {participant?.video_enabled && stream ? (
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          muted={isLocal}
-          className="w-full h-full object-cover"
-          style={videoStyle}
-          data-testid={`video-${isLocal ? 'local' : participant?.user_id}`}
-        />
+        <>
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted={isLocal}
+            className="w-full h-full object-cover"
+            style={videoStyle}
+            data-testid={`video-${isLocal ? 'local' : participant?.user_id}`}
+          />
+          {/* Blur overlay for background effect */}
+          {overlayStyle && <div style={overlayStyle} />}
+        </>
       ) : (
         <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 min-h-[120px] md:min-h-[200px]">
           <div className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-turquoise/20 flex items-center justify-center">
@@ -42,6 +98,13 @@ const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg 
             </span>
           </div>
         </div>
+      )}
+      
+      {/* Blur indicator badge */}
+      {isLocal && virtualBg && virtualBg.includes('blur') && (
+        <Badge className="absolute top-2 right-2 md:top-3 md:right-3 bg-blue-500/80 text-white border-0 text-xs">
+          Blur On
+        </Badge>
       )}
       
       {/* Name badge */}
