@@ -96,7 +96,7 @@ const RecordingPermissionDialog = ({ isOpen, onAccept, onDecline, requesterName 
 // Virtual Background Selector Dialog
 const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApply }) => {
   const [selectedBg, setSelectedBg] = useState(currentBg);
-  const [isLoading, setIsLoading] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('effects');
 
   useEffect(() => {
     if (isOpen) {
@@ -112,32 +112,58 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
     // Show feedback based on selection
     if (selectedBg === 'none') {
       toast.success('Background removed');
-    } else if (selectedBg === 'blur') {
+    } else if (selectedBg.includes('blur')) {
       toast.success('Background blur applied');
     } else {
-      toast.info('Virtual backgrounds require AI processing. Feature coming soon!');
+      toast.info('Image backgrounds require AI processing. Feature coming soon!');
     }
+  };
+
+  // Group backgrounds by category
+  const categories = {
+    effects: { label: 'Effects', icon: '🌫️', items: VIRTUAL_BACKGROUNDS.filter(bg => bg.type === 'none' || bg.type === 'blur') },
+    professional: { label: 'Professional', icon: '🏢', items: VIRTUAL_BACKGROUNDS.filter(bg => ['office', 'modern-office', 'home-office', 'library', 'conference'].includes(bg.id)) },
+    nature: { label: 'Nature', icon: '🌲', items: VIRTUAL_BACKGROUNDS.filter(bg => ['nature', 'beach', 'mountains', 'sunset', 'garden'].includes(bg.id)) },
+    urban: { label: 'Urban', icon: '🌆', items: VIRTUAL_BACKGROUNDS.filter(bg => ['city', 'night-city', 'coffee-shop'].includes(bg.id)) },
+    creative: { label: 'Creative', icon: '🎨', items: VIRTUAL_BACKGROUNDS.filter(bg => ['abstract', 'gradient-blue', 'geometric', 'space'].includes(bg.id)) },
+    branded: { label: 'Branded', icon: '⚗️', items: VIRTUAL_BACKGROUNDS.filter(bg => ['karau-branded', 'medical'].includes(bg.id)) },
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-slate-800 border-slate-700 max-w-md mx-4">
+      <DialogContent className="bg-slate-800 border-slate-700 max-w-lg mx-4 max-h-[85vh] flex flex-col">
         <DialogHeader>
           <DialogTitle className="text-white flex items-center gap-2">
             <Image className="w-5 h-5 text-turquoise" />
             Virtual Background
           </DialogTitle>
           <DialogDescription className="text-slate-400 text-sm">
-            Blur is available now. Image backgrounds require AI model (coming soon).
+            Blur effects work now. Image backgrounds require AI model (coming soon).
           </DialogDescription>
         </DialogHeader>
         
-        <div className="space-y-4 py-4">
-          {/* Effects - Available Now */}
-          <div>
-            <h4 className="text-sm font-medium text-slate-300 mb-2">Available Effects</h4>
+        {/* Category Tabs */}
+        <div className="flex gap-1 overflow-x-auto py-2 border-b border-slate-700">
+          {Object.entries(categories).map(([key, { label, icon }]) => (
+            <button
+              key={key}
+              onClick={() => setActiveCategory(key)}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all ${
+                activeCategory === key
+                  ? 'bg-turquoise text-white'
+                  : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+              }`}
+            >
+              {icon} {label}
+            </button>
+          ))}
+        </div>
+        
+        {/* Background Options */}
+        <div className="flex-1 overflow-y-auto py-4">
+          {activeCategory === 'effects' ? (
             <div className="grid grid-cols-2 gap-3">
-              {VIRTUAL_BACKGROUNDS.filter(bg => bg.type === 'none' || bg.type === 'blur').map((bg) => (
+              {categories.effects.items.map((bg) => (
                 <button
                   key={bg.id}
                   onClick={() => setSelectedBg(bg.id)}
@@ -148,36 +174,55 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
                   }`}
                 >
                   <div className="text-3xl mb-2 text-center">
-                    {bg.type === 'none' ? '🚫' : '🌫️'}
+                    {bg.type === 'none' ? '🚫' : bg.level === 'light' ? '💨' : bg.level === 'heavy' ? '🌫️' : '🌀'}
                   </div>
                   <div className="text-sm text-slate-300 text-center font-medium">{bg.name}</div>
                   {selectedBg === bg.id && <Check className="w-5 h-5 text-turquoise mx-auto mt-2" />}
                 </button>
               ))}
             </div>
-          </div>
-          
-          {/* Image Backgrounds - Coming Soon */}
-          <div>
-            <h4 className="text-sm font-medium text-slate-300 mb-2 flex items-center gap-2">
-              Image Backgrounds 
-              <Badge variant="outline" className="text-xs text-amber-400 border-amber-400/50">Coming Soon</Badge>
-            </h4>
-            <div className="grid grid-cols-4 gap-2 opacity-60">
-              {VIRTUAL_BACKGROUNDS.filter(bg => bg.type === 'image').map((bg) => (
-                <button
-                  key={bg.id}
-                  onClick={() => setSelectedBg(bg.id)}
-                  disabled={false}
-                  className={`relative aspect-video rounded-lg overflow-hidden border-2 transition-all ${
-                    selectedBg === bg.id 
-                      ? 'border-turquoise ring-2 ring-turquoise/50' 
-                      : 'border-slate-600 hover:border-slate-500'
-                  }`}
-                >
-                  <img src={bg.url} alt={bg.name} className="w-full h-full object-cover" />
-                  <span className="absolute bottom-0 left-0 right-0 text-xs text-white bg-black/60 px-1 py-0.5 text-center truncate">
-                    {bg.name}
+          ) : (
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 mb-3">
+                <Badge variant="outline" className="text-xs text-amber-400 border-amber-400/50">
+                  AI Required - Coming Soon
+                </Badge>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                {categories[activeCategory]?.items.map((bg) => (
+                  <button
+                    key={bg.id}
+                    onClick={() => setSelectedBg(bg.id)}
+                    className={`relative aspect-video rounded-lg overflow-hidden border-2 transition-all ${
+                      selectedBg === bg.id 
+                        ? 'border-turquoise ring-2 ring-turquoise/50' 
+                        : 'border-slate-600 hover:border-slate-500'
+                    }`}
+                  >
+                    <img src={bg.url} alt={bg.name} className="w-full h-full object-cover" />
+                    <span className="absolute bottom-0 left-0 right-0 text-xs text-white bg-black/70 px-1 py-0.5 text-center truncate">
+                      {bg.name}
+                    </span>
+                    {selectedBg === bg.id && (
+                      <div className="absolute top-1 right-1 w-5 h-5 bg-turquoise rounded-full flex items-center justify-center">
+                        <Check className="w-3 h-3 text-white" />
+                      </div>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+        
+        <DialogFooter className="gap-2 border-t border-slate-700 pt-4">
+          <Button variant="outline" onClick={onClose} className="text-slate-300">Cancel</Button>
+          <Button onClick={handleApply} className="bg-turquoise hover:bg-turquoise/80">Apply</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+};
                   </span>
                   {selectedBg === bg.id && (
                     <div className="absolute top-1 right-1 w-4 h-4 bg-turquoise rounded-full flex items-center justify-center">
