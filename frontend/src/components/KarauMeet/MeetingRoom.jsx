@@ -346,6 +346,7 @@ const MeetingRoom = ({ user }) => {
   const processedEventsRef = useRef(new Set());
   const iceCandidateQueueRef = useRef({}); // Queue ICE candidates per peer
   const isReconnectingRef = useRef(false);
+  const guestUserIdRef = useRef(null); // Store guest user ID for reconnection
   
   // Calculate exponential backoff with jitter
   const getReconnectDelay = useCallback(() => {
@@ -358,7 +359,7 @@ const MeetingRoom = ({ user }) => {
   }, []);
   
   // WebSocket connection with reconnection support
-  const connectWebSocket = useCallback((token, isReconnect = false) => {
+  const connectWebSocket = useCallback((token, isReconnect = false, guestUserId = null) => {
     // Prevent multiple simultaneous reconnection attempts
     if (isReconnectingRef.current && isReconnect) {
       console.log('Reconnection already in progress, skipping');
@@ -369,7 +370,22 @@ const MeetingRoom = ({ user }) => {
       isReconnectingRef.current = true;
     }
     
-    let wsUrl = `${API.replace('https://', 'wss://').replace('http://', 'ws://')}/api/karau-meet/ws/${meetingId}?token=${token}&user_name=${encodeURIComponent(user?.name || user?.email || 'User')}&is_host=true`;
+    // Store guest user ID for reconnection
+    if (guestUserId) {
+      guestUserIdRef.current = guestUserId;
+    }
+    
+    const isGuest = !token && (guestUserId || guestUserIdRef.current);
+    const effectiveUserId = guestUserId || guestUserIdRef.current || user?.user_id;
+    
+    // Build WebSocket URL - guests use user_id param instead of token
+    let wsUrl = `${API.replace('https://', 'wss://').replace('http://', 'ws://')}/api/karau-meet/ws/${meetingId}?user_name=${encodeURIComponent(user?.name || user?.email || 'Guest')}&is_host=${!isGuest}`;
+    
+    if (isGuest && effectiveUserId) {
+      wsUrl += `&user_id=${effectiveUserId}`;
+    } else if (token) {
+      wsUrl += `&token=${token}`;
+    }
     
     // Add session token for reconnection
     if (isReconnect && sessionTokenRef.current) {
