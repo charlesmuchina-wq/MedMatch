@@ -1,94 +1,91 @@
-import { useRef, useEffect, useMemo } from 'react';
+import { useRef, useEffect, useMemo, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { Video, VideoOff, MicOff, Hand, Circle } from 'lucide-react';
+import { Video, VideoOff, MicOff, Hand, Circle, Loader2 } from 'lucide-react';
+import { useVirtualBackground } from './useVirtualBackground';
+
+// Get background URL from background ID
+const BACKGROUND_URLS = {
+  'office': 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800',
+  'modern-office': 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800',
+  'home-office': 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800',
+  'library': 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800',
+  'conference': 'https://images.unsplash.com/photo-1431540015161-0bf868a2d407?w=800',
+  'nature': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800',
+  'beach': 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800',
+  'mountains': 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800',
+  'sunset': 'https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?w=800',
+  'garden': 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800',
+  'city': 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=800',
+  'night-city': 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800',
+  'coffee-shop': 'https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=800',
+  'abstract': 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=800',
+  'gradient-blue': 'https://images.unsplash.com/photo-1557683316-973673baf926?w=800',
+  'geometric': 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800',
+  'space': 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800',
+  'karau-branded': 'https://images.unsplash.com/photo-1639322537228-f710d846310a?w=800',
+  'medical': 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800',
+};
 
 /**
- * Individual video participant tile component
- * Supports blur effects - image backgrounds require ML (TensorFlow.js BodyPix)
+ * Individual video participant tile component with AI background support
  */
 const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg }) => {
   const videoRef = useRef(null);
-  const containerRef = useRef(null);
+  const [videoElement, setVideoElement] = useState(null);
+
+  // Determine background type and URL
+  const backgroundType = isLocal ? virtualBg : 'none';
+  const backgroundUrl = BACKGROUND_URLS[virtualBg] || null;
+  
+  // Use AI background hook for local video
+  const { canvasRef, isLoading: bgLoading, isActive: bgActive } = useVirtualBackground(
+    videoElement,
+    backgroundType,
+    backgroundUrl
+  );
 
   useEffect(() => {
     if (videoRef.current && stream) {
       videoRef.current.srcObject = stream;
+      setVideoElement(videoRef.current);
     }
   }, [stream]);
 
-  // Apply blur effect based on virtual background setting
-  const getBlurStyles = useMemo(() => {
-    if (!isLocal || !virtualBg) return {};
-    
-    switch (virtualBg) {
-      case 'blur':
-        // Standard blur - adds a frosted glass effect around the edges
-        return {
-          containerClass: 'blur-bg-active',
-          videoStyle: {},
-          overlayStyle: {
-            position: 'absolute',
-            inset: 0,
-            backdropFilter: 'blur(8px)',
-            WebkitBackdropFilter: 'blur(8px)',
-            maskImage: 'radial-gradient(ellipse 70% 80% at 50% 40%, transparent 50%, black 70%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 70% 80% at 50% 40%, transparent 50%, black 70%)',
-            pointerEvents: 'none',
-          }
-        };
-      case 'blur-light':
-        return {
-          containerClass: 'blur-bg-light',
-          videoStyle: {},
-          overlayStyle: {
-            position: 'absolute',
-            inset: 0,
-            backdropFilter: 'blur(4px)',
-            WebkitBackdropFilter: 'blur(4px)',
-            maskImage: 'radial-gradient(ellipse 75% 85% at 50% 40%, transparent 55%, black 75%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 75% 85% at 50% 40%, transparent 55%, black 75%)',
-            pointerEvents: 'none',
-          }
-        };
-      case 'blur-heavy':
-        return {
-          containerClass: 'blur-bg-heavy',
-          videoStyle: {},
-          overlayStyle: {
-            position: 'absolute',
-            inset: 0,
-            backdropFilter: 'blur(16px)',
-            WebkitBackdropFilter: 'blur(16px)',
-            maskImage: 'radial-gradient(ellipse 60% 70% at 50% 40%, transparent 40%, black 60%)',
-            WebkitMaskImage: 'radial-gradient(ellipse 60% 70% at 50% 40%, transparent 40%, black 60%)',
-            pointerEvents: 'none',
-          }
-        };
-      default:
-        return {};
-    }
-  }, [virtualBg, isLocal]);
-
-  const { containerClass = '', videoStyle = {}, overlayStyle } = getBlurStyles;
+  // Determine if we should show the canvas (AI processed) or direct video
+  const showProcessedVideo = isLocal && virtualBg && virtualBg !== 'none' && bgActive;
 
   return (
-    <div 
-      ref={containerRef}
-      className={`relative rounded-xl overflow-hidden bg-slate-900 ${isSpeaking ? 'ring-2 ring-turquoise' : ''} ${containerClass}`}
-    >
+    <div className={`relative rounded-xl overflow-hidden bg-slate-900 ${isSpeaking ? 'ring-2 ring-turquoise' : ''}`}>
       {participant?.video_enabled && stream ? (
         <>
+          {/* Original video (hidden when using AI background) */}
           <video
             ref={videoRef}
             autoPlay
             playsInline
             muted={isLocal}
-            className="w-full h-full object-cover"
-            style={videoStyle}
+            className={`w-full h-full object-cover ${showProcessedVideo ? 'hidden' : ''}`}
             data-testid={`video-${isLocal ? 'local' : participant?.user_id}`}
           />
-          {/* Blur overlay for background effect */}
-          {overlayStyle && <div style={overlayStyle} />}
+          
+          {/* AI processed canvas (shown when background is active) */}
+          {isLocal && virtualBg && virtualBg !== 'none' && (
+            <canvas
+              ref={canvasRef}
+              className={`w-full h-full object-cover ${showProcessedVideo ? '' : 'hidden'}`}
+              data-testid="video-processed"
+            />
+          )}
+          
+          {/* Loading indicator for AI model */}
+          {isLocal && bgLoading && (
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+              <div className="text-center">
+                <Loader2 className="w-8 h-8 text-turquoise animate-spin mx-auto mb-2" />
+                <span className="text-white text-sm">Loading AI model...</span>
+              </div>
+            </div>
+          )}
         </>
       ) : (
         <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 min-h-[120px] md:min-h-[200px]">
@@ -100,10 +97,10 @@ const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg 
         </div>
       )}
       
-      {/* Blur indicator badge */}
-      {isLocal && virtualBg && virtualBg.includes('blur') && (
+      {/* Background effect badge */}
+      {isLocal && virtualBg && virtualBg !== 'none' && (
         <Badge className="absolute top-2 right-2 md:top-3 md:right-3 bg-blue-500/80 text-white border-0 text-xs">
-          Blur On
+          {bgActive ? (virtualBg.includes('blur') ? 'Blur On' : 'BG On') : 'Loading...'}
         </Badge>
       )}
       
