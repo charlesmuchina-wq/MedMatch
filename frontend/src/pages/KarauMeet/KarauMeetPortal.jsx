@@ -196,7 +196,7 @@ const KarauMeetPortal = () => {
     toast.success('Signed out successfully');
   };
 
-  // Check if we're in a meeting room
+  // Check if we're in a meeting room (join or room routes)
   const isInMeeting = location.pathname.includes('/room/') || location.pathname.includes('/join/');
 
   if (isLoading) {
@@ -207,13 +207,20 @@ const KarauMeetPortal = () => {
     );
   }
 
-  if (!user) {
-    return <KarauMeetLogin onLogin={handleLogin} />;
+  // Allow guests to join meetings - create a temporary guest user
+  if (isInMeeting) {
+    const meetingUser = user || {
+      user_id: `guest_${Date.now()}`,
+      name: 'Guest',
+      email: 'guest@meeting.local',
+      is_guest: true
+    };
+    return <MeetingRoom user={meetingUser} />;
   }
 
-  // Meeting room - full screen without sidebar
-  if (isInMeeting) {
-    return <MeetingRoom user={user} />;
+  // For non-meeting routes, require login
+  if (!user) {
+    return <KarauMeetLogin onLogin={handleLogin} />;
   }
 
   return (
