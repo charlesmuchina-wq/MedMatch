@@ -185,6 +185,7 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
   const [translating, setTranslating] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [buffering, setBuffering] = useState(true);
+  const [translationError, setTranslationError] = useState(null);
   const videoRef = useRef(null);
 
   // Handle video events for loading states - defined before early return
