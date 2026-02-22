@@ -648,10 +648,10 @@ const MeetingRoom = ({ user }) => {
       safeSend({ type: 'recording_stopped' });
       toast.success('Recording stopped');
     } else {
-      wsRef.current?.send(JSON.stringify({
+      safeSend({
         type: 'recording_request',
         requester_name: user?.name || user?.email || 'Host'
-      }));
+      });
       
       try {
         const stream = localStreamRef.current;
