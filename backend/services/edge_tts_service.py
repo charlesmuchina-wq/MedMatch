@@ -283,7 +283,79 @@ Thay đổi quy trình tuyển dụng của bạn ngay hôm nay.""",
 Mag-post ng trabaho at maabot kaagad ang mga kwalipikadong kandidato.
 Gamitin ang aming AI-powered applicant tracking system para sa efficient na screening.
 Mag-schedule ng interviews nang walang hassle. Hayaan ang AI na tumulong sa paghahanap ng perfect match!
-I-transform ang inyong hiring process ngayon."""
+I-transform ang inyong hiring process ngayon.""",
+        
+        "it": """Recruiter, semplificate le assunzioni con MedMatch-AI KARAU.
+Pubblicate offerte di lavoro e raggiungete candidati qualificati istantaneamente.
+Utilizzate il nostro sistema di tracciamento candidati basato sull'IA per uno screening efficiente.
+Programmate colloqui senza problemi. Lasciate che l'IA vi aiuti a trovare il candidato perfetto!
+Trasformate il vostro processo di assunzione oggi.""",
+        
+        "sv": """Rekryterare, effektivisera er rekrytering med MedMatch-AI KARAU.
+Publicera jobb och nå kvalificerade kandidater direkt.
+Använd vårt AI-drivna kandidatspårningssystem för effektiv screening.
+Schemalägg intervjuer sömlöst. Låt AI hjälpa er hitta den perfekta matchningen!
+Transformera er rekryteringsprocess idag.""",
+        
+        "ru": """Рекрутеры, оптимизируйте найм с MedMatch-AI KARAU.
+Размещайте вакансии и мгновенно находите квалифицированных кандидатов.
+Используйте нашу систему отслеживания кандидатов на базе ИИ для эффективного отбора.
+Планируйте собеседования без проблем. Позвольте ИИ помочь найти идеального кандидата!
+Преобразите процесс найма уже сегодня.""",
+        
+        "hi": """भर्तीकर्ताओं, MedMatch-AI KARAU के साथ अपनी भर्ती को सरल बनाएं।
+नौकरियां पोस्ट करें और तुरंत योग्य उम्मीदवारों तक पहुंचें।
+कुशल स्क्रीनिंग के लिए हमारे AI-संचालित आवेदक ट्रैकिंग सिस्टम का उपयोग करें।
+साक्षात्कार आसानी से शेड्यूल करें। AI को सही मैच खोजने में मदद करने दें!
+आज ही अपनी भर्ती प्रक्रिया को बदलें।""",
+        
+        "th": """ผู้สรรหา ปรับปรุงการจ้างงานของคุณด้วย MedMatch-AI KARAU
+โพสต์งานและเข้าถึงผู้สมัครที่มีคุณสมบัติทันที
+ใช้ระบบติดตามผู้สมัครที่ขับเคลื่อนด้วย AI สำหรับการคัดกรองที่มีประสิทธิภาพ
+กำหนดเวลาสัมภาษณ์อย่างราบรื่น ให้ AI ช่วยคุณค้นหาคู่ที่สมบูรณ์แบบ!
+เปลี่ยนกระบวนการจ้างงานของคุณวันนี้""",
+        
+        "id": """Rekruter, sederhanakan perekrutan Anda dengan MedMatch-AI KARAU.
+Posting lowongan dan jangkau kandidat berkualitas secara instan.
+Gunakan sistem pelacakan pelamar bertenaga AI kami untuk penyaringan yang efisien.
+Jadwalkan wawancara dengan mudah. Biarkan AI membantu Anda menemukan kecocokan sempurna!
+Transformasi proses perekrutan Anda hari ini.""",
+        
+        "ar": """المجندون، قوموا بتبسيط التوظيف مع MedMatch-AI KARAU.
+انشروا الوظائف وتواصلوا مع المرشحين المؤهلين فوراً.
+استخدموا نظام تتبع المتقدمين المدعوم بالذكاء الاصطناعي للفحص الفعال.
+جدولوا المقابلات بسلاسة. دعوا الذكاء الاصطناعي يساعدكم في إيجاد التطابق المثالي!
+حولوا عملية التوظيف الخاصة بكم اليوم.""",
+        
+        "he": """מגייסים, ייעלו את הגיוס עם MedMatch-AI KARAU.
+פרסמו משרות והגיעו למועמדים מוסמכים מיד.
+השתמשו במערכת מעקב המועמדים שלנו המופעלת בינה מלאכותית לסינון יעיל.
+תזמנו ראיונות בצורה חלקה. תנו ל-AI לעזור לכם למצוא את ההתאמה המושלמת!
+שנו את תהליך הגיוס שלכם היום.""",
+        
+        "sw": """Waajiri, rahisisheni uajiri wenu na MedMatch-AI KARAU.
+Chapisheni kazi na kufikia wagombea waliohitimu mara moja.
+Tumia mfumo wetu wa kufuatilia waombaji unaotumia AI kwa uchujaji bora.
+Pangeni mahojiano kwa urahisi. Acha AI ikuongoze kupata ulinganifu kamili!
+Badilisheni mchakato wenu wa uajiri leo.""",
+        
+        "af": """Werwers, stroomlyn u aanstelling met MedMatch-AI KARAU.
+Plaas poste en bereik gekwalifiseerde kandidate onmiddellik.
+Gebruik ons KI-aangedrewe aansoeker-opsporingstelsel vir doeltreffende keuring.
+Skeduleer onderhoude naatloos. Laat KI u help om die perfekte passing te vind!
+Transformeer u aanstellingsproses vandag.""",
+        
+        "zu": """Abaqashi, yenza ukuqasha kwakho kube lula nge-MedMatch-AI KARAU.
+Thumela imisebenzi ufinyelele abafake izicelo abafanele ngokushesha.
+Sebenzisa uhlelo lwethu lokulandelela abafake izicelo olusetshenziswa yi-AI ukuhlola ngempumelelo.
+Hlela izingxoxo ngokushesha. Vumela i-AI ikusize uthole ukufaneleka okugcwele!
+Guqula inqubo yakho yokuqasha namuhla.""",
+        
+        "am": """ቀጣሪዎች፣ ከMedMatch-AI KARAU ጋር ቅጥርዎን ቀላል ያድርጉ።
+ስራዎችን ይለጥፉ እና ብቁ እጩዎችን ወዲያውኑ ያግኙ።
+ለቀልጣፋ ምርመራ AI-የተደገፈ የአመልካች ክትትል ስርዓታችንን ይጠቀሙ።
+ቃለ መጠይቆችን በቀላሉ ያቅዱ። AI ፍጹም ግጥሚያ እንዲያገኙ ይርዳዎ!
+የቅጥር ሂደትዎን ዛሬ ይቀይሩ።"""
     },
     
     "03_privacy_matters": {
