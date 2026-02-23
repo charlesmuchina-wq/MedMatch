@@ -18,20 +18,45 @@ logger = logging.getLogger(__name__)
 
 LOCALES_DIR = "/app/frontend/src/locales"
 
-# Priority languages to translate first
+# All supported languages
 PRIORITY_LANGUAGES = {
+    # Major European
     "es": "Spanish",
     "fr": "French", 
     "de": "German",
+    "it": "Italian",
+    "nl": "Dutch",
+    "pl": "Polish",
+    "ru": "Russian",
+    "sv": "Swedish",
+    "tr": "Turkish",
+    # Asian
     "ja": "Japanese",
     "zh": "Chinese",
     "ko": "Korean",
-    "ar": "Arabic",
-    "pt-BR": "Portuguese (Brazilian)",
     "hi": "Hindi",
+    "vi": "Vietnamese",
+    # Middle Eastern
+    "ar": "Arabic",
+    # Portuguese
+    "pt-BR": "Portuguese (Brazilian)",
+    # African Languages
     "sw": "Swahili",
-    "ru": "Russian",
-    "it": "Italian",
+    "ha": "Hausa",
+    "yo": "Yoruba",
+    "ig": "Igbo",
+    "zu": "Zulu",
+    "xh": "Xhosa",
+    "af": "Afrikaans",
+    "am": "Amharic",
+    "om": "Oromo",
+    "so": "Somali",
+    "rw": "Kinyarwanda",
+    "sn": "Shona",
+    "ny": "Chichewa",
+    "tw": "Twi",
+    "wo": "Wolof",
+    "lg": "Luganda",
 }
 
 # Priority translation keys (most visible UI elements)
