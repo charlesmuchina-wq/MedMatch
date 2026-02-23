@@ -913,8 +913,8 @@ async def generate_all_audio(background_tasks: BackgroundTasks):
         status["current"] = None
         status["completed_at"] = datetime.now().isoformat()
     
-    # Run in background
-    background_tasks.add_task(lambda: __import__('asyncio').get_event_loop().run_until_complete(generate_all()))
+    # Run async task in background using asyncio.create_task
+    asyncio.create_task(generate_all())
     
     return {
         "job_id": job_id,
