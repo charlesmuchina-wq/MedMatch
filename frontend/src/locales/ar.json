@@ -722,16 +722,16 @@
     "supported": "مدعومة",
     "rtl": "من اليمين لليسار",
     "ltr": "من اليسار لليمين",
-    "useBrowserTranslate": "Use Browser Translation",
-    "useGoogleTranslate": "Use Google Translate",
+    "useBrowserTranslate": "استخدم ترجمة المتصفح",
+    "useGoogleTranslate": "استخدم ترجمة Google",
     "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
     "keepCurrentLanguage": "Keep English",
     "switchToLanguage": "Switch to {{language}}",
     "detectedBrowserLanguage": "We detected your browser language is {{language}}",
     "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
-    "openGoogleTranslate": "Open in Google Translate",
+    "openGoogleTranslate": "افتح في ترجمة Google",
     "languageSwitched": "Language switched to {{language}}",
-    "browserTranslationActive": "Browser translation is active"
+    "browserTranslationActive": "ترجمة المتصفح مفعّلة"
   },
   "recruiter": {
     "interviews": "المقابلات",
@@ -1356,7 +1356,7 @@
       "meetingPortalDesc": "اجتماعات فيديو آمنة",
       "enterPortal": "دخول البوابة",
       "enterMeetingPortal": "ادخل بوابة الاجتماعات",
-      "medmatchAI": "MedMatch AI",
+      "medmatchAI": "ميد ماتش للذكاء الاصطناعي",
       "e2eEncrypted": "مشفّر من طرف إلى طرف",
       "trustedBy": "موثوق به من قبل محترفي علوم الحياة",
       "welcomeTo": "مرحبًا بك في",
@@ -1365,7 +1365,7 @@
       "aiJobMatching": "مطابقة الوظائف بالذكاء الاصطناعي",
       "hdVideoAudio": "فيديو وصوت عالي الدقة",
       "poweredByAI": "مدعوم بالذكاء الاصطناعي",
-      "aiKarau": "AI KARAU",
+      "aiKarau": "أي آي كارايو",
       "recruiterNetwork": "شبكة مسؤولي التوظيف",
       "enterJobToolkit": "ادخل أدوات الوظائف"
     },

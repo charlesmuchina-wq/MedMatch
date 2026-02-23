@@ -32,9 +32,9 @@
     "sort": "Sortieren",
     "help": "Hilfe",
     "generating": "Wird generiert...",
-    "download": "Download",
+    "download": "Herunterladen",
     "none": "None",
-    "upload": "Upload",
+    "upload": "Hochladen",
     "more": "More",
     "less": "Less"
   },
@@ -449,16 +449,16 @@
     "genderFeminine": "Weiblich",
     "african": "Afrikanische Sprachen",
     "genderNeutral": "Neutral",
-    "useBrowserTranslate": "Use Browser Translation",
-    "useGoogleTranslate": "Use Google Translate",
+    "useBrowserTranslate": "Browser-Übersetzung verwenden",
+    "useGoogleTranslate": "Google Übersetzer verwenden",
     "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
     "keepCurrentLanguage": "Keep English",
     "switchToLanguage": "Switch to {{language}}",
     "detectedBrowserLanguage": "We detected your browser language is {{language}}",
     "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
-    "openGoogleTranslate": "Open in Google Translate",
+    "openGoogleTranslate": "In Google Übersetzer öffnen",
     "languageSwitched": "Language switched to {{language}}",
-    "browserTranslationActive": "Browser translation is active"
+    "browserTranslationActive": "Browser-Übersetzung ist aktiv"
   },
   "video": {
     "sitStraight": "Sitzen Sie aufrecht mit den Schultern zurück",
