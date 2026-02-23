@@ -933,10 +933,17 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
       case 'answer':
         try {
           await handleAnswer(message);
+        } catch (err) {
+          console.error('Error handling answer:', err);
+        }
         break;
         
       case 'ice_candidate':
-        await handleIceCandidate(message);
+        try {
+          await handleIceCandidate(message);
+        } catch (err) {
+          console.error('Error handling ICE candidate:', err);
+        }
         break;
         
       case 'chat':
@@ -954,15 +961,15 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             <span className="text-2xl">{message.emoji}</span>
             <span>{message.from_name}</span>
           </div>,
-          { duration: 2000 }
+          { duration: 1500 }
         );
         break;
         
       case 'host_action':
         if (message.action === 'mute_request') {
-          toast.warning(`${message.from_host} asked you to mute`);
+          toast.warning(`${message.from_host} asked you to mute`, { duration: 3000 });
         } else if (message.action === 'removed') {
-          toast.error(message.reason);
+          toast.error(message.reason, { duration: 5000 });
           navigate('/karau-meet/dashboard');
         }
         break;
@@ -974,16 +981,16 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         
       case 'recording_started':
         setIsRecording(true);
-        toast.info('Recording has started');
+        // Small indicator, not blocking
         break;
         
       case 'recording_stopped':
         setIsRecording(false);
-        toast.info('Recording has stopped');
+        // Small indicator, not blocking
         break;
         
       case 'meeting_ended':
-        toast.info('Meeting has ended');
+        toast.info('Meeting ended', { duration: 3000 });
         navigate('/karau-meet');
         break;
         
