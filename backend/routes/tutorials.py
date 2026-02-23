@@ -871,7 +871,6 @@ async def generate_all_audio(background_tasks: BackgroundTasks):
     This runs in background and pre-caches all audio files for instant playback.
     """
     from services.edge_tts_service import TUTORIAL_SCRIPTS, LANGUAGE_VOICES, generate_tutorial_audio
-    import asyncio
     from datetime import datetime
     
     # Calculate total combinations
