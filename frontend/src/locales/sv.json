@@ -30,13 +30,13 @@
     "generating": "Genererar...",
     "download": "Ladda ner",
     "filter": "Filtrera",
-    "none": "None",
+    "none": "Inget",
     "upload": "Ladda upp",
-    "sort": "Sort",
-    "more": "More",
+    "sort": "Sortera",
+    "more": "Mer",
     "help": "Hjälp",
-    "less": "Less",
-    "previous": "Previous"
+    "less": "Mindre",
+    "previous": "Föregående"
   },
   "notifications": {
     "title": "Notiser",
@@ -215,7 +215,7 @@
     "moreFilters": "Fler filter",
     "lessFilters": "Färre filter",
     "selectCountry": "Välj land",
-    "viewOriginal": "View Original"
+    "viewOriginal": "Visa original"
   },
   "resume": {
     "myResume": "Mitt CV",
@@ -279,7 +279,7 @@
     "removedFromFavorites": "Borttaget från favoriter",
     "starBuilder": "STAR-metodbyggare",
     "starDescription": "Strukturera ditt svar med STAR-metoden",
-    "situation": "S - Situation",
+    "situation": "S – Situation",
     "situationPlaceholder": "Beskriv sammanhanget eller bakgrunden...",
     "task": "T - Uppgift",
     "taskPlaceholder": "Vilket ansvar hade du?",
@@ -296,12 +296,12 @@
     "research": "Research",
     "researchFor": "Research för",
     "skipQuestion": "Hoppa över fråga",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
-    "companyPlaceholder": "e.g., Medtronic",
-    "questionsPlaceholder": "Enter questions, one per line...",
-    "typeAnswerPlaceholder": "Type your answer here... (You have 2 minutes)",
-    "yourResumeSkills": "Your Resume Skills",
-    "jobDescriptionPlaceholder": "Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills..."
+    "jobTitlePlaceholder": "t.ex. Supplier Quality Manager",
+    "companyPlaceholder": "t.ex. Medtronic",
+    "questionsPlaceholder": "Ange frågor, en per rad...",
+    "typeAnswerPlaceholder": "Skriv ditt svar här... (Du har 2 minuter)",
+    "yourResumeSkills": "Dina CV-kunskaper",
+    "jobDescriptionPlaceholder": "Klistra in hela jobbannonsen här. AI genererar relevanta intervjufrågor baserat på kraven och dina CV-kunskaper..."
   },
   "qaPractice": {
     "title": "Generator för svar på frågor och svar",
@@ -350,9 +350,9 @@
     "keepPracticing": "Fortsätt öva",
     "correct": "Rätt",
     "badgeEarned": "Emblem intjänat!",
-    "generatingQuestions": "Generating AI questions... This may take 20-30 seconds",
-    "assessmentReady": "Assessment ready! Let's begin",
-    "generating": "Generating..."
+    "generatingQuestions": "Genererar AI-frågor... Detta kan ta 20–30 sekunder",
+    "assessmentReady": "Bedömningen är klar! Nu kör vi",
+    "generating": "Genererar..."
   },
   "predictor": {
     "title": "Prediktor för ansökningsframgång",
@@ -389,8 +389,8 @@
     "enterJobDetails": "Ange jobbinformation och klicka på \"Förutse framgångsgrad\" för att se sannolikheten att du blir kontaktad",
     "neuralNetworkAnalysis": "Neuralnätverksanalys",
     "browserBasedAI": "Webbläsarbaserad AI-prognos med ett neuralt nätverk i fyra lager",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "t.ex. Medtronic",
+    "jobTitlePlaceholder": "t.ex. Leverantörskvalitetschef"
   },
   "video": {
     "title": "Öva på videointervjuer",
@@ -449,8 +449,8 @@
     "generationFailed": "Misslyckades med att generera personligt brev",
     "pasteJobDescription": "Klistra in jobbannonsen här...",
     "generate": "Generera personligt brev",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "t.ex. Medtronic",
+    "jobTitlePlaceholder": "t.ex. Leverantörskvalitetschef"
   },
   "membership": {
     "membership": "Medlemskap",
@@ -664,10 +664,10 @@
     "confirmCancel": "Är du säker på att du vill avboka den här intervjun?",
     "cancelled": "Intervjun har avbokats",
     "cancelFailed": "Det gick inte att avboka intervjun",
-    "messageToRecruiterPlaceholder": "Add a message to the recruiter...",
-    "additionalInfoPlaceholder": "Any additional information...",
-    "selectCandidate": "Select a candidate",
-    "officeAddressPlaceholder": "Office address",
+    "messageToRecruiterPlaceholder": "Lägg till ett meddelande till rekryteraren...",
+    "additionalInfoPlaceholder": "Ytterligare information...",
+    "selectCandidate": "Välj en kandidat",
+    "officeAddressPlaceholder": "Kontorsadress",
     "meetingLinkPlaceholder": "https://zoom.us/j/..."
   },
   "verification": {
@@ -693,9 +693,9 @@
     "selectSize": "Välj storlek",
     "headquarters": "Huvudkontor",
     "headquartersPlaceholder": "Stad, land",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company",
-    "createFailed": "Failed to create company"
+    "created": "Företagsprofil skapad",
+    "followFailed": "Det gick inte att följa företaget",
+    "createFailed": "Det gick inte att skapa företaget"
   },
   "analytics": {
     "loadFailed": "Det gick inte att läsa in analysdata"
@@ -751,13 +751,13 @@
     "genderAuto": "Auto (språkets standard)",
     "useBrowserTranslate": "Använd webbläsaröversättning",
     "useGoogleTranslate": "Använd Google Översätt",
-    "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
-    "keepCurrentLanguage": "Keep English",
-    "switchToLanguage": "Switch to {{language}}",
-    "detectedBrowserLanguage": "We detected your browser language is {{language}}",
-    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
+    "googleTranslateDisclaimer": "Du kan också använda webbläsarens inbyggda översättningsfunktion (oftast via högerklicksmenyn eller webbläsarinställningarna) för automatisk sidöversättning.",
+    "keepCurrentLanguage": "Behåll engelska",
+    "switchToLanguage": "Byt till {{language}}",
+    "detectedBrowserLanguage": "Vi upptäckte att ditt webbläsarspråk är {{language}}",
+    "browserTranslationNote": "Din webbläsare översätter just nu den här sidan. Appens språkväljare är dold för att undvika konflikter.",
     "openGoogleTranslate": "Öppna i Google Översätt",
-    "languageSwitched": "Language switched to {{language}}",
+    "languageSwitched": "Språket har ändrats till {{language}}",
     "browserTranslationActive": "Webbläsaröversättning är aktiv"
   },
   "dragon": {
@@ -839,9 +839,9 @@
     "submit": "Skicka in återkoppling",
     "submitted": "Återkopplingen har skickats in",
     "submitFailed": "Det gick inte att skicka in återkopplingen",
-    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
-    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
-    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
+    "experienceGapPlaceholder": "t.ex. Krävde 5+ års erfarenhet i liknande roll, kandidaten har 2 år",
+    "skillsPlaceholder": "t.ex. Python, AWS, teamledarskap",
+    "improvementPlaceholder": "t.ex. Skaffa AWS-certifiering, mer erfarenhet av projektledning"
   },
   "extras": {
     "later": "Senare",
@@ -996,7 +996,7 @@
       "searchTaxonomy": "Sök i taxonomin..."
     },
     "enterpriseApi": {
-      "title": "Enterprise API",
+      "title": "Enterprise-API",
       "subtitle": "API-dokumentation och hantering",
       "apiKeys": "API-nycklar",
       "documentation": "Dokumentation",
@@ -1294,9 +1294,9 @@
     "notSupported": "Biometrisk autentisering stöds inte på den här enheten",
     "enterEmail": "Vänligen ange din e-postadress",
     "emailPlaceholder": "Ange din e-postadress",
-    "loginFailed": "Login failed",
-    "loginSuccess": "Login successful!",
-    "loginCancelled": "Biometric login was cancelled or denied"
+    "loginFailed": "Inloggning misslyckades",
+    "loginSuccess": "Inloggningen lyckades!",
+    "loginCancelled": "Biometrisk inloggning avbröts eller nekades"
   },
   "translation": {
     "selectLanguage": "Välj språk",
@@ -1311,8 +1311,8 @@
     "responsePlaceholder": "Tacka recensenten, ge sammanhang eller bemöt eventuella synpunkter på ett professionellt sätt...",
     "responseVisibility": "Ditt svar kommer att vara synligt för rekryterare som tittar på din profil",
     "submitResponse": "Skicka svar",
-    "title": "Reviews",
-    "noReviews": "No reviews yet"
+    "title": "Recensioner",
+    "noReviews": "Inga recensioner ännu"
   },
   "capa": {
     "addProbableCause": "Lägg till trolig orsak",
@@ -1326,29 +1326,29 @@
     "addCause": "Lägg till orsak",
     "searchCapas": "Sök efter CAPA:er...",
     "allStatuses": "Alla statusar",
-    "title": "Title",
-    "severityHigh": "High",
-    "severityMedium": "Medium",
-    "severityCritical": "Critical",
-    "impactedProcesses": "Impacted Processes",
-    "capaType": "CAPA Type",
-    "titleAndStatementRequired": "Title and problem statement are required",
-    "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
-    "titlePlaceholder": "Brief title of the nonconformance",
-    "severityLow": "Low",
-    "severity": "Severity",
-    "problemStatementPlaceholder": "Detailed description of the issue...",
-    "source": "Source",
-    "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
-    "problemStatement": "Problem Statement"
+    "title": "Titel",
+    "severityHigh": "Hög",
+    "severityMedium": "Medel",
+    "severityCritical": "Kritisk",
+    "impactedProcesses": "Påverkade processer",
+    "capaType": "CAPA-typ",
+    "titleAndStatementRequired": "Titel och problembeskrivning krävs",
+    "impactedProcessesPlaceholder": "t.ex. översättning, UI-rendering, lokalisering",
+    "titlePlaceholder": "Kort titel för avvikelsen",
+    "severityLow": "Låg",
+    "severity": "Allvarlighetsgrad",
+    "problemStatementPlaceholder": "Detaljerad beskrivning av problemet...",
+    "source": "Källa",
+    "sourcePlaceholder": "Var problemet identifierades (t.ex. QA, revision, kund)",
+    "problemStatement": "Problemformulering"
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
     "interviewerNamePlaceholder": "John Smith",
-    "companyPlaceholder": "e.g., Google",
-    "notesPlaceholder": "Any additional details about the interview...",
-    "positionPlaceholder": "e.g., Software Engineer",
-    "locationPlaceholder": "https://meet.google.com/... or office address"
+    "companyPlaceholder": "t.ex. Google",
+    "notesPlaceholder": "Eventuella ytterligare detaljer om intervjun...",
+    "positionPlaceholder": "t.ex. mjukvaruingenjör",
+    "locationPlaceholder": "https://meet.google.com/... eller kontorsadress"
   },
   "blindScreening": {
     "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
@@ -1356,31 +1356,31 @@
     "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
   },
   "psv": {
-    "npiNumber": "NPI Number (optional)",
-    "statePlaceholder": "State (e.g., CA, NY)",
-    "lastName": "Last Name",
-    "familyName": "Family Name",
-    "searchOrcid": "Search ORCID Registry",
-    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
-    "globalUniversitySearch": "Global University Database",
-    "universityDescription": "Verify educational institutions through the global university database",
-    "orSearchByName": "or search by name",
-    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
-    "givenNames": "Given Names",
-    "oigDescription": "Check if an individual is excluded from federal healthcare programs",
-    "firstName": "First Name",
-    "title": "Primary Source Verification Hub",
-    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
-    "subtitle": "Free self-service verification using public databases",
-    "universityName": "University Name",
-    "searchUniversities": "Search Universities",
-    "countryOptional": "Country (optional)"
+    "npiNumber": "NPI-nummer (valfritt)",
+    "statePlaceholder": "Delstat (t.ex. CA, NY)",
+    "lastName": "Efternamn",
+    "familyName": "Efternamn",
+    "searchOrcid": "Sök i ORCID-registret",
+    "npiDescription": "Verifiera vårdgivare i USA via CMS-registret för National Provider Identifier (NPI)",
+    "globalUniversitySearch": "Global universitetsdatabas",
+    "universityDescription": "Verifiera utbildningsinstitutioner via den globala universitetsdatabasen",
+    "orSearchByName": "eller sök efter namn",
+    "orcidIdPlaceholder": "ORCID iD (t.ex. 0000-0001-2345-6789)",
+    "givenNames": "Förnamn",
+    "oigDescription": "Kontrollera om en person är utesluten från federala vårdprogram",
+    "firstName": "Förnamn",
+    "title": "Hubb för verifiering av primärkällor",
+    "orcidDescription": "Verifiera forskare och vetenskapsmän via ORCID:s offentliga register",
+    "subtitle": "Gratis självbetjäningsverifiering med offentliga databaser",
+    "universityName": "Universitetsnamn",
+    "searchUniversities": "Sök universitet",
+    "countryOptional": "Land (valfritt)"
   },
   "publicApplication": {
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
+    "resumeLinkPlaceholder": "Länk till ditt CV (Google Drive, Dropbox osv.)",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "coverLetterPlaceholder": "Tell us why you're a great fit for this role...",
+    "coverLetterPlaceholder": "Berätta varför du passar bra för den här rollen...",
     "emailPlaceholder": "john@example.com",
     "namePlaceholder": "John Doe",
     "portfolioPlaceholder": "https://yourportfolio.com"
@@ -1391,10 +1391,10 @@
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
-    "prosPlaceholder": "What did you like?",
-    "jobTitlePlaceholder": "e.g., Software Engineer",
-    "consPlaceholder": "What could be improved?",
-    "summaryPlaceholder": "Summarize your experience"
+    "prosPlaceholder": "Vad gillade du?",
+    "jobTitlePlaceholder": "t.ex. Mjukvaruingenjör",
+    "consPlaceholder": "Vad kan förbättras?",
+    "summaryPlaceholder": "Sammanfatta din erfarenhet"
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
@@ -1426,23 +1426,23 @@
   },
   "companiesPage": {
     "websitePlaceholder": "https://...",
-    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
-    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
-    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)",
-    "searchPlaceholder": "Search companies...",
+    "techStackPlaceholder": "AI, maskininlärning, hälso- och sjukvård (kommaseparerat)",
+    "benefitsPlaceholder": "Distansarbete, sjukförsäkring, 401k (kommaseparerat)",
+    "culturePlaceholder": "Innovation, samarbete, mångfald (kommaseparerat)",
+    "searchPlaceholder": "Sök företag...",
     "foundedPlaceholder": "2020",
-    "industryPlaceholder": "Industry",
-    "companySizePlaceholder": "Company Size"
+    "industryPlaceholder": "Bransch",
+    "companySizePlaceholder": "Företagsstorlek"
   },
   "candidateSearch": {
-    "keywordsPlaceholder": "e.g., senior, remote, healthcare...",
-    "skillsPlaceholder": "Type a skill and press Enter..."
+    "keywordsPlaceholder": "t.ex. senior, distans, hälso- och sjukvård...",
+    "skillsPlaceholder": "Skriv en kompetens och tryck på Enter..."
   },
   "admin": {
-    "translationCoverageDesc": "Monitor translation completion across all languages",
-    "searchLanguages": "Search languages...",
-    "translationCoverage": "Translation Coverage",
-    "searchByCompanyOrEmail": "Search by company name or email..."
+    "translationCoverageDesc": "Övervaka översättningsstatus för alla språk",
+    "searchLanguages": "Sök språk...",
+    "translationCoverage": "Översättningstäckning",
+    "searchByCompanyOrEmail": "Sök på företagsnamn eller e-post..."
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."
@@ -1450,7 +1450,7 @@
   "karauMeet": {
     "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
     "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "meetingTitlePlaceholder": "AI KARAU-möte",
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
@@ -1463,21 +1463,21 @@
     "rejectionReasonPlaceholder": "Provide a reason for rejection..."
   },
   "contact": {
-    "declineReason": "e.g., Not looking for new opportunities right now"
+    "declineReason": "t.ex. Söker inte nya möjligheter just nu"
   },
   "taxonomy": {
-    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+    "searchPlaceholder": "Sök efter en roll (t.ex. \"Biomedicinsk ingenjör\", \"Klinisk forskning\")"
   },
   "candidateTransparency": {
     "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
   },
   "meetingNotes": {
-    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
-    "companyNamePlaceholder": "Company name",
-    "jobTitlePlaceholder": "Job title"
+    "meetingTitlePlaceholder": "t.ex. Intervju med Acme Corp",
+    "companyNamePlaceholder": "Företagsnamn",
+    "jobTitlePlaceholder": "Jobbtitel"
   },
   "credentialsPage": {
-    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+    "searchPlaceholder": "Sök certifieringar (t.ex. CQE, ISO 13485, RN)..."
   },
   "salaryInsights": {
     "yearsPlaceholder": "5"
@@ -1486,7 +1486,7 @@
     "selectDateRangePlaceholder": "Select date range..."
   },
   "resumeProfiles": {
-    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+    "profileNamePlaceholder": "t.ex. Tech-CV, Lednings-CV"
   },
   "jobSearch": {
     "selectCountryFirst": "Select Country First",
