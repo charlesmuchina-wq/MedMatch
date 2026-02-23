@@ -203,7 +203,7 @@
     "moreFilters": "مزيد من الفلاتر",
     "lessFilters": "فلاتر أقل",
     "selectCountry": "اختر الدولة",
-    "viewOriginal": "View Original"
+    "viewOriginal": "عرض الأصل"
   },
   "auth": {
     "signIn": "تسجيل الدخول",
@@ -432,10 +432,10 @@
     "timezone": "المنطقة الزمنية",
     "duration": "المدة",
     "reminder": "تذكير",
-    "messageToRecruiterPlaceholder": "Add a message to the recruiter...",
-    "additionalInfoPlaceholder": "Any additional information...",
-    "selectCandidate": "Select a candidate",
-    "officeAddressPlaceholder": "Office address",
+    "messageToRecruiterPlaceholder": "أضف رسالة إلى مسؤول التوظيف...",
+    "additionalInfoPlaceholder": "أي معلومات إضافية...",
+    "selectCandidate": "اختر مرشحًا",
+    "officeAddressPlaceholder": "عنوان المكتب",
     "meetingLinkPlaceholder": "https://zoom.us/j/..."
   },
   "predictor": {
@@ -499,8 +499,8 @@
     "fullReport": "تقرير كامل",
     "compareJobs": "مقارنة الوظائف",
     "trackProgress": "تتبع التقدم",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "مثال: ميدترونيك",
+    "jobTitlePlaceholder": "مثال: مدير جودة المورّدين"
   },
   "jobAlerts": {
     "schedule": "الجدول",
@@ -599,9 +599,9 @@
     "certificate": "الشهادة",
     "trending": "الأكثر طلباً",
     "recommended": "موصى به",
-    "generatingQuestions": "Generating AI questions... This may take 20-30 seconds",
-    "assessmentReady": "Assessment ready! Let's begin",
-    "generating": "Generating..."
+    "generatingQuestions": "جارٍ إنشاء أسئلة بالذكاء الاصطناعي... قد يستغرق هذا 20-30 ثانية",
+    "assessmentReady": "التقييم جاهز! لنبدأ",
+    "generating": "جارٍ الإنشاء..."
   },
   "notifications": {
     "clearAll": "مسح الكل",
@@ -693,9 +693,9 @@
     "improve": "تحسين",
     "satisfaction": "الرضا",
     "experience": "التجربة",
-    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
-    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
-    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
+    "experienceGapPlaceholder": "مثال: مطلوب أكثر من 5 سنوات في دور مماثل، المرشح لديه سنتان",
+    "skillsPlaceholder": "مثال: Python، AWS، قيادة الفريق",
+    "improvementPlaceholder": "مثال: الحصول على شهادة AWS، خبرة أكبر في إدارة المشاريع"
   },
   "language": {
     "grammaticalGender": "الجنس النحوي",
@@ -724,13 +724,13 @@
     "ltr": "من اليسار لليمين",
     "useBrowserTranslate": "استخدم ترجمة المتصفح",
     "useGoogleTranslate": "استخدم ترجمة Google",
-    "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
-    "keepCurrentLanguage": "Keep English",
-    "switchToLanguage": "Switch to {{language}}",
-    "detectedBrowserLanguage": "We detected your browser language is {{language}}",
-    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
+    "googleTranslateDisclaimer": "يمكنك أيضًا استخدام ميزة الترجمة المدمجة في متصفحك (عادةً عبر قائمة النقر بزر الماوس الأيمن أو إعدادات المتصفح) لترجمة الصفحة تلقائيًا.",
+    "keepCurrentLanguage": "الإبقاء على الإنجليزية",
+    "switchToLanguage": "بدّل إلى {{language}}",
+    "detectedBrowserLanguage": "اكتشفنا أن لغة متصفحك هي {{language}}",
+    "browserTranslationNote": "يقوم متصفحك حاليًا بترجمة هذه الصفحة. تم إخفاء محدد لغة التطبيق لتجنب التعارض.",
     "openGoogleTranslate": "افتح في ترجمة Google",
-    "languageSwitched": "Language switched to {{language}}",
+    "languageSwitched": "تم تبديل اللغة إلى {{language}}",
     "browserTranslationActive": "ترجمة المتصفح مفعّلة"
   },
   "recruiter": {
@@ -830,12 +830,12 @@
     "research": "بحث",
     "researchFor": "بحث عن",
     "skipQuestion": "تخطي السؤال",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
-    "companyPlaceholder": "e.g., Medtronic",
-    "questionsPlaceholder": "Enter questions, one per line...",
-    "typeAnswerPlaceholder": "Type your answer here... (You have 2 minutes)",
-    "yourResumeSkills": "Your Resume Skills",
-    "jobDescriptionPlaceholder": "Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills..."
+    "jobTitlePlaceholder": "مثال: مدير جودة المورّدين",
+    "companyPlaceholder": "مثال: ميدترونيك",
+    "questionsPlaceholder": "أدخل الأسئلة، سؤالًا لكل سطر...",
+    "typeAnswerPlaceholder": "اكتب إجابتك هنا... (لديك دقيقتان)",
+    "yourResumeSkills": "مهارات سيرتك الذاتية",
+    "jobDescriptionPlaceholder": "الصق وصف الوظيفة الكامل هنا. سيُنشئ الذكاء الاصطناعي أسئلة مقابلة ذات صلة بناءً على المتطلبات ومهارات سيرتك الذاتية..."
   },
   "membership": {
     "premium": "مميز",
@@ -949,8 +949,8 @@
     "company": "الشركة",
     "customize": "تخصيص",
     "pasteJobDescription": "الصق وصف الوظيفة هنا...",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "مثال: ميدترونيك",
+    "jobTitlePlaceholder": "مثال: مدير جودة المورّدين"
   },
   "cloudStorage": {
     "supportedTypes": "المدعوم: PDF, DOC, DOCX",
@@ -1254,9 +1254,9 @@
     "selectSize": "اختر الحجم",
     "headquarters": "المقر الرئيسي",
     "headquartersPlaceholder": "المدينة، الدولة",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company",
-    "createFailed": "Failed to create company"
+    "created": "تم إنشاء ملف الشركة",
+    "followFailed": "فشلت متابعة الشركة",
+    "createFailed": "فشل إنشاء الشركة"
   },
   "savedJobs": {
     "saveJobsHint": "احفظ الوظائف أثناء البحث لمراجعتها لاحقاً",
@@ -1412,7 +1412,7 @@
       "searchTaxonomy": "ابحث في التصنيفات..."
     },
     "enterpriseApi": {
-      "title": "Enterprise API",
+      "title": "واجهة برمجة تطبيقات للمؤسسات",
       "subtitle": "توثيق API وإدارته",
       "apiKeys": "مفاتيح API",
       "documentation": "التوثيق",
@@ -1587,8 +1587,8 @@
     "biometricAuth": {
       "title": "المصادقة البيومترية",
       "enableBiometric": "تفعيل تسجيل الدخول البيومتري",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "بصمة الوجه",
+      "touchId": "بصمة الإصبع",
       "fingerprint": "بصمة الإصبع",
       "setupRequired": "الإعداد مطلوب",
       "notSupported": "غير مدعوم على هذا الجهاز"
@@ -1597,8 +1597,8 @@
       "title": "الاشتراك",
       "currentPlan": "الخطة الحالية",
       "free": "مجاني",
-      "premium": "Premium",
-      "enterprise": "Enterprise",
+      "premium": "مميز",
+      "enterprise": "المؤسسات",
       "upgrade": "ترقية",
       "downgrade": "خفض الخطة",
       "cancel": "إلغاء الاشتراك",
@@ -1710,9 +1710,9 @@
     "notSupported": "المصادقة بالقياسات الحيوية غير مدعومة على هذا الجهاز",
     "enterEmail": "يرجى إدخال بريدك الإلكتروني",
     "emailPlaceholder": "أدخل بريدك الإلكتروني",
-    "loginFailed": "Login failed",
-    "loginSuccess": "Login successful!",
-    "loginCancelled": "Biometric login was cancelled or denied"
+    "loginFailed": "فشل تسجيل الدخول",
+    "loginSuccess": "تم تسجيل الدخول بنجاح!",
+    "loginCancelled": "تم إلغاء تسجيل الدخول البيومتري أو رفضه"
   },
   "translation": {
     "selectLanguage": "اختر اللغة",
@@ -1727,8 +1727,8 @@
     "responsePlaceholder": "اشكر المراجع، وقدّم سياقًا، أو عالج أي ملاحظات باحترافية...",
     "responseVisibility": "سيكون ردّك مرئيًا لمسؤولي التوظيف الذين يعرضون ملفك الشخصي",
     "submitResponse": "إرسال الرد",
-    "title": "Reviews",
-    "noReviews": "No reviews yet"
+    "title": "المراجعات",
+    "noReviews": "لا توجد مراجعات بعد"
   },
   "capa": {
     "addProbableCause": "إضافة السبب المحتمل",
@@ -1742,29 +1742,29 @@
     "addCause": "إضافة سبب",
     "searchCapas": "البحث في CAPA...",
     "allStatuses": "جميع الحالات",
-    "title": "Title",
-    "severityHigh": "High",
-    "severityMedium": "Medium",
-    "severityCritical": "Critical",
-    "impactedProcesses": "Impacted Processes",
-    "capaType": "CAPA Type",
-    "titleAndStatementRequired": "Title and problem statement are required",
-    "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
-    "titlePlaceholder": "Brief title of the nonconformance",
-    "severityLow": "Low",
-    "severity": "Severity",
-    "problemStatementPlaceholder": "Detailed description of the issue...",
-    "source": "Source",
-    "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
-    "problemStatement": "Problem Statement"
+    "title": "العنوان",
+    "severityHigh": "عالية",
+    "severityMedium": "متوسطة",
+    "severityCritical": "حرج",
+    "impactedProcesses": "العمليات المتأثرة",
+    "capaType": "نوع CAPA",
+    "titleAndStatementRequired": "العنوان وبيان المشكلة مطلوبان",
+    "impactedProcessesPlaceholder": "مثل: الترجمة، عرض واجهة المستخدم، التوطين",
+    "titlePlaceholder": "عنوان مختصر لحالة عدم المطابقة",
+    "severityLow": "منخفضة",
+    "severity": "الخطورة",
+    "problemStatementPlaceholder": "وصف تفصيلي للمشكلة...",
+    "source": "المصدر",
+    "sourcePlaceholder": "مكان تحديد المشكلة (مثل: ضمان الجودة، تدقيق، عميل)",
+    "problemStatement": "بيان المشكلة"
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
     "interviewerNamePlaceholder": "John Smith",
-    "companyPlaceholder": "e.g., Google",
-    "notesPlaceholder": "Any additional details about the interview...",
-    "positionPlaceholder": "e.g., Software Engineer",
-    "locationPlaceholder": "https://meet.google.com/... or office address"
+    "companyPlaceholder": "مثال: Google",
+    "notesPlaceholder": "أي تفاصيل إضافية حول المقابلة...",
+    "positionPlaceholder": "مثال: مهندس برمجيات",
+    "locationPlaceholder": "https://meet.google.com/... أو عنوان المكتب"
   },
   "blindScreening": {
     "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
@@ -1772,31 +1772,31 @@
     "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
   },
   "psv": {
-    "npiNumber": "NPI Number (optional)",
-    "statePlaceholder": "State (e.g., CA, NY)",
-    "lastName": "Last Name",
-    "familyName": "Family Name",
-    "searchOrcid": "Search ORCID Registry",
-    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
-    "globalUniversitySearch": "Global University Database",
-    "universityDescription": "Verify educational institutions through the global university database",
-    "orSearchByName": "or search by name",
-    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
-    "givenNames": "Given Names",
-    "oigDescription": "Check if an individual is excluded from federal healthcare programs",
-    "firstName": "First Name",
-    "title": "Primary Source Verification Hub",
-    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
-    "subtitle": "Free self-service verification using public databases",
-    "universityName": "University Name",
-    "searchUniversities": "Search Universities",
-    "countryOptional": "Country (optional)"
+    "npiNumber": "رقم NPI (اختياري)",
+    "statePlaceholder": "الولاية (مثل CA، NY)",
+    "lastName": "اسم العائلة",
+    "familyName": "اسم العائلة",
+    "searchOrcid": "البحث في سجل ORCID",
+    "npiDescription": "تحقق من مقدمي الرعاية الصحية في الولايات المتحدة عبر سجل CMS للمعرّف الوطني لمقدمي الخدمات (NPI)",
+    "globalUniversitySearch": "قاعدة بيانات الجامعات العالمية",
+    "universityDescription": "تحقّق من المؤسسات التعليمية عبر قاعدة بيانات الجامعات العالمية",
+    "orSearchByName": "أو ابحث بالاسم",
+    "orcidIdPlaceholder": "معرّف ORCID (مثل 0000-0001-2345-6789)",
+    "givenNames": "الأسماء المعطاة",
+    "oigDescription": "تحقّق مما إذا كان الشخص مستبعدًا من برامج الرعاية الصحية الفيدرالية",
+    "firstName": "الاسم الأول",
+    "title": "مركز التحقق من المصدر الأساسي",
+    "orcidDescription": "تحقق من الباحثين والعلماء عبر السجل العام لـ ORCID",
+    "subtitle": "تحقق مجاني بالخدمة الذاتية باستخدام قواعد بيانات عامة",
+    "universityName": "اسم الجامعة",
+    "searchUniversities": "البحث عن الجامعات",
+    "countryOptional": "الدولة (اختياري)"
   },
   "publicApplication": {
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
+    "resumeLinkPlaceholder": "رابط إلى سيرتك الذاتية (Google Drive، Dropbox، إلخ.)",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "coverLetterPlaceholder": "Tell us why you're a great fit for this role...",
+    "coverLetterPlaceholder": "أخبرنا لماذا أنت مناسب جدًا لهذا الدور...",
     "emailPlaceholder": "john@example.com",
     "namePlaceholder": "John Doe",
     "portfolioPlaceholder": "https://yourportfolio.com"
@@ -1807,10 +1807,10 @@
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
-    "prosPlaceholder": "What did you like?",
-    "jobTitlePlaceholder": "e.g., Software Engineer",
-    "consPlaceholder": "What could be improved?",
-    "summaryPlaceholder": "Summarize your experience"
+    "prosPlaceholder": "ما الذي أعجبك؟",
+    "jobTitlePlaceholder": "مثال: مهندس برمجيات",
+    "consPlaceholder": "ما الذي يمكن تحسينه؟",
+    "summaryPlaceholder": "لخّص خبرتك"
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
@@ -1842,23 +1842,23 @@
   },
   "companiesPage": {
     "websitePlaceholder": "https://...",
-    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
-    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
-    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)",
-    "searchPlaceholder": "Search companies...",
+    "techStackPlaceholder": "الذكاء الاصطناعي، تعلّم الآلة، الرعاية الصحية (مفصولة بفواصل)",
+    "benefitsPlaceholder": "العمل عن بُعد، التأمين الصحي، 401k (مفصولة بفواصل)",
+    "culturePlaceholder": "الابتكار، التعاون، التنوع (مفصولة بفواصل)",
+    "searchPlaceholder": "ابحث عن الشركات...",
     "foundedPlaceholder": "2020",
-    "industryPlaceholder": "Industry",
-    "companySizePlaceholder": "Company Size"
+    "industryPlaceholder": "القطاع",
+    "companySizePlaceholder": "حجم الشركة"
   },
   "candidateSearch": {
-    "keywordsPlaceholder": "e.g., senior, remote, healthcare...",
-    "skillsPlaceholder": "Type a skill and press Enter..."
+    "keywordsPlaceholder": "مثال: كبير، عن بُعد، رعاية صحية...",
+    "skillsPlaceholder": "اكتب مهارة واضغط Enter..."
   },
   "admin": {
-    "translationCoverageDesc": "Monitor translation completion across all languages",
-    "searchLanguages": "Search languages...",
-    "translationCoverage": "Translation Coverage",
-    "searchByCompanyOrEmail": "Search by company name or email..."
+    "translationCoverageDesc": "مراقبة اكتمال الترجمة عبر جميع اللغات",
+    "searchLanguages": "ابحث عن اللغات...",
+    "translationCoverage": "تغطية الترجمة",
+    "searchByCompanyOrEmail": "ابحث باسم الشركة أو البريد الإلكتروني..."
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."
@@ -1879,21 +1879,21 @@
     "rejectionReasonPlaceholder": "Provide a reason for rejection..."
   },
   "contact": {
-    "declineReason": "e.g., Not looking for new opportunities right now"
+    "declineReason": "مثال: لا أبحث عن فرص جديدة الآن"
   },
   "taxonomy": {
-    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+    "searchPlaceholder": "ابحث عن وظيفة (مثال: \"مهندس طب حيوي\"، \"أبحاث سريرية\")"
   },
   "candidateTransparency": {
     "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
   },
   "meetingNotes": {
-    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
-    "companyNamePlaceholder": "Company name",
-    "jobTitlePlaceholder": "Job title"
+    "meetingTitlePlaceholder": "مثال: مقابلة مع شركة Acme Corp",
+    "companyNamePlaceholder": "اسم الشركة",
+    "jobTitlePlaceholder": "المسمى الوظيفي"
   },
   "credentialsPage": {
-    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+    "searchPlaceholder": "ابحث عن الشهادات (مثال: CQE، ISO 13485، RN)..."
   },
   "salaryInsights": {
     "yearsPlaceholder": "5"
@@ -1902,7 +1902,7 @@
     "selectDateRangePlaceholder": "Select date range..."
   },
   "resumeProfiles": {
-    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+    "profileNamePlaceholder": "مثال: سيرة ذاتية تقنية، سيرة ذاتية إدارية"
   },
   "jobSearch": {
     "selectCountryFirst": "Select Country First",
