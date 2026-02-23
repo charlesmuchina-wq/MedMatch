@@ -814,9 +814,6 @@ export default function AdminDashboard() {
           </Button>
         </CardContent>
       </Card>
-
-      {/* Tutorial Audio Generation */}
-      <AudioGenerationCard />
     </div>
   );
 }
