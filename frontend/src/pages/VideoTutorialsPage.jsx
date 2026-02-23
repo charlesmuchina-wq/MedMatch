@@ -190,6 +190,59 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
   const videoRef = useRef(null);
   const audioRef = useRef(null);
 
+  // AUTO-GENERATE audio when language changes (not English)
+  useEffect(() => {
+    if (!video || selectedLanguage === 'en') {
+      setGeneratedAudioUrl(null);
+      return;
+    }
+    
+    // Check if audio already exists, then auto-generate if needed
+    const checkAndGenerateAudio = async () => {
+      try {
+        // First check status to see if audio exists
+        const statusRes = await axios.get(`${API}/api/tutorials/translate/${video.id}/status?lang=${selectedLanguage}`);
+        
+        if (statusRes.data.status === 'ready' && statusRes.data.audio_url) {
+          // Audio already exists - use it immediately
+          setGeneratedAudioUrl(`${API}${statusRes.data.audio_url}`);
+          return;
+        }
+        
+        // Audio doesn't exist - auto-generate it
+        setTranslating(true);
+        setTranslationError(null);
+        
+        await axios.post(`${API}/api/tutorials/translate/${video.id}?lang=${selectedLanguage}`);
+        
+        // Poll for completion
+        const checkStatus = async () => {
+          const res = await axios.get(`${API}/api/tutorials/translate/${video.id}/status?lang=${selectedLanguage}`);
+          if (res.data.status === 'ready') {
+            setTranslating(false);
+            const audioUrl = res.data.audio_url || res.data.video_url;
+            if (audioUrl) {
+              setGeneratedAudioUrl(`${API}${audioUrl}`);
+            }
+          } else if (res.data.status === 'generating') {
+            setTimeout(checkStatus, 1500);
+          } else if (res.data.status === 'failed') {
+            setTranslating(false);
+            setTranslationError(res.data.error || 'Audio generation failed.');
+          } else {
+            setTranslating(false);
+          }
+        };
+        checkStatus();
+      } catch (error) {
+        console.error('Auto audio generation failed:', error);
+        setTranslating(false);
+      }
+    };
+    
+    checkAndGenerateAudio();
+  }, [video, selectedLanguage]);
+
   // Handle video events for loading states - defined before early return
   const handleLoadedMetadata = useCallback(() => {
     setVideoLoaded(true);
