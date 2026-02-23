@@ -30,13 +30,13 @@
     "generating": "생성 중...",
     "download": "다운로드",
     "filter": "필터",
-    "none": "None",
+    "none": "없음",
     "upload": "업로드",
-    "sort": "Sort",
-    "more": "More",
+    "sort": "정렬",
+    "more": "더보기",
     "help": "도움말",
-    "less": "Less",
-    "previous": "Previous"
+    "less": "적게",
+    "previous": "이전"
   },
   "notifications": {
     "title": "알림",
@@ -215,7 +215,7 @@
     "moreFilters": "필터 더 보기",
     "lessFilters": "필터 접기",
     "selectCountry": "국가 선택",
-    "viewOriginal": "View Original"
+    "viewOriginal": "원본 보기"
   },
   "resume": {
     "myResume": "내 이력서",
@@ -296,12 +296,12 @@
     "research": "리서치",
     "researchFor": "리서치 대상",
     "skipQuestion": "질문 건너뛰기",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
-    "companyPlaceholder": "e.g., Medtronic",
-    "questionsPlaceholder": "Enter questions, one per line...",
-    "typeAnswerPlaceholder": "Type your answer here... (You have 2 minutes)",
-    "yourResumeSkills": "Your Resume Skills",
-    "jobDescriptionPlaceholder": "Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills..."
+    "jobTitlePlaceholder": "예: 협력업체 품질 관리자",
+    "companyPlaceholder": "예: 메드트로닉",
+    "questionsPlaceholder": "질문을 한 줄에 하나씩 입력하세요...",
+    "typeAnswerPlaceholder": "여기에 답변을 입력하세요... (2분)",
+    "yourResumeSkills": "이력서 기술",
+    "jobDescriptionPlaceholder": "여기에 전체 채용 공고를 붙여넣으세요. AI가 요구사항과 이력서의 기술을 바탕으로 관련 면접 질문을 생성합니다..."
   },
   "qaPractice": {
     "title": "Q&A 답변 생성기",
@@ -350,9 +350,9 @@
     "keepPracticing": "계속 연습하세요",
     "correct": "정답",
     "badgeEarned": "배지를 획득했습니다!",
-    "generatingQuestions": "Generating AI questions... This may take 20-30 seconds",
-    "assessmentReady": "Assessment ready! Let's begin",
-    "generating": "Generating..."
+    "generatingQuestions": "AI 질문 생성 중... 20~30초 정도 걸릴 수 있습니다",
+    "assessmentReady": "평가 준비 완료! 시작해요",
+    "generating": "생성 중..."
   },
   "predictor": {
     "title": "지원 성공 예측기",
@@ -389,8 +389,8 @@
     "enterJobDetails": "채용 공고 정보를 입력한 뒤 \"성공률 예측\"을 클릭하면 연락을 받을 확률을 확인할 수 있습니다",
     "neuralNetworkAnalysis": "신경망 분석",
     "browserBasedAI": "4층 신경망을 사용한 브라우저 기반 AI 예측",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "예: 메드트로닉",
+    "jobTitlePlaceholder": "예: 협력업체 품질 관리자"
   },
   "video": {
     "title": "영상 면접 연습",
@@ -449,8 +449,8 @@
     "generationFailed": "자기소개서 생성에 실패했습니다.",
     "pasteJobDescription": "여기에 직무 설명을 붙여넣으세요...",
     "generate": "커버 레터 생성",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "예: 메드트로닉",
+    "jobTitlePlaceholder": "예: 공급업체 품질 관리자"
   },
   "membership": {
     "membership": "멤버십",
@@ -664,10 +664,10 @@
     "confirmCancel": "이 면접을 취소하시겠습니까?",
     "cancelled": "면접이 취소되었습니다",
     "cancelFailed": "면접 취소에 실패했습니다",
-    "messageToRecruiterPlaceholder": "Add a message to the recruiter...",
-    "additionalInfoPlaceholder": "Any additional information...",
-    "selectCandidate": "Select a candidate",
-    "officeAddressPlaceholder": "Office address",
+    "messageToRecruiterPlaceholder": "리크루터에게 메시지 추가...",
+    "additionalInfoPlaceholder": "추가 정보...",
+    "selectCandidate": "후보자 선택",
+    "officeAddressPlaceholder": "사무실 주소",
     "meetingLinkPlaceholder": "https://zoom.us/j/..."
   },
   "verification": {
@@ -693,9 +693,9 @@
     "selectSize": "규모 선택",
     "headquarters": "본사",
     "headquartersPlaceholder": "도시, 국가",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company",
-    "createFailed": "Failed to create company"
+    "created": "회사 프로필이 생성되었습니다",
+    "followFailed": "회사를 팔로우하지 못했습니다",
+    "createFailed": "회사 생성에 실패했습니다"
   },
   "analytics": {
     "loadFailed": "분석을 불러오는 데 실패했습니다"
@@ -751,13 +751,13 @@
     "genderAuto": "자동(언어 기본값)",
     "useBrowserTranslate": "브라우저 번역 사용",
     "useGoogleTranslate": "Google 번역 사용",
-    "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
-    "keepCurrentLanguage": "Keep English",
-    "switchToLanguage": "Switch to {{language}}",
-    "detectedBrowserLanguage": "We detected your browser language is {{language}}",
-    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
+    "googleTranslateDisclaimer": "자동 페이지 번역을 위해 브라우저의 내장 번역 기능(보통 우클릭 메뉴 또는 브라우저 설정)을 사용할 수도 있습니다.",
+    "keepCurrentLanguage": "영어 유지",
+    "switchToLanguage": "{{language}}로 전환",
+    "detectedBrowserLanguage": "브라우저 언어가 {{language}}로 감지되었습니다",
+    "browserTranslationNote": "브라우저가 현재 이 페이지를 번역 중입니다. 충돌을 방지하기 위해 앱의 언어 선택기가 숨겨져 있습니다.",
     "openGoogleTranslate": "Google 번역에서 열기",
-    "languageSwitched": "Language switched to {{language}}",
+    "languageSwitched": "언어가 {{language}}로 전환되었습니다",
     "browserTranslationActive": "브라우저 번역이 활성화됨"
   },
   "dragon": {
@@ -839,9 +839,9 @@
     "submit": "피드백 제출",
     "submitted": "피드백이 성공적으로 제출되었습니다",
     "submitFailed": "피드백 제출에 실패했습니다",
-    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
-    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
-    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
+    "experienceGapPlaceholder": "예: 유사 직무 5년 이상 필요, 후보자는 2년",
+    "skillsPlaceholder": "예: Python, AWS, 팀 리더십",
+    "improvementPlaceholder": "예: AWS 자격증 취득, 더 많은 프로젝트 관리 경험"
   },
   "extras": {
     "later": "나중에",
@@ -949,12 +949,12 @@
       "aiJobMatching": "AI 직무 매칭",
       "hdVideoAudio": "HD 비디오 및 오디오",
       "poweredByAI": "AI 기반",
-      "aiKarau": "AI KARAU",
+      "aiKarau": "AI 카라우",
       "recruiterNetwork": "리크루터 네트워크",
       "enterJobToolkit": "채용 도구 모음으로 이동"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "카라우 자동화 도구",
       "subtitle": "구직 워크플로를 자동화하세요",
       "startAutomation": "자동화 시작",
       "stopAutomation": "자동화 중지",
@@ -1294,9 +1294,9 @@
     "notSupported": "이 기기에서는 생체 인증이 지원되지 않습니다",
     "enterEmail": "이메일을 입력해 주세요",
     "emailPlaceholder": "이메일을 입력하세요",
-    "loginFailed": "Login failed",
-    "loginSuccess": "Login successful!",
-    "loginCancelled": "Biometric login was cancelled or denied"
+    "loginFailed": "로그인 실패",
+    "loginSuccess": "로그인 성공!",
+    "loginCancelled": "생체 인증 로그인이 취소되었거나 거부되었습니다"
   },
   "translation": {
     "selectLanguage": "언어 선택",
@@ -1311,8 +1311,8 @@
     "responsePlaceholder": "리뷰어에게 감사 인사를 전하고, 맥락을 제공하거나, 피드백을 전문적으로 반영해 주세요...",
     "responseVisibility": "작성하신 답변은 프로필을 보는 채용 담당자에게 공개됩니다",
     "submitResponse": "답변 제출",
-    "title": "Reviews",
-    "noReviews": "No reviews yet"
+    "title": "리뷰",
+    "noReviews": "아직 리뷰가 없습니다"
   },
   "capa": {
     "addProbableCause": "가능성 있는 원인 추가",
@@ -1326,29 +1326,29 @@
     "addCause": "원인 추가",
     "searchCapas": "CAPA 검색...",
     "allStatuses": "모든 상태",
-    "title": "Title",
-    "severityHigh": "High",
-    "severityMedium": "Medium",
-    "severityCritical": "Critical",
-    "impactedProcesses": "Impacted Processes",
-    "capaType": "CAPA Type",
-    "titleAndStatementRequired": "Title and problem statement are required",
-    "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
-    "titlePlaceholder": "Brief title of the nonconformance",
-    "severityLow": "Low",
-    "severity": "Severity",
-    "problemStatementPlaceholder": "Detailed description of the issue...",
-    "source": "Source",
-    "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
-    "problemStatement": "Problem Statement"
+    "title": "제목",
+    "severityHigh": "높음",
+    "severityMedium": "중간",
+    "severityCritical": "치명적",
+    "impactedProcesses": "영향받은 프로세스",
+    "capaType": "CAPA 유형",
+    "titleAndStatementRequired": "제목과 문제 설명은 필수입니다",
+    "impactedProcessesPlaceholder": "예: 번역, UI 렌더링, 로컬라이제이션",
+    "titlePlaceholder": "부적합의 간단한 제목",
+    "severityLow": "낮음",
+    "severity": "심각도",
+    "problemStatementPlaceholder": "문제에 대한 자세한 설명...",
+    "source": "출처",
+    "sourcePlaceholder": "이슈가 발견된 경로(예: QA, 감사, 고객)",
+    "problemStatement": "문제 진술"
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
     "interviewerNamePlaceholder": "John Smith",
-    "companyPlaceholder": "e.g., Google",
-    "notesPlaceholder": "Any additional details about the interview...",
-    "positionPlaceholder": "e.g., Software Engineer",
-    "locationPlaceholder": "https://meet.google.com/... or office address"
+    "companyPlaceholder": "예: Google",
+    "notesPlaceholder": "면접에 대한 추가 세부 사항...",
+    "positionPlaceholder": "예: 소프트웨어 엔지니어",
+    "locationPlaceholder": "https://meet.google.com/... 또는 사무실 주소"
   },
   "blindScreening": {
     "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
@@ -1356,31 +1356,31 @@
     "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
   },
   "psv": {
-    "npiNumber": "NPI Number (optional)",
-    "statePlaceholder": "State (e.g., CA, NY)",
-    "lastName": "Last Name",
-    "familyName": "Family Name",
-    "searchOrcid": "Search ORCID Registry",
-    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
-    "globalUniversitySearch": "Global University Database",
-    "universityDescription": "Verify educational institutions through the global university database",
-    "orSearchByName": "or search by name",
-    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
-    "givenNames": "Given Names",
-    "oigDescription": "Check if an individual is excluded from federal healthcare programs",
-    "firstName": "First Name",
-    "title": "Primary Source Verification Hub",
-    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
-    "subtitle": "Free self-service verification using public databases",
-    "universityName": "University Name",
-    "searchUniversities": "Search Universities",
-    "countryOptional": "Country (optional)"
+    "npiNumber": "NPI 번호(선택)",
+    "statePlaceholder": "주(예: CA, NY)",
+    "lastName": "성",
+    "familyName": "성",
+    "searchOrcid": "ORCID 레지스트리 검색",
+    "npiDescription": "CMS 국가 제공자 식별자(NPI) 레지스트리를 통해 미국 의료 제공자를 검증합니다",
+    "globalUniversitySearch": "글로벌 대학 데이터베이스",
+    "universityDescription": "글로벌 대학 데이터베이스를 통해 교육기관 확인",
+    "orSearchByName": "또는 이름으로 검색",
+    "orcidIdPlaceholder": "ORCID iD(예: 0000-0001-2345-6789)",
+    "givenNames": "이름",
+    "oigDescription": "연방 의료 프로그램에서 개인이 제외되었는지 확인",
+    "firstName": "이름",
+    "title": "1차 출처 검증 허브",
+    "orcidDescription": "ORCID 공개 레지스트리를 통해 연구자 및 과학자 확인",
+    "subtitle": "공개 데이터베이스를 통한 무료 셀프서비스 검증",
+    "universityName": "대학명",
+    "searchUniversities": "대학 검색",
+    "countryOptional": "국가(선택 사항)"
   },
   "publicApplication": {
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
+    "resumeLinkPlaceholder": "이력서 링크 (Google Drive, Dropbox 등)",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "coverLetterPlaceholder": "Tell us why you're a great fit for this role...",
+    "coverLetterPlaceholder": "이 역할에 왜 적합한지 알려주세요...",
     "emailPlaceholder": "john@example.com",
     "namePlaceholder": "John Doe",
     "portfolioPlaceholder": "https://yourportfolio.com"
@@ -1391,10 +1391,10 @@
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
-    "prosPlaceholder": "What did you like?",
-    "jobTitlePlaceholder": "e.g., Software Engineer",
-    "consPlaceholder": "What could be improved?",
-    "summaryPlaceholder": "Summarize your experience"
+    "prosPlaceholder": "좋았던 점은 무엇인가요?",
+    "jobTitlePlaceholder": "예: 소프트웨어 엔지니어",
+    "consPlaceholder": "개선할 점은 무엇인가요?",
+    "summaryPlaceholder": "경험을 요약하세요"
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
@@ -1426,23 +1426,23 @@
   },
   "companiesPage": {
     "websitePlaceholder": "https://...",
-    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
-    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
-    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)",
-    "searchPlaceholder": "Search companies...",
+    "techStackPlaceholder": "AI, 머신러닝, 헬스케어 (쉼표로 구분)",
+    "benefitsPlaceholder": "원격 근무, 건강 보험, 401k (쉼표로 구분)",
+    "culturePlaceholder": "혁신, 협업, 다양성 (쉼표로 구분)",
+    "searchPlaceholder": "회사 검색...",
     "foundedPlaceholder": "2020",
-    "industryPlaceholder": "Industry",
-    "companySizePlaceholder": "Company Size"
+    "industryPlaceholder": "산업",
+    "companySizePlaceholder": "회사 규모"
   },
   "candidateSearch": {
-    "keywordsPlaceholder": "e.g., senior, remote, healthcare...",
-    "skillsPlaceholder": "Type a skill and press Enter..."
+    "keywordsPlaceholder": "예: 시니어, 원격, 헬스케어...",
+    "skillsPlaceholder": "기술을 입력하고 Enter를 누르세요..."
   },
   "admin": {
-    "translationCoverageDesc": "Monitor translation completion across all languages",
-    "searchLanguages": "Search languages...",
-    "translationCoverage": "Translation Coverage",
-    "searchByCompanyOrEmail": "Search by company name or email..."
+    "translationCoverageDesc": "모든 언어에서 번역 완료 상태 모니터링",
+    "searchLanguages": "언어 검색...",
+    "translationCoverage": "번역 범위",
+    "searchByCompanyOrEmail": "회사명 또는 이메일로 검색..."
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."
@@ -1463,21 +1463,21 @@
     "rejectionReasonPlaceholder": "Provide a reason for rejection..."
   },
   "contact": {
-    "declineReason": "e.g., Not looking for new opportunities right now"
+    "declineReason": "예: 지금은 새로운 기회를 찾고 있지 않음"
   },
   "taxonomy": {
-    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+    "searchPlaceholder": "직무 검색(예: '생체의공학 엔지니어', '임상 연구')"
   },
   "candidateTransparency": {
     "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
   },
   "meetingNotes": {
-    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
-    "companyNamePlaceholder": "Company name",
-    "jobTitlePlaceholder": "Job title"
+    "meetingTitlePlaceholder": "예: Acme Corp 면접",
+    "companyNamePlaceholder": "회사명",
+    "jobTitlePlaceholder": "직함"
   },
   "credentialsPage": {
-    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+    "searchPlaceholder": "자격증 검색(예: CQE, ISO 13485, RN)..."
   },
   "salaryInsights": {
     "yearsPlaceholder": "5"
@@ -1486,7 +1486,7 @@
     "selectDateRangePlaceholder": "Select date range..."
   },
   "resumeProfiles": {
-    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+    "profileNamePlaceholder": "예: 기술 이력서, 관리 이력서"
   },
   "jobSearch": {
     "selectCountryFirst": "Select Country First",
