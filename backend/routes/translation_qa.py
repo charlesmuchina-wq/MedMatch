@@ -615,7 +615,7 @@ async def trigger_auto_translation(request: AutoTranslateRequest, background_tas
     tier_order = {"tier1": 0, "tier2": 1, "tier3": 2, None: 3}
     languages_to_translate.sort(key=lambda x: (tier_order.get(x["tier"], 3), -x["keys_to_translate"]))
     
-    total_keys = sum(l["keys_to_translate"] for l in languages_to_translate)
+    total_keys = sum(lang["keys_to_translate"] for lang in languages_to_translate)
     
     if request.dry_run:
         return {
