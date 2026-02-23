@@ -30,13 +30,13 @@
     "generating": "Oluşturuluyor...",
     "download": "İndir",
     "filter": "Filtrele",
-    "none": "None",
+    "none": "Hiçbiri",
     "upload": "Yükle",
-    "sort": "Sort",
-    "more": "More",
+    "sort": "Sırala",
+    "more": "Daha fazla",
     "help": "Yardım",
-    "less": "Less",
-    "previous": "Previous"
+    "less": "Daha az",
+    "previous": "Önceki"
   },
   "notifications": {
     "title": "Bildirimler",
@@ -215,7 +215,7 @@
     "moreFilters": "Daha Fazla Filtre",
     "lessFilters": "Daha Az Filtre",
     "selectCountry": "Ülke Seçin",
-    "viewOriginal": "View Original"
+    "viewOriginal": "Orijinali Görüntüle"
   },
   "resume": {
     "myResume": "Özgeçmişim",
@@ -296,12 +296,12 @@
     "research": "Araştırma",
     "researchFor": "Şunun için araştırma",
     "skipQuestion": "Soruyu Atla",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
-    "companyPlaceholder": "e.g., Medtronic",
-    "questionsPlaceholder": "Enter questions, one per line...",
-    "typeAnswerPlaceholder": "Type your answer here... (You have 2 minutes)",
-    "yourResumeSkills": "Your Resume Skills",
-    "jobDescriptionPlaceholder": "Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills..."
+    "jobTitlePlaceholder": "örn. Tedarikçi Kalite Müdürü",
+    "companyPlaceholder": "örn. Medtronic",
+    "questionsPlaceholder": "Soruları her satıra bir tane olacak şekilde girin...",
+    "typeAnswerPlaceholder": "Yanıtınızı buraya yazın... (2 dakikanız var)",
+    "yourResumeSkills": "Özgeçmiş Becerileriniz",
+    "jobDescriptionPlaceholder": "İş ilanının tamamını buraya yapıştırın. Yapay zeka, gereksinimlere ve özgeçmiş becerilerinize göre ilgili mülakat soruları oluşturacaktır..."
   },
   "qaPractice": {
     "title": "Soru-Cevap Yanıt Oluşturucu",
@@ -350,9 +350,9 @@
     "keepPracticing": "Pratik Yapmaya Devam Et",
     "correct": "doğru",
     "badgeEarned": "Rozet Kazanıldı!",
-    "generatingQuestions": "Generating AI questions... This may take 20-30 seconds",
-    "assessmentReady": "Assessment ready! Let's begin",
-    "generating": "Generating..."
+    "generatingQuestions": "Yapay zeka soruları oluşturuluyor... Bu 20-30 saniye sürebilir",
+    "assessmentReady": "Değerlendirme hazır! Hadi başlayalım",
+    "generating": "Oluşturuluyor..."
   },
   "predictor": {
     "title": "Başvuru Başarı Tahminleyicisi",
@@ -389,8 +389,8 @@
     "enterJobDetails": "Geri dönüş alma olasılığınızı görmek için iş detaylarını girin ve \"Başarı Oranını Tahmin Et\"e tıklayın",
     "neuralNetworkAnalysis": "Sinir Ağı Analizi",
     "browserBasedAI": "4 katmanlı bir sinir ağı kullanarak tarayıcı tabanlı yapay zekâ tahmini",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "örn. Medtronic",
+    "jobTitlePlaceholder": "örn. Tedarikçi Kalite Müdürü"
   },
   "video": {
     "title": "Video Mülakat Pratiği",
@@ -449,8 +449,8 @@
     "generationFailed": "Ön yazı oluşturulamadı",
     "pasteJobDescription": "İş tanımını buraya yapıştırın...",
     "generate": "Ön Yazı Oluştur",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "örn. Medtronic",
+    "jobTitlePlaceholder": "örn. Tedarikçi Kalite Müdürü"
   },
   "membership": {
     "membership": "Üyelik",
@@ -591,7 +591,7 @@
     "enterCode": "6 haneli kodu girin",
     "verifyAndSignIn": "Doğrula ve Giriş Yap",
     "changePhoneNumber": "Telefon numarasını değiştir",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "sen@ornek.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -664,10 +664,10 @@
     "confirmCancel": "Bu mülakatı iptal etmek istediğinizden emin misiniz?",
     "cancelled": "Mülakat iptal edildi",
     "cancelFailed": "Mülakat iptal edilemedi",
-    "messageToRecruiterPlaceholder": "Add a message to the recruiter...",
-    "additionalInfoPlaceholder": "Any additional information...",
-    "selectCandidate": "Select a candidate",
-    "officeAddressPlaceholder": "Office address",
+    "messageToRecruiterPlaceholder": "İşe alım uzmanına bir mesaj ekleyin...",
+    "additionalInfoPlaceholder": "Ek bilgiler...",
+    "selectCandidate": "Bir aday seçin",
+    "officeAddressPlaceholder": "Ofis adresi",
     "meetingLinkPlaceholder": "https://zoom.us/j/..."
   },
   "verification": {
@@ -693,9 +693,9 @@
     "selectSize": "Büyüklük seçin",
     "headquarters": "Merkez",
     "headquartersPlaceholder": "Şehir, Ülke",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company",
-    "createFailed": "Failed to create company"
+    "created": "Şirket profili oluşturuldu",
+    "followFailed": "Şirket takip edilemedi",
+    "createFailed": "Şirket oluşturulamadı"
   },
   "analytics": {
     "loadFailed": "Analitik veriler yüklenemedi"
@@ -751,13 +751,13 @@
     "genderAuto": "Otomatik (Dil Varsayılanı)",
     "useBrowserTranslate": "Tarayıcı çevirisini kullan",
     "useGoogleTranslate": "Google Çeviri'yi kullan",
-    "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
-    "keepCurrentLanguage": "Keep English",
-    "switchToLanguage": "Switch to {{language}}",
-    "detectedBrowserLanguage": "We detected your browser language is {{language}}",
-    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
+    "googleTranslateDisclaimer": "Otomatik sayfa çevirisi için tarayıcınızın yerleşik çeviri özelliğini (genellikle sağ tık menüsü veya tarayıcı ayarları üzerinden) de kullanabilirsiniz.",
+    "keepCurrentLanguage": "İngilizceyi koru",
+    "switchToLanguage": "{{language}} diline geç",
+    "detectedBrowserLanguage": "Tarayıcı dilinizin {{language}} olduğunu algıladık",
+    "browserTranslationNote": "Tarayıcınız şu anda bu sayfayı çeviriyor. Çakışmaları önlemek için uygulamanın dil seçici gizlendi.",
     "openGoogleTranslate": "Google Çeviri'de aç",
-    "languageSwitched": "Language switched to {{language}}",
+    "languageSwitched": "Dil {{language}} olarak değiştirildi",
     "browserTranslationActive": "Tarayıcı çevirisi etkin"
   },
   "dragon": {
@@ -839,9 +839,9 @@
     "submit": "Geri Bildirim Gönder",
     "submitted": "Geri bildirim başarıyla gönderildi",
     "submitFailed": "Geri bildirim gönderilemedi",
-    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
-    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
-    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
+    "experienceGapPlaceholder": "örn., Benzer rolde 5+ yıl gerekli, adayın 2 yılı var",
+    "skillsPlaceholder": "örn., Python, AWS, Takım Liderliği",
+    "improvementPlaceholder": "örn., AWS sertifikası alın, Daha fazla proje yönetimi deneyimi"
   },
   "extras": {
     "later": "Daha sonra",
@@ -1294,9 +1294,9 @@
     "notSupported": "Bu cihazda biyometrik kimlik doğrulama desteklenmiyor",
     "enterEmail": "Lütfen e-posta adresinizi girin",
     "emailPlaceholder": "E-posta adresinizi girin",
-    "loginFailed": "Login failed",
-    "loginSuccess": "Login successful!",
-    "loginCancelled": "Biometric login was cancelled or denied"
+    "loginFailed": "Giriş başarısız",
+    "loginSuccess": "Giriş başarılı!",
+    "loginCancelled": "Biyometrik giriş iptal edildi veya reddedildi"
   },
   "translation": {
     "selectLanguage": "Dil seçin",
@@ -1311,8 +1311,8 @@
     "responsePlaceholder": "Değerlendirmeyi yapan kişiye teşekkür edin, bağlam sağlayın veya geri bildirimleri profesyonelce ele alın...",
     "responseVisibility": "Yanıtınız, profilinizi görüntüleyen işe alım uzmanları tarafından görülebilir",
     "submitResponse": "Yanıtı Gönder",
-    "title": "Reviews",
-    "noReviews": "No reviews yet"
+    "title": "Yorumlar",
+    "noReviews": "Henüz yorum yok"
   },
   "capa": {
     "addProbableCause": "Olası Neden Ekle",
@@ -1326,29 +1326,29 @@
     "addCause": "Neden Ekle",
     "searchCapas": "CAPA'ları Ara...",
     "allStatuses": "Tüm Durumlar",
-    "title": "Title",
-    "severityHigh": "High",
-    "severityMedium": "Medium",
-    "severityCritical": "Critical",
-    "impactedProcesses": "Impacted Processes",
-    "capaType": "CAPA Type",
-    "titleAndStatementRequired": "Title and problem statement are required",
-    "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
-    "titlePlaceholder": "Brief title of the nonconformance",
-    "severityLow": "Low",
-    "severity": "Severity",
-    "problemStatementPlaceholder": "Detailed description of the issue...",
-    "source": "Source",
-    "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
-    "problemStatement": "Problem Statement"
+    "title": "Başlık",
+    "severityHigh": "Yüksek",
+    "severityMedium": "Orta",
+    "severityCritical": "Kritik",
+    "impactedProcesses": "Etkilenen Süreçler",
+    "capaType": "CAPA Türü",
+    "titleAndStatementRequired": "Başlık ve sorun açıklaması zorunludur",
+    "impactedProcessesPlaceholder": "örn. Çeviri, UI Görüntüleme, Yerelleştirme",
+    "titlePlaceholder": "Uygunsuzluğun kısa başlığı",
+    "severityLow": "Düşük",
+    "severity": "Önem Derecesi",
+    "problemStatementPlaceholder": "Sorunun ayrıntılı açıklaması...",
+    "source": "Kaynak",
+    "sourcePlaceholder": "Sorunun tespit edildiği yer (örn. QA, Denetim, Müşteri)",
+    "problemStatement": "Problem Tanımı"
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
     "interviewerNamePlaceholder": "John Smith",
-    "companyPlaceholder": "e.g., Google",
-    "notesPlaceholder": "Any additional details about the interview...",
-    "positionPlaceholder": "e.g., Software Engineer",
-    "locationPlaceholder": "https://meet.google.com/... or office address"
+    "companyPlaceholder": "örn. Google",
+    "notesPlaceholder": "Görüşmeyle ilgili ek detaylar...",
+    "positionPlaceholder": "örn. Yazılım Mühendisi",
+    "locationPlaceholder": "https://meet.google.com/... veya ofis adresi"
   },
   "blindScreening": {
     "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
@@ -1356,31 +1356,31 @@
     "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
   },
   "psv": {
-    "npiNumber": "NPI Number (optional)",
-    "statePlaceholder": "State (e.g., CA, NY)",
-    "lastName": "Last Name",
-    "familyName": "Family Name",
-    "searchOrcid": "Search ORCID Registry",
-    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
-    "globalUniversitySearch": "Global University Database",
-    "universityDescription": "Verify educational institutions through the global university database",
-    "orSearchByName": "or search by name",
-    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
-    "givenNames": "Given Names",
-    "oigDescription": "Check if an individual is excluded from federal healthcare programs",
-    "firstName": "First Name",
-    "title": "Primary Source Verification Hub",
-    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
-    "subtitle": "Free self-service verification using public databases",
-    "universityName": "University Name",
-    "searchUniversities": "Search Universities",
-    "countryOptional": "Country (optional)"
+    "npiNumber": "NPI Numarası (isteğe bağlı)",
+    "statePlaceholder": "Eyalet (örn. CA, NY)",
+    "lastName": "Soyadı",
+    "familyName": "Soyadı",
+    "searchOrcid": "ORCID Kayıtlarında Ara",
+    "npiDescription": "ABD sağlık hizmeti sağlayıcılarını CMS Ulusal Sağlayıcı Tanımlayıcısı (NPI) kayıtları üzerinden doğrulayın",
+    "globalUniversitySearch": "Küresel Üniversite Veritabanı",
+    "universityDescription": "Eğitim kurumlarını küresel üniversite veritabanı üzerinden doğrulayın",
+    "orSearchByName": "veya ada göre ara",
+    "orcidIdPlaceholder": "ORCID iD (örn. 0000-0001-2345-6789)",
+    "givenNames": "Verilen Adlar",
+    "oigDescription": "Bir kişinin federal sağlık programlarından men edilip edilmediğini kontrol edin",
+    "firstName": "Ad",
+    "title": "Birincil Kaynak Doğrulama Merkezi",
+    "orcidDescription": "Araştırmacıları ve bilim insanlarını ORCID genel kayıtları üzerinden doğrulayın",
+    "subtitle": "Kamuya açık veritabanlarını kullanarak ücretsiz self-servis doğrulama",
+    "universityName": "Üniversite Adı",
+    "searchUniversities": "Üniversiteleri Ara",
+    "countryOptional": "Ülke (isteğe bağlı)"
   },
   "publicApplication": {
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
+    "resumeLinkPlaceholder": "Özgeçmişinize bağlantı (Google Drive, Dropbox vb.)",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "coverLetterPlaceholder": "Tell us why you're a great fit for this role...",
+    "coverLetterPlaceholder": "Bu rol için neden çok uygun olduğunuzu bize anlatın...",
     "emailPlaceholder": "john@example.com",
     "namePlaceholder": "John Doe",
     "portfolioPlaceholder": "https://yourportfolio.com"
@@ -1391,10 +1391,10 @@
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
-    "prosPlaceholder": "What did you like?",
-    "jobTitlePlaceholder": "e.g., Software Engineer",
-    "consPlaceholder": "What could be improved?",
-    "summaryPlaceholder": "Summarize your experience"
+    "prosPlaceholder": "Neyi beğendiniz?",
+    "jobTitlePlaceholder": "örn., Yazılım Mühendisi",
+    "consPlaceholder": "Neler geliştirilebilir?",
+    "summaryPlaceholder": "Deneyiminizi özetleyin"
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
@@ -1426,23 +1426,23 @@
   },
   "companiesPage": {
     "websitePlaceholder": "https://...",
-    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
-    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
-    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)",
-    "searchPlaceholder": "Search companies...",
+    "techStackPlaceholder": "Yapay Zekâ, Makine Öğrenimi, Sağlık (virgülle ayrılmış)",
+    "benefitsPlaceholder": "Uzaktan çalışma, Sağlık sigortası, 401k (virgülle ayrılmış)",
+    "culturePlaceholder": "İnovasyon, İş birliği, Çeşitlilik (virgülle ayrılmış)",
+    "searchPlaceholder": "Şirketleri ara...",
     "foundedPlaceholder": "2020",
-    "industryPlaceholder": "Industry",
-    "companySizePlaceholder": "Company Size"
+    "industryPlaceholder": "Sektör",
+    "companySizePlaceholder": "Şirket Büyüklüğü"
   },
   "candidateSearch": {
-    "keywordsPlaceholder": "e.g., senior, remote, healthcare...",
-    "skillsPlaceholder": "Type a skill and press Enter..."
+    "keywordsPlaceholder": "örn., kıdemli, uzaktan, sağlık...",
+    "skillsPlaceholder": "Bir beceri yazın ve Enter'a basın..."
   },
   "admin": {
-    "translationCoverageDesc": "Monitor translation completion across all languages",
-    "searchLanguages": "Search languages...",
-    "translationCoverage": "Translation Coverage",
-    "searchByCompanyOrEmail": "Search by company name or email..."
+    "translationCoverageDesc": "Tüm dillerde çeviri tamamlanma durumunu izleyin",
+    "searchLanguages": "Dillerde ara...",
+    "translationCoverage": "Çeviri Kapsamı",
+    "searchByCompanyOrEmail": "Şirket adı veya e-posta ile ara..."
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."
@@ -1450,7 +1450,7 @@
   "karauMeet": {
     "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
     "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "meetingTitlePlaceholder": "AI KARAU Toplantısı",
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
@@ -1463,21 +1463,21 @@
     "rejectionReasonPlaceholder": "Provide a reason for rejection..."
   },
   "contact": {
-    "declineReason": "e.g., Not looking for new opportunities right now"
+    "declineReason": "örn. Şu an yeni fırsatlar aramıyorum"
   },
   "taxonomy": {
-    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+    "searchPlaceholder": "Bir rol arayın (örn. 'Biyomedikal Mühendisi', 'Klinik Araştırma')"
   },
   "candidateTransparency": {
     "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
   },
   "meetingNotes": {
-    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
-    "companyNamePlaceholder": "Company name",
-    "jobTitlePlaceholder": "Job title"
+    "meetingTitlePlaceholder": "örn. Acme Corp ile mülakat",
+    "companyNamePlaceholder": "Şirket adı",
+    "jobTitlePlaceholder": "İş unvanı"
   },
   "credentialsPage": {
-    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+    "searchPlaceholder": "Sertifikaları ara (örn. CQE, ISO 13485, RN)..."
   },
   "salaryInsights": {
     "yearsPlaceholder": "5"
@@ -1486,7 +1486,7 @@
     "selectDateRangePlaceholder": "Select date range..."
   },
   "resumeProfiles": {
-    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+    "profileNamePlaceholder": "örn. Teknik Özgeçmiş, Yönetim Özgeçmişi"
   },
   "jobSearch": {
     "selectCountryFirst": "Select Country First",
