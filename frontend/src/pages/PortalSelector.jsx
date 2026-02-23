@@ -307,7 +307,7 @@ const PortalSelector = () => {
         {/* Footer Info */}
         <div className="mt-8 md:mt-12 text-center px-4">
           <p className="text-xs sm:text-sm text-slate-500">
-            Powered by AI • Trusted by Life Sciences Professionals
+            {t('portalSelector.poweredByAI')} • {t('portalSelector.trustedBy')}
           </p>
         </div>
       </div>
