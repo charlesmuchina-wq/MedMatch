@@ -351,8 +351,32 @@ const TranslationCoverageDashboard = () => {
         </Button>
       </div>
 
-      {/* Overview Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      {/* Main Tabs */}
+      <Tabs defaultValue="benchmark" className="w-full">
+        <TabsList className="grid w-full grid-cols-3 mb-6">
+          <TabsTrigger value="benchmark" className="flex items-center gap-2">
+            <Target className="w-4 h-4" />
+            KPI Benchmark
+          </TabsTrigger>
+          <TabsTrigger value="coverage" className="flex items-center gap-2">
+            <BarChart3 className="w-4 h-4" />
+            Coverage Details
+          </TabsTrigger>
+          <TabsTrigger value="audio" className="flex items-center gap-2">
+            <Volume2 className="w-4 h-4" />
+            Tutorial Audio
+          </TabsTrigger>
+        </TabsList>
+
+        {/* Benchmark Tab */}
+        <TabsContent value="benchmark">
+          <TranslationBenchmarkDashboard />
+        </TabsContent>
+
+        {/* Coverage Details Tab */}
+        <TabsContent value="coverage">
+          {/* Overview Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
