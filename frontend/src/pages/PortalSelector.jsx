@@ -18,37 +18,37 @@ const PortalSelector = () => {
   const portals = [
     {
       id: 'job-toolkit',
-      title: t('portalSelector.medmatchAI'),
-      subtitle: t('portalSelector.jobToolkit'),
-      description: t('portalSelector.jobToolkitDesc'),
+      title: t('pages.portalSelector.medmatchAI'),
+      subtitle: t('pages.portalSelector.jobToolkit'),
+      description: t('pages.portalSelector.jobToolkitDesc'),
       icon: Briefcase,
       gradient: 'from-turquoise to-cyan-500',
       glowColor: 'turquoise',
       features: [
-        { icon: FileText, text: t('portalSelector.resumeParser') },
-        { icon: Sparkles, text: t('portalSelector.aiJobMatching') },
-        { icon: Users, text: t('portalSelector.recruiterNetwork') },
+        { icon: FileText, text: t('pages.portalSelector.resumeParser') },
+        { icon: Sparkles, text: t('pages.portalSelector.aiJobMatching') },
+        { icon: Users, text: t('pages.portalSelector.recruiterNetwork') },
       ],
       route: '/login',
-      buttonText: t('portalSelector.enterJobToolkit'),
+      buttonText: t('pages.portalSelector.enterJobToolkit'),
       // Official MedMatch AI logo
       logo: 'https://customer-assets.emergentagent.com/job_f139deea-35f2-4b55-91b9-9aab4dc4c84b/artifacts/9uzkkm0w_MedMatch%20Logo%20-%201MB.png'
     },
     {
       id: 'meeting',
-      title: t('portalSelector.aiKarau'),
-      subtitle: t('portalSelector.meetingPortal'),
-      description: t('portalSelector.meetingPortalDesc'),
+      title: t('pages.portalSelector.aiKarau'),
+      subtitle: t('pages.portalSelector.meetingPortal'),
+      description: t('pages.portalSelector.meetingPortalDesc'),
       icon: Video,
       gradient: 'from-violet-500 to-purple-600',
       glowColor: 'violet',
       features: [
-        { icon: Video, text: t('portalSelector.hdVideoAudio') },
-        { icon: Sparkles, text: t('portalSelector.aiTranscription') },
-        { icon: Shield, text: t('portalSelector.e2eEncrypted') },
+        { icon: Video, text: t('pages.portalSelector.hdVideoAudio') },
+        { icon: Sparkles, text: t('pages.portalSelector.aiTranscription') },
+        { icon: Shield, text: t('pages.portalSelector.e2eEncrypted') },
       ],
       route: '/karau-meet',
-      buttonText: t('portalSelector.enterMeetingPortal'),
+      buttonText: t('pages.portalSelector.enterMeetingPortal'),
       logo: 'https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg'
     }
   ];
