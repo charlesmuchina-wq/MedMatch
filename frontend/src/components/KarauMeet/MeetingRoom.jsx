@@ -533,7 +533,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         // Show specific error but continue - user might still want to join audio-only
         const errorInfo = getMediaErrorMessage(mediaResult.error);
         setConnectionError(errorInfo);
-        toast.error(errorInfo.message);
+        toast.error(errorInfo.message, { duration: 4000 });
         
         // If permission denied, stop here
         if (!errorInfo.canRetry) {
