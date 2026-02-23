@@ -55,7 +55,7 @@ const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg 
   const showProcessedVideo = isLocal && virtualBg && virtualBg !== 'none' && bgActive;
 
   return (
-    <div className={`relative rounded-xl overflow-hidden bg-slate-900 ${isSpeaking ? 'ring-2 ring-turquoise' : ''}`}>
+    <div className={`relative w-full h-full rounded-xl overflow-hidden bg-slate-900 ${isSpeaking ? 'ring-2 ring-turquoise' : ''}`}>
       {participant?.video_enabled && stream ? (
         <>
           {/* Original video (hidden when using AI background) */}
@@ -64,7 +64,7 @@ const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg 
             autoPlay
             playsInline
             muted={isLocal}
-            className={`w-full h-full object-cover ${showProcessedVideo ? 'hidden' : ''}`}
+            className={`absolute inset-0 w-full h-full object-cover ${showProcessedVideo ? 'hidden' : ''}`}
             data-testid={`video-${isLocal ? 'local' : participant?.user_id}`}
           />
           
@@ -72,25 +72,25 @@ const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg 
           {isLocal && virtualBg && virtualBg !== 'none' && (
             <canvas
               ref={canvasRef}
-              className={`w-full h-full object-cover ${showProcessedVideo ? '' : 'hidden'}`}
+              className={`absolute inset-0 w-full h-full object-cover ${showProcessedVideo ? '' : 'hidden'}`}
               data-testid="video-processed"
             />
           )}
           
           {/* Loading indicator for AI model */}
           {isLocal && bgLoading && (
-            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
               <div className="text-center">
-                <Loader2 className="w-8 h-8 text-turquoise animate-spin mx-auto mb-2" />
-                <span className="text-white text-sm">Loading AI model...</span>
+                <Loader2 className="w-6 h-6 text-turquoise animate-spin mx-auto mb-1" />
+                <span className="text-white text-xs">Loading AI...</span>
               </div>
             </div>
           )}
         </>
       ) : (
-        <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900 min-h-[120px] md:min-h-[200px]">
-          <div className="w-14 h-14 md:w-20 md:h-20 rounded-full bg-turquoise/20 flex items-center justify-center">
-            <span className="text-xl md:text-3xl font-bold text-turquoise">
+        <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
+          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-turquoise/20 flex items-center justify-center">
+            <span className="text-2xl md:text-3xl font-bold text-turquoise">
               {participant?.user_name?.charAt(0)?.toUpperCase() || '?'}
             </span>
           </div>
