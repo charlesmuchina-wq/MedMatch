@@ -307,7 +307,7 @@ const PortalSelector = () => {
         {/* Footer Info */}
         <div className="mt-8 md:mt-12 text-center px-4">
           <p className="text-xs sm:text-sm text-slate-500">
-            {t('portalSelector.poweredByAI')} • {t('portalSelector.trustedBy')}
+            {t('pages.portalSelector.poweredByAI')} • {t('pages.portalSelector.trustedBy')}
           </p>
         </div>
       </div>
