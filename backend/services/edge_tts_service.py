@@ -537,7 +537,154 @@ Unsere KI ist transparent und erklärbar. Wir folgen den Richtlinien des EU-KI-G
 Ihre Daten trainieren keine externen Modelle. Alle KI-Entscheidungen können angefochten werden.
 Wir überprüfen unsere Algorithmen regelmäßig auf Voreingenommenheit. Faire und ethische KI ist unsere Verpflichtung.
 Fragen? Kontaktieren Sie unser Compliance-Team jederzeit.
-Wir sind dem verantwortungsvollen KI-Einsatz verpflichtet."""
+Wir sind dem verantwortungsvollen KI-Einsatz verpflichtet.""",
+        
+        "ja": """MedMatch-AI KARAUのAIコンプライアンスに関するよくある質問にお答えします。
+私たちのAIは透明で説明可能です。EU AI法のガイドラインに従っています。
+お客様のデータは外部モデルの学習に使用されません。すべてのAIの決定に異議を申し立てることができます。
+バイアスについてアルゴリズムを定期的に監査しています。公正で倫理的なAIが私たちの約束です。
+ご質問は？いつでもコンプライアンスチームにお問い合わせください。
+責任あるAI使用に取り組んでいます。""",
+        
+        "zh": """让我回答关于MedMatch-AI KARAU AI合规性的常见问题。
+我们的AI是透明且可解释的。我们遵循欧盟AI法案的指导方针。
+您的数据不会训练任何外部模型。所有AI决策都可以申诉。
+我们定期审计算法以防止偏见。公平和道德的AI是我们的承诺。
+有问题吗？随时联系我们的合规团队。
+我们致力于负责任地使用AI。""",
+        
+        "ko": """MedMatch-AI KARAU의 AI 규정 준수에 대한 일반적인 질문에 답해 드리겠습니다.
+우리의 AI는 투명하고 설명 가능합니다. EU AI 법안 지침을 따릅니다.
+귀하의 데이터는 외부 모델을 훈련시키지 않습니다. 모든 AI 결정에 이의를 제기할 수 있습니다.
+편향성에 대해 알고리즘을 정기적으로 감사합니다. 공정하고 윤리적인 AI가 우리의 약속입니다.
+질문이 있으신가요? 언제든지 규정 준수 팀에 문의하세요.
+책임감 있는 AI 사용에 전념합니다.""",
+        
+        "it": """Permettetemi di rispondere alle domande comuni sulla conformità AI di MedMatch-AI KARAU.
+La nostra AI è trasparente e spiegabile. Seguiamo le linee guida dell'EU AI Act.
+I vostri dati non addestrano modelli esterni. Tutte le decisioni AI possono essere appellate.
+Auditiamo regolarmente i nostri algoritmi per i pregiudizi. Un'AI equa ed etica è il nostro impegno.
+Domande? Contattate il nostro team di conformità in qualsiasi momento.
+Ci impegniamo per un uso responsabile dell'AI.""",
+        
+        "pt": """Deixe-me responder perguntas comuns sobre conformidade de IA no MedMatch-AI KARAU.
+Nossa IA é transparente e explicável. Seguimos as diretrizes do EU AI Act.
+Seus dados não treinam modelos externos. Todas as decisões de IA podem ser apeladas.
+Auditamos regularmente nossos algoritmos quanto a vieses. IA justa e ética é nosso compromisso.
+Perguntas? Entre em contato com nossa equipe de conformidade a qualquer momento.
+Estamos comprometidos com o uso responsável de IA.""",
+        
+        "nl": """Laat me veelgestelde vragen over AI-compliance bij MedMatch-AI KARAU beantwoorden.
+Onze AI is transparant en uitlegbaar. We volgen de EU AI Act richtlijnen.
+Uw gegevens trainen geen externe modellen. Alle AI-beslissingen kunnen worden aangevochten.
+We auditen onze algoritmes regelmatig op vooroordelen. Eerlijke en ethische AI is onze toewijding.
+Vragen? Neem op elk moment contact op met ons compliance-team.
+We zetten ons in voor verantwoord AI-gebruik.""",
+        
+        "pl": """Pozwólcie, że odpowiem na częste pytania dotyczące zgodności AI w MedMatch-AI KARAU.
+Nasza AI jest przejrzysta i wyjaśnialna. Przestrzegamy wytycznych EU AI Act.
+Wasze dane nie trenują żadnych zewnętrznych modeli. Wszystkie decyzje AI można zaskarżyć.
+Regularnie audytujemy nasze algorytmy pod kątem stronniczości. Uczciwa i etyczna AI to nasze zobowiązanie.
+Pytania? Skontaktujcie się z naszym zespołem ds. zgodności w dowolnym momencie.
+Jesteśmy zaangażowani w odpowiedzialne wykorzystanie AI.""",
+        
+        "sv": """Låt mig svara på vanliga frågor om AI-efterlevnad hos MedMatch-AI KARAU.
+Vår AI är transparent och förklarbar. Vi följer EU:s AI-lagstiftning.
+Din data tränar inga externa modeller. Alla AI-beslut kan överklagas.
+Vi granskar regelbundet våra algoritmer för partiskhet. Rättvis och etisk AI är vårt åtagande.
+Frågor? Kontakta vårt compliance-team när som helst.
+Vi är engagerade i ansvarsfull AI-användning.""",
+        
+        "ru": """Позвольте ответить на частые вопросы о соответствии ИИ в MedMatch-AI KARAU.
+Наш ИИ прозрачен и объясним. Мы следуем руководящим принципам EU AI Act.
+Ваши данные не обучают внешние модели. Все решения ИИ могут быть обжалованы.
+Мы регулярно проверяем наши алгоритмы на предвзятость. Справедливый и этичный ИИ - наше обязательство.
+Вопросы? Свяжитесь с нашей командой по соответствию в любое время.
+Мы привержены ответственному использованию ИИ.""",
+        
+        "vi": """Hãy để tôi trả lời các câu hỏi thường gặp về tuân thủ AI tại MedMatch-AI KARAU.
+AI của chúng tôi minh bạch và có thể giải thích được. Chúng tôi tuân theo hướng dẫn của EU AI Act.
+Dữ liệu của bạn không đào tạo bất kỳ mô hình bên ngoài nào. Tất cả quyết định AI có thể được khiếu nại.
+Chúng tôi thường xuyên kiểm tra các thuật toán về thiên kiến. AI công bằng và đạo đức là cam kết của chúng tôi.
+Có câu hỏi? Liên hệ với nhóm tuân thủ của chúng tôi bất cứ lúc nào.
+Chúng tôi cam kết sử dụng AI có trách nhiệm.""",
+        
+        "hi": """आइए MedMatch-AI KARAU में AI अनुपालन के बारे में सामान्य प्रश्नों का उत्तर दें।
+हमारी AI पारदर्शी और व्याख्या योग्य है। हम EU AI Act दिशानिर्देशों का पालन करते हैं।
+आपका डेटा कोई बाहरी मॉडल नहीं प्रशिक्षित करता। सभी AI निर्णयों पर अपील की जा सकती है।
+हम नियमित रूप से पूर्वाग्रह के लिए हमारे एल्गोरिदम का ऑडिट करते हैं। निष्पक्ष और नैतिक AI हमारी प्रतिबद्धता है।
+प्रश्न? किसी भी समय हमारी अनुपालन टीम से संपर्क करें।
+हम जिम्मेदार AI उपयोग के लिए प्रतिबद्ध हैं।""",
+        
+        "th": """ให้ฉันตอบคำถามทั่วไปเกี่ยวกับการปฏิบัติตาม AI ที่ MedMatch-AI KARAU
+AI ของเราโปร่งใสและอธิบายได้ เราปฏิบัติตามแนวทาง EU AI Act
+ข้อมูลของคุณไม่ได้ฝึกโมเดลภายนอกใดๆ การตัดสินใจ AI ทั้งหมดสามารถอุทธรณ์ได้
+เราตรวจสอบอัลกอริทึมของเราเป็นประจำเพื่อหาอคติ AI ที่ยุติธรรมและมีจริยธรรมคือความมุ่งมั่นของเรา
+มีคำถาม? ติดต่อทีมการปฏิบัติตามของเราได้ตลอดเวลา
+เรามุ่งมั่นที่จะใช้ AI อย่างรับผิดชอบ""",
+        
+        "id": """Izinkan saya menjawab pertanyaan umum tentang kepatuhan AI di MedMatch-AI KARAU.
+AI kami transparan dan dapat dijelaskan. Kami mengikuti pedoman EU AI Act.
+Data Anda tidak melatih model eksternal apa pun. Semua keputusan AI dapat diajukan banding.
+Kami secara rutin mengaudit algoritma kami untuk bias. AI yang adil dan etis adalah komitmen kami.
+Ada pertanyaan? Hubungi tim kepatuhan kami kapan saja.
+Kami berkomitmen untuk penggunaan AI yang bertanggung jawab.""",
+        
+        "ar": """دعوني أجيب على الأسئلة الشائعة حول امتثال الذكاء الاصطناعي في MedMatch-AI KARAU.
+ذكاؤنا الاصطناعي شفاف وقابل للتفسير. نتبع إرشادات قانون الذكاء الاصطناعي الأوروبي.
+بياناتك لا تدرب أي نماذج خارجية. يمكن الطعن في جميع قرارات الذكاء الاصطناعي.
+نراجع خوارزمياتنا بانتظام للتحقق من التحيز. الذكاء الاصطناعي العادل والأخلاقي هو التزامنا.
+أسئلة؟ تواصلوا مع فريق الامتثال لدينا في أي وقت.
+نحن ملتزمون بالاستخدام المسؤول للذكاء الاصطناعي.""",
+        
+        "tr": """MedMatch-AI KARAU'da AI uyumluluğu hakkında sık sorulan soruları yanıtlayayım.
+Yapay zekamız şeffaf ve açıklanabilir. EU AI Act yönergelerini takip ediyoruz.
+Verileriniz hiçbir harici modeli eğitmez. Tüm AI kararlarına itiraz edilebilir.
+Algoritmalarımızı önyargı açısından düzenli olarak denetliyoruz. Adil ve etik AI taahhüdümüzdür.
+Sorular mı var? Uyumluluk ekibimizle istediğiniz zaman iletişime geçin.
+Sorumlu AI kullanımına bağlıyız.""",
+        
+        "he": """הרשו לי לענות על שאלות נפוצות לגבי תאימות AI ב-MedMatch-AI KARAU.
+ה-AI שלנו שקוף וניתן להסבר. אנו עוקבים אחר הנחיות EU AI Act.
+הנתונים שלך לא מאמנים מודלים חיצוניים. ניתן לערער על כל החלטות ה-AI.
+אנו מבקרים באופן קבוע את האלגוריתמים שלנו לאיתור הטיות. AI הוגן ואתי הוא המחויבות שלנו.
+שאלות? צרו קשר עם צוות התאימות שלנו בכל עת.
+אנו מחויבים לשימוש אחראי ב-AI.""",
+        
+        "sw": """Niruhusu kujibu maswali ya kawaida kuhusu utiifu wa AI katika MedMatch-AI KARAU.
+AI yetu ni wazi na inaweza kuelezwa. Tunafuata miongozo ya EU AI Act.
+Data yako haifunzi modeli zozote za nje. Maamuzi yote ya AI yanaweza kukata rufaa.
+Tunakagua mara kwa mara algorithms zetu kwa upendeleo. AI ya haki na maadili ni ahadi yetu.
+Maswali? Wasiliana na timu yetu ya utiifu wakati wowote.
+Tumejitolea kutumia AI kwa uwajibikaji.""",
+        
+        "af": """Laat my algemene vrae oor KI-nakoming by MedMatch-AI KARAU beantwoord.
+Ons KI is deursigtig en verduidelikbaar. Ons volg die EU KI Wet riglyne.
+Jou data lei geen eksterne modelle op nie. Alle KI-besluite kan geappelleer word.
+Ons oudit gereeld ons algoritmes vir vooroordeel. Regverdige en etiese KI is ons verbintenis.
+Vrae? Kontak ons nakomingspan enige tyd.
+Ons is verbind tot verantwoordelike KI-gebruik.""",
+        
+        "zu": """Ake ngiphendule imibuzo ejwayelekile mayelana nokuthobela kwe-AI ku-MedMatch-AI KARAU.
+I-AI yethu icacile futhi iyachazeka. Silandela imihlahlandlela ye-EU AI Act.
+Idatha yakho ayiqeqeshi amamodeli angaphandle. Zonke izinqumo ze-AI zingabhikishwa.
+Sihlola njalo ama-algorithms ethu ukuthola ukuchema. I-AI enobulungiswa nobulungiswa ukuzinikela kwethu.
+Imibuzo? Xhumana nethimba lethu lokuthobela noma nini.
+Sizibophezele ekusetshenzisweni kwe-AI okukufanele.""",
+        
+        "tl": """Hayaan ninyong sagutin ang mga karaniwang tanong tungkol sa AI compliance sa MedMatch-AI KARAU.
+Ang aming AI ay transparent at explainable. Sumusunod kami sa mga alituntunin ng EU AI Act.
+Ang inyong data ay hindi nagta-train ng anumang external models. Lahat ng AI decisions ay maaaring i-appeal.
+Regular naming ino-audit ang aming algorithms para sa bias. Fair at ethical na AI ang aming commitment.
+May tanong? Makipag-ugnayan sa aming compliance team anumang oras.
+Nakatuon kami sa responsible na paggamit ng AI.""",
+        
+        "am": """ስለ MedMatch-AI KARAU AI ተገዢነት ተደጋጋሚ ጥያቄዎችን ልመልስ።
+AI ያችን ግልጽ እና ሊገለጽ የሚችል ነው። የEU AI Act መመሪያዎችን እንከተላለን።
+ውሂብዎ ውጫዊ ሞዴሎችን አያሠለጥንም። ሁሉም የAI ውሳኔዎች ይግባኝ ማቅረብ ይቻላል።
+ስልተ ቀመሮቻችንን በመደበኛነት ለአድልዎ እንመረምራለን። ፍትሃዊ እና ስነ-ምግባራዊ AI ቁርጠኝነታችን ነው።
+ጥያቄዎች? በማንኛውም ጊዜ የተገዢነት ቡድናችንን ያግኙ።
+ሃላፊነት ያለው AI አጠቃቀም ቁርጠኛ ነን።"""
     },
     
     "05_complete_overview": {
