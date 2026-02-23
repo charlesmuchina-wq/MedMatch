@@ -177,14 +177,14 @@ const PortalSelector = () => {
         {/* Header */}
         <div className="text-center mb-8 md:mb-12">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3">
-            Welcome to{' '}
+            {t('portalSelector.welcomeTo')}{' '}
             <span className="bg-gradient-to-r from-turquoise via-cyan-400 to-turquoise bg-[length:200%_auto] bg-clip-text text-transparent animate-pulse"
                   style={{ animationDuration: '3s' }}>
-              MedMatch-AI KARAU
+              {t('portalSelector.title')}
             </span>
           </h1>
           <p className="text-base sm:text-lg text-slate-400 max-w-xl mx-auto px-4">
-            Choose your destination
+            {t('portalSelector.subtitle')}
           </p>
         </div>
 
