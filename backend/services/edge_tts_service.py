@@ -203,7 +203,19 @@ Lacak semua lamaran Anda di satu tempat. Mulai perjalanan karir Anda hari ini!""
 העלה את קורות החיים שלך וה-AI שלנו ינתח את הכישורים שלך אוטומטית.
 חפש ב-15 אתרי דרושים בבת אחת. התכונן לראיונות עם משוב בזמן אמת.
 מנבא ההצלחה מציג את הסיכויים שלך לפני שאתה מגיש מועמדות.
-עקוב אחר כל הבקשות שלך במקום אחד. התחל את מסע הקריירה שלך היום!"""
+עקוב אחר כל הבקשות שלך במקום אחד. התחל את מסע הקריירה שלך היום!""",
+        
+        "zu": """Siyakwamukela ku-MedMatch-AI KARAU! Njengomfuni womsebenzi, unokufinyelela amathuluzi e-AI anamandla.
+Layisha i-resume yakho futhi i-AI yethu izohlaziya amakhono akho ngokuzenzakalelayo.
+Sesha kuma-job boards angu-15 ngesikhathi esisodwa. Lungela izingxoxo ngempendulo yangempela.
+Isibikezeli sempumelelo sikubonisa amathuba akho ngaphambi kokufaka isicelo.
+Landela zonke izicelo zakho endaweni eyodwa. Qala uhambo lwakho lwekharikhulam namuhla!""",
+        
+        "am": """ወደ MedMatch-AI KARAU እንኳን በደህና መጡ! እንደ ሥራ ፈላጊ፣ ወደ ኃይለኛ AI መሣሪያዎች መዳረሻ አለዎት።
+የእርስዎን ሲቪ ይስቀሉ እና AI ያችን ችሎታዎችዎን በራስ-ሰር ይተነትናል።
+በአንድ ጊዜ በ15 የሥራ ቦርዶች ላይ ይፈልጉ። በእውነተኛ ጊዜ ግብረ መልስ ለቃለ መጠይቆች ይዘጋጁ።
+የስኬት ትንቢተኛ ከማመልከትዎ በፊት እድሎችዎን ያሳያል።
+ሁሉንም ማመልከቻዎችዎን በአንድ ቦታ ይከታተሉ። የሥራ ጉዞዎን ዛሬ ይጀምሩ!"""
     },
     
     "02_recruiter_features": {
