@@ -946,7 +946,6 @@ async def get_audio_coverage():
     Shows which video-language combinations have pre-generated audio.
     """
     from services.edge_tts_service import TUTORIAL_SCRIPTS, AUDIO_DIR
-    import os
     
     # Get all generated audio files
     audio_files = set(os.listdir(AUDIO_DIR)) if AUDIO_DIR.exists() else set()
