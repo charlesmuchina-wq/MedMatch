@@ -721,7 +721,147 @@ Ihr nächster Karriereschritt beginnt hier.""",
 履歴書をアップロード、仕事を検索、面接準備、そして機会とつながりましょう。
 プライバシー優先、AI搭載、人間中心。今日から旅を始めましょう！
 すでにMedMatch-AI KARAUを使用している何千人ものライフサイエンス専門家に加わりましょう。
-次のキャリアの一歩はここから始まります。"""
+次のキャリアの一歩はここから始まります。""",
+        
+        "zh": """欢迎来到MedMatch-AI KARAU，您的AI驱动的职业伙伴！
+无论您是求职者还是招聘人员，我们都能满足您的需求。
+上传简历、搜索工作、准备面试，与机会连接。
+隐私第一、AI驱动、以人为本。今天就开始您的旅程！
+加入数千名已在使用MedMatch-AI KARAU的生命科学专业人士。
+您的下一个职业发展从这里开始。""",
+        
+        "ko": """AI 기반 커리어 파트너 MedMatch-AI KARAU에 오신 것을 환영합니다!
+구직자이든 채용 담당자이든, 저희가 도와드립니다.
+이력서를 업로드하고, 일자리를 검색하고, 면접을 준비하고, 기회와 연결하세요.
+개인정보 보호 우선, AI 기반, 인간 중심. 오늘 여정을 시작하세요!
+이미 MedMatch-AI KARAU를 사용하고 있는 수천 명의 생명과학 전문가와 함께하세요.
+다음 커리어 도약이 여기서 시작됩니다.""",
+        
+        "it": """Benvenuti su MedMatch-AI KARAU, il vostro compagno di carriera alimentato dall'AI!
+Che siate cercatori di lavoro o recruiter, vi abbiamo coperti.
+Caricate curriculum, cercate lavori, preparatevi ai colloqui e connettetevi con le opportunità.
+Privacy prima di tutto, alimentato dall'AI, centrato sull'uomo. Iniziate il vostro viaggio oggi!
+Unitevi a migliaia di professionisti delle scienze della vita che già usano MedMatch-AI KARAU.
+Il vostro prossimo passo di carriera inizia qui.""",
+        
+        "pt": """Bem-vindo ao MedMatch-AI KARAU, seu companheiro de carreira alimentado por IA!
+Seja você um candidato ou recrutador, nós temos você coberto.
+Carregue currículos, busque empregos, prepare-se para entrevistas e conecte-se com oportunidades.
+Privacidade em primeiro lugar, alimentado por IA, centrado no humano. Comece sua jornada hoje!
+Junte-se a milhares de profissionais de ciências da vida que já usam MedMatch-AI KARAU.
+Seu próximo passo de carreira começa aqui.""",
+        
+        "nl": """Welkom bij MedMatch-AI KARAU, uw AI-aangedreven carrièrepartner!
+Of u nu werkzoekende of recruiter bent, wij hebben u gedekt.
+Upload cv's, zoek banen, bereid u voor op sollicitatiegesprekken en maak verbinding met kansen.
+Privacy eerst, AI-aangedreven, menscentraal. Begin vandaag uw reis!
+Sluit u aan bij duizenden life sciences professionals die MedMatch-AI KARAU al gebruiken.
+Uw volgende carrièrestap begint hier.""",
+        
+        "pl": """Witamy w MedMatch-AI KARAU, Twoim partnerze kariery zasilanym przez AI!
+Niezależnie czy szukasz pracy czy jesteś rekruterem, mamy Cię zabezpieczonego.
+Przesyłaj CV, szukaj pracy, przygotuj się na rozmowy kwalifikacyjne i łącz się z możliwościami.
+Prywatność przede wszystkim, zasilany przez AI, skoncentrowany na człowieku. Rozpocznij swoją podróż już dziś!
+Dołącz do tysięcy profesjonalistów nauk przyrodniczych, którzy już korzystają z MedMatch-AI KARAU.
+Twój kolejny krok kariery zaczyna się tutaj.""",
+        
+        "sv": """Välkommen till MedMatch-AI KARAU, din AI-drivna karriärpartner!
+Oavsett om du är jobbsökande eller rekryterare, har vi dig täckt.
+Ladda upp CV, sök jobb, förbered dig för intervjuer och anslut till möjligheter.
+Integritet först, AI-driven, människocentrerad. Börja din resa idag!
+Gå med tusentals life sciences-proffs som redan använder MedMatch-AI KARAU.
+Ditt nästa karriärsteg börjar här.""",
+        
+        "ru": """Добро пожаловать в MedMatch-AI KARAU, вашего карьерного партнера на базе ИИ!
+Независимо от того, соискатель вы или рекрутер, мы вас поддержим.
+Загружайте резюме, ищите работу, готовьтесь к собеседованиям и связывайтесь с возможностями.
+Конфиденциальность прежде всего, на базе ИИ, ориентированный на человека. Начните свой путь сегодня!
+Присоединяйтесь к тысячам профессионалов наук о жизни, уже использующих MedMatch-AI KARAU.
+Ваш следующий карьерный шаг начинается здесь.""",
+        
+        "vi": """Chào mừng đến với MedMatch-AI KARAU, người bạn đồng hành sự nghiệp được hỗ trợ bởi AI!
+Dù bạn là người tìm việc hay nhà tuyển dụng, chúng tôi đều hỗ trợ bạn.
+Tải lên CV, tìm kiếm việc làm, chuẩn bị phỏng vấn và kết nối với cơ hội.
+Quyền riêng tư trước tiên, được hỗ trợ bởi AI, lấy con người làm trung tâm. Bắt đầu hành trình của bạn ngay hôm nay!
+Tham gia cùng hàng nghìn chuyên gia khoa học đời sống đang sử dụng MedMatch-AI KARAU.
+Bước tiến sự nghiệp tiếp theo của bạn bắt đầu từ đây.""",
+        
+        "hi": """MedMatch-AI KARAU में आपका स्वागत है, आपका AI-संचालित करियर साथी!
+चाहे आप नौकरी चाहने वाले हों या भर्तीकर्ता, हमने आपको कवर किया है।
+रिज्यूमे अपलोड करें, नौकरियां खोजें, इंटरव्यू की तैयारी करें और अवसरों से जुड़ें।
+गोपनीयता पहले, AI-संचालित, मानव-केंद्रित। आज ही अपनी यात्रा शुरू करें!
+हजारों जीवन विज्ञान पेशेवरों से जुड़ें जो पहले से MedMatch-AI KARAU का उपयोग कर रहे हैं।
+आपका अगला करियर कदम यहीं से शुरू होता है।""",
+        
+        "th": """ยินดีต้อนรับสู่ MedMatch-AI KARAU พันธมิตรอาชีพที่ขับเคลื่อนด้วย AI ของคุณ!
+ไม่ว่าคุณจะเป็นผู้หางานหรือผู้สรรหา เราพร้อมดูแลคุณ
+อัปโหลดเรซูเม่ ค้นหางาน เตรียมตัวสัมภาษณ์ และเชื่อมต่อกับโอกาส
+ความเป็นส่วนตัวมาก่อน ขับเคลื่อนด้วย AI มีมนุษย์เป็นศูนย์กลาง เริ่มต้นการเดินทางของคุณวันนี้!
+เข้าร่วมกับผู้เชี่ยวชาญด้านวิทยาศาสตร์ชีวภาพหลายพันคนที่ใช้ MedMatch-AI KARAU แล้ว
+ก้าวต่อไปของอาชีพคุณเริ่มต้นที่นี่""",
+        
+        "id": """Selamat datang di MedMatch-AI KARAU, teman karir Anda yang didukung AI!
+Baik Anda pencari kerja atau perekrut, kami siap membantu Anda.
+Unggah resume, cari pekerjaan, persiapkan wawancara, dan terhubung dengan peluang.
+Privasi utama, didukung AI, berpusat pada manusia. Mulai perjalanan Anda hari ini!
+Bergabunglah dengan ribuan profesional ilmu hayati yang sudah menggunakan MedMatch-AI KARAU.
+Langkah karir Anda berikutnya dimulai di sini.""",
+        
+        "ar": """مرحبًا بكم في MedMatch-AI KARAU، رفيقكم المهني المدعوم بالذكاء الاصطناعي!
+سواء كنت باحثًا عن عمل أو مُجندًا، لقد غطيناك.
+حمّل السير الذاتية، ابحث عن وظائف، استعد للمقابلات، وتواصل مع الفرص.
+الخصوصية أولاً، مدعوم بالذكاء الاصطناعي، يركز على الإنسان. ابدأ رحلتك اليوم!
+انضم إلى آلاف محترفي علوم الحياة الذين يستخدمون MedMatch-AI KARAU بالفعل.
+خطوتك المهنية التالية تبدأ هنا.""",
+        
+        "tr": """MedMatch-AI KARAU'ya hoş geldiniz, AI destekli kariyer ortağınız!
+İster iş arayan ister işe alım uzmanı olun, sizi kapsıyoruz.
+Özgeçmişleri yükleyin, iş arayın, mülakata hazırlanın ve fırsatlarla bağlantı kurun.
+Önce gizlilik, AI destekli, insan merkezli. Yolculuğunuza bugün başlayın!
+MedMatch-AI KARAU'yu kullanan binlerce yaşam bilimleri profesyoneline katılın.
+Bir sonraki kariyer adımınız burada başlıyor.""",
+        
+        "he": """ברוכים הבאים ל-MedMatch-AI KARAU, שותף הקריירה שלכם המופעל ב-AI!
+בין אם אתם מחפשי עבודה או מגייסים, יש לנו פתרון עבורכם.
+העלו קורות חיים, חפשו עבודות, התכוננו לראיונות והתחברו להזדמנויות.
+פרטיות קודם כל, מופעל ב-AI, ממוקד באדם. התחילו את המסע שלכם היום!
+הצטרפו לאלפי אנשי מקצוע במדעי החיים שכבר משתמשים ב-MedMatch-AI KARAU.
+הצעד הבא בקריירה שלכם מתחיל כאן.""",
+        
+        "sw": """Karibu MedMatch-AI KARAU, mwenza wako wa kazi unaotumia AI!
+Iwe wewe ni mtafutaji wa kazi au mwajiri, tumekufunika.
+Pakia wasifu, tafuta kazi, jiandae kwa mahojiano, na unganisha na fursa.
+Faragha kwanza, inayotumia AI, inayozingatia binadamu. Anza safari yako leo!
+Jiunge na maelfu ya wataalamu wa sayansi ya maisha wanaotumia tayari MedMatch-AI KARAU.
+Hatua yako inayofuata ya kazi inaanza hapa.""",
+        
+        "af": """Welkom by MedMatch-AI KARAU, jou KI-aangedrewe loopbaanmaat!
+Of jy nou 'n werksoeker of werwer is, ons het jou gedek.
+Laai CV's op, soek werk, berei voor vir onderhoude en verbind met geleenthede.
+Privaatheid eerste, KI-aangedrewe, mensgesentreer. Begin vandag jou reis!
+Sluit aan by duisende lewenswetenskaplike professionele persone wat reeds MedMatch-AI KARAU gebruik.
+Jou volgende loopbaanstap begin hier.""",
+        
+        "zu": """Siyakwamukela ku-MedMatch-AI KARAU, umlingani wakho wekharikhulam osebenza nge-AI!
+Noma ungumfuni womsebenzi noma umqashi, sikugcina.
+Layisha ama-resume, sesha imisebenzi, lungela izingxoxo, futhi uxhumane namathuba.
+Ubumfihlo kuqala, okuqhutshwa yi-AI, okugxile kubantu. Qala uhambo lwakho namuhla!
+Hlangana nezinkulungwane zochwepheshe bezesayensi yokuphila abasebenzisa kakade i-MedMatch-AI KARAU.
+Isinyathelo sakho esilandelayo somsebenzi siqala lapha.""",
+        
+        "tl": """Maligayang pagdating sa MedMatch-AI KARAU, ang iyong AI-powered na career companion!
+Maging job seeker o recruiter ka man, sakop ka namin.
+Mag-upload ng resume, maghanap ng trabaho, maghanda para sa interview, at kumonekta sa mga oportunidad.
+Privacy muna, AI-powered, nakasentro sa tao. Simulan ang iyong paglalakbay ngayon!
+Sumali sa libu-libong life sciences professionals na gumagamit na ng MedMatch-AI KARAU.
+Ang susunod mong career move ay nagsisimula dito.""",
+        
+        "am": """ወደ MedMatch-AI KARAU እንኳን በደህና መጡ፣ በAI የሚንቀሳቀስ የሥራ ጓደኛዎ!
+ሥራ ፈላጊ ወይም ቀጣሪ ብትሆኑ፣ እንሸፍንዎታለን።
+ሲቪዎችን ይስቀሉ፣ ሥራዎችን ይፈልጉ፣ ለቃለ መጠይቆች ይዘጋጁ እና ከዕድሎች ጋር ይገናኙ።
+ግላዊነት መጀመሪያ፣ በAI የሚንቀሳቀስ፣ በሰው ላይ ያተኮረ። ዛሬ ጉዞዎን ይጀምሩ!
+ቀድሞውኑ MedMatch-AI KARAUን ከሚጠቀሙ በሺዎች ከሚቆጠሩ የሕይወት ሳይንስ ባለሙያዎች ጋር ይቀላቀሉ።
+የሚቀጥለው የሥራ እርምጃዎ እዚህ ይጀምራል።"""
     }
 }
 
