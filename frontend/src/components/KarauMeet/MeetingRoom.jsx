@@ -112,11 +112,11 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
     
     // Show feedback based on selection
     if (selectedBg === 'none') {
-      toast.success('Background removed');
+      // No toast needed
     } else if (selectedBg.includes('blur')) {
-      toast.success('AI blur effect applied - loading model...');
+      toast.info('Applying blur...', { duration: 1500 });
     } else {
-      toast.success('AI background applied - loading model...');
+      toast.info('Loading background...', { duration: 1500 });
     }
   };
 
