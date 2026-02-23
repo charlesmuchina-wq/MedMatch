@@ -13,42 +13,42 @@ import { useTranslation } from "@/utils/i18n";
 const PortalSelector = () => {
   const navigate = useNavigate();
   const [hoveredCard, setHoveredCard] = useState(null);
-  const { t } = useTranslation();
+  const { t, translationVersion } = useTranslation();
 
   const portals = [
     {
       id: 'job-toolkit',
-      title: 'MedMatch AI',
-      subtitle: 'Job Toolkit',
-      description: 'AI-powered job search and career tools for life sciences professionals',
+      title: t('portalSelector.medmatchAI'),
+      subtitle: t('portalSelector.jobToolkit'),
+      description: t('portalSelector.jobToolkitDesc'),
       icon: Briefcase,
       gradient: 'from-turquoise to-cyan-500',
       glowColor: 'turquoise',
       features: [
-        { icon: FileText, text: 'Resume Parser & Builder' },
-        { icon: Sparkles, text: 'AI Job Matching' },
-        { icon: Users, text: 'Recruiter Network' },
+        { icon: FileText, text: t('portalSelector.resumeParser') },
+        { icon: Sparkles, text: t('portalSelector.aiJobMatching') },
+        { icon: Users, text: t('portalSelector.recruiterNetwork') },
       ],
       route: '/login',
-      buttonText: 'Enter Job Toolkit',
+      buttonText: t('portalSelector.enterJobToolkit'),
       // Official MedMatch AI logo
       logo: 'https://customer-assets.emergentagent.com/job_f139deea-35f2-4b55-91b9-9aab4dc4c84b/artifacts/9uzkkm0w_MedMatch%20Logo%20-%201MB.png'
     },
     {
       id: 'meeting',
-      title: 'AI KARAU',
-      subtitle: 'Meeting',
-      description: 'Secure video conferencing with AI transcription and collaboration tools',
+      title: t('portalSelector.aiKarau'),
+      subtitle: t('portalSelector.meetingPortal'),
+      description: t('portalSelector.meetingPortalDesc'),
       icon: Video,
       gradient: 'from-violet-500 to-purple-600',
       glowColor: 'violet',
       features: [
-        { icon: Video, text: 'HD Video & Audio' },
-        { icon: Sparkles, text: 'AI Transcription' },
-        { icon: Shield, text: 'E2E Encrypted' },
+        { icon: Video, text: t('portalSelector.hdVideoAudio') },
+        { icon: Sparkles, text: t('portalSelector.aiTranscription') },
+        { icon: Shield, text: t('portalSelector.e2eEncrypted') },
       ],
       route: '/karau-meet',
-      buttonText: 'Enter Meeting Portal',
+      buttonText: t('portalSelector.enterMeetingPortal'),
       logo: 'https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg'
     }
   ];
