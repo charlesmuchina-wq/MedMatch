@@ -27,7 +27,16 @@
     "signup": "Bhalisa",
     "all": "Konke",
     "refresh": "Refresh",
-    "generating": "Kuyakhiwa..."
+    "generating": "Kuyakhiwa...",
+    "download": "Download",
+    "filter": "Filter",
+    "none": "None",
+    "upload": "Upload",
+    "sort": "Sort",
+    "more": "More",
+    "help": "Help",
+    "less": "Less",
+    "previous": "Previous"
   },
   "nav": {
     "dashboard": "Ideshibhodi",
@@ -171,7 +180,8 @@
     "workType": "Uhlobo Lomsebenzi",
     "moreFilters": "Izihlungi Eziningi",
     "lessFilters": "Izihlungi Ezimbalwa",
-    "selectCountry": "Khetha Izwe"
+    "selectCountry": "Khetha Izwe",
+    "viewOriginal": "View Original"
   },
   "auth": {
     "signIn": "Ngena",
@@ -200,7 +210,10 @@
     "yourName": "Igama lakho",
     "enterCode": "Faka ikhodi enamadijithi ayi-6",
     "verifyAndSignIn": "Qinisekisa futhi Ungene",
-    "changePhoneNumber": "Shintsha inombolo yocingo"
+    "changePhoneNumber": "Shintsha inombolo yocingo",
+    "emailPlaceholder": "you@example.com",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "passwordPlaceholder": "••••••••"
   },
   "errors": {
     "somethingWentWrong": "Kukhona okungahambanga kahle",
@@ -313,7 +326,12 @@
     "cancelled": "Interview cancelled",
     "fillRequired": "Please fill in all required fields",
     "success": "Interview scheduled successfully",
-    "confirmCancel": "Are you sure you want to cancel this interview?"
+    "confirmCancel": "Are you sure you want to cancel this interview?",
+    "messageToRecruiterPlaceholder": "Add a message to the recruiter...",
+    "additionalInfoPlaceholder": "Any additional information...",
+    "selectCandidate": "Select a candidate",
+    "officeAddressPlaceholder": "Office address",
+    "meetingLinkPlaceholder": "https://zoom.us/j/..."
   },
   "predictor": {
     "jobDetailsDesc": "Enter the job information to analyze your chances",
@@ -349,7 +367,9 @@
     "interviewLikelihood": "Interview Likelihood",
     "predictionResults": "Prediction Results",
     "jobDetails": "Job Details",
-    "whatMakesYouStandOut": "What Makes You Stand Out"
+    "whatMakesYouStandOut": "What Makes You Stand Out",
+    "companyPlaceholder": "e.g., Medtronic",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
   },
   "jobAlerts": {
     "schedule": "Schedule",
@@ -404,7 +424,10 @@
     "subtitle": "Verify your skills and earn badges to stand out to recruiters",
     "earned": "Earned",
     "keepPracticing": "Keep Practicing",
-    "questionOf": "Question {{current}} of {{total}}"
+    "questionOf": "Question {{current}} of {{total}}",
+    "generatingQuestions": "Generating AI questions... This may take 20-30 seconds",
+    "assessmentReady": "Assessment ready! Let's begin",
+    "generating": "Generating..."
   },
   "notifications": {
     "clearAll": "Clear all",
@@ -465,7 +488,10 @@
     "breakdown": "Feedback Breakdown",
     "submitFailed": "Failed to submit feedback",
     "missingSkills": "Missing Skills (comma-separated)",
-    "basedOn": "Based on {{count}} application(s) with feedback"
+    "basedOn": "Based on {{count}} application(s) with feedback",
+    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
+    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
+    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
   },
   "language": {
     "grammaticalGender": "Grammatical Gender",
@@ -479,7 +505,17 @@
     "african": "African Languages",
     "genderNeutral": "Neutral",
     "popular": "Popular",
-    "otherLanguages": "Other Languages"
+    "otherLanguages": "Other Languages",
+    "useBrowserTranslate": "Use Browser Translation",
+    "useGoogleTranslate": "Use Google Translate",
+    "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
+    "keepCurrentLanguage": "Keep English",
+    "switchToLanguage": "Switch to {{language}}",
+    "detectedBrowserLanguage": "We detected your browser language is {{language}}",
+    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
+    "openGoogleTranslate": "Open in Google Translate",
+    "languageSwitched": "Language switched to {{language}}",
+    "browserTranslationActive": "Browser translation is active"
   },
   "recruiter": {
     "interviews": "Interviews",
@@ -545,7 +581,13 @@
     "researching": "Kuyacwaningwa...",
     "research": "Ucwaningo",
     "researchFor": "Ucwaningo lwe",
-    "skipQuestion": "Yeqa Umbuzo"
+    "skipQuestion": "Yeqa Umbuzo",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
+    "companyPlaceholder": "e.g., Medtronic",
+    "questionsPlaceholder": "Enter questions, one per line...",
+    "typeAnswerPlaceholder": "Type your answer here... (You have 2 minutes)",
+    "yourResumeSkills": "Your Resume Skills",
+    "jobDescriptionPlaceholder": "Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills..."
   },
   "membership": {
     "premium": "Premium",
@@ -610,7 +652,9 @@
     "jobTitle": "Job Title",
     "fillAllFields": "Please fill in all fields",
     "pasteJobDescription": "Namathisela incazelo yomsebenzi lapha...",
-    "generate": "Khiqiza Incwadi Yokuzifaka Isicelo"
+    "generate": "Khiqiza Incwadi Yokuzifaka Isicelo",
+    "companyPlaceholder": "e.g., Medtronic",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
   },
   "cloudStorage": {
     "supportedTypes": "Supported: PDF, DOC, DOCX",
@@ -794,7 +838,10 @@
     "companySize": "Usayizi Wenkampani",
     "selectSize": "Khetha usayizi",
     "headquarters": "Ihhovisi Elikhulu",
-    "headquartersPlaceholder": "Idolobha, Izwe"
+    "headquartersPlaceholder": "Idolobha, Izwe",
+    "created": "Company profile created",
+    "followFailed": "Failed to follow company",
+    "createFailed": "Failed to create company"
   },
   "savedJobs": {
     "saveJobsHint": "Save jobs while searching to review them later",
@@ -1233,7 +1280,10 @@
     "registerWith": "Bhalisa nge-Bhayomethrikhi",
     "notSupported": "Ukuqinisekisa nge-bhayomethrikhi akusekelwa kule divayisi",
     "enterEmail": "Sicela ufake i-imeyili yakho",
-    "emailPlaceholder": "Faka i-imeyili yakho"
+    "emailPlaceholder": "Faka i-imeyili yakho",
+    "loginFailed": "Login failed",
+    "loginSuccess": "Login successful!",
+    "loginCancelled": "Biometric login was cancelled or denied"
   },
   "translation": {
     "selectLanguage": "Khetha ulimi",
@@ -1247,7 +1297,9 @@
     "yourResponse": "Impendulo yakho",
     "responsePlaceholder": "Bonga umbuyekezi, nikeza umongo, noma uphendule kunoma yikuphi ukuphawula ngobungcweti...",
     "responseVisibility": "Impendulo yakho izobonakala kubaqashi ababuka iphrofayela yakho",
-    "submitResponse": "Thumela impendulo"
+    "submitResponse": "Thumela impendulo",
+    "title": "Reviews",
+    "noReviews": "No reviews yet"
   },
   "capa": {
     "addProbableCause": "Engeza imbangela okungenzeka",
@@ -1260,6 +1312,171 @@
     "evidencePlaceholder": "Ubufakazi...",
     "addCause": "Engeza imbangela",
     "searchCapas": "Sesha ama-CAPA...",
-    "allStatuses": "Zonke izimo"
+    "allStatuses": "Zonke izimo",
+    "title": "Title",
+    "severityHigh": "High",
+    "severityMedium": "Medium",
+    "severityCritical": "Critical",
+    "impactedProcesses": "Impacted Processes",
+    "capaType": "CAPA Type",
+    "titleAndStatementRequired": "Title and problem statement are required",
+    "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
+    "titlePlaceholder": "Brief title of the nonconformance",
+    "severityLow": "Low",
+    "severity": "Severity",
+    "problemStatementPlaceholder": "Detailed description of the issue...",
+    "source": "Source",
+    "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
+    "problemStatement": "Problem Statement"
+  },
+  "interviewCalendar": {
+    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerNamePlaceholder": "John Smith",
+    "companyPlaceholder": "e.g., Google",
+    "notesPlaceholder": "Any additional details about the interview...",
+    "positionPlaceholder": "e.g., Software Engineer",
+    "locationPlaceholder": "https://meet.google.com/... or office address"
+  },
+  "blindScreening": {
+    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
+    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
+    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+  },
+  "psv": {
+    "npiNumber": "NPI Number (optional)",
+    "statePlaceholder": "State (e.g., CA, NY)",
+    "lastName": "Last Name",
+    "familyName": "Family Name",
+    "searchOrcid": "Search ORCID Registry",
+    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
+    "globalUniversitySearch": "Global University Database",
+    "universityDescription": "Verify educational institutions through the global university database",
+    "orSearchByName": "or search by name",
+    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
+    "givenNames": "Given Names",
+    "oigDescription": "Check if an individual is excluded from federal healthcare programs",
+    "firstName": "First Name",
+    "title": "Primary Source Verification Hub",
+    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
+    "subtitle": "Free self-service verification using public databases",
+    "universityName": "University Name",
+    "searchUniversities": "Search Universities",
+    "countryOptional": "Country (optional)"
+  },
+  "publicApplication": {
+    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "coverLetterPlaceholder": "Tell us why you're a great fit for this role...",
+    "emailPlaceholder": "john@example.com",
+    "namePlaceholder": "John Doe",
+    "portfolioPlaceholder": "https://yourportfolio.com"
+  },
+  "recruiterJobs": {
+    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
+    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+  },
+  "companyReview": {
+    "prosPlaceholder": "What did you like?",
+    "jobTitlePlaceholder": "e.g., Software Engineer",
+    "consPlaceholder": "What could be improved?",
+    "summaryPlaceholder": "Summarize your experience"
+  },
+  "atsManagement": {
+    "candidateNamePlaceholder": "John Doe",
+    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "candidateEmailPlaceholder": "candidate@example.com",
+    "selectJobPlaceholder": "Select a job posting",
+    "maxApplicantsPlaceholder": "Unlimited"
+  },
+  "applicantTracker": {
+    "searchPlaceholder": "Search applicants...",
+    "addNotePlaceholder": "Add a note..."
+  },
+  "recruiterVerification": {
+    "websitePlaceholder": "https://example.com",
+    "rolePlaceholder": "e.g., HR Manager",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "companyPlaceholder": "e.g., City Medical Center",
+    "linkedinPlaceholder": "https://linkedin.com/company/...",
+    "emailPlaceholder": "you@yourcompany.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+  },
+  "idVerification": {
+    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "namePlaceholder": "John Doe",
+    "domainPlaceholder": "acme.com",
+    "companyPlaceholder": "Acme Corporation",
+    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "websitePlaceholder": "https://acme.com"
+  },
+  "companiesPage": {
+    "websitePlaceholder": "https://...",
+    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
+    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
+    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)",
+    "searchPlaceholder": "Search companies...",
+    "foundedPlaceholder": "2020",
+    "industryPlaceholder": "Industry",
+    "companySizePlaceholder": "Company Size"
+  },
+  "candidateSearch": {
+    "keywordsPlaceholder": "e.g., senior, remote, healthcare...",
+    "skillsPlaceholder": "Type a skill and press Enter..."
+  },
+  "admin": {
+    "translationCoverageDesc": "Monitor translation completion across all languages",
+    "searchLanguages": "Search languages...",
+    "translationCoverage": "Translation Coverage",
+    "searchByCompanyOrEmail": "Search by company name or email..."
+  },
+  "location": {
+    "selectLocationPlaceholder": "Select your location..."
+  },
+  "karauMeet": {
+    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "emailPlaceholder": "your@email.com"
+  },
+  "enterpriseAPI": {
+    "webhookDescPlaceholder": "e.g., Production ATS webhook",
+    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+  },
+  "adminReviewModeration": {
+    "searchPlaceholder": "Search by reviewer, candidate, or content...",
+    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+  },
+  "contact": {
+    "declineReason": "e.g., Not looking for new opportunities right now"
+  },
+  "taxonomy": {
+    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+  },
+  "candidateTransparency": {
+    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+  },
+  "meetingNotes": {
+    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
+    "companyNamePlaceholder": "Company name",
+    "jobTitlePlaceholder": "Job title"
+  },
+  "credentialsPage": {
+    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+  },
+  "salaryInsights": {
+    "yearsPlaceholder": "5"
+  },
+  "adminDataIntegrity": {
+    "selectDateRangePlaceholder": "Select date range..."
+  },
+  "resumeProfiles": {
+    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+  },
+  "jobSearch": {
+    "selectCountryFirst": "Select Country First",
+    "selectCity": "Select City"
   }
 }

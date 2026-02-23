@@ -27,7 +27,16 @@
     "signup": "회원가입",
     "all": "전체",
     "refresh": "새로고침",
-    "generating": "생성 중..."
+    "generating": "생성 중...",
+    "download": "Download",
+    "filter": "Filter",
+    "none": "None",
+    "upload": "Upload",
+    "sort": "Sort",
+    "more": "More",
+    "help": "Help",
+    "less": "Less",
+    "previous": "Previous"
   },
   "notifications": {
     "title": "알림",
@@ -205,7 +214,8 @@
     "workType": "근무 형태",
     "moreFilters": "필터 더 보기",
     "lessFilters": "필터 접기",
-    "selectCountry": "국가 선택"
+    "selectCountry": "국가 선택",
+    "viewOriginal": "View Original"
   },
   "resume": {
     "myResume": "내 이력서",
@@ -285,7 +295,13 @@
     "researching": "리서치 중...",
     "research": "리서치",
     "researchFor": "리서치 대상",
-    "skipQuestion": "질문 건너뛰기"
+    "skipQuestion": "질문 건너뛰기",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
+    "companyPlaceholder": "e.g., Medtronic",
+    "questionsPlaceholder": "Enter questions, one per line...",
+    "typeAnswerPlaceholder": "Type your answer here... (You have 2 minutes)",
+    "yourResumeSkills": "Your Resume Skills",
+    "jobDescriptionPlaceholder": "Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills..."
   },
   "qaPractice": {
     "title": "Q&A 답변 생성기",
@@ -333,7 +349,10 @@
     "congratulations": "축하합니다!",
     "keepPracticing": "계속 연습하세요",
     "correct": "정답",
-    "badgeEarned": "배지를 획득했습니다!"
+    "badgeEarned": "배지를 획득했습니다!",
+    "generatingQuestions": "Generating AI questions... This may take 20-30 seconds",
+    "assessmentReady": "Assessment ready! Let's begin",
+    "generating": "Generating..."
   },
   "predictor": {
     "title": "지원 성공 예측기",
@@ -369,7 +388,9 @@
     "noPredictionYet": "아직 예측 결과가 없습니다",
     "enterJobDetails": "채용 공고 정보를 입력한 뒤 \"성공률 예측\"을 클릭하면 연락을 받을 확률을 확인할 수 있습니다",
     "neuralNetworkAnalysis": "신경망 분석",
-    "browserBasedAI": "4층 신경망을 사용한 브라우저 기반 AI 예측"
+    "browserBasedAI": "4층 신경망을 사용한 브라우저 기반 AI 예측",
+    "companyPlaceholder": "e.g., Medtronic",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
   },
   "video": {
     "title": "영상 면접 연습",
@@ -427,7 +448,9 @@
     "uploadResumeFirst": "먼저 이력서를 업로드해 주세요.",
     "generationFailed": "자기소개서 생성에 실패했습니다.",
     "pasteJobDescription": "여기에 직무 설명을 붙여넣으세요...",
-    "generate": "커버 레터 생성"
+    "generate": "커버 레터 생성",
+    "companyPlaceholder": "e.g., Medtronic",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
   },
   "membership": {
     "membership": "멤버십",
@@ -567,7 +590,10 @@
     "yourName": "이름을 입력하세요",
     "enterCode": "6자리 코드를 입력하세요",
     "verifyAndSignIn": "확인하고 로그인",
-    "changePhoneNumber": "전화번호 변경"
+    "changePhoneNumber": "전화번호 변경",
+    "emailPlaceholder": "you@example.com",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "passwordPlaceholder": "••••••••"
   },
   "onboarding": {
     "welcome": "MedMatch에 오신 것을 환영합니다!",
@@ -637,7 +663,12 @@
     "respondFailed": "응답에 실패했습니다",
     "confirmCancel": "이 면접을 취소하시겠습니까?",
     "cancelled": "면접이 취소되었습니다",
-    "cancelFailed": "면접 취소에 실패했습니다"
+    "cancelFailed": "면접 취소에 실패했습니다",
+    "messageToRecruiterPlaceholder": "Add a message to the recruiter...",
+    "additionalInfoPlaceholder": "Any additional information...",
+    "selectCandidate": "Select a candidate",
+    "officeAddressPlaceholder": "Office address",
+    "meetingLinkPlaceholder": "https://zoom.us/j/..."
   },
   "verification": {
     "requestCreated": "인증 요청이 생성되었습니다",
@@ -661,7 +692,10 @@
     "companySize": "회사 규모",
     "selectSize": "규모 선택",
     "headquarters": "본사",
-    "headquartersPlaceholder": "도시, 국가"
+    "headquartersPlaceholder": "도시, 국가",
+    "created": "Company profile created",
+    "followFailed": "Failed to follow company",
+    "createFailed": "Failed to create company"
   },
   "analytics": {
     "loadFailed": "분석을 불러오는 데 실패했습니다"
@@ -714,7 +748,17 @@
     "genderMasculine": "남성형",
     "genderFeminine": "여성형",
     "genderNeutral": "중성",
-    "genderAuto": "자동(언어 기본값)"
+    "genderAuto": "자동(언어 기본값)",
+    "useBrowserTranslate": "Use Browser Translation",
+    "useGoogleTranslate": "Use Google Translate",
+    "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
+    "keepCurrentLanguage": "Keep English",
+    "switchToLanguage": "Switch to {{language}}",
+    "detectedBrowserLanguage": "We detected your browser language is {{language}}",
+    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
+    "openGoogleTranslate": "Open in Google Translate",
+    "languageSwitched": "Language switched to {{language}}",
+    "browserTranslationActive": "Browser translation is active"
   },
   "dragon": {
     "webSearch": "웹 검색",
@@ -794,7 +838,10 @@
     "privacyNotice": "이 피드백은 지원자가 개선할 수 있도록 익명으로 공유됩니다. 귀하의 신원과 회사 정보는 공개되지 않습니다.",
     "submit": "피드백 제출",
     "submitted": "피드백이 성공적으로 제출되었습니다",
-    "submitFailed": "피드백 제출에 실패했습니다"
+    "submitFailed": "피드백 제출에 실패했습니다",
+    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
+    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
+    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
   },
   "extras": {
     "later": "나중에",
@@ -1233,7 +1280,10 @@
     "registerWith": "생체 인증으로 등록",
     "notSupported": "이 기기에서는 생체 인증이 지원되지 않습니다",
     "enterEmail": "이메일을 입력해 주세요",
-    "emailPlaceholder": "이메일을 입력하세요"
+    "emailPlaceholder": "이메일을 입력하세요",
+    "loginFailed": "Login failed",
+    "loginSuccess": "Login successful!",
+    "loginCancelled": "Biometric login was cancelled or denied"
   },
   "translation": {
     "selectLanguage": "언어 선택",
@@ -1247,7 +1297,9 @@
     "yourResponse": "답변",
     "responsePlaceholder": "리뷰어에게 감사 인사를 전하고, 맥락을 제공하거나, 피드백을 전문적으로 반영해 주세요...",
     "responseVisibility": "작성하신 답변은 프로필을 보는 채용 담당자에게 공개됩니다",
-    "submitResponse": "답변 제출"
+    "submitResponse": "답변 제출",
+    "title": "Reviews",
+    "noReviews": "No reviews yet"
   },
   "capa": {
     "addProbableCause": "가능성 있는 원인 추가",
@@ -1260,6 +1312,171 @@
     "evidencePlaceholder": "증거...",
     "addCause": "원인 추가",
     "searchCapas": "CAPA 검색...",
-    "allStatuses": "모든 상태"
+    "allStatuses": "모든 상태",
+    "title": "Title",
+    "severityHigh": "High",
+    "severityMedium": "Medium",
+    "severityCritical": "Critical",
+    "impactedProcesses": "Impacted Processes",
+    "capaType": "CAPA Type",
+    "titleAndStatementRequired": "Title and problem statement are required",
+    "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
+    "titlePlaceholder": "Brief title of the nonconformance",
+    "severityLow": "Low",
+    "severity": "Severity",
+    "problemStatementPlaceholder": "Detailed description of the issue...",
+    "source": "Source",
+    "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
+    "problemStatement": "Problem Statement"
+  },
+  "interviewCalendar": {
+    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerNamePlaceholder": "John Smith",
+    "companyPlaceholder": "e.g., Google",
+    "notesPlaceholder": "Any additional details about the interview...",
+    "positionPlaceholder": "e.g., Software Engineer",
+    "locationPlaceholder": "https://meet.google.com/... or office address"
+  },
+  "blindScreening": {
+    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
+    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
+    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+  },
+  "psv": {
+    "npiNumber": "NPI Number (optional)",
+    "statePlaceholder": "State (e.g., CA, NY)",
+    "lastName": "Last Name",
+    "familyName": "Family Name",
+    "searchOrcid": "Search ORCID Registry",
+    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
+    "globalUniversitySearch": "Global University Database",
+    "universityDescription": "Verify educational institutions through the global university database",
+    "orSearchByName": "or search by name",
+    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
+    "givenNames": "Given Names",
+    "oigDescription": "Check if an individual is excluded from federal healthcare programs",
+    "firstName": "First Name",
+    "title": "Primary Source Verification Hub",
+    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
+    "subtitle": "Free self-service verification using public databases",
+    "universityName": "University Name",
+    "searchUniversities": "Search Universities",
+    "countryOptional": "Country (optional)"
+  },
+  "publicApplication": {
+    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "coverLetterPlaceholder": "Tell us why you're a great fit for this role...",
+    "emailPlaceholder": "john@example.com",
+    "namePlaceholder": "John Doe",
+    "portfolioPlaceholder": "https://yourportfolio.com"
+  },
+  "recruiterJobs": {
+    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
+    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+  },
+  "companyReview": {
+    "prosPlaceholder": "What did you like?",
+    "jobTitlePlaceholder": "e.g., Software Engineer",
+    "consPlaceholder": "What could be improved?",
+    "summaryPlaceholder": "Summarize your experience"
+  },
+  "atsManagement": {
+    "candidateNamePlaceholder": "John Doe",
+    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "candidateEmailPlaceholder": "candidate@example.com",
+    "selectJobPlaceholder": "Select a job posting",
+    "maxApplicantsPlaceholder": "Unlimited"
+  },
+  "applicantTracker": {
+    "searchPlaceholder": "Search applicants...",
+    "addNotePlaceholder": "Add a note..."
+  },
+  "recruiterVerification": {
+    "websitePlaceholder": "https://example.com",
+    "rolePlaceholder": "e.g., HR Manager",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "companyPlaceholder": "e.g., City Medical Center",
+    "linkedinPlaceholder": "https://linkedin.com/company/...",
+    "emailPlaceholder": "you@yourcompany.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+  },
+  "idVerification": {
+    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "namePlaceholder": "John Doe",
+    "domainPlaceholder": "acme.com",
+    "companyPlaceholder": "Acme Corporation",
+    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "websitePlaceholder": "https://acme.com"
+  },
+  "companiesPage": {
+    "websitePlaceholder": "https://...",
+    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
+    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
+    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)",
+    "searchPlaceholder": "Search companies...",
+    "foundedPlaceholder": "2020",
+    "industryPlaceholder": "Industry",
+    "companySizePlaceholder": "Company Size"
+  },
+  "candidateSearch": {
+    "keywordsPlaceholder": "e.g., senior, remote, healthcare...",
+    "skillsPlaceholder": "Type a skill and press Enter..."
+  },
+  "admin": {
+    "translationCoverageDesc": "Monitor translation completion across all languages",
+    "searchLanguages": "Search languages...",
+    "translationCoverage": "Translation Coverage",
+    "searchByCompanyOrEmail": "Search by company name or email..."
+  },
+  "location": {
+    "selectLocationPlaceholder": "Select your location..."
+  },
+  "karauMeet": {
+    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "emailPlaceholder": "your@email.com"
+  },
+  "enterpriseAPI": {
+    "webhookDescPlaceholder": "e.g., Production ATS webhook",
+    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+  },
+  "adminReviewModeration": {
+    "searchPlaceholder": "Search by reviewer, candidate, or content...",
+    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+  },
+  "contact": {
+    "declineReason": "e.g., Not looking for new opportunities right now"
+  },
+  "taxonomy": {
+    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+  },
+  "candidateTransparency": {
+    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+  },
+  "meetingNotes": {
+    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
+    "companyNamePlaceholder": "Company name",
+    "jobTitlePlaceholder": "Job title"
+  },
+  "credentialsPage": {
+    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+  },
+  "salaryInsights": {
+    "yearsPlaceholder": "5"
+  },
+  "adminDataIntegrity": {
+    "selectDateRangePlaceholder": "Select date range..."
+  },
+  "resumeProfiles": {
+    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+  },
+  "jobSearch": {
+    "selectCountryFirst": "Select Country First",
+    "selectCity": "Select City"
   }
 }

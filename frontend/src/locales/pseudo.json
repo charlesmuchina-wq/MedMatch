@@ -206,7 +206,8 @@
     "workType": "[!!! Ŵöřķ Ţÿþë !!!]",
     "moreFilters": "[!!! Ɱöřë Ƒïĺţëřš !!!]",
     "lessFilters": "[!!! Ĺëšš Ƒïĺţëřš !!!]",
-    "selectCountry": "[!!! Šëĺëçţ Çöüñţřÿ !!!]"
+    "selectCountry": "[!!! Šëĺëçţ Çöüñţřÿ !!!]",
+    "viewOriginal": "View Original"
   },
   "resume": {
     "myResume": "[!!! Ɱÿ Řëšüɱë !!!]",
@@ -267,7 +268,32 @@
     "allAnswersGenerated": "[!!! Äĺĺ äñšŵëřš ğëñëřäţëđ! !!!]",
     "savedToFavorites": "[!!! Šäṽëđ ţö ƒäṽöřïţëš! !!!]",
     "saveFailed": "[!!! Ƒäïĺëđ ţö šäṽë !!!]",
-    "removedFromFavorites": "[!!! Řëɱöṽëđ ƒřöɱ ƒäṽöřïţëš !!!]"
+    "removedFromFavorites": "[!!! Řëɱöṽëđ ƒřöɱ ƒäṽöřïţëš !!!]",
+    "enterCompanyName": "Enter company name",
+    "action": "A - Action",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
+    "companyPlaceholder": "e.g., Medtronic",
+    "pasteYourQuestions": "Paste Your Questions",
+    "analyzing": "Analyzing...",
+    "questionsPlaceholder": "Enter questions, one per line...",
+    "typeAnswerPlaceholder": "Type your answer here... (You have 2 minutes)",
+    "starDescription": "Structure your answer using the STAR method",
+    "pasteJobDescription": "Paste Job Description",
+    "resultPlaceholder": "What was the outcome? Include metrics if possible...",
+    "skipQuestion": "Skip Question",
+    "situationPlaceholder": "Describe the context or background...",
+    "research": "Research",
+    "yourResumeSkills": "Your Resume Skills",
+    "result": "R - Result",
+    "researchFor": "Research for",
+    "taskPlaceholder": "What was your responsibility?",
+    "generateFromJD": "Generate from Job Description",
+    "actionPlaceholder": "What steps did you take?",
+    "situation": "S - Situation",
+    "jobDescriptionPlaceholder": "Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills...",
+    "starBuilder": "STAR Method Builder",
+    "task": "T - Task",
+    "researching": "Researching..."
   },
   "qaPractice": {
     "title": "[!!! Ɋ&Ä Äñšŵëř Ğëñëřäţöř !!!]",
@@ -315,7 +341,10 @@
     "congratulations": "[!!! Çöñğřäţüĺäţïöñš! !!!]",
     "keepPracticing": "[!!! Ķëëþ Þřäçţïçïñğ !!!]",
     "correct": "[!!! çöřřëçţ !!!]",
-    "badgeEarned": "[!!! Ɓäđğë Ëäřñëđ! !!!]"
+    "badgeEarned": "[!!! Ɓäđğë Ëäřñëđ! !!!]",
+    "generatingQuestions": "Generating AI questions... This may take 20-30 seconds",
+    "assessmentReady": "Assessment ready! Let's begin",
+    "generating": "Generating..."
   },
   "predictor": {
     "title": "[!!! Äþþĺïçäţïöñ Šüççëšš Þřëđïçţöř !!!]",
@@ -351,7 +380,9 @@
     "noPredictionYet": "[!!! Ñö þřëđïçţïöñ ÿëţ !!!]",
     "enterJobDetails": "[!!! Ëñţëř ĵöƀ đëţäïĺš äñđ çĺïçķ \"Þřëđïçţ Šüççëšš Řäţë\" ţö šëë ÿöüř çäĺĺƀäçķ þřöƀäƀïĺïţÿ !!!]",
     "neuralNetworkAnalysis": "[!!! Ñëüřäĺ Ñëţŵöřķ Äñäĺÿšïš !!!]",
-    "browserBasedAI": "[!!! Ɓřöŵšëř-ƀäšëđ ÄÏ þřëđïçţïöñ üšïñğ ä 4-ĺäÿëř ñëüřäĺ ñëţŵöřķ !!!]"
+    "browserBasedAI": "[!!! Ɓřöŵšëř-ƀäšëđ ÄÏ þřëđïçţïöñ üšïñğ ä 4-ĺäÿëř ñëüřäĺ ñëţŵöřķ !!!]",
+    "companyPlaceholder": "e.g., Medtronic",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
   },
   "video": {
     "title": "[!!! Ṽïđëö Ïñţëřṽïëŵ Þřäçţïçë !!!]",
@@ -409,7 +440,9 @@
     "uploadResumeFirst": "[!!! Þĺëäšë üþĺöäđ ÿöüř řëšüɱë ƒïřšţ !!!]",
     "generationFailed": "[!!! Ƒäïĺëđ ţö ğëñëřäţë çöṽëř ĺëţţëř !!!]",
     "pasteJobDescription": "[!!! Þäšţë ţħë ĵöƀ đëšçřïþţïöñ ħëřë... !!!]",
-    "generate": "[!!! Ǧëñëřäţë Çöṽëř Ĺëţţëř !!!]"
+    "generate": "[!!! Ǧëñëřäţë Çöṽëř Ĺëţţëř !!!]",
+    "companyPlaceholder": "e.g., Medtronic",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
   },
   "membership": {
     "membership": "[!!! Ɱëɱƀëřšħïþ !!!]",
@@ -549,7 +582,10 @@
     "yourName": "[!!! Ÿöüř ñäɱë !!!]",
     "enterCode": "[!!! Ëñţëř 6-đïğïţ çöđë !!!]",
     "verifyAndSignIn": "[!!! Ṽëřïƒÿ & Šïğñ Ïñ !!!]",
-    "changePhoneNumber": "[!!! Çħäñğë þħöñë ñüɱƀëř !!!]"
+    "changePhoneNumber": "[!!! Çħäñğë þħöñë ñüɱƀëř !!!]",
+    "emailPlaceholder": "you@example.com",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "passwordPlaceholder": "••••••••"
   },
   "onboarding": {
     "welcome": "[!!! Ŵëĺçöɱë ţö ⱮëđⱮäţçħ! !!!]",
@@ -619,7 +655,12 @@
     "respondFailed": "[!!! Ƒäïĺëđ ţö řëšþöñđ !!!]",
     "confirmCancel": "[!!! Äřë ÿöü šüřë ÿöü ŵäñţ ţö çäñçëĺ ţħïš ïñţëřṽïëŵ? !!!]",
     "cancelled": "[!!! Ïñţëřṽïëŵ çäñçëĺĺëđ !!!]",
-    "cancelFailed": "[!!! Ƒäïĺëđ ţö çäñçëĺ ïñţëřṽïëŵ !!!]"
+    "cancelFailed": "[!!! Ƒäïĺëđ ţö çäñçëĺ ïñţëřṽïëŵ !!!]",
+    "messageToRecruiterPlaceholder": "Add a message to the recruiter...",
+    "additionalInfoPlaceholder": "Any additional information...",
+    "selectCandidate": "Select a candidate",
+    "officeAddressPlaceholder": "Office address",
+    "meetingLinkPlaceholder": "https://zoom.us/j/..."
   },
   "verification": {
     "requestCreated": "[!!! Ṽëřïƒïçäţïöñ řëɋüëšţ çřëäţëđ !!!]",
@@ -686,7 +727,17 @@
     "genderMasculine": "[!!! Ɱäšçüĺïñë !!!]",
     "genderFeminine": "[!!! Ƒëɱïñïñë !!!]",
     "genderNeutral": "[!!! Ñëüţřäĺ !!!]",
-    "genderAuto": "[!!! Äüţö (Ĺäñğüäğë Đëƒäüĺţ) !!!]"
+    "genderAuto": "[!!! Äüţö (Ĺäñğüäğë Đëƒäüĺţ) !!!]",
+    "useBrowserTranslate": "Use Browser Translation",
+    "useGoogleTranslate": "Use Google Translate",
+    "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
+    "keepCurrentLanguage": "Keep English",
+    "switchToLanguage": "Switch to {{language}}",
+    "detectedBrowserLanguage": "We detected your browser language is {{language}}",
+    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
+    "openGoogleTranslate": "Open in Google Translate",
+    "languageSwitched": "Language switched to {{language}}",
+    "browserTranslationActive": "Browser translation is active"
   },
   "dragon": {
     "webSearch": "[!!! Ŵëƀ Šëäřçħ !!!]",
@@ -766,7 +817,10 @@
     "privacyNotice": "[!!! Ţħïš ƒëëđƀäçķ ŵïĺĺ ƀë šħäřëđ äñöñÿɱöüšĺÿ ŵïţħ ţħë çäñđïđäţë ţö ħëĺþ ţħëɱ ïɱþřöṽë. Ÿöüř ïđëñţïţÿ äñđ çöɱþäñÿ ŵïĺĺ ñöţ ƀë řëṽëäĺëđ. !!!]",
     "submit": "[!!! Šüƀɱïţ Ƒëëđƀäçķ !!!]",
     "submitted": "[!!! Ƒëëđƀäçķ šüƀɱïţţëđ šüççëššƒüĺĺÿ !!!]",
-    "submitFailed": "[!!! Ƒäïĺëđ ţö šüƀɱïţ ƒëëđƀäçķ !!!]"
+    "submitFailed": "[!!! Ƒäïĺëđ ţö šüƀɱïţ ƒëëđƀäçķ !!!]",
+    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
+    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
+    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
   },
   "extras": {
     "later": "[!!! Ĺäţëř !!!]",
@@ -1195,5 +1249,213 @@
     "upgrade": "[!!! Üþğřäđë !!!]",
     "downgrade": "[!!! Đöŵñğřäđë !!!]",
     "manageBilling": "[!!! Ɱäñäğë Ɓïĺĺïñğ !!!]"
+  },
+  "interviewCalendar": {
+    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerNamePlaceholder": "John Smith",
+    "companyPlaceholder": "e.g., Google",
+    "notesPlaceholder": "Any additional details about the interview...",
+    "positionPlaceholder": "e.g., Software Engineer",
+    "locationPlaceholder": "https://meet.google.com/... or office address"
+  },
+  "blindScreening": {
+    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
+    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
+    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+  },
+  "biometric": {
+    "settingUp": "Setting up biometrics...",
+    "notSupported": "Biometric authentication is not supported on this device",
+    "deviceName": "Device name (e.g., My MacBook)",
+    "registerWith": "Register with Biometrics",
+    "description": "Sign in securely using your fingerprint or face",
+    "enterEmail": "Please enter your email",
+    "loginFailed": "Login failed",
+    "loginSuccess": "Login successful!",
+    "secureLogin": "Secure passwordless login using your device's biometrics",
+    "emailPlaceholder": "Enter your email",
+    "loginCancelled": "Biometric login was cancelled or denied",
+    "title": "Biometric Login"
+  },
+  "psv": {
+    "npiNumber": "NPI Number (optional)",
+    "statePlaceholder": "State (e.g., CA, NY)",
+    "lastName": "Last Name",
+    "familyName": "Family Name",
+    "searchOrcid": "Search ORCID Registry",
+    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
+    "globalUniversitySearch": "Global University Database",
+    "universityDescription": "Verify educational institutions through the global university database",
+    "orSearchByName": "or search by name",
+    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
+    "givenNames": "Given Names",
+    "oigDescription": "Check if an individual is excluded from federal healthcare programs",
+    "firstName": "First Name",
+    "title": "Primary Source Verification Hub",
+    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
+    "subtitle": "Free self-service verification using public databases",
+    "universityName": "University Name",
+    "searchUniversities": "Search Universities",
+    "countryOptional": "Country (optional)"
+  },
+  "publicApplication": {
+    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "coverLetterPlaceholder": "Tell us why you're a great fit for this role...",
+    "emailPlaceholder": "john@example.com",
+    "namePlaceholder": "John Doe",
+    "portfolioPlaceholder": "https://yourportfolio.com"
+  },
+  "capa": {
+    "category": "Category",
+    "title": "Title",
+    "severityHigh": "High",
+    "evidencePlaceholder": "Evidence...",
+    "searchCapas": "Search CAPAs...",
+    "probableCausePlaceholder": "Description of the probable cause...",
+    "severityMedium": "Medium",
+    "categoryEnvironmental": "Environmental",
+    "severityCritical": "Critical",
+    "impactedProcesses": "Impacted Processes",
+    "capaType": "CAPA Type",
+    "titleAndStatementRequired": "Title and problem statement are required",
+    "allStatuses": "All Statuses",
+    "categoryProcess": "Process",
+    "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
+    "addProbableCause": "Add Probable Cause",
+    "categoryHuman": "Human",
+    "titlePlaceholder": "Brief title of the nonconformance",
+    "severityLow": "Low",
+    "categoryTechnical": "Technical",
+    "severity": "Severity",
+    "addCause": "Add Cause",
+    "problemStatementPlaceholder": "Detailed description of the issue...",
+    "source": "Source",
+    "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
+    "problemStatement": "Problem Statement"
+  },
+  "recruiterJobs": {
+    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
+    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+  },
+  "companyReview": {
+    "prosPlaceholder": "What did you like?",
+    "jobTitlePlaceholder": "e.g., Software Engineer",
+    "consPlaceholder": "What could be improved?",
+    "summaryPlaceholder": "Summarize your experience"
+  },
+  "translation": {
+    "failed": "Translation failed",
+    "selectTargetLanguage": "Select target language",
+    "translated": "Translated!",
+    "selectLanguage": "Select language",
+    "translate": "Translate",
+    "translating": "Translating..."
+  },
+  "atsManagement": {
+    "candidateNamePlaceholder": "John Doe",
+    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "candidateEmailPlaceholder": "candidate@example.com",
+    "selectJobPlaceholder": "Select a job posting",
+    "maxApplicantsPlaceholder": "Unlimited"
+  },
+  "applicantTracker": {
+    "searchPlaceholder": "Search applicants...",
+    "addNotePlaceholder": "Add a note..."
+  },
+  "reviews": {
+    "yourResponse": "Your Response",
+    "title": "Reviews",
+    "responsePlaceholder": "Thank the reviewer, provide context, or address any feedback professionally...",
+    "responseVisibility": "Your response will be visible to recruiters viewing your profile",
+    "submitResponse": "Submit Response",
+    "noReviews": "No reviews yet"
+  },
+  "recruiterVerification": {
+    "websitePlaceholder": "https://example.com",
+    "rolePlaceholder": "e.g., HR Manager",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "companyPlaceholder": "e.g., City Medical Center",
+    "linkedinPlaceholder": "https://linkedin.com/company/...",
+    "emailPlaceholder": "you@yourcompany.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+  },
+  "idVerification": {
+    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "namePlaceholder": "John Doe",
+    "domainPlaceholder": "acme.com",
+    "companyPlaceholder": "Acme Corporation",
+    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "websitePlaceholder": "https://acme.com"
+  },
+  "companiesPage": {
+    "websitePlaceholder": "https://...",
+    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
+    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
+    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)",
+    "searchPlaceholder": "Search companies...",
+    "foundedPlaceholder": "2020",
+    "industryPlaceholder": "Industry",
+    "companySizePlaceholder": "Company Size"
+  },
+  "candidateSearch": {
+    "keywordsPlaceholder": "e.g., senior, remote, healthcare...",
+    "skillsPlaceholder": "Type a skill and press Enter..."
+  },
+  "admin": {
+    "translationCoverageDesc": "Monitor translation completion across all languages",
+    "searchLanguages": "Search languages...",
+    "translationCoverage": "Translation Coverage",
+    "searchByCompanyOrEmail": "Search by company name or email..."
+  },
+  "location": {
+    "selectLocationPlaceholder": "Select your location..."
+  },
+  "karauMeet": {
+    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "emailPlaceholder": "your@email.com"
+  },
+  "enterpriseAPI": {
+    "webhookDescPlaceholder": "e.g., Production ATS webhook",
+    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+  },
+  "adminReviewModeration": {
+    "searchPlaceholder": "Search by reviewer, candidate, or content...",
+    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+  },
+  "contact": {
+    "declineReason": "e.g., Not looking for new opportunities right now"
+  },
+  "taxonomy": {
+    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+  },
+  "candidateTransparency": {
+    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+  },
+  "meetingNotes": {
+    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
+    "companyNamePlaceholder": "Company name",
+    "jobTitlePlaceholder": "Job title"
+  },
+  "credentialsPage": {
+    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+  },
+  "salaryInsights": {
+    "yearsPlaceholder": "5"
+  },
+  "adminDataIntegrity": {
+    "selectDateRangePlaceholder": "Select date range..."
+  },
+  "resumeProfiles": {
+    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+  },
+  "jobSearch": {
+    "selectCountryFirst": "Select Country First",
+    "selectCity": "Select City"
   }
 }

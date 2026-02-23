@@ -202,7 +202,8 @@
     "workType": "نوع العمل",
     "moreFilters": "مزيد من الفلاتر",
     "lessFilters": "فلاتر أقل",
-    "selectCountry": "اختر الدولة"
+    "selectCountry": "اختر الدولة",
+    "viewOriginal": "View Original"
   },
   "auth": {
     "signIn": "تسجيل الدخول",
@@ -235,7 +236,10 @@
     "yourName": "اسمك",
     "enterCode": "أدخل رمزًا مكوّنًا من 6 أرقام",
     "verifyAndSignIn": "تحقق وتسجيل الدخول",
-    "changePhoneNumber": "تغيير رقم الهاتف"
+    "changePhoneNumber": "تغيير رقم الهاتف",
+    "emailPlaceholder": "you@example.com",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "passwordPlaceholder": "••••••••"
   },
   "errors": {
     "somethingWentWrong": "حدث خطأ ما",
@@ -427,7 +431,12 @@
     "unavailable": "غير متاح",
     "timezone": "المنطقة الزمنية",
     "duration": "المدة",
-    "reminder": "تذكير"
+    "reminder": "تذكير",
+    "messageToRecruiterPlaceholder": "Add a message to the recruiter...",
+    "additionalInfoPlaceholder": "Any additional information...",
+    "selectCandidate": "Select a candidate",
+    "officeAddressPlaceholder": "Office address",
+    "meetingLinkPlaceholder": "https://zoom.us/j/..."
   },
   "predictor": {
     "jobDetailsDesc": "أدخل معلومات الوظيفة لتحليل فرصك",
@@ -489,7 +498,9 @@
     "quickScan": "مسح سريع",
     "fullReport": "تقرير كامل",
     "compareJobs": "مقارنة الوظائف",
-    "trackProgress": "تتبع التقدم"
+    "trackProgress": "تتبع التقدم",
+    "companyPlaceholder": "e.g., Medtronic",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
   },
   "jobAlerts": {
     "schedule": "الجدول",
@@ -587,7 +598,10 @@
     "takeTest": "إجراء اختبار",
     "certificate": "الشهادة",
     "trending": "الأكثر طلباً",
-    "recommended": "موصى به"
+    "recommended": "موصى به",
+    "generatingQuestions": "Generating AI questions... This may take 20-30 seconds",
+    "assessmentReady": "Assessment ready! Let's begin",
+    "generating": "Generating..."
   },
   "notifications": {
     "clearAll": "مسح الكل",
@@ -678,7 +692,10 @@
     "recommend": "توصية",
     "improve": "تحسين",
     "satisfaction": "الرضا",
-    "experience": "التجربة"
+    "experience": "التجربة",
+    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
+    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
+    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
   },
   "language": {
     "grammaticalGender": "الجنس النحوي",
@@ -704,7 +721,17 @@
     "translated": "مترجم",
     "supported": "مدعومة",
     "rtl": "من اليمين لليسار",
-    "ltr": "من اليسار لليمين"
+    "ltr": "من اليسار لليمين",
+    "useBrowserTranslate": "Use Browser Translation",
+    "useGoogleTranslate": "Use Google Translate",
+    "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
+    "keepCurrentLanguage": "Keep English",
+    "switchToLanguage": "Switch to {{language}}",
+    "detectedBrowserLanguage": "We detected your browser language is {{language}}",
+    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
+    "openGoogleTranslate": "Open in Google Translate",
+    "languageSwitched": "Language switched to {{language}}",
+    "browserTranslationActive": "Browser translation is active"
   },
   "recruiter": {
     "interviews": "المقابلات",
@@ -802,7 +829,13 @@
     "researching": "جارٍ البحث...",
     "research": "بحث",
     "researchFor": "بحث عن",
-    "skipQuestion": "تخطي السؤال"
+    "skipQuestion": "تخطي السؤال",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
+    "companyPlaceholder": "e.g., Medtronic",
+    "questionsPlaceholder": "Enter questions, one per line...",
+    "typeAnswerPlaceholder": "Type your answer here... (You have 2 minutes)",
+    "yourResumeSkills": "Your Resume Skills",
+    "jobDescriptionPlaceholder": "Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills..."
   },
   "membership": {
     "premium": "مميز",
@@ -915,7 +948,9 @@
     "long": "طويل",
     "company": "الشركة",
     "customize": "تخصيص",
-    "pasteJobDescription": "الصق وصف الوظيفة هنا..."
+    "pasteJobDescription": "الصق وصف الوظيفة هنا...",
+    "companyPlaceholder": "e.g., Medtronic",
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
   },
   "cloudStorage": {
     "supportedTypes": "المدعوم: PDF, DOC, DOCX",
@@ -1218,7 +1253,10 @@
     "companySize": "حجم الشركة",
     "selectSize": "اختر الحجم",
     "headquarters": "المقر الرئيسي",
-    "headquartersPlaceholder": "المدينة، الدولة"
+    "headquartersPlaceholder": "المدينة، الدولة",
+    "created": "Company profile created",
+    "followFailed": "Failed to follow company",
+    "createFailed": "Failed to create company"
   },
   "savedJobs": {
     "saveJobsHint": "احفظ الوظائف أثناء البحث لمراجعتها لاحقاً",
@@ -1658,7 +1696,10 @@
     "registerWith": "التسجيل باستخدام القياسات الحيوية",
     "notSupported": "المصادقة بالقياسات الحيوية غير مدعومة على هذا الجهاز",
     "enterEmail": "يرجى إدخال بريدك الإلكتروني",
-    "emailPlaceholder": "أدخل بريدك الإلكتروني"
+    "emailPlaceholder": "أدخل بريدك الإلكتروني",
+    "loginFailed": "Login failed",
+    "loginSuccess": "Login successful!",
+    "loginCancelled": "Biometric login was cancelled or denied"
   },
   "translation": {
     "selectLanguage": "اختر اللغة",
@@ -1672,7 +1713,9 @@
     "yourResponse": "ردّك",
     "responsePlaceholder": "اشكر المراجع، وقدّم سياقًا، أو عالج أي ملاحظات باحترافية...",
     "responseVisibility": "سيكون ردّك مرئيًا لمسؤولي التوظيف الذين يعرضون ملفك الشخصي",
-    "submitResponse": "إرسال الرد"
+    "submitResponse": "إرسال الرد",
+    "title": "Reviews",
+    "noReviews": "No reviews yet"
   },
   "capa": {
     "addProbableCause": "إضافة السبب المحتمل",
@@ -1685,6 +1728,171 @@
     "evidencePlaceholder": "الأدلة...",
     "addCause": "إضافة سبب",
     "searchCapas": "البحث في CAPA...",
-    "allStatuses": "جميع الحالات"
+    "allStatuses": "جميع الحالات",
+    "title": "Title",
+    "severityHigh": "High",
+    "severityMedium": "Medium",
+    "severityCritical": "Critical",
+    "impactedProcesses": "Impacted Processes",
+    "capaType": "CAPA Type",
+    "titleAndStatementRequired": "Title and problem statement are required",
+    "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
+    "titlePlaceholder": "Brief title of the nonconformance",
+    "severityLow": "Low",
+    "severity": "Severity",
+    "problemStatementPlaceholder": "Detailed description of the issue...",
+    "source": "Source",
+    "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
+    "problemStatement": "Problem Statement"
+  },
+  "interviewCalendar": {
+    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerNamePlaceholder": "John Smith",
+    "companyPlaceholder": "e.g., Google",
+    "notesPlaceholder": "Any additional details about the interview...",
+    "positionPlaceholder": "e.g., Software Engineer",
+    "locationPlaceholder": "https://meet.google.com/... or office address"
+  },
+  "blindScreening": {
+    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
+    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
+    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+  },
+  "psv": {
+    "npiNumber": "NPI Number (optional)",
+    "statePlaceholder": "State (e.g., CA, NY)",
+    "lastName": "Last Name",
+    "familyName": "Family Name",
+    "searchOrcid": "Search ORCID Registry",
+    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
+    "globalUniversitySearch": "Global University Database",
+    "universityDescription": "Verify educational institutions through the global university database",
+    "orSearchByName": "or search by name",
+    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
+    "givenNames": "Given Names",
+    "oigDescription": "Check if an individual is excluded from federal healthcare programs",
+    "firstName": "First Name",
+    "title": "Primary Source Verification Hub",
+    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
+    "subtitle": "Free self-service verification using public databases",
+    "universityName": "University Name",
+    "searchUniversities": "Search Universities",
+    "countryOptional": "Country (optional)"
+  },
+  "publicApplication": {
+    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "coverLetterPlaceholder": "Tell us why you're a great fit for this role...",
+    "emailPlaceholder": "john@example.com",
+    "namePlaceholder": "John Doe",
+    "portfolioPlaceholder": "https://yourportfolio.com"
+  },
+  "recruiterJobs": {
+    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
+    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+  },
+  "companyReview": {
+    "prosPlaceholder": "What did you like?",
+    "jobTitlePlaceholder": "e.g., Software Engineer",
+    "consPlaceholder": "What could be improved?",
+    "summaryPlaceholder": "Summarize your experience"
+  },
+  "atsManagement": {
+    "candidateNamePlaceholder": "John Doe",
+    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "candidateEmailPlaceholder": "candidate@example.com",
+    "selectJobPlaceholder": "Select a job posting",
+    "maxApplicantsPlaceholder": "Unlimited"
+  },
+  "applicantTracker": {
+    "searchPlaceholder": "Search applicants...",
+    "addNotePlaceholder": "Add a note..."
+  },
+  "recruiterVerification": {
+    "websitePlaceholder": "https://example.com",
+    "rolePlaceholder": "e.g., HR Manager",
+    "phonePlaceholder": "+1 (555) 123-4567",
+    "companyPlaceholder": "e.g., City Medical Center",
+    "linkedinPlaceholder": "https://linkedin.com/company/...",
+    "emailPlaceholder": "you@yourcompany.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+  },
+  "idVerification": {
+    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "namePlaceholder": "John Doe",
+    "domainPlaceholder": "acme.com",
+    "companyPlaceholder": "Acme Corporation",
+    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "websitePlaceholder": "https://acme.com"
+  },
+  "companiesPage": {
+    "websitePlaceholder": "https://...",
+    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
+    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
+    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)",
+    "searchPlaceholder": "Search companies...",
+    "foundedPlaceholder": "2020",
+    "industryPlaceholder": "Industry",
+    "companySizePlaceholder": "Company Size"
+  },
+  "candidateSearch": {
+    "keywordsPlaceholder": "e.g., senior, remote, healthcare...",
+    "skillsPlaceholder": "Type a skill and press Enter..."
+  },
+  "admin": {
+    "translationCoverageDesc": "Monitor translation completion across all languages",
+    "searchLanguages": "Search languages...",
+    "translationCoverage": "Translation Coverage",
+    "searchByCompanyOrEmail": "Search by company name or email..."
+  },
+  "location": {
+    "selectLocationPlaceholder": "Select your location..."
+  },
+  "karauMeet": {
+    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "emailPlaceholder": "your@email.com"
+  },
+  "enterpriseAPI": {
+    "webhookDescPlaceholder": "e.g., Production ATS webhook",
+    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+  },
+  "adminReviewModeration": {
+    "searchPlaceholder": "Search by reviewer, candidate, or content...",
+    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+  },
+  "contact": {
+    "declineReason": "e.g., Not looking for new opportunities right now"
+  },
+  "taxonomy": {
+    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+  },
+  "candidateTransparency": {
+    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+  },
+  "meetingNotes": {
+    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
+    "companyNamePlaceholder": "Company name",
+    "jobTitlePlaceholder": "Job title"
+  },
+  "credentialsPage": {
+    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+  },
+  "salaryInsights": {
+    "yearsPlaceholder": "5"
+  },
+  "adminDataIntegrity": {
+    "selectDateRangePlaceholder": "Select date range..."
+  },
+  "resumeProfiles": {
+    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+  },
+  "jobSearch": {
+    "selectCountryFirst": "Select Country First",
+    "selectCity": "Select City"
   }
 }
