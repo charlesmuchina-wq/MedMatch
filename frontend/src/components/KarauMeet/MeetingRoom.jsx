@@ -563,18 +563,19 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         );
         
         setIsConnecting(false);
-        toast.success('Joined meeting successfully!');
+        // No toast needed - the UI shows connection status
+        console.log('Joined meeting successfully');
       } else {
         // API failed but video should still display
         setIsConnecting(false);
         
         const errorMsg = apiResult.error?.message || 'Unknown error';
         if (errorMsg.includes('404')) {
-          toast.error('Meeting not found. Please check the meeting ID.');
+          toast.error('Meeting not found', { duration: 3000 });
         } else if (errorMsg.includes('401')) {
-          toast.error('Session expired. Please sign in again.');
+          toast.error('Session expired', { duration: 3000 });
         } else {
-          toast.error(`Connection error: ${errorMsg}. Your video is still active.`);
+          console.error('Connection error:', errorMsg);
         }
         
         // Set partial connection state - video works but not connected to meeting
