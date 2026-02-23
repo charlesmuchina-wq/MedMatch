@@ -869,9 +869,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         if (message.session_token) {
           sessionTokenRef.current = message.session_token;
         }
-        if (message.is_reconnection) {
-          toast.success('Reconnected to meeting');
-        }
+        // Don't show reconnection toast - it's too noisy
         break;
       
       case 'ping':
@@ -882,15 +880,26 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
       case 'user_joined':
         setParticipants(message.participants || []);
         if (message.user_id !== user?.user_id) {
-          await createPeerConnection(message.user_id, true);
-          toast.info(`${message.user_name} joined the meeting`);
+          try {
+            await createPeerConnection(message.user_id, true);
+          } catch (err) {
+            console.error('Failed to create peer connection:', err);
+          }
+          // Only show join notification if not in a reconnection scenario
+          if (!message.is_reconnection) {
+            toast.info(`${message.user_name} joined`, { duration: 2000 });
+          }
         }
         break;
         
       case 'user_left':
         setParticipants(message.participants || []);
         if (peerConnectionsRef.current[message.user_id]) {
-          peerConnectionsRef.current[message.user_id].close();
+          try {
+            peerConnectionsRef.current[message.user_id].close();
+          } catch (err) {
+            console.error('Error closing peer connection:', err);
+          }
           delete peerConnectionsRef.current[message.user_id];
         }
         setRemoteStreams(prev => {
@@ -898,7 +907,8 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
           delete updated[message.user_id];
           return updated;
         });
-        toast.info(`${message.user_name} left the meeting`);
+        // Brief notification
+        toast.info(`${message.user_name} left`, { duration: 2000 });
         break;
         
       case 'participant_state_changed':
@@ -913,11 +923,16 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         break;
         
       case 'offer':
-        await handleOffer(message);
+        try {
+          await handleOffer(message);
+        } catch (err) {
+          console.error('Error handling offer:', err);
+        }
         break;
         
       case 'answer':
-        await handleAnswer(message);
+        try {
+          await handleAnswer(message);
         break;
         
       case 'ice_candidate':
