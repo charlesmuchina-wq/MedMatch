@@ -30,13 +30,13 @@
     "generating": "Đang tạo...",
     "download": "Tải xuống",
     "filter": "Lọc",
-    "none": "None",
+    "none": "Không có",
     "upload": "Tải lên",
-    "sort": "Sort",
-    "more": "More",
+    "sort": "Sắp xếp",
+    "more": "Nhiều hơn",
     "help": "Trợ giúp",
-    "less": "Less",
-    "previous": "Previous"
+    "less": "Ít hơn",
+    "previous": "Trước"
   },
   "notifications": {
     "title": "Thông báo",
@@ -215,7 +215,7 @@
     "moreFilters": "Thêm bộ lọc",
     "lessFilters": "Ít bộ lọc hơn",
     "selectCountry": "Chọn quốc gia",
-    "viewOriginal": "View Original"
+    "viewOriginal": "Xem bản gốc"
   },
   "resume": {
     "myResume": "Hồ sơ xin việc của tôi",
@@ -296,12 +296,12 @@
     "research": "Nghiên cứu",
     "researchFor": "Nghiên cứu cho",
     "skipQuestion": "Bỏ qua câu hỏi",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
-    "companyPlaceholder": "e.g., Medtronic",
-    "questionsPlaceholder": "Enter questions, one per line...",
-    "typeAnswerPlaceholder": "Type your answer here... (You have 2 minutes)",
-    "yourResumeSkills": "Your Resume Skills",
-    "jobDescriptionPlaceholder": "Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills..."
+    "jobTitlePlaceholder": "ví dụ: Quản lý Chất lượng Nhà cung cấp",
+    "companyPlaceholder": "ví dụ: Medtronic",
+    "questionsPlaceholder": "Nhập câu hỏi, mỗi dòng một câu...",
+    "typeAnswerPlaceholder": "Nhập câu trả lời tại đây... (Bạn có 2 phút)",
+    "yourResumeSkills": "Kỹ năng trong CV của bạn",
+    "jobDescriptionPlaceholder": "Dán đầy đủ mô tả công việc tại đây. AI sẽ tạo các câu hỏi phỏng vấn phù hợp dựa trên yêu cầu và kỹ năng trong CV của bạn..."
   },
   "qaPractice": {
     "title": "Trình tạo câu trả lời Hỏi & Đáp",
@@ -350,9 +350,9 @@
     "keepPracticing": "Hãy tiếp tục luyện tập",
     "correct": "Đúng",
     "badgeEarned": "Bạn đã nhận được huy hiệu!",
-    "generatingQuestions": "Generating AI questions... This may take 20-30 seconds",
-    "assessmentReady": "Assessment ready! Let's begin",
-    "generating": "Generating..."
+    "generatingQuestions": "Đang tạo câu hỏi AI... Có thể mất 20-30 giây",
+    "assessmentReady": "Bài đánh giá đã sẵn sàng! Bắt đầu thôi",
+    "generating": "Đang tạo..."
   },
   "predictor": {
     "title": "Công cụ dự đoán khả năng ứng tuyển thành công",
@@ -389,8 +389,8 @@
     "enterJobDetails": "Nhập thông tin công việc và nhấp vào \"Dự đoán tỷ lệ thành công\" để xem xác suất được liên hệ lại của bạn",
     "neuralNetworkAnalysis": "Phân tích mạng nơ-ron",
     "browserBasedAI": "Dự đoán AI ngay trên trình duyệt bằng mạng nơ-ron 4 lớp",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "ví dụ: Medtronic",
+    "jobTitlePlaceholder": "ví dụ: Quản lý Chất lượng Nhà cung cấp"
   },
   "video": {
     "title": "Luyện tập phỏng vấn qua video",
@@ -449,8 +449,8 @@
     "generationFailed": "Không thể tạo thư xin việc",
     "pasteJobDescription": "Dán mô tả công việc vào đây...",
     "generate": "Tạo thư xin việc",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "vd: Medtronic",
+    "jobTitlePlaceholder": "vd: Quản lý chất lượng nhà cung cấp"
   },
   "membership": {
     "membership": "Tư cách thành viên",
@@ -664,10 +664,10 @@
     "confirmCancel": "Bạn có chắc chắn muốn hủy cuộc phỏng vấn này không?",
     "cancelled": "Đã hủy phỏng vấn",
     "cancelFailed": "Hủy phỏng vấn thất bại",
-    "messageToRecruiterPlaceholder": "Add a message to the recruiter...",
-    "additionalInfoPlaceholder": "Any additional information...",
-    "selectCandidate": "Select a candidate",
-    "officeAddressPlaceholder": "Office address",
+    "messageToRecruiterPlaceholder": "Thêm lời nhắn cho nhà tuyển dụng...",
+    "additionalInfoPlaceholder": "Thông tin bổ sung...",
+    "selectCandidate": "Chọn một ứng viên",
+    "officeAddressPlaceholder": "Địa chỉ văn phòng",
     "meetingLinkPlaceholder": "https://zoom.us/j/..."
   },
   "verification": {
@@ -693,9 +693,9 @@
     "selectSize": "Chọn quy mô",
     "headquarters": "Trụ sở chính",
     "headquartersPlaceholder": "Thành phố, Quốc gia",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company",
-    "createFailed": "Failed to create company"
+    "created": "Đã tạo hồ sơ công ty",
+    "followFailed": "Không thể theo dõi công ty",
+    "createFailed": "Không thể tạo công ty"
   },
   "analytics": {
     "loadFailed": "Không thể tải dữ liệu phân tích"
@@ -751,13 +751,13 @@
     "genderAuto": "Tự động (mặc định theo ngôn ngữ)",
     "useBrowserTranslate": "Dùng dịch trên trình duyệt",
     "useGoogleTranslate": "Dùng Google Dịch",
-    "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
-    "keepCurrentLanguage": "Keep English",
-    "switchToLanguage": "Switch to {{language}}",
-    "detectedBrowserLanguage": "We detected your browser language is {{language}}",
-    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
+    "googleTranslateDisclaimer": "Bạn cũng có thể dùng tính năng dịch tích hợp của trình duyệt (thường qua menu chuột phải hoặc cài đặt trình duyệt) để tự động dịch trang.",
+    "keepCurrentLanguage": "Giữ tiếng Anh",
+    "switchToLanguage": "Chuyển sang {{language}}",
+    "detectedBrowserLanguage": "Chúng tôi phát hiện ngôn ngữ trình duyệt của bạn là {{language}}",
+    "browserTranslationNote": "Trình duyệt của bạn hiện đang dịch trang này. Bộ chọn ngôn ngữ của ứng dụng đã được ẩn để tránh xung đột.",
     "openGoogleTranslate": "Mở trong Google Dịch",
-    "languageSwitched": "Language switched to {{language}}",
+    "languageSwitched": "Đã chuyển ngôn ngữ sang {{language}}",
     "browserTranslationActive": "Đang bật dịch trên trình duyệt"
   },
   "dragon": {
@@ -839,9 +839,9 @@
     "submit": "Gửi phản hồi",
     "submitted": "Đã gửi phản hồi thành công",
     "submitFailed": "Gửi phản hồi thất bại",
-    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
-    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
-    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
+    "experienceGapPlaceholder": "vd: Cần 5+ năm ở vai trò tương tự, ứng viên có 2 năm",
+    "skillsPlaceholder": "vd: Python, AWS, Kỹ năng lãnh đạo",
+    "improvementPlaceholder": "ví dụ: Lấy chứng chỉ AWS, thêm kinh nghiệm quản lý dự án"
   },
   "extras": {
     "later": "Để sau",
@@ -1294,9 +1294,9 @@
     "notSupported": "Thiết bị này không hỗ trợ xác thực sinh trắc học",
     "enterEmail": "Vui lòng nhập email của bạn",
     "emailPlaceholder": "Nhập email của bạn",
-    "loginFailed": "Login failed",
-    "loginSuccess": "Login successful!",
-    "loginCancelled": "Biometric login was cancelled or denied"
+    "loginFailed": "Đăng nhập thất bại",
+    "loginSuccess": "Đăng nhập thành công!",
+    "loginCancelled": "Đăng nhập sinh trắc học đã bị hủy hoặc bị từ chối"
   },
   "translation": {
     "selectLanguage": "Chọn ngôn ngữ",
@@ -1311,8 +1311,8 @@
     "responsePlaceholder": "Cảm ơn người đánh giá, cung cấp bối cảnh hoặc phản hồi một cách chuyên nghiệp về mọi ý kiến đóng góp...",
     "responseVisibility": "Phản hồi của bạn sẽ hiển thị với nhà tuyển dụng khi xem hồ sơ của bạn",
     "submitResponse": "Gửi phản hồi",
-    "title": "Reviews",
-    "noReviews": "No reviews yet"
+    "title": "Đánh giá",
+    "noReviews": "Chưa có đánh giá nào"
   },
   "capa": {
     "addProbableCause": "Thêm nguyên nhân có khả năng",
@@ -1326,29 +1326,29 @@
     "addCause": "Thêm nguyên nhân",
     "searchCapas": "Tìm kiếm CAPA...",
     "allStatuses": "Tất cả trạng thái",
-    "title": "Title",
-    "severityHigh": "High",
-    "severityMedium": "Medium",
-    "severityCritical": "Critical",
-    "impactedProcesses": "Impacted Processes",
-    "capaType": "CAPA Type",
-    "titleAndStatementRequired": "Title and problem statement are required",
-    "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
-    "titlePlaceholder": "Brief title of the nonconformance",
-    "severityLow": "Low",
-    "severity": "Severity",
-    "problemStatementPlaceholder": "Detailed description of the issue...",
-    "source": "Source",
-    "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
-    "problemStatement": "Problem Statement"
+    "title": "Tiêu đề",
+    "severityHigh": "Cao",
+    "severityMedium": "Trung bình",
+    "severityCritical": "Nghiêm trọng",
+    "impactedProcesses": "Quy trình bị ảnh hưởng",
+    "capaType": "Loại CAPA",
+    "titleAndStatementRequired": "Bắt buộc nhập tiêu đề và mô tả vấn đề",
+    "impactedProcessesPlaceholder": "ví dụ: Dịch thuật, Hiển thị UI, Bản địa hóa",
+    "titlePlaceholder": "Tiêu đề ngắn gọn của điểm không phù hợp",
+    "severityLow": "Thấp",
+    "severity": "Mức độ nghiêm trọng",
+    "problemStatementPlaceholder": "Mô tả chi tiết về vấn đề...",
+    "source": "Nguồn",
+    "sourcePlaceholder": "Nơi vấn đề được phát hiện (ví dụ: QA, Kiểm toán, Khách hàng)",
+    "problemStatement": "Mô tả vấn đề"
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
     "interviewerNamePlaceholder": "John Smith",
-    "companyPlaceholder": "e.g., Google",
-    "notesPlaceholder": "Any additional details about the interview...",
-    "positionPlaceholder": "e.g., Software Engineer",
-    "locationPlaceholder": "https://meet.google.com/... or office address"
+    "companyPlaceholder": "ví dụ: Google",
+    "notesPlaceholder": "Bất kỳ chi tiết bổ sung nào về buổi phỏng vấn...",
+    "positionPlaceholder": "ví dụ: Kỹ sư phần mềm",
+    "locationPlaceholder": "https://meet.google.com/... hoặc địa chỉ văn phòng"
   },
   "blindScreening": {
     "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
@@ -1356,31 +1356,31 @@
     "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
   },
   "psv": {
-    "npiNumber": "NPI Number (optional)",
-    "statePlaceholder": "State (e.g., CA, NY)",
-    "lastName": "Last Name",
-    "familyName": "Family Name",
-    "searchOrcid": "Search ORCID Registry",
-    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
-    "globalUniversitySearch": "Global University Database",
-    "universityDescription": "Verify educational institutions through the global university database",
-    "orSearchByName": "or search by name",
-    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
-    "givenNames": "Given Names",
-    "oigDescription": "Check if an individual is excluded from federal healthcare programs",
-    "firstName": "First Name",
-    "title": "Primary Source Verification Hub",
-    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
-    "subtitle": "Free self-service verification using public databases",
-    "universityName": "University Name",
-    "searchUniversities": "Search Universities",
-    "countryOptional": "Country (optional)"
+    "npiNumber": "Số NPI (không bắt buộc)",
+    "statePlaceholder": "Bang (ví dụ: CA, NY)",
+    "lastName": "Họ",
+    "familyName": "Họ",
+    "searchOrcid": "Tìm kiếm sổ đăng ký ORCID",
+    "npiDescription": "Xác minh nhà cung cấp dịch vụ y tế tại Mỹ qua cơ sở dữ liệu National Provider Identifier của CMS",
+    "globalUniversitySearch": "Cơ sở dữ liệu đại học toàn cầu",
+    "universityDescription": "Xác minh cơ sở giáo dục qua cơ sở dữ liệu đại học toàn cầu",
+    "orSearchByName": "hoặc tìm theo tên",
+    "orcidIdPlaceholder": "ORCID iD (ví dụ: 0000-0001-2345-6789)",
+    "givenNames": "Tên",
+    "oigDescription": "Kiểm tra xem một cá nhân có bị loại khỏi các chương trình y tế liên bang hay không",
+    "firstName": "Tên",
+    "title": "Trung tâm xác minh nguồn chính",
+    "orcidDescription": "Xác minh nhà nghiên cứu và nhà khoa học qua sổ đăng ký công khai ORCID",
+    "subtitle": "Xác minh tự phục vụ miễn phí bằng cơ sở dữ liệu công khai",
+    "universityName": "Tên trường đại học",
+    "searchUniversities": "Tìm kiếm trường đại học",
+    "countryOptional": "Quốc gia (không bắt buộc)"
   },
   "publicApplication": {
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
+    "resumeLinkPlaceholder": "Liên kết đến CV của bạn (Google Drive, Dropbox, v.v.)",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "coverLetterPlaceholder": "Tell us why you're a great fit for this role...",
+    "coverLetterPlaceholder": "Hãy cho chúng tôi biết vì sao bạn phù hợp với vị trí này...",
     "emailPlaceholder": "john@example.com",
     "namePlaceholder": "John Doe",
     "portfolioPlaceholder": "https://yourportfolio.com"
@@ -1391,10 +1391,10 @@
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
-    "prosPlaceholder": "What did you like?",
-    "jobTitlePlaceholder": "e.g., Software Engineer",
-    "consPlaceholder": "What could be improved?",
-    "summaryPlaceholder": "Summarize your experience"
+    "prosPlaceholder": "Bạn thích điều gì?",
+    "jobTitlePlaceholder": "VD: Kỹ sư Phần mềm",
+    "consPlaceholder": "Điều gì có thể cải thiện?",
+    "summaryPlaceholder": "Tóm tắt kinh nghiệm của bạn"
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
@@ -1426,23 +1426,23 @@
   },
   "companiesPage": {
     "websitePlaceholder": "https://...",
-    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
-    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
-    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)",
-    "searchPlaceholder": "Search companies...",
+    "techStackPlaceholder": "AI, Học máy, Y tế (phân tách bằng dấu phẩy)",
+    "benefitsPlaceholder": "Làm việc từ xa, Bảo hiểm y tế, 401k (phân tách bằng dấu phẩy)",
+    "culturePlaceholder": "Đổi mới, Hợp tác, Đa dạng (phân tách bằng dấu phẩy)",
+    "searchPlaceholder": "Tìm kiếm công ty...",
     "foundedPlaceholder": "2020",
-    "industryPlaceholder": "Industry",
-    "companySizePlaceholder": "Company Size"
+    "industryPlaceholder": "Ngành",
+    "companySizePlaceholder": "Quy mô công ty"
   },
   "candidateSearch": {
-    "keywordsPlaceholder": "e.g., senior, remote, healthcare...",
-    "skillsPlaceholder": "Type a skill and press Enter..."
+    "keywordsPlaceholder": "VD: senior, remote, healthcare...",
+    "skillsPlaceholder": "Nhập một kỹ năng và nhấn Enter..."
   },
   "admin": {
-    "translationCoverageDesc": "Monitor translation completion across all languages",
-    "searchLanguages": "Search languages...",
-    "translationCoverage": "Translation Coverage",
-    "searchByCompanyOrEmail": "Search by company name or email..."
+    "translationCoverageDesc": "Theo dõi tiến độ hoàn thành bản dịch trên tất cả ngôn ngữ",
+    "searchLanguages": "Tìm kiếm ngôn ngữ...",
+    "translationCoverage": "Phạm vi dịch",
+    "searchByCompanyOrEmail": "Tìm theo tên công ty hoặc email..."
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."
@@ -1450,7 +1450,7 @@
   "karauMeet": {
     "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
     "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "meetingTitlePlaceholder": "Cuộc họp AI KARAU",
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
@@ -1463,21 +1463,21 @@
     "rejectionReasonPlaceholder": "Provide a reason for rejection..."
   },
   "contact": {
-    "declineReason": "e.g., Not looking for new opportunities right now"
+    "declineReason": "ví dụ: Hiện không tìm kiếm cơ hội mới"
   },
   "taxonomy": {
-    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+    "searchPlaceholder": "Tìm kiếm vị trí (ví dụ: 'Kỹ sư y sinh', 'Nghiên cứu lâm sàng')"
   },
   "candidateTransparency": {
     "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
   },
   "meetingNotes": {
-    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
-    "companyNamePlaceholder": "Company name",
-    "jobTitlePlaceholder": "Job title"
+    "meetingTitlePlaceholder": "ví dụ: Phỏng vấn với Acme Corp",
+    "companyNamePlaceholder": "Tên công ty",
+    "jobTitlePlaceholder": "Chức danh"
   },
   "credentialsPage": {
-    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+    "searchPlaceholder": "Tìm kiếm chứng chỉ (ví dụ: CQE, ISO 13485, RN)..."
   },
   "salaryInsights": {
     "yearsPlaceholder": "5"
@@ -1486,7 +1486,7 @@
     "selectDateRangePlaceholder": "Select date range..."
   },
   "resumeProfiles": {
-    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+    "profileNamePlaceholder": "ví dụ: CV Kỹ thuật, CV Quản lý"
   },
   "jobSearch": {
     "selectCountryFirst": "Select Country First",
