@@ -566,9 +566,6 @@ const TranslationCoverageDashboard = () => {
         </CardContent>
       </Card>
 
-      {/* Tutorial Audio Coverage */}
-      <TutorialAudioSection />
-
       {/* Pseudo-locale Testing Info */}
       <Card className="border-dashed border-2 border-amber-300 dark:border-amber-600">
         <CardHeader>
@@ -587,6 +584,13 @@ const TranslationCoverageDashboard = () => {
           </Badge>
         </CardContent>
       </Card>
+        </TabsContent>
+
+        {/* Tutorial Audio Tab */}
+        <TabsContent value="audio">
+          <TutorialAudioSection />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
