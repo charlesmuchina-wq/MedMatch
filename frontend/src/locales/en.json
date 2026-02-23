@@ -1067,13 +1067,26 @@
       "headquarters": "Headquarters"
     },
     "portalSelector": {
-      "title": "AI KARAU Portal",
+      "welcomeTo": "Welcome to",
+      "title": "MedMatch-AI KARAU",
       "subtitle": "Choose your destination",
+      "medmatchAI": "MedMatch AI",
       "jobToolkit": "Job Toolkit",
-      "jobToolkitDesc": "AI-powered job search and career tools",
-      "meetingPortal": "Meeting Portal",
-      "meetingPortalDesc": "Secure video conferencing",
-      "enterPortal": "Enter Portal"
+      "jobToolkitDesc": "AI-powered job search and career tools for life sciences professionals",
+      "resumeParser": "Resume Parser & Builder",
+      "aiJobMatching": "AI Job Matching",
+      "recruiterNetwork": "Recruiter Network",
+      "enterJobToolkit": "Enter Job Toolkit",
+      "aiKarau": "AI KARAU",
+      "meetingPortal": "Meeting",
+      "meetingPortalDesc": "Secure video conferencing with AI transcription and collaboration tools",
+      "hdVideoAudio": "HD Video & Audio",
+      "aiTranscription": "AI Transcription",
+      "e2eEncrypted": "E2E Encrypted",
+      "enterMeetingPortal": "Enter Meeting Portal",
+      "enterPortal": "Enter Portal",
+      "poweredByAI": "Powered by AI",
+      "trustedBy": "Trusted by Life Sciences Professionals"
     },
     "dragonAutomator": {
       "title": "KARAU Automator",
