@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useTranslation, LANGUAGE_META, BUNDLED_LANGUAGES } from "@/utils/i18n";
 import { 
   Globe, CheckCircle, AlertTriangle, XCircle, RefreshCw, 
-  BarChart3, Languages, FileText, Search, ChevronDown
+  BarChart3, Languages, FileText, Search, ChevronDown, Volume2, Loader2
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import axios from 'axios';
+import { toast } from 'sonner';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
