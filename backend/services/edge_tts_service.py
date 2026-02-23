@@ -387,7 +387,127 @@ Sie besitzen Ihre Daten und können sie jederzeit löschen. Ihr Vertrauen ist un
 すべての個人データに銀行レベルの暗号化を使用しています。
 採用担当者に見せる情報を正確にコントロールできます。
 求職活動は完全に機密保持されます。GDPRおよびグローバルなプライバシー法を遵守しています。
-データはあなたのものであり、いつでも削除できます。信頼が私たちの優先事項です。"""
+データはあなたのものであり、いつでも削除できます。信頼が私たちの優先事項です。""",
+        
+        "zh": """您的隐私在MedMatch-AI KARAU很重要。
+我们对您所有的个人数据使用银行级加密。
+精确控制招聘人员可以看到关于您的哪些信息。
+您的求职完全保密。我们遵守GDPR和全球隐私法律。
+您拥有自己的数据，可以随时删除。您的信任是我们的首要任务。""",
+        
+        "ko": """MedMatch-AI KARAU에서 귀하의 개인정보는 중요합니다.
+모든 개인 데이터에 은행 수준의 암호화를 사용합니다.
+채용 담당자가 귀하에 대해 볼 수 있는 정보를 정확하게 제어하세요.
+구직 활동은 완전히 기밀로 유지됩니다. GDPR 및 글로벌 개인정보 보호법을 준수합니다.
+데이터는 귀하의 것이며 언제든지 삭제할 수 있습니다. 귀하의 신뢰가 우리의 최우선입니다.""",
+        
+        "it": """La tua privacy conta su MedMatch-AI KARAU.
+Utilizziamo crittografia di livello bancario per tutti i tuoi dati personali.
+Controlla esattamente cosa possono vedere i recruiter su di te.
+La tua ricerca di lavoro rimane completamente confidenziale. Rispettiamo il GDPR e le leggi globali sulla privacy.
+I tuoi dati sono tuoi e puoi cancellarli in qualsiasi momento. La tua fiducia è la nostra priorità.""",
+        
+        "pt": """Sua privacidade importa no MedMatch-AI KARAU.
+Usamos criptografia de nível bancário para todos os seus dados pessoais.
+Controle exatamente o que os recrutadores podem ver sobre você.
+Sua busca de emprego permanece completamente confidencial. Cumprimos com GDPR e leis de privacidade globais.
+Você é dono dos seus dados e pode deletá-los a qualquer momento. Sua confiança é nossa prioridade.""",
+        
+        "nl": """Uw privacy is belangrijk bij MedMatch-AI KARAU.
+Wij gebruiken versleuteling op bankniveau voor al uw persoonlijke gegevens.
+Bepaal precies wat recruiters over u kunnen zien.
+Uw zoektocht naar werk blijft volledig vertrouwelijk. Wij voldoen aan GDPR en wereldwijde privacywetten.
+U bent eigenaar van uw gegevens en kunt ze op elk moment verwijderen. Uw vertrouwen is onze prioriteit.""",
+        
+        "pl": """Twoja prywatność ma znaczenie w MedMatch-AI KARAU.
+Używamy szyfrowania na poziomie bankowym dla wszystkich Twoich danych osobowych.
+Kontroluj dokładnie, co rekruterzy mogą o Tobie zobaczyć.
+Twoje poszukiwanie pracy pozostaje całkowicie poufne. Przestrzegamy RODO i globalnych przepisów o ochronie prywatności.
+Jesteś właścicielem swoich danych i możesz je usunąć w dowolnym momencie. Twoje zaufanie jest naszym priorytetem.""",
+        
+        "sv": """Din integritet är viktig hos MedMatch-AI KARAU.
+Vi använder kryptering på banknivå för all din personliga data.
+Kontrollera exakt vad rekryterare kan se om dig.
+Din jobbsökning förblir helt konfidentiell. Vi följer GDPR och globala integritetslagar.
+Du äger din data och kan radera den när som helst. Ditt förtroende är vår prioritet.""",
+        
+        "ru": """Ваша конфиденциальность важна для MedMatch-AI KARAU.
+Мы используем шифрование банковского уровня для всех ваших личных данных.
+Контролируйте, что именно рекрутеры могут видеть о вас.
+Ваш поиск работы остается полностью конфиденциальным. Мы соблюдаем GDPR и мировые законы о конфиденциальности.
+Вы владеете своими данными и можете удалить их в любое время. Ваше доверие - наш приоритет.""",
+        
+        "vi": """Quyền riêng tư của bạn quan trọng tại MedMatch-AI KARAU.
+Chúng tôi sử dụng mã hóa cấp ngân hàng cho tất cả dữ liệu cá nhân của bạn.
+Kiểm soát chính xác những gì nhà tuyển dụng có thể thấy về bạn.
+Việc tìm kiếm việc làm của bạn hoàn toàn được bảo mật. Chúng tôi tuân thủ GDPR và luật bảo mật toàn cầu.
+Bạn sở hữu dữ liệu của mình và có thể xóa bất cứ lúc nào. Sự tin tưởng của bạn là ưu tiên của chúng tôi.""",
+        
+        "hi": """MedMatch-AI KARAU में आपकी गोपनीयता महत्वपूर्ण है।
+हम आपके सभी व्यक्तिगत डेटा के लिए बैंक-स्तरीय एन्क्रिप्शन का उपयोग करते हैं।
+भर्तीकर्ता आपके बारे में क्या देख सकते हैं, इसे सटीक रूप से नियंत्रित करें।
+आपकी नौकरी खोज पूरी तरह से गोपनीय रहती है। हम GDPR और वैश्विक गोपनीयता कानूनों का पालन करते हैं।
+आप अपने डेटा के मालिक हैं और इसे कभी भी हटा सकते हैं। आपका विश्वास हमारी प्राथमिकता है।""",
+        
+        "th": """ความเป็นส่วนตัวของคุณสำคัญที่ MedMatch-AI KARAU
+เราใช้การเข้ารหัสระดับธนาคารสำหรับข้อมูลส่วนบุคคลทั้งหมดของคุณ
+ควบคุมสิ่งที่ผู้สรรหาสามารถเห็นเกี่ยวกับคุณได้อย่างแม่นยำ
+การหางานของคุณยังคงเป็นความลับอย่างสมบูรณ์ เราปฏิบัติตาม GDPR และกฎหมายความเป็นส่วนตัวทั่วโลก
+คุณเป็นเจ้าของข้อมูลของคุณและสามารถลบได้ทุกเมื่อ ความไว้วางใจของคุณคือสิ่งสำคัญของเรา""",
+        
+        "id": """Privasi Anda penting di MedMatch-AI KARAU.
+Kami menggunakan enkripsi tingkat bank untuk semua data pribadi Anda.
+Kontrol dengan tepat apa yang dapat dilihat perekrut tentang Anda.
+Pencarian kerja Anda tetap sepenuhnya rahasia. Kami mematuhi GDPR dan undang-undang privasi global.
+Anda memiliki data Anda dan dapat menghapusnya kapan saja. Kepercayaan Anda adalah prioritas kami.""",
+        
+        "ar": """خصوصيتك مهمة في MedMatch-AI KARAU.
+نستخدم تشفيراً على مستوى البنوك لجميع بياناتك الشخصية.
+تحكم بالضبط فيما يمكن للمجندين رؤيته عنك.
+يبقى بحثك عن عمل سرياً تماماً. نلتزم بـGDPR وقوانين الخصوصية العالمية.
+أنت تملك بياناتك ويمكنك حذفها في أي وقت. ثقتك هي أولويتنا.""",
+        
+        "tr": """MedMatch-AI KARAU'da gizliliğiniz önemlidir.
+Tüm kişisel verileriniz için banka düzeyinde şifreleme kullanıyoruz.
+İşe alım uzmanlarının sizin hakkınızda ne görebileceğini tam olarak kontrol edin.
+İş aramanız tamamen gizli kalır. GDPR ve küresel gizlilik yasalarına uyuyoruz.
+Verilerinizin sahibi sizsiniz ve istediğiniz zaman silebilirsiniz. Güveniniz önceliğimizdir.""",
+        
+        "he": """הפרטיות שלך חשובה ב-MedMatch-AI KARAU.
+אנו משתמשים בהצפנה ברמת בנק לכל הנתונים האישיים שלך.
+שלוט בדיוק מה מגייסים יכולים לראות עליך.
+חיפוש העבודה שלך נשאר חסוי לחלוטין. אנו מצייתים ל-GDPR ולחוקי פרטיות גלובליים.
+אתה בעל הנתונים שלך ויכול למחוק אותם בכל עת. האמון שלך הוא בראש סדר העדיפויות שלנו.""",
+        
+        "sw": """Faragha yako ni muhimu katika MedMatch-AI KARAU.
+Tunatumia usimbaji wa kiwango cha benki kwa data yako yote ya kibinafsi.
+Dhibiti kwa usahihi waajiri wanaweza kuona nini kuhusu wewe.
+Utafutaji wako wa kazi unabaki siri kabisa. Tunafuata GDPR na sheria za faragha za kimataifa.
+Unamiliki data yako na unaweza kuifuta wakati wowote. Uaminifu wako ni kipaumbele chetu.""",
+        
+        "af": """Jou privaatheid is belangrik by MedMatch-AI KARAU.
+Ons gebruik bank-vlak enkripsie vir al jou persoonlike data.
+Beheer presies wat werwers oor jou kan sien.
+Jou werksoektog bly heeltemal vertroulik. Ons voldoen aan GDPR en globale privaatheidswette.
+Jy besit jou data en kan dit enige tyd uitvee. Jou vertroue is ons prioriteit.""",
+        
+        "zu": """Ubumfihlo bakho bubalulekile ku-MedMatch-AI KARAU.
+Sisebenzisa ukubethela kwezinga lebhange kuyo yonke idatha yakho yomuntu siqu.
+Lawula ngqo ukuthi abaqashi bangabona ini ngawe.
+Ukufuna kwakho umsebenzi kuhlala kuyimfihlo ngokuphelele. Silandela i-GDPR nemithetho yobumfihlo bomhlaba wonke.
+Ungumnikazi wedatha yakho futhi ungayisusa noma nini. Ukwethemba kwakho kuyinto yethu ebalulekile.""",
+        
+        "tl": """Mahalaga ang iyong privacy sa MedMatch-AI KARAU.
+Gumagamit kami ng bank-level encryption para sa lahat ng iyong personal na data.
+Kontrolin kung ano mismo ang makikita ng mga recruiter tungkol sa iyo.
+Nananatiling ganap na confidential ang iyong job search. Sumusunod kami sa GDPR at global privacy laws.
+Ikaw ang may-ari ng iyong data at maaari mo itong burahin anumang oras. Ang iyong tiwala ang aming prayoridad.""",
+        
+        "am": """ግላዊነትዎ በMedMatch-AI KARAU ላይ አስፈላጊ ነው።
+ለሁሉም የግል ውሂብዎ የባንክ ደረጃ ምስጠራ እንጠቀማለን።
+ቀጣሪዎች ስለ እርስዎ ምን ማየት እንደሚችሉ በትክክል ይቆጣጠሩ።
+የስራ ፍለጋዎ ሙሉ በሙሉ ሚስጥራዊ ሆኖ ይቆያል። GDPR እና ዓለም አቀፍ የግላዊነት ህጎችን እናከብራለን።
+ውሂብዎ የእርስዎ ነው እና በማንኛውም ጊዜ መሰረዝ ይችላሉ። እምነትዎ ቅድሚያ የሚሰጠን ነው።"""
     },
     
     "04_faq_ai_compliance": {
