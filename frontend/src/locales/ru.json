@@ -30,13 +30,13 @@
     "generating": "Создание...",
     "download": "Скачать",
     "filter": "Фильтр",
-    "none": "None",
+    "none": "Нет",
     "upload": "Загрузить",
-    "sort": "Sort",
-    "more": "More",
+    "sort": "Сортировка",
+    "more": "Больше",
     "help": "Помощь",
-    "less": "Less",
-    "previous": "Previous"
+    "less": "Меньше",
+    "previous": "Назад"
   },
   "notifications": {
     "title": "Уведомления",
@@ -215,7 +215,7 @@
     "moreFilters": "Больше фильтров",
     "lessFilters": "Меньше фильтров",
     "selectCountry": "Выберите страну",
-    "viewOriginal": "View Original"
+    "viewOriginal": "Просмотреть оригинал"
   },
   "resume": {
     "myResume": "Моё резюме",
@@ -296,12 +296,12 @@
     "research": "Исследовать",
     "researchFor": "Исследование для",
     "skipQuestion": "Пропустить вопрос",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
-    "companyPlaceholder": "e.g., Medtronic",
-    "questionsPlaceholder": "Enter questions, one per line...",
-    "typeAnswerPlaceholder": "Type your answer here... (You have 2 minutes)",
-    "yourResumeSkills": "Your Resume Skills",
-    "jobDescriptionPlaceholder": "Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills..."
+    "jobTitlePlaceholder": "например, менеджер по качеству поставщиков",
+    "companyPlaceholder": "например, Medtronic",
+    "questionsPlaceholder": "Введите вопросы, по одному в строке...",
+    "typeAnswerPlaceholder": "Введите ответ здесь... (у вас 2 минуты)",
+    "yourResumeSkills": "Навыки из вашего резюме",
+    "jobDescriptionPlaceholder": "Вставьте сюда полное описание вакансии. ИИ сгенерирует релевантные вопросы для собеседования на основе требований и навыков из вашего резюме..."
   },
   "qaPractice": {
     "title": "Генератор ответов на вопросы",
@@ -350,9 +350,9 @@
     "keepPracticing": "Продолжайте тренироваться",
     "correct": "правильно",
     "badgeEarned": "Значок получен!",
-    "generatingQuestions": "Generating AI questions... This may take 20-30 seconds",
-    "assessmentReady": "Assessment ready! Let's begin",
-    "generating": "Generating..."
+    "generatingQuestions": "Генерация вопросов ИИ... Это может занять 20–30 секунд",
+    "assessmentReady": "Оценка готова! Начнём",
+    "generating": "Генерация..."
   },
   "predictor": {
     "title": "Прогноз успешности отклика",
@@ -389,8 +389,8 @@
     "enterJobDetails": "Введите данные о вакансии и нажмите «Predict Success Rate», чтобы увидеть вероятность получения ответа",
     "neuralNetworkAnalysis": "Анализ нейронной сети",
     "browserBasedAI": "Прогноз ИИ в браузере с использованием 4-слойной нейронной сети",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "например, Medtronic",
+    "jobTitlePlaceholder": "например, менеджер по качеству поставщиков"
   },
   "video": {
     "title": "Тренировка видеоинтервью",
@@ -449,8 +449,8 @@
     "generationFailed": "Не удалось сгенерировать сопроводительное письмо",
     "pasteJobDescription": "Вставьте описание вакансии сюда...",
     "generate": "Сгенерировать сопроводительное письмо",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "напр., Medtronic",
+    "jobTitlePlaceholder": "напр., менеджер по качеству поставщиков"
   },
   "membership": {
     "membership": "Подписка",
@@ -664,10 +664,10 @@
     "confirmCancel": "Вы уверены, что хотите отменить это собеседование?",
     "cancelled": "Собеседование отменено",
     "cancelFailed": "Не удалось отменить собеседование",
-    "messageToRecruiterPlaceholder": "Add a message to the recruiter...",
-    "additionalInfoPlaceholder": "Any additional information...",
-    "selectCandidate": "Select a candidate",
-    "officeAddressPlaceholder": "Office address",
+    "messageToRecruiterPlaceholder": "Добавьте сообщение рекрутеру...",
+    "additionalInfoPlaceholder": "Любая дополнительная информация...",
+    "selectCandidate": "Выберите кандидата",
+    "officeAddressPlaceholder": "Адрес офиса",
     "meetingLinkPlaceholder": "https://zoom.us/j/..."
   },
   "verification": {
@@ -693,9 +693,9 @@
     "selectSize": "Выберите размер",
     "headquarters": "Штаб-квартира",
     "headquartersPlaceholder": "Город, страна",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company",
-    "createFailed": "Failed to create company"
+    "created": "Профиль компании создан",
+    "followFailed": "Не удалось подписаться на компанию",
+    "createFailed": "Не удалось создать компанию"
   },
   "analytics": {
     "loadFailed": "Не удалось загрузить аналитику"
@@ -751,13 +751,13 @@
     "genderAuto": "Авто (по умолчанию для языка)",
     "useBrowserTranslate": "Использовать перевод браузера",
     "useGoogleTranslate": "Использовать Google Translate",
-    "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
-    "keepCurrentLanguage": "Keep English",
-    "switchToLanguage": "Switch to {{language}}",
-    "detectedBrowserLanguage": "We detected your browser language is {{language}}",
-    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
+    "googleTranslateDisclaimer": "Вы также можете использовать встроенную в браузер функцию перевода (обычно через меню по правому клику или в настройках браузера) для автоматического перевода страницы.",
+    "keepCurrentLanguage": "Оставить английский",
+    "switchToLanguage": "Переключить на {{language}}",
+    "detectedBrowserLanguage": "Мы определили, что язык вашего браузера — {{language}}",
+    "browserTranslationNote": "Ваш браузер сейчас переводит эту страницу. Переключатель языка в приложении скрыт, чтобы избежать конфликтов.",
     "openGoogleTranslate": "Открыть в Google Translate",
-    "languageSwitched": "Language switched to {{language}}",
+    "languageSwitched": "Язык переключен на {{language}}",
     "browserTranslationActive": "Перевод в браузере включён"
   },
   "dragon": {
@@ -839,9 +839,9 @@
     "submit": "Отправить отзыв",
     "submitted": "Отзыв успешно отправлен",
     "submitFailed": "Не удалось отправить отзыв",
-    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
-    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
-    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
+    "experienceGapPlaceholder": "напр., Требовалось 5+ лет на аналогичной должности, у кандидата 2 года",
+    "skillsPlaceholder": "напр., Python, AWS, управление командой",
+    "improvementPlaceholder": "например: получить сертификацию AWS, больше опыта в управлении проектами"
   },
   "extras": {
     "later": "Позже",
@@ -954,7 +954,7 @@
       "enterJobToolkit": "Войти в набор инструментов"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "Автоматизатор KARAU",
       "subtitle": "Автоматизируйте процесс поиска работы",
       "startAutomation": "Запустить автоматизацию",
       "stopAutomation": "Остановить автоматизацию",
@@ -1294,9 +1294,9 @@
     "notSupported": "Биометрическая аутентификация не поддерживается на этом устройстве",
     "enterEmail": "Пожалуйста, введите ваш адрес электронной почты",
     "emailPlaceholder": "Введите ваш адрес электронной почты",
-    "loginFailed": "Login failed",
-    "loginSuccess": "Login successful!",
-    "loginCancelled": "Biometric login was cancelled or denied"
+    "loginFailed": "Ошибка входа",
+    "loginSuccess": "Вход выполнен успешно!",
+    "loginCancelled": "Биометрический вход отменён или отклонён"
   },
   "translation": {
     "selectLanguage": "Выберите язык",
@@ -1311,8 +1311,8 @@
     "responsePlaceholder": "Поблагодарите автора отзыва, предоставьте контекст или профессионально ответьте на любые замечания...",
     "responseVisibility": "Ваш ответ будет виден рекрутерам, просматривающим ваш профиль",
     "submitResponse": "Отправить ответ",
-    "title": "Reviews",
-    "noReviews": "No reviews yet"
+    "title": "Отзывы",
+    "noReviews": "Пока нет отзывов"
   },
   "capa": {
     "addProbableCause": "Добавить вероятную причину",
@@ -1326,29 +1326,29 @@
     "addCause": "Добавить причину",
     "searchCapas": "Поиск CAPA...",
     "allStatuses": "Все статусы",
-    "title": "Title",
-    "severityHigh": "High",
-    "severityMedium": "Medium",
-    "severityCritical": "Critical",
-    "impactedProcesses": "Impacted Processes",
-    "capaType": "CAPA Type",
-    "titleAndStatementRequired": "Title and problem statement are required",
-    "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
-    "titlePlaceholder": "Brief title of the nonconformance",
-    "severityLow": "Low",
-    "severity": "Severity",
-    "problemStatementPlaceholder": "Detailed description of the issue...",
-    "source": "Source",
-    "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
-    "problemStatement": "Problem Statement"
+    "title": "Заголовок",
+    "severityHigh": "Высокая",
+    "severityMedium": "Средняя",
+    "severityCritical": "Критическая",
+    "impactedProcesses": "Затронутые процессы",
+    "capaType": "Тип CAPA",
+    "titleAndStatementRequired": "Требуются заголовок и описание проблемы",
+    "impactedProcessesPlaceholder": "например, перевод, отрисовка UI, локализация",
+    "titlePlaceholder": "Краткий заголовок несоответствия",
+    "severityLow": "Низкая",
+    "severity": "Серьёзность",
+    "problemStatementPlaceholder": "Подробное описание проблемы...",
+    "source": "Источник",
+    "sourcePlaceholder": "Где была выявлена проблема (например, QA, аудит, клиент)",
+    "problemStatement": "Описание проблемы"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
-    "companyPlaceholder": "e.g., Google",
-    "notesPlaceholder": "Any additional details about the interview...",
-    "positionPlaceholder": "e.g., Software Engineer",
-    "locationPlaceholder": "https://meet.google.com/... or office address"
+    "interviewerEmailPlaceholder": "ivan@company.com",
+    "interviewerNamePlaceholder": "Иван Иванов",
+    "companyPlaceholder": "например, Google",
+    "notesPlaceholder": "Любые дополнительные детали об интервью…",
+    "positionPlaceholder": "например, инженер-программист",
+    "locationPlaceholder": "https://meet.google.com/… или адрес офиса"
   },
   "blindScreening": {
     "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
@@ -1356,33 +1356,33 @@
     "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
   },
   "psv": {
-    "npiNumber": "NPI Number (optional)",
-    "statePlaceholder": "State (e.g., CA, NY)",
-    "lastName": "Last Name",
-    "familyName": "Family Name",
-    "searchOrcid": "Search ORCID Registry",
-    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
-    "globalUniversitySearch": "Global University Database",
-    "universityDescription": "Verify educational institutions through the global university database",
-    "orSearchByName": "or search by name",
-    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
-    "givenNames": "Given Names",
-    "oigDescription": "Check if an individual is excluded from federal healthcare programs",
-    "firstName": "First Name",
-    "title": "Primary Source Verification Hub",
-    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
-    "subtitle": "Free self-service verification using public databases",
-    "universityName": "University Name",
-    "searchUniversities": "Search Universities",
-    "countryOptional": "Country (optional)"
+    "npiNumber": "Номер NPI (необязательно)",
+    "statePlaceholder": "Штат (например, CA, NY)",
+    "lastName": "Фамилия",
+    "familyName": "Фамилия",
+    "searchOrcid": "Поиск в реестре ORCID",
+    "npiDescription": "Проверяйте поставщиков медицинских услуг США через реестр CMS National Provider Identifier (NPI)",
+    "globalUniversitySearch": "Глобальная база данных университетов",
+    "universityDescription": "Проверяйте образовательные учреждения через глобальную базу данных университетов",
+    "orSearchByName": "или поиск по имени",
+    "orcidIdPlaceholder": "ORCID iD (например, 0000-0001-2345-6789)",
+    "givenNames": "Имя",
+    "oigDescription": "Проверьте, исключено ли лицо из федеральных программ здравоохранения",
+    "firstName": "Имя",
+    "title": "Центр проверки первоисточника",
+    "orcidDescription": "Проверяйте исследователей и ученых через публичный реестр ORCID",
+    "subtitle": "Бесплатная самостоятельная проверка через публичные базы данных",
+    "universityName": "Название университета",
+    "searchUniversities": "Поиск университетов",
+    "countryOptional": "Страна (необязательно)"
   },
   "publicApplication": {
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
+    "resumeLinkPlaceholder": "Ссылка на ваше резюме (Google Drive, Dropbox и т. д.)",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "coverLetterPlaceholder": "Tell us why you're a great fit for this role...",
-    "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
+    "coverLetterPlaceholder": "Расскажите, почему вы отлично подходите на эту роль…",
+    "emailPlaceholder": "ivan@example.com",
+    "namePlaceholder": "Иван Петров",
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
@@ -1391,10 +1391,10 @@
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
-    "prosPlaceholder": "What did you like?",
-    "jobTitlePlaceholder": "e.g., Software Engineer",
-    "consPlaceholder": "What could be improved?",
-    "summaryPlaceholder": "Summarize your experience"
+    "prosPlaceholder": "Что вам понравилось?",
+    "jobTitlePlaceholder": "например: инженер-программист",
+    "consPlaceholder": "Что можно улучшить?",
+    "summaryPlaceholder": "Кратко опишите свой опыт"
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
@@ -1425,24 +1425,24 @@
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
-    "websitePlaceholder": "https://...",
-    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
-    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
-    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)",
-    "searchPlaceholder": "Search companies...",
+    "websitePlaceholder": "https://…",
+    "techStackPlaceholder": "ИИ, машинное обучение, здравоохранение (через запятую)",
+    "benefitsPlaceholder": "Удалённая работа, медстраховка, 401k (через запятую)",
+    "culturePlaceholder": "Инновации, сотрудничество, разнообразие (через запятую)",
+    "searchPlaceholder": "Поиск компаний…",
     "foundedPlaceholder": "2020",
-    "industryPlaceholder": "Industry",
-    "companySizePlaceholder": "Company Size"
+    "industryPlaceholder": "Отрасль",
+    "companySizePlaceholder": "Размер компании"
   },
   "candidateSearch": {
-    "keywordsPlaceholder": "e.g., senior, remote, healthcare...",
-    "skillsPlaceholder": "Type a skill and press Enter..."
+    "keywordsPlaceholder": "например: senior, удалённо, здравоохранение…",
+    "skillsPlaceholder": "Введите навык и нажмите Enter…"
   },
   "admin": {
-    "translationCoverageDesc": "Monitor translation completion across all languages",
-    "searchLanguages": "Search languages...",
-    "translationCoverage": "Translation Coverage",
-    "searchByCompanyOrEmail": "Search by company name or email..."
+    "translationCoverageDesc": "Отслеживайте завершение переводов по всем языкам",
+    "searchLanguages": "Поиск языков...",
+    "translationCoverage": "Покрытие переводов",
+    "searchByCompanyOrEmail": "Поиск по названию компании или email..."
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."
@@ -1463,21 +1463,21 @@
     "rejectionReasonPlaceholder": "Provide a reason for rejection..."
   },
   "contact": {
-    "declineReason": "e.g., Not looking for new opportunities right now"
+    "declineReason": "например, Сейчас не рассматриваю новые возможности"
   },
   "taxonomy": {
-    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+    "searchPlaceholder": "Поиск должности (например, \"Биомедицинский инженер\", \"Клинические исследования\")"
   },
   "candidateTransparency": {
     "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
   },
   "meetingNotes": {
-    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
-    "companyNamePlaceholder": "Company name",
-    "jobTitlePlaceholder": "Job title"
+    "meetingTitlePlaceholder": "например, Собеседование в Acme Corp",
+    "companyNamePlaceholder": "Название компании",
+    "jobTitlePlaceholder": "Должность"
   },
   "credentialsPage": {
-    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+    "searchPlaceholder": "Поиск сертификаций (например, CQE, ISO 13485, RN)..."
   },
   "salaryInsights": {
     "yearsPlaceholder": "5"
@@ -1486,7 +1486,7 @@
     "selectDateRangePlaceholder": "Select date range..."
   },
   "resumeProfiles": {
-    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+    "profileNamePlaceholder": "например, Резюме (техническое), Резюме (управленческое)"
   },
   "jobSearch": {
     "selectCountryFirst": "Select Country First",
