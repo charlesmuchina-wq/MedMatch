@@ -9,7 +9,7 @@ import pytest
 import requests
 import os
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://meeting-portal-test.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://audio-coverage-tools.preview.emergentagent.com')
 
 class TestDragonAI:
     """KARAU Dragon AI endpoint tests"""

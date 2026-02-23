@@ -13,7 +13,7 @@ import requests
 import os
 import time
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://meeting-portal-test.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://audio-coverage-tools.preview.emergentagent.com')
 
 # Test credentials
 ADMIN_EMAIL = "admin@medmatch.com"

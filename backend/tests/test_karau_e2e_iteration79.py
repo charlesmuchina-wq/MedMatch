@@ -9,7 +9,7 @@ import websocket
 import threading
 import time
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://meeting-portal-test.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://audio-coverage-tools.preview.emergentagent.com')
 
 class TestKarauMeetingE2E:
     """E2E tests for AI KARAU Meeting features"""

@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://meeting-portal-test.preview.emergentagent.com/api
+**API Target:** https://audio-coverage-tools.preview.emergentagent.com/api
 
 ---
 

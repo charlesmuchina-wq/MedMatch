@@ -182,3 +182,11 @@ frontend/node_modules/.cache/default-development/6.pack_
 # Environment files
 *.env
 *.env.*
+-e 
+# Environment files
+*.env
+*.env.*
+-e 
+# Environment files
+*.env
+*.env.*
