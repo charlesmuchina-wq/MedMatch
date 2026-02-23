@@ -15,6 +15,211 @@ import { toast } from 'sonner';
 const API = process.env.REACT_APP_BACKEND_URL;
 
 /**
+ * Tutorial Audio Coverage Section
+ * Shows audio generation status and allows batch generation
+ */
+const TutorialAudioSection = () => {
+  const [audioCoverage, setAudioCoverage] = useState(null);
+  const [generating, setGenerating] = useState(false);
+  const [jobId, setJobId] = useState(null);
+  const [status, setStatus] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch audio coverage on mount
+  useEffect(() => {
+    fetchAudioCoverage();
+  }, []);
+
+  const fetchAudioCoverage = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`${API}/api/tutorials/admin/audio-coverage`);
+      setAudioCoverage(res.data);
+    } catch (err) {
+      console.error('Failed to fetch audio coverage:', err);
+    }
+    setLoading(false);
+  };
+
+  // Poll for status when generating
+  useEffect(() => {
+    if (!jobId || !generating) return;
+    
+    const interval = setInterval(async () => {
+      try {
+        const res = await axios.get(`${API}/api/tutorials/admin/generation-status/${jobId}`);
+        setStatus(res.data);
+        if (res.data.status === 'completed') {
+          setGenerating(false);
+          toast.success(`Audio generation complete! ${res.data.completed} files created.`);
+          fetchAudioCoverage();
+        }
+      } catch (err) {
+        console.error('Status check failed:', err);
+      }
+    }, 2000);
+    
+    return () => clearInterval(interval);
+  }, [jobId, generating]);
+
+  const startGeneration = async () => {
+    try {
+      setGenerating(true);
+      const res = await axios.post(`${API}/api/tutorials/admin/generate-all-audio`);
+      setJobId(res.data.job_id);
+      toast.info(`Generating ${res.data.total_combinations} audio files...`);
+    } catch (err) {
+      setGenerating(false);
+      toast.error('Failed to start audio generation');
+    }
+  };
+
+  if (loading) {
+    return (
+      <Card>
+        <CardContent className="py-8 flex items-center justify-center">
+          <Loader2 className="w-6 h-6 animate-spin text-turquoise" />
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <Card className="border-2 border-turquoise/20">
+      <CardHeader>
+        <CardTitle className="text-lg flex items-center gap-2">
+          <Volume2 className="w-5 h-5 text-turquoise" />
+          Tutorial Audio Coverage
+          {audioCoverage?.summary?.coverage_percent === 100 && (
+            <Badge className="bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
+              100% Complete
+            </Badge>
+          )}
+        </CardTitle>
+        <CardDescription>
+          AI-generated audio narration for tutorial videos (Microsoft Edge TTS - FREE)
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        {/* Summary Stats */}
+        <div className="grid grid-cols-4 gap-4">
+          <div className="text-center p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+            <p className="text-2xl font-bold text-slate-900 dark:text-white">
+              {audioCoverage?.summary?.total_combinations || 0}
+            </p>
+            <p className="text-xs text-slate-500">Total Combinations</p>
+          </div>
+          <div className="text-center p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+            <p className="text-2xl font-bold text-green-600">
+              {audioCoverage?.summary?.generated || 0}
+            </p>
+            <p className="text-xs text-slate-500">Generated</p>
+          </div>
+          <div className="text-center p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+            <p className="text-2xl font-bold text-orange-600">
+              {audioCoverage?.summary?.missing || 0}
+            </p>
+            <p className="text-xs text-slate-500">Missing</p>
+          </div>
+          <div className="text-center p-3 bg-turquoise/10 rounded-lg">
+            <p className="text-2xl font-bold text-turquoise">
+              {audioCoverage?.summary?.coverage_percent || 0}%
+            </p>
+            <p className="text-xs text-slate-500">Coverage</p>
+          </div>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="space-y-2">
+          <div className="flex justify-between text-sm">
+            <span className="text-slate-600 dark:text-slate-400">Audio Coverage Progress</span>
+            <span className="font-medium">{audioCoverage?.summary?.coverage_percent || 0}%</span>
+          </div>
+          <Progress value={audioCoverage?.summary?.coverage_percent || 0} className="h-3" />
+        </div>
+
+        {/* Per-Video Breakdown */}
+        {audioCoverage?.by_video && (
+          <div className="space-y-3">
+            <p className="text-sm font-medium text-slate-700 dark:text-slate-300">By Video</p>
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+              {Object.entries(audioCoverage.by_video).map(([videoId, data]) => (
+                <div key={videoId} className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                  <p className="text-xs font-medium truncate text-slate-700 dark:text-slate-300" title={videoId}>
+                    {videoId.replace(/_/g, ' ').replace(/^\d+\s/, '')}
+                  </p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <Progress value={(data.generated / data.total) * 100} className="h-1.5 flex-1" />
+                    <span className="text-xs text-slate-500">{data.generated}/{data.total}</span>
+                  </div>
+                  {data.generated === data.total && (
+                    <CheckCircle className="w-3 h-3 text-green-500 mt-1" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Generation Controls */}
+        <div className="pt-4 border-t border-slate-200 dark:border-slate-700">
+          {generating && status ? (
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <Loader2 className="w-4 h-4 animate-spin text-turquoise" />
+                <span className="text-sm">Generating audio files...</span>
+              </div>
+              <Progress value={status.progress_percent} className="h-2" />
+              <div className="flex justify-between text-xs text-slate-500">
+                <span>{status.completed}/{status.total} completed</span>
+                <span>{status.progress_percent}%</span>
+              </div>
+              {status.current && (
+                <p className="text-xs bg-slate-100 dark:bg-slate-800 p-2 rounded">
+                  Current: {status.current}
+                </p>
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-slate-500">
+                {audioCoverage?.summary?.missing === 0 
+                  ? 'All audio files are generated and ready for instant playback.'
+                  : `${audioCoverage?.summary?.missing} audio files can be pre-generated for instant user playback.`}
+              </p>
+              <Button
+                onClick={startGeneration}
+                disabled={generating || audioCoverage?.summary?.missing === 0}
+                className="bg-turquoise hover:bg-turquoise/90"
+                data-testid="generate-missing-audio-btn"
+              >
+                {audioCoverage?.summary?.missing === 0 ? (
+                  <>
+                    <CheckCircle className="w-4 h-4 mr-2" />
+                    All Generated
+                  </>
+                ) : (
+                  <>
+                    <Volume2 className="w-4 h-4 mr-2" />
+                    Generate {audioCoverage?.summary?.missing} Missing
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
+        </div>
+
+        {/* Info Note */}
+        <p className="text-xs text-slate-500 bg-slate-50 dark:bg-slate-800 p-3 rounded-lg">
+          💡 Audio is also auto-generated on-demand when users select a language. 
+          Pre-generating ensures instant playback without any loading delay.
+        </p>
+      </CardContent>
+    </Card>
+  );
+};
+
+/**
  * Translation Coverage Dashboard
  * Shows translation completion status across all languages and pages
  * CAPA-002 Implementation
