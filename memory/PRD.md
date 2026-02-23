@@ -44,24 +44,28 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 **Files Modified:**
 - `/app/backend/services/edge_tts_service.py` - Added all missing language scripts
 
-### Admin Audio Generation Feature - NEW ✅
+### Admin Audio Generation Feature - Integrated with QA Translation ✅
 
-**Feature:** Added "Generate All Audio" admin button to pre-generate all audio files.
+**Feature:** Audio generation integrated with Translation Coverage QA page.
 
-**Endpoints Added:**
-- `POST /api/tutorials/admin/generate-all-audio` - Start batch generation (125 combinations)
-- `GET /api/tutorials/admin/generation-status/{job_id}` - Check progress
+**How it Works:**
+1. **Auto-generation on language select**: When users select a non-English language for tutorials, audio is automatically checked and generated if needed
+2. **Batch pre-generation from QA**: Admins can trigger batch generation from Admin > Translation Coverage page
+3. **Status API**: Frontend checks if audio exists before triggering generation
+
+**Endpoints:**
+- `POST /api/tutorials/admin/generate-all-audio` - Batch generate all 125 combinations
+- `GET /api/tutorials/admin/generation-status/{job_id}` - Check batch progress
 - `GET /api/tutorials/admin/audio-coverage` - View coverage statistics
 
-**UI Added:**
-- New "Tutorial Audio Generation" card on Admin Dashboard
-- Shows coverage statistics (total, generated, missing)
-- Real-time progress tracking during generation
-- Per-video breakdown of audio coverage
+**UI Location:**
+- Admin > Translation Coverage > "Tutorial Audio Coverage" section
+- Shows coverage stats, per-video breakdown, and "Generate Missing" button
 
 **Files Modified:**
-- `/app/backend/routes/tutorials.py` - Added admin endpoints
-- `/app/frontend/src/pages/AdminDashboard.jsx` - Added AudioGenerationCard component
+- `/app/backend/routes/tutorials.py` - Admin endpoints for batch generation
+- `/app/frontend/src/components/TranslationCoverageDashboard.jsx` - TutorialAudioSection component
+- `/app/frontend/src/pages/VideoTutorialsPage.jsx` - Auto-generation on language select
 
 ---
 
