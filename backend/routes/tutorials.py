@@ -8,6 +8,7 @@ from fastapi.responses import FileResponse
 from pathlib import Path
 from typing import List, Dict
 import os
+import asyncio
 from services.did_avatar_service import DIDService
 from services.edge_tts_service import generate_tutorial_audio, get_supported_languages
 
