@@ -34,7 +34,9 @@ import {
   Languages,
   Briefcase,
   UserCircle,
-  Eye
+  Eye,
+  Volume2,
+  Loader2
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
 import { Button } from '../components/ui/button';
