@@ -1045,7 +1045,7 @@ export const I18nProvider = ({ children }) => {
     }
     
     return text;
-  }, [language, dynamicTranslations]);
+  }, [language, dynamicTranslations, queueKeyForTranslation]);
 
   /**
    * Translate arbitrary text (for dynamic content)
