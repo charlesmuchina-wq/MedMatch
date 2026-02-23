@@ -45,18 +45,26 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 2. Added background AI translation queue (`queueKeyForTranslation`) that automatically translates missing keys when detected
 3. Updated PortalSelector page to use proper translation key paths (`pages.portalSelector.*`)
 4. Ran sync script to ensure all locale files have consistent key structure
+5. **Pre-translated 140 priority UI keys across 12 major languages** for instant loading
 
 **Files Modified:**
 - `/app/frontend/src/utils/i18n.jsx` - Enhanced translation detection and AI fallback
 - `/app/frontend/src/pages/PortalSelector.jsx` - Updated to use translations
 - `/app/frontend/src/locales/en.json` - Added comprehensive portal selector translations
+- `/app/frontend/src/locales/*.json` - Pre-translated priority keys for 12 languages
 - `/app/backend/scripts/sync_translations.py` - Synced 5,456 missing keys across 33 locales
+- `/app/backend/scripts/translate_priority_keys.py` - New script for batch priority translation
 
 **Testing Results:**
-- Spanish (es): ✅ Working - "Bienvenido a", "Acceder al kit de herramientas de empleo"
-- Japanese (ja): ✅ Working - "ようこそ", "求人ツールキットへ進む"
-- Swahili (sw): ✅ Working - "Karibu kwenye", "Ingiza Zana za Kazi"
-- French (fr): ✅ Working - Login page fully translated
+- Spanish (es): ✅ "Bienvenido a", "Acceder al kit de herramientas de empleo"
+- Japanese (ja): ✅ "ようこそ", "求人ツールキットへ進む"
+- Swahili (sw): ✅ "Karibu kwenye", "Ingiza Zana za Kazi"
+- French (fr): ✅ "Bienvenue sur", Login page fully translated
+- German (de): ✅ "Willkommen bei", "Job-Toolkit öffnen"
+- Chinese (zh): ✅ "欢迎来到", translations instant
+
+**Priority Languages Pre-Translated:**
+Spanish, French, German, Japanese, Chinese, Korean, Arabic, Portuguese (BR), Hindi, Swahili, Russian, Italian
 
 ### AI Audio Scripts - COMPLETE FOR ALL VIDEOS ✅
 
