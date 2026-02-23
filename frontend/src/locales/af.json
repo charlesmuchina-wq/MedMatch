@@ -590,7 +590,7 @@
     "jobDescriptionPlaceholder": "Plak die volledige posbeskrywing hier. KI sal relevante onderhoudsvrae genereer op grond van die vereistes en jou CV-vaardighede..."
   },
   "membership": {
-    "premium": "Premium",
+    "premium": "Premie",
     "freeTrial": "Gratis proeflopie",
     "expired": "Verval",
     "upgrade": "Gradeer nou op",
@@ -1181,7 +1181,7 @@
       "title": "Intekening",
       "currentPlan": "Huidige plan",
       "free": "Gratis",
-      "premium": "Premium",
+      "premium": "Premie",
       "enterprise": "Onderneming",
       "upgrade": "Gradeer op",
       "downgrade": "Gradeer af",
