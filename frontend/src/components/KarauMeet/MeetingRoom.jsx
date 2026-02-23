@@ -751,7 +751,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   // Reconnection with exponential backoff
   const attemptReconnect = useCallback((token) => {
     if (reconnectAttemptsRef.current >= maxReconnectAttempts) {
-      toast.error('Unable to reconnect. Please refresh the page.');
+      toast.error('Unable to reconnect. Please refresh.', { duration: 5000 });
       isReconnectingRef.current = false;
       return;
     }
@@ -796,15 +796,18 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
       console.log('Network restored');
       const token = localStorage.getItem('token');
       if (wsRef.current?.readyState !== WebSocket.OPEN && !isReconnectingRef.current) {
-        toast.info('Network restored. Reconnecting...');
-        reconnectAttemptsRef.current = 0; // Reset backoff on network restore
+        // Silent reconnection - no toast
+        reconnectAttemptsRef.current = 0;
         connectWebSocket(token, true);
       }
     };
     
     const handleOffline = () => {
       console.log('Network lost');
-      toast.warning('Network connection lost');
+      // Only show this if user is actively in meeting
+      if (isConnected) {
+        toast.warning('Connection lost', { duration: 2000 });
+      }
     };
     
     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -816,7 +819,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
-  }, [connectWebSocket]);
+  }, [connectWebSocket, isConnected]);
 
   // Safe WebSocket send function with message queuing - NEVER throws
   const safeSend = useCallback((data) => {
