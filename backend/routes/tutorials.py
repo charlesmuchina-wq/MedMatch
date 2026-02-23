@@ -858,5 +858,132 @@ async def get_subtitles(video_id: str, lang: str = "en"):
     )
 
 
+# ==================== ADMIN: BATCH AUDIO GENERATION ====================
+
+# Track batch generation status in memory
+_batch_generation_status: Dict[str, Dict] = {}
+
+@router.post("/admin/generate-all-audio")
+async def generate_all_audio(background_tasks: BackgroundTasks):
+    """
+    Admin endpoint: Generate audio for ALL video-language combinations.
+    This runs in background and pre-caches all audio files for instant playback.
+    """
+    from services.edge_tts_service import TUTORIAL_SCRIPTS, LANGUAGE_VOICES, generate_tutorial_audio
+    import asyncio
+    from datetime import datetime
+    
+    # Calculate total combinations
+    total = sum(len(scripts) for scripts in TUTORIAL_SCRIPTS.values())
+    
+    # Initialize status
+    job_id = f"batch_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    _batch_generation_status[job_id] = {
+        "status": "running",
+        "total": total,
+        "completed": 0,
+        "failed": 0,
+        "current": None,
+        "started_at": datetime.now().isoformat(),
+        "completed_at": None,
+        "errors": []
+    }
+    
+    async def generate_all():
+        status = _batch_generation_status[job_id]
+        
+        for video_id, scripts in TUTORIAL_SCRIPTS.items():
+            for lang in scripts.keys():
+                status["current"] = f"{video_id} ({lang})"
+                try:
+                    result = await generate_tutorial_audio(video_id, lang)
+                    if result.get("success"):
+                        status["completed"] += 1
+                    else:
+                        status["failed"] += 1
+                        status["errors"].append(f"{video_id}/{lang}: {result.get('error')}")
+                except Exception as e:
+                    status["failed"] += 1
+                    status["errors"].append(f"{video_id}/{lang}: {str(e)}")
+                
+                # Small delay to prevent overwhelming the system
+                await asyncio.sleep(0.1)
+        
+        status["status"] = "completed"
+        status["current"] = None
+        status["completed_at"] = datetime.now().isoformat()
+    
+    # Run in background
+    background_tasks.add_task(lambda: __import__('asyncio').get_event_loop().run_until_complete(generate_all()))
+    
+    return {
+        "job_id": job_id,
+        "status": "started",
+        "total_combinations": total,
+        "message": f"Generating {total} audio files in background. Check status at /api/tutorials/admin/generation-status/{job_id}"
+    }
+
+
+@router.get("/admin/generation-status/{job_id}")
+async def get_generation_status(job_id: str):
+    """Get the status of a batch audio generation job"""
+    if job_id not in _batch_generation_status:
+        raise HTTPException(status_code=404, detail="Job not found")
+    
+    status = _batch_generation_status[job_id]
+    progress = (status["completed"] + status["failed"]) / status["total"] * 100 if status["total"] > 0 else 0
+    
+    return {
+        **status,
+        "progress_percent": round(progress, 1)
+    }
+
+
+@router.get("/admin/audio-coverage")
+async def get_audio_coverage():
+    """
+    Admin endpoint: Get current audio file coverage statistics.
+    Shows which video-language combinations have pre-generated audio.
+    """
+    from services.edge_tts_service import TUTORIAL_SCRIPTS, AUDIO_DIR
+    import os
+    
+    # Get all generated audio files
+    audio_files = set(os.listdir(AUDIO_DIR)) if AUDIO_DIR.exists() else set()
+    
+    coverage = {}
+    total_possible = 0
+    total_generated = 0
+    
+    for video_id, scripts in TUTORIAL_SCRIPTS.items():
+        video_coverage = {
+            "total": len(scripts),
+            "generated": 0,
+            "missing": []
+        }
+        
+        for lang in scripts.keys():
+            total_possible += 1
+            # Check if any audio file exists for this combo (filename pattern: {video_id}_{lang}_*.mp3)
+            has_audio = any(f.startswith(f"{video_id}_{lang}_") for f in audio_files)
+            if has_audio:
+                video_coverage["generated"] += 1
+                total_generated += 1
+            else:
+                video_coverage["missing"].append(lang)
+        
+        coverage[video_id] = video_coverage
+    
+    return {
+        "summary": {
+            "total_combinations": total_possible,
+            "generated": total_generated,
+            "missing": total_possible - total_generated,
+            "coverage_percent": round(total_generated / total_possible * 100, 1) if total_possible > 0 else 0
+        },
+        "by_video": coverage,
+        "audio_files_count": len(audio_files)
+    }
+
 
 # End of tutorials router - all subtitles now served from services/tutorial_subtitles.py
