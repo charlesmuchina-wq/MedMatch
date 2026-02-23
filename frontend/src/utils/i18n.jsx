@@ -564,6 +564,72 @@ export const I18nProvider = ({ children }) => {
   const [translationProgress, setTranslationProgress] = useState(0); // Track loading progress (0-100)
   const aiTranslationCache = useRef({});
   const lastSyncRef = useRef(Date.now());
+  const translationQueue = useRef(new Map()); // Queue for missing translations
+  const translationQueueTimeout = useRef(null);
+
+  /**
+   * Queue a key for background AI translation
+   * Batches requests to reduce API calls
+   */
+  const queueKeyForTranslation = useCallback((key, englishValue, targetLang) => {
+    // Skip if already queued or translated
+    const queueKey = `${targetLang}:${key}`;
+    if (translationQueue.current.has(queueKey)) return;
+    if (dynamicTranslations[targetLang]?.[key]) return;
+    
+    translationQueue.current.set(queueKey, { key, englishValue, targetLang });
+    
+    // Debounce batch translation
+    if (translationQueueTimeout.current) {
+      clearTimeout(translationQueueTimeout.current);
+    }
+    
+    translationQueueTimeout.current = setTimeout(async () => {
+      const items = Array.from(translationQueue.current.values());
+      translationQueue.current.clear();
+      
+      if (items.length === 0) return;
+      
+      // Group by target language
+      const byLang = {};
+      items.forEach(item => {
+        if (!byLang[item.targetLang]) byLang[item.targetLang] = [];
+        byLang[item.targetLang].push(item);
+      });
+      
+      // Translate each language batch
+      for (const [lang, langItems] of Object.entries(byLang)) {
+        if (langItems.length === 0) continue;
+        
+        // Process in batches of 15
+        for (let i = 0; i < langItems.length; i += 15) {
+          const batch = langItems.slice(i, i + 15);
+          const texts = batch.map(item => item.englishValue);
+          
+          try {
+            const translated = await aiTranslator.translateBatch(texts, lang);
+            
+            const newTranslations = {};
+            batch.forEach((item, idx) => {
+              if (translated[idx] && translated[idx] !== item.englishValue) {
+                newTranslations[item.key] = translated[idx];
+              }
+            });
+            
+            if (Object.keys(newTranslations).length > 0) {
+              setDynamicTranslations(prev => ({
+                ...prev,
+                [lang]: { ...(prev[lang] || {}), ...newTranslations }
+              }));
+              setTranslationVersion(v => v + 1);
+            }
+          } catch (e) {
+            console.warn('[i18n] Background translation failed:', e);
+          }
+        }
+      }
+    }, 200); // 200ms debounce
+  }, [dynamicTranslations]);
 
   // Sync language preference with server when user is logged in
   const syncLanguageWithServer = useCallback(async (lang) => {
