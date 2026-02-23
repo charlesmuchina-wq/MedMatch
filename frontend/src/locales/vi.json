@@ -938,7 +938,20 @@
       "jobToolkitDesc": "Công cụ tìm việc và phát triển sự nghiệp được hỗ trợ bởi AI",
       "meetingPortal": "Cổng họp",
       "meetingPortalDesc": "Hội nghị truyền hình bảo mật",
-      "enterPortal": "Vào cổng"
+      "enterPortal": "Vào cổng",
+      "enterMeetingPortal": "Enter Meeting Portal",
+      "medmatchAI": "MedMatch AI",
+      "e2eEncrypted": "E2E Encrypted",
+      "trustedBy": "Trusted by Life Sciences Professionals",
+      "welcomeTo": "Welcome to",
+      "aiTranscription": "AI Transcription",
+      "resumeParser": "Resume Parser & Builder",
+      "aiJobMatching": "AI Job Matching",
+      "hdVideoAudio": "HD Video & Audio",
+      "poweredByAI": "Powered by AI",
+      "aiKarau": "AI KARAU",
+      "recruiterNetwork": "Recruiter Network",
+      "enterJobToolkit": "Enter Job Toolkit"
     },
     "dragonAutomator": {
       "title": "KARAU Automator",

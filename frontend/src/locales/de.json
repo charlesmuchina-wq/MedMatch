@@ -951,7 +951,20 @@
       "jobToolkitDesc": "KI-gestützte Jobsuche und Karriere-Tools",
       "meetingPortal": "Meeting-Portal",
       "meetingPortalDesc": "Sichere Videokonferenzen",
-      "enterPortal": "Portal betreten"
+      "enterPortal": "Portal betreten",
+      "enterMeetingPortal": "Enter Meeting Portal",
+      "medmatchAI": "MedMatch AI",
+      "e2eEncrypted": "E2E Encrypted",
+      "trustedBy": "Trusted by Life Sciences Professionals",
+      "welcomeTo": "Welcome to",
+      "aiTranscription": "AI Transcription",
+      "resumeParser": "Resume Parser & Builder",
+      "aiJobMatching": "AI Job Matching",
+      "hdVideoAudio": "HD Video & Audio",
+      "poweredByAI": "Powered by AI",
+      "aiKarau": "AI KARAU",
+      "recruiterNetwork": "Recruiter Network",
+      "enterJobToolkit": "Enter Job Toolkit"
     },
     "dragonAutomator": {
       "title": "KARAU Automator",

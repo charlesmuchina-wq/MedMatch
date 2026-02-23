@@ -946,7 +946,20 @@
       "jobToolkitDesc": "[!!! ÄÏ-þöŵëřëđ ĵöƀ šëäřçħ äñđ çäřëëř ţööĺš !!!]",
       "meetingPortal": "[!!! Ɱëëţïñğ Þöřţäĺ !!!]",
       "meetingPortalDesc": "[!!! Šëçüřë ṽïđëö çöñƒëřëñçïñğ !!!]",
-      "enterPortal": "[!!! Ëñţëř Þöřţäĺ !!!]"
+      "enterPortal": "[!!! Ëñţëř Þöřţäĺ !!!]",
+      "enterMeetingPortal": "Enter Meeting Portal",
+      "medmatchAI": "MedMatch AI",
+      "e2eEncrypted": "E2E Encrypted",
+      "trustedBy": "Trusted by Life Sciences Professionals",
+      "welcomeTo": "Welcome to",
+      "aiTranscription": "AI Transcription",
+      "resumeParser": "Resume Parser & Builder",
+      "aiJobMatching": "AI Job Matching",
+      "hdVideoAudio": "HD Video & Audio",
+      "poweredByAI": "Powered by AI",
+      "aiKarau": "AI KARAU",
+      "recruiterNetwork": "Recruiter Network",
+      "enterJobToolkit": "Enter Job Toolkit"
     },
     "dragonAutomator": {
       "title": "[!!! ĶÄŘÄÜ Äüţöɱäţöř !!!]",

@@ -938,7 +938,20 @@
       "jobToolkitDesc": "AI-संचालित नौकरी खोज और करियर टूल्स",
       "meetingPortal": "मीटिंग पोर्टल",
       "meetingPortalDesc": "सुरक्षित वीडियो कॉन्फ़्रेंसिंग",
-      "enterPortal": "पोर्टल में प्रवेश करें"
+      "enterPortal": "पोर्टल में प्रवेश करें",
+      "enterMeetingPortal": "Enter Meeting Portal",
+      "medmatchAI": "MedMatch AI",
+      "e2eEncrypted": "E2E Encrypted",
+      "trustedBy": "Trusted by Life Sciences Professionals",
+      "welcomeTo": "Welcome to",
+      "aiTranscription": "AI Transcription",
+      "resumeParser": "Resume Parser & Builder",
+      "aiJobMatching": "AI Job Matching",
+      "hdVideoAudio": "HD Video & Audio",
+      "poweredByAI": "Powered by AI",
+      "aiKarau": "AI KARAU",
+      "recruiterNetwork": "Recruiter Network",
+      "enterJobToolkit": "Enter Job Toolkit"
     },
     "dragonAutomator": {
       "title": "KARAU ऑटोमेटर",

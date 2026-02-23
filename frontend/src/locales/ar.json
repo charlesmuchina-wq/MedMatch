@@ -1354,7 +1354,20 @@
       "jobToolkitDesc": "أدوات بحث عن عمل ومسار مهني مدعومة بالذكاء الاصطناعي",
       "meetingPortal": "بوابة الاجتماعات",
       "meetingPortalDesc": "اجتماعات فيديو آمنة",
-      "enterPortal": "دخول البوابة"
+      "enterPortal": "دخول البوابة",
+      "enterMeetingPortal": "Enter Meeting Portal",
+      "medmatchAI": "MedMatch AI",
+      "e2eEncrypted": "E2E Encrypted",
+      "trustedBy": "Trusted by Life Sciences Professionals",
+      "welcomeTo": "Welcome to",
+      "aiTranscription": "AI Transcription",
+      "resumeParser": "Resume Parser & Builder",
+      "aiJobMatching": "AI Job Matching",
+      "hdVideoAudio": "HD Video & Audio",
+      "poweredByAI": "Powered by AI",
+      "aiKarau": "AI KARAU",
+      "recruiterNetwork": "Recruiter Network",
+      "enterJobToolkit": "Enter Job Toolkit"
     },
     "dragonAutomator": {
       "title": "KARAU Automator",
