@@ -30,13 +30,13 @@
     "generating": "Genereren...",
     "download": "Downloaden",
     "filter": "Filteren",
-    "none": "None",
+    "none": "Geen",
     "upload": "Uploaden",
-    "sort": "Sort",
-    "more": "More",
+    "sort": "Sorteren",
+    "more": "Meer",
     "help": "Help",
-    "less": "Less",
-    "previous": "Previous"
+    "less": "Minder",
+    "previous": "Vorige"
   },
   "notifications": {
     "title": "Meldingen",
@@ -204,7 +204,7 @@
     "lastWeek": "Afgelopen week",
     "lastMonth": "Afgelopen maand",
     "jobsFound": "vacatures gevonden",
-    "aiDeepSearch": "AI Deep Search",
+    "aiDeepSearch": "AI Diepzoekfunctie",
     "deepSearchSuccess": "AI Deep Search heeft {{count}} relevante vacatures gevonden!",
     "deepSearchFailed": "Deep search mislukt",
     "deepSearchResults": "AI Deep Search-resultaten",
@@ -215,7 +215,7 @@
     "moreFilters": "Meer filters",
     "lessFilters": "Minder filters",
     "selectCountry": "Selecteer land",
-    "viewOriginal": "View Original"
+    "viewOriginal": "Origineel bekijken"
   },
   "resume": {
     "myResume": "Mijn cv",
@@ -296,12 +296,12 @@
     "research": "Onderzoek",
     "researchFor": "Onderzoek voor",
     "skipQuestion": "Vraag overslaan",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
-    "companyPlaceholder": "e.g., Medtronic",
-    "questionsPlaceholder": "Enter questions, one per line...",
-    "typeAnswerPlaceholder": "Type your answer here... (You have 2 minutes)",
-    "yourResumeSkills": "Your Resume Skills",
-    "jobDescriptionPlaceholder": "Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills..."
+    "jobTitlePlaceholder": "bijv. Supplier Quality Manager",
+    "companyPlaceholder": "bijv. Medtronic",
+    "questionsPlaceholder": "Voer vragen in, één per regel...",
+    "typeAnswerPlaceholder": "Typ hier je antwoord... (Je hebt 2 minuten)",
+    "yourResumeSkills": "Vaardigheden uit je cv",
+    "jobDescriptionPlaceholder": "Plak hier de volledige functiebeschrijving. AI genereert relevante sollicitatievragen op basis van de vereisten en je cv-vaardigheden..."
   },
   "qaPractice": {
     "title": "Q&A-antwoordgenerator",
@@ -350,9 +350,9 @@
     "keepPracticing": "Blijf oefenen",
     "correct": "correct",
     "badgeEarned": "Badge verdiend!",
-    "generatingQuestions": "Generating AI questions... This may take 20-30 seconds",
-    "assessmentReady": "Assessment ready! Let's begin",
-    "generating": "Generating..."
+    "generatingQuestions": "AI-vragen genereren... Dit kan 20-30 seconden duren",
+    "assessmentReady": "Assessment klaar! Laten we beginnen",
+    "generating": "Genereren..."
   },
   "predictor": {
     "title": "Sollicitatiesuccesvoorspeller",
@@ -389,8 +389,8 @@
     "enterJobDetails": "Voer vacaturegegevens in en klik op \"Voorspel slagingskans\" om je kans op een terugbelverzoek te zien",
     "neuralNetworkAnalysis": "Neurale-netwerkanalyse",
     "browserBasedAI": "Browsergebaseerde AI-voorspelling met een neuraal netwerk met 4 lagen",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "bijv. Medtronic",
+    "jobTitlePlaceholder": "bijv. Supplier Quality Manager"
   },
   "video": {
     "title": "Oefenen met video-interviews",
@@ -449,8 +449,8 @@
     "generationFailed": "Het genereren van de sollicitatiebrief is mislukt.",
     "pasteJobDescription": "Plak de functiebeschrijving hier...",
     "generate": "Sollicitatiebrief genereren",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "bijv. Medtronic",
+    "jobTitlePlaceholder": "bijv. Supplier Quality Manager"
   },
   "membership": {
     "membership": "Lidmaatschap",
@@ -664,10 +664,10 @@
     "confirmCancel": "Weet je zeker dat je dit interview wilt annuleren?",
     "cancelled": "Interview geannuleerd",
     "cancelFailed": "Interview annuleren mislukt",
-    "messageToRecruiterPlaceholder": "Add a message to the recruiter...",
-    "additionalInfoPlaceholder": "Any additional information...",
-    "selectCandidate": "Select a candidate",
-    "officeAddressPlaceholder": "Office address",
+    "messageToRecruiterPlaceholder": "Voeg een bericht toe aan de recruiter...",
+    "additionalInfoPlaceholder": "Aanvullende informatie...",
+    "selectCandidate": "Selecteer een kandidaat",
+    "officeAddressPlaceholder": "Kantooradres",
     "meetingLinkPlaceholder": "https://zoom.us/j/..."
   },
   "verification": {
@@ -693,9 +693,9 @@
     "selectSize": "Selecteer grootte",
     "headquarters": "Hoofdkantoor",
     "headquartersPlaceholder": "Stad, land",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company",
-    "createFailed": "Failed to create company"
+    "created": "Bedrijfsprofiel aangemaakt",
+    "followFailed": "Bedrijf volgen mislukt",
+    "createFailed": "Bedrijf aanmaken mislukt"
   },
   "analytics": {
     "loadFailed": "Kan analytics niet laden"
@@ -751,13 +751,13 @@
     "genderAuto": "Automatisch (standaardtaal)",
     "useBrowserTranslate": "Browservertaling gebruiken",
     "useGoogleTranslate": "Google Translate gebruiken",
-    "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
-    "keepCurrentLanguage": "Keep English",
-    "switchToLanguage": "Switch to {{language}}",
-    "detectedBrowserLanguage": "We detected your browser language is {{language}}",
-    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
+    "googleTranslateDisclaimer": "Je kunt ook de ingebouwde vertaalfunctie van je browser gebruiken (meestal via het rechtermuisknopmenu of de browserinstellingen) om de pagina automatisch te vertalen.",
+    "keepCurrentLanguage": "Engels behouden",
+    "switchToLanguage": "Overschakelen naar {{language}}",
+    "detectedBrowserLanguage": "We hebben gedetecteerd dat de taal van je browser {{language}} is",
+    "browserTranslationNote": "Je browser vertaalt deze pagina momenteel. De taalkiezer van de app is verborgen om conflicten te voorkomen.",
     "openGoogleTranslate": "Openen in Google Translate",
-    "languageSwitched": "Language switched to {{language}}",
+    "languageSwitched": "Taal gewijzigd naar {{language}}",
     "browserTranslationActive": "Browservertaling is actief"
   },
   "dragon": {
@@ -839,9 +839,9 @@
     "submit": "Feedback verzenden",
     "submitted": "Feedback succesvol verzonden",
     "submitFailed": "Feedback verzenden mislukt",
-    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
-    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
-    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
+    "experienceGapPlaceholder": "bijv. Vereist 5+ jaar in een vergelijkbare rol, kandidaat heeft 2 jaar",
+    "skillsPlaceholder": "bijv. Python, AWS, teamleiderschap",
+    "improvementPlaceholder": "bijv. AWS-certificering behalen, meer ervaring met projectmanagement"
   },
   "extras": {
     "later": "Later",
@@ -922,7 +922,7 @@
       "subtitle": "Beheer je bedrijfsinformatie",
       "overview": "Overzicht",
       "jobs": "Vacatures",
-      "reviews": "Reviews",
+      "reviews": "Beoordelingen",
       "benefits": "Voordelen",
       "culture": "Cultuur",
       "editProfile": "Profiel bewerken",
@@ -996,7 +996,7 @@
       "searchTaxonomy": "Taxonomie doorzoeken..."
     },
     "enterpriseApi": {
-      "title": "Enterprise API",
+      "title": "Enterprise-API",
       "subtitle": "API-documentatie en beheer",
       "apiKeys": "API-sleutels",
       "documentation": "Documentatie",
@@ -1294,9 +1294,9 @@
     "notSupported": "Biometrische authenticatie wordt niet ondersteund op dit apparaat",
     "enterEmail": "Voer je e-mailadres in",
     "emailPlaceholder": "Voer je e-mailadres in",
-    "loginFailed": "Login failed",
-    "loginSuccess": "Login successful!",
-    "loginCancelled": "Biometric login was cancelled or denied"
+    "loginFailed": "Inloggen mislukt",
+    "loginSuccess": "Inloggen gelukt!",
+    "loginCancelled": "Biometrisch inloggen is geannuleerd of geweigerd"
   },
   "translation": {
     "selectLanguage": "Selecteer taal",
@@ -1311,8 +1311,8 @@
     "responsePlaceholder": "Bedank de reviewer, geef context of ga professioneel in op eventuele feedback...",
     "responseVisibility": "Je reactie is zichtbaar voor recruiters die je profiel bekijken",
     "submitResponse": "Reactie verzenden",
-    "title": "Reviews",
-    "noReviews": "No reviews yet"
+    "title": "Beoordelingen",
+    "noReviews": "Nog geen beoordelingen"
   },
   "capa": {
     "addProbableCause": "Waarschijnlijke oorzaak toevoegen",
@@ -1326,29 +1326,29 @@
     "addCause": "Oorzaak toevoegen",
     "searchCapas": "CAPA's zoeken...",
     "allStatuses": "Alle statussen",
-    "title": "Title",
-    "severityHigh": "High",
-    "severityMedium": "Medium",
-    "severityCritical": "Critical",
-    "impactedProcesses": "Impacted Processes",
-    "capaType": "CAPA Type",
-    "titleAndStatementRequired": "Title and problem statement are required",
-    "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
-    "titlePlaceholder": "Brief title of the nonconformance",
-    "severityLow": "Low",
-    "severity": "Severity",
-    "problemStatementPlaceholder": "Detailed description of the issue...",
-    "source": "Source",
-    "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
-    "problemStatement": "Problem Statement"
+    "title": "Titel",
+    "severityHigh": "Hoog",
+    "severityMedium": "Gemiddeld",
+    "severityCritical": "Kritiek",
+    "impactedProcesses": "Getroffen processen",
+    "capaType": "CAPA-type",
+    "titleAndStatementRequired": "Titel en probleemomschrijving zijn verplicht",
+    "impactedProcessesPlaceholder": "bijv. vertaling, UI-rendering, lokalisatie",
+    "titlePlaceholder": "Korte titel van de non-conformiteit",
+    "severityLow": "Laag",
+    "severity": "Ernst",
+    "problemStatementPlaceholder": "Gedetailleerde beschrijving van het probleem...",
+    "source": "Bron",
+    "sourcePlaceholder": "Waar het probleem is vastgesteld (bijv. QA, audit, klant)",
+    "problemStatement": "Probleemomschrijving"
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
     "interviewerNamePlaceholder": "John Smith",
-    "companyPlaceholder": "e.g., Google",
-    "notesPlaceholder": "Any additional details about the interview...",
-    "positionPlaceholder": "e.g., Software Engineer",
-    "locationPlaceholder": "https://meet.google.com/... or office address"
+    "companyPlaceholder": "bijv. Google",
+    "notesPlaceholder": "Aanvullende details over het gesprek...",
+    "positionPlaceholder": "bijv. Software Engineer",
+    "locationPlaceholder": "https://meet.google.com/... of kantooradres"
   },
   "blindScreening": {
     "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
@@ -1356,31 +1356,31 @@
     "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
   },
   "psv": {
-    "npiNumber": "NPI Number (optional)",
-    "statePlaceholder": "State (e.g., CA, NY)",
-    "lastName": "Last Name",
-    "familyName": "Family Name",
-    "searchOrcid": "Search ORCID Registry",
-    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
-    "globalUniversitySearch": "Global University Database",
-    "universityDescription": "Verify educational institutions through the global university database",
-    "orSearchByName": "or search by name",
-    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
-    "givenNames": "Given Names",
-    "oigDescription": "Check if an individual is excluded from federal healthcare programs",
-    "firstName": "First Name",
-    "title": "Primary Source Verification Hub",
-    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
-    "subtitle": "Free self-service verification using public databases",
-    "universityName": "University Name",
-    "searchUniversities": "Search Universities",
-    "countryOptional": "Country (optional)"
+    "npiNumber": "NPI-nummer (optioneel)",
+    "statePlaceholder": "Staat (bijv. CA, NY)",
+    "lastName": "Achternaam",
+    "familyName": "Achternaam",
+    "searchOrcid": "ORCID-register doorzoeken",
+    "npiDescription": "Verifieer Amerikaanse zorgverleners via het CMS National Provider Identifier-register",
+    "globalUniversitySearch": "Wereldwijde universiteitendatabase",
+    "universityDescription": "Verifieer onderwijsinstellingen via de wereldwijde universiteitendatabase",
+    "orSearchByName": "of zoek op naam",
+    "orcidIdPlaceholder": "ORCID iD (bijv. 0000-0001-2345-6789)",
+    "givenNames": "Voornamen",
+    "oigDescription": "Controleer of een persoon is uitgesloten van federale zorgprogramma's",
+    "firstName": "Voornaam",
+    "title": "Hub voor primaire bronverificatie",
+    "orcidDescription": "Verifieer onderzoekers en wetenschappers via het openbare ORCID-register",
+    "subtitle": "Gratis zelfserviceverificatie met openbare databases",
+    "universityName": "Universiteitsnaam",
+    "searchUniversities": "Universiteiten zoeken",
+    "countryOptional": "Land (optioneel)"
   },
   "publicApplication": {
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
+    "resumeLinkPlaceholder": "Link naar je cv (Google Drive, Dropbox, enz.)",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "coverLetterPlaceholder": "Tell us why you're a great fit for this role...",
+    "coverLetterPlaceholder": "Vertel ons waarom je goed bij deze functie past...",
     "emailPlaceholder": "john@example.com",
     "namePlaceholder": "John Doe",
     "portfolioPlaceholder": "https://yourportfolio.com"
@@ -1391,10 +1391,10 @@
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
-    "prosPlaceholder": "What did you like?",
-    "jobTitlePlaceholder": "e.g., Software Engineer",
-    "consPlaceholder": "What could be improved?",
-    "summaryPlaceholder": "Summarize your experience"
+    "prosPlaceholder": "Wat vond je goed?",
+    "jobTitlePlaceholder": "bijv. Software Engineer",
+    "consPlaceholder": "Wat kan beter?",
+    "summaryPlaceholder": "Vat je ervaring samen"
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
@@ -1426,23 +1426,23 @@
   },
   "companiesPage": {
     "websitePlaceholder": "https://...",
-    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
-    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
-    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)",
-    "searchPlaceholder": "Search companies...",
+    "techStackPlaceholder": "AI, machine learning, gezondheidszorg (komma-gescheiden)",
+    "benefitsPlaceholder": "Thuiswerken, zorgverzekering, 401k (komma-gescheiden)",
+    "culturePlaceholder": "Innovatie, samenwerking, diversiteit (komma-gescheiden)",
+    "searchPlaceholder": "Bedrijven zoeken...",
     "foundedPlaceholder": "2020",
-    "industryPlaceholder": "Industry",
-    "companySizePlaceholder": "Company Size"
+    "industryPlaceholder": "Sector",
+    "companySizePlaceholder": "Bedrijfsgrootte"
   },
   "candidateSearch": {
-    "keywordsPlaceholder": "e.g., senior, remote, healthcare...",
-    "skillsPlaceholder": "Type a skill and press Enter..."
+    "keywordsPlaceholder": "bijv. senior, remote, zorg...",
+    "skillsPlaceholder": "Typ een vaardigheid en druk op Enter..."
   },
   "admin": {
-    "translationCoverageDesc": "Monitor translation completion across all languages",
-    "searchLanguages": "Search languages...",
-    "translationCoverage": "Translation Coverage",
-    "searchByCompanyOrEmail": "Search by company name or email..."
+    "translationCoverageDesc": "Volg de vertaalvoltooiing in alle talen",
+    "searchLanguages": "Talen zoeken...",
+    "translationCoverage": "Vertaaldekking",
+    "searchByCompanyOrEmail": "Zoek op bedrijfsnaam of e-mail..."
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."
@@ -1463,21 +1463,21 @@
     "rejectionReasonPlaceholder": "Provide a reason for rejection..."
   },
   "contact": {
-    "declineReason": "e.g., Not looking for new opportunities right now"
+    "declineReason": "bijv. Momenteel niet op zoek naar nieuwe kansen"
   },
   "taxonomy": {
-    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+    "searchPlaceholder": "Zoek naar een functie (bijv. 'Biomedisch ingenieur', 'Klinisch onderzoek')"
   },
   "candidateTransparency": {
     "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
   },
   "meetingNotes": {
-    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
-    "companyNamePlaceholder": "Company name",
-    "jobTitlePlaceholder": "Job title"
+    "meetingTitlePlaceholder": "bijv. Sollicitatiegesprek met Acme Corp",
+    "companyNamePlaceholder": "Bedrijfsnaam",
+    "jobTitlePlaceholder": "Functietitel"
   },
   "credentialsPage": {
-    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+    "searchPlaceholder": "Certificeringen zoeken (bijv. CQE, ISO 13485, RN)..."
   },
   "salaryInsights": {
     "yearsPlaceholder": "5"
@@ -1486,7 +1486,7 @@
     "selectDateRangePlaceholder": "Select date range..."
   },
   "resumeProfiles": {
-    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+    "profileNamePlaceholder": "bijv. Tech-cv, Management-cv"
   },
   "jobSearch": {
     "selectCountryFirst": "Select Country First",
