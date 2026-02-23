@@ -1,6 +1,7 @@
 import { useRef, useEffect, useMemo, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { Video, VideoOff, MicOff, Hand, Circle, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { MicOff, Hand, Circle, Loader2, Pin, PinOff, Grid3X3, User } from 'lucide-react';
 import { useVirtualBackground } from './useVirtualBackground';
 
 // Get background URL from background ID
@@ -29,9 +30,21 @@ const BACKGROUND_URLS = {
 /**
  * Individual video participant tile component with AI background support
  */
-const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg }) => {
+const VideoParticipant = ({ 
+  participant, 
+  isLocal, 
+  stream, 
+  isSpeaking, 
+  virtualBg,
+  isPinned,
+  onPin,
+  onUnpin,
+  isMinimized,
+  showControls = true
+}) => {
   const videoRef = useRef(null);
   const [videoElement, setVideoElement] = useState(null);
+  const [showActions, setShowActions] = useState(false);
 
   // Determine background type and URL
   const backgroundType = isLocal ? virtualBg : 'none';
@@ -54,8 +67,40 @@ const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg 
   // Determine if we should show the canvas (AI processed) or direct video
   const showProcessedVideo = isLocal && virtualBg && virtualBg !== 'none' && bgActive;
 
+  // Minimized view - small circle avatar
+  if (isMinimized) {
+    return (
+      <div 
+        className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden bg-slate-800 border-2 border-slate-600 cursor-pointer hover:border-turquoise transition-colors flex-shrink-0"
+        onClick={() => onPin && onPin(participant.user_id)}
+        title={`Click to view ${participant?.user_name}`}
+      >
+        {participant?.video_enabled && stream ? (
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted={isLocal}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-700 to-slate-800">
+            <span className="text-sm font-bold text-turquoise">
+              {participant?.user_name?.charAt(0)?.toUpperCase() || '?'}
+            </span>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
-    <div className={`relative w-full h-full rounded-xl overflow-hidden bg-slate-900 ${isSpeaking ? 'ring-2 ring-turquoise' : ''}`}>
+    <div 
+      className={`relative w-full h-full rounded-xl overflow-hidden bg-slate-900 ${isSpeaking ? 'ring-2 ring-turquoise' : ''} ${isPinned ? 'ring-2 ring-yellow-500' : ''}`}
+      onMouseEnter={() => setShowActions(true)}
+      onMouseLeave={() => setShowActions(false)}
+      onTouchStart={() => setShowActions(true)}
+    >
       {participant?.video_enabled && stream ? (
         <>
           {/* Original video (hidden when using AI background) */}
@@ -96,16 +141,51 @@ const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg 
           </div>
         </div>
       )}
+
+      {/* Pin/Unpin actions - show on hover */}
+      {showControls && showActions && !isLocal && (
+        <div className="absolute top-2 right-2 z-20 flex gap-1">
+          {isPinned ? (
+            <Button
+              size="sm"
+              variant="secondary"
+              className="h-7 w-7 p-0 bg-yellow-500 hover:bg-yellow-600"
+              onClick={() => onUnpin && onUnpin()}
+              title="Unpin"
+            >
+              <PinOff className="w-3.5 h-3.5" />
+            </Button>
+          ) : (
+            <Button
+              size="sm"
+              variant="secondary"
+              className="h-7 w-7 p-0 bg-slate-700/80 hover:bg-slate-600"
+              onClick={() => onPin && onPin(participant.user_id)}
+              title="Pin to spotlight"
+            >
+              <Pin className="w-3.5 h-3.5" />
+            </Button>
+          )}
+        </div>
+      )}
       
       {/* Background effect badge */}
       {isLocal && virtualBg && virtualBg !== 'none' && (
-        <Badge className="absolute top-2 right-2 md:top-3 md:right-3 bg-blue-500/80 text-white border-0 text-xs">
-          {bgActive ? (virtualBg.includes('blur') ? 'Blur On' : 'BG On') : 'Loading...'}
+        <Badge className="absolute top-2 right-2 md:top-3 md:right-3 bg-blue-500/80 text-white border-0 text-xs z-10">
+          {bgActive ? (virtualBg.includes('blur') ? 'Blur' : 'BG') : '...'}
+        </Badge>
+      )}
+      
+      {/* Pinned badge */}
+      {isPinned && (
+        <Badge className="absolute top-2 left-2 bg-yellow-500 text-black border-0 text-xs z-10">
+          <Pin className="w-3 h-3 mr-1" />
+          Pinned
         </Badge>
       )}
       
       {/* Name badge */}
-      <div className="absolute bottom-2 md:bottom-3 left-2 md:left-3 flex items-center gap-1 md:gap-2">
+      <div className="absolute bottom-2 md:bottom-3 left-2 md:left-3 flex items-center gap-1 md:gap-2 z-10">
         <Badge className="bg-black/60 text-white border-0 text-xs md:text-sm px-1.5 md:px-2">
           {participant?.user_name || 'Unknown'} {isLocal && '(You)'}
         </Badge>
@@ -122,15 +202,15 @@ const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg 
       </div>
       
       {/* Host badge */}
-      {participant?.is_host && (
-        <Badge className="absolute top-2 md:top-3 left-2 md:left-3 bg-turquoise text-white border-0 text-xs">
+      {participant?.is_host && !isPinned && (
+        <Badge className="absolute top-2 md:top-3 left-2 md:left-3 bg-turquoise text-white border-0 text-xs z-10">
           Host
         </Badge>
       )}
       
       {/* Recording indicator */}
       {participant?.is_recording && (
-        <Badge className="absolute top-2 md:top-3 right-2 md:right-3 bg-red-500 text-white border-0 animate-pulse text-xs">
+        <Badge className="absolute top-2 md:top-3 right-2 md:right-3 bg-red-500 text-white border-0 animate-pulse text-xs z-10">
           <Circle className="w-2 h-2 mr-1 fill-current" />
           REC
         </Badge>
@@ -141,10 +221,13 @@ const VideoParticipant = ({ participant, isLocal, stream, isSpeaking, virtualBg 
 
 /**
  * Grid layout for all participants in a meeting
- * Zoom-style horizontal layout with proper aspect ratios
+ * Supports: Gallery view, Spotlight view, Pin participant, Focus mode
  */
 const ParticipantGrid = ({ participants, localStream, remoteStreams, localUserId, virtualBackground }) => {
-  // Deduplicate participants by user_id - keep only the most recent entry
+  const [viewMode, setViewMode] = useState('gallery'); // 'gallery' | 'spotlight' | 'focus'
+  const [pinnedUserId, setPinnedUserId] = useState(null);
+
+  // Deduplicate participants by user_id
   const uniqueParticipants = useMemo(() => {
     const seen = new Map();
     participants.forEach(p => {
@@ -156,44 +239,171 @@ const ParticipantGrid = ({ participants, localStream, remoteStreams, localUserId
   }, [participants]);
   
   const count = uniqueParticipants.length;
-  
-  // Zoom-style responsive grid layout
-  const getGridLayout = () => {
-    if (count === 1) {
-      return 'flex justify-center items-center';
-    }
-    if (count === 2) {
-      return 'grid grid-cols-2 gap-2';
-    }
-    if (count <= 4) {
-      return 'grid grid-cols-2 gap-2';
-    }
-    if (count <= 6) {
-      return 'grid grid-cols-2 md:grid-cols-3 gap-2';
-    }
-    return 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2';
+
+  // Handle pin/unpin
+  const handlePin = (userId) => {
+    setPinnedUserId(userId);
+    setViewMode('spotlight');
   };
 
-  // Calculate optimal tile size
-  const getTileClass = () => {
-    if (count === 1) {
-      return 'w-full max-w-2xl aspect-video';
-    }
-    return 'aspect-video';
+  const handleUnpin = () => {
+    setPinnedUserId(null);
+    setViewMode('gallery');
+  };
+
+  // Show all in gallery
+  const showGallery = () => {
+    setViewMode('gallery');
+    setPinnedUserId(null);
+  };
+
+  // Focus on self, minimize others
+  const showFocus = () => {
+    setViewMode('focus');
+    setPinnedUserId(null);
+  };
+
+  // Get pinned participant
+  const pinnedParticipant = pinnedUserId 
+    ? uniqueParticipants.find(p => p.user_id === pinnedUserId) 
+    : null;
+
+  // Other participants (not pinned, not local for focus mode)
+  const otherParticipants = uniqueParticipants.filter(p => p.user_id !== pinnedUserId);
+  const localParticipant = uniqueParticipants.find(p => p.user_id === localUserId);
+  const remoteParticipants = uniqueParticipants.filter(p => p.user_id !== localUserId);
+
+  // Gallery view grid classes based on count
+  const getGalleryGridClass = () => {
+    if (count === 1) return 'flex justify-center items-center';
+    if (count === 2) return 'grid grid-cols-2 gap-2';
+    if (count <= 4) return 'grid grid-cols-2 gap-2';
+    if (count <= 6) return 'grid grid-cols-2 md:grid-cols-3 gap-2';
+    if (count <= 9) return 'grid grid-cols-3 gap-2';
+    return 'grid grid-cols-3 md:grid-cols-4 gap-1.5';
   };
 
   return (
-    <div className={`w-full h-full ${getGridLayout()}`}>
-      {uniqueParticipants.map((p, idx) => (
-        <div key={p.user_id || `participant-${idx}`} className={getTileClass()}>
-          <VideoParticipant
-            participant={p}
-            isLocal={p.user_id === localUserId}
-            stream={p.user_id === localUserId ? localStream : remoteStreams[p.user_id]}
-            virtualBg={p.user_id === localUserId ? virtualBackground : null}
-          />
+    <div className="w-full h-full flex flex-col">
+      {/* View mode controls */}
+      <div className="flex items-center justify-between px-2 py-1.5 flex-shrink-0">
+        <div className="flex items-center gap-1">
+          <Button
+            size="sm"
+            variant={viewMode === 'gallery' ? 'default' : 'ghost'}
+            className={`h-7 px-2 text-xs ${viewMode === 'gallery' ? 'bg-turquoise' : 'text-slate-400'}`}
+            onClick={showGallery}
+          >
+            <Grid3X3 className="w-3.5 h-3.5 mr-1" />
+            Gallery
+          </Button>
+          {count > 1 && (
+            <Button
+              size="sm"
+              variant={viewMode === 'focus' ? 'default' : 'ghost'}
+              className={`h-7 px-2 text-xs ${viewMode === 'focus' ? 'bg-turquoise' : 'text-slate-400'}`}
+              onClick={showFocus}
+            >
+              <User className="w-3.5 h-3.5 mr-1" />
+              Focus
+            </Button>
+          )}
         </div>
-      ))}
+        <span className="text-xs text-slate-500">{count} participant{count !== 1 ? 's' : ''}</span>
+      </div>
+
+      {/* Main content */}
+      <div className="flex-1 overflow-hidden p-1 min-h-0">
+        {/* Spotlight view - pinned user large, others as thumbnails */}
+        {viewMode === 'spotlight' && pinnedParticipant && (
+          <div className="h-full flex flex-col gap-2">
+            {/* Main pinned video */}
+            <div className="flex-1 min-h-0">
+              <VideoParticipant
+                participant={pinnedParticipant}
+                isLocal={pinnedParticipant.user_id === localUserId}
+                stream={pinnedParticipant.user_id === localUserId ? localStream : remoteStreams[pinnedParticipant.user_id]}
+                virtualBg={pinnedParticipant.user_id === localUserId ? virtualBackground : null}
+                isPinned={true}
+                onUnpin={handleUnpin}
+              />
+            </div>
+            
+            {/* Thumbnail strip */}
+            {otherParticipants.length > 0 && (
+              <div className="h-20 md:h-24 flex gap-2 overflow-x-auto py-1 px-1 flex-shrink-0">
+                {otherParticipants.map((p) => (
+                  <div key={p.user_id} className="w-28 md:w-36 h-full flex-shrink-0">
+                    <VideoParticipant
+                      participant={p}
+                      isLocal={p.user_id === localUserId}
+                      stream={p.user_id === localUserId ? localStream : remoteStreams[p.user_id]}
+                      virtualBg={p.user_id === localUserId ? virtualBackground : null}
+                      onPin={handlePin}
+                      showControls={true}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Focus view - local user large, others minimized as circles */}
+        {viewMode === 'focus' && (
+          <div className="h-full flex flex-col gap-2">
+            {/* Local user large */}
+            <div className="flex-1 min-h-0">
+              {localParticipant && (
+                <VideoParticipant
+                  participant={localParticipant}
+                  isLocal={true}
+                  stream={localStream}
+                  virtualBg={virtualBackground}
+                  showControls={false}
+                />
+              )}
+            </div>
+            
+            {/* Minimized participants strip */}
+            {remoteParticipants.length > 0 && (
+              <div className="flex gap-2 justify-center py-2 flex-shrink-0 flex-wrap">
+                {remoteParticipants.map((p) => (
+                  <VideoParticipant
+                    key={p.user_id}
+                    participant={p}
+                    isLocal={false}
+                    stream={remoteStreams[p.user_id]}
+                    isMinimized={true}
+                    onPin={handlePin}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Gallery view - all participants in grid */}
+        {viewMode === 'gallery' && (
+          <div className={`h-full ${getGalleryGridClass()}`}>
+            {uniqueParticipants.map((p) => (
+              <div 
+                key={p.user_id} 
+                className={count === 1 ? 'w-full max-w-3xl aspect-video mx-auto' : 'aspect-video'}
+              >
+                <VideoParticipant
+                  participant={p}
+                  isLocal={p.user_id === localUserId}
+                  stream={p.user_id === localUserId ? localStream : remoteStreams[p.user_id]}
+                  virtualBg={p.user_id === localUserId ? virtualBackground : null}
+                  onPin={handlePin}
+                  showControls={count > 1}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
