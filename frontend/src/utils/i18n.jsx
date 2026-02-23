@@ -926,28 +926,50 @@ export const I18nProvider = ({ children }) => {
 
   /**
    * Get translation for a key
+   * Enhanced to detect untranslated strings (same as English) and use AI translation
    */
   const t = useCallback((key, params = {}) => {
-    // For non-bundled languages, check AI translations
-    if (!BUNDLED_LANGUAGES.includes(language)) {
-      const aiTranslation = dynamicTranslations[language]?.[key];
-      if (aiTranslation) {
-        let text = aiTranslation;
+    // First check if we have a dynamic/AI translation for this key
+    const aiTranslation = dynamicTranslations[language]?.[key];
+    if (aiTranslation) {
+      let text = aiTranslation;
+      Object.entries(params).forEach(([param, value]) => {
+        text = text.replace(new RegExp(`{{${param}}}`, "g"), value);
+      });
+      return text;
+    }
+    
+    // Get English value for comparison
+    const englishValue = getNestedValue(translations[DEFAULT_LANGUAGE], key);
+    
+    // For non-English languages, check bundled translations
+    if (language !== DEFAULT_LANGUAGE) {
+      const currentTranslations = translations[language] || translations[DEFAULT_LANGUAGE];
+      let text = getNestedValue(currentTranslations, key);
+      
+      // If text is same as English (not translated) or key not found, 
+      // queue for AI translation and return English for now
+      if (text === key || text === englishValue) {
+        // Queue for background AI translation if not bundled or translation missing
+        if (englishValue && englishValue !== key) {
+          // Trigger background translation for this key
+          queueKeyForTranslation(key, englishValue, language);
+        }
+        text = englishValue;
+      }
+      
+      // Handle interpolation
+      if (text && typeof text === "string") {
         Object.entries(params).forEach(([param, value]) => {
           text = text.replace(new RegExp(`{{${param}}}`, "g"), value);
         });
-        return text;
       }
+      
+      return text;
     }
     
-    // Check bundled translations
-    const currentTranslations = translations[language] || translations[DEFAULT_LANGUAGE];
-    let text = getNestedValue(currentTranslations, key);
-    
-    // Fallback to English
-    if (text === key && language !== DEFAULT_LANGUAGE) {
-      text = getNestedValue(translations[DEFAULT_LANGUAGE], key);
-    }
+    // For English, just return the value
+    let text = englishValue;
     
     // Handle interpolation
     if (text && typeof text === "string") {
