@@ -30,13 +30,13 @@
     "generating": "Generowanie...",
     "download": "Pobierz",
     "filter": "Filtruj",
-    "none": "None",
+    "none": "Brak",
     "upload": "Prześlij",
-    "sort": "Sort",
-    "more": "More",
+    "sort": "Sortuj",
+    "more": "Więcej",
     "help": "Pomoc",
-    "less": "Less",
-    "previous": "Previous"
+    "less": "Mniej",
+    "previous": "Poprzedni"
   },
   "notifications": {
     "title": "Powiadomienia",
@@ -215,7 +215,7 @@
     "moreFilters": "Więcej filtrów",
     "lessFilters": "Mniej filtrów",
     "selectCountry": "Wybierz kraj",
-    "viewOriginal": "View Original"
+    "viewOriginal": "Wyświetl oryginał"
   },
   "resume": {
     "myResume": "Moje CV",
@@ -296,12 +296,12 @@
     "research": "Research",
     "researchFor": "Research dla",
     "skipQuestion": "Pomiń pytanie",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
-    "companyPlaceholder": "e.g., Medtronic",
-    "questionsPlaceholder": "Enter questions, one per line...",
-    "typeAnswerPlaceholder": "Type your answer here... (You have 2 minutes)",
-    "yourResumeSkills": "Your Resume Skills",
-    "jobDescriptionPlaceholder": "Paste the full job description here. AI will generate relevant interview questions based on the requirements and your resume skills..."
+    "jobTitlePlaceholder": "np. Menedżer ds. Jakości Dostawców",
+    "companyPlaceholder": "np. Medtronic",
+    "questionsPlaceholder": "Wpisz pytania, po jednym w wierszu...",
+    "typeAnswerPlaceholder": "Wpisz tutaj swoją odpowiedź... (Masz 2 minuty)",
+    "yourResumeSkills": "Umiejętności z Twojego CV",
+    "jobDescriptionPlaceholder": "Wklej tutaj pełny opis stanowiska. AI wygeneruje odpowiednie pytania rekrutacyjne na podstawie wymagań i umiejętności z Twojego CV..."
   },
   "qaPractice": {
     "title": "Generator odpowiedzi do pytań i odpowiedzi",
@@ -350,9 +350,9 @@
     "keepPracticing": "Ćwicz dalej",
     "correct": "Poprawnie",
     "badgeEarned": "Zdobyto odznakę!",
-    "generatingQuestions": "Generating AI questions... This may take 20-30 seconds",
-    "assessmentReady": "Assessment ready! Let's begin",
-    "generating": "Generating..."
+    "generatingQuestions": "Generowanie pytań AI... Może to potrwać 20–30 sekund",
+    "assessmentReady": "Test gotowy! Zaczynajmy",
+    "generating": "Generowanie..."
   },
   "predictor": {
     "title": "Predyktor sukcesu aplikacji",
@@ -389,8 +389,8 @@
     "enterJobDetails": "Wprowadź szczegóły oferty pracy i kliknij „Przewiduj wskaźnik powodzenia”, aby zobaczyć prawdopodobieństwo otrzymania odpowiedzi",
     "neuralNetworkAnalysis": "Analiza sieci neuronowej",
     "browserBasedAI": "Prognoza AI w przeglądarce z wykorzystaniem 4-warstwowej sieci neuronowej",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "np. Medtronic",
+    "jobTitlePlaceholder": "np. Menedżer ds. jakości dostawców"
   },
   "video": {
     "title": "Ćwiczenia do rozmowy kwalifikacyjnej w formie wideo",
@@ -449,8 +449,8 @@
     "generationFailed": "Nie udało się wygenerować listu motywacyjnego",
     "pasteJobDescription": "Wklej tutaj opis stanowiska...",
     "generate": "Wygeneruj list motywacyjny",
-    "companyPlaceholder": "e.g., Medtronic",
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager"
+    "companyPlaceholder": "np. Medtronic",
+    "jobTitlePlaceholder": "np. Menedżer ds. jakości dostawców"
   },
   "membership": {
     "membership": "Członkostwo",
@@ -664,10 +664,10 @@
     "confirmCancel": "Czy na pewno chcesz anulować tę rozmowę kwalifikacyjną?",
     "cancelled": "Rozmowa kwalifikacyjna została anulowana",
     "cancelFailed": "Nie udało się anulować rozmowy kwalifikacyjnej",
-    "messageToRecruiterPlaceholder": "Add a message to the recruiter...",
-    "additionalInfoPlaceholder": "Any additional information...",
-    "selectCandidate": "Select a candidate",
-    "officeAddressPlaceholder": "Office address",
+    "messageToRecruiterPlaceholder": "Dodaj wiadomość do rekrutera...",
+    "additionalInfoPlaceholder": "Dodatkowe informacje...",
+    "selectCandidate": "Wybierz kandydata",
+    "officeAddressPlaceholder": "Adres biura",
     "meetingLinkPlaceholder": "https://zoom.us/j/..."
   },
   "verification": {
@@ -693,9 +693,9 @@
     "selectSize": "Wybierz wielkość",
     "headquarters": "Siedziba",
     "headquartersPlaceholder": "Miasto, kraj",
-    "created": "Company profile created",
-    "followFailed": "Failed to follow company",
-    "createFailed": "Failed to create company"
+    "created": "Utworzono profil firmy",
+    "followFailed": "Nie udało się obserwować firmy",
+    "createFailed": "Nie udało się utworzyć firmy"
   },
   "analytics": {
     "loadFailed": "Nie udało się załadować analityki"
@@ -751,13 +751,13 @@
     "genderAuto": "Automatycznie (domyślnie dla języka)",
     "useBrowserTranslate": "Użyj tłumaczenia w przeglądarce",
     "useGoogleTranslate": "Użyj Tłumacza Google",
-    "googleTranslateDisclaimer": "You can also use your browser's built-in translation feature (usually via right-click menu or browser settings) for automatic page translation.",
-    "keepCurrentLanguage": "Keep English",
-    "switchToLanguage": "Switch to {{language}}",
-    "detectedBrowserLanguage": "We detected your browser language is {{language}}",
-    "browserTranslationNote": "Your browser is currently translating this page. The app's language selector is hidden to avoid conflicts.",
+    "googleTranslateDisclaimer": "Możesz też użyć wbudowanej funkcji tłumaczenia w przeglądarce (zwykle przez menu po kliknięciu prawym przyciskiem myszy lub w ustawieniach przeglądarki), aby automatycznie przetłumaczyć stronę.",
+    "keepCurrentLanguage": "Pozostaw angielski",
+    "switchToLanguage": "Przełącz na {{language}}",
+    "detectedBrowserLanguage": "Wykryliśmy, że język Twojej przeglądarki to {{language}}",
+    "browserTranslationNote": "Twoja przeglądarka obecnie tłumaczy tę stronę. Selektor języka aplikacji jest ukryty, aby uniknąć konfliktów.",
     "openGoogleTranslate": "Otwórz w Tłumaczu Google",
-    "languageSwitched": "Language switched to {{language}}",
+    "languageSwitched": "Język przełączono na {{language}}",
     "browserTranslationActive": "Tłumaczenie w przeglądarce jest aktywne"
   },
   "dragon": {
@@ -839,9 +839,9 @@
     "submit": "Prześlij opinię",
     "submitted": "Opinia została pomyślnie przesłana",
     "submitFailed": "Nie udało się przesłać opinii",
-    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
-    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
-    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
+    "experienceGapPlaceholder": "np. Wymagane 5+ lat w podobnej roli, kandydat ma 2 lata",
+    "skillsPlaceholder": "np. Python, AWS, przywództwo zespołu",
+    "improvementPlaceholder": "np. Zdobyć certyfikat AWS, więcej doświadczenia w zarządzaniu projektami"
   },
   "extras": {
     "later": "Później",
@@ -1294,9 +1294,9 @@
     "notSupported": "Uwierzytelnianie biometryczne nie jest obsługiwane na tym urządzeniu",
     "enterEmail": "Wpisz swój adres e-mail",
     "emailPlaceholder": "Wpisz swój adres e-mail",
-    "loginFailed": "Login failed",
-    "loginSuccess": "Login successful!",
-    "loginCancelled": "Biometric login was cancelled or denied"
+    "loginFailed": "Logowanie nie powiodło się",
+    "loginSuccess": "Logowanie zakończone sukcesem!",
+    "loginCancelled": "Logowanie biometryczne zostało anulowane lub odrzucone"
   },
   "translation": {
     "selectLanguage": "Wybierz język",
@@ -1311,8 +1311,8 @@
     "responsePlaceholder": "Podziękuj recenzentowi, podaj kontekst lub profesjonalnie odnieś się do wszelkich uwag...",
     "responseVisibility": "Twoja odpowiedź będzie widoczna dla rekruterów przeglądających Twój profil",
     "submitResponse": "Wyślij odpowiedź",
-    "title": "Reviews",
-    "noReviews": "No reviews yet"
+    "title": "Opinie",
+    "noReviews": "Brak opinii"
   },
   "capa": {
     "addProbableCause": "Dodaj prawdopodobną przyczynę",
@@ -1326,29 +1326,29 @@
     "addCause": "Dodaj przyczynę",
     "searchCapas": "Szukaj CAPA...",
     "allStatuses": "Wszystkie statusy",
-    "title": "Title",
-    "severityHigh": "High",
-    "severityMedium": "Medium",
-    "severityCritical": "Critical",
-    "impactedProcesses": "Impacted Processes",
-    "capaType": "CAPA Type",
-    "titleAndStatementRequired": "Title and problem statement are required",
-    "impactedProcessesPlaceholder": "e.g., Translation, UI Rendering, Localization",
-    "titlePlaceholder": "Brief title of the nonconformance",
-    "severityLow": "Low",
-    "severity": "Severity",
-    "problemStatementPlaceholder": "Detailed description of the issue...",
-    "source": "Source",
-    "sourcePlaceholder": "Where the issue was identified (e.g., QA, Audit, Customer)",
-    "problemStatement": "Problem Statement"
+    "title": "Tytuł",
+    "severityHigh": "Wysoki",
+    "severityMedium": "Średni",
+    "severityCritical": "Krytyczny",
+    "impactedProcesses": "Procesy objęte wpływem",
+    "capaType": "Typ CAPA",
+    "titleAndStatementRequired": "Tytuł i opis problemu są wymagane",
+    "impactedProcessesPlaceholder": "np. tłumaczenie, renderowanie UI, lokalizacja",
+    "titlePlaceholder": "Krótki tytuł niezgodności",
+    "severityLow": "Niski",
+    "severity": "Poziom ważności",
+    "problemStatementPlaceholder": "Szczegółowy opis problemu...",
+    "source": "Źródło",
+    "sourcePlaceholder": "Gdzie wykryto problem (np. QA, audyt, klient)",
+    "problemStatement": "Opis problemu"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
-    "companyPlaceholder": "e.g., Google",
-    "notesPlaceholder": "Any additional details about the interview...",
-    "positionPlaceholder": "e.g., Software Engineer",
-    "locationPlaceholder": "https://meet.google.com/... or office address"
+    "interviewerEmailPlaceholder": "jan@firma.com",
+    "interviewerNamePlaceholder": "Jan Kowalski",
+    "companyPlaceholder": "np. Google",
+    "notesPlaceholder": "Wszelkie dodatkowe informacje o rozmowie kwalifikacyjnej...",
+    "positionPlaceholder": "np. Inżynier oprogramowania",
+    "locationPlaceholder": "https://meet.google.com/... lub adres biura"
   },
   "blindScreening": {
     "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
@@ -1356,33 +1356,33 @@
     "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
   },
   "psv": {
-    "npiNumber": "NPI Number (optional)",
-    "statePlaceholder": "State (e.g., CA, NY)",
-    "lastName": "Last Name",
-    "familyName": "Family Name",
-    "searchOrcid": "Search ORCID Registry",
-    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
-    "globalUniversitySearch": "Global University Database",
-    "universityDescription": "Verify educational institutions through the global university database",
-    "orSearchByName": "or search by name",
-    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
-    "givenNames": "Given Names",
-    "oigDescription": "Check if an individual is excluded from federal healthcare programs",
-    "firstName": "First Name",
-    "title": "Primary Source Verification Hub",
-    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
-    "subtitle": "Free self-service verification using public databases",
-    "universityName": "University Name",
-    "searchUniversities": "Search Universities",
-    "countryOptional": "Country (optional)"
+    "npiNumber": "Numer NPI (opcjonalnie)",
+    "statePlaceholder": "Stan (np. CA, NY)",
+    "lastName": "Nazwisko",
+    "familyName": "Nazwisko",
+    "searchOrcid": "Przeszukaj rejestr ORCID",
+    "npiDescription": "Weryfikuj amerykańskich świadczeniodawców w rejestrze CMS National Provider Identifier",
+    "globalUniversitySearch": "Globalna baza danych uczelni",
+    "universityDescription": "Weryfikuj instytucje edukacyjne w globalnej bazie danych uczelni",
+    "orSearchByName": "lub wyszukaj po nazwisku",
+    "orcidIdPlaceholder": "ORCID iD (np. 0000-0001-2345-6789)",
+    "givenNames": "Imiona",
+    "oigDescription": "Sprawdź, czy dana osoba jest wykluczona z federalnych programów opieki zdrowotnej",
+    "firstName": "Imię",
+    "title": "Hub weryfikacji pierwotnych źródeł",
+    "orcidDescription": "Weryfikuj badaczy i naukowców w publicznym rejestrze ORCID",
+    "subtitle": "Bezpłatna samodzielna weryfikacja z użyciem publicznych baz danych",
+    "universityName": "Nazwa uczelni",
+    "searchUniversities": "Wyszukaj uczelnie",
+    "countryOptional": "Kraj (opcjonalnie)"
   },
   "publicApplication": {
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
+    "resumeLinkPlaceholder": "Link do Twojego CV (Google Drive, Dropbox itp.)",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "coverLetterPlaceholder": "Tell us why you're a great fit for this role...",
+    "coverLetterPlaceholder": "Powiedz nam, dlaczego świetnie pasujesz do tej roli...",
     "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Jan Nowak",
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
@@ -1391,10 +1391,10 @@
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
-    "prosPlaceholder": "What did you like?",
-    "jobTitlePlaceholder": "e.g., Software Engineer",
-    "consPlaceholder": "What could be improved?",
-    "summaryPlaceholder": "Summarize your experience"
+    "prosPlaceholder": "Co Ci się podobało?",
+    "jobTitlePlaceholder": "np. Inżynier oprogramowania",
+    "consPlaceholder": "Co można poprawić?",
+    "summaryPlaceholder": "Podsumuj swoje doświadczenie"
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
@@ -1426,23 +1426,23 @@
   },
   "companiesPage": {
     "websitePlaceholder": "https://...",
-    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
-    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
-    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)",
-    "searchPlaceholder": "Search companies...",
+    "techStackPlaceholder": "AI, uczenie maszynowe, opieka zdrowotna (oddzielone przecinkami)",
+    "benefitsPlaceholder": "Praca zdalna, ubezpieczenie zdrowotne, 401(k) (oddzielone przecinkami)",
+    "culturePlaceholder": "Innowacyjność, współpraca, różnorodność (oddzielone przecinkami)",
+    "searchPlaceholder": "Szukaj firm...",
     "foundedPlaceholder": "2020",
-    "industryPlaceholder": "Industry",
-    "companySizePlaceholder": "Company Size"
+    "industryPlaceholder": "Branża",
+    "companySizePlaceholder": "Wielkość firmy"
   },
   "candidateSearch": {
-    "keywordsPlaceholder": "e.g., senior, remote, healthcare...",
-    "skillsPlaceholder": "Type a skill and press Enter..."
+    "keywordsPlaceholder": "np. senior, zdalnie, opieka zdrowotna...",
+    "skillsPlaceholder": "Wpisz umiejętność i naciśnij Enter..."
   },
   "admin": {
-    "translationCoverageDesc": "Monitor translation completion across all languages",
-    "searchLanguages": "Search languages...",
-    "translationCoverage": "Translation Coverage",
-    "searchByCompanyOrEmail": "Search by company name or email..."
+    "translationCoverageDesc": "Monitoruj ukończenie tłumaczeń we wszystkich językach",
+    "searchLanguages": "Szukaj języków...",
+    "translationCoverage": "Pokrycie tłumaczeń",
+    "searchByCompanyOrEmail": "Szukaj po nazwie firmy lub e-mailu..."
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."
@@ -1463,21 +1463,21 @@
     "rejectionReasonPlaceholder": "Provide a reason for rejection..."
   },
   "contact": {
-    "declineReason": "e.g., Not looking for new opportunities right now"
+    "declineReason": "np. Obecnie nie szukam nowych możliwości"
   },
   "taxonomy": {
-    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+    "searchPlaceholder": "Wyszukaj stanowisko (np. „Inżynier biomedyczny”, „Badania kliniczne”)"
   },
   "candidateTransparency": {
     "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
   },
   "meetingNotes": {
-    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
-    "companyNamePlaceholder": "Company name",
-    "jobTitlePlaceholder": "Job title"
+    "meetingTitlePlaceholder": "np. Rozmowa kwalifikacyjna w Acme Corp",
+    "companyNamePlaceholder": "Nazwa firmy",
+    "jobTitlePlaceholder": "Stanowisko"
   },
   "credentialsPage": {
-    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+    "searchPlaceholder": "Szukaj certyfikatów (np. CQE, ISO 13485, RN)..."
   },
   "salaryInsights": {
     "yearsPlaceholder": "5"
@@ -1486,7 +1486,7 @@
     "selectDateRangePlaceholder": "Select date range..."
   },
   "resumeProfiles": {
-    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+    "profileNamePlaceholder": "np. CV techniczne, CV menedżerskie"
   },
   "jobSearch": {
     "selectCountryFirst": "Select Country First",
