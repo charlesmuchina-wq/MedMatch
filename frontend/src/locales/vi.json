@@ -1566,11 +1566,11 @@
       "completeOverview": "Tổng quan đầy đủ mọi tính năng của MedMatch-AI KARAU"
     },
     "videoTitles": {
-      "jobSeekerFeatures": "Job Seeker Features",
-      "recruiterFeatures": "Recruiter Features",
-      "privacyMatters": "Your Privacy Matters",
-      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
-      "completeOverview": "Complete MedMatch-AI KARAU Overview"
+      "jobSeekerFeatures": "Tính năng cho ứng viên",
+      "recruiterFeatures": "Tính năng cho nhà tuyển dụng",
+      "privacyMatters": "Quyền riêng tư của bạn quan trọng",
+      "faqAiCompliance": "FAQ: Tuân thủ AI & quyền dữ liệu",
+      "completeOverview": "Tổng quan đầy đủ MedMatch-AI KARAU"
     }
   }
 }

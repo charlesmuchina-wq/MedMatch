@@ -1566,11 +1566,11 @@
       "completeOverview": "የMedMatch-AI KARAU ባህሪዎች ሁሉ የተሟላ ማጠቃለያ"
     },
     "videoTitles": {
-      "jobSeekerFeatures": "Job Seeker Features",
-      "recruiterFeatures": "Recruiter Features",
-      "privacyMatters": "Your Privacy Matters",
-      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
-      "completeOverview": "Complete MedMatch-AI KARAU Overview"
+      "jobSeekerFeatures": "የስራ ፈላጊ ባህሪያት",
+      "recruiterFeatures": "የቀጣሪ ባህሪያት",
+      "privacyMatters": "ግላዊነትዎ አስፈላጊ ነው",
+      "faqAiCompliance": "ጥያቄዎች: የAI ተገዢነትና የውሂብ መብቶች",
+      "completeOverview": "የMedMatch-AI KARAU አጠቃላይ እይታ"
     }
   }
 }

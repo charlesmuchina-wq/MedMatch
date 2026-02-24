@@ -1566,11 +1566,11 @@
       "completeOverview": "Resumo completo de todos os recursos do MedMatch-AI KARAU"
     },
     "videoTitles": {
-      "jobSeekerFeatures": "Job Seeker Features",
-      "recruiterFeatures": "Recruiter Features",
-      "privacyMatters": "Your Privacy Matters",
-      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
-      "completeOverview": "Complete MedMatch-AI KARAU Overview"
+      "jobSeekerFeatures": "Recursos para Candidatos",
+      "recruiterFeatures": "Recursos para Recrutadores",
+      "privacyMatters": "Sua Privacidade Importa",
+      "faqAiCompliance": "Perguntas frequentes: conformidade de IA e direitos de dados",
+      "completeOverview": "Visão geral completa do MedMatch-AI KARAU"
     }
   }
 }

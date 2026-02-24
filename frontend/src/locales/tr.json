@@ -1566,11 +1566,11 @@
       "completeOverview": "Tüm MedMatch-AI KARAU özelliklerinin kapsamlı özeti"
     },
     "videoTitles": {
-      "jobSeekerFeatures": "Job Seeker Features",
-      "recruiterFeatures": "Recruiter Features",
-      "privacyMatters": "Your Privacy Matters",
-      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
-      "completeOverview": "Complete MedMatch-AI KARAU Overview"
+      "jobSeekerFeatures": "İş Arayan Özellikleri",
+      "recruiterFeatures": "İşe Alımcı Özellikleri",
+      "privacyMatters": "Gizliliğiniz Önemli",
+      "faqAiCompliance": "SSS: Yapay Zekâ Uyumu ve Veri Hakları",
+      "completeOverview": "MedMatch-AI KARAU Genel Bakışını Tamamla"
     }
   }
 }
