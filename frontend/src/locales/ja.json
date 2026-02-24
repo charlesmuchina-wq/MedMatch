@@ -212,7 +212,7 @@
     "verifyAndSignIn": "確認してサインイン",
     "changePhoneNumber": "電話番号を変更",
     "emailPlaceholder": "you@例.com",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": "+1（555）123-4567",
     "passwordPlaceholder": "••••••••"
   },
   "errors": {
@@ -331,7 +331,7 @@
     "additionalInfoPlaceholder": "追加情報（任意）...",
     "selectCandidate": "候補者を選択",
     "officeAddressPlaceholder": "オフィスの住所",
-    "meetingLinkPlaceholder": "https://zoom.us/j/..."
+    "meetingLinkPlaceholder": "https://zoom.us/j/…"
   },
   "predictor": {
     "jobDetailsDesc": "Enter the job information to analyze your chances",
@@ -1425,7 +1425,7 @@
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
-    "websitePlaceholder": "https://...",
+    "websitePlaceholder": "https://…",
     "techStackPlaceholder": "AI、機械学習、ヘルスケア（カンマ区切り）",
     "benefitsPlaceholder": "リモート勤務、健康保険、401k（カンマ区切り）",
     "culturePlaceholder": "イノベーション、協業、多様性（カンマ区切り）",

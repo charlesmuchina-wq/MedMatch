@@ -1344,7 +1344,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@kamfani.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "Johan Smith",
     "companyPlaceholder": "misali, Google",
     "notesPlaceholder": "Duk wasu ƙarin bayanai game da hirar...",
     "positionPlaceholder": "misali, Injiniyan Software",
@@ -1382,7 +1382,7 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Faɗa mana dalilin da ya sa ka dace sosai da wannan aikin...",
     "emailPlaceholder": "john@misali.com",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Johan Doe",
     "portfolioPlaceholder": "https://kundin-aikinka.com"
   },
   "recruiterJobs": {
@@ -1397,7 +1397,7 @@
     "summaryPlaceholder": "Takaita kwarewarka"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Johan Doe",
     "inviteNotePlaceholder": "Ƙara bayanin sirri a gayyatarka...",
     "candidateEmailPlaceholder": "dan-takara@misali.com",
     "selectJobPlaceholder": "Zaɓi sanarwar aiki",
@@ -1418,7 +1418,7 @@
   },
   "idVerification": {
     "jobTitlePlaceholder": "Manajan Daukar Ma'aikata",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Johan Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Kamfanin Acme",
     "linkedinPlaceholder": "https://linkedin.com/in/bayanan-ka",

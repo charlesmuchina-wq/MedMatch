@@ -1344,7 +1344,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@kambani.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "Johani Smith",
     "companyPlaceholder": "semuenzaniso, Google",
     "notesPlaceholder": "Mamwe mashoko ekuwedzera nezve interview...",
     "positionPlaceholder": "semuenzaniso, Injiniya weSoftware",
@@ -1382,7 +1382,7 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Tiudze kuti sei uri munhu akakodzera basa iri...",
     "emailPlaceholder": "john@muenzaniso.com",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Johani Doe",
     "portfolioPlaceholder": "https://portfolio-yako.com"
   },
   "recruiterJobs": {
@@ -1397,7 +1397,7 @@
     "summaryPlaceholder": "Pfupisa zvawakaitira"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Johani Doe",
     "inviteNotePlaceholder": "Wedzera chitsamba chako pachako kukukoka kwako...",
     "candidateEmailPlaceholder": "mukwikwidzi@example.com",
     "selectJobPlaceholder": "Sarudza chiziviso chebasa",
@@ -1418,7 +1418,7 @@
   },
   "idVerification": {
     "jobTitlePlaceholder": "Maneja weKutsvaga Vashandi",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Johani Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Kambani yeAcme",
     "linkedinPlaceholder": "https://linkedin.com/in/profaira-yako",

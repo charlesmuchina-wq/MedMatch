@@ -394,7 +394,7 @@
     "verifyAndSignIn": "验证并登录",
     "changePhoneNumber": "更换手机号",
     "emailPlaceholder": "you@示例.com",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": "+1（555）123-4567",
     "passwordPlaceholder": "••••••••"
   },
   "onboarding": {
@@ -1021,10 +1021,10 @@
     "globalCompliance": {
       "title": "全球合规",
       "subtitle": "跨地区合规状态",
-      "gdpr": "GDPR",
-      "ccpa": "CCPA",
+      "gdpr": "GDPR（通用数据保护条例）",
+      "ccpa": "CCPA（加州消费者隐私法案）",
       "hipaa": "HIPAA",
-      "soc2": "SOC 2",
+      "soc2": "SOC 2（服务组织控制 2）",
       "compliant": "合规",
       "nonCompliant": "不合规",
       "inProgress": "进行中"
@@ -1392,7 +1392,7 @@
   "publicApplication": {
     "linkedinPlaceholder": "https://linkedin.com/in/你的主页",
     "resumeLinkPlaceholder": "简历链接（Google Drive、Dropbox 等）",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": "+1（555）123-4567",
     "coverLetterPlaceholder": "告诉我们为什么你非常适合这个职位...",
     "emailPlaceholder": "john@example.com",
     "namePlaceholder": "约翰·多伊",
@@ -1423,7 +1423,7 @@
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
     "rolePlaceholder": "例如：人力资源经理",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": "+1（555）123-4567",
     "companyPlaceholder": "例如：市医疗中心",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "你@你的公司.com",
@@ -1443,7 +1443,7 @@
     "benefitsPlaceholder": "远程办公、医疗保险、401k（用逗号分隔）",
     "culturePlaceholder": "创新、协作、多元（用逗号分隔）",
     "searchPlaceholder": "搜索公司...",
-    "foundedPlaceholder": "2020",
+    "foundedPlaceholder": "2020 年",
     "industryPlaceholder": "行业",
     "companySizePlaceholder": "公司规模"
   },

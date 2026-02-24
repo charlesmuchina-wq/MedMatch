@@ -211,7 +211,7 @@
     "enterCode": "Dugal koodu 6 simili",
     "verifyAndSignIn": "Seet & Dugg",
     "changePhoneNumber": "Soppi nimero telefon",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "yow@example.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -1343,7 +1343,7 @@
     "problemStatement": "Jëmmal xaalis"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerEmailPlaceholder": "jaan@company.com",
     "interviewerNamePlaceholder": "Joon Smit",
     "companyPlaceholder": "mën a nekk: Google",
     "notesPlaceholder": "Benn yeneen bennal ci waxtaanu jëmmal bi...",
@@ -1381,7 +1381,7 @@
     "resumeLinkPlaceholder": "Lëkkalekaayu sa CV (Google Drive, Dropbox, etc.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Wax nu lu tax nga yaakaar ni yaa gën a méngoo ak liggéey bii...",
-    "emailPlaceholder": "john@example.com",
+    "emailPlaceholder": "jaan@example.com",
     "namePlaceholder": "Joon Doo",
     "portfolioPlaceholder": "https://sama-portfolio.com"
   },

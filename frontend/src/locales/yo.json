@@ -1397,7 +1397,7 @@
     "summaryPlaceholder": "Ṣe àkótán ìrírí rẹ"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Ọ́hàn Dó",
     "inviteNotePlaceholder": "Ṣàfikún àkọsílẹ̀ ti ara ẹni sí ìpè rẹ...",
     "candidateEmailPlaceholder": "oludije@apẹẹrẹ.com",
     "selectJobPlaceholder": "Yan ìpolówó iṣẹ́ kan",
@@ -1418,7 +1418,7 @@
   },
   "idVerification": {
     "jobTitlePlaceholder": "Alákóso Gbigba Tálẹ́ńtì",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Ọ́hàn Dó",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Ilé-iṣẹ́ Acme",
     "linkedinPlaceholder": "https://linkedin.com/in/profaili-re",
