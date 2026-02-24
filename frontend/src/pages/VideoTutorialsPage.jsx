@@ -182,7 +182,7 @@ const VideoCard = memo(({ video, onSelect, t }) => {
 });
 
 // Optimized Video Modal with preload="metadata" and efficient loading
-const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage, showSubtitles, setShowSubtitles }) => {
+const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage, showSubtitles, setShowSubtitles, t }) => {
   const [translating, setTranslating] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [buffering, setBuffering] = useState(true);
@@ -229,7 +229,7 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
             setTimeout(checkStatus, 1500);
           } else if (res.data.status === 'failed') {
             setTranslating(false);
-            setTranslationError(res.data.error || 'Audio generation failed.');
+            setTranslationError(res.data.error || t('translation.failed'));
           } else {
             setTranslating(false);
           }
@@ -242,7 +242,7 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
     };
     
     checkAndGenerateAudio();
-  }, [video, selectedLanguage]);
+  }, [video, selectedLanguage, t]);
 
   // Handle video events for loading states - defined before early return
   const handleLoadedMetadata = useCallback(() => {
@@ -325,6 +325,8 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
   
   const subtitleUrl = `${API}/api/tutorials/subtitles/${video.id}?lang=${selectedLanguage}`;
   
+  const langName = LANGUAGES.find(l => l.code === selectedLanguage)?.name || 'English';
+  
   const requestTranslation = async () => {
     setTranslating(true);
     setTranslationError(null);
@@ -343,7 +345,7 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
           setTimeout(checkStatus, 2000);
         } else if (res.data.status === 'failed') {
           setTranslating(false);
-          setTranslationError(res.data.error || 'Audio generation failed.');
+          setTranslationError(res.data.error || t('translation.failed'));
         } else {
           setTranslating(false);
         }
@@ -352,7 +354,7 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
     } catch (error) {
       console.error('Translation request failed:', error);
       setTranslating(false);
-      setTranslationError('Could not connect to translation service.');
+      setTranslationError(t('translation.failed'));
     }
   };
   
@@ -414,10 +416,10 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
             <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center text-white z-10">
               <Loader2 className="w-8 h-8 animate-spin mb-2" />
               <p>{translating 
-                ? `Generating ${LANGUAGES.find(l => l.code === selectedLanguage)?.name} version...`
-                : 'Loading video...'
+                ? `${t('helpTutorials.generatingVersion')} ${langName}...`
+                : t('helpTutorials.loadingVideo') || t('videoTutorials.loadingVideo')
               }</p>
-              {translating && <p className="text-sm text-gray-400">This may take a minute</p>}
+              {translating && <p className="text-sm text-gray-400">{t('helpTutorials.mayTakeMinute')}</p>}
             </div>
           )}
           
@@ -453,7 +455,7 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
                 kind="captions" 
                 src={subtitleUrl}
                 srcLang={selectedLanguage}
-                label={LANGUAGES.find(l => l.code === selectedLanguage)?.name || 'English'}
+                label={langName}
                 default
               />
             )}
@@ -469,38 +471,38 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
             </div>
           )}
         </div>
-        {/* Bottom panel with improved text contrast */}
+        {/* Bottom panel with improved text contrast - FIXED ACCESSIBILITY */}
         <div className="p-4 bg-slate-50 border-t border-slate-200">
-          <p className="text-slate-700 mb-3">{video.description}</p>
+          <p className="text-slate-800 mb-3 font-medium">{video.description}</p>
           <div className="flex items-center gap-3 flex-wrap">
             {/* Caption Status */}
-            <span className={`text-xs px-2 py-1 rounded-full font-medium ${showSubtitles ? 'bg-teal-100 text-teal-800' : 'bg-slate-200 text-slate-600'}`}>
-              {showSubtitles ? '✓ Captions On' : 'Captions Off'}
+            <span className={`text-xs px-2 py-1 rounded-full font-medium ${showSubtitles ? 'bg-teal-100 text-teal-800' : 'bg-slate-200 text-slate-700'}`}>
+              {showSubtitles ? `✓ ${t('helpTutorials.captionsOn')}` : t('helpTutorials.captionsOff')}
             </span>
             
             {/* Language Info */}
-            <span className="text-xs text-slate-600 font-medium">
-              Captions: {LANGUAGES.find(l => l.code === selectedLanguage)?.name || 'English'}
+            <span className="text-xs text-slate-700 font-medium">
+              {t('helpTutorials.captions')}: {langName}
             </span>
             
             {/* Audio Status */}
             {selectedLanguage !== 'en' && !generatedAudioUrl && (
-              <span className="text-xs text-amber-700 bg-amber-100 px-2 py-1 rounded font-medium">
-                Audio in English • Captions in {LANGUAGES.find(l => l.code === selectedLanguage)?.name}
+              <span className="text-xs text-amber-800 bg-amber-100 px-2 py-1 rounded font-medium">
+                {t('helpTutorials.audioInEnglish')} • {t('helpTutorials.captionsIn')} {langName}
               </span>
             )}
             
             {/* Generated Audio Active Status */}
             {generatedAudioUrl && videoRef.current?.muted && (
-              <span className="text-xs text-green-700 bg-green-100 px-2 py-1 rounded font-medium flex items-center gap-1">
-                🔊 Playing {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio
+              <span className="text-xs text-green-800 bg-green-100 px-2 py-1 rounded font-medium flex items-center gap-1">
+                🔊 {t('helpTutorials.playingAudio')} {langName}
               </span>
             )}
             
             {/* Generated Audio Ready Status */}
             {generatedAudioUrl && !videoRef.current?.muted && (
-              <span className="text-xs text-green-700 bg-green-100 px-2 py-1 rounded font-medium flex items-center gap-1">
-                ✓ {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio Ready
+              <span className="text-xs text-green-800 bg-green-100 px-2 py-1 rounded font-medium flex items-center gap-1">
+                ✓ {langName} {t('helpTutorials.audioReady')}
               </span>
             )}
           </div>
@@ -524,13 +526,13 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
                       {translating ? (
                         <>
                           <Loader2 className="w-3 h-3 animate-spin" />
-                          Generating Audio...
+                          {t('helpTutorials.generatingAudio')}
                         </>
                       ) : (
-                        <>Generate {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio (FREE)</>
+                        <>{t('helpTutorials.generateAudio')} {langName} ({t('helpTutorials.free')})</>
                       )}
                     </button>
-                    <span className="text-xs text-green-700 font-medium">Microsoft Neural Voice • No cost</span>
+                    <span className="text-xs text-green-800 font-medium">{t('helpTutorials.neuralVoice')} • {t('helpTutorials.noCost')}</span>
                   </>
                 ) : (
                   <>
@@ -538,20 +540,20 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
                       onClick={playAudioWithVideo}
                       className="text-sm bg-green-600 text-white px-3 py-1.5 rounded hover:bg-green-700 flex items-center gap-1 font-medium"
                     >
-                      🔊 Play {LANGUAGES.find(l => l.code === selectedLanguage)?.name} Audio
+                      🔊 {t('helpTutorials.playAudio')} {langName}
                     </button>
                     <button
                       onClick={stopTranslatedAudio}
                       className="text-sm bg-slate-600 text-white px-3 py-1.5 rounded hover:bg-slate-700 flex items-center gap-1 font-medium"
                     >
-                      🔇 Use Original Audio
+                      🔇 {t('helpTutorials.useOriginalAudio')}
                     </button>
-                    <span className="text-xs text-slate-600 font-medium">Audio syncs with video playback</span>
+                    <span className="text-xs text-slate-700 font-medium">{t('helpTutorials.audioSyncs')}</span>
                   </>
                 )}
               </div>
               {translationError && (
-                <p className="text-xs text-red-600 mt-2 font-medium">{translationError}</p>
+                <p className="text-xs text-red-700 mt-2 font-medium">{translationError}</p>
               )}
             </div>
           )}
