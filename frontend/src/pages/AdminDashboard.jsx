@@ -264,10 +264,12 @@ export default function AdminDashboard() {
     loadAdminData();
   }, []);
 
+  const { t } = useTranslation();
+
   const adminModules = [
     {
-      title: "KARAU Dragon Automator",
-      description: "System diagnostics, auto-fixes, and maintenance",
+      title: t('admin.dashboard.systemHealth'),
+      description: t('admin.dashboard.systemHealthDesc'),
       icon: Bot,
       path: "/dragon-automator",
       status: systemHealth?.overall_status === "healthy" ? "active" : "warning",
@@ -278,27 +280,27 @@ export default function AdminDashboard() {
       }
     },
     {
-      title: "Analytics Funnel",
-      description: "Track application to offer conversion rates",
+      title: t('admin.dashboard.analyticsFunnel'),
+      description: t('admin.dashboard.analyticsFunnelDesc'),
       icon: BarChart3,
       path: "/analytics-funnel",
       status: "active"
     },
     {
-      title: "Production Metrics",
-      description: "User engagement, AI usage, and business KPIs",
+      title: t('admin.dashboard.productionMetrics'),
+      description: t('admin.dashboard.productionMetricsDesc'),
       icon: TrendingUp,
       path: "/admin/metrics",
       status: "active",
       stats: {
-        sessions: "Live",
-        ai_calls: "Active",
-        funnel: "Tracking"
+        sessions: t('admin.dashboard.live'),
+        ai_calls: t('admin.dashboard.active'),
+        funnel: t('admin.dashboard.tracking')
       }
     },
     {
-      title: "User Management",
-      description: "View and manage platform users",
+      title: t('admin.dashboard.userManagement'),
+      description: t('admin.dashboard.userManagementDesc'),
       icon: Users,
       path: "/recruiter/candidates",
       status: "active",
@@ -309,29 +311,29 @@ export default function AdminDashboard() {
       }
     },
     {
-      title: "System Settings",
-      description: "Configure platform settings and preferences",
+      title: t('admin.dashboard.systemSettings'),
+      description: t('admin.dashboard.systemSettingsDesc'),
       icon: Settings,
       path: "/settings",
       status: "active"
     },
     {
-      title: "Interview Calendar",
-      description: "Manage interviews and Google Calendar sync",
+      title: t('admin.dashboard.interviewCalendar'),
+      description: t('admin.dashboard.interviewCalendarDesc'),
       icon: Calendar,
       path: "/interview-calendar",
       status: "active"
     },
     {
-      title: "Meeting Notes",
-      description: "Transcription and AI summaries",
+      title: t('admin.dashboard.meetingNotes'),
+      description: t('admin.dashboard.meetingNotesDesc'),
       icon: Activity,
       path: "/meeting-notes",
       status: "active"
     },
     {
-      title: "Translation Analytics",
-      description: "Translation usage, memory, and quality metrics",
+      title: t('admin.dashboard.translationAnalytics'),
+      description: t('admin.dashboard.translationAnalyticsDesc'),
       icon: Globe,
       path: "/admin/translations",
       status: "active",
@@ -342,15 +344,15 @@ export default function AdminDashboard() {
       }
     },
     {
-      title: "Review Moderation",
-      description: "Approve or reject pending employer reviews",
+      title: t('admin.dashboard.reviewModeration'),
+      description: t('admin.dashboard.reviewModerationDesc'),
       icon: Shield,
       path: "/admin/reviews",
       status: "active",
       stats: {
-        pending: "Queue",
-        approved: "History",
-        quality: "Control"
+        pending: t('admin.dashboard.queue'),
+        approved: t('admin.dashboard.history'),
+        quality: t('admin.dashboard.control')
       }
     }
   ];
