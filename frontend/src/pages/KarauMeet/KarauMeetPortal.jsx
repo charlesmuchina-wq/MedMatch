@@ -197,8 +197,9 @@ const KarauMeetPortal = () => {
     toast.success('Signed out successfully');
   };
 
-  // Check if we're in a meeting room (join or room routes)
-  const isInMeeting = location.pathname.includes('/room/') || location.pathname.includes('/join/');
+  // Check if we're in a meeting room (room routes only - join routes handled separately)
+  const isInRoom = location.pathname.includes('/room/');
+  const isJoinPage = location.pathname.includes('/join/');
   
   // Extract meeting ID from URL for meeting routes
   const extractMeetingId = () => {
@@ -222,8 +223,41 @@ const KarauMeetPortal = () => {
     );
   }
 
-  // Allow guests to join meetings - create a temporary guest user
-  if (isInMeeting) {
+  // Guest Join Page - show branded landing page for guests
+  if (isJoinPage && !user) {
+    const meetingId = extractMeetingId();
+    if (!meetingId) {
+      return (
+        <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-red-400 text-lg">Invalid meeting URL</p>
+            <button onClick={() => navigate('/karau-meet')} className="mt-4 text-turquoise hover:underline">
+              Back to Portal
+            </button>
+          </div>
+        </div>
+      );
+    }
+    
+    const handleGuestJoin = (guestUser, mId) => {
+      // Store guest info and navigate to room
+      localStorage.setItem('karau_guest', JSON.stringify(guestUser));
+      navigate(`/karau-meet/room/${mId}`);
+    };
+    
+    return <GuestJoinPage onJoin={handleGuestJoin} />;
+  }
+
+  // Logged-in user clicking join link - redirect to room
+  if (isJoinPage && user) {
+    const meetingId = extractMeetingId();
+    if (meetingId) {
+      return <MeetingRoom user={user} meetingIdProp={meetingId} />;
+    }
+  }
+
+  // In meeting room
+  if (isInRoom) {
     const meetingId = extractMeetingId();
     
     if (!meetingId) {
@@ -242,14 +276,15 @@ const KarauMeetPortal = () => {
       );
     }
     
-    const meetingUser = user || {
+    // Check for guest user from localStorage
+    const guestData = localStorage.getItem('karau_guest');
+    const meetingUser = user || (guestData ? JSON.parse(guestData) : {
       user_id: `guest_${Date.now()}`,
       name: 'Guest',
       email: 'guest@meeting.local',
       is_guest: true
-    };
+    });
     
-    // Pass meetingId as prop directly
     return <MeetingRoom user={meetingUser} meetingIdProp={meetingId} />;
   }
 
