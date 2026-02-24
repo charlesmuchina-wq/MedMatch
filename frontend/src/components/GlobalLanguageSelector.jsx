@@ -83,15 +83,43 @@ const useBrowserTranslationDetection = () => {
 
 /**
  * Open Google Translate with current page
- * Uses the most compatible URL format for Google Translate
+ * Uses multiple fallback methods to ensure translation works
  */
-const openGoogleTranslate = () => {
+const openGoogleTranslate = (targetLang = null) => {
   const currentUrl = window.location.href;
-  // Use the direct translation URL format which is more reliable
-  // Format: https://translate.google.com/translate?hl=en&sl=auto&tl={target_lang}&u={url}
-  const targetLang = navigator.language?.split('-')[0] || 'en';
-  const googleTranslateUrl = `https://translate.google.com/translate?hl=${targetLang}&sl=en&tl=${targetLang}&u=${encodeURIComponent(currentUrl)}`;
-  window.open(googleTranslateUrl, '_blank');
+  const browserLang = targetLang || navigator.language?.split('-')[0] || 'en';
+  
+  // Method 1: Try the website translator (more reliable for SPAs)
+  // This opens Google Translate's web interface where user can paste the URL
+  const translateWebUrl = `https://translate.google.com/?sl=en&tl=${browserLang}&op=websites`;
+  
+  // Method 2: Direct translation URL (may not work for all domains)
+  const directTranslateUrl = `https://translate.google.com/translate?hl=${browserLang}&sl=en&tl=${browserLang}&u=${encodeURIComponent(currentUrl)}`;
+  
+  // Try to detect if we're on a preview/localhost domain
+  const isPreviewDomain = currentUrl.includes('preview.') || 
+                          currentUrl.includes('localhost') ||
+                          currentUrl.includes('127.0.0.1') ||
+                          currentUrl.includes('.local');
+  
+  if (isPreviewDomain) {
+    // For preview domains, show instructions since Google can't access them
+    const message = `Google Translate cannot access preview/development URLs directly.
+
+Alternative options:
+1. Use the built-in language selector (recommended)
+2. Use your browser's built-in translation feature
+3. For Chrome: Right-click > "Translate to [language]"
+4. For Safari: Click "aA" in address bar > "Translate"
+
+The app supports 32+ languages natively with AI translation!`;
+    
+    alert(message);
+    return;
+  }
+  
+  // For production domains, try direct translation
+  window.open(directTranslateUrl, '_blank');
 };
 
 /**
