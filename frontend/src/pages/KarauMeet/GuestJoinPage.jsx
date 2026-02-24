@@ -9,8 +9,9 @@ import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-const GuestJoinPage = ({ onJoin }) => {
-  const { meetingId } = useParams();
+const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
+  const params = useParams();
+  const meetingId = meetingIdProp || params.meetingId;
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [guestName, setGuestName] = useState('');
