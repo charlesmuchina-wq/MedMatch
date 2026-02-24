@@ -946,6 +946,55 @@ const VideoTutorialsPage = () => {
     fetchVideos();
   }, []);
 
+  // Video translation keys mapping
+  const VIDEO_TRANSLATION_KEYS = {
+    '01_jobseeker_features': {
+      title: 'videoTutorials.categories.jobSeeker',
+      description: 'helpTutorials.videoDescriptions.jobSeekerFeatures'
+    },
+    '02_recruiter_features': {
+      title: 'videoTutorials.categories.recruiter',
+      description: 'helpTutorials.videoDescriptions.recruiterFeatures'
+    },
+    '03_privacy_matters': {
+      title: 'helpTutorials.videoDescriptions.privacyMatters',
+      description: 'helpTutorials.videoDescriptions.privacyMatters'
+    },
+    '04_faq_ai_compliance': {
+      title: 'helpTutorials.videoDescriptions.faqAiCompliance',
+      description: 'helpTutorials.videoDescriptions.faqAiCompliance'
+    },
+    '05_complete_overview': {
+      title: 'helpTutorials.videoDescriptions.completeOverview',
+      description: 'helpTutorials.videoDescriptions.completeOverview'
+    }
+  };
+
+  // Get translated video title
+  const getTranslatedVideoTitle = useCallback((video) => {
+    const keys = VIDEO_TRANSLATION_KEYS[video.id];
+    if (keys) {
+      const translatedTitle = t(keys.title);
+      // If translation returns same as key, use original
+      if (translatedTitle && translatedTitle !== keys.title) {
+        return translatedTitle;
+      }
+    }
+    return video.title;
+  }, [t]);
+
+  // Get translated video description
+  const getTranslatedVideoDescription = useCallback((video) => {
+    const keys = VIDEO_TRANSLATION_KEYS[video.id];
+    if (keys) {
+      const translatedDesc = t(keys.description);
+      if (translatedDesc && translatedDesc !== keys.description) {
+        return translatedDesc;
+      }
+    }
+    return video.description;
+  }, [t]);
+
   const fetchVideos = async () => {
     try {
       const response = await axios.get(`${API}/api/tutorials/videos`);
