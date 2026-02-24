@@ -136,6 +136,23 @@ const LazyImage = memo(({ src, alt, className, onLoad }) => {
 const VideoCard = memo(({ video, onSelect, t }) => {
   const presenterImage = PRESENTER_IMAGES[video.id] || "/images/presenter.jpeg";
   
+  // Video translation keys mapping
+  const VIDEO_TITLE_KEYS = {
+    '01_jobseeker_features': 'helpTutorials.videoTitles.jobSeekerFeatures',
+    '02_recruiter_features': 'helpTutorials.videoTitles.recruiterFeatures',
+    '03_privacy_matters': 'helpTutorials.videoTitles.privacyMatters',
+    '04_faq_ai_compliance': 'helpTutorials.videoTitles.faqAiCompliance',
+    '05_complete_overview': 'helpTutorials.videoTitles.completeOverview'
+  };
+
+  const VIDEO_DESC_KEYS = {
+    '01_jobseeker_features': 'helpTutorials.videoDescriptions.jobSeekerFeatures',
+    '02_recruiter_features': 'helpTutorials.videoDescriptions.recruiterFeatures',
+    '03_privacy_matters': 'helpTutorials.videoDescriptions.privacyMatters',
+    '04_faq_ai_compliance': 'helpTutorials.videoDescriptions.faqAiCompliance',
+    '05_complete_overview': 'helpTutorials.videoDescriptions.completeOverview'
+  };
+  
   const getCategoryLabel = useCallback(() => {
     const key = CATEGORY_KEYS[video.id] || CATEGORY_KEYS[video.category];
     if (key) return t(key);
@@ -143,6 +160,26 @@ const VideoCard = memo(({ video, onSelect, t }) => {
            video.category === 'recruiter' ? t('videoTutorials.categories.recruiter') : 
            t('videoTutorials.categories.overview');
   }, [video.id, video.category, t]);
+
+  // Get translated title
+  const getTitle = useCallback(() => {
+    const key = VIDEO_TITLE_KEYS[video.id];
+    if (key) {
+      const translated = t(key);
+      if (translated && translated !== key) return translated;
+    }
+    return video.title;
+  }, [video.id, video.title, t]);
+
+  // Get translated description
+  const getDescription = useCallback(() => {
+    const key = VIDEO_DESC_KEYS[video.id];
+    if (key) {
+      const translated = t(key);
+      if (translated && translated !== key) return translated;
+    }
+    return video.description;
+  }, [video.id, video.description, t]);
 
   const handleClick = useCallback(() => {
     onSelect(video);
@@ -174,8 +211,8 @@ const VideoCard = memo(({ video, onSelect, t }) => {
         </span>
       </div>
       <div className="p-4">
-        <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{video.title}</h3>
-        <p className="text-sm text-slate-700 dark:text-gray-300 line-clamp-2">{video.description}</p>
+        <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{getTitle()}</h3>
+        <p className="text-sm text-slate-700 dark:text-gray-300 line-clamp-2">{getDescription()}</p>
       </div>
     </div>
   );
