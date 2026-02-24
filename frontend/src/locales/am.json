@@ -1344,7 +1344,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "ጆን ስሚዝ",
     "companyPlaceholder": "ለምሳሌ፣ Google",
     "notesPlaceholder": "ስለ ቃለ መጠይቁ ማንኛውም ተጨማሪ ዝርዝሮች...",
     "positionPlaceholder": "ለምሳሌ፣ የሶፍትዌር ኢንጂነር",
@@ -1382,7 +1382,7 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "ለዚህ ሚና በጣም ተስማሚ ለምን እንደሆኑ ይንገሩን...",
     "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "ጆን ዶ",
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
