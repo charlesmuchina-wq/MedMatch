@@ -264,8 +264,6 @@ export default function AdminDashboard() {
     loadAdminData();
   }, []);
 
-  const { t } = useTranslation();
-
   const adminModules = [
     {
       title: t('admin.dashboard.systemHealth'),
