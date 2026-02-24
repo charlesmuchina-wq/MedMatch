@@ -1008,10 +1008,10 @@
     "globalCompliance": {
       "title": "वैश्विक अनुपालन",
       "subtitle": "क्षेत्रों के अनुसार अनुपालन स्थिति",
-      "gdpr": "GDPR",
-      "ccpa": "CCPA",
-      "hipaa": "HIPAA",
-      "soc2": "SOC 2",
+      "gdpr": "जीडीपीआर",
+      "ccpa": "सीसीपीए",
+      "hipaa": "हिप्पा",
+      "soc2": "एसओसी 2",
       "compliant": "अनुपालक",
       "nonCompliant": "गैर-अनुपालक",
       "inProgress": "प्रगति पर"

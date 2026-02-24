@@ -1397,7 +1397,7 @@
     "summaryPlaceholder": "경험을 요약하세요"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "홍길동",
     "inviteNotePlaceholder": "초대에 개인 메모를 추가하세요...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "채용 공고 선택",
@@ -1420,7 +1420,7 @@
     "jobTitlePlaceholder": "인재 채용 관리자",
     "namePlaceholder": "홍길동",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Acme 주식회사",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "websitePlaceholder": "https://acme.com"
   },

@@ -1397,7 +1397,7 @@
     "summaryPlaceholder": "経験を要約してください"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "ジョン・ドー",
     "inviteNotePlaceholder": "招待に個人的なメッセージを追加...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "求人票を選択",
@@ -1418,7 +1418,7 @@
   },
   "idVerification": {
     "jobTitlePlaceholder": "採用担当マネージャー",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "ジョン・ドー",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",

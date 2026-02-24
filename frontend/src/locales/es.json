@@ -1412,7 +1412,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "Juan Pérez",
     "inviteNotePlaceholder": "Añade una nota personal a tu invitación...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "candidato@ejemplo.com",
     "selectJobPlaceholder": "Selecciona una oferta de empleo",
     "maxApplicantsPlaceholder": "Ilimitado"
   },
@@ -1426,7 +1426,7 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "p. ej., Centro Médico de la Ciudad",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "emailPlaceholder": "tu@tuempresa.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
@@ -1464,7 +1464,7 @@
     "meetingIdPlaceholder": "Introduce el ID de la reunión (p. ej., ABC-123-XYZ)",
     "verificationCodePlaceholder": "Introduce el código de 6 dígitos",
     "meetingTitlePlaceholder": "Reunión de AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "tu@correo.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "p. ej., Webhook ATS de producción",
