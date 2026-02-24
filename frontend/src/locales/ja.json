@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "例：シニア品質エンジニア",
+    "tagsPlaceholder": "例：リモート、フルタイム、品質、医療機器",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "職種を検索（例：「生体医工学エンジニア」「臨床研究」）"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "代替プロセスをご希望の理由をお聞かせください..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "例：Acme Corp の面接",
@@ -1483,7 +1483,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "日付範囲を選択..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "例：技術系レジュメ、管理職レジュメ"

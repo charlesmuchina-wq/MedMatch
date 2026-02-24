@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "vd: Kỹ sư Chất lượng Cao cấp",
+    "tagsPlaceholder": "vd: Làm việc từ xa, Toàn thời gian, Chất lượng, Thiết bị y tế",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Tìm kiếm vị trí (ví dụ: 'Kỹ sư y sinh', 'Nghiên cứu lâm sàng')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Vui lòng chia sẻ lý do bạn muốn một quy trình thay thế..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "ví dụ: Phỏng vấn với Acme Corp",
@@ -1483,7 +1483,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Chọn khoảng ngày..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "ví dụ: CV Kỹ thuật, CV Quản lý"

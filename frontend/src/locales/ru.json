@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "например, старший инженер по качеству",
+    "tagsPlaceholder": "например, удалённо, полный день, качество, медицинское устройство",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1397,7 +1397,7 @@
     "summaryPlaceholder": "Кратко опишите свой опыт"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Иван Иванов",
     "inviteNotePlaceholder": "Добавьте личное сообщение к приглашению...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Выберите вакансию",
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Поиск должности (например, \"Биомедицинский инженер\", \"Клинические исследования\")"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Пожалуйста, расскажите, почему вы предпочли бы альтернативный процесс..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "например, Собеседование в Acme Corp",

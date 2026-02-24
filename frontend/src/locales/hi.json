@@ -949,7 +949,7 @@
       "aiJobMatching": "AI जॉब मैचिंग",
       "hdVideoAudio": "HD वीडियो व ऑडियो",
       "poweredByAI": "AI द्वारा संचालित",
-      "aiKarau": "AI KARAU",
+      "aiKarau": "AI कराउ",
       "recruiterNetwork": "रिक्रूटर नेटवर्क",
       "enterJobToolkit": "जॉब टूलकिट में प्रवेश करें"
     },
@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "उदा., वरिष्ठ गुणवत्ता इंजीनियर",
+    "tagsPlaceholder": "उदा., रिमोट, पूर्णकालिक, गुणवत्ता, मेडिकल डिवाइस",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "किसी भूमिका के लिए खोजें (उदा., 'बायोमेडिकल इंजीनियर', 'क्लिनिकल रिसर्च')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "कृपया बताएं कि आप वैकल्पिक प्रक्रिया क्यों पसंद करेंगे..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "उदा., Acme Corp के साथ इंटरव्यू",

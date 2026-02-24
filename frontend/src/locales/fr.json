@@ -1399,8 +1399,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "p. ex., Ingénieur qualité senior",
+    "tagsPlaceholder": "p. ex., À distance, temps plein, qualité, dispositif médical",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1482,7 +1482,7 @@
     "searchPlaceholder": "Rechercher un poste (p. ex., « Ingénieur biomédical », « Recherche clinique »)"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Veuillez expliquer pourquoi vous préféreriez un processus alternatif…"
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "p. ex., Entretien avec Acme Corp",

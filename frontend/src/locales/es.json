@@ -1399,8 +1399,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "p. ej., Ingeniero de Calidad Senior",
+    "tagsPlaceholder": "p. ej., Remoto, Tiempo completo, Calidad, Dispositivo médico",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1482,7 +1482,7 @@
     "searchPlaceholder": "Busca un puesto (p. ej., 'Ingeniero biomédico', 'Investigación clínica')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Por favor, comparte por qué preferirías un proceso alternativo..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "p. ej., Entrevista con Acme Corp",
@@ -1496,7 +1496,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Selecciona un rango de fechas..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "p. ej., CV técnico, CV de gestión"

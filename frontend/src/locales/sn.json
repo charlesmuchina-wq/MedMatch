@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "semuenzaniso, Injiniya Mukuru weHunhu",
+    "tagsPlaceholder": "semuenzaniso, Kure, Nguva yakazara, Hunhu, Mudziyo weKurapa",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Tsvaga basa (semuenzaniso, 'Biomedical Engineer', 'Clinical Research')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Ndapota tsanangura kuti nei uchida imwe nzira..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "semuenzaniso, Hurukuro neAcme Corp",
@@ -1483,7 +1483,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Sarudza nguva yaunoda..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "semuenzaniso, CV yeTekinoroji, CV yeHutungamiri"

@@ -1182,7 +1182,7 @@
       "currentPlan": "Nuvarande plan",
       "free": "Gratis",
       "premium": "Premium",
-      "enterprise": "Enterprise",
+      "enterprise": "Företag",
       "upgrade": "Uppgradera",
       "downgrade": "Nedgradera",
       "cancel": "Avsluta prenumeration",
@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "t.ex. Senior kvalitetsingenjör",
+    "tagsPlaceholder": "t.ex. Distans, heltid, kvalitet, medicinteknisk produkt",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Sök efter en roll (t.ex. \"Biomedicinsk ingenjör\", \"Klinisk forskning\")"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Ange gärna varför du föredrar en alternativ process..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "t.ex. Intervju med Acme Corp",

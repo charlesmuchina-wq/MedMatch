@@ -420,7 +420,7 @@
     "submit": "Tumizani Mayeso",
     "questions": "mafunso",
     "congratulations": "Zabwino zonse!",
-    "minutes": "min",
+    "minutes": "mph",
     "subtitle": "Tsimikizani maluso anu ndi kupeza mabaji kuti muwoneke bwino kwa olemba ntchito",
     "earned": "Zapezedwa",
     "keepPracticing": "Pitilizani kuchita masewera",
@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "mwachitsanzo, Injiniya Wamkulu wa Ubwino",
+    "tagsPlaceholder": "mwachitsanzo, Kutali, Nthawi yonse, Ubwino, Chipangizo Cha Zamankhwala",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Sakani udindo (mwachitsanzo, 'Injiniya wa Biomedical', 'Kafukufuku wa Zachipatala')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Chonde fotokozani chifukwa chomwe mungakonde njira ina..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "mwachitsanzo, Kuyankhulana ndi Acme Corp",
@@ -1483,7 +1483,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Sankhani nthawi..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "mwachitsanzo, CV ya Ukadaulo, CV ya Utsogoleri"

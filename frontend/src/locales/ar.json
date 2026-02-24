@@ -1802,8 +1802,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "مثال: مهندس جودة أول",
+    "tagsPlaceholder": "مثال: عن بُعد، دوام كامل، جودة، جهاز طبي",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1885,7 +1885,7 @@
     "searchPlaceholder": "ابحث عن وظيفة (مثال: \"مهندس طب حيوي\"، \"أبحاث سريرية\")"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "يرجى توضيح سبب تفضيلك لعملية بديلة..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "مثال: مقابلة مع شركة Acme Corp",
@@ -1899,7 +1899,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "حدد نطاق التاريخ..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "مثال: سيرة ذاتية تقنية، سيرة ذاتية إدارية"

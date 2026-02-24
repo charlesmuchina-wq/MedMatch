@@ -1195,7 +1195,7 @@
       "currentPlan": "Aktueller Tarif",
       "free": "Kostenlos",
       "premium": "Premium",
-      "enterprise": "Enterprise",
+      "enterprise": "Unternehmen",
       "upgrade": "Upgrade",
       "downgrade": "Downgrade",
       "cancel": "Abonnement kündigen",
@@ -1399,8 +1399,8 @@
     "portfolioPlaceholder": "https://deinportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "z. B. Senior Quality Engineer",
+    "tagsPlaceholder": "z. B. Remote, Vollzeit, Qualität, Medizintechnik",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1482,7 +1482,7 @@
     "searchPlaceholder": "Nach einer Rolle suchen (z. B. „Biomediziningenieur“, „Klinische Forschung“)"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Bitte teilen Sie uns mit, warum Sie einen alternativen Prozess bevorzugen würden..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "z. B. Interview mit Acme Corp",
@@ -1496,7 +1496,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Datumsbereich auswählen..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "z. B. Tech-Lebenslauf, Management-Lebenslauf"

@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "예: 시니어 품질 엔지니어",
+    "tagsPlaceholder": "예: 원격, 정규직, 품질, 의료기기",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "직무 검색(예: '생체의공학 엔지니어', '임상 연구')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "대체 절차를 선호하시는 이유를 알려주세요..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "예: Acme Corp 면접",
@@ -1483,7 +1483,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "날짜 범위를 선택하세요..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "예: 기술 이력서, 관리 이력서"

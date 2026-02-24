@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "örn., Kıdemli Kalite Mühendisi",
+    "tagsPlaceholder": "örn., Uzaktan, Tam zamanlı, Kalite, Tıbbi Cihaz",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Bir rol arayın (örn. 'Biyomedikal Mühendisi', 'Klinik Araştırma')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Neden alternatif bir süreci tercih ettiğinizi lütfen paylaşın..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "örn. Acme Corp ile mülakat",

@@ -1399,8 +1399,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "例如：高级质量工程师",
+    "tagsPlaceholder": "例如：远程、全职、质量、医疗器械",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1410,7 +1410,7 @@
     "summaryPlaceholder": "概述你的经验"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "约翰·多伊",
     "inviteNotePlaceholder": "在邀请中添加个性化备注...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "选择职位发布",
@@ -1431,7 +1431,7 @@
   },
   "idVerification": {
     "jobTitlePlaceholder": "人才招聘经理",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "约翰·多伊",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme 公司",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
@@ -1482,7 +1482,7 @@
     "searchPlaceholder": "搜索职位（例如：“生物医学工程师”、“临床研究”）"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "请说明您为何更偏好替代流程..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "例如：与 Acme Corp 面试",
@@ -1496,7 +1496,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "选择日期范围..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "例如：技术简历、管理简历"
