@@ -1612,6 +1612,13 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         currentBg={virtualBackground}
         onSelect={setVirtualBackground}
       />
+
+      <ShareMeetingDialog
+        isOpen={showShareDialog}
+        onClose={() => setShowShareDialog(false)}
+        meetingId={meetingId}
+        meetingTitle={meeting?.title}
+      />
     </div>
   );
 };
