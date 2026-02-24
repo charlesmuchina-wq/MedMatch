@@ -326,17 +326,62 @@ const KarauMeetDashboard = ({ user }) => {
               <Switch defaultChecked />
             </div>
           </div>
-          <DialogFooter>
+          <DialogFooter className="flex-col sm:flex-row gap-2">
             <Button variant="ghost" onClick={() => setShowCreateDialog(false)} className="text-slate-300">
               Cancel
             </Button>
-            <Button onClick={createMeeting} disabled={creating} className="bg-turquoise hover:bg-turquoise/80" data-testid="btn-create-meeting">
-              {creating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-              Start Meeting
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                onClick={async () => {
+                  setCreating(true);
+                  try {
+                    const token = localStorage.getItem('token');
+                    const response = await fetch(`${API}/api/karau-meet/meetings`, {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                      },
+                      body: JSON.stringify({ title: newMeetingTitle || 'AI KARAU Meeting' })
+                    });
+                    if (response.ok) {
+                      const data = await response.json();
+                      setShowCreateDialog(false);
+                      setShareMeeting({ meeting_id: data.meeting_id, title: newMeetingTitle || 'AI KARAU Meeting' });
+                      fetchMeetings();
+                      toast.success('Meeting created! Share the link with participants.');
+                    } else {
+                      toast.error('Failed to create meeting');
+                    }
+                  } catch { toast.error('Failed to create meeting'); }
+                  setCreating(false);
+                }}
+                disabled={creating}
+                className="border-slate-600 text-slate-300 hover:bg-slate-700"
+                data-testid="btn-create-and-share"
+              >
+                {creating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Share2 className="w-4 h-4 mr-2" />}
+                Create & Share
+              </Button>
+              <Button onClick={createMeeting} disabled={creating} className="bg-turquoise hover:bg-turquoise/80" data-testid="btn-create-meeting">
+                {creating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                Start Meeting
+              </Button>
+            </div>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Share Meeting Dialog */}
+      {shareMeeting && (
+        <ShareMeetingDialog
+          isOpen={!!shareMeeting}
+          onClose={() => setShareMeeting(null)}
+          meetingId={shareMeeting.meeting_id}
+          meetingTitle={shareMeeting.title}
+        />
+      )}
     </div>
   );
 };
