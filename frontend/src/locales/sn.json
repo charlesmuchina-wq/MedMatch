@@ -1058,10 +1058,10 @@
     "globalCompliance": {
       "title": "Kutevedzera Mitemo Pasi Rose",
       "subtitle": "Mamiriro ekutevedzera mitemo kumatunhu",
-      "gdpr": "GDPR",
-      "ccpa": "CCPA",
+      "gdpr": "GDPR (Mitemo yeKudzivirira Data)",
+      "ccpa": "CCPA (Mutemo weKuvanzika weCalifornia)",
       "hipaa": "HIPAA",
-      "soc2": "SOC 2",
+      "soc2": "SOC 2 (Chiyero Chekuchengetedzwa)",
       "compliant": "Zvinoenderana",
       "nonCompliant": "Hazvienderani",
       "inProgress": "Zviri Kufambira Mberi"
