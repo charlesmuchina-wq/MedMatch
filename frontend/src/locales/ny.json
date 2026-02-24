@@ -121,10 +121,10 @@
     "locationSettings": "Zikhazikiko za Malo",
     "privacy": "Zachinsinsi & Deta",
     "credentials": "Zidziwitso",
-    "helpTutorials": "Help & Tutorials",
-    "settings": "Settings",
-    "profile": "Profile",
-    "signOut": "Sign Out"
+    "helpTutorials": "Thandizo & Maphunziro",
+    "settings": "Zikhazikiko",
+    "profile": "Mbiri",
+    "signOut": "Tulukani"
   },
   "dashboard": {
     "welcomeBack": "Takulandiraninso",
@@ -1849,20 +1849,20 @@
     "speakNow": "Lankhulani tsopano...",
     "analyzing": "Tikusanthula yankho lanu...",
     "getAiFeedback": "Pezani Ndemanga ya AI",
-    "companyFit": "Company Fit",
-    "generateQuestions": "Generate Questions",
-    "questionBank": "Question Bank",
-    "customQuestions": "Custom Questions",
-    "selectCategory": "Select Category",
-    "noQuestionsYet": "No questions generated yet",
-    "generateFirstQuestion": "Generate your first question to start practicing"
+    "companyFit": "Kugwirizana ndi Kampani",
+    "generateQuestions": "Pangani Mafunso",
+    "questionBank": "Banki ya Mafunso",
+    "customQuestions": "Mafunso Okhazikitsidwa",
+    "selectCategory": "Sankhani Gulu",
+    "noQuestionsYet": "Palibe mafunso apangidwa panobe",
+    "generateFirstQuestion": "Pangani funso lanu loyamba kuti muyambe kuyeseza"
   },
   "navigation": {
-    "backToPortal": "Back to Portal Selection",
-    "backToDashboard": "Back to Dashboard",
-    "backToHome": "Back to Home",
-    "viewAll": "View All",
-    "seeMore": "See More",
-    "showLess": "Show Less"
+    "backToPortal": "Bwererani ku Kusankha Portal",
+    "backToDashboard": "Bwererani ku Dashboard",
+    "backToHome": "Bwererani Kunyumba",
+    "viewAll": "Onani Zonse",
+    "seeMore": "Onani Zambiri",
+    "showLess": "Onetsani Zochepa"
   }
 }

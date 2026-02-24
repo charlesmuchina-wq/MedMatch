@@ -121,10 +121,10 @@
     "credentials": "Qualifications",
     "interviewCalendar": "Calendrier d'Entretiens",
     "meetingNotes": "Notes de Réunion",
-    "helpTutorials": "Help & Tutorials",
-    "settings": "Settings",
-    "profile": "Profile",
-    "signOut": "Sign Out"
+    "helpTutorials": "Aide et tutoriels",
+    "settings": "Paramètres",
+    "profile": "Profil",
+    "signOut": "Déconnexion"
   },
   "recruiter": {
     "dashboard": "Tableau de Bord",
@@ -1862,20 +1862,20 @@
     "speakNow": "Parlez maintenant...",
     "analyzing": "Analyse de votre réponse...",
     "getAiFeedback": "Obtenir un retour IA",
-    "companyFit": "Company Fit",
-    "generateQuestions": "Generate Questions",
-    "questionBank": "Question Bank",
-    "customQuestions": "Custom Questions",
-    "selectCategory": "Select Category",
-    "noQuestionsYet": "No questions generated yet",
-    "generateFirstQuestion": "Generate your first question to start practicing"
+    "companyFit": "Adéquation à l’entreprise",
+    "generateQuestions": "Générer des questions",
+    "questionBank": "Banque de questions",
+    "customQuestions": "Questions personnalisées",
+    "selectCategory": "Sélectionner une catégorie",
+    "noQuestionsYet": "Aucune question générée pour le moment",
+    "generateFirstQuestion": "Générez votre première question pour commencer à vous entraîner"
   },
   "navigation": {
-    "backToPortal": "Back to Portal Selection",
-    "backToDashboard": "Back to Dashboard",
-    "backToHome": "Back to Home",
-    "viewAll": "View All",
-    "seeMore": "See More",
-    "showLess": "Show Less"
+    "backToPortal": "Retour à la sélection du portail",
+    "backToDashboard": "Retour au tableau de bord",
+    "backToHome": "Retour à l’accueil",
+    "viewAll": "Tout afficher",
+    "seeMore": "Voir plus",
+    "showLess": "Voir moins"
   }
 }

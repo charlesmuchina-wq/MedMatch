@@ -141,10 +141,10 @@
     "idVerification": "ID-verifiering",
     "privacy": "Integritet och data",
     "membership": "Medlemskap",
-    "helpTutorials": "Help & Tutorials",
-    "settings": "Settings",
-    "profile": "Profile",
-    "signOut": "Sign Out"
+    "helpTutorials": "Hjälp och guider",
+    "settings": "Inställningar",
+    "profile": "Profil",
+    "signOut": "Logga ut"
   },
   "recruiter": {
     "dashboard": "Instrumentpanel",
@@ -1849,20 +1849,20 @@
     "speakNow": "Tala nu...",
     "analyzing": "Analyserar ditt svar...",
     "getAiFeedback": "Få AI-feedback",
-    "companyFit": "Company Fit",
-    "generateQuestions": "Generate Questions",
-    "questionBank": "Question Bank",
-    "customQuestions": "Custom Questions",
-    "selectCategory": "Select Category",
-    "noQuestionsYet": "No questions generated yet",
-    "generateFirstQuestion": "Generate your first question to start practicing"
+    "companyFit": "Företagspassform",
+    "generateQuestions": "Generera frågor",
+    "questionBank": "Frågebank",
+    "customQuestions": "Anpassade frågor",
+    "selectCategory": "Välj kategori",
+    "noQuestionsYet": "Inga frågor har genererats än",
+    "generateFirstQuestion": "Generera din första fråga för att börja öva"
   },
   "navigation": {
-    "backToPortal": "Back to Portal Selection",
-    "backToDashboard": "Back to Dashboard",
-    "backToHome": "Back to Home",
-    "viewAll": "View All",
-    "seeMore": "See More",
-    "showLess": "Show Less"
+    "backToPortal": "Tillbaka till portalval",
+    "backToDashboard": "Tillbaka till översikten",
+    "backToHome": "Tillbaka till startsidan",
+    "viewAll": "Visa alla",
+    "seeMore": "Visa mer",
+    "showLess": "Visa mindre"
   }
 }

@@ -121,10 +121,10 @@
     "locationSettings": "Tànneefi Berab",
     "privacy": "Sutura & Daatay",
     "credentials": "Sertifika",
-    "helpTutorials": "Help & Tutorials",
-    "settings": "Settings",
-    "profile": "Profile",
-    "signOut": "Sign Out"
+    "helpTutorials": "Ndimbal ak Tutooriyaal",
+    "settings": "Parametër yi",
+    "profile": "Profil",
+    "signOut": "Génn"
   },
   "dashboard": {
     "welcomeBack": "Dalal jàmmwaat",
@@ -1849,20 +1849,20 @@
     "speakNow": "Wax léegi...",
     "analyzing": "Mingi jàngat sa tontu...",
     "getAiFeedback": "Jël ay ndimbal AI",
-    "companyFit": "Company Fit",
-    "generateQuestions": "Generate Questions",
-    "questionBank": "Question Bank",
-    "customQuestions": "Custom Questions",
-    "selectCategory": "Select Category",
-    "noQuestionsYet": "No questions generated yet",
-    "generateFirstQuestion": "Generate your first question to start practicing"
+    "companyFit": "Mëna sàmm ak kampani bi",
+    "generateQuestions": "Sos laaj yi",
+    "questionBank": "Bànk bu laaj",
+    "customQuestions": "Laaj yu seen bopp",
+    "selectCategory": "Tànn wàll",
+    "noQuestionsYet": "Amul laaj yu ñu sos ba leegi",
+    "generateFirstQuestion": "Sos sa laaj bu njëkk ngir tambali jàngal"
   },
   "navigation": {
-    "backToPortal": "Back to Portal Selection",
-    "backToDashboard": "Back to Dashboard",
-    "backToHome": "Back to Home",
-    "viewAll": "View All",
-    "seeMore": "See More",
-    "showLess": "Show Less"
+    "backToPortal": "Dellu ci Tànnukaayu Portal bi",
+    "backToDashboard": "Dellu ci Dashboard bi",
+    "backToHome": "Dellu ci Kër gi",
+    "viewAll": "Gis Lépp",
+    "seeMore": "Gis Yeneen",
+    "showLess": "Wane Lu Néew"
   }
 }

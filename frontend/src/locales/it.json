@@ -141,10 +141,10 @@
     "idVerification": "Verifica dell'identità",
     "privacy": "Privacy e dati",
     "membership": "Iscrizione",
-    "helpTutorials": "Help & Tutorials",
-    "settings": "Settings",
-    "profile": "Profile",
-    "signOut": "Sign Out"
+    "helpTutorials": "Guida e tutorial",
+    "settings": "Impostazioni",
+    "profile": "Profilo",
+    "signOut": "Esci"
   },
   "recruiter": {
     "dashboard": "Bacheca",
@@ -1849,20 +1849,20 @@
     "speakNow": "Parla ora...",
     "analyzing": "Analisi della risposta in corso...",
     "getAiFeedback": "Ottieni feedback IA",
-    "companyFit": "Company Fit",
-    "generateQuestions": "Generate Questions",
-    "questionBank": "Question Bank",
-    "customQuestions": "Custom Questions",
-    "selectCategory": "Select Category",
-    "noQuestionsYet": "No questions generated yet",
-    "generateFirstQuestion": "Generate your first question to start practicing"
+    "companyFit": "Compatibilità aziendale",
+    "generateQuestions": "Genera domande",
+    "questionBank": "Banca domande",
+    "customQuestions": "Domande personalizzate",
+    "selectCategory": "Seleziona categoria",
+    "noQuestionsYet": "Nessuna domanda generata",
+    "generateFirstQuestion": "Genera la tua prima domanda per iniziare a fare pratica"
   },
   "navigation": {
-    "backToPortal": "Back to Portal Selection",
-    "backToDashboard": "Back to Dashboard",
-    "backToHome": "Back to Home",
-    "viewAll": "View All",
-    "seeMore": "See More",
-    "showLess": "Show Less"
+    "backToPortal": "Torna alla selezione del portale",
+    "backToDashboard": "Torna alla dashboard",
+    "backToHome": "Torna alla Home",
+    "viewAll": "Visualizza tutto",
+    "seeMore": "Vedi altro",
+    "showLess": "Mostra meno"
   }
 }

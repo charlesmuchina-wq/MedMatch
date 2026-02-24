@@ -141,10 +141,10 @@
     "idVerification": "Identiteitsverificatie",
     "privacy": "Privacy en gegevens",
     "membership": "Lidmaatschap",
-    "helpTutorials": "Help & Tutorials",
-    "settings": "Settings",
-    "profile": "Profile",
-    "signOut": "Sign Out"
+    "helpTutorials": "Help & tutorials",
+    "settings": "Instellingen",
+    "profile": "Profiel",
+    "signOut": "Afmelden"
   },
   "recruiter": {
     "dashboard": "Dashboard",
@@ -1849,20 +1849,20 @@
     "speakNow": "Spreek nu...",
     "analyzing": "Je antwoord analyseren...",
     "getAiFeedback": "AI-feedback ophalen",
-    "companyFit": "Company Fit",
-    "generateQuestions": "Generate Questions",
-    "questionBank": "Question Bank",
-    "customQuestions": "Custom Questions",
-    "selectCategory": "Select Category",
-    "noQuestionsYet": "No questions generated yet",
-    "generateFirstQuestion": "Generate your first question to start practicing"
+    "companyFit": "Bedrijfsfit",
+    "generateQuestions": "Vragen genereren",
+    "questionBank": "Vragenbank",
+    "customQuestions": "Aangepaste vragen",
+    "selectCategory": "Categorie selecteren",
+    "noQuestionsYet": "Nog geen vragen gegenereerd",
+    "generateFirstQuestion": "Genereer je eerste vraag om te beginnen met oefenen"
   },
   "navigation": {
-    "backToPortal": "Back to Portal Selection",
-    "backToDashboard": "Back to Dashboard",
-    "backToHome": "Back to Home",
-    "viewAll": "View All",
-    "seeMore": "See More",
-    "showLess": "Show Less"
+    "backToPortal": "Terug naar portaalkeuze",
+    "backToDashboard": "Terug naar dashboard",
+    "backToHome": "Terug naar startpagina",
+    "viewAll": "Alles bekijken",
+    "seeMore": "Meer bekijken",
+    "showLess": "Minder tonen"
   }
 }
