@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 // Import refactored child components
 import { ParticipantGrid } from './ParticipantGrid';
 import { ChatPanel, AINotesPanel, ParticipantsPanel, SettingsPanel } from './MeetingPanels';
+import ShareMeetingDialog from './ShareMeetingDialog';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
