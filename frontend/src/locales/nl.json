@@ -1182,7 +1182,7 @@
       "currentPlan": "Huidig abonnement",
       "free": "Gratis",
       "premium": "Premium",
-      "enterprise": "Enterprise",
+      "enterprise": "Onderneming",
       "upgrade": "Upgraden",
       "downgrade": "Downgraden",
       "cancel": "Abonnement opzeggen",
@@ -1343,8 +1343,8 @@
     "problemStatement": "Probleemomschrijving"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerEmailPlaceholder": "jan@bedrijf.com",
+    "interviewerNamePlaceholder": "Jan Smit",
     "companyPlaceholder": "bijv. Google",
     "notesPlaceholder": "Aanvullende details over het gesprek...",
     "positionPlaceholder": "bijv. Software Engineer",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Land (optioneel)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/uwprofiel",
     "resumeLinkPlaceholder": "Link naar je cv (Google Drive, Dropbox, enz.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Vertel ons waarom je goed bij deze functie past...",
-    "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "emailPlaceholder": "jan@voorbeeld.com",
+    "namePlaceholder": "Jan Jansen",
+    "portfolioPlaceholder": "https://uwportfolio.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "bijv. Senior kwaliteitsingenieur",
     "tagsPlaceholder": "bijv. Remote, fulltime, kwaliteit, medisch hulpmiddel",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://your-company.com/werken/solliciteren"
   },
   "companyReview": {
     "prosPlaceholder": "Wat vond je goed?",
@@ -1408,20 +1408,20 @@
     "addNotePlaceholder": "Voeg een notitie toe..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://voorbeeld.com",
     "rolePlaceholder": "bijv. HR-manager",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "bijv. City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "jij@jouwbedrijf.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/uwprofiel"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Manager Talent Acquisition",
     "namePlaceholder": "Jan Jansen",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/uwprofiel",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1456,7 +1456,7 @@
   "enterpriseAPI": {
     "webhookDescPlaceholder": "bijv. Production ATS-webhook",
     "apiKeyNamePlaceholder": "bijv. Production ATS-integratie",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://uw-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Zoek op beoordelaar, kandidaat of inhoud...",

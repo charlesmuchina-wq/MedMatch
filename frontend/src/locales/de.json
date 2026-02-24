@@ -65,7 +65,7 @@
     "locationSettings": "Standorteinstellungen",
     "privacy": "Datenschutz",
     "adminDashboard": "Admin-Dashboard",
-    "dragonAutomator": "KARAU Automator",
+    "dragonAutomator": "KARAU-Automatisierer",
     "analyticsFunnel": "Interview-Trichter",
     "realtimeSTT": "Echtzeit-Transkription",
     "credentials": "Qualifikationen",
@@ -160,7 +160,7 @@
     "fullTime": "Vollzeit",
     "partTime": "Teilzeit",
     "contract": "Vertrag",
-    "remote": "Remote",
+    "remote": "Fernzugriff",
     "hybrid": "Hybrid",
     "onSite": "Vor Ort",
     "salary": "Gehalt",
@@ -1356,8 +1356,8 @@
     "problemStatement": "Problembeschreibung"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerEmailPlaceholder": "johann@firma.de",
+    "interviewerNamePlaceholder": "Johann Schmidt",
     "companyPlaceholder": "z. B. Google",
     "notesPlaceholder": "Weitere Details zum Interview...",
     "positionPlaceholder": "z. B. Softwareentwickler/in",
@@ -1394,8 +1394,8 @@
     "resumeLinkPlaceholder": "Link zu deinem Lebenslauf (Google Drive, Dropbox usw.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Sag uns, warum du ideal zu dieser Stelle passt...",
-    "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
+    "emailPlaceholder": "max@beispiel.de",
+    "namePlaceholder": "Max Mustermann",
     "portfolioPlaceholder": "https://deinportfolio.com"
   },
   "recruiterJobs": {

@@ -1171,8 +1171,8 @@
     "biometricAuth": {
       "title": "生体認証",
       "enableBiometric": "生体認証ログインを有効化",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Face ID（顔認証）",
+      "touchId": "Touch ID（指紋認証）",
       "fingerprint": "指紋",
       "setupRequired": "設定が必要です",
       "notSupported": "この端末ではサポートされていません"

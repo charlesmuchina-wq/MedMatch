@@ -1377,13 +1377,13 @@
     "countryOptional": "Land (valfritt)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/dinprofil",
     "resumeLinkPlaceholder": "Länk till ditt CV (Google Drive, Dropbox osv.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Berätta varför du passar bra för den här rollen...",
     "emailPlaceholder": "john@example.com",
     "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "portfolioPlaceholder": "https://dinportfolio.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "t.ex. Senior kvalitetsingenjör",
@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Lägg till en personlig anteckning till din inbjudan...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "kandidat@example.com",
     "selectJobPlaceholder": "Välj en jobbannons",
     "maxApplicantsPlaceholder": "Obegränsat"
   },
@@ -1421,7 +1421,7 @@
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/dinprofil",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,7 +1451,7 @@
     "meetingIdPlaceholder": "Ange mötes-ID (t.ex. ABC-123-XYZ)",
     "verificationCodePlaceholder": "Ange 6-siffrig kod",
     "meetingTitlePlaceholder": "AI KARAU-möte",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "din@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "t.ex. Produktionswebhook för ATS",

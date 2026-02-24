@@ -238,7 +238,7 @@
     "verifyAndSignIn": "تحقق وتسجيل الدخول",
     "changePhoneNumber": "تغيير رقم الهاتف",
     "emailPlaceholder": "أنت@مثال.com",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": "‎+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
   "errors": {
@@ -1795,7 +1795,7 @@
   "publicApplication": {
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "resumeLinkPlaceholder": "رابط إلى سيرتك الذاتية (Google Drive، Dropbox، إلخ.)",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": "‎+1 (555) 123-4567",
     "coverLetterPlaceholder": "أخبرنا لماذا أنت مناسب جدًا لهذا الدور...",
     "emailPlaceholder": "john@example.com",
     "namePlaceholder": "جون دو",
@@ -1826,7 +1826,7 @@
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
     "rolePlaceholder": "مثال: مدير الموارد البشرية",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": "‎+1 (555) 123-4567",
     "companyPlaceholder": "مثال: مركز المدينة الطبي",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "أنت@شركتك.com",

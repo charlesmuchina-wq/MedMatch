@@ -1464,7 +1464,7 @@
     "meetingIdPlaceholder": "输入会议 ID（例如：ABC-123-XYZ）",
     "verificationCodePlaceholder": "输入 6 位验证码",
     "meetingTitlePlaceholder": "AI KARAU 会议",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "你的@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "例如：生产环境 ATS Webhook",

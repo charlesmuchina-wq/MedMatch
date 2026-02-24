@@ -1008,10 +1008,10 @@
     "globalCompliance": {
       "title": "Глобальное соответствие требованиям",
       "subtitle": "Статус соответствия требованиям по регионам",
-      "gdpr": "GDPR",
-      "ccpa": "CCPA",
+      "gdpr": "GDPR (Общий регламент по защите данных)",
+      "ccpa": "CCPA (Закон Калифорнии о защите данных потребителей)",
       "hipaa": "HIPAA",
-      "soc2": "SOC 2",
+      "soc2": "SOC 2 (аудит)",
       "compliant": "Соответствует",
       "nonCompliant": "Не соответствует",
       "inProgress": "В процессе"
@@ -1430,7 +1430,7 @@
     "benefitsPlaceholder": "Удалённая работа, медстраховка, 401k (через запятую)",
     "culturePlaceholder": "Инновации, сотрудничество, разнообразие (через запятую)",
     "searchPlaceholder": "Поиск компаний…",
-    "foundedPlaceholder": "2020",
+    "foundedPlaceholder": "2020 г.",
     "industryPlaceholder": "Отрасль",
     "companySizePlaceholder": "Размер компании"
   },

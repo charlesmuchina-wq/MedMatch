@@ -1143,7 +1143,7 @@
       "searchRadius": "Rayon de recherche d’emploi",
       "searchRadiusDesc": "Distance maximale que vous êtes prêt(e) à parcourir pour vous rendre au travail",
       "maxDistance": "Distance maximale",
-      "miles": "miles",
+      "miles": "milles",
       "km": "km",
       "commutePreferences": "Préférences de trajet",
       "commutePreferencesDesc": "Comment préférez-vous vous rendre au travail ?",
@@ -1356,8 +1356,8 @@
     "problemStatement": "Énoncé du problème"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerEmailPlaceholder": "jean@company.com",
+    "interviewerNamePlaceholder": "Jean Smith",
     "companyPlaceholder": "p. ex., Google",
     "notesPlaceholder": "Détails supplémentaires sur l’entretien…",
     "positionPlaceholder": "p. ex., Ingénieur logiciel",
@@ -1390,13 +1390,13 @@
     "countryOptional": "Pays (facultatif)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/votreprofil",
     "resumeLinkPlaceholder": "Lien vers votre CV (Google Drive, Dropbox, etc.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Dites-nous pourquoi vous êtes un excellent choix pour ce poste...",
-    "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "emailPlaceholder": "jean@example.com",
+    "namePlaceholder": "Jean Dupont",
+    "portfolioPlaceholder": "https://votreportfolio.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "p. ex., Ingénieur qualité senior",
@@ -1433,7 +1433,7 @@
     "jobTitlePlaceholder": "Responsable de l’acquisition de talents",
     "namePlaceholder": "Jean Dupont",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Société Acme",
     "linkedinPlaceholder": "https://linkedin.com/in/votreprofil",
     "websitePlaceholder": "https://acme.com"
   },

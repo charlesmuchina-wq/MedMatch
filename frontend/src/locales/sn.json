@@ -1171,8 +1171,8 @@
     "biometricAuth": {
       "title": "Kusimbisa uchishandisa biometriki",
       "enableBiometric": "Gonesa kupinda uchishandisa biometriki",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Kuzivikanwa nechiso",
+      "touchId": "Kuzivikanwa nekubata",
       "fingerprint": "Chigunwe",
       "setupRequired": "Kugadzirisa kunodiwa",
       "notSupported": "Hazvitsigirwi pachishandiso ichi"
@@ -1410,7 +1410,7 @@
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
     "rolePlaceholder": "semuenzaniso, Maneja weHR",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": "+1 (555) 123-4567 (nhare)",
     "companyPlaceholder": "semuenzaniso, City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "iwe@kambani-yako.com",

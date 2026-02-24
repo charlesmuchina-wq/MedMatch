@@ -1171,8 +1171,8 @@
     "biometricAuth": {
       "title": "Aotantifikasioŋ biyometrik",
       "enableBiometric": "Suqali dugg biyometrik",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Nattal biir-kanam",
+      "touchId": "Nattal laal",
       "fingerprint": "Rëdd",
       "setupRequired": "Sampu war na",
       "notSupported": "Aucun ndimbal ci jumtukaay bii"
