@@ -1364,9 +1364,9 @@
     "locationPlaceholder": "https://meet.google.com/... 或办公地址"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "例如：高级、经理、远程",
+    "messagePlaceholder": "你好，我觉得你的资料很适合我们正在招聘的职位...",
+    "skillsPlaceholder": "例如：ICU、重症监护、Python"
   },
   "psv": {
     "npiNumber": "NPI 编号（可选）",
@@ -1411,20 +1411,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "在邀请中添加个性化备注...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "选择职位发布",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "不限"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "搜索候选人...",
+    "addNotePlaceholder": "添加备注..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "例如：人力资源经理",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "例如：市医疗中心",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1467,13 +1467,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "例如：生产环境 ATS Webhook",
+    "apiKeyNamePlaceholder": "例如：生产环境 ATS 集成",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "按审核人、候选人或内容搜索...",
+    "rejectionReasonPlaceholder": "提供拒绝原因..."
   },
   "contact": {
     "declineReason": "例如：目前不考虑新的机会"
@@ -1502,7 +1502,7 @@
     "profileNamePlaceholder": "例如：技术简历、管理简历"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "请先选择国家",
+    "selectCity": "选择城市"
   }
 }

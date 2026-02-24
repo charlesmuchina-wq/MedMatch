@@ -1364,9 +1364,9 @@
     "locationPlaceholder": "https://meet.google.com/... o dirección de la oficina"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "p. ej., Senior, Gerente, Remoto",
+    "messagePlaceholder": "Hola, encontré tu perfil interesante para nuestra vacante...",
+    "skillsPlaceholder": "p. ej., UCI, Cuidados críticos, Python"
   },
   "psv": {
     "npiNumber": "Número de NPI (opcional)",
@@ -1410,30 +1410,30 @@
     "summaryPlaceholder": "Resume tu experiencia"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "candidateNamePlaceholder": "Juan Pérez",
+    "inviteNotePlaceholder": "Añade una nota personal a tu invitación...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Selecciona una oferta de empleo",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "Ilimitado"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Buscar solicitantes...",
+    "addNotePlaceholder": "Añadir una nota..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "p. ej., Gerente de RR. HH.",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "p. ej., Centro Médico de la Ciudad",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Gerente de Adquisición de Talento",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Juan Pérez",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Corporación Acme",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "websitePlaceholder": "https://acme.com"
   },
@@ -1467,13 +1467,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "p. ej., Webhook ATS de producción",
+    "apiKeyNamePlaceholder": "p. ej., Integración ATS de producción",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Buscar por revisor, candidato o contenido...",
+    "rejectionReasonPlaceholder": "Indica un motivo del rechazo..."
   },
   "contact": {
     "declineReason": "p. ej., No estoy buscando nuevas oportunidades en este momento"
@@ -1502,7 +1502,7 @@
     "profileNamePlaceholder": "p. ej., CV técnico, CV de gestión"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Selecciona primero el país",
+    "selectCity": "Selecciona la ciudad"
   }
 }

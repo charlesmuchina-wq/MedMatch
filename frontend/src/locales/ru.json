@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/… или адрес офиса"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "например, старший, менеджер, удалённо",
+    "messagePlaceholder": "Здравствуйте, мне показался интересным ваш профиль для нашей открытой позиции...",
+    "skillsPlaceholder": "например, ОИТ, реанимация, Python"
   },
   "psv": {
     "npiNumber": "Номер NPI (необязательно)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Добавьте личное сообщение к приглашению...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Выберите вакансию",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "Без ограничений"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Искать кандидатов...",
+    "addNotePlaceholder": "Добавить заметку..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "например, менеджер по персоналу",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "например, City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "например, вебхук ATS для продакшена",
+    "apiKeyNamePlaceholder": "например, интеграция ATS для производства",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Поиск по проверяющему, кандидату или содержанию...",
+    "rejectionReasonPlaceholder": "Укажите причину отказа..."
   },
   "contact": {
     "declineReason": "например, Сейчас не рассматриваю новые возможности"
@@ -1483,13 +1483,13 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Выберите диапазон дат..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "например, Резюме (техническое), Резюме (управленческое)"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Сначала выберите страну",
+    "selectCity": "Выберите город"
   }
 }

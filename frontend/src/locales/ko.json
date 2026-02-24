@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... 또는 사무실 주소"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "예: 시니어, 매니저, 원격",
+    "messagePlaceholder": "안녕하세요, 귀하의 프로필이 저희 채용 공고에 적합해 보여 연락드립니다...",
+    "skillsPlaceholder": "예: ICU, 중환자 진료, Python"
   },
   "psv": {
     "npiNumber": "NPI 번호(선택)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "초대에 개인 메모를 추가하세요...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "채용 공고 선택",
     "maxApplicantsPlaceholder": "무제한"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "지원자 검색...",
+    "addNotePlaceholder": "메모 추가..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "예: 인사 관리자",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "예: 시티 메디컬 센터",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "예: 프로덕션 ATS 웹훅",
+    "apiKeyNamePlaceholder": "예: 프로덕션 ATS 통합",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "검토자, 지원자 또는 내용으로 검색...",
+    "rejectionReasonPlaceholder": "거절 사유를 입력하세요..."
   },
   "contact": {
     "declineReason": "예: 지금은 새로운 기회를 찾고 있지 않음"
@@ -1489,7 +1489,7 @@
     "profileNamePlaceholder": "예: 기술 이력서, 관리 이력서"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "먼저 국가를 선택하세요",
+    "selectCity": "도시 선택"
   }
 }

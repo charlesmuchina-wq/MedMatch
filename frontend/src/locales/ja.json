@@ -954,7 +954,7 @@
       "enterJobToolkit": "求人ツールキットへ"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "KARAU オートメーター",
       "subtitle": "求人検索のワークフローを自動化します",
       "startAutomation": "自動化を開始",
       "stopAutomation": "自動化を停止",
@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... またはオフィス住所"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "例：シニア、マネージャー、リモート",
+    "messagePlaceholder": "こんにちは。あなたのプロフィールに興味を持ち、当社の募集中ポジションについてご連絡しました...",
+    "skillsPlaceholder": "例：ICU、集中治療、Python"
   },
   "psv": {
     "npiNumber": "NPI番号（任意）",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "招待に個人的なメッセージを追加...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "求人票を選択",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "無制限"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "応募者を検索...",
+    "addNotePlaceholder": "メモを追加..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "例：人事マネージャー",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "例：シティ・メディカル・センター",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "例：本番ATS webhook",
+    "apiKeyNamePlaceholder": "例：本番ATS連携",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "レビュー担当者、候補者、または内容で検索...",
+    "rejectionReasonPlaceholder": "却下理由を入力してください..."
   },
   "contact": {
     "declineReason": "例：現在は新しい機会を探していません"
@@ -1489,7 +1489,7 @@
     "profileNamePlaceholder": "例：技術系レジュメ、管理職レジュメ"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "最初に国を選択してください",
+    "selectCity": "都市を選択"
   }
 }

@@ -1370,7 +1370,7 @@
       "enterJobToolkit": "ادخل أدوات الوظائف"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "مؤتمت KARAU",
       "subtitle": "أتمتة سير عمل البحث عن وظيفة",
       "startAutomation": "بدء الأتمتة",
       "stopAutomation": "إيقاف الأتمتة",
@@ -1767,9 +1767,9 @@
     "locationPlaceholder": "https://meet.google.com/... أو عنوان المكتب"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "مثال: خبير، مدير، عن بُعد",
+    "messagePlaceholder": "مرحبًا، وجدت ملفك الشخصي مثيرًا للاهتمام لوظيفتنا الشاغرة...",
+    "skillsPlaceholder": "مثال: العناية المركزة، الرعاية الحرجة، بايثون"
   },
   "psv": {
     "npiNumber": "رقم NPI (اختياري)",
@@ -1813,21 +1813,21 @@
     "summaryPlaceholder": "لخّص خبرتك"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "candidateNamePlaceholder": "جون دو",
+    "inviteNotePlaceholder": "أضف ملاحظة شخصية إلى دعوتك...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "اختر إعلان وظيفة",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "غير محدود"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "ابحث عن المتقدمين...",
+    "addNotePlaceholder": "أضف ملاحظة..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "مثال: مدير الموارد البشرية",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "مثال: مركز المدينة الطبي",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1870,13 +1870,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "مثال: Webhook لنظام ATS - الإنتاج",
+    "apiKeyNamePlaceholder": "مثال: تكامل نظام تتبع المتقدمين (ATS) - الإنتاج",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "ابحث حسب المُراجع أو المرشح أو المحتوى...",
+    "rejectionReasonPlaceholder": "اذكر سبب الرفض..."
   },
   "contact": {
     "declineReason": "مثال: لا أبحث عن فرص جديدة الآن"
@@ -1905,7 +1905,7 @@
     "profileNamePlaceholder": "مثال: سيرة ذاتية تقنية، سيرة ذاتية إدارية"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "اختر الدولة أولاً",
+    "selectCity": "اختر المدينة"
   }
 }

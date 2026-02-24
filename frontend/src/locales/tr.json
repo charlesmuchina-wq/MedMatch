@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... veya ofis adresi"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "örn. Kıdemli, Yönetici, Uzaktan",
+    "messagePlaceholder": "Merhaba, açık pozisyonumuz için profilinizi ilginç buldum...",
+    "skillsPlaceholder": "örn. YBÜ, Kritik Bakım, Python"
   },
   "psv": {
     "npiNumber": "NPI Numarası (isteğe bağlı)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Davetinize kişisel bir not ekleyin...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Bir iş ilanı seçin",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "Sınırsız"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Adayları ara...",
+    "addNotePlaceholder": "Not ekleyin..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "örn. İK Yöneticisi",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "örn. City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "örn. Prodüksiyon ATS webhook'u",
+    "apiKeyNamePlaceholder": "örn. Prodüksiyon ATS Entegrasyonu",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Değerlendirici, aday veya içeriğe göre ara...",
+    "rejectionReasonPlaceholder": "Reddedilme gerekçesi girin..."
   },
   "contact": {
     "declineReason": "örn. Şu an yeni fırsatlar aramıyorum"
@@ -1483,13 +1483,13 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Tarih aralığı seçin..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "örn. Teknik Özgeçmiş, Yönetim Özgeçmişi"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Önce ülke seçin",
+    "selectCity": "Şehir seçin"
   }
 }

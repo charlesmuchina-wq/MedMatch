@@ -16,7 +16,7 @@
     "error": "Erro",
     "success": "Sucesso",
     "warning": "Aviso",
-    "info": "Info",
+    "info": "Informações",
     "required": "Obrigatório",
     "optional": "Opcional",
     "actions": "Ações",
@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... ou endereço do escritório"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "ex.: Sênior, Gerente, Remoto",
+    "messagePlaceholder": "Olá, achei seu perfil interessante para nossa vaga em aberto...",
+    "skillsPlaceholder": "ex.: UTI, Cuidados Críticos, Python"
   },
   "psv": {
     "npiNumber": "Número NPI (opcional)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Adicione uma nota pessoal ao seu convite...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Selecionar uma vaga",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "Ilimitado"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Pesquisar candidatos...",
+    "addNotePlaceholder": "Adicione uma nota..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "ex.: Gestor de RH",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "ex.: Centro Médico da Cidade",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "seu@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "ex.: Webhook ATS de produção",
+    "apiKeyNamePlaceholder": "ex.: Integração ATS de Produção",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Pesquisar por avaliador, candidato ou conteúdo...",
+    "rejectionReasonPlaceholder": "Forneça um motivo para a rejeição..."
   },
   "contact": {
     "declineReason": "ex.: No momento, não estou buscando novas oportunidades"
@@ -1483,13 +1483,13 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Selecione o intervalo de datas..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "ex.: Currículo de Tecnologia, Currículo de Gestão"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Selecione primeiro o país",
+    "selectCity": "Selecione a cidade"
   }
 }

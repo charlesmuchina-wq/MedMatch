@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... या ऑफिस का पता"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "उदाहरण: सीनियर, मैनेजर, रिमोट",
+    "messagePlaceholder": "नमस्ते, मुझे आपकी प्रोफ़ाइल हमारी खुली भूमिका के लिए दिलचस्प लगी...",
+    "skillsPlaceholder": "उदाहरण: ICU, क्रिटिकल केयर, Python"
   },
   "psv": {
     "npiNumber": "NPI नंबर (वैकल्पिक)",
@@ -1397,30 +1397,30 @@
     "summaryPlaceholder": "अपने अनुभव का सारांश दें"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "candidateNamePlaceholder": "जॉन डो",
+    "inviteNotePlaceholder": "अपने निमंत्रण में एक व्यक्तिगत नोट जोड़ें...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "नौकरी पोस्टिंग चुनें",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "असीमित"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "आवेदकों को खोजें...",
+    "addNotePlaceholder": "एक नोट जोड़ें..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "उदाहरण: एचआर मैनेजर",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "उदाहरण: सिटी मेडिकल सेंटर",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
     "jobTitlePlaceholder": "टैलेंट एक्विज़िशन मैनेजर",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "जॉन डो",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Acme कॉर्पोरेशन",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "websitePlaceholder": "https://acme.com"
   },
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "उदाहरण: प्रोडक्शन ATS वेबहुक",
+    "apiKeyNamePlaceholder": "उदाहरण: प्रोडक्शन ATS इंटीग्रेशन",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "समीक्षक, उम्मीदवार या सामग्री से खोजें...",
+    "rejectionReasonPlaceholder": "अस्वीकृति का कारण बताएं..."
   },
   "contact": {
     "declineReason": "उदा., अभी नई अवसरों की तलाश नहीं कर रहा/रही हूँ"
@@ -1483,13 +1483,13 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "तारीख़ सीमा चुनें..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "जैसे, टेक रेज़्यूमे, मैनेजमेंट रेज़्यूमे"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "पहले देश चुनें",
+    "selectCity": "शहर चुनें"
   }
 }

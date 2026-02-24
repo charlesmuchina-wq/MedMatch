@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... eller kontorsadress"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "t.ex. Senior, chef, distans",
+    "messagePlaceholder": "Hej, jag tyckte att din profil var intressant för vår lediga tjänst...",
+    "skillsPlaceholder": "t.ex. IVA, intensivvård, Python"
   },
   "psv": {
     "npiNumber": "NPI-nummer (valfritt)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Lägg till en personlig anteckning till din inbjudan...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Välj en jobbannons",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "Obegränsat"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Sök bland sökande...",
+    "addNotePlaceholder": "Lägg till en anteckning..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "t.ex. HR-chef",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "t.ex. City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "t.ex. Produktionswebhook för ATS",
+    "apiKeyNamePlaceholder": "t.ex. Produktionsintegration för ATS",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Sök efter granskare, kandidat eller innehåll...",
+    "rejectionReasonPlaceholder": "Ange en anledning till avslaget..."
   },
   "contact": {
     "declineReason": "t.ex. Söker inte nya möjligheter just nu"
@@ -1483,13 +1483,13 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Välj datumintervall..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "t.ex. Tech-CV, Lednings-CV"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Välj land först",
+    "selectCity": "Välj stad"
   }
 }
