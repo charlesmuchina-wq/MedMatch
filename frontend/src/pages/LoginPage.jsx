@@ -49,16 +49,16 @@ const LoginPage = ({ onAuthSuccess }) => {
         { withCredentials: true }
       );
       
-      toast.success("Logged in with Google!");
+      toast.success(t("auth.googleLoginSuccess"));
       onAuthSuccess(response.data.user);
       navigate('/');
     } catch (e) {
-      toast.error("Google login failed");
+      toast.error(t("auth.googleLoginFailed"));
     }
     setIsLoading(false);
     // Clear the hash
     window.history.replaceState(null, '', window.location.pathname);
-  }, [onAuthSuccess, navigate]);
+  }, [onAuthSuccess, navigate, t]);
 
   const handleAppleCallback = useCallback(async (idToken, code) => {
     setIsLoading(true);
