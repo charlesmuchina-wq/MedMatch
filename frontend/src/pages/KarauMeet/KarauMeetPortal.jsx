@@ -25,6 +25,7 @@ import KarauMeetLogin from './KarauMeetLogin';
 import KarauMeetDashboard from './KarauMeetDashboard';
 import KarauRecordingsPage from './KarauRecordingsPage';
 import KarauSettingsPage from './KarauSettingsPage';
+import GuestJoinPage from './GuestJoinPage';
 
 // Meeting room component
 import MeetingRoom from '@/components/KarauMeet/MeetingRoom';
