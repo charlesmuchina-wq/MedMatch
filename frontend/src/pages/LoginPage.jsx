@@ -267,7 +267,7 @@ const LoginPage = ({ onAuthSuccess }) => {
             {t("auth.signIn")} - MedMatch-AI KARAU
           </CardTitle>
           <CardDescription>
-            AI-powered job search for life sciences careers
+            {t("auth.aiPoweredJobSearch")}
           </CardDescription>
         </CardHeader>
         
