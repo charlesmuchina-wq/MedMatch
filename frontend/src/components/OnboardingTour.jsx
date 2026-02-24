@@ -112,6 +112,7 @@ const OnboardingTour = ({ onComplete, user }) => {
 
   const handleComplete = () => {
     localStorage.setItem("medmatch-tour-completed", "true");
+    localStorage.setItem("medmatch_tour_completed", "true");
     setIsVisible(false);
     if (onComplete) onComplete();
   };
