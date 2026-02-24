@@ -498,3 +498,188 @@ async def cleanup_old_logs(
         "deleted_count": result.deleted_count,
         "message": f"Deleted {result.deleted_count} logs older than {days_to_keep} days"
     }
+
+
+@router.post("/database/maintenance")
+async def run_database_maintenance(request: Request):
+    """Run comprehensive database maintenance: cleanup stale data, verify indexes, report health"""
+    user = await get_current_user(request)
+    if not is_admin_user(user):
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    now = datetime.now(timezone.utc)
+    results = {"timestamp": now.isoformat(), "actions": []}
+    
+    # 1. Clean expired sessions
+    expired_sessions = await db.user_sessions.delete_many({
+        "expires_at": {"$lt": now.isoformat()}
+    })
+    results["actions"].append({
+        "action": "clean_expired_sessions",
+        "deleted": expired_sessions.deleted_count
+    })
+    
+    # 2. Clean stale meetings (waiting > 7 days, never started)
+    stale_cutoff = (now - timedelta(days=7)).isoformat()
+    stale_meetings = await db.karau_meetings.update_many(
+        {"status": "waiting", "created_at": {"$lt": stale_cutoff}},
+        {"$set": {"status": "expired"}}
+    )
+    results["actions"].append({
+        "action": "expire_stale_meetings",
+        "updated": stale_meetings.modified_count
+    })
+    
+    # 3. Clean old ML training data (keep last 30 days)
+    ml_cutoff = (now - timedelta(days=30)).isoformat()
+    old_ml = await db.ml_training_data.delete_many({
+        "timestamp": {"$lt": ml_cutoff}
+    })
+    results["actions"].append({
+        "action": "clean_old_ml_data",
+        "deleted": old_ml.deleted_count
+    })
+    
+    # 4. Clean expired OAuth states
+    expired_oauth = await db.credly_oauth_states.delete_many({
+        "expires_at": {"$lt": now.isoformat()}
+    })
+    results["actions"].append({
+        "action": "clean_expired_oauth",
+        "deleted": expired_oauth.deleted_count
+    })
+    
+    # 5. Clean expired WebAuthn challenges
+    expired_challenges = await db.webauthn_challenges.delete_many({
+        "expires_at": {"$lt": now.isoformat()}
+    })
+    results["actions"].append({
+        "action": "clean_expired_challenges",
+        "deleted": expired_challenges.deleted_count
+    })
+    
+    # 6. Ensure critical indexes exist
+    indexes_created = []
+    try:
+        await db.users.create_index("user_id", unique=True)
+        indexes_created.append("users.user_id")
+    except Exception:
+        pass
+    try:
+        await db.users.create_index("email", unique=True)
+        indexes_created.append("users.email")
+    except Exception:
+        pass
+    try:
+        await db.user_sessions.create_index("session_token")
+        indexes_created.append("user_sessions.session_token")
+    except Exception:
+        pass
+    try:
+        await db.user_sessions.create_index("expires_at")
+        indexes_created.append("user_sessions.expires_at")
+    except Exception:
+        pass
+    try:
+        await db.karau_meetings.create_index("meeting_id", unique=True)
+        indexes_created.append("karau_meetings.meeting_id")
+    except Exception:
+        pass
+    try:
+        await db.karau_meetings.create_index("host_id")
+        indexes_created.append("karau_meetings.host_id")
+    except Exception:
+        pass
+    try:
+        await db.applications.create_index("user_id")
+        indexes_created.append("applications.user_id")
+    except Exception:
+        pass
+    try:
+        await db.ml_training_data.create_index("timestamp")
+        indexes_created.append("ml_training_data.timestamp")
+    except Exception:
+        pass
+    try:
+        await db.notification_history.create_index([("user_id", 1), ("created_at", -1)])
+        indexes_created.append("notification_history.user_id+created_at")
+    except Exception:
+        pass
+    results["actions"].append({
+        "action": "ensure_indexes",
+        "indexes": indexes_created
+    })
+    
+    # 7. Collection stats
+    stats = {}
+    for coll_name in ["users", "user_sessions", "karau_meetings", "applications", "ml_training_data"]:
+        stats[coll_name] = await db[coll_name].count_documents({})
+    results["collection_stats"] = stats
+    
+    # Log this maintenance action
+    await log_admin_action(
+        admin_id=user.get("user_id"),
+        admin_email=user.get("email"),
+        action="database_maintenance",
+        target_type="system",
+        details=results
+    )
+    
+    return {"success": True, **results}
+
+
+@router.get("/database/health")
+async def get_database_health(request: Request):
+    """Get database health report: collection sizes, index status, stale data counts"""
+    user = await get_current_user(request)
+    if not is_admin_user(user):
+        raise HTTPException(status_code=403, detail="Admin access required")
+    
+    now = datetime.now(timezone.utc)
+    
+    # Collection sizes
+    collections = {}
+    for name in await db.list_collection_names():
+        count = await db[name].count_documents({})
+        if count > 0:
+            collections[name] = count
+    
+    # Stale data counts
+    stale_data = {
+        "expired_sessions": await db.user_sessions.count_documents({
+            "expires_at": {"$lt": now.isoformat()}
+        }),
+        "stale_waiting_meetings": await db.karau_meetings.count_documents({
+            "status": "waiting",
+            "created_at": {"$lt": (now - timedelta(days=7)).isoformat()}
+        }),
+        "old_ml_data_30d": await db.ml_training_data.count_documents({
+            "timestamp": {"$lt": (now - timedelta(days=30)).isoformat()}
+        }),
+        "expired_oauth_states": await db.credly_oauth_states.count_documents({
+            "expires_at": {"$lt": now.isoformat()}
+        }),
+    }
+    
+    # Index info for critical collections
+    indexes = {}
+    for coll_name in ["users", "user_sessions", "karau_meetings", "applications"]:
+        idx_list = await db[coll_name].index_information()
+        indexes[coll_name] = list(idx_list.keys())
+    
+    # ID pattern summary
+    total_collections = len(collections)
+    total_documents = sum(collections.values())
+    
+    return {
+        "total_collections": total_collections,
+        "total_documents": total_documents,
+        "collections": dict(sorted(collections.items(), key=lambda x: -x[1])[:20]),
+        "stale_data": stale_data,
+        "indexes": indexes,
+        "recommendations": [
+            f"Clean {stale_data['expired_sessions']} expired sessions" if stale_data['expired_sessions'] > 100 else None,
+            f"Archive {stale_data['stale_waiting_meetings']} stale meetings" if stale_data['stale_waiting_meetings'] > 10 else None,
+            f"Purge {stale_data['old_ml_data_30d']} old ML records" if stale_data['old_ml_data_30d'] > 10000 else None,
+        ]
+    }
