@@ -2064,7 +2064,7 @@
     "countryOptional": "الدولة (اختياري)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/ملفك-الشخصي",
     "resumeLinkPlaceholder": "رابط إلى سيرتك الذاتية (Google Drive، Dropbox، إلخ.)",
     "phonePlaceholder": "‎+1 (555) 123-4567",
     "coverLetterPlaceholder": "أخبرنا لماذا أنت مناسب جدًا لهذا الدور...",
@@ -2101,14 +2101,14 @@
     "companyPlaceholder": "مثال: مركز المدينة الطبي",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "أنت@شركتك.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/ملفك-الشخصي"
   },
   "idVerification": {
     "jobTitlePlaceholder": "مدير استقطاب المواهب",
     "namePlaceholder": "جون دو",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "شركة أكمي",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/ملفك-الشخصي",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
