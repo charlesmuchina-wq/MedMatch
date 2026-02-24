@@ -195,7 +195,19 @@
     "messages": "Messages",
     "idVerification": "ID Verification",
     "privacy": "Privacy & Data",
-    "membership": "Membership"
+    "membership": "Membership",
+    "helpTutorials": "Help & Tutorials",
+    "settings": "Settings",
+    "profile": "Profile",
+    "signOut": "Sign Out"
+  },
+  "navigation": {
+    "backToPortal": "Back to Portal Selection",
+    "backToDashboard": "Back to Dashboard",
+    "backToHome": "Back to Home",
+    "viewAll": "View All",
+    "seeMore": "See More",
+    "showLess": "Show Less"
   },
   "dashboard": {
     "welcomeBack": "Welcome back",
