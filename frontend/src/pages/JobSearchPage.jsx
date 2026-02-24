@@ -63,12 +63,12 @@ const COUNTRIES_DATA = {
   "Remote/Global": ["Worldwide", "Any Location"]
 };
 
-// Location types
-const LOCATION_TYPES = [
-  { value: "all", label: "All Types", icon: Globe },
-  { value: "remote", label: "Remote", icon: Laptop },
-  { value: "hybrid", label: "Hybrid", icon: Home },
-  { value: "onsite", label: "On-site", icon: Building }
+// Location types - labels will be translated in component
+const LOCATION_TYPE_VALUES = [
+  { value: "all", labelKey: "jobSearch.allTypes", icon: Globe },
+  { value: "remote", labelKey: "jobSearch.remote", icon: Laptop },
+  { value: "hybrid", labelKey: "jobSearch.hybrid", icon: Home },
+  { value: "onsite", labelKey: "jobSearch.onsite", icon: Building }
 ];
 
 const JobSearchPage = ({ savedJobs = [], onSave, onApply, onAnalyze }) => {
