@@ -1564,6 +1564,13 @@
       "privacyMatters": "Hoe ons jou data beskerm en jou possoektog veilig hou",
       "faqAiCompliance": "Verstaan KI-gebruik, data-eienaarskap, GDPR-nakoming",
       "completeOverview": "Omvattende opsomming van alle MedMatch-AI KARAU-funksies"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }

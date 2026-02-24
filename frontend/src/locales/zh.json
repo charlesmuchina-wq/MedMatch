@@ -1577,6 +1577,13 @@
       "privacyMatters": "我们如何保护你的数据并确保求职安全",
       "faqAiCompliance": "了解 AI 使用、数据所有权与 GDPR 合规",
       "completeOverview": "MedMatch-AI KARAU 全功能综合概览"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }

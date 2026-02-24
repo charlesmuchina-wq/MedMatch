@@ -1564,6 +1564,13 @@
       "privacyMatters": "Sida aan u ilaalinno xogtaada oo aan u sugno raadintaada shaqo",
       "faqAiCompliance": "Fahamka isticmaalka AI, lahaanshaha xogta, u hoggaansanaanta GDPR",
       "completeOverview": "Soo-koobid dhammaystiran ee dhammaan sifooyinka MedMatch-AI KARAU"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }

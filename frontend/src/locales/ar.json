@@ -1980,6 +1980,13 @@
       "privacyMatters": "كيف نحمي بياناتك ونحافظ على أمان بحثك عن وظيفة",
       "faqAiCompliance": "فهم استخدام الذكاء الاصطناعي وملكية البيانات والامتثال للائحة GDPR",
       "completeOverview": "ملخص شامل لجميع ميزات MedMatch-AI KARAU"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }

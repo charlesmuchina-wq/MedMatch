@@ -1564,6 +1564,13 @@
       "privacyMatters": "Uko turinda amakuru yawe kandi tugakomeza gushaka akazi kwawe bitekanye",
       "faqAiCompliance": "Gusobanukirwa ikoreshwa rya AI, uburenganzira ku makuru, kubahiriza GDPR",
       "completeOverview": "Incamake yuzuye y’ibiranga MedMatch-AI KARAU byose"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }

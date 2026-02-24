@@ -1564,6 +1564,13 @@
       "privacyMatters": "Indlela esikhusela ngayo idatha yakho size sigcine ukukhangela imisebenzi kukhuselekile",
       "faqAiCompliance": "Ukuqonda ukusetyenziswa kwe-AI, ubunini bedatha, ukuthotyelwa kwe-GDPR",
       "completeOverview": "Isishwankathelo esibanzi sazo zonke iimpawu zeMedMatch-AI KARAU"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }

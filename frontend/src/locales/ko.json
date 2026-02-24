@@ -1564,6 +1564,13 @@
       "privacyMatters": "데이터 보호와 안전한 구직을 위한 보안 방식",
       "faqAiCompliance": "AI 사용, 데이터 소유권, GDPR 준수 안내",
       "completeOverview": "MedMatch-AI KARAU 모든 기능 종합 요약"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }

@@ -1564,6 +1564,13 @@
       "privacyMatters": "Naka lañuy aar sa données te defal seet liggéey bi wóor",
       "faqAiCompliance": "Xam ni AI di jëfandikoo, moomeel données, toppu GDPR",
       "completeOverview": "Mbiru dëppoo bu mat ci bépp jumtukaay yi MedMatch-AI KARAU am"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }

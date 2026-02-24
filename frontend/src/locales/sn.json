@@ -1564,6 +1564,13 @@
       "privacyMatters": "Maitiro atinochengetedza data rako uye kuchengetedza kutsvaga basa kwako",
       "faqAiCompliance": "Kunzwisisa kushandiswa kweAI, muridzi wedata, kutevedzera GDPR",
       "completeOverview": "Pfupiso yakazara yezvose zvinoitwa neMedMatch-AI KARAU"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }

@@ -1577,6 +1577,13 @@
       "privacyMatters": "Wie wir deine Daten schützen und deine Jobsuche sicher halten",
       "faqAiCompliance": "KI-Nutzung verstehen, Datenhoheit, DSGVO-Konformität",
       "completeOverview": "Umfassende Übersicht aller MedMatch-AI KARAU Funktionen"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }

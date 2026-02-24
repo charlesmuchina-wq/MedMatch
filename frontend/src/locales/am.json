@@ -1564,6 +1564,13 @@
       "privacyMatters": "መረጃዎን እንዴት እንጠብቃለን እና የስራ ፍለጋዎን እንዴት ደህንነቱን እናስጠብቃለን",
       "faqAiCompliance": "የAI አጠቃቀም፣ የዳታ ባለቤትነት፣ የGDPR መስፈርቶች መከተል መግባባት",
       "completeOverview": "የMedMatch-AI KARAU ባህሪዎች ሁሉ የተሟላ ማጠቃለያ"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }

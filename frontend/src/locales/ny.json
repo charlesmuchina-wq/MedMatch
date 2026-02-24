@@ -1564,6 +1564,13 @@
       "privacyMatters": "Mmene timatetezera deta yanu ndi kusunga kusaka ntchito kwanu kukhala kotetezeka",
       "faqAiCompliance": "Kumvetsa kugwiritsa ntchito AI, umwini wa deta, kutsatira GDPR",
       "completeOverview": "Chidule chokwanira cha mbali zonse za MedMatch-AI KARAU"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }

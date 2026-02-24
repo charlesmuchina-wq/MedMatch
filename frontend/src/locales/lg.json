@@ -1564,6 +1564,13 @@
       "privacyMatters": "Engeri gye tuŋŋamba ku data yo n’okukuuma okunoonya omulimu kwo nga kuli mirembe",
       "faqAiCompliance": "Okutegeera enkozesa ya AI, obwannannyini bwa data, okugoberera GDPR",
       "completeOverview": "Ennyonnyola enzijuvu y’ebintu byonna ebya MedMatch-AI KARAU"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }

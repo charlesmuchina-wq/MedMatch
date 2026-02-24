@@ -1564,6 +1564,13 @@
       "privacyMatters": "Jinsi tunavyolinda data yako na kuweka utafutaji wako wa kazi salama",
       "faqAiCompliance": "Kuelewa matumizi ya AI, umiliki wa data, utii wa GDPR",
       "completeOverview": "Muhtasari kamili wa vipengele vyote vya MedMatch-AI KARAU"
+    },
+    "videoTitles": {
+      "jobSeekerFeatures": "Job Seeker Features",
+      "recruiterFeatures": "Recruiter Features",
+      "privacyMatters": "Your Privacy Matters",
+      "faqAiCompliance": "FAQs: AI Compliance & Data Rights",
+      "completeOverview": "Complete MedMatch-AI KARAU Overview"
     }
   }
 }
