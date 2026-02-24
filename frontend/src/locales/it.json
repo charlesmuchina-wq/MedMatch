@@ -544,54 +544,54 @@
     "premiumFeatures": "Candidature illimitate, Coaching IA, Supporto prioritario",
     "enterpriseFeatures": "Soluzioni personalizzate, Supporto dedicato, Accesso API",
     "recruiterPro": "Recruiter Pro",
-    "recruiterProDesc": "Post jobs, access candidates, and build your dream team",
-    "jobSeekerDesc": "Your gateway to landing your dream job in life sciences",
-    "lifetimeMember": "Lifetime Member",
-    "trialExpired": "Trial Expired",
-    "fullAccess": "Full access to all features",
-    "upgradeToAccess": "Upgrade to continue",
-    "paymentSessionExpired": "Payment session expired",
-    "failedVerifyPayment": "Failed to verify payment",
-    "alreadyHaveMembership": "You already have an active membership!",
-    "failedStartCheckout": "Failed to start checkout",
-    "paymentFailed": "Payment failed. Please try again.",
+    "recruiterProDesc": "Pubblica offerte, accedi ai candidati e crea il team dei tuoi sogni",
+    "jobSeekerDesc": "Il tuo accesso per trovare il lavoro dei tuoi sogni nelle scienze della vita",
+    "lifetimeMember": "Membro a vita",
+    "trialExpired": "Periodo di prova scaduto",
+    "fullAccess": "Accesso completo a tutte le funzionalità",
+    "upgradeToAccess": "Aggiorna per continuare",
+    "paymentSessionExpired": "Sessione di pagamento scaduta",
+    "failedVerifyPayment": "Impossibile verificare il pagamento",
+    "alreadyHaveMembership": "Hai già un abbonamento attivo!",
+    "failedStartCheckout": "Impossibile avviare il checkout",
+    "paymentFailed": "Pagamento non riuscito. Riprova.",
     "recruiterFeatures": {
       "starter": [
-        "5 active job posts",
-        "Basic candidate search",
-        "In-app messaging",
-        "Email support"
+        "5 annunci di lavoro attivi",
+        "Ricerca candidati di base",
+        "Messaggistica in-app",
+        "Supporto via email"
       ],
       "growth": [
-        "10 active job posts",
-        "Advanced candidate search",
-        "Blind screening mode",
-        "Analytics dashboard",
-        "Priority support"
+        "10 annunci di lavoro attivi",
+        "Ricerca candidati avanzata",
+        "Modalità di selezione anonima",
+        "Dashboard analitica",
+        "Supporto prioritario"
       ],
       "scale": [
-        "Unlimited job posts",
-        "Full ATS integration",
-        "Bulk candidate export",
-        "Custom branding",
-        "API access",
-        "Dedicated support"
+        "Annunci di lavoro illimitati",
+        "Integrazione ATS completa",
+        "Esportazione massiva dei candidati",
+        "Branding personalizzato",
+        "Accesso API",
+        "Supporto dedicato"
       ],
       "enterprise": [
-        "Everything in Premium",
-        "SSO/SAML integration",
-        "Custom SLA",
-        "Dedicated account manager",
-        "On-site training",
-        "HIPAA compliance"
+        "Tutto incluso in Premium",
+        "Integrazione SSO/SAML",
+        "SLA personalizzato",
+        "Account manager dedicato",
+        "Formazione in sede",
+        "Conformità HIPAA"
       ]
     },
     "jobSeekerFeatures": {
       "basic": [
-        "Unlimited job searches",
-        "View job listings",
-        "Save favorite jobs",
-        "Basic email alerts"
+        "Ricerche di lavoro illimitate",
+        "Visualizza offerte di lavoro",
+        "Salva le offerte preferite",
+        "Avvisi email di base"
       ]
     }
   },

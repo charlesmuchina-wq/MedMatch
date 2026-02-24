@@ -708,54 +708,54 @@
     "premiumFeatures": "Mapempho opanda malire, uphungu wa AI, Thandizo loyamba",
     "enterpriseFeatures": "Mayankho apadera, Thandizo lodzipereka, Kupeza API",
     "recruiterPro": "Recruiter Pro",
-    "recruiterProDesc": "Post jobs, access candidates, and build your dream team",
-    "jobSeekerDesc": "Your gateway to landing your dream job in life sciences",
-    "lifetimeMember": "Lifetime Member",
-    "trialExpired": "Trial Expired",
-    "fullAccess": "Full access to all features",
-    "upgradeToAccess": "Upgrade to continue",
-    "paymentSessionExpired": "Payment session expired",
-    "failedVerifyPayment": "Failed to verify payment",
-    "alreadyHaveMembership": "You already have an active membership!",
-    "failedStartCheckout": "Failed to start checkout",
-    "paymentFailed": "Payment failed. Please try again.",
+    "recruiterProDesc": "Lembani ntchito, pezani ofuna ntchito, ndipo mangani gulu lanu la maloto",
+    "jobSeekerDesc": "Chipata chanu choti mupeze ntchito ya maloto anu mu sayansi ya moyo",
+    "lifetimeMember": "Membala Wamoyo Wonse",
+    "trialExpired": "Nthawi Yoyeserera Yatha",
+    "fullAccess": "Kufikira zonse za mbali zonse",
+    "upgradeToAccess": "Kwezani kuti mupitirize",
+    "paymentSessionExpired": "Gawo la malipiro latha",
+    "failedVerifyPayment": "Zalephera kutsimikizira malipiro",
+    "alreadyHaveMembership": "Muli kale ndi umembala wogwira ntchito!",
+    "failedStartCheckout": "Zalephera kuyambitsa kulipira",
+    "paymentFailed": "Malipiro alephera. Chonde yesaninso.",
     "recruiterFeatures": {
       "starter": [
-        "5 active job posts",
-        "Basic candidate search",
-        "In-app messaging",
-        "Email support"
+        "Zolemba 5 za ntchito zogwira",
+        "Kusaka ofuna ntchito koyambira",
+        "Kutumizirana mauthenga mu app",
+        "Thandizo la imelo"
       ],
       "growth": [
-        "10 active job posts",
-        "Advanced candidate search",
-        "Blind screening mode",
-        "Analytics dashboard",
-        "Priority support"
+        "Zolemba 10 za ntchito zogwira",
+        "Kusaka ofuna ntchito kwapamwamba",
+        "Njira ya kusankha popanda dzina",
+        "Bolodi la ziwerengero",
+        "Thandizo loyamba"
       ],
       "scale": [
-        "Unlimited job posts",
-        "Full ATS integration",
-        "Bulk candidate export",
-        "Custom branding",
-        "API access",
-        "Dedicated support"
+        "Zolemba za ntchito zopanda malire",
+        "Kuphatikiza kwa ATS konse",
+        "Kutumiza kunja ofuna ntchito ambiri",
+        "Branding yokhazikitsidwa",
+        "Kufikira API",
+        "Thandizo lapadera"
       ],
       "enterprise": [
-        "Everything in Premium",
-        "SSO/SAML integration",
-        "Custom SLA",
-        "Dedicated account manager",
-        "On-site training",
-        "HIPAA compliance"
+        "Zonse za mu Premium",
+        "Kuphatikiza SSO/SAML",
+        "SLA yokhazikitsidwa",
+        "Woyang’anira akaunti wapadera",
+        "Maphunziro pamalo",
+        "Kutsatira HIPAA"
       ]
     },
     "jobSeekerFeatures": {
       "basic": [
-        "Unlimited job searches",
-        "View job listings",
-        "Save favorite jobs",
-        "Basic email alerts"
+        "Kusaka ntchito kopanda malire",
+        "Onani mndandanda wa ntchito",
+        "Sungani ntchito zokondedwa",
+        "Zidziwitso za imelo zoyambira"
       ]
     }
   },

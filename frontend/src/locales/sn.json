@@ -707,55 +707,55 @@
     "freeFeatures": "Kutsvaga basa kwekutanga, 5 zvikumbiro/mwedzi, Mugadziri weCV",
     "premiumFeatures": "Zvikumbiro zvisingaperi, Kudzidziswa neAI, Rutsigiro rwekutanga",
     "enterpriseFeatures": "Zvigadziriso zvetsika, Rutsigiro rwakatsaurirwa, Kuwana API",
-    "recruiterPro": "Recruiter Pro",
-    "recruiterProDesc": "Post jobs, access candidates, and build your dream team",
-    "jobSeekerDesc": "Your gateway to landing your dream job in life sciences",
-    "lifetimeMember": "Lifetime Member",
-    "trialExpired": "Trial Expired",
-    "fullAccess": "Full access to all features",
-    "upgradeToAccess": "Upgrade to continue",
-    "paymentSessionExpired": "Payment session expired",
-    "failedVerifyPayment": "Failed to verify payment",
-    "alreadyHaveMembership": "You already have an active membership!",
-    "failedStartCheckout": "Failed to start checkout",
-    "paymentFailed": "Payment failed. Please try again.",
+    "recruiterPro": "Munyori Wekutsvaga Vashandi Pro",
+    "recruiterProDesc": "Tumira mabasa, svika kune vanotsvaga basa, uye uvake timu yako yauchirota",
+    "jobSeekerDesc": "Suo rako rekuwana basa rako reroto musainzi dzeupenyu",
+    "lifetimeMember": "Nhengo Yehupenyu Hwese",
+    "trialExpired": "Nguva Yekuyedza Yapera",
+    "fullAccess": "Kuwana kwakazara kwemabasa ese",
+    "upgradeToAccess": "Simudzira kuti uenderere mberi",
+    "paymentSessionExpired": "Nguva yesesheni yekubhadhara yapera",
+    "failedVerifyPayment": "Kutadza kusimbisa kubhadhara",
+    "alreadyHaveMembership": "Watova nenhengo inoshanda!",
+    "failedStartCheckout": "Kutadza kutanga kubhadhara",
+    "paymentFailed": "Kubhadhara kwakundikana. Ndapota edza zvakare.",
     "recruiterFeatures": {
       "starter": [
-        "5 active job posts",
-        "Basic candidate search",
-        "In-app messaging",
-        "Email support"
+        "Mabasa 5 ari kushanda",
+        "Kutsvaga vanotsvaga basa kwekutanga",
+        "Kutumirana mameseji muapp",
+        "Rutsigiro rweemail"
       ],
       "growth": [
-        "10 active job posts",
-        "Advanced candidate search",
-        "Blind screening mode",
-        "Analytics dashboard",
-        "Priority support"
+        "Mabasa 10 ari kushanda",
+        "Kutsvaga vanotsvaga basa kwepamusoro",
+        "Modhi yekuvanza ruzivo",
+        "Dheshibhodi reongororo",
+        "Rutsigiro rwekutanga"
       ],
       "scale": [
-        "Unlimited job posts",
-        "Full ATS integration",
-        "Bulk candidate export",
-        "Custom branding",
-        "API access",
-        "Dedicated support"
+        "Mabasa asina muganhu",
+        "Kubatanidzwa kwakazara neATS",
+        "Kuburitsa vanotsvaga basa vakawanda kamwe",
+        "Branding yakagadzirirwa",
+        "Kuwana API",
+        "Rutsigiro rwakatsaurirwa"
       ],
       "enterprise": [
-        "Everything in Premium",
-        "SSO/SAML integration",
-        "Custom SLA",
-        "Dedicated account manager",
-        "On-site training",
-        "HIPAA compliance"
+        "Zvese zviri muPremium",
+        "Kubatanidzwa kweSSO/SAML",
+        "SLA yakagadzirirwa",
+        "Maneja weakaundi akatsaurirwa",
+        "Kudzidziswa panzvimbo",
+        "Kutevedzera HIPAA"
       ]
     },
     "jobSeekerFeatures": {
       "basic": [
-        "Unlimited job searches",
-        "View job listings",
-        "Save favorite jobs",
-        "Basic email alerts"
+        "Kutsvaga mabasa kusina muganhu",
+        "Ona zviziviso zvemabasa",
+        "Chengetedza mabasa aunoda",
+        "Zviziviso zveemail zvekutanga"
       ]
     }
   },
@@ -1095,7 +1095,7 @@
       "meetingPortalDesc": "Secure video conferencing",
       "enterPortal": "Pinda muPortal",
       "enterMeetingPortal": "Pinda muPortal reMisangano",
-      "medmatchAI": "MedMatch AI",
+      "medmatchAI": "MedMatch yeAI",
       "e2eEncrypted": "Yakavharidzirwa E2E",
       "trustedBy": "Inovimbwa neNyanzvi dzeLife Sciences",
       "welcomeTo": "Tikugashirei ku",

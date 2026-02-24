@@ -707,55 +707,55 @@
     "freeFeatures": "Seet liggéey bu ñu gëna am solo, 5 jëfandikoo/月, Sàmp Resume",
     "premiumFeatures": "Jëfandikoo yu amul limit, Jàngat AI, Ndimbal bu jëkk",
     "enterpriseFeatures": "Tàggat yu ñu defar seen mbir, Ndimbal bu wóor, Jot ci API",
-    "recruiterPro": "Recruiter Pro",
-    "recruiterProDesc": "Post jobs, access candidates, and build your dream team",
-    "jobSeekerDesc": "Your gateway to landing your dream job in life sciences",
-    "lifetimeMember": "Lifetime Member",
-    "trialExpired": "Trial Expired",
-    "fullAccess": "Full access to all features",
-    "upgradeToAccess": "Upgrade to continue",
-    "paymentSessionExpired": "Payment session expired",
-    "failedVerifyPayment": "Failed to verify payment",
-    "alreadyHaveMembership": "You already have an active membership!",
-    "failedStartCheckout": "Failed to start checkout",
-    "paymentFailed": "Payment failed. Please try again.",
+    "recruiterPro": "Rekriteer Pro",
+    "recruiterProDesc": "Tàggat ay liggéey, jot ci ay kandidàa, te samp sa ekip bu ñu bëgg",
+    "jobSeekerDesc": "Sa buntu ngir am sa liggéey bu sa xel di bëgg ci sayans yu dund",
+    "lifetimeMember": "Membre bu baaxul yàgg",
+    "trialExpired": "Jéemaale jeex na",
+    "fullAccess": "Jot bu mat ci lépp mënaat yi",
+    "upgradeToAccess": "Yeesal ngir wéy di dox",
+    "paymentSessionExpired": "Sésiŋu fay jeex na",
+    "failedVerifyPayment": "Jàppandi fay bi lajj na",
+    "alreadyHaveMembership": "Am nga ba noppi ab membre bu dox!",
+    "failedStartCheckout": "Tàmbali payement bi lajj na",
+    "paymentFailed": "Fay bi lajj na. Jéemaatal.",
     "recruiterFeatures": {
       "starter": [
-        "5 active job posts",
-        "Basic candidate search",
-        "In-app messaging",
-        "Email support"
+        "5 liggéey yu ñu tàggat tey",
+        "Seet kandidàa bu dëpp",
+        "Waaxtaan ci biir app bi",
+        "Ndimbal email"
       ],
       "growth": [
-        "10 active job posts",
-        "Advanced candidate search",
-        "Blind screening mode",
-        "Analytics dashboard",
-        "Priority support"
+        "10 liggéey yu ñu tàggat tey",
+        "Seet kandidàa bu gëna xóot",
+        "Anamu seet bu mbóotu",
+        "Dasi bordu analitik",
+        "Ndimbal bu jëkk"
       ],
       "scale": [
-        "Unlimited job posts",
-        "Full ATS integration",
-        "Bulk candidate export",
-        "Custom branding",
-        "API access",
-        "Dedicated support"
+        "Liggéey yu ñu tàggat ñépp",
+        "Jokkoo ATS bu mat",
+        "Jàllale kandidàa yu bari",
+        "Branding bu sa bopp",
+        "Jot ci API",
+        "Ndimbal bu ñu wottu"
       ],
       "enterprise": [
-        "Everything in Premium",
-        "SSO/SAML integration",
-        "Custom SLA",
-        "Dedicated account manager",
-        "On-site training",
-        "HIPAA compliance"
+        "Lépp ci Premium",
+        "Jokkoo SSO/SAML",
+        "SLA bu sa bopp",
+        "Saytu kont bu ñu wottu",
+        "Jàngat ci béréb",
+        "Topp HIPAA"
       ]
     },
     "jobSeekerFeatures": {
       "basic": [
-        "Unlimited job searches",
-        "View job listings",
-        "Save favorite jobs",
-        "Basic email alerts"
+        "Seet liggéey yu ñu mënul àndal",
+        "Gis listi liggéey yi",
+        "Denc liggéey yi nga gën a bëgg",
+        "Jàngale email yu ñu xamle"
       ]
     }
   },
