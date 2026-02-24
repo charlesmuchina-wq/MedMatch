@@ -29,6 +29,7 @@ const KarauMeetDashboard = ({ user }) => {
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [newMeetingTitle, setNewMeetingTitle] = useState('');
   const [creating, setCreating] = useState(false);
+  const [shareMeeting, setShareMeeting] = useState(null);
   const [stats, setStats] = useState({
     total_meetings: 0,
     total_hours: 0,
