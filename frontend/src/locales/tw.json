@@ -57,7 +57,7 @@
     "interviewCalendar": "Interview Kalenda",
     "analyticsFunnel": "Nkitahodi Funnel",
     "dragonAutomator": "KARAU Automator",
-    "adminDashboard": "Admin Dashboard",
+    "adminDashboard": "Admin Dasibɔɔd",
     "coverLetter": "Nkrataa a wode kɔ adwuma ho",
     "jobAlerts": "Adwuma ho kɔkɔbɔ",
     "notifications": "Nkaebɔ",
@@ -512,7 +512,7 @@
   "recruiter": {
     "interviews": "Nkitahodi",
     "myJobPostings": "M’adwuma ho Nkyerɛwde",
-    "dashboard": "Dashboard",
+    "dashboard": "Dasibɔɔd",
     "searchCandidates": "Hwehwɛ Kandidatfo",
     "companyName": "Adwumakuo",
     "companyNamePlaceholder": "Wo adwumakuo din",
@@ -611,14 +611,14 @@
     "contactAdmin": "Frɛ administrator na ɔmma LinkedIn sync no nyɛ adwuma",
     "importName": "Din ne headline",
     "tokenExpired": "LinkedIn token no atwa mu. Yɛsrɛ wo san fa mu.",
-    "importEmail": "Email address",
+    "importEmail": "Email adrɛs",
     "importInfo": "Kɔka wo LinkedIn account na fa bra:",
     "synced": "Wɔayɛ profile sync no yie!",
     "notConfigured": "LinkedIn integration no nhyehyɛe nni hɔ",
     "lastSynced": "Nea etwa to a wɔyɛɛ sync",
     "connectFailed": "Ɛantumi ankɔka LinkedIn",
     "importPhoto": "Profile mfonini",
-    "title": "LinkedIn Profile",
+    "title": "LinkedIn Profail",
     "disconnected": "LinkedIn no ada",
     "connect": "Kɔka LinkedIn",
     "syncFailed": "Ɛantumi anyɛ profile sync no",
@@ -801,7 +801,7 @@
     "unauthorized": "Wɔnnma kwan",
     "notFound": "Enni hɔ",
     "tryAgainLater": "Yɛsrɛ wo san sɔ hwɛ akyiri yi",
-    "networkError": "Network error",
+    "networkError": "Nɛtwɛk mfomso",
     "invalidInput": "Input a ɛnyɛ"
   },
   "autofill": {
@@ -864,7 +864,7 @@
       "expired": "Awie bere"
     },
     "adminDashboard": {
-      "title": "Admin Dashboard",
+      "title": "Admin Dasibɔɔd",
       "subtitle": "System no nhwɛso nyinaa ne sohwɛ",
       "switchPerspective": "Sesa kɔ hwɛ adwumayɛfoɔ ahorowɔ ho tebea mu na sɔ hwɛ",
       "active": "Reyɛ adwuma",
@@ -967,7 +967,7 @@
       "title": "Animguase a enni mu Screening Dashboard",
       "subtitle": "Hwɛ wɔn a wɔrehwehwɛ adwuma a animmu a enni mu",
       "candidatePool": "Wɔn a wɔrehwehwɛ adwuma kuw",
-      "screeningQueue": "Screening Queue",
+      "screeningQueue": "Screening Ahwɛhwɛ Nkyɛn",
       "reviewed": "Wɔahwɛ",
       "pending": "Ɛda so retwɛn",
       "qualificationMatch": "Ahokafo mu Nhyiamu",
@@ -987,7 +987,7 @@
       "savePreferences": "Kora nea woapaw"
     },
     "taxonomyExplorer": {
-      "title": "Taxonomy Explorer",
+      "title": "Taxonomy Nhwehwɛmu",
       "subtitle": "Brawse adwuma akuw ne nimdeɛ",
       "categories": "Akwan",
       "skills": "Nimdeɛ",
@@ -996,12 +996,12 @@
       "searchTaxonomy": "Hwehwɛ taxonomy..."
     },
     "enterpriseApi": {
-      "title": "Enterprise API",
+      "title": "Adwumakuw API",
       "subtitle": "API nkyerɛkyerɛ ne sohwɛ",
-      "apiKeys": "API Keys",
+      "apiKeys": "API Safoa",
       "documentation": "Nkyerɛkyerɛ",
       "usage": "Dwumadie",
-      "rateLimits": "Rate Limits",
+      "rateLimits": "Amanneɛ a wɔde to so",
       "generateKey": "Yɛbɔ safoa foforo",
       "revokeKey": "Yi safoa no fi adwuma mu"
     },
@@ -1061,7 +1061,7 @@
       "runCheck": "Tu Integrity Check"
     },
     "recruiterVerification": {
-      "title": "Recruiter Verification",
+      "title": "Aguadifoɔ Nkyerɛmu",
       "subtitle": "Gye recruiter akawnt ahorow tom",
       "pendingVerifications": "Gye-tom a ɛretwɛn",
       "verified": "Wɔagye atom",
@@ -1070,7 +1070,7 @@
       "rejectRecruiter": "Po Recruiter no"
     },
     "reviewModeration": {
-      "title": "Review Moderation",
+      "title": "Nhwehwɛmu Nsiesie",
       "subtitle": "Hyɛ user reviews so",
       "pendingReviews": "Reviews a ɛretwɛn",
       "approved": "Wɔagye atom",
@@ -1116,7 +1116,7 @@
       "allVideosSubtitle": "Hwehwɛ yɛn tutorial video nyinaa",
       "gettingStartedTitle": "AI a ɛboa Getting Started Kyerɛkyerɛmu",
       "gettingStartedSubtitle": "Hwɛ yɛn AI presenter kyerɛkyerɛ platform no nneɛma",
-      "quickGuidesTitle": "Quick Reference Guides",
+      "quickGuidesTitle": "Nsɛntitiriw Nkyerɛkyerɛ Nkrataa",
       "quickGuidesSubtitle": "Akwankyerɛ a ɛkɔ anammɔn biara mu ma adwuma a wɔyɛ taa"
     }
   },
@@ -1169,10 +1169,10 @@
       "locationFound": "Wohu beae no!"
     },
     "biometricAuth": {
-      "title": "Biometric Authentication",
+      "title": "Biometric Nkyerɛmu",
       "enableBiometric": "Ma Biometric Login nyɛ adwuma",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Anim ID",
+      "touchId": "Nsateaa ID",
       "fingerprint": "Nsateaa ho nsateaa",
       "setupRequired": "Hyehyɛ a ɛhia",
       "notSupported": "Ɛnna ɛnkyerɛ wɔ saa afiri yi so"
@@ -1265,7 +1265,7 @@
     "stopRecording": "Gyae Kyerɛw",
     "raiseHand": "Ma Wo Nsa So",
     "lowerHand": "Brɛ Wo Nsa Ase",
-    "virtualBackground": "Virtual Background",
+    "virtualBackground": "Nkyerɛase Mfonini",
     "aiNotes": "AI Nkrataa",
     "joinMeeting": "Kɔhyɛ Nhyiamu No Mu",
     "enterMeetingId": "Kyerɛw Nhyiamu ID No"
@@ -1285,7 +1285,7 @@
     "manageBilling": "Hwɛ sika a woatua so"
   },
   "biometric": {
-    "title": "Biometric Login",
+    "title": "Biometrik Login",
     "description": "Fa wo nsateaa anaa w'anim na kɔ so hyɛ mu dwoodwoo",
     "secureLogin": "Wo device no biometrics ma wo tumi kɔ so hyɛ mu a enhia password, na ɛyɛ ahobammɔ",
     "deviceName": "Device din (te sɛ, Me MacBook)",
@@ -1450,7 +1450,7 @@
   "karauMeet": {
     "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
     "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "meetingTitlePlaceholder": "AI KARAU Nhyiamu",
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
