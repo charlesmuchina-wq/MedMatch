@@ -1400,8 +1400,8 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "selectJobPlaceholder": "Khetha isikhangiso somsebenzi",
+    "maxApplicantsPlaceholder": "Okungenamkhawulo"
   },
   "applicantTracker": {
     "searchPlaceholder": "Search applicants...",
@@ -1417,10 +1417,10 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "Umphathi Wokutholwa Kwamathalente",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Inkampani i-Acme",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "websitePlaceholder": "https://acme.com"
   },
@@ -1445,11 +1445,11 @@
     "searchByCompanyOrEmail": "Sesha ngegama lenkampani noma i-imeyili..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Khetha indawo yakho..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingIdPlaceholder": "Faka i-ID yomhlangano (isb., ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Faka ikhodi enamadijithi ayi-6",
     "meetingTitlePlaceholder": "Umhlangano we-AI KARAU",
     "emailPlaceholder": "your@email.com"
   },

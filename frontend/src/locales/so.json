@@ -590,7 +590,7 @@
     "jobDescriptionPlaceholder": "Ku dheji halkan sharraxaadda shaqada oo dhan. AI-ga wuxuu soo saari doonaa su’aalo wareysi oo ku habboon iyadoo ku saleysan shuruudaha iyo xirfadahaaga CV-ga..."
   },
   "membership": {
-    "premium": "Premium",
+    "premium": "Heer Sare",
     "freeTrial": "Tijaabo Bilaash ah",
     "expired": "Wuu dhacay",
     "upgrade": "Hadda Cusboonaysii",
@@ -1181,8 +1181,8 @@
       "title": "Rukunka",
       "currentPlan": "Qorshaha hadda",
       "free": "Bilaash",
-      "premium": "Premium",
-      "enterprise": "Enterprise",
+      "premium": "Heer Sare",
+      "enterprise": "Shirkad Weyn",
       "upgrade": "Kor u qaad",
       "downgrade": "Hoos u dhig",
       "cancel": "Jooji rukunka",
@@ -1400,8 +1400,8 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "selectJobPlaceholder": "Dooro shaqo la xayeysiiyay",
+    "maxApplicantsPlaceholder": "Aan xad lahayn"
   },
   "applicantTracker": {
     "searchPlaceholder": "Search applicants...",
@@ -1417,7 +1417,7 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "Maareeyaha Helitaanka Kartida",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
@@ -1445,11 +1445,11 @@
     "searchByCompanyOrEmail": "Ku raadi magaca shirkadda ama iimaylka..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Dooro goobtaada..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingIdPlaceholder": "Geli aqoonsiga kulanka (tusaale, ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Geli koodh 6-god ah",
     "meetingTitlePlaceholder": "Kulanka AI KARAU",
     "emailPlaceholder": "your@email.com"
   },

@@ -520,7 +520,7 @@
   "recruiter": {
     "interviews": "Hira",
     "myJobPostings": "Ayyukan Yi da Na Saka",
-    "dashboard": "Dashboard",
+    "dashboard": "Allon Kulawa",
     "searchCandidates": "Nemo 'Yan Takara",
     "companyName": "Kamfani",
     "companyNamePlaceholder": "Sunan kamfaninka",
@@ -1400,8 +1400,8 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "selectJobPlaceholder": "Zaɓi sanarwar aiki",
+    "maxApplicantsPlaceholder": "Ba tare da iyaka ba"
   },
   "applicantTracker": {
     "searchPlaceholder": "Search applicants...",
@@ -1417,7 +1417,7 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "Manajan Daukar Ma'aikata",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
@@ -1445,11 +1445,11 @@
     "searchByCompanyOrEmail": "Nemo ta sunan kamfani ko imel..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Zaɓi wurinka..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingIdPlaceholder": "Shigar da ID na taro (misali, ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Shigar da lamba mai digit 6",
     "meetingTitlePlaceholder": "Taron AI KARAU",
     "emailPlaceholder": "your@email.com"
   },

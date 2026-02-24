@@ -1171,8 +1171,8 @@
     "biometricAuth": {
       "title": "ባዮሜትሪክ ማረጋገጫ",
       "enableBiometric": "ባዮሜትሪክ መግቢያን አንቃ",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "ፊት መለያ",
+      "touchId": "ንክኪ መለያ",
       "fingerprint": "የጣት አሻራ",
       "setupRequired": "ማዋቀር ያስፈልጋል",
       "notSupported": "በዚህ መሣሪያ ላይ አይደገፍም"
@@ -1400,7 +1400,7 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
+    "selectJobPlaceholder": "የስራ ማስታወቂያ ይምረጡ",
     "maxApplicantsPlaceholder": "Unlimited"
   },
   "applicantTracker": {
@@ -1417,10 +1417,10 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
-    "namePlaceholder": "John Doe",
+    "jobTitlePlaceholder": "የተሰጥኦ ቅጥር አስተዳዳሪ",
+    "namePlaceholder": "ጆን ዶ",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "አክሜ ኮርፖሬሽን",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "websitePlaceholder": "https://acme.com"
   },
@@ -1445,12 +1445,12 @@
     "searchByCompanyOrEmail": "በኩባንያ ስም ወይም ኢሜይል ፈልግ..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "አካባቢዎን ይምረጡ..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "meetingIdPlaceholder": "የስብሰባ መለያ ያስገቡ (ለምሳሌ፣ ABC-123-XYZ)",
+    "verificationCodePlaceholder": "ባለ 6 አሃዝ ኮድ ያስገቡ",
+    "meetingTitlePlaceholder": "AI KARAU ስብሰባ",
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {

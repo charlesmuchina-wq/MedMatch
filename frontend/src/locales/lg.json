@@ -590,7 +590,7 @@
     "jobDescriptionPlaceholder": "Teeka wano ennyonnyola y'omulimu yonna. AI ejja kukola ebibuuzo by'okubuuliriza ebikwatagana n'ebyetaagisa n'obukugu bwo mu CV..."
   },
   "membership": {
-    "premium": "Premium",
+    "premium": "Peremiyamu",
     "freeTrial": "Okugezaako ku bwereere",
     "expired": "Eggwaako",
     "upgrade": "Yimusa pulani kati",
@@ -996,7 +996,7 @@
       "searchTaxonomy": "Noonya mu taxonomy..."
     },
     "enterpriseApi": {
-      "title": "Enterprise API",
+      "title": "API ya Kampuni Ennene",
       "subtitle": "Ebiwandiiko bya API n’okuddukanya",
       "apiKeys": "Ebisumuluzo bya API",
       "documentation": "Ebiwandiiko",
@@ -1400,7 +1400,7 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
+    "selectJobPlaceholder": "Londa ekifo ky'omulimu",
     "maxApplicantsPlaceholder": "Unlimited"
   },
   "applicantTracker": {
@@ -1417,7 +1417,7 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "Omuddukanya Okunoonya Abakozi",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
@@ -1445,11 +1445,11 @@
     "searchByCompanyOrEmail": "Noonya ng'okozesa erinnya lya kampuni oba emeyilo..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Londa ekifo kyo..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingIdPlaceholder": "Wandiika Meeting ID (okugeza: ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Wandiika koodi ya digito 6",
     "meetingTitlePlaceholder": "Olukiiko lwa AI KARAU",
     "emailPlaceholder": "your@email.com"
   },
