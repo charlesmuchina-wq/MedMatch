@@ -93,6 +93,22 @@ async def get_my_meetings(
     return {"meetings": meetings}
 
 
+@router.get("/meetings/{meeting_id}/info")
+async def get_meeting_public_info(meeting_id: str):
+    """Get basic meeting info (public, no auth required) for guest join page"""
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+    
+    return {
+        "meeting_id": meeting.get("meeting_id", meeting_id),
+        "title": meeting.get("title", "AI KARAU Meeting"),
+        "status": meeting.get("status", "active"),
+        "host_name": meeting.get("host_name", "Host"),
+        "created_at": meeting.get("created_at", ""),
+    }
+
+
 @router.get("/meetings/{meeting_id}")
 async def get_meeting_details(
     meeting_id: str,
