@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "te sɛ, Senior Quality Engineer",
+    "tagsPlaceholder": "te sɛ, Remote, Full-time, Quality, Medical Device",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Hwehwɛ adwumayɛbea bi (te sɛ, 'Biomedical Engineer', 'Clinical Research')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Yɛsrɛ wo, ka adɛn nti na wobɛpɛ sɛ wode ɔkwan foforo di dwuma..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "te sɛ: Nkasaho ne Acme Corp",
@@ -1483,7 +1483,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Paw bere a wopɛ..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "te sɛ: Teknɔlɔgyi CV, Ahwɛsoɔ CV"

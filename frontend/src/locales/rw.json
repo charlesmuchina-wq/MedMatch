@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "urugero: Injeniyeri Mukuru ushinzwe Ubwiza",
+    "tagsPlaceholder": "urugero: Ukorera kure, Igihe cyose, Ubwiza, Igikoresho cy'Ubuvuzi",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Shakisha umwanya w'akazi (urugero: 'Injeniyeri wa Biomedical', 'Ubushakashatsi mu by'amavuriro')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Nyamuneka sangira impamvu wahitamo ubundi buryo bwo gukomeza..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "urugero: Ikiganiro na Acme Corp",
@@ -1483,7 +1483,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Hitamo igihe..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "urugero: CV ya Tekinoloji, CV y'Ubuyobozi"

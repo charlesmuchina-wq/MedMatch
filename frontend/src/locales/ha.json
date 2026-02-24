@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "misali, Injiniyan Inganci na Babba",
+    "tagsPlaceholder": "misali, Nesa, Cikakken lokaci, Inganci, Na'urar Likita",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Nemi matsayi (misali, 'Injiniyan Kimiyyar Halittu', 'Binciken Asibiti')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Da fatan za ka/ki bayyana dalilin da ya sa ka/ki fi son wani tsarin daban..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "misali, Tattaunawa da Acme Corp",

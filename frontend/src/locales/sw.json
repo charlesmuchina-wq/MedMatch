@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "mf., Mhandisi Mkuu wa Ubora",
+    "tagsPlaceholder": "mf., Remote, Muda kamili, Ubora, Kifaa cha Matibabu",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Tafuta nafasi (mf., 'Mhandisi wa Biomedikali', 'Utafiti wa Kliniki')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Tafadhali eleza kwa nini ungependa mchakato mbadala..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "mf., Mahojiano na Acme Corp",

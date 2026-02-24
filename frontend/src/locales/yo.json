@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "àpẹẹrẹ: Ẹnjiníà Didara Agba",
+    "tagsPlaceholder": "àpẹẹrẹ: Latọna jijin, Àkókò-kíkún, Didara, Ẹ̀rọ ìṣègùn",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Wá ipò iṣẹ́ kan (àpẹẹrẹ: 'Ẹnjiníà Biomedical', 'Ìwádìí Clinical')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Jọwọ ṣàlàyé ìdí tí o fi fẹ́ ilana míràn..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "àpẹẹrẹ: Ìfọ̀rọ̀wánilẹ́nuwò pẹ̀lú Acme Corp",
@@ -1483,7 +1483,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Yan àkókò ọjọ́..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "àpẹẹrẹ: Résumé Imọ̀-ẹ̀rọ, Résumé Ìṣàkóso"

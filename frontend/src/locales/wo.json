@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "misaal: Injineer Bu Mag ci Kalite",
+    "tagsPlaceholder": "misaal: Dëkkandiku, Waqt bu Mat, Kalite, Jëfandikukat Yu Tibb",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Seet ab role (misaal: 'Injineer Biomedical', 'Bëgg-bëgg ci Reseerch Klinikal')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Joxalalal ci lu tax nga gën a bëgg benn yoon wu wuutu..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "misaal: Njàngat ak Acme Corp",

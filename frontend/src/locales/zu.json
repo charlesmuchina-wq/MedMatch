@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "isb., Unjiniyela Omdala Wezinga",
+    "tagsPlaceholder": "isb., Okude, Isikhathi esigcwele, Ikhwalithi, Idivayisi Yezokwelapha",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Sesha indima (isb., 'Unjiniyela Wezokwelapha', 'Ucwaningo Lwezokwelapha')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Sicela wabelane ngokuthi kungani ungakhetha inqubo ehlukile..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "isb., Inhlolokhono ne-Acme Corp",

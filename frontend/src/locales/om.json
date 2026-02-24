@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "fkn., Injinara Qulqullina Olaanaa",
+    "tagsPlaceholder": "fakkeenyaaf, Fagoo irraa, Yeroo guutuu, Qulqullina, Meeshaa Fayyaa",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1420,7 +1420,7 @@
     "jobTitlePlaceholder": "Hogganaa Argama Dandeettii",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Korporeshinii Acme",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "websitePlaceholder": "https://acme.com"
   },
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Gahee hojii barbaadi (fkn., 'Injiinara Biomedikaalaa', 'Qorannoo Kiliinikaa')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Maalif akka adeemsa biraa filattu nuuf qoodaa..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "fkn., Interviyuu Acme Corp waliin",

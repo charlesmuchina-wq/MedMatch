@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "ለምሳሌ፣ ከፍተኛ የጥራት መሐንዲስ",
+    "tagsPlaceholder": "ለምሳሌ፣ ርቀት ስራ (Remote)፣ ሙሉ ጊዜ፣ ጥራት፣ የሕክምና መሳሪያ",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "ሚና ፈልግ (ለምሳሌ፡ 'ባዮሜዲካል ኢንጂነር', 'ክሊኒካል ሪሰርች')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "እባክዎ ለምን አማራጭ ሂደት እንደሚመርጡ ያካፍሉ..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "ለምሳሌ፡ ከAcme Corp ጋር ቃለ መጠይቅ",

@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "umz., Injineli yoMgangatho ePhezulu",
+    "tagsPlaceholder": "umz., Ekude, Ixesha elizeleyo, uMgangatho, Isixhobo sezoNyango",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Khangela indima (umz., 'Unjineli wezeBhiyomedikhali', 'Uphando lweKlinikhi')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Nceda wabelane ngesizathu sokuba kutheni ungakhetha inkqubo eyenye..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "umz., Udliwano-ndlebe neAcme Corp",
@@ -1483,7 +1483,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Khetha uluhlu lwemihla..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "umz., iResume yeTekhnoloji, iResume yoLawulo"

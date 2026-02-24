@@ -1386,8 +1386,8 @@
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
-    "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
-    "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device",
+    "jobTitlePlaceholder": "Okugeza, Injinia Omukulu ow’Okukakasa Omutindo",
+    "tagsPlaceholder": "Okugeza, Ebikolebwa ewala, Emirimu egy’obudde bwonna, Omutindo, Ekyuma ky’obujjanjabi",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply"
   },
   "companyReview": {
@@ -1469,7 +1469,7 @@
     "searchPlaceholder": "Noonya omulimu (okugezaako: 'Injinia wa Biomedical', 'Okunoonyereza ku bulwadde')"
   },
   "candidateTransparency": {
-    "alternativeProcessPlaceholder": "Please share why you'd prefer an alternative process..."
+    "alternativeProcessPlaceholder": "Nsaba ogabane lwaki oyagala enkola endala..."
   },
   "meetingNotes": {
     "meetingTitlePlaceholder": "okugezaako: Okubuuza n’Acme Corp",
@@ -1483,7 +1483,7 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Londa ennaku z'ekiseera..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "okugezaako: CV ya Tekinologiya, CV ya Buvunaanyizibwa"
