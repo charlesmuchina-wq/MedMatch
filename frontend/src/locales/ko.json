@@ -1008,10 +1008,10 @@
     "globalCompliance": {
       "title": "글로벌 컴플라이언스",
       "subtitle": "지역별 준수 상태",
-      "gdpr": "GDPR",
-      "ccpa": "CCPA",
+      "gdpr": "GDPR(일반 개인정보 보호 규정)",
+      "ccpa": "CCPA(캘리포니아 소비자 개인정보 보호법)",
       "hipaa": "HIPAA",
-      "soc2": "SOC 2",
+      "soc2": "SOC 2(서비스 조직 통제 2)",
       "compliant": "준수",
       "nonCompliant": "미준수",
       "inProgress": "진행 중"

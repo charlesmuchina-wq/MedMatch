@@ -1344,7 +1344,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "Yohana Smith",
     "companyPlaceholder": "urugero: Google",
     "notesPlaceholder": "Andi makuru y’inyongera yerekeye ikiganiro cy’akazi...",
     "positionPlaceholder": "urugero: Injeniyeri wa Porogaramu",
@@ -1382,7 +1382,7 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Tudutangarize impamvu ubereye uyu mwanya...",
     "emailPlaceholder": "john@urugero.com",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Yohana Doe",
     "portfolioPlaceholder": "https://urubuga-rwawe.com"
   },
   "recruiterJobs": {

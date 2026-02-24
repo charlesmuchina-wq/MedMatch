@@ -1412,7 +1412,7 @@
     "rolePlaceholder": "bijv. HR-manager",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "bijv. City Medical Center",
-    "linkedinPlaceholder": "https://linkedin.com/company/...",
+    "linkedinPlaceholder": "https://linkedin.com/bedrijf/...",
     "emailPlaceholder": "jij@jouwbedrijf.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/uwprofiel"
   },
@@ -1420,7 +1420,7 @@
     "jobTitlePlaceholder": "Manager Talent Acquisition",
     "namePlaceholder": "Jan Jansen",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Acme-bedrijf",
     "linkedinPlaceholder": "https://linkedin.com/in/uwprofiel",
     "websitePlaceholder": "https://acme.com"
   },
