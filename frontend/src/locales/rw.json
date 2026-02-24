@@ -706,7 +706,58 @@
     "contactSales": "Contact Sales",
     "freeFeatures": "Basic job search, 5 applications/month, Resume builder",
     "premiumFeatures": "Unlimited applications, AI coaching, Priority support",
-    "enterpriseFeatures": "Custom solutions, Dedicated support, API access"
+    "enterpriseFeatures": "Custom solutions, Dedicated support, API access",
+    "recruiterPro": "Recruiter Pro",
+    "recruiterProDesc": "Post jobs, access candidates, and build your dream team",
+    "jobSeekerDesc": "Your gateway to landing your dream job in life sciences",
+    "lifetimeMember": "Lifetime Member",
+    "trialExpired": "Trial Expired",
+    "fullAccess": "Full access to all features",
+    "upgradeToAccess": "Upgrade to continue",
+    "paymentSessionExpired": "Payment session expired",
+    "failedVerifyPayment": "Failed to verify payment",
+    "alreadyHaveMembership": "You already have an active membership!",
+    "failedStartCheckout": "Failed to start checkout",
+    "paymentFailed": "Payment failed. Please try again.",
+    "recruiterFeatures": {
+      "starter": [
+        "5 active job posts",
+        "Basic candidate search",
+        "In-app messaging",
+        "Email support"
+      ],
+      "growth": [
+        "10 active job posts",
+        "Advanced candidate search",
+        "Blind screening mode",
+        "Analytics dashboard",
+        "Priority support"
+      ],
+      "scale": [
+        "Unlimited job posts",
+        "Full ATS integration",
+        "Bulk candidate export",
+        "Custom branding",
+        "API access",
+        "Dedicated support"
+      ],
+      "enterprise": [
+        "Everything in Premium",
+        "SSO/SAML integration",
+        "Custom SLA",
+        "Dedicated account manager",
+        "On-site training",
+        "HIPAA compliance"
+      ]
+    },
+    "jobSeekerFeatures": {
+      "basic": [
+        "Unlimited job searches",
+        "View job listings",
+        "Save favorite jobs",
+        "Basic email alerts"
+      ]
+    }
   },
   "dragon": {
     "processing": "Birimo gutunganywa...",
