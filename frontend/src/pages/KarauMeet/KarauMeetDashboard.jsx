@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import {
   Video, Plus, Clock, Shield, Sparkles, Copy,
-  Loader2, History, MonitorPlay, Users, Archive
+  Loader2, History, MonitorPlay, Users, Archive, Share2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -13,6 +13,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { useTranslation } from '@/utils/i18n';
+import ShareMeetingDialog from '@/components/KarauMeet/ShareMeetingDialog';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
