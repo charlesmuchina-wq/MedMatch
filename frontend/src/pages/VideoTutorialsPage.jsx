@@ -754,12 +754,12 @@ const GettingStartedSection = memo(() => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Getting Started with MedMatch-AI KARAU</h2>
-          <p className="text-gray-700 dark:text-gray-300 mt-1">Watch our AI-powered tutorials in your preferred language</p>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t('helpTutorials.gettingStartedTitle')}</h2>
+          <p className="text-slate-700 dark:text-gray-300 mt-1">{t('helpTutorials.gettingStartedDesc')}</p>
         </div>
         <div className="flex items-center gap-2 bg-teal-50 dark:bg-teal-900/30 px-3 py-2 rounded-lg">
           <Globe className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-          <span className="text-sm font-medium text-teal-700 dark:text-teal-300">{languageList.length} Languages</span>
+          <span className="text-sm font-medium text-teal-700 dark:text-teal-300">{languageList.length} {t('helpTutorials.languagesAvailable')}</span>
         </div>
       </div>
 
@@ -780,7 +780,7 @@ const GettingStartedSection = memo(() => {
                     onClick={() => setVideoError(null)}
                     className="mt-3 text-sm text-gray-400 hover:text-white"
                   >
-                    Try again
+                    {t('helpTutorials.tryAgain')}
                   </button>
                 </div>
               ) : (
@@ -814,7 +814,7 @@ const GettingStartedSection = memo(() => {
                             <Play className="w-10 h-10 text-teal-600 ml-1" />
                           </div>
                           <p className="text-white mt-4 text-lg font-medium">{currentTutorial?.title}</p>
-                          <p className="text-white/70 text-sm mt-1">45 seconds • AI Avatar Tutorial</p>
+                          <p className="text-white/70 text-sm mt-1">45 {t('helpTutorials.seconds')} • {t('helpTutorials.aiTutorial')}</p>
                         </>
                       )}
                     </div>
@@ -835,16 +835,16 @@ const GettingStartedSection = memo(() => {
                   />
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">{currentTutorial?.name} Tutorial</p>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">
-                    Presenter: {currentTutorial?.presenter} • {currentTutorial?.region}
+                  <p className="font-medium text-gray-900 dark:text-white">{currentTutorial?.name} {t('helpTutorials.tutorialTitle')}</p>
+                  <p className="text-sm text-slate-700 dark:text-gray-300">
+                    {t('videoTutorials.presenter')}: {currentTutorial?.presenter} • {currentTutorial?.region}
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <span className="text-2xl">{currentTutorial?.flag}</span>
                 <span className="px-3 py-1 bg-teal-100 dark:bg-teal-900/50 text-teal-700 dark:text-teal-300 rounded-full text-sm font-medium">
-                  AI Generated
+                  {t('videoTutorials.aiGenerated')}
                 </span>
               </div>
             </div>
@@ -855,7 +855,7 @@ const GettingStartedSection = memo(() => {
         <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-4 h-fit max-h-[500px] overflow-y-auto">
           <h3 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
             <Globe className="w-5 h-5 text-teal-600 dark:text-teal-400" />
-            Select Language
+            {t('helpTutorials.selectLanguageTitle')}
           </h3>
           {configLoading ? (
             <div className="flex items-center justify-center py-4">
@@ -886,7 +886,7 @@ const GettingStartedSection = memo(() => {
                 <span className="text-lg">{lang.flag}</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-sm truncate">{lang.name}</p>
-                  <p className="text-xs text-gray-700 dark:text-gray-400 truncate">{lang.presenter}</p>
+                  <p className="text-xs text-slate-700 dark:text-gray-400 truncate">{lang.presenter}</p>
                 </div>
                 {selectedLang === lang.code && (
                   <div className="w-2 h-2 bg-teal-500 rounded-full" />
@@ -898,21 +898,21 @@ const GettingStartedSection = memo(() => {
         </div>
       </div>
 
-      {/* Features Highlight */}
+      {/* Features Highlight - Translated */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
         {[
-          { icon: FileText, title: 'Upload Resume', desc: 'AI parses your skills automatically' },
-          { icon: Search, title: 'Smart Search', desc: 'Search 15+ job boards at once' },
-          { icon: ClipboardList, title: 'Success Predictor', desc: 'Know your chances before applying' },
-          { icon: Users, title: 'AI Interview Coach', desc: 'Practice with real-time feedback' }
+          { icon: FileText, titleKey: 'helpTutorials.features.uploadResume', descKey: 'helpTutorials.features.uploadResumeDesc' },
+          { icon: Search, titleKey: 'helpTutorials.features.smartSearch', descKey: 'helpTutorials.features.smartSearchDesc' },
+          { icon: ClipboardList, titleKey: 'helpTutorials.features.successPredictor', descKey: 'helpTutorials.features.successPredictorDesc' },
+          { icon: Users, titleKey: 'helpTutorials.features.aiInterviewCoach', descKey: 'helpTutorials.features.aiInterviewCoachDesc' }
         ].map((feature, idx) => (
           <div key={idx} className="bg-white dark:bg-slate-800 rounded-lg p-4 border border-gray-200 dark:border-slate-700 flex items-start gap-3">
             <div className="w-10 h-10 bg-teal-50 dark:bg-teal-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
               <feature.icon className="w-5 h-5 text-teal-600 dark:text-teal-400" />
             </div>
             <div>
-              <p className="font-medium text-gray-900 dark:text-white text-sm">{feature.title}</p>
-              <p className="text-xs text-gray-700 dark:text-gray-300">{feature.desc}</p>
+              <p className="font-medium text-gray-900 dark:text-white text-sm">{t(feature.titleKey)}</p>
+              <p className="text-xs text-slate-700 dark:text-gray-300">{t(feature.descKey)}</p>
             </div>
           </div>
         ))}
