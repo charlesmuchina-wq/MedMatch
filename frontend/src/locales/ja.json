@@ -211,7 +211,7 @@
     "enterCode": "6桁のコードを入力",
     "verifyAndSignIn": "確認してサインイン",
     "changePhoneNumber": "電話番号を変更",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "you@例.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -1344,7 +1344,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "ジョン・スミス",
     "companyPlaceholder": "例：Google",
     "notesPlaceholder": "面接に関する追加情報...",
     "positionPlaceholder": "例：ソフトウェアエンジニア",
@@ -1377,18 +1377,18 @@
     "countryOptional": "国（任意）"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/あなたのプロフィール",
     "resumeLinkPlaceholder": "履歴書へのリンク（Google Drive、Dropbox など）",
     "phonePlaceholder": "＋1 (555) 123-4567",
     "coverLetterPlaceholder": "この職種に適している理由を教えてください...",
     "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "namePlaceholder": "ジョン・ドウ",
+    "portfolioPlaceholder": "https://あなたのポートフォリオ.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "例：シニア品質エンジニア",
     "tagsPlaceholder": "例：リモート、フルタイム、品質、医療機器",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://あなたの会社.com/careers/apply"
   },
   "companyReview": {
     "prosPlaceholder": "良かった点は？",
@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "ジョン・ドー",
     "inviteNotePlaceholder": "招待に個人的なメッセージを追加...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "候補者@例.com",
     "selectJobPlaceholder": "求人票を選択",
     "maxApplicantsPlaceholder": "無制限"
   },
@@ -1408,20 +1408,20 @@
     "addNotePlaceholder": "メモを追加..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://例.com",
     "rolePlaceholder": "例：人事マネージャー",
     "phonePlaceholder": "＋1 (555) 123-4567",
     "companyPlaceholder": "例：シティ・メディカル・センター",
-    "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "linkedinPlaceholder": "https://linkedin.com/company/…",
+    "emailPlaceholder": "あなた@あなたの会社.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/あなたのプロフィール"
   },
   "idVerification": {
     "jobTitlePlaceholder": "採用担当マネージャー",
     "namePlaceholder": "ジョン・ドー",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme株式会社",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/あなたのプロフィール",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "ミーティングIDを入力（例：ABC-123-XYZ）",
     "verificationCodePlaceholder": "6桁のコードを入力",
     "meetingTitlePlaceholder": "AI KARAU ミーティング",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "あなた@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "例：本番ATS webhook",
     "apiKeyNamePlaceholder": "例：本番ATS連携",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://あなたのATS.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "レビュー担当者、候補者、または内容で検索...",

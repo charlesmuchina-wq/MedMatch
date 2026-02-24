@@ -29,7 +29,7 @@
     "refresh": "Verfris",
     "generating": "Genereer...",
     "download": "Laai af",
-    "filter": "Filter",
+    "filter": "Filtreer",
     "none": "Geen",
     "upload": "Laai op",
     "sort": "Sorteer",
@@ -940,7 +940,7 @@
       "meetingPortalDesc": "Secure video conferencing",
       "enterPortal": "Gaan na Portaal",
       "enterMeetingPortal": "Gaan na Vergaderportaal",
-      "medmatchAI": "MedMatch AI",
+      "medmatchAI": "MedMatch KI",
       "e2eEncrypted": "E2E-geënkripteer",
       "trustedBy": "Vertrou deur Lewenswetenskapprofessionele",
       "welcomeTo": "Welkom by",
@@ -949,7 +949,7 @@
       "aiJobMatching": "KI-werkpassing",
       "hdVideoAudio": "HD-video en -klank",
       "poweredByAI": "Aangedryf deur KI",
-      "aiKarau": "AI KARAU",
+      "aiKarau": "KI KARAU",
       "recruiterNetwork": "Werwernetwerk",
       "enterJobToolkit": "Gaan na Werkhulpmiddelstel"
     },
@@ -1008,7 +1008,7 @@
     "globalCompliance": {
       "title": "Globale nakoming",
       "subtitle": "Nakomingstatus oor streke",
-      "gdpr": "GDPR",
+      "gdpr": "AVG",
       "ccpa": "CCPA",
       "hipaa": "HIPAA",
       "soc2": "SOC 2",
@@ -1172,7 +1172,7 @@
       "title": "Biometriese verifikasie",
       "enableBiometric": "Aktiveer biometriese aanmelding",
       "faceId": "Gesig-ID",
-      "touchId": "Touch ID",
+      "touchId": "Raak-ID",
       "fingerprint": "Vingerafdruk",
       "setupRequired": "Opstelling vereis",
       "notSupported": "Nie op hierdie toestel ondersteun nie"
@@ -1343,8 +1343,8 @@
     "problemStatement": "Probleemstelling"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerEmailPlaceholder": "jan@maatskappy.com",
+    "interviewerNamePlaceholder": "Jan Smith",
     "companyPlaceholder": "bv. Google",
     "notesPlaceholder": "Enige bykomende besonderhede oor die onderhoud...",
     "positionPlaceholder": "bv. Sagteware-ingenieur",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Land (opsioneel)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/jouprofiel",
     "resumeLinkPlaceholder": "Skakel na jou CV (Google Drive, Dropbox, ens.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Vertel ons hoekom jy 'n goeie pas vir hierdie rol is...",
-    "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "emailPlaceholder": "jan@voorbeeld.com",
+    "namePlaceholder": "Jan Doe",
+    "portfolioPlaceholder": "https://jouportefeulje.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "bv. Senior kwaliteitsingenieur",
     "tagsPlaceholder": "bv. Afgeleë, Voltyds, Kwaliteit, Mediese toestel",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://jou-maatskappy.com/loopbane/aansoek"
   },
   "companyReview": {
     "prosPlaceholder": "Wat het jy geniet?",
@@ -1397,9 +1397,9 @@
     "summaryPlaceholder": "Som jou ervaring op"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Jan Doe",
     "inviteNotePlaceholder": "Voeg ’n persoonlike nota by jou uitnodiging...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "kandidaat@voorbeeld.com",
     "selectJobPlaceholder": "Kies ’n posplasing",
     "maxApplicantsPlaceholder": "Onbeperk"
   },
@@ -1408,13 +1408,13 @@
     "addNotePlaceholder": "Voeg 'n nota by..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://voorbeeld.com",
     "rolePlaceholder": "bv. HR-bestuurder",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "bv. Stads Mediese Sentrum",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "jy@joumaatskappy.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/jouprofiel"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Talentwerwingsbestuurder",
@@ -1456,7 +1456,7 @@
   "enterpriseAPI": {
     "webhookDescPlaceholder": "bv. Produksie-ATS-webhook",
     "apiKeyNamePlaceholder": "bv. Produksie-ATS-integrasie",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://jou-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Soek volgens beoordelaar, kandidaat of inhoud...",

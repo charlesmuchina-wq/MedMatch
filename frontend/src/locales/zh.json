@@ -393,7 +393,7 @@
     "enterCode": "输入6位验证码",
     "verifyAndSignIn": "验证并登录",
     "changePhoneNumber": "更换手机号",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "you@示例.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -1357,7 +1357,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "约翰·史密斯",
     "companyPlaceholder": "例如：Google",
     "notesPlaceholder": "面试的其他补充信息...",
     "positionPlaceholder": "例如：软件工程师",
@@ -1390,18 +1390,18 @@
     "countryOptional": "国家（可选）"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/你的主页",
     "resumeLinkPlaceholder": "简历链接（Google Drive、Dropbox 等）",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "告诉我们为什么你非常适合这个职位...",
     "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "namePlaceholder": "约翰·多伊",
+    "portfolioPlaceholder": "https://你的作品集.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "例如：高级质量工程师",
     "tagsPlaceholder": "例如：远程、全职、质量、医疗器械",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://你的公司.com/careers/apply"
   },
   "companyReview": {
     "prosPlaceholder": "你喜欢什么？",
@@ -1412,7 +1412,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "约翰·多伊",
     "inviteNotePlaceholder": "在邀请中添加个性化备注...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "候选人@example.com",
     "selectJobPlaceholder": "选择职位发布",
     "maxApplicantsPlaceholder": "不限"
   },
@@ -1426,15 +1426,15 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "例如：市医疗中心",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "你@你的公司.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/你的主页"
   },
   "idVerification": {
     "jobTitlePlaceholder": "人才招聘经理",
     "namePlaceholder": "约翰·多伊",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme 公司",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/你的主页",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1469,7 +1469,7 @@
   "enterpriseAPI": {
     "webhookDescPlaceholder": "例如：生产环境 ATS Webhook",
     "apiKeyNamePlaceholder": "例如：生产环境 ATS 集成",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://你的ATS.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "按审核人、候选人或内容搜索...",

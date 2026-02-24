@@ -16,7 +16,7 @@
     "error": "Errore",
     "success": "OK",
     "warning": "Avviso",
-    "info": "Info",
+    "info": "Informazioni",
     "required": "Obbligatorio",
     "optional": "Facoltativo",
     "actions": "Azioni",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Paese (facoltativo)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/iltuoprofilo",
     "resumeLinkPlaceholder": "Link al tuo CV (Google Drive, Dropbox, ecc.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Dicci perché sei la persona giusta per questo ruolo...",
-    "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "emailPlaceholder": "mario@esempio.com",
+    "namePlaceholder": "Mario Rossi",
+    "portfolioPlaceholder": "https://iltuoportfolio.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "es., Ingegnere Qualità Senior",
     "tagsPlaceholder": "es., Remoto, Tempo pieno, Qualità, Dispositivi medici",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://tua-azienda.com/carriere/candidati"
   },
   "companyReview": {
     "prosPlaceholder": "Cosa ti è piaciuto?",
@@ -1397,9 +1397,9 @@
     "summaryPlaceholder": "Riassumi la tua esperienza"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Mario Rossi",
     "inviteNotePlaceholder": "Aggiungi una nota personale al tuo invito...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "candidato@esempio.com",
     "selectJobPlaceholder": "Seleziona un annuncio di lavoro",
     "maxApplicantsPlaceholder": "Illimitato"
   },
@@ -1408,20 +1408,20 @@
     "addNotePlaceholder": "Aggiungi una nota..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://esempio.com",
     "rolePlaceholder": "ad es., Responsabile HR",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "ad es., City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "tu@tuaazienda.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/iltuoprofilo"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Responsabile acquisizione talenti",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Mario Rossi",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "companyPlaceholder": "Società Acme",
+    "linkedinPlaceholder": "https://linkedin.com/in/iltuoprofilo",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "Inserisci l'ID della riunione (ad es. ABC-123-XYZ)",
     "verificationCodePlaceholder": "Inserisci il codice a 6 cifre",
     "meetingTitlePlaceholder": "Riunione AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "tuo@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ad es., Webhook ATS di produzione",
     "apiKeyNamePlaceholder": "ad es., Integrazione ATS di produzione",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://il-tuo-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Cerca per revisore, candidato o contenuto...",

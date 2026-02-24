@@ -940,7 +940,7 @@
       "meetingPortalDesc": "Videoconferência segura",
       "enterPortal": "Acessar portal",
       "enterMeetingPortal": "Entrar no Portal de Reuniões",
-      "medmatchAI": "MedMatch AI",
+      "medmatchAI": "MedMatch IA",
       "e2eEncrypted": "Criptografia E2E",
       "trustedBy": "Confiado por Profissionais de Ciências da Vida",
       "welcomeTo": "Bem-vindo ao",
@@ -949,7 +949,7 @@
       "aiJobMatching": "Correspondência de Vagas com IA",
       "hdVideoAudio": "Vídeo e Áudio em HD",
       "poweredByAI": "Com tecnologia de IA",
-      "aiKarau": "AI KARAU",
+      "aiKarau": "IA KARAU",
       "recruiterNetwork": "Rede de Recrutadores",
       "enterJobToolkit": "Entrar no Kit de Ferramentas"
     },
@@ -1344,7 +1344,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "João Smith",
     "companyPlaceholder": "ex.: Google",
     "notesPlaceholder": "Quaisquer detalhes adicionais sobre a entrevista...",
     "positionPlaceholder": "ex.: Engenheiro(a) de Software",
@@ -1382,13 +1382,13 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Conte-nos por que você é uma ótima opção para esta vaga...",
     "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "João Doe",
     "portfolioPlaceholder": "https://seuportfolio.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "ex.: Engenheiro(a) de Qualidade Sênior",
     "tagsPlaceholder": "ex.: Remoto, Tempo integral, Qualidade, Dispositivo Médico",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://sua-empresa.com/carreiras/candidatar"
   },
   "companyReview": {
     "prosPlaceholder": "Do que você gostou?",
@@ -1397,9 +1397,9 @@
     "summaryPlaceholder": "Resuma sua experiência"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "João Silva",
     "inviteNotePlaceholder": "Adicione uma nota pessoal ao seu convite...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "candidato@exemplo.com",
     "selectJobPlaceholder": "Selecionar uma vaga",
     "maxApplicantsPlaceholder": "Ilimitado"
   },
@@ -1408,20 +1408,20 @@
     "addNotePlaceholder": "Adicione uma nota..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://exemplo.com",
     "rolePlaceholder": "ex.: Gestor de RH",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "ex.: Centro Médico da Cidade",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "você@suaempresa.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/seuperfil"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Gerente de Aquisição de Talentos",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "João Silva",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "companyPlaceholder": "Corporação Acme",
+    "linkedinPlaceholder": "https://linkedin.com/in/seuperfil",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1456,7 +1456,7 @@
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ex.: Webhook ATS de produção",
     "apiKeyNamePlaceholder": "ex.: Integração ATS de Produção",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://seu-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Pesquisar por avaliador, candidato ou conteúdo...",

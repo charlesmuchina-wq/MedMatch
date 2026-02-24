@@ -211,7 +211,7 @@
     "enterCode": "Lowetsani nambala ya manambala 6",
     "verifyAndSignIn": "Tsimikizani & Lowani",
     "changePhoneNumber": "Sinthani nambala ya foni",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "inu@example.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -954,7 +954,7 @@
       "enterJobToolkit": "Lowani mu Zida za Ntchito"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "KARAU Yokha",
       "subtitle": "Sinthani ntchito zanu zofunafuna ntchito kukhala zokha",
       "startAutomation": "Yambitsani Automation",
       "stopAutomation": "Imitsani Automation",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Dziko (posankha)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profa yanu",
     "resumeLinkPlaceholder": "Ulalo wa CV yanu (Google Drive, Dropbox, ndi zina)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Tiuzeni chifukwa chomwe mukuyenerera kwambiri pa udindowu...",
     "emailPlaceholder": "john@example.com",
     "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "portfolioPlaceholder": "https://mbiri-yanu.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "mwachitsanzo, Injiniya Wamkulu wa Ubwino",
     "tagsPlaceholder": "mwachitsanzo, Kutali, Nthawi yonse, Ubwino, Chipangizo Cha Zamankhwala",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://kampani-yanu.com/careers/apply"
   },
   "companyReview": {
     "prosPlaceholder": "Munakonda chiyani?",
@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Onjezani uthenga wachinsinsi ku pempho lanu loitanira...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "wofunsira@example.com",
     "selectJobPlaceholder": "Sankhani ntchito yomwe yalengezedwa",
     "maxApplicantsPlaceholder": "Zopanda malire"
   },
@@ -1413,15 +1413,15 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "mwachitsanzo, City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "inu@kampani-yanu.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/mbiri-yanu"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Woyang'anira Kulemba Ntchito",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "companyPlaceholder": "Kampani ya Acme",
+    "linkedinPlaceholder": "https://linkedin.com/in/mbiri-yanu",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "Lowetsani ID ya msonkhano (mwachitsanzo, ABC-123-XYZ)",
     "verificationCodePlaceholder": "Lowetsani nambala ya manambala 6",
     "meetingTitlePlaceholder": "Msonkhano wa AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "imelo-yanu@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "mwachitsanzo, Production ATS webhook",
     "apiKeyNamePlaceholder": "mwachitsanzo, Kuphatikiza kwa Production ATS",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://ats-yanu.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Sakani mwa wowunika, wofunsira, kapena zomwe zili...",

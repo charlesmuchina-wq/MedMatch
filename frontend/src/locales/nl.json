@@ -34,7 +34,7 @@
     "upload": "Uploaden",
     "sort": "Sorteren",
     "more": "Meer",
-    "help": "Help",
+    "help": "Hulp",
     "less": "Minder",
     "previous": "Vorige"
   },
@@ -340,7 +340,7 @@
     "minutes": "min",
     "pass": "Geslaagd",
     "earned": "Verdiend",
-    "start": "Start",
+    "start": "Starten",
     "retake": "Opnieuw afleggen",
     "submit": "Toets indienen",
     "previous": "Vorige",
@@ -591,7 +591,7 @@
     "enterCode": "Voer de 6-cijferige code in",
     "verifyAndSignIn": "Verifiëren & inloggen",
     "changePhoneNumber": "Telefoonnummer wijzigen",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "jij@voorbeeld.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -954,7 +954,7 @@
       "enterJobToolkit": "Vacaturetoolkit openen"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "KARAU Automatisering",
       "subtitle": "Automatiseer je workflow voor het zoeken naar werk",
       "startAutomation": "Automatisering starten",
       "stopAutomation": "Automatisering stoppen",
@@ -1082,7 +1082,7 @@
     "productionMetrics": {
       "title": "Productiemetrics",
       "subtitle": "Systeemprestaties en gezondheidsmetrics",
-      "uptime": "Uptime",
+      "uptime": "Beschikbaarheid",
       "requestsPerSecond": "Requests/seconde",
       "averageLatency": "Gem. latentie",
       "errorRate": "Foutpercentage",
@@ -1397,7 +1397,7 @@
     "summaryPlaceholder": "Vat je ervaring samen"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Jan Jansen",
     "inviteNotePlaceholder": "Voeg een persoonlijke notitie toe aan je uitnodiging...",
     "candidateEmailPlaceholder": "kandidaat@example.com",
     "selectJobPlaceholder": "Selecteer een vacature",
@@ -1418,7 +1418,7 @@
   },
   "idVerification": {
     "jobTitlePlaceholder": "Manager Talent Acquisition",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Jan Jansen",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",

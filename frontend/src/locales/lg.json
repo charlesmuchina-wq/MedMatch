@@ -954,7 +954,7 @@
       "enterJobToolkit": "Yingira mu Bikozesebwa by'Omulimu"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "KARAU Omu-automaata",
       "subtitle": "Teekawo obwangu mu nkola yo ey’okunoonya omulimu",
       "startAutomation": "Tandika Okukola mu Bwegendereza",
       "stopAutomation": "Leka Okukola mu Bwegendereza",
@@ -1388,7 +1388,7 @@
   "recruiterJobs": {
     "jobTitlePlaceholder": "Okugeza, Injinia Omukulu ow’Okukakasa Omutindo",
     "tagsPlaceholder": "Okugeza, Ebikolebwa ewala, Emirimu egy’obudde bwonna, Omutindo, Ekyuma ky’obujjanjabi",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://your-company.com/careers/saba-omulimu"
   },
   "companyReview": {
     "prosPlaceholder": "Kiki kye wayagadde?",
@@ -1397,9 +1397,9 @@
     "summaryPlaceholder": "Funa mu bufunze obumanyirivu bwo"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Yohana Dowe",
     "inviteNotePlaceholder": "Yongerako obubaka obw'omu mutima ku kuyita kwo...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "omukandida@example.com",
     "selectJobPlaceholder": "Londa ekifo ky'omulimu",
     "maxApplicantsPlaceholder": "Awataliiko kkomo"
   },
@@ -1413,15 +1413,15 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "ng'okulabirako, City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "ggwe@kampuni-yo.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/profayiroyo"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Omuddukanya Okunoonya Abakozi",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Yohana Dowe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Kampuni ya Acme",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profayiroyo",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,7 +1451,7 @@
     "meetingIdPlaceholder": "Wandiika Meeting ID (okugeza: ABC-123-XYZ)",
     "verificationCodePlaceholder": "Wandiika koodi ya digito 6",
     "meetingTitlePlaceholder": "Olukiiko lwa AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "imeyiroyo@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ng'ekyokulabirako: ATS webhook ey'Obukugu",

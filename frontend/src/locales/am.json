@@ -211,9 +211,9 @@
     "enterCode": "6-አሃዝ ኮድ ያስገቡ",
     "verifyAndSignIn": "ያረጋግጡ እና ይግቡ",
     "changePhoneNumber": "የስልክ ቁጥር ይቀይሩ",
-    "emailPlaceholder": "you@example.com",
-    "phonePlaceholder": "+1 (555) 123-4567",
-    "passwordPlaceholder": "••••••••"
+    "emailPlaceholder": "ኢሜይል፦ you@example.com",
+    "phonePlaceholder": "ስልክ፦ +1 (555) 123-4567",
+    "passwordPlaceholder": "የይለፍ ቃል፦ ••••••••"
   },
   "errors": {
     "somethingWentWrong": "አንድ ነገር ተሳስቷል",
@@ -331,7 +331,7 @@
     "additionalInfoPlaceholder": "ተጨማሪ መረጃ...",
     "selectCandidate": "እጩ ይምረጡ",
     "officeAddressPlaceholder": "የቢሮ አድራሻ",
-    "meetingLinkPlaceholder": "https://zoom.us/j/..."
+    "meetingLinkPlaceholder": "የዙም አገናኝ፦ https://zoom.us/j/..."
   },
   "predictor": {
     "jobDetailsDesc": "Enter the job information to analyze your chances",
@@ -1008,10 +1008,10 @@
     "globalCompliance": {
       "title": "ዓለም አቀፍ ተከታታይነት",
       "subtitle": "በክልሎች ዙሪያ የተከታታይነት ሁኔታ",
-      "gdpr": "GDPR",
-      "ccpa": "CCPA",
+      "gdpr": "GDPR (የመረጃ ጥበቃ መመሪያ)",
+      "ccpa": "CCPA (የካሊፎርኒያ የግላዊነት ሕግ)",
       "hipaa": "HIPAA",
-      "soc2": "SOC 2",
+      "soc2": "SOC 2 (የደህንነት መስፈርት)",
       "compliant": "ተከታታይ",
       "nonCompliant": "ያልተከታታይ",
       "inProgress": "በሂደት ላይ"
@@ -1343,7 +1343,7 @@
     "problemStatement": "የችግኝ መግለጫ"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerEmailPlaceholder": "ኢሜይል፦ john@company.com",
     "interviewerNamePlaceholder": "ጆን ስሚዝ",
     "companyPlaceholder": "ለምሳሌ፣ Google",
     "notesPlaceholder": "ስለ ቃለ መጠይቁ ማንኛውም ተጨማሪ ዝርዝሮች...",
@@ -1377,13 +1377,13 @@
     "countryOptional": "ሀገር (አማራጭ)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "ሊንክዲን መገለጫ፦ https://linkedin.com/in/yourprofile",
     "resumeLinkPlaceholder": "ወደ የሪዙሜዎ ሊንክ (Google Drive፣ Dropbox፣ ወዘተ)",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": "ስልክ፦ +1 (555) 123-4567",
     "coverLetterPlaceholder": "ለዚህ ሚና በጣም ተስማሚ ለምን እንደሆኑ ይንገሩን...",
-    "emailPlaceholder": "john@example.com",
+    "emailPlaceholder": "ኢሜይል፦ john@example.com",
     "namePlaceholder": "ጆን ዶ",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "portfolioPlaceholder": "ፖርትፎሊዮ፦ https://yourportfolio.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "ለምሳሌ፣ ከፍተኛ የጥራት መሐንዲስ",
@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "ጆን ዶ",
     "inviteNotePlaceholder": "ግብዣዎ ላይ የግል ማስታወሻ ያክሉ...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "እጩ ኢሜይል፦ candidate@example.com",
     "selectJobPlaceholder": "የስራ ማስታወቂያ ይምረጡ",
     "maxApplicantsPlaceholder": "ያልተገደበ"
   },
@@ -1408,7 +1408,7 @@
     "addNotePlaceholder": "ማስታወሻ ጨምር..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "ድር ጣቢያ፦ https://example.com",
     "rolePlaceholder": "ምሳሌ፦ የሰው ኃብት አስተዳዳሪ",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "ምሳሌ፦ የከተማ ህክምና ማዕከል",
@@ -1419,18 +1419,18 @@
   "idVerification": {
     "jobTitlePlaceholder": "የተሰጥኦ ቅጥር አስተዳዳሪ",
     "namePlaceholder": "ጆን ዶ",
-    "domainPlaceholder": "acme.com",
+    "domainPlaceholder": "ድር ጣቢያ፦ acme.com",
     "companyPlaceholder": "አክሜ ኮርፖሬሽን",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "websitePlaceholder": "https://acme.com"
+    "linkedinPlaceholder": "ሊንክዲን መገለጫ፦ https://linkedin.com/in/yourprofile",
+    "websitePlaceholder": "ድር ጣቢያ፦ https://acme.com"
   },
   "companiesPage": {
-    "websitePlaceholder": "https://...",
+    "websitePlaceholder": "ዩአርኤል፦ https://...",
     "techStackPlaceholder": "AI፣ ማሽን ለርኒንግ፣ ጤና እንክብካቤ (በኮማ የተለያዩ)",
     "benefitsPlaceholder": "ሩቅ ስራ፣ የጤና መድን፣ 401k (በኮማ ተለይተው)",
     "culturePlaceholder": "አዳዲስነት፣ ትብብር፣ ልዩነት (በኮማ ተለይተው)",
     "searchPlaceholder": "ኩባንያዎችን ፈልግ...",
-    "foundedPlaceholder": "2020",
+    "foundedPlaceholder": "2020 ዓ.ም.",
     "industryPlaceholder": "ኢንዱስትሪ",
     "companySizePlaceholder": "የኩባንያ መጠን"
   },
@@ -1451,7 +1451,7 @@
     "meetingIdPlaceholder": "የስብሰባ መለያ ያስገቡ (ለምሳሌ፣ ABC-123-XYZ)",
     "verificationCodePlaceholder": "ባለ 6 አሃዝ ኮድ ያስገቡ",
     "meetingTitlePlaceholder": "AI KARAU ስብሰባ",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "ኢሜይል፦ your@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ምሳሌ፦ የምርት ATS ዌብሁክ",

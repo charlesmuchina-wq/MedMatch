@@ -237,7 +237,7 @@
     "enterCode": "أدخل رمزًا مكوّنًا من 6 أرقام",
     "verifyAndSignIn": "تحقق وتسجيل الدخول",
     "changePhoneNumber": "تغيير رقم الهاتف",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "أنت@مثال.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -1815,7 +1815,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "جون دو",
     "inviteNotePlaceholder": "أضف ملاحظة شخصية إلى دعوتك...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "candidate@مثال.com",
     "selectJobPlaceholder": "اختر إعلان وظيفة",
     "maxApplicantsPlaceholder": "غير محدود"
   },
@@ -1829,7 +1829,7 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "مثال: مركز المدينة الطبي",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "emailPlaceholder": "أنت@شركتك.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
@@ -1846,7 +1846,7 @@
     "benefitsPlaceholder": "العمل عن بُعد، التأمين الصحي، 401k (مفصولة بفواصل)",
     "culturePlaceholder": "الابتكار، التعاون، التنوع (مفصولة بفواصل)",
     "searchPlaceholder": "ابحث عن الشركات...",
-    "foundedPlaceholder": "2020",
+    "foundedPlaceholder": "٢٠٢٠",
     "industryPlaceholder": "القطاع",
     "companySizePlaceholder": "حجم الشركة"
   },
@@ -1867,7 +1867,7 @@
     "meetingIdPlaceholder": "أدخل معرّف الاجتماع (مثل: ABC-123-XYZ)",
     "verificationCodePlaceholder": "أدخل رمزًا من 6 أرقام",
     "meetingTitlePlaceholder": "اجتماع KARAU بالذكاء الاصطناعي",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "بريدك@مثال.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "مثال: Webhook لنظام ATS - الإنتاج",

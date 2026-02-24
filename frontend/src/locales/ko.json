@@ -591,7 +591,7 @@
     "enterCode": "6자리 코드를 입력하세요",
     "verifyAndSignIn": "확인하고 로그인",
     "changePhoneNumber": "전화번호 변경",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "you@예시.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -1344,7 +1344,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "존 스미스",
     "companyPlaceholder": "예: Google",
     "notesPlaceholder": "면접에 대한 추가 세부 사항...",
     "positionPlaceholder": "예: 소프트웨어 엔지니어",
@@ -1382,7 +1382,7 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "이 역할에 왜 적합한지 알려주세요...",
     "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "존 도",
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "홍길동",
     "inviteNotePlaceholder": "초대에 개인 메모를 추가하세요...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "candidate@예시.com",
     "selectJobPlaceholder": "채용 공고 선택",
     "maxApplicantsPlaceholder": "무제한"
   },
@@ -1413,7 +1413,7 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "예: 시티 메디컬 센터",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "emailPlaceholder": "you@귀사.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
@@ -1430,7 +1430,7 @@
     "benefitsPlaceholder": "원격 근무, 건강 보험, 401k (쉼표로 구분)",
     "culturePlaceholder": "혁신, 협업, 다양성 (쉼표로 구분)",
     "searchPlaceholder": "회사 검색...",
-    "foundedPlaceholder": "2020",
+    "foundedPlaceholder": "2020년",
     "industryPlaceholder": "산업",
     "companySizePlaceholder": "회사 규모"
   },
@@ -1451,7 +1451,7 @@
     "meetingIdPlaceholder": "회의 ID 입력 (예: ABC-123-XYZ)",
     "verificationCodePlaceholder": "6자리 코드 입력",
     "meetingTitlePlaceholder": "AI KARAU 회의",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "your@이메일.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "예: 프로덕션 ATS 웹훅",

@@ -211,7 +211,7 @@
     "enterCode": "Koodii digitii 6 galchi",
     "verifyAndSignIn": "Mirkaneessi & Seeni",
     "changePhoneNumber": "Lakkoofsa bilbila jijjiiri",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "ati@fakkeenya.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -1171,8 +1171,8 @@
     "biometricAuth": {
       "title": "Mirkaneessa Biometrikii",
       "enableBiometric": "Seensa Biometrikii Dandeessisi",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "ID Fuulaa",
+      "touchId": "ID Tuqaa",
       "fingerprint": "Mallattoo Quba",
       "setupRequired": "Qophii Barbaachisaa",
       "notSupported": "Meeshaa kana irratti hin deeggaramu"
@@ -1343,8 +1343,8 @@
     "problemStatement": "Ibsa Rakkoo"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerEmailPlaceholder": "joon@dhaabbata.com",
+    "interviewerNamePlaceholder": "Joon Smiith",
     "companyPlaceholder": "fakkeenyaaf, Google",
     "notesPlaceholder": "Ibsa dabalataa kamiyyuu waa'ee gaaffii-deebii...",
     "positionPlaceholder": "fakkeenyaaf, Injiinar Sooftware",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Biyya (filannoodha)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/proofaayilaakee",
     "resumeLinkPlaceholder": "Liinkii CV/reezumee kee (Google Drive, Dropbox, kkf.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Maaliif hojii kanaaf mijataa ta'uu kee nutti himi...",
-    "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "emailPlaceholder": "joon@fakkeenya.com",
+    "namePlaceholder": "Joon Doo",
+    "portfolioPlaceholder": "https://portfoolee-kee.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "fkn., Injinara Qulqullina Olaanaa",
     "tagsPlaceholder": "fakkeenyaaf, Fagoo irraa, Yeroo guutuu, Qulqullina, Meeshaa Fayyaa",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://dhaabbata-kee.com/careers/apply"
   },
   "companyReview": {
     "prosPlaceholder": "Ati maal jaalatte?",
@@ -1397,9 +1397,9 @@
     "summaryPlaceholder": "Muuxannoo kee gabaabinaan ibsi"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Joona Doo",
     "inviteNotePlaceholder": "Yaada dhuunfaa afeerraa keetiif dabali...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "kandidaata@fakkeenya.com",
     "selectJobPlaceholder": "Beeksisa hojii filadhu",
     "maxApplicantsPlaceholder": "Daangaa hin qabu"
   },
@@ -1408,20 +1408,20 @@
     "addNotePlaceholder": "Yaada dabali..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://fakkeenya.com",
     "rolePlaceholder": "fkn., Hogganaa HR",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "fkn., Giddugala Fayyaa Magaalaa",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "ati@dhaabbata-kee.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/proofaayilii_kee"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Hogganaa Argama Dandeettii",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Joona Doo",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Korporeshinii Acme",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/proofaayilii_kee",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "ID walgahii galchi (fkn, ABC-123-XYZ)",
     "verificationCodePlaceholder": "Koodii digiitii 6 galchi",
     "meetingTitlePlaceholder": "Walga'ii AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "imeelii_kee@fakkeenya.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "fakkeenyaaf, Webhook ATS Production",
     "apiKeyNamePlaceholder": "fakkeenyaaf, Walitti Makuu ATS Production",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://ats-kee.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Gamaaggaraa, kadhimaa, ykn qabiyyee irratti barbaadi...",

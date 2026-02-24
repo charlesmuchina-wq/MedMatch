@@ -211,7 +211,7 @@
     "enterCode": "Tẹ kóòdù oní-dígíìtì 6 wọlé",
     "verifyAndSignIn": "Jẹ́rìí & Wọlé",
     "changePhoneNumber": "Yí nọ́mbà fóònù padà",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "ìwọ@àpẹẹrẹ.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -1171,8 +1171,8 @@
     "biometricAuth": {
       "title": "Ìmúlò Ìdánimọ̀ Ayé-ara",
       "enableBiometric": "Mu Ìwọlé Ayé-ara ṣiṣẹ́",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "ID Ojú",
+      "touchId": "ID Ìfọwọ́kan",
       "fingerprint": "Ìka ọwọ́",
       "setupRequired": "A nílò ìṣètò",
       "notSupported": "Kò ṣeé lo lórí ẹ̀rọ yìí"
@@ -1344,7 +1344,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "Jọ́nù Smíthì",
     "companyPlaceholder": "àpẹẹrẹ: Google",
     "notesPlaceholder": "Àwọn àlàyé míì nípa ìfọ̀rọ̀wánilẹ́nuwò...",
     "positionPlaceholder": "àpẹẹrẹ: Onímọ̀ Ẹ̀rọ Ṣọ́fitiwia",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Orílẹ̀-èdè (àṣàyàn)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profaìlìrẹ",
     "resumeLinkPlaceholder": "Ìjápọ̀ sí ìtàn iṣẹ́ rẹ (Google Drive, Dropbox, bẹ́ẹ̀ bẹ́ẹ̀ lọ)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Sọ fún wa ìdí tí o fi yẹ fún ipa yìí...",
     "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "namePlaceholder": "Jọ́nù Dóò",
+    "portfolioPlaceholder": "https://pòótìfóólíòrẹ.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "àpẹẹrẹ: Ẹnjiníà Didara Agba",
     "tagsPlaceholder": "àpẹẹrẹ: Latọna jijin, Àkókò-kíkún, Didara, Ẹ̀rọ ìṣègùn",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://ile-iṣẹ-re.com/careers/apply"
   },
   "companyReview": {
     "prosPlaceholder": "Kí ni o fẹ́ràn?",
@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Ṣàfikún àkọsílẹ̀ ti ara ẹni sí ìpè rẹ...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "oludije@apẹẹrẹ.com",
     "selectJobPlaceholder": "Yan ìpolówó iṣẹ́ kan",
     "maxApplicantsPlaceholder": "Láìlópín"
   },
@@ -1413,15 +1413,15 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "àpẹẹrẹ, Ilé ìwòsàn City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "iwọ@ile-iṣẹ-re.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/profaili-re"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Alákóso Gbigba Tálẹ́ńtì",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Ilé-iṣẹ́ Acme",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profaili-re",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "Tẹ ID ìpàdé (àpẹẹrẹ, ABC-123-XYZ)",
     "verificationCodePlaceholder": "Tẹ kóòdù díjítì 6",
     "meetingTitlePlaceholder": "Ipàdé AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "imeeli@re.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "àpẹẹrẹ: webhook ATS Ìṣelọpọ",
     "apiKeyNamePlaceholder": "àpẹẹrẹ: Ìsopọ̀ ATS Ìṣelọpọ",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://ats-re.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Wá nípa olùṣàyẹ̀wò, olùdíje, tàbí àkóónú...",

@@ -211,7 +211,7 @@
     "enterCode": "Isa kodhi ine manhamba 6",
     "verifyAndSignIn": "Simbisa & Pinda",
     "changePhoneNumber": "Chinja nhamba yefoni",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "iwe@muenzaniso.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -954,7 +954,7 @@
       "enterJobToolkit": "Pinda muZvishandiso zveBasa"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "Otometa yeKARAU",
       "subtitle": "Automatidza maitiro ekutsvaga basa rako",
       "startAutomation": "Tanga Otomatiki",
       "stopAutomation": "Misa Otomatiki",
@@ -996,7 +996,7 @@
       "searchTaxonomy": "Tsvaga taxonomy..."
     },
     "enterpriseApi": {
-      "title": "Enterprise API",
+      "title": "API yeBhizinesi Guru",
       "subtitle": "Zvinyorwa zveAPI uye kutungamira",
       "apiKeys": "Makiyi eAPI",
       "documentation": "Zvinyorwa",
@@ -1343,7 +1343,7 @@
     "problemStatement": "Tsananguro yeDambudziko"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerEmailPlaceholder": "john@kambani.com",
     "interviewerNamePlaceholder": "John Smith",
     "companyPlaceholder": "semuenzaniso, Google",
     "notesPlaceholder": "Mamwe mashoko ekuwedzera nezve interview...",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Nyika (sarudzo)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profaira-yako",
     "resumeLinkPlaceholder": "Link kuCV yako (Google Drive, Dropbox, nezvimwewo)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Tiudze kuti sei uri munhu akakodzera basa iri...",
-    "emailPlaceholder": "john@example.com",
+    "emailPlaceholder": "john@muenzaniso.com",
     "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "portfolioPlaceholder": "https://portfolio-yako.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "semuenzaniso, Injiniya Mukuru weHunhu",
     "tagsPlaceholder": "semuenzaniso, Kure, Nguva yakazara, Hunhu, Mudziyo weKurapa",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://kambani-yako.com/careers/apply"
   },
   "companyReview": {
     "prosPlaceholder": "Chii chawakafarira?",
@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Wedzera chitsamba chako pachako kukukoka kwako...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "mukwikwidzi@example.com",
     "selectJobPlaceholder": "Sarudza chiziviso chebasa",
     "maxApplicantsPlaceholder": "Zvisina muganhu"
   },
@@ -1413,15 +1413,15 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "semuenzaniso, City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "iwe@kambani-yako.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/profaira-yako"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Maneja weKutsvaga Vashandi",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "companyPlaceholder": "Kambani yeAcme",
+    "linkedinPlaceholder": "https://linkedin.com/in/profaira-yako",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "Pinda ID yemusangano (semuenzaniso, ABC-123-XYZ)",
     "verificationCodePlaceholder": "Pinda kodhi ine manhamba matanhatu",
     "meetingTitlePlaceholder": "Musangano weAI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "yako@imero.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "semuenzaniso, ATS webhook yeProduction",
     "apiKeyNamePlaceholder": "semuenzaniso, Kubatanidza ATS yeProduction",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://ats-yako.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Tsvaga nemuongorori, mukwikwidzi, kana zvirimo...",

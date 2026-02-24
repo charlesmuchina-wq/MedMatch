@@ -953,7 +953,7 @@
       "meetingPortalDesc": "Videoconferencias seguras",
       "enterPortal": "Entrar al portal",
       "enterMeetingPortal": "Entrar al portal de reuniones",
-      "medmatchAI": "MedMatch AI",
+      "medmatchAI": "MedMatch IA",
       "e2eEncrypted": "Cifrado E2E",
       "trustedBy": "Con la confianza de profesionales de ciencias de la vida",
       "welcomeTo": "Bienvenido a",
@@ -1401,7 +1401,7 @@
   "recruiterJobs": {
     "jobTitlePlaceholder": "p. ej., Ingeniero de Calidad Senior",
     "tagsPlaceholder": "p. ej., Remoto, Tiempo completo, Calidad, Dispositivo médico",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://tu-empresa.com/carreras/solicitar"
   },
   "companyReview": {
     "prosPlaceholder": "¿Qué te gustó?",
@@ -1427,7 +1427,7 @@
     "companyPlaceholder": "p. ej., Centro Médico de la Ciudad",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "tu@tuempresa.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/tuperfil"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Gerente de Adquisición de Talento",
@@ -1469,7 +1469,7 @@
   "enterpriseAPI": {
     "webhookDescPlaceholder": "p. ej., Webhook ATS de producción",
     "apiKeyNamePlaceholder": "p. ej., Integración ATS de producción",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://tu-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Buscar por revisor, candidato o contenido...",

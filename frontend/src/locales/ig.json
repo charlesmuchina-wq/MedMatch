@@ -211,7 +211,7 @@
     "enterCode": "Tinye koodu nke digit 6",
     "verifyAndSignIn": "Nyochaa & Banye",
     "changePhoneNumber": "Gbanwee nọmba ekwentị",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "ị@example.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -954,7 +954,7 @@
       "enterJobToolkit": "Banye Ngwaọrụ Ọrụ"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "KARAU Ọtoméịta",
       "subtitle": "Mee ka usoro ọchụchọ ọrụ gị bụrụ akpaaka",
       "startAutomation": "Malite akpaaka",
       "stopAutomation": "Kwụsị akpaaka",
@@ -1171,8 +1171,8 @@
     "biometricAuth": {
       "title": "Nkwenye Njirimara Ahụ",
       "enableBiometric": "Gbanyụọ Banye Biometric",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "ID Ihu",
+      "touchId": "ID Imetụ",
       "fingerprint": "Mkpịsị Aka",
       "setupRequired": "Achọrọ Ntọala",
       "notSupported": "Akwadoghị na ngwaọrụ a"
@@ -1182,7 +1182,7 @@
       "currentPlan": "Atụmatụ Ugbu a",
       "free": "N'efu",
       "premium": "Premium",
-      "enterprise": "Enterprise",
+      "enterprise": "Ụlọọrụ Ukpụhọde",
       "upgrade": "Kwalite",
       "downgrade": "Belata Ọkwa",
       "cancel": "Kagbuo Ndebanye aha",
@@ -1344,7 +1344,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "Jọn Smịt",
     "companyPlaceholder": "dịka ọmụmaatụ, Google",
     "notesPlaceholder": "Nkowa ndị ọzọ gbasara ajụjụ ọnụ...",
     "positionPlaceholder": "dịka ọmụmaatụ, Injinia Ngwanrọ",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Mba (nhọrọ)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profaịlụgị",
     "resumeLinkPlaceholder": "Njikọ gaa na CV gị (Google Drive, Dropbox, wdg.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Gwa anyị ihe kpatara ị ji dabara nke ọma n'ọrụ a...",
     "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "namePlaceholder": "Jọn Do",
+    "portfolioPlaceholder": "https://pọtịfọlịọgị.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "dịka, Injinia Ogo Senior",
     "tagsPlaceholder": "dịka, Remote, Oge niile, Ogo, Ngwaọrụ Ọgwụ",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://ụlọọrụ-gị.com/careers/apply"
   },
   "companyReview": {
     "prosPlaceholder": "Kedu ihe masịrị gị?",
@@ -1397,9 +1397,9 @@
     "summaryPlaceholder": "Kọwaa ahụmịhe gị nkenke"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Jọn Dọ",
     "inviteNotePlaceholder": "Tinye ozi nkeonwe na òkù gị...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "onyeọkụzọ@example.com",
     "selectJobPlaceholder": "Họrọ ndepụta ọrụ",
     "maxApplicantsPlaceholder": "Enweghị njedebe"
   },
@@ -1413,15 +1413,15 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "dịka ọmụmaatụ, City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "ị@ụlọọrụgị.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/profaịlụgị"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Onye njikwa nnweta talanti",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Jọn Dọ",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Ụlọọrụ Acme",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profaịlụgị",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "Tinye ID nzukọ (dịka ABC-123-XYZ)",
     "verificationCodePlaceholder": "Tinye koodu nke digiit 6",
     "meetingTitlePlaceholder": "Nzukọ AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "emailgị@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "dịka, webhook ATS nke Mmepụta",
     "apiKeyNamePlaceholder": "dịka, Njikọta ATS nke Mmepụta",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://ats-gị.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Chọọ site na onye nyochara, onye kandidet, ma ọ bụ ọdịnaya...",

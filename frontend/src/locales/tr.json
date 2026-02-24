@@ -1343,8 +1343,8 @@
     "problemStatement": "Problem Tanımı"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerEmailPlaceholder": "ahmet@sirket.com",
+    "interviewerNamePlaceholder": "Ahmet Yılmaz",
     "companyPlaceholder": "örn. Google",
     "notesPlaceholder": "Görüşmeyle ilgili ek detaylar...",
     "positionPlaceholder": "örn. Yazılım Mühendisi",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Ülke (isteğe bağlı)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profiliniz",
     "resumeLinkPlaceholder": "Özgeçmişinize bağlantı (Google Drive, Dropbox vb.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Bu rol için neden çok uygun olduğunuzu bize anlatın...",
-    "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "emailPlaceholder": "mehmet@ornek.com",
+    "namePlaceholder": "Mehmet Kaya",
+    "portfolioPlaceholder": "https://portfolyonuz.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "örn., Kıdemli Kalite Mühendisi",
     "tagsPlaceholder": "örn., Uzaktan, Tam zamanlı, Kalite, Tıbbi Cihaz",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://sirketiniz.com/kariyer/basvur"
   },
   "companyReview": {
     "prosPlaceholder": "Neyi beğendiniz?",
@@ -1397,9 +1397,9 @@
     "summaryPlaceholder": "Deneyiminizi özetleyin"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Ahmet Yılmaz",
     "inviteNotePlaceholder": "Davetinize kişisel bir not ekleyin...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "aday@ornek.com",
     "selectJobPlaceholder": "Bir iş ilanı seçin",
     "maxApplicantsPlaceholder": "Sınırsız"
   },
@@ -1408,20 +1408,20 @@
     "addNotePlaceholder": "Not ekleyin..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://ornek.com",
     "rolePlaceholder": "örn. İK Yöneticisi",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "örn. City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "siz@sirketiniz.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/profiliniz"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Yetenek Kazanımı Müdürü",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Ahmet Yılmaz",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "companyPlaceholder": "Acme Şirketi",
+    "linkedinPlaceholder": "https://linkedin.com/in/profiliniz",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "Toplantı kimliğini girin (örn. ABC-123-XYZ)",
     "verificationCodePlaceholder": "6 haneli kodu girin",
     "meetingTitlePlaceholder": "AI KARAU Toplantısı",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "sizin@eposta.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "örn. Prodüksiyon ATS webhook'u",
     "apiKeyNamePlaceholder": "örn. Prodüksiyon ATS Entegrasyonu",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://atsiniz.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Değerlendirici, aday veya içeriğe göre ara...",

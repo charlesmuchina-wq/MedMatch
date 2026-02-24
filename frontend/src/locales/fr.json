@@ -635,7 +635,7 @@
     "previous": "Précédent",
     "assessment": "Évaluation",
     "submit": "Soumettre l'Évaluation",
-    "questions": "questions",
+    "questions": "Questions",
     "congratulations": "Félicitations!",
     "minutes": "min",
     "subtitle": "Vérifiez vos compétences et gagnez des badges pour vous démarquer auprès des recruteurs",
@@ -1401,7 +1401,7 @@
   "recruiterJobs": {
     "jobTitlePlaceholder": "p. ex., Ingénieur qualité senior",
     "tagsPlaceholder": "p. ex., À distance, temps plein, qualité, dispositif médical",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://votre-entreprise.com/carrieres/postuler"
   },
   "companyReview": {
     "prosPlaceholder": "Qu’avez-vous aimé ?",
@@ -1410,9 +1410,9 @@
     "summaryPlaceholder": "Résumez votre expérience"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Jean Dupont",
     "inviteNotePlaceholder": "Ajoutez une note personnelle à votre invitation...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "candidat@exemple.com",
     "selectJobPlaceholder": "Sélectionnez une offre d’emploi",
     "maxApplicantsPlaceholder": "Illimité"
   },
@@ -1421,20 +1421,20 @@
     "addNotePlaceholder": "Ajouter une note..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://exemple.com",
     "rolePlaceholder": "p. ex., Responsable RH",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "p. ex., Centre médical de la ville",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "vous@votreentreprise.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/votreprofil"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Responsable de l’acquisition de talents",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Jean Dupont",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/votreprofil",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1469,7 +1469,7 @@
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ex. Webhook ATS en production",
     "apiKeyNamePlaceholder": "ex. Intégration ATS en production",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://votre-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Rechercher par évaluateur, candidat ou contenu...",

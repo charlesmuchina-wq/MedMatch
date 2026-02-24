@@ -56,7 +56,7 @@
     "meetingNotes": "Xët yi ci ndaje",
     "interviewCalendar": "Kalandar u jàngat",
     "analyticsFunnel": "Doxalinu jàngat",
-    "dragonAutomator": "KARAU Automator",
+    "dragonAutomator": "KARAU Otomataar",
     "adminDashboard": "Tablo bu saytu",
     "coverLetter": "Bataaxalu xamle",
     "jobAlerts": "Xibaar yi jëm ci liggéey",
@@ -954,7 +954,7 @@
       "enterJobToolkit": "Dugg Jumtukaayu Liggéey"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "KARAU Otomataar",
       "subtitle": "Otomatise sa doxalin wut liggéey",
       "startAutomation": "Tàmbali otomatig",
       "stopAutomation": "Taxawal otomatig",
@@ -1344,7 +1344,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "Joon Smit",
     "companyPlaceholder": "mën a nekk: Google",
     "notesPlaceholder": "Benn yeneen bennal ci waxtaanu jëmmal bi...",
     "positionPlaceholder": "mën a nekk: Injinëër Softweer",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Réew (tànn bu amul solo)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/sama-profil",
     "resumeLinkPlaceholder": "Lëkkalekaayu sa CV (Google Drive, Dropbox, etc.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Wax nu lu tax nga yaakaar ni yaa gën a méngoo ak liggéey bii...",
     "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "namePlaceholder": "Joon Doo",
+    "portfolioPlaceholder": "https://sama-portfolio.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "misaal: Injineer Bu Mag ci Kalite",
     "tagsPlaceholder": "misaal: Dëkkandiku, Waqt bu Mat, Kalite, Jëfandikukat Yu Tibb",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://sa-sosete.com/careers/apply"
   },
   "companyReview": {
     "prosPlaceholder": "Lan nga bëgg?",
@@ -1397,9 +1397,9 @@
     "summaryPlaceholder": "Wërndëf sa xibaaru jëfandikoo"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Jaan Doo",
     "inviteNotePlaceholder": "Yokk ab xëtal bu laaj ci sa ndigal...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "kandidaa@example.com",
     "selectJobPlaceholder": "Tànn benn postu liggéey",
     "maxApplicantsPlaceholder": "Amul"
   },
@@ -1413,15 +1413,15 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "misaal: City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "yow@sa-sosete.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/sama-profil"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Jëfandikukat ngir jël talent",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Jaan Doo",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "companyPlaceholder": "Sosete Acme",
+    "linkedinPlaceholder": "https://linkedin.com/in/sama-profil",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1456,7 +1456,7 @@
   "enterpriseAPI": {
     "webhookDescPlaceholder": "misaal: Production ATS webhook",
     "apiKeyNamePlaceholder": "misaal: Production ATS Integration",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://sa-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Wut ci jàngatkat, kandidat walla ëmbit...",

@@ -211,7 +211,7 @@
     "enterCode": "Geli koodhka 6-lambar ah",
     "verifyAndSignIn": "Xaqiiji oo Gal",
     "changePhoneNumber": "Beddel lambarka taleefanka",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "adiga@tusaale.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -954,7 +954,7 @@
       "enterJobToolkit": "Gal Qalabka Shaqada"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "KARAU Otomaatar",
       "subtitle": "Otomaatig garee habraaca raadinta shaqo",
       "startAutomation": "Bilow Otomaatiga",
       "stopAutomation": "Jooji Otomaatiga",
@@ -1343,8 +1343,8 @@
     "problemStatement": "Sheegista Dhibaatada"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerEmailPlaceholder": "joon@shirkad.com",
+    "interviewerNamePlaceholder": "Joon Smiith",
     "companyPlaceholder": "tusaale, Google",
     "notesPlaceholder": "Faahfaahin dheeraad ah oo ku saabsan wareysiga...",
     "positionPlaceholder": "tusaale, Injineer Software",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Dalka (ikhtiyaari)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profaaylkaaga",
     "resumeLinkPlaceholder": "Xiriirinta CV-gaaga (Google Drive, Dropbox, iwm.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Noo sheeg sababta aad ugu habboon tahay doorkan...",
-    "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "emailPlaceholder": "joon@tusaale.com",
+    "namePlaceholder": "Joon Duu",
+    "portfolioPlaceholder": "https://boortofooliyahaaga.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "tusaale, Injineer Sare ee Tayada",
     "tagsPlaceholder": "tusaale, Fog, Waqti-buuxa, Tayo, Qalab Caafimaad",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://shirkaddaada.com/careers/codso"
   },
   "companyReview": {
     "prosPlaceholder": "Maxaad ka heshay?",
@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Ku dar qoraal shakhsiyeed casuumaddaada...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "musharax@example.com",
     "selectJobPlaceholder": "Dooro shaqo la xayeysiiyay",
     "maxApplicantsPlaceholder": "Aan xad lahayn"
   },
@@ -1413,15 +1413,15 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "tusaale, Xarunta Caafimaadka Magaalada",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "adiga@shirkaddaada.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/profiilkaaga"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Maareeyaha Helitaanka Kartida",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Shirkadda Acme",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profiilkaaga",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,7 +1451,7 @@
     "meetingIdPlaceholder": "Geli aqoonsiga kulanka (tusaale, ABC-123-XYZ)",
     "verificationCodePlaceholder": "Geli koodh 6-god ah",
     "meetingTitlePlaceholder": "Kulanka AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "adiga@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "tusaale, webhook ATS ee wax-soo-saarka",

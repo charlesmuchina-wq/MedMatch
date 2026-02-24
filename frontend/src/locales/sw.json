@@ -211,7 +211,7 @@
     "enterCode": "Weka msimbo wa tarakimu 6",
     "verifyAndSignIn": "Thibitisha na Ingia",
     "changePhoneNumber": "Badilisha nambari ya simu",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "wewe@mfano.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -1171,8 +1171,8 @@
     "biometricAuth": {
       "title": "Uthibitishaji wa Bayometriki",
       "enableBiometric": "Washa Kuingia kwa Bayometriki",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Kitambulisho cha Uso",
+      "touchId": "Kitambulisho cha Mguso",
       "fingerprint": "Alama ya kidole",
       "setupRequired": "Inahitaji Kusanidiwa",
       "notSupported": "Haiauniwi kwenye kifaa hiki"
@@ -1343,7 +1343,7 @@
     "problemStatement": "Taarifa ya Tatizo"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerEmailPlaceholder": "john@kampuni.com",
     "interviewerNamePlaceholder": "John Smith",
     "companyPlaceholder": "mf., Google",
     "notesPlaceholder": "Maelezo yoyote ya ziada kuhusu mahojiano...",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Nchi (si lazima)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/wasifuwako",
     "resumeLinkPlaceholder": "Kiungo cha wasifu wako (Google Drive, Dropbox, n.k.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Tuambie kwa nini unafaa sana kwa nafasi hii...",
-    "emailPlaceholder": "john@example.com",
+    "emailPlaceholder": "john@mfano.com",
     "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "portfolioPlaceholder": "https://kwinginekwako.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "mf., Mhandisi Mkuu wa Ubora",
     "tagsPlaceholder": "mf., Remote, Muda kamili, Ubora, Kifaa cha Matibabu",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://kampuni-yako.com/careers/apply"
   },
   "companyReview": {
     "prosPlaceholder": "Ulipenda nini?",
@@ -1397,9 +1397,9 @@
     "summaryPlaceholder": "Fupisha uzoefu wako"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Jina Mfano",
     "inviteNotePlaceholder": "Ongeza ujumbe binafsi kwenye mwaliko wako...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "mgombea@mfano.com",
     "selectJobPlaceholder": "Chagua tangazo la kazi",
     "maxApplicantsPlaceholder": "Bila kikomo"
   },
@@ -1408,20 +1408,20 @@
     "addNotePlaceholder": "Ongeza dokezo..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://mfano.com",
     "rolePlaceholder": "mfano, Meneja wa Rasilimali Watu",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "mfano, City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "wewe@kampuni-yako.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/profaili-yako"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Meneja wa Upataji Vipaji",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Jina Mfano",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Shirika la Acme",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profaili-yako",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "Weka kitambulisho cha mkutano (mf. ABC-123-XYZ)",
     "verificationCodePlaceholder": "Weka msimbo wa tarakimu 6",
     "meetingTitlePlaceholder": "Mkutano wa AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "barua@yako.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "mfano, webhook ya ATS ya Uzalishaji",
     "apiKeyNamePlaceholder": "mfano, Ujumuishaji wa ATS ya Uzalishaji",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://ats-yako.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Tafuta kwa mkaguzi, mgombea, au maudhui...",

@@ -591,7 +591,7 @@
     "enterCode": "Введите 6-значный код",
     "verifyAndSignIn": "Подтвердить и войти",
     "changePhoneNumber": "Изменить номер телефона",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "you@пример.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -940,7 +940,7 @@
       "meetingPortalDesc": "Безопасные видеоконференции",
       "enterPortal": "Войти в портал",
       "enterMeetingPortal": "Войти в портал встреч",
-      "medmatchAI": "MedMatch AI",
+      "medmatchAI": "MedMatch ИИ",
       "e2eEncrypted": "Сквозное шифрование",
       "trustedBy": "Доверяют специалисты в области наук о жизни",
       "welcomeTo": "Добро пожаловать в",
@@ -949,7 +949,7 @@
       "aiJobMatching": "AI-подбор вакансий",
       "hdVideoAudio": "HD видео и аудио",
       "poweredByAI": "Работает на AI",
-      "aiKarau": "AI KARAU",
+      "aiKarau": "ИИ KARAU",
       "recruiterNetwork": "Сеть рекрутеров",
       "enterJobToolkit": "Войти в набор инструментов"
     },
@@ -1377,13 +1377,13 @@
     "countryOptional": "Страна (необязательно)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/вашпрофиль",
     "resumeLinkPlaceholder": "Ссылка на ваше резюме (Google Drive, Dropbox и т. д.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Расскажите, почему вы отлично подходите на эту роль…",
     "emailPlaceholder": "ivan@example.com",
     "namePlaceholder": "Иван Петров",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "portfolioPlaceholder": "https://вашепортфолио.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "например, старший инженер по качеству",
@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "Иван Иванов",
     "inviteNotePlaceholder": "Добавьте личное сообщение к приглашению...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "кандидат@пример.com",
     "selectJobPlaceholder": "Выберите вакансию",
     "maxApplicantsPlaceholder": "Без ограничений"
   },
@@ -1421,7 +1421,7 @@
     "namePlaceholder": "Джон Доу",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Корпорация Acme",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/вашпрофиль",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,7 +1451,7 @@
     "meetingIdPlaceholder": "Введите ID встречи (например, ABC-123-XYZ)",
     "verificationCodePlaceholder": "Введите 6-значный код",
     "meetingTitlePlaceholder": "Встреча AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "ваш@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "например, вебхук ATS для продакшена",

@@ -211,7 +211,7 @@
     "enterCode": "Faka ikhodi enamadijithi ayi-6",
     "verifyAndSignIn": "Qinisekisa futhi Ungene",
     "changePhoneNumber": "Shintsha inombolo yocingo",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "you@isibonelo.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -940,7 +940,7 @@
       "meetingPortalDesc": "Secure video conferencing",
       "enterPortal": "Ngena kuPhothali",
       "enterMeetingPortal": "Ngena Kupotali Yomhlangano",
-      "medmatchAI": "MedMatch AI",
+      "medmatchAI": "I-MedMatch AI",
       "e2eEncrypted": "Kubhalwe Ngokuphelele (E2E)",
       "trustedBy": "Kwethembwa Ochwepheshe Be-Life Sciences",
       "welcomeTo": "Siyakwamukela ku",
@@ -949,7 +949,7 @@
       "aiJobMatching": "Ukuhambisanisa Imisebenzi nge-AI",
       "hdVideoAudio": "Ividiyo & Umsindo we-HD",
       "poweredByAI": "Inikwe amandla yi-AI",
-      "aiKarau": "AI KARAU",
+      "aiKarau": "I-AI KARAU",
       "recruiterNetwork": "Inethiwekhi Yabaqashi",
       "enterJobToolkit": "Ngena Kumathuluzi Omsebenzi"
     },
@@ -1008,10 +1008,10 @@
     "globalCompliance": {
       "title": "Ukuhambisana komhlaba wonke",
       "subtitle": "Isimo sokuhambisana kuzo zonke izifunda",
-      "gdpr": "GDPR",
-      "ccpa": "CCPA",
+      "gdpr": "I-GDPR",
+      "ccpa": "I-CCPA",
       "hipaa": "HIPAA",
-      "soc2": "SOC 2",
+      "soc2": "I-SOC 2",
       "compliant": "Kuyahambisana",
       "nonCompliant": "Akukahambisani",
       "inProgress": "Kusaqhubeka"
@@ -1343,8 +1343,8 @@
     "problemStatement": "Isitatimende senkinga"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerEmailPlaceholder": "john@inkampani.com",
+    "interviewerNamePlaceholder": "UJohn Smith",
     "companyPlaceholder": "isb., Google",
     "notesPlaceholder": "Noma yimiphi imininingwane eyengeziwe mayelana nengxoxo...",
     "positionPlaceholder": "isb., Unjiniyela Wesofthiwe",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Izwe (uyazikhethela)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/iphrofayiliyakho",
     "resumeLinkPlaceholder": "Isixhumanisi se-CV yakho (Google Drive, Dropbox, njll.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Sitshele ukuthi kungani ulungele le ndima...",
-    "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "emailPlaceholder": "john@isibonelo.com",
+    "namePlaceholder": "UJohn Doe",
+    "portfolioPlaceholder": "https://iphothifoliyoyakho.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "isb., Unjiniyela Omdala Wezinga",
     "tagsPlaceholder": "isb., Okude, Isikhathi esigcwele, Ikhwalithi, Idivayisi Yezokwelapha",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://inkampani-yakho.com/careers/faka-isicelo"
   },
   "companyReview": {
     "prosPlaceholder": "Yini oyithandile?",
@@ -1397,9 +1397,9 @@
     "summaryPlaceholder": "Fingqa ulwazi lwakho"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "UJohn Doe",
     "inviteNotePlaceholder": "Engeza inothi lomuntu siqu esimemweni sakho...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "ikhandidethi@example.com",
     "selectJobPlaceholder": "Khetha isikhangiso somsebenzi",
     "maxApplicantsPlaceholder": "Okungenamkhawulo"
   },
@@ -1408,20 +1408,20 @@
     "addNotePlaceholder": "Engeza inothi..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://isibonelo.com",
     "rolePlaceholder": "isib., Umphathi we-HR",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "isib., City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "wena@inkampani-yakho.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/iphrofayela-yakho"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Umphathi Wokutholwa Kwamathalente",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "UJohn Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Inkampani i-Acme",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/iphrofayela-yakho",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "Faka i-ID yomhlangano (isb., ABC-123-XYZ)",
     "verificationCodePlaceholder": "Faka ikhodi enamadijithi ayi-6",
     "meetingTitlePlaceholder": "Umhlangano we-AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "yakho@imeyili.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "isb., i-webhook ye-ATS Yokukhiqiza",
     "apiKeyNamePlaceholder": "isb., Ukuhlanganiswa kwe-ATS Yokukhiqiza",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://i-ats-yakho.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Sesha ngomhloli, umfakisicelo, noma okuqukethwe...",

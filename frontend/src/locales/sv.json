@@ -954,7 +954,7 @@
       "enterJobToolkit": "Öppna Jobbverktygslådan"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "KARAU-automatiserare",
       "subtitle": "Automatisera ditt jobbsökningsflöde",
       "startAutomation": "Starta automatisering",
       "stopAutomation": "Stoppa automatisering",
@@ -1319,7 +1319,7 @@
     "probableCausePlaceholder": "Beskrivning av den troliga orsaken...",
     "category": "Kategori",
     "categoryTechnical": "Teknisk",
-    "categoryProcess": "Process",
+    "categoryProcess": "Bearbeta",
     "categoryHuman": "Mänsklig",
     "categoryEnvironmental": "Miljö",
     "evidencePlaceholder": "Bevis...",
@@ -1388,7 +1388,7 @@
   "recruiterJobs": {
     "jobTitlePlaceholder": "t.ex. Senior kvalitetsingenjör",
     "tagsPlaceholder": "t.ex. Distans, heltid, kvalitet, medicinteknisk produkt",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://ditt-företag.com/karriär/ansök"
   },
   "companyReview": {
     "prosPlaceholder": "Vad gillade du?",
@@ -1413,8 +1413,8 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "t.ex. City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "du@dittföretag.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/dinprofil"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Chef för talangrekrytering",
@@ -1456,7 +1456,7 @@
   "enterpriseAPI": {
     "webhookDescPlaceholder": "t.ex. Produktionswebhook för ATS",
     "apiKeyNamePlaceholder": "t.ex. Produktionsintegration för ATS",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://din-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Sök efter granskare, kandidat eller innehåll...",

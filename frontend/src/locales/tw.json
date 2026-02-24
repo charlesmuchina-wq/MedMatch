@@ -56,7 +56,7 @@
     "meetingNotes": "Nhyiam Nsɛm-twerɛ",
     "interviewCalendar": "Interview Kalenda",
     "analyticsFunnel": "Nkitahodi Funnel",
-    "dragonAutomator": "KARAU Automator",
+    "dragonAutomator": "KARAU Otomete",
     "adminDashboard": "Admin Dasibɔɔd",
     "coverLetter": "Nkrataa a wode kɔ adwuma ho",
     "jobAlerts": "Adwuma ho kɔkɔbɔ",
@@ -954,7 +954,7 @@
       "enterJobToolkit": "Kɔ Adwuma Nnwinnade mu"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "KARAU Otomete",
       "subtitle": "Ma w’akɔmanya wo adwuma hwehwɛ adwuma mu nhyehyɛe",
       "startAutomation": "Fi Automation",
       "stopAutomation": "Gyae Automation",
@@ -1388,7 +1388,7 @@
   "recruiterJobs": {
     "jobTitlePlaceholder": "te sɛ, Senior Quality Engineer",
     "tagsPlaceholder": "te sɛ, Remote, Full-time, Quality, Medical Device",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://wo-kɔmpanii.com/careers/apply"
   },
   "companyReview": {
     "prosPlaceholder": "Dɛn na wopɛe?",
@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Fa asɛm ketewa bi ka wo nsafoa no ho...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "kandida@example.com",
     "selectJobPlaceholder": "Paw adwuma ho dawubɔ",
     "maxApplicantsPlaceholder": "Enni ano"
   },
@@ -1413,15 +1413,15 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "sɛ nhwɛso: City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "wo@wo-kɔmpanii.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/wo-profael"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Adwumayɛfoɔ a wɔtwe wɔn ba Adwuma mu sohwɛfoɔ",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "companyPlaceholder": "Acme Kɔmpanii",
+    "linkedinPlaceholder": "https://linkedin.com/in/wo-profael",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "Kyerɛw nhyiam ID (te sɛ, ABC-123-XYZ)",
     "verificationCodePlaceholder": "Kyerɛw nɔma 6 a ɛwɔ mu",
     "meetingTitlePlaceholder": "AI KARAU Nhyiamu",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "wo@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "sɛ nhwɛso: Production ATS webhook",
     "apiKeyNamePlaceholder": "sɛ nhwɛso: Production ATS Integration",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://wo-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Hwehwɛ denam wɔn a wɔhwɛ no, candidate, anaa content...",

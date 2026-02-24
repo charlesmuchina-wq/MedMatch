@@ -75,7 +75,7 @@
   "recruiter": {
     "dashboard": "Dashboard",
     "myJobPostings": "Meine Stellenausschreibungen",
-    "interviews": "Interviews",
+    "interviews": "Vorstellungsgespräche",
     "searchCandidates": "Kandidaten suchen",
     "companyName": "Unternehmen",
     "companyNamePlaceholder": "Name Ihres Unternehmens",
@@ -92,7 +92,7 @@
     "resumeScore": "Lebenslauf-Bewertung",
     "savedJobs": "Gespeicherte Jobs",
     "applications": "Bewerbungen",
-    "interviews": "Interviews",
+    "interviews": "Vorstellungsgespräche",
     "recentActivity": "Letzte Aktivität",
     "quickActions": "Schnellaktionen",
     "uploadResume": "Lebenslauf hochladen",
@@ -953,7 +953,7 @@
       "meetingPortalDesc": "Sichere Videokonferenzen",
       "enterPortal": "Portal betreten",
       "enterMeetingPortal": "Meeting-Portal öffnen",
-      "medmatchAI": "MedMatch AI",
+      "medmatchAI": "MedMatch KI",
       "e2eEncrypted": "Ende-zu-Ende verschlüsselt",
       "trustedBy": "Vertrauen von Life-Sciences-Profis",
       "welcomeTo": "Willkommen bei",
@@ -962,12 +962,12 @@
       "aiJobMatching": "KI-Job-Matching",
       "hdVideoAudio": "HD-Video & Audio",
       "poweredByAI": "KI-gestützt",
-      "aiKarau": "AI KARAU",
+      "aiKarau": "KI KARAU",
       "recruiterNetwork": "Recruiter-Netzwerk",
       "enterJobToolkit": "Job-Toolkit öffnen"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "KARAU-Automatisierer",
       "subtitle": "Automatisieren Sie Ihren Workflow für die Jobsuche",
       "startAutomation": "Automatisierung starten",
       "stopAutomation": "Automatisierung stoppen",
@@ -1401,7 +1401,7 @@
   "recruiterJobs": {
     "jobTitlePlaceholder": "z. B. Senior Quality Engineer",
     "tagsPlaceholder": "z. B. Remote, Vollzeit, Qualität, Medizintechnik",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://ihr-unternehmen.com/karriere/bewerben"
   },
   "companyReview": {
     "prosPlaceholder": "Was hat dir gefallen?",
@@ -1410,9 +1410,9 @@
     "summaryPlaceholder": "Fasse deine Erfahrung zusammen"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Max Mustermann",
     "inviteNotePlaceholder": "Füge deiner Einladung eine persönliche Notiz hinzu...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "bewerber@beispiel.de",
     "selectJobPlaceholder": "Stellenanzeige auswählen",
     "maxApplicantsPlaceholder": "Unbegrenzt"
   },
@@ -1421,7 +1421,7 @@
     "addNotePlaceholder": "Notiz hinzufügen..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://beispiel.com",
     "rolePlaceholder": "z. B. HR-Manager",
     "phonePlaceholder": " +1 (555) 123-4567",
     "companyPlaceholder": "z. B. City Medical Center",
@@ -1431,9 +1431,9 @@
   },
   "idVerification": {
     "jobTitlePlaceholder": "Manager/in Talent Acquisition",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Max Mustermann",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Acme-Unternehmen",
     "linkedinPlaceholder": "https://linkedin.com/in/deinprofil",
     "websitePlaceholder": "https://acme.com"
   },
@@ -1469,7 +1469,7 @@
   "enterpriseAPI": {
     "webhookDescPlaceholder": "z. B. Production-ATS-Webhook",
     "apiKeyNamePlaceholder": "z. B. Production-ATS-Integration",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://ihr-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Nach Prüfer, Kandidat oder Inhalt suchen...",

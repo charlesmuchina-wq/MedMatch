@@ -1397,7 +1397,7 @@
     "summaryPlaceholder": "Tóm tắt kinh nghiệm của bạn"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Nguyễn Văn A",
     "inviteNotePlaceholder": "Thêm lời nhắn cá nhân vào lời mời của bạn...",
     "candidateEmailPlaceholder": "ungvien@example.com",
     "selectJobPlaceholder": "Chọn tin tuyển dụng",
@@ -1414,14 +1414,14 @@
     "companyPlaceholder": "vd: Trung tâm Y tế Thành phố",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "ban@congtyban.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/hosocuanban"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Quản lý Tuyển dụng Nhân tài",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Nguyễn Văn A",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Tập đoàn Acme",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/hosocuanban",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1430,7 +1430,7 @@
     "benefitsPlaceholder": "Làm việc từ xa, Bảo hiểm y tế, 401k (phân tách bằng dấu phẩy)",
     "culturePlaceholder": "Đổi mới, Hợp tác, Đa dạng (phân tách bằng dấu phẩy)",
     "searchPlaceholder": "Tìm kiếm công ty...",
-    "foundedPlaceholder": "2020",
+    "foundedPlaceholder": "Năm 2020",
     "industryPlaceholder": "Ngành",
     "companySizePlaceholder": "Quy mô công ty"
   },

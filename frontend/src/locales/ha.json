@@ -211,7 +211,7 @@
     "enterCode": "Shigar da lambar mai lambobi 6",
     "verifyAndSignIn": "Tabbatar & Shiga",
     "changePhoneNumber": "Canja lambar waya",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "kai@misali.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -1171,8 +1171,8 @@
     "biometricAuth": {
       "title": "Tabbatarwa Ta Biometric",
       "enableBiometric": "Kunna Shiga Ta Biometric",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "ID na Fuska",
+      "touchId": "ID na Taɓawa",
       "fingerprint": "Sawun Yatsa",
       "setupRequired": "Ana Buƙatar Saita",
       "notSupported": "Ba a tallafawa a wannan na’urar ba"
@@ -1343,7 +1343,7 @@
     "problemStatement": "Bayanin Matsala"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerEmailPlaceholder": "john@kamfani.com",
     "interviewerNamePlaceholder": "John Smith",
     "companyPlaceholder": "misali, Google",
     "notesPlaceholder": "Duk wasu ƙarin bayanai game da hirar...",
@@ -1377,18 +1377,18 @@
     "countryOptional": "Ƙasa (na zaɓi)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/bayanan-ka",
     "resumeLinkPlaceholder": "Hanyar zuwa CV ɗinka (Google Drive, Dropbox, da sauransu)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Faɗa mana dalilin da ya sa ka dace sosai da wannan aikin...",
-    "emailPlaceholder": "john@example.com",
+    "emailPlaceholder": "john@misali.com",
     "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "portfolioPlaceholder": "https://kundin-aikinka.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "misali, Injiniyan Inganci na Babba",
     "tagsPlaceholder": "misali, Nesa, Cikakken lokaci, Inganci, Na'urar Likita",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://kamfaninka.com/careers/apply"
   },
   "companyReview": {
     "prosPlaceholder": "Me ka/ki so?",
@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Ƙara bayanin sirri a gayyatarka...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "dan-takara@misali.com",
     "selectJobPlaceholder": "Zaɓi sanarwar aiki",
     "maxApplicantsPlaceholder": "Ba tare da iyaka ba"
   },
@@ -1408,20 +1408,20 @@
     "addNotePlaceholder": "Ƙara bayanin kula..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://misali.com",
     "rolePlaceholder": "misali, Manajan HR",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "misali, City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "kai@kamfaninka.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/bayanan-ka"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Manajan Daukar Ma'aikata",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Kamfanin Acme",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/bayanan-ka",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "Shigar da ID na taro (misali, ABC-123-XYZ)",
     "verificationCodePlaceholder": "Shigar da lamba mai digit 6",
     "meetingTitlePlaceholder": "Taron AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "imel@naka.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "misali, webhook na ATS na Production",
     "apiKeyNamePlaceholder": "misali, Haɗa ATS na Production",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://ats-naka.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Nema ta mai dubawa, ɗan takara, ko abun ciki...",

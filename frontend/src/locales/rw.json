@@ -211,7 +211,7 @@
     "enterCode": "Injiza kode y’imibare 6",
     "verifyAndSignIn": "Emeza & Injira",
     "changePhoneNumber": "Hindura nimero ya telefoni",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "you@urugero.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -954,7 +954,7 @@
       "enterJobToolkit": "Injira mu Bikoresho by’Akazi"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "KARAU Iwikorera",
       "subtitle": "Hindura imigendekere yo gushaka akazi mu buryo bwikora",
       "startAutomation": "Tangira Automatisiyo",
       "stopAutomation": "Hagarika Automatisiyo",
@@ -1171,8 +1171,8 @@
     "biometricAuth": {
       "title": "Kwemeza ukoresheje ibiranga umubiri",
       "enableBiometric": "Gushyoboza kwinjira ukoresheje ibiranga umubiri",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Kumenya Isura",
+      "touchId": "Kumenya Urutoki",
       "fingerprint": "Igikumwe",
       "setupRequired": "Igenamiterere irakenewe",
       "notSupported": "Ntibishyigikiwe kuri iki gikoresho"
@@ -1377,18 +1377,18 @@
     "countryOptional": "Igihugu (bitari ngombwa)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/umwirondoro-wawe",
     "resumeLinkPlaceholder": "Ihuza rya CV yawe (Google Drive, Dropbox, n’ibindi)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Tudutangarize impamvu ubereye uyu mwanya...",
-    "emailPlaceholder": "john@example.com",
+    "emailPlaceholder": "john@urugero.com",
     "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "portfolioPlaceholder": "https://urubuga-rwawe.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "urugero: Injeniyeri Mukuru ushinzwe Ubwiza",
     "tagsPlaceholder": "urugero: Ukorera kure, Igihe cyose, Ubwiza, Igikoresho cy'Ubuvuzi",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://ikigo-cyawe.com/careers/apply"
   },
   "companyReview": {
     "prosPlaceholder": "Ni iki wakunze?",
@@ -1397,9 +1397,9 @@
     "summaryPlaceholder": "Vuga mu ncamake uko byagenze"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Yoha Doe",
     "inviteNotePlaceholder": "Ongeraho ubutumwa bwite ku butumire bwawe...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "umukandida@example.com",
     "selectJobPlaceholder": "Hitamo itangazo ry’akazi",
     "maxApplicantsPlaceholder": "Nta mipaka"
   },
@@ -1408,20 +1408,20 @@
     "addNotePlaceholder": "Ongeraho inyandiko..."
   },
   "recruiterVerification": {
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://urugero.com",
     "rolePlaceholder": "urugero: Umuyobozi wa HR",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "urugero: City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "wowe@ikigo-cyawe.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/profayili-yawe"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Umuyobozi ushinzwe gushaka abakozi",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Yoha Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Sosiyete Acme",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profayili-yawe",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1456,7 +1456,7 @@
   "enterpriseAPI": {
     "webhookDescPlaceholder": "urugero: Webhook ya ATS ya Production",
     "apiKeyNamePlaceholder": "urugero: Ihuriro rya ATS ya Production",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://ats-yawe.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Shakisha ukoresheje usuzuma, umukandida cyangwa ibikubiyemo...",

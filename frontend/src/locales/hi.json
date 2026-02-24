@@ -211,7 +211,7 @@
     "enterCode": "6-अंकीय कोड दर्ज करें",
     "verifyAndSignIn": "सत्यापित करें और साइन इन करें",
     "changePhoneNumber": "फ़ोन नंबर बदलें",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "आप@उदाहरण.कॉम",
     "phonePlaceholder": "+1 (555) 123-4567",
     "passwordPlaceholder": "••••••••"
   },
@@ -1343,7 +1343,7 @@
     "problemStatement": "समस्या विवरण"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerEmailPlaceholder": "जॉन@कंपनी.कॉम",
     "interviewerNamePlaceholder": "जॉन स्मिथ",
     "companyPlaceholder": "जैसे, Google",
     "notesPlaceholder": "इंटरव्यू के बारे में कोई अतिरिक्त विवरण...",
@@ -1377,18 +1377,18 @@
     "countryOptional": "देश (वैकल्पिक)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/आपकीप्रोफ़ाइल",
     "resumeLinkPlaceholder": "अपने रिज़्यूमे का लिंक (Google Drive, Dropbox, आदि)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "हमें बताएं कि आप इस भूमिका के लिए बेहतरीन क्यों हैं...",
-    "emailPlaceholder": "john@example.com",
+    "emailPlaceholder": "जॉन@उदाहरण.कॉम",
     "namePlaceholder": "जॉन डो",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "portfolioPlaceholder": "https://आपकापोर्टफोलियो.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "उदा., वरिष्ठ गुणवत्ता इंजीनियर",
     "tagsPlaceholder": "उदा., रिमोट, पूर्णकालिक, गुणवत्ता, मेडिकल डिवाइस",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply"
+    "externalUrlPlaceholder": "https://your-company.com/करियर/आवेदन"
   },
   "companyReview": {
     "prosPlaceholder": "आपको क्या पसंद आया?",
@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "जॉन डो",
     "inviteNotePlaceholder": "अपने निमंत्रण में एक व्यक्तिगत नोट जोड़ें...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "उम्मीदवार@उदाहरण.कॉम",
     "selectJobPlaceholder": "नौकरी पोस्टिंग चुनें",
     "maxApplicantsPlaceholder": "असीमित"
   },
@@ -1413,15 +1413,15 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "उदाहरण: सिटी मेडिकल सेंटर",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "आप@आपकीकंपनी.कॉम",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/आपकीप्रोफ़ाइल"
   },
   "idVerification": {
     "jobTitlePlaceholder": "टैलेंट एक्विज़िशन मैनेजर",
     "namePlaceholder": "जॉन डो",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme कॉर्पोरेशन",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/आपकीप्रोफ़ाइल",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1430,7 +1430,7 @@
     "benefitsPlaceholder": "रिमोट वर्क, हेल्थ इंश्योरेंस, 401k (कॉमा से अलग करें)",
     "culturePlaceholder": "इननोवेशन, सहयोग, विविधता (कॉमा से अलग करें)",
     "searchPlaceholder": "कंपनियां खोजें...",
-    "foundedPlaceholder": "2020",
+    "foundedPlaceholder": "२०२०",
     "industryPlaceholder": "उद्योग",
     "companySizePlaceholder": "कंपनी का आकार"
   },
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "मीटिंग आईडी दर्ज करें (उदा., ABC-123-XYZ)",
     "verificationCodePlaceholder": "6-अंकों का कोड दर्ज करें",
     "meetingTitlePlaceholder": "AI KARAU मीटिंग",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "आपका@ईमेल.कॉम"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "उदाहरण: प्रोडक्शन ATS वेबहुक",
     "apiKeyNamePlaceholder": "उदाहरण: प्रोडक्शन ATS इंटीग्रेशन",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://your-ats.com/वेबहुक्स/मेडमैच"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "समीक्षक, उम्मीदवार या सामग्री से खोजें...",
