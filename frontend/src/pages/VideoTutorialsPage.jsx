@@ -1016,30 +1016,6 @@ const VideoTutorialsPage = () => {
     }
   };
 
-  // Memoize quick guides data
-  const quickGuides = useMemo(() => [
-    {
-      title: 'For Job Seekers',
-      items: [
-        { step: '1', title: 'Sign In', desc: 'Use Google, Apple, Email, or Phone to create your account' },
-        { step: '2', title: 'Upload Resume', desc: 'Drag & drop your resume or import from cloud storage' },
-        { step: '3', title: 'Complete Profile', desc: 'Add credentials, skills, and preferences to boost your Trust Score' },
-        { step: '4', title: 'Search Jobs', desc: 'Use filters and AI matching to find perfect opportunities' },
-        { step: '5', title: 'Apply & Track', desc: 'Submit applications and monitor your pipeline' }
-      ]
-    },
-    {
-      title: 'For Recruiters',
-      items: [
-        { step: '1', title: 'Access Dashboard', desc: 'View hiring metrics, active postings, and candidate pipeline' },
-        { step: '2', title: 'Create Job Posting', desc: 'Add job details, requirements, and screening questions' },
-        { step: '3', title: 'Generate Application Links', desc: 'Create shareable links for candidates to apply' },
-        { step: '4', title: 'Review Applications', desc: 'Screen candidates, update statuses, send notifications' },
-        { step: '5', title: 'Hire Top Talent', desc: 'Move candidates through your pipeline to successful hires' }
-      ]
-    }
-  ], []);
-
   // Memoize video selection handler
   const handleVideoSelect = useCallback((video) => {
     setSelectedVideo(video);
