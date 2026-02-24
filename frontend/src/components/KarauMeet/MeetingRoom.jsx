@@ -1364,6 +1364,9 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
           )}
         </div>
         <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" onClick={() => setShowShareDialog(true)} className="text-slate-300 hover:text-turquoise h-8 px-2" data-testid="meeting-share-btn">
+            <Share2 className="w-4 h-4" />
+          </Button>
           <Button variant="ghost" size="sm" onClick={addToCalendar} className="text-slate-300 hover:text-white h-8 px-2">
             <Calendar className="w-4 h-4" />
           </Button>
