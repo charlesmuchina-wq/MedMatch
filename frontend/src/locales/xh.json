@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... okanye idilesi yeofisi"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "umz., uSenior, uMphathi, uRemote",
+    "messagePlaceholder": "Molo, ndifumene iprofayile yakho inomdla kwisikhundla sethu esivulekileyo...",
+    "skillsPlaceholder": "umz., i-ICU, uKhathalelo oluBalulekileyo, iPython"
   },
   "psv": {
     "npiNumber": "Inombolo ye-NPI (uyazikhethela)",
@@ -1397,30 +1397,30 @@
     "summaryPlaceholder": "Shwankathela amava akho"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "candidateNamePlaceholder": "UJohn Doe",
+    "inviteNotePlaceholder": "Yongeza inqaku lomntu kwisicelo sakho...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Khetha isibhengezo somsebenzi",
     "maxApplicantsPlaceholder": "Akukho mda"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Khangela abafaki-zicelo...",
+    "addNotePlaceholder": "Yongeza inqaku..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "umz., uMphathi we-HR",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "umz., iCity Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Umphathi woKufunyanwa kweTalente",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "UJohn Doe",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "i-Acme Corporation",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "websitePlaceholder": "https://acme.com"
   },
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "umz., i-webhook ye-ATS yeMveliso",
+    "apiKeyNamePlaceholder": "umz., Umdibaniso we-ATS yeMveliso",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Khangela ngomhloli, umgqatswa, okanye umxholo...",
+    "rejectionReasonPlaceholder": "Nika isizathu sokwala..."
   },
   "contact": {
     "declineReason": "umz., Andikhangeli amathuba amatsha ngoku"
@@ -1489,7 +1489,7 @@
     "profileNamePlaceholder": "umz., iResume yeTekhnoloji, iResume yoLawulo"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Khetha ilizwe kuqala",
+    "selectCity": "Khetha isixeko"
   }
 }

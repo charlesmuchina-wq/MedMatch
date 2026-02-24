@@ -1171,7 +1171,7 @@
     "biometricAuth": {
       "title": "Biometriese verifikasie",
       "enableBiometric": "Aktiveer biometriese aanmelding",
-      "faceId": "Face ID",
+      "faceId": "Gesig-ID",
       "touchId": "Touch ID",
       "fingerprint": "Vingerafdruk",
       "setupRequired": "Opstelling vereis",

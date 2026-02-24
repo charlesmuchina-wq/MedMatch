@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... ወይም የቢሮ አድራሻ"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "ለምሳሌ፣ ሲኒየር፣ ማኔጀር፣ ሩቅ ስራ",
+    "messagePlaceholder": "ሰላም፣ ለክፍት የስራ ቦታችን ፕሮፋይልዎ አስደሳች መሆኑን አገኘሁ...",
+    "skillsPlaceholder": "ለምሳሌ፣ ICU፣ ክሪቲካል ኬር፣ Python"
   },
   "psv": {
     "npiNumber": "የNPI ቁጥር (አማራጭ)",
@@ -1397,21 +1397,21 @@
     "summaryPlaceholder": "ልምድዎን በአጭሩ ያጠቃልሉ"
   },
   "atsManagement": {
-    "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "candidateNamePlaceholder": "ጆን ዶ",
+    "inviteNotePlaceholder": "ግብዣዎ ላይ የግል ማስታወሻ ያክሉ...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "የስራ ማስታወቂያ ይምረጡ",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "ያልተገደበ"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "እጩዎችን ፈልግ...",
+    "addNotePlaceholder": "ማስታወሻ ጨምር..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "ምሳሌ፦ የሰው ኃብት አስተዳዳሪ",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "ምሳሌ፦ የከተማ ህክምና ማዕከል",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "ምሳሌ፦ የምርት ATS ዌብሁክ",
+    "apiKeyNamePlaceholder": "ምሳሌ፦ የምርት ATS ውህደት",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "በገምጋሚ፣ በእጩ፣ ወይም በይዘት ይፈልጉ...",
+    "rejectionReasonPlaceholder": "ውድቅ ለማድረግ ምክንያት ያቅርቡ..."
   },
   "contact": {
     "declineReason": "ለምሳሌ፡ አሁን አዲስ እድሎችን እየፈለግኩ አይደለሁም"
@@ -1483,13 +1483,13 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "የቀን ክልል ምረጥ..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "ለምሳሌ፡ ቴክ ሲቪ፣ የአስተዳደር ሲቪ"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "መጀመሪያ አገር ይምረጡ",
+    "selectCity": "ከተማ ይምረጡ"
   }
 }
