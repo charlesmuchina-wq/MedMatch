@@ -18,12 +18,12 @@ import api from "@/utils/apiClient";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
-// Common interview question categories
+// Common interview question categories - names will be translated
 const QUESTION_CATEGORIES = [
-  { id: "behavioral", name: "Behavioral", icon: Users, color: "text-violet-500" },
-  { id: "technical", name: "Technical", icon: Target, color: "text-sky-500" },
-  { id: "situational", name: "Situational", icon: Lightbulb, color: "text-amber-500" },
-  { id: "company", name: "Company Fit", icon: Building2, color: "text-emerald-500" },
+  { id: "behavioral", nameKey: "interviewPrep.behavioralQuestions", icon: Users, color: "text-violet-500" },
+  { id: "technical", nameKey: "interviewPrep.technicalQuestions", icon: Target, color: "text-sky-500" },
+  { id: "situational", nameKey: "interviewPrep.situationalQuestions", icon: Lightbulb, color: "text-amber-500" },
+  { id: "company", nameKey: "interviewPrep.companyFit", icon: Building2, color: "text-emerald-500" },
 ];
 
 // STAR Method Helper
