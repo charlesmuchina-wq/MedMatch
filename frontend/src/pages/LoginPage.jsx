@@ -187,12 +187,12 @@ const LoginPage = ({ onAuthSuccess }) => {
         navigate('/');
       }
     } catch (e) {
-      const errorMessage = e.response?.data?.detail || "Authentication failed";
+      const errorMessage = e.response?.data?.detail || t("auth.loginFailed");
       // Show more descriptive error with longer duration
       toast.error(errorMessage, {
         description: isRegister 
-          ? "Please check your information and try again." 
-          : "Please verify your email and password.",
+          ? t("auth.checkInfoTryAgain")
+          : t("auth.verifyEmailPassword"),
         duration: 5000
       });
     }
@@ -201,7 +201,7 @@ const LoginPage = ({ onAuthSuccess }) => {
 
   const handleSendOtp = async () => {
     if (!phoneNumber || phoneNumber.length < 10) {
-      toast.error("Please enter a valid phone number");
+      toast.error(t("auth.enterValidPhone"));
       return;
     }
     
@@ -211,16 +211,16 @@ const LoginPage = ({ onAuthSuccess }) => {
       const formattedPhone = phoneNumber.startsWith('+') ? phoneNumber : `+1${phoneNumber}`;
       await axios.post(`${API}/api/auth/phone/send-otp`, { phone_number: formattedPhone });
       setOtpSent(true);
-      toast.success("OTP sent to your phone!");
+      toast.success(t("auth.otpSent"));
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Failed to send OTP");
+      toast.error(e.response?.data?.detail || t("auth.failedSendOtp"));
     }
     setIsLoading(false);
   };
 
   const handleVerifyOtp = async () => {
     if (!otpCode || otpCode.length < 4) {
-      toast.error("Please enter the OTP code");
+      toast.error(t("auth.enterOtpCode"));
       return;
     }
     
@@ -232,11 +232,11 @@ const LoginPage = ({ onAuthSuccess }) => {
         { withCredentials: true }
       );
       
-      toast.success("Phone verified!");
+      toast.success(t("auth.phoneVerified"));
       onAuthSuccess(response.data.user);
       navigate('/');
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Invalid OTP");
+      toast.error(e.response?.data?.detail || t("auth.invalidOtp"));
     }
     setIsLoading(false);
   };
