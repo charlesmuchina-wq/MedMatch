@@ -251,6 +251,7 @@ export const useOnboardingTour = () => {
 
   const completeTour = () => {
     localStorage.setItem("medmatch-tour-completed", "true");
+    localStorage.setItem("medmatch_tour_completed", "true");
     setShowTour(false);
   };
 
