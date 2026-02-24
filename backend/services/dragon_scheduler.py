@@ -316,18 +316,21 @@ async def optimize_database_indexes() -> Dict[str, Any]:
 
 
 async def cleanup_old_data() -> Dict[str, Any]:
-    """Clean up old logs and temporary data"""
+    """Clean up old logs, temporary data, expired sessions, stale meetings, and ML data"""
     result = {
         "records_deleted": 0,
         "collections_cleaned": [],
         "space_freed_estimate": "N/A"
     }
     
-    # Cutoff dates
-    thirty_days_ago = (datetime.now(timezone.utc) - timedelta(days=30)).isoformat()
-    ninety_days_ago = (datetime.now(timezone.utc) - timedelta(days=90)).isoformat()
+    now = datetime.now(timezone.utc)
+    thirty_days_ago = (now - timedelta(days=30)).isoformat()
+    ninety_days_ago = (now - timedelta(days=90)).isoformat()
+    seven_days_ago = (now - timedelta(days=7)).isoformat()
     
     try:
+        # --- Existing cleanups ---
+        
         # Clean old dragon logs (keep 30 days)
         dragon_result = await db.dragon_logs.delete_many({
             "timestamp": {"$lt": thirty_days_ago}
@@ -368,6 +371,56 @@ async def cleanup_old_data() -> Dict[str, Any]:
         if health_result.deleted_count > 0:
             result["records_deleted"] += health_result.deleted_count
             result["collections_cleaned"].append(f"health_snapshots: {health_result.deleted_count}")
+        
+        # --- New automated cleanups ---
+        
+        # Clean expired user sessions
+        session_result = await db.user_sessions.delete_many({
+            "expires_at": {"$lt": now.isoformat()}
+        })
+        if session_result.deleted_count > 0:
+            result["records_deleted"] += session_result.deleted_count
+            result["collections_cleaned"].append(f"expired_sessions: {session_result.deleted_count}")
+        
+        # Expire stale meetings (waiting > 7 days, never started)
+        stale_result = await db.karau_meetings.update_many(
+            {"status": "waiting", "created_at": {"$lt": seven_days_ago}},
+            {"$set": {"status": "expired"}}
+        )
+        if stale_result.modified_count > 0:
+            result["collections_cleaned"].append(f"stale_meetings_expired: {stale_result.modified_count}")
+        
+        # Prune old ML training data (keep 30 days)
+        ml_result = await db.ml_training_data.delete_many({
+            "timestamp": {"$lt": thirty_days_ago}
+        })
+        if ml_result.deleted_count > 0:
+            result["records_deleted"] += ml_result.deleted_count
+            result["collections_cleaned"].append(f"ml_training_data: {ml_result.deleted_count}")
+        
+        # Clean expired OAuth states
+        oauth_result = await db.credly_oauth_states.delete_many({
+            "expires_at": {"$lt": now.isoformat()}
+        })
+        if oauth_result.deleted_count > 0:
+            result["records_deleted"] += oauth_result.deleted_count
+            result["collections_cleaned"].append(f"expired_oauth_states: {oauth_result.deleted_count}")
+        
+        # Clean expired WebAuthn challenges
+        challenge_result = await db.webauthn_challenges.delete_many({
+            "expires_at": {"$lt": now.isoformat()}
+        })
+        if challenge_result.deleted_count > 0:
+            result["records_deleted"] += challenge_result.deleted_count
+            result["collections_cleaned"].append(f"expired_challenges: {challenge_result.deleted_count}")
+        
+        # Clean expired email verification codes
+        verify_result = await db.karau_email_verification_codes.delete_many({
+            "expires_at": {"$lt": now.isoformat()}
+        })
+        if verify_result.deleted_count > 0:
+            result["records_deleted"] += verify_result.deleted_count
+            result["collections_cleaned"].append(f"expired_verification_codes: {verify_result.deleted_count}")
             
     except Exception as e:
         logging.error(f"Data cleanup error: {e}")
