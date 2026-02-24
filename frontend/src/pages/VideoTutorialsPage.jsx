@@ -48,13 +48,13 @@ const PRESENTER_IMAGES = {
   "05_complete_overview": "/images/presenter_main.jpeg"                 // Female voice
 };
 
-// Custom category labels for display
-const CATEGORY_LABELS = {
-  "job_seeker": "Job Seeker",
-  "recruiter": "Recruiter",
-  "03_privacy_matters": "Data Privacy",
-  "04_faq_ai_compliance": "FAQs - AI",
-  "05_complete_overview": "Overview"
+// Custom category labels for display - will be translated
+const CATEGORY_KEYS = {
+  "job_seeker": "videoTutorials.categories.jobSeeker",
+  "recruiter": "videoTutorials.categories.recruiter",
+  "03_privacy_matters": "videoTutorials.categories.dataPrivacy",
+  "04_faq_ai_compliance": "videoTutorials.categories.dataPrivacy",
+  "05_complete_overview": "videoTutorials.categories.overview"
 };
 
 // Skeleton loader for video cards - provides immediate visual feedback
