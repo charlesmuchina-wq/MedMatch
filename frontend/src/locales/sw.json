@@ -590,7 +590,7 @@
     "jobDescriptionPlaceholder": "Bandika maelezo kamili ya kazi hapa. AI itatengeneza maswali ya mahojiano yanayofaa kulingana na mahitaji na ujuzi wa wasifu wako..."
   },
   "membership": {
-    "premium": "Premium",
+    "premium": "Zilizoboreshwa",
     "freeTrial": "Jaribio la Bure",
     "expired": "Muda umeisha",
     "upgrade": "Boresha Sasa",
@@ -1181,7 +1181,7 @@
       "title": "Usajili",
       "currentPlan": "Mpango wa Sasa",
       "free": "Bure",
-      "premium": "Premium",
+      "premium": "Zilizoboreshwa",
       "enterprise": "Biashara",
       "upgrade": "Boresha",
       "downgrade": "Shusha Mpango",

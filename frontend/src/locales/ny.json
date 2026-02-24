@@ -590,7 +590,7 @@
     "jobDescriptionPlaceholder": "Matafani malongosoledwe onse a ntchito apa. AI ipanga mafunso oyenerana ndi zofunikira komanso luso lanu pa resume..."
   },
   "membership": {
-    "premium": "Premium",
+    "premium": "Yapamwamba",
     "freeTrial": "Mayeso Aulere",
     "expired": "Yatha",
     "upgrade": "Kwezani Tsopano",
@@ -1181,7 +1181,7 @@
       "title": "Kulembetsa",
       "currentPlan": "Pulogalamu yapano",
       "free": "Kwaulere",
-      "premium": "Premium",
+      "premium": "Yapamwamba",
       "enterprise": "Enterprise",
       "upgrade": "Kwezani",
       "downgrade": "Chepetsani",

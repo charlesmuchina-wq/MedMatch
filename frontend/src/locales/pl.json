@@ -1377,13 +1377,13 @@
     "countryOptional": "Kraj (opcjonalnie)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/twojprofil",
     "resumeLinkPlaceholder": "Link do Twojego CV (Google Drive, Dropbox itp.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Powiedz nam, dlaczego świetnie pasujesz do tej roli...",
     "emailPlaceholder": "john@example.com",
     "namePlaceholder": "Jan Nowak",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "portfolioPlaceholder": "https://twojeportfolio.com"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "np. Starszy inżynier ds. jakości",
@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "Jan Kowalski",
     "inviteNotePlaceholder": "Dodaj osobistą notatkę do zaproszenia...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "kandydat@example.com",
     "selectJobPlaceholder": "Wybierz ofertę pracy",
     "maxApplicantsPlaceholder": "Bez limitu"
   },
@@ -1413,15 +1413,15 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "np. Miejskie Centrum Medyczne",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "ty@twojafirma.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/twojprofil"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Menedżer ds. pozyskiwania talentów",
     "namePlaceholder": "Jan Kowalski",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/twojprofil",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1451,12 +1451,12 @@
     "meetingIdPlaceholder": "Wpisz identyfikator spotkania (np. ABC-123-XYZ)",
     "verificationCodePlaceholder": "Wpisz 6-cyfrowy kod",
     "meetingTitlePlaceholder": "Spotkanie AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "twoj@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "np. Webhook ATS (produkcja)",
     "apiKeyNamePlaceholder": "np. Integracja ATS (produkcja)",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://twoj-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Szukaj według recenzenta, kandydata lub treści...",
