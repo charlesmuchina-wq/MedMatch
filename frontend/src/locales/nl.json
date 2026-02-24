@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Voeg een persoonlijke notitie toe aan je uitnodiging...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "kandidaat@example.com",
     "selectJobPlaceholder": "Selecteer een vacature",
     "maxApplicantsPlaceholder": "Onbeperkt"
   },
@@ -1413,7 +1413,7 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "bijv. City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "emailPlaceholder": "jij@jouwbedrijf.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {

@@ -1426,15 +1426,15 @@
     "phonePlaceholder": " +1 (555) 123-4567",
     "companyPlaceholder": "z. B. City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "emailPlaceholder": "du@deinefirma.com",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/deinprofil"
   },
   "idVerification": {
     "jobTitlePlaceholder": "Manager/in Talent Acquisition",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/deinprofil",
     "websitePlaceholder": "https://acme.com"
   },
   "companiesPage": {
@@ -1464,7 +1464,7 @@
     "meetingIdPlaceholder": "Meeting-ID eingeben (z. B. ABC-123-XYZ)",
     "verificationCodePlaceholder": "6-stelligen Code eingeben",
     "meetingTitlePlaceholder": "AI KARAU-Meeting",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "deine@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "z. B. Production-ATS-Webhook",

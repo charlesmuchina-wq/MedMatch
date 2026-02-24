@@ -1379,7 +1379,7 @@
   "publicApplication": {
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "resumeLinkPlaceholder": "Linki eya CV yo (Google Drive, Dropbox, n'ebirala)",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": " +1 (555) 123-4567",
     "coverLetterPlaceholder": "Tutegeeze lwaki osaanira nnyo omulimu guno...",
     "emailPlaceholder": "john@example.com",
     "namePlaceholder": "John Doe",

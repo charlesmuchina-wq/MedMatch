@@ -1344,7 +1344,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "जॉन स्मिथ",
     "companyPlaceholder": "जैसे, Google",
     "notesPlaceholder": "इंटरव्यू के बारे में कोई अतिरिक्त विवरण...",
     "positionPlaceholder": "जैसे, सॉफ्टवेयर इंजीनियर",
@@ -1382,7 +1382,7 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "हमें बताएं कि आप इस भूमिका के लिए बेहतरीन क्यों हैं...",
     "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "जॉन डो",
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {

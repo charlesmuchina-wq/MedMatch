@@ -1399,7 +1399,7 @@
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Thêm lời nhắn cá nhân vào lời mời của bạn...",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "ungvien@example.com",
     "selectJobPlaceholder": "Chọn tin tuyển dụng",
     "maxApplicantsPlaceholder": "Không giới hạn"
   },
@@ -1413,7 +1413,7 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "vd: Trung tâm Y tế Thành phố",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "emailPlaceholder": "ban@congtyban.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
@@ -1451,7 +1451,7 @@
     "meetingIdPlaceholder": "Nhập ID cuộc họp (ví dụ: ABC-123-XYZ)",
     "verificationCodePlaceholder": "Nhập mã 6 chữ số",
     "meetingTitlePlaceholder": "Cuộc họp AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "email@cuaban.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "vd: Webhook ATS cho môi trường Production",
