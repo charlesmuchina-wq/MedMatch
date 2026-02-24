@@ -21,7 +21,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import { useAuth } from '../contexts/AuthContext';
 import { colors, spacing, borderRadius, fontSize, fontWeight, shadows } from '../constants/theme';
 
-const API_URL = process.env.EXPO_PUBLIC_API_URL || 'https://multilang-benchmark.preview.emergentagent.com';
+const API_URL = process.env.EXPO_PUBLIC_API_URL || 'https://i18n-complete-8.preview.emergentagent.com';
 
 // Input Field Component
 const InputField = ({

@@ -582,7 +582,7 @@ async def create_payment_method_session(request: Request):
         # Create billing portal session
         session = stripe.billing_portal.Session.create(
             customer=subscription.customer,
-            return_url=f"{os.environ.get('FRONTEND_URL', 'https://multilang-benchmark.preview.emergentagent.com')}/membership?updated=true"
+            return_url=f"{os.environ.get('FRONTEND_URL', 'https://i18n-complete-8.preview.emergentagent.com')}/membership?updated=true"
         )
         
         return {

@@ -11,7 +11,7 @@ import statistics
 import json
 from datetime import datetime
 
-API_URL = "https://multilang-benchmark.preview.emergentagent.com/api"
+API_URL = "https://i18n-complete-8.preview.emergentagent.com/api"
 
 # Endpoints to test
 ENDPOINTS = [

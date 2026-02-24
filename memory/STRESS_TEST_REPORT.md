@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://multilang-benchmark.preview.emergentagent.com/api
+**API Target:** https://i18n-complete-8.preview.emergentagent.com/api
 
 ---
 
