@@ -610,7 +610,7 @@ const FALLBACK_AVATARS = {
 };
 
 const GettingStartedSection = memo(() => {
-  const { language: appLanguage } = useTranslation();
+  const { t, language: appLanguage } = useTranslation();
   // Initialize with app language, mapped to tutorial language
   const [selectedLang, setSelectedLang] = useState(() => {
     const mapped = mapAppLangToTutorial(appLanguage);
