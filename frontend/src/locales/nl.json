@@ -1844,6 +1844,13 @@
     "typeAnswer": "Typ je antwoord",
     "speakNow": "Spreek nu...",
     "analyzing": "Je antwoord analyseren...",
-    "getAiFeedback": "AI-feedback ophalen"
+    "getAiFeedback": "AI-feedback ophalen",
+    "companyFit": "Company Fit",
+    "generateQuestions": "Generate Questions",
+    "questionBank": "Question Bank",
+    "customQuestions": "Custom Questions",
+    "selectCategory": "Select Category",
+    "noQuestionsYet": "No questions generated yet",
+    "generateFirstQuestion": "Generate your first question to start practicing"
   }
 }

@@ -1844,6 +1844,13 @@
     "typeAnswer": "Bind sa tontu",
     "speakNow": "Wax léegi...",
     "analyzing": "Mingi jàngat sa tontu...",
-    "getAiFeedback": "Jël ay ndimbal AI"
+    "getAiFeedback": "Jël ay ndimbal AI",
+    "companyFit": "Company Fit",
+    "generateQuestions": "Generate Questions",
+    "questionBank": "Question Bank",
+    "customQuestions": "Custom Questions",
+    "selectCategory": "Select Category",
+    "noQuestionsYet": "No questions generated yet",
+    "generateFirstQuestion": "Generate your first question to start practicing"
   }
 }

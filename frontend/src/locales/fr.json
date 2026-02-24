@@ -1857,6 +1857,13 @@
     "typeAnswer": "Saisissez votre réponse",
     "speakNow": "Parlez maintenant...",
     "analyzing": "Analyse de votre réponse...",
-    "getAiFeedback": "Obtenir un retour IA"
+    "getAiFeedback": "Obtenir un retour IA",
+    "companyFit": "Company Fit",
+    "generateQuestions": "Generate Questions",
+    "questionBank": "Question Bank",
+    "customQuestions": "Custom Questions",
+    "selectCategory": "Select Category",
+    "noQuestionsYet": "No questions generated yet",
+    "generateFirstQuestion": "Generate your first question to start practicing"
   }
 }
