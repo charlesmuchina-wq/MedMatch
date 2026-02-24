@@ -120,7 +120,11 @@
     "careerExplorer": "Sahamiyaha Xirfadda",
     "locationSettings": "Dejinta Goobta",
     "privacy": "Asturnaanta & Xogta",
-    "credentials": "Aqoonsiyo"
+    "credentials": "Aqoonsiyo",
+    "helpTutorials": "Help & Tutorials",
+    "settings": "Settings",
+    "profile": "Profile",
+    "signOut": "Sign Out"
   },
   "dashboard": {
     "welcomeBack": "Ku soo dhowow mar kale",
@@ -1852,5 +1856,13 @@
     "selectCategory": "Select Category",
     "noQuestionsYet": "No questions generated yet",
     "generateFirstQuestion": "Generate your first question to start practicing"
+  },
+  "navigation": {
+    "backToPortal": "Back to Portal Selection",
+    "backToDashboard": "Back to Dashboard",
+    "backToHome": "Back to Home",
+    "viewAll": "View All",
+    "seeMore": "See More",
+    "showLess": "Show Less"
   }
 }

@@ -120,7 +120,11 @@
     "realtimeSTT": "实时语音转文字",
     "credentials": "资质证书",
     "interviewCalendar": "面试日历",
-    "meetingNotes": "会议纪要"
+    "meetingNotes": "会议纪要",
+    "helpTutorials": "Help & Tutorials",
+    "settings": "Settings",
+    "profile": "Profile",
+    "signOut": "Sign Out"
   },
   "recruiter": {
     "dashboard": "仪表板",
@@ -1865,5 +1869,13 @@
     "selectCategory": "Select Category",
     "noQuestionsYet": "No questions generated yet",
     "generateFirstQuestion": "Generate your first question to start practicing"
+  },
+  "navigation": {
+    "backToPortal": "Back to Portal Selection",
+    "backToDashboard": "Back to Dashboard",
+    "backToHome": "Back to Home",
+    "viewAll": "View All",
+    "seeMore": "See More",
+    "showLess": "Show Less"
   }
 }

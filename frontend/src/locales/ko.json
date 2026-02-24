@@ -140,7 +140,11 @@
     "messages": "메시지",
     "idVerification": "신원 확인",
     "privacy": "개인정보 및 데이터",
-    "membership": "멤버십"
+    "membership": "멤버십",
+    "helpTutorials": "Help & Tutorials",
+    "settings": "Settings",
+    "profile": "Profile",
+    "signOut": "Sign Out"
   },
   "recruiter": {
     "dashboard": "대시보드",
@@ -1852,5 +1856,13 @@
     "selectCategory": "Select Category",
     "noQuestionsYet": "No questions generated yet",
     "generateFirstQuestion": "Generate your first question to start practicing"
+  },
+  "navigation": {
+    "backToPortal": "Back to Portal Selection",
+    "backToDashboard": "Back to Dashboard",
+    "backToHome": "Back to Home",
+    "viewAll": "View All",
+    "seeMore": "See More",
+    "showLess": "Show Less"
   }
 }

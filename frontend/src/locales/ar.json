@@ -131,7 +131,10 @@
     "interviews": "المقابلات",
     "settings": "الإعدادات",
     "help": "مساعدة",
-    "tutorials": "الدروس التعليمية"
+    "tutorials": "الدروس التعليمية",
+    "helpTutorials": "Help & Tutorials",
+    "profile": "Profile",
+    "signOut": "Sign Out"
   },
   "dashboard": {
     "findOpportunities": "اعثر على الفرص المناسبة",
@@ -2259,5 +2262,13 @@
     "selectCategory": "Select Category",
     "noQuestionsYet": "No questions generated yet",
     "generateFirstQuestion": "Generate your first question to start practicing"
+  },
+  "navigation": {
+    "backToPortal": "Back to Portal Selection",
+    "backToDashboard": "Back to Dashboard",
+    "backToHome": "Back to Home",
+    "viewAll": "View All",
+    "seeMore": "See More",
+    "showLess": "Show Less"
   }
 }
