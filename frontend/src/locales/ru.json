@@ -646,46 +646,16 @@
     "paymentSessionExpired": "Сессия оплаты истекла",
     "failedVerifyPayment": "Не удалось подтвердить оплату",
     "alreadyHaveMembership": "У вас уже есть активное членство!",
-    "failedStartCheckout": "Failed to start checkout",
-    "paymentFailed": "Payment failed. Please try again.",
+    "failedStartCheckout": "Не удалось начать оплату",
+    "paymentFailed": "Платёж не прошёл. Попробуйте ещё раз.",
     "recruiterFeatures": {
-      "starter": [
-        "5 active job posts",
-        "Basic candidate search",
-        "In-app messaging",
-        "Email support"
-      ],
-      "growth": [
-        "10 active job posts",
-        "Advanced candidate search",
-        "Blind screening mode",
-        "Analytics dashboard",
-        "Priority support"
-      ],
-      "scale": [
-        "Unlimited job posts",
-        "Full ATS integration",
-        "Bulk candidate export",
-        "Custom branding",
-        "API access",
-        "Dedicated support"
-      ],
-      "enterprise": [
-        "Everything in Premium",
-        "SSO/SAML integration",
-        "Custom SLA",
-        "Dedicated account manager",
-        "On-site training",
-        "HIPAA compliance"
-      ]
+      "starter": "[\"5 активных вакансий\",\"Базовый поиск кандидатов\",\"Сообщения в приложении\",\"Поддержка по email\"]",
+      "growth": "[\"10 активных вакансий\",\"Расширенный поиск кандидатов\",\"Режим слепого отбора\",\"Панель аналитики\",\"Приоритетная поддержка\"]",
+      "scale": "[\"Безлимитные вакансии\",\"Полная интеграция с ATS\",\"Массовый экспорт кандидатов\",\"Кастомный брендинг\",\"Доступ к API\",\"Выделенная поддержка\"]",
+      "enterprise": "[\"Всё из Premium\",\"Интеграция SSO/SAML\",\"Индивидуальный SLA\",\"Выделенный аккаунт-менеджер\",\"Обучение на месте\",\"Соответствие HIPAA\"]"
     },
     "jobSeekerFeatures": {
-      "basic": [
-        "Unlimited job searches",
-        "View job listings",
-        "Save favorite jobs",
-        "Basic email alerts"
-      ]
+      "basic": "[\"Безлимитный поиск вакансий\",\"Просмотр вакансий\",\"Сохранение избранных\",\"Базовые email-уведомления\"]"
     }
   },
   "voiceCoach": {
@@ -728,10 +698,10 @@
     "recordingHistory": "История записей",
     "replayRecordings": "Прослушайте записи вашей практики из этой сессии",
     "finishSession": "Завершить сессию",
-    "confidence": "Confidence",
-    "clarity": "Clarity",
-    "relevance": "Relevance",
-    "pacing": "Pacing"
+    "confidence": "Уверенность",
+    "clarity": "Ясность",
+    "relevance": "Релевантность",
+    "pacing": "Темп"
   },
   "jobAlerts": {
     "title": "Оповещения о вакансиях и ежедневная рассылка",
@@ -767,19 +737,19 @@
     "step3Desc": "Вакансии только за последние 24 часа — вы никогда не получите одну и ту же вакансию дважды",
     "step4Title": "Подбор на основе ИИ",
     "step4Desc": "Ищет в Indeed, LinkedIn, Glassdoor, ZipRecruiter + ещё 5 источников",
-    "createAlert": "Create Alert",
-    "editAlert": "Edit Alert",
-    "deleteAlert": "Delete Alert",
-    "alertName": "Alert Name",
-    "keywords": "Keywords",
-    "location": "Location",
-    "jobType": "Job Type",
-    "salaryRange": "Salary Range",
-    "frequency": "Frequency",
-    "daily": "Daily",
-    "weekly": "Weekly",
-    "instant": "Instant",
-    "noAlerts": "No job alerts set up yet",
+    "createAlert": "Создать уведомление",
+    "editAlert": "Редактировать уведомление",
+    "deleteAlert": "Удалить уведомление",
+    "alertName": "Название уведомления",
+    "keywords": "Ключевые слова",
+    "location": "Местоположение",
+    "jobType": "Тип занятости",
+    "salaryRange": "Диапазон зарплаты",
+    "frequency": "Частота",
+    "daily": "Ежедневно",
+    "weekly": "Еженедельно",
+    "instant": "Мгновенно",
+    "noAlerts": "Пока нет настроенных уведомлений",
     "createFirst": "Создайте первое оповещение, чтобы получать уведомления",
     "activeAlerts": "Активные оповещения",
     "pausedAlerts": "Приостановленные оповещения",
