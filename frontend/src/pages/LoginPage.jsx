@@ -68,16 +68,16 @@ const LoginPage = ({ onAuthSuccess }) => {
         { withCredentials: true }
       );
       
-      toast.success("Logged in with Apple!");
+      toast.success(t("auth.appleLoginSuccess"));
       onAuthSuccess(response.data.user);
       navigate('/');
     } catch (e) {
-      toast.error(e.response?.data?.detail || "Apple login failed");
+      toast.error(e.response?.data?.detail || t("auth.appleLoginFailed"));
     }
     setIsLoading(false);
     // Clear the hash
     window.history.replaceState(null, '', window.location.pathname);
-  }, [onAuthSuccess, navigate]);
+  }, [onAuthSuccess, navigate, t]);
 
   // Check for Google OAuth callback (session_id in URL hash)
   // Also check for Apple Sign In callback (id_token in URL hash)
