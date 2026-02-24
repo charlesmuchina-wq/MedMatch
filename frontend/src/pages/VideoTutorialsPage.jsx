@@ -229,9 +229,14 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
   const audioRef = useRef(null);
 
   // AUTO-GENERATE audio when language changes (not English)
+  // AND automatically start playing translated audio when ready
   useEffect(() => {
     if (!video || selectedLanguage === 'en') {
       setGeneratedAudioUrl(null);
+      // Unmute video for English
+      if (videoRef.current) {
+        videoRef.current.muted = false;
+      }
       return;
     }
     
@@ -243,7 +248,12 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
         
         if (statusRes.data.status === 'ready' && statusRes.data.audio_url) {
           // Audio already exists - use it immediately
-          setGeneratedAudioUrl(`${API}${statusRes.data.audio_url}`);
+          const audioUrl = `${API}${statusRes.data.audio_url}`;
+          setGeneratedAudioUrl(audioUrl);
+          // Auto-mute original video and play translated audio
+          if (videoRef.current) {
+            videoRef.current.muted = true;
+          }
           return;
         }
         
@@ -260,7 +270,12 @@ const VideoModal = memo(({ video, onClose, selectedLanguage, setSelectedLanguage
             setTranslating(false);
             const audioUrl = res.data.audio_url || res.data.video_url;
             if (audioUrl) {
-              setGeneratedAudioUrl(`${API}${audioUrl}`);
+              const fullAudioUrl = `${API}${audioUrl}`;
+              setGeneratedAudioUrl(fullAudioUrl);
+              // Auto-mute original video when translated audio is ready
+              if (videoRef.current) {
+                videoRef.current.muted = true;
+              }
             }
           } else if (res.data.status === 'generating') {
             setTimeout(checkStatus, 1500);
