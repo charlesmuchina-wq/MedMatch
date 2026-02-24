@@ -245,7 +245,7 @@ const KarauMeetPortal = () => {
       navigate(`/karau-meet/room/${mId}`);
     };
     
-    return <GuestJoinPage onJoin={handleGuestJoin} />;
+    return <GuestJoinPage onJoin={handleGuestJoin} meetingIdProp={meetingId} />;
   }
 
   // Logged-in user clicking join link - redirect to room
