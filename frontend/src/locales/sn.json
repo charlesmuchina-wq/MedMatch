@@ -76,7 +76,7 @@
     "date": "Zuva",
     "time": "Nguva",
     "name": "Zita",
-    "email": "Email",
+    "email": "Imeyili",
     "phone": "Foni",
     "address": "Kero",
     "company": "Kambani",
@@ -797,7 +797,7 @@
     "jobDescriptionPlaceholder": "Namatira tsananguro yakazara yebasa pano. AI ichagadzira mibvunzo yakakodzera yeinterview zvichienderana nezvinodiwa uye hunyanzvi huri muCV yako..."
   },
   "membership": {
-    "premium": "Premium",
+    "premium": "Yekutanga",
     "freeTrial": "Kuedza Mahara",
     "expired": "Kwapera",
     "upgrade": "Simudzira Zvino",
@@ -1538,7 +1538,7 @@
       "title": "Kunyoresa",
       "currentPlan": "Chirongwa chazvino",
       "free": "Mahara",
-      "premium": "Premium",
+      "premium": "Yekutanga",
       "enterprise": "Bhizimisi guru",
       "upgrade": "Simudzira",
       "downgrade": "Deredza",
