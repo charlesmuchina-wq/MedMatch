@@ -227,7 +227,7 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
 };
 
 // Meeting Header Component - Mobile Responsive
-const MeetingHeader = ({ meeting, meetingId, isRecording, onAddToCalendar, onCopyLink }) => (
+const MeetingHeader = ({ meeting, meetingId, isRecording, onAddToCalendar, onCopyLink, onShare }) => (
   <header className="min-h-[48px] md:h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-2 md:px-4 py-2">
     <div className="flex items-center gap-1 md:gap-3 flex-wrap">
       <div className="flex items-center gap-1 md:gap-2">
@@ -251,6 +251,10 @@ const MeetingHeader = ({ meeting, meetingId, isRecording, onAddToCalendar, onCop
     </div>
     
     <div className="flex items-center gap-1 md:gap-2">
+      <Button variant="ghost" size="sm" onClick={onShare} className="text-slate-300 hover:text-turquoise px-1.5 md:px-3" data-testid="meeting-share-btn">
+        <Share2 className="w-4 h-4" />
+        <span className="hidden md:inline ml-1">Share</span>
+      </Button>
       <Button variant="ghost" size="sm" onClick={onAddToCalendar} className="text-slate-300 hover:text-white px-1.5 md:px-3">
         <Calendar className="w-4 h-4" />
         <span className="hidden md:inline ml-1">Add to Calendar</span>
