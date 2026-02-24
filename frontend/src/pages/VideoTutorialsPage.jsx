@@ -133,15 +133,16 @@ const LazyImage = memo(({ src, alt, className, onLoad }) => {
 });
 
 // Memoized VideoCard component to prevent unnecessary re-renders
-const VideoCard = memo(({ video, onSelect }) => {
+const VideoCard = memo(({ video, onSelect, t }) => {
   const presenterImage = PRESENTER_IMAGES[video.id] || "/images/presenter.jpeg";
   
   const getCategoryLabel = useCallback(() => {
-    if (CATEGORY_LABELS[video.id]) {
-      return CATEGORY_LABELS[video.id];
-    }
-    return video.category === 'job_seeker' ? 'Job Seeker' : video.category === 'recruiter' ? 'Recruiter' : 'Everyone';
-  }, [video.id, video.category]);
+    const key = CATEGORY_KEYS[video.id] || CATEGORY_KEYS[video.category];
+    if (key) return t(key);
+    return video.category === 'job_seeker' ? t('videoTutorials.categories.jobSeeker') : 
+           video.category === 'recruiter' ? t('videoTutorials.categories.recruiter') : 
+           t('videoTutorials.categories.overview');
+  }, [video.id, video.category, t]);
 
   const handleClick = useCallback(() => {
     onSelect(video);
@@ -174,7 +175,7 @@ const VideoCard = memo(({ video, onSelect }) => {
       </div>
       <div className="p-4">
         <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{video.title}</h3>
-        <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">{video.description}</p>
+        <p className="text-sm text-slate-700 dark:text-gray-300 line-clamp-2">{video.description}</p>
       </div>
     </div>
   );
