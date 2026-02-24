@@ -97,21 +97,9 @@
     "failed": "Translation failed"
   },
   "companies": {
-    "title": "Companies",
-    "searchCompanies": "Search companies",
-    "addCompany": "Add Company",
-    "companyName": "Company Name",
-    "companyNamePlaceholder": "Company name",
-    "industry": "Industry",
-    "selectIndustry": "Select industry",
-    "description": "Description",
-    "descriptionPlaceholder": "Tell candidates about your company...",
-    "companySize": "Company Size",
-    "selectSize": "Select size",
-    "headquarters": "Headquarters",
-    "headquartersPlaceholder": "City, Country",
-    "website": "Website",
-    "founded": "Founded"
+    "created": "Company profile created",
+    "createFailed": "Failed to create company",
+    "followFailed": "Failed to follow company"
   },
   "notifications": {
     "title": "Notifications",
@@ -170,17 +158,10 @@
     "allStatuses": "All Statuses"
   },
   "recruiter": {
-    "companyName": "Company",
-    "companyNamePlaceholder": "Your company name",
-    "location": "Location",
-    "locationPlaceholder": "e.g., Remote, USA",
-    "salaryRange": "Salary Range",
-    "salaryPlaceholder": "e.g., $80,000 - $120,000",
-    "jobDescription": "Job Description",
-    "descriptionPlaceholder": "Describe the role, responsibilities, and requirements...",
-    "postJob": "Post Job",
-    "editJob": "Edit Job",
-    "viewApplicants": "View Applicants"
+    "dashboard": "Dashboard",
+    "myJobPostings": "My Job Postings",
+    "interviews": "Interviews",
+    "searchCandidates": "Search Candidates"
   },
   "nav": {
     "dashboard": "Dashboard",
@@ -215,12 +196,6 @@
     "idVerification": "ID Verification",
     "privacy": "Privacy & Data",
     "membership": "Membership"
-  },
-  "recruiter": {
-    "dashboard": "Dashboard",
-    "myJobPostings": "My Job Postings",
-    "interviews": "Interviews",
-    "searchCandidates": "Search Candidates"
   },
   "dashboard": {
     "welcomeBack": "Welcome back",
@@ -534,40 +509,8 @@
     "generating": "Generating..."
   },
   "predictor": {
-    "title": "Application Success Predictor",
-    "subtitle": "AI-powered analysis of your callback probability based on resume-job fit",
-    "jobDetails": "Job Details",
-    "jobDetailsDesc": "Enter the job information to analyze your chances",
-    "jobTitleRequired": "Job Title *",
-    "companyRequired": "Company *",
-    "postedDate": "Posted Date (optional)",
-    "postedDateHint": "Newer postings typically have higher success rates",
-    "jobDescRequired": "Job Description *",
-    "jobDescPlaceholder": "Paste the full job description here for accurate analysis...",
-    "predictButton": "Predict Success Rate",
-    "analyzing": "Analyzing...",
-    "uploadResumeFirst": "Please upload your resume first",
-    "fillAllFields": "Please fill in all required fields",
-    "predictionComplete": "Prediction complete!",
-    "recentPredictions": "Recent Predictions",
-    "predictionResults": "Prediction Results",
-    "callbackProbability": "Callback Probability",
-    "interviewLikelihood": "Interview Likelihood",
-    "matchBreakdown": "Match Breakdown",
-    "skillsMatch": "Skills Match",
-    "experienceMatch": "Experience Match",
-    "educationMatch": "Education Match",
-    "keywordsMatch": "Keywords Match",
-    "competitionLevel": "Competition Level",
-    "timingAdvice": "Timing Advice",
-    "yourStrengths": "Your Strengths",
-    "areasToAddress": "Areas to Address",
-    "recommendations": "Recommendations to Improve Your Chances",
-    "whatMakesYouStandOut": "What Makes You Stand Out",
-    "noPredictionYet": "No prediction yet",
-    "enterJobDetails": "Enter job details and click \"Predict Success Rate\" to see your callback probability",
-    "neuralNetworkAnalysis": "Neural Network Analysis",
-    "browserBasedAI": "Browser-based AI prediction using a 4-layer neural network"
+    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
+    "companyPlaceholder": "e.g., Medtronic"
   },
   "video": {
     "title": "Video Interview Practice",
@@ -642,7 +585,30 @@
     "trialDays": "15-day free trial",
     "subscribe": "Subscribe",
     "payWithStripe": "Pay with Stripe",
-    "payWithPaypal": "Pay with PayPal"
+    "payWithPaypal": "Pay with PayPal",
+    "title": "Membership Plans",
+    "subtitle": "Choose the plan that fits your needs",
+    "free": "Free",
+    "enterprise": "Enterprise",
+    "monthly": "Monthly",
+    "annually": "Annually",
+    "savePercent": "Save {{percent}}%",
+    "downgrade": "Downgrade",
+    "cancel": "Cancel Subscription",
+    "included": "Included",
+    "notIncluded": "Not Included",
+    "popularChoice": "Popular Choice",
+    "bestValue": "Best Value",
+    "perMonth": "per month",
+    "perYear": "per year",
+    "billedAnnually": "Billed annually",
+    "billedMonthly": "Billed monthly",
+    "startFreeTrial": "Start Free Trial",
+    "getStarted": "Get Started",
+    "contactSales": "Contact Sales",
+    "freeFeatures": "Basic job search, 5 applications/month, Resume builder",
+    "premiumFeatures": "Unlimited applications, AI coaching, Priority support",
+    "enterpriseFeatures": "Custom solutions, Dedicated support, API access"
   },
   "voiceCoach": {
     "title": "AI Interview Coach",
@@ -859,15 +825,11 @@
     "emptyDesc": "Enter your target job title and experience to receive AI-powered salary ranges, negotiation tips, and strategies to maximize your compensation."
   },
   "scheduling": {
-    "title": "Interview Scheduling",
-    "fillRequired": "Please fill in all required fields",
-    "success": "Interview scheduled successfully",
-    "failed": "Failed to schedule interview",
-    "interview": "Interview",
-    "respondFailed": "Failed to respond",
-    "confirmCancel": "Are you sure you want to cancel this interview?",
-    "cancelled": "Interview cancelled",
-    "cancelFailed": "Failed to cancel interview"
+    "selectCandidate": "Select a candidate",
+    "meetingLinkPlaceholder": "https://zoom.us/j/...",
+    "officeAddressPlaceholder": "Office address",
+    "additionalInfoPlaceholder": "Any additional information...",
+    "messageToRecruiterPlaceholder": "Add a message to the recruiter..."
   },
   "verification": {
     "requestCreated": "Verification request created",
@@ -877,11 +839,6 @@
     "companyVerified": "Company verified automatically!",
     "pendingReview": "Company verification pending review",
     "companyFailed": "Company verification failed"
-  },
-  "companies": {
-    "created": "Company profile created",
-    "createFailed": "Failed to create company",
-    "followFailed": "Failed to follow company"
   },
   "analytics": {
     "loadFailed": "Failed to load analytics"
@@ -1000,31 +957,9 @@
     "tip": "Tip: Click any field to instantly copy it for pasting into job application forms."
   },
   "feedback": {
-    "title": "Application Insights",
-    "description": "Anonymous feedback to help improve your applications",
-    "noFeedbackYet": "No Feedback Yet",
-    "keepApplying": "Keep applying! As recruiters provide feedback on your applications, you'll see insights here to help improve.",
-    "basedOn": "Based on {{count}} application(s) with feedback",
-    "anonymous": "Anonymous",
-    "topArea": "Top Area for Improvement",
-    "breakdown": "Feedback Breakdown",
-    "suggestions": "AI-Powered Suggestions",
-    "benchmarks": "Industry Benchmarks",
-    "benchmarksDesc": "See how your feedback compares to all candidates",
-    "provideTitle": "Provide Rejection Feedback",
-    "forCandidate": "For candidate: {{name}}",
-    "helpImprove": "Help candidates improve with anonymous feedback",
-    "category": "Primary Reason for Rejection",
-    "selectCategory": "Select a category",
-    "missingSkills": "Missing Skills (comma-separated)",
-    "experienceGap": "Experience Gap Description",
-    "additionalNotes": "Additional Notes (Optional)",
-    "notesPlaceholder": "Any additional context that could help the candidate...",
-    "wouldConsider": "Would consider for other roles?",
-    "privacyNotice": "This feedback will be shared anonymously with the candidate to help them improve. Your identity and company will not be revealed.",
-    "submit": "Submit Feedback",
-    "submitted": "Feedback submitted successfully",
-    "submitFailed": "Failed to submit feedback"
+    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
+    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
+    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
   },
   "extras": {
     "later": "Later",
@@ -1619,10 +1554,6 @@
   "contact": {
     "declineReason": "e.g., Not looking for new opportunities right now"
   },
-  "predictor": {
-    "jobTitlePlaceholder": "e.g., Supplier Quality Manager",
-    "companyPlaceholder": "e.g., Medtronic"
-  },
   "taxonomy": {
     "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
   },
@@ -1630,13 +1561,6 @@
     "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
     "companyNamePlaceholder": "Company name",
     "jobTitlePlaceholder": "Job title"
-  },
-  "scheduling": {
-    "selectCandidate": "Select a candidate",
-    "meetingLinkPlaceholder": "https://zoom.us/j/...",
-    "officeAddressPlaceholder": "Office address",
-    "additionalInfoPlaceholder": "Any additional information...",
-    "messageToRecruiterPlaceholder": "Add a message to the recruiter..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
@@ -1690,11 +1614,6 @@
   "location": {
     "selectLocationPlaceholder": "Select your location..."
   },
-  "feedback": {
-    "skillsPlaceholder": "e.g., Python, AWS, Team Leadership",
-    "experienceGapPlaceholder": "e.g., Needed 5+ years in similar role, candidate has 2 years",
-    "improvementPlaceholder": "e.g., Get AWS certification, More project management experience"
-  },
   "idVerification": {
     "companyPlaceholder": "Acme Corporation",
     "websitePlaceholder": "https://acme.com",
@@ -1721,7 +1640,43 @@
   },
   "jobSearch": {
     "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCity": "Select City",
+    "title": "Job Search",
+    "subtitle": "AI-powered job matching for your career",
+    "searchPlaceholder": "Search jobs, companies, or keywords...",
+    "filters": "Filters",
+    "location": "Location",
+    "salary": "Salary",
+    "jobType": "Job Type",
+    "experience": "Experience Level",
+    "remote": "Remote",
+    "hybrid": "Hybrid",
+    "onsite": "On-site",
+    "fullTime": "Full Time",
+    "partTime": "Part Time",
+    "contract": "Contract",
+    "intern": "Internship",
+    "entry": "Entry Level",
+    "mid": "Mid Level",
+    "senior": "Senior Level",
+    "executive": "Executive",
+    "applyNow": "Apply Now",
+    "saveJob": "Save Job",
+    "savedJobs": "Saved Jobs",
+    "applied": "Applied",
+    "matchScore": "Match Score",
+    "postedAgo": "Posted {{time}} ago",
+    "applicants": "applicants",
+    "noJobsFound": "No jobs found matching your criteria",
+    "refineSearch": "Try refining your search or adjusting filters",
+    "loadingJobs": "Loading jobs...",
+    "viewDetails": "View Details",
+    "companyProfile": "Company Profile",
+    "similarJobs": "Similar Jobs",
+    "jobDescription": "Job Description",
+    "requirements": "Requirements",
+    "benefits": "Benefits",
+    "aboutCompany": "About the Company"
   },
   "adminReviewModeration": {
     "rejectionReasonPlaceholder": "Provide a reason for rejection...",
@@ -1754,5 +1709,37 @@
     "jobTitlePlaceholder": "e.g., Senior Quality Engineer",
     "externalUrlPlaceholder": "https://your-company.com/careers/apply",
     "tagsPlaceholder": "e.g., Remote, Full-time, Quality, Medical Device"
+  },
+  "interviewPrep": {
+    "title": "Interview Preparation",
+    "subtitle": "AI-powered mock interviews and coaching",
+    "startMockInterview": "Start Mock Interview",
+    "practiceQuestions": "Practice Questions",
+    "reviewFeedback": "Review Feedback",
+    "behavioralQuestions": "Behavioral Questions",
+    "technicalQuestions": "Technical Questions",
+    "situationalQuestions": "Situational Questions",
+    "commonQuestions": "Common Questions",
+    "industrySpecific": "Industry Specific",
+    "yourAnswer": "Your Answer",
+    "sampleAnswer": "Sample Answer",
+    "feedback": "Feedback",
+    "strengths": "Strengths",
+    "improvements": "Areas for Improvement",
+    "tips": "Tips",
+    "tryAgain": "Try Again",
+    "nextQuestion": "Next Question",
+    "previousQuestion": "Previous Question",
+    "endInterview": "End Interview",
+    "interviewScore": "Interview Score",
+    "overallPerformance": "Overall Performance",
+    "confidenceLevel": "Confidence Level",
+    "clarityScore": "Clarity Score",
+    "relevanceScore": "Relevance Score",
+    "recordAnswer": "Record Your Answer",
+    "typeAnswer": "Type Your Answer",
+    "speakNow": "Speak now...",
+    "analyzing": "Analyzing your response...",
+    "getAiFeedback": "Get AI Feedback"
   }
 }
