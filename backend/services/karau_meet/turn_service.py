@@ -62,12 +62,12 @@ async def get_ice_servers() -> Dict:
                             "turn_enabled": True
                         }
                     else:
-                        logger.error(f"Xirsys error: {data.get('v')}")
+                        logger.debug(f"Xirsys TURN unavailable: {data.get('v')}, using STUN fallback")
                 else:
-                    logger.error(f"Xirsys HTTP error: {response.status}")
+                    logger.debug(f"Xirsys HTTP {response.status}, using STUN fallback")
         
     except Exception as e:
-        logger.error(f"Failed to fetch Xirsys ICE servers: {e}")
+        logger.debug(f"Xirsys TURN unavailable: {e}, using STUN fallback")
     
     # Fallback to default STUN servers
     return {
