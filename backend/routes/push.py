@@ -187,7 +187,7 @@ async def send_push_notification(notification: SendNotificationRequest, request:
     if notification.user_ids:
         query["user_id"] = {"$in": notification.user_ids}
     
-    subscriptions = await db.push_subscriptions.find(query).to_list(1000)
+    subscriptions = await db.push_subscriptions.find(query, {"_id": 0}).to_list(1000)
     
     if not subscriptions:
         return {"message": "No active subscriptions", "sent": 0}
