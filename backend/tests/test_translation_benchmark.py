@@ -167,43 +167,51 @@ class TestTranslationQA:
 
 
 class TestLanguageSpecificCoverage:
-    """Tests for specific language translation coverage"""
+    """Tests for specific language translation coverage - using benchmark endpoint"""
     
     def test_swahili_coverage(self):
-        """Test Swahili (sw) translation coverage"""
-        response = requests.get(f"{BASE_URL}/api/translation-qa/language/sw")
+        """Test Swahili (sw) translation coverage via benchmark"""
+        response = requests.get(f"{BASE_URL}/api/translation-qa/benchmark")
         assert response.status_code == 200
         data = response.json()
-        score = data["results"]["score"]
-        assert score >= 99, f"Swahili score {score} is below 99"
-        print(f"✓ Swahili coverage score: {score}")
+        coverage = data["languages"]["sw"]["coverage"]
+        grade = data["languages"]["sw"]["grade"]
+        assert coverage >= 99, f"Swahili coverage {coverage}% is below 99%"
+        assert grade in ["A", "A+"], f"Swahili grade {grade} is not A or A+"
+        print(f"✓ Swahili: coverage={coverage}%, grade={grade}")
     
     def test_hausa_coverage(self):
-        """Test Hausa (ha) translation coverage"""
-        response = requests.get(f"{BASE_URL}/api/translation-qa/language/ha")
+        """Test Hausa (ha) translation coverage via benchmark"""
+        response = requests.get(f"{BASE_URL}/api/translation-qa/benchmark")
         assert response.status_code == 200
         data = response.json()
-        score = data["results"]["score"]
-        assert score >= 99, f"Hausa score {score} is below 99"
-        print(f"✓ Hausa coverage score: {score}")
+        coverage = data["languages"]["ha"]["coverage"]
+        grade = data["languages"]["ha"]["grade"]
+        assert coverage >= 99, f"Hausa coverage {coverage}% is below 99%"
+        assert grade in ["A", "A+"], f"Hausa grade {grade} is not A or A+"
+        print(f"✓ Hausa: coverage={coverage}%, grade={grade}")
     
     def test_arabic_coverage(self):
-        """Test Arabic (ar) RTL language coverage"""
-        response = requests.get(f"{BASE_URL}/api/translation-qa/language/ar")
+        """Test Arabic (ar) RTL language coverage via benchmark"""
+        response = requests.get(f"{BASE_URL}/api/translation-qa/benchmark")
         assert response.status_code == 200
         data = response.json()
-        score = data["results"]["score"]
-        assert score >= 99, f"Arabic score {score} is below 99"
-        print(f"✓ Arabic (RTL) coverage score: {score}")
+        coverage = data["languages"]["ar"]["coverage"]
+        grade = data["languages"]["ar"]["grade"]
+        assert coverage >= 99, f"Arabic coverage {coverage}% is below 99%"
+        assert grade in ["A", "A+"], f"Arabic grade {grade} is not A or A+"
+        print(f"✓ Arabic (RTL): coverage={coverage}%, grade={grade}")
     
     def test_japanese_coverage(self):
-        """Test Japanese (ja) coverage"""
-        response = requests.get(f"{BASE_URL}/api/translation-qa/language/ja")
+        """Test Japanese (ja) coverage via benchmark"""
+        response = requests.get(f"{BASE_URL}/api/translation-qa/benchmark")
         assert response.status_code == 200
         data = response.json()
-        score = data["results"]["score"]
-        assert score >= 99, f"Japanese score {score} is below 99"
-        print(f"✓ Japanese coverage score: {score}")
+        coverage = data["languages"]["ja"]["coverage"]
+        grade = data["languages"]["ja"]["grade"]
+        assert coverage >= 99, f"Japanese coverage {coverage}% is below 99%"
+        assert grade in ["A", "A+"], f"Japanese grade {grade} is not A or A+"
+        print(f"✓ Japanese: coverage={coverage}%, grade={grade}")
 
 
 if __name__ == "__main__":
