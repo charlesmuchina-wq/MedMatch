@@ -21,7 +21,7 @@ const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    checkMeeting();
+    if (meetingId) checkMeeting();
   }, [meetingId]);
 
   const checkMeeting = async () => {
