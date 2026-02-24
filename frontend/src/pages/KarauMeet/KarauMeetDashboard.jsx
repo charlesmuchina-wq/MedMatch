@@ -263,6 +263,15 @@ const KarauMeetDashboard = ({ user }) => {
                     <Button
                       variant="ghost"
                       size="sm"
+                      onClick={() => setShareMeeting(meeting)}
+                      className="text-slate-400 hover:text-turquoise"
+                      data-testid={`share-meeting-${meeting.meeting_id}`}
+                    >
+                      <Share2 className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       onClick={() => copyMeetingLink(meeting.meeting_id)}
                       className="text-slate-400 hover:text-white"
                     >
