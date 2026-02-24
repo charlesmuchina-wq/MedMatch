@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... kana kero yehofisi"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "semuenzaniso, Senior, Maneja, Remote",
+    "messagePlaceholder": "Mhoro, ndakaona profile yako ichinakidza pachinzvimbo chedu chiripo...",
+    "skillsPlaceholder": "semuenzaniso, ICU, Critical Care, Python"
   },
   "psv": {
     "npiNumber": "Nhamba yeNPI (kusarudza)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Wedzera chitsamba chako pachako kukukoka kwako...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Sarudza chiziviso chebasa",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "Zvisina muganhu"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Tsvaga vanyoreri...",
+    "addNotePlaceholder": "Wedzera noti..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "semuenzaniso, Maneja weHR",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "semuenzaniso, City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "semuenzaniso, ATS webhook yeProduction",
+    "apiKeyNamePlaceholder": "semuenzaniso, Kubatanidza ATS yeProduction",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Tsvaga nemuongorori, mukwikwidzi, kana zvirimo...",
+    "rejectionReasonPlaceholder": "Ipa chikonzero chekuramba..."
   },
   "contact": {
     "declineReason": "semuenzaniso, Parizvino handisi kutsvaga mikana mitsva"
@@ -1489,7 +1489,7 @@
     "profileNamePlaceholder": "semuenzaniso, CV yeTekinoroji, CV yeHutungamiri"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Sarudza Nyika Kutanga",
+    "selectCity": "Sarudza Guta"
   }
 }

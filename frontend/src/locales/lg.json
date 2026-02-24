@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... oba endagiriro y'ofisi"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "ng'ekyokulabirako: Senior, Manager, Remote",
+    "messagePlaceholder": "Gyebale ko, nasanze pulofayiro yo nga nnyumiddwa ku kifo ky'emirimu kye tulina...",
+    "skillsPlaceholder": "ng'ekyokulabirako: ICU, Obujjanjabi obw'Ekiseera ekizibu, Python"
   },
   "psv": {
     "npiNumber": "Namba ya NPI (kye kisoboka okuleka)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Yongerako obubaka obw'omu mutima ku kuyita kwo...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Londa ekifo ky'omulimu",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "Awataliiko kkomo"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Noonya abasaba emirimu...",
+    "addNotePlaceholder": "Yongera ku kinyonyola..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "ng'okulabirako, Omukulu w’abaakozi",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "ng'okulabirako, City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "ng'ekyokulabirako: ATS webhook ey'Obukugu",
+    "apiKeyNamePlaceholder": "ng'ekyokulabirako: Okuyungibwa kwa ATS ey'Obukugu",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Noonya okusinziira ku mukakasi, omusaba, oba ebirimu...",
+    "rejectionReasonPlaceholder": "Wa ensonga y'okugaana..."
   },
   "contact": {
     "declineReason": "okugezaako: Ssirina kyenkyaalira okufuna emirimu emipya kati"
@@ -1489,7 +1489,7 @@
     "profileNamePlaceholder": "okugezaako: CV ya Tekinologiya, CV ya Buvunaanyizibwa"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Sooka eggwanga okusooka",
+    "selectCity": "Sooka olonde ekibuga"
   }
 }

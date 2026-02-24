@@ -420,7 +420,7 @@
     "submit": "Ohereza isuzuma",
     "questions": "ibibazo",
     "congratulations": "Twishimiye!",
-    "minutes": "min",
+    "minutes": "imin",
     "subtitle": "Emeza ubumenyi bwawe kandi ubone ibimenyetso kugira ngo wigaragaze ku bashaka abakozi",
     "earned": "Byabonetse",
     "keepPracticing": "Komeza Kwitoza",
@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... cyangwa aderesi y’ibiro"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "urugero: Senior, Manager, Remote",
+    "messagePlaceholder": "Muraho, nabonye umwirondoro wawe unyunguye ku mwanya wacu ufunguye...",
+    "skillsPlaceholder": "urugero: ICU, Critical Care, Python"
   },
   "psv": {
     "npiNumber": "Nimero ya NPI (si ngombwa)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Ongeraho ubutumwa bwite ku butumire bwawe...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Hitamo itangazo ry’akazi",
     "maxApplicantsPlaceholder": "Nta mipaka"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Shakisha abasabye akazi...",
+    "addNotePlaceholder": "Ongeraho inyandiko..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "urugero: Umuyobozi wa HR",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "urugero: City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "urugero: Webhook ya ATS ya Production",
+    "apiKeyNamePlaceholder": "urugero: Ihuriro rya ATS ya Production",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Shakisha ukoresheje usuzuma, umukandida cyangwa ibikubiyemo...",
+    "rejectionReasonPlaceholder": "Tanga impamvu yo kwanga..."
   },
   "contact": {
     "declineReason": "urugero: Ntabwo ndi gushaka amahirwe mashya ubu"
@@ -1489,7 +1489,7 @@
     "profileNamePlaceholder": "urugero: CV ya Tekinoloji, CV y'Ubuyobozi"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Banza uhitemo igihugu",
+    "selectCity": "Hitamo umujyi"
   }
 }

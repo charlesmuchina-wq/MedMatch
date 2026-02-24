@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... tàbí àdírẹ́sì ọ́fíìsì"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "àpẹẹrẹ: Agba, Alákóso, Jijìn",
+    "messagePlaceholder": "Bẹ́ẹ̀ni, mo rí profaili rẹ ní ìfẹ́kúfẹ̀ẹ́ fún ipò ṣíṣí wa...",
+    "skillsPlaceholder": "àpẹẹrẹ: ICU, Ìtọ́jú Tó Lágbára, Python"
   },
   "psv": {
     "npiNumber": "Nọ́ńbà NPI (àṣàyàn)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Ṣàfikún àkọsílẹ̀ ti ara ẹni sí ìpè rẹ...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Yan ìpolówó iṣẹ́ kan",
     "maxApplicantsPlaceholder": "Láìlópín"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Wá àwọn olùdíje...",
+    "addNotePlaceholder": "Fikun àkọsílẹ̀..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "àpẹẹrẹ, Alákóso HR",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "àpẹẹrẹ, Ilé ìwòsàn City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1420,7 +1420,7 @@
     "jobTitlePlaceholder": "Alákóso Gbigba Tálẹ́ńtì",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Ilé-iṣẹ́ Acme",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "websitePlaceholder": "https://acme.com"
   },
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "àpẹẹrẹ: webhook ATS Ìṣelọpọ",
+    "apiKeyNamePlaceholder": "àpẹẹrẹ: Ìsopọ̀ ATS Ìṣelọpọ",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Wá nípa olùṣàyẹ̀wò, olùdíje, tàbí àkóónú...",
+    "rejectionReasonPlaceholder": "Pèsè ìdí fún ìkọ̀sílẹ̀..."
   },
   "contact": {
     "declineReason": "àpẹẹrẹ: Kò wá àǹfààní tuntun lọ́wọ́lọ́wọ́ yìí"
@@ -1489,7 +1489,7 @@
     "profileNamePlaceholder": "àpẹẹrẹ: Résumé Imọ̀-ẹ̀rọ, Résumé Ìṣàkóso"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Yan Orílẹ̀-èdè Kọ́kọ́",
+    "selectCity": "Yan Ìlú"
   }
 }

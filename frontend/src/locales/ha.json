@@ -590,7 +590,7 @@
     "jobDescriptionPlaceholder": "Manna cikakken bayanin aikin nan. AI zai samar da tambayoyin hira masu dacewa bisa bukatun aikin da ƙwarewar da ke cikin CV ɗinka..."
   },
   "membership": {
-    "premium": "Premium",
+    "premium": "Na ƙima",
     "freeTrial": "Gwajin Kyauta",
     "expired": "Ya ƙare",
     "upgrade": "Haɓaka Yanzu",
@@ -1181,8 +1181,8 @@
       "title": "Biyan Kuɗi",
       "currentPlan": "Tsarin Yanzu",
       "free": "Kyauta",
-      "premium": "Premium",
-      "enterprise": "Enterprise",
+      "premium": "Na ƙima",
+      "enterprise": "Kamfani (Enterprise)",
       "upgrade": "Haɓaka",
       "downgrade": "Rage Tsari",
       "cancel": "Soke Biyan Kuɗi",
@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... ko adireshin ofis"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "misali, Babba, Manaja, Nesa",
+    "messagePlaceholder": "Sannu, na ga profaɗil ɗinka yana da ban sha'awa don gurbin aikinmu da ke buɗe...",
+    "skillsPlaceholder": "misali, ICU, Kula da marasa lafiya masu tsanani, Python"
   },
   "psv": {
     "npiNumber": "Lambar NPI (na zaɓi)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Ƙara bayanin sirri a gayyatarka...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Zaɓi sanarwar aiki",
     "maxApplicantsPlaceholder": "Ba tare da iyaka ba"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Nema masu nema...",
+    "addNotePlaceholder": "Ƙara bayanin kula..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "misali, Manajan HR",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "misali, City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "misali, webhook na ATS na Production",
+    "apiKeyNamePlaceholder": "misali, Haɗa ATS na Production",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Nema ta mai dubawa, ɗan takara, ko abun ciki...",
+    "rejectionReasonPlaceholder": "Bayar da dalilin ƙin amincewa..."
   },
   "contact": {
     "declineReason": "misali, Ba na neman sabbin dama a yanzu"
@@ -1483,13 +1483,13 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Zaɓi zangon kwanan wata..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "misali, CV na Fasaha, CV na Gudanarwa"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Da farko zaɓi ƙasa",
+    "selectCity": "Zaɓi birni"
   }
 }

@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... walla màkkaan bu biro bi"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "misaal: Senior, Manager, Remote",
+    "messagePlaceholder": "Naka nga def, gis naa sa profil ba mu neex na ma ngir sunu postu liggéey bi ubbi...",
+    "skillsPlaceholder": "misaal: ICU, Critical Care, Python"
   },
   "psv": {
     "npiNumber": "Nimero NPI (am na lu ci mën a nekk)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Yokk ab xëtal bu laaj ci sa ndigal...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Tànn benn postu liggéey",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "Amul"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Wut kandidàt yi...",
+    "addNotePlaceholder": "Yokk ab xët..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "misaal: HR Manager",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "misaal: City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "sa@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "misaal: Production ATS webhook",
+    "apiKeyNamePlaceholder": "misaal: Production ATS Integration",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Wut ci jàngatkat, kandidat walla ëmbit...",
+    "rejectionReasonPlaceholder": "Joxal ab sababu ngir bañ..."
   },
   "contact": {
     "declineReason": "misaal: Dama nekkul di seet ay fursit yu bees leegi"
@@ -1483,13 +1483,13 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Tànn awu yoonu bés yi..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "misaal: CV Teknoloji, CV Njiit"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Tànn réew bi jëkk",
+    "selectCity": "Tànn dëkk"
   }
 }

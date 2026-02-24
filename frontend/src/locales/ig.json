@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... ma ọ bụ adreesị ọfịs"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "dịka, Onye Okenye, Onye njikwa, Remote",
+    "messagePlaceholder": "Ndewo, achọpụtara m profaịlụ gị na-atọ ụtọ maka ọrụ anyị mepere...",
+    "skillsPlaceholder": "dịka, ICU, Nlekọta Dị Mkpa, Python"
   },
   "psv": {
     "npiNumber": "Nọmba NPI (nhọrọ)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Tinye ozi nkeonwe na òkù gị...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Họrọ ndepụta ọrụ",
     "maxApplicantsPlaceholder": "Enweghị njedebe"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Chọọ ndị na-etinye akwụkwọ...",
+    "addNotePlaceholder": "Tinye ndetu..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "dịka, Onye njikwa HR",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "dịka ọmụmaatụ, City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "dịka, webhook ATS nke Mmepụta",
+    "apiKeyNamePlaceholder": "dịka, Njikọta ATS nke Mmepụta",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Chọọ site na onye nyochara, onye kandidet, ma ọ bụ ọdịnaya...",
+    "rejectionReasonPlaceholder": "Nye ihe kpatara ịjụ..."
   },
   "contact": {
     "declineReason": "dịka ọmụmaatụ, Anaghị m achọ ohere ọhụrụ ugbu a"
@@ -1483,13 +1483,13 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Họrọ ogo ụbọchị..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "dịka ọmụmaatụ, Resume Teknụzụ, Resume Njikwa"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Buru ụzọ họrọ Mba",
+    "selectCity": "Họrọ Obodo"
   }
 }

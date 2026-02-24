@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... noma ikheli lehhovisi"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "isb., Osenior, Umphathi, Kude",
+    "messagePlaceholder": "Sawubona, ngithole iphrofayela yakho ithakazelisa ngesikhundla sethu esivulekile...",
+    "skillsPlaceholder": "isb., i-ICU, Ukunakekelwa Okubucayi, i-Python"
   },
   "psv": {
     "npiNumber": "Inombolo ye-NPI (uyazikhethela)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Engeza inothi lomuntu siqu esimemweni sakho...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Khetha isikhangiso somsebenzi",
     "maxApplicantsPlaceholder": "Okungenamkhawulo"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Sesha abafakisicelo...",
+    "addNotePlaceholder": "Engeza inothi..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "isib., Umphathi we-HR",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "isib., City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "isb., i-webhook ye-ATS Yokukhiqiza",
+    "apiKeyNamePlaceholder": "isb., Ukuhlanganiswa kwe-ATS Yokukhiqiza",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Sesha ngomhloli, umfakisicelo, noma okuqukethwe...",
+    "rejectionReasonPlaceholder": "Nikeza isizathu sokwenqaba..."
   },
   "contact": {
     "declineReason": "isb., Angifuni amathuba amasha njengamanje"
@@ -1483,13 +1483,13 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Khetha ububanzi bezinsuku..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "isb., I-CV Yezobuchwepheshe, I-CV Yokuphatha"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Khetha Izwe Kuqala",
+    "selectCity": "Khetha Idolobha"
   }
 }

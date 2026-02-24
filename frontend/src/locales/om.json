@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... yookaan teessoo waajjiraa"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "fakkeenyaaf, Sadarkaa Ol’aanaa, Hogganaa, Fageenya irraa",
+    "messagePlaceholder": "Akkam jirtu, profaayilii kee hojii banaa keenyaaf nama hawwatu ta'uu isaa arge...",
+    "skillsPlaceholder": "fakkeenyaaf, ICU, Kunuunsa Cimaa, Python"
   },
   "psv": {
     "npiNumber": "Lakkoofsa NPI (filannoo)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Yaada dhuunfaa afeerraa keetiif dabali...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Beeksisa hojii filadhu",
     "maxApplicantsPlaceholder": "Daangaa hin qabu"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Kadhimtoota barbaadi...",
+    "addNotePlaceholder": "Yaada dabali..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "fkn., Hogganaa HR",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "fkn., Giddugala Fayyaa Magaalaa",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "fakkeenyaaf, Webhook ATS Production",
+    "apiKeyNamePlaceholder": "fakkeenyaaf, Walitti Makuu ATS Production",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Gamaaggaraa, kadhimaa, ykn qabiyyee irratti barbaadi...",
+    "rejectionReasonPlaceholder": "Sababa diddaa kenni..."
   },
   "contact": {
     "declineReason": "fkn., Amma carraa haaraa hin barbaadu"
@@ -1483,13 +1483,13 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Daangaa guyyaa filadhu..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "fkn., Riizume Teeknooloojii, Riizume Bulchiinsaa"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Dura Biyya Filadhu",
+    "selectCity": "Magaalaa Filadhu"
   }
 }

@@ -1182,7 +1182,7 @@
       "currentPlan": "Mpango wa Sasa",
       "free": "Bure",
       "premium": "Premium",
-      "enterprise": "Enterprise",
+      "enterprise": "Biashara",
       "upgrade": "Boresha",
       "downgrade": "Shusha Mpango",
       "cancel": "Ghairi Usajili",
@@ -1351,9 +1351,9 @@
     "locationPlaceholder": "https://meet.google.com/... au anwani ya ofisi"
   },
   "blindScreening": {
-    "keywordsPlaceholder": "e.g., Senior, Manager, Remote",
-    "messagePlaceholder": "Hi, I found your profile interesting for our open position...",
-    "skillsPlaceholder": "e.g., ICU, Critical Care, Python"
+    "keywordsPlaceholder": "mfano, Mwandamizi, Meneja, Mbali",
+    "messagePlaceholder": "Hujambo, nimeona wasifu wako ni wa kuvutia kwa nafasi yetu iliyo wazi...",
+    "skillsPlaceholder": "mfano, ICU, Huduma Mahututi, Python"
   },
   "psv": {
     "npiNumber": "Nambari ya NPI (si lazima)",
@@ -1398,20 +1398,20 @@
   },
   "atsManagement": {
     "candidateNamePlaceholder": "John Doe",
-    "inviteNotePlaceholder": "Add a personal note to your invitation...",
+    "inviteNotePlaceholder": "Ongeza ujumbe binafsi kwenye mwaliko wako...",
     "candidateEmailPlaceholder": "candidate@example.com",
     "selectJobPlaceholder": "Chagua tangazo la kazi",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "maxApplicantsPlaceholder": "Bila kikomo"
   },
   "applicantTracker": {
-    "searchPlaceholder": "Search applicants...",
-    "addNotePlaceholder": "Add a note..."
+    "searchPlaceholder": "Tafuta waombaji...",
+    "addNotePlaceholder": "Ongeza dokezo..."
   },
   "recruiterVerification": {
     "websitePlaceholder": "https://example.com",
-    "rolePlaceholder": "e.g., HR Manager",
+    "rolePlaceholder": "mfano, Meneja wa Rasilimali Watu",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "companyPlaceholder": "e.g., City Medical Center",
+    "companyPlaceholder": "mfano, City Medical Center",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -1454,13 +1454,13 @@
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
-    "webhookDescPlaceholder": "e.g., Production ATS webhook",
-    "apiKeyNamePlaceholder": "e.g., Production ATS Integration",
+    "webhookDescPlaceholder": "mfano, webhook ya ATS ya Uzalishaji",
+    "apiKeyNamePlaceholder": "mfano, Ujumuishaji wa ATS ya Uzalishaji",
     "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
-    "searchPlaceholder": "Search by reviewer, candidate, or content...",
-    "rejectionReasonPlaceholder": "Provide a reason for rejection..."
+    "searchPlaceholder": "Tafuta kwa mkaguzi, mgombea, au maudhui...",
+    "rejectionReasonPlaceholder": "Toa sababu ya kukataliwa..."
   },
   "contact": {
     "declineReason": "mf., Sisaki fursa mpya kwa sasa"
@@ -1483,13 +1483,13 @@
     "yearsPlaceholder": "5"
   },
   "adminDataIntegrity": {
-    "selectDateRangePlaceholder": "Select date range..."
+    "selectDateRangePlaceholder": "Chagua kipindi cha tarehe..."
   },
   "resumeProfiles": {
     "profileNamePlaceholder": "mf., Wasifu wa Tech, Wasifu wa Usimamizi"
   },
   "jobSearch": {
-    "selectCountryFirst": "Select Country First",
-    "selectCity": "Select City"
+    "selectCountryFirst": "Chagua nchi kwanza",
+    "selectCity": "Chagua jiji"
   }
 }
