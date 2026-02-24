@@ -13,58 +13,54 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 |-----------|--------|---------|
 | **Backend** | Healthy | Version 2.2.0, AI Supervisor running |
 | **Frontend** | Running | Webpack compiled, no errors |
-| **Database** | Optimized | 82 collections, 56K docs, indexes added |
-| **Authentication** | Working | Login, sessions, all view modes |
-| **AI KARAU Meeting** | VERIFIED | E2E 100% pass, Share Meeting feature added |
-| **Share Meeting** | NEW | Guest join, share dialog, calendar invite |
-| **Translations** | **99.2% COVERAGE** | 1,887 UI keys, 32 languages |
+| **Database** | Optimized | 82 collections, 56K docs, 9+ indexes |
+| **Scheduled Maintenance** | Active | Weekly Sundays 9:00 UTC via Dragon Scheduler |
+| **AI KARAU Meeting** | Verified | E2E 100% pass, Share Meeting feature |
+| **Translations** | **99.2%** | 1,887 keys, 32 languages |
 
 ---
 
-## Database Standardization (February 24, 2026) - COMPLETE
+## Completed Features (This Session)
 
-### ID Format Summary
-| Entity | Format | Example | Unique Index |
-|--------|--------|---------|--------------|
-| Users | `user_{12hex}` | `user_18ce8d3c6541` | Yes (user_id, email) |
-| Meetings | 8-char uppercase hex | `D65B1523` | Yes (meeting_id) |
-| Applications | UUID v4 | `358d6c4f-d642-...` | Yes (id) |
-| Sessions | Token string | `H_A5te5v2B-...` | Yes (session_token) |
+### 1. Share Meeting Feature
+- Guest Join Page (`/karau-meet/join/{meetingId}`) - no account needed
+- ShareMeetingDialog: copy link, .ics download, Google Calendar
+- Share buttons on Dashboard, Create Meeting dialog, Meeting Room header
+- Backend public endpoint: `GET /api/karau-meet/meetings/{id}/info`
 
-### Maintenance Performed
-- Cleaned 2,417 expired sessions (2,822 → 408)
-- Expired 50 stale meetings (waiting 7+ days)
-- Cleaned 4 expired OAuth states
-- Created 9 new database indexes
-- Fixed _id serialization in push.py
+### 2. Database Standardization & Debugging
+- Audited 82 collections, verified ID format consistency (no duplicates)
+- Fixed _id serialization leak in push.py
 - Suppressed Xirsys TURN error logging (graceful STUN fallback)
-- No duplicate IDs found in any collection
-- No _id serialization issues in API responses
+- Created 9 new indexes for performance
 
-### New Admin Endpoints
-- `POST /api/admin-audit/database/maintenance` - Run cleanup + index creation
-- `GET /api/admin-audit/database/health` - DB health report with recommendations
+### 3. Automated Scheduled Maintenance
+- Extended Dragon Scheduler's `cleanup_old_data()` to also handle:
+  - Expired user sessions
+  - Stale meetings (waiting 7+ days → expired)
+  - ML training data older than 30 days
+  - Expired OAuth states and WebAuthn challenges
+  - Expired email verification codes
+- Runs automatically every Sunday at 9:00 AM UTC
+- Manual trigger: `POST /api/admin-audit/database/maintenance`
+- Health check: `GET /api/admin-audit/database/health`
 
 ---
 
-## Backlog (Prioritized)
+## Backlog (Parked)
 
-### P1 - Next Up
+### P1
 - LinkedIn Profile Sync
 - ORCID OAuth Login
 - PayPal Integration
 
-### P2 - Future
+### P2
 - Enterprise SSO/SAML
 - iOS Build
-- Live multi-user WebRTC test
 
 ---
 
 ## Key Technical Info
-- **Admin credentials:** admin@medmatch.com / Swampdrainer2026!
-- **Language localStorage key:** medmatch-language
-- **Guest localStorage key:** karau_guest
-- **Translation benchmark API:** GET /api/translation-qa/benchmark
-- **DB Maintenance API:** POST /api/admin-audit/database/maintenance
+- **Admin:** admin@medmatch.com / Swampdrainer2026!
+- **Scheduler:** Dragon Scheduler, 5 jobs, MongoDB-persisted (apscheduler_jobs)
 - **Mocked:** Google and Apple social sign-in
