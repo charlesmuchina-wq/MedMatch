@@ -757,7 +757,7 @@
     "negotiationTips": "Verhandlungstipps",
     "targetRole": "Ihre Zielposition",
     "high": "Hoch",
-    "median": "Median",
+    "median": "Medianwert",
     "belowMarket": "Unter Marktniveau",
     "title": "Gehaltseinblicke",
     "highValueSkills": "Hochwertige Fähigkeiten für diese Rolle",
@@ -1294,7 +1294,7 @@
     "renewsOn": "Verlängert sich am",
     "billingHistory": "Rechnungsverlauf",
     "upgrade": "Upgrade",
-    "downgrade": "Downgrade",
+    "downgrade": "Herabstufen",
     "manageBilling": "Abrechnung verwalten"
   },
   "biometric": {
