@@ -322,7 +322,7 @@ const LoginPage = ({ onAuthSuccess }) => {
               onClick={() => navigate('/')}
               className="w-full text-center text-sm text-slate-500 hover:text-turquoise transition-colors"
             >
-              ← Back to Portal Selection
+              ← {t("navigation.backToPortal")}
             </button>
           </div>
 
