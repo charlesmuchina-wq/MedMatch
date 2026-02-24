@@ -1057,28 +1057,28 @@ const VideoTutorialsPage = () => {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="flex-1">
-              <h1 className="text-3xl md:text-4xl font-bold mb-4">Help & Tutorials</h1>
+              <h1 className="text-3xl md:text-4xl font-bold mb-4">{t('helpTutorials.pageTitle')}</h1>
               <p className="text-teal-100 text-lg mb-6">
-                Learn how to make the most of MedMatch-AI KARAU with our video guides and quick-start tutorials.
+                {t('helpTutorials.pageSubtitle')}
               </p>
-              <div className="flex gap-3">
+              <div className="flex gap-3 flex-wrap">
                 <button 
                   onClick={() => setActiveTab('getting-started')}
                   className={`px-4 py-2 rounded-lg font-medium transition-all ${activeTab === 'getting-started' ? 'bg-white text-teal-700' : 'bg-teal-500 text-white hover:bg-teal-400'}`}
                 >
-                  🎬 Getting Started
+                  🎬 {t('helpTutorials.gettingStartedBtn')}
                 </button>
                 <button 
                   onClick={() => setActiveTab('videos')}
                   className={`px-4 py-2 rounded-lg font-medium transition-all ${activeTab === 'videos' ? 'bg-white text-teal-700' : 'bg-teal-500 text-white hover:bg-teal-400'}`}
                 >
-                  Video Tutorials
+                  {t('helpTutorials.videoTutorialsBtn')}
                 </button>
                 <button 
                   onClick={() => setActiveTab('guides')}
                   className={`px-4 py-2 rounded-lg font-medium transition-all ${activeTab === 'guides' ? 'bg-white text-teal-700' : 'bg-teal-500 text-white hover:bg-teal-400'}`}
                 >
-                  Quick Guides
+                  {t('helpTutorials.quickGuidesBtn')}
                 </button>
               </div>
             </div>
@@ -1102,7 +1102,7 @@ const VideoTutorialsPage = () => {
 
         {activeTab === 'videos' ? (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Video Tutorials</h2>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t('videoTutorials.title')}</h2>
             
             {loading ? (
               // Skeleton loading state
@@ -1118,36 +1118,69 @@ const VideoTutorialsPage = () => {
                     key={video.id} 
                     video={video} 
                     onSelect={handleVideoSelect}
+                    t={t}
                   />
                 ))}
               </div>
             )}
           </div>
-        ) : (
+        ) : activeTab === 'guides' ? (
           <div className="space-y-8">
-            {quickGuides.map((guide, idx) => (
-              <div key={idx} className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-slate-700">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                  {idx === 0 ? <Users className="w-5 h-5 text-teal-500" /> : <Briefcase className="w-5 h-5 text-purple-500" />}
-                  {guide.title}
-                </h2>
-                <div className="space-y-4">
-                  {guide.items.map((item, i) => (
-                    <div key={i} className="flex gap-4 items-start">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm ${idx === 0 ? 'bg-teal-500' : 'bg-purple-500'}`}>
-                        {item.step}
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 dark:text-white">{item.title}</h3>
-                        <p className="text-sm text-gray-700 dark:text-gray-300">{item.desc}</p>
-                      </div>
+            {/* For Job Seekers */}
+            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-slate-700">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <Users className="w-5 h-5 text-teal-500" />
+                {t('helpTutorials.forJobSeekers')}
+              </h2>
+              <div className="space-y-4">
+                {[
+                  { step: '1', titleKey: 'helpTutorials.steps.signIn', descKey: 'helpTutorials.steps.signInDesc' },
+                  { step: '2', titleKey: 'helpTutorials.steps.uploadResume', descKey: 'helpTutorials.steps.uploadResumeDesc' },
+                  { step: '3', titleKey: 'helpTutorials.steps.completeProfile', descKey: 'helpTutorials.steps.completeProfileDesc' },
+                  { step: '4', titleKey: 'helpTutorials.steps.searchJobs', descKey: 'helpTutorials.steps.searchJobsDesc' },
+                  { step: '5', titleKey: 'helpTutorials.steps.applyTrack', descKey: 'helpTutorials.steps.applyTrackDesc' }
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-4 items-start">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm bg-teal-500">
+                      {item.step}
                     </div>
-                  ))}
-                </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 dark:text-white">{t(item.titleKey)}</h3>
+                      <p className="text-sm text-slate-700 dark:text-gray-300">{t(item.descKey)}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+            
+            {/* For Recruiters */}
+            <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm p-6 border border-gray-200 dark:border-slate-700">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <Briefcase className="w-5 h-5 text-purple-500" />
+                {t('helpTutorials.forRecruiters')}
+              </h2>
+              <div className="space-y-4">
+                {[
+                  { step: '1', titleKey: 'helpTutorials.steps.accessDashboard', descKey: 'helpTutorials.steps.accessDashboardDesc' },
+                  { step: '2', titleKey: 'helpTutorials.steps.createJobPosting', descKey: 'helpTutorials.steps.createJobPostingDesc' },
+                  { step: '3', titleKey: 'helpTutorials.steps.generateLinks', descKey: 'helpTutorials.steps.generateLinksDesc' },
+                  { step: '4', titleKey: 'helpTutorials.steps.reviewApplications', descKey: 'helpTutorials.steps.reviewApplicationsDesc' },
+                  { step: '5', titleKey: 'helpTutorials.steps.hireTopTalent', descKey: 'helpTutorials.steps.hireTopTalentDesc' }
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-4 items-start">
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm bg-purple-500">
+                      {item.step}
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 dark:text-white">{t(item.titleKey)}</h3>
+                      <p className="text-sm text-slate-700 dark:text-gray-300">{t(item.descKey)}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        )}
+        ) : null}
       </div>
 
       {/* Video Modal */}
@@ -1159,6 +1192,7 @@ const VideoTutorialsPage = () => {
           setSelectedLanguage={setSelectedLanguage}
           showSubtitles={showSubtitles}
           setShowSubtitles={setShowSubtitles}
+          t={t}
         />
       )}
     </div>
