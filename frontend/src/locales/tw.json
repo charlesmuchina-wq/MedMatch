@@ -582,7 +582,7 @@
     "jobDescriptionPlaceholder": "Fa adwuma no nkyerɛkyerɛmu nyinaa bɛto ha. AI bɛyɛ nsɛmmisa a ɛfa ho ama interview, a egyina nea wɔhwehwɛ ne wo resume mu nimdeɛ so..."
   },
   "membership": {
-    "premium": "Premium",
+    "premium": "Premiɔm",
     "freeTrial": "Sɔhwɛ a wontua hwee",
     "expired": "Awae",
     "upgrade": "Fa no soro seesei",
@@ -1181,7 +1181,7 @@
       "title": "Akwansie",
       "currentPlan": "Nhyehyɛe a woredi seesei",
       "free": "Kwae",
-      "premium": "Premium",
+      "premium": "Premiɔm",
       "enterprise": "Adwumakuo Kɛse",
       "upgrade": "Ma no so",
       "downgrade": "Te ase",
@@ -1212,7 +1212,7 @@
       "viewAll": "Hwɛ Ne Nyinaa"
     },
     "capaDashboard": {
-      "title": "CAPA Dashboard",
+      "title": "CAPA Dashbord",
       "subtitle": "Nneyɛe a Wɔyɛ de Siesie ne Siesie ansa na asɛe",
       "openCAPAs": "CAPA a ɛda so ara",
       "closedCAPAs": "CAPA a wɔato mu",
