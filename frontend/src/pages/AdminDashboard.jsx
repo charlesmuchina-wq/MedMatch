@@ -452,27 +452,27 @@ export default function AdminDashboard() {
       {/* Quick Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <QuickStatCard
-          title="Total Users"
+          title={t('admin.dashboard.totalUsers')}
           value={stats.total_users}
           icon={Users}
           color="turquoise"
           trend={12}
         />
         <QuickStatCard
-          title="Active Users"
+          title={t('admin.dashboard.activeUsers')}
           value={stats.active_users}
           icon={Activity}
           color="green"
           trend={5}
         />
         <QuickStatCard
-          title="Scheduled Jobs"
+          title={t('admin.dashboard.scheduledJobs')}
           value={schedulerStatus?.jobs?.length || 0}
           icon={Calendar}
           color="purple"
         />
         <QuickStatCard
-          title="Pending Issues"
+          title={t('admin.dashboard.pendingIssues')}
           value={stats.pending_issues}
           icon={AlertTriangle}
           color={stats.pending_issues > 0 ? "yellow" : "green"}
