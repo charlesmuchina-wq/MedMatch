@@ -1420,7 +1420,7 @@
     "jobTitlePlaceholder": "Umuyobozi ushinzwe gushaka abakozi",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Sosiyete Acme",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "websitePlaceholder": "https://acme.com"
   },
@@ -1451,7 +1451,7 @@
     "meetingIdPlaceholder": "Injiza indangamuntu y’inama (urugero: ABC-123-XYZ)",
     "verificationCodePlaceholder": "Injiza kode y’imibare 6",
     "meetingTitlePlaceholder": "Inama ya AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "email@yawe.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "urugero: Webhook ya ATS ya Production",
