@@ -2221,5 +2221,34 @@
     "copied": "Imenakiliwa kwenye ubao wa kunakili",
     "uploaded": "Imepakiwa kwa mafanikio",
     "downloaded": "Upakuaji umeanza"
+  },
+  "share": {
+    "shareMeeting": "Shiriki Mkutano",
+    "shareDescription": "Shiriki kiungo hiki cha mkutano na washiriki. Wageni wanaweza kujiunga bila akaunti.",
+    "meetingLink": "Kiungo cha Mkutano",
+    "meetingId": "Kitambulisho cha Mkutano",
+    "copy": "Nakili",
+    "copied": "Imenakiliwa!",
+    "linkCopied": "Kiungo cha mkutano kimenakiliwa!",
+    "addToCalendar": "Ongeza kwenye Kalenda",
+    "downloadICS": "Pakua .ics",
+    "calendarDownloaded": "Mwaliko wa kalenda umepakuliwa!",
+    "guestTip": "Wageni wanaweza kujiunga kwa kutumia kiungo hiki bila kuunda akaunti. Shiriki kiungo tu na wanaweza kuingia kwa jina lao."
+  },
+  "guest": {
+    "yourName": "Jina Lako",
+    "namePlaceholder": "Ingiza jina lako",
+    "enterName": "Tafadhali ingiza jina lako ili ujiunge",
+    "joinMeeting": "Jiunge na Mkutano",
+    "joining": "Inajiunga...",
+    "joinFailed": "Imeshindwa kujiunga na mkutano. Tafadhali jaribu tena.",
+    "meetingNotFound": "Mkutano Haujapatikana",
+    "meetingNotFoundDesc": "Mkutano huu unaweza kuwa umeisha au kiungo si sahihi.",
+    "backToPortal": "Rudi kwenye Lango",
+    "meetingId": "Kitambulisho cha Mkutano",
+    "encrypted": "Imesimbwa",
+    "aiPowered": "AI",
+    "secure": "Salama",
+    "haveAccount": "Una akaunti? Ingia badala yake"
   }
 }

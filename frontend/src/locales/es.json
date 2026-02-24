@@ -2234,5 +2234,34 @@
     "copied": "Copiado al portapapeles",
     "uploaded": "Subido correctamente",
     "downloaded": "Descarga iniciada"
+  },
+  "share": {
+    "shareMeeting": "Compartir reunión",
+    "shareDescription": "Comparte este enlace de reunión con los participantes. Los invitados pueden unirse sin cuenta.",
+    "meetingLink": "Enlace de reunión",
+    "meetingId": "ID de reunión",
+    "copy": "Copiar",
+    "copied": "¡Copiado!",
+    "linkCopied": "¡Enlace de reunión copiado al portapapeles!",
+    "addToCalendar": "Agregar al calendario",
+    "downloadICS": "Descargar .ics",
+    "calendarDownloaded": "¡Invitación de calendario descargada!",
+    "guestTip": "Los invitados pueden unirse usando este enlace sin crear una cuenta. Solo comparte el enlace y pueden entrar con su nombre."
+  },
+  "guest": {
+    "yourName": "Tu nombre",
+    "namePlaceholder": "Ingresa tu nombre",
+    "enterName": "Por favor ingresa tu nombre para unirte",
+    "joinMeeting": "Unirse a la reunión",
+    "joining": "Uniéndose...",
+    "joinFailed": "No se pudo unir a la reunión. Inténtalo de nuevo.",
+    "meetingNotFound": "Reunión no encontrada",
+    "meetingNotFoundDesc": "Esta reunión puede haber terminado o el enlace es inválido.",
+    "backToPortal": "Volver al portal",
+    "meetingId": "ID de reunión",
+    "encrypted": "Cifrado",
+    "aiPowered": "IA",
+    "secure": "Seguro",
+    "haveAccount": "¿Tienes una cuenta? Inicia sesión"
   }
 }

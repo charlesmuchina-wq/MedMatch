@@ -2234,5 +2234,34 @@
     "copied": "Copié dans le presse-papiers",
     "uploaded": "Téléversé avec succès",
     "downloaded": "Téléchargement démarré"
+  },
+  "share": {
+    "shareMeeting": "Partager la réunion",
+    "shareDescription": "Partagez ce lien de réunion avec les participants. Les invités peuvent rejoindre sans compte.",
+    "meetingLink": "Lien de la réunion",
+    "meetingId": "ID de réunion",
+    "copy": "Copier",
+    "copied": "Copié !",
+    "linkCopied": "Lien de réunion copié dans le presse-papiers !",
+    "addToCalendar": "Ajouter au calendrier",
+    "downloadICS": "Télécharger .ics",
+    "calendarDownloaded": "Invitation de calendrier téléchargée !",
+    "guestTip": "Les invités peuvent rejoindre via ce lien sans créer de compte. Partagez simplement le lien et ils pourront entrer avec leur nom."
+  },
+  "guest": {
+    "yourName": "Votre nom",
+    "namePlaceholder": "Entrez votre nom",
+    "enterName": "Veuillez entrer votre nom pour rejoindre",
+    "joinMeeting": "Rejoindre la réunion",
+    "joining": "Connexion...",
+    "joinFailed": "Impossible de rejoindre la réunion. Veuillez réessayer.",
+    "meetingNotFound": "Réunion introuvable",
+    "meetingNotFoundDesc": "Cette réunion a peut-être pris fin ou le lien est invalide.",
+    "backToPortal": "Retour au portail",
+    "meetingId": "ID de réunion",
+    "encrypted": "Chiffré",
+    "aiPowered": "IA",
+    "secure": "Sécurisé",
+    "haveAccount": "Vous avez un compte ? Connectez-vous"
   }
 }

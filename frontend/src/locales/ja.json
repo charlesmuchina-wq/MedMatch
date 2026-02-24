@@ -2221,5 +2221,34 @@
     "copied": "クリップボードにコピーしました",
     "uploaded": "アップロードしました",
     "downloaded": "ダウンロードを開始しました"
+  },
+  "share": {
+    "shareMeeting": "ミーティングを共有",
+    "shareDescription": "このミーティングリンクを参加者と共有してください。ゲストはアカウントなしで参加できます。",
+    "meetingLink": "ミーティングリンク",
+    "meetingId": "ミーティングID",
+    "copy": "コピー",
+    "copied": "コピーしました！",
+    "linkCopied": "ミーティングリンクをクリップボードにコピーしました！",
+    "addToCalendar": "カレンダーに追加",
+    "downloadICS": ".icsをダウンロード",
+    "calendarDownloaded": "カレンダー招待をダウンロードしました！",
+    "guestTip": "ゲストはアカウントを作成せずにこのリンクから参加できます。リンクを共有するだけで、名前を入力して参加できます。"
+  },
+  "guest": {
+    "yourName": "お名前",
+    "namePlaceholder": "名前を入力",
+    "enterName": "参加するには名前を入力してください",
+    "joinMeeting": "ミーティングに参加",
+    "joining": "参加中...",
+    "joinFailed": "ミーティングへの参加に失敗しました。もう一度お試しください。",
+    "meetingNotFound": "ミーティングが見つかりません",
+    "meetingNotFoundDesc": "このミーティングは終了したか、リンクが無効です。",
+    "backToPortal": "ポータルに戻る",
+    "meetingId": "ミーティングID",
+    "encrypted": "暗号化",
+    "aiPowered": "AI搭載",
+    "secure": "セキュア",
+    "haveAccount": "アカウントをお持ちですか？サインイン"
   }
 }

@@ -2234,5 +2234,34 @@
     "copied": "In die Zwischenablage kopiert",
     "uploaded": "Erfolgreich hochgeladen",
     "downloaded": "Download gestartet"
+  },
+  "share": {
+    "shareMeeting": "Meeting teilen",
+    "shareDescription": "Teilen Sie diesen Meeting-Link mit den Teilnehmern. Gäste können ohne Konto beitreten.",
+    "meetingLink": "Meeting-Link",
+    "meetingId": "Meeting-ID",
+    "copy": "Kopieren",
+    "copied": "Kopiert!",
+    "linkCopied": "Meeting-Link in die Zwischenablage kopiert!",
+    "addToCalendar": "Zum Kalender hinzufügen",
+    "downloadICS": ".ics herunterladen",
+    "calendarDownloaded": "Kalendereinladung heruntergeladen!",
+    "guestTip": "Gäste können über diesen Link beitreten, ohne ein Konto zu erstellen. Teilen Sie einfach den Link und sie können mit ihrem Namen beitreten."
+  },
+  "guest": {
+    "yourName": "Ihr Name",
+    "namePlaceholder": "Geben Sie Ihren Namen ein",
+    "enterName": "Bitte geben Sie Ihren Namen ein, um beizutreten",
+    "joinMeeting": "Meeting beitreten",
+    "joining": "Beitritt...",
+    "joinFailed": "Beitritt zum Meeting fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "meetingNotFound": "Meeting nicht gefunden",
+    "meetingNotFoundDesc": "Dieses Meeting wurde möglicherweise beendet oder der Link ist ungültig.",
+    "backToPortal": "Zurück zum Portal",
+    "meetingId": "Meeting-ID",
+    "encrypted": "Verschlüsselt",
+    "aiPowered": "KI",
+    "secure": "Sicher",
+    "haveAccount": "Haben Sie ein Konto? Anmelden"
   }
 }
