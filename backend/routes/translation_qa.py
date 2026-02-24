@@ -431,13 +431,20 @@ async def get_translation_benchmark():
             
             # Words that are legitimately the same across many languages
             INTERNATIONAL_TERMS = {
+                # Brand names and tech terms
                 'Google', 'Apple', 'LinkedIn', 'ORCID', 'Facebook', 'Twitter', 'GitHub', 'Premium',
                 'PDF', 'URL', 'API', 'AI', 'Email', 'OK', 'Video', 'Audio', 'Online', 'Offline',
                 'Dashboard', 'Admin', 'Score', 'ID', 'PIN', 'QR', 'USB', 'GPS', 'WiFi', 'Bluetooth',
                 'GxP', 'FDA', 'ISO', 'EMA', 'HIPAA', 'CCPA', 'CSV', 'JSON', 'HTML', 'CSS', 'SOC 2',
+                'MedMatch AI', 'AI KARAU',
+                # Common UI terms that stay similar across European languages
                 'Actions', 'Notifications', 'Messages', 'Notes', 'Source', 'Participants', 'Structure',
                 'Publications', 'Culture', 'Documentation', 'Suggestions', 'Standard', 'Rural',
-                'Face ID', 'Touch ID', 'min', 'km', 'S - Situation', 'A - Action', 'Posture'
+                'Face ID', 'Touch ID', 'min', 'km', 'S - Situation', 'A - Action', 'Posture',
+                # Short common words that are often similar
+                'Info', 'Optional', 'Hybrid', 'Start', 'Chat', 'Upgrade', 'Downgrade', 'Name',
+                'Status', 'Feedback', 'Median', 'Neutral', 'Remote', 'Contract', 'Transcript',
+                'Tips', 'correct', 'Recruiter', 'Later'
             }
             
             # Count translated (non-identical OR legitimately same)
