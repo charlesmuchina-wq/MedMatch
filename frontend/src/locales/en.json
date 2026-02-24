@@ -1731,9 +1731,10 @@
     "startMockInterview": "Start Mock Interview",
     "practiceQuestions": "Practice Questions",
     "reviewFeedback": "Review Feedback",
-    "behavioralQuestions": "Behavioral Questions",
-    "technicalQuestions": "Technical Questions",
-    "situationalQuestions": "Situational Questions",
+    "behavioralQuestions": "Behavioral",
+    "technicalQuestions": "Technical",
+    "situationalQuestions": "Situational",
+    "companyFit": "Company Fit",
     "commonQuestions": "Common Questions",
     "industrySpecific": "Industry Specific",
     "yourAnswer": "Your Answer",
@@ -1755,6 +1756,12 @@
     "typeAnswer": "Type Your Answer",
     "speakNow": "Speak now...",
     "analyzing": "Analyzing your response...",
-    "getAiFeedback": "Get AI Feedback"
+    "getAiFeedback": "Get AI Feedback",
+    "generateQuestions": "Generate Questions",
+    "questionBank": "Question Bank",
+    "customQuestions": "Custom Questions",
+    "selectCategory": "Select Category",
+    "noQuestionsYet": "No questions generated yet",
+    "generateFirstQuestion": "Generate your first question to start practicing"
   }
 }
