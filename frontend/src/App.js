@@ -521,8 +521,7 @@ function AppContent({ skipPortalSelector = false }) {
   
   // Check if language tour should be shown
   useEffect(() => {
-    if (user && !localStorage.getItem('medmatch_tour_completed') && !localStorage.getItem('medmatch_tour_skipped')) {
-      // Show tour for new users after a short delay
+    if (user && !localStorage.getItem('medmatch-tour-completed') && !localStorage.getItem('medmatch_tour_completed') && !localStorage.getItem('medmatch_tour_skipped')) {
       const timer = setTimeout(() => {
         setShowLanguageTour(true);
       }, 2000);
