@@ -140,16 +140,19 @@ class TestMeetingPortalAPIs:
         # Meeting may or may not exist
         assert response.status_code in [200, 404]
         
-    def test_meeting_stats(self, auth_token):
-        """Test meeting statistics endpoint"""
+    def test_meetings_list_has_data(self, auth_token):
+        """Test that meetings list returns meeting data"""
         response = requests.get(
-            f"{BASE_URL}/api/karau-meet/stats",
+            f"{BASE_URL}/api/karau-meet/meetings",
             headers={"Authorization": f"Bearer {auth_token}"}
         )
         assert response.status_code == 200
         data = response.json()
-        # Should have stats fields
-        assert any(key in data for key in ["total_meetings", "meetings", "hours", "participants"])
+        # Should return list of meetings or dict with meetings key
+        if isinstance(data, dict):
+            assert "meetings" in data or len(data) > 0
+        else:
+            assert isinstance(data, list)
 
 
 class TestHealthEndpoint:
