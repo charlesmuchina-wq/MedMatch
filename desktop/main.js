@@ -28,7 +28,7 @@ const store = new Store({
 });
 
 // Configuration
-const APP_URL = process.env.MEDMATCH_URL || 'https://audio-coverage-tools.preview.emergentagent.com';
+const APP_URL = process.env.MEDMATCH_URL || 'https://multilang-benchmark.preview.emergentagent.com';
 const isDev = process.env.NODE_ENV === 'development';
 
 let mainWindow = null;

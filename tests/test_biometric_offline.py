@@ -6,7 +6,7 @@ import pytest
 import requests
 import os
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://audio-coverage-tools.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://multilang-benchmark.preview.emergentagent.com')
 
 class TestBiometricEndpoints:
     """Test WebAuthn/Biometric authentication endpoints"""
