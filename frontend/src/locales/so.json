@@ -1171,8 +1171,8 @@
     "biometricAuth": {
       "title": "Xaqiijinta Biometric",
       "enableBiometric": "Daar Gelitaanka Biometric",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Aqoonsiga Wejiga",
+      "touchId": "Aqoonsiga Taabashada",
       "fingerprint": "Faraha",
       "setupRequired": "Dejin ayaa loo baahan yahay",
       "notSupported": "Laguma taageero qalabkan"

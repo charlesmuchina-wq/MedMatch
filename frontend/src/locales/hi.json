@@ -1171,8 +1171,8 @@
     "biometricAuth": {
       "title": "बायोमेट्रिक प्रमाणीकरण",
       "enableBiometric": "बायोमेट्रिक लॉगिन सक्षम करें",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "फेस आईडी",
+      "touchId": "टच आईडी",
       "fingerprint": "फिंगरप्रिंट",
       "setupRequired": "सेटअप आवश्यक है",
       "notSupported": "यह डिवाइस समर्थित नहीं है"

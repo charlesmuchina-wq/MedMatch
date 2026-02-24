@@ -1413,7 +1413,7 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "ex.: Centro Médico da Cidade",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "emailPlaceholder": "você@suaempresa.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
