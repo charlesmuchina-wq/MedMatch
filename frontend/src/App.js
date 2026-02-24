@@ -964,11 +964,11 @@ function AppContent({ skipPortalSelector = false }) {
       </div>
 
       {/* Onboarding Tour for first-time users */}
-      {showTour && user && <OnboardingTour onComplete={completeTour} user={user} />}
+      {showTour && user && !showLanguageTour && <OnboardingTour onComplete={completeTour} user={user} />}
       
       {/* Interactive Language Tour */}
       <LanguageTour 
-        isOpen={showLanguageTour} 
+        isOpen={showLanguageTour && !showTour} 
         onClose={() => setShowLanguageTour(false)} 
         language={localStorage.getItem('medmatch_language') || 'en'}
       />
