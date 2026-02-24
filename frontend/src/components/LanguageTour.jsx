@@ -205,11 +205,13 @@ const LanguageTour = ({ isOpen, onClose, language = 'en' }) => {
 
   const handleComplete = () => {
     localStorage.setItem('medmatch_tour_completed', 'true');
+    localStorage.setItem('medmatch-tour-completed', 'true');
     onClose();
   };
 
   const handleSkip = () => {
     localStorage.setItem('medmatch_tour_skipped', 'true');
+    localStorage.setItem('medmatch-tour-completed', 'true');
     onClose();
   };
 
