@@ -1413,7 +1413,7 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
+    "selectJobPlaceholder": "选择职位发布",
     "maxApplicantsPlaceholder": "Unlimited"
   },
   "applicantTracker": {
@@ -1430,10 +1430,10 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "人才招聘经理",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Acme 公司",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "websitePlaceholder": "https://acme.com"
   },
@@ -1458,12 +1458,12 @@
     "searchByCompanyOrEmail": "按公司名称或邮箱搜索..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "选择您的所在地…"
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "meetingIdPlaceholder": "输入会议 ID（例如：ABC-123-XYZ）",
+    "verificationCodePlaceholder": "输入 6 位验证码",
+    "meetingTitlePlaceholder": "AI KARAU 会议",
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {

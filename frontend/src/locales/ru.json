@@ -1400,7 +1400,7 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
+    "selectJobPlaceholder": "Выберите вакансию",
     "maxApplicantsPlaceholder": "Unlimited"
   },
   "applicantTracker": {
@@ -1417,10 +1417,10 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
-    "namePlaceholder": "John Doe",
+    "jobTitlePlaceholder": "Менеджер по подбору персонала",
+    "namePlaceholder": "Джон Доу",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Корпорация Acme",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "websitePlaceholder": "https://acme.com"
   },
@@ -1445,12 +1445,12 @@
     "searchByCompanyOrEmail": "Поиск по названию компании или email..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Выберите ваше местоположение..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "meetingIdPlaceholder": "Введите ID встречи (например, ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Введите 6-значный код",
+    "meetingTitlePlaceholder": "Встреча AI KARAU",
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {

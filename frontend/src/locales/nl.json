@@ -1400,8 +1400,8 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "selectJobPlaceholder": "Selecteer een vacature",
+    "maxApplicantsPlaceholder": "Onbeperkt"
   },
   "applicantTracker": {
     "searchPlaceholder": "Search applicants...",
@@ -1445,13 +1445,13 @@
     "searchByCompanyOrEmail": "Zoek op bedrijfsnaam of e-mail..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Selecteer je locatie..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
-    "emailPlaceholder": "your@email.com"
+    "meetingIdPlaceholder": "Voer vergader-ID in (bijv. ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Voer 6-cijferige code in",
+    "meetingTitlePlaceholder": "AI KARAU-vergadering",
+    "emailPlaceholder": "jouw@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "e.g., Production ATS webhook",

@@ -1400,8 +1400,8 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "selectJobPlaceholder": "채용 공고 선택",
+    "maxApplicantsPlaceholder": "무제한"
   },
   "applicantTracker": {
     "searchPlaceholder": "Search applicants...",
@@ -1417,8 +1417,8 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
-    "namePlaceholder": "John Doe",
+    "jobTitlePlaceholder": "인재 채용 관리자",
+    "namePlaceholder": "홍길동",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
@@ -1445,12 +1445,12 @@
     "searchByCompanyOrEmail": "회사명 또는 이메일로 검색..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "위치를 선택하세요..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "meetingIdPlaceholder": "회의 ID 입력 (예: ABC-123-XYZ)",
+    "verificationCodePlaceholder": "6자리 코드 입력",
+    "meetingTitlePlaceholder": "AI KARAU 회의",
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {

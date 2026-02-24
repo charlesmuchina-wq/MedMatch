@@ -1182,7 +1182,7 @@
       "currentPlan": "Chirongwa chazvino",
       "free": "Mahara",
       "premium": "Premium",
-      "enterprise": "Enterprise",
+      "enterprise": "Bhizimisi guru",
       "upgrade": "Simudzira",
       "downgrade": "Deredza",
       "cancel": "Kanzura kunyoresa",
@@ -1400,7 +1400,7 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
+    "selectJobPlaceholder": "Sarudza chiziviso chebasa",
     "maxApplicantsPlaceholder": "Unlimited"
   },
   "applicantTracker": {
@@ -1417,7 +1417,7 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "Maneja weKutsvaga Vashandi",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
@@ -1445,11 +1445,11 @@
     "searchByCompanyOrEmail": "Tsvaga nezita rekambani kana email..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Sarudza nzvimbo yako..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingIdPlaceholder": "Pinda ID yemusangano (semuenzaniso, ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Pinda kodhi ine manhamba matanhatu",
     "meetingTitlePlaceholder": "Musangano weAI KARAU",
     "emailPlaceholder": "your@email.com"
   },

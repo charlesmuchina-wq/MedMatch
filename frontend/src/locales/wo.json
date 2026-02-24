@@ -1182,7 +1182,7 @@
       "currentPlan": "Palaŋ bu fi nekk",
       "free": "Dara",
       "premium": "Premium",
-      "enterprise": "Enterprise",
+      "enterprise": "Entarpraayiz",
       "upgrade": "Yokk",
       "downgrade": "Wàññi",
       "cancel": "Neenal aboneema",
@@ -1400,7 +1400,7 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
+    "selectJobPlaceholder": "Tànn benn postu liggéey",
     "maxApplicantsPlaceholder": "Unlimited"
   },
   "applicantTracker": {
@@ -1417,7 +1417,7 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "Jëfandikukat ngir jël talent",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
@@ -1445,13 +1445,13 @@
     "searchByCompanyOrEmail": "Wut ci turu kampani walla imeel..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Tànn sa béréb..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
-    "emailPlaceholder": "your@email.com"
+    "meetingIdPlaceholder": "Dugal ID bu ndajeekaay bi (misaal: ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Dugal koodu 6 lim",
+    "meetingTitlePlaceholder": "Ndajeekaayu AI KARAU",
+    "emailPlaceholder": "sa@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "e.g., Production ATS webhook",

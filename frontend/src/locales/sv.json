@@ -293,7 +293,7 @@
     "pasteYourQuestions": "Klistra in dina frågor",
     "enterCompanyName": "Ange företagsnamn",
     "researching": "Researchar...",
-    "research": "Research",
+    "research": "Forskning",
     "researchFor": "Research för",
     "skipQuestion": "Hoppa över fråga",
     "jobTitlePlaceholder": "t.ex. Supplier Quality Manager",
@@ -1130,7 +1130,7 @@
       "searchRadius": "Sökradie för jobb",
       "searchRadiusDesc": "Maximalt avstånd du är villig att pendla",
       "maxDistance": "Maximalt avstånd",
-      "miles": "miles",
+      "miles": "engelska mil",
       "km": "km",
       "commutePreferences": "Pendlingspreferenser",
       "commutePreferencesDesc": "Hur föredrar du att ta dig till jobbet?",
@@ -1400,7 +1400,7 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
+    "selectJobPlaceholder": "Välj en jobbannons",
     "maxApplicantsPlaceholder": "Unlimited"
   },
   "applicantTracker": {
@@ -1417,7 +1417,7 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "Chef för talangrekrytering",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
@@ -1445,11 +1445,11 @@
     "searchByCompanyOrEmail": "Sök på företagsnamn eller e-post..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Välj din plats..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingIdPlaceholder": "Ange mötes-ID (t.ex. ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Ange 6-siffrig kod",
     "meetingTitlePlaceholder": "AI KARAU-möte",
     "emailPlaceholder": "your@email.com"
   },

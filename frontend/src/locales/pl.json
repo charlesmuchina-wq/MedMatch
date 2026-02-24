@@ -293,7 +293,7 @@
     "pasteYourQuestions": "Wklej swoje pytania",
     "enterCompanyName": "Wpisz nazwę firmy",
     "researching": "Wyszukiwanie...",
-    "research": "Research",
+    "research": "Badania",
     "researchFor": "Research dla",
     "skipQuestion": "Pomiń pytanie",
     "jobTitlePlaceholder": "np. Menedżer ds. Jakości Dostawców",
@@ -1400,8 +1400,8 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "selectJobPlaceholder": "Wybierz ofertę pracy",
+    "maxApplicantsPlaceholder": "Bez limitu"
   },
   "applicantTracker": {
     "searchPlaceholder": "Search applicants...",
@@ -1417,8 +1417,8 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
-    "namePlaceholder": "John Doe",
+    "jobTitlePlaceholder": "Menedżer ds. pozyskiwania talentów",
+    "namePlaceholder": "Jan Kowalski",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
@@ -1445,12 +1445,12 @@
     "searchByCompanyOrEmail": "Szukaj po nazwie firmy lub e-mailu..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Wybierz swoją lokalizację..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "meetingIdPlaceholder": "Wpisz identyfikator spotkania (np. ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Wpisz 6-cyfrowy kod",
+    "meetingTitlePlaceholder": "Spotkanie AI KARAU",
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {

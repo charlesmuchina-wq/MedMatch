@@ -1424,9 +1424,9 @@
     "globalCompliance": {
       "title": "الامتثال العالمي",
       "subtitle": "حالة الامتثال عبر المناطق",
-      "gdpr": "GDPR",
-      "ccpa": "CCPA",
-      "hipaa": "HIPAA",
+      "gdpr": "اللائحة العامة لحماية البيانات (GDPR)",
+      "ccpa": "قانون خصوصية المستهلك في كاليفورنيا (CCPA)",
+      "hipaa": "قانون نقل ومساءلة التأمين الصحي (HIPAA)",
       "soc2": "SOC 2",
       "compliant": "متوافق",
       "nonCompliant": "غير متوافق",
@@ -1760,7 +1760,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "جون سميث",
     "companyPlaceholder": "مثال: Google",
     "notesPlaceholder": "أي تفاصيل إضافية حول المقابلة...",
     "positionPlaceholder": "مثال: مهندس برمجيات",
@@ -1798,7 +1798,7 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "أخبرنا لماذا أنت مناسب جدًا لهذا الدور...",
     "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "جون دو",
     "portfolioPlaceholder": "https://yourportfolio.com"
   },
   "recruiterJobs": {
@@ -1816,7 +1816,7 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
+    "selectJobPlaceholder": "اختر إعلان وظيفة",
     "maxApplicantsPlaceholder": "Unlimited"
   },
   "applicantTracker": {
@@ -1833,10 +1833,10 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
-    "namePlaceholder": "John Doe",
+    "jobTitlePlaceholder": "مدير استقطاب المواهب",
+    "namePlaceholder": "جون دو",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "شركة أكمي",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "websitePlaceholder": "https://acme.com"
   },
@@ -1861,12 +1861,12 @@
     "searchByCompanyOrEmail": "ابحث باسم الشركة أو البريد الإلكتروني..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "حدّد موقعك..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "meetingIdPlaceholder": "أدخل معرّف الاجتماع (مثل: ABC-123-XYZ)",
+    "verificationCodePlaceholder": "أدخل رمزًا من 6 أرقام",
+    "meetingTitlePlaceholder": "اجتماع KARAU بالذكاء الاصطناعي",
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {

@@ -1400,7 +1400,7 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
+    "selectJobPlaceholder": "Sankhani ntchito yomwe yalengezedwa",
     "maxApplicantsPlaceholder": "Unlimited"
   },
   "applicantTracker": {
@@ -1417,7 +1417,7 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "Woyang'anira Kulemba Ntchito",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
@@ -1445,12 +1445,12 @@
     "searchByCompanyOrEmail": "Sakani ndi dzina la kampani kapena imelo..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Sankhani malo anu..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "meetingIdPlaceholder": "Lowetsani ID ya msonkhano (mwachitsanzo, ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Lowetsani nambala ya manambala 6",
+    "meetingTitlePlaceholder": "Msonkhano wa AI KARAU",
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {

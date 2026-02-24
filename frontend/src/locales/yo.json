@@ -407,22 +407,22 @@
     "newJobs": "àwọn iṣẹ́ tuntun"
   },
   "skills": {
-    "retake": "Retake",
-    "pass": "Pass",
-    "start": "Start",
+    "retake": "Tun gbìyànjú",
+    "pass": "Kọjá",
+    "start": "Bẹrẹ̀",
     "correct": "tó tọ́",
-    "myBadges": "My Badges",
+    "myBadges": "Àwọn Báàjì Mi",
     "next": "Tẹ̀lé",
-    "title": "Skill Assessments",
+    "title": "Àyẹ̀wò Ọgbọ́n",
     "badgeEarned": "Ami-ẹ̀yẹ ti gba!",
     "previous": "Tẹ́lẹ̀",
-    "assessment": "Assessment",
-    "submit": "Submit Assessment",
-    "questions": "questions",
+    "assessment": "Àyẹ̀wò",
+    "submit": "Fìdí Àyẹ̀wò Múlẹ̀",
+    "questions": "àwọn ìbéèrè",
     "congratulations": "Ẹ kú oríire!",
-    "minutes": "min",
-    "subtitle": "Verify your skills and earn badges to stand out to recruiters",
-    "earned": "Earned",
+    "minutes": "ìṣẹ́jú",
+    "subtitle": "Jẹ́rìí àwọn ọgbọ́n rẹ, kí o sì rí báàjì láti ṣe kedere sí àwọn aṣáájú-ọníwáṣẹ",
+    "earned": "Ti rí gbà",
     "keepPracticing": "Máa ṣe ìdárayá síi",
     "questionOf": "Ìbéèrè {{current}} nínú {{total}}",
     "generatingQuestions": "Ń ṣẹ̀dá àwọn ìbéèrè AI... Èyí lè gba ìṣẹ́jú-aaya 20-30",
@@ -590,7 +590,7 @@
     "jobDescriptionPlaceholder": "Lẹ̀ẹ̀ pọ̀ iṣẹ́ àpejuwe níbí. AI yóò dá àwọn ìbéèrè ìfọ̀rọ̀wánilẹ́nuwò tó bá a mu sílẹ̀ gẹ́gẹ́ bí ìbéèrè iṣẹ́ àti ọgbọ́n inú résumé rẹ..."
   },
   "membership": {
-    "premium": "Premium",
+    "premium": "Ẹya àtàwọn àǹfààní",
     "freeTrial": "Ìdánwò Ọ̀fẹ́",
     "expired": "Parí àkókò",
     "upgrade": "Ṣe àtúnṣe báyìí",
@@ -768,26 +768,26 @@
     "jobDescPlaceholder": "Lẹ̀ àpejuwe iṣẹ́ síbí fún ìdáhùn tó péye jù...",
     "jobInformation": "Alaye Iṣẹ́",
     "jobTitle": "Ipò Iṣẹ́",
-    "exportPdf": "Export PDF",
+    "exportPdf": "Gbe PDF jáde",
     "addQuestion": "Fi Ìbéèrè Kún-un",
-    "tip": "Tip: Save your best answers to quickly review them before your actual interview",
+    "tip": "Ìmọ̀ràn: Fipamọ́ àwọn ìdáhùn tó dára jù lọ láti lè tún wo wọn kíákíá ṣáájú ìfọ̀rọ̀wánilẹ́nuwò gidi rẹ",
     "companyPlaceholder": "àpẹẹrẹ: Google, Amazon",
     "jobTitlePlaceholder": "àpẹẹrẹ: Onímọ̀ Ẹ̀rọ Ọ̀fọ́wẹ́a",
-    "savedOn": "Saved",
+    "savedOn": "Ti fipamọ́",
     "jobDescription": "Àpejuwe Iṣẹ́ (àṣàyàn)",
-    "keyPoints": "Key Points:",
+    "keyPoints": "Àwọn Kókó Pataki:",
     "generateAll": "Ṣẹda Gbogbo",
     "subtitle": "Ṣẹda àwọn ìdáhùn ìfọ̀rọ̀wánilẹ́nuwò AI, kí o sì fipamọ́ àwọn ayanfẹ rẹ",
-    "noSavedAnswers": "No saved answers yet",
-    "aiAnswer": "AI Answer",
+    "noSavedAnswers": "Kò sí ìdáhùn tí a fipamọ́ síbẹ̀",
+    "aiAnswer": "Ìdáhùn AI",
     "generate": "Ṣẹda",
     "jobInfoDesc": "Pèsè àlàyé iṣẹ́ fún ìdáhùn tó bá mu jù",
-    "savedAnswers": "Saved Answers",
+    "savedAnswers": "Àwọn Ìdáhùn Tí a Fipamọ́",
     "title": "Ẹlẹ́dá Ìdáhùn Ìbéèrè & Ìdáhùn",
     "questionPlaceholder": "Tẹ ìbéèrè ìfọ̀rọ̀wánilẹ́nuwò rẹ...",
     "interviewQuestions": "Àwọn Ìbéèrè Ìfọ̀rọ̀wánilẹ́nuwò",
-    "savedAnswersDesc": "Your favorite answers for quick reference during interviews",
-    "noSavedAnswersHint": "Generate answers and click the bookmark icon to save them",
+    "savedAnswersDesc": "Àwọn ìdáhùn ayanfẹ rẹ fún ìtọ́kasí kíákíá nígbà ìfọ̀rọ̀wánilẹ́nuwò",
+    "noSavedAnswersHint": "Ṣẹ̀dá àwọn ìdáhùn, kí o sì tẹ ààmì ìbukumaaki láti fipamọ́ wọn",
     "companyName": "Orúkọ Ilé-iṣẹ́",
     "favorites": "Àwọn ayanfẹ",
     "questionsDesc": "Fi àwọn ìbéèrè ìfọ̀rọ̀wánilẹ́nuwò rẹ sílẹ̀ ní isàlẹ̀"
@@ -1400,8 +1400,8 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
-    "maxApplicantsPlaceholder": "Unlimited"
+    "selectJobPlaceholder": "Yan ìpolówó iṣẹ́ kan",
+    "maxApplicantsPlaceholder": "Láìlópín"
   },
   "applicantTracker": {
     "searchPlaceholder": "Search applicants...",
@@ -1417,7 +1417,7 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "Alákóso Gbigba Tálẹ́ńtì",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
@@ -1445,11 +1445,11 @@
     "searchByCompanyOrEmail": "Wá gẹ́gẹ́ bí orúkọ ilé-iṣẹ́ tàbí ímeèlì..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Yan ipò rẹ..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingIdPlaceholder": "Tẹ ID ìpàdé (àpẹẹrẹ, ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Tẹ kóòdù díjítì 6",
     "meetingTitlePlaceholder": "Ipàdé AI KARAU",
     "emailPlaceholder": "your@email.com"
   },

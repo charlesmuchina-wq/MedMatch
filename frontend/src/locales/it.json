@@ -584,7 +584,7 @@
     "iAmA": "Sono un",
     "jobSeeker": "In cerca di lavoro",
     "jobSeekerDesc": "Trova il lavoro dei tuoi sogni con l'IA",
-    "recruiter": "Recruiter",
+    "recruiter": "Selezionatore",
     "recruiterDesc": "Assumi i migliori talenti nel settore sanitario",
     "name": "Nome",
     "yourName": "Il tuo nome",
@@ -954,7 +954,7 @@
       "enterJobToolkit": "Accedi al toolkit lavoro"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "Automatore KARAU",
       "subtitle": "Automatizza il flusso di lavoro della tua ricerca di lavoro",
       "startAutomation": "Avvia automazione",
       "stopAutomation": "Interrompi automazione",
@@ -1107,7 +1107,7 @@
     "presenter": "Presentatore",
     "categories": {
       "jobSeeker": "Candidato",
-      "recruiter": "Recruiter",
+      "recruiter": "Selezionatore",
       "dataPrivacy": "Privacy dei dati",
       "overview": "Panoramica"
     },
@@ -1184,7 +1184,7 @@
       "premium": "Premium",
       "enterprise": "Enterprise",
       "upgrade": "Aggiorna",
-      "downgrade": "Downgrade",
+      "downgrade": "Esegui downgrade",
       "cancel": "Annulla abbonamento",
       "billingCycle": "Ciclo di fatturazione",
       "nextBilling": "Prossima data di fatturazione"
@@ -1400,7 +1400,7 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
+    "selectJobPlaceholder": "Seleziona un annuncio di lavoro",
     "maxApplicantsPlaceholder": "Unlimited"
   },
   "applicantTracker": {
@@ -1417,7 +1417,7 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "Responsabile acquisizione talenti",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
@@ -1445,11 +1445,11 @@
     "searchByCompanyOrEmail": "Cerca per nome azienda o email..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Seleziona la tua posizione..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingIdPlaceholder": "Inserisci l'ID della riunione (ad es. ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Inserisci il codice a 6 cifre",
     "meetingTitlePlaceholder": "Riunione AI KARAU",
     "emailPlaceholder": "your@email.com"
   },

@@ -1182,7 +1182,7 @@
       "currentPlan": "Plano atual",
       "free": "Grátis",
       "premium": "Premium",
-      "enterprise": "Enterprise",
+      "enterprise": "Empresarial",
       "upgrade": "Fazer upgrade",
       "downgrade": "Fazer downgrade",
       "cancel": "Cancelar assinatura",
@@ -1400,7 +1400,7 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
+    "selectJobPlaceholder": "Selecionar uma vaga",
     "maxApplicantsPlaceholder": "Unlimited"
   },
   "applicantTracker": {
@@ -1417,7 +1417,7 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "Gerente de Aquisição de Talentos",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
@@ -1445,13 +1445,13 @@
     "searchByCompanyOrEmail": "Pesquisar por nome da empresa ou e-mail..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Selecione sua localização..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingIdPlaceholder": "Insira o ID da reunião (ex.: ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Insira o código de 6 dígitos",
     "meetingTitlePlaceholder": "Reunião do AI KARAU",
-    "emailPlaceholder": "your@email.com"
+    "emailPlaceholder": "seu@email.com"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "e.g., Production ATS webhook",

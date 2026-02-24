@@ -1195,7 +1195,7 @@
       "currentPlan": "Plan actual",
       "free": "Gratis",
       "premium": "Premium",
-      "enterprise": "Enterprise",
+      "enterprise": "Empresa",
       "upgrade": "Mejorar",
       "downgrade": "Bajar de plan",
       "cancel": "Cancelar suscripción",
@@ -1205,7 +1205,7 @@
     "employerReview": {
       "writeReview": "Escribir una reseña",
       "rating": "Calificación",
-      "pros": "Pros",
+      "pros": "Ventajas",
       "cons": "Contras",
       "advice": "Consejos para la dirección",
       "recommend": "Lo recomendaría",
@@ -1413,7 +1413,7 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
+    "selectJobPlaceholder": "Selecciona una oferta de empleo",
     "maxApplicantsPlaceholder": "Unlimited"
   },
   "applicantTracker": {
@@ -1430,7 +1430,7 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "Gerente de Adquisición de Talento",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
@@ -1458,11 +1458,11 @@
     "searchByCompanyOrEmail": "Buscar por nombre de empresa o correo electrónico..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Selecciona tu ubicación..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
+    "meetingIdPlaceholder": "Introduce el ID de la reunión (p. ej., ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Introduce el código de 6 dígitos",
     "meetingTitlePlaceholder": "Reunión de AI KARAU",
     "emailPlaceholder": "your@email.com"
   },

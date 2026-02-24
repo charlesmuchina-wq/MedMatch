@@ -658,18 +658,18 @@
   },
   "cloudStorage": {
     "supportedTypes": "Inatumika: PDF, DOC, DOCX",
-    "listFailed": "Failed to load files",
+    "listFailed": "Imeshindwa kupakia faili",
     "noFiles": "Hakuna faili zinazooana zilizopatikana",
-    "comingSoon": "Coming soon",
-    "uploadSuccess": "File uploaded successfully!",
-    "uploadFailed": "Failed to upload file",
-    "noProviders": "Cloud storage providers are not configured. Contact support for help.",
-    "clickToConnect": "Click to connect",
+    "comingSoon": "Inakuja hivi karibuni",
+    "uploadSuccess": "Faili imepakiwa kwa mafanikio!",
+    "uploadFailed": "Imeshindwa kupakia faili",
+    "noProviders": "Watoa huduma za hifadhi ya wingu hawajasanidiwa. Wasiliana na msaada kwa usaidizi.",
+    "clickToConnect": "Bofya ili kuunganisha",
     "selectFile": "Chagua Faili",
-    "connectFailed": "Failed to connect to cloud provider",
+    "connectFailed": "Imeshindikana kuunganisha kwa mtoa huduma wa wingu",
     "import": "Ingiza Faili",
-    "connected": "Connected",
-    "importFrom": "Import from Cloud Storage"
+    "connected": "Imeunganishwa",
+    "importFrom": "Leta kutoka Hifadhi ya Wingu"
   },
   "extras": {
     "later": "Baadaye",
@@ -735,12 +735,12 @@
     "skills": "Ujuzi"
   },
   "applicants": {
-    "fetchFailed": "Failed to fetch applicants",
-    "noteAdded": "Note added",
-    "aiComplete": "AI analysis complete",
-    "aiFailed": "AI prescreening failed",
-    "noteFailed": "Failed to add note",
-    "updateFailed": "Failed to update status"
+    "fetchFailed": "Imeshindikana kupata waombaji",
+    "noteAdded": "Dokezo limeongezwa",
+    "aiComplete": "Uchanganuzi wa AI umekamilika",
+    "aiFailed": "Uchunguzi wa awali wa AI umeshindikana",
+    "noteFailed": "Imeshindikana kuongeza dokezo",
+    "updateFailed": "Imeshindikana kusasisha hali"
   },
   "onboarding": {
     "interviewPrepAction": "Kidokezo: Mazoezi huleta ukamilifu!",
@@ -794,7 +794,7 @@
   },
   "verification": {
     "uploadFailed": "Upakiaji umeshindikana",
-    "companyFailed": "Company verification failed",
+    "companyFailed": "Uthibitishaji wa kampuni umeshindikana",
     "companyVerified": "Kampuni imethibitishwa kiotomatiki!",
     "documentUploaded": "hati imepakiwa",
     "requestCreated": "Ombi la uthibitishaji limeundwa",
@@ -802,7 +802,7 @@
     "startFailed": "Imeshindwa kuanza uthibitishaji"
   },
   "analytics": {
-    "loadFailed": "Failed to load analytics"
+    "loadFailed": "Imeshindikana kupakia uchanganuzi"
   },
   "autofill": {
     "description": "Bofya sehemu yoyote ili kunakili kwa maombi ya kazi",
@@ -821,9 +821,9 @@
     "noResume": "Hakuna Wasifu wa Kazi Uliopatikana"
   },
   "candidates": {
-    "addSkillOrKeyword": "Please add at least one skill or keyword",
-    "loadFailed": "Failed to load profile",
-    "searchFailed": "Search failed"
+    "addSkillOrKeyword": "Tafadhali ongeza angalau ujuzi mmoja au neno kuu",
+    "loadFailed": "Imeshindikana kupakia wasifu",
+    "searchFailed": "Utafutaji umeshindikana"
   },
   "companies": {
     "title": "Makampuni",
@@ -1400,7 +1400,7 @@
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Add a personal note to your invitation...",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "selectJobPlaceholder": "Select a job posting",
+    "selectJobPlaceholder": "Chagua tangazo la kazi",
     "maxApplicantsPlaceholder": "Unlimited"
   },
   "applicantTracker": {
@@ -1417,7 +1417,7 @@
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "idVerification": {
-    "jobTitlePlaceholder": "Talent Acquisition Manager",
+    "jobTitlePlaceholder": "Meneja wa Upataji Vipaji",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
     "companyPlaceholder": "Acme Corporation",
@@ -1445,12 +1445,12 @@
     "searchByCompanyOrEmail": "Tafuta kwa jina la kampuni au barua pepe..."
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Chagua eneo lako..."
   },
   "karauMeet": {
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "meetingIdPlaceholder": "Weka kitambulisho cha mkutano (mf. ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Weka msimbo wa tarakimu 6",
+    "meetingTitlePlaceholder": "Mkutano wa AI KARAU",
     "emailPlaceholder": "your@email.com"
   },
   "enterpriseAPI": {
