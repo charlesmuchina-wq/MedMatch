@@ -313,22 +313,22 @@ const KarauMeetDashboard = ({ user }) => {
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <Label className="text-slate-300">Enable AI Notes</Label>
-                <p className="text-xs text-slate-500">Auto-transcription and summaries</p>
+                <Label className="text-slate-300">{t("karauMeet.enableAINotes")}</Label>
+                <p className="text-xs text-slate-500">{t("karauMeet.autoTranscription")}</p>
               </div>
               <Switch defaultChecked />
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <Label className="text-slate-300">Enable Recording</Label>
-                <p className="text-xs text-slate-500">Record the meeting (requires consent)</p>
+                <Label className="text-slate-300">{t("karauMeet.enableRecording")}</Label>
+                <p className="text-xs text-slate-500">{t("karauMeet.recordingConsent")}</p>
               </div>
               <Switch defaultChecked />
             </div>
           </div>
           <DialogFooter className="flex-col sm:flex-row gap-2">
             <Button variant="ghost" onClick={() => setShowCreateDialog(false)} className="text-slate-300">
-              Cancel
+              {t("karauMeet.cancel")}
             </Button>
             <div className="flex gap-2">
               <Button
