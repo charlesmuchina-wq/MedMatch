@@ -230,7 +230,7 @@ const TrustScoreDisplay = ({
                 return (
                   <div key={category} className="border-t border-gray-100 dark:border-gray-700 pt-3">
                     <h5 className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
-                      {category} Details
+                      {t(`trust.category.${category}`)} {t("trust.details")}
                     </h5>
                     <div className="space-y-1">
                       {data.details.map((detail, idx) => (
