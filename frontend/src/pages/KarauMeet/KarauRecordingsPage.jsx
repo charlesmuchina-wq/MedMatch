@@ -71,10 +71,10 @@ const KarauRecordingsPage = () => {
       });
       if (res.ok) {
         setRecordings(prev => prev.filter(r => r.recording_id !== recordingId));
-        toast.success('Recording deleted');
+        toast.success(t("karauMeet.recordingDeleted"));
       }
     } catch (error) {
-      toast.error('Failed to delete recording');
+      toast.error(t("karauMeet.failedDeleteRecording"));
     }
   };
 
