@@ -160,8 +160,8 @@ const TrustScoreDisplay = ({
         {scoreData.next_level && (
           <div className="mt-4">
             <div className="flex items-center justify-between text-xs mb-1">
-              <span className="opacity-75">Progress to {scoreData.next_level.name}</span>
-              <span className="font-medium">{scoreData.next_level.points_needed} pts to go</span>
+              <span className="opacity-75">{t("trust.progressTo", { level: scoreData.next_level.name })}</span>
+              <span className="font-medium">{t("trust.ptsToGo", { count: scoreData.next_level.points_needed })}</span>
             </div>
             <Progress 
               value={scoreData.percentage} 
