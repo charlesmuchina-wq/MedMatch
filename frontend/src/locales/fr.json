@@ -1556,8 +1556,8 @@
     "biometricAuth": {
       "title": "Authentification biométrique",
       "enableBiometric": "Activer la connexion biométrique",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Identité Faciale",
+      "touchId": "Identification Tactile",
       "fingerprint": "Empreinte digitale",
       "setupRequired": "Configuration requise",
       "notSupported": "Non pris en charge sur cet appareil"

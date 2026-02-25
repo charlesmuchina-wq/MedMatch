@@ -1716,7 +1716,7 @@
   },
   "interviewCalendar": {
     "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "Giovanni Rossi",
     "companyPlaceholder": "es. Google",
     "notesPlaceholder": "Eventuali dettagli aggiuntivi sul colloquio...",
     "positionPlaceholder": "es. Ingegnere Software",
@@ -2040,7 +2040,7 @@
     "selectLanguageTitle": "Seleziona lingua",
     "aiTutorial": "Tutorial con avatar IA",
     "seconds": "secondi",
-    "tutorialTitle": "Tutorial",
+    "tutorialTitle": "Guida",
     "videoLibrary": "Libreria video",
     "captionsOn": "Sottotitoli attivi",
     "captionsOff": "Sottotitoli disattivati",

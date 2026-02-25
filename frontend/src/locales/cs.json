@@ -1652,8 +1652,8 @@
     "biometricAuth": {
       "title": "Biometrické ověřování",
       "enableBiometric": "Povolit biometrické přihlášení",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Rozpoznání tváře",
+      "touchId": "Otisk prstu",
       "fingerprint": "Otisk prstu",
       "setupRequired": "Je vyžadováno nastavení",
       "notSupported": "Na tomto zařízení není podporováno"
@@ -1897,7 +1897,7 @@
     "selectLocationPlaceholder": "Vyberte svou polohu..."
   },
   "idVerification": {
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Acme Korporace",
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "Manažer náboru talentů",
@@ -1907,18 +1907,18 @@
   "atsManagement": {
     "selectJobPlaceholder": "Vyberte pracovní nabídku",
     "maxApplicantsPlaceholder": "Neomezeně",
-    "candidateEmailPlaceholder": "candidate@example.com",
-    "candidateNamePlaceholder": "John Doe",
+    "candidateEmailPlaceholder": "uchazeč@example.com",
+    "candidateNamePlaceholder": "Jan Novák",
     "inviteNotePlaceholder": "Přidejte k pozvánce osobní zprávu..."
   },
   "recruiterVerification": {
     "companyPlaceholder": "např. City Medical Center",
     "websitePlaceholder": "https://example.com",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "emailPlaceholder": "vy@vašefirma.com",
     "rolePlaceholder": "např. HR manažer",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/vasprofil"
   },
   "jobSearch": {
     "selectCountryFirst": "Nejprve vyberte zemi",

@@ -1907,7 +1907,7 @@
   "atsManagement": {
     "selectJobPlaceholder": "Selectați un anunț de job",
     "maxApplicantsPlaceholder": "Nelimitat",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "candidatul@example.com",
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Adaugă o notă personală invitației tale..."
   },
@@ -1915,10 +1915,10 @@
     "companyPlaceholder": "de ex., City Medical Center",
     "websitePlaceholder": "https://example.com",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "emailPlaceholder": "tu@compania-ta.com",
     "rolePlaceholder": "de ex., Manager HR",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/profilultau"
   },
   "jobSearch": {
     "selectCountryFirst": "Selectează mai întâi țara",
@@ -2027,7 +2027,7 @@
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "de ex., Inginer Senior de Calitate",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply",
+    "externalUrlPlaceholder": "https://compania-ta.com/cariere/aplica",
     "tagsPlaceholder": "de ex., Remote, Full-time, Calitate, Dispozitiv medical"
   },
   "interviewPrep": {

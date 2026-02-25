@@ -16,7 +16,7 @@
     "error": "Feil",
     "success": "Vellykket",
     "warning": "Advarsel",
-    "info": "Info",
+    "info": "Informasjon",
     "required": "Påkrevd",
     "optional": "Valgfritt",
     "actions": "Handlinger",
@@ -412,7 +412,7 @@
     "selectCountry": "Velg land"
   },
   "meeting": {
-    "start": "Start",
+    "start": "Begynn",
     "rejoin": "Bli med igjen",
     "join": "Bli med",
     "leave": "Forlat",
@@ -626,7 +626,7 @@
     "myBadges": "Mine merker",
     "assessment": "Test",
     "questions": "spørsmål",
-    "minutes": "min",
+    "minutes": "minutt",
     "pass": "Bestått",
     "earned": "Tjent",
     "start": "Start",

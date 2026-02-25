@@ -1652,8 +1652,8 @@
     "biometricAuth": {
       "title": "Biometrinen tunnistautuminen",
       "enableBiometric": "Ota biometrinen kirjautuminen käyttöön",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Kasvojentunnistus",
+      "touchId": "Sormenjälkitunnistus",
       "fingerprint": "Sormenjälki",
       "setupRequired": "Määritys vaaditaan",
       "notSupported": "Ei tuettu tällä laitteella"
@@ -1864,16 +1864,16 @@
     "companyPlaceholder": "esim. Google",
     "positionPlaceholder": "esim. Software Engineer",
     "locationPlaceholder": "https://meet.google.com/... tai toimiston osoite",
-    "interviewerNamePlaceholder": "John Smith",
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerNamePlaceholder": "Johannes Smith",
+    "interviewerEmailPlaceholder": "john@yritys.com",
     "notesPlaceholder": "Mahdolliset lisätiedot haastattelusta..."
   },
   "publicApplication": {
-    "namePlaceholder": "John Doe",
-    "emailPlaceholder": "john@example.com",
+    "namePlaceholder": "Johannes Doe",
+    "emailPlaceholder": "john@esimerkki.com",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "portfolioPlaceholder": "https://yourportfolio.com",
+    "linkedinPlaceholder": "https://linkedin.com/in/profiilisi",
+    "portfolioPlaceholder": "https://portfolioni.com",
     "resumeLinkPlaceholder": "Linkki ansioluetteloosi (Google Drive, Dropbox jne.)",
     "coverLetterPlaceholder": "Kerro meille, miksi sopisit tähän rooliin erinomaisesti..."
   },
@@ -1889,7 +1889,7 @@
   },
   "karauMeet": {
     "meetingTitlePlaceholder": "AI KARAU -kokous",
-    "emailPlaceholder": "your@email.com",
+    "emailPlaceholder": "sinun@email.com",
     "meetingIdPlaceholder": "Syötä kokoustunnus (esim. ABC-123-XYZ)",
     "verificationCodePlaceholder": "Syötä 6-numeroinen koodi"
   },
@@ -1901,24 +1901,24 @@
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "Rekrytointipäällikkö",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "namePlaceholder": "John Doe"
+    "linkedinPlaceholder": "https://linkedin.com/in/profiilisi",
+    "namePlaceholder": "Johannes Doe"
   },
   "atsManagement": {
     "selectJobPlaceholder": "Valitse työpaikkailmoitus",
     "maxApplicantsPlaceholder": "Rajoittamaton",
-    "candidateEmailPlaceholder": "candidate@example.com",
-    "candidateNamePlaceholder": "John Doe",
+    "candidateEmailPlaceholder": "hakija@esimerkki.com",
+    "candidateNamePlaceholder": "Johannes Doe",
     "inviteNotePlaceholder": "Lisää henkilökohtainen viesti kutsuusi..."
   },
   "recruiterVerification": {
     "companyPlaceholder": "esim. City Medical Center",
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://esimerkki.com",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "emailPlaceholder": "sinä@yrityksesi.com",
     "rolePlaceholder": "esim. HR-päällikkö",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/profiilisi"
   },
   "jobSearch": {
     "selectCountryFirst": "Valitse ensin maa",
@@ -1997,7 +1997,7 @@
     "salaryRange": "Palkkahaarukka",
     "baseSalary": "Peruspalkka",
     "totalCompensation": "Kokonaiskompensaatio",
-    "bonus": "Bonus",
+    "bonus": "Bonuksia",
     "equity": "Osakepalkkio",
     "benefits": "Edut",
     "negotiationTips": "Neuvotteluvinkit",
@@ -2027,7 +2027,7 @@
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "esim. vanhempi laatuinsinööri",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply",
+    "externalUrlPlaceholder": "https://your-company.com/tyopaikat/hakemus",
     "tagsPlaceholder": "esim. etätyö, kokoaikainen, laatu, lääkintälaite"
   },
   "interviewPrep": {

@@ -1865,15 +1865,15 @@
     "positionPlaceholder": "cth., Jurutera Perisian",
     "locationPlaceholder": "https://meet.google.com/... atau alamat pejabat",
     "interviewerNamePlaceholder": "John Smith",
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerEmailPlaceholder": "john@syarikat.com",
     "notesPlaceholder": "Sebarang butiran tambahan tentang temu duga..."
   },
   "publicApplication": {
     "namePlaceholder": "John Doe",
-    "emailPlaceholder": "john@example.com",
+    "emailPlaceholder": "john@contoh.com",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "portfolioPlaceholder": "https://yourportfolio.com",
+    "linkedinPlaceholder": "https://linkedin.com/in/profilanda",
+    "portfolioPlaceholder": "https://portfolioanda.com",
     "resumeLinkPlaceholder": "Pautan ke resume anda (Google Drive, Dropbox, dll.)",
     "coverLetterPlaceholder": "Beritahu kami mengapa anda sesuai untuk peranan ini..."
   },
@@ -1889,7 +1889,7 @@
   },
   "karauMeet": {
     "meetingTitlePlaceholder": "Mesyuarat AI KARAU",
-    "emailPlaceholder": "your@email.com",
+    "emailPlaceholder": "emailanda@email.com",
     "meetingIdPlaceholder": "Masukkan ID mesyuarat (cth., ABC-123-XYZ)",
     "verificationCodePlaceholder": "Masukkan kod 6 digit"
   },
@@ -1901,7 +1901,7 @@
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "Pengurus Pengambilan Bakat",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profilanda",
     "namePlaceholder": "John Doe"
   },
   "atsManagement": {
@@ -1913,12 +1913,12 @@
   },
   "recruiterVerification": {
     "companyPlaceholder": "cth., Pusat Perubatan Bandar",
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://contoh.com",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "anda@syarikatanda.com",
     "rolePlaceholder": "cth., Pengurus HR",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/profailanda"
   },
   "jobSearch": {
     "selectCountryFirst": "Pilih Negara Dahulu",

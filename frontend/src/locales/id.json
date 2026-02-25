@@ -4,7 +4,7 @@
     "save": "Simpan",
     "cancel": "Batal",
     "delete": "Hapus",
-    "edit": "Edit",
+    "edit": "Sunting",
     "search": "Cari",
     "submit": "Kirim",
     "close": "Tutup",
@@ -435,7 +435,7 @@
     "lowerHand": "Turunkan Tangan",
     "virtualBackground": "Latar Belakang Virtual",
     "aiNotes": "Catatan AI",
-    "chat": "Chat",
+    "chat": "Obrolan",
     "settings": "Pengaturan",
     "typeMessage": "Ketik pesan...",
     "send": "Kirim",
@@ -483,7 +483,7 @@
     "convertToPdf": "Silakan konversi dokumen Anda ke format PDF dan coba lagi",
     "title": "Resume Saya",
     "createNew": "Buat Resume Baru",
-    "editResume": "Edit Resume",
+    "editResume": "Sunting Resume",
     "downloadPdf": "Unduh PDF",
     "preview": "Pratinjau",
     "sections": "Bagian",
@@ -1260,7 +1260,7 @@
     "selectLanguage": "Pilih Bahasa",
     "videoUnavailable": "Video tidak tersedia",
     "loadingVideo": "Memuat video...",
-    "presenter": "Presenter",
+    "presenter": "Pembicara",
     "categories": {
       "jobSeeker": "Pencari Kerja",
       "recruiter": "Rekruter",
@@ -1663,7 +1663,7 @@
       "currentPlan": "Paket Saat Ini",
       "free": "Gratis",
       "premium": "Premium",
-      "enterprise": "Enterprise",
+      "enterprise": "Perusahaan",
       "upgrade": "Tingkatkan",
       "downgrade": "Turunkan",
       "cancel": "Batalkan Langganan",
@@ -1872,8 +1872,8 @@
     "namePlaceholder": "John Doe",
     "emailPlaceholder": "john@example.com",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "portfolioPlaceholder": "https://yourportfolio.com",
+    "linkedinPlaceholder": "https://linkedin.com/in/profilanda",
+    "portfolioPlaceholder": "https://portofolioanda.com",
     "resumeLinkPlaceholder": "Tautan ke resume Anda (Google Drive, Dropbox, dll.)",
     "coverLetterPlaceholder": "Ceritakan mengapa Anda cocok untuk peran ini..."
   },
@@ -1889,7 +1889,7 @@
   },
   "karauMeet": {
     "meetingTitlePlaceholder": "Rapat AI KARAU",
-    "emailPlaceholder": "your@email.com",
+    "emailPlaceholder": "emailanda@email.com",
     "meetingIdPlaceholder": "Masukkan ID rapat (mis., ABC-123-XYZ)",
     "verificationCodePlaceholder": "Masukkan kode 6 digit"
   },
@@ -1901,24 +1901,24 @@
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "Manajer Akuisisi Talenta",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/profilanda",
     "namePlaceholder": "John Doe"
   },
   "atsManagement": {
     "selectJobPlaceholder": "Pilih lowongan kerja",
     "maxApplicantsPlaceholder": "Tidak terbatas",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "kandidat@contoh.com",
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Tambahkan catatan pribadi ke undangan Anda..."
   },
   "recruiterVerification": {
     "companyPlaceholder": "mis., City Medical Center",
-    "websitePlaceholder": "https://example.com",
-    "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "websitePlaceholder": "https://contoh.com",
+    "linkedinPlaceholder": "https://linkedin.com/perusahaan/...",
+    "emailPlaceholder": "anda@perusahaananda.com",
     "rolePlaceholder": "mis., Manajer HR",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/profilanda"
   },
   "jobSearch": {
     "selectCountryFirst": "Pilih Negara Terlebih Dahulu",
@@ -2007,7 +2007,7 @@
   },
   "enterpriseAPI": {
     "apiKeyNamePlaceholder": "mis., Integrasi ATS Produksi",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch",
+    "webhookUrlPlaceholder": "https://ats-anda.com/webhooks/medmatch",
     "webhookDescPlaceholder": "mis., webhook ATS produksi"
   },
   "applicantTracker": {
@@ -2027,7 +2027,7 @@
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "mis., Insinyur Kualitas Senior",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply",
+    "externalUrlPlaceholder": "https://perusahaan-anda.com/karir/lamar",
     "tagsPlaceholder": "mis., Remote, Penuh Waktu, Kualitas, Perangkat Medis"
   },
   "interviewPrep": {

@@ -258,7 +258,7 @@
     "interviewPrep": "Paghahanda sa Panayam",
     "qaPractice": "Pagsasanay sa Q&A",
     "videoPractice": "Pagsasanay sa Video",
-    "voiceCoach": "Voice Coach",
+    "voiceCoach": "Tagapagsanay ng Boses",
     "realtimeSTT": "Real-Time na STT",
     "meetingNotes": "Mga Tala sa Meeting",
     "interviewCalendar": "Kalendaryo ng Panayam",
@@ -270,7 +270,7 @@
     "notifications": "Mga Abiso",
     "locationSettings": "Mga Setting ng Lokasyon",
     "salaryInsights": "Mga Insight sa Sahod",
-    "analytics": "Analytics",
+    "analytics": "Analitika",
     "companies": "Mga Kumpanya",
     "messages": "Mga Mensahe",
     "idVerification": "Pag-verify ng ID",
@@ -376,7 +376,7 @@
     "partTime": "Part-Time",
     "contract": "Kontrata",
     "remote": "Malayuan",
-    "hybrid": "Hybrid",
+    "hybrid": "Sama-samang",
     "onSite": "Sa Lugar",
     "salary": "Sahod",
     "postedDate": "Petsa ng Pag-post",
@@ -435,7 +435,7 @@
     "lowerHand": "Ibaba ang Kamay",
     "virtualBackground": "Virtual na Background",
     "aiNotes": "Mga Tala ng AI",
-    "chat": "Chat",
+    "chat": "Usapan",
     "settings": "Mga Setting",
     "typeMessage": "Mag-type ng mensahe...",
     "send": "Ipadala",
@@ -919,7 +919,7 @@
     "sendMessage": "Ipadala ang Mensahe",
     "startConversation": "Magsimula ng usapan",
     "searchMessages": "Maghanap sa mga mensahe...",
-    "inbox": "Inbox",
+    "inbox": "Kahon ng Impormasyon",
     "archived": "Naka-archive",
     "unread": "Hindi pa nababasa",
     "markRead": "Markahan bilang Nabasahan",
@@ -929,7 +929,7 @@
     "reply": "Sumagot",
     "forward": "Ipasa",
     "attachFile": "Mag-attach ng File",
-    "recruiter": "Recruiter",
+    "recruiter": "Tagapagrekrut",
     "candidate": "Kandidato",
     "anonymous": "Anonimo",
     "contactAccepted": "Tinanggap ang contact! Maaari na kayong mag-chat.",
@@ -956,7 +956,7 @@
     "iAmA": "Ako ay isang",
     "jobSeeker": "Naghahanap ng Trabaho",
     "jobSeekerDesc": "Hanapin ang pangarap mong trabaho gamit ang AI",
-    "recruiter": "Recruiter",
+    "recruiter": "Tagapagrekrut",
     "recruiterDesc": "Kumuha ng mahuhusay na talent sa healthcare",
     "name": "Pangalan",
     "yourName": "Iyong pangalan",
@@ -1623,7 +1623,7 @@
       "workTypePreferences": "Mga Kagustuhan sa Uri ng Trabaho",
       "workTypePreferencesDesc": "Piliin lahat ng work arrangement na bukas ka",
       "remote": "Malayuan",
-      "hybrid": "Hybrid",
+      "hybrid": "Sama-samang",
       "onsite": "Sa-lokal",
       "locationAlerts": "Mga Alert Batay sa Lokasyon",
       "locationAlertsDesc": "Maabisuhan tungkol sa mga trabahong malapit sa iyong lokasyon",
@@ -1652,8 +1652,8 @@
     "biometricAuth": {
       "title": "Pagpapatunay gamit ang Biometrics",
       "enableBiometric": "I-enable ang Biometric Login",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Mukha ID",
+      "touchId": "Pindot ID",
       "fingerprint": "Daliri",
       "setupRequired": "Kailangang I-setup",
       "notSupported": "Hindi suportado sa device na ito"
@@ -1662,8 +1662,8 @@
       "title": "Subskripsyon",
       "currentPlan": "Kasalukuyang Plan",
       "free": "Libre",
-      "premium": "Premium",
-      "enterprise": "Enterprise",
+      "premium": "Pambihira",
+      "enterprise": "Korporasyon",
       "upgrade": "Mag-upgrade",
       "downgrade": "Mag-downgrade",
       "cancel": "Kanselahin ang Subscription",
@@ -1864,16 +1864,16 @@
     "companyPlaceholder": "hal., Google",
     "positionPlaceholder": "hal., Inhinyerong Software",
     "locationPlaceholder": "https://meet.google.com/... o address ng opisina",
-    "interviewerNamePlaceholder": "John Smith",
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerNamePlaceholder": "Juan Smith",
+    "interviewerEmailPlaceholder": "juan@kompanya.com",
     "notesPlaceholder": "Anumang karagdagang detalye tungkol sa panayam..."
   },
   "publicApplication": {
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Juan Dodo",
     "emailPlaceholder": "john@example.com",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "portfolioPlaceholder": "https://yourportfolio.com",
+    "linkedinPlaceholder": "https://linkedin.com/in/iyongprofile",
+    "portfolioPlaceholder": "https://iyongportfolio.com",
     "resumeLinkPlaceholder": "Link sa iyong resume (Google Drive, Dropbox, atbp.)",
     "coverLetterPlaceholder": "Sabihin sa amin kung bakit ikaw ang akmang-akma sa posisyong ito..."
   },
@@ -1889,7 +1889,7 @@
   },
   "karauMeet": {
     "meetingTitlePlaceholder": "Pulong ng AI KARAU",
-    "emailPlaceholder": "your@email.com",
+    "emailPlaceholder": "iyong@email.com",
     "meetingIdPlaceholder": "Ilagay ang meeting ID (hal., ABC-123-XYZ)",
     "verificationCodePlaceholder": "Ilagay ang 6-digit na code"
   },
@@ -1901,13 +1901,13 @@
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "Manager ng Talent Acquisition",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/iyongprofile",
     "namePlaceholder": "Juan Dela Cruz"
   },
   "atsManagement": {
     "selectJobPlaceholder": "Pumili ng job posting",
     "maxApplicantsPlaceholder": "Walang limitasyon",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "kandidato@example.com",
     "candidateNamePlaceholder": "Juan Dela Cruz",
     "inviteNotePlaceholder": "Magdagdag ng personal na mensahe sa iyong imbitasyon..."
   },
@@ -1915,10 +1915,10 @@
     "companyPlaceholder": "hal., City Medical Center",
     "websitePlaceholder": "https://example.com",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "emailPlaceholder": "ikaw@iyongkompanya.com",
     "rolePlaceholder": "hal., HR Manager",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/iyongprofile"
   },
   "jobSearch": {
     "selectCountryFirst": "Piliin muna ang Bansa",
@@ -1938,7 +1938,7 @@
     "fullTime": "Buong Oras",
     "partTime": "Bahagi ng Oras",
     "contract": "Kontrata",
-    "intern": "Internship",
+    "intern": "Pagsasanay",
     "entry": "Antas ng Baguhan",
     "mid": "Gitnang Antas",
     "senior": "Antas ng Nakatatanda",
@@ -2007,7 +2007,7 @@
   },
   "enterpriseAPI": {
     "apiKeyNamePlaceholder": "hal., Production ATS Integration",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch",
+    "webhookUrlPlaceholder": "https://iyong-ats.com/webhooks/medmatch",
     "webhookDescPlaceholder": "hal., Production ATS webhook"
   },
   "applicantTracker": {
@@ -2027,7 +2027,7 @@
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "hal., Senior Quality Engineer",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply",
+    "externalUrlPlaceholder": "https://iyong-kompanya.com/mga-buhay/aplay",
     "tagsPlaceholder": "hal., Remote, Full-time, Quality, Medical Device"
   },
   "interviewPrep": {
@@ -2121,7 +2121,7 @@
   },
   "settings": {
     "title": "Mga Setting",
-    "account": "Account",
+    "account": "Konto",
     "profile": "Profile",
     "privacy": "Pagkapribado",
     "notifications": "Mga Notipikasyon",
