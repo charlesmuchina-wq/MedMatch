@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "สร้างการประชุมเสร็จสิ้น! แบ่งปันลิงก์กับผู้เข้าร่วมประชุม.",
     "failedCreate": "ไม่สามารถสร้างการประชุมได้",
     "enterMeetingIdError": "กรุณากรอก ID การประชุม",
-    "meetingLinkCopied": "ลิงก์การประชุมถูกคัดลอกแล้ว!"
+    "meetingLinkCopied": "ลิงก์การประชุมถูกคัดลอกแล้ว!",
+    "aiKarauMeeting": "การประชุม AI KARAU",
+    "tagline": "สถานที่ประชุม - ปลอดภัย & ใช้พลังงานจาก AI",
+    "signIn": "เข้าสู่ระบบ",
+    "signingIn": "กำลังเข้าสู่ระบบ...",
+    "joinMeetingTab": "เข้าร่วมการประชุม",
+    "email": "อีเมล",
+    "password": "รหัสผ่าน",
+    "orContinueWith": "หรือดำเนินการต่อด้วย",
+    "joinAsGuest": "กรุณาใส่รหัสการประชุมของคุณเพื่อเข้าร่วมเป็นแขก",
+    "meetingId": "รหัสการประชุม",
+    "joinMeetingBtn": "เข้าร่วมการประชุม",
+    "guestNote": "คุณจะเข้าร่วมเป็นแขก โปรดเข้าสู่ระบบเพื่อใช้ฟีเจอร์ทั้งหมด",
+    "e2eEncrypted": "เข้ารหัสแบบ E2E",
+    "aiPowered": "ใช้พลังงานจาก AI",
+    "backToPortal": "กลับไปยังการเลือกพอร์ทัล",
+    "welcomeToast": "ยินดีต้อนรับสู่การประชุม AI KARAU!",
+    "loginFailed": "การเข้าสู่ระบบล échfailed",
+    "connectionError": "เกิดข้อผิดพลาดในการเชื่อมต่อ โปรดลองอีกครั้ง",
+    "appleComingSoon": "การลงชื่อเข้าใช้ Apple กำลังมาเร็ว ๆ นี้!"
   },
   "location": {
     "selectLocationPlaceholder": "เลือกตำแหน่งที่ตั้งของคุณ..."

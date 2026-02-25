@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "Fundur búinn til! Deildu tenglinum með þátttakendum.",
     "failedCreate": "Bjóst ekki að fundur myndi takast",
     "enterMeetingIdError": "Vinsamlegast sláðu inn fundar ID",
-    "meetingLinkCopied": "Tengill á fund afritaður!"
+    "meetingLinkCopied": "Tengill á fund afritaður!",
+    "aiKarauMeeting": "AI KARAU Fundur",
+    "tagline": "Fundarstaður - Öruggur & MI-Styrktur",
+    "signIn": "Skrá sig inn",
+    "signingIn": "Að skrá sig inn...",
+    "joinMeetingTab": "Taka þátt í fundi",
+    "email": "Tölvupóstur",
+    "password": "Lykilorð",
+    "orContinueWith": "eða halda áfram með",
+    "joinAsGuest": "Sláðu inn fundar ID til að taka þátt sem gestur",
+    "meetingId": "Fundar ID",
+    "joinMeetingBtn": "Taka þátt í fundi",
+    "guestNote": "Þú munt taka þátt sem gestur. Skráðu þig inn fyrir allar aðgerðir.",
+    "e2eEncrypted": "E2E Dulkóðað",
+    "aiPowered": "MI-Styrktur",
+    "backToPortal": "Til baka í valinn port",
+    "welcomeToast": "Velkomin(n) í AI KARAU Fundinn!",
+    "loginFailed": "Skráning miðaðist",
+    "connectionError": "Tengingarvilla. Vinsamlegast reyndu aftur.",
+    "appleComingSoon": "Apple Skráning kemur fljótlega!"
   },
   "location": {
     "selectLocationPlaceholder": "Veldu staðsetningu..."

@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "جلسه ایجاد شد! لینک را با شرکت‌کنندگان به اشتراک بگذارید.",
     "failedCreate": "ایجاد جلسه ناموفق بود",
     "enterMeetingIdError": "لطفاً یک شناسه جلسه وارد کنید",
-    "meetingLinkCopied": "لینک جلسه کپی شد!"
+    "meetingLinkCopied": "لینک جلسه کپی شد!",
+    "aiKarauMeeting": "ملاقات AI KARAU",
+    "tagline": "محل ملاقات - ایمن و مجهز به هوش مصنوعی",
+    "signIn": "ورود",
+    "signingIn": "در حال ورود...",
+    "joinMeetingTab": "پیوستن به ملاقات",
+    "email": "ایمیل",
+    "password": "رمز عبور",
+    "orContinueWith": "یا با ادامه دهید",
+    "joinAsGuest": "برای پیوستن به عنوان مهمان، شناسه ملاقات خود را وارد کنید",
+    "meetingId": "شناسه ملاقات",
+    "joinMeetingBtn": "پیوستن به ملاقات",
+    "guestNote": "شما به عنوان مهمان پیوسته‌اید. برای دسترسی به تمام ویژگی‌ها، وارد شوید.",
+    "e2eEncrypted": "رمزگذاری سرتاسر",
+    "aiPowered": "مجهز به هوش مصنوعی",
+    "backToPortal": "بازگشت به انتخاب پورتال",
+    "welcomeToast": "به ملاقات AI KARAU خوش آمدید!",
+    "loginFailed": "ورود ناموفق بود",
+    "connectionError": "خطای اتصال. لطفا دوباره تلاش کنید.",
+    "appleComingSoon": "ورود با اپل به زودی می‌آید!"
   },
   "location": {
     "selectLocationPlaceholder": "موقعیت مکانی خود را انتخاب کنید..."

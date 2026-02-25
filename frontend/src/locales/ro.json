@@ -1889,7 +1889,7 @@
   },
   "karauMeet": {
     "meetingTitlePlaceholder": "Întâlnire AI KARAU",
-    "emailPlaceholder": "your@email.com",
+    "emailPlaceholder": "emailul.tau@email.com",
     "meetingIdPlaceholder": "Introduceți ID-ul întâlnirii (ex.: ABC-123-XYZ)",
     "verificationCodePlaceholder": "Introduceți codul din 6 cifre",
     "welcomeBack": "Bun venit înapoi, {{name}}!",
@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "Întâlnirea creată! Distribuie linkul participanților.",
     "failedCreate": "Nu s-a reușit crearea întâlnirii",
     "enterMeetingIdError": "Vă rugăm să introduceți un ID al întâlnirii",
-    "meetingLinkCopied": "Linkul întâlnirii a fost copiat!"
+    "meetingLinkCopied": "Linkul întâlnirii a fost copiat!",
+    "aiKarauMeeting": "Întâlnirea AI KARAU",
+    "tagline": "Locul Întâlnirii - Securizat și Alimentat de AI",
+    "signIn": "Autentificare",
+    "signingIn": "Se autentifică...",
+    "joinMeetingTab": "Participă la Întâlnire",
+    "email": "Email",
+    "password": "Parolă",
+    "orContinueWith": "sau continuă cu",
+    "joinAsGuest": "Introdu ID-ul întâlnirii pentru a participa ca oaspe",
+    "meetingId": "ID-ul Întâlnirii",
+    "joinMeetingBtn": "Participă la Întâlnire",
+    "guestNote": "Te vei alătura ca oaspete. Autentifică-te pentru funcții complete.",
+    "e2eEncrypted": "Criptare E2E",
+    "aiPowered": "Alimentat de AI",
+    "backToPortal": "Înapoi la Selecția Portalului",
+    "welcomeToast": "Bine ai venit la Întâlnirea AI KARAU!",
+    "loginFailed": "Autentificarea a eșuat",
+    "connectionError": "Eroare de conexiune. Te rugăm să încerci din nou.",
+    "appleComingSoon": "Autentificare Apple în curând!"
   },
   "location": {
     "selectLocationPlaceholder": "Selectați locația..."

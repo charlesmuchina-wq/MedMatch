@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "Pertemuan dibuat! Bagikan tautan dengan peserta.",
     "failedCreate": "Gagal membuat pertemuan",
     "enterMeetingIdError": "Silakan masukkan ID pertemuan",
-    "meetingLinkCopied": "Tautan pertemuan disalin!"
+    "meetingLinkCopied": "Tautan pertemuan disalin!",
+    "aiKarauMeeting": "Pertemuan AI KARAU",
+    "tagline": "Tempat Pertemuan - Aman & Didukung AI",
+    "signIn": "Masuk",
+    "signingIn": "Sedang Masuk...",
+    "joinMeetingTab": "Bergabung ke Pertemuan",
+    "email": "Email",
+    "password": "Kata Sandi",
+    "orContinueWith": "atau lanjutkan dengan",
+    "joinAsGuest": "Masukkan ID pertemuan Anda untuk bergabung sebagai tamu",
+    "meetingId": "ID Pertemuan",
+    "joinMeetingBtn": "Bergabung ke Pertemuan",
+    "guestNote": "Anda akan bergabung sebagai tamu. Masuk untuk fitur lengkap.",
+    "e2eEncrypted": "Ter-enkripsi E2E",
+    "aiPowered": "Didukung AI",
+    "backToPortal": "Kembali ke Pilihan Portal",
+    "welcomeToast": "Selamat datang di Pertemuan AI KARAU!",
+    "loginFailed": "Masuk gagal",
+    "connectionError": "Kesalahan koneksi. Silakan coba lagi.",
+    "appleComingSoon": "Masuk dengan Apple segera hadir!"
   },
   "location": {
     "selectLocationPlaceholder": "Pilih lokasi Anda..."

@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "Møde oprettet! Del linket med deltagerne.",
     "failedCreate": "Kunne ikke oprette møde",
     "enterMeetingIdError": "Indtast venligst et møde-ID",
-    "meetingLinkCopied": "Møde-link kopieret!"
+    "meetingLinkCopied": "Møde-link kopieret!",
+    "aiKarauMeeting": "AI KARAU Møde",
+    "tagline": "Mødestedet - Sikkert og AI-drevet",
+    "signIn": "Log ind",
+    "signingIn": "Logger ind...",
+    "joinMeetingTab": "Deltag i møde",
+    "email": "E-mail",
+    "password": "Adgangskode",
+    "orContinueWith": "eller fortsæt med",
+    "joinAsGuest": "Indtast dit møde-ID for at deltage som gæst",
+    "meetingId": "Møde-ID",
+    "joinMeetingBtn": "Deltag i møde",
+    "guestNote": "Du deltager som gæst. Log ind for fulde funktioner.",
+    "e2eEncrypted": "E2E Krypteret",
+    "aiPowered": "AI-Drevet",
+    "backToPortal": "Tilbage til portalvalg",
+    "welcomeToast": "Velkommen til AI KARAU Møde!",
+    "loginFailed": "Login fejlede",
+    "connectionError": "Forbindelsesfejl. Prøv igen.",
+    "appleComingSoon": "Apple Login kommer snart!"
   },
   "location": {
     "selectLocationPlaceholder": "Vælg din lokation..."

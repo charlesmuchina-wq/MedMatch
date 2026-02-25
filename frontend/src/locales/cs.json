@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "Schůzka byla vytvořena! Sdílejte odkaz s účastníky.",
     "failedCreate": "Nepodařilo se vytvořit schůzku",
     "enterMeetingIdError": "Zadejte prosím ID schůzky",
-    "meetingLinkCopied": "Odkaz na schůzku byl zkopírován!"
+    "meetingLinkCopied": "Odkaz na schůzku byl zkopírován!",
+    "aiKarauMeeting": "AI KARAU Schůzka",
+    "tagline": "Místo pro setkání - Bezpečné a poháněné AI",
+    "signIn": "Přihlásit se",
+    "signingIn": "Přihlašuji se...",
+    "joinMeetingTab": "Připojit se k schůzce",
+    "email": "E-mail",
+    "password": "Heslo",
+    "orContinueWith": "nebo pokračovat s",
+    "joinAsGuest": "Zadejte ID schůzky, abyste se připojili jako host",
+    "meetingId": "ID schůzky",
+    "joinMeetingBtn": "Připojit se k schůzce",
+    "guestNote": "Připojíte se jako host. Přihlaste se pro plné funkce.",
+    "e2eEncrypted": "E2E Šifrované",
+    "aiPowered": "Poháněné AI",
+    "backToPortal": "Zpět na výběr portálu",
+    "welcomeToast": "Vítejte na AI KARAU Schůzce!",
+    "loginFailed": "Přihlášení selhalo",
+    "connectionError": "Chyba připojení. Zkuste to prosím znovu.",
+    "appleComingSoon": "Apple Přihlášení brzy!"
   },
   "location": {
     "selectLocationPlaceholder": "Vyberte svou polohu..."

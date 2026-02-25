@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "Mesyuarat telah dibuat! Kongsi pautan dengan peserta.",
     "failedCreate": "Gagal untuk membuat mesyuarat",
     "enterMeetingIdError": "Sila masukkan ID mesyuarat",
-    "meetingLinkCopied": "Pautan mesyuarat telah disalin!"
+    "meetingLinkCopied": "Pautan mesyuarat telah disalin!",
+    "aiKarauMeeting": "Mesyuarat AI KARAU",
+    "tagline": "Tempat Mesyuarat - Selamat & Dikuasakan AI",
+    "signIn": "Log Masuk",
+    "signingIn": "Sedang Log Masuk...",
+    "joinMeetingTab": "Sertai Mesyuarat",
+    "email": "Emel",
+    "password": "Kata Laluan",
+    "orContinueWith": "atau teruskan dengan",
+    "joinAsGuest": "Masukkan ID mesyuarat anda untuk sertai sebagai tetamu",
+    "meetingId": "ID Mesyuarat",
+    "joinMeetingBtn": "Sertai Mesyuarat",
+    "guestNote": "Anda akan sertai sebagai tetamu. Log masuk untuk ciri penuh.",
+    "e2eEncrypted": "Disulitkan E2E",
+    "aiPowered": "Dikuasakan AI",
+    "backToPortal": "Kembali ke Pemilihan Portal",
+    "welcomeToast": "Selamat datang ke Mesyuarat AI KARAU!",
+    "loginFailed": "Log masuk gagal",
+    "connectionError": "Ralat sambungan. Sila cuba lagi.",
+    "appleComingSoon": "Log Masuk Apple akan tiba tidak lama lagi!"
   },
   "location": {
     "selectLocationPlaceholder": "Pilih lokasi anda..."

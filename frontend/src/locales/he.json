@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "הפגישה נוצרה! שתף את הקישור עם המשתתפים.",
     "failedCreate": "נכשל ביצירת הפגישה",
     "enterMeetingIdError": "אנא הזן מזהה פגישה",
-    "meetingLinkCopied": "קישור הפגישה הועתק!"
+    "meetingLinkCopied": "קישור הפגישה הועתק!",
+    "aiKarauMeeting": "מפגש AI KARAU",
+    "tagline": "מקום המפגש - מאובטח ומבוסס על AI",
+    "signIn": "התחבר",
+    "signingIn": "מתחבר...",
+    "joinMeetingTab": "הצטרף למפגש",
+    "email": "אי-מייל",
+    "password": "סיסמה",
+    "orContinueWith": "או המשך עם",
+    "joinAsGuest": "הזן את מזהה המפגש שלך כדי להצטרף כאורח",
+    "meetingId": "מזהה מפגש",
+    "joinMeetingBtn": "הצטרף למפגש",
+    "guestNote": "תצטרף כאורח. התחבר עבור תכונות מלאות.",
+    "e2eEncrypted": "מוצפן E2E",
+    "aiPowered": "מבוסס על AI",
+    "backToPortal": "חזור לבחירת פורטל",
+    "welcomeToast": "ברוך הבא למפגש AI KARAU!",
+    "loginFailed": "התחברות נכשלה",
+    "connectionError": "שגיאת חיבור. אנא נסה שוב.",
+    "appleComingSoon": "התחברות עם אפל בקרוב!"
   },
   "location": {
     "selectLocationPlaceholder": "בחר את המיקום שלך..."
