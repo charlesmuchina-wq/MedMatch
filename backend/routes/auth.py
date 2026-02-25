@@ -604,6 +604,9 @@ async def orcid_callback(
             token_data = token_response.json()
             orcid_id = token_data.get("orcid")
             orcid_name = token_data.get("name", "")
+            orcid_email = None
+
+            logging.info(f"ORCID token exchange success: orcid_id={orcid_id}, name={orcid_name}")
 
             # Try to fetch more profile data from the public API
             try:
