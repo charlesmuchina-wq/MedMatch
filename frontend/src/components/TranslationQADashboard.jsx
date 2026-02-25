@@ -185,6 +185,46 @@ const TranslationQADashboard = () => {
     }
   };
 
+  const autoFixIssues = async (targetKpi = 98) => {
+    setFixing(true);
+    setFixProgress(null);
+    try {
+      const res = await axios.post(`${API}/api/translation-qa/auto-translate`, {
+        target_kpi: targetKpi,
+        dry_run: false
+      });
+      const jobId = res.data.job_id;
+      setFixJobId(jobId);
+      toast.success(`Auto-fix started for ${res.data.languages_to_translate} languages (${res.data.total_keys_to_translate} keys)`);
+
+      // Poll for progress
+      const poll = setInterval(async () => {
+        try {
+          const statusRes = await axios.get(`${API}/api/translation-qa/auto-translate/${jobId}`);
+          setFixProgress(statusRes.data);
+          if (statusRes.data.status === "completed") {
+            clearInterval(poll);
+            setFixing(false);
+            toast.success(`Auto-fix complete: ${statusRes.data.keys_translated} keys translated across ${statusRes.data.languages_completed} languages`);
+            await fetchDashboardData();
+          }
+        } catch {
+          // keep polling
+        }
+      }, 3000);
+
+      // Safety timeout after 5 min
+      setTimeout(() => {
+        clearInterval(poll);
+        setFixing(false);
+      }, 300000);
+
+    } catch (error) {
+      toast.error("Auto-fix failed to start");
+      setFixing(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
