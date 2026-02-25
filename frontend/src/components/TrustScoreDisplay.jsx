@@ -175,7 +175,7 @@ const TrustScoreDisplay = ({
       {showBreakdown && (
         <div className="p-5 border-t border-gray-100 dark:border-gray-700">
           <div className="flex items-center justify-between mb-4">
-            <h4 className="font-medium text-gray-900 dark:text-white">Score Breakdown</h4>
+            <h4 className="font-medium text-gray-900 dark:text-white">{t("trust.scoreBreakdown")}</h4>
             <Button 
               variant="ghost" 
               size="sm" 
