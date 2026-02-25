@@ -51,14 +51,22 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 
 ### 4. ORCID OAuth Login
 - "Sign in with ORCID" button on login page with official ORCID green branding (#A6CE39)
-- Full OAuth 2.0 Authorization Code flow (production orcid.org)
+- Full OAuth 2.0 Authorization Code flow via popup window (production orcid.org)
 - Backend endpoints: `GET /api/auth/orcid/config`, `GET /api/auth/orcid/login`, `GET /api/auth/orcid/callback`
 - Auto-creates user account on first ORCID sign-in, links ORCID iD to profile
-- Stores ORCID connection data for future profile enrichment (education, employment, publications)
-- Frontend handles callback via URL hash (#orcid_session=TOKEN)
+- OAuth states stored in MongoDB for load-balancer resilience
+- Callback uses postMessage to communicate with opener window (iframe-compatible)
 - ORCID Client ID: APP-K9HUYS6GQY2RERX6 (production)
-- Translation keys added: auth.orcid, auth.orcidLoginSuccess, auth.orcidLoginFailed
-- All tests passed: 14/14 backend, 8/8 frontend
+
+### 5. Translation Hardening & QA Mitigator
+- **Fixed hardcoded English in sidebars**: Replaced 20+ raw English strings with translation keys (`nav.*`, `recruiter.*`) in Admin, Job Seeker, and Recruiter sidebars (App.js)
+- **Fixed ProfileBadgeShowcase**: All "Verified Badges", "Verified by:", "View all N badges" strings now use `t()` with `badges.*` keys
+- **Fixed `{count}` placeholder errors**: Migrated all `{count}` → `{{count}}` in 33 locale files for proper i18n interpolation
+- **Added Auto-Fix button**: Translation QA Dashboard now has "Auto-Fix Issues" mitigator button that triggers AI auto-translation for all languages below target KPI
+- **Added progress banner**: Real-time progress indicator during auto-fix with language count and key translation stats
+- **AI KARAU Meeting Portal language selector**: Added `GlobalLanguageSelector` to KARAU sidebar, translated all nav items (`karau.*` keys)
+- **Translated 36 new keys** across all 32 languages using GPT-5.2 AI translation
+- **0 missing keys** in all locale files after sync
 
 ---
 
@@ -67,6 +75,7 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 ### P1
 - LinkedIn Profile Sync
 - PayPal Integration
+- ORCID live user verification (user needs to test full flow)
 
 ### P2
 - Enterprise SSO/SAML
