@@ -282,7 +282,7 @@ const ProfileBadgeShowcase = ({
       {/* Issuer logos footer */}
       {badges.length > 0 && (
         <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
-          <p className="text-xs text-gray-400 mb-2">Verified by:</p>
+          <p className="text-xs text-gray-400 mb-2">{t("badges.verifiedBy")}:</p>
           <div className="flex items-center gap-2 flex-wrap">
             {[...new Set(badges.map(b => b.issuing_authority))].slice(0, 5).map((issuer, idx) => (
               <span key={idx} className="px-2 py-1 bg-white dark:bg-gray-800 rounded text-xs text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-600">
