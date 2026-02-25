@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "Meeting created! Share the link with participants.",
     "failedCreate": "Failed to create meeting",
     "enterMeetingIdError": "Please enter a meeting ID",
-    "meetingLinkCopied": "Meeting link copied!"
+    "meetingLinkCopied": "Meeting link copied!",
+    "aiKarauMeeting": "AI KARAU Meeting",
+    "tagline": "The Meeting Place - Secure & AI-Powered",
+    "signIn": "Sign In",
+    "signingIn": "Signing In...",
+    "joinMeetingTab": "Join Meeting",
+    "email": "Email",
+    "password": "Password",
+    "orContinueWith": "or continue with",
+    "joinAsGuest": "Enter your meeting ID to join as a guest",
+    "meetingId": "Meeting ID",
+    "joinMeetingBtn": "Join Meeting",
+    "guestNote": "You'll join as a guest. Sign in for full features.",
+    "e2eEncrypted": "E2E Encrypted",
+    "aiPowered": "AI-Powered",
+    "backToPortal": "Back to Portal Selection",
+    "welcomeToast": "Welcome to AI KARAU Meeting!",
+    "loginFailed": "Login failed",
+    "connectionError": "Connection error. Please try again.",
+    "appleComingSoon": "Apple Sign-In coming soon!"
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."
