@@ -95,10 +95,10 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
                   ? 'bg-turquoise/20 text-turquoise'
                   : 'text-slate-400 hover:bg-slate-800 hover:text-white'
               }`}
-              data-testid={`nav-${item.label.toLowerCase().replace(' ', '-')}`}
+              data-testid={`nav-${item.labelKey}`}
             >
               <item.icon className="w-5 h-5 flex-shrink-0" />
-              {!isCollapsed && <span className="text-sm">{item.label}</span>}
+              {!isCollapsed && <span className="text-sm">{t(item.labelKey)}</span>}
             </button>
           ))}
         </nav>
