@@ -501,6 +501,202 @@ async def apple_callback(auth_request: AppleAuthRequest, response: Response):
         logging.error(f"Apple auth error: {e}")
         raise HTTPException(status_code=401, detail="Apple authentication failed")
 
+# ============== ORCID OAuth ==============
+
+ORCID_CLIENT_ID = os.environ.get("ORCID_CLIENT_ID", "")
+ORCID_CLIENT_SECRET = os.environ.get("ORCID_CLIENT_SECRET", "")
+ORCID_REDIRECT_URI = os.environ.get("ORCID_REDIRECT_URI", "")
+ORCID_ENVIRONMENT = os.environ.get("ORCID_ENVIRONMENT", "production")
+
+ORCID_URLS = {
+    "sandbox": {
+        "auth": "https://sandbox.orcid.org/oauth/authorize",
+        "token": "https://sandbox.orcid.org/oauth/token",
+        "api": "https://pub.sandbox.orcid.org/v3.0"
+    },
+    "production": {
+        "auth": "https://orcid.org/oauth/authorize",
+        "token": "https://orcid.org/oauth/token",
+        "api": "https://pub.orcid.org/v3.0"
+    }
+}
+
+# In-memory ORCID OAuth state storage
+orcid_oauth_states = {}
+
+@router.get("/orcid/config")
+async def get_orcid_config():
+    """Check if ORCID OAuth is configured."""
+    return {
+        "configured": bool(ORCID_CLIENT_ID and ORCID_CLIENT_SECRET and ORCID_REDIRECT_URI),
+        "environment": ORCID_ENVIRONMENT
+    }
+
+@router.get("/orcid/login")
+async def orcid_login():
+    """Initiate ORCID OAuth sign-in flow. Redirects user to ORCID authorization page."""
+    if not ORCID_CLIENT_ID or not ORCID_REDIRECT_URI:
+        raise HTTPException(status_code=503, detail="ORCID OAuth not configured")
+
+    state = secrets.token_urlsafe(32)
+    orcid_oauth_states[state] = {
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+
+    urls = ORCID_URLS.get(ORCID_ENVIRONMENT, ORCID_URLS["production"])
+    auth_url = (
+        f"{urls['auth']}"
+        f"?client_id={ORCID_CLIENT_ID}"
+        f"&response_type=code"
+        f"&scope=/authenticate"
+        f"&redirect_uri={ORCID_REDIRECT_URI}"
+        f"&state={state}"
+    )
+
+    return RedirectResponse(url=auth_url)
+
+@router.get("/orcid/callback")
+async def orcid_callback(
+    code: str = None,
+    state: str = None,
+    error: str = None,
+    error_description: str = None
+):
+    """Handle ORCID OAuth callback, create session, redirect to frontend."""
+    frontend_url = os.environ.get("REACT_APP_BACKEND_URL", "").rstrip("/")
+
+    if error:
+        logging.error(f"ORCID OAuth error: {error} - {error_description}")
+        return RedirectResponse(url=f"{frontend_url}/login#orcid_error={error}")
+
+    if not state or state not in orcid_oauth_states:
+        return RedirectResponse(url=f"{frontend_url}/login#orcid_error=invalid_state")
+
+    orcid_oauth_states.pop(state, None)
+
+    if not code:
+        return RedirectResponse(url=f"{frontend_url}/login#orcid_error=no_code")
+
+    urls = ORCID_URLS.get(ORCID_ENVIRONMENT, ORCID_URLS["production"])
+
+    try:
+        async with httpx.AsyncClient() as http_client:
+            token_response = await http_client.post(
+                urls["token"],
+                data={
+                    "client_id": ORCID_CLIENT_ID,
+                    "client_secret": ORCID_CLIENT_SECRET,
+                    "grant_type": "authorization_code",
+                    "code": code,
+                    "redirect_uri": ORCID_REDIRECT_URI
+                },
+                headers={"Accept": "application/json"}
+            )
+
+            if token_response.status_code != 200:
+                logging.error(f"ORCID token exchange failed: {token_response.text}")
+                return RedirectResponse(url=f"{frontend_url}/login#orcid_error=token_exchange_failed")
+
+            token_data = token_response.json()
+            orcid_id = token_data.get("orcid")
+            orcid_name = token_data.get("name", "")
+
+            # Try to fetch more profile data from the public API
+            try:
+                record_response = await http_client.get(
+                    f"{urls['api']}/{orcid_id}/person",
+                    headers={
+                        "Accept": "application/json",
+                        "Authorization": f"Bearer {token_data.get('access_token', '')}"
+                    }
+                )
+                if record_response.status_code == 200:
+                    person_data = record_response.json()
+                    name_data = person_data.get("name", {})
+                    given = name_data.get("given-names", {}).get("value", "")
+                    family = name_data.get("family-name", {}).get("value", "")
+                    if given or family:
+                        orcid_name = f"{given} {family}".strip()
+
+                    # Try to get email
+                    emails_data = person_data.get("emails", {}).get("email", [])
+                    orcid_email = None
+                    for em in emails_data:
+                        if em.get("verified", False):
+                            orcid_email = em.get("email")
+                            break
+                    if not orcid_email and emails_data:
+                        orcid_email = emails_data[0].get("email")
+            except Exception as e:
+                logging.warning(f"Failed to fetch ORCID person data: {e}")
+                orcid_email = None
+
+            # Build a synthetic email if ORCID doesn't share one
+            if not orcid_email:
+                orcid_email = f"{orcid_id}@orcid.user"
+
+            # Get or create user
+            user = await db.users.find_one({"orcid_id": orcid_id}, {"_id": 0})
+            if not user:
+                user = await db.users.find_one({"email": orcid_email}, {"_id": 0})
+
+            if user:
+                # Update ORCID info
+                await db.users.update_one(
+                    {"user_id": user["user_id"]},
+                    {"$set": {
+                        "orcid_id": orcid_id,
+                        "orcid_verified": True,
+                        "last_login": datetime.now(timezone.utc).isoformat(),
+                        "name": orcid_name or user.get("name", "")
+                    }}
+                )
+            else:
+                # Create new user
+                user = {
+                    "user_id": f"user_{uuid.uuid4().hex[:12]}",
+                    "email": orcid_email,
+                    "name": orcid_name or f"ORCID User {orcid_id}",
+                    "auth_method": "orcid",
+                    "orcid_id": orcid_id,
+                    "orcid_verified": True,
+                    "role": "job_seeker",
+                    "created_at": datetime.now(timezone.utc).isoformat(),
+                    "last_login": datetime.now(timezone.utc).isoformat(),
+                    "membership_status": "trial",
+                    "trial_ends_at": (datetime.now(timezone.utc) + timedelta(days=15)).isoformat()
+                }
+                await db.users.insert_one(user)
+
+            # Create session
+            session_token = create_session_token()
+            await create_session(user["user_id"], session_token)
+
+            # Store ORCID connection data for profile enrichment
+            await db.orcid_connections.update_one(
+                {"user_id": user["user_id"]},
+                {"$set": {
+                    "user_id": user["user_id"],
+                    "orcid_id": orcid_id,
+                    "name": orcid_name,
+                    "access_token": token_data.get("access_token"),
+                    "refresh_token": token_data.get("refresh_token"),
+                    "connected_at": datetime.now(timezone.utc).isoformat(),
+                    "last_synced": datetime.now(timezone.utc).isoformat()
+                }},
+                upsert=True
+            )
+
+            # Redirect to frontend with session token in hash
+            return RedirectResponse(
+                url=f"{frontend_url}/login#orcid_session={session_token}",
+                status_code=303
+            )
+
+    except Exception as e:
+        logging.error(f"ORCID callback error: {e}")
+        return RedirectResponse(url=f"{frontend_url}/login#orcid_error=server_error")
+
 @router.post("/phone/send-otp")
 async def send_phone_otp(request: PhoneLoginRequest):
     """Send OTP to phone number via Twilio"""
