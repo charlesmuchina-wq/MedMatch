@@ -2659,6 +2659,10 @@
     "recordings": "Recordings",
     "meetingNotes": "Meeting Notes",
     "analytics": "Analytics",
-    "settings": "Settings"
+    "settings": "Settings",
+    "viewAllMeetings": "View all your past and upcoming meetings",
+    "scheduleDesc": "Schedule and manage your meetings",
+    "notesDesc": "AI-generated summaries and transcriptions",
+    "analyticsDesc": "Meeting statistics and insights"
   }
 }
