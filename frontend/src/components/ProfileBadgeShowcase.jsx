@@ -192,7 +192,7 @@ const ProfileBadgeShowcase = ({
             className="bg-orange-500 hover:bg-orange-600 text-white gap-1"
           >
             <Award className="w-4 h-4" />
-            {connecting ? 'Connecting...' : 'Import Badges'}
+            {connecting ? t("badges.connecting") : t("badges.importBadges")}
           </Button>
         )}
       </div>
