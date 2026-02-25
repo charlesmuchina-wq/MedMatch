@@ -661,7 +661,10 @@
     "biometricFailed": "生物识别认证失败",
     "selectRole": "选择你的角色",
     "registerAsJobSeeker": "寻找生命科学领域机会",
-    "registerAsRecruiter": "为你的组织招聘人才"
+    "registerAsRecruiter": "为你的组织招聘人才",
+    "orcid": "使用 ORCID 登录",
+    "orcidLoginSuccess": "已使用 ORCID 登录！",
+    "orcidLoginFailed": "ORCID 登录失败"
   },
   "onboarding": {
     "welcome": "欢迎来到MedMatch！",

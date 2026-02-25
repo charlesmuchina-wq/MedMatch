@@ -884,7 +884,10 @@
     "biometricFailed": "Xác thực sinh trắc học thất bại",
     "selectRole": "Chọn vai trò",
     "registerAsJobSeeker": "Tìm cơ hội trong khoa học sự sống",
-    "registerAsRecruiter": "Tuyển dụng nhân tài cho tổ chức"
+    "registerAsRecruiter": "Tuyển dụng nhân tài cho tổ chức",
+    "orcid": "Đăng nhập bằng ORCID",
+    "orcidLoginSuccess": "Đã đăng nhập bằng ORCID!",
+    "orcidLoginFailed": "Đăng nhập ORCID thất bại"
   },
   "onboarding": {
     "welcome": "Chào mừng bạn đến với MedMatch!",

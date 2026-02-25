@@ -294,7 +294,10 @@
     "biometricFailed": "Uthibitishaji wa biometriki umeshindwa",
     "selectRole": "Chagua jukumu lako",
     "registerAsJobSeeker": "Natafuta fursa kwenye sayansi ya maisha",
-    "registerAsRecruiter": "Ninaajiri vipaji kwa shirika lako"
+    "registerAsRecruiter": "Ninaajiri vipaji kwa shirika lako",
+    "orcid": "Ingia kwa ORCID",
+    "orcidLoginSuccess": "Umeingia kwa ORCID!",
+    "orcidLoginFailed": "Kuingia kwa ORCID kumeshindikana"
   },
   "errors": {
     "somethingWentWrong": "Kuna hitilafu imetokea",

@@ -294,7 +294,10 @@
     "biometricFailed": "Tabbatarwa ta biometric ta gaza",
     "selectRole": "Zaɓi matsayinka",
     "registerAsJobSeeker": "Ina neman damammaki a kimiyyar rayuwa",
-    "registerAsRecruiter": "Ina ɗaukar ma'aikata don ƙungiyarka"
+    "registerAsRecruiter": "Ina ɗaukar ma'aikata don ƙungiyarka",
+    "orcid": "Shiga da ORCID",
+    "orcidLoginSuccess": "An shiga da ORCID!",
+    "orcidLoginFailed": "Shiga da ORCID ya gaza"
   },
   "errors": {
     "somethingWentWrong": "Wani abu ya tafi ba daidai ba",
@@ -2223,32 +2226,32 @@
     "downloaded": "An fara saukewa"
   },
   "share": {
-    "shareMeeting": "Share Meeting",
-    "shareDescription": "Share this meeting link with participants. Guests can join without an account.",
-    "meetingLink": "Meeting Link",
-    "meetingId": "Meeting ID",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "linkCopied": "Meeting link copied to clipboard!",
-    "addToCalendar": "Add to Calendar",
-    "downloadICS": "Download .ics",
-    "calendarDownloaded": "Calendar invite downloaded!",
-    "guestTip": "Guests can join using this link without creating an account. Just share the link and they can enter with their name."
+    "shareMeeting": "Raba Taro",
+    "shareDescription": "Raba wannan hanyar haɗin taro ga mahalarta. Baƙi za su iya shiga ba tare da asusu ba.",
+    "meetingLink": "Hanyar Haɗin Taro",
+    "meetingId": "ID na Taro",
+    "copy": "Kwafi",
+    "copied": "An kwafa!",
+    "linkCopied": "An kwafa hanyar haɗin taro zuwa allo na kwafi!",
+    "addToCalendar": "Ƙara zuwa Kalanda",
+    "downloadICS": "Sauke .ics",
+    "calendarDownloaded": "An sauke gayyatar kalanda!",
+    "guestTip": "Baƙi za su iya shiga ta wannan hanyar haɗin ba tare da ƙirƙirar asusu ba. Kawai raba hanyar haɗin, su shiga da sunansu."
   },
   "guest": {
-    "yourName": "Your Name",
-    "namePlaceholder": "Enter your name",
-    "enterName": "Please enter your name to join",
-    "joinMeeting": "Join Meeting",
-    "joining": "Joining...",
-    "joinFailed": "Failed to join meeting. Please try again.",
-    "meetingNotFound": "Meeting Not Found",
-    "meetingNotFoundDesc": "This meeting may have ended or the link is invalid.",
-    "backToPortal": "Back to Portal",
-    "meetingId": "Meeting ID",
-    "encrypted": "Encrypted",
-    "aiPowered": "AI Powered",
-    "secure": "Secure",
-    "haveAccount": "Have an account? Sign in instead"
+    "yourName": "Sunanka",
+    "namePlaceholder": "Shigar da sunanka",
+    "enterName": "Da fatan a shigar da sunanka don shiga",
+    "joinMeeting": "Shiga Taro",
+    "joining": "Ana shiga...",
+    "joinFailed": "An kasa shiga taron. Da fatan a sake gwadawa.",
+    "meetingNotFound": "Ba a Samu Taro ba",
+    "meetingNotFoundDesc": "Wataƙila taron ya ƙare ko kuma mahadar ba ta da inganci.",
+    "backToPortal": "Komawa Portal",
+    "meetingId": "ID na Taro",
+    "encrypted": "An ɓoye",
+    "aiPowered": "Mai amfani da AI",
+    "secure": "Amintacce",
+    "haveAccount": "Kana da asusu? Shiga maimakon haka"
   }
 }

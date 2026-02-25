@@ -884,7 +884,10 @@
     "biometricFailed": "Biometrische verificatie mislukt",
     "selectRole": "Selecteer je rol",
     "registerAsJobSeeker": "Op zoek naar kansen in de biowetenschappen",
-    "registerAsRecruiter": "Talent werven voor je organisatie"
+    "registerAsRecruiter": "Talent werven voor je organisatie",
+    "orcid": "Inloggen met ORCID",
+    "orcidLoginSuccess": "Ingelogd met ORCID!",
+    "orcidLoginFailed": "ORCID-inloggen mislukt"
   },
   "onboarding": {
     "welcome": "Welkom bij MedMatch!",

@@ -884,7 +884,10 @@
     "biometricFailed": "생체 인증 실패",
     "selectRole": "역할 선택",
     "registerAsJobSeeker": "생명과학 분야 기회 찾기",
-    "registerAsRecruiter": "조직 인재 채용"
+    "registerAsRecruiter": "조직 인재 채용",
+    "orcid": "ORCID로 로그인",
+    "orcidLoginSuccess": "ORCID로 로그인했습니다!",
+    "orcidLoginFailed": "ORCID 로그인에 실패했습니다"
   },
   "onboarding": {
     "welcome": "MedMatch에 오신 것을 환영합니다!",

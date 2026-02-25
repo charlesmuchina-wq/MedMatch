@@ -854,7 +854,10 @@
     "biometricFailed": "Biometrisk autentisering misslyckades",
     "selectRole": "Välj din roll",
     "registerAsJobSeeker": "Söker möjligheter inom biovetenskap",
-    "registerAsRecruiter": "Rekryterar talang till din organisation"
+    "registerAsRecruiter": "Rekryterar talang till din organisation",
+    "orcid": "Logga in med ORCID",
+    "orcidLoginSuccess": "Inloggad med ORCID!",
+    "orcidLoginFailed": "ORCID-inloggning misslyckades"
   },
   "onboarding": {
     "welcome": "Välkommen till MedMatch!",

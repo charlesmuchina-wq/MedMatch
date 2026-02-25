@@ -884,7 +884,10 @@
     "biometricFailed": "Autenticazione biometrica non riuscita",
     "selectRole": "Seleziona il tuo ruolo",
     "registerAsJobSeeker": "Cerco opportunità nelle scienze della vita",
-    "registerAsRecruiter": "Cerco talenti per la tua organizzazione"
+    "registerAsRecruiter": "Cerco talenti per la tua organizzazione",
+    "orcid": "Accedi con ORCID",
+    "orcidLoginSuccess": "Accesso con ORCID effettuato!",
+    "orcidLoginFailed": "Accesso con ORCID non riuscito"
   },
   "onboarding": {
     "welcome": "Benvenuto su MedMatch!",

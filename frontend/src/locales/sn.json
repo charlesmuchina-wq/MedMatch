@@ -294,7 +294,10 @@
     "biometricFailed": "Kusimbiswa neBiometric kwakundikana",
     "selectRole": "Sarudza basa rako",
     "registerAsJobSeeker": "Kutsvaga mikana muupenyu hwesainzi",
-    "registerAsRecruiter": "Kutsvaga tarenda resangano rako"
+    "registerAsRecruiter": "Kutsvaga tarenda resangano rako",
+    "orcid": "Pinda neORCID",
+    "orcidLoginSuccess": "Wapinda neORCID!",
+    "orcidLoginFailed": "Kutadza kupinda neORCID"
   },
   "errors": {
     "somethingWentWrong": "Pane chakanganisika",
@@ -2223,32 +2226,32 @@
     "downloaded": "Kudhawunirodha kwatanga"
   },
   "share": {
-    "shareMeeting": "Share Meeting",
-    "shareDescription": "Share this meeting link with participants. Guests can join without an account.",
-    "meetingLink": "Meeting Link",
-    "meetingId": "Meeting ID",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "linkCopied": "Meeting link copied to clipboard!",
-    "addToCalendar": "Add to Calendar",
-    "downloadICS": "Download .ics",
-    "calendarDownloaded": "Calendar invite downloaded!",
-    "guestTip": "Guests can join using this link without creating an account. Just share the link and they can enter with their name."
+    "shareMeeting": "Goverana Musangano",
+    "shareDescription": "Goverana chinongedzo chemusangano ichi nevatori vechikamu. Vaenzi vanogona kupinda vasina account.",
+    "meetingLink": "Chinongedzo cheMusangano",
+    "meetingId": "ID yeMusangano",
+    "copy": "Kopa",
+    "copied": "Zvakopwa!",
+    "linkCopied": "Chinongedzo chemusangano chakopwa kubhodhi rekucheka!",
+    "addToCalendar": "Wedzera kuKarenda",
+    "downloadICS": "Dhawunirodha .ics",
+    "calendarDownloaded": "Kukoka kwekarenda kwadhawunirodhwa!",
+    "guestTip": "Vaenzi vanogona kupinda vachishandisa chinongedzo ichi pasina kugadzira account. Ingogovera chinongedzo uye vanogona kupinda nezita ravo."
   },
   "guest": {
-    "yourName": "Your Name",
-    "namePlaceholder": "Enter your name",
-    "enterName": "Please enter your name to join",
-    "joinMeeting": "Join Meeting",
-    "joining": "Joining...",
-    "joinFailed": "Failed to join meeting. Please try again.",
-    "meetingNotFound": "Meeting Not Found",
-    "meetingNotFoundDesc": "This meeting may have ended or the link is invalid.",
-    "backToPortal": "Back to Portal",
-    "meetingId": "Meeting ID",
-    "encrypted": "Encrypted",
-    "aiPowered": "AI Powered",
-    "secure": "Secure",
-    "haveAccount": "Have an account? Sign in instead"
+    "yourName": "Zita Rako",
+    "namePlaceholder": "Isa zita rako",
+    "enterName": "Ndapota isa zita rako kuti upinde",
+    "joinMeeting": "Pinda Musangano",
+    "joining": "Kupinda...",
+    "joinFailed": "Kutadza kupinda musangano. Ndapota edzazve.",
+    "meetingNotFound": "Musangano Hausi Kuwanikwa",
+    "meetingNotFoundDesc": "Musangano uyu unogona kunge wapera kana kuti chinongedzo hachisi kushanda.",
+    "backToPortal": "Dzokera kuPortal",
+    "meetingId": "ID yeMusangano",
+    "encrypted": "Yakavharidzirwa nemakiyi",
+    "aiPowered": "Inofambiswa neAI",
+    "secure": "Yakachengeteka",
+    "haveAccount": "Une account? Pinda panzvimbo pezvo"
   }
 }

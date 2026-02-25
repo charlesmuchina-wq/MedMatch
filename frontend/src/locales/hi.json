@@ -294,7 +294,10 @@
     "biometricFailed": "बायोमेट्रिक प्रमाणीकरण विफल",
     "selectRole": "अपनी भूमिका चुनें",
     "registerAsJobSeeker": "जीवन विज्ञान में अवसर खोजें",
-    "registerAsRecruiter": "अपनी संस्था के लिए प्रतिभा भर्ती करें"
+    "registerAsRecruiter": "अपनी संस्था के लिए प्रतिभा भर्ती करें",
+    "orcid": "ORCID से साइन इन करें",
+    "orcidLoginSuccess": "ORCID से साइन इन हो गया!",
+    "orcidLoginFailed": "ORCID साइन-इन विफल"
   },
   "errors": {
     "somethingWentWrong": "कुछ गलत हो गया",

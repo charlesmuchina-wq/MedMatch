@@ -294,7 +294,10 @@
     "biometricFailed": "Mirkaneessi bayoomeetiriksi hin milkoofne",
     "selectRole": "Gahee kee filadhu",
     "registerAsJobSeeker": "Carraa hojii saayinsii jireenyaa keessatti barbaadaa",
-    "registerAsRecruiter": "Dandeettii dhaabbata keetiif qacaruu"
+    "registerAsRecruiter": "Dandeettii dhaabbata keetiif qacaruu",
+    "orcid": "ORCID waliin seeni",
+    "orcidLoginSuccess": "ORCID waliin seenne!",
+    "orcidLoginFailed": "ORCID seenuun hin milkoofne"
   },
   "errors": {
     "somethingWentWrong": "Wantoonni dogoggoran",
@@ -2193,32 +2196,32 @@
     "downloaded": "Buufanni jalqabame"
   },
   "share": {
-    "shareMeeting": "Share Meeting",
-    "shareDescription": "Share this meeting link with participants. Guests can join without an account.",
-    "meetingLink": "Meeting Link",
-    "meetingId": "Meeting ID",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "linkCopied": "Meeting link copied to clipboard!",
-    "addToCalendar": "Add to Calendar",
-    "downloadICS": "Download .ics",
-    "calendarDownloaded": "Calendar invite downloaded!",
-    "guestTip": "Guests can join using this link without creating an account. Just share the link and they can enter with their name."
+    "shareMeeting": "Walgahii Qoodi",
+    "shareDescription": "Hirmaattota waliin hidhaa walgahii kana qoodi. Keessummoonni herrega malee seenuu danda’u.",
+    "meetingLink": "Hidhaa Walgahii",
+    "meetingId": "ID Walgahii",
+    "copy": "Garagalchi",
+    "copied": "Garagalame!",
+    "linkCopied": "Hidhaan walgahii gara clipboardtti garagalee jira!",
+    "addToCalendar": "Kalandaraatti Dabali",
+    "downloadICS": ".ics Buufadhu",
+    "calendarDownloaded": "Afeerraa kalandaraa buufameera!",
+    "guestTip": "Keessummoonni herrega uumuun malee hidhaa kana fayyadamuun seenuu danda’u. Hidhaa qofa qoodi, isaanis maqaa isaanii galchuun seenuu danda’u."
   },
   "guest": {
-    "yourName": "Your Name",
-    "namePlaceholder": "Enter your name",
-    "enterName": "Please enter your name to join",
-    "joinMeeting": "Join Meeting",
-    "joining": "Joining...",
-    "joinFailed": "Failed to join meeting. Please try again.",
-    "meetingNotFound": "Meeting Not Found",
-    "meetingNotFoundDesc": "This meeting may have ended or the link is invalid.",
-    "backToPortal": "Back to Portal",
-    "meetingId": "Meeting ID",
-    "encrypted": "Encrypted",
-    "aiPowered": "AI Powered",
-    "secure": "Secure",
-    "haveAccount": "Have an account? Sign in instead"
+    "yourName": "Maqaa Kee",
+    "namePlaceholder": "Maqaa kee galchi",
+    "enterName": "Seenuuf maaloo maqaa kee galchi",
+    "joinMeeting": "Walgahiitti Seeni",
+    "joining": "Seenaa jira...",
+    "joinFailed": "Walgahiitti seenuun hin milkoofne. Maaloo irra deebi’ii yaali.",
+    "meetingNotFound": "Walgahiin Hin Argamne",
+    "meetingNotFoundDesc": "Walga'iin kun xumuramee ta'uu danda'a ykn liinkiin sun sirrii miti.",
+    "backToPortal": "Gara Poortaalii deebi'i",
+    "meetingId": "ID Walga'ii",
+    "encrypted": "Iccitii",
+    "aiPowered": "AI'n deeggarame",
+    "secure": "Nageenya qaba",
+    "haveAccount": "Akkaawuntii qabdaa? Bakka isaa seeni"
   }
 }

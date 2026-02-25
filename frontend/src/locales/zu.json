@@ -294,7 +294,10 @@
     "biometricFailed": "Ukuqinisekisa nge-Biometric kuhlulekile",
     "selectRole": "Khetha indima yakho",
     "registerAsJobSeeker": "Ufuna amathuba kwezesayensi yempilo",
-    "registerAsRecruiter": "Uqasha ithalente lenhlangano yakho"
+    "registerAsRecruiter": "Uqasha ithalente lenhlangano yakho",
+    "orcid": "Ngena ngemvume nge-ORCID",
+    "orcidLoginSuccess": "Ungene ngemvume nge-ORCID!",
+    "orcidLoginFailed": "Ukungena ngemvume nge-ORCID kwehlulekile"
   },
   "errors": {
     "somethingWentWrong": "Kukhona okungahambanga kahle",
@@ -833,7 +836,7 @@
     "freeFeatures": "Ukusesha imisebenzi okuyisisekelo, izicelo ezi-5/ngenyanga, umakhi we-CV",
     "premiumFeatures": "Izicelo ezingenamkhawulo, ukuqeqeshwa kwe-AI, ukwesekwa okuphambili",
     "enterpriseFeatures": "Izixazululo ezenzelwe wena, ukwesekwa okuzinikele, ukufinyelela ku-API",
-    "recruiterPro": "Recruiter Pro",
+    "recruiterPro": "Umqashi Pro",
     "recruiterProDesc": "Thumela imisebenzi, finyelela abakhethiwe, futhi wakhe ithimba lamaphupho akho",
     "jobSeekerDesc": "Isango lakho lokuthola umsebenzi wamaphupho wakho kwezobuchwepheshe bempilo",
     "lifetimeMember": "Ilungu impilo yonke",
@@ -847,41 +850,41 @@
     "paymentFailed": "Inkokhelo yehlulekile. Zama futhi.",
     "recruiterFeatures": {
       "starter": [
-        "5 active job posts",
-        "Basic candidate search",
-        "In-app messaging",
-        "Email support"
+        "Okuthunyelwe kwemisebenzi okusebenzayo okungu-5",
+        "Ukusesha amakhandidethi okuyisisekelo",
+        "Imiyalezo ngaphakathi kohlelo lokusebenza",
+        "Usekelo nge-imeyili"
       ],
       "growth": [
-        "10 active job posts",
-        "Advanced candidate search",
-        "Blind screening mode",
-        "Analytics dashboard",
-        "Priority support"
+        "Okuthunyelwe kwemisebenzi okusebenzayo okungu-10",
+        "Ukusesha amakhandidethi okuthuthukile",
+        "Imodi yokuhlunga okungaziwa",
+        "Ideshibhodi yokuhlaziya idatha",
+        "Usekelo olubalulekile"
       ],
       "scale": [
-        "Unlimited job posts",
-        "Full ATS integration",
-        "Bulk candidate export",
-        "Custom branding",
-        "API access",
-        "Dedicated support"
+        "Okuthunyelwe kwemisebenzi okungenamkhawulo",
+        "Ukuhlanganiswa okugcwele kwe-ATS",
+        "Ukuthekelisa amakhandidethi ngobuningi",
+        "Ukubrandwa ngokwezifiso",
+        "Ukufinyelela ku-API",
+        "Usekelo oluzinikele"
       ],
       "enterprise": [
-        "Everything in Premium",
-        "SSO/SAML integration",
-        "Custom SLA",
-        "Dedicated account manager",
-        "On-site training",
-        "HIPAA compliance"
+        "Konke okuku-Premium",
+        "Ukuhlanganiswa kwe-SSO/SAML",
+        "I-SLA eyenziwe ngokwezifiso",
+        "Umphathi we-akhawunti ozinikele",
+        "Ukuqeqeshwa esizeni",
+        "Ukuhambisana ne-HIPAA"
       ]
     },
     "jobSeekerFeatures": {
       "basic": [
-        "Unlimited job searches",
-        "View job listings",
-        "Save favorite jobs",
-        "Basic email alerts"
+        "Ukusesha imisebenzi okungenamkhawulo",
+        "Buka izikhangiso zemisebenzi",
+        "Londoloza imisebenzi oyithandayo",
+        "Izexwayiso ze-imeyili eziyisisekelo"
       ]
     }
   },
@@ -2223,32 +2226,32 @@
     "downloaded": "Ukulanda kuqalile"
   },
   "share": {
-    "shareMeeting": "Share Meeting",
-    "shareDescription": "Share this meeting link with participants. Guests can join without an account.",
-    "meetingLink": "Meeting Link",
-    "meetingId": "Meeting ID",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "linkCopied": "Meeting link copied to clipboard!",
-    "addToCalendar": "Add to Calendar",
-    "downloadICS": "Download .ics",
-    "calendarDownloaded": "Calendar invite downloaded!",
-    "guestTip": "Guests can join using this link without creating an account. Just share the link and they can enter with their name."
+    "shareMeeting": "Yabelana Umhlangano",
+    "shareDescription": "Yabelana ngalesi sixhumanisi somhlangano nababambiqhaza. Izivakashi zingajoyina ngaphandle kwe-akhawunti.",
+    "meetingLink": "Isixhumanisi Somhlangano",
+    "meetingId": "I-ID Yomhlangano",
+    "copy": "Kopisha",
+    "copied": "Kukopishiwe!",
+    "linkCopied": "Isixhumanisi somhlangano sikopishelwe ku-clipboard!",
+    "addToCalendar": "Engeza Kukhalenda",
+    "downloadICS": "Landa i-.ics",
+    "calendarDownloaded": "Isimemo sekhalenda silandiwe!",
+    "guestTip": "Izivakashi zingajoyina ngalesi sixhumanisi ngaphandle kokwenza i-akhawunti. Vele wabelane ngesixhumanisi bese zingena ngegama lazo."
   },
   "guest": {
-    "yourName": "Your Name",
-    "namePlaceholder": "Enter your name",
-    "enterName": "Please enter your name to join",
-    "joinMeeting": "Join Meeting",
-    "joining": "Joining...",
-    "joinFailed": "Failed to join meeting. Please try again.",
-    "meetingNotFound": "Meeting Not Found",
-    "meetingNotFoundDesc": "This meeting may have ended or the link is invalid.",
-    "backToPortal": "Back to Portal",
-    "meetingId": "Meeting ID",
-    "encrypted": "Encrypted",
-    "aiPowered": "AI Powered",
-    "secure": "Secure",
-    "haveAccount": "Have an account? Sign in instead"
+    "yourName": "Igama Lakho",
+    "namePlaceholder": "Faka igama lakho",
+    "enterName": "Sicela ufake igama lakho ukuze ujoyine",
+    "joinMeeting": "Joyina Umhlangano",
+    "joining": "Ukujoyina...",
+    "joinFailed": "Yehlulekile ukujoyina umhlangano. Sicela uzame futhi.",
+    "meetingNotFound": "Umhlangano Awutholakali",
+    "meetingNotFoundDesc": "Lo mhlangano kungenzeka usuphelile noma isixhumanisi asivumelekile.",
+    "backToPortal": "Buyela Ku-Portal",
+    "meetingId": "I-ID Yomhlangano",
+    "encrypted": "Kufihliwe",
+    "aiPowered": "Inikwa amandla yi-AI",
+    "secure": "Kuphephile",
+    "haveAccount": "Unayo i-akhawunti? Ngena ngemvume esikhundleni salokho"
   }
 }

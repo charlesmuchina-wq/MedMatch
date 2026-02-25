@@ -854,7 +854,10 @@
     "biometricFailed": "Биометрическая аутентификация не удалась",
     "selectRole": "Выберите свою роль",
     "registerAsJobSeeker": "Ищу возможности в бионауках",
-    "registerAsRecruiter": "Нанимаю специалистов для компании"
+    "registerAsRecruiter": "Нанимаю специалистов для компании",
+    "orcid": "Войти с помощью ORCID",
+    "orcidLoginSuccess": "Вход выполнен с помощью ORCID!",
+    "orcidLoginFailed": "Не удалось войти через ORCID"
   },
   "onboarding": {
     "welcome": "Добро пожаловать в MedMatch!",

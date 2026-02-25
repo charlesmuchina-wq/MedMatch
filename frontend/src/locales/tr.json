@@ -884,7 +884,10 @@
     "biometricFailed": "Biyometrik kimlik doğrulama başarısız",
     "selectRole": "Rolünüzü seçin",
     "registerAsJobSeeker": "Yaşam bilimlerinde fırsat arıyorum",
-    "registerAsRecruiter": "Kuruluşum için yetenek arıyorum"
+    "registerAsRecruiter": "Kuruluşum için yetenek arıyorum",
+    "orcid": "ORCID ile giriş yap",
+    "orcidLoginSuccess": "ORCID ile giriş yapıldı!",
+    "orcidLoginFailed": "ORCID ile giriş başarısız"
   },
   "onboarding": {
     "welcome": "MedMatch’e hoş geldiniz!",

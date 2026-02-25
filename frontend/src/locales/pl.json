@@ -884,7 +884,10 @@
     "biometricFailed": "Uwierzytelnianie biometryczne nieudane",
     "selectRole": "Wybierz swoją rolę",
     "registerAsJobSeeker": "Szukam możliwości w naukach o życiu",
-    "registerAsRecruiter": "Rekrutuję talenty do organizacji"
+    "registerAsRecruiter": "Rekrutuję talenty do organizacji",
+    "orcid": "Zaloguj się przez ORCID",
+    "orcidLoginSuccess": "Zalogowano przez ORCID!",
+    "orcidLoginFailed": "Logowanie przez ORCID nie powiodło się"
   },
   "onboarding": {
     "welcome": "Witamy w MedMatch!",

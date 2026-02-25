@@ -294,7 +294,10 @@
     "biometricFailed": "Kwemeza biometrics byanze",
     "selectRole": "Hitamo inshingano yawe",
     "registerAsJobSeeker": "Ndashaka amahirwe mu bumenyi bw’ubuzima",
-    "registerAsRecruiter": "Ndashaka abakozi b’umuryango wanjye"
+    "registerAsRecruiter": "Ndashaka abakozi b’umuryango wanjye",
+    "orcid": "Injira ukoresheje ORCID",
+    "orcidLoginSuccess": "Winjiye ukoresheje ORCID!",
+    "orcidLoginFailed": "Kwinjira ukoresheje ORCID byanze"
   },
   "errors": {
     "somethingWentWrong": "Hari ibitagenze neza",
@@ -2223,32 +2226,32 @@
     "downloaded": "Gukurura byatangiye"
   },
   "share": {
-    "shareMeeting": "Share Meeting",
-    "shareDescription": "Share this meeting link with participants. Guests can join without an account.",
-    "meetingLink": "Meeting Link",
-    "meetingId": "Meeting ID",
-    "copy": "Copy",
-    "copied": "Copied!",
-    "linkCopied": "Meeting link copied to clipboard!",
-    "addToCalendar": "Add to Calendar",
-    "downloadICS": "Download .ics",
-    "calendarDownloaded": "Calendar invite downloaded!",
-    "guestTip": "Guests can join using this link without creating an account. Just share the link and they can enter with their name."
+    "shareMeeting": "Sangira Inama",
+    "shareDescription": "Sangira iyi link y’inama n’abayitabira. Abashyitsi bashobora kwinjira nta konti.",
+    "meetingLink": "Link y’Inama",
+    "meetingId": "ID y’Inama",
+    "copy": "Koporora",
+    "copied": "Byakoporowe!",
+    "linkCopied": "Link y’inama yakoporowe kuri clipboard!",
+    "addToCalendar": "Ongeraho kuri Kalendari",
+    "downloadICS": "Kuramo .ics",
+    "calendarDownloaded": "Ubutumire bwa kalendari bwaramanuwe!",
+    "guestTip": "Abashyitsi bashobora kwinjira bakoresheje iyi link badakoresheje konti. Sangira link gusa, bakinjire banditse izina ryabo."
   },
   "guest": {
-    "yourName": "Your Name",
-    "namePlaceholder": "Enter your name",
-    "enterName": "Please enter your name to join",
-    "joinMeeting": "Join Meeting",
-    "joining": "Joining...",
-    "joinFailed": "Failed to join meeting. Please try again.",
-    "meetingNotFound": "Meeting Not Found",
-    "meetingNotFoundDesc": "This meeting may have ended or the link is invalid.",
-    "backToPortal": "Back to Portal",
-    "meetingId": "Meeting ID",
-    "encrypted": "Encrypted",
-    "aiPowered": "AI Powered",
-    "secure": "Secure",
-    "haveAccount": "Have an account? Sign in instead"
+    "yourName": "Izina ryawe",
+    "namePlaceholder": "Andika izina ryawe",
+    "enterName": "Andika izina ryawe kugira ngo winjire",
+    "joinMeeting": "Injira mu Nama",
+    "joining": "Turimo kwinjira...",
+    "joinFailed": "Ntibyashobotse kwinjira mu nama. Ongera ugerageze.",
+    "meetingNotFound": "Inama Ntabonetse",
+    "meetingNotFoundDesc": "Iyi nama ishobora kuba yararangiye cyangwa umurongo ntiwemewe.",
+    "backToPortal": "Subira kuri Porutali",
+    "meetingId": "ID y'Inama",
+    "encrypted": "Byashyizwe mu ibanga",
+    "aiPowered": "Bikoresheje AI",
+    "secure": "Biratekanye",
+    "haveAccount": "Ufite konti? Injira aho"
   }
 }

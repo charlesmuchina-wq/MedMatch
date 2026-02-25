@@ -661,7 +661,10 @@
     "biometricFailed": "Biometrische Authentifizierung fehlgeschlagen",
     "selectRole": "Rolle auswählen",
     "registerAsJobSeeker": "Auf der Suche nach Chancen in den Life Sciences",
-    "registerAsRecruiter": "Talente für Ihre Organisation einstellen"
+    "registerAsRecruiter": "Talente für Ihre Organisation einstellen",
+    "orcid": "Mit ORCID anmelden",
+    "orcidLoginSuccess": "Mit ORCID angemeldet!",
+    "orcidLoginFailed": "ORCID-Anmeldung fehlgeschlagen"
   },
   "onboarding": {
     "welcome": "Willkommen bei MedMatch!",

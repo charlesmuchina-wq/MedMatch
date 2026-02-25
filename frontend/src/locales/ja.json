@@ -294,7 +294,10 @@
     "biometricFailed": "生体認証に失敗しました",
     "selectRole": "役割を選択",
     "registerAsJobSeeker": "ライフサイエンスの機会を探す",
-    "registerAsRecruiter": "組織の人材を採用"
+    "registerAsRecruiter": "組織の人材を採用",
+    "orcid": "ORCIDでサインイン",
+    "orcidLoginSuccess": "ORCIDでサインインしました！",
+    "orcidLoginFailed": "ORCIDサインインに失敗しました"
   },
   "errors": {
     "somethingWentWrong": "問題が発生しました",
