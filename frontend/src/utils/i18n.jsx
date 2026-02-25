@@ -52,6 +52,17 @@ import th from "@/locales/th.json";  // Thai
 import idLang from "@/locales/id.json";  // Indonesian
 import bn from "@/locales/bn.json";  // Bengali
 import he from "@/locales/he.json";  // Hebrew
+// Additional bundled languages
+import cs from "@/locales/cs.json";  // Czech
+import el from "@/locales/el.json";  // Greek
+import fa from "@/locales/fa.json";  // Persian
+import hu from "@/locales/hu.json";  // Hungarian
+import is2 from "@/locales/is.json";  // Icelandic
+import ms from "@/locales/ms.json";  // Malay
+import ro from "@/locales/ro.json";  // Romanian
+import ta from "@/locales/ta.json";  // Tamil
+import tl from "@/locales/tl.json";  // Filipino
+import ur from "@/locales/ur.json";  // Urdu
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
