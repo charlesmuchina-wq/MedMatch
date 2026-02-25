@@ -39,13 +39,13 @@ const KarauMeetLogin = ({ onLogin }) => {
         localStorage.setItem('token', data.access_token);
         localStorage.setItem('karau_user', JSON.stringify(data.user));
         onLogin(data.user);
-        toast.success('Welcome to AI KARAU Meeting!');
+        toast.success(t("karauMeet.welcomeToast"));
       } else {
         const error = await response.json();
-        toast.error(error.detail || 'Login failed');
+        toast.error(error.detail || t("karauMeet.loginFailed"));
       }
     } catch (error) {
-      toast.error('Connection error. Please try again.');
+      toast.error(t("karauMeet.connectionError"));
     }
     
     setIsLoading(false);
@@ -54,7 +54,7 @@ const KarauMeetLogin = ({ onLogin }) => {
   const handleJoinMeeting = (e) => {
     e.preventDefault();
     if (!meetingId.trim()) {
-      toast.error('Please enter a meeting ID');
+      toast.error(t("karauMeet.enterMeetingIdError"));
       return;
     }
     navigate(`/karau-meet/join/${meetingId.toUpperCase()}`);
@@ -65,7 +65,7 @@ const KarauMeetLogin = ({ onLogin }) => {
   };
 
   const handleAppleSignIn = async () => {
-    toast.info('Apple Sign-In coming soon!');
+    toast.info(t("karauMeet.appleComingSoon"));
   };
 
   return (
