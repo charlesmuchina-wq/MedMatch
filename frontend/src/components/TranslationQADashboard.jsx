@@ -408,7 +408,7 @@ const TranslationQADashboard = () => {
       )}
 
       {/* Tabs for Details */}
-      <Tabs defaultValue="languages" className="w-full">
+      <Tabs defaultValue="health" className="w-full">
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="health" data-testid="tab-health">
             <Heart className="w-3.5 h-3.5 mr-1.5" />
