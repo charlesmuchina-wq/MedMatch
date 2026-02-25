@@ -136,7 +136,7 @@ const KarauMeetLogin = ({ onLogin }) => {
                 </div>
                 
                 <div>
-                  <Label className="text-slate-300">Password</Label>
+                  <Label className="text-slate-300">{t("karauMeet.password")}</Label>
                   <div className="relative">
                     <Input
                       type={showPassword ? 'text' : 'password'}
