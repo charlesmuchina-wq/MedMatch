@@ -676,7 +676,7 @@
     "orcid": "Iniciar sesión con ORCID",
     "orcidLoginSuccess": "¡Has iniciado sesión con ORCID!",
     "orcidLoginFailed": "Error al iniciar sesión con ORCID",
-    "signOut": "Sign Out"
+    "signOut": "Cerrar sesión"
   },
   "onboarding": {
     "welcome": "¡Bienvenido a MedMatch!",
@@ -2293,15 +2293,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Mis reuniones",
+    "schedule": "Programar",
+    "recordings": "Grabaciones",
+    "meetingNotes": "Notas de la reunión",
+    "analytics": "Analíticas",
+    "settings": "Configuración",
+    "viewAllMeetings": "Ver todas tus reuniones pasadas y próximas",
+    "scheduleDesc": "Programar y gestionar tus reuniones",
+    "notesDesc": "Resúmenes y transcripciones generados por IA",
+    "analyticsDesc": "Estadísticas e insights de las reuniones"
   }
 }

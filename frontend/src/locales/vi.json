@@ -899,7 +899,7 @@
     "orcid": "Đăng nhập bằng ORCID",
     "orcidLoginSuccess": "Đã đăng nhập bằng ORCID!",
     "orcidLoginFailed": "Đăng nhập ORCID thất bại",
-    "signOut": "Sign Out"
+    "signOut": "Đăng xuất"
   },
   "onboarding": {
     "welcome": "Chào mừng bạn đến với MedMatch!",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Cuộc họp của tôi",
+    "schedule": "Lịch",
+    "recordings": "Bản ghi",
+    "meetingNotes": "Ghi chú cuộc họp",
+    "analytics": "Phân tích",
+    "settings": "Cài đặt",
+    "viewAllMeetings": "Xem tất cả các cuộc họp đã qua và sắp tới của bạn",
+    "scheduleDesc": "Lên lịch và quản lý các cuộc họp của bạn",
+    "notesDesc": "Tóm tắt và bản chép lời do AI tạo",
+    "analyticsDesc": "Thống kê và thông tin chi tiết về cuộc họp"
   }
 }

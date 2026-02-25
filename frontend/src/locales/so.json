@@ -309,7 +309,7 @@
     "orcid": "Gal ORCID",
     "orcidLoginSuccess": "Waxaad ku gashay ORCID!",
     "orcidLoginFailed": "Gelitaanka ORCID wuu fashilmay",
-    "signOut": "Sign Out"
+    "signOut": "Ka Bax"
   },
   "errors": {
     "somethingWentWrong": "Wax ayaa khaldamay",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Kulamadayda",
+    "schedule": "Jadwal",
+    "recordings": "Duubisyo",
+    "meetingNotes": "Qoraallada Kulanka",
+    "analytics": "Falanqayn",
+    "settings": "Dejinta",
+    "viewAllMeetings": "Eeg dhammaan kulamadaadii hore iyo kuwa soo socda",
+    "scheduleDesc": "Jadwal u samee oo maamul kulamadaada",
+    "notesDesc": "Soo-koobyo iyo qoraal-beddelid ay AI soo saartay",
+    "analyticsDesc": "Tirakoobka kulanka iyo aragtiyo"
   }
 }

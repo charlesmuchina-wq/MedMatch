@@ -309,7 +309,7 @@
     "orcid": "Lowani ndi ORCID",
     "orcidLoginSuccess": "Mwalowa ndi ORCID!",
     "orcidLoginFailed": "Kulephera kulowa ndi ORCID",
-    "signOut": "Sign Out"
+    "signOut": "Tulukani"
   },
   "errors": {
     "somethingWentWrong": "Pali vuto lina lachitika",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Misonkhano yanga",
+    "schedule": "Konzani nthawi",
+    "recordings": "Zojambulidwa",
+    "meetingNotes": "Zolemba za msonkhano",
+    "analytics": "Kusanthula deta",
+    "settings": "Zokonda",
+    "viewAllMeetings": "Onani misonkhano yanu yonse yakale ndi yamtsogolo",
+    "scheduleDesc": "Konzani nthawi ndi kuyendetsa misonkhano yanu",
+    "notesDesc": "Mwachidule ndi zolemba za mawu zopangidwa ndi AI",
+    "analyticsDesc": "Ziwerengero za misonkhano ndi zidziwitso"
   }
 }

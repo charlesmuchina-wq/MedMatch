@@ -899,7 +899,7 @@
     "orcid": "ORCID ile giriş yap",
     "orcidLoginSuccess": "ORCID ile giriş yapıldı!",
     "orcidLoginFailed": "ORCID ile giriş başarısız",
-    "signOut": "Sign Out"
+    "signOut": "Çıkış Yap"
   },
   "onboarding": {
     "welcome": "MedMatch’e hoş geldiniz!",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Toplantılarım",
+    "schedule": "Planla",
+    "recordings": "Kayıtlar",
+    "meetingNotes": "Toplantı Notları",
+    "analytics": "Analitik",
+    "settings": "Ayarlar",
+    "viewAllMeetings": "Geçmiş ve yaklaşan tüm toplantılarınızı görüntüleyin",
+    "scheduleDesc": "Toplantılarınızı planlayın ve yönetin",
+    "notesDesc": "Yapay zeka tarafından oluşturulan özetler ve transkriptler",
+    "analyticsDesc": "Toplantı istatistikleri ve içgörüler"
   }
 }

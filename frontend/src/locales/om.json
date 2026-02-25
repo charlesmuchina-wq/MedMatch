@@ -309,7 +309,7 @@
     "orcid": "ORCID waliin seeni",
     "orcidLoginSuccess": "ORCID waliin seenne!",
     "orcidLoginFailed": "ORCID seenuun hin milkoofne",
-    "signOut": "Sign Out"
+    "signOut": "Ba'i"
   },
   "errors": {
     "somethingWentWrong": "Wantoonni dogoggoran",
@@ -2250,15 +2250,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Walga'ii Koo",
+    "schedule": "Sagantaa",
+    "recordings": "Waraabbiiwwan",
+    "meetingNotes": "Yaadannoo Walga'ii",
+    "analytics": "Xiinxala",
+    "settings": "Qindaa'inoota",
+    "viewAllMeetings": "Walga'iilee kee duraanii fi kan dhufan hunda ilaali",
+    "scheduleDesc": "Walga'iilee kee saganteessi fi bulchi",
+    "notesDesc": "Cuunfaa fi barruu-jijjiirraa AI'n qophaa'e",
+    "analyticsDesc": "Istaatistiksii fi hubannoo walga'ii"
   }
 }

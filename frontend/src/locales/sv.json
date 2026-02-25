@@ -869,7 +869,7 @@
     "orcid": "Logga in med ORCID",
     "orcidLoginSuccess": "Inloggad med ORCID!",
     "orcidLoginFailed": "ORCID-inloggning misslyckades",
-    "signOut": "Sign Out"
+    "signOut": "Logga ut"
   },
   "onboarding": {
     "welcome": "Välkommen till MedMatch!",
@@ -2250,15 +2250,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Mina möten",
+    "schedule": "Schemalägg",
+    "recordings": "Inspelningar",
+    "meetingNotes": "Mötesanteckningar",
+    "analytics": "Analys",
+    "settings": "Inställningar",
+    "viewAllMeetings": "Visa alla dina tidigare och kommande möten",
+    "scheduleDesc": "Schemalägg och hantera dina möten",
+    "notesDesc": "AI-genererade sammanfattningar och transkriptioner",
+    "analyticsDesc": "Mötesstatistik och insikter"
   }
 }

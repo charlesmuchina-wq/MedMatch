@@ -309,7 +309,7 @@
     "orcid": "በORCID ይግቡ",
     "orcidLoginSuccess": "በORCID ገብተዋል!",
     "orcidLoginFailed": "በORCID መግባት አልተሳካም",
-    "signOut": "Sign Out"
+    "signOut": "ውጣ"
   },
   "errors": {
     "somethingWentWrong": "አንድ ነገር ተሳስቷል",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "የእኔ ስብሰባዎች",
+    "schedule": "መርሃ ግብር",
+    "recordings": "ቅጂዎች",
+    "meetingNotes": "የስብሰባ ማስታወሻዎች",
+    "analytics": "ትንታኔ",
+    "settings": "ቅንብሮች",
+    "viewAllMeetings": "ያለፉትንና ወደፊት ያሉትን ስብሰባዎችዎን ሁሉ ይመልከቱ",
+    "scheduleDesc": "ስብሰባዎችዎን ያቅዱ እና ያስተዳድሩ",
+    "notesDesc": "በAI የተፈጠሩ ማጠቃለያዎች እና ትርጉሞች",
+    "analyticsDesc": "የስብሰባ ስታቲስቲክስ እና ግንዛቤዎች"
   }
 }

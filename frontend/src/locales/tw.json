@@ -309,7 +309,7 @@
     "orcid": "Fa ORCID so kɔ mu",
     "orcidLoginSuccess": "Woafa ORCID so akɔ mu!",
     "orcidLoginFailed": "ORCID so kɔ mu no antumi",
-    "signOut": "Sign Out"
+    "signOut": "Pue"
   },
   "video": {
     "sitStraight": "Tenatena pɛ, ma wo mmerɛw kɔ akyi",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Me Nhyiam",
+    "schedule": "Hyɛ Nhyehyɛe",
+    "recordings": "Nkyerɛwde a wɔakyere",
+    "meetingNotes": "Nhyiam Nsɛm a Wɔakyerɛw",
+    "analytics": "Nhwɛso",
+    "settings": "Nhyehyɛe Ahyɛde",
+    "viewAllMeetings": "Hwɛ wo nhyiam a atwam ne nea ɛreba nyinaa",
+    "scheduleDesc": "Hyɛ wo nhyiam ahorow nhyehyɛe na di so",
+    "notesDesc": "AI ayɛ nsɛmmisa ne nkyerɛw-to-nkyerɛw",
+    "analyticsDesc": "Nhyiam akontaabu ne nsusuwii"
   }
 }

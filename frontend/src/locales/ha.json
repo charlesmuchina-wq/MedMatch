@@ -309,7 +309,7 @@
     "orcid": "Shiga da ORCID",
     "orcidLoginSuccess": "An shiga da ORCID!",
     "orcidLoginFailed": "Shiga da ORCID ya gaza",
-    "signOut": "Sign Out"
+    "signOut": "Fita"
   },
   "errors": {
     "somethingWentWrong": "Wani abu ya tafi ba daidai ba",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Taronina",
+    "schedule": "Jadawali",
+    "recordings": "Rikodi",
+    "meetingNotes": "Bayanan Taro",
+    "analytics": "Nazari",
+    "settings": "Saituna",
+    "viewAllMeetings": "Duba duk tarurrukanka na baya da masu zuwa",
+    "scheduleDesc": "Jadawalta kuma sarrafa tarurrukanka",
+    "notesDesc": "Takaitawa da rubutattun bayanai da AI ya samar",
+    "analyticsDesc": "Kididdiga da fahimta na taro"
   }
 }

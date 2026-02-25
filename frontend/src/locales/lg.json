@@ -309,7 +309,7 @@
     "orcid": "Yingira ng’okozesa ORCID",
     "orcidLoginSuccess": "Oyingidde ng’okozesa ORCID!",
     "orcidLoginFailed": "Okuyingira na ORCID kulemye",
-    "signOut": "Sign Out"
+    "signOut": "Fuluma"
   },
   "errors": {
     "somethingWentWrong": "Wabaddewo obuzibu",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Enkiiko Zange",
+    "schedule": "Pulaani",
+    "recordings": "Ebikwatiddwa ku vidiyo/eddoboozi",
+    "meetingNotes": "Ebiwandiiko by'Enkiiko",
+    "analytics": "Okwekenneenya emiwendo",
+    "settings": "Entegeka",
+    "viewAllMeetings": "Laba enkiiko zo zonna ezaayita n'ezo ezijja",
+    "scheduleDesc": "Pulaani era ddukanya enkiiko zo",
+    "notesDesc": "Akatambi k'AI akakola obufunze n'okuwandiika ebigambo",
+    "analyticsDesc": "Ebibalo by'enkiiko n'amagezi"
   }
 }

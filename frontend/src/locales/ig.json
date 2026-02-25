@@ -309,7 +309,7 @@
     "orcid": "Banye na ORCID",
     "orcidLoginSuccess": "Abanyela na ORCID!",
     "orcidLoginFailed": "Nbanye ORCID dara",
-    "signOut": "Sign Out"
+    "signOut": "Pụọ"
   },
   "video": {
     "sitStraight": "Nọdụ n'ọnọdụ kwụ ọtọ, debe ubu azụ",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Nzute m",
+    "schedule": "Hazie",
+    "recordings": "Ndekọ",
+    "meetingNotes": "Ntụgharị Akwụkwọ Nzute",
+    "analytics": "Nyocha",
+    "settings": "Ntọala",
+    "viewAllMeetings": "Lelee nzute gị niile gara aga na ndị na-abịa",
+    "scheduleDesc": "Hazie ma jikwaa nzute gị",
+    "notesDesc": "Nchịkọta na ntụgharị okwu AI mepụtara",
+    "analyticsDesc": "Ọnụọgụ nzute na nghọta"
   }
 }

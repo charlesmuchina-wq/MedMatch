@@ -309,7 +309,7 @@
     "orcid": "Ingia kwa ORCID",
     "orcidLoginSuccess": "Umeingia kwa ORCID!",
     "orcidLoginFailed": "Kuingia kwa ORCID kumeshindikana",
-    "signOut": "Sign Out"
+    "signOut": "Toka"
   },
   "errors": {
     "somethingWentWrong": "Kuna hitilafu imetokea",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Mikutano Yangu",
+    "schedule": "Ratiba",
+    "recordings": "Rekodi",
+    "meetingNotes": "Maandishi ya Mkutano",
+    "analytics": "Uchanganuzi",
+    "settings": "Mipangilio",
+    "viewAllMeetings": "Tazama mikutano yako yote iliyopita na ijayo",
+    "scheduleDesc": "Panga na dhibiti mikutano yako",
+    "notesDesc": "Muhtasari na manukuu yaliyotengenezwa na AI",
+    "analyticsDesc": "Takwimu na maarifa ya mikutano"
   }
 }

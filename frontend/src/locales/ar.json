@@ -2654,15 +2654,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "اجتماعاتي",
+    "schedule": "الجدولة",
+    "recordings": "التسجيلات",
+    "meetingNotes": "ملاحظات الاجتماع",
+    "analytics": "التحليلات",
+    "settings": "الإعدادات",
+    "viewAllMeetings": "عرض جميع اجتماعاتك السابقة والقادمة",
+    "scheduleDesc": "جدولة اجتماعاتك وإدارتها",
+    "notesDesc": "ملخصات ونصوص مُنشأة بالذكاء الاصطناعي",
+    "analyticsDesc": "إحصاءات ورؤى حول الاجتماعات"
   }
 }

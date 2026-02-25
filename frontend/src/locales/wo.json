@@ -309,7 +309,7 @@
     "orcid": "Dugg ak ORCID",
     "orcidLoginSuccess": "Dugg nañu ak ORCID!",
     "orcidLoginFailed": "Dugg ak ORCID antuwul",
-    "signOut": "Sign Out"
+    "signOut": "Génn"
   },
   "errors": {
     "somethingWentWrong": "Dafa am lu ñaaw",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Sama Ndaje yi",
+    "schedule": "Program",
+    "recordings": "Enregistrement yi",
+    "meetingNotes": "Benn ndaje",
+    "analytics": "Analitik",
+    "settings": "Parametër yi",
+    "viewAllMeetings": "Xool sa ndaje yi weesu ak yi ñëw",
+    "scheduleDesc": "Program ak saytu say ndaje",
+    "notesDesc": "Jëfandikoo AI ngir jumtukaay yi ak transkripsioŋ",
+    "analyticsDesc": "Statistik ak xam-xam ci ndaje yi"
   }
 }

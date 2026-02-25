@@ -899,7 +899,7 @@
     "orcid": "ORCID로 로그인",
     "orcidLoginSuccess": "ORCID로 로그인했습니다!",
     "orcidLoginFailed": "ORCID 로그인에 실패했습니다",
-    "signOut": "Sign Out"
+    "signOut": "로그아웃"
   },
   "onboarding": {
     "welcome": "MedMatch에 오신 것을 환영합니다!",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "내 회의",
+    "schedule": "일정",
+    "recordings": "녹화",
+    "meetingNotes": "회의 노트",
+    "analytics": "분석",
+    "settings": "설정",
+    "viewAllMeetings": "지난 및 예정된 모든 회의를 확인하세요",
+    "scheduleDesc": "회의를 예약하고 관리하세요",
+    "notesDesc": "AI 생성 요약 및 전사",
+    "analyticsDesc": "회의 통계 및 인사이트"
   }
 }

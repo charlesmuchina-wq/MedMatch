@@ -309,7 +309,7 @@
     "orcid": "ORCIDでサインイン",
     "orcidLoginSuccess": "ORCIDでサインインしました！",
     "orcidLoginFailed": "ORCIDサインインに失敗しました",
-    "signOut": "Sign Out"
+    "signOut": "サインアウト"
   },
   "errors": {
     "somethingWentWrong": "問題が発生しました",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "自分のミーティング",
+    "schedule": "スケジュール",
+    "recordings": "録画",
+    "meetingNotes": "議事録",
+    "analytics": "分析",
+    "settings": "設定",
+    "viewAllMeetings": "過去と今後のミーティングをすべて表示",
+    "scheduleDesc": "ミーティングの予定を作成・管理",
+    "notesDesc": "AI生成の要約と文字起こし",
+    "analyticsDesc": "ミーティングの統計とインサイト"
   }
 }

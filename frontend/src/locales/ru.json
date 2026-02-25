@@ -869,7 +869,7 @@
     "orcid": "Войти с помощью ORCID",
     "orcidLoginSuccess": "Вход выполнен с помощью ORCID!",
     "orcidLoginFailed": "Не удалось войти через ORCID",
-    "signOut": "Sign Out"
+    "signOut": "Выйти"
   },
   "onboarding": {
     "welcome": "Добро пожаловать в MedMatch!",
@@ -2250,15 +2250,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Мои встречи",
+    "schedule": "Расписание",
+    "recordings": "Записи",
+    "meetingNotes": "Заметки встречи",
+    "analytics": "Аналитика",
+    "settings": "Настройки",
+    "viewAllMeetings": "Просматривайте все прошедшие и предстоящие встречи",
+    "scheduleDesc": "Планируйте и управляйте встречами",
+    "notesDesc": "Сводки и расшифровки, созданные ИИ",
+    "analyticsDesc": "Статистика и инсайты по встречам"
   }
 }

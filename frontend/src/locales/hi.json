@@ -309,7 +309,7 @@
     "orcid": "ORCID से साइन इन करें",
     "orcidLoginSuccess": "ORCID से साइन इन हो गया!",
     "orcidLoginFailed": "ORCID साइन-इन विफल",
-    "signOut": "Sign Out"
+    "signOut": "साइन आउट"
   },
   "errors": {
     "somethingWentWrong": "कुछ गलत हो गया",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "मेरी मीटिंग्स",
+    "schedule": "शेड्यूल",
+    "recordings": "रिकॉर्डिंग्स",
+    "meetingNotes": "मीटिंग नोट्स",
+    "analytics": "एनालिटिक्स",
+    "settings": "सेटिंग्स",
+    "viewAllMeetings": "अपनी पिछली और आने वाली सभी मीटिंग्स देखें",
+    "scheduleDesc": "अपनी मीटिंग्स शेड्यूल करें और प्रबंधित करें",
+    "notesDesc": "AI-जनरेटेड सारांश और ट्रांसक्रिप्शन",
+    "analyticsDesc": "मीटिंग आँकड़े और इनसाइट्स"
   }
 }

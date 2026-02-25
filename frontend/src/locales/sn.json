@@ -309,7 +309,7 @@
     "orcid": "Pinda neORCID",
     "orcidLoginSuccess": "Wapinda neORCID!",
     "orcidLoginFailed": "Kutadza kupinda neORCID",
-    "signOut": "Sign Out"
+    "signOut": "Buda"
   },
   "errors": {
     "somethingWentWrong": "Pane chakanganisika",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Misangano Yangu",
+    "schedule": "Kuronga",
+    "recordings": "Zvakarekodhwa",
+    "meetingNotes": "Manotsi eMusangano",
+    "analytics": "Ongororo yeData",
+    "settings": "Zvirongwa",
+    "viewAllMeetings": "Ona misangano yako yose yapfuura uye iri kuuya",
+    "scheduleDesc": "Ronga uye gadzirisa misangano yako",
+    "notesDesc": "Pfupiso uye zvinyorwa zvakagadzirwa neAI",
+    "analyticsDesc": "Nhamba dzemusangano uye maonero"
   }
 }

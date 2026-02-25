@@ -899,7 +899,7 @@
     "orcid": "Inloggen met ORCID",
     "orcidLoginSuccess": "Ingelogd met ORCID!",
     "orcidLoginFailed": "ORCID-inloggen mislukt",
-    "signOut": "Sign Out"
+    "signOut": "Uitloggen"
   },
   "onboarding": {
     "welcome": "Welkom bij MedMatch!",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Mijn vergaderingen",
+    "schedule": "Plannen",
+    "recordings": "Opnames",
+    "meetingNotes": "Vergadernotities",
+    "analytics": "Analyses",
+    "settings": "Instellingen",
+    "viewAllMeetings": "Bekijk al je eerdere en komende vergaderingen",
+    "scheduleDesc": "Plan en beheer je vergaderingen",
+    "notesDesc": "AI-gegenereerde samenvattingen en transcripties",
+    "analyticsDesc": "Vergaderstatistieken en inzichten"
   }
 }

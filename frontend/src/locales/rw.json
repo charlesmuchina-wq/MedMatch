@@ -309,7 +309,7 @@
     "orcid": "Injira ukoresheje ORCID",
     "orcidLoginSuccess": "Winjiye ukoresheje ORCID!",
     "orcidLoginFailed": "Kwinjira ukoresheje ORCID byanze",
-    "signOut": "Sign Out"
+    "signOut": "Sohoka"
   },
   "errors": {
     "somethingWentWrong": "Hari ibitagenze neza",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Inama zanjye",
+    "schedule": "Gahunda",
+    "recordings": "Amashusho yafashwe",
+    "meetingNotes": "Inyandiko z'inama",
+    "analytics": "Isesengura",
+    "settings": "Igenamiterere",
+    "viewAllMeetings": "Reba inama zawe zose zabaye n'iziteganyijwe",
+    "scheduleDesc": "Tegura kandi ucunge inama zawe",
+    "notesDesc": "Incamake zakozwe na AI n'inyandiko-mvugo",
+    "analyticsDesc": "Imibare y'inama n'isesengura"
   }
 }

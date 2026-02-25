@@ -309,7 +309,7 @@
     "orcid": "Entrar com ORCID",
     "orcidLoginSuccess": "Sessão iniciada com ORCID!",
     "orcidLoginFailed": "Falha ao iniciar sessão com ORCID",
-    "signOut": "Sign Out"
+    "signOut": "Sair"
   },
   "errors": {
     "somethingWentWrong": "Algo deu errado",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Minhas reuniões",
+    "schedule": "Agendar",
+    "recordings": "Gravações",
+    "meetingNotes": "Notas da reunião",
+    "analytics": "Análises",
+    "settings": "Configurações",
+    "viewAllMeetings": "Veja todas as suas reuniões passadas e futuras",
+    "scheduleDesc": "Agende e gerencie suas reuniões",
+    "notesDesc": "Resumos e transcrições gerados por IA",
+    "analyticsDesc": "Estatísticas e insights das reuniões"
   }
 }
