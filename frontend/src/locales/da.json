@@ -1940,7 +1940,23 @@
     "welcomeToast": "Velkommen til AI KARAU Møde!",
     "loginFailed": "Login fejlede",
     "connectionError": "Forbindelsesfejl. Prøv igen.",
-    "appleComingSoon": "Apple Login kommer snart!"
+    "appleComingSoon": "Apple Login kommer snart!",
+    "heroTagline": "Sikker, krypteret videokonference med AI-drevne funktioner. Forbind fra hvor som helst med krystalklart video og lyd.",
+    "newMeetingDesc": "Start et øjeblikkeligt møde med video, lyd og AI-notater",
+    "meetingHistory": "Din mødehistorik",
+    "noMeetingsHistory": "Ingen møder endnu. Start dit første møde!",
+    "recordingDeleted": "Optagelse slettet",
+    "failedDeleteRecording": "Fejl ved sletning af optagelse",
+    "signedOut": "Logget ud med succes",
+    "settingUpdated": "Indstilling opdateret",
+    "failedUpdateSetting": "Fejl ved opdatering af indstilling",
+    "failedSendCode": "Fejl ved afsendelse af kode",
+    "verificationFailed": "Verifikation fejlede",
+    "accessibility": "Tilgængelighed",
+    "security": "Sikkerhed",
+    "recordTheConsentShort": "Optag mødet",
+    "verificationCodeSent": "Verifikationskode sendt!",
+    "emailVerified": "Email verificeret!"
   },
   "location": {
     "selectLocationPlaceholder": "Vælg din lokation..."

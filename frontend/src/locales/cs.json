@@ -1940,7 +1940,23 @@
     "welcomeToast": "Vítejte na AI KARAU Schůzce!",
     "loginFailed": "Přihlášení selhalo",
     "connectionError": "Chyba připojení. Zkuste to prosím znovu.",
-    "appleComingSoon": "Apple Přihlášení brzy!"
+    "appleComingSoon": "Apple Přihlášení brzy!",
+    "heroTagline": "Bezpečné, šifrované video konference s funkcemi poháněnými AI. Připojte se odkudkoli s křišťálově čistým videem a zvukem.",
+    "newMeetingDesc": "Začněte okamžitou schůzku s videem, zvukem a poznámkami AI",
+    "meetingHistory": "Historie vašich schůzek",
+    "noMeetingsHistory": "Žádné schůzky zatím. Začněte svou první schůzku!",
+    "recordingDeleted": "Nahrávka byla smazána",
+    "failedDeleteRecording": "Nepodařilo se smazat nahrávku",
+    "signedOut": "Úspěšně jste se odhlásili",
+    "settingUpdated": "Nastavení bylo aktualizováno",
+    "failedUpdateSetting": "Nepodařilo se aktualizovat nastavení",
+    "failedSendCode": "Nepodařilo se odeslat kód",
+    "verificationFailed": "Ověření selhalo",
+    "accessibility": "Přístupnost",
+    "security": "Bezpečnost",
+    "recordTheConsentShort": "Nahrávat schůzku",
+    "verificationCodeSent": "Ověřovací kód byl odeslán!",
+    "emailVerified": "E-mail ověřen!"
   },
   "location": {
     "selectLocationPlaceholder": "Vyberte svou polohu..."

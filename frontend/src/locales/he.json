@@ -1940,7 +1940,23 @@
     "welcomeToast": "ברוך הבא למפגש AI KARAU!",
     "loginFailed": "התחברות נכשלה",
     "connectionError": "שגיאת חיבור. אנא נסה שוב.",
-    "appleComingSoon": "התחברות עם אפל בקרוב!"
+    "appleComingSoon": "התחברות עם אפל בקרוב!",
+    "heroTagline": "וידאו קונפרנס מאובטח ומוצפן עם תכונות מבוססות AI. התחבר מכל מקום עם ווידאו ואודיו ברורים כ kristל.",
+    "newMeetingDesc": "התחל פגישה מיידית עם ווידאו, אודיו ורשימות AI",
+    "meetingHistory": "ההיסטוריה של הפגישות שלך",
+    "noMeetingsHistory": "עדיין אין פגישות. התחל את הפגישה הראשונה שלך!",
+    "recordingDeleted": "ההקלטה נמחקה",
+    "failedDeleteRecording": "כישלון בהסרת ההקלטה",
+    "signedOut": "נרשמת בהצלחה",
+    "settingUpdated": "ההגדרה עודכנה",
+    "failedUpdateSetting": "נכשל בעדכון ההגדרה",
+    "failedSendCode": "נכשל בהשלחת הקוד",
+    "verificationFailed": "אימות נכשל",
+    "accessibility": "נגישות",
+    "security": "אבטחה",
+    "recordTheConsentShort": "הקלט את הפגישה",
+    "verificationCodeSent": "קוד האימות נשלח!",
+    "emailVerified": "האימייל אומת!"
   },
   "location": {
     "selectLocationPlaceholder": "בחר את המיקום שלך..."

@@ -1940,7 +1940,23 @@
     "welcomeToast": "Üdvözlünk az AI KARAU Találkozón!",
     "loginFailed": "Bejelentkezés sikertelen",
     "connectionError": "Kapcsolati hiba. Kérlek próbáld újra.",
-    "appleComingSoon": "Apple Bejelentkezés hamarosan!"
+    "appleComingSoon": "Apple Bejelentkezés hamarosan!",
+    "heroTagline": "Biztonságos, titkosított videokonferenciák AI által vezérelt funkciókkal. Csatlakozz bárhonnan kristálytiszta videóval és audióval.",
+    "newMeetingDesc": "Indíts egy azonnali értekezletet videóval, audióval és AI jegyzetekkel",
+    "meetingHistory": "Az értekezleteid előzményei",
+    "noMeetingsHistory": "Még nincsenek értekezleteid. Indítsd el az első értekezletedet!",
+    "recordingDeleted": "Felvétel törölve",
+    "failedDeleteRecording": "A felvétel törlése sikertelen",
+    "signedOut": "Sikeresen kijelentkezve",
+    "settingUpdated": "Beállítás frissítve",
+    "failedUpdateSetting": "A beállítás frissítése sikertelen",
+    "failedSendCode": "A kód küldése sikertelen",
+    "verificationFailed": "A hitelesítés sikertelen",
+    "accessibility": "Hozzáférhetőség",
+    "security": "Biztonság",
+    "recordTheConsentShort": "Rögzítsd az értekezletet",
+    "verificationCodeSent": "A hitelesítő kód elküldve!",
+    "emailVerified": "Email ellenőrizve!"
   },
   "location": {
     "selectLocationPlaceholder": "Válaszd ki a tartózkodási helyed..."

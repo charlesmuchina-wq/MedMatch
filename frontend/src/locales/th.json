@@ -1940,7 +1940,23 @@
     "welcomeToast": "ยินดีต้อนรับสู่การประชุม AI KARAU!",
     "loginFailed": "การเข้าสู่ระบบล échfailed",
     "connectionError": "เกิดข้อผิดพลาดในการเชื่อมต่อ โปรดลองอีกครั้ง",
-    "appleComingSoon": "การลงชื่อเข้าใช้ Apple กำลังมาเร็ว ๆ นี้!"
+    "appleComingSoon": "การลงชื่อเข้าใช้ Apple กำลังมาเร็ว ๆ นี้!",
+    "heroTagline": "การประชุมวิดีโอที่ปลอดภัยและเข้ารหัสด้วยฟีเจอร์ที่ใช้ AI เชื่อมต่อจากที่ไหนก็ได้ด้วยวิดีโอและเสียงที่คมชัด",
+    "newMeetingDesc": "เริ่มประชุมทันทีด้วยวิดีโอ เสียง และบันทึก AI",
+    "meetingHistory": "ประวัติการประชุมของคุณ",
+    "noMeetingsHistory": "ยังไม่มีการประชุม เริ่มการประชุมครั้งแรกของคุณ!",
+    "recordingDeleted": "ลบการบันทึกแล้ว",
+    "failedDeleteRecording": "ลบการบันทึกไม่สำเร็จ",
+    "signedOut": "ออกจากระบบสำเร็จ",
+    "settingUpdated": "อัปเดตการตั้งค่าแล้ว",
+    "failedUpdateSetting": "ไม่สามารถอัปเดตการตั้งค่าได้",
+    "failedSendCode": "ไม่สามารถส่งรหัสได้",
+    "verificationFailed": "การตรวจสอบล้มเหลว",
+    "accessibility": "การเข้าถึง",
+    "security": "ความปลอดภัย",
+    "recordTheConsentShort": "บันทึกการประชุม",
+    "verificationCodeSent": "ส่งรหัสยืนยันแล้ว!",
+    "emailVerified": "ยืนยันอีเมลเสร็จแล้ว!"
   },
   "location": {
     "selectLocationPlaceholder": "เลือกตำแหน่งที่ตั้งของคุณ..."

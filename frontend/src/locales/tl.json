@@ -1940,7 +1940,23 @@
     "welcomeToast": "Maligayang pagdating sa Pulong ng AI KARAU!",
     "loginFailed": "Nabigo ang Pag-login",
     "connectionError": "Error sa koneksyon. Pakisubukan muli.",
-    "appleComingSoon": "Ang Apple Sign-In ay darating sa lalong madaling panahon!"
+    "appleComingSoon": "Ang Apple Sign-In ay darating sa lalong madaling panahon!",
+    "heroTagline": "Secure, encrypted video conferencing with AI-powered features. Connect from anywhere with crystal-clear video and audio.",
+    "newMeetingDesc": "Magsimula ng agarang pulong na may video, audio, at AI na tala",
+    "meetingHistory": "Iyong kasaysayan ng pulong",
+    "noMeetingsHistory": "Walang mga pulong pa. Magsimula ng iyong unang pulong!",
+    "recordingDeleted": "Na-delete ang recording",
+    "failedDeleteRecording": "Nabigong i-delete ang recording",
+    "signedOut": "Matagumpay na naka-sign out",
+    "settingUpdated": "Nai-update ang setting",
+    "failedUpdateSetting": "Nabigong i-update ang setting",
+    "failedSendCode": "Nabigong magpadala ng code",
+    "verificationFailed": "Nabigong beripikasyon",
+    "accessibility": "Accessibility",
+    "security": "Seguridad",
+    "recordTheConsentShort": "I-record ang pulong",
+    "verificationCodeSent": "Naipadala ang verification code!",
+    "emailVerified": "Na-verify ang email!"
   },
   "location": {
     "selectLocationPlaceholder": "Piliin ang iyong lokasyon..."

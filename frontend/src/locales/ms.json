@@ -1940,7 +1940,23 @@
     "welcomeToast": "Selamat datang ke Mesyuarat AI KARAU!",
     "loginFailed": "Log masuk gagal",
     "connectionError": "Ralat sambungan. Sila cuba lagi.",
-    "appleComingSoon": "Log Masuk Apple akan tiba tidak lama lagi!"
+    "appleComingSoon": "Log Masuk Apple akan tiba tidak lama lagi!",
+    "heroTagline": "Perjumpaan video yang selamat dan terenkripsi dengan ciri-ciri yang didorong oleh AI. Sambungkan dari mana sahaja dengan video dan audio yang jelas.",
+    "newMeetingDesc": "Mula perjumpaan segera dengan video, audio, dan nota AI",
+    "meetingHistory": "Sejarah perjumpaan anda",
+    "noMeetingsHistory": "Tiada perjumpaan lagi. Mula perjumpaan pertama anda!",
+    "recordingDeleted": "Rakaman dipadam",
+    "failedDeleteRecording": "Gagal memadam rakaman",
+    "signedOut": "Keluar berjaya",
+    "settingUpdated": "Tetapan dikemas kini",
+    "failedUpdateSetting": "Gagal mengemas kini tetapan",
+    "failedSendCode": "Gagal menghantar kod",
+    "verificationFailed": "Pengesahan gagal",
+    "accessibility": "Aksesibiliti",
+    "security": "Keselamatan",
+    "recordTheConsentShort": "Rakaman mesyuarat",
+    "verificationCodeSent": "Kod pengesahan telah dihantar!",
+    "emailVerified": "Email disahkan!"
   },
   "location": {
     "selectLocationPlaceholder": "Pilih lokasi anda..."

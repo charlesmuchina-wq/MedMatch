@@ -1940,7 +1940,23 @@
     "welcomeToast": "Selamat datang di Pertemuan AI KARAU!",
     "loginFailed": "Masuk gagal",
     "connectionError": "Kesalahan koneksi. Silakan coba lagi.",
-    "appleComingSoon": "Masuk dengan Apple segera hadir!"
+    "appleComingSoon": "Masuk dengan Apple segera hadir!",
+    "heroTagline": "Konferensi video yang aman dan terenkripsi dengan fitur yang didukung AI. Terhubung dari mana saja dengan video dan audio yang jernih.",
+    "newMeetingDesc": "Mulai rapat instan dengan video, audio, dan catatan AI",
+    "meetingHistory": "Riwayat rapat Anda",
+    "noMeetingsHistory": "Belum ada rapat. Mulai rapat pertama Anda!",
+    "recordingDeleted": "Rekaman dihapus",
+    "failedDeleteRecording": "Gagal menghapus rekaman",
+    "signedOut": "Berhasil keluar",
+    "settingUpdated": "Pengaturan diperbarui",
+    "failedUpdateSetting": "Gagal memperbarui pengaturan",
+    "failedSendCode": "Gagal mengirim kode",
+    "verificationFailed": "Verifikasi gagal",
+    "accessibility": "Aksesibilitas",
+    "security": "Keamanan",
+    "recordTheConsentShort": "Rekam rapat",
+    "verificationCodeSent": "Kode verifikasi telah dikirim!",
+    "emailVerified": "Email terverifikasi!"
   },
   "location": {
     "selectLocationPlaceholder": "Pilih lokasi Anda..."

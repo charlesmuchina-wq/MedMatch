@@ -1940,7 +1940,23 @@
     "welcomeToast": "Tervetuloa AI KARAU Kokoukseen!",
     "loginFailed": "Sisäänkirjautuminen epäonnistui",
     "connectionError": "Yhteysvirhe. Ole hyvä ja yritä uudelleen.",
-    "appleComingSoon": "Apple Kirjautuminen tulossa pian!"
+    "appleComingSoon": "Apple Kirjautuminen tulossa pian!",
+    "heroTagline": "Turvallinen, salaustekniikalla varustettu videokokous AI-ominaisuuksilla. Yhdistä mistä tahansa kristallinkirkkaalla videolla ja äänenlaadulla.",
+    "newMeetingDesc": "Aloita välitön kokous videolla, äänellä ja AI-muistiinpanoilla",
+    "meetingHistory": "Kokouksesi historia",
+    "noMeetingsHistory": "Ei kokouksia vielä. Aloita ensimmäinen kokouksesi!",
+    "recordingDeleted": "Nauhoitus poistettu",
+    "failedDeleteRecording": "Nauhoituksen poistaminen epäonnistui",
+    "signedOut": "Uloskirjautuminen onnistui",
+    "settingUpdated": "Asetusta päivitetty",
+    "failedUpdateSetting": "Asetuksen päivittäminen epäonnistui",
+    "failedSendCode": "Koodin lähettäminen epäonnistui",
+    "verificationFailed": "Vahvistaminen epäonnistui",
+    "accessibility": "Esteettömyys",
+    "security": "Turvallisuus",
+    "recordTheConsentShort": "Nauhoita kokous",
+    "verificationCodeSent": "Vahvistuskoodi lähetetty!",
+    "emailVerified": "Sähköposti vahvistettu!"
   },
   "location": {
     "selectLocationPlaceholder": "Valitse sijaintisi..."

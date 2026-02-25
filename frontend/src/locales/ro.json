@@ -1940,7 +1940,23 @@
     "welcomeToast": "Bine ai venit la Întâlnirea AI KARAU!",
     "loginFailed": "Autentificarea a eșuat",
     "connectionError": "Eroare de conexiune. Te rugăm să încerci din nou.",
-    "appleComingSoon": "Autentificare Apple în curând!"
+    "appleComingSoon": "Autentificare Apple în curând!",
+    "heroTagline": "Conferințe video sigure, criptate, cu funcții alimentate de AI. Conectează-te din orice loc cu video și audio clare ca cristalul.",
+    "newMeetingDesc": "Începe o întâlnire instantanee cu video, audio și note AI",
+    "meetingHistory": "Istoricul întâlnirilor tale",
+    "noMeetingsHistory": "Nicio întâlnire deocamdată. Începe prima ta întâlnire!",
+    "recordingDeleted": "Înregistrarea a fost ștearsă",
+    "failedDeleteRecording": "Eșec la ștergerea înregistrării",
+    "signedOut": "Deconectat cu succes",
+    "settingUpdated": "Setarea a fost actualizată",
+    "failedUpdateSetting": "Eșec la actualizarea setării",
+    "failedSendCode": "Eșec la trimiterea codului",
+    "verificationFailed": "Verificarea a eșuat",
+    "accessibility": "Accesibilitate",
+    "security": "Securitate",
+    "recordTheConsentShort": "Înregistrează întâlnirea",
+    "verificationCodeSent": "Codul de verificare a fost trimis!",
+    "emailVerified": "Email verificat!"
   },
   "location": {
     "selectLocationPlaceholder": "Selectați locația..."

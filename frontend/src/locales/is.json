@@ -1940,7 +1940,23 @@
     "welcomeToast": "Velkomin(n) í AI KARAU Fundinn!",
     "loginFailed": "Skráning miðaðist",
     "connectionError": "Tengingarvilla. Vinsamlegast reyndu aftur.",
-    "appleComingSoon": "Apple Skráning kemur fljótlega!"
+    "appleComingSoon": "Apple Skráning kemur fljótlega!",
+    "heroTagline": "Öruggar, dulkóðuð vídeósamskipti með AI-styrktum eiginleikum. Tengdu frá hvaða stað sem er með skýru vídeó og hljóði.",
+    "newMeetingDesc": "Byrjaðu strax fund með vídeó, hljóði og AI nótum",
+    "meetingHistory": "Saga funda þinna",
+    "noMeetingsHistory": "Engir fundir enn. Byrjaðu þinn fyrsta fund!",
+    "recordingDeleted": "Upptöku eytt",
+    "failedDeleteRecording": "Mistókst að eyða upptöku",
+    "signedOut": "Skráður út með góðum árangri",
+    "settingUpdated": "Stillingu breytt",
+    "failedUpdateSetting": "Mistókst að breyta stillingu",
+    "failedSendCode": "Mistókst að senda kóða",
+    "verificationFailed": "Staðfesting mistókst",
+    "accessibility": "Aðgengi",
+    "security": "Öryggi",
+    "recordTheConsentShort": "Taka fundinn upp",
+    "verificationCodeSent": "Staðfestingarkóði sendur!",
+    "emailVerified": "Tölvupóstur staðfestur!"
   },
   "location": {
     "selectLocationPlaceholder": "Veldu staðsetningu..."

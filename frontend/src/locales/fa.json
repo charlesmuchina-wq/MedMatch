@@ -1940,7 +1940,23 @@
     "welcomeToast": "به ملاقات AI KARAU خوش آمدید!",
     "loginFailed": "ورود ناموفق بود",
     "connectionError": "خطای اتصال. لطفا دوباره تلاش کنید.",
-    "appleComingSoon": "ورود با اپل به زودی می‌آید!"
+    "appleComingSoon": "ورود با اپل به زودی می‌آید!",
+    "heroTagline": "کنفرانس ویدیویی امن و رمزگذاری شده با ویژگی‌های مبتنی بر هوش مصنوعی. از هر نقطه با ویدیو و صدای شفاف متصل شوید.",
+    "newMeetingDesc": "یک جلسه فوری با ویدیو، صدا و یادداشت‌های هوش مصنوعی راه‌اندازی کنید",
+    "meetingHistory": "تاریخچه جلسات شما",
+    "noMeetingsHistory": "هنوز جلسه‌ای وجود ندارد. جلسه اول خود را آغاز کنید!",
+    "recordingDeleted": "ضبط حذف شد",
+    "failedDeleteRecording": "حذف ضبط ناموفق بود",
+    "signedOut": "با موفقیت خارج شدید",
+    "settingUpdated": "تنظیمات به‌روزرسانی شد",
+    "failedUpdateSetting": "به‌روزرسانی تنظیمات ناموفق بود",
+    "failedSendCode": "ارسال کد ناموفق بود",
+    "verificationFailed": "تأیید ناموفق بود",
+    "accessibility": "دسترس‌پذیری",
+    "security": "امنیت",
+    "recordTheConsentShort": "جلسه را ضبط کنید",
+    "verificationCodeSent": "کد تأیید ارسال شد!",
+    "emailVerified": "ایمیل تأیید شد!"
   },
   "location": {
     "selectLocationPlaceholder": "موقعیت مکانی خود را انتخاب کنید..."

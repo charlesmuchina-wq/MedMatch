@@ -1940,7 +1940,23 @@
     "welcomeToast": "Καλώς ήρθατε στη Συνάντηση AI KARAU!",
     "loginFailed": "Η σύνδεση απέτυχε",
     "connectionError": "Σφάλμα σύνδεσης. Παρακαλώ δοκιμάστε ξανά.",
-    "appleComingSoon": "Η είσοδος με Apple έρχεται σύντομα!"
+    "appleComingSoon": "Η είσοδος με Apple έρχεται σύντομα!",
+    "heroTagline": "Ασφαλή, κρυπτογραφημένη συνεδρία βιντεοδιάσκεψης με δυνατότητες που υποστηρίζονται από AI. Συνδεθείτε από οπουδήποτε με κρυστάλλινα καθαρό βίντεο και ήχο.",
+    "newMeetingDesc": "Ξεκινήστε μια άμεση συνάντηση με βίντεο, ήχο και σημειώσεις AI",
+    "meetingHistory": "Ιστορικό συναντήσεων",
+    "noMeetingsHistory": "Δεν υπάρχουν συναντήσεις ακόμα. Ξεκινήστε την πρώτη σας συνάντηση!",
+    "recordingDeleted": "Η ηχογράφηση διαγράφηκε",
+    "failedDeleteRecording": "Αποτυχία διαγραφής ηχογράφησης",
+    "signedOut": "Αποσυνδεθήκατε επιτυχώς",
+    "settingUpdated": "Η ρύθμιση ενημερώθηκε",
+    "failedUpdateSetting": "Αποτυχία ενημέρωσης ρύθμισης",
+    "failedSendCode": "Αποτυχία αποστολής κωδικού",
+    "verificationFailed": "Αποτυχία επαλήθευσης",
+    "accessibility": "Προσβασιμότητα",
+    "security": "Ασφάλεια",
+    "recordTheConsentShort": "Ηχογραφήστε τη συνάντηση",
+    "verificationCodeSent": "Κωδικός επαλήθευσης στάλθηκε!",
+    "emailVerified": "Το email έχει επαληθευτεί!"
   },
   "location": {
     "selectLocationPlaceholder": "Επιλέξτε την τοποθεσία σας..."
