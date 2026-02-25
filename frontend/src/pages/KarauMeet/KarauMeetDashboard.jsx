@@ -362,11 +362,11 @@ const KarauMeetDashboard = ({ user }) => {
                 data-testid="btn-create-and-share"
               >
                 {creating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Share2 className="w-4 h-4 mr-2" />}
-                Create & Share
+                {t("karauMeet.createAndShare")}
               </Button>
               <Button onClick={createMeeting} disabled={creating} className="bg-turquoise hover:bg-turquoise/80" data-testid="btn-create-meeting">
                 {creating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                Start Meeting
+                {t("karauMeet.startMeeting")}
               </Button>
             </div>
           </DialogFooter>
