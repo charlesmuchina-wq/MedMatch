@@ -15,6 +15,7 @@ const API = process.env.REACT_APP_BACKEND_URL;
  * Full Settings Page with Security & Accessibility
  */
 const KarauSettingsPage = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('accessibility');
   const [accessibilitySettings, setAccessibilitySettings] = useState({
