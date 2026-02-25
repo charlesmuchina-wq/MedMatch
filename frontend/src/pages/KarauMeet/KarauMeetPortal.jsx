@@ -104,6 +104,11 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
         </nav>
       </ScrollArea>
       
+      {/* Language Selector */}
+      <div className="px-3 py-2 border-t border-slate-700">
+        <GlobalLanguageSelector compact={isCollapsed} />
+      </div>
+
       {/* User section */}
       <div className="p-4 border-t border-slate-700">
         {!isCollapsed && (
