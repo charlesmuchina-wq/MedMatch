@@ -107,11 +107,25 @@ const LoginPage = ({ onAuthSuccess }) => {
 
   // Check for Google OAuth callback (session_id in URL hash)
   // Also check for Apple Sign In callback (id_token in URL hash)
+  // Also check for ORCID OAuth callback (orcid_session in URL hash)
   useEffect(() => {
     const hash = location.hash;
     if (hash) {
+      // ORCID callback
+      if (hash.includes('orcid_session=')) {
+        const sessionToken = hash.split('orcid_session=')[1]?.split('&')[0];
+        if (sessionToken) {
+          handleOrcidCallback(sessionToken);
+        }
+      }
+      // ORCID error
+      else if (hash.includes('orcid_error=')) {
+        const error = hash.split('orcid_error=')[1]?.split('&')[0];
+        toast.error(t("auth.orcidLoginFailed") || `ORCID sign-in error: ${error}`);
+        window.history.replaceState(null, '', window.location.pathname);
+      }
       // Google callback
-      if (hash.includes('session_id=')) {
+      else if (hash.includes('session_id=')) {
         const sessionId = hash.split('session_id=')[1]?.split('&')[0];
         if (sessionId) {
           handleGoogleCallback(sessionId);
