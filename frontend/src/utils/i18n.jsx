@@ -112,6 +112,17 @@ const translations = {
   id: idLang,  // Indonesian
   bn,      // Bengali
   he,      // Hebrew
+  // Additional bundled languages
+  cs,      // Czech
+  el,      // Greek
+  fa,      // Persian
+  hu,      // Hungarian
+  is: is2, // Icelandic
+  ms,      // Malay
+  ro,      // Romanian
+  ta,      // Tamil
+  tl,      // Filipino
+  ur,      // Urdu
   // Variant mappings (use base locale)
   "en-GB": en,
   "en-IE": en,
