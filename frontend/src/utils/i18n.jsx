@@ -273,7 +273,9 @@ export const BUNDLED_LANGUAGES = [
   // Asian Languages
   "th", "id", "bn",
   // Middle Eastern
-  "he",
+  "he", "fa",
+  // Additional languages
+  "cs", "el", "hu", "is", "ms", "ro", "ta", "tl", "ur",
   // Variant mappings (use base locale)
   "en-GB", "en-IE", "en-SG", "pt", "ar-AE", "ar-EG"
 ];
