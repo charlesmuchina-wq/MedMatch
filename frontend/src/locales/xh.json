@@ -309,7 +309,7 @@
     "orcid": "Ngena nge-ORCID",
     "orcidLoginSuccess": "Ungene nge-ORCID!",
     "orcidLoginFailed": "Ukungena nge-ORCID akuphumelelanga",
-    "signOut": "Sign Out"
+    "signOut": "Phuma"
   },
   "errors": {
     "somethingWentWrong": "Kukho into engahambanga kakuhle",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Iintlanganiso Zam",
+    "schedule": "Ishedyuli",
+    "recordings": "Iirekhodi",
+    "meetingNotes": "Amanqaku Entlanganiso",
+    "analytics": "Uhlalutyo",
+    "settings": "Iisetingi",
+    "viewAllMeetings": "Jonga zonke iintlanganiso zakho ezidlulileyo nezizayo",
+    "scheduleDesc": "Cwangcisa uze ulawule iintlanganiso zakho",
+    "notesDesc": "Izishwankathelo neetranskripthi ezenziwe yi-AI",
+    "analyticsDesc": "Istatistikhi neengqiqo zentlanganiso"
   }
 }

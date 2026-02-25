@@ -309,7 +309,7 @@
     "orcid": "Wọlé pẹ̀lú ORCID",
     "orcidLoginSuccess": "O ti wọlé pẹ̀lú ORCID!",
     "orcidLoginFailed": "Wíwọlé ORCID kò ṣàṣeyọrí",
-    "signOut": "Sign Out"
+    "signOut": "Jáde"
   },
   "errors": {
     "somethingWentWrong": "Nǹkan kan lọ ní àṣìṣe",
@@ -2280,15 +2280,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "Àwọn Ìpàdé Mi",
+    "schedule": "Ìṣètò",
+    "recordings": "Àwọn Ìgbàgbọ́dọ̀",
+    "meetingNotes": "Àwọn Àkọsílẹ̀ Ìpàdé",
+    "analytics": "Ìtúpalẹ̀",
+    "settings": "Àwọn Ìṣètò",
+    "viewAllMeetings": "Wo gbogbo àwọn ìpàdé rẹ tó ti kọjá àti tó ń bọ",
+    "scheduleDesc": "Ṣètò àti ṣàkóso àwọn ìpàdé rẹ",
+    "notesDesc": "Àwọn àkótán àti àtúkọ̀wé tí AI dá",
+    "analyticsDesc": "Àwọn iṣirò àti ìmọ̀lára nípa ìpàdé"
   }
 }

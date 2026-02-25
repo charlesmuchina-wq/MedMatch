@@ -676,7 +676,7 @@
     "orcid": "使用 ORCID 登录",
     "orcidLoginSuccess": "已使用 ORCID 登录！",
     "orcidLoginFailed": "ORCID 登录失败",
-    "signOut": "Sign Out"
+    "signOut": "退出登录"
   },
   "onboarding": {
     "welcome": "欢迎来到MedMatch！",
@@ -2293,15 +2293,15 @@
   },
   "karau": {
     "dashboard": "Dashboard",
-    "myMeetings": "My Meetings",
-    "schedule": "Schedule",
-    "recordings": "Recordings",
-    "meetingNotes": "Meeting Notes",
-    "analytics": "Analytics",
-    "settings": "Settings",
-    "viewAllMeetings": "View all your past and upcoming meetings",
-    "scheduleDesc": "Schedule and manage your meetings",
-    "notesDesc": "AI-generated summaries and transcriptions",
-    "analyticsDesc": "Meeting statistics and insights"
+    "myMeetings": "我的会议",
+    "schedule": "日程安排",
+    "recordings": "录制",
+    "meetingNotes": "会议记录",
+    "analytics": "分析",
+    "settings": "设置",
+    "viewAllMeetings": "查看你过去和即将开始的所有会议",
+    "scheduleDesc": "安排并管理你的会议",
+    "notesDesc": "AI 生成的摘要和转录",
+    "analyticsDesc": "会议统计与洞察"
   }
 }
