@@ -350,11 +350,11 @@ const KarauMeetDashboard = ({ user }) => {
                       setShowCreateDialog(false);
                       setShareMeeting({ meeting_id: data.meeting_id, title: newMeetingTitle || 'AI KARAU Meeting' });
                       fetchMeetings();
-                      toast.success('Meeting created! Share the link with participants.');
+                      toast.success(t("karauMeet.meetingCreatedShare"));
                     } else {
-                      toast.error('Failed to create meeting');
+                      toast.error(t("karauMeet.failedCreate"));
                     }
-                  } catch { toast.error('Failed to create meeting'); }
+                  } catch { toast.error(t("karauMeet.failedCreate")); }
                   setCreating(false);
                 }}
                 disabled={creating}
