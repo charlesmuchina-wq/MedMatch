@@ -134,6 +134,9 @@ const RecommendationCard = ({ recommendation }) => {
 const TranslationQADashboard = () => {
   const [loading, setLoading] = useState(true);
   const [running, setRunning] = useState(false);
+  const [fixing, setFixing] = useState(false);
+  const [fixJobId, setFixJobId] = useState(null);
+  const [fixProgress, setFixProgress] = useState(null);
   const [summary, setSummary] = useState(null);
   const [details, setDetails] = useState(null);
   const [selectedLang, setSelectedLang] = useState(null);
