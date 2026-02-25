@@ -144,33 +144,45 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
 /**
  * Placeholder pages for sections not yet refactored
  */
-const MeetingsListPage = () => (
-  <div className="p-6">
-    <h1 className="text-2xl font-bold text-white mb-4">My Meetings</h1>
-    <p className="text-slate-400">View all your past and upcoming meetings</p>
-  </div>
-);
+const MeetingsListPage = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold text-white mb-4">{t("karau.myMeetings")}</h1>
+      <p className="text-slate-400">{t("karau.viewAllMeetings") || "View all your past and upcoming meetings"}</p>
+    </div>
+  );
+};
 
-const SchedulePage = () => (
-  <div className="p-6">
-    <h1 className="text-2xl font-bold text-white mb-4">Schedule</h1>
-    <p className="text-slate-400">Schedule and manage your meetings</p>
-  </div>
-);
+const SchedulePage = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold text-white mb-4">{t("karau.schedule")}</h1>
+      <p className="text-slate-400">{t("karau.scheduleDesc") || "Schedule and manage your meetings"}</p>
+    </div>
+  );
+};
 
-const NotesPage = () => (
-  <div className="p-6">
-    <h1 className="text-2xl font-bold text-white mb-4">Meeting Notes</h1>
-    <p className="text-slate-400">AI-generated summaries and transcriptions</p>
-  </div>
-);
+const NotesPage = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold text-white mb-4">{t("karau.meetingNotes")}</h1>
+      <p className="text-slate-400">{t("karau.notesDesc") || "AI-generated summaries and transcriptions"}</p>
+    </div>
+  );
+};
 
-const AnalyticsPage = () => (
-  <div className="p-6">
-    <h1 className="text-2xl font-bold text-white mb-4">Analytics</h1>
-    <p className="text-slate-400">Meeting statistics and insights</p>
-  </div>
-);
+const AnalyticsPage = () => {
+  const { t } = useTranslation();
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold text-white mb-4">{t("karau.analytics")}</h1>
+      <p className="text-slate-400">{t("karau.analyticsDesc") || "Meeting statistics and insights"}</p>
+    </div>
+  );
+};
 
 /**
  * Main AI KARAU Meeting Portal App
