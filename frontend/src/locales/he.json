@@ -2205,24 +2205,24 @@
     "analyticsDesc": "סטטיסטיקות ותובנות על פגישות"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "ציון אמינות",
+    "buildYourScore": "בנו את ציון האמינות שלכם",
+    "buildDescription": "השלימו את הפרופיל והוסיפו אישורים כדי לבנות אמון עם מגייסים",
+    "morePointsTo": "{{count}} נק׳ נוספות כדי להגיע ל-{{level}}",
+    "progressTo": "התקדמות ל-{{level}}",
+    "ptsToGo": "נותרו {{count}} נק׳",
+    "scoreBreakdown": "פירוט הציון",
+    "expand": "הרחבה",
+    "collapse": "צמצום",
+    "details": "פרטים",
+    "pts": "נק׳",
+    "boostYourScore": "שפרו את הציון שלכם",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "אישורים",
+      "profile": "פרופיל",
+      "engagement": "מעורבות",
+      "tenure": "וותק",
+      "reviews": "ביקורות"
     }
   }
 }

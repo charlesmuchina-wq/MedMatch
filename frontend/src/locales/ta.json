@@ -2205,24 +2205,24 @@
     "analyticsDesc": "கூட்ட புள்ளிவிவரங்கள் மற்றும் நுண்ணறிவுகள்"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "நம்பகத்தன்மை மதிப்பெண்",
+    "buildYourScore": "உங்கள் நம்பகத்தன்மை மதிப்பெண்ணை உருவாக்குங்கள்",
+    "buildDescription": "பணியமர்த்துநர்களின் நம்பிக்கையை பெற உங்கள் சுயவிவரத்தை நிறைவு செய்து சான்றுகளைச் சேர்க்கவும்",
+    "morePointsTo": "{{level}} அடைய இன்னும் {{count}} புள்ளிகள்",
+    "progressTo": "{{level}} நோக்கி முன்னேற்றம்",
+    "ptsToGo": "இன்னும் {{count}} புள்ளிகள்",
+    "scoreBreakdown": "மதிப்பெண் விவரம்",
+    "expand": "விரிக்கவும்",
+    "collapse": "சுருக்கவும்",
+    "details": "விவரங்கள்",
+    "pts": "புள்ளிகள்",
+    "boostYourScore": "உங்கள் மதிப்பெண்ணை உயர்த்துங்கள்",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "சான்றுகள்",
+      "profile": "சுயவிவரம்",
+      "engagement": "ஈடுபாடு",
+      "tenure": "பணிக்காலம்",
+      "reviews": "மதிப்புரைகள்"
     }
   }
 }

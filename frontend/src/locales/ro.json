@@ -2205,24 +2205,24 @@
     "analyticsDesc": "Statistici și informații despre întâlniri"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Scor de încredere",
+    "buildYourScore": "Construiește-ți scorul de încredere",
+    "buildDescription": "Completează-ți profilul și adaugă acreditări pentru a câștiga încrederea recrutorilor",
+    "morePointsTo": "Încă {{count}} puncte până la {{level}}",
+    "progressTo": "Progresează către {{level}}",
+    "ptsToGo": "Au mai rămas {{count}} pct",
+    "scoreBreakdown": "Defalcare scor",
+    "expand": "Extinde",
+    "collapse": "Restrânge",
+    "details": "Detalii",
+    "pts": "pct",
+    "boostYourScore": "Îmbunătățește-ți scorul",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Acreditări",
+      "profile": "Profil",
+      "engagement": "Implicare",
+      "tenure": "Vechime",
+      "reviews": "Recenzii"
     }
   }
 }

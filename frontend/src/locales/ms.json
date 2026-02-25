@@ -2205,24 +2205,24 @@
     "analyticsDesc": "Statistik dan cerapan mesyuarat"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Skor Kepercayaan",
+    "buildYourScore": "Bina Skor Kepercayaan Anda",
+    "buildDescription": "Lengkapkan profil anda dan tambah kelayakan untuk membina kepercayaan dengan perekrut",
+    "morePointsTo": "{{count}} mata lagi untuk {{level}}",
+    "progressTo": "Kemajuan ke {{level}}",
+    "ptsToGo": "{{count}} mata lagi",
+    "scoreBreakdown": "Pecahan Skor",
+    "expand": "Kembangkan",
+    "collapse": "Runtuhkan",
+    "details": "Butiran",
+    "pts": "mata",
+    "boostYourScore": "Tingkatkan Skor Anda",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Kelayakan",
+      "profile": "Profil",
+      "engagement": "Penglibatan",
+      "tenure": "Tempoh Perkhidmatan",
+      "reviews": "Ulasan"
     }
   }
 }

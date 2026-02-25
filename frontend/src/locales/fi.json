@@ -2205,24 +2205,24 @@
     "analyticsDesc": "Kokoustilastot ja oivallukset"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Luottamuspisteet",
+    "buildYourScore": "Kasvata luottamuspisteitäsi",
+    "buildDescription": "Täydennä profiilisi ja lisää todistuksia kasvattaaksesi luottamusta rekrytoijien kanssa",
+    "morePointsTo": "{{count}} pistettä lisää tasolle {{level}}",
+    "progressTo": "Etene tasolle {{level}}",
+    "ptsToGo": "{{count}} p jäljellä",
+    "scoreBreakdown": "Pisteiden erittely",
+    "expand": "Laajenna",
+    "collapse": "Pienennä",
+    "details": "Tiedot",
+    "pts": "p",
+    "boostYourScore": "Nosta pisteitäsi",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Todistukset",
+      "profile": "Profiili",
+      "engagement": "Aktiivisuus",
+      "tenure": "Kesto",
+      "reviews": "Arvostelut"
     }
   }
 }

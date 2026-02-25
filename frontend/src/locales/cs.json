@@ -2205,24 +2205,24 @@
     "analyticsDesc": "Statistiky a přehledy ze schůzek"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Skóre důvěry",
+    "buildYourScore": "Vytvořte si skóre důvěry",
+    "buildDescription": "Doplňte svůj profil a přidejte ověření, abyste si u náborářů vybudovali důvěru",
+    "morePointsTo": "Ještě {{count}} bodů do úrovně {{level}}",
+    "progressTo": "Postup k úrovni {{level}}",
+    "ptsToGo": "Zbývá {{count}} b.",
+    "scoreBreakdown": "Rozpis skóre",
+    "expand": "Rozbalit",
+    "collapse": "Sbalit",
+    "details": "Podrobnosti",
+    "pts": "b.",
+    "boostYourScore": "Zvyšte své skóre",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Ověření",
+      "profile": "Profil",
+      "engagement": "Aktivita",
+      "tenure": "Délka působení",
+      "reviews": "Recenze"
     }
   }
 }

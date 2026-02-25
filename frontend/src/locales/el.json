@@ -2205,24 +2205,24 @@
     "analyticsDesc": "Στατιστικά και πληροφορίες συναντήσεων"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Βαθμολογία Εμπιστοσύνης",
+    "buildYourScore": "Δημιουργήστε τη Βαθμολογία Εμπιστοσύνης σας",
+    "buildDescription": "Ολοκληρώστε το προφίλ σας και προσθέστε διαπιστευτήρια για να κερδίσετε την εμπιστοσύνη των υπευθύνων προσλήψεων",
+    "morePointsTo": "{{count}} ακόμη πόντοι για {{level}}",
+    "progressTo": "Πρόοδος προς {{level}}",
+    "ptsToGo": "Απομένουν {{count}} πόντοι",
+    "scoreBreakdown": "Ανάλυση Βαθμολογίας",
+    "expand": "Ανάπτυξη",
+    "collapse": "Σύμπτυξη",
+    "details": "Λεπτομέρειες",
+    "pts": "πόντοι",
+    "boostYourScore": "Ενισχύστε τη Βαθμολογία σας",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Διαπιστευτήρια",
+      "profile": "Προφίλ",
+      "engagement": "Δραστηριότητα",
+      "tenure": "Διάρκεια",
+      "reviews": "Αξιολογήσεις"
     }
   }
 }

@@ -2205,24 +2205,24 @@
     "analyticsDesc": "Statistik dan wawasan rapat"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Skor Kepercayaan",
+    "buildYourScore": "Bangun Skor Kepercayaan Anda",
+    "buildDescription": "Lengkapi profil Anda dan tambahkan kredensial untuk membangun kepercayaan dengan perekrut",
+    "morePointsTo": "{{count}} poin lagi untuk mencapai {{level}}",
+    "progressTo": "Progres menuju {{level}}",
+    "ptsToGo": "Sisa {{count}} poin",
+    "scoreBreakdown": "Rincian Skor",
+    "expand": "Perluas",
+    "collapse": "Ciutkan",
+    "details": "Detail",
+    "pts": "poin",
+    "boostYourScore": "Tingkatkan Skor Anda",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Kredensial",
+      "profile": "Profil",
+      "engagement": "Keterlibatan",
+      "tenure": "Masa Kerja",
+      "reviews": "Ulasan"
     }
   }
 }

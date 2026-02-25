@@ -2205,24 +2205,24 @@
     "analyticsDesc": "Статистика та інсайти зустрічей"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Рівень довіри",
+    "buildYourScore": "Підвищуйте рівень довіри",
+    "buildDescription": "Заповніть профіль і додайте підтвердження, щоб підвищити довіру рекрутерів",
+    "morePointsTo": "Ще {{count}} балів до {{level}}",
+    "progressTo": "Прогрес до {{level}}",
+    "ptsToGo": "Залишилось {{count}} балів",
+    "scoreBreakdown": "Розподіл балів",
+    "expand": "Розгорнути",
+    "collapse": "Згорнути",
+    "details": "Деталі",
+    "pts": "б.",
+    "boostYourScore": "Підвищуйте свій рівень",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Підтвердження",
+      "profile": "Профіль",
+      "engagement": "Активність",
+      "tenure": "Стаж",
+      "reviews": "Відгуки"
     }
   }
 }

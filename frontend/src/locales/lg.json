@@ -2292,24 +2292,24 @@
     "analyticsDesc": "Ebibalo by'enkiiko n'amagezi"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
+    "trustScore": "Amanqaku g’Obwesigwa",
+    "buildYourScore": "Zimba Amanqaku Go g’Obwesigwa",
+    "buildDescription": "Jjuza pulofayiro yo era ossaako obukakafu okuzimba obwesigwa eri abanoonya abakozi",
+    "morePointsTo": "{{count}} amanqaku amalala okutuuka ku {{level}}",
+    "progressTo": "Weyongere okutuuka ku {{level}}",
+    "ptsToGo": "{{count}} pts ezisigadde",
+    "scoreBreakdown": "Ennyonnyola y’Amanqaku",
+    "expand": "Gaziya",
+    "collapse": "Kendeza",
+    "details": "Ebisingawo",
     "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "boostYourScore": "Yongera ku Manqaku Go",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Obukakafu",
+      "profile": "Pulofayiro",
+      "engagement": "Okukwatagana",
+      "tenure": "Ebbanga",
+      "reviews": "Ebiteeso"
     }
   }
 }

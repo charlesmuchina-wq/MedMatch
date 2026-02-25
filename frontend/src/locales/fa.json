@@ -2205,24 +2205,24 @@
     "analyticsDesc": "آمار و بینش‌های جلسه"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "امتیاز اعتماد",
+    "buildYourScore": "امتیاز اعتماد خود را بسازید",
+    "buildDescription": "پروفایل خود را تکمیل کنید و مدارک را اضافه کنید تا اعتماد کارفرمایان را جلب کنید",
+    "morePointsTo": "{{count}} امتیاز دیگر تا {{level}}",
+    "progressTo": "پیشرفت به {{level}}",
+    "ptsToGo": "{{count}} امتیاز تا رسیدن",
+    "scoreBreakdown": "جزئیات امتیاز",
+    "expand": "باز کردن",
+    "collapse": "جمع کردن",
+    "details": "جزئیات",
+    "pts": "امتیاز",
+    "boostYourScore": "امتیاز خود را افزایش دهید",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "مدارک",
+      "profile": "پروفایل",
+      "engagement": "میزان تعامل",
+      "tenure": "سابقه",
+      "reviews": "نظرات"
     }
   }
 }

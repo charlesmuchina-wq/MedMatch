@@ -2205,24 +2205,24 @@
     "analyticsDesc": "สถิติและข้อมูลเชิงลึกของการประชุม"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "คะแนนความน่าเชื่อถือ",
+    "buildYourScore": "สร้างคะแนนความน่าเชื่อถือของคุณ",
+    "buildDescription": "กรอกโปรไฟล์ให้ครบและเพิ่มข้อมูลรับรองเพื่อสร้างความน่าเชื่อถือกับผู้สรรหาบุคลากร",
+    "morePointsTo": "อีก {{count}} คะแนนเพื่อไปถึง {{level}}",
+    "progressTo": "ความคืบหน้าไปยัง {{level}}",
+    "ptsToGo": "เหลืออีก {{count}} คะแนน",
+    "scoreBreakdown": "รายละเอียดคะแนน",
+    "expand": "ขยาย",
+    "collapse": "ยุบ",
+    "details": "รายละเอียด",
+    "pts": "คะแนน",
+    "boostYourScore": "เพิ่มคะแนนของคุณ",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "ข้อมูลรับรอง",
+      "profile": "โปรไฟล์",
+      "engagement": "การมีส่วนร่วม",
+      "tenure": "ระยะเวลาใช้งาน",
+      "reviews": "รีวิว"
     }
   }
 }
