@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "Зустріч створена! Поділіться посиланням з учасниками.",
     "failedCreate": "Не вдалося створити зустріч",
     "enterMeetingIdError": "Будь ласка, введіть ідентифікатор зустрічі",
-    "meetingLinkCopied": "Посилання на зустріч скопійовано!"
+    "meetingLinkCopied": "Посилання на зустріч скопійовано!",
+    "aiKarauMeeting": "Зустріч AI KARAU",
+    "tagline": "Місце зустрічі - Безпечно та на базі ШІ",
+    "signIn": "Увійти",
+    "signingIn": "Вхід...",
+    "joinMeetingTab": "Приєднатися до зустрічі",
+    "email": "Електронна пошта",
+    "password": "Пароль",
+    "orContinueWith": "або продовжити з",
+    "joinAsGuest": "Введіть свій ідентифікатор зустрічі, щоб приєднатися як гість",
+    "meetingId": "Ідентифікатор зустрічі",
+    "joinMeetingBtn": "Приєднатися до зустрічі",
+    "guestNote": "Ви приєднаєтеся як гість. Увійдіть для доступу до всіх функцій.",
+    "e2eEncrypted": "E2E Зашифровано",
+    "aiPowered": "На базі ШІ",
+    "backToPortal": "Назад до вибору порталу",
+    "welcomeToast": "Ласкаво просимо на зустріч AI KARAU!",
+    "loginFailed": "Не вдалося увійти",
+    "connectionError": "Помилка зʼєднання. Спробуйте ще раз.",
+    "appleComingSoon": "Apple Sign-In незабаром!"
   },
   "location": {
     "selectLocationPlaceholder": "Виберіть ваше місцезнаходження..."

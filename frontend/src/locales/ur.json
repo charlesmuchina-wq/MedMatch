@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "میٹنگ بن گئی! شرکاء کے ساتھ لنک شیئر کریں۔",
     "failedCreate": "میٹنگ بنانے میں ناکامی",
     "enterMeetingIdError": "براہ کرم ایک میٹنگ ID درج کریں",
-    "meetingLinkCopied": "میٹنگ کا لنک کاپی کیا گیا!"
+    "meetingLinkCopied": "میٹنگ کا لنک کاپی کیا گیا!",
+    "aiKarauMeeting": "AI KARAU میٹنگ",
+    "tagline": "میٹنگ کی جگہ - محفوظ اور AI سے چلنے والا",
+    "signIn": "سائن ان کریں",
+    "signingIn": "سائن ان ہو رہا ہے...",
+    "joinMeetingTab": "میٹنگ میں شامل ہوں",
+    "email": "ای میل",
+    "password": "پاس ورڈ",
+    "orContinueWith": "یا کے ساتھ جاری رکھیں",
+    "joinAsGuest": "مہمان کی حیثیت سے شامل ہونے کے لئے اپنی میٹنگ ID درج کریں",
+    "meetingId": "میٹنگ ID",
+    "joinMeetingBtn": "میٹنگ میں شامل ہوں",
+    "guestNote": "آپ مہمان کی حیثیت سے شامل ہوں گے۔ مکمل خصوصیات کے لئے سائن ان کریں۔",
+    "e2eEncrypted": "ای2ای انکرپٹڈ",
+    "aiPowered": "AI سے چلتا ہوا",
+    "backToPortal": "پورٹل کے انتخاب پر واپس جائیں",
+    "welcomeToast": "AI KARAU میٹنگ میں خوش آمدید!",
+    "loginFailed": "لاگ ان ناکام",
+    "connectionError": "کنکشن کی خرابی۔ براہ کرم دوبارہ کوشش کریں۔",
+    "appleComingSoon": "ایپل سائن ان جلد آرہا ہے!"
   },
   "location": {
     "selectLocationPlaceholder": "اپنا مقام منتخب کریں..."

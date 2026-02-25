@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "Találkozó létrejött! Ossza meg a linket a résztvevőkkel.",
     "failedCreate": "A találkozó létrehozása nem sikerült",
     "enterMeetingIdError": "Kérjük, adjon meg egy találkozóazonosítót",
-    "meetingLinkCopied": "A találkozó linkje másolva!"
+    "meetingLinkCopied": "A találkozó linkje másolva!",
+    "aiKarauMeeting": "AI KARAU Találkozó",
+    "tagline": "A Találkozó Hely - Biztonságos és AI-Alapú",
+    "signIn": "Bejelentkezés",
+    "signingIn": "Bejelentkezés...",
+    "joinMeetingTab": "Csatlakozás a Találkozóhoz",
+    "email": "E-mail",
+    "password": "Jelszó",
+    "orContinueWith": "vagy folytatás ezzel",
+    "joinAsGuest": "Add meg a találkozó azonosítód, hogy vendégként csatlakozhass",
+    "meetingId": "Találkozó Azonosító",
+    "joinMeetingBtn": "Csatlakozás a Találkozóhoz",
+    "guestNote": "Vendégként csatlakozol. Jelentkezz be a teljes funkciókhoz.",
+    "e2eEncrypted": "Végpontok közötti Titkosítás",
+    "aiPowered": "AI-Alapú",
+    "backToPortal": "Vissza a Portál Kiválasztáshoz",
+    "welcomeToast": "Üdvözlünk az AI KARAU Találkozón!",
+    "loginFailed": "Bejelentkezés sikertelen",
+    "connectionError": "Kapcsolati hiba. Kérlek próbáld újra.",
+    "appleComingSoon": "Apple Bejelentkezés hamarosan!"
   },
   "location": {
     "selectLocationPlaceholder": "Válaszd ki a tartózkodási helyed..."

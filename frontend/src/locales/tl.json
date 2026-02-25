@@ -1921,7 +1921,26 @@
     "meetingCreatedShare": "Nagawa ang pulong! Ibahagi ang link sa mga kalahok.",
     "failedCreate": "Nabigong gumawa ng pulong",
     "enterMeetingIdError": "Pakisok ang isang ID ng pulong",
-    "meetingLinkCopied": "Nakopya ang link ng pulong!"
+    "meetingLinkCopied": "Nakopya ang link ng pulong!",
+    "aiKarauMeeting": "Pulong ng AI KARAU",
+    "tagline": "Lugar ng Pulong - Secure at Pinapagana ng AI",
+    "signIn": "Mag-sign In",
+    "signingIn": "Nagsasagawa ng Pag-sign In...",
+    "joinMeetingTab": "Sumali sa Pulong",
+    "email": "Email",
+    "password": "Password",
+    "orContinueWith": "o magpatuloy gamit ang",
+    "joinAsGuest": "Ilagay ang iyong meeting ID upang sumali bilang bisita",
+    "meetingId": "ID ng Pulong",
+    "joinMeetingBtn": "Sumali sa Pulong",
+    "guestNote": "Kayo'y sasali bilang bisita. Mag-sign in para sa buong mga tampok.",
+    "e2eEncrypted": "E2E Na Nai-encrypt",
+    "aiPowered": "Pinapagana ng AI",
+    "backToPortal": "Bumalik sa Pagpili ng Portal",
+    "welcomeToast": "Maligayang pagdating sa Pulong ng AI KARAU!",
+    "loginFailed": "Nabigo ang Pag-login",
+    "connectionError": "Error sa koneksyon. Pakisubukan muli.",
+    "appleComingSoon": "Ang Apple Sign-In ay darating sa lalong madaling panahon!"
   },
   "location": {
     "selectLocationPlaceholder": "Piliin ang iyong lokasyon..."
