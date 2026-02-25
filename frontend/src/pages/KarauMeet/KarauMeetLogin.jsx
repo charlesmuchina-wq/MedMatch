@@ -273,7 +273,7 @@ const KarauMeetLogin = ({ onLogin }) => {
           
           <div className="text-center">
             <Link to="/" className="text-sm text-slate-400 hover:text-turquoise transition-colors">
-              ← Back to Portal Selection
+              ← {t("karauMeet.backToPortal")}
             </Link>
           </div>
         </CardContent>
