@@ -95,4 +95,4 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 - **Scheduler:** Dragon Scheduler, 5 jobs, MongoDB-persisted (apscheduler_jobs)
 - **Mocked:** Google and Apple social sign-in
 - **ORCID OAuth:** Production (orcid.org), Client ID: APP-K9HUYS6GQY2RERX6
-- **i18n:** 32 languages, 0 missing keys, `{{param}}` interpolation syntax, AI auto-fix via Translation QA Dashboard
+- **i18n:** 50 languages, 1,940 keys, 0 missing keys, all pre-bundled, `{{param}}` interpolation syntax, AI auto-fix via Translation QA Dashboard
