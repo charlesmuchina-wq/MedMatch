@@ -125,17 +125,17 @@
     "settings": "Qindaa'ina",
     "profile": "Profaayilii",
     "signOut": "Ba'i",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Hordoffii Iyyataa",
+    "psvVerificationHub": "Wiirtuu Mirkaneessa PSV",
+    "aiCompliance": "Waliigalteessa AI",
+    "enterpriseAPI": "API Dhaabbataa",
+    "dataIntegrityAIQA": "Sirrummaa Daataa & QA AI",
+    "globalCompliance": "Waliigalteessa Addunyaa",
+    "recruiterVerification": "Mirkaneessa Qaxaraa",
+    "reviewModeration": "To'annoo Gamaaggamaa",
+    "translationCoverage": "Uwwisa Hiikaa",
+    "translationQA": "QA Hiikaa",
+    "aiAndYourRights": "AI fi Mirga Kee"
   },
   "dashboard": {
     "welcomeBack": "Baga deebi'een",
@@ -2236,15 +2236,15 @@
     "haveAccount": "Akkaawuntii qabdaa? Bakka isaa seeni"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Baajiiwwan mirkanaa'an",
+    "verified": "Mirkanaa'e",
+    "professionalCertifications": "Ragaa ogummaa kennitoota amanamoo irraa",
+    "importBadges": "Baajiiwwan galchi",
+    "connecting": "Walitti hidhaa jira...",
+    "noBadgesYet": "Hanga ammaatti baajiiwwan mirkanaa'an hin jiran",
+    "showcaseCertifications": "Ragaawwan kee agarsiisi",
+    "importFromCredly": "Credly irraa galchi",
+    "viewAllBadges": "Baajiiwwan {count} hunda ilaali",
+    "verifiedBy": "Kan mirkaneesse"
   }
 }

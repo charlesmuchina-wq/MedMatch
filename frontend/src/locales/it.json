@@ -159,17 +159,17 @@
     "settings": "Impostazioni",
     "profile": "Profilo",
     "signOut": "Esci",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Tracciamento candidature",
+    "psvVerificationHub": "Hub di verifica PSV",
+    "aiCompliance": "Conformità IA",
+    "enterpriseAPI": "API Enterprise",
+    "dataIntegrityAIQA": "Integrità dei dati e QA IA",
+    "globalCompliance": "Conformità globale",
+    "recruiterVerification": "Verifica recruiter",
+    "reviewModeration": "Moderazione delle revisioni",
+    "translationCoverage": "Copertura di traduzione",
+    "translationQA": "QA della traduzione",
+    "aiAndYourRights": "IA e i tuoi diritti"
   },
   "recruiter": {
     "dashboard": "Bacheca",
@@ -2266,15 +2266,15 @@
     "haveAccount": "Hai un account? Accedi"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Badge verificati",
+    "verified": "Verificato",
+    "professionalCertifications": "Certificazioni professionali da enti affidabili",
+    "importBadges": "Importa badge",
+    "connecting": "Connessione in corso...",
+    "noBadgesYet": "Nessun badge verificato al momento",
+    "showcaseCertifications": "Metti in evidenza le tue certificazioni",
+    "importFromCredly": "Importa da Credly",
+    "viewAllBadges": "Visualizza tutti i {count} badge",
+    "verifiedBy": "Verificato da"
   }
 }

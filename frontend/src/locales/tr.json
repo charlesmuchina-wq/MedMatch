@@ -159,17 +159,17 @@
     "settings": "Ayarlar",
     "profile": "Profil",
     "signOut": "Çıkış Yap",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Aday Takibi",
+    "psvVerificationHub": "PSV Doğrulama Merkezi",
+    "aiCompliance": "Yapay Zeka Uyumluluğu",
+    "enterpriseAPI": "Kurumsal API",
+    "dataIntegrityAIQA": "Veri Bütünlüğü ve Yapay Zeka QA",
+    "globalCompliance": "Küresel Uyumluluk",
+    "recruiterVerification": "İşe Alım Uzmanı Doğrulaması",
+    "reviewModeration": "İnceleme Moderasyonu",
+    "translationCoverage": "Çeviri Kapsamı",
+    "translationQA": "Çeviri QA",
+    "aiAndYourRights": "Yapay Zeka ve Haklarınız"
   },
   "recruiter": {
     "dashboard": "Kontrol Paneli",
@@ -2266,15 +2266,15 @@
     "haveAccount": "Hesabınız var mı? Giriş yapın"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Doğrulanmış Rozetler",
+    "verified": "Doğrulandı",
+    "professionalCertifications": "Güvenilir sağlayıcılardan profesyonel sertifikalar",
+    "importBadges": "Rozetleri İçe Aktar",
+    "connecting": "Bağlanıyor...",
+    "noBadgesYet": "Henüz doğrulanmış rozet yok",
+    "showcaseCertifications": "Sertifikalarınızı sergileyin",
+    "importFromCredly": "Credly'den içe aktar",
+    "viewAllBadges": "Tüm {count} rozeti görüntüle",
+    "verifiedBy": "Doğrulayan"
   }
 }

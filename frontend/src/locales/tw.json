@@ -125,17 +125,17 @@
     "settings": "Nhyehyɛe",
     "profile": "Me Profil",
     "signOut": "Pue",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Aguadi Nkɔmhyɛ So",
+    "psvVerificationHub": "PSV Nhwehwɛbea Kɛse",
+    "aiCompliance": "AI Mmara Di So",
+    "enterpriseAPI": "Adwumakuw API",
+    "dataIntegrityAIQA": "Data Dɔnhwehwɛ & AI QA",
+    "globalCompliance": "Wiase Nyinaa Mmara Di So",
+    "recruiterVerification": "Recruiter Nhwehwɛ",
+    "reviewModeration": "Nsusuwii Mmodɛre",
+    "translationCoverage": "Nkyerɛase Kataa",
+    "translationQA": "Nkyerɛase QA",
+    "aiAndYourRights": "AI & Wo Hokwan"
   },
   "dashboard": {
     "welcomeBack": "Akwaaba bio",
@@ -2261,20 +2261,20 @@
     "backToPortal": "San kɔ Portal no mu",
     "meetingId": "Nhyiam ID",
     "encrypted": "Wɔabɔ ho ban",
-    "aiPowered": "AI Powered",
-    "secure": "Secure",
-    "haveAccount": "Have an account? Sign in instead"
+    "aiPowered": "AI na ɛboa",
+    "secure": "Ahobammɔ",
+    "haveAccount": "Wowɔ akawnt? Ɛnde kɔkɔ so"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Ntokuro a wɔagye ato mu",
+    "verified": "Wɔagye ato mu",
+    "professionalCertifications": "Adwumayɛ adansedi a efi wɔn a wogye di mu",
+    "importBadges": "Fa Ntokuro bra",
+    "connecting": "Yɛreka bom...",
+    "noBadgesYet": "Ntokuro a wɔagye ato mu biara nni hɔ yet",
+    "showcaseCertifications": "Kyerɛ wo adansedi nhoma ahorow",
+    "importFromCredly": "Fa fi Credly mu bra",
+    "viewAllBadges": "Hwɛ badges {count} no nyinaa",
+    "verifiedBy": "Wɔa-gyina so"
   }
 }

@@ -125,17 +125,17 @@
     "settings": "सेटिंग्स",
     "profile": "प्रोफ़ाइल",
     "signOut": "साइन आउट",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "आवेदक ट्रैकिंग",
+    "psvVerificationHub": "PSV सत्यापन हब",
+    "aiCompliance": "AI अनुपालन",
+    "enterpriseAPI": "एंटरप्राइज़ API",
+    "dataIntegrityAIQA": "डेटा अखंडता और AI QA",
+    "globalCompliance": "वैश्विक अनुपालन",
+    "recruiterVerification": "रिक्रूटर सत्यापन",
+    "reviewModeration": "समीक्षा मॉडरेशन",
+    "translationCoverage": "अनुवाद कवरेज",
+    "translationQA": "अनुवाद QA",
+    "aiAndYourRights": "AI और आपके अधिकार"
   },
   "dashboard": {
     "welcomeBack": "वापसी पर स्वागत है",
@@ -2266,15 +2266,15 @@
     "haveAccount": "खाता है? साइन इन करें"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "सत्यापित बैज",
+    "verified": "सत्यापित",
+    "professionalCertifications": "विश्वसनीय जारीकर्ताओं से प्रोफेशनल प्रमाणपत्र",
+    "importBadges": "बैज आयात करें",
+    "connecting": "कनेक्ट हो रहा है...",
+    "noBadgesYet": "अभी तक कोई सत्यापित बैज नहीं",
+    "showcaseCertifications": "अपने प्रमाणपत्र दिखाएँ",
+    "importFromCredly": "Credly से आयात करें",
+    "viewAllBadges": "सभी {count} बैज देखें",
+    "verifiedBy": "द्वारा सत्यापित"
   }
 }

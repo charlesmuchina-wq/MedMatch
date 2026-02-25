@@ -125,17 +125,17 @@
     "settings": "Einstellungen",
     "profile": "Profil",
     "signOut": "Abmelden",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Bewerbermanagement",
+    "psvVerificationHub": "PSV-Verifizierungszentrale",
+    "aiCompliance": "KI-Compliance",
+    "enterpriseAPI": "Enterprise-API",
+    "dataIntegrityAIQA": "Datenintegrität & KI-QA",
+    "globalCompliance": "Globale Compliance",
+    "recruiterVerification": "Recruiter-Verifizierung",
+    "reviewModeration": "Überprüfung moderieren",
+    "translationCoverage": "Übersetzungsabdeckung",
+    "translationQA": "Übersetzungs-QA",
+    "aiAndYourRights": "KI & Ihre Rechte"
   },
   "recruiter": {
     "dashboard": "Dashboard",
@@ -609,7 +609,7 @@
     "reply": "Antworten",
     "forward": "Weiterleiten",
     "attachFile": "Datei anhängen",
-    "recruiter": "Recruiter",
+    "recruiter": "Personalvermittler",
     "candidate": "Kandidat",
     "anonymous": "Anonym",
     "contactAccepted": "Kontakt akzeptiert! Du kannst jetzt chatten.",
@@ -2279,15 +2279,15 @@
     "haveAccount": "Haben Sie ein Konto? Anmelden"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Verifizierte Abzeichen",
+    "verified": "Verifiziert",
+    "professionalCertifications": "Berufliche Zertifizierungen von vertrauenswürdigen Ausstellern",
+    "importBadges": "Abzeichen importieren",
+    "connecting": "Verbindung wird hergestellt...",
+    "noBadgesYet": "Noch keine verifizierten Abzeichen",
+    "showcaseCertifications": "Präsentieren Sie Ihre Zertifizierungen",
+    "importFromCredly": "Aus Credly importieren",
+    "viewAllBadges": "Alle {count} Abzeichen anzeigen",
+    "verifiedBy": "Verifiziert durch"
   }
 }

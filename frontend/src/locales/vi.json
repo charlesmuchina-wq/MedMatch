@@ -159,17 +159,17 @@
     "settings": "Cài đặt",
     "profile": "Hồ sơ",
     "signOut": "Đăng xuất",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Theo dõi ứng viên",
+    "psvVerificationHub": "Trung tâm xác minh PSV",
+    "aiCompliance": "Tuân thủ AI",
+    "enterpriseAPI": "API Doanh nghiệp",
+    "dataIntegrityAIQA": "Tính toàn vẹn dữ liệu & QA AI",
+    "globalCompliance": "Tuân thủ toàn cầu",
+    "recruiterVerification": "Xác minh nhà tuyển dụng",
+    "reviewModeration": "Kiểm duyệt đánh giá",
+    "translationCoverage": "Phạm vi dịch thuật",
+    "translationQA": "QA dịch thuật",
+    "aiAndYourRights": "AI & quyền của bạn"
   },
   "recruiter": {
     "dashboard": "Bảng điều khiển",
@@ -2266,15 +2266,15 @@
     "haveAccount": "Đã có tài khoản? Đăng nhập"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Huy hiệu đã xác minh",
+    "verified": "Đã xác minh",
+    "professionalCertifications": "Chứng chỉ nghề nghiệp từ các đơn vị cấp uy tín",
+    "importBadges": "Nhập huy hiệu",
+    "connecting": "Đang kết nối...",
+    "noBadgesYet": "Chưa có huy hiệu đã xác minh",
+    "showcaseCertifications": "Trưng bày các chứng chỉ của bạn",
+    "importFromCredly": "Nhập từ Credly",
+    "viewAllBadges": "Xem tất cả {count} huy hiệu",
+    "verifiedBy": "Xác minh bởi"
   }
 }

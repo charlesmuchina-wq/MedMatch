@@ -159,17 +159,17 @@
     "settings": "Instellingen",
     "profile": "Profiel",
     "signOut": "Afmelden",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
+    "applicantTracking": "Sollicitantenvolgsysteem",
+    "psvVerificationHub": "PSV-verificatiehub",
+    "aiCompliance": "AI-compliance",
     "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "dataIntegrityAIQA": "Dataintegriteit & AI-QA",
+    "globalCompliance": "Wereldwijde compliance",
+    "recruiterVerification": "Recruiter-verificatie",
+    "reviewModeration": "Reviewmoderatie",
+    "translationCoverage": "Vertaaldekking",
+    "translationQA": "Vertaal-QA",
+    "aiAndYourRights": "AI en uw rechten"
   },
   "recruiter": {
     "dashboard": "Dashboard",
@@ -2266,15 +2266,15 @@
     "haveAccount": "Heeft u een account? Inloggen"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Geverifieerde badges",
+    "verified": "Geverifieerd",
+    "professionalCertifications": "Professionele certificeringen van vertrouwde uitgevers",
+    "importBadges": "Badges importeren",
+    "connecting": "Verbinden...",
+    "noBadgesYet": "Nog geen geverifieerde badges",
+    "showcaseCertifications": "Laat je certificeringen zien",
+    "importFromCredly": "Importeren vanuit Credly",
+    "viewAllBadges": "Alle {count} badges bekijken",
+    "verifiedBy": "Geverifieerd door"
   }
 }

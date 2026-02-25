@@ -125,17 +125,17 @@
     "settings": "Mipangilio",
     "profile": "Wasifu",
     "signOut": "Toka",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Ufuatiliaji wa Waombaji",
+    "psvVerificationHub": "Kituo cha Uthibitishaji cha PSV",
+    "aiCompliance": "Uzingatiaji wa AI",
+    "enterpriseAPI": "API ya Biashara",
+    "dataIntegrityAIQA": "Uadilifu wa Data na Ukaguzi wa Ubora wa AI",
+    "globalCompliance": "Uzingatiaji wa Kimataifa",
+    "recruiterVerification": "Uthibitishaji wa Muajiri",
+    "reviewModeration": "Udhibiti wa Mapitio",
+    "translationCoverage": "Ufikivu wa Tafsiri",
+    "translationQA": "Ukaguzi wa Ubora wa Tafsiri",
+    "aiAndYourRights": "AI na Haki Zako"
   },
   "dashboard": {
     "welcomeBack": "Karibu tena",
@@ -2266,15 +2266,15 @@
     "haveAccount": "Una akaunti? Ingia badala yake"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Beji Zilizothibitishwa",
+    "verified": "Imethibitishwa",
+    "professionalCertifications": "Vyeti vya kitaaluma kutoka kwa watoaji wanaoaminika",
+    "importBadges": "Leta Beji",
+    "connecting": "Inaunganisha...",
+    "noBadgesYet": "Bado hakuna beji zilizothibitishwa",
+    "showcaseCertifications": "Onyesha vyeti vyako",
+    "importFromCredly": "Leta kutoka Credly",
+    "viewAllBadges": "Tazama beji zote {count}",
+    "verifiedBy": "Imethibitishwa na"
   }
 }

@@ -159,17 +159,17 @@
     "settings": "Настройки",
     "profile": "Профиль",
     "signOut": "Выйти",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Система отслеживания кандидатов",
+    "psvVerificationHub": "Центр проверки PSV",
+    "aiCompliance": "Соответствие требованиям ИИ",
+    "enterpriseAPI": "Корпоративный API",
+    "dataIntegrityAIQA": "Целостность данных и контроль качества ИИ",
+    "globalCompliance": "Глобальное соответствие требованиям",
+    "recruiterVerification": "Проверка рекрутеров",
+    "reviewModeration": "Модерация отзывов",
+    "translationCoverage": "Охват перевода",
+    "translationQA": "Контроль качества перевода",
+    "aiAndYourRights": "ИИ и ваши права"
   },
   "recruiter": {
     "dashboard": "Панель управления",
@@ -2236,15 +2236,15 @@
     "haveAccount": "Есть аккаунт? Войти"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Значки верификации",
+    "verified": "Подтверждено",
+    "professionalCertifications": "Профессиональные сертификаты от проверенных организаций",
+    "importBadges": "Импортировать значки",
+    "connecting": "Подключение...",
+    "noBadgesYet": "Пока нет подтверждённых бейджей",
+    "showcaseCertifications": "Покажите свои сертификаты",
+    "importFromCredly": "Импортировать из Credly",
+    "viewAllBadges": "Посмотреть все {count} бейджей",
+    "verifiedBy": "Подтверждено"
   }
 }

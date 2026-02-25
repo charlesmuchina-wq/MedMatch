@@ -125,17 +125,17 @@
     "settings": "Igenamiterere",
     "profile": "Umwirondoro",
     "signOut": "Sohoka",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Gukurikirana Abasaba Akazi",
+    "psvVerificationHub": "Urubuga rwa PSV rwo Kugenzura",
+    "aiCompliance": "Iyubahirizwa ry’Amategeko rya AI",
+    "enterpriseAPI": "API y’Ikigo",
+    "dataIntegrityAIQA": "Ubunyakuri bw’Amakuru & QA ya AI",
+    "globalCompliance": "Iyubahirizwa ry’Amategeko ku Isi Hose",
+    "recruiterVerification": "Kugenzura Abashaka Abakozi",
+    "reviewModeration": "Igenzura ry’Ibisuzumwa",
+    "translationCoverage": "Urwego rw’Ubuhinduzi",
+    "translationQA": "QA y’Ubuhinduzi",
+    "aiAndYourRights": "AI n’Uburenganzira Bwawe"
   },
   "dashboard": {
     "welcomeBack": "Murakaza neza kongera",
@@ -2266,15 +2266,15 @@
     "haveAccount": "Ufite konti? Injira aho"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Baji zemejwe",
+    "verified": "Byemejwe",
+    "professionalCertifications": "Ibyemezo by’umwuga bitangwa n’abatanga b’izewe",
+    "importBadges": "Kuzana baji",
+    "connecting": "Kwihuza...",
+    "noBadgesYet": "Nta baji zemejwe ziraboneka",
+    "showcaseCertifications": "Erekana ibyemezo byawe",
+    "importFromCredly": "Kuzana uvuye kuri Credly",
+    "viewAllBadges": "Reba baji zose {count}",
+    "verifiedBy": "Byemejwe na"
   }
 }

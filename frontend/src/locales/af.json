@@ -125,17 +125,17 @@
     "settings": "Instellings",
     "profile": "Profiel",
     "signOut": "Meld af",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Aansoekeropsporing",
+    "psvVerificationHub": "PSV-verifikasie-hub",
+    "aiCompliance": "KI-nakoming",
+    "enterpriseAPI": "Onderneming-API",
+    "dataIntegrityAIQA": "Data-integriteit en KI-QA",
+    "globalCompliance": "Globale nakoming",
+    "recruiterVerification": "Werwerverifikasie",
+    "reviewModeration": "Hersieningsmoderering",
+    "translationCoverage": "Vertalingsdekking",
+    "translationQA": "Vertalings-QA",
+    "aiAndYourRights": "KI en jou regte"
   },
   "dashboard": {
     "welcomeBack": "Welkom terug",
@@ -2231,20 +2231,20 @@
     "backToPortal": "Terug na portaal",
     "meetingId": "Vergadering-ID",
     "encrypted": "Geënkripteer",
-    "aiPowered": "AI Powered",
-    "secure": "Secure",
-    "haveAccount": "Have an account? Sign in instead"
+    "aiPowered": "Aangedryf deur KI",
+    "secure": "Veilig",
+    "haveAccount": "Het jy 'n rekening? Meld eerder aan"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Geverifieerde kentekens",
+    "verified": "Geverifieer",
+    "professionalCertifications": "Professionele sertifiserings van betroubare uitreikers",
+    "importBadges": "Voer kentekens in",
+    "connecting": "Besig om te koppel...",
+    "noBadgesYet": "Nog geen geverifieerde kentekens nie",
+    "showcaseCertifications": "Vertoon jou sertifiserings",
+    "importFromCredly": "Voer in vanaf Credly",
+    "viewAllBadges": "Bekyk al {count} kentekens",
+    "verifiedBy": "Geverifieer deur"
   }
 }

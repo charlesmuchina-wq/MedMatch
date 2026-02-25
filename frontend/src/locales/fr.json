@@ -125,17 +125,17 @@
     "settings": "Paramètres",
     "profile": "Profil",
     "signOut": "Déconnexion",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Suivi des candidatures",
+    "psvVerificationHub": "Hub de vérification PSV",
+    "aiCompliance": "Conformité IA",
+    "enterpriseAPI": "API Enterprise",
+    "dataIntegrityAIQA": "Intégrité des données & QA IA",
+    "globalCompliance": "Conformité mondiale",
+    "recruiterVerification": "Vérification des recruteurs",
+    "reviewModeration": "Modération des avis",
+    "translationCoverage": "Couverture de traduction",
+    "translationQA": "QA de traduction",
+    "aiAndYourRights": "IA et vos droits"
   },
   "recruiter": {
     "dashboard": "Tableau de Bord",
@@ -673,9 +673,9 @@
     "selectRole": "Sélectionnez votre rôle",
     "registerAsJobSeeker": "Recherche d’opportunités en sciences de la vie",
     "registerAsRecruiter": "Recruter des talents pour votre organisation",
-    "orcid": "Sign in with ORCID",
-    "orcidLoginSuccess": "Signed in with ORCID!",
-    "orcidLoginFailed": "ORCID sign-in failed"
+    "orcid": "Se connecter avec ORCID",
+    "orcidLoginSuccess": "Connecté avec ORCID !",
+    "orcidLoginFailed": "La connexion ORCID a échoué"
   },
   "onboarding": {
     "welcome": "Bienvenue sur MedMatch!",
@@ -2279,15 +2279,15 @@
     "haveAccount": "Vous avez un compte ? Connectez-vous"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Badges vérifiés",
+    "verified": "Vérifié",
+    "professionalCertifications": "Certifications professionnelles délivrées par des organismes de confiance",
+    "importBadges": "Importer des badges",
+    "connecting": "Connexion...",
+    "noBadgesYet": "Aucun badge vérifié pour le moment",
+    "showcaseCertifications": "Mettez en valeur vos certifications",
+    "importFromCredly": "Importer depuis Credly",
+    "viewAllBadges": "Voir les {count} badges",
+    "verifiedBy": "Vérifié par"
   }
 }

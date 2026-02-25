@@ -125,17 +125,17 @@
     "settings": "Saituna",
     "profile": "Bayanan martaba",
     "signOut": "Fita",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Bin diddigin masu nema",
+    "psvVerificationHub": "Cibiyar Tabbatar da PSV",
+    "aiCompliance": "Bin ka'idoji na AI",
+    "enterpriseAPI": "API na Kamfanoni",
+    "dataIntegrityAIQA": "Ingancin Bayanai & QA na AI",
+    "globalCompliance": "Bin Ka'idoji na Duniya",
+    "recruiterVerification": "Tabbatar da Mai Daukar Ma'aikata",
+    "reviewModeration": "Duba da Daidaita Abubuwan da Aka Tura",
+    "translationCoverage": "Kewayon Fassara",
+    "translationQA": "QA na Fassara",
+    "aiAndYourRights": "AI & 'Yancinku"
   },
   "dashboard": {
     "welcomeBack": "Barka da dawowa",
@@ -2266,15 +2266,15 @@
     "haveAccount": "Kana da asusu? Shiga maimakon haka"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Bajojin Tabbaci",
+    "verified": "An tabbatar",
+    "professionalCertifications": "Takaddun ƙwarewa na sana'a daga amintattun masu bayarwa",
+    "importBadges": "Shigo da Bajojin",
+    "connecting": "Ana haɗawa...",
+    "noBadgesYet": "Babu bajojin tabbaci tukuna",
+    "showcaseCertifications": "Nuna takaddun shaidunka",
+    "importFromCredly": "Shigo daga Credly",
+    "viewAllBadges": "Duba duk bajojin {count}",
+    "verifiedBy": "An tabbatar ta"
   }
 }

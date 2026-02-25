@@ -159,17 +159,17 @@
     "settings": "설정",
     "profile": "프로필",
     "signOut": "로그아웃",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "지원자 추적",
+    "psvVerificationHub": "PSV 검증 허브",
+    "aiCompliance": "AI 규정 준수",
+    "enterpriseAPI": "엔터프라이즈 API",
+    "dataIntegrityAIQA": "데이터 무결성 및 AI QA",
+    "globalCompliance": "글로벌 규정 준수",
+    "recruiterVerification": "채용 담당자 검증",
+    "reviewModeration": "리뷰 모더레이션",
+    "translationCoverage": "번역 지원 범위",
+    "translationQA": "번역 QA",
+    "aiAndYourRights": "AI 및 귀하의 권리"
   },
   "recruiter": {
     "dashboard": "대시보드",
@@ -2266,15 +2266,15 @@
     "haveAccount": "계정이 있으신가요? 로그인"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "인증 배지",
+    "verified": "인증됨",
+    "professionalCertifications": "신뢰할 수 있는 발급 기관의 전문 자격 인증",
+    "importBadges": "배지 가져오기",
+    "connecting": "연결 중...",
+    "noBadgesYet": "아직 인증된 배지가 없습니다",
+    "showcaseCertifications": "자격증을 소개해 보세요",
+    "importFromCredly": "Credly에서 가져오기",
+    "viewAllBadges": "{count}개 배지 모두 보기",
+    "verifiedBy": "검증 기관"
   }
 }

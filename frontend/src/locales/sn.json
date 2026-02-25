@@ -125,17 +125,17 @@
     "settings": "Zvirongwa",
     "profile": "Purofayiri",
     "signOut": "Buda",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Kutevera Vanyoreri",
+    "psvVerificationHub": "Habu reKuongorora PSV",
+    "aiCompliance": "Kutevedzera mitemo neAI",
+    "enterpriseAPI": "API yeBhizinesi",
+    "dataIntegrityAIQA": "Kuvimbika kweData & AI QA",
+    "globalCompliance": "Kutevedzera Mitemo Pasi Rose",
+    "recruiterVerification": "Kuongorora kweRecruiter",
+    "reviewModeration": "Kutonga Ongororo",
+    "translationCoverage": "Kuvharwa kweShanduro",
+    "translationQA": "QA yeShanduro",
+    "aiAndYourRights": "AI & Kodzero Dzako"
   },
   "dashboard": {
     "welcomeBack": "Tinokugamuchirai zvakare",
@@ -2266,15 +2266,15 @@
     "haveAccount": "Une account? Pinda panzvimbo pezvo"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Mabheji Akasimbiswa",
+    "verified": "Yakasimbiswa",
+    "professionalCertifications": "Zvitupa zvehunyanzvi kubva kune vanopa vanovimbwa",
+    "importBadges": "Pinza Mabheji",
+    "connecting": "Kubatana...",
+    "noBadgesYet": "Hapana mabheji akasimbiswa parizvino",
+    "showcaseCertifications": "Ratidza zvitupa zvako",
+    "importFromCredly": "Pinza kubva kuCredly",
+    "viewAllBadges": "Tarisa mabheji ose {count}",
+    "verifiedBy": "Yakasimbiswa na"
   }
 }

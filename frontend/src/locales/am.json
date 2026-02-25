@@ -125,17 +125,17 @@
     "settings": "ቅንብሮች",
     "profile": "መገለጫ",
     "signOut": "ውጣ",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "የአመልካች ክትትል",
+    "psvVerificationHub": "PSV ማረጋገጫ ማዕከል",
+    "aiCompliance": "AI የተገዢነት",
+    "enterpriseAPI": "የኢንተርፕራይዝ API",
+    "dataIntegrityAIQA": "የመረጃ ታማኝነት እና AI QA",
+    "globalCompliance": "ዓለምአቀፍ የተገዢነት",
+    "recruiterVerification": "የቀጣሪ ማረጋገጫ",
+    "reviewModeration": "የግምገማ ማጣሪያ",
+    "translationCoverage": "የትርጉም ሽፋን",
+    "translationQA": "የትርጉም QA",
+    "aiAndYourRights": "AI እና መብቶችዎ"
   },
   "dashboard": {
     "welcomeBack": "እንኳን ደህና ተመለሱ",
@@ -2266,15 +2266,15 @@
     "haveAccount": "መለያ አለዎት? በምትኩ ይግቡ"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "የማረጋገጫ ባጅዎች",
+    "verified": "የተረጋገጠ",
+    "professionalCertifications": "ከታመኑ ሰጪዎች የተሰጡ ሙያዊ ማረጋገጫዎች",
+    "importBadges": "ባጅዎችን አስገባ",
+    "connecting": "በማገናኘት ላይ...",
+    "noBadgesYet": "እስካሁን የተረጋገጡ ባጅዎች የሉም",
+    "showcaseCertifications": "ማረጋገጫዎችዎን አሳይ",
+    "importFromCredly": "ከ Credly አስገባ",
+    "viewAllBadges": "ሁሉንም {count} ባጅዎች እይ",
+    "verifiedBy": "የተረጋገጠ በ"
   }
 }

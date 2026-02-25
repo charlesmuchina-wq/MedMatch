@@ -125,17 +125,17 @@
     "settings": "設定",
     "profile": "プロフィール",
     "signOut": "サインアウト",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "応募者追跡",
+    "psvVerificationHub": "PSV検証ハブ",
+    "aiCompliance": "AIコンプライアンス",
+    "enterpriseAPI": "エンタープライズAPI",
+    "dataIntegrityAIQA": "データ整合性とAI QA",
+    "globalCompliance": "グローバルコンプライアンス",
+    "recruiterVerification": "採用担当者の認証",
+    "reviewModeration": "レビューのモデレーション",
+    "translationCoverage": "翻訳カバレッジ",
+    "translationQA": "翻訳QA",
+    "aiAndYourRights": "AIとあなたの権利"
   },
   "dashboard": {
     "welcomeBack": "おかえりなさい",
@@ -2266,15 +2266,15 @@
     "haveAccount": "アカウントをお持ちですか？サインイン"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "認証バッジ",
+    "verified": "認証済み",
+    "professionalCertifications": "信頼できる発行元によるプロフェッショナル認定",
+    "importBadges": "バッジをインポート",
+    "connecting": "接続中...",
+    "noBadgesYet": "認証バッジはまだありません",
+    "showcaseCertifications": "認定資格をアピール",
+    "importFromCredly": "Credlyからインポート",
+    "viewAllBadges": "{count}件のバッジをすべて表示",
+    "verifiedBy": "認証元"
   }
 }
