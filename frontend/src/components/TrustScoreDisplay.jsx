@@ -116,11 +116,11 @@ const TrustScoreDisplay = ({
             </div>
           </TooltipTrigger>
           <TooltipContent side="bottom" className="max-w-xs p-3">
-            <p className="font-medium mb-1">Trust Score: {scoreData.total_score} / {scoreData.max_score}</p>
+            <p className="font-medium mb-1">{t("trust.trustScore")}: {scoreData.total_score} / {scoreData.max_score}</p>
             <p className="text-xs text-gray-500">{scoreData.level?.description}</p>
             {scoreData.next_level && (
               <p className="text-xs text-blue-500 mt-1">
-                {scoreData.next_level.points_needed} more points to {scoreData.next_level.name}
+                {t("trust.morePointsTo", { count: scoreData.next_level.points_needed, level: scoreData.next_level.name })}
               </p>
             )}
           </TooltipContent>
