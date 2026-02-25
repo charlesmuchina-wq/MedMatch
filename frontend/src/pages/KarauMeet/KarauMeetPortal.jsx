@@ -37,15 +37,16 @@ import MeetingRoom from '@/components/KarauMeet/MeetingRoom';
  */
 const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsCollapsed }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   
   const navItems = [
-    { path: '/karau-meet', icon: Home, label: 'Dashboard' },
-    { path: '/karau-meet/meetings', icon: Video, label: 'My Meetings' },
-    { path: '/karau-meet/schedule', icon: CalendarDays, label: 'Schedule' },
-    { path: '/karau-meet/recordings', icon: Archive, label: 'Recordings' },
-    { path: '/karau-meet/notes', icon: FileText, label: 'Meeting Notes' },
-    { path: '/karau-meet/analytics', icon: BarChart3, label: 'Analytics' },
-    { path: '/karau-meet/settings', icon: Settings, label: 'Settings' },
+    { path: '/karau-meet', icon: Home, labelKey: 'karau.dashboard' },
+    { path: '/karau-meet/meetings', icon: Video, labelKey: 'karau.myMeetings' },
+    { path: '/karau-meet/schedule', icon: CalendarDays, labelKey: 'karau.schedule' },
+    { path: '/karau-meet/recordings', icon: Archive, labelKey: 'karau.recordings' },
+    { path: '/karau-meet/notes', icon: FileText, labelKey: 'karau.meetingNotes' },
+    { path: '/karau-meet/analytics', icon: BarChart3, labelKey: 'karau.analytics' },
+    { path: '/karau-meet/settings', icon: Settings, labelKey: 'karau.settings' },
   ];
 
   return (
