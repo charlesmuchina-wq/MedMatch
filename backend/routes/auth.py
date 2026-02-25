@@ -608,7 +608,7 @@ window.close();
 
             if token_response.status_code != 200:
                 logging.error(f"ORCID token exchange failed: {token_response.text}")
-                return RedirectResponse(url=f"{frontend_url}/login#orcid_error=token_exchange_failed")
+                return _popup_response("error", error="token_exchange_failed")
 
             token_data = token_response.json()
             orcid_id = token_data.get("orcid")
