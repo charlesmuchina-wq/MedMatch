@@ -1,274 +1,155 @@
-# Parked Items Implementation Guide
-## MedMatch-AI KARAU — February 24, 2026
+# MedMatch-AI KARAU - Implementation Roadmap
+
+## Last Updated: February 25, 2026
 
 ---
 
-## Overview
+## Phase 1: Translation Health Monitor (COMPLETED)
 
-This guide covers the 5 parked backlog items, their current state in the codebase, what's needed to ship each one, estimated effort, and step-by-step instructions.
+### What was built
+- **Backend**: `GET /api/translation-qa/health-monitor` endpoint
+  - Analyzes all 50 locale files against English master (1,940 keys)
+  - Smart filtering of brand names, placeholders, and legitimate cognates
+  - Returns coverage %, untranslated counts, alerts per language
+- **Frontend**: Health Monitor tab in Translation QA Dashboard
+  - Real-time coverage table for all 50 languages
+  - Status badges (healthy/warning/critical)
+  - Active alerts section
+  - One-click refresh
 
-| # | Feature | Priority | Code Exists | Keys Present | Effort |
-|---|---------|----------|-------------|--------------|--------|
-| 1 | LinkedIn Profile Sync | P1 | Backend + Frontend | Yes | 2-4 hrs (testing/debug) |
-| 2 | ORCID OAuth Login | P1 | Backend + Frontend | **No** | 3-5 hrs (keys + testing) |
-| 3 | PayPal Integration | P1 | Backend routes | Yes | 2-4 hrs (frontend + testing) |
-| 4 | Enterprise SSO/SAML | P2 | Stub only | No | 8-12 hrs (full build) |
-| 5 | iOS Build | P2 | None | N/A | 12-20 hrs (full build) |
-
----
-
-## 1. LinkedIn Profile Sync (P1)
-
-### Current State
-- **Backend**: 5 routes fully implemented in `/app/backend/routes/linkedin.py`
-  - `GET /api/linkedin/status` — Check connection status
-  - `GET /api/linkedin/auth-url` — Get OAuth URL
-  - `POST /api/linkedin/token` — Exchange auth code for token
-  - `POST /api/linkedin/sync` — Sync profile data
-  - `DELETE /api/linkedin/disconnect` — Disconnect account
-- **Frontend**: `LinkedInSync.jsx` component exists with full UI (connect, sync, disconnect)
-- **Env vars**: Present in `.env`
-  ```
-  LINKEDIN_CLIENT_ID=77wcvs14tufhyu
-  LINKEDIN_CLIENT_SECRET=WPL_AP1.1wRrxdl0yr0cMnTN.9xbXZg==
-  LINKEDIN_REDIRECT_URI=https://<domain>/settings?linkedin_callback=true
-  ```
-
-### What's Needed to Ship
-1. **Update redirect URI** — The `LINKEDIN_REDIRECT_URI` currently points to `i18n-complete-8.preview.emergentagent.com`. When deploying to production, update this to the production domain. Also update it in the LinkedIn Developer Portal.
-2. **Test the full OAuth flow** — Click "Connect LinkedIn" → authorize → callback → verify profile data populates (name, headline, profile photo, positions).
-3. **Verify sync updates resume** — After connecting, the `/api/linkedin/sync` endpoint should import skills, experience, and education into the user's MedMatch profile.
-4. **Test disconnect** — Ensure disconnect removes the LinkedIn connection and clears cached data.
-
-### Where to Find the Code
-| What | File |
-|------|------|
-| Backend routes | `/app/backend/routes/linkedin.py` |
-| Frontend component | `/app/frontend/src/components/LinkedInSync.jsx` |
-| Used in | Resume page, Settings page |
-| DB collection | `linkedin_connections` |
-
-### Required LinkedIn Developer Setup
-1. Go to https://www.linkedin.com/developers/apps
-2. Verify your app has these scopes: `openid`, `profile`, `email`, `w_member_social`
-3. Add your redirect URI to "Authorized redirect URLs"
-4. Ensure the app is verified (LinkedIn requires company verification for full API access)
+### How to maintain
+- When adding new UI strings, add keys to `en.json` first
+- Run the Health Monitor to detect which languages need updates
+- Use the Auto-Fix button to translate missing keys via AI
 
 ---
 
-## 2. ORCID OAuth Login (P1)
+## Phase 2: Verification Tasks
 
-### Current State
-- **Backend**: 7 routes in `/app/backend/routes/orcid_oauth.py`
-  - `GET /api/orcid/config` — Get ORCID configuration
-  - `GET /api/orcid/auth/url` — Generate auth URL
-  - `GET /api/orcid/callback` — OAuth callback handler
-  - `GET /api/orcid/connection/{user_id}` — Check connection
-  - `POST /api/orcid/sync/{user_id}` — Sync ORCID data
-  - `DELETE /api/orcid/disconnect/{user_id}` — Disconnect
-- **Frontend**: `ORCIDConnect.jsx` component exists with full UI
-- **Env vars**: **MISSING** — Needs to be added
+### 2A. ORCID OAuth Login Verification
+**Status**: Implemented, needs E2E verification
+**Backend**: `/api/auth/orcid/login`, `/api/auth/orcid/callback`
+**Frontend**: Popup-based OAuth flow in `LoginPage.jsx`
 
-### What's Needed to Ship
-1. **Register your app with ORCID** — This is free:
-   - Sandbox (testing): https://sandbox.orcid.org/developer-tools
-   - Production: https://orcid.org/developer-tools
-2. **Add env vars** to `/app/backend/.env`:
-   ```
-   ORCID_CLIENT_ID=APP-XXXXXXXXXXXXXXXX
-   ORCID_CLIENT_SECRET=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-   ORCID_REDIRECT_URI=https://<your-domain>/api/orcid/callback
-   ORCID_ENVIRONMENT=sandbox   # or 'production'
-   ```
-3. **Test the OAuth flow** — Connect ORCID → Authorize → Callback → Verify researcher data imports (publications, education, employment).
-4. **Verify data import** — The sync should populate the user's credentials page with ORCID-verified publications and affiliations.
+**Test Steps:**
+1. Go to login page
+2. Click "Sign in with ORCID" (yellow-green button)
+3. A popup opens to `orcid.org/oauth/authorize`
+4. Login with your ORCID account
+5. Authorize MedMatch
+6. Popup closes, you're logged in
 
-### Where to Find the Code
-| What | File |
-|------|------|
-| Backend routes | `/app/backend/routes/orcid_oauth.py` |
-| Frontend component | `/app/frontend/src/components/ORCIDConnect.jsx` |
-| Used in | Credentials page, Settings page |
-| DB collection | `orcid_connections` |
+**Known Considerations:**
+- Uses popup window (not iframe) due to ORCID security policy
+- OAuth state stored in MongoDB for load-balancer compatibility
+- Credentials: `ORCID_CLIENT_ID=APP-K9HUYS6GQY2RERX6`
 
-### Notes
-- ORCID sandbox uses `sandbox.orcid.org`, production uses `orcid.org`
-- The backend code handles both environments via `ORCID_ENVIRONMENT`
-- ORCID OAuth is completely free, no paid tier needed
+### 2B. AI KARAU Meeting Portal E2E Test
+**Status**: Implemented, needs multi-user real-world test
+**Backend**: WebRTC signaling, TURN/STUN (Xirsys)
+**Frontend**: `KarauMeetPortal.jsx`, `MeetingRoom.jsx`
 
----
+**Test Steps:**
+1. User A creates a meeting from the KARAU portal
+2. User A shares the meeting link (copy link or email)
+3. User B opens the shared link in a different browser/device
+4. User B joins as guest (no account needed)
+5. Verify: video/audio works both ways
+6. Verify: chat messages work
+7. Verify: screen sharing works
+8. Verify: AI transcription works (if enabled)
+9. Test with 3+ participants if possible
 
-## 3. PayPal Integration (P1)
-
-### Current State
-- **Backend**: 2 PayPal-specific routes in `/app/backend/routes/payments.py`
-  - `POST /api/payments/paypal/create` — Create PayPal payment
-  - `POST /api/payments/paypal/execute` — Execute/capture payment
-  - Stripe routes also exist (create-checkout, webhook, subscription management)
-- **Frontend**: `MembershipPage.jsx` and `SubscriptionManager.jsx` exist with Stripe UI
-- **Env vars**: Present in `.env`
-  ```
-  PAYPAL_CLIENT_ID=AY0UKmQ-_Bwdy...
-  PAYPAL_SECRET=EN-lGY-U_5N0p...
-  STRIPE_API_KEY=sk_test_51SsW1e...
-  STRIPE_WEBHOOK_SECRET=whsec_FaS3Za...
-  ```
-
-### What's Needed to Ship
-1. **Add PayPal button to Membership page** — The frontend currently only shows Stripe checkout. Add a "Pay with PayPal" option alongside the Stripe button.
-2. **Test PayPal sandbox flow** — Create payment → redirect to PayPal → authorize → execute → verify membership activates.
-3. **Handle PayPal IPN/webhooks** — For subscription renewals and cancellations (if using PayPal subscriptions).
-4. **Test the 3 pricing tiers**:
-   - Job Seeker: $3 for 3 years
-   - Recruiter: $10/mo or $99/yr
-   - Enterprise: Custom pricing
-
-### Where to Find the Code
-| What | File |
-|------|------|
-| Backend routes | `/app/backend/routes/payments.py` |
-| Membership page | `/app/frontend/src/pages/MembershipPage.jsx` |
-| Subscription UI | `/app/frontend/src/components/SubscriptionManager.jsx` |
-| DB collections | `payments`, `subscriptions`, `membership_status` |
-
-### Required PayPal Developer Setup
-1. Go to https://developer.paypal.com/dashboard
-2. The keys in `.env` appear to be sandbox keys already
-3. Create sandbox buyer/seller test accounts for testing
-4. For production: switch `PAYPAL_CLIENT_ID` and `PAYPAL_SECRET` to live keys
+**Known Considerations:**
+- Xirsys TURN credentials may expire; fallback to STUN
+- WebRTC works best on Chrome/Edge
+- Guest join via `/karau-meet/join/{meetingId}`
 
 ---
 
-## 4. Enterprise SSO/SAML (P2)
+## Phase 3: LinkedIn Profile Sync
 
-### Current State
-- **Backend**: Only a stub reference in `enterprise_api.py` (line 830: `"sso": tier == "enterprise"`)
-- **Frontend**: No SSO/SAML UI exists
-- **Env vars**: None
+### Status: Already Implemented
+**Backend**: `/app/backend/routes/linkedin.py` (280 lines)
+- `GET /api/linkedin/status` - Check connection status
+- `GET /api/linkedin/auth-url` - Get OAuth URL
+- `POST /api/linkedin/token` - Exchange code for token
+- `POST /api/linkedin/sync` - Sync profile to resume
+- `DELETE /api/linkedin/disconnect` - Disconnect
 
-### What's Needed to Ship (Full Build)
-1. **Choose a SAML library** — Recommended: `python3-saml` (OneLogin's library) or `pysaml2`
-2. **Backend implementation**:
-   - `GET /api/sso/metadata` — SAML metadata XML for the IdP
-   - `POST /api/sso/acs` — Assertion Consumer Service (receives SAML response)
-   - `GET /api/sso/login/{org_id}` — Initiate SSO login for an organization
-   - `POST /api/sso/configure` — Admin endpoint to configure SSO for an org
-   - Store org SSO configs in `sso_configurations` collection
-3. **Frontend implementation**:
-   - SSO login option on login page ("Sign in with SSO")
-   - Admin SSO configuration page (upload IdP metadata, configure mappings)
-   - Organization selector or email-domain detection
-4. **Env vars needed**:
-   ```
-   SAML_CERT_FILE=/path/to/cert.pem
-   SAML_KEY_FILE=/path/to/key.pem
-   SAML_SP_ENTITY_ID=https://<domain>/api/sso/metadata
-   ```
-5. **Test with a SAML IdP** — Use a free test IdP like:
-   - https://samltest.id/ (free SAML testing service)
-   - Okta Developer (free tier)
-   - Azure AD (free tier)
+**Frontend**: `/app/frontend/src/components/LinkedInSync.jsx` (274 lines)
+- Integrated in `ResumePage.jsx` under "LinkedIn" tab
+- Shows connection status, sync button, disconnect option
 
-### Architecture Notes
-- Each enterprise org would have its own SSO config stored in MongoDB
-- Login flow: User enters email → detect org by domain → redirect to IdP → SAML assertion → create/link user → issue JWT
-- SAML metadata endpoint allows IdP admins to auto-configure their side
+**Credentials**: Already in `.env`
+- `LINKEDIN_CLIENT_ID=77wcvs14tufhyu`
+- `LINKEDIN_CLIENT_SECRET=WPL_AP1.1wRrxdl0yr0cMnTN.9xbXZg==`
+- `LINKEDIN_REDIRECT_URI=https://translate-sweep.preview.emergentagent.com/settings?linkedin_callback=true`
+
+**What may need attention:**
+- The redirect URI points to `/settings?linkedin_callback=true` which may need to be updated
+- LinkedIn API v2 uses `openid profile email` scopes
+- Token exchange uses `https://api.linkedin.com/v2/userinfo` endpoint
+- Test the full OAuth flow end-to-end
 
 ---
 
-## 5. iOS Build (P2)
+## Phase 4: PayPal Integration
 
-### Current State
-- No native iOS code exists
-- The app is a React web app with PWA support (service workers, manifest.json)
+### Status: Already Implemented
+**Backend**: `/app/backend/routes/payments.py` (824 lines)
+- `POST /api/payments/paypal/create` - Create PayPal payment
+- `POST /api/payments/paypal/execute` - Execute after approval
+- Uses `paypalrestsdk` (v1.13.3, sandbox mode)
 
-### Options
-| Approach | Effort | Pros | Cons |
-|----------|--------|------|------|
-| **PWA (already done)** | 0 hrs | Works now, installable on iOS | Limited native features, no App Store |
-| **Capacitor wrapper** | 8-12 hrs | Reuse existing React code, native shell | Needs Xcode, Apple Developer account |
-| **React Native rebuild** | 40+ hrs | True native experience | Complete rewrite needed |
+**Frontend**: `MembershipPage.jsx`
+- PayPal button alongside Stripe
+- Handles PayPal redirect flow (approval URL → execute)
 
-### Recommended: Capacitor (Ionic)
-1. **Install Capacitor**:
-   ```bash
-   cd /app/frontend
-   yarn add @capacitor/core @capacitor/cli
-   npx cap init MedMatch com.medmatch.ai --web-dir=build
-   npx cap add ios
-   ```
-2. **Build the React app**: `yarn build`
-3. **Copy to native**: `npx cap copy ios`
-4. **Open in Xcode**: `npx cap open ios`
-5. **Configure**:
-   - Set Bundle ID: `com.medmatch.ai`
-   - Add camera/microphone permissions (for KARAU meetings)
-   - Configure push notifications
-   - Set app icons and splash screens
-6. **Test on simulator**: Run from Xcode
-7. **Submit to App Store**: Requires Apple Developer Program ($99/yr)
+**Credentials**: Already in `.env`
+- `PAYPAL_CLIENT_ID=AY0UKmQ-...`
+- `PAYPAL_SECRET=EN-lGY-U_5N0p_YEfhgosK1F6wMeNO4ev...`
 
-### Prerequisites
-- macOS with Xcode installed (required for iOS builds)
-- Apple Developer Program membership ($99/year)
-- App icons (1024x1024) and screenshots for App Store listing
+**What may need attention:**
+- `paypalrestsdk` is deprecated; consider migrating to PayPal Checkout SDK v2
+- Test sandbox payment flow end-to-end
+- Verify webhook handling for payment confirmation
 
 ---
 
-## Implementation Priority Recommendation
+## Phase 5: Future/Backlog
 
-```
-Phase 1 (Quick wins — existing code, has keys):
-  1. LinkedIn Profile Sync  → Test existing code, debug if needed
-  3. PayPal Integration      → Add PayPal button to membership page
+### 5A. Enterprise SSO/SAML (P2)
+**Approach**: Use `python3-saml` library
+- Add SAML metadata endpoint
+- Support IdP-initiated and SP-initiated SSO
+- Map SAML attributes to MedMatch user profile
+- Admin configuration page for SAML settings
 
-Phase 2 (Needs external setup):
-  2. ORCID OAuth Login       → Register app, add keys, test
+### 5B. iOS App Build (P2)
+**Approach**: PWA-first, then Capacitor/React Native wrapper
+- The app already has PWA support (manifest.json, service worker)
+- Use Capacitor to wrap the existing React app for App Store
+- Add native capabilities: push notifications, biometric auth
+- Apple Developer account required ($99/year)
 
-Phase 3 (Full builds):
-  4. Enterprise SSO/SAML     → Full backend + frontend build
-  5. iOS Build               → Capacitor wrapper + App Store submission
-```
+### 5C. Social Media Sharing (P2)
+**Approach**: Add share buttons to key areas
+- Meeting sharing: LinkedIn, Twitter/X share buttons in ShareMeetingDialog
+- Job sharing: Share job listings to social media
+- Profile sharing: Public profile link with OG meta tags
+- Use `window.open` with pre-filled share URLs (no API keys needed)
+
+### 5D. MeetingHeader Refactoring (Low Priority)
+**Current State**: Duplicate inline header in `MeetingRoom.jsx`
+**Fix**: Extract and reuse the `MeetingHeader` component
+- Single source of truth for meeting room header
+- ~30 minutes of work
 
 ---
 
-## Quick Reference: File Locations
-
-```
-/app/backend/routes/
-├── linkedin.py          # LinkedIn OAuth + sync
-├── orcid_oauth.py       # ORCID OAuth + data import
-├── payments.py          # Stripe + PayPal payments
-└── enterprise_api.py    # Enterprise features (SSO stub)
-
-/app/frontend/src/
-├── components/
-│   ├── LinkedInSync.jsx      # LinkedIn connect/sync UI
-│   ├── ORCIDConnect.jsx       # ORCID connect UI
-│   └── SubscriptionManager.jsx # Payment/subscription UI
-└── pages/
-    └── MembershipPage.jsx     # Membership + payment page
-```
-
-## Quick Reference: Environment Variables
-
-```bash
-# LinkedIn (present)
-LINKEDIN_CLIENT_ID=77wcvs14tufhyu
-LINKEDIN_CLIENT_SECRET=WPL_AP1.xxxxx
-LINKEDIN_REDIRECT_URI=https://<domain>/settings?linkedin_callback=true
-
-# ORCID (MISSING - need to register at orcid.org)
-ORCID_CLIENT_ID=
-ORCID_CLIENT_SECRET=
-ORCID_REDIRECT_URI=https://<domain>/api/orcid/callback
-ORCID_ENVIRONMENT=sandbox
-
-# Stripe (present)
-STRIPE_API_KEY=sk_test_xxxxx
-STRIPE_WEBHOOK_SECRET=whsec_xxxxx
-
-# PayPal (present)
-PAYPAL_CLIENT_ID=AY0UKmQ-xxxxx
-PAYPAL_SECRET=EN-lGY-xxxxx
-```
+## Technical Debt & Cleanup
+- [ ] Consolidate `MeetingHeader` component
+- [ ] Consider migrating from deprecated `paypalrestsdk` to PayPal v2 SDK
+- [ ] Clean up unused translation scripts in `/app/scripts/`
+- [ ] Add automated health monitor check to Dragon Scheduler (weekly)
