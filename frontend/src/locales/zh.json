@@ -1395,7 +1395,7 @@
       "subtitle": "跨地区合规状态",
       "gdpr": "GDPR（通用数据保护条例）",
       "ccpa": "CCPA（加州消费者隐私法案）",
-      "hipaa": "HIPAA",
+      "hipaa": "HIPAA（美国《健康保险流通与责任法案》）",
       "soc2": "SOC 2（服务组织控制 2）",
       "compliant": "合规",
       "nonCompliant": "不合规",
