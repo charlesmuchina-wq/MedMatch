@@ -254,11 +254,11 @@ const KarauMeetLanding = ({ user }) => {
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
         <DialogContent className="bg-slate-800 border-slate-700">
           <DialogHeader>
-            <DialogTitle className="text-white">Create New Meeting</DialogTitle>
+            <DialogTitle className="text-white">{t("karauMeet.createNewMeeting")}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div>
-              <Label className="text-slate-300">Meeting Title</Label>
+              <Label className="text-slate-300">{t("karauMeet.meetingTitle")}</Label>
               <Input
                 placeholder={t("karauMeet.meetingTitlePlaceholder")}
                 value={newMeetingTitle}
@@ -268,26 +268,26 @@ const KarauMeetLanding = ({ user }) => {
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <Label className="text-slate-300">Enable AI Notes</Label>
-                <p className="text-xs text-slate-500">Auto-transcription and summaries</p>
+                <Label className="text-slate-300">{t("karauMeet.enableAINotes")}</Label>
+                <p className="text-xs text-slate-500">{t("karauMeet.autoTranscription")}</p>
               </div>
               <Switch defaultChecked />
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <Label className="text-slate-300">Enable Recording</Label>
-                <p className="text-xs text-slate-500">Record the meeting</p>
+                <Label className="text-slate-300">{t("karauMeet.enableRecording")}</Label>
+                <p className="text-xs text-slate-500">{t("karauMeet.recordTheConsentShort")}</p>
               </div>
               <Switch defaultChecked />
             </div>
           </div>
           <DialogFooter>
             <Button variant="ghost" onClick={() => setShowCreateDialog(false)} className="text-slate-300">
-              Cancel
+              {t("karauMeet.cancel")}
             </Button>
             <Button onClick={createMeeting} disabled={creating} className="bg-turquoise hover:bg-turquoise/80">
               {creating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-              Start Meeting
+              {t("karauMeet.startMeeting")}
             </Button>
           </DialogFooter>
         </DialogContent>
