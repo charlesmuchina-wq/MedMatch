@@ -837,3 +837,154 @@ async def get_auto_translation_status(job_id: str):
     
     return auto_translation_jobs[job_id]
 
+
+
+# ============== Translation Health Monitor ==============
+
+@router.get("/health-monitor")
+async def get_translation_health():
+    """
+    Translation Health Monitor - checks coverage, detects new untranslated keys,
+    and provides alerts for translation gaps.
+    """
+    import json
+    import os
+    
+    locales_dir = "/app/frontend/src/locales"
+    en_path = os.path.join(locales_dir, "en.json")
+    
+    if not os.path.exists(en_path):
+        raise HTTPException(status_code=404, detail="English locale file not found")
+    
+    def flatten(obj, prefix=""):
+        result = {}
+        for k, v in obj.items():
+            full_key = f"{prefix}.{k}" if prefix else k
+            if isinstance(v, dict):
+                result.update(flatten(v, full_key))
+            else:
+                result[full_key] = v
+        return result
+    
+    # Brand names, placeholders, and cognates that are legitimately the same
+    SKIP_KEYS = {
+        "nav.dragonAutomator", "nav.enterpriseAPI", "auth.google", "auth.apple",
+        "auth.emailPlaceholder", "auth.passwordPlaceholder", "auth.phonePlaceholder",
+        "membership.premium", "membership.enterprise", "membership.recruiterPro",
+        "scheduling.meetingLinkPlaceholder", "helpTutorials.neuralVoice",
+        "pages.portalSelector.title", "pages.portalSelector.medmatchAI",
+        "pages.portalSelector.aiKarau", "pages.dragonAutomator.title",
+        "pages.globalCompliance.gdpr", "pages.globalCompliance.ccpa",
+        "pages.globalCompliance.hipaa", "pages.globalCompliance.soc2",
+        "language.genderNeutral", "idVerification.websitePlaceholder",
+        "idVerification.domainPlaceholder", "recruiterVerification.linkedinPlaceholder",
+    }
+    
+    def is_skippable(k, v):
+        if k in SKIP_KEYS:
+            return True
+        val = str(v)
+        if len(val) <= 3 or not any(c.isalpha() for c in val):
+            return True
+        if "Placeholder" in k or "placeholder" in k:
+            return True
+        if val.startswith("http") or "@" in val or "..." in val:
+            return True
+        if val in {"John Doe", "John Smith", "Acme Corporation", "Google", "Apple",
+                    "MedMatch-AI KARAU", "MedMatch AI", "AI KARAU", "KARAU Automator",
+                    "Microsoft Neural Voice", "GDPR", "CCPA", "HIPAA", "SOC 2",
+                    "Face ID", "Touch ID"}:
+            return True
+        return False
+    
+    with open(en_path, "r", encoding="utf-8") as f:
+        en_data = json.load(f)
+    en_flat = flatten(en_data)
+    
+    total_keys = len(en_flat)
+    translatable_keys = sum(1 for k, v in en_flat.items() if not is_skippable(k, v))
+    
+    # Analyze all languages
+    lang_stats = []
+    alerts = []
+    
+    locale_files = sorted([
+        f for f in os.listdir(locales_dir)
+        if f.endswith(".json") and f not in ["en.json", "pseudo.json"]
+    ])
+    
+    for fname in locale_files:
+        lang_code = fname.replace(".json", "")
+        fpath = os.path.join(locales_dir, fname)
+        
+        with open(fpath, "r", encoding="utf-8") as f:
+            lang_data = json.load(f)
+        lang_flat = flatten(lang_data)
+        
+        missing_keys = [k for k in en_flat if k not in lang_flat]
+        same_as_en = [
+            k for k, v in en_flat.items()
+            if k in lang_flat and lang_flat[k] == v and not is_skippable(k, v)
+        ]
+        
+        translated = translatable_keys - len(same_as_en)
+        coverage = (translated / translatable_keys * 100) if translatable_keys else 100
+        
+        stat = {
+            "language": lang_code,
+            "total_keys": len(lang_flat),
+            "missing_keys": len(missing_keys),
+            "untranslated": len(same_as_en),
+            "coverage": round(coverage, 1),
+            "status": "healthy" if coverage >= 99 else "warning" if coverage >= 95 else "critical",
+        }
+        lang_stats.append(stat)
+        
+        if missing_keys:
+            alerts.append({
+                "type": "missing_keys",
+                "severity": "critical",
+                "language": lang_code,
+                "count": len(missing_keys),
+                "message": f"{lang_code}: {len(missing_keys)} keys missing from locale file",
+                "keys": missing_keys[:10],
+            })
+        
+        if coverage < 95:
+            alerts.append({
+                "type": "low_coverage",
+                "severity": "warning",
+                "language": lang_code,
+                "coverage": round(coverage, 1),
+                "message": f"{lang_code}: Coverage at {coverage:.1f}% ({len(same_as_en)} untranslated keys)",
+            })
+    
+    # Overall health
+    avg_coverage = sum(s["coverage"] for s in lang_stats) / len(lang_stats) if lang_stats else 0
+    min_coverage = min(s["coverage"] for s in lang_stats) if lang_stats else 0
+    critical_count = sum(1 for s in lang_stats if s["status"] == "critical")
+    warning_count = sum(1 for s in lang_stats if s["status"] == "warning")
+    healthy_count = sum(1 for s in lang_stats if s["status"] == "healthy")
+    
+    overall_status = "healthy"
+    if critical_count > 0:
+        overall_status = "critical"
+    elif warning_count > 0:
+        overall_status = "warning"
+    
+    return {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "overall_status": overall_status,
+        "summary": {
+            "total_languages": len(lang_stats),
+            "total_keys": total_keys,
+            "translatable_keys": translatable_keys,
+            "average_coverage": round(avg_coverage, 1),
+            "min_coverage": round(min_coverage, 1),
+            "healthy": healthy_count,
+            "warning": warning_count,
+            "critical": critical_count,
+        },
+        "languages": lang_stats,
+        "alerts": alerts,
+    }
