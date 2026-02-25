@@ -41,6 +41,7 @@ const TrustScoreDisplay = ({
   showTips = true,
   onNavigate = null,
 }) => {
+  const { t } = useTranslation();
   const [scoreData, setScoreData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(false);
