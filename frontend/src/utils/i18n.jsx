@@ -92,6 +92,22 @@ const translations = {
   pl,      // Polish
   sv,      // Swedish
   tr,      // Turkish
+  // New bundled languages
+  uk,      // Ukrainian
+  no,      // Norwegian
+  da,      // Danish
+  fi,      // Finnish
+  th,      // Thai
+  id: idLang,  // Indonesian
+  bn,      // Bengali
+  he,      // Hebrew
+  // Variant mappings (use base locale)
+  "en-GB": en,
+  "en-IE": en,
+  "en-SG": en,
+  pt: ptBR,
+  "ar-AE": ar,
+  "ar-EG": ar,
   // Testing
   pseudo,  // Pseudo-locale for identifying hardcoded strings
 };
