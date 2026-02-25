@@ -249,11 +249,11 @@ const KarauMeetLogin = ({ onLogin }) => {
                 data-testid="btn-join-meeting"
               >
                 <Users className="w-5 h-5 mr-2" />
-                Join Meeting
+                {t("karauMeet.joinMeetingBtn")}
               </Button>
 
               <p className="text-xs text-slate-500 text-center">
-                You'll join as a guest. Sign in for full features.
+                {t("karauMeet.guestNote")}
               </p>
             </form>
           )}
@@ -262,11 +262,11 @@ const KarauMeetLogin = ({ onLogin }) => {
             <div className="flex items-center justify-center gap-4 text-sm text-slate-400">
               <div className="flex items-center gap-1">
                 <Shield className="w-4 h-4 text-green-400" />
-                E2E Encrypted
+                {t("karauMeet.e2eEncrypted")}
               </div>
               <div className="flex items-center gap-1">
                 <Sparkles className="w-4 h-4 text-turquoise" />
-                AI-Powered
+                {t("karauMeet.aiPowered")}
               </div>
             </div>
           </div>
