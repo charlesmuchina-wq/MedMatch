@@ -1940,7 +1940,21 @@
     "welcomeToast": "Welcome to AI KARAU Meeting!",
     "loginFailed": "Login failed",
     "connectionError": "Connection error. Please try again.",
-    "appleComingSoon": "Apple Sign-In coming soon!"
+    "appleComingSoon": "Apple Sign-In coming soon!",
+    "heroTagline": "Secure, encrypted video conferencing with AI-powered features. Connect from anywhere with crystal-clear video and audio.",
+    "newMeetingDesc": "Start an instant meeting with video, audio, and AI notes",
+    "meetingHistory": "Your meeting history",
+    "noMeetingsHistory": "No meetings yet. Start your first meeting!",
+    "recordingDeleted": "Recording deleted",
+    "failedDeleteRecording": "Failed to delete recording",
+    "signedOut": "Signed out successfully",
+    "settingUpdated": "Setting updated",
+    "failedUpdateSetting": "Failed to update setting",
+    "failedSendCode": "Failed to send code",
+    "verificationFailed": "Verification failed",
+    "accessibility": "Accessibility",
+    "security": "Security",
+    "recordTheConsentShort": "Record the meeting"
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."
