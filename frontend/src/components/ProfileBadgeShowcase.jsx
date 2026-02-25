@@ -21,6 +21,7 @@ const ProfileBadgeShowcase = ({
   compact = false,
   onBadgeClick = null
 }) => {
+  const { t } = useTranslation();
   const [badges, setBadges] = useState([]);
   const [credlyStatus, setCredlyStatus] = useState(null);
   const [loading, setLoading] = useState(true);
