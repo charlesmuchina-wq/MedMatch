@@ -4,6 +4,7 @@ import { Video, Clock, Archive, X, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
