@@ -562,15 +562,24 @@ async def orcid_callback(
     error: str = None,
     error_description: str = None
 ):
-    """Handle ORCID OAuth callback, create session, redirect to frontend."""
+    """Handle ORCID OAuth callback, create session, send result back to opener via postMessage."""
     from urllib.parse import urlparse
-    # Derive frontend URL from ORCID_REDIRECT_URI (REACT_APP_BACKEND_URL isn't available in backend process)
     parsed = urlparse(ORCID_REDIRECT_URI)
-    frontend_url = f"{parsed.scheme}://{parsed.netloc}"
+    frontend_origin = f"{parsed.scheme}://{parsed.netloc}"
+
+    def _popup_response(msg_type, session=None, error=None):
+        """Return HTML that sends postMessage to opener and closes the popup."""
+        data = f'{{"type":"orcid_auth","session":"{session}"}}' if session else f'{{"type":"orcid_auth","error":"{error}"}}'
+        return HTMLResponse(f"""<!DOCTYPE html><html><body>
+<script>
+if(window.opener){{window.opener.postMessage({data},"*");}}
+window.close();
+</script>
+<p>Redirecting...</p></body></html>""")
 
     if error:
         logging.error(f"ORCID OAuth error: {error} - {error_description}")
-        return RedirectResponse(url=f"{frontend_url}/login#orcid_error={error}")
+        return _popup_response("error", error=error)
 
     # Verify state from MongoDB
     state_doc = await db.orcid_oauth_states.find_one_and_delete({"state": state}) if state else None
