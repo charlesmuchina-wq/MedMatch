@@ -6,6 +6,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
+import { useTranslation } from '@/utils/i18n';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
