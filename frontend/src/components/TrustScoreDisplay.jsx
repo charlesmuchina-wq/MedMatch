@@ -258,7 +258,7 @@ const TrustScoreDisplay = ({
         <div className="p-5 bg-blue-50 dark:bg-blue-900/20 border-t border-blue-100 dark:border-blue-900/30">
           <h4 className="font-medium text-blue-900 dark:text-blue-200 mb-3 flex items-center gap-2">
             <TrendingUp className="w-4 h-4" />
-            Boost Your Score
+            {t("trust.boostYourScore")}
           </h4>
           <div className="space-y-2">
             {scoreData.improvement_tips.map((tip, idx) => (
