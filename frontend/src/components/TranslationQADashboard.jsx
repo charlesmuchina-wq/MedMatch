@@ -227,6 +227,22 @@ const TranslationQADashboard = () => {
     }
   };
 
+  const fetchHealthMonitor = async () => {
+    setHealthLoading(true);
+    try {
+      const res = await axios.get(`${API}/api/translation-qa/health-monitor`);
+      setHealthData(res.data);
+    } catch (error) {
+      console.error("Health monitor fetch failed:", error);
+    } finally {
+      setHealthLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchHealthMonitor();
+  }, []);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
