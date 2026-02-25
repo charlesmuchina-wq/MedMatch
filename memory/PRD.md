@@ -59,13 +59,12 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 - ORCID Client ID: APP-K9HUYS6GQY2RERX6 (production)
 
 ### 5. Translation Hardening & QA Mitigator
-- **Fixed hardcoded English in sidebars**: Replaced 20+ raw English strings with translation keys (`nav.*`, `recruiter.*`) in Admin, Job Seeker, and Recruiter sidebars (App.js)
-- **Fixed ProfileBadgeShowcase**: All "Verified Badges", "Verified by:", "View all N badges" strings now use `t()` with `badges.*` keys
-- **Fixed `{count}` placeholder errors**: Migrated all `{count}` → `{{count}}` in 33 locale files for proper i18n interpolation
-- **Added Auto-Fix button**: Translation QA Dashboard now has "Auto-Fix Issues" mitigator button that triggers AI auto-translation for all languages below target KPI
-- **Added progress banner**: Real-time progress indicator during auto-fix with language count and key translation stats
-- **AI KARAU Meeting Portal language selector**: Added `GlobalLanguageSelector` to KARAU sidebar, translated all nav items (`karau.*` keys)
-- **Translated 36 new keys** across all 32 languages using GPT-5.2 AI translation
+- **Fixed hardcoded English in sidebars**: Replaced 20+ raw English strings with translation keys in Admin, Job Seeker, and Recruiter sidebars
+- **Fixed ProfileBadgeShowcase**: All strings now use `t()` with `badges.*` keys
+- **Fixed `{count}` placeholder errors**: Migrated `{count}` → `{{count}}` in all locale files
+- **Added Auto-Fix button**: Translation QA Dashboard mitigator with real-time progress
+- **AI KARAU Meeting Portal**: Added `GlobalLanguageSelector` to sidebar, translated nav items
+- **Eliminated AI-badge slow loading**: Created 8 new locale files (uk, no, da, fi, th, id, bn, he), mapped 6 variants (en-GB/IE/SG→en, pt→pt-BR, ar-AE/EG→ar). All 42+ languages now load instantly from bundled files
 - **0 missing keys** in all locale files after sync
 
 ---
