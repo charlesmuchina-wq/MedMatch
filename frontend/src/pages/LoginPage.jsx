@@ -40,6 +40,32 @@ const LoginPage = ({ onAuthSuccess }) => {
   const [otpCode, setOtpCode] = useState("");
   const [otpSent, setOtpSent] = useState(false);
 
+  // ORCID callback handler
+  const handleOrcidCallback = useCallback(async (sessionToken) => {
+    setIsLoading(true);
+    try {
+      // Verify the session by calling /api/auth/me with the session token
+      const response = await axios.get(`${API}/api/auth/me`, {
+        headers: { Authorization: `Bearer ${sessionToken}` },
+        withCredentials: true
+      });
+
+      if (response.data?.user_id) {
+        // Store token for future requests
+        localStorage.setItem("session_token", sessionToken);
+        toast.success(t("auth.orcidLoginSuccess") || "Signed in with ORCID!");
+        onAuthSuccess(response.data);
+        navigate('/');
+      } else {
+        toast.error(t("auth.orcidLoginFailed") || "ORCID sign-in failed");
+      }
+    } catch (e) {
+      toast.error(t("auth.orcidLoginFailed") || "ORCID sign-in failed");
+    }
+    setIsLoading(false);
+    window.history.replaceState(null, '', window.location.pathname);
+  }, [onAuthSuccess, navigate, t]);
+
   // Callback handlers defined with useCallback
   const handleGoogleCallback = useCallback(async (sessionId) => {
     setIsLoading(true);
