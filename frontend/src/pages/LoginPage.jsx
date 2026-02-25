@@ -105,6 +105,19 @@ const LoginPage = ({ onAuthSuccess }) => {
     window.history.replaceState(null, '', window.location.pathname);
   }, [onAuthSuccess, navigate, t]);
 
+  // Listen for ORCID popup postMessage callback
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (event.data?.type === 'orcid_auth' && event.data?.session) {
+        handleOrcidCallback(event.data.session);
+      } else if (event.data?.type === 'orcid_auth' && event.data?.error) {
+        toast.error(t("auth.orcidLoginFailed") || "ORCID sign-in failed");
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [handleOrcidCallback, t]);
+
   // Check for Google OAuth callback (session_id in URL hash)
   // Also check for Apple Sign In callback (id_token in URL hash)
   // Also check for ORCID OAuth callback (orcid_session in URL hash)
