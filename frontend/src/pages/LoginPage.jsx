@@ -141,7 +141,7 @@ const LoginPage = ({ onAuthSuccess }) => {
         }
       }
     }
-  }, [location, handleGoogleCallback, handleAppleCallback]);
+  }, [location, handleGoogleCallback, handleAppleCallback, handleOrcidCallback, t]);
 
   // Check if already authenticated
   useEffect(() => {
