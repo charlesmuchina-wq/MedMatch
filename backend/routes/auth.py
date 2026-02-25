@@ -563,8 +563,6 @@ async def orcid_callback(
     error_description: str = None
 ):
     """Handle ORCID OAuth callback, create session, send result back to opener via postMessage."""
-    from urllib.parse import urlparse
-    parsed = urlparse(ORCID_REDIRECT_URI)
 
     def _popup_response(msg_type, session=None, error=None):
         """Return HTML that sends postMessage to opener and closes the popup."""
