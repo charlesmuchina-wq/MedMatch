@@ -1940,7 +1940,23 @@
     "welcomeToast": "Ласкаво просимо на зустріч AI KARAU!",
     "loginFailed": "Не вдалося увійти",
     "connectionError": "Помилка зʼєднання. Спробуйте ще раз.",
-    "appleComingSoon": "Apple Sign-In незабаром!"
+    "appleComingSoon": "Apple Sign-In незабаром!",
+    "heroTagline": "Безпечні, зашифровані відеоконференції з функціями на базі штучного інтелекту. Підключайтеся з будь-якого місця з кристально чистим відео та аудіо.",
+    "newMeetingDesc": "Почніть миттєву зустріч з відео, аудіо та нотатками на основі штучного інтелекту",
+    "meetingHistory": "Історія ваших зустрічей",
+    "noMeetingsHistory": "Поки що зустрічей немає. Розпочніть свою першу зустріч!",
+    "recordingDeleted": "Запис видалено",
+    "failedDeleteRecording": "Не вдалося видалити запис",
+    "signedOut": "Ви успішно вийшли",
+    "settingUpdated": "Налаштування оновлено",
+    "failedUpdateSetting": "Не вдалося оновити налаштування",
+    "failedSendCode": "Не вдалося надіслати код",
+    "verificationFailed": "Перевірка не вдалася",
+    "accessibility": "Доступність",
+    "security": "Безпека",
+    "recordTheConsentShort": "Записати зустріч",
+    "verificationCodeSent": "Код підтвердження надіслано!",
+    "emailVerified": "Email підтверджено!"
   },
   "location": {
     "selectLocationPlaceholder": "Виберіть ваше місцезнаходження..."

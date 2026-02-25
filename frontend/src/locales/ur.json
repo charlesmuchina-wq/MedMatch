@@ -1940,7 +1940,23 @@
     "welcomeToast": "AI KARAU میٹنگ میں خوش آمدید!",
     "loginFailed": "لاگ ان ناکام",
     "connectionError": "کنکشن کی خرابی۔ براہ کرم دوبارہ کوشش کریں۔",
-    "appleComingSoon": "ایپل سائن ان جلد آرہا ہے!"
+    "appleComingSoon": "ایپل سائن ان جلد آرہا ہے!",
+    "heroTagline": "محفوظ، مرموز ویڈیو کانفرنسنگ AI کی طاقتور خصوصیات کے ساتھ۔ کسی بھی جگہ سے کرسٹل کلیر ویڈیو اور آڈیو کے ساتھ جڑیں۔",
+    "newMeetingDesc": "ویڈیو، آڈیو، اور AI نوٹس کے ساتھ فوری میٹنگ شروع کریں",
+    "meetingHistory": "آپ کی میٹنگ کی تاریخ",
+    "noMeetingsHistory": "ابھی تک کوئی میٹنگ نہیں۔ اپنی پہلی میٹنگ شروع کریں!",
+    "recordingDeleted": "ریکارڈنگ حذف کر دی گئی",
+    "failedDeleteRecording": "ریکارڈنگ حذف کرنے میں ناکامی",
+    "signedOut": "کامیابی کے ساتھ سائن آؤٹ ہو گیا",
+    "settingUpdated": "ترتیب کو اپ ڈیٹ کر دیا گیا",
+    "failedUpdateSetting": "ترتیب کو اپ ڈیٹ کرنے میں ناکامی",
+    "failedSendCode": "کوڈ بھیجنے میں ناکامی",
+    "verificationFailed": "توثیق میں ناکامی",
+    "accessibility": "دستیابی",
+    "security": "سیکورٹی",
+    "recordTheConsentShort": "میٹنگ کو ریکارڈ کریں",
+    "verificationCodeSent": "توثیقی کوڈ بھیج دیا گیا!",
+    "emailVerified": "ای میل کی توثیق کی گئی!"
   },
   "location": {
     "selectLocationPlaceholder": "اپنا مقام منتخب کریں..."
