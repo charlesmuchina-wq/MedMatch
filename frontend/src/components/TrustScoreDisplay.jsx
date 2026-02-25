@@ -140,7 +140,7 @@ const TrustScoreDisplay = ({
               <Shield className="w-8 h-8" />
             </div>
             <div>
-              <p className="text-sm opacity-90">Trust Score</p>
+              <p className="text-sm opacity-90">{t("trust.trustScore")}</p>
               <div className="flex items-baseline gap-2">
                 <span className="text-4xl font-bold">{scoreData.total_score}</span>
                 <span className="text-lg opacity-75">/ {scoreData.max_score}</span>
