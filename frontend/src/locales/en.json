@@ -1954,7 +1954,9 @@
     "verificationFailed": "Verification failed",
     "accessibility": "Accessibility",
     "security": "Security",
-    "recordTheConsentShort": "Record the meeting"
+    "recordTheConsentShort": "Record the meeting",
+    "verificationCodeSent": "Verification code sent!",
+    "emailVerified": "Email verified!"
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."
