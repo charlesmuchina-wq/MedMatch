@@ -245,8 +245,15 @@ export const BUNDLED_LANGUAGES = [
   // African Languages (16)
   "sw", "ha", "yo", "ig", "zu", "xh", "af", "am",
   "om", "so", "rw", "sn", "ny", "tw", "wo", "lg",
-  // European Languages - Generated
-  "nl", "it", "vi", "ko", "ru", "pl", "sv", "tr"
+  // European Languages
+  "nl", "it", "vi", "ko", "ru", "pl", "sv", "tr",
+  "uk", "no", "da", "fi",
+  // Asian Languages
+  "th", "id", "bn",
+  // Middle Eastern
+  "he",
+  // Variant mappings (use base locale)
+  "en-GB", "en-IE", "en-SG", "pt", "ar-AE", "ar-EG"
 ];
 
 // Popular languages order (including African languages and key regional variants)
