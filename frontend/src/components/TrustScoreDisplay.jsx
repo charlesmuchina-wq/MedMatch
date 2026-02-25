@@ -211,7 +211,7 @@ const TrustScoreDisplay = ({
                     <span className={`text-xl font-bold ${hasPoints ? 'text-gray-900 dark:text-white' : 'text-gray-400'}`}>
                       {data.points}
                     </span>
-                    <span className="text-xs text-gray-400">pts</span>
+                    <span className="text-xs text-gray-400">{t("trust.pts")}</span>
                   </div>
                   {data.percentage !== undefined && (
                     <Progress value={data.percentage} className="h-1 mt-2" />
