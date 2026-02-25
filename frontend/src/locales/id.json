@@ -1788,85 +1788,85 @@
       "enableMfa": "Aktifkan MFA",
       "complete": "Selesai",
       "verificationChecklist": "Daftar Periksa Verifikasi",
-      "businessEmailMatch": "Business email domain matches company",
-      "linkedinEmployment": "LinkedIn profile shows current employment",
-      "legitimateOrg": "Company is legitimate healthcare organization",
-      "hrFunction": "Job title indicates HR/recruiting function",
-      "processing": "Processing...",
-      "approve": "Approve"
+      "businessEmailMatch": "Domain email bisnis sesuai dengan perusahaan",
+      "linkedinEmployment": "Profil LinkedIn menunjukkan pekerjaan saat ini",
+      "legitimateOrg": "Perusahaan adalah organisasi layanan kesehatan yang sah",
+      "hrFunction": "Jabatan menunjukkan fungsi HR/rekrutmen",
+      "processing": "Memproses...",
+      "approve": "Setujui"
     },
     "moderation": {
-      "anonymousRecruiter": "Anonymous Recruiter",
-      "companyNotSpecified": "Company not specified",
-      "noCommentProvided": "No comment provided",
-      "notSpecified": "Not specified",
-      "rejecting": "Rejecting...",
-      "rejectReview": "Reject Review",
-      "adminAccessRequired": "Admin access required",
-      "fetchFailed": "Failed to fetch pending reviews",
-      "approvedSuccess": "Review approved successfully",
-      "approveFailed": "Failed to approve review",
-      "rejectedSuccess": "Review rejected",
-      "rejectFailed": "Failed to reject review",
-      "noMatchingReviews": "No reviews match your search criteria.",
-      "noPendingReviews": "No pending reviews to moderate. Great job!"
+      "anonymousRecruiter": "Perekrut Anonim",
+      "companyNotSpecified": "Perusahaan tidak disebutkan",
+      "noCommentProvided": "Tidak ada komentar yang diberikan",
+      "notSpecified": "Tidak disebutkan",
+      "rejecting": "Menolak...",
+      "rejectReview": "Tolak Ulasan",
+      "adminAccessRequired": "Diperlukan akses admin",
+      "fetchFailed": "Gagal mengambil ulasan yang menunggu",
+      "approvedSuccess": "Ulasan berhasil disetujui",
+      "approveFailed": "Gagal menyetujui ulasan",
+      "rejectedSuccess": "Ulasan ditolak",
+      "rejectFailed": "Gagal menolak ulasan",
+      "noMatchingReviews": "Tidak ada ulasan yang sesuai dengan kriteria pencarian Anda.",
+      "noPendingReviews": "Tidak ada ulasan menunggu untuk dimoderasi. Kerja bagus!"
     }
   },
   "psv": {
-    "title": "Primary Source Verification Hub",
-    "subtitle": "Free self-service verification using public databases",
-    "lastName": "Last Name",
-    "firstName": "First Name",
-    "statePlaceholder": "State (e.g., CA, NY)",
-    "npiNumber": "NPI Number (optional)",
-    "npiDescription": "Verify US healthcare providers through the CMS National Provider Identifier registry",
-    "orcidIdPlaceholder": "ORCID iD (e.g., 0000-0001-2345-6789)",
-    "orcidDescription": "Verify researchers and scientists through the ORCID public registry",
-    "orSearchByName": "or search by name",
-    "familyName": "Family Name",
-    "givenNames": "Given Names",
-    "searchOrcid": "Search ORCID Registry",
-    "globalUniversitySearch": "Global University Database",
-    "universityDescription": "Verify educational institutions through the global university database",
-    "universityName": "University Name",
-    "countryOptional": "Country (optional)",
-    "searchUniversities": "Search Universities",
-    "oigDescription": "Check if an individual is excluded from federal healthcare programs"
+    "title": "Pusat Verifikasi Sumber Utama",
+    "subtitle": "Verifikasi mandiri gratis menggunakan database publik",
+    "lastName": "Nama Belakang",
+    "firstName": "Nama Depan",
+    "statePlaceholder": "Negara Bagian (mis., CA, NY)",
+    "npiNumber": "Nomor NPI (opsional)",
+    "npiDescription": "Verifikasi penyedia layanan kesehatan AS melalui registri National Provider Identifier (NPI) CMS",
+    "orcidIdPlaceholder": "ORCID iD (mis., 0000-0001-2345-6789)",
+    "orcidDescription": "Verifikasi peneliti dan ilmuwan melalui registri publik ORCID",
+    "orSearchByName": "atau cari berdasarkan nama",
+    "familyName": "Nama Keluarga",
+    "givenNames": "Nama Depan",
+    "searchOrcid": "Cari Registri ORCID",
+    "globalUniversitySearch": "Database Universitas Global",
+    "universityDescription": "Verifikasi institusi pendidikan melalui database universitas global",
+    "universityName": "Nama Universitas",
+    "countryOptional": "Negara (opsional)",
+    "searchUniversities": "Cari Universitas",
+    "oigDescription": "Periksa apakah seseorang dikecualikan dari program layanan kesehatan federal"
   },
   "contact": {
-    "declineReason": "e.g., Not looking for new opportunities right now"
+    "declineReason": "mis., Tidak sedang mencari peluang baru saat ini"
   },
   "taxonomy": {
-    "searchPlaceholder": "Search for a role (e.g., 'Biomedical Engineer', 'Clinical Research')"
+    "searchPlaceholder": "Cari peran (mis., 'Insinyur Biomedis', 'Riset Klinis')"
   },
   "meetingNotes": {
-    "meetingTitlePlaceholder": "e.g., Interview with Acme Corp",
-    "companyNamePlaceholder": "Company name",
-    "jobTitlePlaceholder": "Job title"
+    "meetingTitlePlaceholder": "mis., Wawancara dengan Acme Corp",
+    "companyNamePlaceholder": "Nama perusahaan",
+    "jobTitlePlaceholder": "Jabatan"
   },
   "resumeProfiles": {
-    "profileNamePlaceholder": "e.g., Tech Resume, Management Resume"
+    "profileNamePlaceholder": "mis., Resume Teknologi, Resume Manajemen"
   },
   "credentialsPage": {
-    "searchPlaceholder": "Search certifications (e.g., CQE, ISO 13485, RN)..."
+    "searchPlaceholder": "Cari sertifikasi (mis., CQE, ISO 13485, RN)..."
   },
   "companiesPage": {
-    "searchPlaceholder": "Search companies...",
-    "industryPlaceholder": "Industry",
-    "companySizePlaceholder": "Company Size",
+    "searchPlaceholder": "Cari perusahaan...",
+    "industryPlaceholder": "Industri",
+    "companySizePlaceholder": "Ukuran Perusahaan",
     "websitePlaceholder": "https://...",
     "foundedPlaceholder": "2020",
-    "techStackPlaceholder": "AI, Machine Learning, Healthcare (comma separated)",
-    "benefitsPlaceholder": "Remote work, Health insurance, 401k (comma separated)",
-    "culturePlaceholder": "Innovation, Collaboration, Diversity (comma separated)"
+    "techStackPlaceholder": "AI, Machine Learning, Healthcare (dipisahkan koma)",
+    "benefitsPlaceholder": "Kerja jarak jauh, Asuransi kesehatan, 401k (dipisahkan koma)",
+    "culturePlaceholder": "Inovasi, Kolaborasi, Keberagaman (dipisahkan koma)"
   },
   "interviewCalendar": {
-    "companyPlaceholder": "e.g., Google",
-    "positionPlaceholder": "e.g., Software Engineer",
-    "locationPlaceholder": "https://meet.google.com/... or office address",
+    "companyPlaceholder": "mis., Google",
+    "positionPlaceholder": "mis., Insinyur Perangkat Lunak",
+    "locationPlaceholder": "https://meet.google.com/... atau alamat kantor",
     "interviewerNamePlaceholder": "John Smith",
     "interviewerEmailPlaceholder": "john@company.com",
-    "notesPlaceholder": "Any additional details about the interview..."
+    "notesPlaceholder": "Detail tambahan tentang wawancara..."
   },
   "publicApplication": {
     "namePlaceholder": "John Doe",
@@ -1874,27 +1874,27 @@
     "phonePlaceholder": "+1 (555) 123-4567",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "portfolioPlaceholder": "https://yourportfolio.com",
-    "resumeLinkPlaceholder": "Link to your resume (Google Drive, Dropbox, etc.)",
-    "coverLetterPlaceholder": "Tell us why you're a great fit for this role..."
+    "resumeLinkPlaceholder": "Tautan ke resume Anda (Google Drive, Dropbox, dll.)",
+    "coverLetterPlaceholder": "Ceritakan mengapa Anda cocok untuk peran ini..."
   },
   "candidateSearch": {
-    "skillsPlaceholder": "Type a skill and press Enter...",
-    "keywordsPlaceholder": "e.g., senior, remote, healthcare..."
+    "skillsPlaceholder": "Ketik keahlian lalu tekan Enter...",
+    "keywordsPlaceholder": "mis., senior, remote, healthcare..."
   },
   "companyReview": {
-    "summaryPlaceholder": "Summarize your experience",
-    "prosPlaceholder": "What did you like?",
-    "consPlaceholder": "What could be improved?",
-    "jobTitlePlaceholder": "e.g., Software Engineer"
+    "summaryPlaceholder": "Ringkas pengalaman Anda",
+    "prosPlaceholder": "Apa yang Anda sukai?",
+    "consPlaceholder": "Apa yang bisa diperbaiki?",
+    "jobTitlePlaceholder": "mis., Insinyur Perangkat Lunak"
   },
   "karauMeet": {
-    "meetingTitlePlaceholder": "AI KARAU Meeting",
+    "meetingTitlePlaceholder": "Rapat AI KARAU",
     "emailPlaceholder": "your@email.com",
-    "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code"
+    "meetingIdPlaceholder": "Masukkan ID rapat (mis., ABC-123-XYZ)",
+    "verificationCodePlaceholder": "Masukkan kode 6 digit"
   },
   "location": {
-    "selectLocationPlaceholder": "Select your location..."
+    "selectLocationPlaceholder": "Pilih lokasi Anda..."
   },
   "idVerification": {
     "companyPlaceholder": "Acme Corporation",
