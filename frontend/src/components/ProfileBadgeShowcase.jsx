@@ -273,7 +273,7 @@ const ProfileBadgeShowcase = ({
       {badges.length > maxBadges && (
         <div className="mt-3 text-center">
           <Button variant="ghost" size="sm" className="text-teal-600 hover:text-teal-700">
-            View all {badges.length} badges
+            {t("badges.viewAllBadges", { count: badges.length })}
             <ChevronRight className="w-4 h-4 ml-1" />
           </Button>
         </div>
