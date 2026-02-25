@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Nog geen geverifieerde badges",
     "showcaseCertifications": "Laat je certificeringen zien",
     "importFromCredly": "Importeren vanuit Credly",
-    "viewAllBadges": "Alle {count} badges bekijken",
+    "viewAllBadges": "Alle {{count}} badges bekijken",
     "verifiedBy": "Geverifieerd door"
   },
   "karau": {

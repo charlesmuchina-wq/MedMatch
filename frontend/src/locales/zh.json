@@ -2288,7 +2288,7 @@
     "noBadgesYet": "尚无已验证徽章",
     "showcaseCertifications": "展示你的认证",
     "importFromCredly": "从 Credly 导入",
-    "viewAllBadges": "查看全部 {count} 个徽章",
+    "viewAllBadges": "查看全部 {{count}} 个徽章",
     "verifiedBy": "认证方"
   },
   "karau": {

@@ -2275,7 +2275,7 @@
     "noBadgesYet": "እስካሁን የተረጋገጡ ባጅዎች የሉም",
     "showcaseCertifications": "ማረጋገጫዎችዎን አሳይ",
     "importFromCredly": "ከ Credly አስገባ",
-    "viewAllBadges": "ሁሉንም {count} ባጅዎች እይ",
+    "viewAllBadges": "ሁሉንም {{count}} ባጅዎች እይ",
     "verifiedBy": "የተረጋገጠ በ"
   },
   "karau": {

@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Amul fi yet badges yu wóor",
     "showcaseCertifications": "Wone sa sàrtifikaasiyoŋ",
     "importFromCredly": "Jëlee ci Credly",
-    "viewAllBadges": "Gis bépp {count} badges",
+    "viewAllBadges": "Gis bépp {{count}} badges",
     "verifiedBy": "Wóoral na"
   },
   "karau": {

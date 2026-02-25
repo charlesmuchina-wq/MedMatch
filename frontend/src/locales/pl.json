@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Brak zweryfikowanych odznak",
     "showcaseCertifications": "Zaprezentuj swoje certyfikaty",
     "importFromCredly": "Importuj z Credly",
-    "viewAllBadges": "Zobacz wszystkie odznaki ({count})",
+    "viewAllBadges": "Zobacz wszystkie odznaki ({{count}})",
     "verifiedBy": "Zweryfikowane przez"
   },
   "karau": {

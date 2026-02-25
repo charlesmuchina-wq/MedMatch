@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Chưa có huy hiệu đã xác minh",
     "showcaseCertifications": "Trưng bày các chứng chỉ của bạn",
     "importFromCredly": "Nhập từ Credly",
-    "viewAllBadges": "Xem tất cả {count} huy hiệu",
+    "viewAllBadges": "Xem tất cả {{count}} huy hiệu",
     "verifiedBy": "Xác minh bởi"
   },
   "karau": {

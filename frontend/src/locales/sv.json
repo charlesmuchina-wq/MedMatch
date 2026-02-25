@@ -2245,7 +2245,7 @@
     "noBadgesYet": "Inga verifierade märken ännu",
     "showcaseCertifications": "Visa upp dina certifieringar",
     "importFromCredly": "Importera från Credly",
-    "viewAllBadges": "Visa alla {count} utmärkelser",
+    "viewAllBadges": "Visa alla {{count}} utmärkelser",
     "verifiedBy": "Verifierad av"
   },
   "karau": {

@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Azikabikho izimpawu eziqinisekisiwe okwamanje",
     "showcaseCertifications": "Bonisa izitifiketi zakho",
     "importFromCredly": "Ngenisa kusuka ku-Credly",
-    "viewAllBadges": "Buka zonke izimpawu ezingu-{count}",
+    "viewAllBadges": "Buka zonke izimpawu ezingu-{{count}}",
     "verifiedBy": "Kuqinisekiswe ngu"
   },
   "karau": {

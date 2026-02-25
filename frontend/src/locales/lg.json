@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Tonnaba kufuna baji ezikakasiddwa",
     "showcaseCertifications": "Yolesa satifiketi zo",
     "importFromCredly": "Yingiza okuva e Credly",
-    "viewAllBadges": "Laba baji zonna {count}",
+    "viewAllBadges": "Laba baji zonna {{count}}",
     "verifiedBy": "Kikakasiddwa nga"
   },
   "karau": {

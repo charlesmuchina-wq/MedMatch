@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Palibe mabaji otsimikiziridwa pano",
     "showcaseCertifications": "Onetsani zitsimikizo zanu",
     "importFromCredly": "Lowa kuchokera ku Credly",
-    "viewAllBadges": "Onani mabaji onse {count}",
+    "viewAllBadges": "Onani mabaji onse {{count}}",
     "verifiedBy": "Zatsimikiziridwa ndi"
   },
   "karau": {

@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Weli ma jiraan calaamado la xaqiijiyay",
     "showcaseCertifications": "Muuji shahaadooyinkaaga",
     "importFromCredly": "Ka soo dejiso Credly",
-    "viewAllBadges": "Eeg dhammaan {count} calaamado",
+    "viewAllBadges": "Eeg dhammaan {{count}} calaamado",
     "verifiedBy": "Waxaa xaqiijiyay"
   },
   "karau": {

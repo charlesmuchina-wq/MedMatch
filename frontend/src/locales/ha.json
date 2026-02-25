@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Babu bajojin tabbaci tukuna",
     "showcaseCertifications": "Nuna takaddun shaidunka",
     "importFromCredly": "Shigo daga Credly",
-    "viewAllBadges": "Duba duk bajojin {count}",
+    "viewAllBadges": "Duba duk bajojin {{count}}",
     "verifiedBy": "An tabbatar ta"
   },
   "karau": {

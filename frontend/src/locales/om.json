@@ -2245,7 +2245,7 @@
     "noBadgesYet": "Hanga ammaatti baajiiwwan mirkanaa'an hin jiran",
     "showcaseCertifications": "Ragaawwan kee agarsiisi",
     "importFromCredly": "Credly irraa galchi",
-    "viewAllBadges": "Baajiiwwan {count} hunda ilaali",
+    "viewAllBadges": "Baajiiwwan {{count}} hunda ilaali",
     "verifiedBy": "Kan mirkaneesse"
   },
   "karau": {

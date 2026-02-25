@@ -2275,7 +2275,7 @@
     "noBadgesYet": "아직 인증된 배지가 없습니다",
     "showcaseCertifications": "자격증을 소개해 보세요",
     "importFromCredly": "Credly에서 가져오기",
-    "viewAllBadges": "{count}개 배지 모두 보기",
+    "viewAllBadges": "{{count}}개 배지 모두 보기",
     "verifiedBy": "검증 기관"
   },
   "karau": {

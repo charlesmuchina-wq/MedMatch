@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Henüz doğrulanmış rozet yok",
     "showcaseCertifications": "Sertifikalarınızı sergileyin",
     "importFromCredly": "Credly'den içe aktar",
-    "viewAllBadges": "Tüm {count} rozeti görüntüle",
+    "viewAllBadges": "Tüm {{count}} rozeti görüntüle",
     "verifiedBy": "Doğrulayan"
   },
   "karau": {

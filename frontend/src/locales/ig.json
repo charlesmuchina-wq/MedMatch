@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Enweghị baajị ekwenyere ugbu a",
     "showcaseCertifications": "Gosi asambodo gị",
     "importFromCredly": "Bubata site na Credly",
-    "viewAllBadges": "Lee baajị {count} niile",
+    "viewAllBadges": "Lee baajị {{count}} niile",
     "verifiedBy": "Kwadoro site na"
   },
   "karau": {

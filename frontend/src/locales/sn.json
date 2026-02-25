@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Hapana mabheji akasimbiswa parizvino",
     "showcaseCertifications": "Ratidza zvitupa zvako",
     "importFromCredly": "Pinza kubva kuCredly",
-    "viewAllBadges": "Tarisa mabheji ose {count}",
+    "viewAllBadges": "Tarisa mabheji ose {{count}}",
     "verifiedBy": "Yakasimbiswa na"
   },
   "karau": {

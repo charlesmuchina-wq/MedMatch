@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Ntokuro a wɔagye ato mu biara nni hɔ yet",
     "showcaseCertifications": "Kyerɛ wo adansedi nhoma ahorow",
     "importFromCredly": "Fa fi Credly mu bra",
-    "viewAllBadges": "Hwɛ badges {count} no nyinaa",
+    "viewAllBadges": "Hwɛ badges {{count}} no nyinaa",
     "verifiedBy": "Wɔa-gyina so"
   },
   "karau": {

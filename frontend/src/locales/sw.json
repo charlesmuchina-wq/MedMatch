@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Bado hakuna beji zilizothibitishwa",
     "showcaseCertifications": "Onyesha vyeti vyako",
     "importFromCredly": "Leta kutoka Credly",
-    "viewAllBadges": "Tazama beji zote {count}",
+    "viewAllBadges": "Tazama beji zote {{count}}",
     "verifiedBy": "Imethibitishwa na"
   },
   "karau": {

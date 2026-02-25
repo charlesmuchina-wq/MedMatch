@@ -2275,7 +2275,7 @@
     "noBadgesYet": "Nta baji zemejwe ziraboneka",
     "showcaseCertifications": "Erekana ibyemezo byawe",
     "importFromCredly": "Kuzana uvuye kuri Credly",
-    "viewAllBadges": "Reba baji zose {count}",
+    "viewAllBadges": "Reba baji zose {{count}}",
     "verifiedBy": "Byemejwe na"
   },
   "karau": {

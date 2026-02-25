@@ -2245,7 +2245,7 @@
     "noBadgesYet": "Пока нет подтверждённых бейджей",
     "showcaseCertifications": "Покажите свои сертификаты",
     "importFromCredly": "Импортировать из Credly",
-    "viewAllBadges": "Посмотреть все {count} бейджей",
+    "viewAllBadges": "Посмотреть все {{count}} бейджей",
     "verifiedBy": "Подтверждено"
   },
   "karau": {

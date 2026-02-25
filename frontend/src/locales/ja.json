@@ -2275,7 +2275,7 @@
     "noBadgesYet": "認証バッジはまだありません",
     "showcaseCertifications": "認定資格をアピール",
     "importFromCredly": "Credlyからインポート",
-    "viewAllBadges": "{count}件のバッジをすべて表示",
+    "viewAllBadges": "{{count}}件のバッジをすべて表示",
     "verifiedBy": "認証元"
   },
   "karau": {

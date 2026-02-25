@@ -2275,7 +2275,7 @@
     "noBadgesYet": "अभी तक कोई सत्यापित बैज नहीं",
     "showcaseCertifications": "अपने प्रमाणपत्र दिखाएँ",
     "importFromCredly": "Credly से आयात करें",
-    "viewAllBadges": "सभी {count} बैज देखें",
+    "viewAllBadges": "सभी {{count}} बैज देखें",
     "verifiedBy": "द्वारा सत्यापित"
   },
   "karau": {

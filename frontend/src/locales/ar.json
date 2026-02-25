@@ -2649,7 +2649,7 @@
     "noBadgesYet": "لا توجد شارات موثّقة بعد",
     "showcaseCertifications": "اعرض شهاداتك",
     "importFromCredly": "استيراد من Credly",
-    "viewAllBadges": "عرض جميع الشارات {count}",
+    "viewAllBadges": "عرض جميع الشارات {{count}}",
     "verifiedBy": "موثّق من قبل"
   },
   "karau": {
