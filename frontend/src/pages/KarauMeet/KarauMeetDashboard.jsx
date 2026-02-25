@@ -79,13 +79,13 @@ const KarauMeetDashboard = ({ user }) => {
       
       if (response.ok) {
         const data = await response.json();
-        toast.success('Meeting created!');
+        toast.success(t("karauMeet.meetingCreated"));
         navigate(`/karau-meet/room/${data.meeting_id}`);
       } else {
-        toast.error('Failed to create meeting');
+        toast.error(t("karauMeet.failedCreate"));
       }
     } catch (error) {
-      toast.error('Failed to create meeting');
+      toast.error(t("karauMeet.failedCreate"));
     }
     setCreating(false);
     setShowCreateDialog(false);
@@ -93,7 +93,7 @@ const KarauMeetDashboard = ({ user }) => {
 
   const joinMeeting = () => {
     if (!joinMeetingId.trim()) {
-      toast.error('Please enter a meeting ID');
+      toast.error(t("karauMeet.enterMeetingIdError"));
       return;
     }
     navigate(`/karau-meet/room/${joinMeetingId.toUpperCase()}`);
@@ -102,7 +102,7 @@ const KarauMeetDashboard = ({ user }) => {
   const copyMeetingLink = (meetingId) => {
     const link = `${window.location.origin}/karau-meet/join/${meetingId}`;
     navigator.clipboard.writeText(link);
-    toast.success('Meeting link copied!');
+    toast.success(t("karauMeet.meetingLinkCopied"));
   };
 
   return (
