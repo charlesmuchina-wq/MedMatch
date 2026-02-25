@@ -47,16 +47,31 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 
 ---
 
+## Completed Features (February 25, 2026)
+
+### 4. ORCID OAuth Login
+- "Sign in with ORCID" button on login page with official ORCID green branding (#A6CE39)
+- Full OAuth 2.0 Authorization Code flow (production orcid.org)
+- Backend endpoints: `GET /api/auth/orcid/config`, `GET /api/auth/orcid/login`, `GET /api/auth/orcid/callback`
+- Auto-creates user account on first ORCID sign-in, links ORCID iD to profile
+- Stores ORCID connection data for future profile enrichment (education, employment, publications)
+- Frontend handles callback via URL hash (#orcid_session=TOKEN)
+- ORCID Client ID: APP-K9HUYS6GQY2RERX6 (production)
+- Translation keys added: auth.orcid, auth.orcidLoginSuccess, auth.orcidLoginFailed
+- All tests passed: 14/14 backend, 8/8 frontend
+
+---
+
 ## Backlog (Parked)
 
 ### P1
 - LinkedIn Profile Sync
-- ORCID OAuth Login
 - PayPal Integration
 
 ### P2
 - Enterprise SSO/SAML
 - iOS Build
+- Social Media Sharing (LinkedIn/Twitter share buttons)
 
 ---
 
@@ -64,3 +79,4 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 - **Admin:** admin@medmatch.com / Swampdrainer2026!
 - **Scheduler:** Dragon Scheduler, 5 jobs, MongoDB-persisted (apscheduler_jobs)
 - **Mocked:** Google and Apple social sign-in
+- **ORCID OAuth:** Production (orcid.org), Client ID: APP-K9HUYS6GQY2RERX6
