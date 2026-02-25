@@ -12,7 +12,7 @@ import time
 import concurrent.futures
 from datetime import datetime
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://i18n-complete-8.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-staging.preview.emergentagent.com')
 
 # Test credentials
 JOB_SEEKER_CREDS = {"email": "test_jobseeker_ui@test.com", "password": "Test123!"}
