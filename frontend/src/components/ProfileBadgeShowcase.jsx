@@ -170,16 +170,16 @@ const ProfileBadgeShowcase = ({
           </div>
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2">
-              Verified Badges
+              {t("badges.verifiedBadges")}
               {badges.length > 0 && (
                 <Badge className="bg-green-100 text-green-700 text-xs">
                   <Verified className="w-3 h-3 mr-1" />
-                  {badges.length} Verified
+                  {badges.length} {t("badges.verified")}
                 </Badge>
               )}
             </h3>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              Professional certifications from trusted issuers
+              {t("badges.professionalCertifications")}
             </p>
           </div>
         </div>
