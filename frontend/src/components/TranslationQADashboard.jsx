@@ -246,19 +246,35 @@ const TranslationQADashboard = () => {
             AI-powered localization quality assurance
           </p>
         </div>
-        <Button 
-          onClick={runQA} 
-          disabled={running}
-          className="bg-turquoise hover:bg-turquoise/90"
-          data-testid="run-qa-btn"
-        >
-          {running ? (
-            <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-          ) : (
-            <Zap className="w-4 h-4 mr-2" />
-          )}
-          {running ? "Running..." : "Run QA"}
-        </Button>
+        <div className="flex gap-2">
+          <Button 
+            onClick={() => autoFixIssues(98)} 
+            disabled={fixing || running}
+            variant="outline"
+            className="border-orange-300 text-orange-700 hover:bg-orange-50"
+            data-testid="auto-fix-btn"
+          >
+            {fixing ? (
+              <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+            ) : (
+              <Wrench className="w-4 h-4 mr-2" />
+            )}
+            {fixing ? `Fixing${fixProgress ? ` (${fixProgress.languages_completed}/${fixProgress.languages_total})` : '...'}` : "Auto-Fix Issues"}
+          </Button>
+          <Button 
+            onClick={runQA} 
+            disabled={running || fixing}
+            className="bg-turquoise hover:bg-turquoise/90"
+            data-testid="run-qa-btn"
+          >
+            {running ? (
+              <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+            ) : (
+              <Zap className="w-4 h-4 mr-2" />
+            )}
+            {running ? "Running..." : "Run QA"}
+          </Button>
+        </div>
       </div>
 
       {/* Overall Score Card */}
