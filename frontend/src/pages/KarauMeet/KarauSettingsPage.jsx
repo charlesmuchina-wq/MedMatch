@@ -86,9 +86,9 @@ const KarauSettingsPage = () => {
         },
         body: JSON.stringify({ [key]: value })
       });
-      toast.success('Setting updated');
+      toast.success(t("karauMeet.settingUpdated"));
     } catch (error) {
-      toast.error('Failed to update setting');
+      toast.error(t("karauMeet.failedUpdateSetting"));
     }
   };
 
@@ -102,13 +102,13 @@ const KarauSettingsPage = () => {
       });
       const data = await res.json();
       if (data.success) {
-        toast.success('Verification code sent!');
+        toast.success(t("karauMeet.verificationCodeSent"));
         if (data.mock_mode) {
           setMockCode(data.code);
         }
       }
     } catch (error) {
-      toast.error('Failed to send code');
+      toast.error(t("karauMeet.failedSendCode"));
     }
     setSendingCode(false);
   };
@@ -125,16 +125,16 @@ const KarauSettingsPage = () => {
         body: JSON.stringify({ code: verificationCode })
       });
       if (res.ok) {
-        toast.success('Email verified!');
+        toast.success(t("karauMeet.emailVerified"));
         setSecurityStatus(prev => ({ ...prev, email_verified: true }));
         setMockCode('');
         setVerificationCode('');
       } else {
         const error = await res.json();
-        toast.error(error.detail || 'Verification failed');
+        toast.error(error.detail || t("karauMeet.verificationFailed"));
       }
     } catch (error) {
-      toast.error('Verification failed');
+      toast.error(t("karauMeet.verificationFailed"));
     }
   };
 
