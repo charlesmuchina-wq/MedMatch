@@ -308,7 +308,8 @@
     "registerAsRecruiter": "Yerehwe talent ma w'adwumakuo",
     "orcid": "Fa ORCID so kɔ mu",
     "orcidLoginSuccess": "Woafa ORCID so akɔ mu!",
-    "orcidLoginFailed": "ORCID so kɔ mu no antumi"
+    "orcidLoginFailed": "ORCID so kɔ mu no antumi",
+    "signOut": "Sign Out"
   },
   "video": {
     "sitStraight": "Tenatena pɛ, ma wo mmerɛw kɔ akyi",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Fa fi Credly mu bra",
     "viewAllBadges": "Hwɛ badges {count} no nyinaa",
     "verifiedBy": "Wɔa-gyina so"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

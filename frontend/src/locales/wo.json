@@ -308,7 +308,8 @@
     "registerAsRecruiter": "Di wut talan ci sa organizasioŋ",
     "orcid": "Dugg ak ORCID",
     "orcidLoginSuccess": "Dugg nañu ak ORCID!",
-    "orcidLoginFailed": "Dugg ak ORCID antuwul"
+    "orcidLoginFailed": "Dugg ak ORCID antuwul",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "Dafa am lu ñaaw",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Jëlee ci Credly",
     "viewAllBadges": "Gis bépp {count} badges",
     "verifiedBy": "Wóoral na"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

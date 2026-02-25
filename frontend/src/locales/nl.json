@@ -898,7 +898,8 @@
     "registerAsRecruiter": "Talent werven voor je organisatie",
     "orcid": "Inloggen met ORCID",
     "orcidLoginSuccess": "Ingelogd met ORCID!",
-    "orcidLoginFailed": "ORCID-inloggen mislukt"
+    "orcidLoginFailed": "ORCID-inloggen mislukt",
+    "signOut": "Sign Out"
   },
   "onboarding": {
     "welcome": "Welkom bij MedMatch!",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Importeren vanuit Credly",
     "viewAllBadges": "Alle {count} badges bekijken",
     "verifiedBy": "Geverifieerd door"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

@@ -308,7 +308,8 @@
     "registerAsRecruiter": "Ndashaka abakozi b’umuryango wanjye",
     "orcid": "Injira ukoresheje ORCID",
     "orcidLoginSuccess": "Winjiye ukoresheje ORCID!",
-    "orcidLoginFailed": "Kwinjira ukoresheje ORCID byanze"
+    "orcidLoginFailed": "Kwinjira ukoresheje ORCID byanze",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "Hari ibitagenze neza",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Kuzana uvuye kuri Credly",
     "viewAllBadges": "Reba baji zose {count}",
     "verifiedBy": "Byemejwe na"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

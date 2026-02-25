@@ -308,7 +308,8 @@
     "registerAsRecruiter": "Dandeettii dhaabbata keetiif qacaruu",
     "orcid": "ORCID waliin seeni",
     "orcidLoginSuccess": "ORCID waliin seenne!",
-    "orcidLoginFailed": "ORCID seenuun hin milkoofne"
+    "orcidLoginFailed": "ORCID seenuun hin milkoofne",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "Wantoonni dogoggoran",
@@ -2246,5 +2247,14 @@
     "importFromCredly": "Credly irraa galchi",
     "viewAllBadges": "Baajiiwwan {count} hunda ilaali",
     "verifiedBy": "Kan mirkaneesse"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

@@ -675,7 +675,8 @@
     "registerAsRecruiter": "为你的组织招聘人才",
     "orcid": "使用 ORCID 登录",
     "orcidLoginSuccess": "已使用 ORCID 登录！",
-    "orcidLoginFailed": "ORCID 登录失败"
+    "orcidLoginFailed": "ORCID 登录失败",
+    "signOut": "Sign Out"
   },
   "onboarding": {
     "welcome": "欢迎来到MedMatch！",
@@ -2289,5 +2290,14 @@
     "importFromCredly": "从 Credly 导入",
     "viewAllBadges": "查看全部 {count} 个徽章",
     "verifiedBy": "认证方"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

@@ -308,7 +308,8 @@
     "registerAsRecruiter": "組織の人材を採用",
     "orcid": "ORCIDでサインイン",
     "orcidLoginSuccess": "ORCIDでサインインしました！",
-    "orcidLoginFailed": "ORCIDサインインに失敗しました"
+    "orcidLoginFailed": "ORCIDサインインに失敗しました",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "問題が発生しました",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Credlyからインポート",
     "viewAllBadges": "{count}件のバッジをすべて表示",
     "verifiedBy": "認証元"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

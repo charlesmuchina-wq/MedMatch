@@ -890,7 +890,8 @@
     "biometricFailed": "Biometric authentication failed",
     "selectRole": "Select your role",
     "registerAsJobSeeker": "Looking for opportunities in life sciences",
-    "registerAsRecruiter": "Hiring talent for your organization"
+    "registerAsRecruiter": "Hiring talent for your organization",
+    "signOut": "Sign Out"
   },
   "onboarding": {
     "welcome": "[!!! Ŵëĺçöɱë ţö ⱮëđⱮäţçħ! !!!]",
@@ -2257,5 +2258,14 @@
     "importFromCredly": "Import from Credly",
     "viewAllBadges": "View all {count} badges",
     "verifiedBy": "Verified by"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

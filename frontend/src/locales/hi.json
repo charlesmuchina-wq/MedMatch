@@ -308,7 +308,8 @@
     "registerAsRecruiter": "अपनी संस्था के लिए प्रतिभा भर्ती करें",
     "orcid": "ORCID से साइन इन करें",
     "orcidLoginSuccess": "ORCID से साइन इन हो गया!",
-    "orcidLoginFailed": "ORCID साइन-इन विफल"
+    "orcidLoginFailed": "ORCID साइन-इन विफल",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "कुछ गलत हो गया",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Credly से आयात करें",
     "viewAllBadges": "सभी {count} बैज देखें",
     "verifiedBy": "द्वारा सत्यापित"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

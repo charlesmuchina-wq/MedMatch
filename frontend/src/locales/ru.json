@@ -868,7 +868,8 @@
     "registerAsRecruiter": "Нанимаю специалистов для компании",
     "orcid": "Войти с помощью ORCID",
     "orcidLoginSuccess": "Вход выполнен с помощью ORCID!",
-    "orcidLoginFailed": "Не удалось войти через ORCID"
+    "orcidLoginFailed": "Не удалось войти через ORCID",
+    "signOut": "Sign Out"
   },
   "onboarding": {
     "welcome": "Добро пожаловать в MedMatch!",
@@ -2246,5 +2247,14 @@
     "importFromCredly": "Импортировать из Credly",
     "viewAllBadges": "Посмотреть все {count} бейджей",
     "verifiedBy": "Подтверждено"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

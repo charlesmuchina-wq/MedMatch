@@ -898,7 +898,8 @@
     "registerAsRecruiter": "Kuruluşum için yetenek arıyorum",
     "orcid": "ORCID ile giriş yap",
     "orcidLoginSuccess": "ORCID ile giriş yapıldı!",
-    "orcidLoginFailed": "ORCID ile giriş başarısız"
+    "orcidLoginFailed": "ORCID ile giriş başarısız",
+    "signOut": "Sign Out"
   },
   "onboarding": {
     "welcome": "MedMatch’e hoş geldiniz!",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Credly'den içe aktar",
     "viewAllBadges": "Tüm {count} rozeti görüntüle",
     "verifiedBy": "Doğrulayan"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

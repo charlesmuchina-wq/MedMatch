@@ -308,7 +308,8 @@
     "registerAsRecruiter": "Contratando talentos para sua organização",
     "orcid": "Entrar com ORCID",
     "orcidLoginSuccess": "Sessão iniciada com ORCID!",
-    "orcidLoginFailed": "Falha ao iniciar sessão com ORCID"
+    "orcidLoginFailed": "Falha ao iniciar sessão com ORCID",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "Algo deu errado",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Importar do Credly",
     "viewAllBadges": "Ver todos os {count} selos",
     "verifiedBy": "Verificado por"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

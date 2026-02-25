@@ -308,7 +308,8 @@
     "registerAsRecruiter": "Nnoonya abantu abatuufu ku kampuni yo",
     "orcid": "Yingira ng’okozesa ORCID",
     "orcidLoginSuccess": "Oyingidde ng’okozesa ORCID!",
-    "orcidLoginFailed": "Okuyingira na ORCID kulemye"
+    "orcidLoginFailed": "Okuyingira na ORCID kulemye",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "Wabaddewo obuzibu",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Yingiza okuva e Credly",
     "viewAllBadges": "Laba baji zonna {count}",
     "verifiedBy": "Kikakasiddwa nga"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

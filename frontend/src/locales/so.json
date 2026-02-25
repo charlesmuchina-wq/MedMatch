@@ -308,7 +308,8 @@
     "registerAsRecruiter": "Kireynaya hibada ururkaaga",
     "orcid": "Gal ORCID",
     "orcidLoginSuccess": "Waxaad ku gashay ORCID!",
-    "orcidLoginFailed": "Gelitaanka ORCID wuu fashilmay"
+    "orcidLoginFailed": "Gelitaanka ORCID wuu fashilmay",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "Wax ayaa khaldamay",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Ka soo dejiso Credly",
     "viewAllBadges": "Eeg dhammaan {count} calaamado",
     "verifiedBy": "Waxaa xaqiijiyay"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

@@ -308,7 +308,8 @@
     "registerAsRecruiter": "Na-achọ talent maka ụlọọrụ gị",
     "orcid": "Banye na ORCID",
     "orcidLoginSuccess": "Abanyela na ORCID!",
-    "orcidLoginFailed": "Nbanye ORCID dara"
+    "orcidLoginFailed": "Nbanye ORCID dara",
+    "signOut": "Sign Out"
   },
   "video": {
     "sitStraight": "Nọdụ n'ọnọdụ kwụ ọtọ, debe ubu azụ",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Bubata site na Credly",
     "viewAllBadges": "Lee baajị {count} niile",
     "verifiedBy": "Kwadoro site na"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

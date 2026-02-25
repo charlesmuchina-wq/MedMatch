@@ -675,7 +675,8 @@
     "registerAsRecruiter": "Busco talento para mi organización",
     "orcid": "Iniciar sesión con ORCID",
     "orcidLoginSuccess": "¡Has iniciado sesión con ORCID!",
-    "orcidLoginFailed": "Error al iniciar sesión con ORCID"
+    "orcidLoginFailed": "Error al iniciar sesión con ORCID",
+    "signOut": "Sign Out"
   },
   "onboarding": {
     "welcome": "¡Bienvenido a MedMatch!",
@@ -2289,5 +2290,14 @@
     "importFromCredly": "Importar desde Credly",
     "viewAllBadges": "Ver las {count} insignias",
     "verifiedBy": "Verificado por"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

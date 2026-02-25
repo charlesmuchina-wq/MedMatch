@@ -898,7 +898,8 @@
     "registerAsRecruiter": "Tuyển dụng nhân tài cho tổ chức",
     "orcid": "Đăng nhập bằng ORCID",
     "orcidLoginSuccess": "Đã đăng nhập bằng ORCID!",
-    "orcidLoginFailed": "Đăng nhập ORCID thất bại"
+    "orcidLoginFailed": "Đăng nhập ORCID thất bại",
+    "signOut": "Sign Out"
   },
   "onboarding": {
     "welcome": "Chào mừng bạn đến với MedMatch!",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Nhập từ Credly",
     "viewAllBadges": "Xem tất cả {count} huy hiệu",
     "verifiedBy": "Xác minh bởi"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

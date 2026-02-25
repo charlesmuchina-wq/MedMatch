@@ -308,7 +308,8 @@
     "registerAsRecruiter": "Kulemba akatswiri a bungwe lanu",
     "orcid": "Lowani ndi ORCID",
     "orcidLoginSuccess": "Mwalowa ndi ORCID!",
-    "orcidLoginFailed": "Kulephera kulowa ndi ORCID"
+    "orcidLoginFailed": "Kulephera kulowa ndi ORCID",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "Pali vuto lina lachitika",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Lowa kuchokera ku Credly",
     "viewAllBadges": "Onani mabaji onse {count}",
     "verifiedBy": "Zatsimikiziridwa ndi"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

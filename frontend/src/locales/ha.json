@@ -308,7 +308,8 @@
     "registerAsRecruiter": "Ina ɗaukar ma'aikata don ƙungiyarka",
     "orcid": "Shiga da ORCID",
     "orcidLoginSuccess": "An shiga da ORCID!",
-    "orcidLoginFailed": "Shiga da ORCID ya gaza"
+    "orcidLoginFailed": "Shiga da ORCID ya gaza",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "Wani abu ya tafi ba daidai ba",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Shigo daga Credly",
     "viewAllBadges": "Duba duk bajojin {count}",
     "verifiedBy": "An tabbatar ta"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

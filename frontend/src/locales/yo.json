@@ -308,7 +308,8 @@
     "registerAsRecruiter": "N gba talent fún ilé-iṣẹ́ rẹ",
     "orcid": "Wọlé pẹ̀lú ORCID",
     "orcidLoginSuccess": "O ti wọlé pẹ̀lú ORCID!",
-    "orcidLoginFailed": "Wíwọlé ORCID kò ṣàṣeyọrí"
+    "orcidLoginFailed": "Wíwọlé ORCID kò ṣàṣeyọrí",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "Nǹkan kan lọ ní àṣìṣe",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Gbé wá láti Credly",
     "viewAllBadges": "Wo gbogbo bàjì {count}",
     "verifiedBy": "A fìdí rẹ̀ múlẹ̀ nípasẹ̀"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

@@ -308,7 +308,8 @@
     "registerAsRecruiter": "Werf talent vir jou organisasie",
     "orcid": "Meld aan met ORCID",
     "orcidLoginSuccess": "Aangemeld met ORCID!",
-    "orcidLoginFailed": "ORCID-aanmelding het misluk"
+    "orcidLoginFailed": "ORCID-aanmelding het misluk",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "Iets het verkeerd geloop",
@@ -2246,5 +2247,14 @@
     "importFromCredly": "Voer in vanaf Credly",
     "viewAllBadges": "Bekyk al {count} kentekens",
     "verifiedBy": "Geverifieer deur"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

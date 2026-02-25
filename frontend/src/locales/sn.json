@@ -308,7 +308,8 @@
     "registerAsRecruiter": "Kutsvaga tarenda resangano rako",
     "orcid": "Pinda neORCID",
     "orcidLoginSuccess": "Wapinda neORCID!",
-    "orcidLoginFailed": "Kutadza kupinda neORCID"
+    "orcidLoginFailed": "Kutadza kupinda neORCID",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "Pane chakanganisika",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Pinza kubva kuCredly",
     "viewAllBadges": "Tarisa mabheji ose {count}",
     "verifiedBy": "Yakasimbiswa na"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }

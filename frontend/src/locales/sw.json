@@ -308,7 +308,8 @@
     "registerAsRecruiter": "Ninaajiri vipaji kwa shirika lako",
     "orcid": "Ingia kwa ORCID",
     "orcidLoginSuccess": "Umeingia kwa ORCID!",
-    "orcidLoginFailed": "Kuingia kwa ORCID kumeshindikana"
+    "orcidLoginFailed": "Kuingia kwa ORCID kumeshindikana",
+    "signOut": "Sign Out"
   },
   "errors": {
     "somethingWentWrong": "Kuna hitilafu imetokea",
@@ -2276,5 +2277,14 @@
     "importFromCredly": "Leta kutoka Credly",
     "viewAllBadges": "Tazama beji zote {count}",
     "verifiedBy": "Imethibitishwa na"
+  },
+  "karau": {
+    "dashboard": "Dashboard",
+    "myMeetings": "My Meetings",
+    "schedule": "Schedule",
+    "recordings": "Recordings",
+    "meetingNotes": "Meeting Notes",
+    "analytics": "Analytics",
+    "settings": "Settings"
   }
 }
