@@ -563,7 +563,10 @@ async def orcid_callback(
     error_description: str = None
 ):
     """Handle ORCID OAuth callback, create session, redirect to frontend."""
-    frontend_url = os.environ.get("REACT_APP_BACKEND_URL", "").rstrip("/")
+    from urllib.parse import urlparse
+    # Derive frontend URL from ORCID_REDIRECT_URI (REACT_APP_BACKEND_URL isn't available in backend process)
+    parsed = urlparse(ORCID_REDIRECT_URI)
+    frontend_url = f"{parsed.scheme}://{parsed.netloc}"
 
     if error:
         logging.error(f"ORCID OAuth error: {error} - {error_description}")
