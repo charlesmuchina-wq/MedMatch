@@ -358,6 +358,25 @@ const LoginPage = ({ onAuthSuccess }) => {
                 {t("auth.apple")}
               </span>
             </button>
+
+            {/* ORCID Sign In Button */}
+            <Button
+              variant="outline"
+              className="w-full h-12 font-medium border-[#A6CE39] hover:bg-[#A6CE39]/10"
+              onClick={handleOrcidLogin}
+              disabled={isLoading}
+              data-testid="orcid-login-btn"
+            >
+              <svg className="w-5 h-5 mr-3" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+                <path d="M128,0C57.3,0,0,57.3,0,128s57.3,128,128,128s128-57.3,128-128S198.7,0,128,0z" fill="#A6CE39"/>
+                <g fill="#FFFFFF">
+                  <path d="M86.3,186.2H70.9V79.1h15.4V186.2z"/>
+                  <path d="M108.9,79.1h41.6c39.6,0,57.1,27.9,57.1,53.4c0,28.6-20.2,53.7-56.9,53.7h-41.8V79.1z M124.3,172.3h24.5 c34.9,0,42.9-26.5,42.9-39.7c0-21.5-13.7-39.7-43.7-39.7h-23.7V172.3z"/>
+                  <path d="M88.7,56.8c0,5.5-4.5,10.1-10.1,10.1c-5.6,0-10.1-4.6-10.1-10.1c0-5.6,4.5-10.1,10.1-10.1 C84.2,46.7,88.7,51.3,88.7,56.8z"/>
+                </g>
+              </svg>
+              {t("auth.orcid") || "Sign in with ORCID"}
+            </Button>
           </div>
           
           {/* Back to Portal Selection */}
