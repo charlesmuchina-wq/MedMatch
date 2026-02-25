@@ -2279,7 +2279,7 @@
     "verifiedBy": "द्वारा सत्यापित"
   },
   "karau": {
-    "dashboard": "Dashboard",
+    "dashboard": "डैशबोर्ड",
     "myMeetings": "मेरी मीटिंग्स",
     "schedule": "शेड्यूल",
     "recordings": "रिकॉर्डिंग्स",
@@ -2302,7 +2302,7 @@
     "expand": "विस्तार करें",
     "collapse": "समेटें",
     "details": "विवरण",
-    "pts": "pts",
+    "pts": "अंक",
     "boostYourScore": "अपना स्कोर बढ़ाएं",
     "category": {
       "credentials": "प्रमाण-पत्र",

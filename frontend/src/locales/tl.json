@@ -144,12 +144,12 @@
     "interviewInvite": "Imbitasyon sa Interview",
     "statusUpdate": "Update sa Status",
     "message": "Mensahe",
-    "jobAlert": "Job Alert",
+    "jobAlert": "Alert sa Trabaho",
     "systemAlert": "Alerta ng Sistema",
     "today": "Ngayon",
     "yesterday": "Kahapon",
     "earlier": "Mas maaga",
-    "pushNotifications": "Push Notifications",
+    "pushNotifications": "Mga Push Notification",
     "dailyDigest": "Araw-araw na Digest",
     "weeklyDigest": "Lingguhang Digest",
     "instantAlerts": "Mga Agarang Alerta"
@@ -172,7 +172,7 @@
     "severityCritical": "Kritikal",
     "severityHigh": "Mataas",
     "severityMedium": "Katamtaman",
-    "severityLow": "Low",
+    "severityLow": "Mababa",
     "source": "Pinagmulan",
     "sourcePlaceholder": "Kung saan natukoy ang isyu (hal., QA, Audit, Customer)",
     "impactedProcesses": "Mga Apektadong Proseso",
@@ -372,8 +372,8 @@
     "anyLocation": "Anumang Lokasyon",
     "jobType": "Uri ng Trabaho",
     "anyType": "Anumang Uri",
-    "fullTime": "Full Time",
-    "partTime": "Part Time",
+    "fullTime": "Full-Time",
+    "partTime": "Part-Time",
     "contract": "Kontrata",
     "remote": "Remote",
     "hybrid": "Hybrid",
@@ -1014,7 +1014,7 @@
     "interviewPrepAction": "Tip: Sa practice, gumagaling!",
     "voiceCoach": "Voice Coach",
     "voiceCoachDesc": "Pagbutihin ang iyong kakayahan sa komunikasyon gamit ang AI voice analysis.",
-    "coverLetter": "Cover Letter Generator",
+    "coverLetter": "Generator ng Cover Letter",
     "coverLetterDesc": "Gumawa ng angkop na cover letter para sa bawat job application.",
     "getStarted": "Magsimula",
     "skip": "Laktawan ang Tour",
@@ -1038,7 +1038,7 @@
     "failed": "Hindi nakuha ang salary insights",
     "rangeFor": "Salary Range para sa",
     "yearsExperience": "taon ng karanasan",
-    "low": "Low",
+    "low": "Mababa",
     "median": "Median",
     "high": "Mataas",
     "aboveMarket": "Higit sa Market",
@@ -1199,7 +1199,7 @@
     "installDesktopDesc": "I-install bilang desktop app para sa mabilis na access",
     "install": "I-install",
     "featureOffline": "Gumagana offline",
-    "featureNotifications": "Push notifications"
+    "featureNotifications": "Mga push notification"
   },
   "linkedin": {
     "title": "Profile sa LinkedIn",
@@ -1457,7 +1457,7 @@
       "meetingPortalDesc": "Secure na video conferencing na may AI transcription at mga tool sa kolaborasyon",
       "hdVideoAudio": "HD na Video at Audio",
       "aiTranscription": "AI Transcription",
-      "e2eEncrypted": "E2E Encrypted",
+      "e2eEncrypted": "Naka-E2E Encrypt",
       "enterMeetingPortal": "Pumasok sa Meeting Portal",
       "enterPortal": "Pumasok sa Portal",
       "poweredByAI": "Pinapagana ng AI",
@@ -1497,7 +1497,7 @@
       "savePreferences": "I-save ang Mga Kagustuhan"
     },
     "taxonomyExplorer": {
-      "title": "Taxonomy Explorer",
+      "title": "Explorer ng Taksonomiya",
       "subtitle": "I-browse ang mga kategorya ng trabaho at kasanayan",
       "categories": "Mga Kategorya",
       "skills": "Mga Kasanayan",
@@ -1506,7 +1506,7 @@
       "searchTaxonomy": "Maghanap sa taxonomy..."
     },
     "enterpriseApi": {
-      "title": "Enterprise API",
+      "title": "API para sa Enterprise",
       "subtitle": "Dokumentasyon at pamamahala ng API",
       "apiKeys": "Mga API Key",
       "documentation": "Dokumentasyon",
@@ -1594,7 +1594,7 @@
       "subtitle": "Mga sukatan ng performance at kalusugan ng system",
       "uptime": "Uptime",
       "requestsPerSecond": "Mga Kahilingan/Segundo",
-      "averageLatency": "Avg Latency",
+      "averageLatency": "Karaniwang Latency",
       "errorRate": "Rate ng Error",
       "activeUsers": "Mga Aktibong User",
       "cpuUsage": "Paggamit ng CPU",
@@ -1603,7 +1603,7 @@
   },
   "components": {
     "locationSettings": {
-      "homeLocation": "Home Location",
+      "homeLocation": "Lokasyon ng Bahay",
       "homeLocationDesc": "Itakda ang iyong home address para sa tumpak na oras ng biyahe at job matching batay sa lokasyon",
       "addressOrCity": "Address o Lungsod",
       "addressPlaceholder": "Ilagay ang iyong address o lungsod...",
@@ -1636,7 +1636,7 @@
       "locationDetected": "Matagumpay na natukoy ang lokasyon",
       "locationFailed": "Nabigong matukoy ang lokasyon",
       "urban": "Urban",
-      "standard": "Standard",
+      "standard": "Karaniwan",
       "rural": "Rural",
       "drivingCity": "Pagmamaneho (Lungsod)",
       "drivingHighway": "Pagmamaneho (Highway)",
@@ -1699,13 +1699,13 @@
       "closedCAPAs": "Mga Saradong CAPA",
       "overdue": "Lagpas sa Takdang Panahon",
       "createNew": "Gumawa ng Bagong CAPA",
-      "status": "Status",
+      "status": "Katayuan",
       "priority": "Priyoridad",
       "assignee": "Itinalaga",
       "dueDate": "Takdang Petsa",
       "rootCause": "Ugat na Sanhi",
-      "correctiveAction": "Corrective Action",
-      "preventiveAction": "Preventive Action"
+      "correctiveAction": "Aksiyon sa Pagwawasto",
+      "preventiveAction": "Aksiyon sa Pag-iwas"
     },
     "translationWidget": {
       "translateTo": "Isalin sa",

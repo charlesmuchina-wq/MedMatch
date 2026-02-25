@@ -1382,7 +1382,7 @@
       "subtitle": "Isimo sokuhambisana kuzo zonke izifunda",
       "gdpr": "I-GDPR",
       "ccpa": "I-CCPA",
-      "hipaa": "HIPAA",
+      "hipaa": "I-HIPAA",
       "soc2": "I-SOC 2",
       "compliant": "Kuyahambisana",
       "nonCompliant": "Akukahambisani",
@@ -2279,7 +2279,7 @@
     "verifiedBy": "Kuqinisekiswe ngu"
   },
   "karau": {
-    "dashboard": "Dashboard",
+    "dashboard": "Ideshibhodi",
     "myMeetings": "Imihlangano Yami",
     "schedule": "Hlela",
     "recordings": "Okurekhodiwe",

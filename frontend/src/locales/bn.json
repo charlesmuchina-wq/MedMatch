@@ -172,7 +172,7 @@
     "severityCritical": "অতি গুরুতর",
     "severityHigh": "উচ্চ",
     "severityMedium": "মধ্যম",
-    "severityLow": "Low",
+    "severityLow": "কম",
     "source": "উৎস",
     "sourcePlaceholder": "যেখানে সমস্যাটি শনাক্ত হয়েছে (যেমন, QA, অডিট, গ্রাহক)",
     "impactedProcesses": "প্রভাবিত প্রক্রিয়াসমূহ",
@@ -626,7 +626,7 @@
     "myBadges": "আমার ব্যাজসমূহ",
     "assessment": "মূল্যায়ন",
     "questions": "প্রশ্ন",
-    "minutes": "min",
+    "minutes": "মিনিট",
     "pass": "পাস",
     "earned": "অর্জিত",
     "start": "শুরু",
@@ -657,7 +657,7 @@
     "confidenceScore": "আত্মবিশ্বাস স্কোর",
     "improvementTips": "উন্নতির টিপস",
     "nextQuestion": "পরবর্তী প্রশ্ন",
-    "end": "End",
+    "end": "শেষ",
     "aiAnalysis": "এআই বডি ল্যাঙ্গুয়েজ বিশ্লেষণ",
     "eyeContact": "চোখের যোগাযোগ",
     "posture": "ভঙ্গিমা",
@@ -1038,7 +1038,7 @@
     "failed": "বেতন ইনসাইটস আনতে ব্যর্থ",
     "rangeFor": "এর জন্য বেতনের পরিসর",
     "yearsExperience": "বছরের অভিজ্ঞতা",
-    "low": "Low",
+    "low": "কম",
     "median": "মধ্যম",
     "high": "সর্বোচ্চ",
     "aboveMarket": "বাজারদরের চেয়ে বেশি",
@@ -1354,7 +1354,7 @@
       "recruiterFeatures": "রিক্রুটার ফিচার",
       "privacyMatters": "আপনার গোপনীয়তা গুরুত্বপূর্ণ",
       "faqAiCompliance": "FAQs: AI কমপ্লায়েন্স ও ডেটা অধিকার",
-      "completeOverview": "Complete MedMatch-AI KARAU Overview"
+      "completeOverview": "MedMatch-AI KARAU ওভারভিউ সম্পূর্ণ করুন"
     }
   },
   "pages": {
@@ -1855,7 +1855,7 @@
     "industryPlaceholder": "ইন্ডাস্ট্রি",
     "companySizePlaceholder": "কোম্পানির আকার",
     "websitePlaceholder": "https://...",
-    "foundedPlaceholder": "2020",
+    "foundedPlaceholder": "২০২০",
     "techStackPlaceholder": "AI, মেশিন লার্নিং, হেলথকেয়ার (কমা দিয়ে আলাদা করুন)",
     "benefitsPlaceholder": "রিমোট কাজ, স্বাস্থ্য বীমা, 401k (কমা দিয়ে আলাদা করুন)",
     "culturePlaceholder": "ইনোভেশন, সহযোগিতা, বৈচিত্র্য (কমা দিয়ে আলাদা করুন)"
@@ -1864,12 +1864,12 @@
     "companyPlaceholder": "যেমন, Google",
     "positionPlaceholder": "যেমন, সফটওয়্যার ইঞ্জিনিয়ার",
     "locationPlaceholder": "https://meet.google.com/... অথবা অফিসের ঠিকানা",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "জন স্মিথ",
     "interviewerEmailPlaceholder": "john@company.com",
     "notesPlaceholder": "ইন্টারভিউ সম্পর্কে অতিরিক্ত কোনো বিবরণ..."
   },
   "publicApplication": {
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "জন ডো",
     "emailPlaceholder": "john@example.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
@@ -1897,18 +1897,18 @@
     "selectLocationPlaceholder": "আপনার অবস্থান নির্বাচন করুন..."
   },
   "idVerification": {
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "অ্যাকমে কর্পোরেশন",
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "ট্যালেন্ট অ্যাকুইজিশন ম্যানেজার",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "namePlaceholder": "John Doe"
+    "namePlaceholder": "জন ডো"
   },
   "atsManagement": {
     "selectJobPlaceholder": "একটি চাকরির পোস্টিং নির্বাচন করুন",
     "maxApplicantsPlaceholder": "সীমাহীন",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "জন ডো",
     "inviteNotePlaceholder": "আপনার আমন্ত্রণে একটি ব্যক্তিগত নোট যোগ করুন..."
   },
   "recruiterVerification": {
