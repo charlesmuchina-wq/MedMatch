@@ -277,6 +277,30 @@ const TranslationQADashboard = () => {
         </div>
       </div>
 
+      {/* Auto-Fix Progress Banner */}
+      {fixing && fixProgress && (
+        <Card className="border-orange-200 bg-orange-50 dark:bg-orange-950/20 dark:border-orange-800">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <RefreshCw className="w-5 h-5 text-orange-600 animate-spin" />
+              <div className="flex-1">
+                <div className="font-medium text-sm text-orange-800 dark:text-orange-200">
+                  Auto-fixing translation issues...
+                </div>
+                <div className="text-xs text-orange-600 dark:text-orange-400 mt-1">
+                  {fixProgress.languages_completed}/{fixProgress.languages_total} languages processed 
+                  {fixProgress.keys_translated > 0 && ` | ${fixProgress.keys_translated} keys translated`}
+                </div>
+                <Progress 
+                  value={fixProgress.languages_total > 0 ? (fixProgress.languages_completed / fixProgress.languages_total) * 100 : 0} 
+                  className="mt-2 h-2" 
+                />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Overall Score Card */}
       {summary && (
         <Card className="bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900">
