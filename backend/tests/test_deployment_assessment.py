@@ -404,7 +404,7 @@ class TestEnvironmentConfig:
     def test_cors_headers(self):
         """Test CORS headers are present"""
         response = requests.options(f"{BASE_URL}/api/health", headers={
-            "Origin": "https://medmatch-staging.preview.emergentagent.com",
+            "Origin": "https://translate-sweep.preview.emergentagent.com",
             "Access-Control-Request-Method": "GET"
         })
         # CORS preflight should return 200 or actual response

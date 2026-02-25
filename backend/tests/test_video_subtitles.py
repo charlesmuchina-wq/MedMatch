@@ -7,7 +7,7 @@ import pytest
 import requests
 import os
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-staging.preview.emergentagent.com').rstrip('/')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://translate-sweep.preview.emergentagent.com').rstrip('/')
 
 # Test video IDs as specified in the bug report
 VIDEO_IDS = [

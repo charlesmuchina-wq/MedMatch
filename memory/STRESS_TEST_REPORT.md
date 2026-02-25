@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://medmatch-staging.preview.emergentagent.com/api
+**API Target:** https://translate-sweep.preview.emergentagent.com/api
 
 ---
 

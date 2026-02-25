@@ -28,7 +28,7 @@ const store = new Store({
 });
 
 // Configuration
-const APP_URL = process.env.MEDMATCH_URL || 'https://medmatch-staging.preview.emergentagent.com';
+const APP_URL = process.env.MEDMATCH_URL || 'https://translate-sweep.preview.emergentagent.com';
 const isDev = process.env.NODE_ENV === 'development';
 
 let mainWindow = null;
