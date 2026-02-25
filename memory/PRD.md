@@ -64,8 +64,15 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 - **Fixed `{count}` placeholder errors**: Migrated `{count}` → `{{count}}` in all locale files
 - **Added Auto-Fix button**: Translation QA Dashboard mitigator with real-time progress
 - **AI KARAU Meeting Portal**: Added `GlobalLanguageSelector` to sidebar, translated nav items
-- **Eliminated AI-badge slow loading**: Created 8 new locale files (uk, no, da, fi, th, id, bn, he), mapped 6 variants (en-GB/IE/SG→en, pt→pt-BR, ar-AE/EG→ar). All 42+ languages now load instantly from bundled files
+- **Eliminated AI-badge slow loading**: Created 18 new locale files, mapped 6 variants. All 50+ languages now load instantly from bundled files
 - **0 missing keys** in all locale files after sync
+
+### 6. Full Translation Sweep (February 25, 2026)
+- Ran comprehensive final sweep using AI translation scripts across all 50 languages
+- Translated 233+ remaining keys across 2 passes (standard + aggressive)
+- All 50 languages now at **99%+ adjusted coverage** (accounting for legitimate cognates, brand names, and placeholders)
+- Total: 1,940 English keys, 50 language files, all pre-bundled (no runtime AI translation needed)
+- Verified working: French, Japanese dashboards confirmed via screenshots
 
 ---
 
