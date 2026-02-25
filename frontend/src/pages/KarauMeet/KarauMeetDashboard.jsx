@@ -179,10 +179,10 @@ const KarauMeetDashboard = ({ user }) => {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total Meetings', value: stats.total_meetings, icon: Video, color: 'text-turquoise' },
-          { label: 'Hours in Meetings', value: stats.total_hours, icon: Clock, color: 'text-blue-400' },
-          { label: 'Recordings', value: stats.recordings, icon: Archive, color: 'text-violet-400' },
-          { label: 'Participants Met', value: stats.participants, icon: Users, color: 'text-green-400' },
+          { label: t("karauMeet.totalMeetings"), value: stats.total_meetings, icon: Video, color: 'text-turquoise' },
+          { label: t("karauMeet.hoursInMeetings"), value: stats.total_hours, icon: Clock, color: 'text-blue-400' },
+          { label: t("karauMeet.recordings"), value: stats.recordings, icon: Archive, color: 'text-violet-400' },
+          { label: t("karauMeet.participantsMet"), value: stats.participants, icon: Users, color: 'text-green-400' },
         ].map((stat, idx) => (
           <Card key={idx} className="bg-slate-800/30 border-slate-700" data-testid={`stat-${stat.label.toLowerCase().replace(' ', '-')}`}>
             <CardContent className="p-4">
@@ -201,10 +201,10 @@ const KarauMeetDashboard = ({ user }) => {
       {/* Features */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {[
-          { icon: Shield, label: 'End-to-End Encrypted', color: 'text-green-400' },
-          { icon: Sparkles, label: 'AI Notes & Transcription', color: 'text-turquoise' },
-          { icon: MonitorPlay, label: 'Screen Sharing', color: 'text-blue-400' },
-          { icon: Users, label: 'Breakout Rooms', color: 'text-violet-400' }
+          { icon: Shield, label: t("karauMeet.endToEndEncrypted"), color: 'text-green-400' },
+          { icon: Sparkles, label: t("karauMeet.aiNotesTranscription"), color: 'text-turquoise' },
+          { icon: MonitorPlay, label: t("karauMeet.screenSharing"), color: 'text-blue-400' },
+          { icon: Users, label: t("karauMeet.breakoutRooms"), color: 'text-violet-400' }
         ].map((feature, idx) => (
           <div key={idx} className="flex items-center gap-2 p-3 bg-slate-800/30 rounded-lg border border-slate-700/50">
             <feature.icon className={`w-4 h-4 ${feature.color}`} />
@@ -218,7 +218,7 @@ const KarauMeetDashboard = ({ user }) => {
         <CardHeader>
           <CardTitle className="text-white flex items-center gap-2">
             <History className="w-5 h-5 text-slate-400" />
-            Recent Meetings
+            {t("karauMeet.recentMeetings")}
           </CardTitle>
         </CardHeader>
         <CardContent>
