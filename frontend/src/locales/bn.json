@@ -1889,7 +1889,7 @@
   },
   "karauMeet": {
     "meetingTitlePlaceholder": "AI KARAU মিটিং",
-    "emailPlaceholder": "your@email.com",
+    "emailPlaceholder": "আপনার@email.com",
     "meetingIdPlaceholder": "মিটিং আইডি লিখুন (যেমন, ABC-123-XYZ)",
     "verificationCodePlaceholder": "৬-অঙ্কের কোড লিখুন",
     "welcomeBack": "আসছেন স্বাগতম, {{name}}!",
