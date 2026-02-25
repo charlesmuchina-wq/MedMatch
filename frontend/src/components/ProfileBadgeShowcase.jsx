@@ -263,7 +263,7 @@ const ProfileBadgeShowcase = ({
               onClick={handleConnectCredly}
               disabled={connecting}
             >
-              Import from Credly
+              {t("badges.importFromCredly")}
             </Button>
           )}
         </div>
