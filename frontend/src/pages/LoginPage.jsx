@@ -168,7 +168,15 @@ const LoginPage = ({ onAuthSuccess }) => {
   };
 
   const handleOrcidLogin = () => {
-    window.location.href = `${API}/api/auth/orcid/login`;
+    // ORCID blocks iframes, so we must use a popup window for auth
+    const width = 600, height = 700;
+    const left = window.screenX + (window.outerWidth - width) / 2;
+    const top = window.screenY + (window.outerHeight - height) / 2;
+    window.open(
+      `${API}/api/auth/orcid/login`,
+      'orcid_auth',
+      `popup,width=${width},height=${height},left=${left},top=${top}`
+    );
   };
 
   const handleAppleLogin = async () => {
