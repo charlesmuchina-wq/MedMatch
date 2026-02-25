@@ -148,7 +148,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
   
   const jobSeekerLinks = [
     { path: "/", icon: TrendingUp, labelKey: "nav.dashboard" },
-    { path: "/tutorials", icon: HelpCircle, labelKey: "Help & Tutorials" },
+    { path: "/tutorials", icon: HelpCircle, labelKey: "nav.helpTutorials" },
     { path: "/resume", icon: FileText, labelKey: "nav.myResume" },
     { path: "/resume-profiles", icon: Users, labelKey: "nav.resumeProfiles" },
     { path: "/skill-assessments", icon: Award, labelKey: "nav.skillTests" },
@@ -177,7 +177,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/admin", icon: Shield, labelKey: "nav.adminDashboard", adminOnly: true },
     { path: "/companies", icon: Briefcase, labelKey: "nav.companies" },
     { path: "/messages", icon: MessageSquare, labelKey: "nav.messages" },
-    { path: "/ai-transparency", icon: Scale, labelKey: "AI & Your Rights" },
+    { path: "/ai-transparency", icon: Scale, labelKey: "nav.aiAndYourRights" },
     { path: "/id-verification", icon: ShieldCheck, labelKey: "nav.idVerification" },
     { path: "/privacy", icon: Shield, labelKey: "nav.privacy" },
     { path: "/membership", icon: Crown, labelKey: "nav.membership" },
@@ -185,17 +185,17 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
   
   const recruiterLinks = [
     { path: "/recruiter/dashboard", icon: LayoutDashboard, labelKey: "recruiter.dashboard" },
-    { path: "/tutorials", icon: HelpCircle, labelKey: "Help & Tutorials" },
+    { path: "/tutorials", icon: HelpCircle, labelKey: "nav.helpTutorials" },
     { path: "/recruiter/jobs", icon: Briefcase, labelKey: "recruiter.myJobPostings" },
-    { path: "/recruiter/ats", icon: Users, labelKey: "Applicant Tracking" },
+    { path: "/recruiter/ats", icon: Users, labelKey: "nav.applicantTracking" },
     { path: "/interviews", icon: Video, labelKey: "recruiter.interviews" },
     { path: "/recruiter/candidates", icon: UserSearch, labelKey: "recruiter.searchCandidates" },
-    { path: "/psv", icon: FileCheck, labelKey: "PSV Verification Hub" },
-    { path: "/recruiter/compliance", icon: Gavel, labelKey: "AI Compliance" },
+    { path: "/psv", icon: FileCheck, labelKey: "nav.psvVerificationHub" },
+    { path: "/recruiter/compliance", icon: Gavel, labelKey: "nav.aiCompliance" },
     { path: "/companies", icon: Briefcase, labelKey: "nav.companies" },
     { path: "/messages", icon: MessageSquare, labelKey: "nav.messages" },
     { path: "/notifications", icon: Bell, labelKey: "nav.notifications" },
-    { path: "/enterprise/api", icon: Code, labelKey: "Enterprise API" },
+    { path: "/enterprise/api", icon: Code, labelKey: "nav.enterpriseAPI" },
     { path: "/id-verification", icon: ShieldCheck, labelKey: "nav.idVerification" },
     { path: "/privacy", icon: Shield, labelKey: "nav.privacy" },
     { path: "/membership", icon: Crown, labelKey: "nav.membership" },
@@ -203,17 +203,17 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
   
   // Admin-specific navigation links
   const adminLinks = [
-    { path: "/admin", icon: Shield, labelKey: "Admin Dashboard" },
-    { path: "/admin/data-integrity", icon: Database, labelKey: "Data Integrity & AI QA" },
-    { path: "/admin/ai-compliance", icon: Gavel, labelKey: "AI Compliance" },
-    { path: "/admin/global-compliance", icon: Globe, labelKey: "Global Compliance" },
-    { path: "/admin/recruiters", icon: Users, labelKey: "Recruiter Verification" },
-    { path: "/admin/reviews", icon: FileText, labelKey: "Review Moderation" },
-    { path: "/admin/translation-coverage", icon: Languages, labelKey: "Translation Coverage" },
-    { path: "/tutorials", icon: HelpCircle, labelKey: "Help & Tutorials" },
-    { path: "/qa-dashboard", icon: Languages, labelKey: "Translation QA" },
+    { path: "/admin", icon: Shield, labelKey: "nav.adminDashboard" },
+    { path: "/admin/data-integrity", icon: Database, labelKey: "nav.dataIntegrityAIQA" },
+    { path: "/admin/ai-compliance", icon: Gavel, labelKey: "nav.aiCompliance" },
+    { path: "/admin/global-compliance", icon: Globe, labelKey: "nav.globalCompliance" },
+    { path: "/admin/recruiters", icon: Users, labelKey: "nav.recruiterVerification" },
+    { path: "/admin/reviews", icon: FileText, labelKey: "nav.reviewModeration" },
+    { path: "/admin/translation-coverage", icon: Languages, labelKey: "nav.translationCoverage" },
+    { path: "/tutorials", icon: HelpCircle, labelKey: "nav.helpTutorials" },
+    { path: "/qa-dashboard", icon: Languages, labelKey: "nav.translationQA" },
     { path: "/notifications", icon: Bell, labelKey: "nav.notifications" },
-    { path: "/enterprise/api", icon: Code, labelKey: "Enterprise API" },
+    { path: "/enterprise/api", icon: Code, labelKey: "nav.enterpriseAPI" },
     { path: "/membership", icon: Crown, labelKey: "nav.membership" },
   ];
   
