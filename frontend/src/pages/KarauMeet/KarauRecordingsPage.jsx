@@ -12,6 +12,7 @@ const API = process.env.REACT_APP_BACKEND_URL;
  * Recordings Page - View and manage meeting recordings
  */
 const KarauRecordingsPage = () => {
+  const { t } = useTranslation();
   const [recordings, setRecordings] = useState([]);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
