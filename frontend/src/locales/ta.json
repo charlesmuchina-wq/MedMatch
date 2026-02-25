@@ -2203,5 +2203,26 @@
     "scheduleDesc": "உங்கள் கூட்டங்களை அட்டவணைப்படுத்தி நிர்வகிக்கவும்",
     "notesDesc": "AI உருவாக்கிய சுருக்கங்கள் மற்றும் உரைமாற்றங்கள்",
     "analyticsDesc": "கூட்ட புள்ளிவிவரங்கள் மற்றும் நுண்ணறிவுகள்"
+  },
+  "trust": {
+    "trustScore": "Trust Score",
+    "buildYourScore": "Build Your Trust Score",
+    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
+    "morePointsTo": "{{count}} more points to {{level}}",
+    "progressTo": "Progress to {{level}}",
+    "ptsToGo": "{{count}} pts to go",
+    "scoreBreakdown": "Score Breakdown",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "details": "Details",
+    "pts": "pts",
+    "boostYourScore": "Boost Your Score",
+    "category": {
+      "credentials": "Credentials",
+      "profile": "Profile",
+      "engagement": "Engagement",
+      "tenure": "Tenure",
+      "reviews": "Reviews"
+    }
   }
 }

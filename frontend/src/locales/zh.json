@@ -2303,5 +2303,26 @@
     "scheduleDesc": "安排并管理你的会议",
     "notesDesc": "AI 生成的摘要和转录",
     "analyticsDesc": "会议统计与洞察"
+  },
+  "trust": {
+    "trustScore": "Trust Score",
+    "buildYourScore": "Build Your Trust Score",
+    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
+    "morePointsTo": "{{count}} more points to {{level}}",
+    "progressTo": "Progress to {{level}}",
+    "ptsToGo": "{{count}} pts to go",
+    "scoreBreakdown": "Score Breakdown",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "details": "Details",
+    "pts": "pts",
+    "boostYourScore": "Boost Your Score",
+    "category": {
+      "credentials": "Credentials",
+      "profile": "Profile",
+      "engagement": "Engagement",
+      "tenure": "Tenure",
+      "reviews": "Reviews"
+    }
   }
 }

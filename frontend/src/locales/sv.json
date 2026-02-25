@@ -2260,5 +2260,26 @@
     "scheduleDesc": "Schemalägg och hantera dina möten",
     "notesDesc": "AI-genererade sammanfattningar och transkriptioner",
     "analyticsDesc": "Mötesstatistik och insikter"
+  },
+  "trust": {
+    "trustScore": "Trust Score",
+    "buildYourScore": "Build Your Trust Score",
+    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
+    "morePointsTo": "{{count}} more points to {{level}}",
+    "progressTo": "Progress to {{level}}",
+    "ptsToGo": "{{count}} pts to go",
+    "scoreBreakdown": "Score Breakdown",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "details": "Details",
+    "pts": "pts",
+    "boostYourScore": "Boost Your Score",
+    "category": {
+      "credentials": "Credentials",
+      "profile": "Profile",
+      "engagement": "Engagement",
+      "tenure": "Tenure",
+      "reviews": "Reviews"
+    }
   }
 }

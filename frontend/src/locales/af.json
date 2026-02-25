@@ -2260,5 +2260,26 @@
     "scheduleDesc": "Skeduleer en bestuur jou vergaderings",
     "notesDesc": "KI-gegenereerde opsommings en transkripsies",
     "analyticsDesc": "Vergaderingsstatistieke en insigte"
+  },
+  "trust": {
+    "trustScore": "Trust Score",
+    "buildYourScore": "Build Your Trust Score",
+    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
+    "morePointsTo": "{{count}} more points to {{level}}",
+    "progressTo": "Progress to {{level}}",
+    "ptsToGo": "{{count}} pts to go",
+    "scoreBreakdown": "Score Breakdown",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "details": "Details",
+    "pts": "pts",
+    "boostYourScore": "Boost Your Score",
+    "category": {
+      "credentials": "Credentials",
+      "profile": "Profile",
+      "engagement": "Engagement",
+      "tenure": "Tenure",
+      "reviews": "Reviews"
+    }
   }
 }
