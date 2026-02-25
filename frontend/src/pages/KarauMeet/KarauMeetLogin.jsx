@@ -88,10 +88,10 @@ const KarauMeetLogin = ({ onLogin }) => {
             />
           </div>
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-teal-400 via-cyan-300 to-amber-400 bg-clip-text text-transparent">
-            AI KARAU Meeting
+            {t("karauMeet.aiKarauMeeting")}
           </CardTitle>
           <CardDescription className="text-slate-400">
-            The Meeting Place - Secure & AI-Powered
+            {t("karauMeet.tagline")}
           </CardDescription>
         </CardHeader>
         
@@ -114,7 +114,7 @@ const KarauMeetLogin = ({ onLogin }) => {
               }`}
               data-testid="tab-join"
             >
-              Join Meeting
+              {t("karauMeet.joinMeetingTab")}
             </button>
           </div>
 
