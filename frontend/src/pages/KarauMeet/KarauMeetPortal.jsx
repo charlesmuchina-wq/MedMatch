@@ -214,7 +214,7 @@ const KarauMeetPortal = () => {
     localStorage.removeItem('karau_user');
     setUser(null);
     navigate('/karau-meet');
-    toast.success('Signed out successfully');
+    toast.success(t("karauMeet.signedOut"));
   };
 
   // Check if we're in a meeting room (room routes only - join routes handled separately)
