@@ -183,7 +183,7 @@ const KarauMeetLogin = ({ onLogin }) => {
                   <div className="w-full border-t border-slate-700"></div>
                 </div>
                 <div className="relative flex justify-center text-xs">
-                  <span className="px-2 bg-slate-800 text-slate-400">or continue with</span>
+                  <span className="px-2 bg-slate-800 text-slate-400">{t("karauMeet.orContinueWith")}</span>
                 </div>
               </div>
 
@@ -227,12 +227,12 @@ const KarauMeetLogin = ({ onLogin }) => {
               <div className="text-center py-4">
                 <Users className="w-12 h-12 text-turquoise mx-auto mb-3" />
                 <p className="text-slate-300 text-sm">
-                  Enter your meeting ID to join as a guest
+                  {t("karauMeet.joinAsGuest")}
                 </p>
               </div>
               
               <div>
-                <Label className="text-slate-300">Meeting ID</Label>
+                <Label className="text-slate-300">{t("karauMeet.meetingId")}</Label>
                 <Input
                   type="text"
                   value={meetingId}
