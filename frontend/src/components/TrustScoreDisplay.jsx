@@ -182,7 +182,7 @@ const TrustScoreDisplay = ({
               onClick={() => setExpanded(!expanded)}
               className="text-xs"
             >
-              {expanded ? 'Collapse' : 'Expand'} Details
+              {expanded ? t("trust.collapse") : t("trust.expand")} {t("trust.details")}
               <ChevronRight className={`w-4 h-4 ml-1 transition-transform ${expanded ? 'rotate-90' : ''}`} />
             </Button>
           </div>
