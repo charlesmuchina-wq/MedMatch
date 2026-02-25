@@ -204,7 +204,7 @@ const TrustScoreDisplay = ({
                   <div className="flex items-center gap-2 mb-2">
                     <Icon className={`w-4 h-4 ${hasPoints ? 'text-teal-500' : 'text-gray-400'}`} />
                     <span className="text-xs font-medium text-gray-600 dark:text-gray-300 capitalize">
-                      {category}
+                      {t(`trust.category.${category}`) || category}
                     </span>
                   </div>
                   <div className="flex items-baseline gap-1">
