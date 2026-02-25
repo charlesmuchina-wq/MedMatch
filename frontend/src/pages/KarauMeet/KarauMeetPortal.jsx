@@ -19,6 +19,8 @@ import {
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Loader2 } from 'lucide-react';
+import { useTranslation } from '@/utils/i18n';
+import GlobalLanguageSelector from '@/components/GlobalLanguageSelector';
 
 // Refactored page components
 import KarauMeetLogin from './KarauMeetLogin';
