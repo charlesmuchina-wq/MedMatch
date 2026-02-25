@@ -43,6 +43,15 @@ import pl from "@/locales/pl.json";  // Polish
 import sv from "@/locales/sv.json";  // Swedish
 import tr from "@/locales/tr.json";  // Turkish
 import pseudo from "@/locales/pseudo.json";  // Pseudo-locale for testing
+// New bundled languages
+import uk from "@/locales/uk.json";  // Ukrainian
+import no from "@/locales/no.json";  // Norwegian
+import da from "@/locales/da.json";  // Danish
+import fi from "@/locales/fi.json";  // Finnish
+import th from "@/locales/th.json";  // Thai
+import idLang from "@/locales/id.json";  // Indonesian
+import bn from "@/locales/bn.json";  // Bengali
+import he from "@/locales/he.json";  // Hebrew
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
