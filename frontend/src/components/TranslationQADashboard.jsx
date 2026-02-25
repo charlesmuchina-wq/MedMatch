@@ -141,6 +141,8 @@ const TranslationQADashboard = () => {
   const [details, setDetails] = useState(null);
   const [selectedLang, setSelectedLang] = useState(null);
   const [expandedSection, setExpandedSection] = useState("overview");
+  const [healthData, setHealthData] = useState(null);
+  const [healthLoading, setHealthLoading] = useState(false);
 
   const fetchDashboardData = useCallback(async () => {
     setLoading(true);
