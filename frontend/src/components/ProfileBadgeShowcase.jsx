@@ -227,7 +227,7 @@ const ProfileBadgeShowcase = ({
                   </p>
                   <div className="flex items-center gap-1 mt-1">
                     <CheckCircle className="w-3 h-3 text-green-500" />
-                    <span className="text-xs text-green-600 dark:text-green-400">Verified</span>
+                    <span className="text-xs text-green-600 dark:text-green-400">{t("badges.verified")}</span>
                   </div>
                 </div>
               </div>
