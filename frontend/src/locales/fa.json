@@ -465,7 +465,7 @@
     "uploadResume": "آپلود رزومه",
     "dragDrop": "رزومه خود را اینجا بکشید و رها کنید",
     "dropHere": "رزومه خود را اینجا رها کنید...",
-    "or": "or",
+    "or": "یا",
     "browse": "انتخاب فایل‌ها",
     "supportedFormats": "فرمت‌های پشتیبانی‌شده: PDF، DOC، DOCX",
     "parsing": "در حال پردازش رزومه شما...",
@@ -900,7 +900,7 @@
   "messages": {
     "title": "پیام‌ها",
     "newMessage": "پیام جدید",
-    "to": "To",
+    "to": "به",
     "recipientId": "شناسه گیرنده",
     "enterRecipientId": "شناسه کاربر گیرنده را وارد کنید...",
     "useSearch": "برای یافتن و پیام‌دادن به نامزدها از جستجوی نامزد استفاده کنید",
@@ -963,9 +963,9 @@
     "enterCode": "کد ۶ رقمی را وارد کنید",
     "verifyAndSignIn": "تأیید و ورود",
     "changePhoneNumber": "تغییر شماره تلفن",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "شما@مثال.com",
     "passwordPlaceholder": "••••••••",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": "+۱ (۵۵۵) ۱۲۳-۴۵۶۷",
     "aiPoweredJobSearch": "جست‌وجوی شغل مبتنی بر هوش مصنوعی برای مسیرهای شغلی علوم زیستی",
     "continueWithGoogle": "ادامه با گوگل",
     "continueWithApple": "ادامه با اپل",
@@ -1443,16 +1443,16 @@
     },
     "portalSelector": {
       "welcomeTo": "به {{placeholders}} خوش آمدید",
-      "title": "MedMatch-AI KARAU",
+      "title": "مدمچ-هوش‌مصنوعی کارائو",
       "subtitle": "مقصد خود را انتخاب کنید",
-      "medmatchAI": "MedMatch AI",
+      "medmatchAI": "مدمچ هوش‌مصنوعی",
       "jobToolkit": "ابزارهای شغلی",
       "jobToolkitDesc": "ابزارهای جستجوی شغل و مسیر شغلی مبتنی بر هوش مصنوعی برای متخصصان علوم زیستی",
       "resumeParser": "پارسِر و سازنده رزومه",
       "aiJobMatching": "تطبیق شغلی با هوش مصنوعی",
       "recruiterNetwork": "شبکهٔ کارفرمایان",
       "enterJobToolkit": "ورود به ابزارهای شغلی",
-      "aiKarau": "AI KARAU",
+      "aiKarau": "هوش‌مصنوعی کارائو",
       "meetingPortal": "جلسه",
       "meetingPortalDesc": "ویدئوکنفرانس امن با رونویسی مبتنی بر هوش مصنوعی و ابزارهای همکاری",
       "hdVideoAudio": "ویدئو و صدای HD",
@@ -1518,10 +1518,10 @@
     "globalCompliance": {
       "title": "انطباق جهانی",
       "subtitle": "وضعیت انطباق در مناطق مختلف",
-      "gdpr": "GDPR",
-      "ccpa": "CCPA",
-      "hipaa": "HIPAA",
-      "soc2": "SOC 2",
+      "gdpr": "مقررات عمومی حفاظت از داده‌ها",
+      "ccpa": "قانون حفظ حریم خصوصی مصرف‌کننده کالیفرنیا",
+      "hipaa": "قانون قابلیت انتقال و پاسخگویی بیمه سلامت",
+      "soc2": "SOC ۲",
       "compliant": "منطبق",
       "nonCompliant": "غیرمنطبق",
       "inProgress": "در حال انجام"
@@ -1612,7 +1612,7 @@
       "searchRadiusDesc": "حداکثر فاصله‌ای که مایلید رفت‌وآمد کنید",
       "maxDistance": "حداکثر فاصله",
       "miles": "مایل",
-      "km": "km",
+      "km": "کیلومتر",
       "commutePreferences": "ترجیحات رفت‌وآمد",
       "commutePreferencesDesc": "ترجیح می‌دهید چگونه به محل کار بروید؟",
       "primaryCommuteMode": "حالت اصلی رفت‌وآمد",
@@ -1855,7 +1855,7 @@
     "industryPlaceholder": "صنعت",
     "companySizePlaceholder": "اندازه شرکت",
     "websitePlaceholder": "https://...",
-    "foundedPlaceholder": "2020",
+    "foundedPlaceholder": "۲۰۲۰",
     "techStackPlaceholder": "هوش مصنوعی، یادگیری ماشین، سلامت (با کاما جدا کنید)",
     "benefitsPlaceholder": "کار از راه دور، بیمه درمانی، 401k (با کاما جدا کنید)",
     "culturePlaceholder": "نوآوری، همکاری، تنوع (با کاما جدا کنید)"
@@ -1864,16 +1864,16 @@
     "companyPlaceholder": "مثلاً: Google",
     "positionPlaceholder": "مثلاً: Software Engineer",
     "locationPlaceholder": "https://meet.google.com/... یا آدرس دفتر",
-    "interviewerNamePlaceholder": "John Smith",
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerNamePlaceholder": "جان اسمیت",
+    "interviewerEmailPlaceholder": "جان@شرکت.com",
     "notesPlaceholder": "هرگونه جزئیات اضافه درباره مصاحبه..."
   },
   "publicApplication": {
-    "namePlaceholder": "John Doe",
-    "emailPlaceholder": "john@example.com",
-    "phonePlaceholder": "+1 (555) 123-4567",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "portfolioPlaceholder": "https://yourportfolio.com",
+    "namePlaceholder": "جان دو",
+    "emailPlaceholder": "جان@مثال.com",
+    "phonePlaceholder": "+۱ (۵۵۵) ۱۲۳-۴۵۶۷",
+    "linkedinPlaceholder": "https://linkedin.com/in/پروفایل-شما",
+    "portfolioPlaceholder": "https://پورتفولیوی-شما.com",
     "resumeLinkPlaceholder": "لینک رزومه شما (Google Drive، Dropbox و غیره)",
     "coverLetterPlaceholder": "به ما بگویید چرا برای این نقش گزینه مناسبی هستید..."
   },
@@ -1889,7 +1889,7 @@
   },
   "karauMeet": {
     "meetingTitlePlaceholder": "جلسه AI KARAU",
-    "emailPlaceholder": "your@email.com",
+    "emailPlaceholder": "ایمیل-شما@ایمیل.com",
     "meetingIdPlaceholder": "شناسه جلسه را وارد کنید (مثلاً ABC-123-XYZ)",
     "verificationCodePlaceholder": "کد ۶ رقمی را وارد کنید"
   },
@@ -1897,28 +1897,28 @@
     "selectLocationPlaceholder": "موقعیت مکانی خود را انتخاب کنید..."
   },
   "idVerification": {
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "شرکت اکمه",
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "مدیر جذب استعداد",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "namePlaceholder": "John Doe"
+    "linkedinPlaceholder": "https://linkedin.com/in/پروفایل-شما",
+    "namePlaceholder": "جان دو"
   },
   "atsManagement": {
     "selectJobPlaceholder": "یک آگهی شغلی را انتخاب کنید",
     "maxApplicantsPlaceholder": "نامحدود",
-    "candidateEmailPlaceholder": "candidate@example.com",
-    "candidateNamePlaceholder": "John Doe",
+    "candidateEmailPlaceholder": "نامزد@مثال.com",
+    "candidateNamePlaceholder": "جان دو",
     "inviteNotePlaceholder": "یک یادداشت شخصی به دعوت‌نامه خود اضافه کنید..."
   },
   "recruiterVerification": {
     "companyPlaceholder": "مثلاً: City Medical Center",
     "websitePlaceholder": "https://example.com",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "emailPlaceholder": "شما@شرکت-شما.com",
     "rolePlaceholder": "مثلاً: مدیر منابع انسانی",
-    "phonePlaceholder": "+1 (555) 123-4567",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "phonePlaceholder": "+۱ (۵۵۵) ۱۲۳-۴۵۶۷",
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/پروفایل-شما"
   },
   "jobSearch": {
     "selectCountryFirst": "ابتدا کشور را انتخاب کنید",
@@ -2007,7 +2007,7 @@
   },
   "enterpriseAPI": {
     "apiKeyNamePlaceholder": "مثلاً: یکپارچه‌سازی ATS تولید",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch",
+    "webhookUrlPlaceholder": "https://ats-شما.com/webhooks/medmatch",
     "webhookDescPlaceholder": "مثلاً: وبهوک ATS تولید"
   },
   "applicantTracker": {
@@ -2027,7 +2027,7 @@
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "مثلاً: مهندس ارشد کیفیت",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply",
+    "externalUrlPlaceholder": "https://شرکت-شما.com/careers/apply",
     "tagsPlaceholder": "مثلاً: دورکاری، تمام‌وقت، کیفیت، تجهیزات پزشکی"
   },
   "interviewPrep": {

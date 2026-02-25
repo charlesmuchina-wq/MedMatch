@@ -465,7 +465,7 @@
     "uploadResume": "ரெஸ்யூமே பதிவேற்றம்",
     "dragDrop": "உங்கள் ரெஸ்யூமேயை இங்கே இழுத்து விடுங்கள்",
     "dropHere": "உங்கள் ரெஸ்யூமேயை இங்கே விடுங்கள்...",
-    "or": "or",
+    "or": "அல்லது",
     "browse": "கோப்புகளை உலாவவும்",
     "supportedFormats": "ஆதரிக்கப்படும் வடிவங்கள்: PDF, DOC, DOCX",
     "parsing": "உங்கள் ரெஸ்யூமேயை பகுப்பாய்வு செய்கிறது...",
@@ -900,7 +900,7 @@
   "messages": {
     "title": "செய்திகள்",
     "newMessage": "புதிய செய்தி",
-    "to": "To",
+    "to": "க்கு",
     "recipientId": "பெறுநர் ID",
     "enterRecipientId": "பெறுநர் பயனர் ID-ஐ உள்ளிடுங்கள்...",
     "useSearch": "வேட்பாளர் தேடலைப் பயன்படுத்தி வேட்பாளர்களை கண்டுபிடித்து செய்தி அனுப்புங்கள்",
@@ -1304,7 +1304,7 @@
     "playAudio": "ஆடியோ இயக்கு",
     "useOriginalAudio": "அசல் ஆடியோவை பயன்படுத்தவும்",
     "audioSyncs": "ஆடியோ வீடியோ இயக்கத்துடன் ஒத்திசைகிறது",
-    "neuralVoice": "Microsoft Neural Voice",
+    "neuralVoice": "மைக்ரோசாஃப்ட் நியூரல் குரல்",
     "noCost": "செலவு இல்லை",
     "free": "இலவசம்",
     "tryAgain": "மீண்டும் முயற்சிக்கவும்",
@@ -1443,16 +1443,16 @@
     },
     "portalSelector": {
       "welcomeTo": "வரவேற்கிறோம்",
-      "title": "MedMatch-AI KARAU",
+      "title": "மெட் மேட்ச்-ஏஐ கரௌ",
       "subtitle": "உங்கள் இலக்கைத் தேர்ந்தெடுக்கவும்",
-      "medmatchAI": "MedMatch AI",
+      "medmatchAI": "மெட் மேட்ச் ஏஐ",
       "jobToolkit": "வேலை கருவித்தொகுப்பு",
       "jobToolkitDesc": "உயிரியல் அறிவியல் நிபுணர்களுக்கான AI இயக்கும் வேலைத் தேடல் மற்றும் தொழில்முறை கருவிகள்",
       "resumeParser": "ரெஸ்யூம் பார்சர் & பில்டர்",
       "aiJobMatching": "AI வேலை பொருத்தம்",
       "recruiterNetwork": "ஆட்சேர்ப்பாளர் வலைப்பின்னல்",
       "enterJobToolkit": "வேலை கருவித்தொகுப்புக்குள் செல்லவும்",
-      "aiKarau": "AI KARAU",
+      "aiKarau": "ஏஐ கரௌ",
       "meetingPortal": "மீட்டிங்",
       "meetingPortalDesc": "AI உரைநகலாக்கம் மற்றும் ஒத்துழைப்பு கருவிகளுடன் பாதுகாப்பான வீடியோ மாநாடு",
       "hdVideoAudio": "HD வீடியோ & ஆடியோ",
@@ -1518,10 +1518,10 @@
     "globalCompliance": {
       "title": "உலகளாவிய இணக்கம்",
       "subtitle": "பிராந்தியங்களின் குறுக்காக இணக்க நிலை",
-      "gdpr": "GDPR",
-      "ccpa": "CCPA",
-      "hipaa": "HIPAA",
-      "soc2": "SOC 2",
+      "gdpr": "ஜிடிபிஆர்",
+      "ccpa": "சிசிபிஏ",
+      "hipaa": "ஹிப்பா",
+      "soc2": "எஸ்ஓசி 2",
       "compliant": "இணக்கமானது",
       "nonCompliant": "இணக்கமற்றது",
       "inProgress": "நடைபெற்று கொண்டிருக்கிறது"
@@ -1612,7 +1612,7 @@
       "searchRadiusDesc": "நீங்கள் பயணம் செய்யத் தயாராக உள்ள அதிகபட்ச தூரம்",
       "maxDistance": "அதிகபட்ச தூரம்",
       "miles": "மைல்கள்",
-      "km": "km",
+      "km": "கி.மீ.",
       "commutePreferences": "பயண விருப்பங்கள்",
       "commutePreferencesDesc": "வேலைக்கு எப்படி செல்ல விரும்புகிறீர்கள்?",
       "primaryCommuteMode": "முதன்மை பயண முறை",
@@ -1652,8 +1652,8 @@
     "biometricAuth": {
       "title": "உடலியல் அங்கீகாரம்",
       "enableBiometric": "உடலியல் உள்நுழைவை இயக்கு",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "முக ஐடி",
+      "touchId": "டச் ஐடி",
       "fingerprint": "கைரேகை",
       "setupRequired": "அமைப்பு தேவை",
       "notSupported": "இந்த சாதனத்தில் ஆதரவு இல்லை"
@@ -1864,12 +1864,12 @@
     "companyPlaceholder": "உதா., Google",
     "positionPlaceholder": "உதா., மென்பொருள் பொறியாளர்",
     "locationPlaceholder": "https://meet.google.com/... அல்லது அலுவலக முகவரி",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "ஜான் ஸ்மித்",
     "interviewerEmailPlaceholder": "john@company.com",
     "notesPlaceholder": "நேர்காணல் பற்றிய கூடுதல் விவரங்கள்..."
   },
   "publicApplication": {
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "ஜான் டோ",
     "emailPlaceholder": "john@example.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
@@ -1897,18 +1897,18 @@
     "selectLocationPlaceholder": "உங்கள் இடத்தைத் தேர்ந்தெடுக்கவும்..."
   },
   "idVerification": {
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "ஆக்மே கார்ப்பரேஷன்",
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "திறன் பெறும் மேலாளர்",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "namePlaceholder": "John Doe"
+    "namePlaceholder": "ஜான் டோ"
   },
   "atsManagement": {
     "selectJobPlaceholder": "வேலை அறிவிப்பைத் தேர்ந்தெடுக்கவும்",
     "maxApplicantsPlaceholder": "வரம்பில்லை",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "ஜான் டோ",
     "inviteNotePlaceholder": "உங்கள் அழைப்பிதழில் தனிப்பட்ட குறிப்பைச் சேர்க்கவும்..."
   },
   "recruiterVerification": {

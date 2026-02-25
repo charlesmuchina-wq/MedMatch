@@ -465,7 +465,7 @@
     "uploadResume": "Upload CV",
     "dragDrop": "Træk og slip dit CV her",
     "dropHere": "Slip dit CV her...",
-    "or": "or",
+    "or": "eller",
     "browse": "Gennemse filer",
     "supportedFormats": "Understøttede formater: PDF, DOC, DOCX",
     "parsing": "Fortolker dit CV...",
@@ -900,7 +900,7 @@
   "messages": {
     "title": "Beskeder",
     "newMessage": "Ny besked",
-    "to": "To",
+    "to": "Til",
     "recipientId": "Modtager-id",
     "enterRecipientId": "Indtast modtagerens bruger-id...",
     "useSearch": "Brug kandidatsøgning til at finde og kontakte kandidater",

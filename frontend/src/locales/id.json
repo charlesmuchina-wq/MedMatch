@@ -456,8 +456,8 @@
     "keepSubscription": "Pertahankan Langganan",
     "renewsOn": "Diperpanjang pada",
     "billingHistory": "Riwayat Tagihan",
-    "upgrade": "Upgrade",
-    "downgrade": "Downgrade",
+    "upgrade": "Tingkatkan",
+    "downgrade": "Turunkan",
     "manageBilling": "Kelola Penagihan"
   },
   "resume": {
@@ -465,7 +465,7 @@
     "uploadResume": "Unggah Resume",
     "dragDrop": "Seret dan jatuhkan resume Anda di sini",
     "dropHere": "Jatuhkan resume Anda di sini...",
-    "or": "or",
+    "or": "atau",
     "browse": "Telusuri File",
     "supportedFormats": "Format yang didukung: PDF, DOC, DOCX",
     "parsing": "Memproses resume Anda...",
@@ -500,7 +500,7 @@
     "reorderSections": "Atur Ulang Urutan Bagian",
     "autoFill": "Isi Otomatis",
     "aiSuggestions": "Saran AI",
-    "parseResume": "Parse Resume",
+    "parseResume": "Urai Resume",
     "lastUpdated": "Terakhir Diperbarui"
   },
   "applications": {
@@ -744,7 +744,7 @@
     "freeFeatures": "Pencarian kerja dasar, 5 lamaran/bulan, pembuat resume",
     "premiumFeatures": "Lamaran tak terbatas, coaching AI, dukungan prioritas",
     "enterpriseFeatures": "Solusi kustom, dukungan khusus, akses API",
-    "recruiterPro": "Recruiter Pro",
+    "recruiterPro": "Rekruter Pro",
     "recruiterProDesc": "Pasang lowongan, akses kandidat, dan bangun tim impian Anda",
     "jobSeekerDesc": "Gerbang Anda untuk mendapatkan pekerjaan impian di bidang ilmu hayati",
     "lifetimeMember": "Anggota Seumur Hidup",
@@ -900,7 +900,7 @@
   "messages": {
     "title": "Pesan",
     "newMessage": "Pesan Baru",
-    "to": "To",
+    "to": "Kepada",
     "recipientId": "ID Penerima",
     "enterRecipientId": "Masukkan ID pengguna penerima...",
     "useSearch": "Gunakan pencarian kandidat untuk menemukan dan mengirim pesan ke kandidat",
@@ -1304,7 +1304,7 @@
     "playAudio": "Putar Audio",
     "useOriginalAudio": "Gunakan Audio Asli",
     "audioSyncs": "Audio tersinkron dengan pemutaran video",
-    "neuralVoice": "Microsoft Neural Voice",
+    "neuralVoice": "Suara Neural Microsoft",
     "noCost": "Tanpa biaya",
     "free": "GRATIS",
     "tryAgain": "Coba lagi",
@@ -1464,7 +1464,7 @@
       "trustedBy": "Dipercaya oleh Profesional Ilmu Hayati"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "Otomator KARAU",
       "subtitle": "Otomatiskan alur kerja pencarian kerja Anda",
       "startAutomation": "Mulai Otomatisasi",
       "stopAutomation": "Hentikan Otomatisasi",
@@ -1490,8 +1490,8 @@
       "currentLocation": "Lokasi Saat Ini",
       "preferredLocations": "Lokasi Pilihan",
       "remoteOnly": "Hanya Remote",
-      "hybridOk": "Hybrid OK",
-      "onSiteOk": "On-Site OK",
+      "hybridOk": "Hibrida OK",
+      "onSiteOk": "Di Lokasi OK",
       "willingToRelocate": "Bersedia Relokasi",
       "searchRadius": "Radius Pencarian",
       "savePreferences": "Simpan Preferensi"
@@ -1624,7 +1624,7 @@
       "workTypePreferencesDesc": "Pilih semua pengaturan kerja yang Anda pertimbangkan",
       "remote": "Jarak Jauh",
       "hybrid": "Hibrida",
-      "onsite": "On-site",
+      "onsite": "Di lokasi",
       "locationAlerts": "Notifikasi Berbasis Lokasi",
       "locationAlertsDesc": "Dapatkan notifikasi tentang pekerjaan di dekat lokasi Anda",
       "enableAlerts": "Aktifkan Notifikasi Berbasis Lokasi",
@@ -1897,7 +1897,7 @@
     "selectLocationPlaceholder": "Pilih lokasi Anda..."
   },
   "idVerification": {
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Korporasi Acme",
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "Manajer Akuisisi Talenta",
@@ -1931,7 +1931,7 @@
     "salary": "Gaji",
     "jobType": "Jenis Pekerjaan",
     "experience": "Tingkat Pengalaman",
-    "remote": "Remote",
+    "remote": "Jarak Jauh",
     "hybrid": "Hibrida",
     "onsite": "Di kantor",
     "allTypes": "Semua Jenis",

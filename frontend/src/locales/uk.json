@@ -465,7 +465,7 @@
     "uploadResume": "Завантажити резюме",
     "dragDrop": "Перетягніть резюме сюди",
     "dropHere": "Перетягніть резюме сюди...",
-    "or": "or",
+    "or": "або",
     "browse": "Вибрати файли",
     "supportedFormats": "Підтримувані формати: PDF, DOC, DOCX",
     "parsing": "Аналізуємо ваше резюме...",
@@ -900,7 +900,7 @@
   "messages": {
     "title": "Повідомлення",
     "newMessage": "Нове повідомлення",
-    "to": "To",
+    "to": "До",
     "recipientId": "ID отримувача",
     "enterRecipientId": "Введіть ID користувача-отримувача...",
     "useSearch": "Скористайтеся пошуком кандидатів, щоб знаходити та писати кандидатам",
@@ -1612,7 +1612,7 @@
       "searchRadiusDesc": "Максимальна відстань, яку ви готові долати до роботи",
       "maxDistance": "Максимальна відстань",
       "miles": "милі",
-      "km": "km",
+      "km": "км",
       "commutePreferences": "Переваги щодо добирання",
       "commutePreferencesDesc": "Як ви віддаєте перевагу добиратися на роботу?",
       "primaryCommuteMode": "Основний спосіб добирання",
@@ -1864,12 +1864,12 @@
     "companyPlaceholder": "наприклад, Google",
     "positionPlaceholder": "наприклад, Інженер-програміст",
     "locationPlaceholder": "https://meet.google.com/... або адреса офісу",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "Джон Сміт",
     "interviewerEmailPlaceholder": "john@company.com",
     "notesPlaceholder": "Будь-які додаткові деталі про співбесіду..."
   },
   "publicApplication": {
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Джон Доу",
     "emailPlaceholder": "john@example.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
@@ -1897,18 +1897,18 @@
     "selectLocationPlaceholder": "Виберіть ваше місцезнаходження..."
   },
   "idVerification": {
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Корпорація Acme",
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "Менеджер із залучення талантів",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "namePlaceholder": "John Doe"
+    "namePlaceholder": "Джон Доу"
   },
   "atsManagement": {
     "selectJobPlaceholder": "Виберіть вакансію",
     "maxApplicantsPlaceholder": "Без обмежень",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Джон Доу",
     "inviteNotePlaceholder": "Додайте особисту примітку до запрошення..."
   },
   "recruiterVerification": {

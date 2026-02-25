@@ -465,7 +465,7 @@
     "uploadResume": "ریزیومے اپ لوڈ کریں",
     "dragDrop": "اپنا ریزیومے یہاں ڈریگ اینڈ ڈراپ کریں",
     "dropHere": "اپنا ریزیومے یہاں ڈراپ کریں...",
-    "or": "or",
+    "or": "یا",
     "browse": "فائلیں براؤز کریں",
     "supportedFormats": "سپورٹڈ فارمیٹس: PDF، DOC، DOCX",
     "parsing": "آپ کا ریزیومے پارس کیا جا رہا ہے...",
@@ -900,7 +900,7 @@
   "messages": {
     "title": "پیغامات",
     "newMessage": "نیا پیغام",
-    "to": "To",
+    "to": "کو",
     "recipientId": "وصول کنندہ ID",
     "enterRecipientId": "وصول کنندہ کا صارف ID درج کریں...",
     "useSearch": "امیدوار تلاش استعمال کر کے امیدوار ڈھونڈیں اور پیغام بھیجیں",
@@ -1443,16 +1443,16 @@
     },
     "portalSelector": {
       "welcomeTo": "خوش آمدید",
-      "title": "MedMatch-AI KARAU",
+      "title": "میڈمیچ-اے آئی کراؤ",
       "subtitle": "اپنی منزل منتخب کریں",
-      "medmatchAI": "MedMatch AI",
+      "medmatchAI": "میڈمیچ اے آئی",
       "jobToolkit": "جاب ٹول کٹ",
       "jobToolkitDesc": "لائف سائنسز پروفیشنلز کے لیے AI سے چلنے والی جاب سرچ اور کیریئر ٹولز",
       "resumeParser": "ریزیومے پارسر اور بلڈر",
       "aiJobMatching": "AI جاب میچنگ",
       "recruiterNetwork": "ریکروٹر نیٹ ورک",
       "enterJobToolkit": "جاب ٹول کٹ میں داخل ہوں",
-      "aiKarau": "AI KARAU",
+      "aiKarau": "اے آئی کراؤ",
       "meetingPortal": "میٹنگ",
       "meetingPortalDesc": "AI ٹرانسکرپشن اور تعاون کے ٹولز کے ساتھ محفوظ ویڈیو کانفرنسنگ",
       "hdVideoAudio": "HD ویڈیو اور آڈیو",
@@ -1518,10 +1518,10 @@
     "globalCompliance": {
       "title": "عالمی تعمیل",
       "subtitle": "علاقوں میں تعمیل کی صورتحال",
-      "gdpr": "GDPR",
-      "ccpa": "CCPA",
-      "hipaa": "HIPAA",
-      "soc2": "SOC 2",
+      "gdpr": "جی ڈی پی آر",
+      "ccpa": "سی سی پی اے",
+      "hipaa": "ایچ آئی پی اے اے",
+      "soc2": "ایس او سی 2",
       "compliant": "تعمیل یافتہ",
       "nonCompliant": "غیر تعمیل یافتہ",
       "inProgress": "زیرِ عمل"
@@ -1612,7 +1612,7 @@
       "searchRadiusDesc": "زیادہ سے زیادہ فاصلہ جس تک آپ سفر کرنا چاہتے ہیں",
       "maxDistance": "زیادہ سے زیادہ فاصلہ",
       "miles": "میل",
-      "km": "km",
+      "km": "کلومیٹر",
       "commutePreferences": "سفر کی ترجیحات",
       "commutePreferencesDesc": "آپ کام پر جانے کو کیسے ترجیح دیتے ہیں؟",
       "primaryCommuteMode": "بنیادی سفر کا طریقہ",
@@ -1864,12 +1864,12 @@
     "companyPlaceholder": "مثلاً Google",
     "positionPlaceholder": "مثلاً Software Engineer",
     "locationPlaceholder": "https://meet.google.com/... یا دفتر کا پتہ",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "جان اسمتھ",
     "interviewerEmailPlaceholder": "john@company.com",
     "notesPlaceholder": "انٹرویو کے بارے میں کوئی اضافی تفصیلات..."
   },
   "publicApplication": {
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "جان ڈو",
     "emailPlaceholder": "john@example.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
@@ -1897,18 +1897,18 @@
     "selectLocationPlaceholder": "اپنا مقام منتخب کریں..."
   },
   "idVerification": {
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "ایکمے کارپوریشن",
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "ٹیلنٹ اکوزیشن مینیجر",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "namePlaceholder": "John Doe"
+    "namePlaceholder": "جان ڈو"
   },
   "atsManagement": {
     "selectJobPlaceholder": "جوب پوسٹنگ منتخب کریں",
     "maxApplicantsPlaceholder": "لامحدود",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "جان ڈو",
     "inviteNotePlaceholder": "اپنی دعوت میں ذاتی نوٹ شامل کریں..."
   },
   "recruiterVerification": {

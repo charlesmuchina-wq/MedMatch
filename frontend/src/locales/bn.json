@@ -465,7 +465,7 @@
     "uploadResume": "রিজিউমে আপলোড করুন",
     "dragDrop": "আপনার রিজিউমে এখানে ড্র্যাগ অ্যান্ড ড্রপ করুন",
     "dropHere": "আপনার রিজিউমে এখানে ড্রপ করুন...",
-    "or": "or",
+    "or": "অথবা",
     "browse": "ফাইল ব্রাউজ করুন",
     "supportedFormats": "সমর্থিত ফরম্যাট: PDF, DOC, DOCX",
     "parsing": "আপনার রিজিউমে পার্স করা হচ্ছে...",
@@ -900,7 +900,7 @@
   "messages": {
     "title": "বার্তা",
     "newMessage": "নতুন বার্তা",
-    "to": "To",
+    "to": "প্রতি",
     "recipientId": "প্রাপকের আইডি",
     "enterRecipientId": "প্রাপকের ইউজার আইডি লিখুন...",
     "useSearch": "প্রার্থী খোঁজার মাধ্যমে প্রার্থী খুঁজে বার্তা পাঠান",
@@ -965,7 +965,7 @@
     "changePhoneNumber": "ফোন নম্বর পরিবর্তন করুন",
     "emailPlaceholder": "you@example.com",
     "passwordPlaceholder": "••••••••",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": "+১ (৫৫৫) ১২৩-৪৫৬৭",
     "aiPoweredJobSearch": "লাইফ সায়েন্সেস ক্যারিয়ারের জন্য এআই-চালিত চাকরি খোঁজ",
     "continueWithGoogle": "Google দিয়ে চালিয়ে যান",
     "continueWithApple": "Apple দিয়ে চালিয়ে যান",
@@ -1518,10 +1518,10 @@
     "globalCompliance": {
       "title": "গ্লোবাল কমপ্লায়েন্স",
       "subtitle": "অঞ্চলজুড়ে কমপ্লায়েন্স অবস্থা",
-      "gdpr": "GDPR",
-      "ccpa": "CCPA",
-      "hipaa": "HIPAA",
-      "soc2": "SOC 2",
+      "gdpr": "জিডিপিআর",
+      "ccpa": "সিসিপিএ",
+      "hipaa": "হিপা",
+      "soc2": "এসওসি ২",
       "compliant": "কমপ্লায়েন্ট",
       "nonCompliant": "নন-কমপ্লায়েন্ট",
       "inProgress": "চলমান"
@@ -1612,7 +1612,7 @@
       "searchRadiusDesc": "আপনি সর্বোচ্চ কত দূর যাতায়াত করতে ইচ্ছুক",
       "maxDistance": "সর্বোচ্চ দূরত্ব",
       "miles": "মাইল",
-      "km": "km",
+      "km": "কিমি",
       "commutePreferences": "যাতায়াত পছন্দ",
       "commutePreferencesDesc": "আপনি কীভাবে কাজে যেতে পছন্দ করেন?",
       "primaryCommuteMode": "প্রধান যাতায়াত মাধ্যম",
@@ -1871,7 +1871,7 @@
   "publicApplication": {
     "namePlaceholder": "জন ডো",
     "emailPlaceholder": "john@example.com",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": "+১ (৫৫৫) ১২৩-৪৫৬৭",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
     "portfolioPlaceholder": "https://yourportfolio.com",
     "resumeLinkPlaceholder": "আপনার রেজিউমের লিংক (Google Drive, Dropbox, ইত্যাদি)",
@@ -1917,7 +1917,7 @@
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "you@yourcompany.com",
     "rolePlaceholder": "যেমন, HR ম্যানেজার",
-    "phonePlaceholder": "+1 (555) 123-4567",
+    "phonePlaceholder": "+১ (৫৫৫) ১২৩-৪৫৬৭",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
   },
   "jobSearch": {

@@ -263,7 +263,7 @@
     "meetingNotes": "บันทึกการประชุม",
     "interviewCalendar": "ปฏิทินสัมภาษณ์",
     "analyticsFunnel": "ฟันเนลการสัมภาษณ์",
-    "dragonAutomator": "KARAU Automator",
+    "dragonAutomator": "KARAU ออโตเมเตอร์",
     "adminDashboard": "แดชบอร์ดผู้ดูแลระบบ",
     "coverLetter": "จดหมายสมัครงาน",
     "jobAlerts": "แจ้งเตือนงาน",
@@ -465,7 +465,7 @@
     "uploadResume": "อัปโหลดเรซูเม่",
     "dragDrop": "ลากและวางเรซูเม่ของคุณที่นี่",
     "dropHere": "วางเรซูเม่ของคุณที่นี่...",
-    "or": "or",
+    "or": "หรือ",
     "browse": "เลือกไฟล์",
     "supportedFormats": "รูปแบบที่รองรับ: PDF, DOC, DOCX",
     "parsing": "กำลังแยกข้อมูลจากเรซูเม่...",
@@ -744,7 +744,7 @@
     "freeFeatures": "ค้นหางานพื้นฐาน สมัครได้ 5 งาน/เดือน เครื่องมือสร้างเรซูเม่",
     "premiumFeatures": "สมัครงานได้ไม่จำกัด โค้ช AI การสนับสนุนแบบเร่งด่วน",
     "enterpriseFeatures": "โซลูชันแบบกำหนดเอง การสนับสนุนเฉพาะทาง การเข้าถึง API",
-    "recruiterPro": "Recruiter Pro",
+    "recruiterPro": "รีครูเตอร์ โปร",
     "recruiterProDesc": "โพสต์งาน เข้าถึงผู้สมัคร และสร้างทีมในฝันของคุณ",
     "jobSeekerDesc": "ประตูสู่การได้งานในฝันของคุณในสายวิทยาศาสตร์ชีวภาพ",
     "lifetimeMember": "สมาชิกตลอดชีพ",
@@ -900,7 +900,7 @@
   "messages": {
     "title": "ข้อความ",
     "newMessage": "ข้อความใหม่",
-    "to": "To",
+    "to": "ถึง",
     "recipientId": "รหัสผู้รับ",
     "enterRecipientId": "กรอกรหัสผู้ใช้ของผู้รับ...",
     "useSearch": "ใช้การค้นหาผู้สมัครเพื่อค้นหาและส่งข้อความถึงผู้สมัคร",
@@ -944,8 +944,8 @@
     "forgotPassword": "ลืมรหัสผ่าน?",
     "rememberMe": "จดจำฉัน",
     "orContinueWith": "หรือดำเนินการต่อด้วย",
-    "google": "Google",
-    "apple": "Apple",
+    "google": "กูเกิล",
+    "apple": "แอปเปิล",
     "biometric": "เข้าสู่ระบบด้วยไบโอเมตริกซ์",
     "phone": "เบอร์โทรศัพท์",
     "sendCode": "ส่งรหัส",
@@ -963,7 +963,7 @@
     "enterCode": "กรอกรหัส 6 หลัก",
     "verifyAndSignIn": "ยืนยันและเข้าสู่ระบบ",
     "changePhoneNumber": "เปลี่ยนหมายเลขโทรศัพท์",
-    "emailPlaceholder": "you@example.com",
+    "emailPlaceholder": "คุณ@ตัวอย่าง.com",
     "passwordPlaceholder": "••••••••",
     "phonePlaceholder": "+1 (555) 123-4567",
     "aiPoweredJobSearch": "ค้นหางานสายวิทยาศาสตร์ชีวภาพด้วย AI",
@@ -1443,9 +1443,9 @@
     },
     "portalSelector": {
       "welcomeTo": "ยินดีต้อนรับสู่",
-      "title": "MedMatch-AI KARAU",
+      "title": "เมดแมตช์-AI KARAU",
       "subtitle": "เลือกปลายทางของคุณ",
-      "medmatchAI": "MedMatch AI",
+      "medmatchAI": "เมดแมตช์ AI",
       "jobToolkit": "ชุดเครื่องมือหางาน",
       "jobToolkitDesc": "เครื่องมือค้นหางานและอาชีพด้วย AI สำหรับผู้เชี่ยวชาญด้านวิทยาศาสตร์ชีวภาพ",
       "resumeParser": "ตัวแยกและสร้างเรซูเม่",
@@ -1464,7 +1464,7 @@
       "trustedBy": "ได้รับความไว้วางใจจากผู้เชี่ยวชาญด้านวิทยาศาสตร์ชีวภาพ"
     },
     "dragonAutomator": {
-      "title": "KARAU Automator",
+      "title": "KARAU ออโตเมเตอร์",
       "subtitle": "ทำงานเวิร์กโฟลว์การหางานของคุณแบบอัตโนมัติ",
       "startAutomation": "เริ่มระบบอัตโนมัติ",
       "stopAutomation": "หยุดระบบอัตโนมัติ",
@@ -1612,7 +1612,7 @@
       "searchRadiusDesc": "ระยะทางสูงสุดที่คุณยอมเดินทางไปทำงาน",
       "maxDistance": "ระยะทางสูงสุด",
       "miles": "ไมล์",
-      "km": "km",
+      "km": "กม.",
       "commutePreferences": "ความต้องการในการเดินทางไปทำงาน",
       "commutePreferencesDesc": "คุณต้องการเดินทางไปทำงานอย่างไร?",
       "primaryCommuteMode": "รูปแบบการเดินทางหลัก",
@@ -1652,8 +1652,8 @@
     "biometricAuth": {
       "title": "การยืนยันตัวตนด้วยไบโอเมตริกซ์",
       "enableBiometric": "เปิดใช้งานการเข้าสู่ระบบด้วยไบโอเมตริกซ์",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "เฟซไอดี",
+      "touchId": "ทัชไอดี",
       "fingerprint": "ลายนิ้วมือ",
       "setupRequired": "ต้องตั้งค่า",
       "notSupported": "อุปกรณ์นี้ไม่รองรับ"
@@ -1864,12 +1864,12 @@
     "companyPlaceholder": "เช่น Google",
     "positionPlaceholder": "เช่น Software Engineer",
     "locationPlaceholder": "https://meet.google.com/... หรือที่อยู่สำนักงาน",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "จอห์น สมิธ",
     "interviewerEmailPlaceholder": "john@company.com",
     "notesPlaceholder": "รายละเอียดเพิ่มเติมเกี่ยวกับการสัมภาษณ์..."
   },
   "publicApplication": {
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "จอห์น โด",
     "emailPlaceholder": "john@example.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
@@ -1897,18 +1897,18 @@
     "selectLocationPlaceholder": "เลือกตำแหน่งที่ตั้งของคุณ..."
   },
   "idVerification": {
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "บริษัท แอคมี คอร์ปอเรชัน",
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "ผู้จัดการสรรหาบุคลากร",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "namePlaceholder": "John Doe"
+    "namePlaceholder": "จอห์น โด"
   },
   "atsManagement": {
     "selectJobPlaceholder": "เลือกประกาศรับสมัครงาน",
     "maxApplicantsPlaceholder": "ไม่จำกัด",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "จอห์น โด",
     "inviteNotePlaceholder": "เพิ่มข้อความส่วนตัวลงในคำเชิญของคุณ..."
   },
   "recruiterVerification": {
