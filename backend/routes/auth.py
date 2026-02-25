@@ -695,6 +695,7 @@ async def orcid_callback(
             )
 
             # Redirect to frontend with session token in hash
+            logging.info(f"ORCID login success: user_id={user['user_id']}, orcid_id={orcid_id}, redirecting to frontend")
             return RedirectResponse(
                 url=f"{frontend_url}/login#orcid_session={session_token}",
                 status_code=303
