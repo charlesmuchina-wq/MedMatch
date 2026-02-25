@@ -2188,7 +2188,7 @@
     "noBadgesYet": "No verified badges yet",
     "showcaseCertifications": "Showcase your certifications",
     "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
+    "viewAllBadges": "View all {{count}} badges",
     "verifiedBy": "Verified by"
   },
   "karau": {
