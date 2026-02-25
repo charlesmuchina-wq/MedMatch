@@ -167,6 +167,10 @@ const LoginPage = ({ onAuthSuccess }) => {
     window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
   };
 
+  const handleOrcidLogin = () => {
+    window.location.href = `${API}/api/auth/orcid/login`;
+  };
+
   const handleAppleLogin = async () => {
     try {
       // Load Apple Sign In configuration
