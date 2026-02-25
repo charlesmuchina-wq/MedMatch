@@ -124,7 +124,18 @@
     "helpTutorials": "帮助与教程",
     "settings": "设置",
     "profile": "个人资料",
-    "signOut": "退出登录"
+    "signOut": "退出登录",
+    "applicantTracking": "Applicant Tracking",
+    "psvVerificationHub": "PSV Verification Hub",
+    "aiCompliance": "AI Compliance",
+    "enterpriseAPI": "Enterprise API",
+    "dataIntegrityAIQA": "Data Integrity & AI QA",
+    "globalCompliance": "Global Compliance",
+    "recruiterVerification": "Recruiter Verification",
+    "reviewModeration": "Review Moderation",
+    "translationCoverage": "Translation Coverage",
+    "translationQA": "Translation QA",
+    "aiAndYourRights": "AI & Your Rights"
   },
   "recruiter": {
     "dashboard": "仪表板",
@@ -2266,5 +2277,17 @@
     "aiPowered": "AI驱动",
     "secure": "安全",
     "haveAccount": "已有账户？登录"
+  },
+  "badges": {
+    "verifiedBadges": "Verified Badges",
+    "verified": "Verified",
+    "professionalCertifications": "Professional certifications from trusted issuers",
+    "importBadges": "Import Badges",
+    "connecting": "Connecting...",
+    "noBadgesYet": "No verified badges yet",
+    "showcaseCertifications": "Showcase your certifications",
+    "importFromCredly": "Import from Credly",
+    "viewAllBadges": "View all {count} badges",
+    "verifiedBy": "Verified by"
   }
 }

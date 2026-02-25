@@ -124,7 +124,18 @@
     "helpTutorials": "Mmoa & Nkyerɛkyerɛ",
     "settings": "Nhyehyɛe",
     "profile": "Me Profil",
-    "signOut": "Pue"
+    "signOut": "Pue",
+    "applicantTracking": "Applicant Tracking",
+    "psvVerificationHub": "PSV Verification Hub",
+    "aiCompliance": "AI Compliance",
+    "enterpriseAPI": "Enterprise API",
+    "dataIntegrityAIQA": "Data Integrity & AI QA",
+    "globalCompliance": "Global Compliance",
+    "recruiterVerification": "Recruiter Verification",
+    "reviewModeration": "Review Moderation",
+    "translationCoverage": "Translation Coverage",
+    "translationQA": "Translation QA",
+    "aiAndYourRights": "AI & Your Rights"
   },
   "dashboard": {
     "welcomeBack": "Akwaaba bio",
@@ -2253,5 +2264,17 @@
     "aiPowered": "AI Powered",
     "secure": "Secure",
     "haveAccount": "Have an account? Sign in instead"
+  },
+  "badges": {
+    "verifiedBadges": "Verified Badges",
+    "verified": "Verified",
+    "professionalCertifications": "Professional certifications from trusted issuers",
+    "importBadges": "Import Badges",
+    "connecting": "Connecting...",
+    "noBadgesYet": "No verified badges yet",
+    "showcaseCertifications": "Showcase your certifications",
+    "importFromCredly": "Import from Credly",
+    "viewAllBadges": "View all {count} badges",
+    "verifiedBy": "Verified by"
   }
 }

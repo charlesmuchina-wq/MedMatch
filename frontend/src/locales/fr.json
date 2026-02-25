@@ -124,7 +124,18 @@
     "helpTutorials": "Aide et tutoriels",
     "settings": "Paramètres",
     "profile": "Profil",
-    "signOut": "Déconnexion"
+    "signOut": "Déconnexion",
+    "applicantTracking": "Applicant Tracking",
+    "psvVerificationHub": "PSV Verification Hub",
+    "aiCompliance": "AI Compliance",
+    "enterpriseAPI": "Enterprise API",
+    "dataIntegrityAIQA": "Data Integrity & AI QA",
+    "globalCompliance": "Global Compliance",
+    "recruiterVerification": "Recruiter Verification",
+    "reviewModeration": "Review Moderation",
+    "translationCoverage": "Translation Coverage",
+    "translationQA": "Translation QA",
+    "aiAndYourRights": "AI & Your Rights"
   },
   "recruiter": {
     "dashboard": "Tableau de Bord",
@@ -661,7 +672,10 @@
     "biometricFailed": "Échec de l’authentification biométrique",
     "selectRole": "Sélectionnez votre rôle",
     "registerAsJobSeeker": "Recherche d’opportunités en sciences de la vie",
-    "registerAsRecruiter": "Recruter des talents pour votre organisation"
+    "registerAsRecruiter": "Recruter des talents pour votre organisation",
+    "orcid": "Sign in with ORCID",
+    "orcidLoginSuccess": "Signed in with ORCID!",
+    "orcidLoginFailed": "ORCID sign-in failed"
   },
   "onboarding": {
     "welcome": "Bienvenue sur MedMatch!",
@@ -2263,5 +2277,17 @@
     "aiPowered": "IA",
     "secure": "Sécurisé",
     "haveAccount": "Vous avez un compte ? Connectez-vous"
+  },
+  "badges": {
+    "verifiedBadges": "Verified Badges",
+    "verified": "Verified",
+    "professionalCertifications": "Professional certifications from trusted issuers",
+    "importBadges": "Import Badges",
+    "connecting": "Connecting...",
+    "noBadgesYet": "No verified badges yet",
+    "showcaseCertifications": "Showcase your certifications",
+    "importFromCredly": "Import from Credly",
+    "viewAllBadges": "View all {count} badges",
+    "verifiedBy": "Verified by"
   }
 }

@@ -124,7 +124,18 @@
     "helpTutorials": "Usizo Nezifundo",
     "settings": "Izilungiselelo",
     "profile": "Iphrofayela",
-    "signOut": "Phuma"
+    "signOut": "Phuma",
+    "applicantTracking": "Applicant Tracking",
+    "psvVerificationHub": "PSV Verification Hub",
+    "aiCompliance": "AI Compliance",
+    "enterpriseAPI": "Enterprise API",
+    "dataIntegrityAIQA": "Data Integrity & AI QA",
+    "globalCompliance": "Global Compliance",
+    "recruiterVerification": "Recruiter Verification",
+    "reviewModeration": "Review Moderation",
+    "translationCoverage": "Translation Coverage",
+    "translationQA": "Translation QA",
+    "aiAndYourRights": "AI & Your Rights"
   },
   "dashboard": {
     "welcomeBack": "Siyakwamukela futhi",
@@ -2253,5 +2264,17 @@
     "aiPowered": "Inikwa amandla yi-AI",
     "secure": "Kuphephile",
     "haveAccount": "Unayo i-akhawunti? Ngena ngemvume esikhundleni salokho"
+  },
+  "badges": {
+    "verifiedBadges": "Verified Badges",
+    "verified": "Verified",
+    "professionalCertifications": "Professional certifications from trusted issuers",
+    "importBadges": "Import Badges",
+    "connecting": "Connecting...",
+    "noBadgesYet": "No verified badges yet",
+    "showcaseCertifications": "Showcase your certifications",
+    "importFromCredly": "Import from Credly",
+    "viewAllBadges": "View all {count} badges",
+    "verifiedBy": "Verified by"
   }
 }

@@ -158,7 +158,18 @@
     "helpTutorials": "Help & tutorials",
     "settings": "Instellingen",
     "profile": "Profiel",
-    "signOut": "Afmelden"
+    "signOut": "Afmelden",
+    "applicantTracking": "Applicant Tracking",
+    "psvVerificationHub": "PSV Verification Hub",
+    "aiCompliance": "AI Compliance",
+    "enterpriseAPI": "Enterprise API",
+    "dataIntegrityAIQA": "Data Integrity & AI QA",
+    "globalCompliance": "Global Compliance",
+    "recruiterVerification": "Recruiter Verification",
+    "reviewModeration": "Review Moderation",
+    "translationCoverage": "Translation Coverage",
+    "translationQA": "Translation QA",
+    "aiAndYourRights": "AI & Your Rights"
   },
   "recruiter": {
     "dashboard": "Dashboard",
@@ -2253,5 +2264,17 @@
     "aiPowered": "AI",
     "secure": "Beveiligd",
     "haveAccount": "Heeft u een account? Inloggen"
+  },
+  "badges": {
+    "verifiedBadges": "Verified Badges",
+    "verified": "Verified",
+    "professionalCertifications": "Professional certifications from trusted issuers",
+    "importBadges": "Import Badges",
+    "connecting": "Connecting...",
+    "noBadgesYet": "No verified badges yet",
+    "showcaseCertifications": "Showcase your certifications",
+    "importFromCredly": "Import from Credly",
+    "viewAllBadges": "View all {count} badges",
+    "verifiedBy": "Verified by"
   }
 }
