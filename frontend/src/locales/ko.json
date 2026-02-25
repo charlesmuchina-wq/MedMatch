@@ -2292,24 +2292,24 @@
     "analyticsDesc": "회의 통계 및 인사이트"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "신뢰 점수",
+    "buildYourScore": "신뢰 점수 올리기",
+    "buildDescription": "프로필을 완성하고 자격 증명을 추가해 채용 담당자와의 신뢰를 쌓아보세요",
+    "morePointsTo": "{{level}}까지 {{count}}점 더 필요",
+    "progressTo": "{{level}}로 진행",
+    "ptsToGo": "남은 점수 {{count}}점",
+    "scoreBreakdown": "점수 구성",
+    "expand": "펼치기",
+    "collapse": "접기",
+    "details": "상세",
+    "pts": "점",
+    "boostYourScore": "점수 올리기",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "자격 증명",
+      "profile": "프로필",
+      "engagement": "활동",
+      "tenure": "근속 기간",
+      "reviews": "리뷰"
     }
   }
 }

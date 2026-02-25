@@ -2666,24 +2666,24 @@
     "analyticsDesc": "إحصاءات ورؤى حول الاجتماعات"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "درجة الثقة",
+    "buildYourScore": "أنشئ درجة الثقة الخاصة بك",
+    "buildDescription": "أكمل ملفك الشخصي وأضف بيانات الاعتماد لبناء الثقة مع مسؤولي التوظيف",
+    "morePointsTo": "{{count}} نقطة إضافية للوصول إلى {{level}}",
+    "progressTo": "التقدّم إلى {{level}}",
+    "ptsToGo": "متبقي {{count}} نقطة",
+    "scoreBreakdown": "تفصيل الدرجة",
+    "expand": "توسيع",
+    "collapse": "طيّ",
+    "details": "التفاصيل",
+    "pts": "نقطة",
+    "boostYourScore": "عزّز درجتك",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "بيانات الاعتماد",
+      "profile": "الملف الشخصي",
+      "engagement": "التفاعل",
+      "tenure": "مدة العضوية",
+      "reviews": "المراجعات"
     }
   }
 }

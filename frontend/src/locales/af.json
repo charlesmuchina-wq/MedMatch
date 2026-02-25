@@ -2262,24 +2262,24 @@
     "analyticsDesc": "Vergaderingsstatistieke en insigte"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Vertroutelling",
+    "buildYourScore": "Bou jou vertroutelling",
+    "buildDescription": "Voltooi jou profiel en voeg kwalifikasies by om vertroue by werwers te bou",
+    "morePointsTo": "{{count}} meer punte tot {{level}}",
+    "progressTo": "Vordering na {{level}}",
+    "ptsToGo": "{{count}} punte om te gaan",
+    "scoreBreakdown": "Uiteensetting van die telling",
+    "expand": "Brei uit",
+    "collapse": "Vou in",
+    "details": "Besonderhede",
+    "pts": "punte",
+    "boostYourScore": "Verhoog jou telling",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Kwalifikasies",
+      "profile": "Profiel",
+      "engagement": "Betrokkenheid",
+      "tenure": "Ampstermyn",
+      "reviews": "Resensies"
     }
   }
 }

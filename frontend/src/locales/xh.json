@@ -2292,24 +2292,24 @@
     "analyticsDesc": "Istatistikhi neengqiqo zentlanganiso"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Inqaku Lokuthembeka",
+    "buildYourScore": "Yakha Inqaku Lakho Lokuthembeka",
+    "buildDescription": "Gqibezela iprofayili yakho uze ungeze iziqinisekiso ukuze wakhe ukuthembeka kubaqeshi",
+    "morePointsTo": "{{count}} amanye amanqaku ukuya ku-{{level}}",
+    "progressTo": "Inkqubela ukuya ku-{{level}}",
+    "ptsToGo": "{{count}} amaphuzu aseleyo",
+    "scoreBreakdown": "Ukwahlulwa Kwenqaku",
+    "expand": "Yandisa",
+    "collapse": "Songa",
+    "details": "Iinkcukacha",
+    "pts": "amaphuzu",
+    "boostYourScore": "Phucula Inqaku Lakho",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Iziqinisekiso",
+      "profile": "Iprofayili",
+      "engagement": "Ukuzibandakanya",
+      "tenure": "Ixesha Lokusebenza",
+      "reviews": "Uphononongo"
     }
   }
 }

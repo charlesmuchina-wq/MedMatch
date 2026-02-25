@@ -2292,24 +2292,24 @@
     "analyticsDesc": "Nhyiam akontaabu ne nsusuwii"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Gyidi Nkontaa",
+    "buildYourScore": "Si Wo Gyidi Nkontaa So",
+    "buildDescription": "Wie wo profile no na fa adansedi ka ho na ama woanya gyidi fi adwumayɛfo a wɔhwehwɛ adwumayɛfo (recruiters)",
+    "morePointsTo": "{{count}} nsensenee bio de kɔ {{level}}",
+    "progressTo": "Kɔ anim kɔ {{level}}",
+    "ptsToGo": "Nsensenee {{count}} aka",
+    "scoreBreakdown": "Nkontaa Nkyekyɛmu",
+    "expand": "Bue mu",
+    "collapse": "To mu",
+    "details": "Nsɛm a ɛkɔ akyiri",
+    "pts": "nsensenee",
+    "boostYourScore": "Ma Wo Nkontaa Nkɔ Soro",
     "category": {
-      "credentials": "Credentials",
+      "credentials": "Adansedi",
       "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "engagement": "Nkitahodi",
+      "tenure": "Bere a woadi",
+      "reviews": "Nkasɛm (Reviews)"
     }
   }
 }

@@ -2292,24 +2292,24 @@
     "analyticsDesc": "Àwọn iṣirò àti ìmọ̀lára nípa ìpàdé"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Ami Igbẹkẹle",
+    "buildYourScore": "Kọ Ami Igbẹkẹle Rẹ",
+    "buildDescription": "Pari profaili rẹ ki o sì fi àwọn ìjẹ́rìí kún un láti kọ ìgbẹkẹle pẹ̀lú àwọn agbanisíṣẹ́",
+    "morePointsTo": "{{count}} ami míì sí {{level}}",
+    "progressTo": "Ilọsíwájú sí {{level}}",
+    "ptsToGo": "{{count}} ami kù",
+    "scoreBreakdown": "Ìpínpín Ami",
+    "expand": "Fẹ̀ síi",
+    "collapse": "Dín kù",
+    "details": "Àlàyé",
+    "pts": "ami",
+    "boostYourScore": "Mú Ami Rẹ Gòkè",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Àwọn Ìjẹ́rìí",
+      "profile": "Profaili",
+      "engagement": "Ìfarapa pọ̀",
+      "tenure": "Àkókò Ìjọ̀sí",
+      "reviews": "Àwọn Àtúnyẹ̀wò"
     }
   }
 }

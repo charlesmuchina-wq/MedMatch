@@ -2292,24 +2292,24 @@
     "analyticsDesc": "Thống kê và thông tin chi tiết về cuộc họp"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Điểm tin cậy",
+    "buildYourScore": "Xây dựng điểm tin cậy của bạn",
+    "buildDescription": "Hoàn thiện hồ sơ và thêm thông tin xác thực để tạo dựng niềm tin với nhà tuyển dụng",
+    "morePointsTo": "Còn {{count}} điểm để đạt {{level}}",
+    "progressTo": "Tiến tới {{level}}",
+    "ptsToGo": "Còn {{count}} điểm",
+    "scoreBreakdown": "Phân tích điểm số",
+    "expand": "Mở rộng",
+    "collapse": "Thu gọn",
+    "details": "Chi tiết",
+    "pts": "điểm",
+    "boostYourScore": "Tăng điểm của bạn",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Thông tin xác thực",
+      "profile": "Hồ sơ",
+      "engagement": "Tương tác",
+      "tenure": "Thâm niên",
+      "reviews": "Đánh giá"
     }
   }
 }

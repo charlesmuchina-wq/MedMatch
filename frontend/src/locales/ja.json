@@ -2292,24 +2292,24 @@
     "analyticsDesc": "ミーティングの統計とインサイト"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "信頼スコア",
+    "buildYourScore": "信頼スコアを高めよう",
+    "buildDescription": "プロフィールを完成させ、資格情報を追加して採用担当者からの信頼を高めましょう",
+    "morePointsTo": "{{level}}まであと{{count}}ポイント",
+    "progressTo": "{{level}}への進捗",
+    "ptsToGo": "あと{{count}}ポイント",
+    "scoreBreakdown": "スコア内訳",
+    "expand": "展開",
+    "collapse": "折りたたむ",
+    "details": "詳細",
+    "pts": "ポイント",
+    "boostYourScore": "スコアを上げよう",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "資格情報",
+      "profile": "プロフィール",
+      "engagement": "エンゲージメント",
+      "tenure": "在籍期間",
+      "reviews": "レビュー"
     }
   }
 }

@@ -2292,24 +2292,24 @@
     "analyticsDesc": "Ọnụọgụ nzute na nghọta"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Ntụkwasị Obi",
+    "buildYourScore": "Wulite Ntụkwasị Obi Gị",
+    "buildDescription": "Mezue profaịlụ gị ma tinye asambodo iji wulite ntụkwasị obi n’aka ndị na-ewe ọrụ",
+    "morePointsTo": "{{count}} ọzọ isi iji ruo {{level}}",
+    "progressTo": "Gaa n’ihu ruo {{level}}",
+    "ptsToGo": "{{count}} isi fọdụrụ",
+    "scoreBreakdown": "Nkọwapụta Isi",
+    "expand": "Gbasaa",
+    "collapse": "Kpọchie",
+    "details": "Nkọwa",
+    "pts": "isi",
+    "boostYourScore": "Bulie Isi Gị",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Asambodo",
+      "profile": "Profaịlụ",
+      "engagement": "Mmekọrịta",
+      "tenure": "Oge I nọ",
+      "reviews": "Nyocha"
     }
   }
 }

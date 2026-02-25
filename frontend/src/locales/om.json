@@ -2262,24 +2262,24 @@
     "analyticsDesc": "Istaatistiksii fi hubannoo walga'ii"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Qabxii Amanamummaa",
+    "buildYourScore": "Qabxii Amanamummaa Keessan Ijaaraa",
+    "buildDescription": "Profaayila kee xumuriitii ragaa dabalachuun kadhimtoota hojii filataniif amanamummaa ijaari",
+    "morePointsTo": "Qabxii dabalataa {{count}} gara {{level}}",
+    "progressTo": "Gara {{level}}tti ce'i",
+    "ptsToGo": "Qabxii {{count}} hafe",
+    "scoreBreakdown": "Qoodinsa Qabxii",
+    "expand": "Baldhisi",
+    "collapse": "Cufi",
+    "details": "Bal'ina",
+    "pts": "qabxii",
+    "boostYourScore": "Qabxii Kee Dabali",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Ragaa",
+      "profile": "Profaayila",
+      "engagement": "Hirmaannaa",
+      "tenure": "Turtii",
+      "reviews": "Yaada"
     }
   }
 }

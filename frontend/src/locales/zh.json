@@ -2305,24 +2305,24 @@
     "analyticsDesc": "会议统计与洞察"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "信任评分",
+    "buildYourScore": "提升您的信任评分",
+    "buildDescription": "完善个人资料并添加资质，以获得招聘方的信任",
+    "morePointsTo": "再获得 {{count}} 分即可达到 {{level}}",
+    "progressTo": "进阶至 {{level}}",
+    "ptsToGo": "还差 {{count}} 分",
+    "scoreBreakdown": "评分明细",
+    "expand": "展开",
+    "collapse": "收起",
+    "details": "详情",
+    "pts": "分",
+    "boostYourScore": "提升您的评分",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "资质",
+      "profile": "个人资料",
+      "engagement": "互动",
+      "tenure": "任职时长",
+      "reviews": "评价"
     }
   }
 }

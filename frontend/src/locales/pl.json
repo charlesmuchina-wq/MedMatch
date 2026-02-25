@@ -2292,24 +2292,24 @@
     "analyticsDesc": "Statystyki i wnioski ze spotkań"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Wynik zaufania",
+    "buildYourScore": "Zbuduj swój wynik zaufania",
+    "buildDescription": "Uzupełnij swój profil i dodaj poświadczenia, aby budować zaufanie rekruterów",
+    "morePointsTo": "Jeszcze {{count}} punktów do {{level}}",
+    "progressTo": "Postęp do {{level}}",
+    "ptsToGo": "Pozostało {{count}} pkt",
+    "scoreBreakdown": "Podział wyniku",
+    "expand": "Rozwiń",
+    "collapse": "Zwiń",
+    "details": "Szczegóły",
+    "pts": "pkt",
+    "boostYourScore": "Zwiększ swój wynik",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Poświadczenia",
+      "profile": "Profil",
+      "engagement": "Zaangażowanie",
+      "tenure": "Staż",
+      "reviews": "Opinie"
     }
   }
 }

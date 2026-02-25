@@ -2292,24 +2292,24 @@
     "analyticsDesc": "Izibalo zomhlangano nemininingwane ewusizo"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Isikolo Sokwethenjwa",
+    "buildYourScore": "Yakha Isikolo Sakho Sokwethenjwa",
+    "buildDescription": "Qedela iphrofayili yakho futhi wengeze iziqinisekiso ukuze wakhe ukwethenjwa nabaqashi",
+    "morePointsTo": "amaphuzu {{count}} engeziwe ukuze ufinyelele ku-{{level}}",
+    "progressTo": "Inqubekelaphambili ukuya ku-{{level}}",
+    "ptsToGo": "kusele amaphuzu {{count}}",
+    "scoreBreakdown": "Ukuhlukaniswa Kwesikolo",
+    "expand": "Nweba",
+    "collapse": "Goqa",
+    "details": "Imininingwane",
+    "pts": "amaphuzu",
+    "boostYourScore": "Khulisa Isikolo Sakho",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Iziqinisekiso",
+      "profile": "Iphrofayili",
+      "engagement": "Ukuzibandakanya",
+      "tenure": "Isikhathi Sokuhlala",
+      "reviews": "Ukubuyekezwa"
     }
   }
 }

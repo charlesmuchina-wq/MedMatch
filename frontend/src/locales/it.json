@@ -2292,24 +2292,24 @@
     "analyticsDesc": "Statistiche e approfondimenti sulle riunioni"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Punteggio di fiducia",
+    "buildYourScore": "Crea il tuo punteggio di fiducia",
+    "buildDescription": "Completa il tuo profilo e aggiungi credenziali per creare fiducia con i selezionatori",
+    "morePointsTo": "{{count}} punti in più per {{level}}",
+    "progressTo": "Progresso verso {{level}}",
+    "ptsToGo": "{{count}} pt rimanenti",
+    "scoreBreakdown": "Dettaglio del punteggio",
+    "expand": "Espandi",
+    "collapse": "Comprimi",
+    "details": "Dettagli",
+    "pts": "pt",
+    "boostYourScore": "Aumenta il tuo punteggio",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Credenziali",
+      "profile": "Profilo",
+      "engagement": "Coinvolgimento",
+      "tenure": "Anzianità",
+      "reviews": "Recensioni"
     }
   }
 }

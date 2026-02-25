@@ -2292,24 +2292,24 @@
     "analyticsDesc": "Toplantı istatistikleri ve içgörüler"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
-    "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "trustScore": "Güven Puanı",
+    "buildYourScore": "Güven Puanınızı Oluşturun",
+    "buildDescription": "İşe alım uzmanlarıyla güven oluşturmak için profilinizi tamamlayın ve kimlik bilgileri ekleyin",
+    "morePointsTo": "{{level}} seviyesine {{count}} puan kaldı",
+    "progressTo": "{{level}} seviyesine ilerleme",
+    "ptsToGo": "{{count}} puan kaldı",
+    "scoreBreakdown": "Puan Dağılımı",
+    "expand": "Genişlet",
+    "collapse": "Daralt",
+    "details": "Ayrıntılar",
+    "pts": "puan",
+    "boostYourScore": "Puanınızı Artırın",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Kimlik Bilgileri",
+      "profile": "Profil",
+      "engagement": "Etkileşim",
+      "tenure": "Kıdem",
+      "reviews": "Yorumlar"
     }
   }
 }

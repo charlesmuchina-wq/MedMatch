@@ -2292,24 +2292,24 @@
     "analyticsDesc": "मीटिंग आँकड़े और इनसाइट्स"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
+    "trustScore": "विश्वास स्कोर",
+    "buildYourScore": "अपना विश्वास स्कोर बनाएं",
+    "buildDescription": "भर्तीकर्ताओं के साथ भरोसा बनाने के लिए अपनी प्रोफ़ाइल पूरी करें और प्रमाण-पत्र जोड़ें",
+    "morePointsTo": "{{level}} तक पहुँचने के लिए {{count}} और पॉइंट",
+    "progressTo": "{{level}} तक प्रगति करें",
+    "ptsToGo": "{{count}} pts बाकी",
+    "scoreBreakdown": "स्कोर विवरण",
+    "expand": "विस्तार करें",
+    "collapse": "समेटें",
+    "details": "विवरण",
     "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "boostYourScore": "अपना स्कोर बढ़ाएं",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "प्रमाण-पत्र",
+      "profile": "प्रोफ़ाइल",
+      "engagement": "सहभागिता",
+      "tenure": "कार्यकाल",
+      "reviews": "समीक्षाएं"
     }
   }
 }

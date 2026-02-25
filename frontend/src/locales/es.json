@@ -2305,24 +2305,24 @@
     "analyticsDesc": "Estadísticas e insights de las reuniones"
   },
   "trust": {
-    "trustScore": "Trust Score",
-    "buildYourScore": "Build Your Trust Score",
-    "buildDescription": "Complete your profile and add credentials to build trust with recruiters",
-    "morePointsTo": "{{count}} more points to {{level}}",
-    "progressTo": "Progress to {{level}}",
-    "ptsToGo": "{{count}} pts to go",
-    "scoreBreakdown": "Score Breakdown",
-    "expand": "Expand",
-    "collapse": "Collapse",
-    "details": "Details",
+    "trustScore": "Puntuación de confianza",
+    "buildYourScore": "Mejora tu puntuación de confianza",
+    "buildDescription": "Completa tu perfil y añade credenciales para generar confianza con los reclutadores",
+    "morePointsTo": "{{count}} puntos más para llegar a {{level}}",
+    "progressTo": "Progreso hacia {{level}}",
+    "ptsToGo": "Faltan {{count}} pts",
+    "scoreBreakdown": "Desglose de puntuación",
+    "expand": "Expandir",
+    "collapse": "Contraer",
+    "details": "Detalles",
     "pts": "pts",
-    "boostYourScore": "Boost Your Score",
+    "boostYourScore": "Mejora tu puntuación",
     "category": {
-      "credentials": "Credentials",
-      "profile": "Profile",
-      "engagement": "Engagement",
-      "tenure": "Tenure",
-      "reviews": "Reviews"
+      "credentials": "Credenciales",
+      "profile": "Perfil",
+      "engagement": "Participación",
+      "tenure": "Antigüedad",
+      "reviews": "Reseñas"
     }
   }
 }
