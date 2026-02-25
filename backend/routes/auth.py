@@ -703,16 +703,13 @@ window.close();
                 upsert=True
             )
 
-            # Redirect to frontend with session token in hash
-            logging.info(f"ORCID login success: user_id={user['user_id']}, orcid_id={orcid_id}, redirecting to frontend")
-            return RedirectResponse(
-                url=f"{frontend_url}/login#orcid_session={session_token}",
-                status_code=303
-            )
+            # Send session token back to opener via postMessage
+            logging.info(f"ORCID login success: user_id={user['user_id']}, orcid_id={orcid_id}, sending to popup opener")
+            return _popup_response("success", session=session_token)
 
     except Exception as e:
         logging.error(f"ORCID callback error: {e}")
-        return RedirectResponse(url=f"{frontend_url}/login#orcid_error=server_error")
+        return _popup_response("error", error="server_error")
 
 @router.post("/phone/send-otp")
 async def send_phone_otp(request: PhoneLoginRequest):
