@@ -112,8 +112,7 @@ const KarauMeetLanding = ({ user }) => {
             AI KARAU <span className="text-turquoise">Meeting</span>
           </h1>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            Secure, encrypted video conferencing with AI-powered features.
-            Connect from anywhere with crystal-clear video and audio.
+            {t("karauMeet.heroTagline")}
           </p>
         </div>
 
@@ -128,8 +127,8 @@ const KarauMeetLanding = ({ user }) => {
                   <Plus className="w-7 h-7 text-turquoise" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-white mb-2">New Meeting</h3>
-                  <p className="text-slate-400">Start an instant meeting with video, audio, and AI notes</p>
+                  <h3 className="text-xl font-semibold text-white mb-2">{t("karauMeet.newMeeting")}</h3>
+                  <p className="text-slate-400">{t("karauMeet.newMeetingDesc")}</p>
                 </div>
               </div>
             </CardContent>
@@ -165,10 +164,10 @@ const KarauMeetLanding = ({ user }) => {
         {/* Features */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {[
-            { icon: Shield, label: 'End-to-End Encrypted', color: 'text-green-400' },
-            { icon: Sparkles, label: 'AI Notes & Transcription', color: 'text-turquoise' },
-            { icon: MonitorPlay, label: 'Screen Sharing', color: 'text-blue-400' },
-            { icon: Users, label: 'Breakout Rooms', color: 'text-violet-400' }
+            { icon: Shield, label: t("karauMeet.endToEndEncrypted"), color: 'text-green-400' },
+            { icon: Sparkles, label: t("karauMeet.aiNotesTranscription"), color: 'text-turquoise' },
+            { icon: MonitorPlay, label: t("karauMeet.screenSharing"), color: 'text-blue-400' },
+            { icon: Users, label: t("karauMeet.breakoutRooms"), color: 'text-violet-400' }
           ].map((feature, idx) => (
             <div key={idx} className="flex items-center gap-2 p-4 bg-slate-800/30 rounded-lg">
               <feature.icon className={`w-5 h-5 ${feature.color}`} />
