@@ -229,8 +229,8 @@ const KarauMeetDashboard = ({ user }) => {
           ) : meetings.length === 0 ? (
             <div className="text-center py-8" data-testid="no-meetings">
               <Video className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-              <p className="text-slate-400">No meetings yet</p>
-              <p className="text-slate-500 text-sm">Start your first meeting!</p>
+              <p className="text-slate-400">{t("karauMeet.noMeetingsYet")}</p>
+              <p className="text-slate-500 text-sm">{t("karauMeet.startFirstMeeting")}</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -298,11 +298,11 @@ const KarauMeetDashboard = ({ user }) => {
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
         <DialogContent className="bg-slate-800 border-slate-700">
           <DialogHeader>
-            <DialogTitle className="text-white">Create New Meeting</DialogTitle>
+            <DialogTitle className="text-white">{t("karauMeet.createNewMeeting")}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div>
-              <Label className="text-slate-300">Meeting Title</Label>
+              <Label className="text-slate-300">{t("karauMeet.meetingTitle")}</Label>
               <Input
                 placeholder={t("karauMeet.meetingTitlePlaceholder")}
                 value={newMeetingTitle}
