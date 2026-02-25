@@ -585,10 +585,10 @@ window.close();
     state_doc = await db.orcid_oauth_states.find_one_and_delete({"state": state}) if state else None
     if not state_doc:
         logging.error(f"ORCID callback: invalid or expired state: {state}")
-        return RedirectResponse(url=f"{frontend_url}/login#orcid_error=invalid_state")
+        return _popup_response("error", error="invalid_state")
 
     if not code:
-        return RedirectResponse(url=f"{frontend_url}/login#orcid_error=no_code")
+        return _popup_response("error", error="no_code")
 
     urls = ORCID_URLS.get(ORCID_ENVIRONMENT, ORCID_URLS["production"])
 
