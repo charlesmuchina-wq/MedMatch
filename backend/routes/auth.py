@@ -521,8 +521,7 @@ ORCID_URLS = {
     }
 }
 
-# In-memory ORCID OAuth state storage
-orcid_oauth_states = {}
+# In-memory storage not used — ORCID OAuth states stored in MongoDB (db.orcid_oauth_states)
 
 @router.get("/orcid/config")
 async def get_orcid_config():
@@ -539,9 +538,10 @@ async def orcid_login():
         raise HTTPException(status_code=503, detail="ORCID OAuth not configured")
 
     state = secrets.token_urlsafe(32)
-    orcid_oauth_states[state] = {
+    await db.orcid_oauth_states.insert_one({
+        "state": state,
         "created_at": datetime.now(timezone.utc).isoformat()
-    }
+    })
 
     urls = ORCID_URLS.get(ORCID_ENVIRONMENT, ORCID_URLS["production"])
     auth_url = (
@@ -569,10 +569,11 @@ async def orcid_callback(
         logging.error(f"ORCID OAuth error: {error} - {error_description}")
         return RedirectResponse(url=f"{frontend_url}/login#orcid_error={error}")
 
-    if not state or state not in orcid_oauth_states:
+    # Verify state from MongoDB
+    state_doc = await db.orcid_oauth_states.find_one_and_delete({"state": state}) if state else None
+    if not state_doc:
+        logging.error(f"ORCID callback: invalid or expired state: {state}")
         return RedirectResponse(url=f"{frontend_url}/login#orcid_error=invalid_state")
-
-    orcid_oauth_states.pop(state, None)
 
     if not code:
         return RedirectResponse(url=f"{frontend_url}/login#orcid_error=no_code")
