@@ -125,17 +125,17 @@
     "settings": "Eto",
     "profile": "Profaili",
     "signOut": "Jade",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Ìtọ́pa Olùdíje",
+    "psvVerificationHub": "Ibi Àárín Ìmúdájú PSV",
+    "aiCompliance": "Ìbámu AI",
+    "enterpriseAPI": "API Ilé-iṣẹ́",
+    "dataIntegrityAIQA": "Ìdúróṣinṣin Dátà & AI QA",
+    "globalCompliance": "Ìbámu Àgbáyé",
+    "recruiterVerification": "Ìmúdájú Olùgbàṣẹ́",
+    "reviewModeration": "Ìṣàkóso Àyẹ̀wò",
+    "translationCoverage": "Ìbòjúmu Ìtúmọ̀-Èdè",
+    "translationQA": "QA Ìtúmọ̀-Èdè",
+    "aiAndYourRights": "AI àti Àwọn Ẹ̀tọ́ Rẹ"
   },
   "dashboard": {
     "welcomeBack": "Káàbọ̀ padà",
@@ -847,7 +847,7 @@
     "freeFeatures": "Wíwá iṣẹ́ ìbẹ̀rẹ̀, ìbéèrè 5/lósù, Olùdá CV",
     "premiumFeatures": "Ìbéèrè aláìlópò, ìkọ́ni AI, Atilẹ́yìn àkọ́kọ́",
     "enterpriseFeatures": "Ojútùú àdáni, Atilẹ́yìn àfọwọ́kà, Ààyè sí API",
-    "recruiterPro": "Recruiter Pro",
+    "recruiterPro": "Olùgbàṣẹ́ Pro",
     "recruiterProDesc": "Fí iṣẹ́ sílẹ̀, wọlé sí àwọn olùdíje, kí o sì kọ́ ẹgbẹ́ àlá rẹ",
     "jobSeekerDesc": "Ọ̀nà rẹ sí iṣẹ́ àlá ní sáyẹ́ǹsì ìyè",
     "lifetimeMember": "Ọmọ Ẹgbẹ́ Títí Ayé",
@@ -2266,15 +2266,15 @@
     "haveAccount": "Ṣé o ní àkọọ́lẹ̀? Wọlé dípò"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Àwọn bàjì ìmúdájú",
+    "verified": "Tí a fìdí múlẹ̀",
+    "professionalCertifications": "Àwọn ìjẹ́rìí ọjọ́gbọn láti ọ̀dọ̀ àwọn olùpèsè tí a gbẹ́kẹ̀lé",
+    "importBadges": "Gbé àwọn bàjì wá",
+    "connecting": "Ń so pọ̀...",
+    "noBadgesYet": "Kò sí bàjì tí a fìdí rẹ̀ múlẹ̀ ṣáájú",
+    "showcaseCertifications": "Ṣàfihàn àwọn ìjẹ́rìí rẹ",
+    "importFromCredly": "Gbé wá láti Credly",
+    "viewAllBadges": "Wo gbogbo bàjì {count}",
+    "verifiedBy": "A fìdí rẹ̀ múlẹ̀ nípasẹ̀"
   }
 }

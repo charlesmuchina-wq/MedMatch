@@ -125,17 +125,17 @@
     "settings": "设置",
     "profile": "个人资料",
     "signOut": "退出登录",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "申请人跟踪",
+    "psvVerificationHub": "PSV 验证中心",
+    "aiCompliance": "AI 合规",
+    "enterpriseAPI": "企业级 API",
+    "dataIntegrityAIQA": "数据完整性与 AI 质量保证",
+    "globalCompliance": "全球合规",
+    "recruiterVerification": "招聘人员验证",
+    "reviewModeration": "审核管理",
+    "translationCoverage": "翻译覆盖范围",
+    "translationQA": "翻译质量保证",
+    "aiAndYourRights": "AI 与您的权利"
   },
   "recruiter": {
     "dashboard": "仪表板",
@@ -2279,15 +2279,15 @@
     "haveAccount": "已有账户？登录"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "已验证徽章",
+    "verified": "已验证",
+    "professionalCertifications": "来自可信颁发机构的专业认证",
+    "importBadges": "导入徽章",
+    "connecting": "正在连接...",
+    "noBadgesYet": "尚无已验证徽章",
+    "showcaseCertifications": "展示你的认证",
+    "importFromCredly": "从 Credly 导入",
+    "viewAllBadges": "查看全部 {count} 个徽章",
+    "verifiedBy": "认证方"
   }
 }

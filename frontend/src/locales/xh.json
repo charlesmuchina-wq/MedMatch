@@ -125,17 +125,17 @@
     "settings": "Iisetingi",
     "profile": "Iprofayile",
     "signOut": "Phuma",
-    "applicantTracking": "Applicant Tracking",
-    "psvVerificationHub": "PSV Verification Hub",
-    "aiCompliance": "AI Compliance",
-    "enterpriseAPI": "Enterprise API",
-    "dataIntegrityAIQA": "Data Integrity & AI QA",
-    "globalCompliance": "Global Compliance",
-    "recruiterVerification": "Recruiter Verification",
-    "reviewModeration": "Review Moderation",
-    "translationCoverage": "Translation Coverage",
-    "translationQA": "Translation QA",
-    "aiAndYourRights": "AI & Your Rights"
+    "applicantTracking": "Ukulandelela Abafaki-sicelo",
+    "psvVerificationHub": "Iziko loQinisekiso lwe-PSV",
+    "aiCompliance": "Ukuthobela i-AI",
+    "enterpriseAPI": "I-API ye-Enterprise",
+    "dataIntegrityAIQA": "Imfezeko yeDatha & i-AI QA",
+    "globalCompliance": "Ukuthobela kweHlabathi",
+    "recruiterVerification": "Uqinisekiso loMqeshi",
+    "reviewModeration": "Ulawulo loHlolo",
+    "translationCoverage": "Ugxininiso loGuqulelo",
+    "translationQA": "QA yoGuqulelo",
+    "aiAndYourRights": "I-AI & Amalungelo Akho"
   },
   "dashboard": {
     "welcomeBack": "Wamkelekile kwakhona",
@@ -2266,15 +2266,15 @@
     "haveAccount": "Unayo iakhawunti? Ngena endaweni yoko"
   },
   "badges": {
-    "verifiedBadges": "Verified Badges",
-    "verified": "Verified",
-    "professionalCertifications": "Professional certifications from trusted issuers",
-    "importBadges": "Import Badges",
-    "connecting": "Connecting...",
-    "noBadgesYet": "No verified badges yet",
-    "showcaseCertifications": "Showcase your certifications",
-    "importFromCredly": "Import from Credly",
-    "viewAllBadges": "View all {count} badges",
-    "verifiedBy": "Verified by"
+    "verifiedBadges": "Iibheji eziqinisekisiweyo",
+    "verified": "Iqinisekisiwe",
+    "professionalCertifications": "Iziqinisekiso zobungcali ezivela kubanikezeli abathembekileyo",
+    "importBadges": "Ngenisa iibheji",
+    "connecting": "Iyaqhagamshela...",
+    "noBadgesYet": "Azikabikho iibheji eziqinisekisiweyo okwangoku",
+    "showcaseCertifications": "Bonisa iziqinisekiso zakho",
+    "importFromCredly": "Ngenisa ukusuka kuCredly",
+    "viewAllBadges": "Jonga zonke iibheji ezi-{count}",
+    "verifiedBy": "Iqinisekiswe ngu"
   }
 }
