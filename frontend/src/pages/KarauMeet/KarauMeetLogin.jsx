@@ -105,7 +105,7 @@ const KarauMeetLogin = ({ onLogin }) => {
               }`}
               data-testid="tab-signin"
             >
-              Sign In
+              {t("karauMeet.signIn")}
             </button>
             <button
               onClick={() => setActiveTab('join')}
@@ -123,7 +123,7 @@ const KarauMeetLogin = ({ onLogin }) => {
             <>
               <form onSubmit={handleLogin} className="space-y-4">
                 <div>
-                  <Label className="text-slate-300">Email</Label>
+                  <Label className="text-slate-300">{t("karauMeet.email")}</Label>
                   <Input
                     type="email"
                     value={email}
@@ -166,12 +166,12 @@ const KarauMeetLogin = ({ onLogin }) => {
                   {isLoading ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                      Signing In...
+                      {t("karauMeet.signingIn")}
                     </>
                   ) : (
                     <>
                       <Video className="w-5 h-5 mr-2" />
-                      Sign In
+                      {t("karauMeet.signIn")}
                     </>
                   )}
                 </Button>
