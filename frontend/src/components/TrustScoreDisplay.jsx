@@ -88,8 +88,8 @@ const TrustScoreDisplay = ({
               <Shield className="w-6 h-6 text-gray-400" />
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100">Build Your Trust Score</h3>
-              <p className="text-sm text-gray-500">Complete your profile and add credentials to build trust with recruiters</p>
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100">{t("trust.buildYourScore")}</h3>
+              <p className="text-sm text-gray-500">{t("trust.buildDescription")}</p>
             </div>
           </div>
         </CardContent>
