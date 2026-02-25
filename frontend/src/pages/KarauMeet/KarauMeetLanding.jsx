@@ -181,10 +181,10 @@ const KarauMeetLanding = ({ user }) => {
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
               <History className="w-5 h-5 text-slate-400" />
-              Recent Meetings
+              {t("karauMeet.recentMeetings")}
             </CardTitle>
             <CardDescription className="text-slate-400">
-              Your meeting history
+              {t("karauMeet.meetingHistory")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -195,7 +195,7 @@ const KarauMeetLanding = ({ user }) => {
             ) : meetings.length === 0 ? (
               <div className="text-center py-8">
                 <Video className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-                <p className="text-slate-400">No meetings yet. Start your first meeting!</p>
+                <p className="text-slate-400">{t("karauMeet.noMeetingsHistory")}</p>
               </div>
             ) : (
               <div className="space-y-3">
