@@ -134,7 +134,7 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
           data-testid="btn-logout"
         >
           <LogOut className="w-4 h-4" />
-          {!isCollapsed && <span className="ml-2">Sign Out</span>}
+          {!isCollapsed && <span className="ml-2">{t("auth.signOut") || "Sign Out"}</span>}
         </Button>
       </div>
     </div>
