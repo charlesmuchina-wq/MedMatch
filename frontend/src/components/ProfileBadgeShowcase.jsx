@@ -254,7 +254,7 @@ const ProfileBadgeShowcase = ({
         <div className="text-center py-6">
           <Award className="w-10 h-10 mx-auto text-gray-300 mb-2" />
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
-            {userId ? 'No verified badges yet' : 'Showcase your certifications'}
+            {userId ? t("badges.noBadgesYet") : t("badges.showcaseCertifications")}
           </p>
           {!userId && showConnectButton && (
             <Button 
