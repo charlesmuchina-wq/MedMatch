@@ -1652,8 +1652,8 @@
     "biometricAuth": {
       "title": "Autentikasi Biometrik",
       "enableBiometric": "Aktifkan Login Biometrik",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "ID Wajah",
+      "touchId": "ID Sentuh",
       "fingerprint": "Sidik Jari",
       "setupRequired": "Perlu Pengaturan",
       "notSupported": "Tidak didukung di perangkat ini"

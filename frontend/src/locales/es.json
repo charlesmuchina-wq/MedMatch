@@ -1556,8 +1556,8 @@
     "biometricAuth": {
       "title": "Autenticación biométrica",
       "enableBiometric": "Activar inicio de sesión biométrico",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Identificación Facial",
+      "touchId": "Identificación Táctil",
       "fingerprint": "Huella dactilar",
       "setupRequired": "Se requiere configuración",
       "notSupported": "No compatible con este dispositivo"

@@ -1652,8 +1652,8 @@
     "biometricAuth": {
       "title": "Lífmælingaauðkenning",
       "enableBiometric": "Virkja innskráningu með lífmælingum",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Andlitsauðkenni",
+      "touchId": "Snertiauðkenni",
       "fingerprint": "Fingrafar",
       "setupRequired": "Uppsetning nauðsynleg",
       "notSupported": "Ekki stutt á þessu tæki"
@@ -1907,13 +1907,13 @@
   "atsManagement": {
     "selectJobPlaceholder": "Veldu starfslýsingu",
     "maxApplicantsPlaceholder": "Ótakmarkað",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "kandi@dæmi.com",
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Bættu persónulegri athugasemd við boðið..."
   },
   "recruiterVerification": {
     "companyPlaceholder": "t.d., Borgarlæknamiðstöð",
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://dæmi.com",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
     "emailPlaceholder": "þu@fyrirtaekithitt.is",
     "rolePlaceholder": "t.d., mannauðsstjóri",
@@ -2027,7 +2027,7 @@
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "t.d. eldri gæðaverkfræðingur",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply",
+    "externalUrlPlaceholder": "https://your-company.com/careers/umsókn",
     "tagsPlaceholder": "t.d. fjarvinna, fullt starf, gæði, lækningatæki"
   },
   "interviewPrep": {

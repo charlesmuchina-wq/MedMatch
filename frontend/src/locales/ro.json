@@ -1652,8 +1652,8 @@
     "biometricAuth": {
       "title": "Autentificare biometrică",
       "enableBiometric": "Activează autentificarea biometrică",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "ID față",
+      "touchId": "ID atingere",
       "fingerprint": "Amprentă",
       "setupRequired": "Este necesară configurarea",
       "notSupported": "Nu este acceptat pe acest dispozitiv"

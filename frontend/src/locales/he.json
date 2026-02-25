@@ -1652,8 +1652,8 @@
     "biometricAuth": {
       "title": "אימות ביומטרי",
       "enableBiometric": "הפעל/י התחברות ביומטרית",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "זיהוי פנים",
+      "touchId": "זיהוי טביעת אצבע",
       "fingerprint": "טביעת אצבע",
       "setupRequired": "נדרשת הגדרה",
       "notSupported": "לא נתמך במכשיר זה"
@@ -1864,12 +1864,12 @@
     "companyPlaceholder": "למשל, Google",
     "positionPlaceholder": "למשל, Software Engineer",
     "locationPlaceholder": "https://meet.google.com/... או כתובת המשרד",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "ג'ון סמית",
     "interviewerEmailPlaceholder": "john@company.com",
     "notesPlaceholder": "פרטים נוספים על הראיון..."
   },
   "publicApplication": {
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "ג'ון דו",
     "emailPlaceholder": "john@example.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
@@ -1897,18 +1897,18 @@
     "selectLocationPlaceholder": "בחר את המיקום שלך..."
   },
   "idVerification": {
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "אקמי קורפוריישן",
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "מנהל/ת גיוס טאלנטים",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "namePlaceholder": "John Doe"
+    "namePlaceholder": "ג'ון דו"
   },
   "atsManagement": {
     "selectJobPlaceholder": "בחר מודעת דרושים",
     "maxApplicantsPlaceholder": "ללא הגבלה",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "ג'ון דו",
     "inviteNotePlaceholder": "הוסף הערה אישית להזמנה שלך..."
   },
   "recruiterVerification": {
@@ -2007,7 +2007,7 @@
   },
   "enterpriseAPI": {
     "apiKeyNamePlaceholder": "לדוגמה, אינטגרציה עם ATS בסביבת פרודקשן",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch",
+    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/MedMatch",
     "webhookDescPlaceholder": "לדוגמה, webhook של ATS בסביבת פרודקשן"
   },
   "applicantTracker": {

@@ -27,7 +27,7 @@
     "signup": "Opret konto",
     "all": "Alle",
     "refresh": "Opdater",
-    "download": "Download",
+    "download": "Hent",
     "filter": "Filtrer",
     "help": "Hjælp",
     "less": "Mindre",
@@ -484,7 +484,7 @@
     "title": "Mit CV",
     "createNew": "Opret nyt CV",
     "editResume": "Rediger CV",
-    "downloadPdf": "Download PDF",
+    "downloadPdf": "Hent PDF",
     "preview": "Forhåndsvisning",
     "sections": "Afsnit",
     "experience": "Erfaring",
@@ -571,8 +571,8 @@
     "questionsPlaceholder": "Indtast spørgsmål, ét pr. linje...",
     "enterCompanyName": "Indtast virksomhedsnavn",
     "researching": "Researcher...",
-    "research": "Research",
-    "researchFor": "Research for",
+    "research": "Forskning",
+    "researchFor": "Forskning for",
     "typeAnswerPlaceholder": "Skriv dit svar her... (Du har 2 minutter)",
     "skipQuestion": "Spring spørgsmål over",
     "jobTitlePlaceholder": "f.eks. Supplier Quality Manager",
@@ -1431,7 +1431,7 @@
       "title": "Virksomhedsprofil",
       "subtitle": "Administrer dine virksomhedsoplysninger",
       "overview": "Overblik",
-      "jobs": "Jobs",
+      "jobs": "Job",
       "reviews": "Anmeldelser",
       "benefits": "Fordele",
       "culture": "Kultur",
@@ -1865,15 +1865,15 @@
     "positionPlaceholder": "f.eks. Software Engineer",
     "locationPlaceholder": "https://meet.google.com/... eller kontoradresse",
     "interviewerNamePlaceholder": "John Smith",
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerEmailPlaceholder": "john@firma.com",
     "notesPlaceholder": "Eventuelle yderligere oplysninger om samtalen..."
   },
   "publicApplication": {
     "namePlaceholder": "John Doe",
-    "emailPlaceholder": "john@example.com",
+    "emailPlaceholder": "john@eksempel.com",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "portfolioPlaceholder": "https://yourportfolio.com",
+    "linkedinPlaceholder": "https://linkedin.com/in/ditprofil",
+    "portfolioPlaceholder": "https://ditportfolie.com",
     "resumeLinkPlaceholder": "Link til dit CV (Google Drive, Dropbox osv.)",
     "coverLetterPlaceholder": "Fortæl os, hvorfor du passer godt til denne rolle..."
   },
@@ -1901,24 +1901,24 @@
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "Talent Acquisition Manager",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/ditprofil",
     "namePlaceholder": "John Doe"
   },
   "atsManagement": {
     "selectJobPlaceholder": "Vælg et jobopslag",
     "maxApplicantsPlaceholder": "Ubegrænset",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "kandidat@eksempel.com",
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Tilføj en personlig note til din invitation..."
   },
   "recruiterVerification": {
     "companyPlaceholder": "f.eks. City Medical Center",
-    "websitePlaceholder": "https://example.com",
-    "linkedinPlaceholder": "https://linkedin.com/company/...",
+    "websitePlaceholder": "https://eksempel.com",
+    "linkedinPlaceholder": "https://linkedin.com/virksomhed/...",
     "emailPlaceholder": "du@ditfirma.com",
     "rolePlaceholder": "f.eks. HR-chef",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/ditprofil"
   },
   "jobSearch": {
     "selectCountryFirst": "Vælg først land",
@@ -2007,7 +2007,7 @@
   },
   "enterpriseAPI": {
     "apiKeyNamePlaceholder": "f.eks. Production ATS-integration",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch",
+    "webhookUrlPlaceholder": "https://dit-ats.com/webhooks/medmatch",
     "webhookDescPlaceholder": "f.eks. Production ATS-webhook"
   },
   "applicantTracker": {
@@ -2027,7 +2027,7 @@
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "f.eks. Senior kvalitetsingeniør",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply",
+    "externalUrlPlaceholder": "https://dit-virksomhed.com/karriere/ansøg",
     "tagsPlaceholder": "f.eks. Remote, Fuldtid, Kvalitet, Medicinsk udstyr"
   },
   "interviewPrep": {

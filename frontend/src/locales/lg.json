@@ -1715,8 +1715,8 @@
     "problemStatement": "Okunnyonnyola Ekizibu"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerEmailPlaceholder": "{{email}}",
+    "interviewerNamePlaceholder": "{{name}}",
     "companyPlaceholder": "nga, Google",
     "notesPlaceholder": "Buli bino ebirala ebikwata ku kkomo ly'okubuuza...",
     "positionPlaceholder": "nga, Yinginiya wa Sofutiweya",
@@ -1749,13 +1749,13 @@
     "countryOptional": "Ggwanga (si kyetaagisa)"
   },
   "publicApplication": {
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/{{yourprofile}}",
     "resumeLinkPlaceholder": "Linki eya CV yo (Google Drive, Dropbox, n'ebirala)",
     "phonePlaceholder": " +1 (555) 123-4567",
     "coverLetterPlaceholder": "Tutegeeze lwaki osaanira nnyo omulimu guno...",
-    "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
-    "portfolioPlaceholder": "https://yourportfolio.com"
+    "emailPlaceholder": "{{email}}",
+    "namePlaceholder": "{{name}}",
+    "portfolioPlaceholder": "https://{{yourportfolio}}"
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "Okugeza, Injinia Omukulu ow’Okukakasa Omutindo",
@@ -1784,7 +1784,7 @@
     "rolePlaceholder": "ng'okulabirako, Omukulu w’abaakozi",
     "phonePlaceholder": "+1 (555) 123-4567",
     "companyPlaceholder": "ng'okulabirako, City Medical Center",
-    "linkedinPlaceholder": "https://linkedin.com/company/...",
+    "linkedinPlaceholder": "https://linkedin.com/company/{{...}}",
     "emailPlaceholder": "ggwe@kampuni-yo.com",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/profayiroyo"
   },
@@ -1918,7 +1918,7 @@
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ng'ekyokulabirako: ATS webhook ey'Obukugu",
     "apiKeyNamePlaceholder": "ng'ekyokulabirako: Okuyungibwa kwa ATS ey'Obukugu",
-    "webhookUrlPlaceholder": "https://your-ats.com/webhooks/medmatch"
+    "webhookUrlPlaceholder": "https://{{your-ats}}.com/webhooks/medmatch"
   },
   "adminReviewModeration": {
     "searchPlaceholder": "Noonya okusinziira ku mukakasi, omusaba, oba ebirimu...",

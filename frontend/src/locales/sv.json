@@ -1513,7 +1513,7 @@
     "biometricAuth": {
       "title": "Biometrisk autentisering",
       "enableBiometric": "Aktivera biometrisk inloggning",
-      "faceId": "Face ID",
+      "faceId": "Ansikts-ID",
       "touchId": "Touch ID",
       "fingerprint": "Fingeravtryck",
       "setupRequired": "Konfiguration krävs",
@@ -1685,8 +1685,8 @@
     "problemStatement": "Problemformulering"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerEmailPlaceholder": "{{email}}",
+    "interviewerNamePlaceholder": "{{name}}",
     "companyPlaceholder": "t.ex. Google",
     "notesPlaceholder": "Eventuella ytterligare detaljer om intervjun...",
     "positionPlaceholder": "t.ex. mjukvaruingenjör",
@@ -1723,8 +1723,8 @@
     "resumeLinkPlaceholder": "Länk till ditt CV (Google Drive, Dropbox osv.)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Berätta varför du passar bra för den här rollen...",
-    "emailPlaceholder": "john@example.com",
-    "namePlaceholder": "John Doe",
+    "emailPlaceholder": "{{email}}",
+    "namePlaceholder": "{{name}}",
     "portfolioPlaceholder": "https://dinportfolio.com"
   },
   "recruiterJobs": {
@@ -1762,9 +1762,9 @@
     "jobTitlePlaceholder": "Chef för talangrekrytering",
     "namePlaceholder": "John Doe",
     "domainPlaceholder": "acme.com",
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "{{company}}",
     "linkedinPlaceholder": "https://linkedin.com/in/dinprofil",
-    "websitePlaceholder": "https://acme.com"
+    "websitePlaceholder": "{{url}}"
   },
   "companiesPage": {
     "websitePlaceholder": "https://…",

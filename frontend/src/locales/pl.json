@@ -58,7 +58,7 @@
     "skip": "Pomiń",
     "done": "Gotowe",
     "finish": "Zakończ",
-    "start": "Start",
+    "start": "Rozpocznij",
     "stop": "Zatrzymaj",
     "pause": "Wstrzymaj",
     "resume": "Wznów",
@@ -1543,8 +1543,8 @@
     "biometricAuth": {
       "title": "Uwierzytelnianie biometryczne",
       "enableBiometric": "Włącz logowanie biometryczne",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Rozpoznawanie twarzy",
+      "touchId": "Czytnik linii papilarnych",
       "fingerprint": "Odcisk palca",
       "setupRequired": "Wymagana konfiguracja",
       "notSupported": "Nieobsługiwane na tym urządzeniu"

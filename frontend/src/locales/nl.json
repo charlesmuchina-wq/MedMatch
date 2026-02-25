@@ -1543,8 +1543,8 @@
     "biometricAuth": {
       "title": "Biometrische authenticatie",
       "enableBiometric": "Biometrisch inloggen inschakelen",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Gezicht ID",
+      "touchId": "Aanraak ID",
       "fingerprint": "Vingerafdruk",
       "setupRequired": "Instelling vereist",
       "notSupported": "Niet ondersteund op dit apparaat"

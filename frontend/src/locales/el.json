@@ -1652,8 +1652,8 @@
     "biometricAuth": {
       "title": "Βιομετρική ταυτοποίηση",
       "enableBiometric": "Ενεργοποίηση βιομετρικής σύνδεσης",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Αναγνώριση Προσώπου",
+      "touchId": "Αναγνώριση Δακτυλικού Αποτυπώματος",
       "fingerprint": "Δακτυλικό αποτύπωμα",
       "setupRequired": "Απαιτείται ρύθμιση",
       "notSupported": "Δεν υποστηρίζεται σε αυτή τη συσκευή"
@@ -1864,12 +1864,12 @@
     "companyPlaceholder": "π.χ., Google",
     "positionPlaceholder": "π.χ., Software Engineer",
     "locationPlaceholder": "https://meet.google.com/... ή διεύθυνση γραφείου",
-    "interviewerNamePlaceholder": "John Smith",
+    "interviewerNamePlaceholder": "Τζον Σμιθ",
     "interviewerEmailPlaceholder": "john@company.com",
     "notesPlaceholder": "Τυχόν επιπλέον λεπτομέρειες για τη συνέντευξη..."
   },
   "publicApplication": {
-    "namePlaceholder": "John Doe",
+    "namePlaceholder": "Τζον Ντόε",
     "emailPlaceholder": "john@example.com",
     "phonePlaceholder": "+1 (555) 123-4567",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
@@ -1902,13 +1902,13 @@
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "Υπεύθυνος Απόκτησης Ταλέντων",
     "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "namePlaceholder": "John Doe"
+    "namePlaceholder": "Τζον Ντόε"
   },
   "atsManagement": {
     "selectJobPlaceholder": "Επιλέξτε αγγελία θέσης",
     "maxApplicantsPlaceholder": "Απεριόριστο",
     "candidateEmailPlaceholder": "candidate@example.com",
-    "candidateNamePlaceholder": "John Doe",
+    "candidateNamePlaceholder": "Τζον Ντόε",
     "inviteNotePlaceholder": "Προσθέστε μια προσωπική σημείωση στην πρόσκλησή σας..."
   },
   "recruiterVerification": {

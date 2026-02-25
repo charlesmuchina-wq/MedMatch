@@ -1543,8 +1543,8 @@
     "biometricAuth": {
       "title": "Xác thực sinh trắc học",
       "enableBiometric": "Bật đăng nhập sinh trắc học",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Nhận diện khuôn mặt",
+      "touchId": "Nhận diện vân tay",
       "fingerprint": "Vân tay",
       "setupRequired": "Cần thiết lập",
       "notSupported": "Không được hỗ trợ trên thiết bị này"

@@ -1715,7 +1715,7 @@
     "problemStatement": "Mawu a Vuto"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerEmailPlaceholder": "john@kampani.com",
     "interviewerNamePlaceholder": "John Smith",
     "companyPlaceholder": "mwachitsanzo, Google",
     "notesPlaceholder": "Zina zowonjezera zokhudza kuyankhulana...",
@@ -1753,7 +1753,7 @@
     "resumeLinkPlaceholder": "Ulalo wa CV yanu (Google Drive, Dropbox, ndi zina)",
     "phonePlaceholder": "+1 (555) 123-4567",
     "coverLetterPlaceholder": "Tiuzeni chifukwa chomwe mukuyenerera kwambiri pa udindowu...",
-    "emailPlaceholder": "john@example.com",
+    "emailPlaceholder": "john@mwexample.com",
     "namePlaceholder": "John Doe",
     "portfolioPlaceholder": "https://mbiri-yanu.com"
   },

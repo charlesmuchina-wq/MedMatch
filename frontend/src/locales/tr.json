@@ -1543,8 +1543,8 @@
     "biometricAuth": {
       "title": "Biyometrik Kimlik Doğrulama",
       "enableBiometric": "Biyometrik Girişi Etkinleştir",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Yüz ID",
+      "touchId": "Dokunmatik ID",
       "fingerprint": "Parmak İzi",
       "setupRequired": "Kurulum Gerekli",
       "notSupported": "Bu cihazda desteklenmiyor"

@@ -1728,7 +1728,7 @@
     "problemStatement": "问题说明"
   },
   "interviewCalendar": {
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerEmailPlaceholder": "john@公司.com",
     "interviewerNamePlaceholder": "约翰·史密斯",
     "companyPlaceholder": "例如：Google",
     "notesPlaceholder": "面试的其他补充信息...",
@@ -1766,7 +1766,7 @@
     "resumeLinkPlaceholder": "简历链接（Google Drive、Dropbox 等）",
     "phonePlaceholder": "+1（555）123-4567",
     "coverLetterPlaceholder": "告诉我们为什么你非常适合这个职位...",
-    "emailPlaceholder": "john@example.com",
+    "emailPlaceholder": "john@示例.com",
     "namePlaceholder": "约翰·多伊",
     "portfolioPlaceholder": "https://你的作品集.com"
   },

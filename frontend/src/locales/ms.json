@@ -1652,8 +1652,8 @@
     "biometricAuth": {
       "title": "Pengesahan Biometrik",
       "enableBiometric": "Dayakan Log Masuk Biometrik",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "ID Wajah",
+      "touchId": "ID Sentuh",
       "fingerprint": "Cap Jari",
       "setupRequired": "Persediaan Diperlukan",
       "notSupported": "Tidak disokong pada peranti ini"
@@ -1897,7 +1897,7 @@
     "selectLocationPlaceholder": "Pilih lokasi anda..."
   },
   "idVerification": {
-    "companyPlaceholder": "Acme Corporation",
+    "companyPlaceholder": "Syarikat Acme",
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "Pengurus Pengambilan Bakat",
@@ -1907,7 +1907,7 @@
   "atsManagement": {
     "selectJobPlaceholder": "Pilih jawatan yang diiklankan",
     "maxApplicantsPlaceholder": "Tanpa had",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "calon@example.com",
     "candidateNamePlaceholder": "John Doe",
     "inviteNotePlaceholder": "Tambah nota peribadi pada jemputan anda..."
   },
@@ -1915,7 +1915,7 @@
     "companyPlaceholder": "cth., Pusat Perubatan Bandar",
     "websitePlaceholder": "https://example.com",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "emailPlaceholder": "anda@syarikatanda.com",
     "rolePlaceholder": "cth., Pengurus HR",
     "phonePlaceholder": "+1 (555) 123-4567",
     "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
@@ -2027,7 +2027,7 @@
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "cth., Jurutera Kualiti Senior",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply",
+    "externalUrlPlaceholder": "https://syarikat-anda.com/kerjaya/mohon",
     "tagsPlaceholder": "cth., Jarak Jauh, Sepenuh Masa, Kualiti, Peranti Perubatan"
   },
   "interviewPrep": {

@@ -1652,8 +1652,8 @@
     "biometricAuth": {
       "title": "Biometrikus hitelesítés",
       "enableBiometric": "Biometrikus bejelentkezés engedélyezése",
-      "faceId": "Face ID",
-      "touchId": "Touch ID",
+      "faceId": "Arcazonosítás",
+      "touchId": "Érintésazonosítás",
       "fingerprint": "Ujjlenyomat",
       "setupRequired": "Beállítás szükséges",
       "notSupported": "Ezen az eszközön nem támogatott"
@@ -1918,7 +1918,7 @@
     "emailPlaceholder": "you@yourcompany.com",
     "rolePlaceholder": "pl. HR-vezető",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/profilod"
   },
   "jobSearch": {
     "selectCountryFirst": "Először válassz országot",
@@ -2027,7 +2027,7 @@
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "pl. Senior minőségbiztosítási mérnök",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply",
+    "externalUrlPlaceholder": "https://your-company.com/karrier/jelentkez",
     "tagsPlaceholder": "pl. távmunka, teljes munkaidő, minőség, orvostechnikai eszköz"
   },
   "interviewPrep": {

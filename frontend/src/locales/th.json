@@ -1865,15 +1865,15 @@
     "positionPlaceholder": "เช่น Software Engineer",
     "locationPlaceholder": "https://meet.google.com/... หรือที่อยู่สำนักงาน",
     "interviewerNamePlaceholder": "จอห์น สมิธ",
-    "interviewerEmailPlaceholder": "john@company.com",
+    "interviewerEmailPlaceholder": "john@บริษัท.com",
     "notesPlaceholder": "รายละเอียดเพิ่มเติมเกี่ยวกับการสัมภาษณ์..."
   },
   "publicApplication": {
     "namePlaceholder": "จอห์น โด",
-    "emailPlaceholder": "john@example.com",
+    "emailPlaceholder": "john@ตัวอย่าง.com",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
-    "portfolioPlaceholder": "https://yourportfolio.com",
+    "linkedinPlaceholder": "https://linkedin.com/in/โปรไฟล์ของคุณ",
+    "portfolioPlaceholder": "https://ผลงานของคุณ.com",
     "resumeLinkPlaceholder": "ลิงก์เรซูเม่ของคุณ (Google Drive, Dropbox ฯลฯ)",
     "coverLetterPlaceholder": "บอกเราว่าทำไมคุณเหมาะกับตำแหน่งนี้..."
   },
@@ -1901,24 +1901,24 @@
     "websitePlaceholder": "https://acme.com",
     "domainPlaceholder": "acme.com",
     "jobTitlePlaceholder": "ผู้จัดการสรรหาบุคลากร",
-    "linkedinPlaceholder": "https://linkedin.com/in/yourprofile",
+    "linkedinPlaceholder": "https://linkedin.com/in/โปรไฟล์ของคุณ",
     "namePlaceholder": "จอห์น โด"
   },
   "atsManagement": {
     "selectJobPlaceholder": "เลือกประกาศรับสมัครงาน",
     "maxApplicantsPlaceholder": "ไม่จำกัด",
-    "candidateEmailPlaceholder": "candidate@example.com",
+    "candidateEmailPlaceholder": "ผู้สมัคร@ตัวอย่าง.com",
     "candidateNamePlaceholder": "จอห์น โด",
     "inviteNotePlaceholder": "เพิ่มข้อความส่วนตัวลงในคำเชิญของคุณ..."
   },
   "recruiterVerification": {
     "companyPlaceholder": "เช่น ศูนย์การแพทย์ซิตี้",
-    "websitePlaceholder": "https://example.com",
+    "websitePlaceholder": "https://ตัวอย่าง.com",
     "linkedinPlaceholder": "https://linkedin.com/company/...",
-    "emailPlaceholder": "you@yourcompany.com",
+    "emailPlaceholder": "คุณ@บริษัทของคุณ.com",
     "rolePlaceholder": "เช่น ผู้จัดการฝ่ายทรัพยากรบุคคล",
     "phonePlaceholder": "+1 (555) 123-4567",
-    "personalLinkedinPlaceholder": "https://linkedin.com/in/yourprofile"
+    "personalLinkedinPlaceholder": "https://linkedin.com/in/โปรไฟล์ของคุณ"
   },
   "jobSearch": {
     "selectCountryFirst": "เลือกประเทศก่อน",
@@ -2027,7 +2027,7 @@
   },
   "recruiterJobs": {
     "jobTitlePlaceholder": "เช่น วิศวกรประกันคุณภาพอาวุโส",
-    "externalUrlPlaceholder": "https://your-company.com/careers/apply",
+    "externalUrlPlaceholder": "https://บริษัทของคุณ.com/careers/apply",
     "tagsPlaceholder": "เช่น รีโมต, ฟูลไทม์, คุณภาพ, อุปกรณ์การแพทย์"
   },
   "interviewPrep": {
