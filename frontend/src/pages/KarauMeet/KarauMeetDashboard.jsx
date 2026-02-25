@@ -111,9 +111,9 @@ const KarauMeetDashboard = ({ user }) => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white" data-testid="dashboard-welcome">
-            Welcome back, {user?.name?.split(' ')[0] || 'User'}!
+            {t("karauMeet.welcomeBack", { name: user?.name?.split(' ')[0] || 'User' })}
           </h1>
-          <p className="text-slate-400">Ready for your next meeting?</p>
+          <p className="text-slate-400">{t("karauMeet.readyForMeeting")}</p>
         </div>
         <div className="flex items-center gap-3">
           <Button
@@ -122,7 +122,7 @@ const KarauMeetDashboard = ({ user }) => {
             data-testid="btn-new-meeting"
           >
             <Plus className="w-4 h-4 mr-2" />
-            New Meeting
+            {t("karauMeet.newMeeting")}
           </Button>
         </div>
       </div>
@@ -141,8 +141,8 @@ const KarauMeetDashboard = ({ user }) => {
                 <Video className="w-7 h-7 text-white" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white mb-1">Start Instant Meeting</h3>
-                <p className="text-slate-400 text-sm">Create a new meeting right now</p>
+                <h3 className="text-lg font-semibold text-white mb-1">{t("karauMeet.startInstantMeeting")}</h3>
+                <p className="text-slate-400 text-sm">{t("karauMeet.createNewMeetingNow")}</p>
               </div>
             </div>
           </CardContent>
