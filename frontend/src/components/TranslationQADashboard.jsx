@@ -409,12 +409,194 @@ const TranslationQADashboard = () => {
 
       {/* Tabs for Details */}
       <Tabs defaultValue="languages" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
+          <TabsTrigger value="health" data-testid="tab-health">
+            <Heart className="w-3.5 h-3.5 mr-1.5" />
+            Health Monitor
+          </TabsTrigger>
           <TabsTrigger value="languages" data-testid="tab-languages">Languages</TabsTrigger>
           <TabsTrigger value="issues" data-testid="tab-issues">Issues</TabsTrigger>
           <TabsTrigger value="recommendations" data-testid="tab-recommendations">Recommendations</TabsTrigger>
           <TabsTrigger value="details" data-testid="tab-details">Details</TabsTrigger>
         </TabsList>
+
+        {/* Health Monitor Tab */}
+        <TabsContent value="health" className="mt-4">
+          <div className="space-y-4">
+            {/* Health Status Banner */}
+            {healthData && (
+              <Card className={`border-l-4 ${
+                healthData.overall_status === "healthy" ? "border-l-green-500 bg-green-50/50 dark:bg-green-950/20" :
+                healthData.overall_status === "warning" ? "border-l-yellow-500 bg-yellow-50/50 dark:bg-yellow-950/20" :
+                "border-l-red-500 bg-red-50/50 dark:bg-red-950/20"
+              }`}>
+                <CardContent className="p-5">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                        healthData.overall_status === "healthy" ? "bg-green-500" :
+                        healthData.overall_status === "warning" ? "bg-yellow-500" : "bg-red-500"
+                      }`}>
+                        <Activity className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-lg capitalize">{healthData.overall_status}</h3>
+                        <p className="text-xs text-slate-500">
+                          Last checked: {new Date(healthData.timestamp).toLocaleString()}
+                        </p>
+                      </div>
+                    </div>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={fetchHealthMonitor}
+                      disabled={healthLoading}
+                      data-testid="refresh-health-btn"
+                    >
+                      <RefreshCw className={`w-4 h-4 mr-1 ${healthLoading ? "animate-spin" : ""}`} />
+                      Refresh
+                    </Button>
+                  </div>
+
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                    <div className="p-3 bg-white dark:bg-slate-800 rounded-lg text-center">
+                      <div className="text-2xl font-bold">{healthData.summary.total_languages}</div>
+                      <div className="text-xs text-slate-500">Languages</div>
+                    </div>
+                    <div className="p-3 bg-white dark:bg-slate-800 rounded-lg text-center">
+                      <div className="text-2xl font-bold">{healthData.summary.translatable_keys}</div>
+                      <div className="text-xs text-slate-500">Translatable Keys</div>
+                    </div>
+                    <div className="p-3 bg-white dark:bg-slate-800 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-green-600">{healthData.summary.average_coverage}%</div>
+                      <div className="text-xs text-slate-500">Avg Coverage</div>
+                    </div>
+                    <div className="p-3 bg-white dark:bg-slate-800 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-green-600">{healthData.summary.healthy}</div>
+                      <div className="text-xs text-slate-500">Healthy</div>
+                    </div>
+                    <div className="p-3 bg-white dark:bg-slate-800 rounded-lg text-center">
+                      <div className="text-2xl font-bold text-yellow-600">{healthData.summary.warning}</div>
+                      <div className="text-xs text-slate-500">Warning</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Language Coverage Table */}
+            {healthData?.languages && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Globe className="w-5 h-5" />
+                    Language Coverage
+                  </CardTitle>
+                  <CardDescription>
+                    Coverage breakdown for all {healthData.summary.total_languages} languages
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="max-h-96 overflow-y-auto">
+                    <table className="w-full text-sm">
+                      <thead className="sticky top-0 bg-white dark:bg-slate-900">
+                        <tr className="border-b text-left">
+                          <th className="py-2 px-3 font-medium">Language</th>
+                          <th className="py-2 px-3 font-medium text-right">Coverage</th>
+                          <th className="py-2 px-3 font-medium text-right">Untranslated</th>
+                          <th className="py-2 px-3 font-medium text-right">Missing</th>
+                          <th className="py-2 px-3 font-medium">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {healthData.languages
+                          .sort((a, b) => a.coverage - b.coverage)
+                          .map((lang) => (
+                            <tr key={lang.language} className="border-b hover:bg-slate-50 dark:hover:bg-slate-800" data-testid={`health-lang-${lang.language}`}>
+                              <td className="py-2 px-3 font-mono uppercase">{lang.language}</td>
+                              <td className="py-2 px-3 text-right">
+                                <div className="flex items-center justify-end gap-2">
+                                  <div className="w-16 h-2 bg-slate-200 rounded-full overflow-hidden">
+                                    <div
+                                      className={`h-full rounded-full ${
+                                        lang.coverage >= 99 ? "bg-green-500" :
+                                        lang.coverage >= 95 ? "bg-yellow-500" : "bg-red-500"
+                                      }`}
+                                      style={{ width: `${lang.coverage}%` }}
+                                    />
+                                  </div>
+                                  <span className="font-medium">{lang.coverage}%</span>
+                                </div>
+                              </td>
+                              <td className="py-2 px-3 text-right">{lang.untranslated}</td>
+                              <td className="py-2 px-3 text-right">{lang.missing_keys}</td>
+                              <td className="py-2 px-3">
+                                <Badge variant={
+                                  lang.status === "healthy" ? "default" :
+                                  lang.status === "warning" ? "secondary" : "destructive"
+                                } className={`text-xs ${
+                                  lang.status === "healthy" ? "bg-green-100 text-green-800" :
+                                  lang.status === "warning" ? "bg-yellow-100 text-yellow-800" :
+                                  "bg-red-100 text-red-800"
+                                }`}>
+                                  {lang.status}
+                                </Badge>
+                              </td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Alerts */}
+            {healthData?.alerts?.length > 0 && (
+              <Card className="border-yellow-200">
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <AlertTriangle className="w-5 h-5 text-yellow-500" />
+                    Active Alerts ({healthData.alerts.length})
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  {healthData.alerts.map((alert, i) => (
+                    <div key={i} className={`p-3 rounded-lg border ${
+                      alert.severity === "critical" ? "bg-red-50 border-red-200" : "bg-yellow-50 border-yellow-200"
+                    }`}>
+                      <div className="text-sm font-medium">{alert.message}</div>
+                      {alert.keys && (
+                        <div className="mt-1 text-xs text-slate-600">
+                          Keys: {alert.keys.slice(0, 5).join(", ")}
+                          {alert.keys.length > 5 && ` +${alert.keys.length - 5} more`}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            )}
+
+            {healthData && !healthData.alerts?.length && (
+              <Card className="border-green-200 bg-green-50/50 dark:bg-green-950/20">
+                <CardContent className="p-6 text-center">
+                  <CheckCircle className="w-12 h-12 mx-auto mb-2 text-green-500" />
+                  <p className="font-medium text-green-800 dark:text-green-200">No active alerts</p>
+                  <p className="text-sm text-green-600 dark:text-green-400 mt-1">
+                    All {healthData.summary.total_languages} languages are in good health
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+
+            {healthLoading && !healthData && (
+              <div className="flex items-center justify-center h-32">
+                <RefreshCw className="w-6 h-6 animate-spin text-turquoise" />
+              </div>
+            )}
+          </div>
+        </TabsContent>
 
         {/* Languages Tab */}
         <TabsContent value="languages" className="mt-4">
