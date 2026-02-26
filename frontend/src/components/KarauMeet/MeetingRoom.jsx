@@ -1143,6 +1143,23 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         
       case 'pong':
         break;
+
+      case 'breakout_session_started':
+        toast.info('Breakout rooms opened!', { duration: 4000 });
+        break;
+
+      case 'breakout_session_closed':
+        toast.info(`Everyone returned to main room`, { duration: 4000 });
+        setShowBreakoutManager(false);
+        break;
+
+      case 'breakout_room_assigned':
+        toast.info(`You've been assigned to ${message.room?.room_name || 'a breakout room'}`, { duration: 4000 });
+        break;
+
+      case 'breakout_room_moved':
+        toast.info('You were moved to a different room', { duration: 3000 });
+        break;
         
       default:
         console.log('Unknown message type:', message.type);
