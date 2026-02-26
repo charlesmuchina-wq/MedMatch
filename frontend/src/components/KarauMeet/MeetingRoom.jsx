@@ -14,6 +14,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 import { ParticipantGrid } from './ParticipantGrid';
 import { ChatPanel, AINotesPanel, ParticipantsPanel, SettingsPanel } from './MeetingPanels';
 import ShareMeetingDialog from './ShareMeetingDialog';
+import BreakoutRoomManager from './BreakoutRoomManager';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
