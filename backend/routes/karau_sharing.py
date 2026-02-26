@@ -108,8 +108,8 @@ async def get_share_links(meeting_id: str):
             "linkedin": f"https://www.linkedin.com/sharing/share-offsite/?url={encoded_url}",
             "twitter": f"https://twitter.com/intent/tweet?text={encoded_text}&url={encoded_url}",
             "facebook": f"https://www.facebook.com/sharer/sharer.php?u={encoded_url}",
-            "email": f"mailto:?subject={encoded_title}&body={urllib.parse.quote(f'Join my AI KARAU meeting: {title}\\n\\nJoin here: {join_url}\\n\\nHost: {host_name}')}",
-            "whatsapp": f"https://wa.me/?text={urllib.parse.quote(f'{share_text} - {join_url}')}",
+            "email": "mailto:?subject={}&body={}".format(encoded_title, urllib.parse.quote("Join my AI KARAU meeting: {}\n\nJoin here: {}\n\nHost: {}".format(title, join_url, host_name))),
+            "whatsapp": "https://wa.me/?text={}".format(urllib.parse.quote("{} - {}".format(share_text, join_url))),
         },
         "calendar_ics_url": f"/api/karau-meet/share/calendar/{meeting_id}.ics",
     }
