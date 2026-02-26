@@ -96,7 +96,7 @@ const KarauMeetDashboard = ({ user }) => {
       toast.error(t("karauMeet.enterMeetingIdError"));
       return;
     }
-    navigate(`/karau-meet/room/${joinMeetingId.toUpperCase()}`);
+    navigate(`/karau-meet/lobby/${joinMeetingId.toUpperCase()}`);
   };
 
   const copyMeetingLink = (meetingId) => {
