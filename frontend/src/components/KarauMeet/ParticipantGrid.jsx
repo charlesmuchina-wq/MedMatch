@@ -363,6 +363,7 @@ const ParticipantGrid = ({ participants, localStream, remoteStreams, localUserId
                   stream={localStream}
                   virtualBg={virtualBackground}
                   showControls={false}
+                  isSpeaking={activeSpeakerId === localParticipant.user_id}
                 />
               )}
             </div>
