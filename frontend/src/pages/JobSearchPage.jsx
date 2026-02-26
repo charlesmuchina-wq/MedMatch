@@ -15,7 +15,6 @@ import { JobCard } from "@/components/shared/JobCard";
 import { useTranslation } from "@/utils/i18n";
 import api from "@/utils/apiClient";
 import TaxonomyJobFilters from "@/components/TaxonomyJobFilters";
-import { VoiceSearchButton, VoiceSearchModal } from "@/components/VoiceSearch";
 
 // Icon mapping for presets
 const PresetIcons = {
