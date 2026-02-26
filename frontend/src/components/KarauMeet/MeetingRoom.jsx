@@ -418,20 +418,26 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
     // Request both camera and microphone simultaneously
     const constraints = {
       video: hasVideo ? { 
-        width: { ideal: 1280, max: 1920 }, 
-        height: { ideal: 720, max: 1080 },
+        width: { min: 640, ideal: 1280, max: 1920 }, 
+        height: { min: 480, ideal: 720, max: 1080 },
+        frameRate: { ideal: 30, max: 30 },
         facingMode: 'user'
       } : false,
       audio: hasAudio ? { 
         echoCancellation: true, 
         noiseSuppression: true,
-        autoGainControl: true
+        autoGainControl: true,
+        sampleRate: 48000
       } : false
     };
     
     // If no devices at all, try anyway (browser might prompt for permission)
     if (!hasVideo && !hasAudio) {
-      constraints.video = { facingMode: 'user' };
+      constraints.video = { 
+        width: { ideal: 1280 },
+        height: { ideal: 720 },
+        facingMode: 'user' 
+      };
       constraints.audio = true;
     }
     
@@ -439,14 +445,18 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       return { success: true, stream };
     } catch (error) {
-      // If high-quality constraints fail, try basic constraints
+      // If high-quality constraints fail, try medium quality
       if (error.name === 'OverconstrainedError') {
         try {
-          const basicStream = await navigator.mediaDevices.getUserMedia({
-            video: true,
+          const mediumStream = await navigator.mediaDevices.getUserMedia({
+            video: { 
+              width: { ideal: 640 }, 
+              height: { ideal: 480 },
+              frameRate: { ideal: 24 }
+            },
             audio: true
           });
-          return { success: true, stream: basicStream };
+          return { success: true, stream: mediumStream };
         } catch (fallbackError) {
           return { success: false, error: fallbackError };
         }
