@@ -33,7 +33,7 @@ from services.karau_meet.security_service import (
     set_data_retention_policy,
     get_data_retention_policy
 )
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/karau-meet/security", tags=["AI KARAU Security"])
 
@@ -42,7 +42,7 @@ router = APIRouter(prefix="/karau-meet/security", tags=["AI KARAU Security"])
 
 @router.post("/email/send-code")
 async def send_email_verification_code(
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Send a verification code to user's email"""
     
@@ -64,7 +64,7 @@ class EmailVerificationRequest(BaseModel):
 @router.post("/email/verify")
 async def verify_email_verification_code(
     request: EmailVerificationRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Verify the email verification code"""
     
@@ -81,7 +81,7 @@ async def verify_email_verification_code(
 
 @router.get("/email/status")
 async def get_email_verification_status_endpoint(
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Check email verification status"""
     
@@ -99,7 +99,7 @@ class MFACodeRequest(BaseModel):
 
 @router.post("/mfa/setup")
 async def setup_user_mfa(
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Set up MFA for the current user"""
     
@@ -114,7 +114,7 @@ async def setup_user_mfa(
 @router.post("/mfa/verify-setup")
 async def verify_user_mfa_setup(
     request: MFACodeRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Verify MFA setup with initial code"""
     
@@ -129,7 +129,7 @@ async def verify_user_mfa_setup(
 @router.post("/mfa/verify")
 async def verify_user_mfa(
     request: MFACodeRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Verify MFA code during login"""
     
@@ -144,7 +144,7 @@ async def verify_user_mfa(
 @router.post("/mfa/disable")
 async def disable_user_mfa(
     request: MFACodeRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Disable MFA (requires valid code)"""
     
@@ -158,7 +158,7 @@ async def disable_user_mfa(
 
 @router.get("/mfa/status")
 async def get_user_mfa_status(
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get MFA status for current user"""
     
@@ -168,7 +168,7 @@ async def get_user_mfa_status(
 @router.post("/mfa/backup-codes")
 async def regenerate_user_backup_codes(
     request: MFACodeRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Regenerate backup codes (requires valid MFA code)"""
     
@@ -186,7 +186,7 @@ async def regenerate_user_backup_codes(
 async def get_user_security_logs(
     limit: int = 50,
     event_type: Optional[str] = None,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get security logs for current user"""
     
@@ -211,7 +211,7 @@ class ConsentRequest(BaseModel):
 async def record_user_consent(
     request: ConsentRequest,
     req: Request,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Record user consent"""
     
@@ -230,7 +230,7 @@ async def record_user_consent(
 
 @router.get("/consent")
 async def get_user_consent_records(
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get all consent records for current user"""
     
@@ -241,7 +241,7 @@ async def get_user_consent_records(
 @router.get("/consent/{consent_type}")
 async def check_user_consent(
     consent_type: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Check if user has given consent for a specific type"""
     
@@ -253,7 +253,7 @@ async def check_user_consent(
 
 @router.get("/data/export")
 async def export_user_data_endpoint(
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Export all user data (GDPR data portability)"""
     
@@ -268,7 +268,7 @@ class DeleteDataRequest(BaseModel):
 @router.delete("/data")
 async def delete_user_data_endpoint(
     request: DeleteDataRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Delete all user data (GDPR right to erasure)"""
     
@@ -284,7 +284,7 @@ async def delete_user_data_endpoint(
 
 @router.get("/compliance")
 async def get_compliance_status_endpoint(
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get overall compliance status"""
     
@@ -301,7 +301,7 @@ class DataRetentionRequest(BaseModel):
 @router.post("/retention")
 async def set_user_retention_policy(
     request: DataRetentionRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Set data retention policy"""
     
@@ -316,7 +316,7 @@ async def set_user_retention_policy(
 
 @router.get("/retention")
 async def get_user_retention_policy(
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get data retention policy"""
     

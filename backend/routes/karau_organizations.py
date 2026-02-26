@@ -10,7 +10,7 @@ import uuid
 import logging
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/karau-meet/organizations", tags=["KARAU Organizations"])
 logger = logging.getLogger(__name__)
@@ -95,10 +95,10 @@ class EmployeeEntry(BaseModel):
 @router.post("")
 async def create_organization(
     request: CreateOrganizationRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Create a new organization (admin only)."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     if request.tier not in TIER_CONFIG:
@@ -133,10 +133,8 @@ async def create_organization(
 
 
 @router.get("")
-async def list_organizations(user: dict = Depends(get_current_user)):
+async def list_organizations(user: dict = Depends(require_auth)):
     """List all organizations (admin) or user's org."""
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
 
     if user.get("is_admin"):
         orgs = await db.karau_organizations.find({}, {"_id": 0}).to_list(100)
@@ -151,10 +149,8 @@ async def list_organizations(user: dict = Depends(get_current_user)):
 
 
 @router.get("/{org_id}")
-async def get_organization(org_id: str, user: dict = Depends(get_current_user)):
+async def get_organization(org_id: str, user: dict = Depends(require_auth)):
     """Get organization details."""
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
 
     org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
     if not org:
@@ -166,10 +162,10 @@ async def get_organization(org_id: str, user: dict = Depends(get_current_user)):
 async def update_organization(
     org_id: str,
     request: UpdateOrganizationRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Update organization settings (admin/IT admin only)."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     updates = {}
@@ -211,10 +207,10 @@ async def update_organization(
 async def verify_domain(
     org_id: str,
     domain: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Verify an email domain for the organization."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
@@ -262,10 +258,10 @@ async def check_email_domain(org_id: str, email: str):
 async def create_conference_room(
     org_id: str,
     request: ConferenceRoomRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Create a conference room for the organization."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
@@ -303,10 +299,8 @@ async def create_conference_room(
 
 
 @router.get("/{org_id}/rooms")
-async def list_conference_rooms(org_id: str, user: dict = Depends(get_current_user)):
+async def list_conference_rooms(org_id: str, user: dict = Depends(require_auth)):
     """List conference rooms for the organization."""
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
 
     org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
     if not org:
@@ -321,10 +315,10 @@ async def update_conference_room(
     org_id: str,
     room_id: str,
     request: ConferenceRoomRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Update a conference room."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     result = await db.karau_organizations.update_one(
@@ -352,10 +346,10 @@ async def update_conference_room(
 async def delete_conference_room(
     org_id: str,
     room_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Delete a conference room."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     await db.karau_organizations.update_one(
@@ -415,10 +409,10 @@ async def get_branding(org_id: str):
 async def add_employee(
     org_id: str,
     employee: EmployeeEntry,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Add an employee to the directory."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
@@ -456,11 +450,9 @@ async def add_employee(
 async def list_employees(
     org_id: str,
     search: str = "",
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """List/search employees. Supports last name search."""
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
 
     query = {"org_id": org_id, "status": "active"}
     if search:
@@ -478,10 +470,10 @@ async def list_employees(
 async def bulk_add_employees(
     org_id: str,
     employees: List[EmployeeEntry],
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Bulk add employees (CSV import support)."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
@@ -524,7 +516,7 @@ async def bulk_add_employees(
 async def csv_upload_employees(
     org_id: str,
     file: UploadFile = File(...),
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Upload a CSV file to bulk-import employees.
     Expected columns: email, first_name, last_name, department (opt), title (opt)
@@ -532,7 +524,7 @@ async def csv_upload_employees(
     import csv
     import io
 
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
@@ -645,10 +637,10 @@ async def csv_upload_employees(
 async def delete_employee(
     org_id: str,
     employee_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Delete an employee from the directory."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     result = await db.karau_employees.delete_one(
@@ -667,10 +659,10 @@ async def update_employee(
     org_id: str,
     employee_id: str,
     employee: EmployeeEntry,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Update employee details."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     result = await db.karau_employees.update_one(
@@ -694,10 +686,10 @@ async def toggle_employee_status(
     org_id: str,
     employee_id: str,
     status: str = "active",
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Toggle employee status (active/inactive)."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     if status not in ("active", "inactive"):
@@ -722,11 +714,9 @@ async def toggle_employee_status(
 @router.get("/{org_id}/employees/stats")
 async def employee_stats(
     org_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get employee directory statistics."""
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
 
     total = await db.karau_employees.count_documents({"org_id": org_id})
     active = await db.karau_employees.count_documents({"org_id": org_id, "status": "active"})
@@ -782,10 +772,10 @@ class LDAPConfigRequest(BaseModel):
 async def configure_ldap(
     org_id: str,
     config: LDAPConfigRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Configure LDAP/Active Directory connection for employee sync."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
@@ -819,10 +809,10 @@ async def configure_ldap(
 @router.get("/{org_id}/ldap/config")
 async def get_ldap_config(
     org_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get LDAP configuration (password masked)."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
@@ -841,10 +831,10 @@ async def get_ldap_config(
 @router.post("/{org_id}/ldap/test")
 async def test_ldap_connection(
     org_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Test LDAP connection without syncing."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
@@ -870,10 +860,10 @@ async def test_ldap_connection(
 @router.post("/{org_id}/ldap/sync")
 async def sync_ldap_employees(
     org_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Sync employees from LDAP/Active Directory."""
-    if not user or not user.get("is_admin"):
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
 
     org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})

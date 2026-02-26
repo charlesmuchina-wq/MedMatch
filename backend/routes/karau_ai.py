@@ -15,7 +15,7 @@ from services.karau_meet.ai_transcription_service import (
     get_action_items,
     update_action_item_status
 )
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/karau-meet/ai", tags=["AI KARAU AI Features"])
 
@@ -28,7 +28,7 @@ async def transcribe_audio_endpoint(
     meeting_id: str = Form(...),
     speaker_name: str = Form(default="Unknown"),
     language: str = Form(default="en"),
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """
     Transcribe audio using OpenAI Whisper
@@ -38,8 +38,6 @@ async def transcribe_audio_endpoint(
     """
     
     # Check authentication
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
     
     # Validate file type
     allowed_types = ["audio/webm", "audio/mp3", "audio/wav", "audio/mpeg", "audio/mp4", "audio/m4a"]
@@ -73,12 +71,10 @@ async def transcribe_audio_endpoint(
 @router.get("/transcript/{meeting_id}")
 async def get_transcript_endpoint(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get full transcript for a meeting"""
     
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
     
     transcript = await get_meeting_transcript(meeting_id)
     return transcript
@@ -95,7 +91,7 @@ class GenerateSummaryRequest(BaseModel):
 async def generate_summary_endpoint(
     meeting_id: str,
     request: GenerateSummaryRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """
     Generate AI-powered meeting summary using GPT-5.2
@@ -104,8 +100,6 @@ async def generate_summary_endpoint(
     - Generates summary, key points, decisions, action items
     """
     
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
     
     result = await generate_meeting_summary(
         meeting_id=meeting_id,
@@ -122,12 +116,10 @@ async def generate_summary_endpoint(
 @router.get("/summary/{meeting_id}")
 async def get_summary_endpoint(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get summary for a meeting"""
     
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
     
     summary = await get_meeting_summary(meeting_id)
     
@@ -142,7 +134,7 @@ async def get_summary_endpoint(
 @router.post("/action-items/extract/{meeting_id}")
 async def extract_action_items_endpoint(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """
     Extract action items from meeting transcript using GPT-5.2
@@ -151,8 +143,6 @@ async def extract_action_items_endpoint(
     - Stores action items for tracking
     """
     
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
     
     result = await extract_action_items(meeting_id)
     
@@ -165,12 +155,10 @@ async def extract_action_items_endpoint(
 @router.get("/action-items/{meeting_id}")
 async def get_action_items_endpoint(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get action items for a meeting"""
     
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
     
     items = await get_action_items(meeting_id)
     return {"meeting_id": meeting_id, "action_items": items, "count": len(items)}
@@ -184,12 +172,10 @@ class UpdateActionItemRequest(BaseModel):
 async def update_action_item_endpoint(
     action_id: str,
     request: UpdateActionItemRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Update action item status"""
     
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
     
     result = await update_action_item_status(
         action_id=action_id,

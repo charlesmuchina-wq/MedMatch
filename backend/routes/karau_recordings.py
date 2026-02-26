@@ -11,7 +11,7 @@ import os
 import uuid
 
 from motor.motor_asyncio import AsyncIOMotorClient
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/karau-meet/recordings", tags=["AI KARAU Recordings"])
 
@@ -35,12 +35,10 @@ class RecordingMetadata(BaseModel):
 @router.post("/metadata")
 async def save_recording_metadata(
     request: RecordingMetadata,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Save recording metadata after browser-side recording"""
     
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
     
     recording_doc = {
         "recording_id": str(uuid.uuid4())[:12],
@@ -67,14 +65,12 @@ async def save_recording_metadata(
 
 @router.get("/")
 async def get_user_recordings(
-    user: dict = Depends(get_current_user),
+    user: dict = Depends(require_auth),
     limit: int = 50,
     skip: int = 0
 ):
     """Get all recordings for the current user"""
     
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
     
     cursor = recordings.find(
         {"recorded_by": user["user_id"]},
@@ -95,12 +91,10 @@ async def get_user_recordings(
 @router.get("/meeting/{meeting_id}")
 async def get_meeting_recordings(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get all recordings for a specific meeting"""
     
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
     
     meeting_recordings = await recordings.find(
         {"meeting_id": meeting_id},
@@ -117,12 +111,10 @@ async def get_meeting_recordings(
 @router.delete("/{recording_id}")
 async def delete_recording_metadata(
     recording_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Delete recording metadata"""
     
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
     
     # Only allow deletion of own recordings
     result = await recordings.delete_one({
@@ -138,12 +130,10 @@ async def delete_recording_metadata(
 
 @router.get("/stats")
 async def get_recording_stats(
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get recording statistics for user"""
     
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
     
     pipeline = [
         {"$match": {"recorded_by": user["user_id"]}},
