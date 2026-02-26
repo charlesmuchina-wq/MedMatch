@@ -35,6 +35,357 @@ const EQUIPMENT_OPTIONS = [
   { id: 'webcam', label: 'Webcam' },
 ];
 
+
+/**
+ * EmployeesTab - Enhanced employee directory with CSV upload, LDAP, and management
+ */
+const EmployeesTab = ({ org, employees, employeeSearch, setEmployeeSearch, headers, onRefresh }) => {
+  const [showCsvUpload, setShowCsvUpload] = useState(false);
+  const [showLdapConfig, setShowLdapConfig] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [csvFile, setCsvFile] = useState(null);
+  const [csvUploading, setCsvUploading] = useState(false);
+  const [csvResult, setCsvResult] = useState(null);
+  const [stats, setStats] = useState(null);
+  const [ldapConfig, setLdapConfig] = useState(null);
+  const [ldapForm, setLdapForm] = useState({
+    server_url: '', bind_dn: '', bind_password: '', base_dn: '',
+    user_filter: '(objectClass=person)', email_attr: 'mail',
+    first_name_attr: 'givenName', last_name_attr: 'sn',
+    department_attr: 'department', title_attr: 'title', enabled: true
+  });
+  const [ldapTesting, setLdapTesting] = useState(false);
+  const [ldapSyncing, setLdapSyncing] = useState(false);
+  const [newEmp, setNewEmp] = useState({ email: '', first_name: '', last_name: '', department: '', title: '' });
+
+  // Fetch stats and LDAP config
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [statsRes, ldapRes] = await Promise.all([
+          fetch(`${API}/api/karau-meet/organizations/${org.org_id}/employees/stats`, { headers }),
+          fetch(`${API}/api/karau-meet/organizations/${org.org_id}/ldap/config`, { headers })
+        ]);
+        if (statsRes.ok) setStats(await statsRes.json());
+        if (ldapRes.ok) {
+          const ld = await ldapRes.json();
+          if (ld.configured) setLdapConfig(ld.config);
+        }
+      } catch {}
+    };
+    fetchData();
+  }, [org.org_id]);
+
+  // CSV upload
+  const handleCsvUpload = async () => {
+    if (!csvFile) return;
+    setCsvUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', csvFile);
+      const res = await fetch(`${API}/api/karau-meet/organizations/${org.org_id}/employees/csv-upload`, {
+        method: 'POST',
+        headers: { 'Authorization': headers['Authorization'] },
+        body: formData
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setCsvResult(data);
+        toast.success(`Imported ${data.added} employees`);
+        onRefresh();
+      } else {
+        const err = await res.json();
+        toast.error(err.detail || 'Upload failed');
+      }
+    } catch { toast.error('Connection error'); }
+    setCsvUploading(false);
+  };
+
+  // Add single employee
+  const handleAddEmployee = async () => {
+    try {
+      const res = await fetch(`${API}/api/karau-meet/organizations/${org.org_id}/employees`, {
+        method: 'POST', headers,
+        body: JSON.stringify(newEmp)
+      });
+      if (res.ok) {
+        toast.success('Employee added');
+        setNewEmp({ email: '', first_name: '', last_name: '', department: '', title: '' });
+        setShowAddForm(false);
+        onRefresh();
+      } else {
+        const err = await res.json();
+        toast.error(err.detail || 'Failed');
+      }
+    } catch { toast.error('Connection error'); }
+  };
+
+  // Delete employee
+  const deleteEmployee = async (empId) => {
+    try {
+      await fetch(`${API}/api/karau-meet/organizations/${org.org_id}/employees/${empId}`, {
+        method: 'DELETE', headers
+      });
+      toast.success('Employee removed');
+      onRefresh();
+    } catch { toast.error('Failed'); }
+  };
+
+  // Toggle status
+  const toggleStatus = async (empId, currentStatus) => {
+    const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
+    try {
+      await fetch(`${API}/api/karau-meet/organizations/${org.org_id}/employees/${empId}/status?status=${newStatus}`, {
+        method: 'PUT', headers
+      });
+      toast.success(`Employee ${newStatus}`);
+      onRefresh();
+    } catch { toast.error('Failed'); }
+  };
+
+  // Save LDAP config
+  const saveLdapConfig = async () => {
+    try {
+      const res = await fetch(`${API}/api/karau-meet/organizations/${org.org_id}/ldap/configure`, {
+        method: 'POST', headers,
+        body: JSON.stringify(ldapForm)
+      });
+      if (res.ok) {
+        toast.success('LDAP configuration saved');
+        setLdapConfig(ldapForm);
+        setShowLdapConfig(false);
+      } else toast.error('Failed to save');
+    } catch { toast.error('Connection error'); }
+  };
+
+  // Test LDAP
+  const testLdap = async () => {
+    setLdapTesting(true);
+    try {
+      const res = await fetch(`${API}/api/karau-meet/organizations/${org.org_id}/ldap/test`, {
+        method: 'POST', headers
+      });
+      const data = await res.json();
+      if (data.success) toast.success(data.message);
+      else toast.error(data.message);
+    } catch { toast.error('Test failed'); }
+    setLdapTesting(false);
+  };
+
+  // Sync LDAP
+  const syncLdap = async () => {
+    setLdapSyncing(true);
+    try {
+      const res = await fetch(`${API}/api/karau-meet/organizations/${org.org_id}/ldap/sync`, {
+        method: 'POST', headers
+      });
+      const data = await res.json();
+      if (data.success) {
+        toast.success(`Synced: ${data.added} new, ${data.updated} updated`);
+        onRefresh();
+      } else toast.error(data.message);
+    } catch { toast.error('Sync failed'); }
+    setLdapSyncing(false);
+  };
+
+  return (
+    <div className="space-y-4" data-testid="org-employees">
+      {/* Stats bar */}
+      {stats && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          <div className="bg-slate-900 rounded-lg p-2.5 text-center">
+            <p className="text-lg font-bold text-white">{stats.active}</p>
+            <p className="text-[10px] text-slate-400">Active</p>
+          </div>
+          <div className="bg-slate-900 rounded-lg p-2.5 text-center">
+            <p className="text-lg font-bold text-slate-400">{stats.inactive}</p>
+            <p className="text-[10px] text-slate-400">Inactive</p>
+          </div>
+          <div className="bg-slate-900 rounded-lg p-2.5 text-center">
+            <p className="text-lg font-bold text-white">{stats.departments?.length || 0}</p>
+            <p className="text-[10px] text-slate-400">Departments</p>
+          </div>
+          <div className="bg-slate-900 rounded-lg p-2.5 text-center">
+            <p className="text-lg font-bold text-white">{Object.values(stats.sources || {}).reduce((a, b) => a + b, 0)}</p>
+            <p className="text-[10px] text-slate-400">Total Records</p>
+          </div>
+        </div>
+      )}
+
+      {/* Action buttons */}
+      <div className="flex flex-wrap items-center gap-2">
+        <Button size="sm" variant="outline" className="h-8 text-xs border-slate-600 text-slate-300" onClick={() => setShowAddForm(!showAddForm)} data-testid="add-employee-btn">
+          <Plus className="w-3 h-3 mr-1" /> Add Employee
+        </Button>
+        <Button size="sm" variant="outline" className="h-8 text-xs border-[#5b5fc7] text-[#5b5fc7]" onClick={() => setShowCsvUpload(!showCsvUpload)} data-testid="csv-upload-btn">
+          <Upload className="w-3 h-3 mr-1" /> CSV Import
+        </Button>
+        <Button size="sm" variant="outline" className="h-8 text-xs border-amber-500 text-amber-400" onClick={() => setShowLdapConfig(!showLdapConfig)} data-testid="ldap-config-btn">
+          <Globe className="w-3 h-3 mr-1" /> LDAP / AD
+        </Button>
+        {ldapConfig && (
+          <>
+            <Button size="sm" className="h-8 text-xs bg-amber-600 text-white" onClick={testLdap} disabled={ldapTesting}>
+              {ldapTesting ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : null} Test
+            </Button>
+            <Button size="sm" className="h-8 text-xs bg-emerald-600 text-white" onClick={syncLdap} disabled={ldapSyncing} data-testid="ldap-sync-btn">
+              {ldapSyncing ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : null} Sync Now
+            </Button>
+          </>
+        )}
+      </div>
+
+      {/* Add single employee form */}
+      {showAddForm && (
+        <div className="bg-slate-900 rounded-lg p-3 border border-slate-700 space-y-2" data-testid="add-employee-form">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+            <Input value={newEmp.email} onChange={e => setNewEmp({...newEmp, email: e.target.value})} placeholder="Email" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+            <Input value={newEmp.first_name} onChange={e => setNewEmp({...newEmp, first_name: e.target.value})} placeholder="First Name" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+            <Input value={newEmp.last_name} onChange={e => setNewEmp({...newEmp, last_name: e.target.value})} placeholder="Last Name" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+            <Input value={newEmp.department} onChange={e => setNewEmp({...newEmp, department: e.target.value})} placeholder="Department" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+            <Input value={newEmp.title} onChange={e => setNewEmp({...newEmp, title: e.target.value})} placeholder="Title" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+            <Button size="sm" className="h-8 bg-[#5b5fc7] text-white" onClick={handleAddEmployee} disabled={!newEmp.email}>Add</Button>
+          </div>
+        </div>
+      )}
+
+      {/* CSV upload */}
+      {showCsvUpload && (
+        <div className="bg-slate-900 rounded-lg p-4 border border-dashed border-slate-600 space-y-3" data-testid="csv-upload-area">
+          <div className="text-center">
+            <Upload className="w-6 h-6 text-slate-400 mx-auto mb-1" />
+            <p className="text-xs text-slate-400">Upload CSV with columns: email, first_name, last_name, department, title</p>
+          </div>
+          <input
+            type="file"
+            accept=".csv"
+            onChange={e => setCsvFile(e.target.files[0])}
+            className="block w-full text-xs text-slate-400 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:bg-[#5b5fc7] file:text-white cursor-pointer"
+            data-testid="csv-file-input"
+          />
+          {csvFile && (
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-slate-300">{csvFile.name} ({Math.round(csvFile.size / 1024)}KB)</span>
+              <Button size="sm" className="h-7 bg-[#5b5fc7] text-white text-xs" onClick={handleCsvUpload} disabled={csvUploading}>
+                {csvUploading ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : null} Import
+              </Button>
+            </div>
+          )}
+          {csvResult && (
+            <div className="bg-slate-800 rounded p-2 text-xs space-y-1">
+              <p className="text-emerald-400">Added: {csvResult.added} employees</p>
+              {csvResult.error_count > 0 && <p className="text-amber-400">Errors: {csvResult.error_count}</p>}
+              {csvResult.detected_columns && (
+                <p className="text-slate-500">Columns detected: {Object.keys(csvResult.detected_columns).join(', ')}</p>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* LDAP Configuration */}
+      {showLdapConfig && (
+        <div className="bg-slate-900 rounded-lg p-4 border border-amber-500/30 space-y-3" data-testid="ldap-config-form">
+          <h4 className="text-sm font-medium text-amber-400 flex items-center gap-1"><Globe className="w-4 h-4" /> Active Directory / LDAP</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div>
+              <Label className="text-[10px] text-slate-400">Server URL</Label>
+              <Input value={ldapForm.server_url} onChange={e => setLdapForm({...ldapForm, server_url: e.target.value})} placeholder="ldap://ad.company.com:389" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+            </div>
+            <div>
+              <Label className="text-[10px] text-slate-400">Bind DN</Label>
+              <Input value={ldapForm.bind_dn} onChange={e => setLdapForm({...ldapForm, bind_dn: e.target.value})} placeholder="cn=admin,dc=company,dc=com" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+            </div>
+            <div>
+              <Label className="text-[10px] text-slate-400">Bind Password</Label>
+              <Input type="password" value={ldapForm.bind_password} onChange={e => setLdapForm({...ldapForm, bind_password: e.target.value})} className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+            </div>
+            <div>
+              <Label className="text-[10px] text-slate-400">Base DN</Label>
+              <Input value={ldapForm.base_dn} onChange={e => setLdapForm({...ldapForm, base_dn: e.target.value})} placeholder="ou=users,dc=company,dc=com" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+            </div>
+            <div>
+              <Label className="text-[10px] text-slate-400">User Filter</Label>
+              <Input value={ldapForm.user_filter} onChange={e => setLdapForm({...ldapForm, user_filter: e.target.value})} className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+            </div>
+            <div>
+              <Label className="text-[10px] text-slate-400">Email Attribute</Label>
+              <Input value={ldapForm.email_attr} onChange={e => setLdapForm({...ldapForm, email_attr: e.target.value})} className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+            </div>
+          </div>
+          <div className="flex gap-2 justify-end">
+            <Button variant="outline" size="sm" className="border-slate-600 text-slate-300 text-xs" onClick={() => setShowLdapConfig(false)}>Cancel</Button>
+            <Button size="sm" className="bg-amber-600 text-white text-xs" onClick={saveLdapConfig} disabled={!ldapForm.server_url}>Save Configuration</Button>
+          </div>
+          {ldapConfig?.last_sync && (
+            <p className="text-[10px] text-slate-500">Last sync: {new Date(ldapConfig.last_sync).toLocaleString()}</p>
+          )}
+        </div>
+      )}
+
+      {/* Search bar */}
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+        <Input
+          value={employeeSearch}
+          onChange={e => setEmployeeSearch(e.target.value)}
+          placeholder="Search by last name..."
+          className="pl-9 bg-slate-900 border-slate-600 text-white"
+          data-testid="employee-search"
+        />
+      </div>
+
+      {/* Employee list */}
+      <div className="space-y-1.5">
+        {employees.map(emp => (
+          <div key={emp.employee_id} className="flex items-center justify-between bg-slate-900 rounded-lg px-3 py-2 group" data-testid={`emp-${emp.employee_id}`}>
+            <div className="flex items-center gap-2 min-w-0">
+              <div className={`w-2 h-2 rounded-full flex-shrink-0 ${emp.status === 'active' ? 'bg-emerald-500' : 'bg-slate-500'}`} />
+              <div className="min-w-0">
+                <p className="text-sm text-white truncate">{emp.first_name} {emp.last_name}</p>
+                <div className="flex items-center gap-2 text-xs text-slate-400">
+                  <span className="truncate">{emp.email}</span>
+                  {emp.department && <span>- {emp.department}</span>}
+                  {emp.source === 'ldap_sync' && <Badge className="text-[8px] bg-amber-600/30 text-amber-400 px-1">LDAP</Badge>}
+                  {emp.source === 'csv_import' && <Badge className="text-[8px] bg-blue-600/30 text-blue-400 px-1">CSV</Badge>}
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              <Badge className="text-[10px] bg-slate-700">{emp.title || 'Employee'}</Badge>
+              <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-slate-500 hover:text-amber-400" onClick={() => toggleStatus(emp.employee_id, emp.status)} title={emp.status === 'active' ? 'Deactivate' : 'Activate'}>
+                {emp.status === 'active' ? <Check className="w-3 h-3" /> : <X className="w-3 h-3" />}
+              </Button>
+              <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-slate-500 hover:text-red-400" onClick={() => deleteEmployee(emp.employee_id)}>
+                <Trash2 className="w-3 h-3" />
+              </Button>
+            </div>
+          </div>
+        ))}
+        {employees.length === 0 && (
+          <p className="text-slate-500 text-sm text-center py-6">
+            {employeeSearch ? 'No matches found' : 'No employees added yet. Use CSV import or add manually.'}
+          </p>
+        )}
+      </div>
+
+      {/* Department breakdown */}
+      {stats?.departments?.length > 0 && (
+        <div className="bg-slate-900 rounded-lg p-3 border border-slate-700">
+          <h4 className="text-xs text-slate-400 mb-2">Departments</h4>
+          <div className="flex flex-wrap gap-1.5">
+            {stats.departments.map(d => (
+              <Badge key={d.department} className="bg-slate-800 text-slate-300 text-[10px]">
+                {d.department} ({d.count})
+              </Badge>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const OrganizationAdmin = ({ user }) => {
   const [orgs, setOrgs] = useState([]);
   const [selectedOrg, setSelectedOrg] = useState(null);
