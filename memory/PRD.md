@@ -11,49 +11,59 @@ MedMatch-AI KARAU: AI-powered Life Sciences & Engineering Talent Ecosystem with 
 |-----------|--------|
 | Backend | Healthy |
 | Frontend | Running |
-| AI KARAU Meeting | Lobby, Skin Tone, Mute, Active Speaker, Breakout Rooms, Enterprise Tiers, Employee Directory |
+| AI KARAU Meeting | Lobby, Skin Tone, Mute, Active Speaker, Breakout Rooms, Enterprise Tiers, Employee Directory, Guest 2FA, Calendar/Social Sharing |
 | Translations | 99%+ (50 languages) |
 
 ---
 
 ## Completed This Session
 
-### Phase 1: Enterprise Tier System
-- 5 tiers (Basic/Professional/Grande/Recruiter/Personal)
-- Domain verification, conference rooms (physical/virtual/hybrid), company branding
-- IT Admin panel at /karau-meet/enterprise
+### Phase 3: Guest 2FA + Age Verification (DONE)
+- Multi-step guest verification flow (3 steps: Details → Verify → Confirm)
+- Email OTP verification with 6-digit code, 10-min expiry, 5-attempt limit
+- Age self-declaration gate (16+ per Zoom/Teams standard)
+- Resend OTP with 60s cooldown, paste support for OTP codes
+- Backend: `/api/karau-meet/guest/register`, `/verify-otp`, `/age-declaration`, `/resend-otp`, `/status`
 
-### Phase 2: Employee Directory + LDAP
-- **CSV Import**: Upload CSV with auto-column detection, duplicate handling, tier limit enforcement
-- **LDAP/AD Integration**: Server configuration, test connection, sync employees
-- **Employee Management**: Add/delete/update, status toggle (active/inactive), source tracking
-- **Stats Dashboard**: Active/inactive counts, department breakdown, source breakdown
-- **Last Name Search**: Find employees by typing last name
+### Backlog: Calendar & Social Sharing (DONE)
+- ICS calendar export: `/api/karau-meet/share/calendar/{meetingId}.ics`
+- Social sharing links API: `/api/karau-meet/share/social/{meetingId}`
+- Enhanced ShareMeetingDialog with LinkedIn, Twitter/X, WhatsApp, Email buttons
+- Google Calendar integration link
+- Backend + frontend fully integrated
 
-### Video Features (also this session)
-- Pre-Meeting Lobby, Skin Tone Protection, Host Mute Controls, Active Speaker, Breakout Rooms
+### Previously Completed
+- **Phase 1: Enterprise Tier System** - 5 tiers, domain verification, conference rooms, company branding
+- **Phase 2: Employee Directory + LDAP** - CSV import, LDAP/AD sync, employee CRUD
+- **Video Features** - Pre-Meeting Lobby, Skin Tone Protection, Host Mute Controls, Active Speaker, Breakout Rooms
 
 ---
 
-## Next: Phase 3 — Guest 2FA + Age Verification
-- Guest registration with email verification
-- Two-step verification (email OTP or authenticator)
-- Age self-declaration (16+, per Zoom/Teams standard)
+## Next Tasks
 
-## Phase 4 — Recruiter Tier + SSO
-- Recruiter-specific features and verification
-- Enterprise SSO/SAML integration
+### P1: Live Multi-User KARAU Meeting Test
+- Guide user through E2E test with multiple users/devices
+- Validate WebRTC, lobby, host controls, breakout rooms in real-world
 
-## Calendar Integration (upcoming)
-- Microsoft Outlook/365, Google Calendar, iOS (.ics export)
+### P1: Calendar Integration (Microsoft, iOS)
+- Two-way sync with Microsoft Outlook/365
+- iOS Calendar integration
 
-## Backlog
-- P1: Live multi-user meeting test
-- P2: iOS Build, Social Media Sharing
-- P3: MeetingHeader refactoring
+### P1: Enterprise SSO/SAML
+- SAML 2.0 integration for enterprise single sign-on
+
+### P2: Auth Error Status Codes Fix
+- Refactor `get_current_user` to raise HTTPException (401/403) instead of returning None
+- Fix all protected routes returning 500 on auth failure
+
+### P2: iOS App Build
+- Complete mobile app build for iOS
+
+### P3: MeetingHeader Component Refactoring
+- Remove code duplication in MeetingHeader
 
 ## Key Info
 - Admin: admin@medmatch.com / Swampdrainer2026!
 - Test User: test@medmatch.io / TestPassword123!
 - Org: org_5a18c854f810 (MedMatch Inc, Grande, 17 employees)
-- Mocked: Google/Apple social sign-in, LDAP sync (no real AD server)
+- Mocked: Google/Apple social sign-in, LDAP sync (no real AD server), Email OTP (returned in _dev_otp)
