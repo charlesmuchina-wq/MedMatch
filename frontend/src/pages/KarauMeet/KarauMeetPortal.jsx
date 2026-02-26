@@ -31,6 +31,7 @@ import GuestJoinPage from './GuestJoinPage';
 
 // Meeting room component
 import MeetingRoom from '@/components/KarauMeet/MeetingRoom';
+import MeetingLobby from '@/components/KarauMeet/MeetingLobby';
 
 /**
  * Sidebar Navigation for AI KARAU Meeting Portal
