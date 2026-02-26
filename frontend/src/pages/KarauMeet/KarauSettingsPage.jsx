@@ -153,6 +153,47 @@ const KarauSettingsPage = () => {
     }
   };
 
+  const connectMicrosoftCalendar = async () => {
+    setCalendarLoading(true);
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`${API}/api/karau-meet/calendar/microsoft/connect`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (data.auth_url) {
+        window.open(data.auth_url, '_blank', 'width=600,height=700');
+        toast.success('Opening Microsoft sign-in...');
+      } else {
+        toast.error(data.detail || 'Microsoft Calendar not configured');
+      }
+    } catch {
+      toast.error('Failed to connect');
+    }
+    setCalendarLoading(false);
+  };
+
+  const disconnectCalendar = async (provider) => {
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`${API}/api/karau-meet/calendar/disconnect`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ provider })
+      });
+      if (res.ok) {
+        toast.success(`${provider} calendar disconnected`);
+        setCalendarStatus(prev => {
+          const p = { ...prev.providers };
+          delete p[provider];
+          return { ...prev, providers: p };
+        });
+      }
+    } catch {
+      toast.error('Failed to disconnect');
+    }
+  };
+
   if (loading) {
     return (
       <div className="p-6 flex items-center justify-center">
