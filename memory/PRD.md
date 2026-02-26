@@ -14,59 +14,52 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 | **Backend** | Healthy | Version 2.2.0, AI Supervisor running |
 | **Frontend** | Running | Webpack compiled, no errors |
 | **Database** | Optimized | 82 collections, 56K docs, 9+ indexes |
-| **Scheduled Maintenance** | Active | Weekly Sundays 9:00 UTC via Dragon Scheduler |
-| **AI KARAU Meeting** | Enhanced | Pre-Meeting Lobby, Skin Tone Protection, Guest Admission |
+| **AI KARAU Meeting** | Enhanced | Lobby, Skin Tone Protection, Mute Controls, Active Speaker |
 | **Translations** | **99%+** | 1,940+ keys, 50 languages, all bundled |
 
 ---
 
-## Completed Features (February 26, 2026)
+## Recently Completed Features (February 26, 2026)
 
 ### 10. Pre-Meeting Lobby (Teams-style)
-- **New route**: `/karau-meet/lobby/{meetingId}` - intercepts all meeting joins
-- **Video preview**: Live camera feed with device selection (camera, mic, speaker)
-- **Virtual background picker**: 7 preset backgrounds selectable before joining
-- **Guest admission control**: Host can require guests to wait for admission
-  - Guests see "Waiting for host" with progress indicator
-  - Host receives WebSocket toast notification with "Admit" action button
-  - Host can admit individual guests, admit all, or deny
-- **Auto-admission**: Host always auto-admitted, guests auto-admitted when waiting room disabled
-- **Navigation flow**: Dashboard → Lobby → Room (join links also route through lobby)
-- **8 new backend API endpoints** for lobby management
+- New route: `/karau-meet/lobby/{meetingId}` - intercepts all meeting joins
+- Video preview with device selection (camera, mic, speaker)
+- Virtual background picker before joining
+- Guest admission control: Host can require guests to wait for admission
+  - Host receives WebSocket notification with "Admit" action
+  - Host can admit individual, admit all, or deny guests
+- 8 new backend API endpoints for lobby management
 
 ### 11. Skin Tone Protection (Automatic AI Enhancement)
-- **Integrated into**: `useVirtualBackground.js` compositeFrame pipeline
-- **Algorithm**: HSL-based per-pixel skin tone detection and enhancement
-  - Detects skin tone range (hue 8-50°, saturation > 0.15, lightness 0.15-0.85)
-  - Darker skin tones: +8% saturation boost, +3% luminance lift
-  - Medium tones: +5% saturation, +1.5% luminance
-  - Light tones: +2% saturation, -1% luminance (prevents overexposure)
-- **Automatic**: No user toggle needed, activates when virtual background is active
-- **Inclusive**: Ensures natural rendering for all skin tones, inspired by Agora SDK
+- HSL-based per-pixel skin tone detection in virtual background pipeline
+- Boosts darker skin tones (+8% saturation, +3% luminance)
+- Prevents overexposure on lighter tones
+
+### 12. Host Mute Controls
+- **Mute Individual**: Host can force-mute any participant via dropdown menu
+- **Mute All**: Host button mutes all participants except self
+- **Pass Mic**: Host passes mic to a participant — auto-unmutes target, mutes others
+- Force-mute and pass-mic sent via WebSocket, handled automatically on client
+
+### 13. Active Speaker Detection & Highlighting
+- AudioContext-based audio level analysis on 500ms interval
+- Active speaker gets emerald ring + shadow in ParticipantGrid tile
+- ParticipantsPanel shows "Speaking" label + green indicator on active participant
+- Works for both local and remote participant streams
 
 ---
 
-## Previous Completed Features
+## Backlog
 
-### 1-9. See CHANGELOG.md for full history
-- Share Meeting, Database Standardization, Scheduled Maintenance
-- ORCID OAuth, Translation Hardening, Full Translation Sweep
-- Translation Health Monitor, Implementation Roadmap, P1 Integration Verification
-
----
-
-## Backlog (Parked)
+### P0 (Next Up)
+- **Breakout Rooms with Auto-Assign**: Manual drag/assign + AI auto-assign, max 10/room, timer with auto-return
 
 ### P1
-- Live Multi-User KARAU Meeting Test (pending - user needs to test)
-- LinkedIn Profile Sync (implemented, needs user verification)
-- PayPal Integration (implemented, sandbox tested)
-- ORCID live user verification
+- Live Multi-User KARAU Meeting Test (pending user test)
+- LinkedIn Profile Sync, PayPal, ORCID verification
 
 ### P2
-- Enterprise SSO/SAML
-- iOS Build
-- Social Media Sharing (LinkedIn/Twitter share buttons)
+- Enterprise SSO/SAML, iOS Build, Social Media Sharing
 
 ### P3
 - MeetingHeader component refactoring
@@ -76,17 +69,22 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 ## Key Technical Info
 - **Admin:** admin@medmatch.com / Swampdrainer2026!
 - **Test User:** test@medmatch.io / TestPassword123!
-- **Scheduler:** Dragon Scheduler, 5 jobs, MongoDB-persisted
 - **Mocked:** Google and Apple social sign-in
-- **ORCID OAuth:** Production (orcid.org), Client ID: APP-K9HUYS6GQY2RERX6
-- **i18n:** 50 languages, 1,940 keys, 0 missing keys, all pre-bundled
+- **i18n:** 50 languages, 1,940 keys, 0 missing keys
 
-## New API Endpoints (February 26, 2026)
+## API Endpoints Added (February 26, 2026)
 - `POST /api/karau-meet/meetings/{id}/lobby/join` - Guest joins lobby
-- `POST /api/karau-meet/meetings/{id}/lobby/join-auth` - Authenticated user joins lobby
-- `GET /api/karau-meet/meetings/{id}/lobby/status?user_id=` - Poll admission status
+- `POST /api/karau-meet/meetings/{id}/lobby/join-auth` - Auth user joins lobby
+- `GET /api/karau-meet/meetings/{id}/lobby/status?user_id=` - Poll admission
 - `GET /api/karau-meet/meetings/{id}/lobby/waiting` - Host views waiting list
 - `POST /api/karau-meet/meetings/{id}/lobby/admit` - Host admits guest
 - `POST /api/karau-meet/meetings/{id}/lobby/admit-all` - Host admits all
 - `POST /api/karau-meet/meetings/{id}/lobby/deny` - Host denies guest
-- `PUT /api/karau-meet/meetings/{id}/settings/waiting-room?enabled=` - Toggle waiting room
+- `PUT /api/karau-meet/meetings/{id}/settings/waiting-room?enabled=` - Toggle
+
+## WebSocket Message Types Added
+- `mute_participant` - Host force-mutes a specific participant
+- `mute_all` - Host mutes all participants except self
+- `pass_mic` - Host passes mic (auto-unmutes target, mutes others)
+- `force_mute` (host_action) - Client receives and disables audio track
+- `pass_mic` (host_action) - Client receives and enables audio track
