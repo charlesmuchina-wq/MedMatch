@@ -985,8 +985,22 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         break;
         
       case 'host_action':
-        if (message.action === 'mute_request') {
-          toast.warning(`${message.from_host} asked you to mute`, { duration: 3000 });
+        if (message.action === 'force_mute') {
+          // Host force-muted this participant
+          const audioTrack = localStreamRef.current?.getAudioTracks()[0];
+          if (audioTrack) {
+            audioTrack.enabled = false;
+            setIsAudioEnabled(false);
+          }
+          toast.warning(`${message.from_host} muted you`, { duration: 3000 });
+        } else if (message.action === 'pass_mic') {
+          // Host passed the mic to this participant - auto-unmute
+          const audioTrack2 = localStreamRef.current?.getAudioTracks()[0];
+          if (audioTrack2) {
+            audioTrack2.enabled = true;
+            setIsAudioEnabled(true);
+          }
+          toast.success(`${message.from_host} passed the mic to you`, { duration: 3000 });
         } else if (message.action === 'removed') {
           toast.error(message.reason, { duration: 5000 });
           navigate('/karau-meet/dashboard');
