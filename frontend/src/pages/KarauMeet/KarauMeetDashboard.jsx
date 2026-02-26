@@ -116,6 +116,17 @@ const KarauMeetDashboard = ({ user }) => {
           <p className="text-slate-400">{t("karauMeet.readyForMeeting")}</p>
         </div>
         <div className="flex items-center gap-3">
+          {user?.is_admin && (
+            <Button
+              variant="outline"
+              className="border-slate-600 text-slate-300 hover:text-white hover:border-[#5b5fc7]"
+              onClick={() => navigate('/karau-meet/enterprise')}
+              data-testid="btn-enterprise"
+            >
+              <Building2 className="w-4 h-4 mr-2" />
+              Enterprise
+            </Button>
+          )}
           <Button
             onClick={() => setShowCreateDialog(true)}
             className="bg-gradient-to-r from-turquoise to-cyan-500 hover:from-turquoise/90 hover:to-cyan-500/90"
