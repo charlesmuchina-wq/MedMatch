@@ -36,6 +36,14 @@ const KarauSettingsPage = () => {
   const [verificationCode, setVerificationCode] = useState('');
   const [sendingCode, setSendingCode] = useState(false);
   const [mockCode, setMockCode] = useState('');
+  const [calendarStatus, setCalendarStatus] = useState({ providers: {}, configured: {} });
+  const [calendarLoading, setCalendarLoading] = useState(false);
+  const [ssoConfig, setSsoConfig] = useState(null);
+  const [ssoForm, setSsoForm] = useState({
+    idp_entity_id: '', idp_sso_url: '', idp_slo_url: '', idp_certificate: '',
+    enforce_sso: false, auto_provision: true,
+  });
+  const [ssoSaving, setSsoSaving] = useState(false);
 
   useEffect(() => {
     fetchSettings();
