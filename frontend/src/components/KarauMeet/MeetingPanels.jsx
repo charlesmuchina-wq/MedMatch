@@ -166,47 +166,105 @@ export const AINotesPanel = ({ notes, isTranscribing }) => {
 };
 
 /**
- * Participants panel showing all meeting attendees
+ * Participants panel showing all meeting attendees with host controls
  */
-export const ParticipantsPanel = ({ participants, onMuteParticipant, isHost }) => {
+export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, onPassMic, isHost, activeSpeakerId }) => {
+  const [openMenu, setOpenMenu] = useState(null);
+
   return (
     <div className="flex flex-col h-full">
       <div className="p-3 border-b border-slate-700">
-        <h3 className="font-semibold text-white flex items-center gap-2">
-          <Users className="w-4 h-4" />
-          Participants ({participants.length})
-        </h3>
+        <div className="flex items-center justify-between">
+          <h3 className="font-semibold text-white flex items-center gap-2">
+            <Users className="w-4 h-4" />
+            Participants ({participants.length})
+          </h3>
+          {isHost && participants.length > 1 && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-7 text-xs text-slate-400 hover:text-white hover:bg-slate-700"
+              onClick={onMuteAll}
+              data-testid="mute-all-btn"
+            >
+              <VolumeX className="w-3 h-3 mr-1" />
+              Mute All
+            </Button>
+          )}
+        </div>
       </div>
       
       <ScrollArea className="flex-1 p-3">
         <div className="space-y-2">
-          {participants.map((p, idx) => (
-            <div key={idx} className="flex items-center justify-between p-2 bg-slate-800 rounded-lg" data-testid={`participant-${idx}`}>
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-full bg-turquoise/20 flex items-center justify-center">
-                  <span className="text-sm font-medium text-turquoise">
-                    {p.user_name?.charAt(0)?.toUpperCase()}
-                  </span>
+          {participants.map((p, idx) => {
+            const isSpeaking = activeSpeakerId === p.user_id;
+            return (
+              <div
+                key={idx}
+                className={`flex items-center justify-between p-2 rounded-lg transition-all ${
+                  isSpeaking
+                    ? 'bg-emerald-500/10 ring-1 ring-emerald-500/50'
+                    : 'bg-slate-800'
+                }`}
+                data-testid={`participant-${idx}`}
+              >
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className={`relative w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    isSpeaking ? 'bg-emerald-500/30' : 'bg-turquoise/20'
+                  }`}>
+                    <span className={`text-sm font-medium ${isSpeaking ? 'text-emerald-400' : 'text-turquoise'}`}>
+                      {p.user_name?.charAt(0)?.toUpperCase()}
+                    </span>
+                    {isSpeaking && (
+                      <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full flex items-center justify-center" data-testid="speaking-indicator">
+                        <Volume2 className="w-2 h-2 text-white" />
+                      </span>
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-sm text-white truncate block">{p.user_name}</span>
+                    <div className="flex items-center gap-1">
+                      {p.is_host && <Badge className="text-[10px] px-1 py-0">Host</Badge>}
+                      {isSpeaking && <span className="text-[10px] text-emerald-400">Speaking</span>}
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <span className="text-sm text-white">{p.user_name}</span>
-                  {p.is_host && <Badge className="text-xs ml-2">Host</Badge>}
+                <div className="flex items-center gap-1 flex-shrink-0 relative">
+                  {isHost && !p.is_host && (
+                    <>
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        className="h-6 w-6 p-0 text-slate-400 hover:text-white"
+                        onClick={() => setOpenMenu(openMenu === p.user_id ? null : p.user_id)}
+                        data-testid={`participant-menu-${idx}`}
+                      >
+                        <MoreVertical className="w-4 h-4" />
+                      </Button>
+                      {openMenu === p.user_id && (
+                        <div className="absolute top-7 right-0 bg-slate-700 border border-slate-600 rounded-lg shadow-xl z-20 w-36 py-1">
+                          <button
+                            className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-600 hover:text-white"
+                            onClick={() => { onMuteParticipant(p.user_id); setOpenMenu(null); }}
+                            data-testid={`mute-participant-${idx}`}
+                          >
+                            <MicOff className="w-3 h-3" /> Mute
+                          </button>
+                          <button
+                            className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-600 hover:text-white"
+                            onClick={() => { onPassMic(p.user_id); setOpenMenu(null); }}
+                            data-testid={`pass-mic-${idx}`}
+                          >
+                            <Mic className="w-3 h-3" /> Pass Mic
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
-              <div className="flex items-center gap-1">
-                {isHost && !p.is_host && (
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="h-6 w-6 p-0 text-slate-400 hover:text-white"
-                    onClick={() => onMuteParticipant(p.user_id)}
-                  >
-                    <MoreVertical className="w-4 h-4" />
-                  </Button>
-                )}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </ScrollArea>
       
