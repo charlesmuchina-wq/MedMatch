@@ -181,19 +181,6 @@ const JobSearchPage = ({ savedJobs = [], onSave, onApply, onAnalyze }) => {
     searchJobs(presetQuery);
   };
 
-  // Voice search handlers
-  const handleVoiceResult = useCallback((transcript) => {
-    setQuery(transcript);
-    setInterimTranscript("");
-    setShowVoiceModal(false);
-    searchJobs(transcript);
-    toast.success(`Searching for: "${transcript}"`);
-  }, []);
-
-  const handleVoiceInterim = useCallback((interim) => {
-    setInterimTranscript(interim);
-  }, []);
-
   return (
     <div className="p-6 md:p-8 lg:p-12 max-w-7xl mx-auto animate-fade-in" data-testid="job-search-page">
       {/* Header */}
