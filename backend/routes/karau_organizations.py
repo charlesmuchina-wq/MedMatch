@@ -520,6 +520,451 @@ async def bulk_add_employees(
     return {"added": len(docs), "total": current + len(docs), "max": max_users}
 
 
+@router.post("/{org_id}/employees/csv-upload")
+async def csv_upload_employees(
+    org_id: str,
+    file: UploadFile = File(...),
+    user: dict = Depends(get_current_user)
+):
+    """Upload a CSV file to bulk-import employees.
+    Expected columns: email, first_name, last_name, department (opt), title (opt)
+    """
+    import csv
+    import io
+
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
+    if not org:
+        raise HTTPException(status_code=404, detail="Organization not found")
+
+    if not file.filename.endswith('.csv'):
+        raise HTTPException(status_code=400, detail="Only CSV files accepted")
+
+    content = await file.read()
+    try:
+        text = content.decode('utf-8-sig')
+    except UnicodeDecodeError:
+        text = content.decode('latin-1')
+
+    reader = csv.DictReader(io.StringIO(text))
+    rows = list(reader)
+
+    if not rows:
+        raise HTTPException(status_code=400, detail="CSV file is empty")
+
+    # Detect column mapping (flexible headers)
+    header_map = {}
+    if rows:
+        headers = list(rows[0].keys())
+        for h in headers:
+            hl = h.lower().strip()
+            if 'email' in hl:
+                header_map['email'] = h
+            elif 'first' in hl and 'name' in hl:
+                header_map['first_name'] = h
+            elif 'last' in hl and 'name' in hl:
+                header_map['last_name'] = h
+            elif 'dept' in hl or 'department' in hl:
+                header_map['department'] = h
+            elif 'title' in hl or 'role' in hl or 'position' in hl:
+                header_map['title'] = h
+
+    if 'email' not in header_map:
+        raise HTTPException(status_code=400, detail="CSV must contain an 'email' column")
+
+    max_users = org.get("max_users", 50)
+    current = org.get("employee_count", 0)
+    available = max_users - current
+
+    # Parse employees
+    parsed = []
+    errors = []
+    existing_emails = set()
+    existing = await db.karau_employees.find({"org_id": org_id}, {"_id": 0, "email": 1}).to_list(10000)
+    for e in existing:
+        existing_emails.add(e["email"].lower())
+
+    for i, row in enumerate(rows):
+        email = row.get(header_map.get('email', ''), '').strip().lower()
+        if not email or '@' not in email:
+            errors.append({"row": i + 2, "error": f"Invalid email: {email}"})
+            continue
+        if email in existing_emails:
+            errors.append({"row": i + 2, "error": f"Duplicate: {email}"})
+            continue
+
+        first_name = row.get(header_map.get('first_name', ''), '').strip()
+        last_name = row.get(header_map.get('last_name', ''), '').strip()
+
+        if not first_name and not last_name:
+            parts = email.split('@')[0].split('.')
+            first_name = parts[0].capitalize() if parts else ''
+            last_name = parts[1].capitalize() if len(parts) > 1 else ''
+
+        parsed.append({
+            "employee_id": f"emp_{uuid.uuid4().hex[:8]}",
+            "email": email,
+            "first_name": first_name,
+            "last_name": last_name,
+            "department": row.get(header_map.get('department', ''), '').strip(),
+            "title": row.get(header_map.get('title', ''), '').strip(),
+            "org_id": org_id,
+            "status": "active",
+            "source": "csv_import",
+            "added_at": datetime.now(timezone.utc).isoformat(),
+        })
+        existing_emails.add(email)
+
+    # Trim to available slots
+    if len(parsed) > available:
+        trimmed = len(parsed) - available
+        parsed = parsed[:available]
+        errors.append({"row": 0, "error": f"{trimmed} employees skipped (tier limit: {max_users})"})
+
+    added = 0
+    if parsed:
+        await db.karau_employees.insert_many(parsed)
+        added = len(parsed)
+        await db.karau_organizations.update_one(
+            {"org_id": org_id}, {"$inc": {"employee_count": added}}
+        )
+
+    return {
+        "added": added,
+        "errors": errors,
+        "error_count": len(errors),
+        "total": current + added,
+        "max": max_users,
+        "detected_columns": header_map,
+    }
+
+
+@router.delete("/{org_id}/employees/{employee_id}")
+async def delete_employee(
+    org_id: str,
+    employee_id: str,
+    user: dict = Depends(get_current_user)
+):
+    """Delete an employee from the directory."""
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    result = await db.karau_employees.delete_one(
+        {"org_id": org_id, "employee_id": employee_id}
+    )
+    if result.deleted_count > 0:
+        await db.karau_organizations.update_one(
+            {"org_id": org_id}, {"$inc": {"employee_count": -1}}
+        )
+        return {"success": True, "employee_id": employee_id}
+    raise HTTPException(status_code=404, detail="Employee not found")
+
+
+@router.put("/{org_id}/employees/{employee_id}")
+async def update_employee(
+    org_id: str,
+    employee_id: str,
+    employee: EmployeeEntry,
+    user: dict = Depends(get_current_user)
+):
+    """Update employee details."""
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    result = await db.karau_employees.update_one(
+        {"org_id": org_id, "employee_id": employee_id},
+        {"$set": {
+            "email": employee.email.lower(),
+            "first_name": employee.first_name,
+            "last_name": employee.last_name,
+            "department": employee.department,
+            "title": employee.title,
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+        }}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Employee not found")
+    return {"success": True, "employee_id": employee_id}
+
+
+@router.put("/{org_id}/employees/{employee_id}/status")
+async def toggle_employee_status(
+    org_id: str,
+    employee_id: str,
+    status: str = "active",
+    user: dict = Depends(get_current_user)
+):
+    """Toggle employee status (active/inactive)."""
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    if status not in ("active", "inactive"):
+        raise HTTPException(status_code=400, detail="Status must be 'active' or 'inactive'")
+
+    result = await db.karau_employees.update_one(
+        {"org_id": org_id, "employee_id": employee_id},
+        {"$set": {"status": status, "updated_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Employee not found")
+
+    # Adjust employee count
+    if status == "inactive":
+        await db.karau_organizations.update_one({"org_id": org_id}, {"$inc": {"employee_count": -1}})
+    else:
+        await db.karau_organizations.update_one({"org_id": org_id}, {"$inc": {"employee_count": 1}})
+
+    return {"success": True, "employee_id": employee_id, "status": status}
+
+
+@router.get("/{org_id}/employees/stats")
+async def employee_stats(
+    org_id: str,
+    user: dict = Depends(get_current_user)
+):
+    """Get employee directory statistics."""
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    total = await db.karau_employees.count_documents({"org_id": org_id})
+    active = await db.karau_employees.count_documents({"org_id": org_id, "status": "active"})
+    inactive = total - active
+
+    # Department breakdown
+    pipeline = [
+        {"$match": {"org_id": org_id, "status": "active"}},
+        {"$group": {"_id": "$department", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}}
+    ]
+    dept_cursor = db.karau_employees.aggregate(pipeline)
+    departments = []
+    async for doc in dept_cursor:
+        departments.append({"department": doc["_id"] or "Unassigned", "count": doc["count"]})
+
+    # Source breakdown
+    source_pipeline = [
+        {"$match": {"org_id": org_id}},
+        {"$group": {"_id": "$source", "count": {"$sum": 1}}}
+    ]
+    source_cursor = db.karau_employees.aggregate(source_pipeline)
+    sources = {}
+    async for doc in source_cursor:
+        sources[doc["_id"] or "manual"] = doc["count"]
+
+    return {
+        "total": total,
+        "active": active,
+        "inactive": inactive,
+        "departments": departments,
+        "sources": sources,
+    }
+
+
+# ============ LDAP / ACTIVE DIRECTORY CONFIGURATION ============
+
+class LDAPConfigRequest(BaseModel):
+    server_url: str  # e.g., ldap://ad.company.com:389 or ldaps://ad.company.com:636
+    bind_dn: str  # e.g., cn=admin,dc=company,dc=com
+    bind_password: str
+    base_dn: str  # e.g., ou=users,dc=company,dc=com
+    user_filter: str = "(objectClass=person)"
+    email_attr: str = "mail"
+    first_name_attr: str = "givenName"
+    last_name_attr: str = "sn"
+    department_attr: str = "department"
+    title_attr: str = "title"
+    enabled: bool = True
+
+
+@router.post("/{org_id}/ldap/configure")
+async def configure_ldap(
+    org_id: str,
+    config: LDAPConfigRequest,
+    user: dict = Depends(get_current_user)
+):
+    """Configure LDAP/Active Directory connection for employee sync."""
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
+    if not org:
+        raise HTTPException(status_code=404, detail="Organization not found")
+
+    ldap_config = {
+        "server_url": config.server_url,
+        "bind_dn": config.bind_dn,
+        "bind_password": config.bind_password,  # In production: encrypt this
+        "base_dn": config.base_dn,
+        "user_filter": config.user_filter,
+        "email_attr": config.email_attr,
+        "first_name_attr": config.first_name_attr,
+        "last_name_attr": config.last_name_attr,
+        "department_attr": config.department_attr,
+        "title_attr": config.title_attr,
+        "enabled": config.enabled,
+        "configured_at": datetime.now(timezone.utc).isoformat(),
+        "last_sync": None,
+    }
+
+    await db.karau_organizations.update_one(
+        {"org_id": org_id},
+        {"$set": {"ldap_config": ldap_config}}
+    )
+
+    return {"success": True, "message": "LDAP configuration saved", "enabled": config.enabled}
+
+
+@router.get("/{org_id}/ldap/config")
+async def get_ldap_config(
+    org_id: str,
+    user: dict = Depends(get_current_user)
+):
+    """Get LDAP configuration (password masked)."""
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
+    if not org:
+        raise HTTPException(status_code=404, detail="Organization not found")
+
+    config = org.get("ldap_config")
+    if not config:
+        return {"configured": False}
+
+    # Mask password
+    config_safe = {**config, "bind_password": "••••••••" if config.get("bind_password") else ""}
+    return {"configured": True, "config": config_safe}
+
+
+@router.post("/{org_id}/ldap/test")
+async def test_ldap_connection(
+    org_id: str,
+    user: dict = Depends(get_current_user)
+):
+    """Test LDAP connection without syncing."""
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
+    if not org or not org.get("ldap_config"):
+        raise HTTPException(status_code=400, detail="LDAP not configured")
+
+    config = org["ldap_config"]
+
+    try:
+        import ldap3
+        server = ldap3.Server(config["server_url"], get_info=ldap3.ALL, connect_timeout=5)
+        conn = ldap3.Connection(server, config["bind_dn"], config["bind_password"], auto_bind=True)
+        conn.search(config["base_dn"], config["user_filter"], attributes=[config["email_attr"]], size_limit=5)
+        sample_count = len(conn.entries)
+        conn.unbind()
+        return {"success": True, "message": f"Connected! Found {sample_count} sample entries.", "sample_count": sample_count}
+    except ImportError:
+        return {"success": False, "message": "LDAP library not installed. Install ldap3 package.", "error": "missing_dependency"}
+    except Exception as e:
+        return {"success": False, "message": f"Connection failed: {str(e)}", "error": str(e)}
+
+
+@router.post("/{org_id}/ldap/sync")
+async def sync_ldap_employees(
+    org_id: str,
+    user: dict = Depends(get_current_user)
+):
+    """Sync employees from LDAP/Active Directory."""
+    if not user or not user.get("is_admin"):
+        raise HTTPException(status_code=403, detail="Admin access required")
+
+    org = await db.karau_organizations.find_one({"org_id": org_id}, {"_id": 0})
+    if not org or not org.get("ldap_config"):
+        raise HTTPException(status_code=400, detail="LDAP not configured")
+
+    config = org["ldap_config"]
+    max_users = org.get("max_users", 50)
+
+    try:
+        import ldap3
+        server = ldap3.Server(config["server_url"], get_info=ldap3.ALL, connect_timeout=10)
+        conn = ldap3.Connection(server, config["bind_dn"], config["bind_password"], auto_bind=True)
+
+        attrs = [
+            config["email_attr"],
+            config["first_name_attr"],
+            config["last_name_attr"],
+            config.get("department_attr", "department"),
+            config.get("title_attr", "title"),
+        ]
+        conn.search(config["base_dn"], config["user_filter"], attributes=attrs, size_limit=max_users)
+
+        # Get existing emails
+        existing = await db.karau_employees.find({"org_id": org_id}, {"_id": 0, "email": 1}).to_list(10000)
+        existing_emails = {e["email"].lower() for e in existing}
+
+        added = 0
+        updated = 0
+        for entry in conn.entries:
+            email = str(getattr(entry, config["email_attr"], "")).lower()
+            if not email or '@' not in email:
+                continue
+
+            first_name = str(getattr(entry, config["first_name_attr"], ""))
+            last_name = str(getattr(entry, config["last_name_attr"], ""))
+            department = str(getattr(entry, config.get("department_attr", "department"), ""))
+            title = str(getattr(entry, config.get("title_attr", "title"), ""))
+
+            if email in existing_emails:
+                await db.karau_employees.update_one(
+                    {"org_id": org_id, "email": email},
+                    {"$set": {
+                        "first_name": first_name,
+                        "last_name": last_name,
+                        "department": department,
+                        "title": title,
+                        "source": "ldap_sync",
+                        "last_synced": datetime.now(timezone.utc).isoformat(),
+                    }}
+                )
+                updated += 1
+            else:
+                current_count = await db.karau_employees.count_documents({"org_id": org_id, "status": "active"})
+                if current_count >= max_users:
+                    break
+                await db.karau_employees.insert_one({
+                    "employee_id": f"emp_{uuid.uuid4().hex[:8]}",
+                    "email": email,
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "department": department,
+                    "title": title,
+                    "org_id": org_id,
+                    "status": "active",
+                    "source": "ldap_sync",
+                    "added_at": datetime.now(timezone.utc).isoformat(),
+                    "last_synced": datetime.now(timezone.utc).isoformat(),
+                })
+                added += 1
+
+        conn.unbind()
+
+        # Update org employee count and last sync
+        total_active = await db.karau_employees.count_documents({"org_id": org_id, "status": "active"})
+        await db.karau_organizations.update_one(
+            {"org_id": org_id},
+            {"$set": {
+                "employee_count": total_active,
+                "ldap_config.last_sync": datetime.now(timezone.utc).isoformat()
+            }}
+        )
+
+        return {"success": True, "added": added, "updated": updated, "total": total_active}
+
+    except ImportError:
+        return {"success": False, "message": "LDAP library not installed", "error": "missing_dependency"}
+    except Exception as e:
+        return {"success": False, "message": f"Sync failed: {str(e)}", "error": str(e)}
+
+
 # ============ TIER INFO (Public) ============
 
 @router.get("/tiers/info")
