@@ -74,6 +74,18 @@ class BreakoutRoomRequest(BaseModel):
     participant_ids: List[str]
 
 
+class BreakoutSessionRequest(BaseModel):
+    rooms: List[Dict] = []  # [{"room_name": "Room 1", "participant_ids": ["u1","u2"]}]
+    timer_minutes: int = 0  # 0 = no timer
+    auto_assign: bool = False
+    num_rooms: int = 2  # for auto-assign
+
+
+class MoveParticipantRequest(BaseModel):
+    user_id: str
+    target_room_id: str
+
+
 class SignalRequest(BaseModel):
     target_user_id: str
     signal_type: str  # "offer", "answer", "ice-candidate"
