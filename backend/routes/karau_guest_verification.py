@@ -91,18 +91,50 @@ async def guest_register(request: GuestRegisterRequest):
         upsert=True
     )
 
-    # Send OTP via email (use Resend or similar in production)
-    # For now, log it and return success with hint
-    logger.info(f"Guest OTP for {email}: {otp}")
+    # Send OTP via Resend email
+    email_sent = False
+    if RESEND_API_KEY:
+        try:
+            async with httpx.AsyncClient() as client:
+                resp = await client.post(
+                    "https://api.resend.com/emails",
+                    headers={"Authorization": f"Bearer {RESEND_API_KEY}"},
+                    json={
+                        "from": f"AI KARAU <{SENDER_EMAIL}>",
+                        "to": [email],
+                        "subject": f"Your AI KARAU verification code: {otp}",
+                        "html": f"""<div style="font-family:Arial,sans-serif;max-width:480px;margin:0 auto;padding:32px;background:#0f172a;color:#e2e8f0;border-radius:12px">
+                            <h2 style="color:#2dd4bf;margin-bottom:8px">AI KARAU Meeting</h2>
+                            <p>Hi {name},</p>
+                            <p>Your verification code is:</p>
+                            <div style="font-size:32px;font-weight:bold;letter-spacing:8px;text-align:center;padding:20px;background:#1e293b;border-radius:8px;color:#2dd4bf;margin:16px 0">{otp}</div>
+                            <p style="color:#94a3b8;font-size:14px">This code expires in 10 minutes. Do not share it with anyone.</p>
+                            <hr style="border-color:#334155;margin:20px 0">
+                            <p style="color:#64748b;font-size:12px">If you didn't request this code, please ignore this email.</p>
+                        </div>""",
+                    },
+                    timeout=10,
+                )
+                email_sent = resp.status_code in (200, 201)
+                if not email_sent:
+                    logger.warning(f"Resend email failed: {resp.status_code} {resp.text}")
+        except Exception as e:
+            logger.warning(f"Email send error: {e}")
 
-    return {
+    if not email_sent:
+        logger.info(f"Guest OTP for {email}: {otp}")
+
+    response = {
         "success": True,
         "email": email,
         "message": "Verification code sent to your email",
         "expires_in_minutes": 10,
-        # DEV ONLY: Include OTP in response for testing
-        "_dev_otp": otp,
     }
+    # DEV ONLY: Include OTP in response if email wasn't sent
+    if not email_sent:
+        response["_dev_otp"] = otp
+
+    return response
 
 
 # ============ STEP 2: VERIFY OTP ============
