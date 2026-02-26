@@ -16,7 +16,7 @@ from emergentintegrations.llm.openai import OpenAISpeechToText
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/video-interview", tags=["Video Interview"])
 
@@ -42,9 +42,7 @@ class VideoAnalysisRequest(BaseModel):
 @router.post("/sessions/create")
 async def create_video_session(session_data: VideoSessionCreate, request: Request):
     """Create a new video interview practice session"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     session_id = str(uuid.uuid4())
     session = {
@@ -71,9 +69,7 @@ async def create_video_session(session_data: VideoSessionCreate, request: Reques
 @router.get("/sessions")
 async def list_video_sessions(request: Request, limit: int = 20):
     """List user's video interview sessions"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     sessions = await db.video_sessions.find(
         {"user_id": user.get("user_id")},
@@ -85,9 +81,7 @@ async def list_video_sessions(request: Request, limit: int = 20):
 @router.get("/sessions/{session_id}")
 async def get_video_session(session_id: str, request: Request):
     """Get a specific video session"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     session = await db.video_sessions.find_one(
         {"session_id": session_id, "user_id": user.get("user_id")},
@@ -108,9 +102,7 @@ async def upload_video_recording(
     request: Request = None
 ):
     """Upload a video recording for a session"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Validate session exists
     session = await db.video_sessions.find_one({
@@ -190,9 +182,7 @@ async def upload_video_recording(
 @router.post("/analyze")
 async def analyze_video_response(req: VideoAnalysisRequest, request: Request):
     """Analyze a video response transcript with AI"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get session for context
     session = await db.video_sessions.find_one(
@@ -269,9 +259,7 @@ Provide comprehensive interview coaching feedback.""",
 @router.delete("/sessions/{session_id}")
 async def delete_video_session(session_id: str, request: Request):
     """Delete a video session"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.video_sessions.delete_one({
         "session_id": session_id,
@@ -289,9 +277,7 @@ async def delete_video_session(session_id: str, request: Request):
 @router.get("/common-questions/{job_type}")
 async def get_common_video_questions(job_type: str, request: Request):
     """Get common video interview questions by job type"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Predefined common questions by category
     questions_bank = {

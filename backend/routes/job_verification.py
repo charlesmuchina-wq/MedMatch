@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 from typing import Optional, List
 
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from services.job_liveness import get_liveness_service
 
 router = APIRouter(prefix="/jobs/verify", tags=["Job Verification"])
@@ -30,9 +30,7 @@ async def report_expired_job(data: ReportJobRequest, request: Request):
     Report a job as expired/ghost job.
     Jobs with 2+ reports are automatically hidden.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_liveness_service()
     result = await service.report_expired(data.job_id, user["user_id"])
@@ -46,9 +44,7 @@ async def batch_verify_jobs(request: Request):
     Verify multiple jobs in a batch.
     Returns verification status for each job.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     try:
         body = await request.json()
@@ -75,9 +71,7 @@ async def check_url_status(url: str, request: Request):
     Quick check if a URL is still accessible.
     Does not perform full content analysis.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_liveness_service()
     result = await service.check_url_alive(url)
@@ -90,9 +84,7 @@ async def check_url_status(url: str, request: Request):
 @router.get("/{job_id}")
 async def get_job_verification_status(job_id: str, request: Request):
     """Get verification status for a job"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_liveness_service()
     status = await service.get_job_status(job_id)
@@ -106,9 +98,7 @@ async def verify_job(job_id: str, request: Request, url: str = ""):
     Verify if a job listing is still active.
     Performs HTTP check and content analysis.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not url:
         raise HTTPException(status_code=400, detail="URL is required")

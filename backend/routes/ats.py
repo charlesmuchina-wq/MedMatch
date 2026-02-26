@@ -12,7 +12,7 @@ import secrets
 import logging
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from services.email_service import (
     send_application_status_email,
     send_application_invitation_email,
@@ -68,9 +68,7 @@ async def create_application_link(data: ApplicationLinkCreate, request: Request)
     Create a shareable application link for a job posting
     Recruiters can share this link to invite candidates to apply
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") not in ["recruiter", "admin"]:
         raise HTTPException(status_code=403, detail="Only recruiters can create application links")
@@ -125,9 +123,7 @@ async def create_application_link(data: ApplicationLinkCreate, request: Request)
 @router.get("/links")
 async def list_application_links(request: Request):
     """List all application links for the recruiter"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     links = await db.application_links.find(
         {"recruiter_id": user["user_id"]},
@@ -139,9 +135,7 @@ async def list_application_links(request: Request):
 @router.delete("/links/{link_id}")
 async def deactivate_application_link(link_id: str, request: Request):
     """Deactivate an application link"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.application_links.update_one(
         {"id": link_id, "recruiter_id": user["user_id"]},
@@ -354,9 +348,7 @@ async def update_application_status(
     Update application status with optional email notification
     Enhanced version with more statuses and email support
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") not in ["recruiter", "admin"]:
         raise HTTPException(status_code=403, detail="Only recruiters can update status")
@@ -446,9 +438,7 @@ async def bulk_update_status(
     """
     Update status for multiple applications at once
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can update status")
@@ -522,9 +512,7 @@ async def invite_candidate_to_apply(
     """
     Send email invitation to a candidate to apply for a position
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can send invitations")
@@ -602,9 +590,7 @@ async def invite_candidate_to_apply(
 @router.get("/invitations")
 async def list_invitations(job_id: Optional[str] = None, request: Request = None):
     """List all invitations sent by the recruiter"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     query = {"recruiter_id": user["user_id"]}
     if job_id:
@@ -622,9 +608,7 @@ async def list_invitations(job_id: Optional[str] = None, request: Request = None
 @router.get("/stats")
 async def get_ats_statistics(request: Request):
     """Get ATS statistics for the recruiter"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     recruiter_id = user["user_id"]
     
@@ -670,9 +654,7 @@ async def get_ats_statistics(request: Request):
 @router.get("/email-logs")
 async def get_email_logs(limit: int = 50, request: Request = None):
     """Get email logs (admin/recruiter view)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     logs = await db.email_logs.find(
         {},

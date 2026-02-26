@@ -19,7 +19,7 @@ import uuid
 import logging
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/mutual-match", tags=["Mutual Match"])
 
@@ -89,9 +89,7 @@ async def send_contact_request(contact_req: ContactRequest, request: Request, ba
     Recruiter sends a contact request to a candidate.
     Candidate's PII remains hidden until they accept.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get recruiter profile
     recruiter = await db.recruiter_profiles.find_one(
@@ -183,9 +181,7 @@ async def send_contact_request(contact_req: ContactRequest, request: Request, ba
 @router.get("/requests/sent")
 async def get_sent_requests(request: Request):
     """Get all contact requests sent by the recruiter"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     requests = await db.contact_requests.find(
         {"recruiter_id": user["user_id"]},
@@ -200,9 +196,7 @@ async def get_sent_requests(request: Request):
 @router.get("/requests/received")
 async def get_received_requests(request: Request):
     """Get all contact requests received by the candidate"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     requests = await db.contact_requests.find(
         {"candidate_user_id": user["user_id"]},
@@ -228,9 +222,7 @@ async def get_received_requests(request: Request):
 @router.get("/requests/{request_id}")
 async def get_request_details(request_id: str, request: Request):
     """Get details of a specific contact request"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     contact_req = await db.contact_requests.find_one(
         {"id": request_id},
@@ -263,9 +255,7 @@ async def respond_to_contact_request(response: ContactResponse, request: Request
     On accept: PII is shared, secure chat opens.
     On decline: Recruiter notified anonymously, PII stays private.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if response.action not in ["accept", "decline"]:
         raise HTTPException(status_code=400, detail="Action must be 'accept' or 'decline'")
@@ -392,9 +382,7 @@ async def send_secure_message(msg: SecureMessage, request: Request):
     Send a secure in-app message within a mutual match.
     No external emails exposed.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Verify user is part of this match
     match = await db.mutual_matches.find_one(
@@ -457,9 +445,7 @@ async def send_secure_message(msg: SecureMessage, request: Request):
 @router.get("/messages/{match_id}")
 async def get_match_messages(match_id: str, request: Request):
     """Get all messages in a mutual match conversation"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Verify user is part of this match
     match = await db.mutual_matches.find_one(
@@ -495,9 +481,7 @@ async def get_match_messages(match_id: str, request: Request):
 @router.get("/matches")
 async def get_user_matches(request: Request):
     """Get all mutual matches for the current user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get matches where user is either candidate or recruiter
     matches = await db.mutual_matches.find(
@@ -564,9 +548,7 @@ async def toggle_ghost_mode(request: Request, organization_id: Optional[str] = N
     """
     Toggle ghost mode - hide profile from specific organizations.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if organization_id:
         # Add to blocked list
@@ -591,9 +573,7 @@ async def toggle_ghost_mode(request: Request, organization_id: Optional[str] = N
 @router.get("/ghost-mode/status")
 async def get_ghost_mode_status(request: Request):
     """Get current ghost mode status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     resume = await db.resumes.find_one(
         {"user_id": user["user_id"]},

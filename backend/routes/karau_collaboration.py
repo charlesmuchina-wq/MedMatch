@@ -28,7 +28,7 @@ from services.karau_meet.collaboration_service import (
     delete_action_item,
     extract_action_items_from_transcript
 )
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/karau-meet/collab", tags=["AI KARAU Collaboration"])
 
@@ -51,7 +51,7 @@ class WhiteboardElementUpdate(BaseModel):
 @router.post("/meetings/{meeting_id}/whiteboard")
 async def create_meeting_whiteboard(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Create a whiteboard for a meeting"""
     
@@ -62,7 +62,7 @@ async def create_meeting_whiteboard(
 @router.get("/meetings/{meeting_id}/whiteboard")
 async def get_meeting_whiteboard(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get whiteboard for a meeting"""
     
@@ -79,7 +79,7 @@ async def get_meeting_whiteboard(
 async def add_element(
     meeting_id: str,
     request: WhiteboardElementRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Add an element to the whiteboard"""
     
@@ -102,7 +102,7 @@ async def update_element(
     meeting_id: str,
     element_id: str,
     request: WhiteboardElementUpdate,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Update a whiteboard element"""
     
@@ -122,7 +122,7 @@ async def update_element(
 async def remove_element(
     meeting_id: str,
     element_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Delete a whiteboard element"""
     
@@ -137,7 +137,7 @@ async def remove_element(
 @router.delete("/meetings/{meeting_id}/whiteboard/clear")
 async def clear_meeting_whiteboard(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Clear all whiteboard elements"""
     
@@ -148,7 +148,7 @@ async def clear_meeting_whiteboard(
 @router.get("/meetings/{meeting_id}/whiteboard/export")
 async def export_meeting_whiteboard(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Export whiteboard data for rendering"""
     
@@ -174,7 +174,7 @@ class ShareFileRequest(BaseModel):
 async def share_meeting_file(
     meeting_id: str,
     request: ShareFileRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Share a file in the meeting"""
     
@@ -196,7 +196,7 @@ async def share_meeting_file(
 async def upload_meeting_file(
     meeting_id: str,
     file: UploadFile = File(...),
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Upload a file to share in the meeting"""
     
@@ -230,7 +230,7 @@ async def upload_meeting_file(
 @router.get("/meetings/{meeting_id}/files")
 async def list_meeting_files(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get all files shared in a meeting"""
     
@@ -241,7 +241,7 @@ async def list_meeting_files(
 @router.get("/files/{file_id}")
 async def download_file(
     file_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Download a shared file"""
     
@@ -256,7 +256,7 @@ async def download_file(
 @router.delete("/files/{file_id}")
 async def remove_file(
     file_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Delete a shared file"""
     
@@ -272,7 +272,7 @@ async def remove_file(
 async def toggle_pin_file(
     file_id: str,
     is_pinned: bool,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Pin or unpin a file"""
     
@@ -309,7 +309,7 @@ class ActionItemNoteRequest(BaseModel):
 async def create_meeting_action_item(
     meeting_id: str,
     request: ActionItemRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Create an action item for a meeting"""
     
@@ -331,7 +331,7 @@ async def create_meeting_action_item(
 async def list_meeting_action_items(
     meeting_id: str,
     status: Optional[str] = None,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get all action items for a meeting"""
     
@@ -342,7 +342,7 @@ async def list_meeting_action_items(
 @router.get("/action-items")
 async def list_my_action_items(
     status: Optional[str] = None,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get all action items assigned to or created by the user"""
     
@@ -354,7 +354,7 @@ async def list_my_action_items(
 async def update_meeting_action_item(
     item_id: str,
     request: ActionItemUpdate,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Update an action item"""
     
@@ -370,7 +370,7 @@ async def update_meeting_action_item(
 async def add_note_to_action_item(
     item_id: str,
     request: ActionItemNoteRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Add a note to an action item"""
     
@@ -387,7 +387,7 @@ async def add_note_to_action_item(
 @router.delete("/action-items/{item_id}")
 async def remove_action_item(
     item_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Delete an action item"""
     
@@ -404,7 +404,7 @@ async def extract_action_items(
     meeting_id: str,
     transcript: str,
     participants: List[str] = [],
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """AI-powered extraction of action items from transcript"""
     

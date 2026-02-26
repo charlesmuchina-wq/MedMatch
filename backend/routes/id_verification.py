@@ -11,7 +11,7 @@ import uuid
 
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/id-verification", tags=["ID Verification"])
 
@@ -54,9 +54,7 @@ VERIFICATION_LEVELS = {
 @router.get("/status")
 async def get_verification_status(request: Request):
     """Get current user's verification status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get verification record
     verification = await db.id_verifications.find_one(
@@ -93,9 +91,7 @@ async def get_verification_status(request: Request):
 @router.post("/request-verification")
 async def request_id_verification(req: VerificationRequest, request: Request):
     """Start ID verification process"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     user_id = user.get("user_id")
     
@@ -142,9 +138,7 @@ async def upload_verification_document(
     request: Request = None
 ):
     """Upload verification document"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get pending verification
     verification = await db.id_verifications.find_one({
@@ -240,9 +234,7 @@ async def process_verification(verification_id: str):
 @router.post("/verify-company")
 async def verify_company_affiliation(req: CompanyVerificationRequest, request: Request):
     """Verify recruiter's company affiliation"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can verify company affiliation")
@@ -313,9 +305,7 @@ async def get_verification_levels():
 @router.get("/check/{user_id}")
 async def check_user_verification(user_id: str, request: Request):
     """Check another user's verification status (for recruiters viewing candidates)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get target user's verification
     target_user = await db.users.find_one({"user_id": user_id}, {"_id": 0})

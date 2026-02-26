@@ -15,7 +15,7 @@ import html
 
 from utils.database import db
 from utils.config import GOOGLE_API_KEY, GOOGLE_CSE_ID
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from services.job_sources import get_job_sources_service
 from services.job_liveness import get_liveness_service
 from services.smart_notifications import get_notification_service
@@ -559,9 +559,7 @@ async def deep_search_jobs(request: Request):
     AI-powered deep search that uses user's resume and preferences
     to find highly relevant jobs across all sources
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     try:
         body = await request.json()
@@ -711,9 +709,7 @@ async def deep_search_jobs(request: Request):
 @router.post("/jobs/manual")
 async def create_manual_job(job: ManualJobCreate, request: Request):
     """Create a manual job entry"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     job_doc = {
         "id": str(uuid.uuid4()),
@@ -739,9 +735,7 @@ async def create_manual_job(job: ManualJobCreate, request: Request):
 @router.get("/applications")
 async def get_applications(request: Request):
     """Get user's job applications"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     applications = await db.applications.find(
         {"user_id": user["user_id"]},
@@ -753,9 +747,7 @@ async def get_applications(request: Request):
 @router.post("/applications")
 async def create_application(app_data: ApplicationCreate, request: Request):
     """Create a new job application"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Check for duplicate
     existing = await db.applications.find_one({
@@ -785,9 +777,7 @@ async def create_application(app_data: ApplicationCreate, request: Request):
 @router.post("/applications/quick-apply")
 async def quick_apply(data: QuickApplyRequest, request: Request):
     """Quick apply - records application and returns job URL"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     job_url = data.job.url
     
@@ -819,7 +809,7 @@ async def quick_apply(data: QuickApplyRequest, request: Request):
 @router.get("/applications/check/{url:path}")
 async def check_application(url: str, request: Request):
     """Check if user has already applied to a job"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user:
         return {"applied": False}
     
@@ -833,9 +823,7 @@ async def check_application(url: str, request: Request):
 @router.put("/applications/{app_id}/status")
 async def update_application_status(app_id: str, update: ApplicationStatusUpdate, request: Request):
     """Update application status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     update_data = {"status": update.status, "updated_at": datetime.now(timezone.utc).isoformat()}
     if update.notes:
@@ -854,9 +842,7 @@ async def update_application_status(app_id: str, update: ApplicationStatusUpdate
 @router.put("/applications/{app_id}/job-status")
 async def update_job_status(app_id: str, request: Request, job_status: str = "Active"):
     """Update the job posting status (Active, Closed, Filled)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.applications.update_one(
         {"id": app_id, "user_id": user["user_id"]},
@@ -871,9 +857,7 @@ async def update_job_status(app_id: str, request: Request, job_status: str = "Ac
 @router.delete("/applications/{app_id}")
 async def delete_application(app_id: str, request: Request):
     """Delete an application"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.applications.delete_one({"id": app_id, "user_id": user["user_id"]})
     
@@ -888,9 +872,7 @@ async def delete_application(app_id: str, request: Request):
 @router.get("/jobs/saved")  # Alias for consistency
 async def get_saved_jobs(request: Request):
     """Get user's saved jobs"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     saved = await db.saved_jobs.find(
         {"user_id": user["user_id"]},
@@ -903,9 +885,7 @@ async def get_saved_jobs(request: Request):
 @router.post("/jobs/save")  # Alias for frontend compatibility
 async def save_job(job: Job, request: Request):
     """Save a job for later"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     saved_job = {
         "id": str(uuid.uuid4()),
@@ -922,9 +902,7 @@ async def save_job(job: Job, request: Request):
 @router.delete("/jobs/saved/{job_id}")  # Alias for frontend compatibility
 async def unsave_job(job_id: str, request: Request):
     """Remove a saved job"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.saved_jobs.delete_one({"id": job_id, "user_id": user["user_id"]})
     
@@ -939,9 +917,7 @@ async def unsave_job(job_id: str, request: Request):
 @router.get("/jobs/alerts")  # Alias for consistency
 async def get_job_alerts(request: Request):
     """Get user's job alerts"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     alerts = await db.job_alerts.find(
         {"user_id": user["user_id"]},
@@ -953,9 +929,7 @@ async def get_job_alerts(request: Request):
 @router.post("/job-alerts")
 async def create_job_alert(alert: JobAlertCreate, request: Request):
     """Create a new job alert"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     alert_doc = {
         "id": str(uuid.uuid4()),
@@ -974,9 +948,7 @@ async def create_job_alert(alert: JobAlertCreate, request: Request):
 @router.delete("/job-alerts/{alert_id}")
 async def delete_job_alert(alert_id: str, request: Request):
     """Delete a job alert"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.job_alerts.delete_one({"id": alert_id, "user_id": user["user_id"]})
     

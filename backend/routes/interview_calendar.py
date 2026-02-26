@@ -14,7 +14,7 @@ import httpx
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from utils.push_service import notify_interview_reminder
 
 # Try to import LLM for AI preparation
@@ -239,9 +239,7 @@ Powered by MedMatch""",
 @router.get("/status")
 async def get_calendar_status(request: Request):
     """Get calendar service status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     return {
         "available": True,
@@ -264,9 +262,7 @@ async def get_interview_events(
     status: Optional[str] = None
 ):
     """Get user's interview events"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     query = {"user_id": user["user_id"]}
     
@@ -294,9 +290,7 @@ async def get_interview_events(
 @router.post("/events")
 async def create_interview_event(event: CalendarEvent, request: Request):
     """Create a new interview event"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     event_doc = {
         "id": f"interview_{uuid.uuid4().hex[:12]}",
@@ -329,9 +323,7 @@ async def create_interview_event(event: CalendarEvent, request: Request):
 @router.get("/events/{event_id}")
 async def get_interview_event(event_id: str, request: Request):
     """Get specific interview event"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     event = await db.interview_calendar.find_one(
         {"id": event_id, "user_id": user["user_id"]},
@@ -347,9 +339,7 @@ async def get_interview_event(event_id: str, request: Request):
 @router.put("/events/{event_id}")
 async def update_interview_event(event_id: str, request: Request):
     """Update an interview event"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     body = await request.json()
     body["updated_at"] = datetime.now(timezone.utc).isoformat()
@@ -374,9 +364,7 @@ async def update_interview_event(event_id: str, request: Request):
 @router.delete("/events/{event_id}")
 async def delete_interview_event(event_id: str, request: Request):
     """Delete an interview event"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.interview_calendar.delete_one(
         {"id": event_id, "user_id": user["user_id"]}
@@ -391,9 +379,7 @@ async def delete_interview_event(event_id: str, request: Request):
 @router.post("/events/{event_id}/generate-preparation")
 async def generate_event_preparation(event_id: str, request: Request):
     """Generate AI preparation materials for an interview"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     event = await db.interview_calendar.find_one(
         {"id": event_id, "user_id": user["user_id"]}
@@ -437,9 +423,7 @@ async def generate_event_preparation(event_id: str, request: Request):
 @router.post("/sync/google")
 async def sync_google_calendar(sync_request: CalendarSyncRequest, request: Request):
     """Sync with Google Calendar"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if sync_request.sync_direction in ["import", "both"]:
         # Fetch events from Google Calendar
@@ -495,9 +479,7 @@ async def sync_google_calendar(sync_request: CalendarSyncRequest, request: Reque
 @router.post("/events/{event_id}/export-to-google")
 async def export_to_google_calendar(event_id: str, request: Request):
     """Export interview to Google Calendar"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     body = await request.json()
     access_token = body.get("access_token")
@@ -551,9 +533,7 @@ async def export_to_google_calendar(event_id: str, request: Request):
 @router.get("/upcoming")
 async def get_upcoming_interviews(request: Request, days: int = 7):
     """Get upcoming interviews for the next N days"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     now = datetime.now(timezone.utc)
     end_date = now + timedelta(days=days)
@@ -589,9 +569,7 @@ async def get_upcoming_interviews(request: Request, days: int = 7):
 @router.post("/send-reminders")
 async def send_interview_reminders(request: Request, background_tasks: BackgroundTasks):
     """Send reminders for upcoming interviews (called by scheduler)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     now = datetime.now(timezone.utc)
     
@@ -649,9 +627,7 @@ async def send_interview_reminders(request: Request, background_tasks: Backgroun
 @router.get("/settings")
 async def get_calendar_settings(request: Request):
     """Get user's calendar settings"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     settings = await db.user_settings.find_one(
         {"user_id": user["user_id"], "type": "calendar"},
@@ -675,9 +651,7 @@ async def get_calendar_settings(request: Request):
 @router.put("/settings")
 async def update_calendar_settings(settings: ReminderSettings, request: Request):
     """Update user's calendar settings"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     await db.user_settings.update_one(
         {"user_id": user["user_id"], "type": "calendar"},
@@ -699,9 +673,7 @@ async def update_calendar_settings(settings: ReminderSettings, request: Request)
 @router.get("/stats")
 async def get_calendar_stats(request: Request):
     """Get interview calendar statistics"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     now = datetime.now(timezone.utc)
     

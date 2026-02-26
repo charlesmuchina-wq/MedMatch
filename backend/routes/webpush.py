@@ -15,7 +15,7 @@ import base64
 from pywebpush import webpush, WebPushException
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/webpush", tags=["Real Web Push"])
 
@@ -235,9 +235,7 @@ class ExpoTokenSubscription(BaseModel):
 @router.post("/expo/subscribe")
 async def subscribe_expo_push(subscription: ExpoTokenSubscription, request: Request):
     """Register an Expo push token for mobile notifications"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     user_id = user.get("user_id")
     
@@ -281,9 +279,7 @@ async def subscribe_expo_push(subscription: ExpoTokenSubscription, request: Requ
 @router.delete("/expo/unsubscribe")
 async def unsubscribe_expo_push(request: Request, expo_token: str):
     """Unregister an Expo push token"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.expo_push_tokens.update_one(
         {"expo_token": expo_token, "user_id": user.get("user_id")},
@@ -299,9 +295,7 @@ async def unsubscribe_expo_push(request: Request, expo_token: str):
 @router.get("/expo/status")
 async def get_expo_status(request: Request):
     """Get Expo push notification status for current user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     tokens = await db.expo_push_tokens.find(
         {"user_id": user.get("user_id"), "active": True},
@@ -318,9 +312,7 @@ async def get_expo_status(request: Request):
 @router.post("/expo/test")
 async def test_expo_notification(request: Request):
     """Send a test notification to current user's Expo devices"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     tokens = await db.expo_push_tokens.find(
         {"user_id": user.get("user_id"), "active": True}
@@ -354,9 +346,7 @@ async def test_expo_notification(request: Request):
 @router.post("/subscribe")
 async def subscribe_webpush(subscription: WebPushSubscription, request: Request):
     """Subscribe to web push notifications"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     user_id = user.get("user_id")
     
@@ -411,9 +401,7 @@ async def subscribe_webpush(subscription: WebPushSubscription, request: Request)
 @router.delete("/unsubscribe")
 async def unsubscribe_webpush(request: Request):
     """Unsubscribe from web push notifications"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     body = await request.json()
     endpoint = body.get("endpoint")
@@ -435,9 +423,7 @@ async def send_notification(
     background_tasks: BackgroundTasks
 ):
     """Send a push notification"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     target_user_id = notification.user_id or user.get("user_id")
     
@@ -494,9 +480,7 @@ async def send_notification(
 @router.post("/send-test")
 async def send_test_notification(request: Request):
     """Send a test notification to the current user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     payload = {
         "title": "🧪 Test Notification",
@@ -522,9 +506,7 @@ async def send_test_notification(request: Request):
 @router.get("/status")
 async def get_push_status(request: Request):
     """Get push notification status for current user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     subscriptions = await db.webpush_subscriptions.find(
         {"user_id": user.get("user_id"), "active": True},
@@ -553,9 +535,7 @@ async def notify_job_match(
     background_tasks: BackgroundTasks
 ):
     """Send job match notification"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     body = await request.json()
     target_user_id = body.get("user_id", user.get("user_id"))
@@ -591,9 +571,7 @@ async def notify_interview_reminder(
     request: Request
 ):
     """Send interview reminder notification"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     body = await request.json()
     target_user_id = body.get("user_id", user.get("user_id"))
@@ -629,9 +607,7 @@ async def notify_application_update(
     request: Request
 ):
     """Send application status update notification"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     body = await request.json()
     target_user_id = body.get("user_id", user.get("user_id"))
@@ -671,9 +647,7 @@ async def notify_new_message(
     request: Request
 ):
     """Send new message notification"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     body = await request.json()
     target_user_id = body.get("user_id", user.get("user_id"))

@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 import logging
 
 from services.search_engine import get_search_service
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/search", tags=["Search Engine"])
 logger = logging.getLogger(__name__)
@@ -48,7 +48,7 @@ class AutocompleteResponse(BaseModel):
 async def get_autocomplete(
     q: str = Query(..., min_length=1, description="Partial search query"),
     limit: int = Query(10, ge=1, le=20),
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(require_auth)
 ):
     """
     Get autocomplete suggestions for a partial query.
@@ -129,7 +129,7 @@ async def extract_intent(
 @router.post("/enhanced")
 async def enhanced_search(
     request: SearchRequest,
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(require_auth)
 ):
     """
     Perform enhanced search with:
@@ -174,7 +174,7 @@ async def enhanced_search(
 @router.post("/track-click")
 async def track_click(
     request: ClickTrackRequest,
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(require_auth)
 ):
     """
     Track when a user clicks on a search result.
@@ -216,7 +216,7 @@ async def track_impression(
 @router.get("/history")
 async def get_search_history(
     limit: int = Query(20, ge=1, le=100),
-    current_user: dict = Depends(get_current_user)
+    current_user: dict = Depends(require_auth)
 ):
     """
     Get user's recent search history.

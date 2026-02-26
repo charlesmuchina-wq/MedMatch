@@ -11,7 +11,7 @@ import os
 import httpx
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/linkedin", tags=["LinkedIn"])
 
@@ -35,9 +35,7 @@ class LinkedInSyncRequest(BaseModel):
 @router.get("/status")
 async def get_linkedin_status(request: Request):
     """Check LinkedIn integration status and user connection"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Check if user has connected LinkedIn
     linkedin_connection = await db.linkedin_connections.find_one(
@@ -84,9 +82,7 @@ async def get_linkedin_auth_url(redirect_uri: str):
 @router.post("/token")
 async def exchange_linkedin_code(auth_request: LinkedInAuthRequest, request: Request):
     """Exchange LinkedIn authorization code for access token"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not LINKEDIN_CLIENT_ID or not LINKEDIN_CLIENT_SECRET:
         raise HTTPException(status_code=503, detail="LinkedIn integration not configured")
@@ -166,9 +162,7 @@ async def exchange_linkedin_code(auth_request: LinkedInAuthRequest, request: Req
 @router.post("/sync")
 async def sync_linkedin_profile(request: Request):
     """Sync LinkedIn profile data to MedMatch resume"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get stored connection
     connection = await db.linkedin_connections.find_one({"user_id": user["user_id"]})
@@ -257,9 +251,7 @@ async def sync_linkedin_profile(request: Request):
 @router.delete("/disconnect")
 async def disconnect_linkedin(request: Request):
     """Disconnect LinkedIn from user account"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.linkedin_connections.delete_one({"user_id": user["user_id"]})
     

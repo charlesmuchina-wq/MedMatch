@@ -14,7 +14,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/video-analysis", tags=["Video Facial Analysis"])
 
@@ -267,9 +267,7 @@ Return JSON with this structure:
 @router.get("/status")
 async def get_video_analysis_status(request: Request):
     """Check video analysis service status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     return {
         "available": bool(EMERGENT_LLM_KEY),
@@ -289,9 +287,7 @@ async def get_video_analysis_status(request: Request):
 @router.post("/analyze-frame")
 async def analyze_video_frame(frame_request: FrameAnalysisRequest, request: Request):
     """Analyze a single video frame for facial expressions"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=503, detail="AI service not configured")
@@ -310,9 +306,7 @@ async def analyze_video_frame(frame_request: FrameAnalysisRequest, request: Requ
 @router.post("/comprehensive-feedback")
 async def get_comprehensive_feedback(feedback_request: VideoFeedbackRequest, request: Request):
     """Get comprehensive feedback from video analysis data"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=503, detail="AI service not configured")
@@ -361,9 +355,7 @@ async def analyze_session_recording(
     request: Request
 ):
     """Analyze a specific recording from a video session"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     session = await db.video_sessions.find_one(
         {"session_id": session_id, "user_id": user.get("user_id")},
@@ -521,9 +513,7 @@ async def get_realtime_tips(
 @router.get("/benchmarks")
 async def get_performance_benchmarks(request: Request):
     """Get benchmark scores for comparison"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     return {
         "top_performer_benchmarks": {
@@ -568,9 +558,7 @@ async def get_performance_benchmarks(request: Request):
 @router.get("/history")
 async def get_analysis_history(request: Request, limit: int = 10):
     """Get user's video analysis history"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     sessions = await db.video_sessions.find(
         {"user_id": user.get("user_id"), "facial_analysis": {"$exists": True}},

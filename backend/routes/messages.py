@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 import uuid
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from utils.push_service import notify_new_message
 
 router = APIRouter(prefix="/messages", tags=["Messaging"])
@@ -27,9 +27,7 @@ class MessageCreate(BaseModel):
 @router.post("/send")
 async def send_message(message: MessageCreate, request: Request, background_tasks: BackgroundTasks):
     """Send a message to another user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Verify recipient exists
     recipient = await db.users.find_one({"user_id": message.recipient_id}, {"_id": 0})
@@ -98,9 +96,7 @@ async def send_message(message: MessageCreate, request: Request, background_task
 @router.get("/conversations")
 async def get_conversations(request: Request):
     """Get all conversations for current user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Find all conversations where user is a participant
     conversations = await db.conversations.find(
@@ -122,9 +118,7 @@ async def get_conversations(request: Request):
 @router.get("/conversations/{conversation_id}")
 async def get_conversation_messages(conversation_id: str, request: Request):
     """Get all messages in a conversation"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Verify user is part of this conversation
     conversation = await db.conversations.find_one({
@@ -161,9 +155,7 @@ async def get_conversation_messages(conversation_id: str, request: Request):
 @router.get("/unread-count")
 async def get_unread_count(request: Request):
     """Get total unread message count for current user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Count unread messages
     count = await db.messages.count_documents({

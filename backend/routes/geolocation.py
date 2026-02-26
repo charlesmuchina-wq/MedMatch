@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
 from typing import Optional, List
 
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from services.geolocation import get_geolocation_service, MAJOR_HUBS
 
 router = APIRouter(prefix="/geolocation", tags=["Geolocation"])
@@ -38,9 +38,7 @@ class GeocodeRequest(BaseModel):
 @router.get("/preferences")
 async def get_location_preferences(request: Request):
     """Get user's location preferences"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_geolocation_service()
     preferences = await service.get_user_location_preferences(user["user_id"])
@@ -54,9 +52,7 @@ async def update_location_preferences(
     request: Request
 ):
     """Update user's location preferences"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_geolocation_service()
     result = await service.save_user_location_preferences(
@@ -81,9 +77,7 @@ async def update_location_preferences(
 @router.post("/distance")
 async def calculate_distance(data: DistanceRequest, request: Request):
     """Calculate distance between two points"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_geolocation_service()
     
@@ -112,9 +106,7 @@ async def calculate_distance(data: DistanceRequest, request: Request):
 @router.post("/geocode")
 async def geocode_address(data: GeocodeRequest, request: Request):
     """Convert an address to coordinates"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_geolocation_service()
     coords = await service.geocode_address(data.address)
@@ -136,9 +128,7 @@ async def geocode_address(data: GeocodeRequest, request: Request):
 @router.get("/hubs")
 async def get_major_hubs(request: Request):
     """Get list of major tech/healthcare hubs"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     hubs = []
     for hub_id, hub in MAJOR_HUBS.items():
@@ -159,9 +149,7 @@ async def get_nearest_hub(
     lon: float = None
 ):
     """Find the nearest major hub to a location"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not lat or not lon:
         # Try to use user's home location
@@ -193,9 +181,7 @@ async def get_commute_estimate(
     mode: str = "driving"
 ):
     """Get estimated commute time for a distance"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     valid_modes = ["driving", "driving_highway", "transit", "walking", "cycling"]
     if mode not in valid_modes:
@@ -215,9 +201,7 @@ async def get_commute_estimate(
 @router.get("/radius-settings")
 async def get_radius_settings(request: Request):
     """Get default radius settings by job type"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     return {
         "defaults": {

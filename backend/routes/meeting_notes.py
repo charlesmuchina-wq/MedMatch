@@ -15,7 +15,7 @@ import json
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 # Import from emergent integrations
 try:
@@ -166,9 +166,7 @@ async def transcribe_meeting_audio(audio_data: bytes, format: str = "webm") -> O
 @router.get("/status")
 async def get_service_status(request: Request):
     """Get meeting notes service status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     return {
         "available": bool(EMERGENT_LLM_KEY),
@@ -187,9 +185,7 @@ async def get_service_status(request: Request):
 @router.post("/create")
 async def create_meeting(meeting: MeetingCreate, request: Request):
     """Create a new meeting for notes"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     meeting_doc = {
         "id": f"meeting_{uuid.uuid4().hex[:12]}",
@@ -223,9 +219,7 @@ async def list_meetings(
     limit: int = 20
 ):
     """List user's meetings"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     query = {"user_id": user["user_id"]}
     if meeting_type:
@@ -247,9 +241,7 @@ async def list_meetings(
 @router.get("/{meeting_id}")
 async def get_meeting(meeting_id: str, request: Request):
     """Get a specific meeting"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     meeting = await db.meeting_notes.find_one(
         {"id": meeting_id, "user_id": user["user_id"]},
@@ -265,9 +257,7 @@ async def get_meeting(meeting_id: str, request: Request):
 @router.put("/{meeting_id}")
 async def update_meeting(meeting_id: str, update: MeetingUpdate, request: Request):
     """Update a meeting"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     update_data = {"updated_at": datetime.now(timezone.utc).isoformat()}
     
@@ -294,9 +284,7 @@ async def update_meeting(meeting_id: str, update: MeetingUpdate, request: Reques
 @router.delete("/{meeting_id}")
 async def delete_meeting(meeting_id: str, request: Request):
     """Delete a meeting"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.meeting_notes.delete_one(
         {"id": meeting_id, "user_id": user["user_id"]}
@@ -316,9 +304,7 @@ async def transcribe_meeting(
     file: UploadFile = File(...)
 ):
     """Upload and transcribe meeting audio"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Verify meeting exists
     meeting = await db.meeting_notes.find_one(
@@ -374,9 +360,7 @@ async def transcribe_meeting(
 @router.post("/{meeting_id}/append-transcript")
 async def append_transcript(meeting_id: str, request: Request):
     """Append text to meeting transcript (for real-time transcription)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     body = await request.json()
     text = body.get("text", "")
@@ -408,9 +392,7 @@ async def append_transcript(meeting_id: str, request: Request):
 @router.post("/{meeting_id}/finalize-transcript")
 async def finalize_transcript(meeting_id: str, request: Request):
     """Finalize transcript from chunks"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     meeting = await db.meeting_notes.find_one(
         {"id": meeting_id, "user_id": user["user_id"]}
@@ -449,9 +431,7 @@ async def finalize_transcript(meeting_id: str, request: Request):
 @router.post("/{meeting_id}/generate-summary")
 async def generate_summary(meeting_id: str, request: Request):
     """Generate AI summary for a meeting"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     meeting = await db.meeting_notes.find_one(
         {"id": meeting_id, "user_id": user["user_id"]}
@@ -497,9 +477,7 @@ async def generate_summary(meeting_id: str, request: Request):
 @router.post("/summarize-text")
 async def summarize_text(summary_request: GenerateSummaryRequest, request: Request):
     """Generate summary from provided transcript text (without saving)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not summary_request.transcript:
         raise HTTPException(status_code=400, detail="Transcript required")
@@ -518,9 +496,7 @@ async def summarize_text(summary_request: GenerateSummaryRequest, request: Reque
 @router.get("/{meeting_id}/export")
 async def export_meeting(meeting_id: str, request: Request, format: str = "markdown"):
     """Export meeting notes in various formats"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     meeting = await db.meeting_notes.find_one(
         {"id": meeting_id, "user_id": user["user_id"]},
@@ -584,9 +560,7 @@ async def export_meeting(meeting_id: str, request: Request, format: str = "markd
 @router.get("/stats/overview")
 async def get_meeting_stats(request: Request):
     """Get meeting notes statistics"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Count meetings by type
     pipeline = [

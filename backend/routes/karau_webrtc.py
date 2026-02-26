@@ -11,7 +11,7 @@ from services.karau_meet.webrtc_signaling import (
     handle_webrtc_signaling,
     get_connection_manager
 )
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/karau-meet", tags=["AI KARAU WebRTC"])
 
@@ -107,7 +107,7 @@ async def get_ice_servers_endpoint():
 @router.get("/room/{meeting_id}/participants")
 async def get_room_participants(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get current participants in a meeting room"""
     

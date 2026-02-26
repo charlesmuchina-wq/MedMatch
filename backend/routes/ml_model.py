@@ -36,11 +36,9 @@ async def train_model(
     Train the ML model on collected data.
     Requires admin access. Training may take a few minutes.
     """
-    from routes.auth import get_current_user
+    from routes.auth import get_current_user, require_auth
     
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
@@ -98,11 +96,9 @@ async def retrain_model(
     days: int = Query(default=30, ge=7, le=90)
 ):
     """Force retrain the model with fresh data"""
-    from routes.auth import get_current_user
+    from routes.auth import get_current_user, require_auth
     
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")

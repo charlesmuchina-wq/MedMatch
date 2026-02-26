@@ -13,7 +13,7 @@ import re
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from utils.push_service import notify_application_update
 
 router = APIRouter(prefix="/recruiter", tags=["Recruiter"])
@@ -51,9 +51,7 @@ class AIPreScreenRequest(BaseModel):
 @router.post("/jobs")
 async def create_job_posting(job: JobPosting, request: Request):
     """Recruiters can post jobs for free"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can post jobs")
@@ -80,9 +78,7 @@ async def create_job_posting(job: JobPosting, request: Request):
 @router.get("/jobs")
 async def get_recruiter_jobs(request: Request):
     """Get jobs posted by current recruiter"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") not in ["recruiter", "admin"]:
         raise HTTPException(status_code=403, detail="Only recruiters can view posted jobs")
@@ -113,9 +109,7 @@ async def get_recruiter_jobs(request: Request):
 @router.put("/jobs/{job_id}")
 async def update_job_posting(job_id: str, job: JobPosting, request: Request):
     """Update a job posting"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can update jobs")
@@ -142,9 +136,7 @@ async def update_job_posting(job_id: str, job: JobPosting, request: Request):
 @router.delete("/jobs/{job_id}")
 async def delete_job_posting(job_id: str, request: Request):
     """Delete a job posting"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.posted_jobs.delete_one({
         "id": job_id,
@@ -161,9 +153,7 @@ async def delete_job_posting(job_id: str, request: Request):
 @router.get("/jobs/{job_id}/applicants")
 async def get_job_applicants(job_id: str, request: Request):
     """Recruiter views all applicants for a specific job"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") not in ["recruiter", "admin"]:
         raise HTTPException(status_code=403, detail="Only recruiters can view applicants")
@@ -201,9 +191,7 @@ async def update_applicant_status(
     background_tasks: BackgroundTasks
 ):
     """Recruiter updates an applicant's status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can update applicant status")
@@ -259,9 +247,7 @@ async def update_applicant_status(
 @router.post("/applicants/{application_id}/notes")
 async def add_applicant_note(application_id: str, note_data: ApplicantNote, request: Request):
     """Recruiter adds a note to an applicant"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can add notes")
@@ -286,9 +272,7 @@ async def add_applicant_note(application_id: str, note_data: ApplicantNote, requ
 @router.get("/dashboard/stats")
 async def get_recruiter_dashboard_stats(request: Request):
     """Get recruiter dashboard statistics"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Allow both recruiters and admins
     is_admin = user.get("is_admin") or user.get("email") == "admin@medmatch.com"
@@ -335,9 +319,7 @@ async def get_recruiter_dashboard_stats(request: Request):
 @router.post("/candidates/search")
 async def search_candidates(search: CandidateSearchRequest, request: Request):
     """Recruiter searches for candidates based on skills, keywords, location"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can search candidates")
@@ -405,9 +387,7 @@ async def search_candidates(search: CandidateSearchRequest, request: Request):
 @router.get("/candidates/{candidate_id}")
 async def get_candidate_profile(candidate_id: str, request: Request):
     """Recruiter views a specific candidate's full profile"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can view candidates")
@@ -427,9 +407,7 @@ async def get_candidate_profile(candidate_id: str, request: Request):
 @router.post("/ai-prescreen")
 async def ai_prescreen_candidate(prescreen: AIPreScreenRequest, request: Request):
     """AI-powered candidate prescreening based on resume vs job requirements"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can use AI prescreening")

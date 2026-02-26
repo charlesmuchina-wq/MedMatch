@@ -29,7 +29,7 @@ from webauthn.helpers.structs import (
 from webauthn.helpers.cose import COSEAlgorithmIdentifier
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/biometric", tags=["Biometric Authentication"])
 
@@ -507,7 +507,7 @@ async def complete_biometric_authentication(request: BiometricAuthCompleteReques
 async def list_biometric_credentials(request: Request):
     """List all biometric credentials for the authenticated user."""
     try:
-        user = await get_current_user(request)
+        user = await require_auth(request)
         if not user:
             raise HTTPException(status_code=401, detail="Not authenticated")
         
@@ -538,7 +538,7 @@ async def list_biometric_credentials(request: Request):
 async def delete_biometric_credential(credential_id: str, request: Request):
     """Delete a biometric credential."""
     try:
-        user = await get_current_user(request)
+        user = await require_auth(request)
         if not user:
             raise HTTPException(status_code=401, detail="Not authenticated")
         

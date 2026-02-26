@@ -11,7 +11,7 @@ import json
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/autofill", tags=["Auto-Fill"])
 
@@ -76,9 +76,7 @@ COMMON_FORM_FIELDS = {
 @router.get("/data")
 async def get_autofill_data(request: Request):
     """Get all auto-fill data from user's resume"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get user's resume
     resume = await db.resumes.find_one(
@@ -192,9 +190,7 @@ def extract_field_value(resume: dict, field: dict) -> Optional[str]:
 @router.post("/tailored")
 async def get_tailored_autofill(autofill_request: AutoFillRequest, request: Request):
     """Get auto-fill data tailored to a specific job"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get user's resume
     resume = await db.resumes.find_one(
@@ -286,9 +282,7 @@ Generate tailored application content.
 @router.get("/copy-ready")
 async def get_copy_ready_data(request: Request, format: str = "plain"):
     """Get auto-fill data in copy-ready format"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     resume = await db.resumes.find_one(
         {"user_id": user["user_id"]},
@@ -381,9 +375,7 @@ def format_full_text(sections: dict) -> str:
 @router.get("/field-suggestions")
 async def get_field_suggestions(request: Request, field_name: str):
     """Get suggestions for a specific field based on resume"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     resume = await db.resumes.find_one(
         {"user_id": user["user_id"]},

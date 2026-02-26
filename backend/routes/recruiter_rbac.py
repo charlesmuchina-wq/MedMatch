@@ -19,7 +19,7 @@ import re
 import secrets
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from services.trust_score import TrustScoreCalculator
 
 router = APIRouter(prefix="/recruiter-rbac", tags=["Recruiter RBAC"])
@@ -182,9 +182,7 @@ async def register_recruiter(registration: RecruiterRegistration, request: Reque
     Register a new recruiter with business verification.
     Validates company email domain and creates pending verification.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Validate business email matches company domain
     email_domain = registration.business_email.split("@")[-1].lower()
@@ -276,9 +274,7 @@ async def request_verification(verification: RecruiterVerificationRequest, reque
     """
     Submit verification documents for manual review.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     recruiter = await db.recruiter_profiles.find_one(
         {"user_id": user["user_id"]},
@@ -318,9 +314,7 @@ async def request_verification(verification: RecruiterVerificationRequest, reque
 @router.get("/verification/status")
 async def get_verification_status(request: Request):
     """Get current verification status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     recruiter = await db.recruiter_profiles.find_one(
         {"user_id": user["user_id"]},
@@ -346,9 +340,7 @@ async def enable_mfa(request: Request):
     Enable MFA for recruiter account.
     Required for accessing candidate PII.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Generate MFA secret (in production, use proper TOTP)
     mfa_secret = secrets.token_hex(16)
@@ -376,9 +368,7 @@ async def toggle_blind_screening(toggle: BlindScreeningToggle, request: Request)
     Toggle blind screening mode for the recruiter.
     When enabled, candidate names and photos are hidden.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Check if recruiter profile exists
     recruiter = await db.recruiter_profiles.find_one({"user_id": user["user_id"]})
@@ -406,9 +396,7 @@ async def toggle_blind_screening(toggle: BlindScreeningToggle, request: Request)
 @router.get("/blind-screening/status")
 async def get_blind_screening_status(request: Request):
     """Get current blind screening mode status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     recruiter = await db.recruiter_profiles.find_one(
         {"user_id": user["user_id"]},
@@ -433,9 +421,7 @@ async def search_candidates_with_rbac(
     Search candidates with RBAC and blind screening applied.
     Only shows candidates meeting minimum match score threshold.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get recruiter profile
     recruiter = await db.recruiter_profiles.find_one({"user_id": user["user_id"]})
@@ -572,9 +558,7 @@ async def get_candidate_profile_with_rbac(candidate_id: str, request: Request):
     View candidate profile with RBAC checks.
     Full profile only visible after mutual match.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     recruiter = await db.recruiter_profiles.find_one({"user_id": user["user_id"]})
     if not recruiter:
@@ -637,9 +621,7 @@ async def download_resume_with_restrictions(candidate_id: str, request: Request)
     Download candidate resume with watermarking and daily limits.
     Anti-scraping measure with audit trail.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     recruiter = await db.recruiter_profiles.find_one({"user_id": user["user_id"]})
     if not recruiter:
@@ -721,9 +703,7 @@ async def download_resume_with_restrictions(candidate_id: str, request: Request)
 @router.get("/audit/logs")
 async def get_audit_logs(request: Request, limit: int = 50, action_type: Optional[str] = None):
     """Get recruiter's audit trail (for compliance)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     recruiter = await db.recruiter_profiles.find_one({"user_id": user["user_id"]})
     if not recruiter:
@@ -748,9 +728,7 @@ async def get_audit_logs(request: Request, limit: int = 50, action_type: Optiona
 @router.get("/organization/settings")
 async def get_org_settings(request: Request):
     """Get organization settings"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     recruiter = await db.recruiter_profiles.find_one({"user_id": user["user_id"]})
     if not recruiter:
@@ -763,9 +741,7 @@ async def get_org_settings(request: Request):
 @router.get("/organization/members")
 async def get_org_members(request: Request):
     """Get members of current organization (for org admins)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     recruiter = await db.recruiter_profiles.find_one({"user_id": user["user_id"]})
     if not recruiter:
@@ -791,8 +767,8 @@ async def cleanup_expired_access(request: Request):
     Admin endpoint to clean up expired candidate access.
     Runs automatically but can be triggered manually.
     """
-    user = await get_current_user(request)
-    if not user or not user.get("is_admin"):
+    user = await require_auth(request)
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     # Find jobs closed more than retention period ago
@@ -827,8 +803,8 @@ async def cleanup_expired_access(request: Request):
 @router.get("/admin/recruiter-verifications")
 async def get_verification_requests(request: Request):
     """Admin: Get all recruiter verification requests"""
-    user = await get_current_user(request)
-    if not user or not user.get("is_admin"):
+    user = await require_auth(request)
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     requests = await db.verification_requests.find(
@@ -850,8 +826,8 @@ async def get_verification_requests(request: Request):
 @router.get("/admin/recruiters")
 async def get_all_recruiters(request: Request):
     """Admin: Get all registered recruiters"""
-    user = await get_current_user(request)
-    if not user or not user.get("is_admin"):
+    user = await require_auth(request)
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     recruiters = await db.recruiter_profiles.find(
@@ -864,8 +840,8 @@ async def get_all_recruiters(request: Request):
 @router.post("/admin/recruiter-verifications/{request_id}/approve")
 async def approve_verification(request_id: str, request: Request):
     """Admin: Approve a recruiter verification request"""
-    user = await get_current_user(request)
-    if not user or not user.get("is_admin"):
+    user = await require_auth(request)
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     body = await request.json() if request.headers.get("content-type") == "application/json" else {}
@@ -905,8 +881,8 @@ async def approve_verification(request_id: str, request: Request):
 @router.post("/admin/recruiter-verifications/{request_id}/reject")
 async def reject_verification(request_id: str, request: Request):
     """Admin: Reject a recruiter verification request"""
-    user = await get_current_user(request)
-    if not user or not user.get("is_admin"):
+    user = await require_auth(request)
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     body = await request.json() if request.headers.get("content-type") == "application/json" else {}

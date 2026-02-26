@@ -15,7 +15,7 @@ from email.mime.multipart import MIMEMultipart
 
 from utils.database import db
 from utils.config import GMAIL_ADDRESS, GMAIL_APP_PASSWORD
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/digest", tags=["Digest"])
 
@@ -35,7 +35,7 @@ class EmailAlertRequest(BaseModel):
 @router.post("/settings")
 async def create_digest_settings(data: DigestSettingsCreate, request: Request):
     """Create or update digest settings"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     
     settings_doc = {
         "id": str(uuid.uuid4()),
@@ -60,9 +60,7 @@ async def create_digest_settings(data: DigestSettingsCreate, request: Request):
 @router.get("/settings")
 async def get_digest_settings(request: Request):
     """Get user's digest settings"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     settings = await db.digest_settings.find_one(
         {"$or": [{"user_id": user["user_id"]}, {"email": user["email"]}]},
@@ -84,9 +82,7 @@ async def delete_digest_settings(email: str, request: Request):
 @router.put("/settings/toggle")
 async def toggle_digest(request: Request):
     """Toggle digest on/off"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     settings = await db.digest_settings.find_one({"email": user["email"]})
     
@@ -105,9 +101,7 @@ async def toggle_digest(request: Request):
 @router.get("/history")
 async def get_emailed_jobs_history(request: Request, email: Optional[str] = None):
     """Get history of emailed jobs"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     query_email = email or user["email"]
     
@@ -121,9 +115,7 @@ async def get_emailed_jobs_history(request: Request, email: Optional[str] = None
 @router.delete("/history/{email}")
 async def clear_emailed_history(email: str, request: Request):
     """Clear emailed jobs history"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Only allow clearing own history or admin
     if email != user["email"] and not user.get("is_admin"):
@@ -160,9 +152,7 @@ async def get_scheduler_status():
 @router.post("/send-daily")
 async def send_daily_digest(background_tasks: BackgroundTasks, data: EmailAlertRequest, request: Request):
     """Manually trigger a digest email for a specific user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get user's settings
     settings = await db.digest_settings.find_one({"email": data.email})
@@ -178,9 +168,7 @@ async def send_daily_digest(background_tasks: BackgroundTasks, data: EmailAlertR
 @router.post("/trigger-now")
 async def trigger_digest_now(background_tasks: BackgroundTasks, request: Request):
     """Admin: Trigger the scheduled digest immediately"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not user.get("is_admin") and user.get("email") != "admin@medmatch.com":
         raise HTTPException(status_code=403, detail="Admin access required")

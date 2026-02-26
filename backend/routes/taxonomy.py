@@ -15,7 +15,7 @@ from services.taxonomy import (
     match_role_to_sector, estimate_seniority_tier
 )
 from services.career_pivot import get_career_pivot_matcher
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from utils.database import db
 
 router = APIRouter(prefix="/taxonomy", tags=["Taxonomy"])
@@ -445,9 +445,7 @@ async def analyze_my_career_pivots(request: Request):
     Analyze career pivot options for the current user based on their profile.
     Uses resume skills, credentials, and profile data.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     # Get user's resume data
     resume = await db.resumes.find_one({"user_id": user["user_id"]})

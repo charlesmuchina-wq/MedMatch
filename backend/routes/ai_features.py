@@ -15,7 +15,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(tags=["AI Features"])
 
@@ -63,9 +63,7 @@ class InterviewPrepExportRequest(BaseModel):
 @router.post("/cover-letter/generate")
 async def generate_cover_letter(request_data: CoverLetterRequest, request: Request):
     """Generate an AI-powered cover letter"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -135,9 +133,7 @@ CANDIDATE PROFILE:
 @router.get("/cover-letter/history")
 async def get_cover_letter_history(request: Request):
     """Get user's cover letter history"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     letters = await db.cover_letters.find(
         {"user_id": user["user_id"]},
@@ -149,9 +145,7 @@ async def get_cover_letter_history(request: Request):
 @router.delete("/cover-letter/{letter_id}")
 async def delete_cover_letter(letter_id: str, request: Request):
     """Delete a cover letter"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.cover_letters.delete_one({"id": letter_id, "user_id": user["user_id"]})
     
@@ -165,9 +159,7 @@ async def delete_cover_letter(letter_id: str, request: Request):
 @router.post("/jobs/predict-callback")
 async def predict_job_callback(request_data: CallbackPredictionRequest, request: Request):
     """Predict callback probability for a job application"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -246,9 +238,7 @@ CANDIDATE:
 @router.get("/jobs/prediction-history")
 async def get_prediction_history(request: Request):
     """Get prediction history"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     predictions = await db.callback_predictions.find(
         {"user_id": user["user_id"]},
@@ -260,9 +250,7 @@ async def get_prediction_history(request: Request):
 @router.delete("/jobs/prediction-history/{prediction_id}")
 async def delete_prediction(prediction_id: str, request: Request):
     """Delete a prediction"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.callback_predictions.delete_one({"id": prediction_id, "user_id": user["user_id"]})
     
@@ -274,9 +262,7 @@ async def delete_prediction(prediction_id: str, request: Request):
 @router.post("/jobs/quick-probability")
 async def get_quick_probability(request_data: CallbackPredictionRequest, request: Request):
     """Get a quick probability estimate without full analysis"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     resume = await db.resumes.find_one({"user_id": user["user_id"]}, {"_id": 0})
     
@@ -311,9 +297,7 @@ async def get_quick_probability(request_data: CallbackPredictionRequest, request
 @router.post("/jobs/analyze")
 async def analyze_job(request_data: JobAnalyzeRequest, request: Request):
     """Analyze job posting for insights"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -374,9 +358,7 @@ CANDIDATE:
 @router.post("/salary/insights")
 async def get_salary_insights(request_data: SalaryInsightsRequest, request: Request):
     """Get salary insights and negotiation tips"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -520,9 +502,7 @@ class InterviewAnswerRequest(BaseModel):
 @router.post("/interview-prep")
 async def generate_interview_questions(request_data: InterviewPrepRequest, request: Request):
     """Generate interview questions and tips for a specific role"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -610,9 +590,7 @@ Generate questions that allow the candidate to highlight these skills.
 @router.post("/evaluate-answer")
 async def evaluate_interview_answer(request_data: InterviewAnswerRequest, request: Request):
     """Evaluate a user's interview answer and provide feedback"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -662,9 +640,7 @@ Answer: {request_data.answer}
 @router.get("/interview-prep/history")
 async def get_interview_prep_history(request: Request):
     """Get interview prep history"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     preps = await db.interview_preps.find(
         {"user_id": user["user_id"]},
@@ -683,9 +659,7 @@ class VoiceCoachRequest(BaseModel):
 @router.post("/voice-coach")
 async def voice_coach_session(request_data: VoiceCoachRequest, request: Request):
     """Get voice coaching tips and practice prompts"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -734,9 +708,7 @@ Return ONLY valid JSON:
 async def transcribe_speech(request: Request):
     """Transcribe speech using Whisper"""
     
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -753,9 +725,7 @@ async def transcribe_speech(request: Request):
 @router.get("/stt/status")
 async def get_stt_status(request: Request):
     """Check Speech-to-Text service status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     return {
         "available": bool(EMERGENT_LLM_KEY),
@@ -773,9 +743,7 @@ class AssistantRequest(BaseModel):
 @router.post("/assistant")
 async def ai_assistant(request_data: AssistantRequest, request: Request):
     """KARAU DRAGON AI Assistant - General job search help"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -1012,9 +980,7 @@ class QAPracticeRequest(BaseModel):
 @router.post("/qa-practice")
 async def qa_interview_practice(request_data: QAPracticeRequest, request: Request):
     """Practice Q&A with AI feedback"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -1062,9 +1028,7 @@ Provide detailed feedback."""
 @router.post("/tts")
 async def text_to_speech(request: Request):
     """Convert text to speech (placeholder)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     return {
         "success": True,
@@ -1077,9 +1041,7 @@ async def text_to_speech(request: Request):
 @router.post("/video-interview")
 async def video_interview_practice(request: Request):
     """Video interview practice (placeholder)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     return {
         "success": True,

@@ -8,7 +8,7 @@ from typing import Optional, Dict, Any
 from datetime import datetime, timezone
 
 from services.production_metrics import production_metrics, MetricCategory
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/metrics", tags=["Production Metrics"])
 
@@ -80,7 +80,7 @@ def is_admin_user(user: dict) -> bool:
 async def get_production_metrics_overview(request: Request):
     """Get production metrics overview"""
     # Public basic stats (no auth required for health checks)
-    _ = await get_current_user(request)  # Optional auth check
+    _ = await require_auth(request)  # Optional auth check
     
     try:
         engagement = await production_metrics.get_engagement_summary(7)
@@ -101,9 +101,7 @@ async def get_production_metrics_overview(request: Request):
 @router.post("/session/start")
 async def track_session_start(request: Request, data: SessionStartRequest):
     """Track session start"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     await production_metrics.track_session_start(
         user_id=user.get("user_id"),
@@ -125,7 +123,7 @@ async def track_session_end(request: Request, session_id: str):
 @router.post("/page-view")
 async def track_page_view(request: Request, data: PageViewRequest):
     """Track page view"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     user_id = user.get("user_id") if user else "anonymous"
     
     await production_metrics.track_page_view(
@@ -142,9 +140,7 @@ async def track_page_view(request: Request, data: PageViewRequest):
 @router.post("/feature-usage")
 async def track_feature_usage(request: Request, data: FeatureUsageRequest):
     """Track feature usage"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     await production_metrics.track_feature_usage(
         user_id=user.get("user_id"),
@@ -161,9 +157,7 @@ async def track_feature_usage(request: Request, data: FeatureUsageRequest):
 @router.post("/job-application")
 async def track_job_application(request: Request, data: JobApplicationRequest):
     """Track job application"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     await production_metrics.track_job_application(
         user_id=user.get("user_id"),
@@ -181,9 +175,7 @@ async def track_job_application(request: Request, data: JobApplicationRequest):
 @router.post("/ai-tool-usage")
 async def track_ai_tool_usage(request: Request, data: AIToolUsageRequest):
     """Track AI tool usage"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     await production_metrics.track_ai_tool_usage(
         user_id=user.get("user_id"),
@@ -201,9 +193,7 @@ async def track_ai_tool_usage(request: Request, data: AIToolUsageRequest):
 @router.post("/conversion")
 async def track_conversion(request: Request, data: ConversionRequest):
     """Track conversion event"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     await production_metrics.track_conversion_event(
         user_id=user.get("user_id"),
@@ -224,7 +214,7 @@ async def get_engagement_analytics(
     days: int = Query(default=7, ge=1, le=90)
 ):
     """Get user engagement analytics (admin only)"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -238,7 +228,7 @@ async def get_business_analytics(
     days: int = Query(default=7, ge=1, le=90)
 ):
     """Get business metrics analytics (admin only)"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -252,7 +242,7 @@ async def get_ai_usage_analytics(
     days: int = Query(default=7, ge=1, le=90)
 ):
     """Get AI tool usage analytics (admin only)"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -266,7 +256,7 @@ async def get_conversion_funnel(
     days: int = Query(default=30, ge=1, le=180)
 ):
     """Get conversion funnel analytics (admin only)"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -280,7 +270,7 @@ async def get_analytics_dashboard(
     days: int = Query(default=7, ge=1, le=90)
 ):
     """Get combined analytics dashboard (admin only)"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     

@@ -11,7 +11,7 @@ import hashlib
 import os
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/id-verify", tags=["ID Verification"])
 
@@ -146,9 +146,7 @@ async def sandbox_verify_selfie(selfie_data: str, liveness_score: float) -> Dict
 @router.get("/status")
 async def get_service_status(request: Request):
     """Get ID verification service status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     return {
         "service_available": True,
@@ -168,9 +166,7 @@ async def get_service_status(request: Request):
 @router.post("/sessions/create")
 async def create_verification_session(request: Request):
     """Create a new ID verification session"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     session_id = str(uuid.uuid4())
     
@@ -205,9 +201,7 @@ async def upload_document(
     back_document: Optional[UploadFile] = None
 ):
     """Upload identity document for verification"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Validate session
     session = await db.id_verification_sessions.find_one({
@@ -274,9 +268,7 @@ async def upload_selfie(
     request: Request
 ):
     """Upload selfie for liveness verification"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Validate session
     session = await db.id_verification_sessions.find_one({
@@ -363,9 +355,7 @@ async def upload_selfie(
 @router.get("/sessions/{session_id}")
 async def get_session_status(session_id: str, request: Request):
     """Get verification session status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     session = await db.id_verification_sessions.find_one(
         {"session_id": session_id, "user_id": user["user_id"]},
@@ -380,9 +370,7 @@ async def get_session_status(session_id: str, request: Request):
 @router.get("/sessions")
 async def list_verification_sessions(request: Request, limit: int = 10):
     """List user's verification sessions"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     sessions = await db.id_verification_sessions.find(
         {"user_id": user["user_id"]},
@@ -397,9 +385,7 @@ async def list_verification_sessions(request: Request, limit: int = 10):
 @router.get("/user-status")
 async def get_user_verification_status(request: Request):
     """Get current user's ID verification status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get user's verification data
     user_data = await db.users.find_one(
@@ -433,9 +419,7 @@ async def get_user_verification_status(request: Request):
 @router.get("/admin/pending-reviews")
 async def get_pending_reviews(request: Request, limit: int = 20):
     """Get sessions pending manual review (admin only)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Check admin role
     user_data = await db.users.find_one({"user_id": user["user_id"]})
@@ -458,9 +442,7 @@ async def submit_manual_review(
     request: Request
 ):
     """Submit manual review decision (admin only)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Check admin role
     user_data = await db.users.find_one({"user_id": user["user_id"]})

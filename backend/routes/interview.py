@@ -14,7 +14,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/interview", tags=["Interview Prep"])
 
@@ -64,9 +64,7 @@ class VideoFrameAnalysisRequest(BaseModel):
 @router.post("/generate-questions")
 async def generate_interview_questions(request_data: InterviewQuestionsRequest, request: Request):
     """Generate tailored interview questions for a specific job"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -137,9 +135,7 @@ EXPERIENCE: {resume.get('summary', '')}
 @router.get("/cached-questions")
 async def get_cached_questions(request: Request):
     """Get previously generated interview questions"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     questions = await db.interview_questions.find(
         {"user_id": user["user_id"]},
@@ -151,9 +147,7 @@ async def get_cached_questions(request: Request):
 @router.post("/generate-answer")
 async def generate_interview_answer(request_data: InterviewAnswerRequest, request: Request):
     """Generate a sample answer for an interview question"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -198,9 +192,7 @@ Return ONLY valid JSON with this structure:
 @router.post("/polish-star")
 async def polish_star_answer(request_data: StarPolishRequest, request: Request):
     """Polish a STAR method answer"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -245,9 +237,7 @@ Question context: {request_data.question}
 @router.post("/research-company")
 async def research_company(request_data: CompanyResearchRequest, request: Request):
     """Get company research for interview preparation"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -288,9 +278,7 @@ Return ONLY valid JSON:
 @router.post("/mock-feedback")
 async def get_mock_interview_feedback(request_data: MockFeedbackRequest, request: Request):
     """Get AI feedback on a mock interview answer"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -349,9 +337,7 @@ Position: {request_data.job_title} at {request_data.company}
 @router.post("/voice-feedback")
 async def get_voice_interview_feedback(request_data: VoiceFeedbackRequest, request: Request):
     """Get AI feedback on a voice interview recording"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -415,9 +401,7 @@ Position: {request_data.job_title} at {request_data.company}
 @router.post("/video-feedback")
 async def analyze_video_recording(request_data: Dict[str, Any], request: Request):
     """Analyze a video interview recording"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="AI features not configured")
@@ -482,9 +466,7 @@ Duration: {request_data.get('duration', 0)} seconds
 @router.get("/video-recordings")
 async def get_video_recordings(request: Request):
     """Get user's video recordings"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     recordings = await db.video_recordings.find(
         {"user_id": user["user_id"]},
@@ -496,9 +478,7 @@ async def get_video_recordings(request: Request):
 @router.delete("/video-recordings/{recording_id}")
 async def delete_video_recording(recording_id: str, request: Request):
     """Delete a video recording"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.video_recordings.delete_one({
         "id": recording_id,
@@ -513,9 +493,7 @@ async def delete_video_recording(recording_id: str, request: Request):
 @router.post("/analyze-video-frame")
 async def analyze_video_frame(request_data: VideoFrameAnalysisRequest, request: Request):
     """Analyze a single video frame for body language"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # For now, return simulated analysis
     # In production, this would use computer vision

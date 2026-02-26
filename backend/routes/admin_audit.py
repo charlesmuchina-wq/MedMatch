@@ -10,7 +10,7 @@ import uuid
 import logging
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/admin-audit", tags=["Admin Audit"])
 
@@ -139,7 +139,7 @@ async def log_admin_action(
 @router.get("/status")
 async def get_audit_status(request: Request):
     """Get audit logging service status"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -181,7 +181,7 @@ async def create_audit_log(
     entry: AuditLogEntry
 ):
     """Manually log an admin action"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -227,7 +227,7 @@ async def get_audit_logs(
     limit: int = Query(default=50, ge=1, le=200)
 ):
     """Get audit logs with filtering and pagination"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -279,7 +279,7 @@ async def get_audit_logs(
 @router.get("/logs/{log_id}")
 async def get_audit_log_detail(request: Request, log_id: str):
     """Get detailed information about a specific audit log"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -303,7 +303,7 @@ async def get_audit_summary(
     days: int = Query(default=7, ge=1, le=90)
 ):
     """Get summary statistics of admin actions"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -395,7 +395,7 @@ async def export_audit_logs(
     format: str = Query(default="json", enum=["json", "csv"])
 ):
     """Export audit logs for compliance/reporting"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -457,7 +457,7 @@ async def cleanup_old_logs(
     days_to_keep: int = Query(default=365, ge=90, le=3650)
 ):
     """Delete audit logs older than specified days (compliance cleanup)"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -503,7 +503,7 @@ async def cleanup_old_logs(
 @router.post("/database/maintenance")
 async def run_database_maintenance(request: Request):
     """Run comprehensive database maintenance: cleanup stale data, verify indexes, report health"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -631,7 +631,7 @@ async def run_database_maintenance(request: Request):
 @router.get("/database/health")
 async def get_database_health(request: Request):
     """Get database health report: collection sizes, index status, stale data counts"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
     

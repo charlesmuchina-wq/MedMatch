@@ -16,7 +16,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(tags=["Resume"])
 
@@ -92,7 +92,7 @@ async def upload_resume(file: UploadFile = File(...), request: Request = None):
     # Get user if authenticated
     user = None
     if request:
-        user = await get_current_user(request)
+        user = await require_auth(request)
     
     # Save to database
     resume_doc = {
@@ -119,9 +119,7 @@ async def upload_resume(file: UploadFile = File(...), request: Request = None):
 @router.get("/resume")
 async def get_resume(request: Request):
     """Get current user's resume"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     resume = await db.resumes.find_one({"user_id": user["user_id"]}, {"_id": 0})
     if not resume:
@@ -132,9 +130,7 @@ async def get_resume(request: Request):
 @router.put("/resume/skills")
 async def update_skills(skills_update: SkillsUpdate, request: Request):
     """Update resume skills"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.resumes.update_one(
         {"user_id": user["user_id"]},
@@ -151,9 +147,7 @@ async def update_skills(skills_update: SkillsUpdate, request: Request):
 @router.get("/resume/profiles")
 async def get_resume_profiles(request: Request):
     """Get all resume profiles for user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     profiles = await db.resume_profiles.find(
         {"user_id": user["user_id"]},
@@ -165,9 +159,7 @@ async def get_resume_profiles(request: Request):
 @router.post("/resume/profiles")
 async def create_resume_profile(profile: ResumeProfile, request: Request):
     """Create a new resume profile"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     profile_doc = {
         "id": str(uuid.uuid4()),
@@ -189,9 +181,7 @@ async def create_resume_profile(profile: ResumeProfile, request: Request):
 @router.put("/resume/profiles/{profile_id}")
 async def update_resume_profile(profile_id: str, updates: Dict[str, Any], request: Request):
     """Update a resume profile"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     updates["updated_at"] = datetime.now(timezone.utc).isoformat()
     
@@ -208,9 +198,7 @@ async def update_resume_profile(profile_id: str, updates: Dict[str, Any], reques
 @router.delete("/resume/profiles/{profile_id}")
 async def delete_resume_profile(profile_id: str, request: Request):
     """Delete a resume profile"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.resume_profiles.delete_one({"id": profile_id, "user_id": user["user_id"]})
     
@@ -222,9 +210,7 @@ async def delete_resume_profile(profile_id: str, request: Request):
 @router.post("/resume/profiles/{profile_id}/set-default")
 async def set_default_profile(profile_id: str, request: Request):
     """Set a profile as default"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     await db.resume_profiles.update_many(
         {"user_id": user["user_id"]},
@@ -246,10 +232,8 @@ async def upload_resume_to_profile(file: UploadFile = File(...), profile_name: s
     """Upload resume to a specific profile (PDF, DOC, DOCX)"""
     user = None
     if request:
-        user = await get_current_user(request)
+        user = await require_auth(request)
     
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
     
     filename_lower = file.filename.lower()
     valid_extensions = ['.pdf', '.doc', '.docx']

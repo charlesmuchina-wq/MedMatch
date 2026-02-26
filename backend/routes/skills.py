@@ -12,7 +12,7 @@ import json
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/skills", tags=["Skill Assessments"])
 
@@ -1208,9 +1208,7 @@ async def get_available_assessments():
 @router.get("/my-badges")
 async def get_my_badges(request: Request):
     """Get all badges earned by current user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     badges = await db.skill_badges.find(
         {"user_id": user["user_id"]},
@@ -1222,9 +1220,7 @@ async def get_my_badges(request: Request):
 @router.post("/start")
 async def start_assessment(req: StartAssessmentRequest, request: Request):
     """Start a skill assessment - uses pre-generated questions for instant start, falls back to AI if needed"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if req.skill_name not in SKILL_ASSESSMENTS:
         raise HTTPException(status_code=400, detail=f"Assessment not available for {req.skill_name}")
@@ -1340,9 +1336,7 @@ Include a mix of conceptual and practical questions."""
 @router.post("/submit")
 async def submit_assessment(submission: SubmitAssessmentRequest, request: Request):
     """Submit completed assessment and get results"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     assessment = await db.skill_assessments.find_one({
         "id": submission.assessment_id,
@@ -1443,9 +1437,7 @@ async def submit_assessment(submission: SubmitAssessmentRequest, request: Reques
 @router.get("/history")
 async def get_assessment_history(request: Request):
     """Get user's assessment history"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     assessments = await db.skill_assessments.find(
         {"user_id": user["user_id"], "status": {"$ne": "in_progress"}},

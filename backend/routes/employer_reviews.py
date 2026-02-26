@@ -11,7 +11,7 @@ import uuid
 import logging
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from services.trust_score import TrustScoreCalculator
 
 logger = logging.getLogger(__name__)
@@ -54,9 +54,7 @@ async def create_review(review: ReviewCreate, request: Request):
     Create a review for a candidate.
     Only recruiters who have interacted with the candidate can leave reviews.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     # Verify user is a recruiter
     if user.get("role") != "recruiter":
@@ -136,9 +134,7 @@ async def get_candidate_reviews(candidate_id: str, request: Request):
     Get all approved reviews for a candidate.
     Returns summary statistics and individual reviews.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     # Only approved reviews are shown
     reviews = await db.employer_reviews.find(
@@ -214,9 +210,7 @@ async def get_candidate_reviews(candidate_id: str, request: Request):
 @router.get("/my-reviews")
 async def get_my_reviews(request: Request):
     """Get reviews received by the current user (candidate view)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     reviews = await db.employer_reviews.find(
         {"candidate_id": user["user_id"]},
@@ -245,9 +239,7 @@ async def get_my_reviews(request: Request):
 @router.get("/given")
 async def get_reviews_given(request: Request):
     """Get reviews given by the current recruiter"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can view given reviews")
@@ -268,9 +260,7 @@ async def get_reviews_given(request: Request):
 @router.post("/respond/{review_id}")
 async def respond_to_review(review_id: str, response: ReviewResponse, request: Request):
     """Allow candidate to respond to a review"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     review = await db.employer_reviews.find_one({"id": review_id})
     if not review:
@@ -302,8 +292,8 @@ async def respond_to_review(review_id: str, response: ReviewResponse, request: R
 @router.get("/admin/pending")
 async def get_pending_reviews(request: Request):
     """Admin: Get all pending reviews for moderation"""
-    user = await get_current_user(request)
-    if not user or not user.get("is_admin"):
+    user = await require_auth(request)
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     reviews = await db.employer_reviews.find(
@@ -317,8 +307,8 @@ async def get_pending_reviews(request: Request):
 @router.post("/admin/approve/{review_id}")
 async def approve_review(review_id: str, request: Request):
     """Admin: Approve a pending review"""
-    user = await get_current_user(request)
-    if not user or not user.get("is_admin"):
+    user = await require_auth(request)
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     # Get the review first to find candidate_id for cache invalidation
@@ -348,8 +338,8 @@ async def approve_review(review_id: str, request: Request):
 @router.post("/admin/reject/{review_id}")
 async def reject_review(review_id: str, reason: str, request: Request):
     """Admin: Reject a pending review"""
-    user = await get_current_user(request)
-    if not user or not user.get("is_admin"):
+    user = await require_auth(request)
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     result = await db.employer_reviews.update_one(
@@ -372,8 +362,8 @@ async def reject_review(review_id: str, reason: str, request: Request):
 @router.get("/admin/stats")
 async def get_review_stats(request: Request):
     """Admin: Get review moderation statistics"""
-    user = await get_current_user(request)
-    if not user or not user.get("is_admin"):
+    user = await require_auth(request)
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     pending_count = await db.employer_reviews.count_documents({"status": "pending"})

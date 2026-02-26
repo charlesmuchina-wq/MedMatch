@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException, Request
 from datetime import datetime, timezone, timedelta
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/analytics", tags=["Analytics"])
 
@@ -15,9 +15,7 @@ router = APIRouter(prefix="/analytics", tags=["Analytics"])
 @router.get("/dashboard")
 async def get_analytics_dashboard(request: Request, days: int = 30):
     """Get comprehensive analytics dashboard data"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     user_id = user["user_id"]
     cutoff_date = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
@@ -121,9 +119,7 @@ async def get_analytics_dashboard(request: Request, days: int = 30):
 @router.get("/activity")
 async def get_recent_activity(request: Request, limit: int = 20):
     """Get recent user activity"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     user_id = user["user_id"]
     activities = []
@@ -181,9 +177,7 @@ async def get_recent_activity(request: Request, limit: int = 20):
 @router.get("/insights")
 async def get_job_market_insights(request: Request):
     """Get general job market insights"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # These could be enhanced with real data aggregation
     return {
@@ -216,9 +210,7 @@ async def get_job_market_insights(request: Request):
 @router.get("/weekly-summary")
 async def get_weekly_summary(request: Request):
     """Get weekly activity summary"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     user_id = user["user_id"]
     week_ago = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()

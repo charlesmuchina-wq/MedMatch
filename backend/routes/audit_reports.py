@@ -9,7 +9,7 @@ from pydantic import BaseModel
 from typing import Optional, List, Dict
 from datetime import datetime, timezone
 
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from utils.database import db
 from services.audit_reports import get_audit_report_service, AuditReportService
 from services.pdf_export import get_pdf_service, PDFExportService
@@ -54,9 +54,7 @@ async def get_available_templates(request: Request):
     Get all available audit report templates.
     Each template is designed for a specific regulatory framework.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_audit_report_service(db)
     if not service:
@@ -75,9 +73,7 @@ async def get_template_details(template_id: str, request: Request):
     """
     Get detailed information about a specific template including available sections.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_audit_report_service(db)
     if not service:
@@ -96,9 +92,7 @@ async def get_available_sections(request: Request):
     """
     Get all available sections that can be included in reports.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_audit_report_service(db)
     if not service:
@@ -122,9 +116,7 @@ async def generate_report(config: ReportConfig, request: Request):
     The report will include all sections specified in the template by default,
     or you can customize which sections to include.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_audit_report_service(db)
     if not service:
@@ -159,9 +151,7 @@ async def generate_custom_report(config: CustomReportConfig, request: Request):
     Generate a fully customized audit report for specific regulatory requests.
     Use this when standard templates don't fit the requirement.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_audit_report_service(db)
     if not service:
@@ -199,9 +189,7 @@ async def get_report_history(request: Request, limit: int = 20):
     """
     Get previously generated audit reports.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_audit_report_service(db)
     if not service:
@@ -220,9 +208,7 @@ async def get_date_presets(request: Request):
     """
     Get available date range presets for PDF export.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     pdf_service = get_pdf_service(db)
     if not pdf_service:
@@ -241,9 +227,7 @@ async def get_report(report_id: str, request: Request):
     """
     Get a specific audit report by ID.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_audit_report_service(db)
     if not service:
@@ -263,9 +247,7 @@ async def download_report(report_id: str, format: str = "json", request: Request
     Download an audit report in the specified format.
     Supported formats: json
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_audit_report_service(db)
     if not service:
@@ -292,9 +274,7 @@ async def download_report(report_id: str, format: str = "json", request: Request
 @router.post("/quick/nyc-ll144")
 async def generate_nyc_ll144_report(request: Request):
     """Quick generate NYC Local Law 144 Bias Audit Report."""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_audit_report_service(db)
     if not service:
@@ -312,9 +292,7 @@ async def generate_nyc_ll144_report(request: Request):
 @router.post("/quick/eu-ai-act")
 async def generate_eu_ai_act_report(request: Request):
     """Quick generate EU AI Act Compliance Report."""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_audit_report_service(db)
     if not service:
@@ -332,9 +310,7 @@ async def generate_eu_ai_act_report(request: Request):
 @router.post("/quick/gdpr-art22")
 async def generate_gdpr_report(request: Request):
     """Quick generate GDPR Article 22 Report."""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_audit_report_service(db)
     if not service:
@@ -372,9 +348,7 @@ async def export_report_pdf(config: PDFExportConfig, request: Request):
     import logging
     logger = logging.getLogger(__name__)
     
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Initialize services
     report_service = get_audit_report_service(db)
@@ -445,9 +419,7 @@ async def quick_export_pdf(
     Quick export a PDF report with minimal configuration.
     Just specify the template and date preset.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Initialize services
     report_service = get_audit_report_service(db)
@@ -506,9 +478,7 @@ async def export_existing_report_pdf(
     Export an existing report as PDF.
     Uses the original report's date range.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get services
     report_service = get_audit_report_service(db)

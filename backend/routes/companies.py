@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 import uuid
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/companies", tags=["Companies"])
 
@@ -43,9 +43,7 @@ class CompanyReview(BaseModel):
 @router.post("/")
 async def create_company_profile(company: CompanyProfile, request: Request):
     """Create a company profile (recruiters only)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can create company profiles")
@@ -142,9 +140,7 @@ async def get_company_profile(company_id: str):
 @router.put("/{company_id}")
 async def update_company_profile(company_id: str, company: CompanyProfile, request: Request):
     """Update company profile (admin only)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Check if user is admin of this company
     existing = await db.companies.find_one({"id": company_id})
@@ -178,9 +174,7 @@ async def update_company_profile(company_id: str, company: CompanyProfile, reque
 @router.post("/{company_id}/follow")
 async def follow_company(company_id: str, request: Request):
     """Follow a company to get job alerts"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     company = await db.companies.find_one({"id": company_id})
     if not company:
@@ -219,9 +213,7 @@ async def follow_company(company_id: str, request: Request):
 @router.get("/{company_id}/followers")
 async def get_company_followers(company_id: str, request: Request):
     """Get follower count (company admins only)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     company = await db.companies.find_one({"id": company_id})
     if not company:
@@ -246,9 +238,7 @@ async def get_company_followers(company_id: str, request: Request):
 @router.post("/{company_id}/reviews")
 async def add_company_review(company_id: str, review: CompanyReview, request: Request):
     """Add a review for a company (job seekers only)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     company = await db.companies.find_one({"id": company_id})
     if not company:
@@ -330,9 +320,7 @@ async def get_company_reviews(company_id: str, limit: int = 20):
 @router.post("/{company_id}/reviews/{review_id}/helpful")
 async def mark_review_helpful(company_id: str, review_id: str, request: Request):
     """Mark a review as helpful"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.company_reviews.update_one(
         {"id": review_id, "company_id": company_id},

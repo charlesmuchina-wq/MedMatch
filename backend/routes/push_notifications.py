@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 import uuid
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/notifications", tags=["Push Notifications"])
 
@@ -72,9 +72,7 @@ async def get_user_subscriptions(user_id: str) -> List[Dict]:
 @router.post("/subscribe")
 async def subscribe_to_push(subscription: PushSubscription, request: Request):
     """Subscribe device to push notifications"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     user_id = user.get("user_id")
     
@@ -115,9 +113,7 @@ async def subscribe_to_push(subscription: PushSubscription, request: Request):
 @router.delete("/unsubscribe")
 async def unsubscribe_from_push(endpoint: str, request: Request):
     """Unsubscribe device from push notifications"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.push_subscriptions.update_one(
         {"endpoint": endpoint, "user_id": user.get("user_id")},
@@ -132,9 +128,7 @@ async def unsubscribe_from_push(endpoint: str, request: Request):
 @router.get("/preferences")
 async def get_notification_preferences(request: Request):
     """Get user's notification preferences"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     prefs = await db.notification_preferences.find_one(
         {"user_id": user.get("user_id")},
@@ -158,9 +152,7 @@ async def get_notification_preferences(request: Request):
 @router.put("/preferences")
 async def update_notification_preferences(prefs: NotificationPreferences, request: Request):
     """Update user's notification preferences"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     user_id = user.get("user_id")
     
@@ -179,9 +171,7 @@ async def update_notification_preferences(prefs: NotificationPreferences, reques
 @router.get("/history")
 async def get_notification_history(request: Request, limit: int = 50, unread_only: bool = False):
     """Get user's notification history"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     query = {"user_id": user.get("user_id")}
     if unread_only:
@@ -207,9 +197,7 @@ async def get_notification_history(request: Request, limit: int = 50, unread_onl
 @router.put("/mark-read/{notification_id}")
 async def mark_notification_read(notification_id: str, request: Request):
     """Mark a notification as read"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.notification_history.update_one(
         {"notification_id": notification_id, "user_id": user.get("user_id")},
@@ -224,9 +212,7 @@ async def mark_notification_read(notification_id: str, request: Request):
 @router.put("/mark-all-read")
 async def mark_all_notifications_read(request: Request):
     """Mark all notifications as read"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.notification_history.update_many(
         {"user_id": user.get("user_id"), "read": False},
@@ -238,9 +224,7 @@ async def mark_all_notifications_read(request: Request):
 @router.post("/send-test")
 async def send_test_notification(request: Request):
     """Send a test notification to the current user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Store test notification
     notification_id = await store_notification(
@@ -261,9 +245,7 @@ async def send_test_notification(request: Request):
 @router.get("/subscriptions")
 async def get_user_push_subscriptions(request: Request):
     """Get user's active push subscriptions"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     subscriptions = await get_user_subscriptions(user.get("user_id"))
     

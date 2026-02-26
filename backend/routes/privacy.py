@@ -23,7 +23,7 @@ import hashlib
 import time
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/privacy", tags=["Privacy & Compliance"])
 
@@ -180,9 +180,7 @@ async def log_privacy_action(user_id: str, action: str, details: Dict[str, Any])
 @router.get("/consent/status")
 async def get_consent_status(request: Request):
     """Get user's current consent status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     consent = await db.user_consents.find_one(
         {"user_id": user["user_id"]},
@@ -208,9 +206,7 @@ async def grant_consent(consent: ConsentRequest, request: Request):
     Grant consent for data processing.
     Required before AI features can be used.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     consent_doc = {
         "user_id": user["user_id"],
@@ -247,9 +243,7 @@ async def withdraw_consent(request: Request, background_tasks: BackgroundTasks):
     Withdraw all consents and trigger data deletion.
     This is a "one-tap" GDPR-compliant withdrawal.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Update consent to withdrawn
     await db.user_consents.update_one(
@@ -311,9 +305,7 @@ async def request_data_deletion(
     """
     Process data deletion request (GDPR Article 17 - Right to Erasure).
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     deletion_results = {
         "resume_deleted": False,
@@ -396,9 +388,7 @@ async def redact_pii_from_text(request: Request):
     Redact PII from text before AI processing.
     Used internally to ensure data minimization.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     body = await request.json()
     text = body.get("text", "")
@@ -429,9 +419,7 @@ async def request_human_review(review: HumanReviewRequest, request: Request):
     Request human review of an AI decision (GDPR Article 22).
     Ensures human-in-the-loop for significant automated decisions.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     review_doc = {
         "id": str(uuid.uuid4()),
@@ -464,9 +452,7 @@ async def request_human_review(review: HumanReviewRequest, request: Request):
 @router.get("/review/status/{review_id}")
 async def get_review_status(review_id: str, request: Request):
     """Get status of a human review request"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     review = await db.human_review_requests.find_one(
         {"id": review_id, "user_id": user["user_id"]},
@@ -485,9 +471,7 @@ async def explain_ai_match(job_id: str, request: Request):
     """
     Explain why a job was matched to the user (GDPR Article 22 - Right to Explanation).
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Check cache first
     cache_key = f"{user['user_id']}:{job_id}"
@@ -592,9 +576,7 @@ async def get_sub_processors():
 @router.get("/audit/logs")
 async def get_privacy_audit_logs(request: Request, limit: int = 50):
     """Get user's privacy-related activity logs"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     logs = await db.privacy_audit_logs.find(
         {"user_id": user["user_id"]},
@@ -613,9 +595,7 @@ async def export_user_data(request: Request):
     """
     Export all user data in portable format (GDPR Article 20).
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Gather all user data
     export_data = {
@@ -674,8 +654,8 @@ async def report_data_breach(request: Request):
     Report a data breach (admin only).
     Must notify regulators within 72 hours per GDPR.
     """
-    user = await get_current_user(request)
-    if not user or not user.get("is_admin"):
+    user = await require_auth(request)
+    if not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
     
     body = await request.json()

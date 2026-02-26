@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 import uuid
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/interviews", tags=["Interview Scheduling"])
 
@@ -56,9 +56,7 @@ class CandidateResponseRequest(BaseModel):
 @router.get("")
 async def get_my_interviews(request: Request):
     """Get all interviews for the current user (candidate or recruiter)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") == "recruiter":
         # Recruiter sees interviews they scheduled
@@ -77,9 +75,7 @@ async def get_my_interviews(request: Request):
 @router.post("/schedule")
 async def schedule_interview(schedule_request: ScheduleInterviewRequest, request: Request):
     """Recruiter schedules an interview with a candidate"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can schedule interviews")
@@ -169,9 +165,7 @@ async def schedule_interview(schedule_request: ScheduleInterviewRequest, request
 @router.get("/recruiter/upcoming")
 async def get_recruiter_interviews(request: Request, status: Optional[str] = None):
     """Get all upcoming interviews for recruiter"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can view interviews")
@@ -193,9 +187,7 @@ async def get_recruiter_interviews(request: Request, status: Optional[str] = Non
 @router.put("/{interview_id}/reschedule")
 async def reschedule_interview(interview_id: str, reschedule: RescheduleRequest, request: Request):
     """Reschedule an existing interview"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     interview = await db.interviews.find_one({"id": interview_id})
     if not interview:
@@ -236,9 +228,7 @@ async def reschedule_interview(interview_id: str, reschedule: RescheduleRequest,
 @router.put("/{interview_id}/cancel")
 async def cancel_interview(interview_id: str, request: Request, reason: Optional[str] = None):
     """Cancel an interview"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     interview = await db.interviews.find_one({"id": interview_id})
     if not interview:
@@ -266,9 +256,7 @@ async def cancel_interview(interview_id: str, request: Request, reason: Optional
 @router.get("/candidate/upcoming")
 async def get_candidate_interviews(request: Request):
     """Get all upcoming interviews for the candidate"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Find applicant records for this user
     applicant_emails = [user.get("email")]
@@ -290,9 +278,7 @@ async def candidate_respond_to_interview(
     request: Request
 ):
     """Candidate responds to an interview invitation"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     interview = await db.interviews.find_one({"id": interview_id})
     if not interview:
@@ -348,9 +334,7 @@ async def candidate_respond_to_interview(
 @router.post("/availability/set")
 async def set_recruiter_availability(availability: SetAvailabilityRequest, request: Request):
     """Set recruiter's general availability for interviews"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can set availability")
@@ -458,9 +442,7 @@ notifications_router = APIRouter(prefix="/notifications", tags=["Notifications"]
 @notifications_router.get("/")
 async def get_notifications(request: Request, unread_only: bool = False):
     """Get user's notifications"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     query = {"user_id": user["user_id"]}
     if unread_only:
@@ -481,9 +463,7 @@ async def get_notifications(request: Request, unread_only: bool = False):
 @notifications_router.put("/{notification_id}/read")
 async def mark_notification_read(notification_id: str, request: Request):
     """Mark a notification as read"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     await db.notifications.update_one(
         {"id": notification_id, "user_id": user["user_id"]},
@@ -495,9 +475,7 @@ async def mark_notification_read(notification_id: str, request: Request):
 @notifications_router.put("/read-all")
 async def mark_all_notifications_read(request: Request):
     """Mark all notifications as read"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     await db.notifications.update_many(
         {"user_id": user["user_id"], "read": False},

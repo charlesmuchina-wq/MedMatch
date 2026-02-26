@@ -9,7 +9,7 @@ import os
 import logging
 
 from utils.database import db
-from routes.auth import get_current_user, check_membership_status
+from routes.auth import get_current_user, require_auth, check_membership_status
 
 router = APIRouter(prefix="/payments", tags=["Payments"])
 
@@ -42,9 +42,7 @@ class CreateCheckoutRequest(BaseModel):
 @router.post("/create-checkout")
 async def create_checkout_session(checkout_request: CreateCheckoutRequest, request: Request):
     """Create a Stripe checkout session for membership"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not STRIPE_API_KEY:
         raise HTTPException(status_code=500, detail="Payment system not configured")
@@ -156,9 +154,7 @@ async def create_checkout_session(checkout_request: CreateCheckoutRequest, reque
 @router.get("/status/{session_id}")
 async def get_payment_status(session_id: str, request: Request):
     """Get payment status from Stripe"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not STRIPE_API_KEY:
         raise HTTPException(status_code=500, detail="Payment system not configured")
@@ -357,9 +353,7 @@ async def stripe_webhook(request: Request):
 @router.get("/subscription")
 async def get_subscription_details(request: Request):
     """Get current subscription details for recruiter"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     subscription_id = user.get("subscription_id")
     
@@ -422,9 +416,7 @@ async def get_subscription_details(request: Request):
 @router.post("/subscription/cancel")
 async def cancel_subscription(request: Request):
     """Cancel recruiter subscription (at period end)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     subscription_id = user.get("subscription_id")
     
@@ -466,9 +458,7 @@ async def cancel_subscription(request: Request):
 @router.post("/subscription/reactivate")
 async def reactivate_subscription(request: Request):
     """Reactivate a subscription that was set to cancel"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     subscription_id = user.get("subscription_id")
     
@@ -510,9 +500,7 @@ async def reactivate_subscription(request: Request):
 @router.get("/billing-history")
 async def get_billing_history(request: Request):
     """Get payment/billing history for user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get from local database
     payments = await db.payment_history.find(
@@ -560,9 +548,7 @@ async def get_billing_history(request: Request):
 @router.post("/update-payment-method")
 async def create_payment_method_session(request: Request):
     """Create a Stripe session to update payment method"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     subscription_id = user.get("subscription_id")
     
@@ -598,9 +584,7 @@ async def create_payment_method_session(request: Request):
 @router.post("/paypal/create")
 async def create_paypal_payment(checkout_request: CreateCheckoutRequest, request: Request):
     """Create a PayPal payment"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     paypal_client_id = os.environ.get('PAYPAL_CLIENT_ID', '')
     paypal_secret = os.environ.get('PAYPAL_SECRET', '')
@@ -662,9 +646,7 @@ async def create_paypal_payment(checkout_request: CreateCheckoutRequest, request
 @router.post("/paypal/execute")
 async def execute_paypal_payment(request: Request):
     """Execute PayPal payment after user approval"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     body = await request.json()
     payment_id = body.get("payment_id")
@@ -721,9 +703,7 @@ membership_router = APIRouter(prefix="/membership", tags=["Membership"])
 @membership_router.get("/status")
 async def get_membership_status(request: Request):
     """Get current membership status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     status = check_membership_status(user)
     is_recruiter = user.get("role") == "recruiter"
@@ -767,9 +747,7 @@ async def get_membership_status(request: Request):
 @membership_router.get("/check-access/{feature}")
 async def check_feature_access(feature: str, request: Request):
     """Check if user has access to a specific feature"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Admin bypass - check all admin indicators
     is_admin = (

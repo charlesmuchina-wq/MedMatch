@@ -14,7 +14,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/translate", tags=["Translation"])
 
@@ -351,7 +351,7 @@ Return ONLY valid JSON:
         result = json.loads(clean_response)
         
         # Log translation for analytics
-        user = await get_current_user(request)
+        user = await require_auth(request)
         await log_translation(user, data.source_language, data.target_language, len(data.text))
         
         return result
@@ -821,7 +821,7 @@ Return ONLY valid JSON:
 @router.get("/user-preference")
 async def get_user_language_preference(request: Request):
     """Get user's preferred language"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user:
         return {"preferred_language": "en", "is_default": True}
     
@@ -838,9 +838,7 @@ async def get_user_language_preference(request: Request):
 @router.put("/user-preference")
 async def set_user_language_preference(data: Dict[str, str], request: Request):
     """Set user's preferred language"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     language = data.get("language", "en")
     if language not in SUPPORTED_LANGUAGES:
@@ -1007,7 +1005,7 @@ async def log_translation(user: Optional[Dict], source_lang: str, target_lang: s
 @router.get("/analytics")
 async def get_translation_analytics(request: Request):
     """Get translation usage analytics (admin only)"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -1168,9 +1166,7 @@ async def lookup_translation_memory(
 @router.get("/memory/stats")
 async def get_translation_memory_stats(request: Request):
     """Get Translation Memory statistics"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     # Total entries
     total_entries = await db.translation_memory.count_documents({})
@@ -1216,7 +1212,7 @@ async def bulk_store_translation_memory(data: Dict[str, Any], request: Request):
     """
     Bulk store translations in memory (for pre-population)
     """
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -1265,7 +1261,7 @@ async def get_analytics_dashboard(request: Request):
     """
     Comprehensive translation analytics dashboard
     """
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -1506,7 +1502,7 @@ async def get_quality_stats(request: Request):
     """
     Get translation quality statistics
     """
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -1564,7 +1560,7 @@ async def get_memory_analytics(request: Request):
     """
     Comprehensive Translation Memory analytics with CLDR metrics
     """
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -1685,7 +1681,7 @@ async def export_translation_memory_tmx(
     Standard format for CAT tools and translation management systems
     Admin only
     """
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -1778,7 +1774,7 @@ async def export_translation_memory_json(
     Useful for custom integrations and backups
     Admin only
     """
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -1821,7 +1817,7 @@ async def export_translation_memory_xliff(
     Standard format for localization workflows
     Admin only
     """
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
     
@@ -1892,7 +1888,7 @@ async def import_translation_memory_tmx(data: TMXImportRequest, request: Request
     Import Translation Memory from TMX format
     Admin only
     """
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
     

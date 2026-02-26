@@ -16,7 +16,7 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY, GOOGLE_API_KEY, GOOGLE_CSE_ID
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/dragon", tags=["KARAU Dragon AI"])
 
@@ -221,7 +221,7 @@ INTENT_ACTIONS = {
 @router.post("/process")
 async def process_dragon_command(data: DragonCommand, request: Request):
     """Process a KARAU Dragon AI voice/text command (multi-language support)"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     command = data.command.strip()
     user_context = data.user_context
     language = data.language or "en"
@@ -600,7 +600,7 @@ async def log_dragon_command(user: Optional[Dict], command: str, result: Dict):
 @router.post("/web-search")
 async def dragon_web_search(data: WebSearchRequest, request: Request):
     """Perform web search for Dragon AI"""
-    await get_current_user(request)  # Verify user is authenticated
+    await require_auth(request)  # Verify user is authenticated
     
     results = []
     
@@ -658,7 +658,7 @@ async def dragon_web_search(data: WebSearchRequest, request: Request):
 @router.get("/analytics")
 async def get_dragon_analytics(request: Request):
     """Get Dragon AI usage analytics (admin only)"""
-    user = await get_current_user(request)
+    user = await require_auth(request)
     if not user or user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Admin access required")
     

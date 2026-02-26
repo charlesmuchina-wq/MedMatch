@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from typing import Optional, List, Dict
 from datetime import datetime, timezone
 
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from services.smart_notifications import get_notification_service
 
 router = APIRouter(prefix="/notifications", tags=["Notifications"])
@@ -35,9 +35,7 @@ async def get_notifications(
     limit: int = 50
 ):
     """Get user's notifications"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_notification_service()
     notifications = await service.get_user_notifications(
@@ -58,9 +56,7 @@ async def get_notifications(
 @router.get("/unread-count")
 async def get_unread_count(request: Request):
     """Get unread notification count"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_notification_service()
     count = await service.get_unread_count(user["user_id"])
@@ -71,9 +67,7 @@ async def get_unread_count(request: Request):
 @router.post("/{notification_id}/read")
 async def mark_notification_read(notification_id: str, request: Request):
     """Mark a notification as read"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_notification_service()
     success = await service.mark_as_read(notification_id, user["user_id"])
@@ -87,9 +81,7 @@ async def mark_notification_read(notification_id: str, request: Request):
 @router.post("/read-all")
 async def mark_all_read(request: Request):
     """Mark all notifications as read"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_notification_service()
     count = await service.mark_all_as_read(user["user_id"])
@@ -100,9 +92,7 @@ async def mark_all_read(request: Request):
 @router.delete("/{notification_id}")
 async def delete_notification(notification_id: str, request: Request):
     """Delete a notification"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_notification_service()
     success = await service.delete_notification(notification_id, user["user_id"])
@@ -118,9 +108,7 @@ async def delete_notification(notification_id: str, request: Request):
 @router.get("/preferences")
 async def get_notification_preferences(request: Request):
     """Get user's notification preferences"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_notification_service()
     preferences = await service.get_notification_preferences(user["user_id"])
@@ -134,9 +122,7 @@ async def update_notification_preferences(
     request: Request
 ):
     """Update user's notification preferences"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_notification_service()
     success = await service.update_notification_preferences(
@@ -155,9 +141,7 @@ async def update_notification_preferences(
 @router.post("/test")
 async def send_test_notification(request: Request):
     """Send a test notification (for development)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     service = get_notification_service()
     notification = await service.create_notification(

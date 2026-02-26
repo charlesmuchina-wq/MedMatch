@@ -12,7 +12,7 @@ import json
 import os
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/push", tags=["Push Notifications"])
 
@@ -61,9 +61,7 @@ async def get_vapid_public_key():
 @router.post("/subscribe")
 async def subscribe_to_push(subscription: PushSubscription, request: Request):
     """Subscribe user to push notifications"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Store subscription
     sub_doc = {
@@ -88,9 +86,7 @@ async def subscribe_to_push(subscription: PushSubscription, request: Request):
 @router.delete("/unsubscribe")
 async def unsubscribe_from_push(request: Request, endpoint: Optional[str] = None):
     """Unsubscribe from push notifications"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if endpoint:
         # Unsubscribe specific endpoint
@@ -107,9 +103,7 @@ async def unsubscribe_from_push(request: Request, endpoint: Optional[str] = None
 @router.get("/subscriptions")
 async def get_user_subscriptions(request: Request):
     """Get user's push notification subscriptions"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     subscriptions = await db.push_subscriptions.find(
         {"user_id": user["user_id"], "active": True},
@@ -123,9 +117,7 @@ async def get_user_subscriptions(request: Request):
 @router.get("/preferences")
 async def get_notification_preferences(request: Request):
     """Get user's notification preferences"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     prefs = await db.notification_preferences.find_one(
         {"user_id": user["user_id"]},
@@ -148,9 +140,7 @@ async def get_notification_preferences(request: Request):
 @router.put("/preferences")
 async def update_notification_preferences(prefs: NotificationPreferences, request: Request):
     """Update user's notification preferences"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     prefs_doc = {
         "user_id": user["user_id"],
@@ -171,9 +161,7 @@ async def update_notification_preferences(prefs: NotificationPreferences, reques
 @router.post("/send")
 async def send_push_notification(notification: SendNotificationRequest, request: Request):
     """Send push notification to users (admin only)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Only admins can send bulk notifications
     if not (user.get("is_admin") or user.get("email") == "admin@medmatch.com"):

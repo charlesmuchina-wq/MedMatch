@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException, Request
 from datetime import datetime, timezone, timedelta
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/analytics", tags=["Analytics"])
 
@@ -17,9 +17,7 @@ async def get_interview_funnel(request: Request, days: int = 30):
     Get interview funnel analytics for the current user
     Shows conversion rates at each stage: Applied → Callback → Interview → Offer
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     user_id = user["user_id"]
     
@@ -113,9 +111,7 @@ async def get_application_trends(request: Request, days: int = 30):
     """
     Get daily application trends over time
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     user_id = user["user_id"]
     end_date = datetime.now(timezone.utc)
@@ -168,9 +164,7 @@ async def get_analytics_by_company(request: Request, limit: int = 10):
     """
     Get application analytics grouped by company
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     user_id = user["user_id"]
     
@@ -214,9 +208,7 @@ async def get_analytics_by_role(request: Request, limit: int = 10):
     """
     Get application analytics grouped by job role/title
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     user_id = user["user_id"]
     
@@ -258,9 +250,7 @@ async def get_ai_insights(request: Request):
     """
     Get AI-generated insights about the user's job search performance
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     user_id = user["user_id"]
     

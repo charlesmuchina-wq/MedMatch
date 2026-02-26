@@ -21,7 +21,7 @@ from services.karau_meet.scheduling_service import (
     generate_ics_file,
     get_upcoming_reminders
 )
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/karau-meet/schedule", tags=["AI KARAU Scheduling"])
 
@@ -59,7 +59,7 @@ class RSVPRequest(BaseModel):
 @router.post("/meetings")
 async def schedule_meeting(
     request: ScheduleMeetingRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Schedule a new meeting with optional invitees"""
     
@@ -105,7 +105,7 @@ async def list_scheduled_meetings(
     start_date: Optional[str] = None,
     end_date: Optional[str] = None,
     status: Optional[str] = None,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get all scheduled meetings for the user"""
     
@@ -123,7 +123,7 @@ async def list_scheduled_meetings(
 @router.get("/meetings/{meeting_id}")
 async def get_scheduled_meeting(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get details of a scheduled meeting"""
     
@@ -159,7 +159,7 @@ async def get_scheduled_meeting(
 async def update_meeting(
     meeting_id: str,
     request: UpdateMeetingRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Update a scheduled meeting"""
     
@@ -180,7 +180,7 @@ async def update_meeting(
 async def cancel_meeting(
     meeting_id: str,
     reason: str = "",
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Cancel a scheduled meeting"""
     
@@ -200,7 +200,7 @@ async def cancel_meeting(
 async def invite_to_meeting(
     meeting_id: str,
     request: InviteRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Send meeting invite to a new participant"""
     
@@ -231,7 +231,7 @@ async def invite_to_meeting(
 async def rsvp_to_invite(
     invite_id: str,
     request: RSVPRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Respond to a meeting invite"""
     
@@ -253,7 +253,7 @@ async def rsvp_to_invite(
 @router.get("/meetings/{meeting_id}/ics")
 async def download_ics(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Download ICS calendar file for a meeting"""
     
@@ -285,7 +285,7 @@ async def download_ics(
 
 @router.get("/reminders")
 async def get_reminders(
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get upcoming meeting reminders"""
     

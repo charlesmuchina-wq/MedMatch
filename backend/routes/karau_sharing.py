@@ -10,7 +10,7 @@ from datetime import datetime, timezone, timedelta
 import urllib.parse
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from services.karau_meet import get_meeting
 
 router = APIRouter(prefix="/karau-meet/share", tags=["KARAU Calendar & Sharing"])

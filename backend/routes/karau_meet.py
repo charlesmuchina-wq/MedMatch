@@ -38,7 +38,7 @@ from services.karau_meet import (
     is_user_admitted,
 )
 from services.karau_meet.webrtc_signaling import get_connection_manager
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/karau-meet", tags=["AI KARAU Meeting"])
 
@@ -95,7 +95,7 @@ class SignalRequest(BaseModel):
 @router.post("/meetings")
 async def create_new_meeting(
     request: CreateMeetingRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Create a new AI KARAU meeting"""
     meeting = await create_meeting(
@@ -111,7 +111,7 @@ async def create_new_meeting(
 @router.get("/meetings")
 async def get_my_meetings(
     limit: int = 20,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get user's meetings (hosted and participated)"""
     meetings = await get_user_meetings(user["user_id"], limit)
@@ -137,7 +137,7 @@ async def get_meeting_public_info(meeting_id: str):
 @router.get("/meetings/{meeting_id}")
 async def get_meeting_details(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get meeting details"""
     meeting = await get_meeting(meeting_id)
@@ -155,7 +155,7 @@ async def get_meeting_details(
 async def join_meeting_room(
     meeting_id: str,
     request: JoinMeetingRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Join a meeting"""
     result = await join_meeting(
@@ -222,7 +222,7 @@ async def join_meeting_as_guest(
 @router.post("/meetings/{meeting_id}/leave")
 async def leave_meeting_room(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Leave a meeting"""
     success = await leave_meeting(meeting_id, user["user_id"])
@@ -242,7 +242,7 @@ async def leave_meeting_room(
 @router.post("/meetings/{meeting_id}/end")
 async def end_meeting_room(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """End a meeting (host only)"""
     success = await end_meeting(meeting_id, user["user_id"])
@@ -271,7 +271,7 @@ async def end_meeting_room(
 @router.get("/meetings/{meeting_id}/participants")
 async def get_meeting_participants(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get all participants in a meeting"""
     participants = await get_participants(meeting_id)
@@ -282,7 +282,7 @@ async def get_meeting_participants(
 async def update_my_participant_status(
     meeting_id: str,
     request: UpdateParticipantRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Update participant status (video, audio, etc.)"""
     updates = {}
@@ -314,7 +314,7 @@ async def update_my_participant_status(
 async def send_chat_message(
     meeting_id: str,
     request: ChatMessageRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Send a chat message in the meeting"""
     message = await add_chat_message(
@@ -339,7 +339,7 @@ async def add_meeting_ai_note(
     meeting_id: str,
     note_type: str,
     content: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Add an AI-generated note (transcription, summary, etc.)"""
     note = await add_ai_note(
@@ -361,7 +361,7 @@ async def add_meeting_ai_note(
 async def create_meeting_breakout_room(
     meeting_id: str,
     request: BreakoutRoomRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Create a single breakout room (host only)"""
     meeting = await get_meeting(meeting_id)
@@ -392,7 +392,7 @@ async def create_meeting_breakout_room(
 async def start_breakout(
     meeting_id: str,
     request: BreakoutSessionRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Start a breakout session with multiple rooms (host only)."""
     meeting = await get_meeting(meeting_id)
@@ -422,7 +422,7 @@ async def start_breakout(
 @router.get("/meetings/{meeting_id}/breakout-session")
 async def get_breakout(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get current breakout session status."""
     session = await get_breakout_session(meeting_id)
@@ -434,7 +434,7 @@ async def get_breakout(
 @router.post("/meetings/{meeting_id}/breakout-session/close")
 async def close_breakout(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Close breakout session and return everyone to main room (host only)."""
     meeting = await get_meeting(meeting_id)
@@ -460,7 +460,7 @@ async def close_breakout(
 async def move_participant(
     meeting_id: str,
     request: MoveParticipantRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Move a participant between breakout rooms (host only)."""
     meeting = await get_meeting(meeting_id)
@@ -486,7 +486,7 @@ async def move_participant(
 async def auto_assign_breakout(
     meeting_id: str,
     num_rooms: int = 2,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Preview AI auto-assignment without starting (host only)."""
     meeting = await get_meeting(meeting_id)
@@ -512,7 +512,7 @@ async def auto_assign_breakout(
 async def send_webrtc_signal(
     meeting_id: str,
     request: SignalRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Send WebRTC signaling data to another participant"""
     # Send signal to target user via WebSocket
@@ -625,7 +625,7 @@ async def join_lobby(meeting_id: str, request: LobbyJoinRequest):
 @router.post("/meetings/{meeting_id}/lobby/join-auth")
 async def join_lobby_authenticated(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Join the meeting lobby as an authenticated user."""
     meeting = await get_meeting(meeting_id)
@@ -702,7 +702,7 @@ async def check_lobby_status(meeting_id: str, user_id: str):
 @router.get("/meetings/{meeting_id}/lobby/waiting")
 async def get_lobby_waiting_list(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get the list of users waiting in the lobby (host only)."""
     meeting = await get_meeting(meeting_id)
@@ -724,7 +724,7 @@ class AdmitRequest(BaseModel):
 async def admit_from_lobby(
     meeting_id: str,
     request: AdmitRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Admit a user from the lobby (host only)."""
     result = await admit_from_waiting_room(meeting_id, request.user_id, user["user_id"])
@@ -736,7 +736,7 @@ async def admit_from_lobby(
 @router.post("/meetings/{meeting_id}/lobby/admit-all")
 async def admit_all_from_lobby(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Admit all waiting users from the lobby (host only)."""
     result = await admit_all_from_waiting_room(meeting_id, user["user_id"])
@@ -749,7 +749,7 @@ async def admit_all_from_lobby(
 async def deny_from_lobby(
     meeting_id: str,
     request: AdmitRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Deny/reject a user from the lobby (host only)."""
     result = await reject_from_waiting_room(meeting_id, request.user_id, user["user_id"])
@@ -762,7 +762,7 @@ async def deny_from_lobby(
 async def toggle_waiting_room(
     meeting_id: str,
     enabled: bool = True,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Toggle waiting room requirement for a meeting (host only)."""
     meeting = await get_meeting(meeting_id)

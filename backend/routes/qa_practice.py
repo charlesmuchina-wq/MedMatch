@@ -17,7 +17,7 @@ from emergentintegrations.llm.openai import OpenAISpeechToText
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/qa-practice", tags=["Q&A Practice"])
 
@@ -258,9 +258,7 @@ Provide detailed, constructive feedback.""")
 @router.post("/analyze-match")
 async def analyze_job_match(job_context: JobContext, request: Request):
     """Analyze resume-job match before Q&A session"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get user's resume
     resume = await db.resumes.find_one({"user_id": user.get("user_id")}, {"_id": 0})
@@ -294,9 +292,7 @@ async def analyze_job_match(job_context: JobContext, request: Request):
 @router.post("/generate-answer")
 async def generate_single_answer(req: SingleQuestionRequest, request: Request):
     """Generate AI answer for a single question"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get resume if not provided
     resume_text = req.resume_text
@@ -354,9 +350,7 @@ async def generate_single_answer(req: SingleQuestionRequest, request: Request):
 @router.post("/batch-generate")
 async def generate_batch_answers(req: BatchQuestionsRequest, request: Request):
     """Generate AI answers for multiple questions"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get resume
     resume_text = req.resume_text
@@ -393,9 +387,7 @@ async def generate_batch_answers(req: BatchQuestionsRequest, request: Request):
 @router.post("/analyze-voice-answer")
 async def analyze_voice_answer(req: VoiceAnswerRequest, request: Request):
     """Analyze a voice-recorded answer (transcript provided)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get resume
     resume_text = req.resume_text
@@ -446,9 +438,7 @@ async def analyze_voice_answer(req: VoiceAnswerRequest, request: Request):
 @router.get("/history")
 async def get_qa_history(request: Request, limit: int = 20):
     """Get user's Q&A practice history"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     history = await db.qa_history.find(
         {"user_id": user.get("user_id")},
@@ -469,9 +459,7 @@ async def get_qa_history(request: Request, limit: int = 20):
 @router.post("/common-questions")
 async def get_common_questions(job_context: JobContext, request: Request):
     """Generate common interview questions for a specific job"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     try:
         chat = LlmChat(api_key=EMERGENT_LLM_KEY)
@@ -525,9 +513,7 @@ async def get_common_questions(job_context: JobContext, request: Request):
 @router.delete("/history/{record_id}")
 async def delete_qa_record(record_id: str, request: Request):
     """Delete a Q&A practice record"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Try to delete from both collections
     result1 = await db.qa_history.delete_one({
@@ -558,9 +544,7 @@ async def transcribe_audio_file(
     Supports: MP3, MP4, MPEG, MPGA, M4A, WAV, WEBM
     Max size: 25MB
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Validate file extension
     filename = file.filename.lower()
@@ -654,9 +638,7 @@ async def transcribe_audio_file(
 @router.get("/transcriptions")
 async def get_transcription_history(request: Request, limit: int = 10):
     """Get user's audio transcription history"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     transcriptions = await db.audio_transcriptions.find(
         {"user_id": user.get("user_id")},
@@ -679,9 +661,7 @@ class SaveFavoriteRequest(BaseModel):
 @router.post("/favorites/save")
 async def save_favorite_answer(req: SaveFavoriteRequest, request: Request):
     """Save an answer to favorites"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     favorite = {
         "id": str(uuid.uuid4()),
@@ -702,9 +682,7 @@ async def save_favorite_answer(req: SaveFavoriteRequest, request: Request):
 @router.get("/favorites")
 async def get_favorite_answers(request: Request, limit: int = 50):
     """Get user's favorite answers"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     favorites = await db.qa_favorites.find(
         {"user_id": user.get("user_id")},
@@ -717,9 +695,7 @@ async def get_favorite_answers(request: Request, limit: int = 50):
 @router.delete("/favorites/{favorite_id}")
 async def delete_favorite_answer(favorite_id: str, request: Request):
     """Delete a favorite answer"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.qa_favorites.delete_one({
         "id": favorite_id,

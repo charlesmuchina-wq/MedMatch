@@ -19,7 +19,7 @@ import io
 import httpx
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/enterprise", tags=["Enterprise API"])
 
@@ -130,9 +130,7 @@ async def create_api_key(data: APIKeyCreate, request: Request):
     Create a new API key for programmatic access
     Premium tier required
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can create API keys")
@@ -202,9 +200,7 @@ async def create_api_key(data: APIKeyCreate, request: Request):
 @router.get("/api-keys")
 async def list_api_keys(request: Request):
     """List all API keys for the current user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     keys = await db.api_keys.find(
         {"user_id": user["user_id"], "revoked": {"$ne": True}},
@@ -221,9 +217,7 @@ async def list_api_keys(request: Request):
 @router.delete("/api-keys/{key_id}")
 async def revoke_api_key(key_id: str, request: Request):
     """Revoke an API key"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.api_keys.update_one(
         {"id": key_id, "user_id": user["user_id"]},
@@ -241,9 +235,7 @@ async def revoke_api_key(key_id: str, request: Request):
 @router.post("/api-keys/{key_id}/rotate")
 async def rotate_api_key(key_id: str, request: Request):
     """Rotate an API key (revoke old, create new with same settings)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Find existing key
     existing = await db.api_keys.find_one(
@@ -294,9 +286,7 @@ async def create_webhook(data: WebhookCreate, request: Request):
     Create a webhook endpoint for ATS integration
     Growth tier or higher required
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can create webhooks")
@@ -354,9 +344,7 @@ async def create_webhook(data: WebhookCreate, request: Request):
 @router.get("/webhooks")
 async def list_webhooks(request: Request):
     """List all webhooks for the current user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     webhooks = await db.webhooks.find(
         {"user_id": user["user_id"]},
@@ -372,9 +360,7 @@ async def list_webhooks(request: Request):
 @router.get("/webhooks/{webhook_id}")
 async def get_webhook(webhook_id: str, request: Request):
     """Get webhook details"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     webhook = await db.webhooks.find_one(
         {"id": webhook_id, "user_id": user["user_id"]},
@@ -398,9 +384,7 @@ async def get_webhook(webhook_id: str, request: Request):
 @router.put("/webhooks/{webhook_id}")
 async def update_webhook(webhook_id: str, data: WebhookUpdate, request: Request):
     """Update a webhook"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     update_data = {}
     if data.url:
@@ -430,9 +414,7 @@ async def update_webhook(webhook_id: str, data: WebhookUpdate, request: Request)
 @router.delete("/webhooks/{webhook_id}")
 async def delete_webhook(webhook_id: str, request: Request):
     """Delete a webhook"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.webhooks.delete_one(
         {"id": webhook_id, "user_id": user["user_id"]}
@@ -446,9 +428,7 @@ async def delete_webhook(webhook_id: str, request: Request):
 @router.post("/webhooks/{webhook_id}/test")
 async def test_webhook(webhook_id: str, request: Request):
     """Send a test event to a webhook"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     webhook = await db.webhooks.find_one(
         {"id": webhook_id, "user_id": user["user_id"]}
@@ -593,9 +573,7 @@ async def export_candidates(data: BulkCandidateExport, request: Request):
     Export candidates in CSV or JSON format
     Premium tier required
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can export candidates")
@@ -672,9 +650,7 @@ async def export_applications(data: BulkCandidateExport, request: Request):
     Export job applications in CSV or JSON format
     Premium tier required
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can export applications")
@@ -731,9 +707,7 @@ async def import_candidates(data: BulkCandidateImport, request: Request):
     Bulk import candidates from external ATS
     Premium tier required
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can import candidates")
@@ -803,9 +777,7 @@ async def import_candidates(data: BulkCandidateImport, request: Request):
 @router.get("/ats/status")
 async def get_ats_status(request: Request):
     """Get ATS integration status and available features"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     tier = user.get("subscription_plan", "recruiter_starter")
     

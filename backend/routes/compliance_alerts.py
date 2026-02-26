@@ -7,7 +7,7 @@ from pydantic import BaseModel
 from typing import Optional, List, Dict
 from datetime import datetime, timezone
 
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from utils.database import db
 from services.compliance_alerts import get_compliance_alert_service, ComplianceAlertService
 from services.gual_integration import get_gual_service, GUALIntegrationService
@@ -45,9 +45,7 @@ async def check_compliance(request: Request):
     Run all compliance checks and return any new alerts.
     Creates in-app notifications for critical issues.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Initialize services with database
     alert_service = get_compliance_alert_service(db)
@@ -64,9 +62,7 @@ async def check_compliance(request: Request):
 @router.get("/active")
 async def get_active_alerts(request: Request):
     """Get all active (unacknowledged) compliance alerts."""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     alert_service = get_compliance_alert_service(db)
     if not alert_service:
@@ -84,9 +80,7 @@ async def get_active_alerts(request: Request):
 @router.post("/{alert_id}/acknowledge")
 async def acknowledge_alert(alert_id: str, request: Request):
     """Mark an alert as acknowledged."""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     alert_service = get_compliance_alert_service(db)
     if not alert_service:
@@ -108,9 +102,7 @@ async def log_hiring_decision(decision: HiringDecisionLog, request: Request):
     Log an AI-assisted hiring decision to the Global Unified Audit Log.
     Automatically determines applicable laws based on jurisdictions.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     gual_service = get_gual_service(db)
     if not gual_service:
@@ -139,9 +131,7 @@ async def get_gual_entries(
     limit: int = 100
 ):
     """Get GUAL entries with optional filters."""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     gual_service = get_gual_service(db)
     if not gual_service:
@@ -163,9 +153,7 @@ async def get_gual_entries(
 @router.get("/gual/pending-reviews")
 async def get_pending_reviews(request: Request):
     """Get GUAL entries pending human review."""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     gual_service = get_gual_service(db)
     if not gual_service:
@@ -186,9 +174,7 @@ async def complete_review(
     request: Request
 ):
     """Complete human review for a GUAL entry."""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     gual_service = get_gual_service(db)
     if not gual_service:
@@ -212,9 +198,7 @@ async def complete_review(
 @router.post("/location/update")
 async def update_user_location(location: LocationUpdate, request: Request):
     """Update user's location for jurisdiction detection."""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     gual_service = get_gual_service(db)
     if not gual_service:
@@ -237,9 +221,7 @@ async def update_user_location(location: LocationUpdate, request: Request):
 @router.get("/location/pending-prompts")
 async def get_pending_location_prompts(request: Request):
     """Check if user needs to provide location information."""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Check if user has location set
     user_doc = await db.users.find_one(
@@ -271,9 +253,7 @@ async def get_pending_location_prompts(request: Request):
 @router.get("/summary")
 async def get_compliance_summary(request: Request):
     """Get comprehensive compliance status summary."""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     alert_service = get_compliance_alert_service(db)
     gual_service = get_gual_service(db)

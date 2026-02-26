@@ -21,7 +21,7 @@ from services.karau_meet.accessibility_service import (
     get_font_settings,
     DEFAULT_ACCESSIBILITY_SETTINGS
 )
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/karau-meet/accessibility", tags=["AI KARAU Accessibility"])
 
@@ -47,7 +47,7 @@ class AccessibilitySettingsUpdate(BaseModel):
 
 @router.get("/settings")
 async def get_user_accessibility_settings(
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get accessibility settings for current user"""
     
@@ -58,7 +58,7 @@ async def get_user_accessibility_settings(
 @router.put("/settings")
 async def update_user_accessibility_settings(
     request: AccessibilitySettingsUpdate,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Update accessibility settings"""
     
@@ -92,7 +92,7 @@ class AddCaptionRequest(BaseModel):
 @router.post("/captions/start")
 async def start_meeting_captions(
     request: StartCaptionsRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Start live captions for a meeting"""
     
@@ -104,7 +104,7 @@ async def start_meeting_captions(
 async def add_meeting_caption(
     meeting_id: str,
     request: AddCaptionRequest,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Add a caption entry"""
     
@@ -124,7 +124,7 @@ async def get_meeting_captions(
     meeting_id: str,
     since: Optional[str] = None,
     limit: int = 100,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get captions for a meeting"""
     
@@ -135,7 +135,7 @@ async def get_meeting_captions(
 @router.post("/captions/{meeting_id}/stop")
 async def stop_meeting_captions(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Stop live captions"""
     
@@ -146,7 +146,7 @@ async def stop_meeting_captions(
 @router.get("/captions/{meeting_id}/transcript")
 async def get_meeting_transcript(
     meeting_id: str,
-    user: dict = Depends(get_current_user)
+    user: dict = Depends(require_auth)
 ):
     """Get full transcript from captions"""
     

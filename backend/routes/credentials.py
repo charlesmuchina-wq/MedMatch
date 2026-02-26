@@ -14,7 +14,7 @@ import os
 import logging
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 from services.psv_service import (
     PSVService, PSV_PROVIDERS, QUALITY_CERTIFICATIONS, QUALITY_HIERARCHY, INDUSTRY_BRIDGE,
     VerificationStatus, VerificationMethod, CredentialType,
@@ -179,7 +179,7 @@ async def verify_credential(request: Request, verification_req: VerificationRequ
     Uses waterfall approach: API Instant → Primary Source → Manual Review
     """
     
-    user = await get_current_user(request)
+    user = await require_auth(request)
     
     result = await psv_service.verify_credential(
         user_id=user["user_id"],
@@ -197,7 +197,7 @@ async def submit_credential(request: Request, submission: CredentialSubmission):
     For manual verification workflow.
     """
     
-    user = await get_current_user(request)
+    user = await require_auth(request)
     
     # Create credential record
     credential_id = str(uuid.uuid4())
@@ -253,7 +253,7 @@ async def submit_credential(request: Request, submission: CredentialSubmission):
 async def get_my_credentials(request: Request):
     """Get all credentials for the current user"""
     
-    user = await get_current_user(request)
+    user = await require_auth(request)
     
     credentials = await db.user_credentials.find(
         {"user_id": user["user_id"]},
@@ -286,7 +286,7 @@ async def get_my_credentials(request: Request):
 async def get_expiration_alerts(request: Request):
     """Get alerts for expiring or expired credentials"""
     
-    user = await get_current_user(request)
+    user = await require_auth(request)
     
     alerts = await psv_service.check_expiration_status(user["user_id"])
     
@@ -300,7 +300,7 @@ async def get_expiration_alerts(request: Request):
 async def reverify_credential(request: Request, verification_id: str):
     """Trigger re-verification of a credential"""
     
-    user = await get_current_user(request)
+    user = await require_auth(request)
     
     # Verify ownership
     existing = await db.credential_verifications.find_one({
@@ -326,7 +326,7 @@ async def upload_credential_document(
 ):
     """Upload a credential document (PDF/image) for manual verification"""
     
-    user = await get_current_user(request)
+    user = await require_auth(request)
     
     # Validate file type
     allowed_types = ["application/pdf", "image/png", "image/jpeg", "image/jpg"]
@@ -395,7 +395,7 @@ async def submit_verification_consent(request: Request, consent: ConsentRequest)
     Required before triggering PSV API calls per GDPR/HIPAA.
     """
     
-    user = await get_current_user(request)
+    user = await require_auth(request)
     
     consent_record = {
         "id": str(uuid.uuid4()),
@@ -433,7 +433,7 @@ async def submit_verification_consent(request: Request, consent: ConsentRequest)
 async def get_consent_status(request: Request):
     """Check if user has given PSV consent"""
     
-    user = await get_current_user(request)
+    user = await require_auth(request)
     
     latest_consent = await db.verification_consents.find_one(
         {"user_id": user["user_id"]},
@@ -457,7 +457,7 @@ async def get_consent_status(request: Request):
 async def get_pending_reviews(request: Request):
     """Get credentials pending manual review (admin only)"""
     
-    user = await get_current_user(request)
+    user = await require_auth(request)
     
     # Check admin access
     if user.get("role") != "admin" and not user.get("is_admin"):
@@ -478,7 +478,7 @@ async def get_pending_reviews(request: Request):
 async def approve_credential(request: Request, verification_id: str):
     """Approve a credential after manual review (admin only)"""
     
-    user = await get_current_user(request)
+    user = await require_auth(request)
     
     if user.get("role") != "admin" and not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
@@ -513,7 +513,7 @@ async def approve_credential(request: Request, verification_id: str):
 async def reject_credential(request: Request, verification_id: str, reason: str = ""):
     """Reject a credential after manual review (admin only)"""
     
-    user = await get_current_user(request)
+    user = await require_auth(request)
     
     if user.get("role") != "admin" and not user.get("is_admin"):
         raise HTTPException(status_code=403, detail="Admin access required")
@@ -550,9 +550,7 @@ async def get_trust_score(request: Request):
     - Account tenure
     - Employer reviews
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     score_data = await trust_calculator.calculate_score(user["user_id"])
     
@@ -568,9 +566,7 @@ async def get_trust_score_history(request: Request, days: int = 90):
     Get the current user's trust score history for the specified period.
     Returns data points showing score progression over time.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     # Limit days to reasonable range
     days = min(max(days, 7), 365)
@@ -611,7 +607,7 @@ async def get_user_trust_score(request: Request, user_id: str):
     Get a specific user's trust score (for recruiters viewing candidates).
     Returns limited breakdown for privacy.
     """
-    current_user = await get_current_user(request)
+    current_user = await require_auth(request)
     if not current_user:
         raise HTTPException(status_code=401, detail="Authentication required")
     
@@ -646,7 +642,7 @@ async def get_trust_score_leaderboard(request: Request, limit: int = 10):
     Get top users by trust score (anonymized for privacy).
     Useful for displaying community benchmarks.
     """
-    current_user = await get_current_user(request)
+    current_user = await require_auth(request)
     if not current_user:
         raise HTTPException(status_code=401, detail="Authentication required")
     
@@ -673,9 +669,7 @@ async def initiate_credly_auth(request: Request):
     Initiate Credly OAuth flow.
     Returns the authorization URL to redirect the user to Credly.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     # Generate state token for CSRF protection
     state = str(uuid.uuid4())
@@ -786,9 +780,7 @@ async def credly_oauth_callback(
 @router.get("/credly/status")
 async def get_credly_status(request: Request):
     """Get user's Credly connection status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     token_record = await db.credly_tokens.find_one(
         {"user_id": user["user_id"]},
@@ -812,9 +804,7 @@ async def get_credly_status(request: Request):
 @router.post("/credly/sync")
 async def sync_credly_badges(request: Request):
     """Re-sync badges from Credly"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     token_record = await db.credly_tokens.find_one({"user_id": user["user_id"]})
     
@@ -895,9 +885,7 @@ async def sync_credly_badges(request: Request):
 @router.delete("/credly/disconnect")
 async def disconnect_credly(request: Request):
     """Disconnect Credly integration"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     result = await db.credly_tokens.delete_one({"user_id": user["user_id"]})
     
@@ -913,9 +901,7 @@ async def disconnect_credly(request: Request):
 @router.get("/credly/badges")
 async def get_credly_badges(request: Request):
     """Get all imported Credly badges for the user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Authentication required")
+    user = await require_auth(request)
     
     badges = await db.user_credentials.find(
         {

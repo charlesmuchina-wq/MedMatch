@@ -12,7 +12,7 @@ import json
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/feedback", tags=["Feedback Learning"])
 
@@ -55,9 +55,7 @@ FEEDBACK_CATEGORIES = {
 @router.post("/rejection")
 async def submit_rejection_feedback(feedback: RejectionFeedback, request: Request):
     """Recruiter submits feedback on why a candidate was rejected"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can submit feedback")
@@ -142,9 +140,7 @@ async def get_feedback_categories():
 @router.get("/insights")
 async def get_candidate_insights(request: Request):
     """Get aggregated, anonymous feedback insights for job seeker"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Get candidate's feedback stats
     stats = await db.candidate_feedback_stats.find_one(
@@ -236,9 +232,7 @@ Based on this feedback, what specific improvements would you suggest?
 @router.get("/benchmarks")
 async def get_industry_benchmarks(request: Request):
     """Get anonymous industry-wide feedback benchmarks"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Aggregate all feedback across the platform
     pipeline = [
@@ -280,9 +274,7 @@ async def get_industry_benchmarks(request: Request):
 @router.get("/application/{application_id}")
 async def get_application_feedback(application_id: str, request: Request):
     """Get feedback for a specific application (recruiter only)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can view detailed feedback")
@@ -305,9 +297,7 @@ async def get_application_feedback(application_id: str, request: Request):
 @router.get("/recruiter/analytics")
 async def get_recruiter_feedback_analytics(request: Request):
     """Get feedback analytics for recruiter's hiring patterns"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if user.get("role") != "recruiter":
         raise HTTPException(status_code=403, detail="Only recruiters can view analytics")

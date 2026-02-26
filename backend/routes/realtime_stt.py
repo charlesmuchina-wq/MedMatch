@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 # Import STT from the correct location
 try:
@@ -84,9 +84,7 @@ async def transcribe_audio_chunk(audio_data: bytes, format: str = "webm") -> Opt
 @router.get("/status")
 async def get_realtime_stt_status(request: Request):
     """Check real-time STT service status and capabilities"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     return {
         "available": bool(EMERGENT_LLM_KEY) and OpenAISpeechToText is not None,
@@ -109,9 +107,7 @@ async def transcribe_audio_file(
     language: str = "en"
 ):
     """Transcribe an audio file (non-streaming)"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY or OpenAISpeechToText is None:
         raise HTTPException(status_code=500, detail="STT service not configured")
@@ -181,9 +177,7 @@ async def transcribe_audio_file(
 @router.post("/transcribe-base64")
 async def transcribe_audio_base64(request: Request):
     """Transcribe audio from base64 encoded data"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="STT service not configured")
@@ -242,9 +236,7 @@ async def transcribe_audio_base64(request: Request):
 @router.get("/history")
 async def get_transcription_history(request: Request, limit: int = 20):
     """Get user's transcription history"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     cursor = db.transcription_history.find(
         {"user_id": user["user_id"]},
@@ -261,9 +253,7 @@ async def get_transcription_history(request: Request, limit: int = 20):
 @router.delete("/history/{transcription_id}")
 async def delete_transcription(transcription_id: str, request: Request):
     """Delete a transcription from history"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.transcription_history.delete_one({
         "id": transcription_id,

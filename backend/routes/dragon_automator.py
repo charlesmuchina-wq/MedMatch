@@ -21,7 +21,7 @@ from emergentintegrations.llm.chat import LlmChat
 
 from utils.database import db
 from utils.config import EMERGENT_LLM_KEY
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/dragon/automator", tags=["KARAU Dragon Automator"])
 
@@ -731,9 +731,7 @@ rollback_manager = RollbackManager()
 @router.get("/health")
 async def get_system_health(request: Request):
     """Get comprehensive system health status"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Run all diagnostics in parallel
     db_diag, api_diag, ai_diag, perf_diag = await asyncio.gather(
@@ -786,9 +784,7 @@ async def get_system_health(request: Request):
 @router.post("/diagnose")
 async def run_full_diagnostics(request: Request, background_tasks: BackgroundTasks):
     """Run comprehensive diagnostics and get detailed report"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Check if user is admin
     if not is_admin_user(user):
@@ -832,9 +828,7 @@ async def run_full_diagnostics(request: Request, background_tasks: BackgroundTas
 @router.post("/auto-fix")
 async def apply_auto_fixes(request: Request):
     """Automatically fix detected issues"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
@@ -888,9 +882,7 @@ async def apply_auto_fixes(request: Request):
 @router.get("/improvements")
 async def get_improvement_suggestions(request: Request):
     """Get AI-powered improvement suggestions"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     improvements = await analyze_system_for_improvements()
     
@@ -904,9 +896,7 @@ async def get_improvement_suggestions(request: Request):
 @router.post("/improvements/{index}/implement")
 async def implement_improvement(index: int, request: Request):
     """Implement a specific improvement suggestion"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
@@ -940,9 +930,7 @@ async def get_version(request: Request):
 @router.post("/version/release")
 async def release_new_version(request: Request):
     """Create a new version release"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
@@ -963,9 +951,7 @@ async def release_new_version(request: Request):
 @router.get("/updates")
 async def get_pending_updates(request: Request):
     """Get pending update notifications for the current user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     updates = await db.update_notifications.find(
         {"user_id": user["user_id"], "read": False},
@@ -982,9 +968,7 @@ async def get_pending_updates(request: Request):
 @router.post("/updates/mark-read")
 async def mark_updates_read(request: Request):
     """Mark all update notifications as read"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await db.update_notifications.update_many(
         {"user_id": user["user_id"], "read": False},
@@ -1002,9 +986,7 @@ async def analyze_and_auto_fix(request: Request, background_tasks: BackgroundTas
     KARAU DRAGON's main automation endpoint.
     Runs diagnostics, identifies issues, applies fixes, and generates a report.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
@@ -1106,9 +1088,7 @@ async def run_weekly_maintenance_now(request: Request):
     Manually trigger the weekly maintenance task.
     Admin only. Normally runs Sundays at 1:00 AM PST.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
@@ -1129,9 +1109,7 @@ async def run_weekly_maintenance_now(request: Request):
 @router.get("/scheduler-status")
 async def get_scheduler_status(request: Request):
     """Get status of all scheduled tasks"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     try:
         from services.dragon_scheduler import scheduler as dragon_scheduler
@@ -1161,9 +1139,7 @@ async def get_scheduler_status(request: Request):
 @router.get("/maintenance-reports")
 async def get_maintenance_reports(request: Request, limit: int = 10):
     """Get recent maintenance reports"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     reports = await db.maintenance_reports.find(
         {},
@@ -1179,9 +1155,7 @@ async def get_maintenance_reports(request: Request, limit: int = 10):
 @router.get("/predictions")
 async def get_issue_predictions(request: Request):
     """Get AI-powered predictive issue analysis"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     try:
         from services.dragon_scheduler import analyze_trends_for_predictions
@@ -1234,9 +1208,7 @@ async def scheduled_diagnostics():
 @router.post("/rollback/snapshot")
 async def create_system_snapshot(request: Request):
     """Create a system snapshot for potential rollback"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
@@ -1255,9 +1227,7 @@ async def create_system_snapshot(request: Request):
 @router.get("/rollback/snapshots")
 async def list_system_snapshots(request: Request, limit: int = 10):
     """List available system snapshots for rollback"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     snapshots = await rollback_manager.get_snapshots(limit=limit)
     
@@ -1270,9 +1240,7 @@ async def list_system_snapshots(request: Request, limit: int = 10):
 @router.get("/rollback/check")
 async def check_rollback_status(request: Request):
     """Check if auto-rollback should be triggered"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     result = await rollback_manager.check_rollback_needed()
     
@@ -1282,9 +1250,7 @@ async def check_rollback_status(request: Request):
 @router.post("/rollback/execute")
 async def execute_system_rollback(request: Request):
     """Execute a rollback to a previous snapshot state"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
@@ -1307,9 +1273,7 @@ async def execute_system_rollback(request: Request):
 @router.get("/rollback/history")
 async def get_rollback_history(request: Request, limit: int = 10):
     """Get history of executed rollbacks"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
@@ -1337,9 +1301,7 @@ async def auto_check_and_rollback(request: Request, background_tasks: Background
     Automatically check system health and trigger rollback if needed.
     This is what the scheduled maintenance task calls.
     """
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     if not is_admin_user(user):
         raise HTTPException(status_code=403, detail="Admin access required")
