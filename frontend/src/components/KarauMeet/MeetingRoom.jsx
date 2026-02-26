@@ -1017,6 +1017,37 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         setAiNotes(prev => [...prev, message.note]);
         break;
         
+      case 'lobby_guest_waiting':
+        // Host notification: guest is waiting in the lobby
+        toast(
+          <div className="flex items-center gap-3">
+            <div className="flex-1">
+              <p className="font-medium text-sm">{message.user_name} is waiting in the lobby</p>
+              <p className="text-xs text-slate-400">Click to manage</p>
+            </div>
+          </div>,
+          {
+            duration: 10000,
+            action: {
+              label: 'Admit',
+              onClick: async () => {
+                try {
+                  const token = localStorage.getItem('token');
+                  await fetch(`${API}/api/karau-meet/meetings/${meetingId}/lobby/admit`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ user_id: message.user_id })
+                  });
+                  toast.success(`${message.user_name} admitted`);
+                } catch {
+                  toast.error('Failed to admit');
+                }
+              }
+            }
+          }
+        );
+        break;
+        
       case 'pong':
         break;
         
