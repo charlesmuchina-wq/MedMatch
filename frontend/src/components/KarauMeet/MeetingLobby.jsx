@@ -115,6 +115,8 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
         if (at) setSelectedAudioInput(at.getSettings().deviceId || '');
       } catch (err) {
         console.error('Media init error:', err);
+        setIsVideoEnabled(false);
+        setIsAudioEnabled(false);
         toast.error('Could not access camera/microphone');
       }
     };
