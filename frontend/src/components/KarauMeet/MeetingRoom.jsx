@@ -300,6 +300,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [showShareDialog, setShowShareDialog] = useState(false);
   const [activeSpeakerId, setActiveSpeakerId] = useState(null);
+  const [showBreakoutManager, setShowBreakoutManager] = useState(false);
   const [meetingSettings, setMeetingSettings] = useState({
     ai_transcription: true,
     auto_summary: true,
