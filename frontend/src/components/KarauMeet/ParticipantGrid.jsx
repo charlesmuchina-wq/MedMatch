@@ -379,6 +379,7 @@ const ParticipantGrid = ({ participants, localStream, remoteStreams, localUserId
                     stream={remoteStreams[p.user_id]}
                     isMinimized={true}
                     onPin={handlePin}
+                    isSpeaking={activeSpeakerId === p.user_id}
                   />
                 ))}
               </div>
