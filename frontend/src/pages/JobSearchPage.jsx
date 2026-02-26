@@ -393,13 +393,13 @@ const JobSearchPage = ({ savedJobs = [], onSave, onApply, onAnalyze }) => {
           variant="outline" 
           onClick={deepSearch}
           disabled={deepSearching}
-          className="gap-2"
+          className="gap-2 border-violet-400 bg-violet-600 text-white hover:bg-violet-700 hover:text-white font-semibold shadow-md"
           data-testid="deep-search-btn"
         >
           {deepSearching ? (
             <Loader2 className="w-4 h-4 animate-spin" />
           ) : (
-            <Sparkles className="w-4 h-4 text-violet-500" />
+            <Sparkles className="w-4 h-4 text-white" />
           )}
           {t("jobs.aiDeepSearch") || "AI Deep Search"}
         </Button>
