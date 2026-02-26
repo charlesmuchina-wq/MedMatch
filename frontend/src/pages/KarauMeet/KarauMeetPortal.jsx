@@ -251,6 +251,17 @@ const KarauMeetPortal = () => {
   }
 
   // Guest Join Page - redirect guests to lobby instead of direct join
+  if (isEnterprisePage && user) {
+    const OrganizationAdmin = require('@/components/KarauMeet/OrganizationAdmin').default;
+    return (
+      <div className="min-h-screen bg-slate-900">
+        <div className="max-w-7xl mx-auto py-6 px-4">
+          <OrganizationAdmin user={user} />
+        </div>
+      </div>
+    );
+  }
+
   if (isJoinPage && !user) {
     const meetingId = extractMeetingId();
     if (!meetingId) {
