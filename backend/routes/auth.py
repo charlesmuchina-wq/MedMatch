@@ -799,9 +799,7 @@ async def verify_phone_otp(request: VerifyOTPRequest, response: Response):
 @router.get("/me")
 async def get_current_user_endpoint(request: Request):
     """Get current authenticated user"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     # Check if user is admin
     is_admin = (
@@ -839,9 +837,7 @@ async def logout_user(request: Request, response: Response):
 @router.get("/preferences")
 async def get_user_preferences(request: Request):
     """Get user preferences including language"""
-    user = await get_current_user(request)
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
+    user = await require_auth(request)
     
     return {
         "language": user.get("language", "en"),
