@@ -367,6 +367,253 @@ const KarauSettingsPage = () => {
         </div>
       )}
 
+      {/* Calendar Integration Tab */}
+      {activeTab === 'calendar' && (
+        <div className="space-y-4">
+          <Card className="bg-slate-800/50 border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white text-lg flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-blue-400" />
+                Calendar Integrations
+              </CardTitle>
+              <CardDescription className="text-slate-400">
+                Connect your calendar to sync meetings automatically
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {/* Microsoft Outlook */}
+              <div className="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg border border-slate-700/50" data-testid="calendar-microsoft">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-[#0078D4]/20 flex items-center justify-center">
+                    <svg className="w-5 h-5 text-[#0078D4]" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M21.17 2.06A2.13 2.13 0 0019.05 0H4.95A2.13 2.13 0 002.83 2.06L12 13.12 21.17 2.06zM22 3.95L12.72 14.4a1 1 0 01-1.44 0L2 3.95V19.05A2.13 2.13 0 004.95 22h14.1A2.13 2.13 0 0022 19.05V3.95z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Microsoft Outlook / 365</p>
+                    {calendarStatus.providers?.microsoft ? (
+                      <p className="text-xs text-green-400">Connected: {calendarStatus.providers.microsoft.email}</p>
+                    ) : calendarStatus.configured?.microsoft ? (
+                      <p className="text-xs text-slate-400">Available - Click to connect</p>
+                    ) : (
+                      <p className="text-xs text-yellow-400">Not configured - Admin setup required</p>
+                    )}
+                  </div>
+                </div>
+                {calendarStatus.providers?.microsoft ? (
+                  <Button variant="outline" size="sm" className="border-red-500/30 text-red-400 hover:bg-red-500/10"
+                    onClick={() => disconnectCalendar('microsoft')} data-testid="btn-disconnect-ms">
+                    <Unlink className="w-4 h-4 mr-1" /> Disconnect
+                  </Button>
+                ) : (
+                  <Button size="sm" className="bg-[#0078D4] hover:bg-[#0078D4]/80"
+                    onClick={connectMicrosoftCalendar} disabled={calendarLoading || !calendarStatus.configured?.microsoft}
+                    data-testid="btn-connect-ms">
+                    {calendarLoading ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : <Link2 className="w-4 h-4 mr-1" />}
+                    Connect
+                  </Button>
+                )}
+              </div>
+
+              {/* Apple Calendar / .ics */}
+              <div className="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg border border-slate-700/50" data-testid="calendar-apple">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-slate-600/30 flex items-center justify-center">
+                    <Calendar className="w-5 h-5 text-slate-300" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Apple Calendar / iOS</p>
+                    <p className="text-xs text-green-400">Always available via .ics export</p>
+                  </div>
+                </div>
+                <Badge className="bg-green-500/20 text-green-400">Available</Badge>
+              </div>
+
+              {/* Google Calendar */}
+              <div className="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg border border-slate-700/50" data-testid="calendar-google">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-[#4285F4]/20 flex items-center justify-center">
+                    <Calendar className="w-5 h-5 text-[#4285F4]" />
+                  </div>
+                  <div>
+                    <p className="text-white font-medium">Google Calendar</p>
+                    <p className="text-xs text-green-400">Available via direct link</p>
+                  </div>
+                </div>
+                <Badge className="bg-green-500/20 text-green-400">Available</Badge>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-slate-800/50 border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white text-lg">How Calendar Sync Works</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3 text-sm text-slate-300">
+                <p>When you create or schedule a meeting, connected calendars will automatically receive the event with:</p>
+                <ul className="list-disc list-inside space-y-1 text-slate-400">
+                  <li>Meeting title and description</li>
+                  <li>Direct join link for one-click access</li>
+                  <li>15-minute reminder before start</li>
+                  <li>Automatic updates if meeting is rescheduled</li>
+                </ul>
+                <p className="text-xs text-slate-500 mt-3">
+                  Apple Calendar and Google Calendar work via .ics download and direct links respectively. 
+                  Microsoft Outlook requires OAuth connection for two-way sync.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* SSO/SAML Tab */}
+      {activeTab === 'sso' && (
+        <div className="space-y-4">
+          <Card className="bg-slate-800/50 border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white text-lg flex items-center gap-2">
+                <Key className="w-5 h-5 text-amber-400" />
+                Enterprise SSO / SAML 2.0
+              </CardTitle>
+              <CardDescription className="text-slate-400">
+                Configure Single Sign-On for your organization
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="p-4 bg-slate-900/50 rounded-lg border border-slate-700/50">
+                <h4 className="text-white font-medium mb-2">Service Provider (SP) Details</h4>
+                <p className="text-xs text-slate-400 mb-3">Provide these to your Identity Provider (IdP)</p>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between p-2 bg-slate-800 rounded">
+                    <span className="text-xs text-slate-400">Entity ID</span>
+                    <code className="text-xs text-turquoise">https://aikarau.com/saml/metadata</code>
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-slate-800 rounded">
+                    <span className="text-xs text-slate-400">ACS URL</span>
+                    <code className="text-xs text-turquoise">https://aikarau.com/api/karau-meet/sso/acs</code>
+                  </div>
+                  <div className="flex items-center justify-between p-2 bg-slate-800 rounded">
+                    <span className="text-xs text-slate-400">Metadata URL</span>
+                    <a href={`${API}/api/karau-meet/sso/metadata`} target="_blank" rel="noopener noreferrer"
+                      className="text-xs text-turquoise hover:underline flex items-center gap-1">
+                      View XML <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <h4 className="text-white font-medium">Identity Provider (IdP) Configuration</h4>
+                <div>
+                  <Label className="text-slate-300 text-sm">IdP Entity ID</Label>
+                  <Input
+                    placeholder="https://idp.example.com/saml/metadata"
+                    value={ssoForm.idp_entity_id}
+                    onChange={e => setSsoForm(f => ({ ...f, idp_entity_id: e.target.value }))}
+                    className="bg-slate-900 border-slate-600 text-white mt-1"
+                    data-testid="sso-idp-entity-id"
+                  />
+                </div>
+                <div>
+                  <Label className="text-slate-300 text-sm">SSO Login URL</Label>
+                  <Input
+                    placeholder="https://idp.example.com/saml/sso"
+                    value={ssoForm.idp_sso_url}
+                    onChange={e => setSsoForm(f => ({ ...f, idp_sso_url: e.target.value }))}
+                    className="bg-slate-900 border-slate-600 text-white mt-1"
+                    data-testid="sso-sso-url"
+                  />
+                </div>
+                <div>
+                  <Label className="text-slate-300 text-sm">SLO URL (Optional)</Label>
+                  <Input
+                    placeholder="https://idp.example.com/saml/slo"
+                    value={ssoForm.idp_slo_url}
+                    onChange={e => setSsoForm(f => ({ ...f, idp_slo_url: e.target.value }))}
+                    className="bg-slate-900 border-slate-600 text-white mt-1"
+                    data-testid="sso-slo-url"
+                  />
+                </div>
+                <div>
+                  <Label className="text-slate-300 text-sm">IdP Certificate (PEM)</Label>
+                  <textarea
+                    placeholder="-----BEGIN CERTIFICATE-----&#10;...&#10;-----END CERTIFICATE-----"
+                    value={ssoForm.idp_certificate}
+                    onChange={e => setSsoForm(f => ({ ...f, idp_certificate: e.target.value }))}
+                    className="w-full bg-slate-900 border border-slate-600 text-white rounded-lg px-3 py-2 mt-1 h-24 text-xs font-mono"
+                    data-testid="sso-certificate"
+                  />
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div>
+                    <Label className="text-white">Enforce SSO</Label>
+                    <p className="text-xs text-slate-400">Require SSO for all users in your org</p>
+                  </div>
+                  <Switch checked={ssoForm.enforce_sso}
+                    onCheckedChange={v => setSsoForm(f => ({ ...f, enforce_sso: v }))}
+                    data-testid="sso-enforce-toggle" />
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <div>
+                    <Label className="text-white">Auto-Provision Users</Label>
+                    <p className="text-xs text-slate-400">Automatically create accounts on first SSO login</p>
+                  </div>
+                  <Switch checked={ssoForm.auto_provision}
+                    onCheckedChange={v => setSsoForm(f => ({ ...f, auto_provision: v }))}
+                    data-testid="sso-auto-provision-toggle" />
+                </div>
+
+                <Button className="bg-turquoise hover:bg-turquoise/80 w-full" disabled={ssoSaving || !ssoForm.idp_entity_id || !ssoForm.idp_sso_url}
+                  data-testid="btn-save-sso"
+                  onClick={async () => {
+                    setSsoSaving(true);
+                    const token = localStorage.getItem('token');
+                    try {
+                      const userRes = await fetch(`${API}/api/auth/me`, { headers: { 'Authorization': `Bearer ${token}` } });
+                      const userData = await userRes.json();
+                      const orgId = userData.organization_id || 'default';
+                      const res = await fetch(`${API}/api/karau-meet/sso/configure`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                        body: JSON.stringify({ org_id: orgId, ...ssoForm })
+                      });
+                      if (res.ok) {
+                        toast.success('SSO configuration saved');
+                      } else {
+                        const err = await res.json();
+                        toast.error(err.detail || 'Failed to save SSO');
+                      }
+                    } catch { toast.error('Failed to save SSO configuration'); }
+                    setSsoSaving(false);
+                  }}>
+                  {ssoSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Key className="w-4 h-4 mr-2" />}
+                  Save SSO Configuration
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-slate-800/50 border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white text-lg">Supported Identity Providers</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {['Okta', 'Azure AD', 'OneLogin', 'Google Workspace', 'PingIdentity', 'Auth0', 'Duo', 'JumpCloud'].map(idp => (
+                  <div key={idp} className="p-3 bg-slate-900/50 rounded-lg text-center border border-slate-700/30">
+                    <p className="text-sm text-slate-300">{idp}</p>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
       {/* Security Tab */}
       {activeTab === 'security' && (
         <div className="space-y-4">
