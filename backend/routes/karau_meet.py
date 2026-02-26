@@ -32,6 +32,7 @@ from services.karau_meet import (
     reject_from_waiting_room,
     is_user_admitted,
 )
+from services.karau_meet.webrtc_signaling import get_connection_manager
 from routes.auth import get_current_user
 
 router = APIRouter(prefix="/karau-meet", tags=["AI KARAU Meeting"])
