@@ -223,7 +223,7 @@ const VideoParticipant = ({
  * Grid layout for all participants in a meeting
  * Supports: Gallery view, Spotlight view, Pin participant, Focus mode
  */
-const ParticipantGrid = ({ participants, localStream, remoteStreams, localUserId, virtualBackground }) => {
+const ParticipantGrid = ({ participants, localStream, remoteStreams, localUserId, virtualBackground, activeSpeakerId }) => {
   const [viewMode, setViewMode] = useState('gallery'); // 'gallery' | 'spotlight' | 'focus'
   const [pinnedUserId, setPinnedUserId] = useState(null);
 
