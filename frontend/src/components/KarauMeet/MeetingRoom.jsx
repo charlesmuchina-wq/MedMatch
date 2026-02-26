@@ -1755,6 +1755,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                   onMuteAll={muteAll}
                   onPassMic={passMic}
                   activeSpeakerId={activeSpeakerId}
+                  onOpenBreakoutRooms={() => setShowBreakoutManager(true)}
                 />
               )}
               {activePanel === 'ai-notes' && (
@@ -1764,6 +1765,14 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 <SettingsPanel 
                   settings={meetingSettings} 
                   onUpdateSettings={(updates) => setMeetingSettings(prev => ({ ...prev, ...updates }))}
+                />
+              )}
+              {showBreakoutManager && (
+                <BreakoutRoomManager
+                  meetingId={meetingId}
+                  participants={allParticipants}
+                  isHost={isHost}
+                  onClose={() => setShowBreakoutManager(false)}
                 />
               )}
             </div>
