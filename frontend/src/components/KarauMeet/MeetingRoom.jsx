@@ -1335,6 +1335,23 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
     }
   }, [safeSend]);
 
+  // Host: Mute all participants
+  const muteAll = useCallback(() => {
+    safeSend({ type: 'mute_all' });
+    toast.success('All participants muted');
+  }, [safeSend]);
+
+  // Host: Force-mute a specific participant
+  const muteParticipant = useCallback((targetUserId) => {
+    safeSend({ type: 'mute_participant', target: targetUserId });
+  }, [safeSend]);
+
+  // Host: Pass mic to a specific participant (auto-unmutes them, mutes others)
+  const passMic = useCallback((targetUserId) => {
+    safeSend({ type: 'pass_mic', target: targetUserId });
+    toast.success('Mic passed');
+  }, [safeSend]);
+
   const toggleScreenShare = useCallback(async () => {
     try {
       if (isScreenSharing) {
