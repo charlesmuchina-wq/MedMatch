@@ -162,7 +162,10 @@ const JobSearchPage = ({ savedJobs = [], onSave, onApply, onAnalyze }) => {
     setDeepSearching(true);
     setSearchStats(null);
     try {
-      const response = await api.client.post('/api/jobs/deep-search', { use_ai: true });
+      const response = await api.client.post('/api/jobs/deep-search', { 
+        use_ai: true,
+        query: query.trim()
+      });
       setJobs(response.data.jobs || []);
       setSearchStats({
         total: response.data.total_found,
