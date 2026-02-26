@@ -27,6 +27,12 @@ MS_AUTHORITY = "https://login.microsoftonline.com/common"
 MS_GRAPH_URL = "https://graph.microsoft.com/v1.0"
 MS_SCOPES = "Calendars.ReadWrite offline_access User.Read"
 
+# Google Calendar API config
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CALENDAR_CLIENT_ID", "")
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CALENDAR_CLIENT_SECRET", "")
+GOOGLE_REDIRECT_URI = os.environ.get("GOOGLE_CALENDAR_REDIRECT_URI", "")
+GOOGLE_SCOPES = "https://www.googleapis.com/auth/calendar.events"
+
 
 class CalendarSyncRequest(BaseModel):
     meeting_id: str
@@ -62,7 +68,7 @@ async def get_calendar_status(user=Depends(require_auth)):
 
     configured = {
         "microsoft": bool(MS_CLIENT_ID and MS_CLIENT_SECRET),
-        "google": False,  # Not implemented yet
+        "google": bool(GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET),
         "apple_ics": True,  # Always available via .ics export
     }
 
