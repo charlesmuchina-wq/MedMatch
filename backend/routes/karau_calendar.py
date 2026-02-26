@@ -156,6 +156,84 @@ async def microsoft_callback(code: str, state: str):
     return RedirectResponse(url="/karau-meet/settings?calendar=connected")
 
 
+# ============ GOOGLE CALENDAR OAUTH ============
+
+@router.get("/google/connect")
+async def google_connect(user=Depends(require_auth)):
+    """Start Google OAuth flow for calendar access."""
+    if not GOOGLE_CLIENT_ID or not GOOGLE_CLIENT_SECRET:
+        raise HTTPException(status_code=503, detail="Google Calendar integration not configured. Admin must set GOOGLE_CALENDAR_CLIENT_ID and GOOGLE_CALENDAR_CLIENT_SECRET.")
+
+    state = f"{user['user_id']}:{uuid.uuid4().hex[:16]}"
+    await db.karau_oauth_states.update_one(
+        {"state": state},
+        {"$set": {"user_id": user["user_id"], "provider": "google", "created_at": datetime.now(timezone.utc).isoformat()}},
+        upsert=True,
+    )
+
+    params = urllib.parse.urlencode({
+        "client_id": GOOGLE_CLIENT_ID,
+        "redirect_uri": GOOGLE_REDIRECT_URI,
+        "response_type": "code",
+        "scope": GOOGLE_SCOPES,
+        "access_type": "offline",
+        "prompt": "consent",
+        "state": state,
+    })
+    return {"auth_url": f"https://accounts.google.com/o/oauth2/v2/auth?{params}"}
+
+
+@router.get("/google/callback")
+async def google_callback(code: str, state: str):
+    """Handle Google OAuth callback."""
+    record = await db.karau_oauth_states.find_one({"state": state})
+    if not record:
+        raise HTTPException(status_code=400, detail="Invalid state")
+
+    user_id = record["user_id"]
+    await db.karau_oauth_states.delete_one({"state": state})
+
+    async with httpx.AsyncClient() as client:
+        token_resp = await client.post(
+            "https://oauth2.googleapis.com/token",
+            data={
+                "client_id": GOOGLE_CLIENT_ID,
+                "client_secret": GOOGLE_CLIENT_SECRET,
+                "code": code,
+                "redirect_uri": GOOGLE_REDIRECT_URI,
+                "grant_type": "authorization_code",
+            },
+        )
+        if token_resp.status_code != 200:
+            logger.error(f"Google token exchange failed: {token_resp.text}")
+            raise HTTPException(status_code=400, detail="Failed to connect Google Calendar")
+
+        tokens = token_resp.json()
+
+        profile_resp = await client.get(
+            "https://www.googleapis.com/oauth2/v2/userinfo",
+            headers={"Authorization": f"Bearer {tokens['access_token']}"},
+        )
+        profile = profile_resp.json() if profile_resp.status_code == 200 else {}
+
+    await db.karau_calendar_connections.update_one(
+        {"user_id": user_id, "provider": "google"},
+        {"$set": {
+            "user_id": user_id,
+            "provider": "google",
+            "access_token": tokens["access_token"],
+            "refresh_token": tokens.get("refresh_token", ""),
+            "expires_at": (datetime.now(timezone.utc) + timedelta(seconds=tokens.get("expires_in", 3600))).isoformat(),
+            "email": profile.get("email", ""),
+            "display_name": profile.get("name", ""),
+            "connected_at": datetime.now(timezone.utc).isoformat(),
+        }},
+        upsert=True,
+    )
+
+    return RedirectResponse(url="/karau-meet/settings?calendar=connected")
+
+
 # ============ SYNC EVENTS ============
 
 @router.post("/sync")
