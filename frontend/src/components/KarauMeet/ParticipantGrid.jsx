@@ -96,7 +96,7 @@ const VideoParticipant = ({
 
   return (
     <div 
-      className={`relative w-full h-full rounded-xl overflow-hidden bg-slate-900 ${isSpeaking ? 'ring-2 ring-turquoise' : ''} ${isPinned ? 'ring-2 ring-yellow-500' : ''}`}
+      className={`relative w-full h-full rounded-xl overflow-hidden bg-slate-900 transition-all duration-200 ${isSpeaking ? 'ring-[3px] ring-emerald-500 shadow-lg shadow-emerald-500/20' : ''} ${isPinned ? 'ring-2 ring-yellow-500' : ''}`}
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
       onTouchStart={() => setShowActions(true)}
