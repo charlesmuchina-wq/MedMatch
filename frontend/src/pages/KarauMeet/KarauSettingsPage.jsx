@@ -437,10 +437,38 @@ const KarauSettingsPage = () => {
                   </div>
                   <div>
                     <p className="text-white font-medium">Google Calendar</p>
-                    <p className="text-xs text-green-400">Available via direct link</p>
+                    {calendarStatus.providers?.google ? (
+                      <p className="text-xs text-green-400">Connected: {calendarStatus.providers.google.email}</p>
+                    ) : calendarStatus.configured?.google ? (
+                      <p className="text-xs text-slate-400">Available - Click to connect</p>
+                    ) : (
+                      <p className="text-xs text-green-400">Available via direct link</p>
+                    )}
                   </div>
                 </div>
-                <Badge className="bg-green-500/20 text-green-400">Available</Badge>
+                {calendarStatus.providers?.google ? (
+                  <Button variant="outline" size="sm" className="border-red-500/30 text-red-400 hover:bg-red-500/10"
+                    onClick={() => disconnectCalendar('google')} data-testid="btn-disconnect-google">
+                    <Unlink className="w-4 h-4 mr-1" /> Disconnect
+                  </Button>
+                ) : calendarStatus.configured?.google ? (
+                  <Button size="sm" className="bg-[#4285F4] hover:bg-[#4285F4]/80"
+                    onClick={async () => {
+                      const token = localStorage.getItem('token');
+                      try {
+                        const res = await fetch(`${API}/api/karau-meet/calendar/google/connect`, {
+                          headers: { 'Authorization': `Bearer ${token}` }
+                        });
+                        const data = await res.json();
+                        if (data.auth_url) window.open(data.auth_url, '_blank', 'width=600,height=700');
+                        else toast.error(data.detail || 'Google Calendar not configured');
+                      } catch { toast.error('Failed to connect'); }
+                    }} data-testid="btn-connect-google">
+                    <Link2 className="w-4 h-4 mr-1" /> Connect
+                  </Button>
+                ) : (
+                  <Badge className="bg-green-500/20 text-green-400">Available</Badge>
+                )}
               </div>
             </CardContent>
           </Card>
