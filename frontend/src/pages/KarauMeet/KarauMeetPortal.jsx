@@ -221,12 +221,17 @@ const KarauMeetPortal = () => {
   // Check if we're in a meeting room (room routes only - join routes handled separately)
   const isInRoom = location.pathname.includes('/room/');
   const isJoinPage = location.pathname.includes('/join/');
+  const isLobbyPage = location.pathname.includes('/lobby/');
   
   // Extract meeting ID from URL for meeting routes
   const extractMeetingId = () => {
     const pathParts = location.pathname.split('/');
     const joinIndex = pathParts.indexOf('join');
     const roomIndex = pathParts.indexOf('room');
+    const lobbyIndex = pathParts.indexOf('lobby');
+    if (lobbyIndex !== -1 && pathParts[lobbyIndex + 1]) {
+      return pathParts[lobbyIndex + 1];
+    }
     if (joinIndex !== -1 && pathParts[joinIndex + 1]) {
       return pathParts[joinIndex + 1];
     }
