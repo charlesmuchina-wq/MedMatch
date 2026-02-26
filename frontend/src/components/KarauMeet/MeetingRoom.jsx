@@ -1118,7 +1118,23 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
     peerConnectionsRef.current[userId] = pc;
     
     localStreamRef.current?.getTracks().forEach(track => {
-      pc.addTrack(track, localStreamRef.current);
+      const sender = pc.addTrack(track, localStreamRef.current);
+      // Set encoding parameters for better video quality
+      if (track.kind === 'video') {
+        setTimeout(async () => {
+          try {
+            const params = sender.getParameters();
+            if (!params.encodings || params.encodings.length === 0) {
+              params.encodings = [{}];
+            }
+            params.encodings[0].maxBitrate = 2500000; // 2.5 Mbps for HD
+            params.encodings[0].maxFramerate = 30;
+            await sender.setParameters(params);
+          } catch (e) {
+            console.log('Could not set video encoding params:', e.message);
+          }
+        }, 100);
+      }
     });
     
     pc.ontrack = (event) => {
