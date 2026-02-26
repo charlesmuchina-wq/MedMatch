@@ -363,7 +363,7 @@ async def create_meeting_breakout_room(
     request: BreakoutRoomRequest,
     user: dict = Depends(get_current_user)
 ):
-    """Create a breakout room (host only)"""
+    """Create a single breakout room (host only)"""
     meeting = await get_meeting(meeting_id)
     
     if not meeting:
@@ -378,14 +378,134 @@ async def create_meeting_breakout_room(
         participant_ids=request.participant_ids
     )
     
-    # Notify affected participants
+    manager = get_connection_manager()
     for participant_id in request.participant_ids:
-        await send_to_user(meeting_id, participant_id, {
+        await manager.send_to_user(meeting_id, participant_id, {
             "type": "breakout_room_assigned",
             "room": room
         })
     
     return room
+
+
+@router.post("/meetings/{meeting_id}/breakout-session/start")
+async def start_breakout(
+    meeting_id: str,
+    request: BreakoutSessionRequest,
+    user: dict = Depends(get_current_user)
+):
+    """Start a breakout session with multiple rooms (host only)."""
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+    if meeting["host_id"] != user["user_id"]:
+        raise HTTPException(status_code=403, detail="Only host can manage breakout rooms")
+
+    rooms = request.rooms
+    if request.auto_assign:
+        rooms = await ai_auto_assign_breakout(meeting_id, request.num_rooms)
+        if not rooms:
+            raise HTTPException(status_code=400, detail="No participants to assign")
+
+    session = await start_breakout_session(meeting_id, rooms, request.timer_minutes)
+
+    # Notify all participants
+    manager = get_connection_manager()
+    await manager.broadcast_to_meeting(meeting_id, {
+        "type": "breakout_session_started",
+        "session": session
+    }, store_in_history=False)
+
+    return session
+
+
+@router.get("/meetings/{meeting_id}/breakout-session")
+async def get_breakout(
+    meeting_id: str,
+    user: dict = Depends(get_current_user)
+):
+    """Get current breakout session status."""
+    session = await get_breakout_session(meeting_id)
+    if not session:
+        return {"status": "none", "session": None}
+    return {"status": session["status"], "session": session}
+
+
+@router.post("/meetings/{meeting_id}/breakout-session/close")
+async def close_breakout(
+    meeting_id: str,
+    user: dict = Depends(get_current_user)
+):
+    """Close breakout session and return everyone to main room (host only)."""
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+    if meeting["host_id"] != user["user_id"]:
+        raise HTTPException(status_code=403, detail="Only host can close breakout rooms")
+
+    result = await close_breakout_session(meeting_id)
+    if "error" in result:
+        raise HTTPException(status_code=400, detail=result["error"])
+
+    manager = get_connection_manager()
+    await manager.broadcast_to_meeting(meeting_id, {
+        "type": "breakout_session_closed",
+        "returned_count": result.get("returned_count", 0)
+    }, store_in_history=False)
+
+    return result
+
+
+@router.post("/meetings/{meeting_id}/breakout-session/move")
+async def move_participant(
+    meeting_id: str,
+    request: MoveParticipantRequest,
+    user: dict = Depends(get_current_user)
+):
+    """Move a participant between breakout rooms (host only)."""
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+    if meeting["host_id"] != user["user_id"]:
+        raise HTTPException(status_code=403, detail="Only host can move participants")
+
+    result = await move_participant_breakout(meeting_id, request.user_id, request.target_room_id)
+    if "error" in result:
+        raise HTTPException(status_code=400, detail=result["error"])
+
+    manager = get_connection_manager()
+    await manager.send_to_user(meeting_id, request.user_id, {
+        "type": "breakout_room_moved",
+        "room_id": request.target_room_id
+    })
+
+    return result
+
+
+@router.post("/meetings/{meeting_id}/breakout-session/auto-assign")
+async def auto_assign_breakout(
+    meeting_id: str,
+    num_rooms: int = 2,
+    user: dict = Depends(get_current_user)
+):
+    """Preview AI auto-assignment without starting (host only)."""
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+    if meeting["host_id"] != user["user_id"]:
+        raise HTTPException(status_code=403, detail="Only host can manage breakout rooms")
+
+    rooms = await ai_auto_assign_breakout(meeting_id, num_rooms)
+
+    # Resolve user names
+    participants = meeting_participants.get(meeting_id, {})
+    for room in rooms:
+        room["participants_detail"] = [
+            {"user_id": uid, "user_name": participants.get(uid, {}).get("user_name", uid)}
+            for uid in room.get("participant_ids", [])
+        ]
+
+    return {"rooms": rooms, "total_participants": sum(len(r.get("participant_ids", [])) for r in rooms)}
 
 
 @router.post("/meetings/{meeting_id}/signal")
