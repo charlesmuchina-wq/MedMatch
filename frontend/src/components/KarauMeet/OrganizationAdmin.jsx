@@ -462,34 +462,14 @@ const OrganizationAdmin = ({ user }) => {
 
                 {/* Employees */}
                 {activeTab === 'employees' && (
-                  <div className="space-y-3" data-testid="org-employees">
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                      <Input
-                        value={employeeSearch}
-                        onChange={e => setEmployeeSearch(e.target.value)}
-                        placeholder="Search by last name..."
-                        className="pl-9 bg-slate-900 border-slate-600 text-white"
-                        data-testid="employee-search"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      {employees.map(emp => (
-                        <div key={emp.employee_id} className="flex items-center justify-between bg-slate-900 rounded-lg px-3 py-2">
-                          <div>
-                            <p className="text-sm text-white">{emp.first_name} {emp.last_name}</p>
-                            <p className="text-xs text-slate-400">{emp.email} {emp.department && `- ${emp.department}`}</p>
-                          </div>
-                          <Badge className="text-[10px] bg-slate-700">{emp.title || 'Employee'}</Badge>
-                        </div>
-                      ))}
-                      {employees.length === 0 && (
-                        <p className="text-slate-500 text-sm text-center py-6">
-                          {employeeSearch ? 'No matches found' : 'No employees added yet'}
-                        </p>
-                      )}
-                    </div>
-                  </div>
+                  <EmployeesTab
+                    org={selectedOrg}
+                    employees={employees}
+                    employeeSearch={employeeSearch}
+                    setEmployeeSearch={setEmployeeSearch}
+                    headers={headers}
+                    onRefresh={() => { fetchOrgs(); searchEmployees(employeeSearch); }}
+                  />
                 )}
 
                 {/* Branding */}
