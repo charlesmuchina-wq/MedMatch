@@ -420,3 +420,217 @@ async def send_to_user(meeting_id: str, user_id: str, message: dict):
         return True
     except:
         return False
+
+
+# ============ LOBBY / WAITING ROOM ENDPOINTS ============
+
+class LobbyJoinRequest(BaseModel):
+    guest_name: str = "Guest"
+    guest_email: str = ""
+    is_guest: bool = True
+
+
+@router.post("/meetings/{meeting_id}/lobby/join")
+async def join_lobby(meeting_id: str, request: LobbyJoinRequest):
+    """Join the meeting lobby (waiting room). No auth required for guests."""
+    import uuid
+
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+
+    if meeting.get("status") == "ended":
+        raise HTTPException(status_code=400, detail="Meeting has ended")
+
+    settings = meeting.get("settings", {})
+    require_admission = settings.get("waiting_room_enabled", True)
+
+    user_id = f"guest_{uuid.uuid4().hex[:12]}"
+    user_name = request.guest_name or "Guest"
+
+    if require_admission:
+        waiting_user = await add_to_waiting_room(
+            meeting_id, user_id, user_name, request.guest_email
+        )
+        # Notify host via WebSocket
+        host_id = meeting.get("host_id")
+        if host_id:
+            await send_to_user(meeting_id, host_id, {
+                "type": "lobby_guest_waiting",
+                "user_id": user_id,
+                "user_name": user_name,
+                "user_email": request.guest_email,
+                "joined_at": waiting_user["joined_at"]
+            })
+        return {
+            "status": "waiting",
+            "user_id": user_id,
+            "user_name": user_name,
+            "meeting_title": meeting.get("title", "AI KARAU Meeting"),
+            "host_name": meeting.get("host_name", "Host"),
+            "require_admission": True,
+            "message": "Waiting for the host to admit you"
+        }
+    else:
+        return {
+            "status": "admitted",
+            "user_id": user_id,
+            "user_name": user_name,
+            "meeting_title": meeting.get("title", "AI KARAU Meeting"),
+            "host_name": meeting.get("host_name", "Host"),
+            "require_admission": False,
+            "message": "You can join directly"
+        }
+
+
+@router.post("/meetings/{meeting_id}/lobby/join-auth")
+async def join_lobby_authenticated(
+    meeting_id: str,
+    user: dict = Depends(get_current_user)
+):
+    """Join the meeting lobby as an authenticated user."""
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+
+    if meeting.get("status") == "ended":
+        raise HTTPException(status_code=400, detail="Meeting has ended")
+
+    # Host always gets admitted
+    is_host = meeting.get("host_id") == user["user_id"]
+    settings = meeting.get("settings", {})
+    require_admission = settings.get("waiting_room_enabled", True) and not is_host
+
+    if require_admission:
+        waiting_user = await add_to_waiting_room(
+            meeting_id,
+            user["user_id"],
+            user.get("name", user.get("email", "Participant")),
+            user.get("email", "")
+        )
+        host_id = meeting.get("host_id")
+        if host_id:
+            await send_to_user(meeting_id, host_id, {
+                "type": "lobby_guest_waiting",
+                "user_id": user["user_id"],
+                "user_name": user.get("name", user.get("email", "Participant")),
+                "user_email": user.get("email", ""),
+                "joined_at": waiting_user["joined_at"]
+            })
+        return {
+            "status": "waiting",
+            "user_id": user["user_id"],
+            "user_name": user.get("name", user.get("email", "Participant")),
+            "meeting_title": meeting.get("title", "AI KARAU Meeting"),
+            "host_name": meeting.get("host_name", "Host"),
+            "require_admission": True,
+            "is_host": False,
+            "message": "Waiting for the host to admit you"
+        }
+    else:
+        return {
+            "status": "admitted",
+            "user_id": user["user_id"],
+            "user_name": user.get("name", user.get("email", "Participant")),
+            "meeting_title": meeting.get("title", "AI KARAU Meeting"),
+            "host_name": meeting.get("host_name", "Host"),
+            "require_admission": False,
+            "is_host": is_host,
+            "message": "You can join directly"
+        }
+
+
+@router.get("/meetings/{meeting_id}/lobby/status")
+async def check_lobby_status(meeting_id: str, user_id: str):
+    """Check if a user has been admitted from the lobby. Polled by guests."""
+    if meeting_id not in waiting_rooms:
+        return {"status": "admitted", "admitted": True}
+
+    if user_id not in waiting_rooms.get(meeting_id, {}):
+        return {"status": "not_found", "admitted": False}
+
+    user_data = waiting_rooms[meeting_id][user_id]
+    status = user_data.get("status", "waiting")
+
+    return {
+        "status": status,
+        "admitted": status == "admitted",
+        "rejected": status == "rejected"
+    }
+
+
+@router.get("/meetings/{meeting_id}/lobby/waiting")
+async def get_lobby_waiting_list(
+    meeting_id: str,
+    user: dict = Depends(get_current_user)
+):
+    """Get the list of users waiting in the lobby (host only)."""
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+
+    if meeting["host_id"] != user["user_id"]:
+        raise HTTPException(status_code=403, detail="Only the host can view the waiting list")
+
+    waiting_list = await get_waiting_room(meeting_id)
+    return {"waiting": waiting_list, "count": len(waiting_list)}
+
+
+class AdmitRequest(BaseModel):
+    user_id: str
+
+
+@router.post("/meetings/{meeting_id}/lobby/admit")
+async def admit_from_lobby(
+    meeting_id: str,
+    request: AdmitRequest,
+    user: dict = Depends(get_current_user)
+):
+    """Admit a user from the lobby (host only)."""
+    result = await admit_from_waiting_room(meeting_id, request.user_id, user["user_id"])
+    if "error" in result:
+        raise HTTPException(status_code=403, detail=result["error"])
+    return result
+
+
+@router.post("/meetings/{meeting_id}/lobby/admit-all")
+async def admit_all_from_lobby(
+    meeting_id: str,
+    user: dict = Depends(get_current_user)
+):
+    """Admit all waiting users from the lobby (host only)."""
+    result = await admit_all_from_waiting_room(meeting_id, user["user_id"])
+    if "error" in result:
+        raise HTTPException(status_code=403, detail=result["error"])
+    return result
+
+
+@router.post("/meetings/{meeting_id}/lobby/deny")
+async def deny_from_lobby(
+    meeting_id: str,
+    request: AdmitRequest,
+    user: dict = Depends(get_current_user)
+):
+    """Deny/reject a user from the lobby (host only)."""
+    result = await reject_from_waiting_room(meeting_id, request.user_id, user["user_id"])
+    if "error" in result:
+        raise HTTPException(status_code=403, detail=result["error"])
+    return result
+
+
+@router.put("/meetings/{meeting_id}/settings/waiting-room")
+async def toggle_waiting_room(
+    meeting_id: str,
+    enabled: bool = True,
+    user: dict = Depends(get_current_user)
+):
+    """Toggle waiting room requirement for a meeting (host only)."""
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+
+    if meeting["host_id"] != user["user_id"]:
+        raise HTTPException(status_code=403, detail="Only the host can change settings")
+
+    meeting.setdefault("settings", {})["waiting_room_enabled"] = enabled
+    return {"success": True, "waiting_room_enabled": enabled}
