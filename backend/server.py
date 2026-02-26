@@ -357,6 +357,8 @@ app.include_router(karau_recordings_router, prefix="/api")
 app.include_router(karau_organizations_router, prefix="/api")
 app.include_router(karau_guest_router, prefix="/api")
 app.include_router(karau_sharing_router, prefix="/api")
+app.include_router(karau_calendar_router, prefix="/api")
+app.include_router(karau_sso_router, prefix="/api")
 
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
