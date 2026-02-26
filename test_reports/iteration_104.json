@@ -79,7 +79,7 @@
     "callback_endpoint": "GET /api/auth/orcid/callback",
     "client_id": "APP-K9HUYS6GQY2RERX6",
     "environment": "production",
-    "redirect_uri": "https://medmatch-karau.preview.emergentagent.com/api/auth/orcid/callback",
+    "redirect_uri": "https://enterprise-video.preview.emergentagent.com/api/auth/orcid/callback",
     "frontend_callback_handling": "useEffect listens for #orcid_session=TOKEN or #orcid_error=ERROR in URL hash",
     "button_styling": {
       "border_color": "#A6CE39",
