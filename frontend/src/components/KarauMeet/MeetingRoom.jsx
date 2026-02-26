@@ -314,6 +314,8 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   const recordedChunksRef = useRef([]);
   const mountedRef = useRef(true);
   const apiRetryCountRef = useRef(0);
+  const audioContextRef = useRef(null);
+  const analyserIntervalRef = useRef(null);
   const maxApiRetries = 3;
   const [iceServers, setIceServers] = useState([
     { urls: 'stun:stun.l.google.com:19302' },
