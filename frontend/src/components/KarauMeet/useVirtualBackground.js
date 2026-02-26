@@ -92,6 +92,70 @@ export const useVirtualBackground = (videoElement, backgroundType, backgroundUrl
     }
   }, []);
 
+  /**
+   * Skin Tone Protection - Automatic AI Enhancement
+   * Adjusts luminance and saturation of skin-tone color ranges to ensure
+   * inclusive, natural rendering for all skin tones without overexposure.
+   * Inspired by Agora SDK skinProtectLevel and Zoom/Teams rendering.
+   */
+  const applySkinToneProtection = useCallback((pixels, maskData) => {
+    for (let i = 0; i < maskData.length; i++) {
+      if (maskData[i] === 0) continue; // Skip background pixels
+
+      const px = i * 4;
+      const r = pixels[px];
+      const g = pixels[px + 1];
+      const b = pixels[px + 2];
+
+      // Fast RGB-to-HSL inline (avoid function call overhead per pixel)
+      const rn = r / 255, gn = g / 255, bn = b / 255;
+      const max = Math.max(rn, gn, bn), min = Math.min(rn, gn, bn);
+      const delta = max - min;
+      let h = 0, s = 0, l = (max + min) / 2;
+
+      if (delta > 0) {
+        s = l > 0.5 ? delta / (2 - max - min) : delta / (max + min);
+        if (max === rn) h = ((gn - bn) / delta + (gn < bn ? 6 : 0)) * 60;
+        else if (max === gn) h = ((bn - rn) / delta + 2) * 60;
+        else h = ((rn - gn) / delta + 4) * 60;
+      }
+
+      // Detect skin tone: hue 8-50 (orange-yellow range), saturation > 0.15, lightness 0.15-0.85
+      if (h >= 8 && h <= 50 && s > 0.15 && l > 0.15 && l < 0.85) {
+        // Boost saturation slightly for vibrancy (stronger for darker tones)
+        const darkBoost = l < 0.4 ? 0.08 : l < 0.55 ? 0.05 : 0.02;
+        s = Math.min(s + darkBoost, 1.0);
+
+        // Lift shadows on darker skin without washing out mid/light tones
+        if (l < 0.35) {
+          l = l + 0.03;
+        } else if (l < 0.5) {
+          l = l + 0.015;
+        }
+        // Prevent overexposure on lighter skin
+        if (l > 0.75) {
+          l = l - 0.01;
+        }
+
+        // HSL back to RGB
+        const c = (1 - Math.abs(2 * l - 1)) * s;
+        const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+        const m = l - c / 2;
+        let r1, g1, b1;
+        if (h < 60)       { r1 = c; g1 = x; b1 = 0; }
+        else if (h < 120) { r1 = x; g1 = c; b1 = 0; }
+        else if (h < 180) { r1 = 0; g1 = c; b1 = x; }
+        else if (h < 240) { r1 = 0; g1 = x; b1 = c; }
+        else if (h < 300) { r1 = x; g1 = 0; b1 = c; }
+        else               { r1 = c; g1 = 0; b1 = x; }
+
+        pixels[px]     = Math.round((r1 + m) * 255);
+        pixels[px + 1] = Math.round((g1 + m) * 255);
+        pixels[px + 2] = Math.round((b1 + m) * 255);
+      }
+    }
+  }, []);
+
   // Composite a frame with background effect
   const compositeFrame = useCallback(() => {
     if (!activeRef.current) return;
@@ -160,27 +224,22 @@ export const useVirtualBackground = (videoElement, backgroundType, backgroundUrl
         }
         
         if (bgPixels) {
-          // CRITICAL: MediaPipe selfie segmenter categoryMask returns:
-          //   0 = background
-          //   1 = person (foreground)
-          // Values are 0 or 1 (NOT 0-255), so we use them directly.
-          // We also apply 1px edge softening to avoid harsh cutouts.
-          
           for (let i = 0; i < maskData.length; i++) {
-            const isPerson = maskData[i] > 0; // 1 = person, 0 = background
+            const isPerson = maskData[i] > 0;
             
             if (!isPerson) {
-              // Background pixel — replace with effect
               const px = i * 4;
-              origPixels[px] = bgPixels[px];         // R
-              origPixels[px + 1] = bgPixels[px + 1]; // G
-              origPixels[px + 2] = bgPixels[px + 2]; // B
+              origPixels[px] = bgPixels[px];
+              origPixels[px + 1] = bgPixels[px + 1];
+              origPixels[px + 2] = bgPixels[px + 2];
             }
-            // Person pixels stay as original video — no change needed
           }
-          
-          ctx.putImageData(originalFrame, 0, 0);
         }
+        
+        // Apply automatic skin tone protection on person pixels
+        applySkinToneProtection(origPixels, maskData);
+        
+        ctx.putImageData(originalFrame, 0, 0);
         
         result.categoryMask.close();
       } else {
@@ -192,7 +251,7 @@ export const useVirtualBackground = (videoElement, backgroundType, backgroundUrl
     }
     
     animationFrameRef.current = requestAnimationFrame(compositeFrame);
-  }, [videoElement]);
+  }, [videoElement, applySkinToneProtection]);
 
   // Start/stop processing based on background type
   useEffect(() => {
