@@ -92,8 +92,6 @@ const JobSearchPage = ({ savedJobs = [], onSave, onApply, onAnalyze }) => {
   const [searchStats, setSearchStats] = useState(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [taxonomyFilters, setTaxonomyFilters] = useState({});
-  const [showVoiceModal, setShowVoiceModal] = useState(false);
-  const [interimTranscript, setInterimTranscript] = useState("");
   
   // Ensure savedJobs is always an array
   const savedJobsArray = Array.isArray(savedJobs) ? savedJobs : [];
