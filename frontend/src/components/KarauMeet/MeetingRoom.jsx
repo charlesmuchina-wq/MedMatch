@@ -642,6 +642,22 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
     };
   }, [meetingId]);
 
+  // Fetch organization branding for meeting footer
+  useEffect(() => {
+    const fetchBranding = async () => {
+      const email = user?.email || '';
+      if (!email) return;
+      try {
+        const res = await fetch(`${API}/api/karau-meet/organizations/branding/by-domain?email=${encodeURIComponent(email)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.has_branding) setOrgBranding(data);
+        }
+      } catch {}
+    };
+    fetchBranding();
+  }, [user?.email]);
+
   // Active speaker detection via audio level analysis
   useEffect(() => {
     if (!localStreamRef.current) return;
