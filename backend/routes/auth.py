@@ -156,6 +156,15 @@ async def get_current_user(request: Request):
     user = await db.users.find_one({"user_id": session["user_id"]}, {"_id": 0})
     return user
 
+
+async def require_auth(request: Request):
+    """Get current user or raise 401. Use for protected endpoints."""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    return user
+
+
 def check_membership_status(user: dict) -> str:
     """Check user's membership status"""
     if user.get("membership_status") == "active":
@@ -1088,7 +1097,8 @@ async def disconnect_google_calendar(request: Request):
 # Export helper functions for use in other modules
 __all__ = [
     'router', 
-    'get_current_user', 
+    'get_current_user',
+    'require_auth',
     'check_membership_status',
     'create_session',
     'create_session_token',
