@@ -9,6 +9,8 @@ from datetime import datetime, timezone, timedelta
 import uuid
 import random
 import logging
+import os
+import httpx
 
 from utils.database import db
 
@@ -19,6 +21,8 @@ logger = logging.getLogger(__name__)
 otp_store = {}  # email -> {otp, expires_at, verified, attempts}
 
 MIN_AGE = 16  # Zoom/Teams standard
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
+SENDER_EMAIL = os.environ.get("SENDER_EMAIL", "onboarding@resend.dev")
 
 
 class GuestRegisterRequest(BaseModel):
