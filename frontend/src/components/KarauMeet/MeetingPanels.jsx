@@ -168,7 +168,7 @@ export const AINotesPanel = ({ notes, isTranscribing }) => {
 /**
  * Participants panel showing all meeting attendees with host controls
  */
-export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, onPassMic, isHost, activeSpeakerId }) => {
+export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, onPassMic, isHost, activeSpeakerId, onOpenBreakoutRooms }) => {
   const [openMenu, setOpenMenu] = useState(null);
 
   return (
