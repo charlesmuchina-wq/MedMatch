@@ -204,7 +204,9 @@ const KarauSettingsPage = () => {
 
   const tabs = [
     { id: 'accessibility', label: 'Accessibility', icon: Settings },
+    { id: 'calendar', label: 'Calendar', icon: Calendar },
     { id: 'security', label: 'Security', icon: Shield },
+    { id: 'sso', label: 'SSO/SAML', icon: Key },
     { id: 'compliance', label: 'Compliance', icon: FileText }
   ];
 
