@@ -566,6 +566,7 @@ async def deep_search_jobs(request: Request):
     try:
         body = await request.json()
         use_ai = body.get("use_ai", True)
+        user_query = body.get("query", "").strip()
         
         # Get user's resume for context
         resume = await db.resumes.find_one(
@@ -573,22 +574,25 @@ async def deep_search_jobs(request: Request):
             {"_id": 0, "skills": 1, "experience": 1, "education": 1, "summary": 1, "job_titles": 1}
         )
         
-        # Build search queries based on resume - use simple keywords
+        # Build search queries — user's search query is ALWAYS first priority
         search_queries = []
         
+        if user_query:
+            search_queries.append(user_query)
+        
         if resume:
-            # Use job titles from resume - simplify them
+            # Use job titles from resume as supplementary queries
             if resume.get("job_titles"):
-                for title in resume["job_titles"][:3]:
-                    # Extract key words from title
+                for title in resume["job_titles"][:2]:
                     simplified = title.replace("(", "").replace(")", "").split()[0:2]
-                    search_queries.append(" ".join(simplified))
+                    q = " ".join(simplified)
+                    if q.lower() != user_query.lower():
+                        search_queries.append(q)
             
-            # Use top skills - single words work better
-            if resume.get("skills"):
-                for skill in resume["skills"][:5]:
+            # Use top skills as supplementary
+            if resume.get("skills") and not user_query:
+                for skill in resume["skills"][:3]:
                     skill_name = skill.get("name", "") if isinstance(skill, dict) else str(skill)
-                    # Take first word if multi-word
                     first_word = skill_name.split()[0] if skill_name else ""
                     if first_word and len(first_word) > 2:
                         search_queries.append(first_word)
