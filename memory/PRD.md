@@ -1,7 +1,7 @@
 # MedMatch-AI KARAU - Product Requirements Document
 
 ## Original Problem Statement
-MedMatch-AI KARAU: AI-powered Life Sciences & Engineering Talent Ecosystem with secure video conferencing.
+MedMatch-AI KARAU: AI-powered Life Sciences & Engineering Talent Ecosystem with enterprise video conferencing (AI KARAU portal).
 
 ---
 
@@ -9,77 +9,90 @@ MedMatch-AI KARAU: AI-powered Life Sciences & Engineering Talent Ecosystem with 
 
 | Component | Status |
 |-----------|--------|
-| Backend | Healthy |
-| Frontend | Running |
-| AI KARAU Meeting | Full-featured enterprise video platform |
+| Backend | Healthy - All routes return proper auth codes |
+| Frontend | Running - 5-tab Settings, 3-step Guest Flow |
+| AI KARAU Meeting | Full enterprise video platform |
 | Translations | 99%+ (50 languages) |
+| PWA/iOS | Configured with KARAU branding |
 
 ---
 
-## Completed This Session
+## All Completed Features
 
-### Auth Error Fix (P2 → DONE)
-- Created `require_auth` dependency in auth.py that raises HTTPException(401) instead of returning None
-- Applied to karau_ai, karau_organizations, karau_recordings, karau_security routes
-- /api/auth/me and /api/auth/preferences now return proper 401 for unauthenticated requests
+### Core Video Meeting
+- Pre-Meeting Lobby with device preview + host waiting room
+- Skin Tone Protection for inclusive video
+- Host Moderation: Mute Participant, Mute All, Pass Mic
+- Active Speaker Highlighting (Web Audio API)
+- Breakout Rooms with AI auto-assignment + timers
+- Screen Sharing
 
-### Calendar Integration (P1 → DONE)
-- Backend: `/api/karau-meet/calendar/status` - Shows connected providers and configuration status
-- Backend: `/api/karau-meet/calendar/microsoft/connect` - Microsoft OAuth flow (needs Azure credentials)
-- Backend: `/api/karau-meet/calendar/sync` - Push meetings to connected calendar
-- Backend: `/api/karau-meet/calendar/disconnect` - Remove calendar connection
-- Frontend: New "Calendar" tab in Settings with Microsoft Outlook, Apple Calendar, Google Calendar providers
-- Apple Calendar always available via .ics export, Google via direct link
+### Enterprise (Phase 1-2)
+- 5-tier licensing model (Free → Enterprise)
+- Company branding (logo/watermark)
+- Verified email domains
+- Conference room management
+- Employee directory with CSV import + LDAP/AD sync
+- Organization admin panel
 
-### Enterprise SSO/SAML (P1 → DONE)
-- Backend: Full SAML 2.0 SP implementation
-  - `/api/karau-meet/sso/configure` - Admin configures IdP settings
-  - `/api/karau-meet/sso/config/{org_id}` - CRUD for SSO config
-  - `/api/karau-meet/sso/login/{org_id}` - Initiates SAML login
-  - `/api/karau-meet/sso/acs` - Assertion Consumer Service
-  - `/api/karau-meet/sso/metadata` - SP metadata XML
-  - `/api/karau-meet/sso/discover` - Email-based SSO discovery
-- Frontend: New "SSO/SAML" tab in Settings with SP details and IdP configuration form
-- Supports: Okta, Azure AD, OneLogin, Google Workspace, PingIdentity, Auth0, Duo, JumpCloud
+### Guest Security (Phase 3)
+- 3-step guest verification: Email → OTP → Age declaration (16+)
+- Production email via Resend (fallback _dev_otp for testing)
+- 6-digit OTP with 10-min expiry, 5-attempt limit, 60s resend cooldown
 
-### Phase 3: Guest 2FA + Age Verification (DONE)
-- Multi-step guest verification: Email+Name → OTP → Age declaration (16+)
-- Backend endpoints: register, verify-otp, age-declaration, resend-otp, status
-
-### Backlog: Calendar & Social Sharing (DONE)
-- ICS export, social sharing (LinkedIn, Twitter/X, WhatsApp, Email, Facebook)
+### Calendar & Sharing (Backlog)
+- ICS calendar export
+- Social sharing: LinkedIn, Twitter/X, WhatsApp, Email
+- Google Calendar direct link
 - Enhanced ShareMeetingDialog
 
-### Previously Completed
-- Phase 1: Enterprise Tier System (5 tiers, domain verification, conference rooms, branding)
-- Phase 2: Employee Directory + LDAP (CSV import, LDAP/AD sync, employee CRUD)
-- Video Features: Pre-Meeting Lobby, Skin Tone Protection, Host Controls, Active Speaker, Breakout Rooms
+### Calendar Integration
+- Microsoft Outlook/365 OAuth infrastructure (needs Azure AD credentials)
+- Google Calendar OAuth infrastructure (needs Google Cloud credentials)
+- Apple Calendar always available via .ics
+- Calendar Settings tab with connect/disconnect UI
+
+### Enterprise SSO/SAML
+- Full SAML 2.0 Service Provider implementation
+- SSO configuration CRUD (admin only)
+- SAML login flow + Assertion Consumer Service
+- SP metadata XML endpoint
+- Email-based SSO discovery
+- Supports: Okta, Azure AD, OneLogin, Google Workspace, PingIdentity, Auth0, Duo, JumpCloud
+- SSO/SAML Settings tab with IdP configuration form
+
+### Auth Error Fix
+- Created `require_auth` dependency (raises 401 instead of returning None)
+- Applied to ALL 54+ route files
+- Protected endpoints now return proper 401/403 instead of 500
+
+### PWA/iOS
+- Updated manifest.json with KARAU branding
+- iOS-specific meta tags (apple-mobile-web-app-capable, status-bar-style)
+- Meeting-focused shortcuts
+
+### Testing & Documentation
+- LDAP integration test scripts
+- Live multi-user test guide (/app/memory/docs/live-test-guide.md)
+- 3 test iterations this session: 114, 115, 116 (all 100% pass)
 
 ---
 
-## Next Tasks
+## Remaining Tasks
 
-### P1: Live Multi-User KARAU Meeting Test
-- Guide user through E2E test with multiple users/devices
-- Validate WebRTC, lobby, host controls, breakout rooms in real-world
+### Activation Required (User Action)
+- **Microsoft Calendar**: Set `MS_CALENDAR_CLIENT_ID` + `MS_CALENDAR_CLIENT_SECRET` in backend .env
+- **Google Calendar**: Set `GOOGLE_CALENDAR_CLIENT_ID` + `GOOGLE_CALENDAR_CLIENT_SECRET` in backend .env
+- **SSO/SAML**: Configure IdP in Settings → SSO/SAML tab
+- **LDAP**: Test against live Active Directory server
 
-### P1: Microsoft Calendar Activation
-- User needs to provide Azure AD app credentials (MS_CALENDAR_CLIENT_ID, MS_CALENDAR_CLIENT_SECRET)
-- Then Microsoft OAuth flow will be fully functional
+### Human-Led Testing
+- Live multi-user E2E meeting test (see /app/memory/docs/live-test-guide.md)
 
-### P1: SSO/SAML Activation
-- User needs to configure their Identity Provider and provide IdP details
-- Then SAML login flow will be fully functional
-
-### P2: Extend require_auth to remaining routes
-- Apply require_auth to all remaining route files (40+ files) for consistent auth behavior
-
-### P2: iOS App Build
-
-### P3: MeetingHeader Component Refactoring
+---
 
 ## Key Info
 - Admin: admin@medmatch.com / Swampdrainer2026!
 - Test User: test@medmatch.io / TestPassword123!
-- Org: org_5a18c854f810 (MedMatch Inc, Grande, 17 employees)
-- Mocked: Google/Apple social sign-in, LDAP sync, Email OTP (_dev_otp), Microsoft Calendar (no Azure creds), SSO (no live IdP)
+- Org: org_5a18c854f810 (MedMatch Inc)
+- Mocked: Microsoft/Google Calendar OAuth, SSO/SAML IdP, Resend email (test key), LDAP sync
