@@ -1,12 +1,12 @@
 {
-  "name": "MedMatch-AI KARAU - AI Job Search",
-  "short_name": "MedMatch-AI KARAU",
-  "description": "AI-powered remote job search companion. Find matching jobs, generate cover letters, and prepare for interviews.",
-  "start_url": "/",
+  "name": "AI KARAU - Enterprise Video Meetings",
+  "short_name": "AI KARAU",
+  "description": "AI-powered enterprise video conferencing with breakout rooms, host controls, and enterprise-grade security.",
+  "start_url": "/karau-meet",
   "display": "standalone",
   "background_color": "#0a0f1a",
   "theme_color": "#14b8a6",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "icons": [
     {
       "src": "/icons/icon-72x72.png",
@@ -59,44 +59,27 @@
   ],
   "shortcuts": [
     {
-      "name": "Search Jobs",
-      "short_name": "Search",
-      "description": "Search for remote jobs",
-      "url": "/search",
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View your meetings dashboard",
+      "url": "/karau-meet",
       "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     },
     {
-      "name": "My Applications",
-      "short_name": "Applications",
-      "description": "View your job applications",
-      "url": "/applications",
+      "name": "Schedule Meeting",
+      "short_name": "Schedule",
+      "description": "Schedule a new meeting",
+      "url": "/karau-meet/schedule",
       "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     },
     {
-      "name": "Upload Resume",
-      "short_name": "Resume",
-      "description": "Upload or manage your resume",
-      "url": "/resume",
+      "name": "Settings",
+      "short_name": "Settings",
+      "description": "Manage your meeting settings",
+      "url": "/karau-meet/settings",
       "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     }
   ],
-  "categories": ["productivity", "business", "utilities"],
-  "screenshots": [
-    {
-      "src": "/screenshots/dashboard.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Dashboard view"
-    },
-    {
-      "src": "/screenshots/search.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Job search"
-    }
-  ],
-  "related_applications": [],
+  "categories": ["productivity", "business", "communication"],
   "prefer_related_applications": false
 }
