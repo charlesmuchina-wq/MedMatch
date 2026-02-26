@@ -7,7 +7,8 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import {
   MessageSquare, Users, Sparkles, Settings,
-  FileText, Download, MoreVertical, Circle
+  FileText, Download, MoreVertical, Circle,
+  Mic, MicOff, Volume2, VolumeX
 } from 'lucide-react';
 import { useTranslation } from '@/utils/i18n';
 
