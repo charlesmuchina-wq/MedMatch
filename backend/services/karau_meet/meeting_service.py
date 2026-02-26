@@ -335,6 +335,172 @@ async def create_breakout_room(
     return breakout_room
 
 
+async def start_breakout_session(
+    meeting_id: str,
+    rooms: List[Dict],
+    timer_minutes: int = 0
+) -> Dict:
+    """Start a breakout session with multiple rooms and optional timer."""
+    import math
+    session_id = str(uuid.uuid4())[:8].upper()
+
+    session = {
+        "session_id": session_id,
+        "meeting_id": meeting_id,
+        "status": "active",
+        "rooms": [],
+        "timer_minutes": timer_minutes,
+        "started_at": datetime.now(timezone.utc).isoformat(),
+        "ends_at": None,
+    }
+
+    if timer_minutes > 0:
+        from datetime import timedelta
+        ends = datetime.now(timezone.utc) + timedelta(minutes=timer_minutes)
+        session["ends_at"] = ends.isoformat()
+
+    # Create each room
+    for room_def in rooms:
+        room_id = str(uuid.uuid4())[:6].upper()
+        room = {
+            "room_id": room_id,
+            "room_name": room_def.get("room_name", f"Room {room_id}"),
+            "participants": room_def.get("participant_ids", []),
+            "max_capacity": 10,
+        }
+        session["rooms"].append(room)
+
+        # Track in breakout_rooms dict
+        if meeting_id not in breakout_rooms:
+            breakout_rooms[meeting_id] = {}
+        breakout_rooms[meeting_id][room_id] = room["participants"]
+
+        # Update participant assignments
+        for uid in room["participants"]:
+            if uid in meeting_participants.get(meeting_id, {}):
+                meeting_participants[meeting_id][uid]["breakout_room"] = room_id
+
+    breakout_sessions[meeting_id] = session
+    return session
+
+
+async def get_breakout_session(meeting_id: str) -> Optional[Dict]:
+    """Get the current breakout session for a meeting."""
+    session = breakout_sessions.get(meeting_id)
+    if not session:
+        return None
+
+    # Check if timer has expired
+    if session.get("ends_at") and session["status"] == "active":
+        ends = datetime.fromisoformat(session["ends_at"])
+        if datetime.now(timezone.utc) >= ends:
+            session["status"] = "expired"
+
+    return session
+
+
+async def close_breakout_session(meeting_id: str) -> Dict:
+    """Close all breakout rooms and return everyone to main room."""
+    session = breakout_sessions.get(meeting_id)
+    if not session:
+        return {"error": "No active breakout session"}
+
+    session["status"] = "closed"
+    session["closed_at"] = datetime.now(timezone.utc).isoformat()
+
+    # Clear participant breakout assignments
+    for room in session.get("rooms", []):
+        for uid in room.get("participants", []):
+            if uid in meeting_participants.get(meeting_id, {}):
+                meeting_participants[meeting_id][uid]["breakout_room"] = None
+
+    # Clear in-memory breakout rooms
+    if meeting_id in breakout_rooms:
+        del breakout_rooms[meeting_id]
+
+    return {"success": True, "returned_count": sum(len(r.get("participants", [])) for r in session.get("rooms", []))}
+
+
+async def move_participant_breakout(
+    meeting_id: str, user_id: str, target_room_id: str
+) -> Dict:
+    """Move a participant from their current room to a different breakout room."""
+    session = breakout_sessions.get(meeting_id)
+    if not session or session["status"] != "active":
+        return {"error": "No active breakout session"}
+
+    # Find current room and remove
+    for room in session["rooms"]:
+        if user_id in room["participants"]:
+            room["participants"].remove(user_id)
+            old_room_id = room["room_id"]
+            if old_room_id in breakout_rooms.get(meeting_id, {}):
+                if user_id in breakout_rooms[meeting_id][old_room_id]:
+                    breakout_rooms[meeting_id][old_room_id].remove(user_id)
+            break
+
+    # Add to target room
+    target_room = None
+    for room in session["rooms"]:
+        if room["room_id"] == target_room_id:
+            target_room = room
+            break
+
+    if not target_room:
+        return {"error": "Target room not found"}
+
+    if len(target_room["participants"]) >= target_room.get("max_capacity", 10):
+        return {"error": "Room is full (max 10)"}
+
+    target_room["participants"].append(user_id)
+    if meeting_id in breakout_rooms:
+        if target_room_id not in breakout_rooms[meeting_id]:
+            breakout_rooms[meeting_id][target_room_id] = []
+        breakout_rooms[meeting_id][target_room_id].append(user_id)
+
+    # Update participant record
+    if user_id in meeting_participants.get(meeting_id, {}):
+        meeting_participants[meeting_id][user_id]["breakout_room"] = target_room_id
+
+    return {"success": True, "room_id": target_room_id}
+
+
+async def ai_auto_assign_breakout(
+    meeting_id: str, num_rooms: int
+) -> List[Dict]:
+    """AI auto-assign participants into breakout rooms.
+    Distributes participants evenly across rooms, max 10 per room.
+    """
+    import math
+    participants = list(meeting_participants.get(meeting_id, {}).values())
+    # Exclude host from breakout assignment
+    meeting = await get_meeting(meeting_id)
+    host_id = meeting.get("host_id", "") if meeting else ""
+    assignable = [p for p in participants if p.get("user_id") != host_id]
+
+    if not assignable:
+        return []
+
+    # Cap rooms so each has at most 10
+    max_rooms = max(1, math.ceil(len(assignable) / 10))
+    num_rooms = min(num_rooms, max_rooms)
+    num_rooms = max(1, num_rooms)
+
+    # Round-robin distribution
+    rooms = []
+    for i in range(num_rooms):
+        rooms.append({
+            "room_name": f"Room {i + 1}",
+            "participant_ids": [],
+        })
+
+    for idx, p in enumerate(assignable):
+        room_idx = idx % num_rooms
+        rooms[room_idx]["participant_ids"].append(p["user_id"])
+
+    return rooms
+
+
 async def get_user_meetings(user_id: str, limit: int = 20) -> List[Dict]:
     """Get meetings for a user (hosted or participated)"""
     meetings = await db.karau_meetings.find(
