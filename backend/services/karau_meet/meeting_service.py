@@ -24,6 +24,7 @@ db = client[DB_NAME]
 active_meetings: Dict[str, Dict] = {}
 meeting_participants: Dict[str, Dict[str, Any]] = {}  # meeting_id -> {user_id: participant_data}
 breakout_rooms: Dict[str, Dict[str, List[str]]] = {}  # meeting_id -> {room_id: [user_ids]}
+breakout_sessions: Dict[str, Dict[str, Any]] = {}  # meeting_id -> session data (rooms, timer, status)
 waiting_rooms: Dict[str, Dict[str, Any]] = {}  # meeting_id -> {user_id: user_data}
 meeting_locks: Dict[str, bool] = {}  # meeting_id -> is_locked
 
