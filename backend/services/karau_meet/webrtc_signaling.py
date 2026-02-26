@@ -578,7 +578,46 @@ async def handle_webrtc_signaling(
                     target_user,
                     {
                         "type": "host_action",
-                        "action": "mute_request",
+                        "action": "force_mute",
+                        "from_host": user_name
+                    }
+                )
+            
+            elif message_type == "mute_all" and is_host:
+                # Mute all participants except host
+                await manager.broadcast_to_meeting(
+                    meeting_id,
+                    {
+                        "type": "host_action",
+                        "action": "force_mute",
+                        "from_host": user_name
+                    },
+                    exclude_user=user_id,
+                    store_in_history=False
+                )
+            
+            elif message_type == "pass_mic" and is_host:
+                # Pass mic to a participant - unmute them, mute everyone else
+                target_user = data.get("target")
+                # Mute all except host and target
+                for pid in manager.active_connections.get(meeting_id, {}):
+                    if pid != user_id and pid != target_user:
+                        await manager.send_to_user(
+                            meeting_id,
+                            pid,
+                            {
+                                "type": "host_action",
+                                "action": "force_mute",
+                                "from_host": user_name
+                            }
+                        )
+                # Tell target to unmute
+                await manager.send_to_user(
+                    meeting_id,
+                    target_user,
+                    {
+                        "type": "host_action",
+                        "action": "pass_mic",
                         "from_host": user_name
                     }
                 )
