@@ -1657,7 +1657,20 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
           </div>
 
           {/* Main Control Bar - Zoom style */}
-          <div className="h-16 bg-slate-800 border-t border-slate-700 flex items-center justify-center gap-3 px-4 flex-shrink-0">
+          <div className="h-16 bg-slate-800 border-t border-slate-700 flex items-center justify-center gap-3 px-4 flex-shrink-0 relative">
+            {/* Org branding footer (left side) */}
+            {orgBranding && (
+              <div className="absolute left-4 flex items-center gap-2" data-testid="org-branding-footer">
+                {orgBranding.logo_url ? (
+                  <img src={orgBranding.logo_url} alt="" className="h-5 object-contain opacity-70" />
+                ) : (
+                  <div className="w-5 h-5 rounded flex items-center justify-center text-white text-[9px] font-bold opacity-70" style={{ backgroundColor: orgBranding.primary_color }}>
+                    {orgBranding.org_name?.charAt(0)}
+                  </div>
+                )}
+                <span className="text-[10px] text-slate-500">{orgBranding.watermark_text}</span>
+              </div>
+            )}
             {/* Audio Control */}
             <div className="flex flex-col items-center">
               <Button
