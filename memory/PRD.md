@@ -7,7 +7,7 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 
 ---
 
-## System Status (February 24, 2026)
+## System Status (February 26, 2026)
 
 | Component | Status | Details |
 |-----------|--------|---------|
@@ -15,104 +15,78 @@ Create a comprehensive, AI-powered application named "MedMatch-AI KARAU" to auto
 | **Frontend** | Running | Webpack compiled, no errors |
 | **Database** | Optimized | 82 collections, 56K docs, 9+ indexes |
 | **Scheduled Maintenance** | Active | Weekly Sundays 9:00 UTC via Dragon Scheduler |
-| **AI KARAU Meeting** | Verified | E2E 100% pass, Share Meeting feature |
-| **Translations** | **99%+** | 1,940+ keys, 50 languages, all bundled, KARAU portal fully translated |
+| **AI KARAU Meeting** | Enhanced | Pre-Meeting Lobby, Skin Tone Protection, Guest Admission |
+| **Translations** | **99%+** | 1,940+ keys, 50 languages, all bundled |
 
 ---
 
-## Completed Features (This Session)
+## Completed Features (February 26, 2026)
 
-### 1. Share Meeting Feature
-- Guest Join Page (`/karau-meet/join/{meetingId}`) - no account needed
-- ShareMeetingDialog: copy link, .ics download, Google Calendar
-- Share buttons on Dashboard, Create Meeting dialog, Meeting Room header
-- Backend public endpoint: `GET /api/karau-meet/meetings/{id}/info`
+### 10. Pre-Meeting Lobby (Teams-style)
+- **New route**: `/karau-meet/lobby/{meetingId}` - intercepts all meeting joins
+- **Video preview**: Live camera feed with device selection (camera, mic, speaker)
+- **Virtual background picker**: 7 preset backgrounds selectable before joining
+- **Guest admission control**: Host can require guests to wait for admission
+  - Guests see "Waiting for host" with progress indicator
+  - Host receives WebSocket toast notification with "Admit" action button
+  - Host can admit individual guests, admit all, or deny
+- **Auto-admission**: Host always auto-admitted, guests auto-admitted when waiting room disabled
+- **Navigation flow**: Dashboard → Lobby → Room (join links also route through lobby)
+- **8 new backend API endpoints** for lobby management
 
-### 2. Database Standardization & Debugging
-- Audited 82 collections, verified ID format consistency (no duplicates)
-- Fixed _id serialization leak in push.py
-- Suppressed Xirsys TURN error logging (graceful STUN fallback)
-- Created 9 new indexes for performance
-
-### 3. Automated Scheduled Maintenance
-- Extended Dragon Scheduler's `cleanup_old_data()` to also handle:
-  - Expired user sessions
-  - Stale meetings (waiting 7+ days → expired)
-  - ML training data older than 30 days
-  - Expired OAuth states and WebAuthn challenges
-  - Expired email verification codes
-- Runs automatically every Sunday at 9:00 AM UTC
-- Manual trigger: `POST /api/admin-audit/database/maintenance`
-- Health check: `GET /api/admin-audit/database/health`
+### 11. Skin Tone Protection (Automatic AI Enhancement)
+- **Integrated into**: `useVirtualBackground.js` compositeFrame pipeline
+- **Algorithm**: HSL-based per-pixel skin tone detection and enhancement
+  - Detects skin tone range (hue 8-50°, saturation > 0.15, lightness 0.15-0.85)
+  - Darker skin tones: +8% saturation boost, +3% luminance lift
+  - Medium tones: +5% saturation, +1.5% luminance
+  - Light tones: +2% saturation, -1% luminance (prevents overexposure)
+- **Automatic**: No user toggle needed, activates when virtual background is active
+- **Inclusive**: Ensures natural rendering for all skin tones, inspired by Agora SDK
 
 ---
 
-## Completed Features (February 25, 2026)
+## Previous Completed Features
 
-### 4. ORCID OAuth Login
-- "Sign in with ORCID" button on login page with official ORCID green branding (#A6CE39)
-- Full OAuth 2.0 Authorization Code flow via popup window (production orcid.org)
-- Backend endpoints: `GET /api/auth/orcid/config`, `GET /api/auth/orcid/login`, `GET /api/auth/orcid/callback`
-- Auto-creates user account on first ORCID sign-in, links ORCID iD to profile
-- OAuth states stored in MongoDB for load-balancer resilience
-- Callback uses postMessage to communicate with opener window (iframe-compatible)
-- ORCID Client ID: APP-K9HUYS6GQY2RERX6 (production)
-
-### 5. Translation Hardening & QA Mitigator
-- **Fixed hardcoded English in sidebars**: Replaced 20+ raw English strings with translation keys in Admin, Job Seeker, and Recruiter sidebars
-- **Fixed ProfileBadgeShowcase**: All strings now use `t()` with `badges.*` keys
-- **Fixed `{count}` placeholder errors**: Migrated `{count}` → `{{count}}` in all locale files
-- **Added Auto-Fix button**: Translation QA Dashboard mitigator with real-time progress
-- **AI KARAU Meeting Portal**: Added `GlobalLanguageSelector` to sidebar, translated nav items
-- **Eliminated AI-badge slow loading**: Created 18 new locale files, mapped 6 variants. All 50+ languages now load instantly from bundled files
-- **0 missing keys** in all locale files after sync
-
-### 6. Full Translation Sweep (February 25, 2026)
-- Ran comprehensive final sweep using AI translation scripts across all 50 languages
-- Translated 233+ remaining keys across 2 passes (standard + aggressive)
-- All 50 languages now at **99%+ adjusted coverage** (accounting for legitimate cognates, brand names, and placeholders)
-- Total: 1,940 English keys, 50 language files, all pre-bundled (no runtime AI translation needed)
-
-### 7. Translation Health Monitor (February 25, 2026)
-- **Backend**: `GET /api/translation-qa/health-monitor` - real-time coverage analysis
-  - Smart filtering: brands, placeholders, cognates excluded from "untranslated" count
-  - Returns: overall status, per-language coverage, alerts for missing/low coverage
-- **Frontend**: New "Health Monitor" tab (default) in Translation QA Dashboard
-  - Status banner (healthy/warning/critical), key metrics, language coverage table
-  - No active alerts, Refresh button, sorted by lowest coverage first
-- **Testing**: 100% pass rate (9/9 backend, 13/13 frontend)
-
-### 8. Comprehensive Implementation Roadmap (February 25, 2026)
-- Created `/app/memory/ROADMAP.md` with detailed strategy for all P1-P2 items
-- Documented existing LinkedIn, PayPal, ORCID implementations and verification steps
-- Outlined future architecture for Enterprise SSO/SAML, iOS, Social Sharing
-
-### 9. P1 Integration Verification (February 26, 2026)
-- **ORCID OAuth**: Verified config, 307 redirect to orcid.org, "Sign in with ORCID" button
-- **LinkedIn Profile Sync**: Verified integration_configured:true, auth URL, Connect LinkedIn button on Resume page
-- **PayPal Payments**: Verified sandbox payment creation, approval URL, "Pay with PayPal" button for trial users
-- **AI KARAU Meeting Portal**: Verified meeting CRUD APIs, WebRTC ICE servers, dashboard with stats/features
-- All 4 integrations are **production-ready** (ORCID/LinkedIn require user's real accounts to complete full flow)
+### 1-9. See CHANGELOG.md for full history
+- Share Meeting, Database Standardization, Scheduled Maintenance
+- ORCID OAuth, Translation Hardening, Full Translation Sweep
+- Translation Health Monitor, Implementation Roadmap, P1 Integration Verification
 
 ---
 
 ## Backlog (Parked)
 
 ### P1
-- LinkedIn Profile Sync
-- PayPal Integration
-- ORCID live user verification (user needs to test full flow)
+- Live Multi-User KARAU Meeting Test (pending - user needs to test)
+- LinkedIn Profile Sync (implemented, needs user verification)
+- PayPal Integration (implemented, sandbox tested)
+- ORCID live user verification
 
 ### P2
 - Enterprise SSO/SAML
 - iOS Build
 - Social Media Sharing (LinkedIn/Twitter share buttons)
 
+### P3
+- MeetingHeader component refactoring
+
 ---
 
 ## Key Technical Info
 - **Admin:** admin@medmatch.com / Swampdrainer2026!
-- **Scheduler:** Dragon Scheduler, 5 jobs, MongoDB-persisted (apscheduler_jobs)
+- **Test User:** test@medmatch.io / TestPassword123!
+- **Scheduler:** Dragon Scheduler, 5 jobs, MongoDB-persisted
 - **Mocked:** Google and Apple social sign-in
 - **ORCID OAuth:** Production (orcid.org), Client ID: APP-K9HUYS6GQY2RERX6
-- **i18n:** 50 languages, 1,940 keys, 0 missing keys, all pre-bundled, `{{param}}` interpolation syntax, AI auto-fix via Translation QA Dashboard
+- **i18n:** 50 languages, 1,940 keys, 0 missing keys, all pre-bundled
+
+## New API Endpoints (February 26, 2026)
+- `POST /api/karau-meet/meetings/{id}/lobby/join` - Guest joins lobby
+- `POST /api/karau-meet/meetings/{id}/lobby/join-auth` - Authenticated user joins lobby
+- `GET /api/karau-meet/meetings/{id}/lobby/status?user_id=` - Poll admission status
+- `GET /api/karau-meet/meetings/{id}/lobby/waiting` - Host views waiting list
+- `POST /api/karau-meet/meetings/{id}/lobby/admit` - Host admits guest
+- `POST /api/karau-meet/meetings/{id}/lobby/admit-all` - Host admits all
+- `POST /api/karau-meet/meetings/{id}/lobby/deny` - Host denies guest
+- `PUT /api/karau-meet/meetings/{id}/settings/waiting-room?enabled=` - Toggle waiting room
