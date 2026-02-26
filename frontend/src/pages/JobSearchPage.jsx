@@ -29,6 +29,13 @@ const PresetIcons = {
   "search": FileSearch
 };
 
+const LOCATION_TYPES = [
+  { value: "all", label: "All Locations", icon: Globe },
+  { value: "remote", label: "Remote", icon: Laptop },
+  { value: "hybrid", label: "Hybrid", icon: Home },
+  { value: "onsite", label: "On-site", icon: Building },
+];
+
 // Location type icons
 const LocationTypeIcons = {
   "remote": Laptop,
