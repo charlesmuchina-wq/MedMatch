@@ -1804,10 +1804,19 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 onMuteAll={muteAll}
                 onPassMic={passMic}
                 activeSpeakerId={activeSpeakerId}
+                onOpenBreakoutRooms={() => setShowBreakoutManager(true)}
               />
             )}
             {activePanel === 'ai-notes' && (
               <AINotesPanel notes={aiNotes} isTranscribing={isTranscribing} />
+            )}
+            {showBreakoutManager && (
+              <BreakoutRoomManager
+                meetingId={meetingId}
+                participants={allParticipants}
+                isHost={isHost}
+                onClose={() => setShowBreakoutManager(false)}
+              />
             )}
           </div>
         </div>
