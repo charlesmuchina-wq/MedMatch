@@ -1,7 +1,7 @@
 # MedMatch-AI KARAU - Product Requirements Document
 
 ## Original Problem Statement
-MedMatch-AI KARAU: AI-powered Life Sciences & Engineering Talent Ecosystem with secure video conferencing (AI KARAU Meeting Portal).
+MedMatch-AI KARAU: AI-powered Life Sciences & Engineering Talent Ecosystem with secure video conferencing.
 
 ---
 
@@ -11,7 +11,7 @@ MedMatch-AI KARAU: AI-powered Life Sciences & Engineering Talent Ecosystem with 
 |-----------|--------|
 | Backend | Healthy |
 | Frontend | Running |
-| AI KARAU Meeting | Lobby, Skin Tone, Mute, Active Speaker, Breakout Rooms, Enterprise Tiers |
+| AI KARAU Meeting | Lobby, Skin Tone, Mute, Active Speaker, Breakout Rooms, Enterprise Tiers, Employee Directory |
 | Translations | 99%+ (50 languages) |
 
 ---
@@ -19,36 +19,41 @@ MedMatch-AI KARAU: AI-powered Life Sciences & Engineering Talent Ecosystem with 
 ## Completed This Session
 
 ### Phase 1: Enterprise Tier System
-- **5 License Tiers**: Basic (50 users/10 rooms), Professional (100/25), Grande (1000/unlimited), Recruiter (50/5), Personal (1/0)
-- **Domain Verification**: Register email domains, verify, check internal vs external emails
-- **Conference Rooms**: Physical/Virtual/Hybrid with equipment tags, building/floor/capacity, geo-location
-- **Employee Directory**: Add/search/bulk-import employees, last-name search
-- **Company Branding**: Logo + watermark in meeting footer, brand color, Enterprise Verified badge
-- **IT Admin Panel**: `/karau-meet/enterprise` — full CRUD for orgs, rooms, employees, branding preview
-- 15+ backend API endpoints, all tested 100%
+- 5 tiers (Basic/Professional/Grande/Recruiter/Personal)
+- Domain verification, conference rooms (physical/virtual/hybrid), company branding
+- IT Admin panel at /karau-meet/enterprise
 
-### Also Completed
-- Pre-Meeting Lobby (Teams-style) with guest admission
-- Skin Tone Protection (automatic AI enhancement)
-- Host Mute Controls (mute individual/all, pass mic)
-- Active Speaker Detection & Highlighting
-- Breakout Rooms with AI Auto-Assign (max 10/room, timer)
+### Phase 2: Employee Directory + LDAP
+- **CSV Import**: Upload CSV with auto-column detection, duplicate handling, tier limit enforcement
+- **LDAP/AD Integration**: Server configuration, test connection, sync employees
+- **Employee Management**: Add/delete/update, status toggle (active/inactive), source tracking
+- **Stats Dashboard**: Active/inactive counts, department breakdown, source breakdown
+- **Last Name Search**: Find employees by typing last name
+
+### Video Features (also this session)
+- Pre-Meeting Lobby, Skin Tone Protection, Host Mute Controls, Active Speaker, Breakout Rooms
 
 ---
 
-## In Progress / Next Phases
-- **Phase 2**: Employee Directory + Active Directory/LDAP integration + CSV import
-- **Phase 3**: Guest 2FA + Age Verification (16+ self-declaration)
-- **Phase 4**: Recruiter Tier + SSO
-- **Calendar Integration**: Microsoft, Google, iOS (.ics export)
+## Next: Phase 3 — Guest 2FA + Age Verification
+- Guest registration with email verification
+- Two-step verification (email OTP or authenticator)
+- Age self-declaration (16+, per Zoom/Teams standard)
+
+## Phase 4 — Recruiter Tier + SSO
+- Recruiter-specific features and verification
+- Enterprise SSO/SAML integration
+
+## Calendar Integration (upcoming)
+- Microsoft Outlook/365, Google Calendar, iOS (.ics export)
 
 ## Backlog
 - P1: Live multi-user meeting test
-- P2: Enterprise SSO/SAML, iOS Build
+- P2: iOS Build, Social Media Sharing
 - P3: MeetingHeader refactoring
 
 ## Key Info
 - Admin: admin@medmatch.com / Swampdrainer2026!
 - Test User: test@medmatch.io / TestPassword123!
-- Existing Org: org_5a18c854f810 (MedMatch Inc, Grande tier)
-- Mocked: Google/Apple social sign-in
+- Org: org_5a18c854f810 (MedMatch Inc, Grande, 17 employees)
+- Mocked: Google/Apple social sign-in, LDAP sync (no real AD server)
