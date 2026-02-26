@@ -639,6 +639,80 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
     };
   }, [meetingId]);
 
+  // Active speaker detection via audio level analysis
+  useEffect(() => {
+    if (!localStreamRef.current) return;
+    
+    const detectActiveSpeaker = () => {
+      try {
+        if (!audioContextRef.current || audioContextRef.current.state === 'closed') {
+          audioContextRef.current = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        const ctx = audioContextRef.current;
+        
+        // Analyze remote streams for active speaker
+        const checkLevels = () => {
+          let maxLevel = 0;
+          let maxId = null;
+          
+          // Check local stream
+          if (localStreamRef.current && isAudioEnabled) {
+            try {
+              const analyser = ctx.createAnalyser();
+              analyser.fftSize = 256;
+              const source = ctx.createMediaStreamSource(localStreamRef.current);
+              source.connect(analyser);
+              const data = new Uint8Array(analyser.frequencyBinCount);
+              analyser.getByteFrequencyData(data);
+              const avg = data.reduce((a, b) => a + b, 0) / data.length;
+              if (avg > maxLevel && avg > 15) { // Threshold to avoid noise
+                maxLevel = avg;
+                maxId = effectiveUserId;
+              }
+              source.disconnect();
+            } catch {}
+          }
+          
+          // Check remote peer streams
+          for (const [peerId, pc] of Object.entries(peerConnectionsRef.current)) {
+            try {
+              const receivers = pc.getReceivers();
+              const audioReceiver = receivers.find(r => r.track && r.track.kind === 'audio');
+              if (audioReceiver && audioReceiver.track) {
+                const stream = new MediaStream([audioReceiver.track]);
+                const analyser = ctx.createAnalyser();
+                analyser.fftSize = 256;
+                const source = ctx.createMediaStreamSource(stream);
+                source.connect(analyser);
+                const data = new Uint8Array(analyser.frequencyBinCount);
+                analyser.getByteFrequencyData(data);
+                const avg = data.reduce((a, b) => a + b, 0) / data.length;
+                if (avg > maxLevel && avg > 15) {
+                  maxLevel = avg;
+                  maxId = peerId;
+                }
+                source.disconnect();
+              }
+            } catch {}
+          }
+          
+          setActiveSpeakerId(prev => maxId !== prev ? maxId : prev);
+        };
+        
+        analyserIntervalRef.current = setInterval(checkLevels, 500);
+      } catch (e) {
+        console.warn('Active speaker detection failed:', e);
+      }
+    };
+    
+    const timer = setTimeout(detectActiveSpeaker, 2000);
+    
+    return () => {
+      clearTimeout(timer);
+      if (analyserIntervalRef.current) clearInterval(analyserIntervalRef.current);
+    };
+  }, [isAudioEnabled, effectiveUserId]);
+
   // Reconnection state
   const reconnectAttemptsRef = useRef(0);
   const maxReconnectAttempts = 10;
