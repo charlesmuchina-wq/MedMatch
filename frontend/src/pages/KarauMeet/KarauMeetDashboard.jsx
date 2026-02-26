@@ -280,7 +280,7 @@ const KarauMeetDashboard = ({ user }) => {
                     {meeting.status !== 'ended' && (
                       <Button
                         size="sm"
-                        onClick={() => navigate(`/karau-meet/room/${meeting.meeting_id}`)}
+                        onClick={() => navigate(`/karau-meet/lobby/${meeting.meeting_id}`)}
                         className="bg-turquoise hover:bg-turquoise/80"
                       >
                         {meeting.status === 'active' ? t("meeting.rejoin") : t("meeting.start")}
