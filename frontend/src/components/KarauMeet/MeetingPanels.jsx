@@ -270,9 +270,15 @@ export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, 
       
       {isHost && (
         <div className="p-3 border-t border-slate-700">
-          <Button variant="outline" size="sm" className="w-full text-slate-300 border-slate-600">
+          <Button
+            variant="outline"
+            size="sm"
+            className="w-full text-slate-300 border-slate-600"
+            onClick={onOpenBreakoutRooms}
+            data-testid="open-breakout-rooms-btn"
+          >
             <Users className="w-4 h-4 mr-2" />
-            Create Breakout Rooms
+            Breakout Rooms
           </Button>
         </div>
       )}
