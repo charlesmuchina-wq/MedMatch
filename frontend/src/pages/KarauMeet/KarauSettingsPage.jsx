@@ -78,6 +78,13 @@ const KarauSettingsPage = () => {
     } catch (error) {
       console.error('Error fetching settings:', error);
     }
+    // Fetch calendar status
+    try {
+      const calRes = await fetch(`${API}/api/karau-meet/calendar/status`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (calRes.ok) setCalendarStatus(await calRes.json());
+    } catch {}
     setLoading(false);
   };
 
