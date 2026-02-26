@@ -249,7 +249,7 @@ const KarauMeetPortal = () => {
     );
   }
 
-  // Guest Join Page - show branded landing page for guests
+  // Guest Join Page - redirect guests to lobby instead of direct join
   if (isJoinPage && !user) {
     const meetingId = extractMeetingId();
     if (!meetingId) {
@@ -265,21 +265,68 @@ const KarauMeetPortal = () => {
       );
     }
     
+    // Show GuestJoinPage to collect name, then navigate to lobby
     const handleGuestJoin = (guestUser, mId) => {
-      // Store guest info and navigate to room
       localStorage.setItem('karau_guest', JSON.stringify(guestUser));
-      navigate(`/karau-meet/room/${mId}`);
+      navigate(`/karau-meet/lobby/${mId}`);
     };
     
     return <GuestJoinPage onJoin={handleGuestJoin} meetingIdProp={meetingId} />;
   }
 
-  // Logged-in user clicking join link - redirect to room
+  // Logged-in user clicking join link - redirect to lobby
   if (isJoinPage && user) {
     const meetingId = extractMeetingId();
     if (meetingId) {
-      return <MeetingRoom user={user} meetingIdProp={meetingId} />;
+      navigate(`/karau-meet/lobby/${meetingId}`, { replace: true });
+      return null;
     }
+  }
+
+  // Lobby page - pre-meeting lobby for all users
+  if (isLobbyPage) {
+    const meetingId = extractMeetingId();
+    if (!meetingId) {
+      return (
+        <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-red-400 text-lg">Invalid meeting URL</p>
+            <button onClick={() => navigate('/karau-meet')} className="mt-4 text-turquoise hover:underline">Back to Portal</button>
+          </div>
+        </div>
+      );
+    }
+
+    const guestData = localStorage.getItem('karau_guest');
+    const lobbyUser = user || (guestData ? JSON.parse(guestData) : {
+      user_id: `guest_${Date.now()}`,
+      name: 'Guest',
+      email: 'guest@meeting.local',
+      is_guest: true
+    });
+    const isGuest = !user;
+
+    const handleJoinFromLobby = (config) => {
+      // Store config for use by MeetingRoom
+      localStorage.setItem('karau_lobby_config', JSON.stringify(config));
+      if (isGuest) {
+        localStorage.setItem('karau_guest', JSON.stringify({
+          ...lobbyUser,
+          user_id: config.userId,
+          name: config.userName
+        }));
+      }
+      navigate(`/karau-meet/room/${meetingId}`);
+    };
+
+    return (
+      <MeetingLobby
+        meetingId={meetingId}
+        user={lobbyUser}
+        isGuest={isGuest}
+        onJoinMeeting={handleJoinFromLobby}
+      />
+    );
   }
 
   // In meeting room
