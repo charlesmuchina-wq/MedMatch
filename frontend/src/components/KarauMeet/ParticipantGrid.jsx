@@ -326,6 +326,7 @@ const ParticipantGrid = ({ participants, localStream, remoteStreams, localUserId
                 virtualBg={pinnedParticipant.user_id === localUserId ? virtualBackground : null}
                 isPinned={true}
                 onUnpin={handleUnpin}
+                isSpeaking={activeSpeakerId === pinnedParticipant.user_id}
               />
             </div>
             
