@@ -80,7 +80,7 @@ const KarauMeetDashboard = ({ user }) => {
       if (response.ok) {
         const data = await response.json();
         toast.success(t("karauMeet.meetingCreated"));
-        navigate(`/karau-meet/room/${data.meeting_id}`);
+        navigate(`/karau-meet/lobby/${data.meeting_id}`);
       } else {
         toast.error(t("karauMeet.failedCreate"));
       }
