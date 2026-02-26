@@ -1732,7 +1732,10 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 <ParticipantsPanel 
                   participants={allParticipants} 
                   isHost={isHost}
-                  onMuteParticipant={() => {}}
+                  onMuteParticipant={muteParticipant}
+                  onMuteAll={muteAll}
+                  onPassMic={passMic}
+                  activeSpeakerId={activeSpeakerId}
                 />
               )}
               {activePanel === 'ai-notes' && (
@@ -1769,7 +1772,10 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               <ParticipantsPanel 
                 participants={allParticipants} 
                 isHost={isHost}
-                onMuteParticipant={() => {}}
+                onMuteParticipant={muteParticipant}
+                onMuteAll={muteAll}
+                onPassMic={passMic}
+                activeSpeakerId={activeSpeakerId}
               />
             )}
             {activePanel === 'ai-notes' && (
