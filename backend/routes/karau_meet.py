@@ -453,10 +453,11 @@ async def join_lobby(meeting_id: str, request: LobbyJoinRequest):
         waiting_user = await add_to_waiting_room(
             meeting_id, user_id, user_name, request.guest_email
         )
-        # Notify host via WebSocket
+        # Notify host via WebRTC connection manager
         host_id = meeting.get("host_id")
         if host_id:
-            await send_to_user(meeting_id, host_id, {
+            manager = get_connection_manager()
+            await manager.send_to_user(meeting_id, host_id, {
                 "type": "lobby_guest_waiting",
                 "user_id": user_id,
                 "user_name": user_name,
@@ -511,7 +512,8 @@ async def join_lobby_authenticated(
         )
         host_id = meeting.get("host_id")
         if host_id:
-            await send_to_user(meeting_id, host_id, {
+            manager = get_connection_manager()
+            await manager.send_to_user(meeting_id, host_id, {
                 "type": "lobby_guest_waiting",
                 "user_id": user["user_id"],
                 "user_name": user.get("name", user.get("email", "Participant")),
