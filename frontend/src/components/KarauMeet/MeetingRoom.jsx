@@ -1572,6 +1572,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 remoteStreams={remoteStreams}
                 localUserId={user?.user_id}
                 virtualBackground={virtualBackground}
+                activeSpeakerId={activeSpeakerId}
               />
             </div>
           </div>
