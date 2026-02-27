@@ -146,7 +146,7 @@ export default function TeamOutreachPage() {
     setCreatingTemplate(false);
   };
 
-  const useTemplate = (template) => {
+  const applyTemplate = (template) => {
     setOutreachChannel(template.channel);
     setOutreachSubject(template.subject || '');
     setOutreachMsg(template.body);
@@ -443,7 +443,7 @@ export default function TeamOutreachPage() {
                       {t.subject && <p className="text-xs text-slate-400 mb-1">Subject: {t.subject}</p>}
                       <p className="text-xs text-slate-500 line-clamp-3">{t.body}</p>
                       <div className="flex gap-2 mt-3">
-                        <Button size="sm" variant="ghost" className="h-6 text-[10px] text-cyan-400" onClick={() => useTemplate(t)} data-testid={`use-template-${t.id}`}>
+                        <Button size="sm" variant="ghost" className="h-6 text-[10px] text-cyan-400" onClick={() => applyTemplate(t)} data-testid={`use-template-${t.id}`}>
                           <Copy className="w-2.5 h-2.5 mr-1" /> Use
                         </Button>
                       </div>
