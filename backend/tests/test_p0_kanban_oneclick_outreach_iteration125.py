@@ -68,7 +68,7 @@ def job_id(session, auth_cookies):
             return jobs[0].get("id")
     
     # Create a test job
-    job_create = session.post(f"{BASE_URL}/api/jobs`, json={
+    job_create = session.post(f"{BASE_URL}/api/jobs", json={
         "id": f"test-job-{uuid.uuid4()}",
         "title": "TEST_Iteration125_Job",
         "company": "Test Company",
