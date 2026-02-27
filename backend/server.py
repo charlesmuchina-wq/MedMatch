@@ -365,6 +365,8 @@ app.include_router(karau_calendar_router, prefix="/api")
 app.include_router(karau_sso_router, prefix="/api")
 app.include_router(karau_intelligence_router, prefix="/api")
 app.include_router(ai_talent_router, prefix="/api")
+app.include_router(dei_analytics_router, prefix="/api")
+app.include_router(talent_crm_router, prefix="/api")
 
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
