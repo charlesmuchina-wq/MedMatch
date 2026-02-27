@@ -476,6 +476,8 @@ const Header = ({ onMenuClick, resume, user, onLogout }) => {
 // Apply Dialog Component
 const ApplyDialog = ({ job, open, onClose, onConfirm }) => {
   const [notes, setNotes] = useState("");
+  const [quickApplying, setQuickApplying] = useState(false);
+  const [quickApplyResult, setQuickApplyResult] = useState(null);
   const { isDark } = useTheme();
 
   const handleConfirm = () => {
@@ -484,8 +486,26 @@ const ApplyDialog = ({ job, open, onClose, onConfirm }) => {
     onClose();
   };
 
+  const handleQuickApply = async () => {
+    if (!job?.id) return;
+    setQuickApplying(true);
+    setQuickApplyResult(null);
+    try {
+      const res = await axios.post(`${API}/talent-tools/one-click-apply`, { job_id: job.id }, { withCredentials: true });
+      if (res.data.status === 'already_applied') {
+        setQuickApplyResult({ type: 'info', msg: 'Already applied to this job' });
+      } else {
+        setQuickApplyResult({ type: 'success', msg: `Applied to ${res.data.job_title || job.title}!` });
+        setTimeout(() => { onClose(); setQuickApplyResult(null); }, 1500);
+      }
+    } catch (e) {
+      setQuickApplyResult({ type: 'error', msg: e.response?.status === 404 ? 'Job not found in system' : 'Quick apply requires a saved resume profile' });
+    }
+    setQuickApplying(false);
+  };
+
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={(v) => { if (!v) { setQuickApplyResult(null); } onClose(); }}>
       <DialogContent className={isDark ? 'bg-batik-charcoal border-batik-dark-grey text-white' : ''}>
         <DialogHeader>
           <DialogTitle style={{ fontFamily: 'IBM Plex Sans' }}>Track Application</DialogTitle>
@@ -496,8 +516,24 @@ const ApplyDialog = ({ job, open, onClose, onConfirm }) => {
             <p className={`font-medium ${isDark ? 'text-white' : 'text-slate-900'}`}>{job?.title}</p>
             <p className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{job?.company}</p>
           </div>
-          <div>
-            <label className={`text-sm font-medium ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Notes (optional)</label>
+          {quickApplyResult && (
+            <div className={`p-2.5 rounded-lg text-sm ${quickApplyResult.type === 'success' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30' : quickApplyResult.type === 'info' ? 'bg-blue-500/10 text-blue-400 border border-blue-500/30' : 'bg-red-500/10 text-red-400 border border-red-500/30'}`} data-testid="quick-apply-result">
+              {quickApplyResult.msg}
+            </div>
+          )}
+          {job?.id && (
+            <Button
+              onClick={handleQuickApply}
+              disabled={quickApplying}
+              className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white"
+              data-testid="quick-apply-btn"
+            >
+              {quickApplying ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Zap className="w-4 h-4 mr-2" />}
+              One-Click Apply with Saved Profile
+            </Button>
+          )}
+          <div className={`border-t ${isDark ? 'border-batik-grey' : 'border-slate-200'} pt-4`}>
+            <label className={`text-sm font-medium ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>Or track manually with notes</label>
             <Textarea
               placeholder="Add any notes about this application..."
               value={notes}
