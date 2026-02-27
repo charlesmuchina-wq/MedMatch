@@ -28,7 +28,7 @@ const store = new Store({
 });
 
 // Configuration
-const APP_URL = process.env.MEDMATCH_URL || 'https://enterprise-video.preview.emergentagent.com';
+const APP_URL = process.env.MEDMATCH_URL || 'https://medmatch-talent-2.preview.emergentagent.com';
 const isDev = process.env.NODE_ENV === 'development';
 
 let mainWindow = null;

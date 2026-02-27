@@ -11,7 +11,7 @@ import os
 import json
 from datetime import datetime
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://enterprise-video.preview.emergentagent.com').rstrip('/')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://medmatch-talent-2.preview.emergentagent.com').rstrip('/')
 
 # Test Credentials
 ADMIN_EMAIL = "admin@medmatch.com"

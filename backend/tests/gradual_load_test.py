@@ -11,7 +11,7 @@ import statistics
 import json
 from datetime import datetime
 
-API_URL = "https://enterprise-video.preview.emergentagent.com/api"
+API_URL = "https://medmatch-talent-2.preview.emergentagent.com/api"
 
 # Endpoints to test
 ENDPOINTS = [
