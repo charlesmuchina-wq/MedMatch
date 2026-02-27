@@ -52,20 +52,19 @@ module.exports = {
                                 '3': 'hsl(var(--chart-3))',
                                 '4': 'hsl(var(--chart-4))',
                                 '5': 'hsl(var(--chart-5))'
+                        },
+                        karau: {
+                                bg: '#1a1b2e',
+                                card: '#232436',
+                                panel: '#1f2033',
+                                surface: '#2d2e42',
+                                border: '#2e303e',
+                                accent: '#20b2aa',
+                                'accent-bright': '#40e0d0',
+                                text: '#f5f5f5',
+                                muted: '#94a3b8',
+                                danger: '#ef4444'
                         }
-                                },
-                                karau: {
-                                        bg: '#1a1b2e',
-                                        card: '#232436',
-                                        panel: '#1f2033',
-                                        surface: '#2d2e42',
-                                        border: '#2e303e',
-                                        accent: '#20b2aa',
-                                        'accent-bright': '#40e0d0',
-                                        text: '#f5f5f5',
-                                        muted: '#94a3b8',
-                                        danger: '#ef4444'
-                                }
                 },
                 keyframes: {
                         'accordion-down': {
