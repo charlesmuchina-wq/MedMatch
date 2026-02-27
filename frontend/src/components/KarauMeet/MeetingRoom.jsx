@@ -671,6 +671,18 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
     fetchBranding();
   }, [user?.email]);
 
+  // Close "More" menu on outside click
+  useEffect(() => {
+    if (!showMoreMenu) return;
+    const handleClick = (e) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target)) {
+        setShowMoreMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [showMoreMenu]);
+
   // Active speaker detection via audio level analysis
   useEffect(() => {
     if (!localStreamRef.current) return;
