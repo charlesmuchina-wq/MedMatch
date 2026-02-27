@@ -313,6 +313,8 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   const [incomingReaction, setIncomingReaction] = useState(null);
   const [isSummarizing, setIsSummarizing] = useState(false);
   const [showWhiteboard, setShowWhiteboard] = useState(false);
+  const [showMoreMenu, setShowMoreMenu] = useState(false);
+  const moreMenuRef = useRef(null);
   const [meetingSettings, setMeetingSettings] = useState({
     ai_transcription: true,
     auto_summary: true,
