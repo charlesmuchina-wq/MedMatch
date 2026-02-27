@@ -11,7 +11,7 @@ import statistics
 import json
 from datetime import datetime
 
-API_URL = "https://karau-meetings.preview.emergentagent.com/api"
+API_URL = "https://meeting-redesign.preview.emergentagent.com/api"
 
 # Endpoints to test
 ENDPOINTS = [
