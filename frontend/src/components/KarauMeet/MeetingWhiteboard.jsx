@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
-import { Pen, Eraser, Square, Circle, Type, Undo2, Trash2, Download, Palette, X, Minus } from 'lucide-react';
+import { Pen, Eraser, Square, Circle, Type, Undo2, Trash2, Download, Palette, X, Minus, Loader2 } from 'lucide-react';
 
 const COLORS = ['#ffffff', '#20b2aa', '#ef4444', '#22c55e', '#3b82f6', '#f59e0b', '#a855f7', '#ec4899'];
 const SIZES = [2, 4, 8, 12];
