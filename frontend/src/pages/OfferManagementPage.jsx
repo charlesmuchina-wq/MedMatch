@@ -175,12 +175,11 @@ export default function OfferManagementPage() {
     candidate_name: '', job_title: '', salary: '', currency: 'USD',
     start_date: '', benefits: '', notes: '', equity: '', bonus: '', hiring_manager: ''
   });
-  const token = localStorage.getItem('token');
-  const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
+  const fetchOpts = { credentials: 'include' };
+  const postOpts = { credentials: 'include', headers: { 'Content-Type': 'application/json' } };
 
   useEffect(() => {
-    if (token) fetch(`${API}/api/advanced/offers`, { headers }).then(r => r.ok ? r.json() : { offers: [] }).then(d => { setOffers(d.offers || []); setLoading(false); }).catch(() => setLoading(false));
-    else setLoading(false);
+    fetch(`${API}/api/advanced/offers`, fetchOpts).then(r => r.ok ? r.json() : { offers: [] }).then(d => { setOffers(d.offers || []); setLoading(false); }).catch(() => setLoading(false));
   }, []);
 
   const createOffer = async () => {
@@ -188,7 +187,7 @@ export default function OfferManagementPage() {
     setLoading(true);
     try {
       const res = await fetch(`${API}/api/advanced/offers`, {
-        method: 'POST', headers,
+        method: 'POST', ...postOpts,
         body: JSON.stringify({
           ...form, salary: parseFloat(form.salary), bonus: parseFloat(form.bonus) || 0,
           candidate_id: '', job_id: '',
@@ -207,7 +206,7 @@ export default function OfferManagementPage() {
 
   const updateStatus = async (offerId, status) => {
     try {
-      await fetch(`${API}/api/advanced/offers/${offerId}/status`, { method: 'PUT', headers, body: JSON.stringify({ status }) });
+      await fetch(`${API}/api/advanced/offers/${offerId}/status`, { method: 'PUT', ...postOpts, body: JSON.stringify({ status }) });
       setOffers(offers.map(o => o.id === offerId ? { ...o, status } : o));
     } catch (e) { console.error(e); }
   };
