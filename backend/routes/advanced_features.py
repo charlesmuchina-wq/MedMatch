@@ -377,3 +377,220 @@ async def _generate_report_data(db, report_type: str, date_range: str) -> dict:
             "by_status": offer_data
         }
     return {"message": "Report type not supported"}
+
+
+
+# --- Export Endpoints (PDF & CSV) ---
+
+@router.get("/reports/{report_id}/export/csv")
+async def export_report_csv(report_id: str, request: Request):
+    """Export a report as CSV"""
+    from routes.auth import require_auth
+    from server import db
+    from fastapi.responses import StreamingResponse
+    import csv
+    import io
+
+    await require_auth(request)
+    report = await db.custom_reports.find_one({"id": report_id}, {"_id": 0})
+    if not report:
+        raise HTTPException(status_code=404, detail="Report not found")
+
+    data = report.get("data", {})
+    output = io.StringIO()
+    writer = csv.writer(output)
+
+    # Write summary
+    if data.get("summary"):
+        writer.writerow(["--- Summary ---"])
+        for k, v in data["summary"].items():
+            writer.writerow([k.replace("_", " ").title(), v])
+        writer.writerow([])
+
+    # Write funnel/stages
+    if data.get("stages"):
+        writer.writerow(["Stage", "Count", "Percentage"])
+        for s in data["stages"]:
+            writer.writerow([s["stage"], s["count"], f"{s['pct']}%"])
+        writer.writerow([])
+
+    if data.get("funnel"):
+        writer.writerow(["Stage", "Count"])
+        for k, v in data["funnel"].items():
+            writer.writerow([k, v])
+        writer.writerow([])
+
+    # Write source quality table
+    if data.get("source_quality"):
+        cols = list(data["source_quality"][0].keys())
+        writer.writerow(cols)
+        for row in data["source_quality"]:
+            writer.writerow([row.get(c, "") for c in cols])
+        writer.writerow([])
+
+    # Write department diversity
+    if data.get("department_diversity"):
+        cols = list(data["department_diversity"][0].keys())
+        writer.writerow(cols)
+        for row in data["department_diversity"]:
+            writer.writerow([row.get(c, "") for c in cols])
+        writer.writerow([])
+
+    # Write gender distribution
+    if data.get("gender_distribution"):
+        writer.writerow(["Gender", "Count"])
+        for k, v in data["gender_distribution"].items():
+            writer.writerow([k, v])
+        writer.writerow([])
+
+    # Write sources
+    if data.get("sources"):
+        writer.writerow(["Source", "Count"])
+        for k, v in data["sources"].items():
+            writer.writerow([k, v])
+        writer.writerow([])
+
+    # Write monthly time series
+    if data.get("monthly"):
+        writer.writerow(["Month", "Applications", "Interviews", "Hires"])
+        for m in data["monthly"]:
+            writer.writerow([m["month"], m["applications"], m["interviews"], m["hires"]])
+        writer.writerow([])
+
+    # Write offer analysis
+    if data.get("by_status"):
+        writer.writerow(["Status", "Count", "Avg Salary"])
+        for k, v in data["by_status"].items():
+            writer.writerow([k, v.get("count", 0), v.get("avg_salary", 0)])
+
+    output.seek(0)
+    filename = f"{report['name'].replace(' ', '_')}.csv"
+    return StreamingResponse(
+        iter([output.getvalue()]),
+        media_type="text/csv",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'}
+    )
+
+
+@router.get("/reports/{report_id}/export/pdf")
+async def export_report_pdf(report_id: str, request: Request):
+    """Export a report as PDF using reportlab"""
+    from routes.auth import require_auth
+    from server import db
+    from fastapi.responses import StreamingResponse
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib.units import inch, cm
+    from reportlab.lib.colors import HexColor
+    from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    import io
+
+    await require_auth(request)
+    report = await db.custom_reports.find_one({"id": report_id}, {"_id": 0})
+    if not report:
+        raise HTTPException(status_code=404, detail="Report not found")
+
+    data = report.get("data", {})
+    buffer = io.BytesIO()
+
+    doc = SimpleDocTemplate(buffer, pagesize=A4, topMargin=1*cm, bottomMargin=1*cm, leftMargin=1.5*cm, rightMargin=1.5*cm)
+    styles = getSampleStyleSheet()
+    title_style = ParagraphStyle('CustomTitle', parent=styles['Heading1'], fontSize=18, textColor=HexColor('#1a1b2e'), spaceAfter=12)
+    subtitle_style = ParagraphStyle('CustomSubtitle', parent=styles['Normal'], fontSize=10, textColor=HexColor('#666666'), spaceAfter=20)
+    section_style = ParagraphStyle('SectionHeader', parent=styles['Heading2'], fontSize=13, textColor=HexColor('#20b2aa'), spaceAfter=8, spaceBefore=16)
+    body_style = ParagraphStyle('BodyText', parent=styles['Normal'], fontSize=9, textColor=HexColor('#333333'))
+
+    accent = HexColor('#20b2aa')
+    light_accent = HexColor('#e0f7f5')
+    header_bg = HexColor('#1a1b2e')
+    elements = []
+
+    # Title
+    elements.append(Paragraph(report.get("name", "Report"), title_style))
+    elements.append(Paragraph(f"Type: {report.get('report_type', 'N/A').replace('_', ' ').title()} | Range: {report.get('date_range', 'N/A')} | Generated: {report.get('created_at', 'N/A')[:10]}", subtitle_style))
+
+    # Summary
+    if data.get("summary"):
+        elements.append(Paragraph("Summary", section_style))
+        summary_data = [[k.replace("_", " ").title(), str(v)] for k, v in data["summary"].items()]
+        t = Table(summary_data, colWidths=[3*inch, 3*inch])
+        t.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (0, -1), light_accent),
+            ('TEXTCOLOR', (0, 0), (-1, -1), HexColor('#333333')),
+            ('FONTSIZE', (0, 0), (-1, -1), 9),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+            ('TOPPADDING', (0, 0), (-1, -1), 6),
+            ('LEFTPADDING', (0, 0), (-1, -1), 8),
+            ('GRID', (0, 0), (-1, -1), 0.5, HexColor('#dddddd')),
+        ]))
+        elements.append(t)
+        elements.append(Spacer(1, 12))
+
+    def add_table(title, headers, rows):
+        elements.append(Paragraph(title, section_style))
+        table_data = [headers] + rows
+        col_w = (6*inch) / len(headers)
+        t = Table(table_data, colWidths=[col_w]*len(headers))
+        t.setStyle(TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), header_bg),
+            ('TEXTCOLOR', (0, 0), (-1, 0), HexColor('#ffffff')),
+            ('FONTSIZE', (0, 0), (-1, -1), 8),
+            ('FONTSIZE', (0, 0), (-1, 0), 9),
+            ('BOTTOMPADDING', (0, 0), (-1, -1), 5),
+            ('TOPPADDING', (0, 0), (-1, -1), 5),
+            ('LEFTPADDING', (0, 0), (-1, -1), 6),
+            ('GRID', (0, 0), (-1, -1), 0.5, HexColor('#dddddd')),
+            ('ROWBACKGROUNDS', (0, 1), (-1, -1), [HexColor('#ffffff'), HexColor('#f8f8f8')]),
+        ]))
+        elements.append(t)
+        elements.append(Spacer(1, 12))
+
+    # Funnel / Stages
+    if data.get("stages"):
+        add_table("Hiring Funnel", ["Stage", "Count", "Percentage"],
+                  [[s["stage"].title(), str(s["count"]), f"{s['pct']}%"] for s in data["stages"]])
+
+    if data.get("funnel") and not data.get("stages"):
+        add_table("Pipeline", ["Stage", "Count"],
+                  [[k.title(), str(v)] for k, v in data["funnel"].items()])
+
+    # Gender distribution
+    if data.get("gender_distribution"):
+        add_table("Gender Distribution", ["Gender", "Count"],
+                  [[k, str(v)] for k, v in data["gender_distribution"].items()])
+
+    # Sources
+    if data.get("sources"):
+        add_table("Source Breakdown", ["Source", "Count"],
+                  [[k, str(v)] for k, v in data["sources"].items()])
+
+    # Source quality
+    if data.get("source_quality"):
+        cols = list(data["source_quality"][0].keys())
+        add_table("Source Quality", [c.replace("_", " ").title() for c in cols],
+                  [[str(row.get(c, "")) for c in cols] for row in data["source_quality"]])
+
+    # Department diversity
+    if data.get("department_diversity"):
+        cols = list(data["department_diversity"][0].keys())
+        add_table("Department Diversity", [c.replace("_", " ").title() for c in cols],
+                  [[str(row.get(c, "")) for c in cols] for row in data["department_diversity"]])
+
+    # Monthly time series
+    if data.get("monthly"):
+        add_table("Monthly Trend", ["Month", "Applications", "Interviews", "Hires"],
+                  [[m["month"], str(m["applications"]), str(m["interviews"]), str(m["hires"])] for m in data["monthly"]])
+
+    # Offer analysis
+    if data.get("by_status"):
+        add_table("Offers by Status", ["Status", "Count", "Avg Salary"],
+                  [[k.title(), str(v.get("count", 0)), f"${v.get('avg_salary', 0):,.0f}"] for k, v in data["by_status"].items()])
+
+    doc.build(elements)
+    buffer.seek(0)
+    filename = f"{report['name'].replace(' ', '_')}.pdf"
+    return StreamingResponse(
+        buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'}
+    )
