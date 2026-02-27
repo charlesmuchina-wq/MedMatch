@@ -297,11 +297,21 @@ export default function ReportBuilderPage() {
                         <span className="text-[10px] text-slate-500">{selectedReport.date_range} | {new Date(selectedReport.created_at).toLocaleDateString()}</span>
                       </div>
                     </div>
-                    <Button size="sm" variant="ghost" className="text-slate-400 h-7" data-testid="export-report-btn" onClick={() => {
-                      const blob = new Blob([JSON.stringify(selectedReport.data, null, 2)], { type: 'application/json' });
-                      const url = URL.createObjectURL(blob);
-                      const a = document.createElement('a'); a.href = url; a.download = `${selectedReport.name}.json`; a.click();
-                    }}><Download className="w-3 h-3 mr-1" /> Export</Button>
+                    <div className="flex gap-1">
+                      <Button size="sm" variant="ghost" className="text-slate-400 h-7 text-[10px]" data-testid="export-pdf-btn"
+                        onClick={() => { window.open(`${API}/api/advanced/reports/${selectedReport.id}/export/pdf`, '_blank'); }}>
+                        <FileText className="w-3 h-3 mr-1" /> PDF
+                      </Button>
+                      <Button size="sm" variant="ghost" className="text-slate-400 h-7 text-[10px]" data-testid="export-csv-btn"
+                        onClick={() => { window.open(`${API}/api/advanced/reports/${selectedReport.id}/export/csv`, '_blank'); }}>
+                        <Download className="w-3 h-3 mr-1" /> CSV
+                      </Button>
+                      <Button size="sm" variant="ghost" className="text-slate-400 h-7 text-[10px]" data-testid="export-json-btn" onClick={() => {
+                        const blob = new Blob([JSON.stringify(selectedReport.data, null, 2)], { type: 'application/json' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a'); a.href = url; a.download = `${selectedReport.name}.json`; a.click();
+                      }}><Download className="w-3 h-3 mr-1" /> JSON</Button>
+                    </div>
                   </div>
                 </CardHeader>
                 <CardContent><ReportViewer report={selectedReport} /></CardContent>
