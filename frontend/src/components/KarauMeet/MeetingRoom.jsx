@@ -711,7 +711,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               const avg = data.reduce((a, b) => a + b, 0) / data.length;
               if (avg > maxLevel && avg > 15) { // Threshold to avoid noise
                 maxLevel = avg;
-                maxId = effectiveUserId;
+                maxId = user?.user_id;
               }
               source.disconnect();
             } catch {}
@@ -755,7 +755,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
       clearTimeout(timer);
       if (analyserIntervalRef.current) clearInterval(analyserIntervalRef.current);
     };
-  }, [isAudioEnabled, effectiveUserId]);
+  }, [isAudioEnabled, user?.user_id]);
 
   // Reconnection state
   const reconnectAttemptsRef = useRef(0);
