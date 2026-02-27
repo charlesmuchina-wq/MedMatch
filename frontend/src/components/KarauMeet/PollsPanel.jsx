@@ -75,7 +75,7 @@ export const PollsPanel = ({ meetingId, isHost }) => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-3 border-b border-slate-700">
+      <div className="p-3 border-b border-karau-border">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold text-white flex items-center gap-2">
             <BarChart3 className="w-4 h-4 text-turquoise" />
@@ -93,12 +93,12 @@ export const PollsPanel = ({ meetingId, isHost }) => {
       <ScrollArea className="flex-1 p-3">
         {/* Create Poll Form */}
         {showCreate && (
-          <div className="mb-4 p-3 bg-slate-800 rounded-lg border border-slate-600 space-y-2">
+          <div className="mb-4 p-3 bg-karau-card rounded-lg border border-karau-border space-y-2">
             <Input
               value={question}
               onChange={e => setQuestion(e.target.value)}
               placeholder="Poll question..."
-              className="bg-slate-700 border-slate-600 text-white text-sm"
+              className="bg-karau-surface border-karau-border text-white text-sm"
               data-testid="poll-question-input"
             />
             {options.map((opt, i) => (
@@ -111,7 +111,7 @@ export const PollsPanel = ({ meetingId, isHost }) => {
                     setOptions(newOpts);
                   }}
                   placeholder={`Option ${i + 1}`}
-                  className="bg-slate-700 border-slate-600 text-white text-sm"
+                  className="bg-karau-surface border-karau-border text-white text-sm"
                   data-testid={`poll-option-${i}`}
                 />
                 {options.length > 2 && (
@@ -149,7 +149,7 @@ export const PollsPanel = ({ meetingId, isHost }) => {
             polls.map((poll) => {
               const maxVotes = Math.max(...poll.options.map(o => o.votes), 1);
               return (
-                <div key={poll.poll_id} className="p-3 bg-slate-800 rounded-lg" data-testid={`poll-${poll.poll_id}`}>
+                <div key={poll.poll_id} className="p-3 bg-karau-card rounded-lg" data-testid={`poll-${poll.poll_id}`}>
                   <div className="flex items-start justify-between mb-2">
                     <p className="text-white text-sm font-medium">{poll.question}</p>
                     {!poll.is_active && (
@@ -167,7 +167,7 @@ export const PollsPanel = ({ meetingId, isHost }) => {
                           className="w-full text-left"
                           data-testid={`vote-option-${poll.poll_id}-${i}`}
                         >
-                          <div className="relative bg-slate-700 rounded overflow-hidden h-8">
+                          <div className="relative bg-karau-surface rounded overflow-hidden h-8">
                             <div
                               className="absolute inset-y-0 left-0 bg-turquoise/20 transition-all"
                               style={{ width: `${pct}%` }}
