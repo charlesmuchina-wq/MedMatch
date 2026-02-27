@@ -5,7 +5,8 @@ import { Shield, Copy, Calendar, Loader2, Circle,
   Check, X, AlertTriangle, Image as ImageIcon,
   Mic, MicOff, Video, VideoOff, Monitor, MonitorOff,
   Hand, PhoneOff, Square, MessageSquare, Users, Sparkles, Share2,
-  Captions, CaptionsOff, BarChart3, PenTool
+  Captions, CaptionsOff, BarChart3, PenTool,
+  MoreHorizontal, Settings
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
