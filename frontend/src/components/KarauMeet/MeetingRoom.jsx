@@ -1635,7 +1635,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   const isHost = meeting?.host_id === user?.user_id;
 
   return (
-    <div className="h-screen bg-slate-900 flex flex-col overflow-hidden">
+    <div className="h-screen bg-karau-bg flex flex-col overflow-hidden" data-testid="meeting-room">
       {/* Compact Header */}
       <header className="h-12 bg-slate-800/90 backdrop-blur border-b border-slate-700 flex items-center justify-between px-3 flex-shrink-0">
         <div className="flex items-center gap-2">
