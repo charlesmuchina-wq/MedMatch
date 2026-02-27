@@ -1925,7 +1925,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
 
       {/* Mobile Bottom Sheet Panel */}
       {activePanel && (
-        <div className="md:hidden fixed inset-x-0 bottom-0 h-[60vh] bg-slate-800 border-t border-slate-700 z-20 rounded-t-xl">
+        <div className="md:hidden fixed inset-x-0 bottom-0 h-[60vh] bg-karau-card border-t border-karau-border z-20 rounded-t-xl">
           <div className="flex items-center justify-between p-3 border-b border-slate-700">
             <span className="text-white font-medium capitalize">{activePanel === 'ai-notes' ? 'AI Notes' : activePanel}</span>
             <button 
