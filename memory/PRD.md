@@ -9,82 +9,96 @@ Build "MedMatch," an AI-powered Life Sciences & Engineering Talent Ecosystem, co
 
 ## Core Architecture
 - Frontend: React + Shadcn UI + TailwindCSS
-- Backend: FastAPI + MongoDB
+- Backend: FastAPI + MongoDB + WebSocket
 - Real-time: WebRTC + WebSocket
-- AI: Emergent LLM Integration (OpenAI via emergent key)
+- AI: Emergent LLM Integration
+- PDF Export: reportlab (server-side)
 
 ---
 
-## Implementation Status
+## Implementation Status (All Complete)
 
-### Phase 1 - Core Features (DONE)
+### Core Features
 - [x] Pre-meeting lobby, guest 2FA + age gate
 - [x] WebRTC video/audio, screen sharing, host moderation
 - [x] Breakout rooms, enterprise admin panel
 - [x] Job search/apply, resume builder, interview prep
 - [x] ML predictor, blind screening, ATS, salary insights
 
-### Phase 2 - AI Intelligence (DONE)
-- [x] Live captions via Web Speech API
-- [x] AI meeting summaries with action items
-- [x] AI candidate scoring & JD generator
-- [x] Interview scorecards & hiring metrics
-- [x] Live polls & Q&A with persistence
-- [x] In-meeting emoji reactions
+### AI Intelligence
+- [x] Live captions, AI meeting summaries, polls & Q&A
+- [x] AI candidate scoring, JD generator, interview scorecards
+- [x] In-meeting emoji reactions, DEI analytics
 
-### Phase 3 - Enterprise Suite (DONE)
-- [x] DEI analytics dashboard
-- [x] Meeting whiteboard with cloud save/load persistence
-- [x] Webinar mode, SFU scaling, E2E encryption
-- [x] Real-time language translation (16 languages)
+### Enterprise Suite
+- [x] Real-time collaborative whiteboard with WebSocket sync + persistence
+- [x] Noise cancellation (Web Audio API)
+- [x] Webinar mode, SFU scaling, E2E encryption, 16-lang translation
 
-### Phase 4 - P0 Feature Build-Out (DONE - Feb 27, 2026)
-- [x] **Talent CRM**: Contact CRUD, pipeline bar (8 stages), interaction timeline, pools, campaigns
-- [x] **Report Builder**: 5 report types with visual charts (bar, funnel, time series), stat cards, export
-- [x] **Offer Management**: Status workflow (8 states), approval timeline, AI offer letter generation
+### Talent CRM & Pipeline (Feb 27, 2026)
+- [x] Contact CRUD, 8-stage pipeline bar, interaction timeline
+- [x] **Kanban drag-and-drop board** with real-time stage updates
+- [x] Pools management, campaigns, search/filter
 
-### Phase 5 - P1 + P2 Features (DONE - Feb 27, 2026)
-- [x] **Noise Cancellation**: Web Audio API hook with noise gate + bandpass filter
-- [x] **Whiteboard Persistence**: Canvas snapshot save/load to MongoDB
-- [x] **Platform Settings Enhanced**: Compliance dashboard, HRIS config, Background Checks
+### Report Builder (Feb 27, 2026)
+- [x] 5 report types: hiring funnel, DEI, source, time series, offer analysis
+- [x] Visual charts (bar, funnel, time series, tables)
+- [x] **Server-side PDF export** (reportlab with styled tables)
+- [x] **CSV export** with all data sections
+- [x] JSON export
 
-### Phase 6 - P0 Remaining + Kanban (DONE - Feb 27, 2026)
-- [x] **One-Click Apply**: Quick-apply button in job dialog using saved profile, success/error/already-applied states
-- [x] **Team Collaboration**: Candidate discussion threads, comments with reactions, CRM contact integration
-- [x] **Multi-Channel Outreach**: Email/SMS/InMail compose with recipient picker, template system (create/use), outreach history with delivery tracking
-- [x] **Kanban Pipeline View**: 7-column drag-and-drop board for CRM pipeline stages, view toggle (list/kanban), HTML5 DnD API with real-time stage updates
+### Offer Management (Feb 27, 2026)
+- [x] 8-state workflow (draft → pending → approved → sent → negotiating → accepted/declined/withdrawn)
+- [x] AI offer letter generation, approval timeline, stat dashboard
+
+### Team Collaboration & Outreach (Feb 27, 2026)
+- [x] **One-Click Apply** with saved profile
+- [x] **Team collaboration** — candidate discussion threads, comments, reactions
+- [x] **Multi-channel outreach** — Email/SMS/InMail compose, template system, delivery tracking
+
+### Real-time Collaborative Whiteboard (Feb 27, 2026)
+- [x] WebSocket sync — strokes broadcast live to all participants
+- [x] Remote cursor presence (see who's drawing with name labels)
+- [x] whiteboard_stroke, whiteboard_cursor, whiteboard_clear message types
+- [x] Cloud save/load persistence
+
+### Mobile Responsiveness (Feb 27, 2026)
+- [x] `overflow-x-hidden` on main layout containers
+- [x] Sidebar collapses with hamburger menu on mobile
+- [x] All pages verified zero horizontal overflow at 375px
+
+### Enhanced Onboarding Wizard (Feb 27, 2026)
+- [x] 5-step flow: Welcome → Role Selection → Interest Picker → Feature Cards → Complete
+- [x] Animated progress bar, step dots, back/next/skip navigation
+- [x] 3 role options, 8 interest categories, 6 feature quick-launch cards
+- [x] Saves preferences to backend, localStorage persistence
+
+### Platform Settings (Feb 27, 2026)
+- [x] Compliance dashboard (5 certifications with progress, data handling)
+- [x] HRIS integration config (provider/URL/key/direction/fields, sync history)
+- [x] Background checks (initiation, 8 check types, multi-provider, expandable results)
 
 ---
 
-## Key Frontend Routes
-- `/talent-crm` - CRM with pipeline, contacts, pools, campaigns, Kanban view
-- `/report-builder` - Visual report builder with charts
-- `/offer-management` - Offer workflow management
-- `/team-outreach` - Team collaboration + multi-channel outreach + templates
-- `/platform-settings` - Compliance, HRIS, Background Checks
-- `/ai-scoring`, `/jd-generator`, `/hiring-metrics`, `/dei-analytics`
-- `/skill-assessments`, `/webinars`, `/semantic-search`
-
 ## Key API Endpoints
-### Talent CRM
-- `GET/POST /api/talent-crm/contacts` | `PUT/DELETE /api/talent-crm/contacts/{id}`
-- `PUT /api/talent-crm/contacts/{id}/stage` | `GET /api/talent-crm/pipeline`
 
-### Offers & Reports
-- `GET/POST /api/advanced/offers` | `PUT /api/advanced/offers/{id}/status`
-- `POST /api/advanced/offers/{id}/generate-letter` (AI)
-- `GET/POST/DELETE /api/advanced/reports`
+### Exports
+- `GET /api/advanced/reports/{id}/export/pdf` — Server-side PDF
+- `GET /api/advanced/reports/{id}/export/csv` — CSV download
+
+### Talent CRM
+- `GET/POST/PUT/DELETE /api/talent-crm/contacts/*`
+- `PUT /api/talent-crm/contacts/{id}/stage` — Kanban stage updates
+- `GET /api/talent-crm/pipeline`
+
+### WebSocket
+- `WS /api/karau-meet/ws/{meetingId}` — whiteboard_stroke, whiteboard_cursor, whiteboard_clear
 
 ### Team & Outreach
 - `POST /api/talent-tools/one-click-apply`
 - `POST/GET /api/talent-tools/collaborate/comment(s)`
 - `POST /api/talent-tools/outreach/send` | `GET /api/talent-tools/outreach/history`
 - `POST/GET /api/talent-tools/outreach/templates`
-
-### Platform
-- `POST /api/platform/hris/configure` | `POST /api/platform/hris/sync`
-- `POST/GET /api/platform/background-checks`
-- `GET /api/platform/compliance/status`
 
 ## MOCKED Integrations
 - Outreach send (DB records, no actual email/SMS)
@@ -95,7 +109,3 @@ Build "MedMatch," an AI-powered Life Sciences & Engineering Talent Ecosystem, co
 ## Test Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
 - Test User: test@medmatch.io / TestPassword123!
-
-## Design System
-- Background: #1a1b2e | Cards: #232436 | Accent: #20b2aa/#40e0d0
-- Glass effects, 60-30-10 rule
