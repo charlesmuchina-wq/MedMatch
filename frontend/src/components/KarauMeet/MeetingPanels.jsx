@@ -45,7 +45,7 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-3 border-b border-karau-border hidden md:block">
+      <div className="p-3 border-b border-karau-border hidden">
         <h3 className="font-semibold text-white flex items-center gap-2">
           <MessageSquare className="w-4 h-4" />
           Chat
@@ -109,7 +109,7 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
 export const AINotesPanel = ({ notes, isTranscribing, onGenerateSummary, isSummarizing }) => {
   return (
     <div className="flex flex-col h-full">
-      <div className="p-3 border-b border-karau-border">
+      <div className="p-3 border-b border-karau-border hidden">
         <h3 className="font-semibold text-white flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-turquoise" />
           AI Notes
@@ -198,7 +198,7 @@ export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, 
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-3 border-b border-karau-border">
+      <div className="p-3 border-b border-karau-border hidden">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold text-white flex items-center gap-2">
             <Users className="w-4 h-4" />
@@ -317,7 +317,7 @@ export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, 
 export const SettingsPanel = ({ settings, onUpdateSettings }) => {
   return (
     <div className="flex flex-col h-full">
-      <div className="p-3 border-b border-karau-border">
+      <div className="p-3 border-b border-karau-border hidden">
         <h3 className="font-semibold text-white flex items-center gap-2">
           <Settings className="w-4 h-4" />
           Settings
