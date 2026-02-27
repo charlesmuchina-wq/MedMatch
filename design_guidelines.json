@@ -1,162 +1,141 @@
 {
-  "identity": {
-    "app_name": "MedMatch",
-    "tone": "Clinical Precision, Trustworthy, Efficient",
-    "persona": "The Anti-AI Designer (E1)",
-    "aesthetic": "Swiss Medical Tech"
+  "project_name": "AI KARAU Video Portal",
+  "design_philosophy": {
+    "identity": "E1: The Anti-AI Designer",
+    "core_principles": [
+      "Fusion over Imitation: Mix video tech with cinematic aesthetics",
+      "Emotion First: Focus, clarity, and reliability",
+      "Content is King: The video feed is the hero",
+      "Negative Space: Reduce cognitive load in meetings",
+      "Contrast: High visibility for controls"
+    ],
+    "anti_patterns": [
+      "Purple/Teal gradients everywhere (Use solid vibrant accents)",
+      "Inter font for headings (Use IBM Plex Sans)",
+      "Center-everything layouts (Use asymmetric Bento grids)",
+      "Pure black backgrounds (Use deep blue-tinted charcoal)"
+    ]
   },
-  "typography": {
-    "font_family_heading": "IBM Plex Sans, sans-serif",
-    "font_family_body": "Inter, sans-serif",
-    "font_weights": {
-      "heading": "600",
-      "body": "400",
-      "bold": "700"
-    },
-    "scale": {
-      "h1": "text-4xl md:text-5xl tracking-tight",
-      "h2": "text-3xl tracking-tight",
-      "h3": "text-2xl tracking-tight",
-      "body": "text-base leading-relaxed",
-      "small": "text-sm text-muted-foreground"
-    }
-  },
-  "colors": {
-    "palette": {
-      "primary": {
-        "name": "Slate 900",
-        "hex": "#0F172A",
-        "tailwind": "bg-slate-900 text-white"
-      },
-      "secondary": {
-        "name": "Slate 100",
-        "hex": "#F1F5F9",
-        "tailwind": "bg-slate-100 text-slate-900"
-      },
-      "accent": {
-        "name": "Sky 500",
-        "hex": "#0EA5E9",
-        "tailwind": "text-sky-500"
-      },
-      "background": {
-        "name": "Slate 50",
-        "hex": "#F8FAFC",
-        "tailwind": "bg-slate-50"
-      },
-      "surface": {
-        "name": "White",
-        "hex": "#FFFFFF",
-        "tailwind": "bg-white"
-      },
-      "success": {
-        "name": "Emerald 500",
-        "hex": "#10B981",
-        "tailwind": "text-emerald-500"
-      },
-      "warning": {
-        "name": "Amber 500",
-        "hex": "#F59E0B",
-        "tailwind": "text-amber-500"
-      },
-      "error": {
-        "name": "Rose 500",
-        "hex": "#F43F5E",
-        "tailwind": "text-rose-500"
-      }
+  "theme": {
+    "mode": "dark",
+    "primary_palette": {
+      "background": "#1a1b2e",
+      "foreground": "#f5f5f5",
+      "card": "#232436",
+      "card_foreground": "#ffffff",
+      "popover": "#1f2033",
+      "popover_foreground": "#ffffff",
+      "primary": "#20b2aa",
+      "primary_foreground": "#1a1b2e",
+      "secondary": "#2d2e42",
+      "secondary_foreground": "#ffffff",
+      "muted": "#1f2033",
+      "muted_foreground": "#94a3b8",
+      "accent": "#40e0d0",
+      "accent_foreground": "#1a1b2e",
+      "destructive": "#ef4444",
+      "destructive_foreground": "#ffffff",
+      "border": "#2e303e",
+      "input": "#2e303e",
+      "ring": "#20b2aa"
     },
     "gradients": {
-      "hero": "bg-gradient-to-br from-slate-50 to-slate-200",
-      "card_hover": "hover:bg-slate-50/50"
+      "active_speaker": "linear-gradient(135deg, rgba(32, 178, 170, 0.1), rgba(64, 224, 208, 0.05))",
+      "glass_surface": "linear-gradient(180deg, rgba(35, 36, 54, 0.7), rgba(35, 36, 54, 0.4))"
+    },
+    "box_shadows": {
+      "glow": "0 0 20px rgba(32, 178, 170, 0.15)",
+      "floating": "0 8px 32px rgba(0, 0, 0, 0.25)"
     }
   },
-  "layout": {
-    "grid_system": {
-      "dashboard": "grid grid-cols-1 md:grid-cols-12 gap-6",
-      "job_list": "grid grid-cols-1 gap-4",
-      "detail_view": "grid grid-cols-1 lg:grid-cols-3 gap-8"
+  "typography": {
+    "font_family": {
+      "heading": "IBM Plex Sans, sans-serif",
+      "body": "Inter, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "scale": {
+      "h1": "text-4xl font-bold tracking-tight",
+      "h2": "text-3xl font-semibold tracking-tight",
+      "h3": "text-2xl font-semibold",
+      "body_lg": "text-lg leading-relaxed",
+      "body_base": "text-base leading-relaxed text-gray-300",
+      "caption": "text-sm text-gray-400"
+    }
+  },
+  "layout_strategies": {
+    "bento_grid": {
+      "description": "Asymmetric grid for video feeds and panels",
+      "rules": [
+        "Use 'grid-cols-12' as base",
+        "Speaker Focus Mode: Main speaker takes 'col-span-9 row-span-full', sidebar takes 'col-span-3'",
+        "Gallery Mode: Uniform 'col-span-4' or 'col-span-3' based on participant count",
+        "Control Bar: Floating, persistent at bottom, 'z-50'"
+      ]
     },
     "spacing": {
-      "container_padding": "p-6 md:p-8 lg:p-12",
-      "section_gap": "gap-8 md:gap-12",
-      "element_gap": "gap-4"
-    },
-    "containers": {
-      "main": "max-w-7xl mx-auto w-full",
-      "narrow": "max-w-3xl mx-auto w-full"
+      "container_padding": "p-6 md:p-8",
+      "grid_gap": "gap-4 md:gap-6",
+      "section_spacing": "my-12"
     }
   },
   "components": {
-    "cards": {
-      "style": "bg-white border border-slate-200 shadow-sm rounded-lg transition-all duration-200 hover:shadow-md hover:border-slate-300",
-      "padding": "p-6"
-    },
     "buttons": {
-      "primary": "bg-slate-900 text-white hover:bg-slate-800 rounded-full px-6 py-2 font-medium transition-all active:scale-95",
-      "secondary": "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-full px-6 py-2 font-medium transition-all active:scale-95",
-      "ghost": "text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-md px-4 py-2 transition-all"
+      "primary": "bg-primary text-primary-foreground hover:bg-accent rounded-full px-6 py-3 font-medium transition-all shadow-glow hover:scale-105",
+      "secondary": "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-full px-6 py-3 font-medium transition-all",
+      "destructive": "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-full px-6 py-3 font-medium",
+      "ghost": "hover:bg-white/10 text-foreground rounded-full p-3 transition-colors",
+      "icon_control": "w-12 h-12 rounded-full flex items-center justify-center bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-lg"
+    },
+    "cards": {
+      "base": "bg-card border border-white/5 rounded-2xl overflow-hidden shadow-floating backdrop-blur-sm",
+      "interactive": "hover:border-primary/50 transition-colors cursor-pointer"
     },
     "inputs": {
-      "style": "bg-white border border-slate-200 rounded-md px-4 py-2 focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition-all outline-none"
+      "base": "bg-input border-transparent focus:border-primary focus:ring-1 focus:ring-primary rounded-xl px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all"
     },
-    "badges": {
-      "style": "rounded-full px-2.5 py-0.5 text-xs font-medium",
-      "variants": {
-        "default": "bg-slate-100 text-slate-700",
-        "success": "bg-emerald-50 text-emerald-700 border border-emerald-200",
-        "warning": "bg-amber-50 text-amber-700 border border-amber-200",
-        "accent": "bg-sky-50 text-sky-700 border border-sky-200"
-      }
+    "video_tile": {
+      "base": "relative rounded-xl overflow-hidden bg-black aspect-video group border border-transparent hover:border-white/10 transition-all",
+      "active_speaker": "ring-2 ring-primary shadow-glow z-10 scale-[1.01]"
     }
   },
-  "visual_enhancers": {
-    "shadows": "shadow-sm hover:shadow-md transition-shadow duration-300",
-    "borders": "border border-slate-200",
-    "glassmorphism": "bg-white/80 backdrop-blur-md border-b border-slate-200/50",
-    "micro_interactions": "active:scale-[0.98] transition-transform duration-100"
+  "assets": {
+    "images": {
+      "avatars": [
+        "https://images.unsplash.com/photo-1562228802-4b1052d0f845?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGhlYWRzaG90fGVufDB8fHx8MTc3MjIwNzE3Nnww&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1672685667592-0392f458f46f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGhlYWRzaG90fGVufDB8fHx8MTc3MjIwNzE3Nnww&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1576558656222-ba66febe3dec?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGhlYWRzaG90fGVufDB8fHx8MTc3MjIwNzE3Nnww&ixlib=rb-4.1.0&q=85",
+        "https://images.pexels.com/photos/30004324/pexels-photo-30004324.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      ],
+      "backgrounds": [
+        "https://images.unsplash.com/photo-1770992161088-7ad66282c9af?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODd8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBvZmZpY2UlMjBpbnRlcmlvciUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzcyMjA3MTc3fDA&ixlib=rb-4.1.0&q=85",
+        "https://images.unsplash.com/photo-1703355685722-2996b01483be?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjBpbnRlcmlvciUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzcyMjA3MTc3fDA&ixlib=rb-4.1.0&q=85"
+      ]
+    },
+    "icons_library": "lucide-react"
   },
-  "image_urls": {
-    "hero_background": {
-      "url": "https://images.unsplash.com/photo-1764437358274-0cf9ceda78cf?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGdlb21ldHJpYyUyMHRlY2hub2xvZ3klMjB3aGl0ZSUyMGJsdWV8ZW58MHx8fHwxNzY4MTgwNjAyfDA&ixlib=rb-4.1.0&q=85",
-      "description": "Abstract blue and white geometric pattern for hero background"
-    },
-    "profile_placeholder": {
-      "url": "https://images.unsplash.com/photo-1668600418786-f08e6c5c9b5a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NjZ8MHwxfHNlYXJjaHwzfHxwaGFybWFjZXV0aWNhbCUyMHNjaWVudGlzdCUyMHRhYmxldCUyMGNsZWFuJTIwcm9vbXxlbnwwfHx8fDE3NjgxODA2MTV8MA&ixlib=rb-4.1.0&q=85",
-      "description": "Laboratory technician in blue lab coat"
-    },
-    "empty_state": {
-      "url": "https://images.unsplash.com/photo-1737804719038-9b092c3c228a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwzfHxhYnN0cmFjdCUyMGdlb21ldHJpYyUyMHRlY2hub2xvZ3klMjB3aGl0ZSUyMGJsdWV8ZW58MHx8fHwxNzY4MTgwNjAyfDA&ixlib=rb-4.1.0&q=85",
-      "description": "Abstract floating object for empty states"
+  "instructions_to_main_agent": {
+    "general": [
+      "Implement the 'blue-tinted' dark theme strictly. No pure greys.",
+      "Use 'sonner' for notifications.",
+      "Ensure all interactive elements have 'data-testid'.",
+      "Do NOT use 'transition: all'. Use specific transitions.",
+      "For the Video Grid, use a responsive grid that adapts to participant count.",
+      "The Control Bar must be 'fixed bottom-6 left-1/2 -translate-x-1/2' with a glass effect."
+    ],
+    "specific_pages": {
+      "meeting_room": "Implement Bento Grid layout. Main area for video, collapsible side panels for Chat/Participants. Use <Split> or Resizable panels if possible, or CSS Grid.",
+      "lobby": "Clean, centered card for audio/video check. Background should be one of the office images with overlay.",
+      "dashboard": "Use cards to show 'Upcoming Meetings', 'Recent Recordings'. Use the 'Trace Beam' effect on these cards."
     }
   },
-  "instructions_to_main_agent": [
-    "Use 'IBM Plex Sans' for all headings to give a technical/medical feel.",
-    "Maintain a 'Clinical Precision' aesthetic: lots of whitespace, sharp borders, no gradients except subtle ones.",
-    "Use the 'Control Room' grid for the dashboard: dense data but clear hierarchy.",
-    "For the Job Search, use a 'Tetris' grid: mix wide job cards with narrow filter panels.",
-    "Use the 'Sky 500' blue sparingly as an accent for active states and primary links.",
-    "Ensure all interactive elements have a 'data-testid' for testing.",
-    "Use Shadcn components but customize them to match the 'Slate' and 'Rounded-lg' aesthetic.",
-    "Implement a 'Light Mode' first approach, as it fits the medical industry better."
-  ],
-  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
-    "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight.",
+  "universal_guidelines": [
     "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients",
     "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
     "Create depth through layered design elements with z-index hierarchy",
     "Use glass-morphism effects with backdrop filters (12-24px blur)",
-    "You MUST NOT apply universal transition. Eg: 'transition: all'. This results in breaking transforms. Always add transitions for specific interactive elements like button, input excluding transforms",
-    "You MUST NOT center align the app container, ie do not add '.App { text-align: center; }' in the css file. This disrupts the human natural reading flow of text",
-    "Always use modern button styles like pill-shaped, or sharp button with interaction animations & color relevant to the app style",
-    "NEVER: use AI assistant Emoji characters like 🤖🧠💭💡🔮🎯📚🎭🎬🎪🎉🎊🎁🎀🎂🍰🎈🎨🎰💰💵💳🏦💎🪙💸🤑📊📈📉💹🔢🏆🥇 etc for icons.",
-    "Every interaction needs micro-animations - hover states, transitions, parallax effects, and entrance animations. Static = dead.",
-    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
-    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary.",
-    "Main agent relies on these image URLs. Missing categories (especially sponsor logos) = main agent will use placeholder text which is FORBIDDEN",
-    "Prioritize using pre-existing components from src/components/ui when applicable",
-    "Create new components that match the style and conventions of existing components when needed",
-    "Examine existing components to understand the project's component patterns before creating new ones",
-    "Components MUST use named exports (export const ComponentName = ...)",
-    "Pages MUST use default exports (export default function PageName() {...})",
-    "Use 'sonner' for toasts. Sonner component are located in '/app/src/components/ui/sonner.tsx'"
+    "You MUST NOT apply universal transition. Eg: transition: all",
+    "Every interaction needs micro-animations - hover states, transitions, entrance animations.",
+    "Use 2-3x more spacing than feels comfortable."
   ]
 }
