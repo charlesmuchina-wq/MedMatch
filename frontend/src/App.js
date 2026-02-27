@@ -980,6 +980,12 @@ function AppContent({ skipPortalSelector = false }) {
             <Route path="/hiring-metrics" element={<HiringMetricsPage />} />
             <Route path="/dei-analytics" element={<DEIAnalyticsPage />} />
             <Route path="/talent-crm" element={<TalentCRMPage />} />
+            <Route path="/team-outreach" element={<TeamOutreachPage />} />
+            <Route path="/webinars" element={<WebinarPage />} />
+            <Route path="/offer-management" element={<OfferManagementPage />} />
+            <Route path="/report-builder" element={<ReportBuilderPage />} />
+            <Route path="/platform-settings" element={<PlatformSettingsPage />} />
+            <Route path="/semantic-search" element={<SemanticSearchPage />} />
           </Routes>
         </main>
       </div>
