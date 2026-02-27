@@ -1,111 +1,53 @@
-# MedMatch-AI KARAU - Product Requirements Document
+# MedMatch-AI KARAU Platform PRD
 
 ## Original Problem Statement
-Build "MedMatch," an AI-powered Life Sciences & Engineering Talent Ecosystem, combined with "AI KARAU" - an enterprise-grade video meeting portal. Perform competitive gap assessment and implement all identified feature gaps.
+Build "MedMatch," an AI-powered Life Sciences & Engineering Talent Ecosystem, combined with "AI KARAU," a sophisticated video meeting portal.
 
-## Platforms
-1. **AI KARAU** - Enterprise video conferencing with AI intelligence
-2. **MedMatch Job Toolkit** - Life sciences talent recruitment platform
+## Core Products
+1. **AI KARAU Portal** - Video meeting solution with real-time transcription, AI summaries, collaborative whiteboard, polls, reactions, DEI analytics
+2. **MedMatch Job Toolkit** - Comprehensive hiring platform with Talent CRM, AI Job Description Generator, AI Candidate Scoring, Offer Management, Advanced Reporting
 
-## Core Architecture
-- Frontend: React + Shadcn UI + TailwindCSS
-- Backend: FastAPI + MongoDB + WebSocket
-- Real-time: WebRTC + WebSocket
-- AI: Emergent LLM Integration
-- PDF Export: reportlab (server-side)
+## Architecture
+- **Frontend**: React (port 3000) with Tailwind CSS + shadcn/ui
+- **Backend**: FastAPI (port 8001) with MongoDB
+- **Real-time**: WebSockets for whiteboard collaboration and meeting signaling
+- **Auth**: Cookie-based session management + KARAU separate auth
 
----
+## What's Been Implemented
 
-## Implementation Status (All Complete)
+### AI KARAU Meeting Room - REDESIGNED (Feb 27, 2026)
+- **Minimal header**: Title + E2E badge + share/copy buttons only
+- **Full-width video area** as the central focus
+- **Single unified bottom control bar** (Teams-style): Audio | Video | Screen Share | Record | Hand Raise | Chat | People | AI Notes | More (...) | Leave
+- **Smooth sliding side panel** from right (flex-based, 300ms transition)
+- **"More" dropdown menu**: Polls, Captions, Virtual Background, Whiteboard, Breakout Rooms, Add to Calendar, Settings
+- **Mobile bottom sheet** for panels on small screens
+- **Fixed pre-existing bug**: `effectiveUserId` ReferenceError in active speaker detection
+- **Fixed duplicate panel headers**: Hidden internal panel headers in MeetingPanels.jsx, moved Mute All button to panel footer
 
-### Core Features
-- [x] Pre-meeting lobby, guest 2FA + age gate
-- [x] WebRTC video/audio, screen sharing, host moderation
-- [x] Breakout rooms, enterprise admin panel
-- [x] Job search/apply, resume builder, interview prep
-- [x] ML predictor, blind screening, ATS, salary insights
-
-### AI Intelligence
-- [x] Live captions, AI meeting summaries, polls & Q&A
-- [x] AI candidate scoring, JD generator, interview scorecards
-- [x] In-meeting emoji reactions, DEI analytics
-
-### Enterprise Suite
-- [x] Real-time collaborative whiteboard with WebSocket sync + persistence
-- [x] Noise cancellation (Web Audio API)
-- [x] Webinar mode, SFU scaling, E2E encryption, 16-lang translation
-
-### Talent CRM & Pipeline (Feb 27, 2026)
-- [x] Contact CRUD, 8-stage pipeline bar, interaction timeline
-- [x] **Kanban drag-and-drop board** with real-time stage updates
-- [x] Pools management, campaigns, search/filter
-
-### Report Builder (Feb 27, 2026)
-- [x] 5 report types: hiring funnel, DEI, source, time series, offer analysis
-- [x] Visual charts (bar, funnel, time series, tables)
-- [x] **Server-side PDF export** (reportlab with styled tables)
-- [x] **CSV export** with all data sections
-- [x] JSON export
-
-### Offer Management (Feb 27, 2026)
-- [x] 8-state workflow (draft → pending → approved → sent → negotiating → accepted/declined/withdrawn)
-- [x] AI offer letter generation, approval timeline, stat dashboard
-
-### Team Collaboration & Outreach (Feb 27, 2026)
-- [x] **One-Click Apply** with saved profile
-- [x] **Team collaboration** — candidate discussion threads, comments, reactions
-- [x] **Multi-channel outreach** — Email/SMS/InMail compose, template system, delivery tracking
-
-### Real-time Collaborative Whiteboard (Feb 27, 2026)
-- [x] WebSocket sync — strokes broadcast live to all participants
-- [x] Remote cursor presence (see who's drawing with name labels)
-- [x] whiteboard_stroke, whiteboard_cursor, whiteboard_clear message types
-- [x] Cloud save/load persistence
-
-### Mobile Responsiveness (Feb 27, 2026)
-- [x] `overflow-x-hidden` on main layout containers
-- [x] Sidebar collapses with hamburger menu on mobile
-- [x] All pages verified zero horizontal overflow at 375px
-
-### Enhanced Onboarding Wizard (Feb 27, 2026)
-- [x] 5-step flow: Welcome → Role Selection → Interest Picker → Feature Cards → Complete
-- [x] Animated progress bar, step dots, back/next/skip navigation
-- [x] 3 role options, 8 interest categories, 6 feature quick-launch cards
-- [x] Saves preferences to backend, localStorage persistence
-
-### Platform Settings (Feb 27, 2026)
-- [x] Compliance dashboard (5 certifications with progress, data handling)
-- [x] HRIS integration config (provider/URL/key/direction/fields, sync history)
-- [x] Background checks (initiation, 8 check types, multi-provider, expandable results)
-
----
-
-## Key API Endpoints
-
-### Exports
-- `GET /api/advanced/reports/{id}/export/pdf` — Server-side PDF
-- `GET /api/advanced/reports/{id}/export/csv` — CSV download
-
-### Talent CRM
-- `GET/POST/PUT/DELETE /api/talent-crm/contacts/*`
-- `PUT /api/talent-crm/contacts/{id}/stage` — Kanban stage updates
-- `GET /api/talent-crm/pipeline`
-
-### WebSocket
-- `WS /api/karau-meet/ws/{meetingId}` — whiteboard_stroke, whiteboard_cursor, whiteboard_clear
-
-### Team & Outreach
-- `POST /api/talent-tools/one-click-apply`
-- `POST/GET /api/talent-tools/collaborate/comment(s)`
-- `POST /api/talent-tools/outreach/send` | `GET /api/talent-tools/outreach/history`
-- `POST/GET /api/talent-tools/outreach/templates`
-
-## MOCKED Integrations
-- Outreach send (DB records, no actual email/SMS)
-- HRIS sync (no external Workday/BambooHR)
-- Background checks (no Checkr/Sterling)
-- Payment gateways (need Stripe/PayPal keys)
+### Previously Completed Features
+- Talent CRM with Kanban view (react-beautiful-dnd)
+- Advanced Reporting with PDF/CSV export (reportlab)
+- Offer Management with approval workflow
+- Real-time Collaborative Whiteboard (WebSocket-based)
+- Enhanced Platform Settings (HRIS, Background Checks, Compliance)
+- One-Click Apply, Team Collaboration & Outreach
+- Mobile Responsiveness across entire platform
+- Onboarding Wizard
+- Semantic Search (AI-powered, full backend + frontend at /semantic-search)
+- Noise Cancellation hook (Web Audio API chain - not integrated into meeting room audio pipeline, browser noiseSuppression active)
 
 ## Test Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
 - Test User: test@medmatch.io / TestPassword123!
+
+## Key Files
+- `/app/frontend/src/components/KarauMeet/MeetingRoom.jsx` - Redesigned meeting room
+- `/app/frontend/src/components/KarauMeet/MeetingPanels.jsx` - Updated panel components
+- `/app/frontend/src/pages/SemanticSearchPage.jsx` - Semantic search UI
+- `/app/frontend/src/components/KarauMeet/useNoiseCancellation.js` - Noise cancellation hook
+
+## Backlog
+- **P2**: Integrate useNoiseCancellation hook into meeting room audio pipeline
+- **P3**: Payment Gateway Configuration (Stripe/PayPal - needs API keys from user)
+- **P3**: Production email OTP (Resend - needs API key)
