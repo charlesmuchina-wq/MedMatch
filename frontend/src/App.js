@@ -970,6 +970,8 @@ function AppContent({ skipPortalSelector = false }) {
             <Route path="/ai-scoring" element={<CandidateScoringPage />} />
             <Route path="/jd-generator" element={<JobDescriptionGenerator />} />
             <Route path="/hiring-metrics" element={<HiringMetricsPage />} />
+            <Route path="/dei-analytics" element={<DEIAnalyticsPage />} />
+            <Route path="/talent-crm" element={<TalentCRMPage />} />
           </Routes>
         </main>
       </div>
