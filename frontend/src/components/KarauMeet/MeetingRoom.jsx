@@ -1989,6 +1989,11 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         meetingId={meetingId}
         meetingTitle={meeting?.title}
       />
+
+      <MeetingWhiteboard
+        isOpen={showWhiteboard}
+        onClose={() => setShowWhiteboard(false)}
+      />
     </div>
   );
 };
