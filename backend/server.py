@@ -277,6 +277,8 @@ from routes.karau_guest_verification import router as karau_guest_router
 from routes.karau_sharing import router as karau_sharing_router
 from routes.karau_calendar import router as karau_calendar_router
 from routes.karau_sso import router as karau_sso_router
+from routes.karau_intelligence import router as karau_intelligence_router
+from routes.ai_talent import router as ai_talent_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
