@@ -196,6 +196,8 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/ai-scoring", icon: Target, labelKey: "AI Candidate Scoring" },
     { path: "/jd-generator", icon: FileText, labelKey: "AI JD Generator" },
     { path: "/hiring-metrics", icon: BarChart3, labelKey: "Hiring Metrics" },
+    { path: "/dei-analytics", icon: Users, labelKey: "DEI Analytics" },
+    { path: "/talent-crm", icon: Users, labelKey: "Talent CRM" },
     { path: "/interviews", icon: Video, labelKey: "recruiter.interviews" },
     { path: "/recruiter/candidates", icon: UserSearch, labelKey: "recruiter.searchCandidates" },
     { path: "/psv", icon: FileCheck, labelKey: "nav.psvVerificationHub" },
