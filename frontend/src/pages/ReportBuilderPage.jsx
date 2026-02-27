@@ -264,13 +264,14 @@ export default function ReportBuilderPage() {
             <h3 className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">Saved Reports ({reports.length})</h3>
             {loading && <Loader2 className="w-5 h-5 text-slate-500 animate-spin mx-auto" />}
             {reports.map(r => (
-              <button key={r.id} onClick={() => setSelectedReport(r)}
-                className={`w-full text-left p-3 rounded-lg border transition-all group ${selectedReport?.id === r.id ? 'bg-slate-700/60 border-blue-500/50' : 'bg-slate-800/40 border-slate-700/30 hover:border-slate-600'}`}
-                data-testid={`report-${r.id}`}>
+              <div key={r.id} onClick={() => setSelectedReport(r)}
+                className={`w-full text-left p-3 rounded-lg border transition-all group cursor-pointer ${selectedReport?.id === r.id ? 'bg-slate-700/60 border-blue-500/50' : 'bg-slate-800/40 border-slate-700/30 hover:border-slate-600'}`}
+                data-testid={`report-${r.id}`} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter') setSelectedReport(r); }}>
                 <div className="flex items-start justify-between">
                   <p className="text-sm text-white font-medium truncate flex-1">{r.name}</p>
                   <button onClick={(e) => { e.stopPropagation(); deleteReport(r.id); }}
-                    className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-red-400 transition-all ml-1">
+                    className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-red-400 transition-all ml-1"
+                    aria-label={`Delete report ${r.name}`}>
                     <Trash2 className="w-3 h-3" />
                   </button>
                 </div>
@@ -278,7 +279,7 @@ export default function ReportBuilderPage() {
                   <Badge className={`text-[9px] ${typeColors[r.report_type] || 'bg-slate-600'}`}>{typeLabels[r.report_type] || r.report_type}</Badge>
                   <span className="text-[10px] text-slate-500">{r.date_range}</span>
                 </div>
-              </button>
+              </div>
             ))}
             {!loading && reports.length === 0 && <p className="text-slate-500 text-xs text-center py-6">No reports yet</p>}
           </div>
