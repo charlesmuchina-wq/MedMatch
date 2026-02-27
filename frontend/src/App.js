@@ -871,7 +871,7 @@ function AppContent({ skipPortalSelector = false }) {
   }
 
   return (
-    <div className={`min-h-screen flex ${isDark ? 'bg-batik-black text-white' : 'bg-slate-50'}`}>
+    <div className={`min-h-screen flex overflow-x-hidden ${isDark ? 'bg-batik-black text-white' : 'bg-slate-50'}`}>
       {/* Offline Banner - shows when user goes offline/online */}
       <OfflineBanner />
       
