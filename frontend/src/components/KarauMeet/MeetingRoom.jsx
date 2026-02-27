@@ -1786,13 +1786,13 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               <Button
                 variant={isAudioEnabled ? 'secondary' : 'destructive'}
                 size="lg"
-                className="rounded-full w-11 h-11"
+                className={`rounded-full w-12 h-12 transition-all duration-200 ${isAudioEnabled ? 'bg-karau-surface hover:bg-karau-accent hover:text-karau-bg' : 'bg-karau-danger hover:bg-red-700'}`}
                 onClick={toggleAudio}
                 data-testid="control-audio"
               >
                 {isAudioEnabled ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
               </Button>
-              <span className="text-xs text-slate-400 mt-1">{isAudioEnabled ? 'Mute' : 'Unmute'}</span>
+              <span className="text-[10px] text-karau-muted mt-1">{isAudioEnabled ? 'Mute' : 'Unmute'}</span>
             </div>
 
             {/* Video Control */}
@@ -1800,13 +1800,13 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               <Button
                 variant={isVideoEnabled ? 'secondary' : 'destructive'}
                 size="lg"
-                className="rounded-full w-11 h-11"
+                className={`rounded-full w-12 h-12 transition-all duration-200 ${isVideoEnabled ? 'bg-karau-surface hover:bg-karau-accent hover:text-karau-bg' : 'bg-karau-danger hover:bg-red-700'}`}
                 onClick={toggleVideo}
                 data-testid="control-video"
               >
                 {isVideoEnabled ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
               </Button>
-              <span className="text-xs text-slate-400 mt-1">{isVideoEnabled ? 'Stop' : 'Start'}</span>
+              <span className="text-[10px] text-karau-muted mt-1">{isVideoEnabled ? 'Camera' : 'Camera'}</span>
             </div>
 
             {/* Screen Share */}
@@ -1814,13 +1814,13 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               <Button
                 variant={isScreenSharing ? 'default' : 'secondary'}
                 size="lg"
-                className={`rounded-full w-11 h-11 ${isScreenSharing ? 'bg-green-500 hover:bg-green-600' : ''}`}
+                className={`rounded-full w-12 h-12 transition-all duration-200 ${isScreenSharing ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-karau-surface hover:bg-karau-accent hover:text-karau-bg'}`}
                 onClick={toggleScreenShare}
                 data-testid="control-screen-share"
               >
                 {isScreenSharing ? <MonitorOff className="w-5 h-5" /> : <Monitor className="w-5 h-5" />}
               </Button>
-              <span className="text-xs text-slate-400 mt-1">Share</span>
+              <span className="text-[10px] text-karau-muted mt-1">Share</span>
             </div>
 
             {/* Record (Host only) */}
@@ -1829,13 +1829,13 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 <Button
                   variant={isRecording ? 'destructive' : 'secondary'}
                   size="lg"
-                  className={`rounded-full w-11 h-11 ${isRecording ? 'animate-pulse' : ''}`}
+                  className={`rounded-full w-12 h-12 transition-all duration-200 ${isRecording ? 'bg-karau-danger animate-pulse' : 'bg-karau-surface hover:bg-karau-accent hover:text-karau-bg'}`}
                   onClick={toggleRecording}
                   data-testid="control-record"
                 >
                   {isRecording ? <Square className="w-5 h-5" /> : <Circle className="w-5 h-5" />}
                 </Button>
-                <span className="text-xs text-slate-400 mt-1">{isRecording ? 'Stop' : 'Record'}</span>
+                <span className="text-[10px] text-karau-muted mt-1">{isRecording ? 'Stop' : 'Record'}</span>
               </div>
             )}
 
@@ -1844,13 +1844,13 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               <Button
                 variant={isHandRaised ? 'default' : 'secondary'}
                 size="lg"
-                className={`rounded-full w-11 h-11 ${isHandRaised ? 'bg-yellow-500 hover:bg-yellow-600' : ''}`}
+                className={`rounded-full w-12 h-12 transition-all duration-200 ${isHandRaised ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-karau-surface hover:bg-karau-accent hover:text-karau-bg'}`}
                 onClick={toggleHandRaise}
                 data-testid="control-hand"
               >
                 <Hand className="w-5 h-5" />
               </Button>
-              <span className="text-xs text-slate-400 mt-1">Raise</span>
+              <span className="text-[10px] text-karau-muted mt-1">{isHandRaised ? 'Lower' : 'Raise'}</span>
             </div>
 
             {/* Leave Button */}
@@ -1858,13 +1858,13 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               <Button
                 variant="destructive"
                 size="lg"
-                className="rounded-full w-11 h-11 bg-red-600 hover:bg-red-700"
+                className="rounded-full w-12 h-12 bg-red-600 hover:bg-red-700 transition-all duration-200 shadow-lg shadow-red-600/20"
                 onClick={leaveMeeting}
                 data-testid="control-leave"
               >
                 <PhoneOff className="w-5 h-5" />
               </Button>
-              <span className="text-xs text-red-400 mt-1">Leave</span>
+              <span className="text-[10px] text-red-400 mt-1">Leave</span>
             </div>
           </div>
         </div>
