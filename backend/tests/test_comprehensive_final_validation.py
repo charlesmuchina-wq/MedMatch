@@ -350,14 +350,14 @@ class TestLobbyFlow:
         
         response = requests.post(
             f"{BASE_URL}/api/karau-meet/meetings/{meeting_id}/lobby/join",
-            json={"name": "TEST_Lobby Guest", "email": "lobbyguest@test.com"}
+            json={"guest_name": "TEST_Lobby Guest", "guest_email": "lobbyguest@test.com", "is_guest": True}
         )
         assert response.status_code in [200, 201]
         data = response.json()
-        # Server generates guest_id
-        assert "guest_id" in data or "user_id" in data or "id" in data
+        # Server generates user_id
+        assert "user_id" in data
         print("✓ Guest joined lobby")
-        return data.get("guest_id") or data.get("user_id") or data.get("id")
+        return data.get("user_id")
     
     def test_lobby_waiting_list(self, setup_meeting_for_lobby):
         """GET /api/karau-meet/meetings/{id}/lobby/waiting returns waiting list"""
@@ -367,7 +367,7 @@ class TestLobbyFlow:
         # Join lobby first
         join_resp = requests.post(
             f"{BASE_URL}/api/karau-meet/meetings/{meeting_id}/lobby/join",
-            json={"name": "TEST_Waiting Guest", "email": "waitingguest@test.com"}
+            json={"guest_name": "TEST_Waiting Guest", "guest_email": "waitingguest@test.com", "is_guest": True}
         )
         
         response = requests.get(
@@ -387,14 +387,14 @@ class TestLobbyFlow:
         # Join lobby
         join_resp = requests.post(
             f"{BASE_URL}/api/karau-meet/meetings/{meeting_id}/lobby/join",
-            json={"name": "TEST_Admit Guest", "email": "admitguest@test.com"}
+            json={"guest_name": "TEST_Admit Guest", "guest_email": "admitguest@test.com", "is_guest": True}
         )
-        guest_id = join_resp.json().get("guest_id") or join_resp.json().get("user_id") or join_resp.json().get("id")
+        user_id = join_resp.json().get("user_id")
         
         response = requests.post(
             f"{BASE_URL}/api/karau-meet/meetings/{meeting_id}/lobby/admit",
             headers={"Authorization": f"Bearer {token}"},
-            json={"guest_id": guest_id}
+            json={"user_id": user_id}
         )
         assert response.status_code == 200
         print("✓ Guest admitted")
@@ -406,13 +406,13 @@ class TestLobbyFlow:
         # Join lobby
         join_resp = requests.post(
             f"{BASE_URL}/api/karau-meet/meetings/{meeting_id}/lobby/join",
-            json={"name": "TEST_Status Guest", "email": "statusguest@test.com"}
+            json={"guest_name": "TEST_Status Guest", "guest_email": "statusguest@test.com", "is_guest": True}
         )
-        guest_id = join_resp.json().get("guest_id") or join_resp.json().get("user_id") or join_resp.json().get("id")
+        user_id = join_resp.json().get("user_id")
         
         response = requests.get(
             f"{BASE_URL}/api/karau-meet/meetings/{meeting_id}/lobby/status",
-            params={"guest_id": guest_id}
+            params={"user_id": user_id}
         )
         assert response.status_code == 200
         print("✓ Lobby status retrieved")
@@ -426,7 +426,7 @@ class TestLobbyFlow:
         for i in range(2):
             requests.post(
                 f"{BASE_URL}/api/karau-meet/meetings/{meeting_id}/lobby/join",
-                json={"name": f"TEST_Bulk Guest {i}", "email": f"bulkguest{i}@test.com"}
+                json={"guest_name": f"TEST_Bulk Guest {i}", "guest_email": f"bulkguest{i}@test.com", "is_guest": True}
             )
         
         response = requests.post(
