@@ -10,7 +10,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import {
   Users, Plus, FolderOpen, Send, Loader2, Tag, Trash2,
   Phone, Mail, Building2, Search, ChevronRight, ArrowLeft,
-  MessageSquare, Calendar, UserPlus, Filter, MoreVertical, GripVertical
+  MessageSquare, Calendar, UserPlus, Filter, MoreVertical, GripVertical,
+  LayoutGrid, List
 } from 'lucide-react';
 
 const API = process.env.REACT_APP_BACKEND_URL;
