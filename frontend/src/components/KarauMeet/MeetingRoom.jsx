@@ -311,6 +311,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   const [transcriptSegments, setTranscriptSegments] = useState([]);
   const [incomingReaction, setIncomingReaction] = useState(null);
   const [isSummarizing, setIsSummarizing] = useState(false);
+  const [showWhiteboard, setShowWhiteboard] = useState(false);
   const [meetingSettings, setMeetingSettings] = useState({
     ai_transcription: true,
     auto_summary: true,
