@@ -877,7 +877,7 @@ function AppContent({ skipPortalSelector = false }) {
       
       <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} user={user} />
       
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden">
         <Header onMenuClick={() => setSidebarOpen(!sidebarOpen)} resume={resume} user={user} onLogout={handleLogout} />
         
         {/* Upgrade Banner for trial/expired users */}
