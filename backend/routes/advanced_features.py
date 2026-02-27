@@ -385,13 +385,10 @@ async def _generate_report_data(db, report_type: str, date_range: str) -> dict:
 @router.get("/reports/{report_id}/export/csv")
 async def export_report_csv(report_id: str, request: Request):
     """Export a report as CSV"""
-    from routes.auth import require_auth
     from server import db
     from fastapi.responses import StreamingResponse
     import csv
     import io
-
-    await require_auth(request)
     report = await db.custom_reports.find_one({"id": report_id}, {"_id": 0})
     if not report:
         raise HTTPException(status_code=404, detail="Report not found")
@@ -475,7 +472,6 @@ async def export_report_csv(report_id: str, request: Request):
 @router.get("/reports/{report_id}/export/pdf")
 async def export_report_pdf(report_id: str, request: Request):
     """Export a report as PDF using reportlab"""
-    from routes.auth import require_auth
     from server import db
     from fastapi.responses import StreamingResponse
     from reportlab.lib.pagesizes import A4
@@ -484,8 +480,6 @@ async def export_report_pdf(report_id: str, request: Request):
     from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
     from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
     import io
-
-    await require_auth(request)
     report = await db.custom_reports.find_one({"id": report_id}, {"_id": 0})
     if not report:
         raise HTTPException(status_code=404, detail="Report not found")
