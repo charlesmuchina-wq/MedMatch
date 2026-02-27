@@ -1711,7 +1711,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               variant={activePanel === 'participants' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setActivePanel(activePanel === 'participants' ? null : 'participants')}
-              className={`h-9 ${activePanel === 'participants' ? 'bg-turquoise' : 'border-slate-600 text-slate-300'}`}
+              className={`h-9 ${activePanel === 'participants' ? 'bg-turquoise' : 'border-karau-border text-karau-muted'}`}
             >
               <Users className="w-4 h-4 mr-1.5" />
               {allParticipants.length}
@@ -1720,7 +1720,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               variant={activePanel === 'ai-notes' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setActivePanel(activePanel === 'ai-notes' ? null : 'ai-notes')}
-              className={`h-9 ${activePanel === 'ai-notes' ? 'bg-turquoise' : 'border-slate-600 text-slate-300'}`}
+              className={`h-9 ${activePanel === 'ai-notes' ? 'bg-turquoise' : 'border-karau-border text-karau-muted'}`}
             >
               <Sparkles className="w-4 h-4 mr-1.5" />
               AI Notes
@@ -1729,7 +1729,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               variant={activePanel === 'polls' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setActivePanel(activePanel === 'polls' ? null : 'polls')}
-              className={`h-9 ${activePanel === 'polls' ? 'bg-turquoise' : 'border-slate-600 text-slate-300'}`}
+              className={`h-9 ${activePanel === 'polls' ? 'bg-turquoise' : 'border-karau-border text-karau-muted'}`}
               data-testid="polls-panel-btn"
             >
               <BarChart3 className="w-4 h-4 mr-1.5" />
@@ -1739,7 +1739,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               variant={isCaptionsEnabled ? 'default' : 'outline'}
               size="sm"
               onClick={() => setIsCaptionsEnabled(!isCaptionsEnabled)}
-              className={`h-9 ${isCaptionsEnabled ? 'bg-turquoise' : 'border-slate-600 text-slate-300'}`}
+              className={`h-9 ${isCaptionsEnabled ? 'bg-turquoise' : 'border-karau-border text-karau-muted'}`}
               data-testid="captions-toggle-btn"
             >
               {isCaptionsEnabled ? <Captions className="w-4 h-4 mr-1.5" /> : <CaptionsOff className="w-4 h-4 mr-1.5" />}
@@ -1749,7 +1749,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               variant="outline"
               size="sm"
               onClick={() => setShowBgSelector(true)}
-              className="h-9 border-slate-600 text-slate-300"
+              className="h-9 border-karau-border text-karau-muted"
             >
               <ImageIcon className="w-4 h-4 mr-1.5" />
               Background
@@ -1758,7 +1758,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               variant="outline"
               size="sm"
               onClick={() => setShowWhiteboard(true)}
-              className="h-9 border-slate-600 text-slate-300"
+              className="h-9 border-karau-border text-karau-muted"
               data-testid="whiteboard-btn"
             >
               <PenTool className="w-4 h-4 mr-1.5" />
