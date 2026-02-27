@@ -1649,41 +1649,37 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
 
   const isHost = meeting?.host_id === user?.user_id;
 
+
   return (
     <div className="h-screen bg-karau-bg flex flex-col overflow-hidden" data-testid="meeting-room">
-      {/* Compact Header */}
-      <header className="h-12 bg-karau-card/90 backdrop-blur-xl border-b border-karau-border flex items-center justify-between px-3 flex-shrink-0">
-        <div className="flex items-center gap-2">
+      {/* Minimal Header */}
+      <header className="h-11 bg-karau-card/90 backdrop-blur-xl border-b border-karau-border/50 flex items-center justify-between px-4 flex-shrink-0">
+        <div className="flex items-center gap-2.5">
           <Shield className="w-4 h-4 text-turquoise" />
-          <span className="text-white font-medium text-sm">AI KARAU</span>
+          <span className="text-white font-medium text-sm truncate max-w-[200px]">{meeting?.title || 'AI KARAU Meeting'}</span>
+          <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px] hidden sm:flex gap-0.5 items-center">
+            <Shield className="w-2.5 h-2.5" />E2E
+          </Badge>
           {isRecording && (
-            <Badge className="bg-red-500 text-white border-0 text-xs animate-pulse">
-              <Circle className="w-2 h-2 mr-1 fill-current" />
-              REC
+            <Badge className="bg-red-500 text-white border-0 text-[10px] animate-pulse flex gap-0.5 items-center">
+              <Circle className="w-2 h-2 fill-current" />REC
             </Badge>
           )}
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="sm" onClick={() => setShowShareDialog(true)} className="text-slate-300 hover:text-turquoise h-8 px-2" data-testid="meeting-share-btn">
-            <Share2 className="w-4 h-4" />
+        <div className="flex items-center gap-1">
+          <Button variant="ghost" size="sm" onClick={() => setShowShareDialog(true)} className="text-slate-400 hover:text-turquoise h-7 w-7 p-0" data-testid="meeting-share-btn">
+            <Share2 className="w-3.5 h-3.5" />
           </Button>
-          <Button variant="ghost" size="sm" onClick={addToCalendar} className="text-slate-300 hover:text-white h-8 px-2">
-            <Calendar className="w-4 h-4" />
+          <Button variant="ghost" size="sm" onClick={copyMeetingLink} className="text-slate-400 hover:text-white h-7 w-7 p-0" data-testid="copy-meeting-link">
+            <Copy className="w-3.5 h-3.5" />
           </Button>
-          <Button variant="ghost" size="sm" onClick={copyMeetingLink} className="text-slate-300 hover:text-white h-8 px-2">
-            <Copy className="w-4 h-4" />
-          </Button>
-          <Badge variant="outline" className="text-slate-400 border-slate-600 text-xs">
-            {meetingId}
-          </Badge>
         </div>
       </header>
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Video Area - Zoom-style horizontal layout */}
-        <div className={`flex-1 flex flex-col transition-all duration-300 ${activePanel ? 'md:mr-80' : ''}`}>
-          {/* Video Grid Container */}
+      {/* Main Content: Video + Side Panel */}
+      <div className="flex-1 flex overflow-hidden min-h-0">
+        {/* Video Area */}
+        <div className="flex-1 flex flex-col min-w-0">
           <div className="flex-1 p-2 md:p-3 overflow-hidden relative">
             <div className="h-full flex items-center justify-center">
               <ParticipantGrid
@@ -1695,209 +1691,29 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 activeSpeakerId={activeSpeakerId}
               />
             </div>
-            {/* Live Captions Overlay */}
             <LiveCaptions
               isEnabled={isCaptionsEnabled}
               onTranscriptUpdate={handleTranscriptUpdate}
               onToggle={() => setIsCaptionsEnabled(!isCaptionsEnabled)}
             />
-            {/* Floating Reactions */}
             <MeetingReactions
               onSendReaction={sendReaction}
               incomingReaction={incomingReaction}
             />
           </div>
-
-          {/* Quick Actions Bar - Above main controls */}
-          <div className="px-3 pb-2 flex justify-center gap-2 flex-shrink-0 flex-wrap">
-            <Button
-              variant={activePanel === 'chat' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setActivePanel(activePanel === 'chat' ? null : 'chat')}
-              className={`h-9 ${activePanel === 'chat' ? 'bg-turquoise' : 'border-karau-border text-karau-muted'}`}
-            >
-              <MessageSquare className="w-4 h-4 mr-1.5" />
-              Chat
-              {chatMessages.length > 0 && (
-                <Badge className="ml-1.5 bg-red-500 text-white text-xs px-1.5 py-0">{chatMessages.length}</Badge>
-              )}
-            </Button>
-            <Button
-              variant={activePanel === 'participants' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setActivePanel(activePanel === 'participants' ? null : 'participants')}
-              className={`h-9 ${activePanel === 'participants' ? 'bg-turquoise' : 'border-karau-border text-karau-muted'}`}
-            >
-              <Users className="w-4 h-4 mr-1.5" />
-              {allParticipants.length}
-            </Button>
-            <Button
-              variant={activePanel === 'ai-notes' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setActivePanel(activePanel === 'ai-notes' ? null : 'ai-notes')}
-              className={`h-9 ${activePanel === 'ai-notes' ? 'bg-turquoise' : 'border-karau-border text-karau-muted'}`}
-            >
-              <Sparkles className="w-4 h-4 mr-1.5" />
-              AI Notes
-            </Button>
-            <Button
-              variant={activePanel === 'polls' ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setActivePanel(activePanel === 'polls' ? null : 'polls')}
-              className={`h-9 ${activePanel === 'polls' ? 'bg-turquoise' : 'border-karau-border text-karau-muted'}`}
-              data-testid="polls-panel-btn"
-            >
-              <BarChart3 className="w-4 h-4 mr-1.5" />
-              Polls
-            </Button>
-            <Button
-              variant={isCaptionsEnabled ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setIsCaptionsEnabled(!isCaptionsEnabled)}
-              className={`h-9 ${isCaptionsEnabled ? 'bg-turquoise' : 'border-karau-border text-karau-muted'}`}
-              data-testid="captions-toggle-btn"
-            >
-              {isCaptionsEnabled ? <Captions className="w-4 h-4 mr-1.5" /> : <CaptionsOff className="w-4 h-4 mr-1.5" />}
-              CC
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowBgSelector(true)}
-              className="h-9 border-karau-border text-karau-muted"
-            >
-              <ImageIcon className="w-4 h-4 mr-1.5" />
-              Background
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setShowWhiteboard(true)}
-              className="h-9 border-karau-border text-karau-muted"
-              data-testid="whiteboard-btn"
-            >
-              <PenTool className="w-4 h-4 mr-1.5" />
-              Whiteboard
-            </Button>
-          </div>
-
-          {/* Main Control Bar - Zoom style */}
-          <div className="h-16 bg-karau-card/80 backdrop-blur-xl border-t border-karau-border flex items-center justify-center gap-3 px-4 flex-shrink-0 relative">
-            {/* Org branding footer (left side) */}
-            {orgBranding && (
-              <div className="absolute left-4 flex items-center gap-2" data-testid="org-branding-footer">
-                {orgBranding.logo_url ? (
-                  <img src={orgBranding.logo_url} alt="" className="h-5 object-contain opacity-70" />
-                ) : (
-                  <div className="w-5 h-5 rounded flex items-center justify-center text-white text-[9px] font-bold opacity-70" style={{ backgroundColor: orgBranding.primary_color }}>
-                    {orgBranding.org_name?.charAt(0)}
-                  </div>
-                )}
-                <span className="text-[10px] text-slate-500">{orgBranding.watermark_text}</span>
-              </div>
-            )}
-            {/* Audio Control */}
-            <div className="flex flex-col items-center">
-              <Button
-                variant={isAudioEnabled ? 'secondary' : 'destructive'}
-                size="lg"
-                className={`rounded-full w-12 h-12 transition-all duration-200 ${isAudioEnabled ? 'bg-karau-surface hover:bg-karau-accent hover:text-karau-bg' : 'bg-karau-danger hover:bg-red-700'}`}
-                onClick={toggleAudio}
-                data-testid="control-audio"
-              >
-                {isAudioEnabled ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
-              </Button>
-              <span className="text-[10px] text-karau-muted mt-1">{isAudioEnabled ? 'Mute' : 'Unmute'}</span>
-            </div>
-
-            {/* Video Control */}
-            <div className="flex flex-col items-center">
-              <Button
-                variant={isVideoEnabled ? 'secondary' : 'destructive'}
-                size="lg"
-                className={`rounded-full w-12 h-12 transition-all duration-200 ${isVideoEnabled ? 'bg-karau-surface hover:bg-karau-accent hover:text-karau-bg' : 'bg-karau-danger hover:bg-red-700'}`}
-                onClick={toggleVideo}
-                data-testid="control-video"
-              >
-                {isVideoEnabled ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
-              </Button>
-              <span className="text-[10px] text-karau-muted mt-1">{isVideoEnabled ? 'Camera' : 'Camera'}</span>
-            </div>
-
-            {/* Screen Share */}
-            <div className="flex flex-col items-center">
-              <Button
-                variant={isScreenSharing ? 'default' : 'secondary'}
-                size="lg"
-                className={`rounded-full w-12 h-12 transition-all duration-200 ${isScreenSharing ? 'bg-emerald-500 hover:bg-emerald-600' : 'bg-karau-surface hover:bg-karau-accent hover:text-karau-bg'}`}
-                onClick={toggleScreenShare}
-                data-testid="control-screen-share"
-              >
-                {isScreenSharing ? <MonitorOff className="w-5 h-5" /> : <Monitor className="w-5 h-5" />}
-              </Button>
-              <span className="text-[10px] text-karau-muted mt-1">Share</span>
-            </div>
-
-            {/* Record (Host only) */}
-            {isHost && (
-              <div className="flex flex-col items-center">
-                <Button
-                  variant={isRecording ? 'destructive' : 'secondary'}
-                  size="lg"
-                  className={`rounded-full w-12 h-12 transition-all duration-200 ${isRecording ? 'bg-karau-danger animate-pulse' : 'bg-karau-surface hover:bg-karau-accent hover:text-karau-bg'}`}
-                  onClick={toggleRecording}
-                  data-testid="control-record"
-                >
-                  {isRecording ? <Square className="w-5 h-5" /> : <Circle className="w-5 h-5" />}
-                </Button>
-                <span className="text-[10px] text-karau-muted mt-1">{isRecording ? 'Stop' : 'Record'}</span>
-              </div>
-            )}
-
-            {/* Raise Hand */}
-            <div className="flex flex-col items-center">
-              <Button
-                variant={isHandRaised ? 'default' : 'secondary'}
-                size="lg"
-                className={`rounded-full w-12 h-12 transition-all duration-200 ${isHandRaised ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-karau-surface hover:bg-karau-accent hover:text-karau-bg'}`}
-                onClick={toggleHandRaise}
-                data-testid="control-hand"
-              >
-                <Hand className="w-5 h-5" />
-              </Button>
-              <span className="text-[10px] text-karau-muted mt-1">{isHandRaised ? 'Lower' : 'Raise'}</span>
-            </div>
-
-            {/* Leave Button */}
-            <div className="flex flex-col items-center ml-4">
-              <Button
-                variant="destructive"
-                size="lg"
-                className="rounded-full w-12 h-12 bg-red-600 hover:bg-red-700 transition-all duration-200 shadow-lg shadow-red-600/20"
-                onClick={leaveMeeting}
-                data-testid="control-leave"
-              >
-                <PhoneOff className="w-5 h-5" />
-              </Button>
-              <span className="text-[10px] text-red-400 mt-1">Leave</span>
-            </div>
-          </div>
         </div>
 
-        {/* Side Panel - Desktop only, slides in */}
-        {activePanel && (
-          <div className="hidden md:flex absolute right-0 top-12 bottom-0 w-80 bg-karau-card border-l border-karau-border flex-col z-10">
-            {/* Panel Header */}
-            <div className="flex items-center justify-between p-3 border-b border-slate-700">
-              <span className="text-white font-medium capitalize">{activePanel === 'ai-notes' ? 'AI Notes' : activePanel}</span>
-              <button 
-                onClick={() => setActivePanel(null)}
-                className="p-1 text-slate-400 hover:text-white rounded"
-              >
-                <X className="w-5 h-5" />
+        {/* Side Panel - Smooth slide from right */}
+        <div className={`hidden md:flex flex-col flex-shrink-0 transition-all duration-300 ease-in-out overflow-hidden ${activePanel ? 'w-80 border-l border-karau-border' : 'w-0'}`} data-testid="side-panel">
+          <div className="w-80 h-full bg-karau-card flex flex-col">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-karau-border flex-shrink-0">
+              <span className="text-white font-medium text-sm">
+                {activePanel === 'ai-notes' ? 'AI Notes' : activePanel === 'participants' ? 'People' : activePanel ? activePanel.charAt(0).toUpperCase() + activePanel.slice(1) : ''}
+              </span>
+              <button onClick={() => setActivePanel(null)} className="p-1 text-slate-400 hover:text-white rounded-md hover:bg-karau-surface transition-colors" data-testid="close-panel-btn">
+                <X className="w-4 h-4" />
               </button>
             </div>
-            
             <div className="flex-1 overflow-hidden">
               {activePanel === 'chat' && (
                 <ChatPanel messages={chatMessages} onSendMessage={sendChatMessage} />
@@ -1935,22 +1751,184 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               )}
             </div>
           </div>
-        )}
+        </div>
+      </div>
+
+      {/* Unified Control Bar - Teams Style */}
+      <div className="h-[60px] bg-karau-card/95 backdrop-blur-xl border-t border-karau-border flex items-center justify-between px-2 md:px-4 flex-shrink-0" data-testid="meeting-controls">
+        {/* Left spacer with optional branding */}
+        <div className="hidden md:flex items-center flex-1 min-w-0">
+          {orgBranding && (
+            <div className="flex items-center gap-2" data-testid="org-branding-footer">
+              {orgBranding.logo_url ? (
+                <img src={orgBranding.logo_url} alt="" className="h-4 object-contain opacity-60" />
+              ) : (
+                <div className="w-4 h-4 rounded flex items-center justify-center text-white text-[8px] font-bold opacity-60" style={{ backgroundColor: orgBranding.primary_color }}>
+                  {orgBranding.org_name?.charAt(0)}
+                </div>
+              )}
+              <span className="text-[10px] text-slate-500 truncate">{orgBranding.watermark_text}</span>
+            </div>
+          )}
+        </div>
+
+        {/* Center: All Controls */}
+        <div className="flex items-center gap-1 md:gap-1.5">
+          {/* Media Controls */}
+          <button
+            onClick={toggleAudio}
+            className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${!isAudioEnabled ? 'bg-red-500/90 text-white hover:bg-red-600' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            data-testid="control-audio"
+            title={isAudioEnabled ? 'Mute' : 'Unmute'}
+          >
+            {isAudioEnabled ? <Mic className="w-[18px] h-[18px]" /> : <MicOff className="w-[18px] h-[18px]" />}
+          </button>
+
+          <button
+            onClick={toggleVideo}
+            className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${!isVideoEnabled ? 'bg-red-500/90 text-white hover:bg-red-600' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            data-testid="control-video"
+            title={isVideoEnabled ? 'Turn off camera' : 'Turn on camera'}
+          >
+            {isVideoEnabled ? <Video className="w-[18px] h-[18px]" /> : <VideoOff className="w-[18px] h-[18px]" />}
+          </button>
+
+          <button
+            onClick={toggleScreenShare}
+            className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${isScreenSharing ? 'bg-emerald-500 text-white hover:bg-emerald-600' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            data-testid="control-screen-share"
+            title={isScreenSharing ? 'Stop sharing' : 'Share screen'}
+          >
+            {isScreenSharing ? <MonitorOff className="w-[18px] h-[18px]" /> : <Monitor className="w-[18px] h-[18px]" />}
+          </button>
+
+          {isHost && (
+            <button
+              onClick={toggleRecording}
+              className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${isRecording ? 'bg-red-500 text-white animate-pulse hover:bg-red-600' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+              data-testid="control-record"
+              title={isRecording ? 'Stop recording' : 'Start recording'}
+            >
+              {isRecording ? <Square className="w-[18px] h-[18px]" /> : <Circle className="w-[18px] h-[18px]" />}
+            </button>
+          )}
+
+          <button
+            onClick={toggleHandRaise}
+            className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${isHandRaised ? 'bg-amber-500 text-white hover:bg-amber-600' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            data-testid="control-hand"
+            title={isHandRaised ? 'Lower hand' : 'Raise hand'}
+          >
+            <Hand className="w-[18px] h-[18px]" />
+          </button>
+
+          {/* Divider */}
+          <div className="w-px h-7 bg-karau-border mx-0.5 md:mx-1.5" />
+
+          {/* Panel Toggles */}
+          <button
+            onClick={() => { setActivePanel(activePanel === 'chat' ? null : 'chat'); setShowMoreMenu(false); }}
+            className={`relative flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'chat' ? 'bg-turquoise/20 text-turquoise' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            data-testid="panel-chat-btn"
+            title="Chat"
+          >
+            <MessageSquare className="w-[18px] h-[18px]" />
+            {chatMessages.length > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-[16px] h-4 bg-red-500 rounded-full text-[9px] text-white flex items-center justify-center font-medium px-1">
+                {chatMessages.length > 9 ? '9+' : chatMessages.length}
+              </span>
+            )}
+          </button>
+
+          <button
+            onClick={() => { setActivePanel(activePanel === 'participants' ? null : 'participants'); setShowMoreMenu(false); }}
+            className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'participants' ? 'bg-turquoise/20 text-turquoise' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            data-testid="panel-participants-btn"
+            title="People"
+          >
+            <Users className="w-[18px] h-[18px]" />
+          </button>
+
+          <button
+            onClick={() => { setActivePanel(activePanel === 'ai-notes' ? null : 'ai-notes'); setShowMoreMenu(false); }}
+            className={`hidden sm:flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'ai-notes' ? 'bg-turquoise/20 text-turquoise' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            data-testid="panel-ai-notes-btn"
+            title="AI Notes"
+          >
+            <Sparkles className="w-[18px] h-[18px]" />
+          </button>
+
+          {/* More Menu */}
+          <div className="relative" ref={moreMenuRef}>
+            <button
+              onClick={() => setShowMoreMenu(!showMoreMenu)}
+              className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${showMoreMenu ? 'bg-turquoise/20 text-turquoise' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+              data-testid="more-menu-btn"
+              title="More actions"
+            >
+              <MoreHorizontal className="w-[18px] h-[18px]" />
+            </button>
+            {showMoreMenu && (
+              <div className="absolute bottom-full mb-2 right-0 bg-karau-surface border border-karau-border rounded-xl shadow-2xl shadow-black/50 py-1.5 w-52 z-50" data-testid="more-menu-dropdown">
+                <button onClick={() => { setActivePanel(activePanel === 'polls' ? null : 'polls'); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-testid="polls-panel-btn">
+                  <BarChart3 className="w-4 h-4 flex-shrink-0" />Polls
+                </button>
+                <button onClick={() => { setIsCaptionsEnabled(!isCaptionsEnabled); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-testid="captions-toggle-btn">
+                  {isCaptionsEnabled ? <Captions className="w-4 h-4 flex-shrink-0 text-turquoise" /> : <CaptionsOff className="w-4 h-4 flex-shrink-0" />}
+                  {isCaptionsEnabled ? 'Captions On' : 'Captions'}
+                </button>
+                <button onClick={() => { setShowBgSelector(true); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
+                  <ImageIcon className="w-4 h-4 flex-shrink-0" />Virtual Background
+                </button>
+                <button onClick={() => { setShowWhiteboard(true); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-testid="whiteboard-btn">
+                  <PenTool className="w-4 h-4 flex-shrink-0" />Whiteboard
+                </button>
+                {isHost && (
+                  <button onClick={() => { setShowBreakoutManager(true); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
+                    <Users className="w-4 h-4 flex-shrink-0" />Breakout Rooms
+                  </button>
+                )}
+                <div className="border-t border-karau-border my-1" />
+                <button onClick={() => { addToCalendar(); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
+                  <Calendar className="w-4 h-4 flex-shrink-0" />Add to Calendar
+                </button>
+                <button onClick={() => { setActivePanel(activePanel === 'settings' ? null : 'settings'); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
+                  <Settings className="w-4 h-4 flex-shrink-0" />Settings
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Divider */}
+          <div className="w-px h-7 bg-karau-border mx-0.5 md:mx-1.5" />
+
+          {/* Leave Button */}
+          <button
+            onClick={leaveMeeting}
+            className="flex items-center gap-1.5 h-10 px-3 md:px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-medium transition-all duration-200"
+            data-testid="control-leave"
+          >
+            <PhoneOff className="w-4 h-4" />
+            <span className="hidden sm:inline">Leave</span>
+          </button>
+        </div>
+
+        {/* Right spacer */}
+        <div className="hidden md:flex flex-1" />
       </div>
 
       {/* Mobile Bottom Sheet Panel */}
       {activePanel && (
-        <div className="md:hidden fixed inset-x-0 bottom-0 h-[60vh] bg-karau-card border-t border-karau-border z-20 rounded-t-xl">
-          <div className="flex items-center justify-between p-3 border-b border-slate-700">
-            <span className="text-white font-medium capitalize">{activePanel === 'ai-notes' ? 'AI Notes' : activePanel}</span>
-            <button 
-              onClick={() => setActivePanel(null)}
-              className="p-1 text-slate-400 hover:text-white"
-            >
+        <div className="md:hidden fixed inset-x-0 bottom-[60px] h-[55vh] bg-karau-card border-t border-karau-border z-20 rounded-t-xl shadow-2xl shadow-black/50">
+          <div className="flex items-center justify-between p-3 border-b border-karau-border">
+            <span className="text-white font-medium text-sm">
+              {activePanel === 'ai-notes' ? 'AI Notes' : activePanel ? activePanel.charAt(0).toUpperCase() + activePanel.slice(1) : ''}
+            </span>
+            <button onClick={() => setActivePanel(null)} className="p-1 text-slate-400 hover:text-white rounded-md">
               <X className="w-5 h-5" />
             </button>
           </div>
-          <div className="h-[calc(60vh-48px)] overflow-hidden">
+          <div className="h-[calc(55vh-48px)] overflow-hidden">
             {activePanel === 'chat' && (
               <ChatPanel messages={chatMessages} onSendMessage={sendChatMessage} />
             )}
