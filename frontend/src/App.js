@@ -962,6 +962,9 @@ function AppContent({ skipPortalSelector = false }) {
             <Route path="/help" element={<VideoTutorialsPage />} />
             <Route path="/psv" element={<PSVVerificationPage />} />
             <Route path="/verification-hub" element={<PSVVerificationPage />} />
+            <Route path="/ai-scoring" element={<CandidateScoringPage />} />
+            <Route path="/jd-generator" element={<JobDescriptionGenerator />} />
+            <Route path="/hiring-metrics" element={<HiringMetricsPage />} />
           </Routes>
         </main>
       </div>
