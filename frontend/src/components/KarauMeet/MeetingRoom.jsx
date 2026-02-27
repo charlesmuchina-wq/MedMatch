@@ -1754,6 +1754,16 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               <ImageIcon className="w-4 h-4 mr-1.5" />
               Background
             </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowWhiteboard(true)}
+              className="h-9 border-slate-600 text-slate-300"
+              data-testid="whiteboard-btn"
+            >
+              <PenTool className="w-4 h-4 mr-1.5" />
+              Whiteboard
+            </Button>
           </div>
 
           {/* Main Control Bar - Zoom style */}
