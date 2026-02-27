@@ -19,6 +19,7 @@ import BreakoutRoomManager from './BreakoutRoomManager';
 import LiveCaptions from './LiveCaptions';
 import MeetingReactions from './MeetingReactions';
 import { PollsPanel } from './PollsPanel';
+import MeetingWhiteboard from './MeetingWhiteboard';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
