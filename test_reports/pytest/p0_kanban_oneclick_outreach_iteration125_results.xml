@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="0.149" timestamp="2026-02-27T21:39:24.284970+00:00" hostname="agent-env-25ed5eea-335b-40ea-8849-39328c5557fe"><testcase classname="" name="backend.tests.test_p0_kanban_oneclick_outreach_iteration125" time="0.000"><error message="collection failure">/root/.venv/lib/python3.11/site-packages/_pytest/python.py:507: in importtestmodule
+    mod = import_path(
+/root/.venv/lib/python3.11/site-packages/_pytest/pathlib.py:587: in import_path
+    importlib.import_module(module_name)
+/usr/local/lib/python3.11/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&lt;frozen importlib._bootstrap&gt;:1204: in _gcd_import
+    ???
+&lt;frozen importlib._bootstrap&gt;:1176: in _find_and_load
+    ???
+&lt;frozen importlib._bootstrap&gt;:1147: in _find_and_load_unlocked
+    ???
+&lt;frozen importlib._bootstrap&gt;:690: in _load_unlocked
+    ???
+/root/.venv/lib/python3.11/site-packages/_pytest/assertion/rewrite.py:188: in exec_module
+    source_stat, co = _rewrite_test(fn, self.config)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/_pytest/assertion/rewrite.py:357: in _rewrite_test
+    tree = ast.parse(source, filename=strfn)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.11/ast.py:50: in parse
+    return compile(source, filename, mode, flags,
+E     File "/app/backend/tests/test_p0_kanban_oneclick_outreach_iteration125.py", line 71
+E       job_create = session.post(f"{BASE_URL}/api/jobs`, json={
+E                                 ^
+E   SyntaxError: unterminated string literal (detected at line 71)</error></testcase></testsuite></testsuites>
