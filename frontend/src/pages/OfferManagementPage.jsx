@@ -70,13 +70,13 @@ function OfferTimeline({ timeline }) {
 function OfferDetail({ offer, onClose, onUpdate, onGenerateLetter }) {
   const [generatingLetter, setGeneratingLetter] = useState(false);
   const [letterContent, setLetterContent] = useState('');
-  const token = localStorage.getItem('token');
-  const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
+  const fetchOpts = { credentials: 'include' };
+  const postOpts = { credentials: 'include', headers: { 'Content-Type': 'application/json' } };
 
   const genLetter = async () => {
     setGeneratingLetter(true);
     try {
-      const res = await fetch(`${API}/api/advanced/offers/${offer.id}/generate-letter`, { method: 'POST', headers });
+      const res = await fetch(`${API}/api/advanced/offers/${offer.id}/generate-letter`, { method: 'POST', ...fetchOpts });
       if (res.ok) { const d = await res.json(); setLetterContent(d.letter); }
     } catch (e) { console.error(e); }
     setGeneratingLetter(false);
@@ -85,7 +85,7 @@ function OfferDetail({ offer, onClose, onUpdate, onGenerateLetter }) {
   const changeStatus = async (status) => {
     try {
       await fetch(`${API}/api/advanced/offers/${offer.id}/status`, {
-        method: 'PUT', headers, body: JSON.stringify({ status })
+        method: 'PUT', ...postOpts, body: JSON.stringify({ status })
       });
       onUpdate({ ...offer, status });
     } catch (e) { console.error(e); }
