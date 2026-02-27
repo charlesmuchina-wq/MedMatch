@@ -1607,7 +1607,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   // Loading state
   if (isConnecting) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-karau-bg flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 text-turquoise animate-spin mx-auto mb-4" />
           <h2 className="text-xl text-white font-medium">Joining meeting...</h2>
