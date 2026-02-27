@@ -248,3 +248,50 @@ async def close_poll(poll_id: str, request: Request):
     except Exception as e:
         logger.error(f"Error closing poll: {e}")
         raise HTTPException(status_code=500, detail="Failed to close poll")
+
+
+
+# --- Whiteboard Snapshot Persistence ---
+
+class WhiteboardSnapshot(BaseModel):
+    meeting_id: str
+    snapshot_data: str  # base64 canvas data URL
+    name: Optional[str] = "Whiteboard"
+
+@router.post("/whiteboard/save")
+async def save_whiteboard_snapshot(req: WhiteboardSnapshot, request: Request):
+    """Save a whiteboard canvas snapshot to the database"""
+    try:
+        from server import db
+        snapshot = {
+            "meeting_id": req.meeting_id,
+            "name": req.name,
+            "snapshot_data": req.snapshot_data,
+            "saved_at": datetime.now(timezone.utc).isoformat()
+        }
+        # Upsert — one snapshot per meeting
+        await db.whiteboard_snapshots.update_one(
+            {"meeting_id": req.meeting_id},
+            {"$set": snapshot},
+            upsert=True
+        )
+        return {"status": "saved", "meeting_id": req.meeting_id}
+    except Exception as e:
+        logger.error(f"Whiteboard save error: {e}")
+        raise HTTPException(status_code=500, detail="Failed to save whiteboard")
+
+
+@router.get("/whiteboard/{meeting_id}")
+async def load_whiteboard_snapshot(meeting_id: str, request: Request):
+    """Load a saved whiteboard canvas snapshot"""
+    try:
+        from server import db
+        snapshot = await db.whiteboard_snapshots.find_one(
+            {"meeting_id": meeting_id}, {"_id": 0}
+        )
+        if not snapshot:
+            return {"snapshot": None}
+        return {"snapshot": snapshot}
+    except Exception as e:
+        logger.error(f"Whiteboard load error: {e}")
+        return {"snapshot": None}
