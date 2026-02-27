@@ -263,6 +263,8 @@ export default function TalentCRMPage() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', title: '', company: '', source: 'manual', stage: 'new', tags: '', notes: '' });
   const [showPoolCreate, setShowPoolCreate] = useState(false);
   const [poolForm, setPoolForm] = useState({ name: '', description: '', tags: '' });
+  const [viewMode, setViewMode] = useState('list'); // 'list' | 'kanban'
+  const [dragContact, setDragContact] = useState(null);
 
   const loadData = useCallback(async () => {
     try {
