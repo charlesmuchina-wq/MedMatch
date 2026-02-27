@@ -18,7 +18,7 @@ const MeetingWhiteboard = ({ isOpen, onClose, meetingId }) => {
   const [loaded, setLoaded] = useState(false);
   const lastPos = useRef(null);
 
-  // Initialize canvas
+  // Initialize canvas and load saved state
   useEffect(() => {
     if (!isOpen || !canvasRef.current) return;
     const canvas = canvasRef.current;
@@ -37,7 +37,25 @@ const MeetingWhiteboard = ({ isOpen, onClose, meetingId }) => {
     for (let y = 0; y < canvas.height; y += 40) {
       ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
     }
-  }, [isOpen]);
+    // Load saved snapshot
+    if (meetingId && !loaded) {
+      fetch(`${API}/api/karau-meet/ai/whiteboard/${meetingId}`)
+        .then(r => r.json())
+        .then(d => {
+          if (d.snapshot?.snapshot_data) {
+            const img = new Image();
+            img.onload = () => {
+              ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+              setLoaded(true);
+            };
+            img.src = d.snapshot.snapshot_data;
+          } else {
+            setLoaded(true);
+          }
+        })
+        .catch(() => setLoaded(true));
+    }
+  }, [isOpen, meetingId, loaded]);
 
   const getPos = (e) => {
     const canvas = canvasRef.current;
