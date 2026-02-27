@@ -5,13 +5,17 @@ import { Pen, Eraser, Square, Circle, Type, Undo2, Trash2, Download, Palette, X,
 const COLORS = ['#ffffff', '#20b2aa', '#ef4444', '#22c55e', '#3b82f6', '#f59e0b', '#a855f7', '#ec4899'];
 const SIZES = [2, 4, 8, 12];
 
-const MeetingWhiteboard = ({ isOpen, onClose }) => {
+const API = process.env.REACT_APP_BACKEND_URL;
+
+const MeetingWhiteboard = ({ isOpen, onClose, meetingId }) => {
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [tool, setTool] = useState('pen');
   const [color, setColor] = useState('#ffffff');
   const [size, setSize] = useState(4);
   const [history, setHistory] = useState([]);
+  const [saving, setSaving] = useState(false);
+  const [loaded, setLoaded] = useState(false);
   const lastPos = useRef(null);
 
   // Initialize canvas
