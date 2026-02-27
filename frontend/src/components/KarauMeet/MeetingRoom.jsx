@@ -1699,7 +1699,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               variant={activePanel === 'chat' ? 'default' : 'outline'}
               size="sm"
               onClick={() => setActivePanel(activePanel === 'chat' ? null : 'chat')}
-              className={`h-9 ${activePanel === 'chat' ? 'bg-turquoise' : 'border-slate-600 text-slate-300'}`}
+              className={`h-9 ${activePanel === 'chat' ? 'bg-turquoise' : 'border-karau-border text-karau-muted'}`}
             >
               <MessageSquare className="w-4 h-4 mr-1.5" />
               Chat
