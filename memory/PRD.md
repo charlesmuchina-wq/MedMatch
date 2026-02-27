@@ -13,105 +13,110 @@ Build "MedMatch," an AI-powered Life Sciences & Engineering Talent Ecosystem, co
 - Real-time: WebRTC + WebSocket
 - AI: Emergent LLM Integration (OpenAI via emergent key)
 
-## Gap Assessment (Feb 27, 2026)
-Full report at: /app/docs/GAP_ASSESSMENT.md
-- AI KARAU scored 62/100 -> ~78/100 (after Phase 1+2)
-- MedMatch scored 58/100 -> ~75/100 (after Phase 1+2)
-
 ---
 
-## What's Been Implemented
+## Implementation Status
 
-### Phase 1 - Critical Gap Closures (Feb 27, 2026)
+### Phase 1 - Critical Gap Closures (DONE)
 - [x] Live captions via Web Speech API
-- [x] AI meeting summaries with action items (LLM)
-- [x] In-meeting emoji reactions (8 types, floating animation)
-- [x] Live polls & Q&A (create, vote, close, results)
-- [x] AI candidate scoring & ranking (LLM)
+- [x] AI meeting summaries with action items
+- [x] In-meeting emoji reactions
+- [x] Live polls & Q&A
+- [x] AI candidate scoring
 - [x] AI job description generator
-- [x] Interview scorecards with averaging
-- [x] Hiring metrics dashboard (time-to-hire, cost-per-hire, pipeline, sources)
+- [x] Interview scorecards
+- [x] Hiring metrics dashboard
 
-### Phase 2 - High Gap Closures (Feb 27, 2026)
-- [x] DEI analytics dashboard (gender distribution, geographic diversity, pipeline equity, goals)
-- [x] Talent CRM (talent pools, candidate notes, nurture campaigns)
-- [x] Meeting whiteboard (canvas drawing, colors, sizes, undo, clear, save)
-- [x] AI noise cancellation hook (Web Audio API: high-pass, low-pass, notch, compressor)
-- [x] KARAU design overhaul (new karau color palette: #1a1b2e bg, #232436 cards, glass effects, dual coding buttons, 60-30-10 color rule)
+### Phase 2 - High Gap Closures (DONE)
+- [x] DEI analytics dashboard
+- [x] Talent CRM (pools, notes, campaigns)
+- [x] Meeting whiteboard
+- [x] AI noise cancellation hook
+- [x] KARAU design overhaul (karau color palette)
 
-### Previously Implemented (Before Gap Assessment)
-- Pre-meeting lobby with guest 2FA + age gate
-- WebRTC video/audio with screen sharing
-- Host moderation controls (mute, mute all, pass mic)
-- Active speaker highlighting
-- Breakout rooms with AI auto-assignment
-- Enterprise admin panel (licensing, branding, conference rooms)
-- Employee directory (CSV + LDAP sync)
-- Calendar integration (Microsoft, Google, iOS)
-- SSO/SAML integration
-- 50+ language UI translation
-- Skin tone protection
-- Job search, save, apply workflow
-- Resume builder and profiles
-- Interview prep (QA, video, voice coaching)
-- ML success predictor, blind screening, ATS, salary insights
-- Company profiles + messaging + Dragon AI
+### Phase 3 - P1 Features (DONE)
+- [x] One-click apply (saved profile instant application)
+- [x] Team collaboration (shared candidate reviews, comments, reactions)
+- [x] Multi-channel outreach (email, SMS, InMail)
+
+### Phase 4 - P2 Features (DONE)
+- [x] Webinar mode (create, register, manage large events)
+- [x] SFU scaling infrastructure (config, simulcast, adaptive bitrate)
+- [x] E2E encryption (key exchange, AES-256-GCM, ECDH-P256)
+- [x] Real-time language translation (16 languages via LLM)
+- [x] Offer management with AI letter generation
+- [x] Custom report builder (hiring funnel, DEI, source, time series)
+
+### Phase 5 - P3 Features (DONE)
+- [x] Semantic matching engine (AI-powered deep matching)
+- [x] HRIS integration (Workday, BambooHR, ADP, SAP)
+- [x] Background check system (identity, criminal, education, employment)
+- [x] Compliance dashboard (SOC 2, HIPAA, GDPR, ISO 27001, CCPA)
+
+### Previously Implemented (Pre-Gap Assessment)
+- Pre-meeting lobby, guest 2FA + age gate
+- WebRTC video/audio, screen sharing
+- Host moderation, active speaker highlighting
+- Breakout rooms with AI, enterprise admin panel
+- Employee directory, calendar/SSO integration
+- 50+ language UI, skin tone protection
+- Job search/apply, resume builder, interview prep
+- ML predictor, blind screening, ATS, salary insights
 
 ---
 
-## Remaining Backlog
+## API Endpoints Summary
 
-### P1 - High Priority
-- [ ] Participant scaling (SFU/MCU architecture for 1000+)
-- [ ] Full E2E encryption implementation
-- [ ] One-click apply for job seekers
-- [ ] Multi-channel outreach (email, SMS, InMail)
-- [ ] Team collaboration on candidates
-
-### P2 - Medium Priority
-- [ ] Webinar mode (view-only attendees)
-- [ ] Real-time language translation
-- [ ] Offer management & templates
-- [ ] Custom report builder
-- [ ] CRM/Salesforce integration
-
-### P3 - Long-term
-- [ ] Native mobile apps (iOS/Android)
-- [ ] Semantic matching engine (vector embeddings)
-- [ ] HRIS bidirectional sync
-- [ ] Background check integrations
-- [ ] HIPAA/SOC2 compliance certification
-
-## Key API Endpoints (New)
+### Meeting Intelligence
 - `POST /api/karau-meet/ai/summarize` - AI meeting summary
-- `GET/POST /api/karau-meet/ai/polls/*` - Meeting polls CRUD
-- `POST /api/ai-talent/score-candidate` - AI candidate scoring
+- `GET/POST /api/karau-meet/ai/polls/*` - Meeting polls
+- `GET /api/meeting-infra/sfu/config` - SFU configuration
+- `POST /api/meeting-infra/e2ee/keys` - E2E key exchange
+- `POST /api/meeting-infra/translate` - Real-time translation
+- `GET /api/meeting-infra/translate/languages` - Supported languages
+
+### Talent Intelligence
+- `POST /api/ai-talent/score-candidate` - AI scoring
 - `POST /api/ai-talent/generate-job-description` - JD generation
 - `GET /api/ai-talent/hiring-metrics` - Hiring analytics
 - `POST/GET /api/ai-talent/scorecards/*` - Interview scorecards
-- `GET /api/dei-analytics/metrics` - DEI metrics
-- `GET /api/dei-analytics/goals` - DEI goals
-- `GET/POST /api/talent-crm/pools` - Talent pool CRUD
-- `GET/POST /api/talent-crm/campaigns` - Nurture campaigns
-- `GET/POST /api/talent-crm/notes/*` - Candidate notes
+
+### Talent Tools
+- `POST /api/talent-tools/one-click-apply` - Quick apply
+- `POST/GET /api/talent-tools/collaborate/*` - Team collaboration
+- `POST/GET /api/talent-tools/outreach/*` - Multi-channel outreach
+
+### Advanced Features
+- `POST/GET /api/advanced/webinars` - Webinar management
+- `POST/GET /api/advanced/offers` - Offer management
+- `POST /api/advanced/offers/{id}/generate-letter` - AI offer letter
+- `POST/GET /api/advanced/reports` - Custom reports
+
+### Platform
+- `POST /api/platform/semantic-match` - AI semantic search
+- `POST /api/platform/hris/*` - HRIS integration
+- `POST/GET /api/platform/background-checks` - BG checks
+- `GET /api/platform/compliance/status` - Compliance dashboard
+- `GET/POST /api/dei-analytics/*` - DEI metrics
+- `GET/POST /api/talent-crm/*` - Talent CRM
+
+## Frontend Routes
+- `/ai-scoring`, `/jd-generator`, `/hiring-metrics`, `/dei-analytics`
+- `/talent-crm`, `/team-outreach`, `/webinars`
+- `/offer-management`, `/report-builder`
+- `/platform-settings`, `/semantic-search`
+
+## MOCKED Integrations
+- SFU relay servers (config only, no live servers)
+- HRIS sync (returns success, no external connection)
+- Background checks (creates records, no Checkr/Sterling)
+- Payment gateways (need live Stripe/PayPal keys)
 
 ## Test Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
 - Test User: test@medmatch.io / TestPassword123!
 
-## New Frontend Routes
-- `/ai-scoring` - AI Candidate Scoring
-- `/jd-generator` - AI Job Description Generator
-- `/hiring-metrics` - Hiring Metrics Dashboard
-- `/dei-analytics` - DEI Analytics
-- `/talent-crm` - Talent CRM (pools, campaigns, notes)
-
 ## Design System (KARAU)
-- Background: #1a1b2e (karau-bg)
-- Cards/Panels: #232436 (karau-card)
-- Surfaces: #2d2e42 (karau-surface)
-- Borders: #2e303e (karau-border)
-- Accent: #20b2aa / #40e0d0 (teal/cyan)
-- Danger: #ef4444 (red)
-- Glass effects: backdrop-blur-xl on headers/control bars
-- 60-30-10 rule: 60% bg, 30% panels, 10% accents
+- Background: #1a1b2e | Cards: #232436 | Surfaces: #2d2e42
+- Borders: #2e303e | Accent: #20b2aa/#40e0d0 | Danger: #ef4444
+- Glass effects, 60-30-10 rule, dual-coded buttons
