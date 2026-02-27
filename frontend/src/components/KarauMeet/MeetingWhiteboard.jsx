@@ -192,8 +192,11 @@ const MeetingWhiteboard = ({ isOpen, onClose, meetingId }) => {
           <Button variant="ghost" size="sm" className="h-8 text-slate-400" onClick={clearCanvas} data-testid="clear-btn">
             <Trash2 className="w-3.5 h-3.5 mr-1" /> Clear
           </Button>
-          <Button variant="ghost" size="sm" className="h-8 text-slate-400" onClick={download}>
-            <Download className="w-3.5 h-3.5 mr-1" /> Save
+          <Button variant="ghost" size="sm" className="h-8 text-slate-400" onClick={saveToCloud} disabled={saving} data-testid="cloud-save-btn">
+            {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1" /> : <Download className="w-3.5 h-3.5 mr-1" />} {saving ? 'Saving...' : 'Save'}
+          </Button>
+          <Button variant="ghost" size="sm" className="h-8 text-slate-400" onClick={download} data-testid="download-btn">
+            <Download className="w-3.5 h-3.5 mr-1" /> Export
           </Button>
           <Button variant="ghost" size="sm" className="h-8 text-slate-400" onClick={onClose}>
             <X className="w-4 h-4" />
