@@ -562,6 +562,51 @@ async def handle_webrtc_signaling(
                     }
                 )
             
+            elif message_type == "whiteboard_stroke":
+                # Broadcast drawing stroke to all other participants
+                await manager.broadcast_to_meeting(
+                    meeting_id,
+                    {
+                        "type": "whiteboard_stroke",
+                        "from_user": user_id,
+                        "from_name": user_name,
+                        "stroke": data.get("stroke"),
+                        "timestamp": datetime.now(timezone.utc).isoformat()
+                    },
+                    exclude_user=user_id,
+                    store_in_history=False
+                )
+            
+            elif message_type == "whiteboard_cursor":
+                # Broadcast cursor position for presence awareness
+                await manager.broadcast_to_meeting(
+                    meeting_id,
+                    {
+                        "type": "whiteboard_cursor",
+                        "from_user": user_id,
+                        "from_name": user_name,
+                        "x": data.get("x"),
+                        "y": data.get("y"),
+                        "color": data.get("color", "#20b2aa")
+                    },
+                    exclude_user=user_id,
+                    store_in_history=False
+                )
+            
+            elif message_type == "whiteboard_clear":
+                # Broadcast clear event
+                await manager.broadcast_to_meeting(
+                    meeting_id,
+                    {
+                        "type": "whiteboard_clear",
+                        "from_user": user_id,
+                        "from_name": user_name,
+                        "timestamp": datetime.now(timezone.utc).isoformat()
+                    },
+                    exclude_user=user_id,
+                    store_in_history=False
+                )
+            
             elif message_type == "ping":
                 # Keep-alive ping from client
                 await manager.send_personal(websocket, {"type": "pong"})
