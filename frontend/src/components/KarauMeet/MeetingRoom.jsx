@@ -1871,7 +1871,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
 
         {/* Side Panel - Desktop only, slides in */}
         {activePanel && (
-          <div className="hidden md:flex absolute right-0 top-12 bottom-0 w-80 bg-slate-800 border-l border-slate-700 flex-col z-10">
+          <div className="hidden md:flex absolute right-0 top-12 bottom-0 w-80 bg-karau-card border-l border-karau-border flex-col z-10">
             {/* Panel Header */}
             <div className="flex items-center justify-between p-3 border-b border-slate-700">
               <span className="text-white font-medium capitalize">{activePanel === 'ai-notes' ? 'AI Notes' : activePanel}</span>
