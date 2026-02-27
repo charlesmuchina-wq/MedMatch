@@ -420,23 +420,122 @@ export default function TalentCRMPage() {
         {/* CONTACTS TAB */}
         {activeTab === 'contacts' && !selectedContact && (
           <div>
-            <div className="mb-4">
-              <div className="relative">
+            <div className="mb-4 flex items-center gap-3">
+              <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                 <Input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search contacts..."
                   className="bg-slate-800/60 border-slate-700 text-white pl-9 h-9" data-testid="search-contacts" />
               </div>
+              <div className="flex gap-0.5 bg-slate-800/60 rounded-lg p-0.5 border border-slate-700/50">
+                <button onClick={() => setViewMode('list')}
+                  className={`p-1.5 rounded transition-all ${viewMode === 'list' ? 'bg-teal-600/20 text-teal-400' : 'text-slate-500 hover:text-slate-300'}`}
+                  data-testid="view-list-btn" title="List view">
+                  <List className="w-4 h-4" />
+                </button>
+                <button onClick={() => setViewMode('kanban')}
+                  className={`p-1.5 rounded transition-all ${viewMode === 'kanban' ? 'bg-teal-600/20 text-teal-400' : 'text-slate-500 hover:text-slate-300'}`}
+                  data-testid="view-kanban-btn" title="Kanban board">
+                  <LayoutGrid className="w-4 h-4" />
+                </button>
+              </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2" data-testid="contacts-grid">
-              {contacts.length === 0 ? (
-                <div className="col-span-full text-center py-16 text-slate-500">
-                  <Users className="w-10 h-10 mx-auto mb-3 opacity-20" />
-                  <p className="text-sm">No contacts yet. Add your first candidate.</p>
-                </div>
-              ) : contacts.map(c => (
-                <ContactCard key={c.id} contact={c} onClick={() => setSelectedContact(c)} />
-              ))}
-            </div>
+
+            {/* List View */}
+            {viewMode === 'list' && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2" data-testid="contacts-grid">
+                {contacts.length === 0 ? (
+                  <div className="col-span-full text-center py-16 text-slate-500">
+                    <Users className="w-10 h-10 mx-auto mb-3 opacity-20" />
+                    <p className="text-sm">No contacts yet. Add your first candidate.</p>
+                  </div>
+                ) : contacts.map(c => (
+                  <ContactCard key={c.id} contact={c} onClick={() => setSelectedContact(c)} />
+                ))}
+              </div>
+            )}
+
+            {/* Kanban Board View */}
+            {viewMode === 'kanban' && (
+              <div className="flex gap-2.5 overflow-x-auto pb-4" data-testid="kanban-board">
+                {STAGES.filter(s => s !== 'archived').map(stage => {
+                  const stageContacts = contacts.filter(c => c.stage === stage);
+                  const STAGE_HEADER_COLORS = {
+                    new: 'border-t-blue-500', contacted: 'border-t-cyan-500', screening: 'border-t-amber-500',
+                    interview: 'border-t-violet-500', offer: 'border-t-teal-500', hired: 'border-t-emerald-500', rejected: 'border-t-red-500'
+                  };
+                  return (
+                    <div
+                      key={stage}
+                      className={`min-w-[220px] w-[220px] shrink-0 rounded-lg bg-slate-800/40 border border-slate-700/40 border-t-2 ${STAGE_HEADER_COLORS[stage] || 'border-t-slate-500'}`}
+                      onDragOver={(e) => { e.preventDefault(); e.currentTarget.classList.add('ring-1', 'ring-teal-500/50'); }}
+                      onDragLeave={(e) => { e.currentTarget.classList.remove('ring-1', 'ring-teal-500/50'); }}
+                      onDrop={async (e) => {
+                        e.preventDefault();
+                        e.currentTarget.classList.remove('ring-1', 'ring-teal-500/50');
+                        if (dragContact && dragContact.stage !== stage) {
+                          try {
+                            await fetch(`${API}/api/talent-crm/contacts/${dragContact.id}/stage`, {
+                              method: 'PUT', headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ stage })
+                            });
+                            setContacts(contacts.map(c => c.id === dragContact.id ? { ...c, stage } : c));
+                            setPipeline(prev => {
+                              const newStages = { ...prev.stages };
+                              newStages[dragContact.stage] = Math.max((newStages[dragContact.stage] || 0) - 1, 0);
+                              newStages[stage] = (newStages[stage] || 0) + 1;
+                              return { ...prev, stages: newStages };
+                            });
+                          } catch (err) { console.error(err); }
+                          setDragContact(null);
+                        }
+                      }}
+                      data-testid={`kanban-col-${stage}`}
+                    >
+                      {/* Column Header */}
+                      <div className="p-2.5 border-b border-slate-700/30">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-medium text-slate-300 capitalize">{stage}</span>
+                          <span className="text-[10px] text-slate-500 bg-slate-700/50 px-1.5 py-0.5 rounded-full">{stageContacts.length}</span>
+                        </div>
+                      </div>
+                      {/* Column Cards */}
+                      <div className="p-1.5 space-y-1.5 min-h-[100px]">
+                        {stageContacts.map(c => (
+                          <div
+                            key={c.id}
+                            draggable
+                            onDragStart={() => setDragContact(c)}
+                            onDragEnd={() => setDragContact(null)}
+                            onClick={() => setSelectedContact(c)}
+                            className="p-2 rounded-md bg-slate-700/40 border border-slate-600/30 cursor-grab active:cursor-grabbing hover:border-teal-500/30 transition-all group"
+                            data-testid={`kanban-card-${c.id}`}
+                          >
+                            <div className="flex items-center gap-2 mb-1">
+                              <GripVertical className="w-3 h-3 text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+                              <div className="w-6 h-6 rounded-full bg-gradient-to-br from-teal-500/30 to-blue-500/30 flex items-center justify-center text-[10px] font-bold text-teal-300 shrink-0">
+                                {c.name?.charAt(0)?.toUpperCase()}
+                              </div>
+                              <p className="text-xs text-white truncate font-medium">{c.name}</p>
+                            </div>
+                            <p className="text-[10px] text-slate-500 truncate ml-8">{c.title}</p>
+                            {c.tags?.length > 0 && (
+                              <div className="flex gap-0.5 mt-1 ml-8">
+                                {c.tags.slice(0, 2).map(t => <span key={t} className="px-1 py-0 text-[8px] bg-slate-600/40 text-slate-400 rounded">{t}</span>)}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                        {stageContacts.length === 0 && (
+                          <div className="text-center py-6 text-slate-600">
+                            <p className="text-[10px]">Drop here</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         )}
 
