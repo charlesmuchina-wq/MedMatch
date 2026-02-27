@@ -128,6 +128,20 @@ const MeetingWhiteboard = ({ isOpen, onClose, meetingId }) => {
     }
   };
 
+  const saveToCloud = async () => {
+    if (!canvasRef.current || !meetingId) return;
+    setSaving(true);
+    try {
+      const snapshot_data = canvasRef.current.toDataURL('image/png', 0.7);
+      await fetch(`${API}/api/karau-meet/ai/whiteboard/save`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ meeting_id: meetingId, snapshot_data, name: 'Whiteboard' })
+      });
+    } catch (e) { console.error('Save failed:', e); }
+    setSaving(false);
+  };
+
   const download = () => {
     const link = document.createElement('a');
     link.download = 'whiteboard.png';
