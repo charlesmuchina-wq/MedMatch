@@ -1767,7 +1767,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
           </div>
 
           {/* Main Control Bar - Zoom style */}
-          <div className="h-16 bg-slate-800 border-t border-slate-700 flex items-center justify-center gap-3 px-4 flex-shrink-0 relative">
+          <div className="h-16 bg-karau-card/80 backdrop-blur-xl border-t border-karau-border flex items-center justify-center gap-3 px-4 flex-shrink-0 relative">
             {/* Org branding footer (left side) */}
             {orgBranding && (
               <div className="absolute left-4 flex items-center gap-2" data-testid="org-branding-footer">
