@@ -75,6 +75,8 @@ import PSVVerificationPage from "@/pages/PSVVerificationPage";
 import CandidateScoringPage from "@/pages/CandidateScoringPage";
 import JobDescriptionGenerator from "@/pages/JobDescriptionGenerator";
 import HiringMetricsPage from "@/pages/HiringMetricsPage";
+import DEIAnalyticsPage from "@/pages/DEIAnalyticsPage";
+import TalentCRMPage from "@/pages/TalentCRMPage";
 import KarauMeetLanding from "@/pages/KarauMeet/KarauMeetLanding";
 import KarauMeetPortal from "@/pages/KarauMeet/KarauMeetPortal";
 import MeetingRoom from "@/components/KarauMeet/MeetingRoom";
