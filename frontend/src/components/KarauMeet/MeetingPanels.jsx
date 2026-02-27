@@ -45,7 +45,7 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-3 border-b border-slate-700 hidden md:block">
+      <div className="p-3 border-b border-karau-border hidden md:block">
         <h3 className="font-semibold text-white flex items-center gap-2">
           <MessageSquare className="w-4 h-4" />
           Chat
@@ -72,7 +72,7 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
         </div>
       </ScrollArea>
       
-      <div className="p-3 border-t border-slate-700">
+      <div className="p-3 border-t border-karau-border">
         <div className="flex gap-2">
           <input
             ref={inputRef}
@@ -81,7 +81,7 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Type a message..."
-            className="flex-1 bg-slate-800 border border-slate-600 text-white rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-turquoise focus:border-transparent"
+            className="flex-1 bg-karau-card border border-karau-border text-white rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-turquoise focus:border-transparent"
             inputMode="text"
             enterKeyHint="send"
             autoComplete="off"
@@ -109,7 +109,7 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
 export const AINotesPanel = ({ notes, isTranscribing, onGenerateSummary, isSummarizing }) => {
   return (
     <div className="flex flex-col h-full">
-      <div className="p-3 border-b border-slate-700">
+      <div className="p-3 border-b border-karau-border">
         <h3 className="font-semibold text-white flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-turquoise" />
           AI Notes
@@ -132,7 +132,7 @@ export const AINotesPanel = ({ notes, isTranscribing, onGenerateSummary, isSumma
             </div>
           ) : (
             notes.map((note, idx) => (
-              <div key={idx} className="p-2 bg-slate-800 rounded-lg text-sm">
+              <div key={idx} className="p-2 bg-karau-card rounded-lg text-sm">
                 <Badge className={`mb-1 text-xs ${
                   note.type === 'transcription' ? 'bg-blue-500/20 text-blue-400' :
                   note.type === 'summary' ? 'bg-purple-500/20 text-purple-400' :
@@ -152,11 +152,11 @@ export const AINotesPanel = ({ notes, isTranscribing, onGenerateSummary, isSumma
         </div>
       </ScrollArea>
       
-      <div className="p-3 border-t border-slate-700 space-y-2">
+      <div className="p-3 border-t border-karau-border space-y-2">
         <Button 
           variant="outline" 
           size="sm" 
-          className="w-full text-slate-300 border-slate-600" 
+          className="w-full text-slate-300 border-karau-border" 
           data-testid="generate-summary"
           onClick={onGenerateSummary}
           disabled={isSummarizing}
@@ -173,7 +173,7 @@ export const AINotesPanel = ({ notes, isTranscribing, onGenerateSummary, isSumma
             </>
           )}
         </Button>
-        <Button variant="outline" size="sm" className="w-full text-slate-300 border-slate-600" data-testid="export-notes"
+        <Button variant="outline" size="sm" className="w-full text-slate-300 border-karau-border" data-testid="export-notes"
           onClick={() => {
             const text = notes.map(n => `[${n.type}] ${n.content}`).join('\n');
             const blob = new Blob([text], { type: 'text/plain' });
@@ -198,7 +198,7 @@ export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, 
 
   return (
     <div className="flex flex-col h-full">
-      <div className="p-3 border-b border-slate-700">
+      <div className="p-3 border-b border-karau-border">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold text-white flex items-center gap-2">
             <Users className="w-4 h-4" />
@@ -208,7 +208,7 @@ export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, 
             <Button
               variant="ghost"
               size="sm"
-              className="h-7 text-xs text-slate-400 hover:text-white hover:bg-slate-700"
+              className="h-7 text-xs text-slate-400 hover:text-white hover:bg-karau-surface"
               onClick={onMuteAll}
               data-testid="mute-all-btn"
             >
@@ -229,7 +229,7 @@ export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, 
                 className={`flex items-center justify-between p-2 rounded-lg transition-all ${
                   isSpeaking
                     ? 'bg-emerald-500/10 ring-1 ring-emerald-500/50'
-                    : 'bg-slate-800'
+                    : 'bg-karau-card'
                 }`}
                 data-testid={`participant-${idx}`}
               >
@@ -267,7 +267,7 @@ export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, 
                         <MoreVertical className="w-4 h-4" />
                       </Button>
                       {openMenu === p.user_id && (
-                        <div className="absolute top-7 right-0 bg-slate-700 border border-slate-600 rounded-lg shadow-xl z-20 w-36 py-1">
+                        <div className="absolute top-7 right-0 bg-karau-surface border border-karau-border rounded-lg shadow-xl z-20 w-36 py-1">
                           <button
                             className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-slate-300 hover:bg-slate-600 hover:text-white"
                             onClick={() => { onMuteParticipant(p.user_id); setOpenMenu(null); }}
@@ -294,11 +294,11 @@ export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, 
       </ScrollArea>
       
       {isHost && (
-        <div className="p-3 border-t border-slate-700">
+        <div className="p-3 border-t border-karau-border">
           <Button
             variant="outline"
             size="sm"
-            className="w-full text-slate-300 border-slate-600"
+            className="w-full text-slate-300 border-karau-border"
             onClick={onOpenBreakoutRooms}
             data-testid="open-breakout-rooms-btn"
           >
@@ -317,7 +317,7 @@ export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, 
 export const SettingsPanel = ({ settings, onUpdateSettings }) => {
   return (
     <div className="flex flex-col h-full">
-      <div className="p-3 border-b border-slate-700">
+      <div className="p-3 border-b border-karau-border">
         <h3 className="font-semibold text-white flex items-center gap-2">
           <Settings className="w-4 h-4" />
           Settings
