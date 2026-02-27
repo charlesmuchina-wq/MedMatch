@@ -1981,4 +1981,4 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   );
 };
 
-export defaul
+export default MeetingRoom;
