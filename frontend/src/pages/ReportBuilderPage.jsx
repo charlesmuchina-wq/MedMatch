@@ -181,12 +181,11 @@ export default function ReportBuilderPage() {
   const [reportType, setReportType] = useState('hiring_funnel');
   const [dateRange, setDateRange] = useState('30d');
   const [selectedReport, setSelectedReport] = useState(null);
-  const token = localStorage.getItem('token');
-  const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` };
+  const fetchOpts = { credentials: 'include' };
+  const postOpts = { credentials: 'include', headers: { 'Content-Type': 'application/json' } };
 
   useEffect(() => {
-    if (token) fetch(`${API}/api/advanced/reports`, { headers }).then(r => r.ok ? r.json() : { reports: [] }).then(d => { setReports(d.reports || []); setLoading(false); }).catch(() => setLoading(false));
-    else setLoading(false);
+    fetch(`${API}/api/advanced/reports`, fetchOpts).then(r => r.ok ? r.json() : { reports: [] }).then(d => { setReports(d.reports || []); setLoading(false); }).catch(() => setLoading(false));
   }, []);
 
   const generateReport = async () => {
@@ -194,7 +193,7 @@ export default function ReportBuilderPage() {
     setGenerating(true);
     try {
       const res = await fetch(`${API}/api/advanced/reports`, {
-        method: 'POST', headers,
+        method: 'POST', ...postOpts,
         body: JSON.stringify({ name, report_type: reportType, date_range: dateRange, metrics: [], filters: {} })
       });
       if (res.ok) { const r = await res.json(); setReports([r, ...reports]); setSelectedReport(r); setName(''); }
@@ -204,7 +203,7 @@ export default function ReportBuilderPage() {
 
   const deleteReport = async (id) => {
     try {
-      await fetch(`${API}/api/advanced/reports/${id}`, { method: 'DELETE', headers });
+      await fetch(`${API}/api/advanced/reports/${id}`, { method: 'DELETE', ...fetchOpts });
       setReports(reports.filter(r => r.id !== id));
       if (selectedReport?.id === id) setSelectedReport(null);
     } catch (e) { console.error(e); }
