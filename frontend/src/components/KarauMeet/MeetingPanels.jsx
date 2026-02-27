@@ -106,7 +106,7 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
 /**
  * AI Notes panel with transcription and summaries
  */
-export const AINotesPanel = ({ notes, isTranscribing }) => {
+export const AINotesPanel = ({ notes, isTranscribing, onGenerateSummary, isSummarizing }) => {
   return (
     <div className="flex flex-col h-full">
       <div className="p-3 border-b border-slate-700">
@@ -128,7 +128,7 @@ export const AINotesPanel = ({ notes, isTranscribing }) => {
             <div className="text-center py-8">
               <Sparkles className="w-8 h-8 text-slate-600 mx-auto mb-2" />
               <p className="text-slate-400 text-sm">AI notes will appear here during the meeting...</p>
-              <p className="text-slate-500 text-xs mt-1">Transcription, summaries, and action items</p>
+              <p className="text-slate-500 text-xs mt-1">Enable CC to start live transcription, then generate AI summary</p>
             </div>
           ) : (
             notes.map((note, idx) => (
@@ -137,9 +137,10 @@ export const AINotesPanel = ({ notes, isTranscribing }) => {
                   note.type === 'transcription' ? 'bg-blue-500/20 text-blue-400' :
                   note.type === 'summary' ? 'bg-purple-500/20 text-purple-400' :
                   note.type === 'action_item' ? 'bg-orange-500/20 text-orange-400' :
+                  note.type === 'key_decision' ? 'bg-green-500/20 text-green-400' :
                   'bg-slate-500/20 text-slate-400'
                 }`} variant="outline">
-                  {note.type}
+                  {note.type === 'key_decision' ? 'decision' : note.type}
                 </Badge>
                 <p className="text-slate-300">{note.content}</p>
                 <span className="text-xs text-slate-500">
@@ -152,11 +153,35 @@ export const AINotesPanel = ({ notes, isTranscribing }) => {
       </ScrollArea>
       
       <div className="p-3 border-t border-slate-700 space-y-2">
-        <Button variant="outline" size="sm" className="w-full text-slate-300 border-slate-600" data-testid="generate-summary">
-          <FileText className="w-4 h-4 mr-2" />
-          Generate Summary
+        <Button 
+          variant="outline" 
+          size="sm" 
+          className="w-full text-slate-300 border-slate-600" 
+          data-testid="generate-summary"
+          onClick={onGenerateSummary}
+          disabled={isSummarizing}
+        >
+          {isSummarizing ? (
+            <>
+              <Circle className="w-4 h-4 mr-2 animate-spin" />
+              Generating...
+            </>
+          ) : (
+            <>
+              <FileText className="w-4 h-4 mr-2" />
+              Generate AI Summary
+            </>
+          )}
         </Button>
-        <Button variant="outline" size="sm" className="w-full text-slate-300 border-slate-600" data-testid="export-notes">
+        <Button variant="outline" size="sm" className="w-full text-slate-300 border-slate-600" data-testid="export-notes"
+          onClick={() => {
+            const text = notes.map(n => `[${n.type}] ${n.content}`).join('\n');
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = 'meeting-notes.txt'; a.click();
+          }}
+        >
           <Download className="w-4 h-4 mr-2" />
           Export Notes
         </Button>

@@ -4,7 +4,8 @@ import { toast } from 'sonner';
 import { Shield, Copy, Calendar, Loader2, Circle,
   Check, X, AlertTriangle, Image as ImageIcon,
   Mic, MicOff, Video, VideoOff, Monitor, MonitorOff,
-  Hand, PhoneOff, Square, MessageSquare, Users, Sparkles, Share2
+  Hand, PhoneOff, Square, MessageSquare, Users, Sparkles, Share2,
+  Captions, CaptionsOff, BarChart3
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +16,9 @@ import { ParticipantGrid } from './ParticipantGrid';
 import { ChatPanel, AINotesPanel, ParticipantsPanel, SettingsPanel } from './MeetingPanels';
 import ShareMeetingDialog from './ShareMeetingDialog';
 import BreakoutRoomManager from './BreakoutRoomManager';
+import LiveCaptions from './LiveCaptions';
+import MeetingReactions from './MeetingReactions';
+import { PollsPanel } from './PollsPanel';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
@@ -302,6 +306,10 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   const [activeSpeakerId, setActiveSpeakerId] = useState(null);
   const [showBreakoutManager, setShowBreakoutManager] = useState(false);
   const [orgBranding, setOrgBranding] = useState(null);
+  const [isCaptionsEnabled, setIsCaptionsEnabled] = useState(false);
+  const [transcriptSegments, setTranscriptSegments] = useState([]);
+  const [incomingReaction, setIncomingReaction] = useState(null);
+  const [isSummarizing, setIsSummarizing] = useState(false);
   const [meetingSettings, setMeetingSettings] = useState({
     ai_transcription: true,
     auto_summary: true,
@@ -1071,13 +1079,16 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         break;
         
       case 'reaction':
-        toast(
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">{message.emoji}</span>
-            <span>{message.from_name}</span>
-          </div>,
-          { duration: 1500 }
-        );
+        setIncomingReaction({ emoji: message.emoji, ts: Date.now() });
+        if (message.from_user !== user?.user_id) {
+          toast(
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">{message.emoji}</span>
+              <span>{message.from_name}</span>
+            </div>,
+            { duration: 1500 }
+          );
+        }
         break;
         
       case 'host_action':
@@ -1499,6 +1510,62 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
     safeSend({ type: 'chat', message });
   }, [safeSend]);
 
+  // Handle transcript segment from LiveCaptions
+  const handleTranscriptUpdate = useCallback((segment) => {
+    setTranscriptSegments(prev => [...prev, segment]);
+    // Also add to AI notes
+    setAiNotes(prev => [...prev, {
+      type: 'transcription',
+      content: `${segment.speaker}: ${segment.text}`,
+      timestamp: segment.timestamp
+    }]);
+  }, []);
+
+  // Send emoji reaction via WebSocket
+  const sendReaction = useCallback((emoji) => {
+    safeSend({ type: 'reaction', emoji, from_name: user?.name || 'You' });
+  }, [safeSend, user]);
+
+  // Generate AI summary from transcript
+  const generateSummary = useCallback(async () => {
+    if (transcriptSegments.length === 0) {
+      toast.info('No transcript available yet. Enable captions to start recording the conversation.');
+      return;
+    }
+    setIsSummarizing(true);
+    try {
+      const res = await fetch(`${API}/api/karau-meet/ai/summarize`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          meeting_id: meetingId,
+          meeting_title: meeting?.title || 'Meeting',
+          transcript: transcriptSegments
+        })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        // Add summary to AI notes
+        setAiNotes(prev => [
+          ...prev,
+          { type: 'summary', content: data.summary, timestamp: new Date().toISOString() },
+          ...data.action_items.map(item => ({
+            type: 'action_item', content: item, timestamp: new Date().toISOString()
+          })),
+          ...data.key_decisions.map(d => ({
+            type: 'key_decision', content: d, timestamp: new Date().toISOString()
+          }))
+        ]);
+        toast.success('Meeting summary generated!');
+      } else {
+        toast.error('Failed to generate summary');
+      }
+    } catch (e) {
+      toast.error('Summary generation failed');
+    }
+    setIsSummarizing(false);
+  }, [transcriptSegments, meetingId, meeting]);
+
   const leaveMeeting = useCallback(async () => {
     try {
       const token = localStorage.getItem('token');
@@ -1600,7 +1667,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         {/* Video Area - Zoom-style horizontal layout */}
         <div className={`flex-1 flex flex-col transition-all duration-300 ${activePanel ? 'md:mr-80' : ''}`}>
           {/* Video Grid Container */}
-          <div className="flex-1 p-2 md:p-3 overflow-hidden">
+          <div className="flex-1 p-2 md:p-3 overflow-hidden relative">
             <div className="h-full flex items-center justify-center">
               <ParticipantGrid
                 participants={allParticipants}
@@ -1611,10 +1678,21 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 activeSpeakerId={activeSpeakerId}
               />
             </div>
+            {/* Live Captions Overlay */}
+            <LiveCaptions
+              isEnabled={isCaptionsEnabled}
+              onTranscriptUpdate={handleTranscriptUpdate}
+              onToggle={() => setIsCaptionsEnabled(!isCaptionsEnabled)}
+            />
+            {/* Floating Reactions */}
+            <MeetingReactions
+              onSendReaction={sendReaction}
+              incomingReaction={incomingReaction}
+            />
           </div>
 
           {/* Quick Actions Bar - Above main controls */}
-          <div className="px-3 pb-2 flex justify-center gap-2 flex-shrink-0">
+          <div className="px-3 pb-2 flex justify-center gap-2 flex-shrink-0 flex-wrap">
             <Button
               variant={activePanel === 'chat' ? 'default' : 'outline'}
               size="sm"
@@ -1644,6 +1722,26 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             >
               <Sparkles className="w-4 h-4 mr-1.5" />
               AI Notes
+            </Button>
+            <Button
+              variant={activePanel === 'polls' ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setActivePanel(activePanel === 'polls' ? null : 'polls')}
+              className={`h-9 ${activePanel === 'polls' ? 'bg-turquoise' : 'border-slate-600 text-slate-300'}`}
+              data-testid="polls-panel-btn"
+            >
+              <BarChart3 className="w-4 h-4 mr-1.5" />
+              Polls
+            </Button>
+            <Button
+              variant={isCaptionsEnabled ? 'default' : 'outline'}
+              size="sm"
+              onClick={() => setIsCaptionsEnabled(!isCaptionsEnabled)}
+              className={`h-9 ${isCaptionsEnabled ? 'bg-turquoise' : 'border-slate-600 text-slate-300'}`}
+              data-testid="captions-toggle-btn"
+            >
+              {isCaptionsEnabled ? <Captions className="w-4 h-4 mr-1.5" /> : <CaptionsOff className="w-4 h-4 mr-1.5" />}
+              CC
             </Button>
             <Button
               variant="outline"
@@ -1789,7 +1887,10 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 />
               )}
               {activePanel === 'ai-notes' && (
-                <AINotesPanel notes={aiNotes} isTranscribing={isTranscribing} />
+                <AINotesPanel notes={aiNotes} isTranscribing={isCaptionsEnabled} onGenerateSummary={generateSummary} isSummarizing={isSummarizing} />
+              )}
+              {activePanel === 'polls' && (
+                <PollsPanel meetingId={meetingId} isHost={isHost} />
               )}
               {activePanel === 'settings' && (
                 <SettingsPanel 
@@ -1838,7 +1939,10 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               />
             )}
             {activePanel === 'ai-notes' && (
-              <AINotesPanel notes={aiNotes} isTranscribing={isTranscribing} />
+              <AINotesPanel notes={aiNotes} isTranscribing={isCaptionsEnabled} onGenerateSummary={generateSummary} isSummarizing={isSummarizing} />
+            )}
+            {activePanel === 'polls' && (
+              <PollsPanel meetingId={meetingId} isHost={isHost} />
             )}
             {showBreakoutManager && (
               <BreakoutRoomManager
@@ -1877,4 +1981,4 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   );
 };
 
-export default MeetingRoom;
+export defaul
