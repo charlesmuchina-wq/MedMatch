@@ -294,7 +294,19 @@ export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, 
       </ScrollArea>
       
       {isHost && (
-        <div className="p-3 border-t border-karau-border">
+        <div className="p-3 border-t border-karau-border space-y-2">
+          {participants.length > 1 && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="w-full text-slate-300 border-karau-border"
+              onClick={onMuteAll}
+              data-testid="mute-all-btn"
+            >
+              <VolumeX className="w-4 h-4 mr-2" />
+              Mute All
+            </Button>
+          )}
           <Button
             variant="outline"
             size="sm"
