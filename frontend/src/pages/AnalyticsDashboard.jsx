@@ -321,7 +321,7 @@ const AnalyticsDashboard = () => {
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
                         <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
-                          {company.name.charAt(0)}
+                          {company.name?.charAt(0) || '?'}
                         </span>
                       </div>
                       <span className="text-slate-900 dark:text-slate-100">{company.name}</span>
