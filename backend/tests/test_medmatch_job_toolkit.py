@@ -128,7 +128,10 @@ class TestJobsAndSearchAPIs:
     
     def test_search_autocomplete(self):
         """GET /api/search/autocomplete?q=data - Returns suggestions"""
-        response = requests.get(f"{BASE_URL}/api/search/autocomplete?q=data&limit=5")
+        global admin_token
+        headers = {"Authorization": f"Bearer {admin_token}"} if admin_token else {}
+        
+        response = requests.get(f"{BASE_URL}/api/search/autocomplete?q=data&limit=5", headers=headers)
         assert response.status_code == 200
         data = response.json()
         print(f"GET /api/search/autocomplete returned {len(data) if isinstance(data, list) else 'data'}")
@@ -318,7 +321,10 @@ class TestEnterpriseAndAdminAPIs:
     
     def test_metrics(self):
         """GET /api/metrics - Returns production metrics"""
-        response = requests.get(f"{BASE_URL}/api/metrics")
+        global admin_token
+        headers = {"Authorization": f"Bearer {admin_token}"} if admin_token else {}
+        
+        response = requests.get(f"{BASE_URL}/api/metrics", headers=headers)
         assert response.status_code == 200
         print(f"GET /api/metrics returned status {response.status_code}")
 
@@ -490,7 +496,10 @@ class TestIntegrationAPIs:
     
     def test_payments_status(self):
         """GET /api/payments/status/test - Returns payment status"""
-        response = requests.get(f"{BASE_URL}/api/payments/status/test")
+        global admin_token
+        headers = {"Authorization": f"Bearer {admin_token}"} if admin_token else {}
+        
+        response = requests.get(f"{BASE_URL}/api/payments/status/test", headers=headers)
         # May return 404 if not configured
         assert response.status_code in [200, 404]
         print(f"GET /api/payments/status/test returned status {response.status_code}")
@@ -528,7 +537,10 @@ class TestMiscServiceAPIs:
     
     def test_dragon_automator_health(self):
         """GET /api/dragon/automator/health - Returns automator health"""
-        response = requests.get(f"{BASE_URL}/api/dragon/automator/health")
+        global admin_token
+        headers = {"Authorization": f"Bearer {admin_token}"} if admin_token else {}
+        
+        response = requests.get(f"{BASE_URL}/api/dragon/automator/health", headers=headers)
         assert response.status_code == 200
         print(f"GET /api/dragon/automator/health returned status {response.status_code}")
     
