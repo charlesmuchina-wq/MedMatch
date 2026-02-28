@@ -339,6 +339,7 @@ const KarauMeetDashboard = ({ user }) => {
             )}
           </div>
         )}
+        </div>
       </div>
 
       {/* Create Meeting Dialog */}
