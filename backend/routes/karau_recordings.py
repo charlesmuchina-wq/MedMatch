@@ -96,11 +96,21 @@ async def upload_recording(
         "recorded_at": datetime.now(timezone.utc).isoformat(),
         "storage_type": "cloud",
         "status": "completed",
+        "transcription_status": "queued",
         "is_deleted": False
     }
 
     await recordings.insert_one(recording_doc)
     recording_doc.pop("_id", None)
+
+    # Auto-trigger transcription in background
+    try:
+        from services.transcription_service import auto_transcribe_and_store
+        asyncio.create_task(auto_transcribe_and_store(
+            recording_doc["recording_id"], result["path"], content_type, db
+        ))
+    except Exception as e:
+        logger.warning(f"Transcription trigger failed: {e}")
 
     return {"success": True, "recording": recording_doc}
 
