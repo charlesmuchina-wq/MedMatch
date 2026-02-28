@@ -521,7 +521,7 @@ async def get_room_info(webinar_id: str, user=Depends(get_current_user)):
         {"webinar_id": webinar_id},
         {"_id": 0, "webinar_id": 1, "title": 1, "status": 1, "host_id": 1,
          "host_name": 1, "settings": 1, "active_roles": 1, "practice_mode": 1,
-         "panelists": 1, "hand_raises": 1}
+         "panelists": 1, "coordinators": 1, "hand_raises": 1}
     )
     if not webinar:
         raise HTTPException(404, "Webinar not found")
@@ -529,20 +529,24 @@ async def get_room_info(webinar_id: str, user=Depends(get_current_user)):
     uid = user["user_id"]
     user_email = user.get("email", "")
 
-    # Determine role
+    # Determine role: host > coordinator > presenter > panelist > attendee
     if uid == webinar["host_id"]:
         my_role = "host"
     elif uid in webinar.get("active_roles", {}):
         my_role = webinar["active_roles"][uid]["role"]
+    elif any(c["email"] == user_email for c in webinar.get("coordinators", [])):
+        my_role = "coordinator"
     elif any(p["email"] == user_email for p in webinar.get("panelists", [])):
         my_role = "panelist"
     else:
         my_role = "attendee"
 
-    # Permissions based on role
+    # Permissions based on role hierarchy
+    # Coordinator: can control (promote/demote/mute/Q&A) but NO video. Host: full control + video.
     can_stream = my_role in ("host", "presenter", "panelist")
-    can_control = my_role == "host"
+    can_control = my_role in ("host", "coordinator")
     can_present = my_role in ("host", "presenter")
+    can_drive_slides = my_role in ("host", "coordinator", "presenter")
 
     # If practice mode and attendee, deny entry
     if webinar.get("practice_mode") and my_role == "attendee":
@@ -557,6 +561,7 @@ async def get_room_info(webinar_id: str, user=Depends(get_current_user)):
         "can_stream_audio": can_stream,
         "can_screen_share": can_present,
         "can_control": can_control,
+        "can_drive_slides": can_drive_slides,
         "settings": webinar.get("settings", {}),
         "practice_mode": webinar.get("practice_mode", False),
         "hand_raises": webinar.get("hand_raises", []) if can_control else [],
