@@ -376,7 +376,7 @@ const KarauMeetPortal = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 flex">
+    <div className="min-h-screen bg-karau-bg flex">
       <Toaster position="top-right" theme="dark" />
       
       {/* Sidebar */}
