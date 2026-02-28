@@ -3,13 +3,14 @@ AI KARAU Meeting - Recordings API Routes
 Browser-side recordings with cloud storage upload support.
 """
 
-from fastapi import APIRouter, HTTPException, Depends, UploadFile, File, Form, Query, Header
+from fastapi import APIRouter, HTTPException, Depends, UploadFile, File, Form, Query, Header, BackgroundTasks
 from fastapi.responses import Response
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime, timezone
 import uuid
 import logging
+import asyncio
 
 from utils.database import db
 from routes.auth import get_current_user, require_auth
