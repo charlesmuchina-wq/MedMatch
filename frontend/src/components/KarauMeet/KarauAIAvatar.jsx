@@ -132,8 +132,8 @@ const KarauAIAvatar = ({ meetingId }) => {
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500/20 via-purple-500/15 to-emerald-500/10 border border-purple-500/20 flex items-center justify-center mx-auto mb-2">
                     <Sparkles className="w-5 h-5 text-purple-400" />
                   </div>
-                  <p className="text-xs font-medium text-white">How can I help?</p>
-                  <p className="text-[10px] text-slate-500 mt-0.5">Ask about meetings, get summaries, or explore features</p>
+                  <p className="text-xs font-medium text-white">{t("karauMeet.howCanIHelp")}</p>
+                  <p className="text-[10px] text-slate-500 mt-0.5">{t("karauMeet.askAboutMeetings")}</p>
                 </div>
                 <div className="space-y-1.5">
                   {QUICK_ACTIONS.map((a, i) => (
