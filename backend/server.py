@@ -168,9 +168,17 @@ async def lifespan(app: FastAPI):
     
     # Initialize ML Data Collector
     await ml_collector.initialize(mongo_url, os.environ.get('DB_NAME', 'medmatch'))
-    logger.info("🧠 ML Data Collector initialized - Training data collection active")
+    logger.info("ML Data Collector initialized - Training data collection active")
     
-    logger.info("🚀 MedMatch-AI KARAU API server started successfully - Ready for 1M+ users!")
+    # Initialize Object Storage
+    try:
+        from services.object_storage import init_storage
+        init_storage()
+        logger.info("Object storage initialized for cloud recordings")
+    except Exception as e:
+        logger.warning(f"Object storage init deferred: {e}")
+    
+    logger.info("MedMatch-AI KARAU API server started successfully - Ready for 1M+ users!")
     
     yield
     
