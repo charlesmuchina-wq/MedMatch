@@ -27,19 +27,28 @@ def _add_to_history(meeting_id: str, role: str, content: str):
         _conversation_histories[meeting_id] = hist[-20:]
 
 
+def _make_chat(session_id: str, system_message: str):
+    """Create LlmChat with the current API."""
+    from emergentintegrations.llm.chat import LlmChat
+    return LlmChat(
+        api_key=EMERGENT_LLM_KEY,
+        session_id=session_id,
+        system_message=system_message
+    ).with_model("openai", "gpt-4o-mini")
+
+
 async def process_transcript_segment(meeting_id: str, segment: str, speaker: str = "Unknown") -> dict:
     """Process a transcript segment and extract insights."""
     if not EMERGENT_LLM_KEY or not segment.strip():
         return {}
 
     try:
-        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        from emergentintegrations.llm.chat import UserMessage
 
-        chat = LlmChat(
-            api_key=EMERGENT_LLM_KEY,
-            model_provider="openai",
-            properties={}
-        ).with_model("openai", "gpt-4o-mini")
+        chat = _make_chat(
+            f"segment-{meeting_id}",
+            "You are an AI that extracts action items and key points from meeting transcript segments. Always return valid JSON."
+        )
 
         prompt = f"""Analyze this meeting transcript segment and extract any action items or key decisions.
 Speaker: {speaker}
@@ -57,11 +66,11 @@ Return ONLY valid JSON."""
 
         result = await asyncio.to_thread(
             chat.send_message,
-            UserMessage(content=prompt)
+            UserMessage(text=prompt)
         )
 
         try:
-            parsed = json.loads(result.content.strip().strip("```json").strip("```"))
+            parsed = json.loads(result.strip().strip("```json").strip("```"))
             if parsed.get("has_action_item") and parsed.get("action_item"):
                 await db.karau_meetings.update_one(
                     {"meeting_id": meeting_id},
@@ -109,19 +118,18 @@ async def generate_meeting_summary(meeting_id: str) -> Optional[str]:
         return "No content available for summary generation. Enable captions to start capturing meeting content."
 
     try:
-        from emergentintegrations.llm.chat import LlmChat, UserMessage
-
-        chat = LlmChat(
-            api_key=EMERGENT_LLM_KEY,
-            model_provider="openai",
-            properties={}
-        ).with_model("openai", "gpt-4o-mini")
+        from emergentintegrations.llm.chat import UserMessage
 
         context = ""
         if highlights:
             context += "Discussion highlights:\n" + "\n".join(f"- {h}" for h in highlights[-30:])
         if action_items:
             context += "\n\nAction items:\n" + "\n".join(f"- {a}" for a in action_items)
+
+        chat = _make_chat(
+            f"summary-{meeting_id}",
+            "You are a professional meeting summarizer. Generate clear, concise meeting summaries."
+        )
 
         prompt = f"""Generate a concise meeting summary for "{meeting.get('title', 'Meeting')}".
 
@@ -137,10 +145,10 @@ Keep it concise and professional."""
 
         result = await asyncio.to_thread(
             chat.send_message,
-            UserMessage(content=prompt)
+            UserMessage(text=prompt)
         )
 
-        summary = result.content.strip()
+        summary = result.strip()
 
         await db.karau_meetings.update_one(
             {"meeting_id": meeting_id},
@@ -179,54 +187,42 @@ async def get_ai_answer(meeting_id: str, question: str) -> dict:
         )
 
     try:
-        from emergentintegrations.llm.chat import LlmChat, UserMessage
-
-        chat = LlmChat(
-            api_key=EMERGENT_LLM_KEY,
-            model_provider="openai",
-            properties={}
-        ).with_model("openai", "gpt-4o-mini")
+        from emergentintegrations.llm.chat import UserMessage
 
         context = "\n".join(f"- {item}" for item in context_items) if context_items else "(No meeting content captured yet)"
 
-        prompt = f"""You are KARAU AI, an intelligent meeting assistant for "{meeting.get('title', 'Meeting')}".
+        system_msg = f"""You are KARAU AI, an intelligent meeting assistant for "{meeting.get('title', 'Meeting')}".
 You help participants understand discussions, track action items, and make meetings more productive.
+Always respond in valid JSON with keys "answer" (string) and "follow_up_suggestions" (list of 2 strings).
+Be concise but thorough. If no relevant context exists, say so honestly and suggest enabling captions."""
 
-Meeting context:
+        chat = _make_chat(f"qa-{meeting_id}", system_msg)
+
+        prompt = f"""Meeting context:
 {context}
 {history_text}
 
 User question: {question}
 
-Respond in this JSON format:
-{{
-  "answer": "Your concise, helpful answer here",
-  "follow_up_suggestions": ["suggestion 1", "suggestion 2"]
-}}
-
-Rules:
-- Be concise but thorough
-- If asked about action items, format them as a numbered list
-- If no relevant context exists, say so honestly and suggest enabling captions
-- Provide 2 relevant follow-up suggestions
-- Return ONLY valid JSON"""
+Respond in JSON format:
+{{"answer": "your answer", "follow_up_suggestions": ["suggestion 1", "suggestion 2"]}}"""
 
         result = await asyncio.to_thread(
             chat.send_message,
-            UserMessage(content=prompt)
+            UserMessage(text=prompt)
         )
 
         # Save conversation
         _add_to_history(meeting_id, "user", question)
 
         try:
-            parsed = json.loads(result.content.strip().strip("```json").strip("```"))
-            answer = parsed.get("answer", result.content.strip())
+            parsed = json.loads(result.strip().strip("```json").strip("```"))
+            answer = parsed.get("answer", result.strip())
             suggestions = parsed.get("follow_up_suggestions", [])
             _add_to_history(meeting_id, "assistant", answer)
             return {"answer": answer, "follow_up_suggestions": suggestions[:3]}
         except json.JSONDecodeError:
-            answer = result.content.strip()
+            answer = result.strip()
             _add_to_history(meeting_id, "assistant", answer)
             return {"answer": answer, "follow_up_suggestions": []}
     except Exception as e:
