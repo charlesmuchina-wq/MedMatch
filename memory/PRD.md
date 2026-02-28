@@ -1,62 +1,57 @@
 # MedMatch-AI KARAU Platform - Product Requirements Document
 
 ## Original Problem Statement
-Build "AI KARAU," a sophisticated AI-powered video meeting portal, and MedMatch Job Toolkit for Life Sciences & Engineering talent.
+Build "MedMatch-AI KARAU" - a dual-purpose platform featuring:
+1. **AI KARAU** - Premium video meeting portal with AI-powered features
+2. **MedMatch Job Toolkit** - AI-powered life sciences talent ecosystem
 
-## Implemented Features
+## Core Architecture
+- **Frontend**: React + Tailwind CSS + Shadcn UI + react-i18next (52 locales)
+- **Backend**: FastAPI + MongoDB
+- **AI**: Emergent LLM Key for assistant, summaries, translation
+- **Theme**: Purple/violet/emerald karau palette (karau-bg, karau-card, karau-accent, karau-emerald)
+
+## What's Implemented
 
 ### AI KARAU Portal
-- Real-time video meetings with WebRTC
-- AI Meeting Notes with PDF export (reportlab)
-- Full AI Meeting Assistant - LLM integration (GPT-4o-mini) for Q&A, action items, summaries
-- Floating KARAU AI Avatar - App-wide chatbot (React Portal)
-- Real-time Dashboard Analytics - Stats from MongoDB + Activity Feed
-- **Meeting Scheduling** - datetime-local picker + countdown timers ("Starts in 17h 15m")
-- **AI Trending Topics** - Extracts discussion topics from recent meetings
-- **i18n Support** - 50+ strings migrated to karauMeet namespace in en.json
-- Upcoming Meetings with quick Start buttons
-- Real-time caption translation (16+ languages)
-- Industry-specific meeting templates, CRM webhooks
-- Whiteboard, polls, reactions, noise cancellation, recordings, semantic search
+- Single-page horizontal dashboard with real-time stats, activity feed, upcoming meetings, trending topics
+- Meeting creation with scheduling + countdown timers
+- Floating KARAU AI Avatar (React Portal) with chat panel
+- Collapsible sections (highlights, recent meetings)
+- Full meeting room: video controls, screen share, breakout rooms, polls, whiteboard, live captions, virtual backgrounds, recording with consent
+- Settings: Accessibility, Calendar (MS/Google/Apple), Security, SSO/SAML, Compliance (GDPR/HIPAA), CRM Webhooks
+- Guest join with OTP email verification + age confirmation
+- Industry templates for meetings
+- Dashboard auto-refresh every 30s with visual spinner indicator
 
-### Dashboard Layout
-- Single-page horizontal bento grid
-- Row 1: Welcome + Enterprise + New Meeting
-- Row 2: Start Instant Meeting | Join Meeting | Stats (203+ meetings, AI insights, participants)
-- Row 3: Upcoming (with countdown) | Trending Topics (sentiment-colored)
-- Row 4: Feature badges + Active count
-- Row 5: Collapsible Highlights + Recent Meetings
-- Sidebar: 6 nav items, w-52/w-14, auto-collapse mobile
-- Purple/Blue/Green color scheme (60-30-10 rule)
+### MedMatch Job Toolkit
+- Resume parser/builder, AI job matching, semantic search with relevance scoring + filters
+- Recruiter network, salary insights, interview prep, company reviews
+- Admin panel, analytics, trust score system
 
-### i18n Keys Added (karauMeet.*)
-- upcoming, trendingTopics, highlights, recentMeetings
-- meetings, hours, aiInsights, participants, active
-- e2eEncrypted, aiNotes, multiLanguage, noiseCancel, aiAssistant
-- scheduleMeeting, scheduledFor, startsIn, selectDateTime
-- chat, people, polls, settings, whiteboard, reactions
-- karauAI, online, howCanIHelp, askKarauPlaceholder
-- And 30+ more...
+### Internationalization
+- 52 locale files with 314+ karauMeet keys, 20+ candidateSearch keys
+- react-i18next with namespace-based translation
+- All KARAU portal pages fully internationalized
 
-## Key API Endpoints
-- GET /api/karau-meet/stats, /upcoming, /activity-feed, /trending-topics
-- POST /api/karau-meet/meetings (supports scheduled_time)
-- POST /api/karau-features/ai-assistant/ask, /generate-summary/{id}
-- GET /api/karau-features/ai-assistant/insights/{id}
-- POST /api/karau-features/translate, /webhook/test
-- GET /api/karau-features/templates
+### Theme (Feb 2026)
+- Replaced all Teams-blue (turquoise/slate-800/900) with karau purple/green palette
+- Login, Dashboard, Settings, Recordings, Guest Join, Meeting Room, Video Controls, all meeting panels updated
 
-## P1 Backlog
-- Enhanced noise cancellation (rnnoise-wasm)
-- Semantic search improvements
-- Dashboard auto-refresh polling
-- Add more languages to i18n (es, fr, de, etc.)
+## P0/P1/P2 Prioritized Backlog
 
-## P2 Backlog
-- Payment gateway config (Stripe/PayPal - needs API keys)
-- Production email OTP (Resend)
-- Mobile app optimization
+### P2 - Future
+- Full noise cancellation with rnnoise-wasm library
+- Payment gateway live keys (Stripe/PayPal) - blocked on user input
+- Real-time WebRTC peer connections
+- Native AI translations for all 51 non-English locales (currently using English fallback)
+
+## User Personas
+- **Meeting Host**: Creates/schedules meetings, manages participants, uses AI assistant
+- **Guest**: Joins via link with email verification
+- **Admin**: Enterprise SSO, compliance, organization management
+- **Recruiter**: Uses MedMatch toolkit for talent search
 
 ## Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
-- Test: test@medmatch.io / TestPassword123!
+- Test User: test@medmatch.io / TestPassword123!
