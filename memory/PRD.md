@@ -20,10 +20,30 @@ Build "MedMatch," an AI-powered Life Sciences & Engineering Talent Ecosystem, co
 - **Full-width video area** as the central focus
 - **Single unified bottom control bar** (Teams-style): Audio | Video | Screen Share | Record | Hand Raise | Chat | People | AI Notes | More (...) | Leave
 - **Smooth sliding side panel** from right (flex-based, 300ms transition)
-- **"More" dropdown menu**: Polls, Captions, Virtual Background, Whiteboard, Breakout Rooms, Add to Calendar, Settings
+- **"More" dropdown menu**: Polls, Captions, Virtual Background, Noise Cancellation, Whiteboard, Breakout Rooms, Add to Calendar, Settings
 - **Mobile bottom sheet** for panels on small screens
 - **Fixed pre-existing bug**: `effectiveUserId` ReferenceError in active speaker detection
-- **Fixed duplicate panel headers**: Hidden internal panel headers in MeetingPanels.jsx, moved Mute All button to panel footer
+- **Fixed duplicate panel headers**: Hidden internal panel headers, moved Mute All to panel footer
+
+### Noise Cancellation Integration (Feb 28, 2026)
+- **useNoiseCancellation hook** wired into meeting room audio pipeline
+- **Auto-applies** on meeting start when noise_cancellation setting is enabled
+- **Toggle** available in More (...) menu with Volume2 icon showing On/Off state
+- **Filter chain**: High-pass (85Hz) -> Notch (60Hz hum) -> Low-pass (14kHz) -> DynamicsCompressor
+- **Peer connection update**: toggleing NC updates audio tracks in all peer connections
+
+### Enhanced Semantic Search (Feb 28, 2026)
+- **Search history**: Persists in localStorage (max 8 entries), shows query, hit count, time ago
+- **Example queries**: 6 pre-defined queries for life sciences roles, clickable to search
+- **Enhanced result cards**: Ranking number, matched skills highlighted in turquoise, location display
+- **AI criteria display**: Shows extracted skills, experience level, domain badges from AI parsing
+- **Clear history** button to reset search history
+
+### Enhanced Meeting Reactions (Feb 28, 2026)
+- **Varied floating animations**: Each emoji gets random drift, rotation, size, and duration
+- **Burst particles**: Celebration (party) and fire emojis trigger 6 radial burst particles
+- **Improved reaction bar**: Rounded design with hover scale effects
+- **Button style**: Matches redesigned control bar aesthetic (rounded-xl)
 
 ### Previously Completed Features
 - Talent CRM with Kanban view (react-beautiful-dnd)
@@ -34,20 +54,18 @@ Build "MedMatch," an AI-powered Life Sciences & Engineering Talent Ecosystem, co
 - One-Click Apply, Team Collaboration & Outreach
 - Mobile Responsiveness across entire platform
 - Onboarding Wizard
-- Semantic Search (AI-powered, full backend + frontend at /semantic-search)
-- Noise Cancellation hook (Web Audio API chain - not integrated into meeting room audio pipeline, browser noiseSuppression active)
 
 ## Test Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
 - Test User: test@medmatch.io / TestPassword123!
 
 ## Key Files
-- `/app/frontend/src/components/KarauMeet/MeetingRoom.jsx` - Redesigned meeting room
-- `/app/frontend/src/components/KarauMeet/MeetingPanels.jsx` - Updated panel components
-- `/app/frontend/src/pages/SemanticSearchPage.jsx` - Semantic search UI
-- `/app/frontend/src/components/KarauMeet/useNoiseCancellation.js` - Noise cancellation hook
+- `/app/frontend/src/components/KarauMeet/MeetingRoom.jsx` - Meeting room with NC integration
+- `/app/frontend/src/components/KarauMeet/MeetingPanels.jsx` - Panel components
+- `/app/frontend/src/components/KarauMeet/useNoiseCancellation.js` - Web Audio API noise hook
+- `/app/frontend/src/components/KarauMeet/MeetingReactions.jsx` - Enhanced reactions with burst
+- `/app/frontend/src/pages/SemanticSearchPage.jsx` - Enhanced semantic search UI
 
 ## Backlog
-- **P2**: Integrate useNoiseCancellation hook into meeting room audio pipeline
 - **P3**: Payment Gateway Configuration (Stripe/PayPal - needs API keys from user)
 - **P3**: Production email OTP (Resend - needs API key)
