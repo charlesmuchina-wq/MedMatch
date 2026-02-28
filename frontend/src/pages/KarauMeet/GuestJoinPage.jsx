@@ -39,8 +39,8 @@ const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
 
   useEffect(() => {
     if (resendCooldown > 0) {
-      const t = setTimeout(() => setResendCooldown(c => c - 1), 1000);
-      return () => clearTimeout(t);
+      const timer = setTimeout(() => setResendCooldown(c => c - 1), 1000);
+      return () => clearTimeout(timer);
     }
   }, [resendCooldown]);
 
@@ -58,10 +58,9 @@ const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
     setPageLoading(false);
   };
 
-  // Step 1: Register guest & send OTP
   const handleRegister = async () => {
-    if (!guestName.trim()) return toast.error('Please enter your name');
-    if (!email.trim() || !email.includes('@')) return toast.error('Please enter a valid email');
+    if (!guestName.trim()) return toast.error(t("karauMeet.enterName"));
+    if (!email.trim() || !email.includes('@')) return toast.error(t("karauMeet.enterValidEmail"));
     setLoading(true);
     try {
       const res = await fetch(`${API}/api/karau-meet/guest/register`, {
@@ -71,22 +70,21 @@ const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        toast.success('Verification code sent to your email');
+        toast.success(t("karauMeet.verificationCodeSentEmail"));
         setStep(STEPS.OTP);
         setResendCooldown(60);
       } else {
-        toast.error(data.detail || 'Failed to send verification code');
+        toast.error(data.detail || t("karauMeet.failedSendVerification"));
       }
     } catch {
-      toast.error('Network error. Please try again.');
+      toast.error(t("karauMeet.networkError"));
     }
     setLoading(false);
   };
 
-  // Step 2: Verify OTP
   const handleVerifyOTP = async () => {
     const code = otp.join('');
-    if (code.length !== 6) return toast.error('Please enter the 6-digit code');
+    if (code.length !== 6) return toast.error(t("karauMeet.enterFullCode"));
     setLoading(true);
     try {
       const res = await fetch(`${API}/api/karau-meet/guest/verify-otp`, {
@@ -96,20 +94,19 @@ const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        toast.success('Email verified!');
+        toast.success(t("karauMeet.emailVerifiedSuccess"));
         setStep(STEPS.AGE);
       } else {
-        toast.error(data.detail || 'Invalid code');
+        toast.error(data.detail || t("karauMeet.invalidCode"));
       }
     } catch {
-      toast.error('Network error. Please try again.');
+      toast.error(t("karauMeet.networkError"));
     }
     setLoading(false);
   };
 
-  // Step 3: Age declaration & join
   const handleAgeDeclaration = async () => {
-    if (!ageConfirmed) return toast.error('Please confirm your age to continue');
+    if (!ageConfirmed) return toast.error(t("karauMeet.confirmAge"));
     setLoading(true);
     try {
       const res = await fetch(`${API}/api/karau-meet/guest/age-declaration`, {
@@ -119,7 +116,7 @@ const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
       });
       const data = await res.json();
       if (res.ok && data.success) {
-        toast.success('Verification complete!');
+        toast.success(t("karauMeet.verificationComplete"));
         const guestUser = data.user || {
           user_id: data.guest_id,
           name: guestName,
@@ -134,11 +131,11 @@ const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
           navigate(`/karau-meet/lobby/${meetingId}`);
         }
       } else {
-        toast.error(data.detail || 'Verification failed');
+        toast.error(data.detail || t("karauMeet.verificationFailed2"));
         setLoading(false);
       }
     } catch {
-      toast.error('Network error. Please try again.');
+      toast.error(t("karauMeet.networkError"));
       setLoading(false);
     }
   };
@@ -152,16 +149,15 @@ const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
         body: JSON.stringify({ email, name: guestName, meeting_id: meetingId })
       });
       if (res.ok) {
-        toast.success('New code sent!');
+        toast.success(t("karauMeet.newCodeSent"));
         setResendCooldown(60);
         setOtp(['', '', '', '', '', '']);
       }
     } catch {
-      toast.error('Failed to resend code');
+      toast.error(t("karauMeet.failedResend"));
     }
   };
 
-  // OTP digit input handler
   const handleOtpChange = (idx, val) => {
     if (val.length > 1) val = val.slice(-1);
     if (val && !/^\d$/.test(val)) return;
@@ -189,24 +185,24 @@ const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
 
   if (pageLoading) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-turquoise animate-spin" />
+      <div className="min-h-screen bg-karau-bg flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-purple-400 animate-spin" />
       </div>
     );
   }
 
   if (error === 'notFound') {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
-        <Card className="bg-slate-800/80 border-slate-700 max-w-md w-full">
+      <div className="min-h-screen bg-karau-bg flex items-center justify-center p-4">
+        <Card className="bg-karau-card/80 border-karau-border max-w-md w-full rounded-2xl">
           <CardContent className="p-8 text-center">
             <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center mx-auto mb-4">
               <Video className="w-8 h-8 text-red-400" />
             </div>
-            <h2 className="text-xl font-bold text-white mb-2">Meeting Not Found</h2>
-            <p className="text-slate-400 text-sm mb-6">This meeting doesn't exist or has ended.</p>
-            <Button onClick={() => navigate('/karau-meet')} variant="outline" className="border-slate-600 text-slate-300" data-testid="guest-back-btn">
-              Back to Portal
+            <h2 className="text-xl font-bold text-white mb-2">{t("karauMeet.meetingNotFound")}</h2>
+            <p className="text-karau-muted text-sm mb-6">{t("karauMeet.meetingNotFoundDesc")}</p>
+            <Button onClick={() => navigate('/karau-meet')} variant="outline" className="border-white/10 text-slate-300 rounded-xl" data-testid="guest-back-btn">
+              {t("karauMeet.backToPortalBtn")}
             </Button>
           </CardContent>
         </Card>
@@ -214,118 +210,111 @@ const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
     );
   }
 
-  // Step indicators
   const stepLabels = [
-    { num: 1, label: 'Details', icon: User },
-    { num: 2, label: 'Verify', icon: KeyRound },
-    { num: 3, label: 'Confirm', icon: UserCheck },
+    { num: 1, label: t("karauMeet.stepDetails"), icon: User },
+    { num: 2, label: t("karauMeet.stepVerify"), icon: KeyRound },
+    { num: 3, label: t("karauMeet.stepConfirm"), icon: UserCheck },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-karau-bg flex items-center justify-center p-4" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-turquoise/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl" />
       </div>
 
-      <Card className="bg-slate-800/80 backdrop-blur-xl border-slate-700 max-w-md w-full relative z-10" data-testid="guest-join-card">
+      <Card className="bg-karau-card/80 backdrop-blur-xl border-karau-border max-w-md w-full relative z-10 rounded-2xl" data-testid="guest-join-card">
         <CardContent className="p-8">
-          {/* Logo */}
           <div className="flex items-center justify-center gap-3 mb-4">
             <img
               src="https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg"
               alt="AI KARAU"
               className="w-10 h-10 rounded-xl object-cover"
             />
-            <span className="text-xl font-bold bg-gradient-to-r from-teal-400 to-amber-400 bg-clip-text text-transparent">
+            <span className="text-xl font-bold bg-gradient-to-r from-purple-400 via-violet-300 to-emerald-400 bg-clip-text text-transparent">
               AI KARAU Meeting
             </span>
           </div>
 
-          {/* Meeting Info */}
           <div className="text-center mb-5">
             <h1 className="text-xl font-bold text-white mb-1" data-testid="guest-meeting-title">
               {meetingInfo?.title || 'AI KARAU Meeting'}
             </h1>
-            <p className="text-xs text-slate-400">
-              Meeting ID: <span className="font-mono text-turquoise font-semibold">{meetingId}</span>
+            <p className="text-xs text-karau-muted">
+              {t("karauMeet.meetingId")}: <span className="font-mono text-purple-400 font-semibold">{meetingId}</span>
             </p>
           </div>
 
-          {/* Step Indicator */}
           <div className="flex items-center justify-center gap-1 mb-6" data-testid="guest-step-indicator">
             {stepLabels.map((s, i) => (
               <div key={s.num} className="flex items-center">
                 <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-                  step === s.num ? 'bg-turquoise/20 text-turquoise border border-turquoise/30' :
-                  step > s.num ? 'bg-green-500/15 text-green-400 border border-green-500/20' :
-                  'bg-slate-700/40 text-slate-500 border border-slate-600/30'
+                  step === s.num ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' :
+                  step > s.num ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20' :
+                  'bg-karau-surface/40 text-slate-500 border border-white/5'
                 }`}>
                   <s.icon className="w-3.5 h-3.5" />
                   {s.label}
                 </div>
-                {i < 2 && <div className={`w-6 h-px mx-1 ${step > s.num ? 'bg-green-500/40' : 'bg-slate-600/40'}`} />}
+                {i < 2 && <div className={`w-6 h-px mx-1 ${step > s.num ? 'bg-emerald-500/40' : 'bg-karau-border'}`} />}
               </div>
             ))}
           </div>
 
-          {/* STEP 1: Name + Email */}
           {step === STEPS.INFO && (
             <div className="space-y-4" data-testid="guest-step-info">
               <div>
-                <label className="text-sm font-medium text-slate-300 mb-1.5 block">Your Name</label>
+                <label className="text-sm font-medium text-slate-300 mb-1.5 block">{t("karauMeet.yourName")}</label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                   <Input
-                    placeholder="Enter your full name"
+                    placeholder={t("karauMeet.enterFullName")}
                     value={guestName}
                     onChange={(e) => setGuestName(e.target.value)}
-                    className="bg-slate-900 border-slate-600 text-white pl-10 h-11"
+                    className="bg-karau-bg/60 border-white/10 text-white pl-10 h-11 rounded-xl focus:border-purple-500/40"
                     autoFocus
                     data-testid="guest-name-input"
                   />
                 </div>
               </div>
               <div>
-                <label className="text-sm font-medium text-slate-300 mb-1.5 block">Email Address</label>
+                <label className="text-sm font-medium text-slate-300 mb-1.5 block">{t("karauMeet.emailAddress")}</label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
                   <Input
                     type="email"
-                    placeholder="your@email.com"
+                    placeholder={t("karauMeet.emailPlaceholder")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleRegister()}
-                    className="bg-slate-900 border-slate-600 text-white pl-10 h-11"
+                    className="bg-karau-bg/60 border-white/10 text-white pl-10 h-11 rounded-xl focus:border-purple-500/40"
                     data-testid="guest-email-input"
                   />
                 </div>
-                <p className="text-xs text-slate-500 mt-1">We'll send a verification code to this email</p>
+                <p className="text-xs text-slate-500 mt-1">{t("karauMeet.verificationCodeWillBeSent")}</p>
               </div>
               <Button
                 onClick={handleRegister}
                 disabled={loading || !guestName.trim() || !email.includes('@')}
-                className="w-full h-11 bg-gradient-to-r from-turquoise to-cyan-500 hover:from-turquoise/90 hover:to-cyan-500/90 text-white font-semibold"
+                className="w-full h-11 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white font-semibold rounded-xl shadow-lg shadow-purple-500/20"
                 data-testid="guest-send-otp-btn"
               >
                 {loading ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : <ArrowRight className="w-5 h-5 mr-2" />}
-                {loading ? 'Sending code...' : 'Send Verification Code'}
+                {loading ? t("karauMeet.sendingCode") : t("karauMeet.sendVerificationCode")}
               </Button>
             </div>
           )}
 
-          {/* STEP 2: OTP Verification */}
           {step === STEPS.OTP && (
             <div className="space-y-4" data-testid="guest-step-otp">
               <div className="text-center">
-                <div className="w-12 h-12 rounded-full bg-turquoise/10 flex items-center justify-center mx-auto mb-3">
-                  <Mail className="w-6 h-6 text-turquoise" />
+                <div className="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center mx-auto mb-3">
+                  <Mail className="w-6 h-6 text-purple-400" />
                 </div>
-                <p className="text-sm text-slate-300">Enter the 6-digit code sent to</p>
-                <p className="text-turquoise font-medium text-sm">{email}</p>
+                <p className="text-sm text-slate-300">{t("karauMeet.enterDigitCode")}</p>
+                <p className="text-purple-400 font-medium text-sm">{email}</p>
               </div>
 
-              {/* OTP Inputs */}
               <div className="flex justify-center gap-2" data-testid="guest-otp-inputs">
                 {otp.map((digit, idx) => (
                   <input
@@ -338,7 +327,7 @@ const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
                     onPaste={idx === 0 ? handleOtpPaste : undefined}
-                    className="w-11 h-12 text-center text-lg font-bold text-white bg-slate-900 border border-slate-600 rounded-lg focus:border-turquoise focus:ring-1 focus:ring-turquoise/50 outline-none transition-all"
+                    className="w-11 h-12 text-center text-lg font-bold text-white bg-karau-bg/60 border border-white/10 rounded-lg focus:border-purple-500 focus:ring-1 focus:ring-purple-500/50 outline-none transition-all"
                     data-testid={`guest-otp-digit-${idx}`}
                   />
                 ))}
@@ -347,58 +336,57 @@ const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
               <Button
                 onClick={handleVerifyOTP}
                 disabled={loading || otp.join('').length !== 6}
-                className="w-full h-11 bg-gradient-to-r from-turquoise to-cyan-500 hover:from-turquoise/90 hover:to-cyan-500/90 text-white font-semibold"
+                className="w-full h-11 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white font-semibold rounded-xl shadow-lg shadow-purple-500/20"
                 data-testid="guest-verify-otp-btn"
               >
                 {loading ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : <KeyRound className="w-5 h-5 mr-2" />}
-                {loading ? 'Verifying...' : 'Verify Code'}
+                {loading ? t("karauMeet.verifying") : t("karauMeet.verifyCode")}
               </Button>
 
               <div className="flex items-center justify-between">
                 <button
                   onClick={() => { setStep(STEPS.INFO); setOtp(['','','','','','']); }}
-                  className="text-xs text-slate-400 hover:text-white flex items-center gap-1 transition-colors"
+                  className="text-xs text-karau-muted hover:text-white flex items-center gap-1 transition-colors"
                   data-testid="guest-back-to-info"
                 >
-                  <ChevronLeft className="w-3 h-3" /> Change email
+                  <ChevronLeft className="w-3 h-3" /> {t("karauMeet.changeEmail")}
                 </button>
                 <button
                   onClick={handleResendOTP}
                   disabled={resendCooldown > 0}
                   className={`text-xs flex items-center gap-1 transition-colors ${
-                    resendCooldown > 0 ? 'text-slate-500 cursor-not-allowed' : 'text-turquoise hover:text-turquoise/80'
+                    resendCooldown > 0 ? 'text-slate-500 cursor-not-allowed' : 'text-purple-400 hover:text-purple-300'
                   }`}
                   data-testid="guest-resend-otp"
                 >
                   <RefreshCw className="w-3 h-3" />
-                  {resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend code'}
+                  {resendCooldown > 0 ? t("karauMeet.resendIn", { seconds: resendCooldown }) : t("karauMeet.resendCode")}
                 </button>
               </div>
             </div>
           )}
 
-          {/* STEP 3: Age Declaration */}
           {step === STEPS.AGE && (
             <div className="space-y-4" data-testid="guest-step-age">
               <div className="text-center">
-                <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-3">
-                  <UserCheck className="w-6 h-6 text-green-400" />
+                <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-3">
+                  <UserCheck className="w-6 h-6 text-emerald-400" />
                 </div>
-                <p className="text-sm text-slate-300 mb-1">Email verified successfully!</p>
-                <p className="text-xs text-slate-400">One last step before joining</p>
+                <p className="text-sm text-slate-300 mb-1">{t("karauMeet.emailVerifiedSuccessDesc")}</p>
+                <p className="text-xs text-karau-muted">{t("karauMeet.lastStepBefore")}</p>
               </div>
 
-              <div className="bg-slate-900/60 rounded-lg p-4 border border-slate-700/50">
+              <div className="bg-karau-bg/60 rounded-xl p-4 border border-white/5">
                 <div className="flex items-start gap-3">
                   <Checkbox
                     id="age-confirm"
                     checked={ageConfirmed}
                     onCheckedChange={setAgeConfirmed}
-                    className="mt-0.5 border-slate-500 data-[state=checked]:bg-turquoise data-[state=checked]:border-turquoise"
+                    className="mt-0.5 border-white/20 data-[state=checked]:bg-emerald-500 data-[state=checked]:border-emerald-500"
                     data-testid="guest-age-checkbox"
                   />
                   <label htmlFor="age-confirm" className="text-sm text-slate-300 cursor-pointer leading-relaxed">
-                    I confirm that I am <span className="text-white font-semibold">16 years of age or older</span> and agree to the meeting terms of service.
+                    {t("karauMeet.ageConfirmTextPlain")}
                   </label>
                 </div>
               </div>
@@ -406,45 +394,43 @@ const GuestJoinPage = ({ onJoin, meetingIdProp }) => {
               <Button
                 onClick={handleAgeDeclaration}
                 disabled={loading || !ageConfirmed}
-                className="w-full h-11 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-500/90 hover:to-emerald-500/90 text-white font-semibold"
+                className="w-full h-11 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/20"
                 data-testid="guest-join-btn"
               >
                 {loading ? <Loader2 className="w-5 h-5 animate-spin mr-2" /> : <ArrowRight className="w-5 h-5 mr-2" />}
-                {loading ? 'Joining...' : 'Join Meeting'}
+                {loading ? t("karauMeet.joining") : t("karauMeet.joinMeetingBtn")}
               </Button>
 
               <button
                 onClick={() => setStep(STEPS.OTP)}
-                className="w-full text-xs text-slate-400 hover:text-white flex items-center justify-center gap-1 transition-colors"
+                className="w-full text-xs text-karau-muted hover:text-white flex items-center justify-center gap-1 transition-colors"
                 data-testid="guest-back-to-otp"
               >
-                <ChevronLeft className="w-3 h-3" /> Back
+                <ChevronLeft className="w-3 h-3" /> {t("karauMeet.backToPortalBtn")}
               </button>
             </div>
           )}
 
-          {/* Security badges */}
           <div className="mt-5 grid grid-cols-3 gap-2">
             {[
-              { icon: Shield, label: 'Encrypted', color: 'text-green-400' },
-              { icon: Sparkles, label: 'AI-Powered', color: 'text-turquoise' },
-              { icon: Lock, label: 'Verified', color: 'text-violet-400' },
+              { icon: Shield, label: t("karauMeet.encrypted"), color: 'text-emerald-400' },
+              { icon: Sparkles, label: t("karauMeet.aiPowered"), color: 'text-purple-400' },
+              { icon: Lock, label: t("karauMeet.verified"), color: 'text-violet-400' },
             ].map((item, i) => (
-              <div key={i} className="flex flex-col items-center gap-1 p-2 rounded-lg bg-slate-900/40">
+              <div key={i} className="flex flex-col items-center gap-1 p-2 rounded-lg bg-karau-bg/40">
                 <item.icon className={`w-4 h-4 ${item.color}`} />
                 <span className="text-[10px] text-slate-500">{item.label}</span>
               </div>
             ))}
           </div>
 
-          {/* Sign in link */}
           <div className="mt-3 text-center">
             <button
               onClick={() => navigate('/karau-meet')}
-              className="text-xs text-slate-500 hover:text-turquoise transition-colors"
+              className="text-xs text-slate-500 hover:text-purple-400 transition-colors"
               data-testid="guest-signin-link"
             >
-              Have an account? Sign in instead
+              {t("karauMeet.haveAccount")}
             </button>
           </div>
         </CardContent>
