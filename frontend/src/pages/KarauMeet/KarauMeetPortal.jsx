@@ -148,7 +148,7 @@ const MeetingsListPage = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold text-white mb-4">{t("karau.myMeetings")}</h1>
-      <p className="text-slate-400">{t("karau.viewAllMeetings") || "View all your past and upcoming meetings"}</p>
+      <p className="text-karau-muted">{t("karau.viewAllMeetings")}</p>
     </div>
   );
 };
@@ -158,7 +158,7 @@ const SchedulePage = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold text-white mb-4">{t("karau.schedule")}</h1>
-      <p className="text-slate-400">{t("karau.scheduleDesc") || "Schedule and manage your meetings"}</p>
+      <p className="text-karau-muted">{t("karau.scheduleDesc")}</p>
     </div>
   );
 };
@@ -168,7 +168,7 @@ const NotesPage = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold text-white mb-4">{t("karau.meetingNotes")}</h1>
-      <p className="text-slate-400">{t("karau.notesDesc") || "AI-generated summaries and transcriptions"}</p>
+      <p className="text-karau-muted">{t("karau.notesDesc")}</p>
     </div>
   );
 };
@@ -178,7 +178,7 @@ const AnalyticsPage = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold text-white mb-4">{t("karau.analytics")}</h1>
-      <p className="text-slate-400">{t("karau.analyticsDesc") || "Meeting statistics and insights"}</p>
+      <p className="text-karau-muted">{t("karau.analyticsDesc")}</p>
     </div>
   );
 };
