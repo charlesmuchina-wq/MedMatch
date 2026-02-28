@@ -353,6 +353,12 @@ export const CreateWebinarForm = ({ onCreated, onCancel }) => {
         </div>
       </div>
       <div>
+        <label className="text-xs text-slate-300 mb-1 block">Coordinator Emails (comma-separated)</label>
+        <Input value={form.coordinator_emails} onChange={e => setForm(f => ({ ...f, coordinator_emails: e.target.value }))}
+          placeholder="coordinator@org.com"
+          className="bg-karau-bg/60 border-white/10 text-white rounded-xl" data-testid="coordinator-emails-input" />
+      </div>
+      <div>
         <label className="text-xs text-slate-300 mb-1 block">{t("karauMeet.panelistEmails") || "Panelist Emails (comma-separated)"}</label>
         <Input value={form.panelist_emails} onChange={e => setForm(f => ({ ...f, panelist_emails: e.target.value }))}
           placeholder="panelist1@org.com, panelist2@org.com"
