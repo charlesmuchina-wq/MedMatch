@@ -234,6 +234,7 @@ const KarauMeetPortal = () => {
   const isLobbyPage = location.pathname.includes('/lobby/');
   const isEnterprisePage = location.pathname.includes('/enterprise');
   const isWebinarRegisterPage = location.pathname.includes('/webinar/') && location.pathname.includes('/register');
+  const isWebinarLiveRoom = location.pathname.includes('/webinar/') && location.pathname.includes('/live');
   
   // Extract meeting ID from URL for meeting routes
   const extractMeetingId = () => {
