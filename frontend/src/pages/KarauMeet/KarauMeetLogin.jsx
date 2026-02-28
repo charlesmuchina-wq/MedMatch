@@ -10,9 +10,6 @@ import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-/**
- * Standalone Login for AI KARAU Meeting Portal
- */
 const KarauMeetLogin = ({ onLogin }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -26,14 +23,12 @@ const KarauMeetLogin = ({ onLogin }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
     try {
       const response = await fetch(`${API}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
-      
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('token', data.access_token);
@@ -47,7 +42,6 @@ const KarauMeetLogin = ({ onLogin }) => {
     } catch (error) {
       toast.error(t("karauMeet.connectionError"));
     }
-    
     setIsLoading(false);
   };
 
@@ -69,39 +63,37 @@ const KarauMeetLogin = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex items-center justify-center p-4">
-      {/* Background pattern */}
+    <div className="min-h-screen bg-karau-bg flex items-center justify-center p-4" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
       <div className="absolute inset-0 opacity-10">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 25% 25%, rgba(20, 184, 166, 0.3) 0%, transparent 50%),
-                           radial-gradient(circle at 75% 75%, rgba(212, 175, 55, 0.3) 0%, transparent 50%)`
+          backgroundImage: `radial-gradient(circle at 25% 25%, rgba(108, 60, 224, 0.3) 0%, transparent 50%),
+                           radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.3) 0%, transparent 50%)`
         }} />
       </div>
-      
-      <Card className="w-full max-w-md bg-slate-800/80 border-slate-700 backdrop-blur-xl relative z-10">
+
+      <Card className="w-full max-w-md bg-karau-card/90 border-karau-border backdrop-blur-xl relative z-10 rounded-2xl">
         <CardHeader className="text-center pb-2">
           <div className="mx-auto mb-4">
-            <img 
+            <img
               src="https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg"
               alt="AI KARAU - The Meeting Place"
-              className="w-28 h-28 rounded-2xl object-cover shadow-lg shadow-teal-500/20"
+              className="w-28 h-28 rounded-2xl object-cover shadow-lg shadow-purple-500/20"
             />
           </div>
-          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-teal-400 via-cyan-300 to-amber-400 bg-clip-text text-transparent">
+          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-violet-300 to-emerald-400 bg-clip-text text-transparent">
             {t("karauMeet.aiKarauMeeting")}
           </CardTitle>
-          <CardDescription className="text-slate-400">
+          <CardDescription className="text-karau-muted">
             {t("karauMeet.tagline")}
           </CardDescription>
         </CardHeader>
-        
+
         <CardContent className="space-y-4">
-          {/* Tab Switcher */}
-          <div className="flex gap-2 p-1 bg-slate-900/50 rounded-lg">
+          <div className="flex gap-2 p-1 bg-karau-bg/60 rounded-xl">
             <button
               onClick={() => setActiveTab('signin')}
-              className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
-                activeTab === 'signin' ? 'bg-turquoise text-white' : 'text-slate-400 hover:text-white'
+              className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'signin' ? 'bg-karau-accent text-white shadow-lg shadow-purple-500/20' : 'text-karau-muted hover:text-white'
               }`}
               data-testid="tab-signin"
             >
@@ -109,8 +101,8 @@ const KarauMeetLogin = ({ onLogin }) => {
             </button>
             <button
               onClick={() => setActiveTab('join')}
-              className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all ${
-                activeTab === 'join' ? 'bg-turquoise text-white' : 'text-slate-400 hover:text-white'
+              className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+                activeTab === 'join' ? 'bg-karau-accent text-white shadow-lg shadow-purple-500/20' : 'text-karau-muted hover:text-white'
               }`}
               data-testid="tab-join"
             >
@@ -118,7 +110,6 @@ const KarauMeetLogin = ({ onLogin }) => {
             </button>
           </div>
 
-          {/* Sign In Tab */}
           {activeTab === 'signin' && (
             <>
               <form onSubmit={handleLogin} className="space-y-4">
@@ -129,12 +120,12 @@ const KarauMeetLogin = ({ onLogin }) => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={t("karauMeet.emailPlaceholder")}
-                    className="bg-slate-900/50 border-slate-600 text-white mt-1"
+                    className="bg-karau-bg/60 border-white/10 text-white mt-1 rounded-xl focus:border-purple-500/40 focus:ring-purple-500/20"
                     required
                     data-testid="input-email"
                   />
                 </div>
-                
+
                 <div>
                   <Label className="text-slate-300">{t("karauMeet.password")}</Label>
                   <div className="relative">
@@ -143,23 +134,23 @@ const KarauMeetLogin = ({ onLogin }) => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder={t("auth.passwordPlaceholder")}
-                      className="bg-slate-900/50 border-slate-600 text-white mt-1 pr-10"
+                      className="bg-karau-bg/60 border-white/10 text-white mt-1 pr-10 rounded-xl focus:border-purple-500/40 focus:ring-purple-500/20"
                       required
                       data-testid="input-password"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-karau-muted hover:text-white"
                     >
                       {showPassword ? '👁️' : '👁️‍🗨️'}
                     </button>
                   </div>
                 </div>
-                
-                <Button 
-                  type="submit" 
-                  className="w-full h-12 bg-turquoise hover:bg-turquoise/90 text-white font-semibold text-base"
+
+                <Button
+                  type="submit"
+                  className="w-full h-12 bg-gradient-to-r from-purple-600 via-violet-600 to-karau-accent hover:from-purple-500 hover:via-violet-500 hover:to-purple-500 text-white font-semibold text-base rounded-xl shadow-lg shadow-purple-500/20"
                   disabled={isLoading}
                   data-testid="btn-signin"
                 >
@@ -177,23 +168,21 @@ const KarauMeetLogin = ({ onLogin }) => {
                 </Button>
               </form>
 
-              {/* Divider */}
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-slate-700"></div>
+                  <div className="w-full border-t border-karau-border"></div>
                 </div>
                 <div className="relative flex justify-center text-xs">
-                  <span className="px-2 bg-slate-800 text-slate-400">{t("karauMeet.orContinueWith")}</span>
+                  <span className="px-2 bg-karau-card text-karau-muted">{t("karauMeet.orContinueWith")}</span>
                 </div>
               </div>
 
-              {/* Social Sign-In Options */}
               <div className="grid grid-cols-2 gap-3">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={handleGoogleSignIn}
-                  className="h-11 bg-white hover:bg-gray-100 text-gray-800 border-gray-300"
+                  className="h-11 bg-white hover:bg-gray-100 text-gray-800 border-gray-300 rounded-xl"
                   data-testid="btn-google"
                 >
                   <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
@@ -209,7 +198,7 @@ const KarauMeetLogin = ({ onLogin }) => {
                   type="button"
                   variant="outline"
                   onClick={handleAppleSignIn}
-                  className="h-11 bg-black hover:bg-gray-900 text-white border-gray-700"
+                  className="h-11 bg-black hover:bg-gray-900 text-white border-gray-700 rounded-xl"
                   data-testid="btn-apple"
                 >
                   <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
@@ -221,16 +210,15 @@ const KarauMeetLogin = ({ onLogin }) => {
             </>
           )}
 
-          {/* Join Meeting Tab */}
           {activeTab === 'join' && (
             <form onSubmit={handleJoinMeeting} className="space-y-4">
               <div className="text-center py-4">
-                <Users className="w-12 h-12 text-turquoise mx-auto mb-3" />
+                <Users className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
                 <p className="text-slate-300 text-sm">
                   {t("karauMeet.joinAsGuest")}
                 </p>
               </div>
-              
+
               <div>
                 <Label className="text-slate-300">{t("karauMeet.meetingId")}</Label>
                 <Input
@@ -238,42 +226,42 @@ const KarauMeetLogin = ({ onLogin }) => {
                   value={meetingId}
                   onChange={(e) => setMeetingId(e.target.value.toUpperCase())}
                   placeholder={t("karauMeet.meetingIdPlaceholder")}
-                  className="bg-slate-900/50 border-slate-600 text-white mt-1 text-center uppercase tracking-widest"
+                  className="bg-karau-bg/60 border-white/10 text-white mt-1 text-center uppercase tracking-widest rounded-xl focus:border-emerald-500/40"
                   data-testid="input-meeting-id"
                 />
               </div>
-              
-              <Button 
+
+              <Button
                 type="submit"
-                className="w-full h-11 bg-gradient-to-r from-violet-500 to-purple-600 hover:from-violet-500/90 hover:to-purple-600/90 text-white font-semibold"
+                className="w-full h-11 bg-gradient-to-r from-emerald-500 to-karau-emerald hover:from-emerald-400 hover:to-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/20"
                 data-testid="btn-join-meeting"
               >
                 <Users className="w-5 h-5 mr-2" />
                 {t("karauMeet.joinMeetingBtn")}
               </Button>
 
-              <p className="text-xs text-slate-500 text-center">
+              <p className="text-xs text-karau-muted text-center">
                 {t("karauMeet.guestNote")}
               </p>
             </form>
           )}
-          
-          <div className="pt-4 border-t border-slate-700">
-            <div className="flex items-center justify-center gap-4 text-sm text-slate-400">
+
+          <div className="pt-4 border-t border-karau-border">
+            <div className="flex items-center justify-center gap-4 text-sm text-karau-muted">
               <div className="flex items-center gap-1">
-                <Shield className="w-4 h-4 text-green-400" />
+                <Shield className="w-4 h-4 text-emerald-400" />
                 {t("karauMeet.e2eEncrypted")}
               </div>
               <div className="flex items-center gap-1">
-                <Sparkles className="w-4 h-4 text-turquoise" />
+                <Sparkles className="w-4 h-4 text-purple-400" />
                 {t("karauMeet.aiPowered")}
               </div>
             </div>
           </div>
-          
+
           <div className="text-center">
-            <Link to="/" className="text-sm text-slate-400 hover:text-turquoise transition-colors">
-              ← {t("karauMeet.backToPortal")}
+            <Link to="/" className="text-sm text-karau-muted hover:text-purple-400 transition-colors">
+              &larr; {t("karauMeet.backToPortal")}
             </Link>
           </div>
         </CardContent>

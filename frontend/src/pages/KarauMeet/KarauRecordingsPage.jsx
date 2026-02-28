@@ -8,9 +8,6 @@ import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-/**
- * Recordings Page - View and manage meeting recordings
- */
 const KarauRecordingsPage = () => {
   const { t } = useTranslation();
   const [recordings, setRecordings] = useState([]);
@@ -32,7 +29,6 @@ const KarauRecordingsPage = () => {
           headers: { 'Authorization': `Bearer ${token}` }
         })
       ]);
-
       if (recordingsRes.ok) {
         const data = await recordingsRes.json();
         setRecordings(data.recordings || []);
@@ -81,94 +77,90 @@ const KarauRecordingsPage = () => {
   if (loading) {
     return (
       <div className="p-6 flex items-center justify-center">
-        <Loader2 className="w-6 h-6 text-turquoise animate-spin" />
+        <Loader2 className="w-6 h-6 text-purple-400 animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
       <div>
-        <h1 className="text-2xl font-bold text-white" data-testid="recordings-title">Recordings</h1>
-        <p className="text-slate-400">Access your meeting recordings</p>
+        <h1 className="text-2xl font-bold text-white" data-testid="recordings-title">{t("karauMeet.recordingsTitle")}</h1>
+        <p className="text-karau-muted">{t("karauMeet.recordingsSubtitle")}</p>
       </div>
 
-      {/* Stats */}
       {stats && (
         <div className="grid grid-cols-3 gap-4">
-          <Card className="bg-slate-800/50 border-slate-700 p-4">
+          <div className="rounded-xl border border-white/5 bg-gradient-to-br from-violet-500/20 to-violet-600/5 p-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-violet-500/20 flex items-center justify-center">
                 <Video className="w-5 h-5 text-violet-400" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-white" data-testid="stat-total">{stats.total_recordings}</p>
-                <p className="text-xs text-slate-400">Total Recordings</p>
+                <p className="text-xs text-karau-muted">{t("karauMeet.totalRecordings")}</p>
               </div>
             </div>
-          </Card>
-          <Card className="bg-slate-800/50 border-slate-700 p-4">
+          </div>
+          <div className="rounded-xl border border-white/5 bg-gradient-to-br from-emerald-500/20 to-emerald-600/5 p-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-turquoise/20 flex items-center justify-center">
-                <Clock className="w-5 h-5 text-turquoise" />
+              <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                <Clock className="w-5 h-5 text-emerald-400" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-white" data-testid="stat-duration">{formatDuration(stats.total_duration_seconds)}</p>
-                <p className="text-xs text-slate-400">Total Duration</p>
+                <p className="text-xs text-karau-muted">{t("karauMeet.totalDuration")}</p>
               </div>
             </div>
-          </Card>
-          <Card className="bg-slate-800/50 border-slate-700 p-4">
+          </div>
+          <div className="rounded-xl border border-white/5 bg-gradient-to-br from-amber-500/20 to-amber-600/5 p-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
                 <Archive className="w-5 h-5 text-amber-400" />
               </div>
               <div>
                 <p className="text-2xl font-bold text-white" data-testid="stat-size">{formatFileSize(stats.total_size_bytes)}</p>
-                <p className="text-xs text-slate-400">Storage Used</p>
+                <p className="text-xs text-karau-muted">{t("karauMeet.storageUsed")}</p>
               </div>
             </div>
-          </Card>
+          </div>
         </div>
       )}
 
-      {/* Recordings List */}
-      <Card className="bg-slate-800/50 border-slate-700">
-        <CardHeader>
-          <CardTitle className="text-white">Your Recordings</CardTitle>
-          <CardDescription className="text-slate-400">
-            Recordings are saved to your local device
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+      <div className="rounded-2xl border border-white/5 bg-karau-card/40">
+        <div className="p-4 border-b border-white/5">
+          <h2 className="text-white font-semibold">{t("karauMeet.yourRecordings")}</h2>
+          <p className="text-karau-muted text-sm">{t("karauMeet.recordingsSavedLocal")}</p>
+        </div>
+        <div className="p-4">
           {recordings.length === 0 ? (
             <div className="text-center py-8" data-testid="no-recordings">
               <Video className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-              <p className="text-slate-400">No recordings yet</p>
-              <p className="text-sm text-slate-500">Start recording in a meeting to see them here</p>
+              <p className="text-karau-muted">{t("karauMeet.noRecordingsYet")}</p>
+              <p className="text-sm text-slate-600">{t("karauMeet.startRecordingHint")}</p>
             </div>
           ) : (
             <div className="space-y-3">
               {recordings.map((rec) => (
-                <div key={rec.recording_id} className="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg" data-testid={`recording-${rec.recording_id}`}>
+                <div key={rec.recording_id} className="flex items-center justify-between p-4 bg-karau-bg/40 rounded-xl hover:bg-karau-surface transition-colors" data-testid={`recording-${rec.recording_id}`}>
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-lg bg-violet-500/20 flex items-center justify-center">
                       <Video className="w-6 h-6 text-violet-400" />
                     </div>
                     <div>
                       <p className="font-medium text-white">{rec.meeting_title}</p>
-                      <div className="flex items-center gap-3 text-xs text-slate-400">
+                      <div className="flex items-center gap-3 text-xs text-karau-muted">
                         <span>{new Date(rec.recorded_at).toLocaleDateString()}</span>
-                        <span>•</span>
+                        <span>&middot;</span>
                         <span>{formatDuration(rec.duration_seconds)}</span>
-                        <span>•</span>
+                        <span>&middot;</span>
                         <span>{formatFileSize(rec.file_size_bytes)}</span>
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Badge variant="outline" className="text-slate-400 border-slate-600">
-                      Local
+                    <Badge variant="outline" className="text-karau-muted border-white/10">
+                      {t("karauMeet.local")}
                     </Badge>
                     <Button
                       variant="ghost"
@@ -183,8 +175,8 @@ const KarauRecordingsPage = () => {
               ))}
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };
