@@ -93,6 +93,7 @@ async def create_webinar(data: WebinarCreate, user=Depends(get_current_user)):
             "practice_session": data.practice_session,
         },
         "panelists": [{"email": e, "role": "panelist"} for e in data.panelist_emails],
+        "coordinators": [{"email": e, "role": "coordinator"} for e in data.coordinator_emails],
         "active_roles": {},
         "hand_raises": [],
         "practice_mode": False,
