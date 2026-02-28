@@ -191,6 +191,25 @@ async def delete_recording_metadata(recording_id: str, user: dict = Depends(requ
     return {"success": True, "deleted": recording_id}
 
 
+@router.get("/transcript/{recording_id}")
+async def get_transcript(recording_id: str, user: dict = Depends(require_auth)):
+    """Get the transcription for a recording."""
+    record = await recordings.find_one(
+        {"recording_id": recording_id, "is_deleted": {"$ne": True}},
+        {"_id": 0, "transcription": 1, "transcription_status": 1, "transcription_error": 1}
+    )
+    if not record:
+        raise HTTPException(404, "Recording not found")
+
+    return {
+        "recording_id": recording_id,
+        "status": record.get("transcription_status", "none"),
+        "transcription": record.get("transcription"),
+        "error": record.get("transcription_error")
+    }
+
+
+
 @router.get("/stats")
 async def get_recording_stats(user: dict = Depends(require_auth)):
     """Get recording statistics for user"""
