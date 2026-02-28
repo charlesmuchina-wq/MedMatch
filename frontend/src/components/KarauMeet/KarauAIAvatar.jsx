@@ -108,9 +108,9 @@ const KarauAIAvatar = ({ meetingId }) => {
                 <Bot className="w-4 h-4 text-white" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-white">KARAU AI</p>
+                <p className="text-sm font-semibold text-white">{t("karauMeet.karauAI")}</p>
                 <p className="text-[10px] text-emerald-400 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full" />Online
+                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full" />{t("karauMeet.online")}
                 </p>
               </div>
             </div>
