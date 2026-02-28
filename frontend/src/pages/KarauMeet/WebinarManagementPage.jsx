@@ -73,6 +73,8 @@ const WebinarManagementPage = () => {
     switch (status) {
       case 'live':
         return <Badge className="bg-red-500/20 text-red-400 border-red-500/20 animate-pulse" data-testid="badge-live"><Radio className="w-2.5 h-2.5 mr-1" />LIVE</Badge>;
+      case 'practice':
+        return <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/20" data-testid="badge-practice">Practice</Badge>;
       case 'ended':
         return <Badge className="bg-slate-500/20 text-slate-400 border-slate-500/20" data-testid="badge-ended">Ended</Badge>;
       default:
