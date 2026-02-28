@@ -69,7 +69,7 @@ const VIRTUAL_BACKGROUNDS = [
 const RecordingPermissionDialog = ({ isOpen, onAccept, onDecline, requesterName }) => {
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
-      <DialogContent className="bg-slate-800 border-slate-700">
+      <DialogContent className="bg-karau-card border-karau-border">
         <DialogHeader>
           <DialogTitle className="text-white flex items-center gap-2">
             <Circle className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" />
@@ -90,7 +90,7 @@ const RecordingPermissionDialog = ({ isOpen, onAccept, onDecline, requesterName 
           </div>
         </div>
         <DialogFooter className="gap-2">
-          <Button variant="outline" onClick={onDecline} className="text-slate-300 border-slate-600">
+          <Button variant="outline" onClick={onDecline} className="text-slate-300 border-white/10">
             <X className="w-4 h-4 mr-2" />
             Decline & Leave
           </Button>
@@ -142,7 +142,7 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-slate-800 border-slate-700 max-w-lg mx-4 max-h-[85vh] flex flex-col">
+      <DialogContent className="bg-karau-card border-karau-border max-w-lg mx-4 max-h-[85vh] flex flex-col">
         <DialogHeader>
           <DialogTitle className="text-white flex items-center gap-2">
             <ImageIcon className="w-5 h-5 text-purple-400" />
@@ -154,7 +154,7 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
         </DialogHeader>
         
         {/* Category Tabs */}
-        <div className="flex gap-1 overflow-x-auto py-2 border-b border-slate-700">
+        <div className="flex gap-1 overflow-x-auto py-2 border-b border-karau-border">
           {Object.entries(categories).map(([key, { label, icon }]) => (
             <button
               key={key}
@@ -181,7 +181,7 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
                   className={`p-4 rounded-lg border-2 transition-all ${
                     selectedBg === bg.id 
                       ? 'border-purple-500 bg-purple-500/10' 
-                      : 'border-slate-600 bg-slate-700/50 hover:border-slate-500'
+                      : 'border-white/10 bg-karau-surface hover:border-purple-500/40'
                   }`}
                 >
                   <div className="text-3xl mb-2 text-center">
@@ -208,7 +208,7 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
                     className={`relative aspect-video rounded-lg overflow-hidden border-2 transition-all ${
                       selectedBg === bg.id 
                         ? 'border-purple-500 ring-2 ring-purple-500/50' 
-                        : 'border-slate-600 hover:border-slate-500'
+                        : 'border-white/10 hover:border-purple-500/40'
                     }`}
                   >
                     <img src={bg.url} alt={bg.name} className="w-full h-full object-cover" />
@@ -227,7 +227,7 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
           )}
         </div>
         
-        <DialogFooter className="gap-2 border-t border-slate-700 pt-4">
+        <DialogFooter className="gap-2 border-t border-karau-border pt-4">
           <Button variant="outline" onClick={onClose} className="text-slate-300">Cancel</Button>
           <Button onClick={handleApply} className="bg-purple-500 hover:bg-purple-500/80">Apply</Button>
         </DialogFooter>
@@ -238,14 +238,14 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
 
 // Meeting Header Component - Mobile Responsive
 const MeetingHeader = ({ meeting, meetingId, isRecording, onAddToCalendar, onCopyLink, onShare }) => (
-  <header className="min-h-[48px] md:h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-2 md:px-4 py-2">
+  <header className="min-h-[48px] md:h-16 bg-karau-card border-b border-karau-border flex items-center justify-between px-2 md:px-4 py-2">
     <div className="flex items-center gap-1 md:gap-3 flex-wrap">
       <div className="flex items-center gap-1 md:gap-2">
         <Shield className="w-4 h-4 md:w-5 md:h-5 text-purple-400 flex-shrink-0" />
         <span className="text-white font-semibold text-sm md:text-base hidden sm:inline">AI KARAU Meeting</span>
         <span className="text-white font-semibold text-sm md:text-base sm:hidden">KARAU</span>
       </div>
-      <Badge variant="outline" className="text-slate-300 border-slate-600 text-xs md:text-sm max-w-[100px] md:max-w-none truncate">
+      <Badge variant="outline" className="text-slate-300 border-white/10 text-xs md:text-sm max-w-[100px] md:max-w-none truncate">
         {meeting?.title || 'Meeting'}
       </Badge>
       <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
