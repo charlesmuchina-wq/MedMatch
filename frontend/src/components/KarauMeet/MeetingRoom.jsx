@@ -1953,6 +1953,21 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                   {isCaptionsEnabled ? <Captions className="w-4 h-4 flex-shrink-0 text-turquoise" /> : <CaptionsOff className="w-4 h-4 flex-shrink-0" />}
                   {isCaptionsEnabled ? 'Captions On' : 'Captions'}
                 </button>
+                <div className="relative">
+                  <button onClick={() => setShowLangMenu(!showLangMenu)} className="flex items-center justify-between w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-testid="language-menu-btn">
+                    <span className="flex items-center gap-3"><span className="w-4 h-4 flex-shrink-0 text-center text-xs font-bold">{captionLang.toUpperCase()}</span>Caption Language</span>
+                    <span className="text-[10px] text-slate-500">{captionLang.toUpperCase()}</span>
+                  </button>
+                  {showLangMenu && (
+                    <div className="absolute left-full bottom-0 ml-1 bg-karau-surface border border-karau-border rounded-xl shadow-2xl py-1.5 w-44 z-50 max-h-60 overflow-y-auto" data-testid="language-submenu">
+                      {[['en','English'],['es','Spanish'],['fr','French'],['de','German'],['pt','Portuguese'],['zh','Chinese'],['ja','Japanese'],['ko','Korean'],['ar','Arabic'],['hi','Hindi'],['it','Italian'],['ru','Russian'],['nl','Dutch'],['tr','Turkish']].map(([code, name]) => (
+                        <button key={code} onClick={() => { setCaptionLang(code); setShowLangMenu(false); setShowMoreMenu(false); toast.success(`Captions: ${name}`); }}
+                          className={`flex items-center gap-2 w-full px-3 py-2 text-xs transition-colors ${captionLang === code ? 'text-turquoise bg-turquoise/10' : 'text-slate-400 hover:bg-white/5 hover:text-white'}`}>
+                          <span className="w-5 font-mono text-[10px]">{code.toUpperCase()}</span>{name}
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 <button onClick={() => { setShowBgSelector(true); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
                   <ImageIcon className="w-4 h-4 flex-shrink-0" />Virtual Background
                 </button>
