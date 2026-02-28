@@ -33,7 +33,7 @@ dnspython==2.8.0
 ecdsa==0.19.1
 edge-tts==7.2.7
 email-validator==2.3.0
-emergentintegrations==0.1.0
+emergentintegrations==0.1.1
 fastapi==0.110.1
 fastapi-cache2==0.2.2
 fastuuid==0.14.0
