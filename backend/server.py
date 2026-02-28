@@ -279,6 +279,7 @@ from routes.karau_sharing import router as karau_sharing_router
 from routes.karau_calendar import router as karau_calendar_router
 from routes.karau_sso import router as karau_sso_router
 from routes.karau_intelligence import router as karau_intelligence_router
+from routes.karau_analytics import router as karau_analytics_router
 from routes.ai_talent import router as ai_talent_router
 from routes.dei_analytics import router as dei_analytics_router
 from routes.talent_crm import router as talent_crm_router
