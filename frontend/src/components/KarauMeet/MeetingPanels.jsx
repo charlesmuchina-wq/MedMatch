@@ -81,7 +81,7 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder={t("karauMeet.sendMessage")}
-            className="flex-1 bg-karau-card border border-karau-border text-white rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-turquoise focus:border-transparent"
+            className="flex-1 bg-karau-card border border-karau-border text-white rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
             inputMode="text"
             enterKeyHint="send"
             autoComplete="off"
