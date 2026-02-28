@@ -238,18 +238,81 @@ const KarauMeetDashboard = ({ user }) => {
         </div>
       </div>
 
-      {/* Row 3: Feature Badges + Active Meetings Indicator */}
-      <div className="flex items-center justify-between mb-3 flex-shrink-0">
-        <div className="flex flex-wrap gap-2">
+      {/* Row 3: Upcoming Meetings + Trending Topics */}
+      <div className="grid grid-cols-12 gap-3 mb-3 flex-shrink-0">
+        {/* Upcoming Meetings */}
+        <div className="col-span-12 md:col-span-7">
+          <div className="rounded-xl border border-white/5 bg-karau-card/40 p-3" data-testid="upcoming-meetings">
+            <div className="flex items-center gap-2 mb-2">
+              <CalendarClock className="w-3.5 h-3.5 text-blue-400" />
+              <span className="text-xs font-semibold text-white">Upcoming</span>
+              {upcoming.length > 0 && <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/20 text-[10px]">{upcoming.length}</Badge>}
+            </div>
+            {upcoming.length === 0 ? (
+              <p className="text-[11px] text-slate-600">No scheduled meetings. Create one to get started.</p>
+            ) : (
+              <div className="space-y-1.5">
+                {upcoming.slice(0, 3).map((m) => (
+                  <div key={m.meeting_id} className="flex items-center justify-between gap-2 px-2 py-1.5 rounded-lg bg-karau-bg/40 hover:bg-karau-surface transition-colors" data-testid={`upcoming-${m.meeting_id}`}>
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                      <div className="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0" />
+                      <span className="text-[11px] text-slate-300 truncate">{m.title}</span>
+                      {m.scheduled_time && (
+                        <span className="text-[9px] text-slate-500 flex-shrink-0">
+                          {new Date(m.scheduled_time).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                        </span>
+                      )}
+                    </div>
+                    <Button size="sm" onClick={() => navigate(`/karau-meet/lobby/${m.meeting_id}`)}
+                      className="bg-blue-500/80 hover:bg-blue-400 text-white rounded text-[9px] px-2 h-6">
+                      Start
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Trending Topics */}
+        <div className="col-span-12 md:col-span-5">
+          <div className="rounded-xl border border-white/5 bg-karau-card/40 p-3 h-full" data-testid="trending-topics">
+            <div className="flex items-center gap-2 mb-2">
+              <TrendingUp className="w-3.5 h-3.5 text-violet-400" />
+              <span className="text-xs font-semibold text-white">Trending Topics</span>
+            </div>
+            {trendingTopics.length === 0 ? (
+              <p className="text-[11px] text-slate-600">Topics will appear as meetings generate AI insights.</p>
+            ) : (
+              <div className="flex flex-wrap gap-1.5">
+                {trendingTopics.map((t, i) => (
+                  <div key={i} className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] ${
+                    t.sentiment === 'positive' ? 'bg-emerald-500/5 border-emerald-500/15 text-emerald-300' :
+                    t.sentiment === 'concern' ? 'bg-amber-500/5 border-amber-500/15 text-amber-300' :
+                    'bg-purple-500/5 border-purple-500/15 text-purple-300'
+                  }`} data-testid={`topic-${i}`}>
+                    <span className="font-medium">{t.topic}</span>
+                    {t.count > 1 && <span className="text-[9px] opacity-60">x{t.count}</span>}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Row 4: Feature Badges + Active Badge */}
+      <div className="flex items-center justify-between mb-2 flex-shrink-0">
+        <div className="flex flex-wrap gap-1.5">
           {features.map((f, i) => (
-            <div key={i} className={`flex items-center gap-1.5 px-3 py-1.5 ${f.bg} rounded-full border text-[11px]`}>
-              <f.icon className={`w-3 h-3 ${f.color}`} />
-              <span className="font-medium text-slate-300">{f.label}</span>
+            <div key={i} className={`flex items-center gap-1 px-2 py-1 ${f.bg} rounded-full border text-[10px]`}>
+              <f.icon className={`w-2.5 h-2.5 ${f.color}`} />
+              <span className="font-medium text-slate-400">{f.label}</span>
             </div>
           ))}
         </div>
         {stats.active_meetings > 0 && (
-          <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-xs animate-pulse" data-testid="active-meetings-badge">
+          <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px] animate-pulse" data-testid="active-meetings-badge">
             {stats.active_meetings} Active
           </Badge>
         )}
