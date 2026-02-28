@@ -133,7 +133,7 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
           data-testid="btn-logout"
         >
           <LogOut className="w-4 h-4" />
-          {!isCollapsed && <span className="ml-2">{t("auth.signOut") || "Sign Out"}</span>}
+          {!isCollapsed && <span className="ml-2">{t("auth.signOut")}</span>}
         </Button>
       </div>
     </div>
@@ -353,14 +353,14 @@ const KarauMeetPortal = () => {
     
     if (!meetingId) {
       return (
-        <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="min-h-screen bg-karau-bg flex items-center justify-center">
           <div className="text-center">
-            <p className="text-red-400 text-lg">Invalid meeting URL</p>
+            <p className="text-red-400 text-lg">{t("karauMeet.invalidMeetingUrl")}</p>
             <button 
               onClick={() => navigate('/karau-meet')}
-              className="mt-4 text-turquoise hover:underline"
+              className="mt-4 text-purple-400 hover:underline"
             >
-              Back to Portal
+              {t("karauMeet.backToPortalBtn")}
             </button>
           </div>
         </div>
