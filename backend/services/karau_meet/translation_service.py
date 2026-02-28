@@ -55,8 +55,7 @@ async def translate_text(text: str, target_lang: str, source_lang: str = "en") -
 
         prompt = f"Translate the following text from {SUPPORTED_LANGUAGES.get(source_lang, source_lang)} to {SUPPORTED_LANGUAGES.get(target_lang, target_lang)}. Return ONLY the translated text, nothing else:\n\n{text}"
 
-        result = await asyncio.to_thread(
-            chat.send_message,
+        result = await chat.send_message(
             UserMessage(text=prompt)
         )
 
@@ -87,8 +86,7 @@ async def translate_batch(texts: list, target_lang: str, source_lang: str = "en"
 
         prompt = f"Translate each of the following texts from {SUPPORTED_LANGUAGES.get(source_lang, source_lang)} to {SUPPORTED_LANGUAGES.get(target_lang, target_lang)}. Keep the texts separated by '---'. Return ONLY the translations:\n\n{combined}"
 
-        result = await asyncio.to_thread(
-            chat.send_message,
+        result = await chat.send_message(
             UserMessage(text=prompt)
         )
 
