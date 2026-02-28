@@ -2244,14 +2244,14 @@
     "acceptRecording": "እቀበላለሁ",
     "declineRecording": "አቋርጣለሁ",
     "noThanks": "አይፈልጉም",
-    "meetingEffectiveness": "Meeting Effectiveness",
-    "avgDuration": "Avg Duration",
-    "avgParticipants": "Avg Participants",
-    "withNotes": "With Notes",
-    "quickAnalytics": "Quick Analytics",
-    "onTimeRate": "On-Time Rate",
-    "aiNotesUsage": "AI Notes Usage",
-    "actionItems": "Action Items"
+    "meetingEffectiveness": "የምክር እንቅስቃሴ",
+    "avgDuration": "የአማራጭ ወቅት",
+    "avgParticipants": "የአማራጭ ተሳታፊዎች",
+    "withNotes": "ከማስታወሻዎች ጋር",
+    "quickAnalytics": "ፈጣን የትንቢት ውሂብ",
+    "onTimeRate": "በወቅት ደረጃ",
+    "aiNotesUsage": "AI የማስታወሻ አገልግሎት",
+    "actionItems": "የእርምጃ እቅዶች"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ምሳሌ፦ የምርት ATS ዌብሁክ",

@@ -2214,14 +2214,14 @@
     "acceptRecording": "Aanvaar",
     "declineRecording": "Weier",
     "noThanks": "Geen Dankie",
-    "meetingEffectiveness": "Meeting Effectiveness",
-    "avgDuration": "Avg Duration",
-    "avgParticipants": "Avg Participants",
-    "withNotes": "With Notes",
-    "quickAnalytics": "Quick Analytics",
-    "onTimeRate": "On-Time Rate",
-    "aiNotesUsage": "AI Notes Usage",
-    "actionItems": "Action Items"
+    "meetingEffectiveness": "Vergaderingsdoeltreffendheid",
+    "avgDuration": "Gemiddelde Duur",
+    "avgParticipants": "Gemiddelde Deelnemers",
+    "withNotes": "Met Aantekeninge",
+    "quickAnalytics": "Vinige Analise",
+    "onTimeRate": "Op-Tyd Tarief",
+    "aiNotesUsage": "AI Aantekeninge Gebruik",
+    "actionItems": "Aksie-items"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "bv. Produksie-ATS-webhook",
