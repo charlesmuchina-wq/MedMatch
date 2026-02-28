@@ -118,6 +118,156 @@ async def get_my_meetings(
     return {"meetings": meetings}
 
 
+
+@router.get("/stats")
+async def get_dashboard_stats(user: dict = Depends(require_auth)):
+    """Get real dashboard statistics from MongoDB."""
+    from utils.database import db
+
+    user_id = user["user_id"]
+
+    # Total meetings for this user (hosted or participated)
+    total_meetings = await db.karau_meetings.count_documents({
+        "$or": [{"host_id": user_id}, {"participants.user_id": user_id}]
+    })
+
+    # Active meetings
+    active_meetings = await db.karau_meetings.count_documents({
+        "$or": [{"host_id": user_id}, {"participants.user_id": user_id}],
+        "status": "active"
+    })
+
+    # Calculate total hours from ended meetings
+    pipeline = [
+        {"$match": {
+            "$or": [{"host_id": user_id}, {"participants.user_id": user_id}],
+            "started_at": {"$exists": True},
+            "ended_at": {"$exists": True}
+        }},
+        {"$project": {
+            "duration_str": {"$subtract": [
+                {"$dateFromString": {"dateString": "$ended_at", "onError": None}},
+                {"$dateFromString": {"dateString": "$started_at", "onError": None}}
+            ]}
+        }},
+        {"$match": {"duration_str": {"$ne": None}}},
+        {"$group": {"_id": None, "total_ms": {"$sum": "$duration_str"}}}
+    ]
+    hours_result = await db.karau_meetings.aggregate(pipeline).to_list(1)
+    total_hours = round(hours_result[0]["total_ms"] / 3600000, 1) if hours_result else 0
+
+    # Recordings count
+    recordings = await db.karau_meetings.count_documents({
+        "$or": [{"host_id": user_id}, {"participants.user_id": user_id}],
+        "recordings": {"$exists": True, "$ne": []}
+    })
+
+    # Unique participants across all user's meetings
+    part_pipeline = [
+        {"$match": {"$or": [{"host_id": user_id}, {"participants.user_id": user_id}]}},
+        {"$unwind": "$participants"},
+        {"$group": {"_id": "$participants.user_id"}},
+        {"$count": "total"}
+    ]
+    part_result = await db.karau_meetings.aggregate(part_pipeline).to_list(1)
+    total_participants = part_result[0]["total"] if part_result else 0
+
+    # AI insights count
+    insights_pipeline = [
+        {"$match": {"$or": [{"host_id": user_id}, {"participants.user_id": user_id}]}},
+        {"$project": {"notes_count": {"$size": {"$ifNull": ["$ai_notes", []]}}}},
+        {"$group": {"_id": None, "total": {"$sum": "$notes_count"}}}
+    ]
+    insights_result = await db.karau_meetings.aggregate(insights_pipeline).to_list(1)
+    total_insights = insights_result[0]["total"] if insights_result else 0
+
+    return {
+        "total_meetings": total_meetings,
+        "active_meetings": active_meetings,
+        "total_hours": total_hours,
+        "recordings": recordings,
+        "total_participants": total_participants,
+        "ai_insights": total_insights
+    }
+
+
+@router.get("/activity-feed")
+async def get_activity_feed(limit: int = 15, user: dict = Depends(require_auth)):
+    """Get live activity feed for dashboard."""
+    from utils.database import db
+
+    user_id = user["user_id"]
+    activities = []
+
+    # Recent meetings (created, started, ended)
+    recent_meetings = await db.karau_meetings.find(
+        {"$or": [{"host_id": user_id}, {"participants.user_id": user_id}]},
+        {"_id": 0, "meeting_id": 1, "title": 1, "status": 1, "host_name": 1,
+         "created_at": 1, "started_at": 1, "ended_at": 1,
+         "participants": 1, "ai_notes": 1}
+    ).sort("created_at", -1).limit(limit).to_list(limit)
+
+    for m in recent_meetings:
+        meeting_title = m.get("title", "Meeting")
+        host = m.get("host_name", "Someone")
+        participants = m.get("participants", [])
+
+        # Meeting created
+        activities.append({
+            "type": "meeting_created",
+            "text": f"{host} created \"{meeting_title}\"",
+            "timestamp": m.get("created_at", ""),
+            "meeting_id": m.get("meeting_id"),
+            "icon": "video"
+        })
+
+        # Meeting started
+        if m.get("started_at"):
+            activities.append({
+                "type": "meeting_started",
+                "text": f"\"{meeting_title}\" started with {len(participants)} participant{'s' if len(participants) != 1 else ''}",
+                "timestamp": m.get("started_at", ""),
+                "meeting_id": m.get("meeting_id"),
+                "icon": "play"
+            })
+
+        # Meeting ended
+        if m.get("ended_at"):
+            activities.append({
+                "type": "meeting_ended",
+                "text": f"\"{meeting_title}\" ended",
+                "timestamp": m.get("ended_at", ""),
+                "meeting_id": m.get("meeting_id"),
+                "icon": "check"
+            })
+
+        # Participant joined
+        for p in participants[:3]:
+            if p.get("joined_at"):
+                activities.append({
+                    "type": "participant_joined",
+                    "text": f"{p.get('user_name', 'Someone')} joined \"{meeting_title}\"",
+                    "timestamp": p.get("joined_at", ""),
+                    "meeting_id": m.get("meeting_id"),
+                    "icon": "user"
+                })
+
+        # AI notes detected
+        ai_notes = m.get("ai_notes", [])
+        action_items = [n for n in ai_notes if n.get("type") == "action_item"]
+        if action_items:
+            activities.append({
+                "type": "ai_insight",
+                "text": f"{len(action_items)} action item{'s' if len(action_items) != 1 else ''} detected in \"{meeting_title}\"",
+                "timestamp": action_items[-1].get("timestamp", m.get("created_at", "")),
+                "meeting_id": m.get("meeting_id"),
+                "icon": "sparkles"
+            })
+
+    # Sort by timestamp descending and limit
+    activities.sort(key=lambda x: x.get("timestamp", ""), reverse=True)
+    return {"activities": activities[:limit]}
+
 @router.get("/meetings/{meeting_id}/info")
 async def get_meeting_public_info(meeting_id: str):
     """Get basic meeting info (public, no auth required) for guest join page"""
