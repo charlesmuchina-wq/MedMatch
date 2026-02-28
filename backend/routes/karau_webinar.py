@@ -351,21 +351,34 @@ async def toggle_attendee_audio(webinar_id: str, enabled: bool = False, user=Dep
 
 @router.post("/{webinar_id}/roles/promote")
 async def promote_participant(webinar_id: str, data: PromoteRequest, user=Depends(get_current_user)):
-    """Promote an attendee to presenter or panelist (host only). Grants video/audio."""
-    webinar = await db.webinars.find_one({"webinar_id": webinar_id, "host_id": user["user_id"]})
+    """Promote an attendee to coordinator/presenter/panelist (host or coordinator only). Grants permissions based on role."""
+    webinar = await db.webinars.find_one({"webinar_id": webinar_id})
     if not webinar:
-        raise HTTPException(403, "Not authorized - host only")
+        raise HTTPException(404, "Webinar not found")
 
-    valid_roles = ["presenter", "panelist"]
+    # Host or coordinator can promote
+    uid = user["user_id"]
+    is_host = uid == webinar.get("host_id")
+    is_coordinator = webinar.get("active_roles", {}).get(uid, {}).get("role") == "coordinator"
+    user_email = user.get("email", "")
+    is_assigned_coordinator = any(c["email"] == user_email for c in webinar.get("coordinators", []))
+
+    if not (is_host or is_coordinator or is_assigned_coordinator):
+        raise HTTPException(403, "Not authorized - host or coordinator only")
+
+    # Only host can promote to coordinator
+    valid_roles = ["coordinator", "presenter", "panelist"]
     if data.role not in valid_roles:
         raise HTTPException(400, f"Role must be one of: {valid_roles}")
+    if data.role == "coordinator" and not is_host:
+        raise HTTPException(403, "Only host can assign coordinator role")
 
     await db.webinars.update_one(
         {"webinar_id": webinar_id},
         {"$set": {f"active_roles.{data.user_id}": {
             "role": data.role,
             "promoted_at": datetime.now(timezone.utc).isoformat(),
-            "promoted_by": user["user_id"]
+            "promoted_by": uid
         }}}
     )
     return {"success": True, "user_id": data.user_id, "role": data.role}
