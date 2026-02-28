@@ -30,7 +30,7 @@ const VideoControls = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div className="h-20 bg-slate-800 border-t border-slate-700 flex items-center justify-center gap-2">
+    <div className="h-20 bg-karau-card border-t border-karau-border flex items-center justify-center gap-2">
       {/* Audio */}
       <Button
         variant={isAudioEnabled ? 'secondary' : 'destructive'}
@@ -71,7 +71,7 @@ const VideoControls = ({
       <Button
         variant={isScreenSharing ? 'default' : 'secondary'}
         size="lg"
-        className={`rounded-full w-12 h-12 ${isScreenSharing ? 'bg-turquoise' : ''}`}
+        className={`rounded-full w-12 h-12 ${isScreenSharing ? 'bg-emerald-500' : ''}`}
         onClick={onToggleScreenShare}
         title={isScreenSharing ? t("meeting.stopSharing") : t("meeting.shareScreen")}
         data-testid="control-screen-share"
@@ -105,7 +105,7 @@ const VideoControls = ({
         <Hand className="w-5 h-5" />
       </Button>
 
-      <div className="w-px h-8 bg-slate-600 mx-1" />
+      <div className="w-px h-8 bg-white/10 mx-1" />
 
       {/* Chat */}
       <Button
@@ -135,7 +135,7 @@ const VideoControls = ({
       <Button
         variant={activePanel === 'ai-notes' ? 'default' : 'secondary'}
         size="lg"
-        className={`rounded-full w-12 h-12 ${activePanel === 'ai-notes' ? 'bg-turquoise' : ''}`}
+        className={`rounded-full w-12 h-12 ${activePanel === 'ai-notes' ? 'bg-purple-500' : ''}`}
         onClick={() => onSetActivePanel(activePanel === 'ai-notes' ? null : 'ai-notes')}
         title={t("meeting.aiNotes")}
         data-testid="control-ai-notes"
@@ -155,7 +155,7 @@ const VideoControls = ({
         <Settings className="w-5 h-5" />
       </Button>
 
-      <div className="w-px h-8 bg-slate-600 mx-1" />
+      <div className="w-px h-8 bg-white/10 mx-1" />
 
       {/* Leave */}
       <Button
