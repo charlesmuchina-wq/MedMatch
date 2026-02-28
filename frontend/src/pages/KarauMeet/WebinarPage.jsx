@@ -312,7 +312,8 @@ export const CreateWebinarForm = ({ onCreated, onCancel }) => {
     try {
       const payload = {
         ...form,
-        panelist_emails: form.panelist_emails.split(',').map(e => e.trim()).filter(Boolean)
+        panelist_emails: form.panelist_emails.split(',').map(e => e.trim()).filter(Boolean),
+        coordinator_emails: form.coordinator_emails.split(',').map(e => e.trim()).filter(Boolean)
       };
       const res = await fetch(`${API}/api/karau/webinar/create`, {
         method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
