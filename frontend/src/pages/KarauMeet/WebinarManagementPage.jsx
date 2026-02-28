@@ -174,6 +174,10 @@ const WebinarManagementPage = () => {
                     className="h-7 px-2 text-[11px] text-slate-400 hover:text-white" data-testid={`view-${w.webinar_id}`}>
                     <ExternalLink className="w-3 h-3" />
                   </Button>
+                  <Button size="sm" variant="ghost" onClick={() => setAnalyticsWebinarId(w.webinar_id)}
+                    className="h-7 px-2 text-[11px] text-purple-400 hover:text-purple-300 hover:bg-purple-500/10" data-testid={`analytics-${w.webinar_id}`}>
+                    <BarChart3 className="w-3 h-3" />
+                  </Button>
                 </div>
               </CardContent>
             </Card>
