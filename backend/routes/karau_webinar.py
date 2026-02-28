@@ -341,28 +341,89 @@ async def toggle_attendee_audio(webinar_id: str, enabled: bool = False, user=Dep
 
 @router.get("/{webinar_id}/analytics")
 async def get_webinar_analytics(webinar_id: str, user=Depends(get_current_user)):
-    """Get webinar analytics (host only)."""
+    """Enhanced webinar analytics with registration funnel, Q&A stats, engagement metrics."""
     webinar = await db.webinars.find_one(
         {"webinar_id": webinar_id, "host_id": user["user_id"]},
-        {"_id": 0, "analytics": 1, "registrations": 1, "questions": 1,
-         "started_at": 1, "ended_at": 1}
+        {"_id": 0}
     )
     if not webinar:
         raise HTTPException(404, "Webinar not found or not authorized")
 
     regs = webinar.get("registrations", [])
     questions = webinar.get("questions", [])
+    attendees = webinar.get("attendees", [])
+    analytics = webinar.get("analytics", {})
+    total_regs = len(regs)
     attended = sum(1 for r in regs if r.get("attended"))
+    missed = total_regs - attended
+
+    # Q&A breakdown
+    pending_qs = sum(1 for q in questions if q.get("status") == "pending")
+    answered_qs = sum(1 for q in questions if q.get("status") == "answered")
+    dismissed_qs = sum(1 for q in questions if q.get("status") == "dismissed")
+    total_upvotes = sum(q.get("upvotes", 0) for q in questions)
+    anonymous_qs = sum(1 for q in questions if q.get("is_anonymous"))
+
+    # Organization breakdown from registrations
+    org_counts = {}
+    for r in regs:
+        org = r.get("organization", "").strip() or "Unknown"
+        org_counts[org] = org_counts.get(org, 0) + 1
+    org_breakdown = sorted(org_counts.items(), key=lambda x: x[1], reverse=True)[:10]
+
+    # Top questions by upvotes
+    top_questions = sorted(
+        [{"question": q["question"], "upvotes": q.get("upvotes", 0),
+          "asked_by": q.get("asked_by", "Anonymous"), "status": q.get("status")}
+         for q in questions],
+        key=lambda x: x["upvotes"], reverse=True
+    )[:5]
+
+    # Engagement score calculation
+    engagement = 0
+    if total_regs > 0:
+        attendance_weight = (attended / total_regs) * 40
+        qa_weight = min(len(questions) / max(total_regs, 1) * 100, 30)
+        upvote_weight = min(total_upvotes / max(len(questions), 1) * 10, 30)
+        engagement = round(attendance_weight + qa_weight + upvote_weight)
+
+    # Registration timeline (group by day)
+    reg_timeline = {}
+    for r in regs:
+        reg_date = r.get("registered_at", "")[:10]
+        if reg_date:
+            reg_timeline[reg_date] = reg_timeline.get(reg_date, 0) + 1
+    reg_timeline_sorted = [{"date": k, "count": v} for k, v in sorted(reg_timeline.items())]
 
     return {
-        "total_registrations": len(regs),
-        "total_attended": attended,
-        "attendance_rate": round((attended / max(len(regs), 1)) * 100),
-        "total_questions": len(questions),
-        "answered_questions": sum(1 for q in questions if q.get("status") == "answered"),
-        "peak_attendees": webinar.get("analytics", {}).get("peak_attendees", 0),
-        "engagement_score": webinar.get("analytics", {}).get("engagement_score", 0),
+        "webinar_id": webinar_id,
+        "title": webinar.get("title", ""),
+        "status": webinar.get("status", "scheduled"),
         "started_at": webinar.get("started_at"),
         "ended_at": webinar.get("ended_at"),
-        "org_breakdown": {},
+        "funnel": {
+            "total_registrations": total_regs,
+            "attended": attended,
+            "missed": missed,
+            "attendance_rate": round((attended / max(total_regs, 1)) * 100),
+            "drop_off_rate": round((missed / max(total_regs, 1)) * 100),
+        },
+        "qa_stats": {
+            "total_questions": len(questions),
+            "pending": pending_qs,
+            "answered": answered_qs,
+            "dismissed": dismissed_qs,
+            "anonymous": anonymous_qs,
+            "total_upvotes": total_upvotes,
+            "answer_rate": round((answered_qs / max(len(questions), 1)) * 100),
+            "top_questions": top_questions,
+        },
+        "engagement": {
+            "score": engagement,
+            "peak_attendees": analytics.get("peak_attendees", attended),
+            "avg_watch_time_minutes": analytics.get("avg_watch_time", 0),
+        },
+        "org_breakdown": [{"org": o, "count": c} for o, c in org_breakdown],
+        "registration_timeline": reg_timeline_sorted,
+        "max_attendees": webinar.get("max_attendees", 1000),
     }
