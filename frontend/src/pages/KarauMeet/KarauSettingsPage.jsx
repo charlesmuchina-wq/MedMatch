@@ -207,7 +207,8 @@ const KarauSettingsPage = () => {
     { id: 'calendar', label: 'Calendar', icon: Calendar },
     { id: 'security', label: 'Security', icon: Shield },
     { id: 'sso', label: 'SSO/SAML', icon: Key },
-    { id: 'compliance', label: 'Compliance', icon: FileText }
+    { id: 'compliance', label: 'Compliance', icon: FileText },
+    { id: 'webhooks', label: 'CRM / Webhooks', icon: Webhook }
   ];
 
   return (
