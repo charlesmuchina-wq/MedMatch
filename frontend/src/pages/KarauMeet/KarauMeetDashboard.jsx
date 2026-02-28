@@ -371,6 +371,137 @@ const KarauMeetDashboard = ({ user }) => {
         </div>
       </div>
 
+      {/* Row 3b: Analytics - Effectiveness + Gamification */}
+      {(effectiveness || gamification) && (
+        <div className="grid grid-cols-12 gap-3 mb-3 flex-shrink-0">
+          {/* Meeting Effectiveness Score */}
+          {effectiveness && (
+            <div className="col-span-12 md:col-span-4" data-testid="effectiveness-card">
+              <div className="rounded-xl border border-white/5 bg-karau-card/40 p-3 h-full">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <Target className="w-3.5 h-3.5 text-emerald-400" />
+                    <span className="text-xs font-semibold text-white">{t("karauMeet.meetingEffectiveness")}</span>
+                  </div>
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full border ${
+                    effectiveness.engagement_level === 'High' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
+                    effectiveness.engagement_level === 'Medium' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
+                    'bg-slate-500/10 text-slate-400 border-slate-500/20'
+                  }`}>{effectiveness.engagement_level}</span>
+                </div>
+                <div className="flex items-end gap-3">
+                  <div className="relative w-14 h-14">
+                    <svg viewBox="0 0 36 36" className="w-14 h-14 -rotate-90">
+                      <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="3" />
+                      <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                        fill="none"
+                        stroke={effectiveness.overall_score >= 75 ? '#10b981' : effectiveness.overall_score >= 50 ? '#f59e0b' : '#6366f1'}
+                        strokeWidth="3" strokeDasharray={`${effectiveness.overall_score}, 100`} strokeLinecap="round" />
+                    </svg>
+                    <span className="absolute inset-0 flex items-center justify-center text-sm font-bold text-white">{effectiveness.overall_score}</span>
+                  </div>
+                  <div className="flex-1 text-[10px] text-slate-400 space-y-0.5">
+                    <p>{t("karauMeet.avgDuration")}: <span className="text-slate-300">{effectiveness.avg_duration_minutes}m</span></p>
+                    <p>{t("karauMeet.avgParticipants")}: <span className="text-slate-300">{effectiveness.avg_participants}</span></p>
+                    <p>{t("karauMeet.withNotes")}: <span className="text-slate-300">{effectiveness.meetings_with_notes}/{effectiveness.total_meetings}</span></p>
+                  </div>
+                </div>
+                <p className="text-[10px] text-slate-500 mt-2 italic">{effectiveness.tip}</p>
+              </div>
+            </div>
+          )}
+
+          {/* Gamification */}
+          {gamification && (
+            <div className="col-span-12 md:col-span-4" data-testid="gamification-card">
+              <div className="rounded-xl border border-white/5 bg-karau-card/40 p-3 h-full">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <Trophy className="w-3.5 h-3.5 text-amber-400" />
+                    <span className="text-xs font-semibold text-white">{gamification.rank_title}</span>
+                  </div>
+                  <span className="text-[10px] text-purple-400 font-semibold">Lv.{gamification.level}</span>
+                </div>
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-purple-500 to-violet-500 rounded-full transition-all"
+                      style={{ width: `${Math.max(5, (gamification.xp / (gamification.xp + gamification.xp_to_next)) * 100)}%` }} />
+                  </div>
+                  <span className="text-[10px] text-slate-500">{gamification.xp} XP</span>
+                </div>
+                <div className="flex items-center gap-3 mb-2">
+                  {gamification.streak_days > 0 && (
+                    <div className="flex items-center gap-1 text-[10px]">
+                      <Flame className="w-3 h-3 text-orange-400" />
+                      <span className="text-orange-300 font-semibold">{gamification.streak_days}d</span>
+                    </div>
+                  )}
+                  <div className="flex items-center gap-1 text-[10px]">
+                    <Video className="w-3 h-3 text-blue-400" />
+                    <span className="text-slate-400">{gamification.total_meetings}</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-[10px]">
+                    <Clock className="w-3 h-3 text-emerald-400" />
+                    <span className="text-slate-400">{gamification.total_hours}h</span>
+                  </div>
+                </div>
+                {gamification.badges.length > 0 && (
+                  <div className="flex flex-wrap gap-1">
+                    {gamification.badges.slice(0, 5).map(b => (
+                      <span key={b.id} className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/15" title={b.name}>
+                        {b.name}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Quick Analytics */}
+          {effectiveness && (
+            <div className="col-span-12 md:col-span-4" data-testid="quick-analytics-card">
+              <div className="rounded-xl border border-white/5 bg-karau-card/40 p-3 h-full">
+                <div className="flex items-center gap-1.5 mb-2">
+                  <BarChart3 className="w-3.5 h-3.5 text-blue-400" />
+                  <span className="text-xs font-semibold text-white">{t("karauMeet.quickAnalytics")}</span>
+                </div>
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-slate-400">{t("karauMeet.onTimeRate")}</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-20 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                        <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${effectiveness.on_time_rate}%` }} />
+                      </div>
+                      <span className="text-[10px] text-emerald-400 font-semibold">{effectiveness.on_time_rate}%</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-slate-400">{t("karauMeet.aiNotesUsage")}</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-20 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                        <div className="h-full bg-violet-500 rounded-full" style={{ width: `${effectiveness.total_meetings > 0 ? (effectiveness.meetings_with_notes / effectiveness.total_meetings * 100) : 0}%` }} />
+                      </div>
+                      <span className="text-[10px] text-violet-400 font-semibold">{effectiveness.total_meetings > 0 ? Math.round(effectiveness.meetings_with_notes / effectiveness.total_meetings * 100) : 0}%</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-slate-400">{t("karauMeet.actionItems")}</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-20 h-1.5 bg-white/5 rounded-full overflow-hidden">
+                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${effectiveness.total_meetings > 0 ? (effectiveness.meetings_with_action_items / effectiveness.total_meetings * 100) : 0}%` }} />
+                      </div>
+                      <span className="text-[10px] text-blue-400 font-semibold">{effectiveness.total_meetings > 0 ? Math.round(effectiveness.meetings_with_action_items / effectiveness.total_meetings * 100) : 0}%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Row 4: Feature Badges + Active Badge */}
       <div className="flex items-center justify-between mb-2 flex-shrink-0">
         <div className="flex flex-wrap gap-1.5">
