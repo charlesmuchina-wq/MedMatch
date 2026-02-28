@@ -1510,27 +1510,55 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             const url = URL.createObjectURL(blob);
             const fileName = `karau-meeting-${meetingId}-${new Date().toISOString()}.webm`;
             
+            // Save locally
             const a = document.createElement('a');
             a.href = url;
             a.download = fileName;
             a.click();
             
+            // Auto-upload to cloud
+            const token = localStorage.getItem('token');
+            const duration = Math.round((Date.now() - startTime) / 1000);
             try {
-              const token = localStorage.getItem('token');
-              await fetch(`${API}/api/karau-meet/recordings/metadata`, {
+              toast.info(t("karauMeet.uploadingToCloud") || 'Uploading recording to cloud...');
+              const formData = new FormData();
+              formData.append('file', blob, fileName);
+              formData.append('meeting_id', meetingId);
+              formData.append('meeting_title', meeting?.title || 'Meeting');
+              formData.append('duration_seconds', String(duration));
+              const uploadRes = await fetch(`${API}/api/karau-meet/recordings/upload`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify({
-                  meeting_id: meetingId,
-                  meeting_title: meeting?.title || 'Meeting',
-                  duration_seconds: Math.round((Date.now() - startTime) / 1000),
-                  file_size_bytes: blob.size,
-                  file_name: fileName
-                })
+                headers: { 'Authorization': `Bearer ${token}` },
+                body: formData
               });
-              toast.success('Recording saved');
+              if (uploadRes.ok) {
+                toast.success(t("karauMeet.recordingSavedCloud") || 'Recording saved to cloud');
+              } else {
+                // Fallback to metadata-only save
+                await fetch(`${API}/api/karau-meet/recordings/metadata`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                  body: JSON.stringify({
+                    meeting_id: meetingId, meeting_title: meeting?.title || 'Meeting',
+                    duration_seconds: duration, file_size_bytes: blob.size, file_name: fileName
+                  })
+                });
+                toast.success('Recording saved locally');
+              }
             } catch (err) {
-              console.error('Failed to save recording metadata:', err);
+              console.error('Cloud upload failed:', err);
+              // Fallback to metadata save
+              try {
+                await fetch(`${API}/api/karau-meet/recordings/metadata`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                  body: JSON.stringify({
+                    meeting_id: meetingId, meeting_title: meeting?.title || 'Meeting',
+                    duration_seconds: duration, file_size_bytes: blob.size, file_name: fileName
+                  })
+                });
+                toast.success('Recording saved locally (cloud upload failed)');
+              } catch {}
             }
           };
           
