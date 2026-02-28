@@ -64,8 +64,7 @@ Return a JSON object with:
 
 Return ONLY valid JSON."""
 
-        result = await asyncio.to_thread(
-            chat.send_message,
+        result = await chat.send_message(
             UserMessage(text=prompt)
         )
 
@@ -143,8 +142,7 @@ Format the summary with:
 
 Keep it concise and professional."""
 
-        result = await asyncio.to_thread(
-            chat.send_message,
+        result = await chat.send_message(
             UserMessage(text=prompt)
         )
 
@@ -207,8 +205,7 @@ User question: {question}
 Respond in JSON format:
 {{"answer": "your answer", "follow_up_suggestions": ["suggestion 1", "suggestion 2"]}}"""
 
-        result = await asyncio.to_thread(
-            chat.send_message,
+        result = await chat.send_message(
             UserMessage(text=prompt)
         )
 
