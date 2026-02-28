@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Bot, Send, Loader2, X, Sparkles, ChevronRight, Minimize2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
