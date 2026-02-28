@@ -1900,7 +1900,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             onClick={() => { setShowReactionBar(!showReactionBar); setShowMoreMenu(false); }}
             className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${showReactionBar ? 'bg-purple-500/20 text-purple-400' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="control-reactions"
-            title="Reactions"
+            title={t("karauMeet.reactions")}
           >
             <span className="text-[18px] leading-none">{'\ud83d\udc4d'}</span>
           </button>
@@ -1913,7 +1913,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             onClick={() => { setActivePanel(activePanel === 'chat' ? null : 'chat'); setShowMoreMenu(false); }}
             className={`relative flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'chat' ? 'bg-purple-500/20 text-purple-400' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="panel-chat-btn"
-            title="Chat"
+            title={t("karauMeet.chat")}
           >
             <MessageSquare className="w-[18px] h-[18px]" />
             {chatMessages.length > 0 && (
@@ -1927,7 +1927,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             onClick={() => { setActivePanel(activePanel === 'participants' ? null : 'participants'); setShowMoreMenu(false); }}
             className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'participants' ? 'bg-purple-500/20 text-purple-400' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="panel-participants-btn"
-            title="People"
+            title={t("karauMeet.people")}
           >
             <Users className="w-[18px] h-[18px]" />
           </button>
@@ -1936,7 +1936,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             onClick={() => { setActivePanel(activePanel === 'ai-notes' ? null : 'ai-notes'); setShowMoreMenu(false); }}
             className={`hidden sm:flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'ai-notes' ? 'bg-purple-500/20 text-purple-400' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="panel-ai-notes-btn"
-            title="AI Notes"
+            title={t("karauMeet.aiNotes")}
           >
             <Sparkles className="w-[18px] h-[18px]" />
           </button>
@@ -1945,7 +1945,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             onClick={() => { setActivePanel(activePanel === 'ai-assistant' ? null : 'ai-assistant'); setShowMoreMenu(false); }}
             className={`hidden sm:flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'ai-assistant' ? 'bg-gradient-to-br from-teal-500/25 to-emerald-500/15 text-teal-300 ring-1 ring-teal-500/30' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="panel-ai-assistant-btn"
-            title="AI Assistant"
+            title={t("karauMeet.aiAssistant")}
           >
             <Bot className="w-[18px] h-[18px]" />
           </button>
@@ -1956,7 +1956,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               onClick={() => setShowMoreMenu(!showMoreMenu)}
               className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${showMoreMenu ? 'bg-purple-500/20 text-purple-400' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
               data-testid="more-menu-btn"
-              title="More actions"
+              title={t("karauMeet.moreOptions")}
             >
               <MoreHorizontal className="w-[18px] h-[18px]" />
             </button>
