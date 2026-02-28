@@ -120,8 +120,8 @@ const KarauMeetDashboard = ({ user }) => {
   const statItems = [
     { label: 'Meetings', value: stats.total_meetings, icon: Video, gradient: 'from-blue-500/20 to-blue-600/5', iconColor: 'text-blue-400' },
     { label: 'Hours', value: stats.total_hours, icon: Clock, gradient: 'from-purple-500/20 to-purple-600/5', iconColor: 'text-purple-400' },
-    { label: 'Recordings', value: stats.recordings, icon: Archive, gradient: 'from-violet-500/20 to-violet-600/5', iconColor: 'text-violet-400' },
-    { label: 'Participants', value: stats.participants, icon: Users, gradient: 'from-emerald-500/20 to-emerald-600/5', iconColor: 'text-emerald-400' }
+    { label: 'AI Insights', value: stats.ai_insights, icon: Sparkles, gradient: 'from-violet-500/20 to-violet-600/5', iconColor: 'text-violet-400' },
+    { label: 'Participants', value: stats.total_participants, icon: Users, gradient: 'from-emerald-500/20 to-emerald-600/5', iconColor: 'text-emerald-400' }
   ];
 
   const features = [
