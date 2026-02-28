@@ -2034,7 +2034,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         <div className="md:hidden fixed inset-x-0 bottom-[60px] h-[55vh] bg-karau-card border-t border-karau-border z-20 rounded-t-xl shadow-2xl shadow-black/50">
           <div className="flex items-center justify-between p-3 border-b border-karau-border">
             <span className="text-white font-medium text-sm">
-              {activePanel === 'ai-notes' ? 'AI Notes' : activePanel ? activePanel.charAt(0).toUpperCase() + activePanel.slice(1) : ''}
+              {activePanel === 'ai-notes' ? t("karauMeet.aiNotes") : activePanel === 'ai-assistant' ? t("karauMeet.aiAssistant") : activePanel === 'chat' ? t("karauMeet.chat") : activePanel === 'polls' ? t("karauMeet.polls") : activePanel ? activePanel.charAt(0).toUpperCase() + activePanel.slice(1) : ''}
             </span>
             <button onClick={() => setActivePanel(null)} className="p-1 text-slate-400 hover:text-white rounded-md">
               <X className="w-5 h-5" />
