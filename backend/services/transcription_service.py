@@ -9,7 +9,7 @@ import logging
 import tempfile
 from datetime import datetime, timezone
 
-from emergentintegrations.llm.openai import OpenAISpeechToText
+from emergentintegrations.llm.openai.speech_to_text import OpenAISpeechToText
 from services.object_storage import get_object
 
 logger = logging.getLogger(__name__)
