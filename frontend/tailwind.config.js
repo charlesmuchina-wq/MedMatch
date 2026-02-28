@@ -54,13 +54,15 @@ module.exports = {
                                 '5': 'hsl(var(--chart-5))'
                         },
                         karau: {
-                                bg: '#1a1b2e',
-                                card: '#232436',
-                                panel: '#1f2033',
-                                surface: '#2d2e42',
+                                bg: '#0f1115',
+                                card: '#1a1b2e',
+                                panel: '#151625',
+                                surface: '#232436',
                                 border: '#2e303e',
                                 accent: '#20b2aa',
                                 'accent-bright': '#40e0d0',
+                                emerald: '#10b981',
+                                amber: '#eab308',
                                 text: '#f5f5f5',
                                 muted: '#94a3b8',
                                 danger: '#ef4444'
