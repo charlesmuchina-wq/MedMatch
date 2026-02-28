@@ -169,12 +169,18 @@ async def get_ai_answer(meeting_id: str, question: str) -> dict:
     if not EMERGENT_LLM_KEY:
         return {"answer": "AI assistant is not configured. Please set up the Emergent LLM key.", "follow_up_suggestions": []}
 
-    meeting = await db.karau_meetings.find_one({"meeting_id": meeting_id}, {"_id": 0})
-    if not meeting:
-        return {"answer": "Meeting not found.", "follow_up_suggestions": []}
+    # Handle general (non-meeting) context
+    is_general = meeting_id == "general"
+    context_items = []
+    meeting_title = "General"
 
-    ai_notes = meeting.get("ai_notes", [])
-    context_items = [f"[{n.get('type','note')}] {n['content']}" for n in ai_notes if n.get("content")][-25:]
+    if not is_general:
+        meeting = await db.karau_meetings.find_one({"meeting_id": meeting_id}, {"_id": 0})
+        if not meeting:
+            return {"answer": "Meeting not found.", "follow_up_suggestions": []}
+        meeting_title = meeting.get("title", "Meeting")
+        ai_notes = meeting.get("ai_notes", [])
+        context_items = [f"[{n.get('type','note')}] {n['content']}" for n in ai_notes if n.get("content")][-25:]
 
     # Build conversation history context
     conv_history = _get_history(meeting_id)
