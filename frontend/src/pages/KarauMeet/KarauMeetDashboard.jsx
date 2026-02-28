@@ -66,6 +66,22 @@ const KarauMeetDashboard = ({ user }) => {
     setActivitiesLoading(false);
   };
 
+  const fetchUpcoming = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API}/api/karau-meet/upcoming`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) { const data = await res.json(); setUpcoming(data.upcoming || []); }
+    } catch (e) { console.error('Upcoming error:', e); }
+  };
+
+  const fetchTrendingTopics = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API}/api/karau-meet/trending-topics`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) { const data = await res.json(); setTrendingTopics(data.topics || []); }
+    } catch (e) { console.error('Trending error:', e); }
+  };
+
   const fetchTemplates = async () => {
     try {
       const res = await fetch(`${API}/api/karau-features/templates`);
