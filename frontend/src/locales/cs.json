@@ -2222,14 +2222,14 @@
     "acceptRecording": "Přijmout",
     "declineRecording": "Odmítnout",
     "noThanks": "Ne, děkuji",
-    "meetingEffectiveness": "Meeting Effectiveness",
-    "avgDuration": "Avg Duration",
-    "avgParticipants": "Avg Participants",
-    "withNotes": "With Notes",
-    "quickAnalytics": "Quick Analytics",
-    "onTimeRate": "On-Time Rate",
-    "aiNotesUsage": "AI Notes Usage",
-    "actionItems": "Action Items"
+    "meetingEffectiveness": "Účinnost schůzek",
+    "avgDuration": "Průměrná délka",
+    "avgParticipants": "Průměrný počet účastníků",
+    "withNotes": "S poznámkami",
+    "quickAnalytics": "Rychlá analýza",
+    "onTimeRate": "Procento včasnosti",
+    "aiNotesUsage": "Využití AI poznámek",
+    "actionItems": "Úkoly"
   },
   "location": {
     "selectLocationPlaceholder": "Vyberte svou polohu..."
