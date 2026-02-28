@@ -242,7 +242,7 @@ const AIAssistantPanel = ({ meetingId, aiNotes = [] }) => {
                         <span className="w-1.5 h-1.5 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
                         <span className="w-1.5 h-1.5 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                       </div>
-                      <span className="text-[10px] text-slate-500">Thinking...</span>
+                      <span className="text-[10px] text-slate-500">{t("karauMeet.thinking")}</span>
                     </div>
                   </div>
                 </div>
