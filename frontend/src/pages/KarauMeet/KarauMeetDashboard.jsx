@@ -4,7 +4,8 @@ import { toast } from 'sonner';
 import {
   Video, Plus, Clock, Shield, Sparkles, Copy,
   Loader2, Users, Share2, Building2,
-  ArrowRight, Globe, Mic, ChevronDown, ChevronUp, Bot
+  ArrowRight, Globe, Mic, ChevronDown, ChevronUp, Bot,
+  CalendarClock, TrendingUp
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
