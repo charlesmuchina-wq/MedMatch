@@ -10,7 +10,7 @@ from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime, timezone
 from utils.database import db
-from utils.auth_middleware import require_auth
+from routes.auth import require_auth
 
 router = APIRouter(prefix="/karau-features", tags=["karau-features"])
 
