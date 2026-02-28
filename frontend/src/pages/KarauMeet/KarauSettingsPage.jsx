@@ -793,6 +793,142 @@ const KarauSettingsPage = () => {
           </Card>
         </div>
       )}
+
+      {/* Webhooks / CRM Integration */}
+      {activeTab === 'webhooks' && (
+        <WebhookSettings />
+      )}
+    </div>
+  );
+};
+
+const WebhookSettings = () => {
+  const [webhooks, setWebhooks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [newUrl, setNewUrl] = useState('');
+  const [newName, setNewName] = useState('');
+  const [showAdd, setShowAdd] = useState(false);
+
+  const fetchWebhooks = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API}/api/karau-features/webhooks`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setWebhooks(data.webhooks || []);
+      }
+    } catch (e) { console.error(e); }
+    setLoading(false);
+  };
+
+  useEffect(() => { fetchWebhooks(); }, []);
+
+  const addWebhook = async () => {
+    if (!newUrl.trim()) return;
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API}/api/karau-features/webhooks`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({
+          webhook_url: newUrl,
+          name: newName || 'Custom CRM',
+          events: ['meeting_ended', 'meeting_created']
+        })
+      });
+      if (res.ok) {
+        toast.success('Webhook added');
+        setNewUrl(''); setNewName(''); setShowAdd(false);
+        fetchWebhooks();
+      }
+    } catch (e) { toast.error('Failed to add webhook'); }
+  };
+
+  const deleteWebhook = async (id) => {
+    try {
+      const token = localStorage.getItem('token');
+      await fetch(`${API}/api/karau-features/webhooks/${id}`, {
+        method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` }
+      });
+      toast.success('Webhook deleted');
+      fetchWebhooks();
+    } catch (e) { toast.error('Failed to delete'); }
+  };
+
+  const testWebhook = async (id) => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API}/api/karau-features/webhooks/test/${id}`, {
+        method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (data.success) toast.success(`Test successful (${data.status_code})`);
+      else toast.error(`Test failed: ${data.error || data.status_code}`);
+    } catch (e) { toast.error('Test failed'); }
+  };
+
+  return (
+    <div className="space-y-4">
+      <Card className="bg-slate-800/50 border-slate-700">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-white">CRM Webhook Integration</CardTitle>
+              <CardDescription className="text-slate-400">
+                Send meeting events to your CRM, Salesforce, HubSpot, or any service
+              </CardDescription>
+            </div>
+            <Button onClick={() => setShowAdd(!showAdd)} className="bg-teal-500/80 hover:bg-teal-400 text-white rounded-lg" data-testid="add-webhook-btn">
+              <Plus className="w-4 h-4 mr-1" />Add Webhook
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {showAdd && (
+            <div className="p-4 bg-slate-900/50 rounded-xl border border-slate-600/50 space-y-3">
+              <Input placeholder="Webhook Name (e.g., Salesforce)" value={newName} onChange={e => setNewName(e.target.value)} className="bg-slate-800 border-slate-600 text-white" data-testid="webhook-name-input" />
+              <Input placeholder="https://your-crm.com/webhook" value={newUrl} onChange={e => setNewUrl(e.target.value)} className="bg-slate-800 border-slate-600 text-white" data-testid="webhook-url-input" />
+              <div className="flex gap-2">
+                <Button onClick={addWebhook} className="bg-teal-500 text-white" data-testid="save-webhook-btn">Save</Button>
+                <Button variant="ghost" onClick={() => setShowAdd(false)} className="text-slate-400">Cancel</Button>
+              </div>
+            </div>
+          )}
+          {loading ? (
+            <div className="flex justify-center py-8"><Loader2 className="w-5 h-5 animate-spin text-teal-400" /></div>
+          ) : webhooks.length === 0 ? (
+            <div className="text-center py-8 text-slate-500">
+              <Webhook className="w-10 h-10 mx-auto mb-2 opacity-30" />
+              <p>No webhooks configured</p>
+              <p className="text-xs mt-1">Add a webhook to send meeting events to your CRM</p>
+            </div>
+          ) : (
+            webhooks.map(wh => (
+              <div key={wh.webhook_id} className="flex items-center justify-between p-3 bg-slate-900/30 rounded-lg border border-slate-700/50" data-testid={`webhook-${wh.webhook_id}`}>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white text-sm font-medium">{wh.name}</p>
+                  <p className="text-slate-500 text-xs truncate">{wh.webhook_url}</p>
+                  <div className="flex gap-1 mt-1">
+                    {wh.events?.map(ev => (
+                      <Badge key={ev} className="bg-slate-700/50 text-slate-400 text-[10px]">{ev}</Badge>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex gap-1 ml-3">
+                  <Button variant="ghost" size="sm" onClick={() => testWebhook(wh.webhook_id)} className="text-amber-400 hover:bg-amber-500/10 h-8 w-8 p-0" title="Test">
+                    <TestTube2 className="w-3.5 h-3.5" />
+                  </Button>
+                  <Button variant="ghost" size="sm" onClick={() => deleteWebhook(wh.webhook_id)} className="text-red-400 hover:bg-red-500/10 h-8 w-8 p-0" title="Delete">
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </Button>
+                </div>
+              </div>
+            ))
+          )}
+        </CardContent>
+      </Card>
     </div>
   );
 };
