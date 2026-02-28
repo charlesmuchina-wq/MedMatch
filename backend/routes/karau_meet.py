@@ -124,10 +124,8 @@ async def get_my_meetings(
 async def get_upcoming_meetings(user: dict = Depends(require_auth)):
     """Get upcoming scheduled meetings."""
     from utils.database import db
-    from datetime import datetime, timezone
 
     user_id = user["user_id"]
-    now = datetime.now(timezone.utc).isoformat()
 
     # Get meetings that are scheduled in the future or waiting to start
     upcoming = await db.karau_meetings.find(
