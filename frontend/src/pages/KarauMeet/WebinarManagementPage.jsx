@@ -201,12 +201,13 @@ const WebinarManagementPage = () => {
 
       {/* Create Webinar Dialog */}
       <Dialog open={showCreate} onOpenChange={setShowCreate}>
-        <DialogContent className="bg-karau-card border-white/10 rounded-2xl max-w-lg" data-testid="create-webinar-dialog">
+        <DialogContent className="bg-karau-card border-white/10 rounded-2xl max-w-lg" aria-describedby="create-webinar-desc" data-testid="create-webinar-dialog">
           <DialogHeader>
             <DialogTitle className="text-white flex items-center gap-2">
               <Radio className="w-5 h-5 text-purple-400" />
               {t("karauMeet.createWebinar") || "Create Webinar"}
             </DialogTitle>
+            <p id="create-webinar-desc" className="text-xs text-karau-muted">Configure your webinar settings</p>
           </DialogHeader>
           <CreateWebinarForm onCreated={handleCreated} onCancel={() => setShowCreate(false)} />
         </DialogContent>
