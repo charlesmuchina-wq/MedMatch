@@ -6,7 +6,7 @@ import { Shield, Copy, Calendar, Loader2, Circle,
   Mic, MicOff, Video, VideoOff, Monitor, MonitorOff,
   Hand, PhoneOff, Square, MessageSquare, Users, Sparkles, Share2,
   Captions, CaptionsOff, BarChart3, PenTool,
-  MoreHorizontal, Settings, Volume2
+  MoreHorizontal, Settings, Volume2, Bot
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -21,6 +21,7 @@ import LiveCaptions from './LiveCaptions';
 import MeetingReactions from './MeetingReactions';
 import { PollsPanel } from './PollsPanel';
 import MeetingWhiteboard from './MeetingWhiteboard';
+import AIAssistantPanel from './AIAssistantPanel';
 import { useNoiseCancellation } from './useNoiseCancellation';
 
 const API = process.env.REACT_APP_BACKEND_URL;
