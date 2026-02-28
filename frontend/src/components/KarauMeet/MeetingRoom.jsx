@@ -1761,6 +1761,8 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             <MeetingReactions
               onSendReaction={sendReaction}
               incomingReaction={incomingReaction}
+              showBar={showReactionBar}
+              onToggleBar={setShowReactionBar}
             />
           </div>
         </div>
