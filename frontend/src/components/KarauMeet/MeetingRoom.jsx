@@ -240,7 +240,7 @@ const MeetingHeader = ({ meeting, meetingId, isRecording, onAddToCalendar, onCop
   <header className="min-h-[48px] md:h-16 bg-slate-800 border-b border-slate-700 flex items-center justify-between px-2 md:px-4 py-2">
     <div className="flex items-center gap-1 md:gap-3 flex-wrap">
       <div className="flex items-center gap-1 md:gap-2">
-        <Shield className="w-4 h-4 md:w-5 md:h-5 text-turquoise flex-shrink-0" />
+        <Shield className="w-4 h-4 md:w-5 md:h-5 text-purple-400 flex-shrink-0" />
         <span className="text-white font-semibold text-sm md:text-base hidden sm:inline">AI KARAU Meeting</span>
         <span className="text-white font-semibold text-sm md:text-base sm:hidden">KARAU</span>
       </div>
@@ -1896,7 +1896,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
           {/* Reactions */}
           <button
             onClick={() => { setShowReactionBar(!showReactionBar); setShowMoreMenu(false); }}
-            className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${showReactionBar ? 'bg-turquoise/20 text-turquoise' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${showReactionBar ? 'bg-purple-500/20 text-purple-400' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="control-reactions"
             title="Reactions"
           >
@@ -1909,7 +1909,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
           {/* Panel Toggles */}
           <button
             onClick={() => { setActivePanel(activePanel === 'chat' ? null : 'chat'); setShowMoreMenu(false); }}
-            className={`relative flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'chat' ? 'bg-turquoise/20 text-turquoise' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            className={`relative flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'chat' ? 'bg-purple-500/20 text-purple-400' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="panel-chat-btn"
             title="Chat"
           >
@@ -1923,7 +1923,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
 
           <button
             onClick={() => { setActivePanel(activePanel === 'participants' ? null : 'participants'); setShowMoreMenu(false); }}
-            className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'participants' ? 'bg-turquoise/20 text-turquoise' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'participants' ? 'bg-purple-500/20 text-purple-400' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="panel-participants-btn"
             title="People"
           >
@@ -1932,7 +1932,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
 
           <button
             onClick={() => { setActivePanel(activePanel === 'ai-notes' ? null : 'ai-notes'); setShowMoreMenu(false); }}
-            className={`hidden sm:flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'ai-notes' ? 'bg-turquoise/20 text-turquoise' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            className={`hidden sm:flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'ai-notes' ? 'bg-purple-500/20 text-purple-400' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="panel-ai-notes-btn"
             title="AI Notes"
           >
@@ -1952,7 +1952,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
           <div className="relative" ref={moreMenuRef}>
             <button
               onClick={() => setShowMoreMenu(!showMoreMenu)}
-              className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${showMoreMenu ? 'bg-turquoise/20 text-turquoise' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+              className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${showMoreMenu ? 'bg-purple-500/20 text-purple-400' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
               data-testid="more-menu-btn"
               title="More actions"
             >
@@ -1976,7 +1976,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                     <div className="absolute left-full bottom-0 ml-1 bg-karau-surface border border-karau-border rounded-xl shadow-2xl py-1.5 w-44 z-50 max-h-60 overflow-y-auto" data-testid="language-submenu">
                       {[['en','English'],['es','Spanish'],['fr','French'],['de','German'],['pt','Portuguese'],['zh','Chinese'],['ja','Japanese'],['ko','Korean'],['ar','Arabic'],['hi','Hindi'],['it','Italian'],['ru','Russian'],['nl','Dutch'],['tr','Turkish']].map(([code, name]) => (
                         <button key={code} onClick={() => { setCaptionLang(code); setShowLangMenu(false); setShowMoreMenu(false); toast.success(`Captions: ${name}`); }}
-                          className={`flex items-center gap-2 w-full px-3 py-2 text-xs transition-colors ${captionLang === code ? 'text-turquoise bg-turquoise/10' : 'text-slate-400 hover:bg-white/5 hover:text-white'}`}>
+                          className={`flex items-center gap-2 w-full px-3 py-2 text-xs transition-colors ${captionLang === code ? 'text-purple-400 bg-purple-500/10' : 'text-slate-400 hover:bg-white/5 hover:text-white'}`}>
                           <span className="w-5 font-mono text-[10px]">{code.toUpperCase()}</span>{name}
                         </button>
                       ))}
