@@ -14,7 +14,7 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { toast, Toaster } from 'sonner';
 import {
   Video, LogOut, Settings, FileText, BarChart3,
-  Menu, ChevronRight, Home, CalendarDays, Archive
+  Menu, ChevronRight, Home, CalendarDays, Archive, Radio
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -31,6 +31,7 @@ import KarauRecordingsPage from './KarauRecordingsPage';
 import KarauSettingsPage from './KarauSettingsPage';
 import GuestJoinPage from './GuestJoinPage';
 import { WebinarRegistrationPage } from './WebinarPage';
+import WebinarManagementPage from './WebinarManagementPage';
 
 // Meeting room component
 import MeetingRoom from '@/components/KarauMeet/MeetingRoom';
@@ -48,6 +49,7 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
     { path: '/karau-meet/meetings', icon: Video, labelKey: 'karau.myMeetings' },
     { path: '/karau-meet/schedule', icon: CalendarDays, labelKey: 'karau.schedule' },
     { path: '/karau-meet/recordings', icon: Archive, labelKey: 'karau.recordings' },
+    { path: '/karau-meet/webinars', icon: Radio, labelKey: 'karau.webinars' },
     { path: '/karau-meet/notes', icon: FileText, labelKey: 'karau.meetingNotes' },
     { path: '/karau-meet/settings', icon: Settings, labelKey: 'karau.settings' },
   ];
@@ -405,6 +407,7 @@ const KarauMeetPortal = () => {
           <Route path="meetings" element={<MeetingsListPage />} />
           <Route path="schedule" element={<SchedulePage />} />
           <Route path="recordings" element={<KarauRecordingsPage />} />
+          <Route path="webinars" element={<WebinarManagementPage />} />
           <Route path="notes" element={<NotesPage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="settings" element={<KarauSettingsPage />} />
