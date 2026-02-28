@@ -150,9 +150,9 @@ const AIAssistantPanel = ({ meetingId, aiNotes = [] }) => {
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500/20 to-emerald-500/10 border border-teal-500/20 flex items-center justify-center mx-auto mb-3">
                   <Bot className="w-6 h-6 text-teal-400" />
                 </div>
-                <p className="text-sm font-medium text-white">KARAU AI Assistant</p>
+                <p className="text-sm font-medium text-white">{t("karauMeet.karauAI")}</p>
                 <p className="text-xs text-slate-500 mt-1 max-w-[200px] mx-auto">
-                  Ask questions about the meeting, get summaries, or extract action items
+                  {t("karauMeet.askAboutMeetings")}
                 </p>
               </div>
 
