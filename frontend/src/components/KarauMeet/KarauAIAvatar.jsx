@@ -202,7 +202,7 @@ const KarauAIAvatar = ({ meetingId }) => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask KARAU AI..."
+                placeholder={t("karauMeet.askKarauPlaceholder")}
                 className="flex-1 bg-karau-bg/60 border border-karau-border text-white rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-1 focus:ring-purple-500/40 focus:border-purple-500/30 placeholder-slate-600"
                 disabled={isLoading}
                 data-testid="karau-avatar-input"
