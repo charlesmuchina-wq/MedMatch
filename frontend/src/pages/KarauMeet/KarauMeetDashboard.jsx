@@ -54,6 +54,8 @@ const KarauMeetDashboard = ({ user }) => {
   const [trendingTopics, setTrendingTopics] = useState([]);
   const [, setTick] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [effectiveness, setEffectiveness] = useState(null);
+  const [gamification, setGamification] = useState(null);
 
   useEffect(() => {
     fetchMeetings();
