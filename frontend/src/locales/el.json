@@ -2222,14 +2222,14 @@
     "acceptRecording": "Αποδοχή",
     "declineRecording": "Αρνηθείτε",
     "noThanks": "Όχι Ευχαριστώ",
-    "meetingEffectiveness": "Meeting Effectiveness",
-    "avgDuration": "Avg Duration",
-    "avgParticipants": "Avg Participants",
-    "withNotes": "With Notes",
-    "quickAnalytics": "Quick Analytics",
-    "onTimeRate": "On-Time Rate",
-    "aiNotesUsage": "AI Notes Usage",
-    "actionItems": "Action Items"
+    "meetingEffectiveness": "Αποτελεσματικότητα Συνάντησης",
+    "avgDuration": "Μέση Διάρκεια",
+    "avgParticipants": "Μέσος Όρος Συμμετεχόντων",
+    "withNotes": "Με Σημειώσεις",
+    "quickAnalytics": "Γρήγορη Ανάλυση",
+    "onTimeRate": "Ποσοστό Έγκαιρης Συμμετοχής",
+    "aiNotesUsage": "Χρήση Σημειώσεων AI",
+    "actionItems": "Στοιχεία Δράσης"
   },
   "location": {
     "selectLocationPlaceholder": "Επιλέξτε την τοποθεσία σας..."

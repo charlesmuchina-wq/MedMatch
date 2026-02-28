@@ -2244,14 +2244,14 @@
     "acceptRecording": "Karɓa",
     "declineRecording": "Kuwa ba",
     "noThanks": "A'a, Na gode",
-    "meetingEffectiveness": "Meeting Effectiveness",
-    "avgDuration": "Avg Duration",
-    "avgParticipants": "Avg Participants",
-    "withNotes": "With Notes",
-    "quickAnalytics": "Quick Analytics",
-    "onTimeRate": "On-Time Rate",
-    "aiNotesUsage": "AI Notes Usage",
-    "actionItems": "Action Items"
+    "meetingEffectiveness": "Tasirin Taro",
+    "avgDuration": "Tsawon Lokaci na Al'ada",
+    "avgParticipants": "Adadin Masu Halarta na Al'ada",
+    "withNotes": "Tare da Bayani",
+    "quickAnalytics": "Gaggauta Nazari",
+    "onTimeRate": "Kimar Lokaci",
+    "aiNotesUsage": "Amfani da AI Notes",
+    "actionItems": "Abubuwan Aiki"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "misali, webhook na ATS na Production",

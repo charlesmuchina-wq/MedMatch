@@ -2222,14 +2222,14 @@
     "acceptRecording": "Hyväksy",
     "declineRecording": "Hylkää",
     "noThanks": "Ei kiitos",
-    "meetingEffectiveness": "Meeting Effectiveness",
-    "avgDuration": "Avg Duration",
-    "avgParticipants": "Avg Participants",
-    "withNotes": "With Notes",
-    "quickAnalytics": "Quick Analytics",
-    "onTimeRate": "On-Time Rate",
-    "aiNotesUsage": "AI Notes Usage",
-    "actionItems": "Action Items"
+    "meetingEffectiveness": "Kokouksen Tehokkuus",
+    "avgDuration": "Keskimääräinen Kesto",
+    "avgParticipants": "Keskimääräiset Osallistujat",
+    "withNotes": "Muistiinpanojen Kanssa",
+    "quickAnalytics": "Nopeat Analyysit",
+    "onTimeRate": "Aikataulussa Olemisen Prosentti",
+    "aiNotesUsage": "AI Muistiinpanojen Käyttö",
+    "actionItems": "Toimenpiteet"
   },
   "location": {
     "selectLocationPlaceholder": "Valitse sijaintisi..."

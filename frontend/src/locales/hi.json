@@ -2244,14 +2244,14 @@
     "acceptRecording": "स्वीकृत करें",
     "declineRecording": "अस्वीकृत करें",
     "noThanks": "कोई बात नहीं",
-    "meetingEffectiveness": "Meeting Effectiveness",
-    "avgDuration": "Avg Duration",
-    "avgParticipants": "Avg Participants",
-    "withNotes": "With Notes",
-    "quickAnalytics": "Quick Analytics",
-    "onTimeRate": "On-Time Rate",
-    "aiNotesUsage": "AI Notes Usage",
-    "actionItems": "Action Items"
+    "meetingEffectiveness": "बैठक की प्रभावशीलता",
+    "avgDuration": "औसत अवधि",
+    "avgParticipants": "औसत प्रतिभागी",
+    "withNotes": "नोट्स के साथ",
+    "quickAnalytics": "त्वरित विश्लेषण",
+    "onTimeRate": "समय पर दर",
+    "aiNotesUsage": "AI नोट्स उपयोग",
+    "actionItems": "क्रियावली वस्तुएं"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "उदाहरण: प्रोडक्शन ATS वेबहुक",

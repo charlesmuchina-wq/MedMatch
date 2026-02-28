@@ -2222,14 +2222,14 @@
     "acceptRecording": "Accepter",
     "declineRecording": "Afvis",
     "noThanks": "Nej tak",
-    "meetingEffectiveness": "Meeting Effectiveness",
-    "avgDuration": "Avg Duration",
-    "avgParticipants": "Avg Participants",
-    "withNotes": "With Notes",
-    "quickAnalytics": "Quick Analytics",
-    "onTimeRate": "On-Time Rate",
-    "aiNotesUsage": "AI Notes Usage",
-    "actionItems": "Action Items"
+    "meetingEffectiveness": "Møde Effektivitet",
+    "avgDuration": "Gns. Varighed",
+    "avgParticipants": "Gns. Deltagere",
+    "withNotes": "Med Notater",
+    "quickAnalytics": "Hurtig Analyse",
+    "onTimeRate": "Til Tiden Rate",
+    "aiNotesUsage": "AI Notater Brug",
+    "actionItems": "Handlingspunkter"
   },
   "location": {
     "selectLocationPlaceholder": "Vælg din lokation..."

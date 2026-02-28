@@ -2257,14 +2257,14 @@
     "acceptRecording": "Aceptar",
     "declineRecording": "Rechazar",
     "noThanks": "No, gracias",
-    "meetingEffectiveness": "Meeting Effectiveness",
-    "avgDuration": "Avg Duration",
-    "avgParticipants": "Avg Participants",
-    "withNotes": "With Notes",
-    "quickAnalytics": "Quick Analytics",
-    "onTimeRate": "On-Time Rate",
-    "aiNotesUsage": "AI Notes Usage",
-    "actionItems": "Action Items"
+    "meetingEffectiveness": "Efectividad de Reuniones",
+    "avgDuration": "Duración Promedio",
+    "avgParticipants": "Participantes Promedio",
+    "withNotes": "Con Notas",
+    "quickAnalytics": "Análisis Rápido",
+    "onTimeRate": "Tasa de Puntualidad",
+    "aiNotesUsage": "Uso de Notas AI",
+    "actionItems": "Elementos de Acción"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "p. ej., Webhook ATS de producción",

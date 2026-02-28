@@ -2258,13 +2258,13 @@
     "declineRecording": "Ablehnen",
     "noThanks": "Nein danke",
     "meetingEffectiveness": "Meeting Effectiveness",
-    "avgDuration": "Avg Duration",
-    "avgParticipants": "Avg Participants",
-    "withNotes": "With Notes",
-    "quickAnalytics": "Quick Analytics",
-    "onTimeRate": "On-Time Rate",
+    "avgDuration": "Durchschnittliche Dauer",
+    "avgParticipants": "Durchschnittliche Teilnehmer",
+    "withNotes": "Mit Notizen",
+    "quickAnalytics": "Schnelle Analysen",
+    "onTimeRate": "Pünktlichkeitsrate",
     "aiNotesUsage": "AI Notes Usage",
-    "actionItems": "Action Items"
+    "actionItems": "Aufgaben"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "z. B. Production-ATS-Webhook",
