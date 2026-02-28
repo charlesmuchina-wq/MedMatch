@@ -213,7 +213,7 @@ const KarauMeetDashboard = ({ user }) => {
     { icon: Sparkles, label: t("karauMeet.aiNotes"), color: 'text-purple-400', bg: 'bg-purple-500/10 border-purple-500/20' },
     { icon: Globe, label: t("karauMeet.multiLanguage"), color: 'text-violet-400', bg: 'bg-violet-500/10 border-violet-500/20' },
     { icon: Mic, label: t("karauMeet.noiseCancel"), color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' },
-    { icon: Bot, label: t("karauMeet.aiAssistant"), color: 'text-teal-400', bg: 'bg-teal-500/10 border-teal-500/20' }
+    { icon: Bot, label: t("karauMeet.aiAssistant"), color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' }
   ];
 
   return (
