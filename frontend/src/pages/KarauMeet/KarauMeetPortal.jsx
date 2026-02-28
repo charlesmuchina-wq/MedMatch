@@ -96,7 +96,7 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
                 }`}
                 data-testid={`nav-${item.labelKey}`}
               >
-                <item.icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? 'text-teal-400' : ''}`} />
+                <item.icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? 'text-purple-400' : ''}`} />
                 {!isCollapsed && <span className="text-sm font-medium">{t(item.labelKey)}</span>}
               </button>
             );
