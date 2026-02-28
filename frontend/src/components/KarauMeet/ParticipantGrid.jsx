@@ -71,7 +71,7 @@ const VideoParticipant = ({
   if (isMinimized) {
     return (
       <div 
-        className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden bg-slate-800 border-2 border-slate-600 cursor-pointer hover:border-turquoise transition-colors flex-shrink-0"
+        className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden bg-karau-card border-2 border-white/10 cursor-pointer hover:border-turquoise transition-colors flex-shrink-0"
         onClick={() => onPin && onPin(participant.user_id)}
         title={`Click to view ${participant?.user_name}`}
       >
@@ -85,7 +85,7 @@ const VideoParticipant = ({
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-700 to-slate-800">
-            <span className="text-sm font-bold text-turquoise">
+            <span className="text-sm font-bold text-purple-400">
               {participant?.user_name?.charAt(0)?.toUpperCase() || '?'}
             </span>
           </div>
@@ -96,7 +96,7 @@ const VideoParticipant = ({
 
   return (
     <div 
-      className={`relative w-full h-full rounded-xl overflow-hidden bg-slate-900 transition-all duration-200 ${isSpeaking ? 'ring-[3px] ring-emerald-500 shadow-lg shadow-emerald-500/20' : ''} ${isPinned ? 'ring-2 ring-yellow-500' : ''}`}
+      className={`relative w-full h-full rounded-xl overflow-hidden bg-karau-bg transition-all duration-200 ${isSpeaking ? 'ring-[3px] ring-emerald-500 shadow-lg shadow-emerald-500/20' : ''} ${isPinned ? 'ring-2 ring-yellow-500' : ''}`}
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
       onTouchStart={() => setShowActions(true)}
@@ -126,7 +126,7 @@ const VideoParticipant = ({
           {isLocal && bgLoading && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-10">
               <div className="text-center">
-                <Loader2 className="w-6 h-6 text-turquoise animate-spin mx-auto mb-1" />
+                <Loader2 className="w-6 h-6 text-purple-400 animate-spin mx-auto mb-1" />
                 <span className="text-white text-xs">Loading AI...</span>
               </div>
             </div>
@@ -134,8 +134,8 @@ const VideoParticipant = ({
         </>
       ) : (
         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-800 to-slate-900">
-          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-turquoise/20 flex items-center justify-center">
-            <span className="text-2xl md:text-3xl font-bold text-turquoise">
+          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-purple-500/20 flex items-center justify-center">
+            <span className="text-2xl md:text-3xl font-bold text-purple-400">
               {participant?.user_name?.charAt(0)?.toUpperCase() || '?'}
             </span>
           </div>
@@ -159,7 +159,7 @@ const VideoParticipant = ({
             <Button
               size="sm"
               variant="secondary"
-              className="h-7 w-7 p-0 bg-slate-700/80 hover:bg-slate-600"
+              className="h-7 w-7 p-0 bg-karau-surface/80 hover:bg-slate-600"
               onClick={() => onPin && onPin(participant.user_id)}
               title="Pin to spotlight"
             >
@@ -203,7 +203,7 @@ const VideoParticipant = ({
       
       {/* Host badge */}
       {participant?.is_host && !isPinned && (
-        <Badge className="absolute top-2 md:top-3 left-2 md:left-3 bg-turquoise text-white border-0 text-xs z-10">
+        <Badge className="absolute top-2 md:top-3 left-2 md:left-3 bg-purple-500 text-white border-0 text-xs z-10">
           Host
         </Badge>
       )}
@@ -291,7 +291,7 @@ const ParticipantGrid = ({ participants, localStream, remoteStreams, localUserId
           <Button
             size="sm"
             variant={viewMode === 'gallery' ? 'default' : 'ghost'}
-            className={`h-7 px-2 text-xs ${viewMode === 'gallery' ? 'bg-turquoise' : 'text-slate-400'}`}
+            className={`h-7 px-2 text-xs ${viewMode === 'gallery' ? 'bg-purple-500' : 'text-slate-400'}`}
             onClick={showGallery}
           >
             <Grid3X3 className="w-3.5 h-3.5 mr-1" />
@@ -301,7 +301,7 @@ const ParticipantGrid = ({ participants, localStream, remoteStreams, localUserId
             <Button
               size="sm"
               variant={viewMode === 'focus' ? 'default' : 'ghost'}
-              className={`h-7 px-2 text-xs ${viewMode === 'focus' ? 'bg-turquoise' : 'text-slate-400'}`}
+              className={`h-7 px-2 text-xs ${viewMode === 'focus' ? 'bg-purple-500' : 'text-slate-400'}`}
               onClick={showFocus}
             >
               <User className="w-3.5 h-3.5 mr-1" />

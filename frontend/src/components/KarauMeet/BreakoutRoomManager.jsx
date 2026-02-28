@@ -223,9 +223,9 @@ const BreakoutRoomManager = ({ meetingId, participants, isHost, onClose }) => {
   if (!isHost) return null;
 
   return (
-    <div className="flex flex-col h-full bg-slate-900" data-testid="breakout-room-manager">
+    <div className="flex flex-col h-full bg-karau-bg" data-testid="breakout-room-manager">
       {/* Header */}
-      <div className="p-3 border-b border-slate-700 flex items-center justify-between">
+      <div className="p-3 border-b border-karau-border flex items-center justify-between">
         <h3 className="font-semibold text-white flex items-center gap-2 text-sm">
           <Users className="w-4 h-4 text-[#5b5fc7]" />
           Breakout Rooms
@@ -244,7 +244,7 @@ const BreakoutRoomManager = ({ meetingId, participants, isHost, onClose }) => {
               <Button
                 size="sm"
                 variant="outline"
-                className="h-8 text-xs border-slate-600 text-slate-300 hover:text-white"
+                className="h-8 text-xs border-white/10 text-slate-300 hover:text-white"
                 onClick={addRoom}
                 data-testid="add-room-btn"
               >
@@ -265,7 +265,7 @@ const BreakoutRoomManager = ({ meetingId, participants, isHost, onClose }) => {
 
             {/* Unassigned pool */}
             {unassigned.length > 0 && (
-              <div className="bg-slate-800/50 rounded-lg p-3 border border-slate-700/50">
+              <div className="bg-karau-card/50 rounded-lg p-3 border border-karau-border/50">
                 <p className="text-xs text-slate-400 mb-2">Unassigned ({unassigned.length})</p>
                 <div className="flex flex-wrap gap-1.5">
                   {unassigned.map(p => (
@@ -273,11 +273,11 @@ const BreakoutRoomManager = ({ meetingId, participants, isHost, onClose }) => {
                       key={p.user_id}
                       className="group relative"
                     >
-                      <Badge className="bg-slate-700 text-slate-300 text-xs cursor-pointer hover:bg-slate-600" data-testid={`unassigned-${p.user_id}`}>
+                      <Badge className="bg-karau-surface text-slate-300 text-xs cursor-pointer hover:bg-slate-600" data-testid={`unassigned-${p.user_id}`}>
                         {p.user_name?.slice(0, 15)}
                       </Badge>
                       {/* Quick-assign dropdown */}
-                      <div className="absolute top-full left-0 hidden group-hover:flex flex-col bg-slate-700 rounded-md shadow-lg z-20 mt-1 min-w-[100px]">
+                      <div className="absolute top-full left-0 hidden group-hover:flex flex-col bg-karau-surface rounded-md shadow-lg z-20 mt-1 min-w-[100px]">
                         {rooms.map((r, rIdx) => (
                           <button
                             key={rIdx}
@@ -296,7 +296,7 @@ const BreakoutRoomManager = ({ meetingId, participants, isHost, onClose }) => {
 
             {/* Room cards */}
             {rooms.map((room, idx) => (
-              <div key={idx} className="bg-slate-800 rounded-lg border border-slate-700" data-testid={`room-card-${idx}`}>
+              <div key={idx} className="bg-karau-card rounded-lg border border-karau-border" data-testid={`room-card-${idx}`}>
                 <div
                   className="flex items-center justify-between p-2.5 cursor-pointer"
                   onClick={() => setExpandedRoom(expandedRoom === idx ? null : idx)}
@@ -309,7 +309,7 @@ const BreakoutRoomManager = ({ meetingId, participants, isHost, onClose }) => {
                       onClick={e => e.stopPropagation()}
                       data-testid={`room-name-${idx}`}
                     />
-                    <Badge className="bg-slate-700 text-slate-400 text-[10px]">
+                    <Badge className="bg-karau-surface text-slate-400 text-[10px]">
                       {room.participant_ids.length}/10
                     </Badge>
                   </div>
@@ -330,12 +330,12 @@ const BreakoutRoomManager = ({ meetingId, participants, isHost, onClose }) => {
                 </div>
 
                 {expandedRoom === idx && (
-                  <div className="px-2.5 pb-2.5 space-y-1.5 border-t border-slate-700/50 pt-2">
+                  <div className="px-2.5 pb-2.5 space-y-1.5 border-t border-karau-border/50 pt-2">
                     {room.participant_ids.length === 0 ? (
                       <p className="text-[10px] text-slate-500 italic">No participants assigned</p>
                     ) : (
                       room.participant_ids.map(uid => (
-                        <div key={uid} className="flex items-center justify-between bg-slate-700/50 rounded px-2 py-1">
+                        <div key={uid} className="flex items-center justify-between bg-karau-surface rounded px-2 py-1">
                           <span className="text-xs text-slate-300">{getName(uid)}</span>
                           <Button
                             variant="ghost"
@@ -352,10 +352,10 @@ const BreakoutRoomManager = ({ meetingId, participants, isHost, onClose }) => {
                     {/* Assign from unassigned */}
                     {unassigned.length > 0 && (
                       <Select onValueChange={(uid) => assignToRoom(uid, idx)}>
-                        <SelectTrigger className="h-7 bg-slate-700/30 border-slate-600 text-xs text-slate-400">
+                        <SelectTrigger className="h-7 bg-karau-surface/30 border-white/10 text-xs text-slate-400">
                           <SelectValue placeholder="+ Add participant" />
                         </SelectTrigger>
-                        <SelectContent className="bg-slate-700 border-slate-600">
+                        <SelectContent className="bg-karau-surface border-white/10">
                           {unassigned.map(p => (
                             <SelectItem key={p.user_id} value={p.user_id} className="text-xs text-slate-300">
                               {p.user_name}
@@ -370,7 +370,7 @@ const BreakoutRoomManager = ({ meetingId, participants, isHost, onClose }) => {
             ))}
 
             {/* Timer setting */}
-            <div className="bg-slate-800/50 rounded-lg p-3 border border-slate-700/50 space-y-2">
+            <div className="bg-karau-card/50 rounded-lg p-3 border border-karau-border/50 space-y-2">
               <div className="flex items-center justify-between">
                 <Label className="text-xs text-slate-300 flex items-center gap-1.5">
                   <Clock className="w-3 h-3" /> Auto-return timer
@@ -392,7 +392,7 @@ const BreakoutRoomManager = ({ meetingId, participants, isHost, onClose }) => {
                       className={`px-2 py-1 rounded text-[10px] transition-colors ${
                         timerMinutes === m
                           ? 'bg-[#5b5fc7] text-white'
-                          : 'bg-slate-700 text-slate-400 hover:bg-slate-600'
+                          : 'bg-karau-surface text-slate-400 hover:bg-slate-600'
                       }`}
                       data-testid={`timer-${m}m`}
                     >
@@ -424,7 +424,7 @@ const BreakoutRoomManager = ({ meetingId, participants, isHost, onClose }) => {
             {/* Timer */}
             {activeSession.ends_at && (
               <div className={`rounded-lg p-3 text-center ${
-                timeRemaining !== null && timeRemaining <= 60 ? 'bg-red-500/20 border border-red-500/30' : 'bg-slate-800 border border-slate-700'
+                timeRemaining !== null && timeRemaining <= 60 ? 'bg-red-500/20 border border-red-500/30' : 'bg-karau-card border border-karau-border'
               }`} data-testid="breakout-timer">
                 <div className="flex items-center justify-center gap-2">
                   <Clock className={`w-4 h-4 ${timeRemaining !== null && timeRemaining <= 60 ? 'text-red-400' : 'text-slate-400'}`} />
@@ -442,16 +442,16 @@ const BreakoutRoomManager = ({ meetingId, participants, isHost, onClose }) => {
 
             {/* Active rooms */}
             {activeSession.rooms?.map((room, idx) => (
-              <div key={room.room_id} className="bg-slate-800 rounded-lg border border-slate-700 p-3" data-testid={`active-room-${idx}`}>
+              <div key={room.room_id} className="bg-karau-card rounded-lg border border-karau-border p-3" data-testid={`active-room-${idx}`}>
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium text-white">{room.room_name}</span>
-                  <Badge className="bg-slate-700 text-slate-400 text-[10px]">
+                  <Badge className="bg-karau-surface text-slate-400 text-[10px]">
                     {room.participants?.length || 0}/10
                   </Badge>
                 </div>
                 <div className="space-y-1">
                   {room.participants?.map(uid => (
-                    <div key={uid} className="flex items-center justify-between bg-slate-700/50 rounded px-2 py-1">
+                    <div key={uid} className="flex items-center justify-between bg-karau-surface rounded px-2 py-1">
                       <span className="text-xs text-slate-300">{getName(uid)}</span>
                     </div>
                   ))}

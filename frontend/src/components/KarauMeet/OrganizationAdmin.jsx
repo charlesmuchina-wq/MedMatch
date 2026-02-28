@@ -193,19 +193,19 @@ const EmployeesTab = ({ org, employees, employeeSearch, setEmployeeSearch, heade
       {/* Stats bar */}
       {stats && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-          <div className="bg-slate-900 rounded-lg p-2.5 text-center">
+          <div className="bg-karau-bg rounded-lg p-2.5 text-center">
             <p className="text-lg font-bold text-white">{stats.active}</p>
             <p className="text-[10px] text-slate-400">Active</p>
           </div>
-          <div className="bg-slate-900 rounded-lg p-2.5 text-center">
+          <div className="bg-karau-bg rounded-lg p-2.5 text-center">
             <p className="text-lg font-bold text-slate-400">{stats.inactive}</p>
             <p className="text-[10px] text-slate-400">Inactive</p>
           </div>
-          <div className="bg-slate-900 rounded-lg p-2.5 text-center">
+          <div className="bg-karau-bg rounded-lg p-2.5 text-center">
             <p className="text-lg font-bold text-white">{stats.departments?.length || 0}</p>
             <p className="text-[10px] text-slate-400">Departments</p>
           </div>
-          <div className="bg-slate-900 rounded-lg p-2.5 text-center">
+          <div className="bg-karau-bg rounded-lg p-2.5 text-center">
             <p className="text-lg font-bold text-white">{Object.values(stats.sources || {}).reduce((a, b) => a + b, 0)}</p>
             <p className="text-[10px] text-slate-400">Total Records</p>
           </div>
@@ -214,7 +214,7 @@ const EmployeesTab = ({ org, employees, employeeSearch, setEmployeeSearch, heade
 
       {/* Action buttons */}
       <div className="flex flex-wrap items-center gap-2">
-        <Button size="sm" variant="outline" className="h-8 text-xs border-slate-600 text-slate-300" onClick={() => setShowAddForm(!showAddForm)} data-testid="add-employee-btn">
+        <Button size="sm" variant="outline" className="h-8 text-xs border-white/10 text-slate-300" onClick={() => setShowAddForm(!showAddForm)} data-testid="add-employee-btn">
           <Plus className="w-3 h-3 mr-1" /> Add Employee
         </Button>
         <Button size="sm" variant="outline" className="h-8 text-xs border-[#5b5fc7] text-[#5b5fc7]" onClick={() => setShowCsvUpload(!showCsvUpload)} data-testid="csv-upload-btn">
@@ -237,13 +237,13 @@ const EmployeesTab = ({ org, employees, employeeSearch, setEmployeeSearch, heade
 
       {/* Add single employee form */}
       {showAddForm && (
-        <div className="bg-slate-900 rounded-lg p-3 border border-slate-700 space-y-2" data-testid="add-employee-form">
+        <div className="bg-karau-bg rounded-lg p-3 border border-karau-border space-y-2" data-testid="add-employee-form">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-            <Input value={newEmp.email} onChange={e => setNewEmp({...newEmp, email: e.target.value})} placeholder="Email" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
-            <Input value={newEmp.first_name} onChange={e => setNewEmp({...newEmp, first_name: e.target.value})} placeholder="First Name" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
-            <Input value={newEmp.last_name} onChange={e => setNewEmp({...newEmp, last_name: e.target.value})} placeholder="Last Name" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
-            <Input value={newEmp.department} onChange={e => setNewEmp({...newEmp, department: e.target.value})} placeholder="Department" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
-            <Input value={newEmp.title} onChange={e => setNewEmp({...newEmp, title: e.target.value})} placeholder="Title" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+            <Input value={newEmp.email} onChange={e => setNewEmp({...newEmp, email: e.target.value})} placeholder="Email" className="bg-karau-card border-white/10 text-white text-sm h-8" />
+            <Input value={newEmp.first_name} onChange={e => setNewEmp({...newEmp, first_name: e.target.value})} placeholder="First Name" className="bg-karau-card border-white/10 text-white text-sm h-8" />
+            <Input value={newEmp.last_name} onChange={e => setNewEmp({...newEmp, last_name: e.target.value})} placeholder="Last Name" className="bg-karau-card border-white/10 text-white text-sm h-8" />
+            <Input value={newEmp.department} onChange={e => setNewEmp({...newEmp, department: e.target.value})} placeholder="Department" className="bg-karau-card border-white/10 text-white text-sm h-8" />
+            <Input value={newEmp.title} onChange={e => setNewEmp({...newEmp, title: e.target.value})} placeholder="Title" className="bg-karau-card border-white/10 text-white text-sm h-8" />
             <Button size="sm" className="h-8 bg-[#5b5fc7] text-white" onClick={handleAddEmployee} disabled={!newEmp.email}>Add</Button>
           </div>
         </div>
@@ -251,7 +251,7 @@ const EmployeesTab = ({ org, employees, employeeSearch, setEmployeeSearch, heade
 
       {/* CSV upload */}
       {showCsvUpload && (
-        <div className="bg-slate-900 rounded-lg p-4 border border-dashed border-slate-600 space-y-3" data-testid="csv-upload-area">
+        <div className="bg-karau-bg rounded-lg p-4 border border-dashed border-white/10 space-y-3" data-testid="csv-upload-area">
           <div className="text-center">
             <Upload className="w-6 h-6 text-slate-400 mx-auto mb-1" />
             <p className="text-xs text-slate-400">Upload CSV with columns: email, first_name, last_name, department, title</p>
@@ -272,7 +272,7 @@ const EmployeesTab = ({ org, employees, employeeSearch, setEmployeeSearch, heade
             </div>
           )}
           {csvResult && (
-            <div className="bg-slate-800 rounded p-2 text-xs space-y-1">
+            <div className="bg-karau-card rounded p-2 text-xs space-y-1">
               <p className="text-emerald-400">Added: {csvResult.added} employees</p>
               {csvResult.error_count > 0 && <p className="text-amber-400">Errors: {csvResult.error_count}</p>}
               {csvResult.detected_columns && (
@@ -285,36 +285,36 @@ const EmployeesTab = ({ org, employees, employeeSearch, setEmployeeSearch, heade
 
       {/* LDAP Configuration */}
       {showLdapConfig && (
-        <div className="bg-slate-900 rounded-lg p-4 border border-amber-500/30 space-y-3" data-testid="ldap-config-form">
+        <div className="bg-karau-bg rounded-lg p-4 border border-amber-500/30 space-y-3" data-testid="ldap-config-form">
           <h4 className="text-sm font-medium text-amber-400 flex items-center gap-1"><Globe className="w-4 h-4" /> Active Directory / LDAP</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div>
               <Label className="text-[10px] text-slate-400">Server URL</Label>
-              <Input value={ldapForm.server_url} onChange={e => setLdapForm({...ldapForm, server_url: e.target.value})} placeholder="ldap://ad.company.com:389" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+              <Input value={ldapForm.server_url} onChange={e => setLdapForm({...ldapForm, server_url: e.target.value})} placeholder="ldap://ad.company.com:389" className="bg-karau-card border-white/10 text-white text-sm h-8" />
             </div>
             <div>
               <Label className="text-[10px] text-slate-400">Bind DN</Label>
-              <Input value={ldapForm.bind_dn} onChange={e => setLdapForm({...ldapForm, bind_dn: e.target.value})} placeholder="cn=admin,dc=company,dc=com" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+              <Input value={ldapForm.bind_dn} onChange={e => setLdapForm({...ldapForm, bind_dn: e.target.value})} placeholder="cn=admin,dc=company,dc=com" className="bg-karau-card border-white/10 text-white text-sm h-8" />
             </div>
             <div>
               <Label className="text-[10px] text-slate-400">Bind Password</Label>
-              <Input type="password" value={ldapForm.bind_password} onChange={e => setLdapForm({...ldapForm, bind_password: e.target.value})} className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+              <Input type="password" value={ldapForm.bind_password} onChange={e => setLdapForm({...ldapForm, bind_password: e.target.value})} className="bg-karau-card border-white/10 text-white text-sm h-8" />
             </div>
             <div>
               <Label className="text-[10px] text-slate-400">Base DN</Label>
-              <Input value={ldapForm.base_dn} onChange={e => setLdapForm({...ldapForm, base_dn: e.target.value})} placeholder="ou=users,dc=company,dc=com" className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+              <Input value={ldapForm.base_dn} onChange={e => setLdapForm({...ldapForm, base_dn: e.target.value})} placeholder="ou=users,dc=company,dc=com" className="bg-karau-card border-white/10 text-white text-sm h-8" />
             </div>
             <div>
               <Label className="text-[10px] text-slate-400">User Filter</Label>
-              <Input value={ldapForm.user_filter} onChange={e => setLdapForm({...ldapForm, user_filter: e.target.value})} className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+              <Input value={ldapForm.user_filter} onChange={e => setLdapForm({...ldapForm, user_filter: e.target.value})} className="bg-karau-card border-white/10 text-white text-sm h-8" />
             </div>
             <div>
               <Label className="text-[10px] text-slate-400">Email Attribute</Label>
-              <Input value={ldapForm.email_attr} onChange={e => setLdapForm({...ldapForm, email_attr: e.target.value})} className="bg-slate-800 border-slate-600 text-white text-sm h-8" />
+              <Input value={ldapForm.email_attr} onChange={e => setLdapForm({...ldapForm, email_attr: e.target.value})} className="bg-karau-card border-white/10 text-white text-sm h-8" />
             </div>
           </div>
           <div className="flex gap-2 justify-end">
-            <Button variant="outline" size="sm" className="border-slate-600 text-slate-300 text-xs" onClick={() => setShowLdapConfig(false)}>Cancel</Button>
+            <Button variant="outline" size="sm" className="border-white/10 text-slate-300 text-xs" onClick={() => setShowLdapConfig(false)}>Cancel</Button>
             <Button size="sm" className="bg-amber-600 text-white text-xs" onClick={saveLdapConfig} disabled={!ldapForm.server_url}>Save Configuration</Button>
           </div>
           {ldapConfig?.last_sync && (
@@ -330,7 +330,7 @@ const EmployeesTab = ({ org, employees, employeeSearch, setEmployeeSearch, heade
           value={employeeSearch}
           onChange={e => setEmployeeSearch(e.target.value)}
           placeholder="Search by last name..."
-          className="pl-9 bg-slate-900 border-slate-600 text-white"
+          className="pl-9 bg-karau-bg border-white/10 text-white"
           data-testid="employee-search"
         />
       </div>
@@ -338,7 +338,7 @@ const EmployeesTab = ({ org, employees, employeeSearch, setEmployeeSearch, heade
       {/* Employee list */}
       <div className="space-y-1.5">
         {employees.map(emp => (
-          <div key={emp.employee_id} className="flex items-center justify-between bg-slate-900 rounded-lg px-3 py-2 group" data-testid={`emp-${emp.employee_id}`}>
+          <div key={emp.employee_id} className="flex items-center justify-between bg-karau-bg rounded-lg px-3 py-2 group" data-testid={`emp-${emp.employee_id}`}>
             <div className="flex items-center gap-2 min-w-0">
               <div className={`w-2 h-2 rounded-full flex-shrink-0 ${emp.status === 'active' ? 'bg-emerald-500' : 'bg-slate-500'}`} />
               <div className="min-w-0">
@@ -352,7 +352,7 @@ const EmployeesTab = ({ org, employees, employeeSearch, setEmployeeSearch, heade
               </div>
             </div>
             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-              <Badge className="text-[10px] bg-slate-700">{emp.title || 'Employee'}</Badge>
+              <Badge className="text-[10px] bg-karau-surface">{emp.title || 'Employee'}</Badge>
               <Button variant="ghost" size="sm" className="h-6 w-6 p-0 text-slate-500 hover:text-amber-400" onClick={() => toggleStatus(emp.employee_id, emp.status)} title={emp.status === 'active' ? 'Deactivate' : 'Activate'}>
                 {emp.status === 'active' ? <Check className="w-3 h-3" /> : <X className="w-3 h-3" />}
               </Button>
@@ -371,11 +371,11 @@ const EmployeesTab = ({ org, employees, employeeSearch, setEmployeeSearch, heade
 
       {/* Department breakdown */}
       {stats?.departments?.length > 0 && (
-        <div className="bg-slate-900 rounded-lg p-3 border border-slate-700">
+        <div className="bg-karau-bg rounded-lg p-3 border border-karau-border">
           <h4 className="text-xs text-slate-400 mb-2">Departments</h4>
           <div className="flex flex-wrap gap-1.5">
             {stats.departments.map(d => (
-              <Badge key={d.department} className="bg-slate-800 text-slate-300 text-[10px]">
+              <Badge key={d.department} className="bg-karau-card text-slate-300 text-[10px]">
                 {d.department} ({d.count})
               </Badge>
             ))}
@@ -545,22 +545,22 @@ const OrganizationAdmin = ({ user }) => {
 
       {/* Create Form */}
       {showCreateForm && (
-        <div className="bg-slate-800 rounded-xl p-5 border border-slate-700 space-y-4" data-testid="create-org-form">
+        <div className="bg-karau-card rounded-xl p-5 border border-karau-border space-y-4" data-testid="create-org-form">
           <h3 className="text-white font-medium">Create Organization</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
               <Label className="text-xs text-slate-400">Company Name</Label>
-              <Input value={newOrg.name} onChange={e => setNewOrg({...newOrg, name: e.target.value})} className="bg-slate-900 border-slate-600 text-white" placeholder="Acme Corp" />
+              <Input value={newOrg.name} onChange={e => setNewOrg({...newOrg, name: e.target.value})} className="bg-karau-bg border-white/10 text-white" placeholder="Acme Corp" />
             </div>
             <div>
               <Label className="text-xs text-slate-400">Email Domains (comma-separated)</Label>
-              <Input value={newOrg.email_domains} onChange={e => setNewOrg({...newOrg, email_domains: e.target.value})} className="bg-slate-900 border-slate-600 text-white" placeholder="acme.com, acme.io" />
+              <Input value={newOrg.email_domains} onChange={e => setNewOrg({...newOrg, email_domains: e.target.value})} className="bg-karau-bg border-white/10 text-white" placeholder="acme.com, acme.io" />
             </div>
             <div>
               <Label className="text-xs text-slate-400">Tier</Label>
               <Select value={newOrg.tier} onValueChange={v => setNewOrg({...newOrg, tier: v})}>
-                <SelectTrigger className="bg-slate-900 border-slate-600 text-white"><SelectValue /></SelectTrigger>
-                <SelectContent className="bg-slate-800 border-slate-600">
+                <SelectTrigger className="bg-karau-bg border-white/10 text-white"><SelectValue /></SelectTrigger>
+                <SelectContent className="bg-karau-card border-white/10">
                   <SelectItem value="tier_1" className="text-white">Tier 1 — Basic (50 users, 10 rooms)</SelectItem>
                   <SelectItem value="tier_2" className="text-white">Tier 2 — Professional (100 users, 25 rooms)</SelectItem>
                   <SelectItem value="tier_grande" className="text-white">Tier Grande (1000 users, unlimited rooms)</SelectItem>
@@ -572,20 +572,20 @@ const OrganizationAdmin = ({ user }) => {
               <Label className="text-xs text-slate-400">Brand Color</Label>
               <div className="flex items-center gap-2">
                 <input type="color" value={newOrg.primary_color} onChange={e => setNewOrg({...newOrg, primary_color: e.target.value})} className="w-9 h-9 rounded cursor-pointer" />
-                <Input value={newOrg.primary_color} onChange={e => setNewOrg({...newOrg, primary_color: e.target.value})} className="bg-slate-900 border-slate-600 text-white flex-1" />
+                <Input value={newOrg.primary_color} onChange={e => setNewOrg({...newOrg, primary_color: e.target.value})} className="bg-karau-bg border-white/10 text-white flex-1" />
               </div>
             </div>
             <div>
               <Label className="text-xs text-slate-400">Logo URL</Label>
-              <Input value={newOrg.logo_url} onChange={e => setNewOrg({...newOrg, logo_url: e.target.value})} className="bg-slate-900 border-slate-600 text-white" placeholder="https://..." />
+              <Input value={newOrg.logo_url} onChange={e => setNewOrg({...newOrg, logo_url: e.target.value})} className="bg-karau-bg border-white/10 text-white" placeholder="https://..." />
             </div>
             <div>
               <Label className="text-xs text-slate-400">Watermark Text</Label>
-              <Input value={newOrg.watermark_text} onChange={e => setNewOrg({...newOrg, watermark_text: e.target.value})} className="bg-slate-900 border-slate-600 text-white" placeholder="Company Name" />
+              <Input value={newOrg.watermark_text} onChange={e => setNewOrg({...newOrg, watermark_text: e.target.value})} className="bg-karau-bg border-white/10 text-white" placeholder="Company Name" />
             </div>
           </div>
           <div className="flex gap-2 justify-end">
-            <Button variant="outline" className="border-slate-600 text-slate-300" onClick={() => setShowCreateForm(false)}>Cancel</Button>
+            <Button variant="outline" className="border-white/10 text-slate-300" onClick={() => setShowCreateForm(false)}>Cancel</Button>
             <Button className="bg-[#5b5fc7] text-white" onClick={handleCreateOrg} disabled={!newOrg.name || !newOrg.email_domains}>Create</Button>
           </div>
         </div>
@@ -603,7 +603,7 @@ const OrganizationAdmin = ({ user }) => {
                 className={`w-full text-left p-3 rounded-lg border transition-all ${
                   selectedOrg?.org_id === org.org_id
                     ? 'bg-[#5b5fc7]/10 border-[#5b5fc7]/50'
-                    : 'bg-slate-800 border-slate-700 hover:border-slate-600'
+                    : 'bg-karau-card border-karau-border hover:border-white/10'
                 }`}
                 data-testid={`org-${org.org_id}`}
               >
@@ -628,9 +628,9 @@ const OrganizationAdmin = ({ user }) => {
 
           {/* Org details */}
           {selectedOrg && (
-            <div className="lg:col-span-3 bg-slate-800 rounded-xl border border-slate-700">
+            <div className="lg:col-span-3 bg-karau-card rounded-xl border border-karau-border">
               {/* Tabs */}
-              <div className="flex border-b border-slate-700 overflow-x-auto">
+              <div className="flex border-b border-karau-border overflow-x-auto">
                 {['overview', 'rooms', 'employees', 'branding'].map(tab => (
                   <button
                     key={tab}
@@ -652,19 +652,19 @@ const OrganizationAdmin = ({ user }) => {
                 {activeTab === 'overview' && (
                   <div className="space-y-4" data-testid="org-overview">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                      <div className="bg-slate-900 rounded-lg p-3 text-center">
+                      <div className="bg-karau-bg rounded-lg p-3 text-center">
                         <p className="text-2xl font-bold text-white">{selectedOrg.employee_count || 0}</p>
                         <p className="text-xs text-slate-400">/ {selectedOrg.max_users} Users</p>
                       </div>
-                      <div className="bg-slate-900 rounded-lg p-3 text-center">
+                      <div className="bg-karau-bg rounded-lg p-3 text-center">
                         <p className="text-2xl font-bold text-white">{selectedOrg.conference_rooms?.length || 0}</p>
                         <p className="text-xs text-slate-400">/ {selectedOrg.max_rooms === -1 ? 'Unlimited' : selectedOrg.max_rooms} Rooms</p>
                       </div>
-                      <div className="bg-slate-900 rounded-lg p-3 text-center">
+                      <div className="bg-karau-bg rounded-lg p-3 text-center">
                         <p className="text-2xl font-bold text-white">{selectedOrg.email_domains?.length || 0}</p>
                         <p className="text-xs text-slate-400">Domains</p>
                       </div>
-                      <div className="bg-slate-900 rounded-lg p-3 text-center">
+                      <div className="bg-karau-bg rounded-lg p-3 text-center">
                         <Badge className={`text-sm ${TIER_BADGES[selectedOrg.tier]?.color}`}>
                           {TIER_BADGES[selectedOrg.tier]?.label}
                         </Badge>
@@ -679,7 +679,7 @@ const OrganizationAdmin = ({ user }) => {
                         {selectedOrg.email_domains?.map(d => {
                           const isVerified = selectedOrg.verified_domains?.includes(d);
                           return (
-                            <div key={d} className="flex items-center gap-1 bg-slate-900 rounded-full px-3 py-1">
+                            <div key={d} className="flex items-center gap-1 bg-karau-bg rounded-full px-3 py-1">
                               <span className="text-sm text-slate-300">{d}</span>
                               {isVerified ? (
                                 <Badge className="bg-emerald-600 text-[9px] px-1">Verified</Badge>
@@ -699,7 +699,7 @@ const OrganizationAdmin = ({ user }) => {
                       <h4 className="text-sm font-medium text-white mb-2 flex items-center gap-1"><Sparkles className="w-4 h-4" /> Features</h4>
                       <div className="flex flex-wrap gap-1.5">
                         {selectedOrg.features?.map(f => (
-                          <Badge key={f} className="bg-slate-700 text-slate-300 text-xs">
+                          <Badge key={f} className="bg-karau-surface text-slate-300 text-xs">
                             {f.replace(/_/g, ' ')}
                           </Badge>
                         ))}
@@ -719,29 +719,29 @@ const OrganizationAdmin = ({ user }) => {
                     </div>
 
                     {showRoomForm && (
-                      <div className="bg-slate-900 rounded-lg p-4 space-y-3 border border-slate-700">
+                      <div className="bg-karau-bg rounded-lg p-4 space-y-3 border border-karau-border">
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                           <div>
                             <Label className="text-xs text-slate-400">Room Name</Label>
-                            <Input value={newRoom.name} onChange={e => setNewRoom({...newRoom, name: e.target.value})} className="bg-slate-800 border-slate-600 text-white" placeholder="Board Room A" />
+                            <Input value={newRoom.name} onChange={e => setNewRoom({...newRoom, name: e.target.value})} className="bg-karau-card border-white/10 text-white" placeholder="Board Room A" />
                           </div>
                           <div>
                             <Label className="text-xs text-slate-400">Building</Label>
-                            <Input value={newRoom.building} onChange={e => setNewRoom({...newRoom, building: e.target.value})} className="bg-slate-800 border-slate-600 text-white" placeholder="HQ" />
+                            <Input value={newRoom.building} onChange={e => setNewRoom({...newRoom, building: e.target.value})} className="bg-karau-card border-white/10 text-white" placeholder="HQ" />
                           </div>
                           <div>
                             <Label className="text-xs text-slate-400">Floor</Label>
-                            <Input value={newRoom.floor} onChange={e => setNewRoom({...newRoom, floor: e.target.value})} className="bg-slate-800 border-slate-600 text-white" placeholder="3rd" />
+                            <Input value={newRoom.floor} onChange={e => setNewRoom({...newRoom, floor: e.target.value})} className="bg-karau-card border-white/10 text-white" placeholder="3rd" />
                           </div>
                           <div>
                             <Label className="text-xs text-slate-400">Capacity</Label>
-                            <Input type="number" value={newRoom.capacity} onChange={e => setNewRoom({...newRoom, capacity: parseInt(e.target.value) || 10})} className="bg-slate-800 border-slate-600 text-white" />
+                            <Input type="number" value={newRoom.capacity} onChange={e => setNewRoom({...newRoom, capacity: parseInt(e.target.value) || 10})} className="bg-karau-card border-white/10 text-white" />
                           </div>
                           <div>
                             <Label className="text-xs text-slate-400">Type</Label>
                             <Select value={newRoom.location_type} onValueChange={v => setNewRoom({...newRoom, location_type: v})}>
-                              <SelectTrigger className="bg-slate-800 border-slate-600 text-white"><SelectValue /></SelectTrigger>
-                              <SelectContent className="bg-slate-800 border-slate-600">
+                              <SelectTrigger className="bg-karau-card border-white/10 text-white"><SelectValue /></SelectTrigger>
+                              <SelectContent className="bg-karau-card border-white/10">
                                 <SelectItem value="physical" className="text-white">Physical</SelectItem>
                                 <SelectItem value="virtual" className="text-white">Virtual</SelectItem>
                                 <SelectItem value="hybrid" className="text-white">Hybrid</SelectItem>
@@ -750,7 +750,7 @@ const OrganizationAdmin = ({ user }) => {
                           </div>
                           <div>
                             <Label className="text-xs text-slate-400">Address</Label>
-                            <Input value={newRoom.address} onChange={e => setNewRoom({...newRoom, address: e.target.value})} className="bg-slate-800 border-slate-600 text-white" placeholder="123 Main St" />
+                            <Input value={newRoom.address} onChange={e => setNewRoom({...newRoom, address: e.target.value})} className="bg-karau-card border-white/10 text-white" placeholder="123 Main St" />
                           </div>
                         </div>
                         <div>
@@ -763,7 +763,7 @@ const OrganizationAdmin = ({ user }) => {
                                   const has = newRoom.equipment.includes(eq.id);
                                   setNewRoom({...newRoom, equipment: has ? newRoom.equipment.filter(e => e !== eq.id) : [...newRoom.equipment, eq.id]});
                                 }}
-                                className={`px-2 py-1 rounded text-xs transition-colors ${newRoom.equipment.includes(eq.id) ? 'bg-[#5b5fc7] text-white' : 'bg-slate-700 text-slate-400'}`}
+                                className={`px-2 py-1 rounded text-xs transition-colors ${newRoom.equipment.includes(eq.id) ? 'bg-[#5b5fc7] text-white' : 'bg-karau-surface text-slate-400'}`}
                               >
                                 {eq.label}
                               </button>
@@ -771,7 +771,7 @@ const OrganizationAdmin = ({ user }) => {
                           </div>
                         </div>
                         <div className="flex gap-2 justify-end">
-                          <Button variant="outline" size="sm" className="border-slate-600 text-slate-300" onClick={() => setShowRoomForm(false)}>Cancel</Button>
+                          <Button variant="outline" size="sm" className="border-white/10 text-slate-300" onClick={() => setShowRoomForm(false)}>Cancel</Button>
                           <Button size="sm" className="bg-[#5b5fc7] text-white" onClick={handleCreateRoom} disabled={!newRoom.name}>Create Room</Button>
                         </div>
                       </div>
@@ -780,7 +780,7 @@ const OrganizationAdmin = ({ user }) => {
                     {/* Room list */}
                     <div className="space-y-2">
                       {selectedOrg.conference_rooms?.map(room => (
-                        <div key={room.room_id} className="bg-slate-900 rounded-lg p-3 flex items-center justify-between" data-testid={`room-${room.room_id}`}>
+                        <div key={room.room_id} className="bg-karau-bg rounded-lg p-3 flex items-center justify-between" data-testid={`room-${room.room_id}`}>
                           <div className="flex items-center gap-3">
                             <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                               room.location_type === 'virtual' ? 'bg-blue-500/20' : room.location_type === 'hybrid' ? 'bg-purple-500/20' : 'bg-emerald-500/20'
@@ -795,7 +795,7 @@ const OrganizationAdmin = ({ user }) => {
                                 {room.building && <span>{room.building}</span>}
                                 {room.floor && <span>Floor {room.floor}</span>}
                                 <span><Users className="w-3 h-3 inline" /> {room.capacity}</span>
-                                <Badge className="text-[9px] bg-slate-700">{room.location_type}</Badge>
+                                <Badge className="text-[9px] bg-karau-surface">{room.location_type}</Badge>
                               </div>
                             </div>
                           </div>
@@ -826,7 +826,7 @@ const OrganizationAdmin = ({ user }) => {
                 {/* Branding */}
                 {activeTab === 'branding' && (
                   <div className="space-y-4" data-testid="org-branding">
-                    <div className="bg-slate-900 rounded-lg p-4 border border-slate-700">
+                    <div className="bg-karau-bg rounded-lg p-4 border border-karau-border">
                       <h4 className="text-sm font-medium text-white mb-3">Meeting Footer Preview</h4>
                       {/* Preview */}
                       <div className="bg-slate-950 rounded-lg p-3 flex items-center justify-between">
@@ -850,17 +850,17 @@ const OrganizationAdmin = ({ user }) => {
                     <div className="grid grid-cols-2 gap-3">
                       <div>
                         <Label className="text-xs text-slate-400">Logo URL</Label>
-                        <Input value={selectedOrg.logo_url || ''} readOnly className="bg-slate-900 border-slate-600 text-slate-300" />
+                        <Input value={selectedOrg.logo_url || ''} readOnly className="bg-karau-bg border-white/10 text-slate-300" />
                       </div>
                       <div>
                         <Label className="text-xs text-slate-400">Watermark Text</Label>
-                        <Input value={selectedOrg.watermark_text || ''} readOnly className="bg-slate-900 border-slate-600 text-slate-300" />
+                        <Input value={selectedOrg.watermark_text || ''} readOnly className="bg-karau-bg border-white/10 text-slate-300" />
                       </div>
                       <div>
                         <Label className="text-xs text-slate-400">Brand Color</Label>
                         <div className="flex items-center gap-2">
                           <div className="w-8 h-8 rounded" style={{ backgroundColor: selectedOrg.primary_color }} />
-                          <Input value={selectedOrg.primary_color || ''} readOnly className="bg-slate-900 border-slate-600 text-slate-300" />
+                          <Input value={selectedOrg.primary_color || ''} readOnly className="bg-karau-bg border-white/10 text-slate-300" />
                         </div>
                       </div>
                     </div>
@@ -873,7 +873,7 @@ const OrganizationAdmin = ({ user }) => {
       )}
 
       {orgs.length === 0 && !showCreateForm && (
-        <div className="text-center py-12 bg-slate-800 rounded-xl border border-slate-700">
+        <div className="text-center py-12 bg-karau-card rounded-xl border border-karau-border">
           <Building2 className="w-10 h-10 text-slate-500 mx-auto mb-3" />
           <p className="text-white font-medium">No organizations yet</p>
           <p className="text-sm text-slate-400 mt-1">Create your first enterprise organization</p>

@@ -78,11 +78,11 @@ export const PollsPanel = ({ meetingId, isHost }) => {
       <div className="p-3 border-b border-karau-border">
         <div className="flex items-center justify-between">
           <h3 className="font-semibold text-white flex items-center gap-2">
-            <BarChart3 className="w-4 h-4 text-turquoise" />
+            <BarChart3 className="w-4 h-4 text-purple-400" />
             Polls
           </h3>
           {isHost && (
-            <Button size="sm" variant="ghost" className="h-7 text-xs text-turquoise"
+            <Button size="sm" variant="ghost" className="h-7 text-xs text-purple-400"
               onClick={() => setShowCreate(!showCreate)} data-testid="create-poll-btn">
               <Plus className="w-3 h-3 mr-1" /> New Poll
             </Button>
@@ -127,7 +127,7 @@ export const PollsPanel = ({ meetingId, isHost }) => {
               <Plus className="w-3 h-3 mr-1" /> Add Option
             </Button>
             <div className="flex gap-2">
-              <Button size="sm" className="flex-1 bg-turquoise hover:bg-turquoise/80"
+              <Button size="sm" className="flex-1 bg-purple-500 hover:bg-purple-500/80"
                 onClick={createPoll} disabled={loading} data-testid="submit-poll">
                 <Check className="w-3 h-3 mr-1" /> Launch Poll
               </Button>
@@ -169,7 +169,7 @@ export const PollsPanel = ({ meetingId, isHost }) => {
                         >
                           <div className="relative bg-karau-surface rounded overflow-hidden h-8">
                             <div
-                              className="absolute inset-y-0 left-0 bg-turquoise/20 transition-all"
+                              className="absolute inset-y-0 left-0 bg-purple-500/20 transition-all"
                               style={{ width: `${pct}%` }}
                             />
                             <div className="relative flex items-center justify-between px-3 h-full">

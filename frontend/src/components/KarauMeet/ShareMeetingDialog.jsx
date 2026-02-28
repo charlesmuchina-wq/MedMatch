@@ -117,10 +117,10 @@ const ShareMeetingDialog = ({ isOpen, onClose, meetingId, meetingTitle }) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-slate-800 border-slate-700 max-w-md">
+      <DialogContent className="bg-karau-card border-karau-border max-w-md">
         <DialogHeader>
           <DialogTitle className="text-white flex items-center gap-2">
-            <Link2 className="w-5 h-5 text-turquoise" />
+            <Link2 className="w-5 h-5 text-purple-400" />
             {t('share.shareMeeting')}
           </DialogTitle>
           <DialogDescription className="text-slate-400">
@@ -135,7 +135,7 @@ const ShareMeetingDialog = ({ isOpen, onClose, meetingId, meetingTitle }) => {
               {t('share.meetingLink')}
             </label>
             <div className="flex items-center gap-2">
-              <div className="flex-1 bg-slate-900 border border-slate-600 rounded-lg px-3 py-2.5 text-sm text-slate-300 truncate font-mono" data-testid="share-link-text">
+              <div className="flex-1 bg-karau-bg border border-white/10 rounded-lg px-3 py-2.5 text-sm text-slate-300 truncate font-mono" data-testid="share-link-text">
                 {joinLink}
               </div>
               <Button
@@ -143,7 +143,7 @@ const ShareMeetingDialog = ({ isOpen, onClose, meetingId, meetingTitle }) => {
                 size="sm"
                 className={copied
                   ? "bg-green-600 hover:bg-green-600 min-w-[80px]"
-                  : "bg-turquoise hover:bg-turquoise/80 min-w-[80px]"
+                  : "bg-purple-500 hover:bg-purple-500/80 min-w-[80px]"
                 }
                 data-testid="share-copy-link-btn"
               >
@@ -154,9 +154,9 @@ const ShareMeetingDialog = ({ isOpen, onClose, meetingId, meetingTitle }) => {
           </div>
 
           {/* Meeting ID */}
-          <div className="flex items-center gap-3 p-3 bg-slate-900/60 rounded-lg border border-slate-700/50">
+          <div className="flex items-center gap-3 p-3 bg-karau-bg/60 rounded-lg border border-karau-border/50">
             <div className="text-xs text-slate-400">{t('share.meetingId')}</div>
-            <div className="font-mono font-bold text-turquoise tracking-wider" data-testid="share-meeting-id">{meetingId}</div>
+            <div className="font-mono font-bold text-purple-400 tracking-wider" data-testid="share-meeting-id">{meetingId}</div>
           </div>
 
           {/* Social Sharing */}
@@ -190,7 +190,7 @@ const ShareMeetingDialog = ({ isOpen, onClose, meetingId, meetingTitle }) => {
               <Button
                 variant="outline"
                 onClick={downloadICS}
-                className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white justify-start"
+                className="border-white/10 text-slate-300 hover:bg-karau-surface hover:text-white justify-start"
                 data-testid="share-download-ics-btn"
               >
                 <Download className="w-4 h-4 mr-2 text-blue-400" />
@@ -199,7 +199,7 @@ const ShareMeetingDialog = ({ isOpen, onClose, meetingId, meetingTitle }) => {
               <Button
                 variant="outline"
                 onClick={openGoogleCalendar}
-                className="border-slate-600 text-slate-300 hover:bg-slate-700 hover:text-white justify-start"
+                className="border-white/10 text-slate-300 hover:bg-karau-surface hover:text-white justify-start"
                 data-testid="share-google-calendar-btn"
               >
                 <ExternalLink className="w-4 h-4 mr-2 text-green-400" />
@@ -209,7 +209,7 @@ const ShareMeetingDialog = ({ isOpen, onClose, meetingId, meetingTitle }) => {
           </div>
 
           {/* Tip */}
-          <div className="text-xs text-slate-500 bg-slate-900/40 rounded-lg p-3 border border-slate-700/30">
+          <div className="text-xs text-slate-500 bg-karau-bg/40 rounded-lg p-3 border border-karau-border/30">
             {t('share.guestTip')}
           </div>
         </div>

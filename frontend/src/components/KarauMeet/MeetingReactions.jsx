@@ -118,13 +118,13 @@ const MeetingReactions = ({ onSendReaction, incomingReaction, showBar, onToggleB
 
       {/* Reaction picker bar */}
       {showBar && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-40 bg-slate-800/95 backdrop-blur-xl rounded-2xl px-2 py-1.5 flex gap-0.5 border border-slate-600/50 shadow-2xl shadow-black/30"
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-40 bg-karau-card/95 backdrop-blur-xl rounded-2xl px-2 py-1.5 flex gap-0.5 border border-white/10/50 shadow-2xl shadow-black/30"
           data-testid="reaction-bar">
           {EMOJI_OPTIONS.map(({ emoji, label }) => (
             <button
               key={label}
               onClick={() => handleReaction(emoji)}
-              className="w-10 h-10 rounded-xl hover:bg-slate-700/60 flex items-center justify-center text-xl transition-all duration-150 hover:scale-125 active:scale-95"
+              className="w-10 h-10 rounded-xl hover:bg-karau-surface/60 flex items-center justify-center text-xl transition-all duration-150 hover:scale-125 active:scale-95"
               title={label}
               data-testid={`reaction-${label.toLowerCase().replace(' ', '-')}`}
             >

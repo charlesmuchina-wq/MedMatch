@@ -221,10 +221,10 @@ const VirtualBackground = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <Card className="w-full max-w-2xl bg-slate-800 border-slate-700 max-h-[90vh] overflow-auto">
+      <Card className="w-full max-w-2xl bg-karau-card border-karau-border max-h-[90vh] overflow-auto">
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-white flex items-center gap-2">
-            <Image className="w-5 h-5 text-turquoise" />
+            <Image className="w-5 h-5 text-purple-400" />
             Virtual Background
           </CardTitle>
           <Button variant="ghost" size="sm" onClick={onClose}>
@@ -236,13 +236,13 @@ const VirtualBackground = ({
           {/* Loading State */}
           {isLoading && (
             <div className="flex items-center justify-center py-8">
-              <Loader2 className="w-8 h-8 text-turquoise animate-spin" />
+              <Loader2 className="w-8 h-8 text-purple-400 animate-spin" />
               <span className="ml-3 text-slate-300">Loading AI model...</span>
             </div>
           )}
           
           {/* Preview */}
-          <div className="relative aspect-video bg-slate-900 rounded-lg overflow-hidden">
+          <div className="relative aspect-video bg-karau-bg rounded-lg overflow-hidden">
             <canvas 
               ref={canvasRef}
               className="w-full h-full object-cover"
@@ -257,7 +257,7 @@ const VirtualBackground = ({
               />
             )}
             {!modelLoaded && !isLoading && (
-              <div className="absolute inset-0 flex items-center justify-center bg-slate-900/80">
+              <div className="absolute inset-0 flex items-center justify-center bg-karau-bg/80">
                 <p className="text-slate-400">Camera preview will appear here</p>
               </div>
             )}
@@ -275,15 +275,15 @@ const VirtualBackground = ({
                   className={`
                     p-3 rounded-lg border-2 transition-all
                     ${selectedBg === bg.id 
-                      ? 'border-turquoise bg-turquoise/10' 
-                      : 'border-slate-600 bg-slate-700/50 hover:border-slate-500'}
+                      ? 'border-turquoise bg-purple-500/10' 
+                      : 'border-white/10 bg-karau-surface hover:border-purple-500/40'}
                     ${!modelLoaded && bg.type !== 'none' ? 'opacity-50 cursor-not-allowed' : ''}
                   `}
                 >
                   <div className="text-2xl mb-1">{bg.preview || '🚫'}</div>
                   <div className="text-xs text-slate-300">{bg.label}</div>
                   {selectedBg === bg.id && (
-                    <Check className="w-4 h-4 text-turquoise mx-auto mt-1" />
+                    <Check className="w-4 h-4 text-purple-400 mx-auto mt-1" />
                   )}
                 </button>
               ))}
@@ -302,7 +302,7 @@ const VirtualBackground = ({
                     relative aspect-video rounded-lg border-2 overflow-hidden transition-all
                     ${selectedBg === bg.id 
                       ? 'border-turquoise' 
-                      : 'border-slate-600 hover:border-slate-500'}
+                      : 'border-white/10 hover:border-purple-500/40'}
                     ${!modelLoaded ? 'opacity-50 cursor-not-allowed' : ''}
                   `}
                 >
@@ -315,7 +315,7 @@ const VirtualBackground = ({
                     <span className="text-xs text-white">{bg.label}</span>
                   </div>
                   {selectedBg === bg.id && (
-                    <div className="absolute top-1 right-1 w-5 h-5 bg-turquoise rounded-full flex items-center justify-center">
+                    <div className="absolute top-1 right-1 w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center">
                       <Check className="w-3 h-3 text-white" />
                     </div>
                   )}
@@ -336,7 +336,7 @@ const VirtualBackground = ({
                     w-12 h-12 rounded-lg border-2 transition-all
                     ${selectedBg === bg.id 
                       ? 'border-turquoise ring-2 ring-turquoise/50' 
-                      : 'border-slate-600 hover:border-slate-500'}
+                      : 'border-white/10 hover:border-purple-500/40'}
                     ${!modelLoaded ? 'opacity-50 cursor-not-allowed' : ''}
                   `}
                   style={{ backgroundColor: bg.color }}
@@ -350,9 +350,9 @@ const VirtualBackground = ({
               
               {/* Custom Image Upload */}
               <label className={`
-                w-12 h-12 rounded-lg border-2 border-dashed border-slate-600 
+                w-12 h-12 rounded-lg border-2 border-dashed border-white/10 
                 flex items-center justify-center cursor-pointer
-                hover:border-slate-500 transition-all
+                hover:border-purple-500/40 transition-all
                 ${!modelLoaded ? 'opacity-50 cursor-not-allowed' : ''}
               `}>
                 <input 
@@ -369,7 +369,7 @@ const VirtualBackground = ({
           
           {/* Custom Image Preview */}
           {customImage && (
-            <div className="flex items-center gap-3 p-3 bg-slate-700/50 rounded-lg">
+            <div className="flex items-center gap-3 p-3 bg-karau-surface rounded-lg">
               <img 
                 src={customImage} 
                 alt="Custom" 
@@ -398,7 +398,7 @@ const VirtualBackground = ({
               Cancel
             </Button>
             <Button 
-              className="bg-turquoise hover:bg-turquoise/90"
+              className="bg-purple-500 hover:bg-purple-500/90"
               onClick={onClose}
             >
               Apply Background

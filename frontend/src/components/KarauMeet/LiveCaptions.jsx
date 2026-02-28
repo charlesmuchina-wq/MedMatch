@@ -176,7 +176,7 @@ export const CaptionsButton = ({ isEnabled, onToggle }) => (
   <Button
     variant={isEnabled ? 'default' : 'secondary'}
     size="lg"
-    className={`rounded-full w-12 h-12 ${isEnabled ? 'bg-turquoise' : ''}`}
+    className={`rounded-full w-12 h-12 ${isEnabled ? 'bg-purple-500' : ''}`}
     onClick={onToggle}
     title={isEnabled ? 'Disable Captions' : 'Enable Captions'}
     data-testid="control-captions"
