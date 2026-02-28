@@ -11,6 +11,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useTranslation } from '@/utils/i18n';
 import { CreateWebinarForm } from './WebinarPage';
+import WebinarAnalyticsPage from './WebinarAnalyticsPage';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
