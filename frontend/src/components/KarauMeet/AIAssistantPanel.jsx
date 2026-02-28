@@ -6,17 +6,19 @@ import {
   Bot, Send, Loader2, Lightbulb, ListChecks, FileText,
   Clock, Sparkles, ChevronRight, Brain
 } from 'lucide-react';
+import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-const SMART_SUGGESTIONS = [
-  { label: 'Summarize discussion', icon: FileText, question: 'Summarize the key points discussed so far' },
-  { label: 'List action items', icon: ListChecks, question: 'What action items have been identified?' },
-  { label: 'Key decisions', icon: Lightbulb, question: 'What decisions have been made in this meeting?' },
-  { label: 'What did I miss?', icon: Clock, question: 'Give me a brief catch-up of what was discussed' },
-];
-
 const AIAssistantPanel = ({ meetingId, aiNotes = [] }) => {
+  const { t } = useTranslation();
+
+  const SMART_SUGGESTIONS = [
+    { label: t("karauMeet.summarizeDiscussion"), icon: FileText, question: 'Summarize the key points discussed so far' },
+    { label: t("karauMeet.listActionItems"), icon: ListChecks, question: 'What action items have been identified?' },
+    { label: t("karauMeet.keyDecisions"), icon: Lightbulb, question: 'What decisions have been made in this meeting?' },
+    { label: t("karauMeet.whatDidIMiss"), icon: Clock, question: 'Give me a brief catch-up of what was discussed' },
+  ];
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
