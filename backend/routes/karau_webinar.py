@@ -62,6 +62,11 @@ class QAAnswer(BaseModel):
     answer: str
 
 
+class PromoteRequest(BaseModel):
+    user_id: str
+    role: str = "presenter"  # presenter or panelist
+
+
 @router.post("/create", response_model=WebinarResponse)
 async def create_webinar(data: WebinarCreate, user=Depends(get_current_user)):
     """Create a new webinar event."""
