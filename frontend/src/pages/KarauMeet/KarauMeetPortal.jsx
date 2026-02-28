@@ -91,7 +91,7 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
                 onClick={() => navigate(item.path)}
                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 ${
                   isActive
-                    ? 'bg-teal-500/10 text-teal-400 border-l-2 border-teal-400'
+                    ? 'bg-purple-500/10 text-purple-400 border-l-2 border-purple-400'
                     : 'text-slate-500 hover:bg-white/[0.03] hover:text-slate-300'
                 }`}
                 data-testid={`nav-${item.labelKey}`}
