@@ -15,6 +15,12 @@ const KarauAIAvatar = ({ meetingId }) => {
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
 
+  const QUICK_ACTIONS = [
+    { label: t("karauMeet.summarizeLastMeeting"), question: 'Summarize the key points from my last meeting' },
+    { label: t("karauMeet.listActionItems"), question: 'What are my pending action items from recent meetings?' },
+    { label: t("karauMeet.meetingBestPractices"), question: 'What are best practices for running effective meetings?' },
+  ];
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
