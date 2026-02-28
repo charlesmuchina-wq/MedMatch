@@ -300,42 +300,31 @@ const KarauMeetDashboard = ({ user }) => {
         </button>
 
         {showMeetings && (
-          <div className="rounded-xl border border-white/5 bg-karau-card/60 backdrop-blur-sm overflow-auto max-h-[calc(100%-2rem)]" data-testid="meetings-list">
+          <div className="rounded-xl border border-white/5 bg-karau-card/40 overflow-auto max-h-48 mt-1" data-testid="meetings-list">
             {loading ? (
-              <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-5 h-5 text-purple-400 animate-spin" />
+              <div className="flex items-center justify-center py-4">
+                <Loader2 className="w-4 h-4 text-purple-400 animate-spin" />
               </div>
             ) : meetings.length === 0 ? (
-              <div className="text-center py-8" data-testid="no-meetings">
-                <Video className="w-8 h-8 text-slate-600 mx-auto mb-2" />
-                <p className="text-slate-400 text-sm">{t("karauMeet.noMeetingsYet")}</p>
+              <div className="text-center py-4" data-testid="no-meetings">
+                <p className="text-slate-500 text-xs">{t("karauMeet.noMeetingsYet")}</p>
               </div>
             ) : (
-              <div className="divide-y divide-white/5">
-                {meetings.slice(0, 8).map((meeting) => (
-                  <div key={meeting.meeting_id} className="flex items-center justify-between px-4 py-3 hover:bg-white/[0.02] transition-colors" data-testid={`meeting-${meeting.meeting_id}`}>
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${meeting.status === 'active' ? 'bg-emerald-500/10 border border-emerald-500/20' : 'bg-karau-surface'}`}>
-                        <Video className={`w-4 h-4 ${meeting.status === 'active' ? 'text-emerald-400' : 'text-slate-500'}`} />
-                      </div>
-                      <div className="min-w-0">
-                        <h4 className="font-medium text-white text-xs truncate">{meeting.title}</h4>
-                        <div className="flex items-center gap-1.5 mt-0.5">
-                          <span className="text-[10px] text-karau-muted">{new Date(meeting.created_at).toLocaleDateString()}</span>
-                          <Badge className={`text-[9px] px-1 py-0 rounded ${meeting.status === 'active' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : meeting.status === 'ended' ? 'bg-slate-500/10 text-slate-500 border-slate-500/20' : 'bg-violet-500/10 text-violet-400 border-violet-500/20'}`}>{meeting.status}</Badge>
-                        </div>
-                      </div>
+              <div className="divide-y divide-white/[0.03]">
+                {meetings.slice(0, 6).map((meeting) => (
+                  <div key={meeting.meeting_id} className="flex items-center justify-between px-3 py-2 hover:bg-white/[0.02] transition-colors" data-testid={`meeting-${meeting.meeting_id}`}>
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                      <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${meeting.status === 'active' ? 'bg-emerald-400' : 'bg-slate-600'}`} />
+                      <span className="text-[11px] text-slate-300 truncate">{meeting.title}</span>
+                      <Badge className={`text-[8px] px-1 py-0 rounded flex-shrink-0 ${meeting.status === 'active' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-slate-500/10 text-slate-500 border-slate-500/20'}`}>{meeting.status}</Badge>
                     </div>
                     <div className="flex items-center gap-1 flex-shrink-0">
-                      <Button variant="ghost" size="sm" onClick={() => setShareMeeting(meeting)} className="text-slate-500 hover:text-purple-400 rounded-lg h-7 w-7 p-0">
-                        <Share2 className="w-3 h-3" />
-                      </Button>
-                      <Button variant="ghost" size="sm" onClick={() => copyMeetingLink(meeting.meeting_id)} className="text-slate-500 hover:text-white rounded-lg h-7 w-7 p-0">
-                        <Copy className="w-3 h-3" />
+                      <Button variant="ghost" size="sm" onClick={() => copyMeetingLink(meeting.meeting_id)} className="text-slate-600 hover:text-white rounded h-6 w-6 p-0">
+                        <Copy className="w-2.5 h-2.5" />
                       </Button>
                       {meeting.status !== 'ended' && (
-                        <Button size="sm" onClick={() => navigate(`/karau-meet/lobby/${meeting.meeting_id}`)} className={`rounded-lg text-[10px] px-2.5 h-7 ${meeting.status === 'active' ? 'bg-emerald-500 hover:bg-emerald-400 text-white' : 'bg-purple-500/80 hover:bg-purple-400 text-white'}`}>
-                          {meeting.status === 'active' ? 'Rejoin' : 'Start'}
+                        <Button size="sm" onClick={() => navigate(`/karau-meet/lobby/${meeting.meeting_id}`)} className={`rounded text-[9px] px-2 h-6 ${meeting.status === 'active' ? 'bg-emerald-500 hover:bg-emerald-400 text-white' : 'bg-purple-500/80 hover:bg-purple-400 text-white'}`}>
+                          {meeting.status === 'active' ? 'Join' : 'Start'}
                         </Button>
                       )}
                     </div>
