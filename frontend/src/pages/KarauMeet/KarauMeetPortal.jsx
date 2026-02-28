@@ -65,7 +65,7 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
               alt="AI KARAU"
               className="w-8 h-8 rounded-xl object-cover ring-1 ring-white/10"
             />
-            <span className="font-bold text-sm bg-gradient-to-r from-teal-400 via-emerald-400 to-amber-400 bg-clip-text text-transparent">AI KARAU</span>
+            <span className="font-bold text-sm bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">AI KARAU</span>
           </div>
         )}
         {isCollapsed && (
