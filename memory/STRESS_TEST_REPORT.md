@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://karau-premium.preview.emergentagent.com/api
+**API Target:** https://ai-meet-hub.preview.emergentagent.com/api
 
 ---
 
