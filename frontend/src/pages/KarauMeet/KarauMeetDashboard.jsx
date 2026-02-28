@@ -30,6 +30,7 @@ const KarauMeetDashboard = ({ user }) => {
   const [templates, setTemplates] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [showMeetings, setShowMeetings] = useState(false);
+  const [showPulse, setShowPulse] = useState(false);
   const [stats, setStats] = useState({
     total_meetings: 0, total_hours: 0, recordings: 0, total_participants: 0, active_meetings: 0, ai_insights: 0
   });
