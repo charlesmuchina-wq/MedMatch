@@ -11,78 +11,44 @@ import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-/**
- * Full Settings Page with Security & Accessibility
- */
 const KarauSettingsPage = () => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('accessibility');
   const [accessibilitySettings, setAccessibilitySettings] = useState({
-    high_contrast: false,
-    large_text: false,
-    font_size: 'medium',
-    reduce_motion: false,
-    live_captions_enabled: true,
-    caption_font_size: 'medium',
-    keyboard_shortcuts_enabled: true,
-    color_blind_mode: 'none'
+    high_contrast: false, large_text: false, font_size: 'medium',
+    reduce_motion: false, live_captions_enabled: true, caption_font_size: 'medium',
+    keyboard_shortcuts_enabled: true, color_blind_mode: 'none'
   });
-  const [securityStatus, setSecurityStatus] = useState({
-    mfa_enabled: false,
-    email_verified: false
-  });
+  const [securityStatus, setSecurityStatus] = useState({ mfa_enabled: false, email_verified: false });
   const [complianceStatus, setComplianceStatus] = useState(null);
   const [verificationCode, setVerificationCode] = useState('');
   const [sendingCode, setSendingCode] = useState(false);
   const [mockCode, setMockCode] = useState('');
   const [calendarStatus, setCalendarStatus] = useState({ providers: {}, configured: {} });
   const [calendarLoading, setCalendarLoading] = useState(false);
-  const [ssoConfig, setSsoConfig] = useState(null);
   const [ssoForm, setSsoForm] = useState({
     idp_entity_id: '', idp_sso_url: '', idp_slo_url: '', idp_certificate: '',
     enforce_sso: false, auto_provision: true,
   });
   const [ssoSaving, setSsoSaving] = useState(false);
 
-  useEffect(() => {
-    fetchSettings();
-  }, []);
+  useEffect(() => { fetchSettings(); }, []);
 
   const fetchSettings = async () => {
     const token = localStorage.getItem('token');
     try {
       const [accessRes, secRes, compRes] = await Promise.all([
-        fetch(`${API}/api/karau-meet/accessibility/settings`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        }),
-        fetch(`${API}/api/karau-meet/security/email/status`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        }),
-        fetch(`${API}/api/karau-meet/security/compliance`, {
-          headers: { 'Authorization': `Bearer ${token}` }
-        })
+        fetch(`${API}/api/karau-meet/accessibility/settings`, { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch(`${API}/api/karau-meet/security/email/status`, { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch(`${API}/api/karau-meet/security/compliance`, { headers: { 'Authorization': `Bearer ${token}` } })
       ]);
-      
-      if (accessRes.ok) {
-        const data = await accessRes.json();
-        setAccessibilitySettings(prev => ({ ...prev, ...data }));
-      }
-      if (secRes.ok) {
-        const data = await secRes.json();
-        setSecurityStatus(prev => ({ ...prev, email_verified: data.verified }));
-      }
-      if (compRes.ok) {
-        setComplianceStatus(await compRes.json());
-      }
-    } catch (error) {
-      console.error('Error fetching settings:', error);
-    }
-    // Fetch calendar status
+      if (accessRes.ok) { const data = await accessRes.json(); setAccessibilitySettings(prev => ({ ...prev, ...data })); }
+      if (secRes.ok) { const data = await secRes.json(); setSecurityStatus(prev => ({ ...prev, email_verified: data.verified })); }
+      if (compRes.ok) { setComplianceStatus(await compRes.json()); }
+    } catch (error) { console.error('Error fetching settings:', error); }
     try {
-      const calRes = await fetch(`${API}/api/karau-meet/calendar/status`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
+      const calRes = await fetch(`${API}/api/karau-meet/calendar/status`, { headers: { 'Authorization': `Bearer ${token}` } });
       if (calRes.ok) setCalendarStatus(await calRes.json());
     } catch {}
     setLoading(false);
@@ -90,41 +56,28 @@ const KarauSettingsPage = () => {
 
   const updateAccessibility = async (key, value) => {
     setAccessibilitySettings(prev => ({ ...prev, [key]: value }));
-    
     const token = localStorage.getItem('token');
     try {
       await fetch(`${API}/api/karau-meet/accessibility/settings`, {
         method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ [key]: value })
       });
       toast.success(t("karauMeet.settingUpdated"));
-    } catch (error) {
-      toast.error(t("karauMeet.failedUpdateSetting"));
-    }
+    } catch { toast.error(t("karauMeet.failedUpdateSetting")); }
   };
 
   const sendVerificationCode = async () => {
     setSendingCode(true);
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch(`${API}/api/karau-meet/security/email/send-code`, {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
+      const res = await fetch(`${API}/api/karau-meet/security/email/send-code`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
       const data = await res.json();
       if (data.success) {
         toast.success(t("karauMeet.verificationCodeSent"));
-        if (data.mock_mode) {
-          setMockCode(data.code);
-        }
+        if (data.mock_mode) setMockCode(data.code);
       }
-    } catch (error) {
-      toast.error(t("karauMeet.failedSendCode"));
-    }
+    } catch { toast.error(t("karauMeet.failedSendCode")); }
     setSendingCode(false);
   };
 
@@ -133,43 +86,31 @@ const KarauSettingsPage = () => {
     try {
       const res = await fetch(`${API}/api/karau-meet/security/email/verify`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
         body: JSON.stringify({ code: verificationCode })
       });
       if (res.ok) {
         toast.success(t("karauMeet.emailVerified"));
         setSecurityStatus(prev => ({ ...prev, email_verified: true }));
-        setMockCode('');
-        setVerificationCode('');
+        setMockCode(''); setVerificationCode('');
       } else {
         const error = await res.json();
         toast.error(error.detail || t("karauMeet.verificationFailed"));
       }
-    } catch (error) {
-      toast.error(t("karauMeet.verificationFailed"));
-    }
+    } catch { toast.error(t("karauMeet.verificationFailed")); }
   };
 
   const connectMicrosoftCalendar = async () => {
     setCalendarLoading(true);
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch(`${API}/api/karau-meet/calendar/microsoft/connect`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
+      const res = await fetch(`${API}/api/karau-meet/calendar/microsoft/connect`, { headers: { 'Authorization': `Bearer ${token}` } });
       const data = await res.json();
       if (data.auth_url) {
         window.open(data.auth_url, '_blank', 'width=600,height=700');
-        toast.success('Opening Microsoft sign-in...');
-      } else {
-        toast.error(data.detail || 'Microsoft Calendar not configured');
-      }
-    } catch {
-      toast.error('Failed to connect');
-    }
+        toast.success(t("karauMeet.openingMicrosoftSignIn"));
+      } else { toast.error(data.detail || t("karauMeet.microsoftNotConfigured")); }
+    } catch { toast.error(t("karauMeet.failedConnect")); }
     setCalendarLoading(false);
   };
 
@@ -182,184 +123,120 @@ const KarauSettingsPage = () => {
         body: JSON.stringify({ provider })
       });
       if (res.ok) {
-        toast.success(`${provider} calendar disconnected`);
-        setCalendarStatus(prev => {
-          const p = { ...prev.providers };
-          delete p[provider];
-          return { ...prev, providers: p };
-        });
+        toast.success(t("karauMeet.calendarDisconnected", { provider }));
+        setCalendarStatus(prev => { const p = { ...prev.providers }; delete p[provider]; return { ...prev, providers: p }; });
       }
-    } catch {
-      toast.error('Failed to disconnect');
-    }
+    } catch { toast.error(t("karauMeet.failedDisconnect")); }
   };
 
   if (loading) {
     return (
       <div className="p-6 flex items-center justify-center">
-        <Loader2 className="w-6 h-6 text-turquoise animate-spin" />
+        <Loader2 className="w-6 h-6 text-purple-400 animate-spin" />
       </div>
     );
   }
 
   const tabs = [
-    { id: 'accessibility', label: 'Accessibility', icon: Settings },
-    { id: 'calendar', label: 'Calendar', icon: Calendar },
-    { id: 'security', label: 'Security', icon: Shield },
-    { id: 'sso', label: 'SSO/SAML', icon: Key },
-    { id: 'compliance', label: 'Compliance', icon: FileText },
-    { id: 'webhooks', label: 'CRM / Webhooks', icon: Webhook }
+    { id: 'accessibility', label: t("karauMeet.tabAccessibility"), icon: Settings },
+    { id: 'calendar', label: t("karauMeet.tabCalendar"), icon: Calendar },
+    { id: 'security', label: t("karauMeet.tabSecurity"), icon: Shield },
+    { id: 'sso', label: t("karauMeet.tabSSO"), icon: Key },
+    { id: 'compliance', label: t("karauMeet.tabCompliance"), icon: FileText },
+    { id: 'webhooks', label: t("karauMeet.tabWebhooks"), icon: Webhook }
   ];
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
       <div>
-        <h1 className="text-2xl font-bold text-white" data-testid="settings-title">Settings</h1>
-        <p className="text-slate-400">Customize your AI KARAU experience</p>
+        <h1 className="text-2xl font-bold text-white" data-testid="settings-title">{t("karauMeet.settingsTitle")}</h1>
+        <p className="text-karau-muted">{t("karauMeet.settingsSubtitle")}</p>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-2 border-b border-slate-700 pb-2">
+      <div className="flex gap-2 border-b border-karau-border pb-2 overflow-x-auto">
         {tabs.map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 rounded-t-lg flex items-center gap-2 transition-colors ${
-              activeTab === tab.id
-                ? 'bg-slate-800 text-turquoise border-b-2 border-turquoise'
-                : 'text-slate-400 hover:text-white'
-            }`}
-            data-testid={`tab-${tab.id}`}
-          >
+          <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+            className={`px-4 py-2 rounded-t-lg flex items-center gap-2 transition-colors whitespace-nowrap ${
+              activeTab === tab.id ? 'bg-karau-card text-purple-400 border-b-2 border-purple-400' : 'text-karau-muted hover:text-white'
+            }`} data-testid={`tab-${tab.id}`}>
             <tab.icon className="w-4 h-4" />
             {tab.label}
           </button>
         ))}
       </div>
 
-      {/* Accessibility Tab */}
       {activeTab === 'accessibility' && (
         <div className="space-y-4">
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white text-lg">Display Settings</CardTitle>
-            </CardHeader>
+          <Card className="bg-karau-card/50 border-karau-border rounded-2xl">
+            <CardHeader><CardTitle className="text-white text-lg">{t("karauMeet.displaySettings")}</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <div>
-                  <Label className="text-white">High Contrast Mode</Label>
-                  <p className="text-xs text-slate-400">Increase contrast for better visibility</p>
-                </div>
-                <Switch
-                  checked={accessibilitySettings.high_contrast}
-                  onCheckedChange={(v) => updateAccessibility('high_contrast', v)}
-                  data-testid="switch-high-contrast"
-                />
+                <div><Label className="text-white">{t("karauMeet.highContrastMode")}</Label><p className="text-xs text-karau-muted">{t("karauMeet.highContrastDesc")}</p></div>
+                <Switch checked={accessibilitySettings.high_contrast} onCheckedChange={(v) => updateAccessibility('high_contrast', v)} data-testid="switch-high-contrast" />
               </div>
-              
               <div className="flex items-center justify-between">
-                <div>
-                  <Label className="text-white">Large Text</Label>
-                  <p className="text-xs text-slate-400">Increase text size throughout the app</p>
-                </div>
-                <Switch
-                  checked={accessibilitySettings.large_text}
-                  onCheckedChange={(v) => updateAccessibility('large_text', v)}
-                  data-testid="switch-large-text"
-                />
+                <div><Label className="text-white">{t("karauMeet.largeText")}</Label><p className="text-xs text-karau-muted">{t("karauMeet.largeTextDesc")}</p></div>
+                <Switch checked={accessibilitySettings.large_text} onCheckedChange={(v) => updateAccessibility('large_text', v)} data-testid="switch-large-text" />
               </div>
-
               <div className="flex items-center justify-between">
-                <div>
-                  <Label className="text-white">Reduce Motion</Label>
-                  <p className="text-xs text-slate-400">Minimize animations</p>
-                </div>
-                <Switch
-                  checked={accessibilitySettings.reduce_motion}
-                  onCheckedChange={(v) => updateAccessibility('reduce_motion', v)}
-                />
+                <div><Label className="text-white">{t("karauMeet.reduceMotion")}</Label><p className="text-xs text-karau-muted">{t("karauMeet.reduceMotionDesc")}</p></div>
+                <Switch checked={accessibilitySettings.reduce_motion} onCheckedChange={(v) => updateAccessibility('reduce_motion', v)} />
               </div>
-
               <div>
-                <Label className="text-white mb-2 block">Color Blind Mode</Label>
-                <select
-                  value={accessibilitySettings.color_blind_mode}
-                  onChange={(e) => updateAccessibility('color_blind_mode', e.target.value)}
-                  className="bg-slate-900 border border-slate-600 text-white rounded-lg px-3 py-2 w-full"
-                  data-testid="select-color-blind"
-                >
-                  <option value="none">None</option>
-                  <option value="protanopia">Protanopia (Red-Green)</option>
-                  <option value="deuteranopia">Deuteranopia (Green-Red)</option>
-                  <option value="tritanopia">Tritanopia (Blue-Yellow)</option>
+                <Label className="text-white mb-2 block">{t("karauMeet.colorBlindMode")}</Label>
+                <select value={accessibilitySettings.color_blind_mode} onChange={(e) => updateAccessibility('color_blind_mode', e.target.value)}
+                  className="bg-karau-bg border border-white/10 text-white rounded-xl px-3 py-2 w-full" data-testid="select-color-blind">
+                  <option value="none">{t("karauMeet.colorBlindNone")}</option>
+                  <option value="protanopia">{t("karauMeet.colorBlindProtanopia")}</option>
+                  <option value="deuteranopia">{t("karauMeet.colorBlindDeuteranopia")}</option>
+                  <option value="tritanopia">{t("karauMeet.colorBlindTritanopia")}</option>
                 </select>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800/50 border-slate-700">
+          <Card className="bg-karau-card/50 border-karau-border rounded-2xl">
             <CardHeader>
-              <CardTitle className="text-white text-lg">Live Captions</CardTitle>
-              <CardDescription className="text-slate-400">Real-time transcription during meetings</CardDescription>
+              <CardTitle className="text-white text-lg">{t("karauMeet.liveCaptions")}</CardTitle>
+              <CardDescription className="text-karau-muted">{t("karauMeet.liveCaptionsDesc")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <div>
-                  <Label className="text-white">Enable Live Captions</Label>
-                  <p className="text-xs text-slate-400">Show real-time transcription</p>
-                </div>
-                <Switch
-                  checked={accessibilitySettings.live_captions_enabled}
-                  onCheckedChange={(v) => updateAccessibility('live_captions_enabled', v)}
-                />
+                <div><Label className="text-white">{t("karauMeet.enableLiveCaptions")}</Label><p className="text-xs text-karau-muted">{t("karauMeet.enableLiveCaptionsDesc")}</p></div>
+                <Switch checked={accessibilitySettings.live_captions_enabled} onCheckedChange={(v) => updateAccessibility('live_captions_enabled', v)} />
               </div>
-
               <div>
-                <Label className="text-white mb-2 block">Caption Font Size</Label>
-                <select
-                  value={accessibilitySettings.caption_font_size}
-                  onChange={(e) => updateAccessibility('caption_font_size', e.target.value)}
-                  className="bg-slate-900 border border-slate-600 text-white rounded-lg px-3 py-2 w-full"
-                >
-                  <option value="small">Small</option>
-                  <option value="medium">Medium</option>
-                  <option value="large">Large</option>
-                  <option value="x-large">Extra Large</option>
+                <Label className="text-white mb-2 block">{t("karauMeet.captionFontSize")}</Label>
+                <select value={accessibilitySettings.caption_font_size} onChange={(e) => updateAccessibility('caption_font_size', e.target.value)}
+                  className="bg-karau-bg border border-white/10 text-white rounded-xl px-3 py-2 w-full">
+                  <option value="small">{t("karauMeet.fontSizeSmall")}</option>
+                  <option value="medium">{t("karauMeet.fontSizeMedium")}</option>
+                  <option value="large">{t("karauMeet.fontSizeLarge")}</option>
+                  <option value="x-large">{t("karauMeet.fontSizeXLarge")}</option>
                 </select>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white text-lg">Keyboard Shortcuts</CardTitle>
-            </CardHeader>
+          <Card className="bg-karau-card/50 border-karau-border rounded-2xl">
+            <CardHeader><CardTitle className="text-white text-lg">{t("karauMeet.keyboardShortcuts")}</CardTitle></CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
-                <div>
-                  <Label className="text-white">Enable Keyboard Shortcuts</Label>
-                  <p className="text-xs text-slate-400">Use keyboard to control meetings</p>
-                </div>
-                <Switch
-                  checked={accessibilitySettings.keyboard_shortcuts_enabled}
-                  onCheckedChange={(v) => updateAccessibility('keyboard_shortcuts_enabled', v)}
-                />
+                <div><Label className="text-white">{t("karauMeet.enableKeyboardShortcuts")}</Label><p className="text-xs text-karau-muted">{t("karauMeet.enableKeyboardShortcutsDesc")}</p></div>
+                <Switch checked={accessibilitySettings.keyboard_shortcuts_enabled} onCheckedChange={(v) => updateAccessibility('keyboard_shortcuts_enabled', v)} />
               </div>
-
               <div className="grid grid-cols-2 gap-2 mt-4">
                 {[
-                  { keys: 'Ctrl+M', action: 'Toggle Mute' },
-                  { keys: 'Ctrl+V', action: 'Toggle Video' },
-                  { keys: 'Ctrl+L', action: 'Toggle Captions' },
-                  { keys: 'Ctrl+C', action: 'Toggle Chat' },
-                  { keys: 'Ctrl+H', action: 'Raise Hand' },
-                  { keys: 'Ctrl+Shift+Q', action: 'Leave Meeting' }
+                  { keys: 'Ctrl+M', action: t("karauMeet.toggleMute") },
+                  { keys: 'Ctrl+V', action: t("karauMeet.toggleVideo") },
+                  { keys: 'Ctrl+L', action: t("karauMeet.toggleCaptions") },
+                  { keys: 'Ctrl+C', action: t("karauMeet.toggleChat") },
+                  { keys: 'Ctrl+H', action: t("karauMeet.raiseHandShortcut") },
+                  { keys: 'Ctrl+Shift+Q', action: t("karauMeet.leaveShortcut") }
                 ].map((shortcut, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-2 bg-slate-900/50 rounded">
-                    <span className="text-xs text-slate-400">{shortcut.action}</span>
-                    <Badge variant="outline" className="text-turquoise border-turquoise/30 text-xs">
-                      {shortcut.keys}
-                    </Badge>
+                  <div key={idx} className="flex items-center justify-between p-2 bg-karau-bg/50 rounded-lg">
+                    <span className="text-xs text-karau-muted">{shortcut.action}</span>
+                    <Badge variant="outline" className="text-purple-400 border-purple-500/30 text-xs">{shortcut.keys}</Badge>
                   </div>
                 ))}
               </div>
@@ -368,22 +245,18 @@ const KarauSettingsPage = () => {
         </div>
       )}
 
-      {/* Calendar Integration Tab */}
       {activeTab === 'calendar' && (
         <div className="space-y-4">
-          <Card className="bg-slate-800/50 border-slate-700">
+          <Card className="bg-karau-card/50 border-karau-border rounded-2xl">
             <CardHeader>
               <CardTitle className="text-white text-lg flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-blue-400" />
-                Calendar Integrations
+                <Calendar className="w-5 h-5 text-purple-400" />
+                {t("karauMeet.calendarIntegrations")}
               </CardTitle>
-              <CardDescription className="text-slate-400">
-                Connect your calendar to sync meetings automatically
-              </CardDescription>
+              <CardDescription className="text-karau-muted">{t("karauMeet.calendarIntegrationsDesc")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* Microsoft Outlook */}
-              <div className="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg border border-slate-700/50" data-testid="calendar-microsoft">
+              <div className="flex items-center justify-between p-4 bg-karau-bg/50 rounded-xl border border-white/5" data-testid="calendar-microsoft">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-[#0078D4]/20 flex items-center justify-center">
                     <svg className="w-5 h-5 text-[#0078D4]" viewBox="0 0 24 24" fill="currentColor">
@@ -391,212 +264,170 @@ const KarauSettingsPage = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-white font-medium">Microsoft Outlook / 365</p>
+                    <p className="text-white font-medium">{t("karauMeet.microsoftOutlook")}</p>
                     {calendarStatus.providers?.microsoft ? (
-                      <p className="text-xs text-green-400">Connected: {calendarStatus.providers.microsoft.email}</p>
+                      <p className="text-xs text-emerald-400">{t("karauMeet.connected")}: {calendarStatus.providers.microsoft.email}</p>
                     ) : calendarStatus.configured?.microsoft ? (
-                      <p className="text-xs text-slate-400">Available - Click to connect</p>
+                      <p className="text-xs text-karau-muted">{t("karauMeet.availableClickConnect")}</p>
                     ) : (
-                      <p className="text-xs text-yellow-400">Not configured - Admin setup required</p>
+                      <p className="text-xs text-amber-400">{t("karauMeet.notConfigured")}</p>
                     )}
                   </div>
                 </div>
                 {calendarStatus.providers?.microsoft ? (
-                  <Button variant="outline" size="sm" className="border-red-500/30 text-red-400 hover:bg-red-500/10"
+                  <Button variant="outline" size="sm" className="border-red-500/30 text-red-400 hover:bg-red-500/10 rounded-xl"
                     onClick={() => disconnectCalendar('microsoft')} data-testid="btn-disconnect-ms">
-                    <Unlink className="w-4 h-4 mr-1" /> Disconnect
+                    <Unlink className="w-4 h-4 mr-1" /> {t("karauMeet.disconnect")}
                   </Button>
                 ) : (
-                  <Button size="sm" className="bg-[#0078D4] hover:bg-[#0078D4]/80"
-                    onClick={connectMicrosoftCalendar} disabled={calendarLoading || !calendarStatus.configured?.microsoft}
-                    data-testid="btn-connect-ms">
+                  <Button size="sm" className="bg-[#0078D4] hover:bg-[#0078D4]/80 rounded-xl"
+                    onClick={connectMicrosoftCalendar} disabled={calendarLoading || !calendarStatus.configured?.microsoft} data-testid="btn-connect-ms">
                     {calendarLoading ? <Loader2 className="w-4 h-4 animate-spin mr-1" /> : <Link2 className="w-4 h-4 mr-1" />}
-                    Connect
+                    {t("karauMeet.connect")}
                   </Button>
                 )}
               </div>
 
-              {/* Apple Calendar / .ics */}
-              <div className="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg border border-slate-700/50" data-testid="calendar-apple">
+              <div className="flex items-center justify-between p-4 bg-karau-bg/50 rounded-xl border border-white/5" data-testid="calendar-apple">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-slate-600/30 flex items-center justify-center">
                     <Calendar className="w-5 h-5 text-slate-300" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">Apple Calendar / iOS</p>
-                    <p className="text-xs text-green-400">Always available via .ics export</p>
+                    <p className="text-white font-medium">{t("karauMeet.appleCalendar")}</p>
+                    <p className="text-xs text-emerald-400">{t("karauMeet.alwaysAvailableIcs")}</p>
                   </div>
                 </div>
-                <Badge className="bg-green-500/20 text-green-400">Available</Badge>
+                <Badge className="bg-emerald-500/20 text-emerald-400">{t("karauMeet.available")}</Badge>
               </div>
 
-              {/* Google Calendar */}
-              <div className="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg border border-slate-700/50" data-testid="calendar-google">
+              <div className="flex items-center justify-between p-4 bg-karau-bg/50 rounded-xl border border-white/5" data-testid="calendar-google">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-[#4285F4]/20 flex items-center justify-center">
                     <Calendar className="w-5 h-5 text-[#4285F4]" />
                   </div>
                   <div>
-                    <p className="text-white font-medium">Google Calendar</p>
+                    <p className="text-white font-medium">{t("karauMeet.googleCalendar")}</p>
                     {calendarStatus.providers?.google ? (
-                      <p className="text-xs text-green-400">Connected: {calendarStatus.providers.google.email}</p>
+                      <p className="text-xs text-emerald-400">{t("karauMeet.connected")}: {calendarStatus.providers.google.email}</p>
                     ) : calendarStatus.configured?.google ? (
-                      <p className="text-xs text-slate-400">Available - Click to connect</p>
+                      <p className="text-xs text-karau-muted">{t("karauMeet.availableClickConnect")}</p>
                     ) : (
-                      <p className="text-xs text-green-400">Available via direct link</p>
+                      <p className="text-xs text-emerald-400">{t("karauMeet.availableDirectLink")}</p>
                     )}
                   </div>
                 </div>
                 {calendarStatus.providers?.google ? (
-                  <Button variant="outline" size="sm" className="border-red-500/30 text-red-400 hover:bg-red-500/10"
+                  <Button variant="outline" size="sm" className="border-red-500/30 text-red-400 hover:bg-red-500/10 rounded-xl"
                     onClick={() => disconnectCalendar('google')} data-testid="btn-disconnect-google">
-                    <Unlink className="w-4 h-4 mr-1" /> Disconnect
+                    <Unlink className="w-4 h-4 mr-1" /> {t("karauMeet.disconnect")}
                   </Button>
                 ) : calendarStatus.configured?.google ? (
-                  <Button size="sm" className="bg-[#4285F4] hover:bg-[#4285F4]/80"
+                  <Button size="sm" className="bg-[#4285F4] hover:bg-[#4285F4]/80 rounded-xl"
                     onClick={async () => {
                       const token = localStorage.getItem('token');
                       try {
-                        const res = await fetch(`${API}/api/karau-meet/calendar/google/connect`, {
-                          headers: { 'Authorization': `Bearer ${token}` }
-                        });
+                        const res = await fetch(`${API}/api/karau-meet/calendar/google/connect`, { headers: { 'Authorization': `Bearer ${token}` } });
                         const data = await res.json();
                         if (data.auth_url) window.open(data.auth_url, '_blank', 'width=600,height=700');
-                        else toast.error(data.detail || 'Google Calendar not configured');
-                      } catch { toast.error('Failed to connect'); }
+                        else toast.error(data.detail || t("karauMeet.googleNotConfigured"));
+                      } catch { toast.error(t("karauMeet.failedConnect")); }
                     }} data-testid="btn-connect-google">
-                    <Link2 className="w-4 h-4 mr-1" /> Connect
+                    <Link2 className="w-4 h-4 mr-1" /> {t("karauMeet.connect")}
                   </Button>
                 ) : (
-                  <Badge className="bg-green-500/20 text-green-400">Available</Badge>
+                  <Badge className="bg-emerald-500/20 text-emerald-400">{t("karauMeet.available")}</Badge>
                 )}
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white text-lg">How Calendar Sync Works</CardTitle>
-            </CardHeader>
+          <Card className="bg-karau-card/50 border-karau-border rounded-2xl">
+            <CardHeader><CardTitle className="text-white text-lg">{t("karauMeet.howCalendarSyncWorks")}</CardTitle></CardHeader>
             <CardContent>
               <div className="space-y-3 text-sm text-slate-300">
-                <p>When you create or schedule a meeting, connected calendars will automatically receive the event with:</p>
-                <ul className="list-disc list-inside space-y-1 text-slate-400">
-                  <li>Meeting title and description</li>
-                  <li>Direct join link for one-click access</li>
-                  <li>15-minute reminder before start</li>
-                  <li>Automatic updates if meeting is rescheduled</li>
+                <p>{t("karauMeet.calendarSyncIntro")}</p>
+                <ul className="list-disc list-inside space-y-1 text-karau-muted">
+                  <li>{t("karauMeet.calendarSyncFeature1")}</li>
+                  <li>{t("karauMeet.calendarSyncFeature2")}</li>
+                  <li>{t("karauMeet.calendarSyncFeature3")}</li>
+                  <li>{t("karauMeet.calendarSyncFeature4")}</li>
                 </ul>
-                <p className="text-xs text-slate-500 mt-3">
-                  Apple Calendar and Google Calendar work via .ics download and direct links respectively. 
-                  Microsoft Outlook requires OAuth connection for two-way sync.
-                </p>
+                <p className="text-xs text-slate-500 mt-3">{t("karauMeet.calendarSyncNote")}</p>
               </div>
             </CardContent>
           </Card>
         </div>
       )}
 
-      {/* SSO/SAML Tab */}
       {activeTab === 'sso' && (
         <div className="space-y-4">
-          <Card className="bg-slate-800/50 border-slate-700">
+          <Card className="bg-karau-card/50 border-karau-border rounded-2xl">
             <CardHeader>
               <CardTitle className="text-white text-lg flex items-center gap-2">
                 <Key className="w-5 h-5 text-amber-400" />
-                Enterprise SSO / SAML 2.0
+                {t("karauMeet.enterpriseSSO")}
               </CardTitle>
-              <CardDescription className="text-slate-400">
-                Configure Single Sign-On for your organization
-              </CardDescription>
+              <CardDescription className="text-karau-muted">{t("karauMeet.enterpriseSSODesc")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="p-4 bg-slate-900/50 rounded-lg border border-slate-700/50">
-                <h4 className="text-white font-medium mb-2">Service Provider (SP) Details</h4>
-                <p className="text-xs text-slate-400 mb-3">Provide these to your Identity Provider (IdP)</p>
+              <div className="p-4 bg-karau-bg/50 rounded-xl border border-white/5">
+                <h4 className="text-white font-medium mb-2">{t("karauMeet.spDetails")}</h4>
+                <p className="text-xs text-karau-muted mb-3">{t("karauMeet.spDetailsDesc")}</p>
                 <div className="space-y-2">
-                  <div className="flex items-center justify-between p-2 bg-slate-800 rounded">
-                    <span className="text-xs text-slate-400">Entity ID</span>
-                    <code className="text-xs text-turquoise">https://aikarau.com/saml/metadata</code>
+                  <div className="flex items-center justify-between p-2 bg-karau-card rounded-lg">
+                    <span className="text-xs text-karau-muted">{t("karauMeet.entityId")}</span>
+                    <code className="text-xs text-purple-400">https://aikarau.com/saml/metadata</code>
                   </div>
-                  <div className="flex items-center justify-between p-2 bg-slate-800 rounded">
-                    <span className="text-xs text-slate-400">ACS URL</span>
-                    <code className="text-xs text-turquoise">https://aikarau.com/api/karau-meet/sso/acs</code>
+                  <div className="flex items-center justify-between p-2 bg-karau-card rounded-lg">
+                    <span className="text-xs text-karau-muted">{t("karauMeet.acsUrl")}</span>
+                    <code className="text-xs text-purple-400">https://aikarau.com/api/karau-meet/sso/acs</code>
                   </div>
-                  <div className="flex items-center justify-between p-2 bg-slate-800 rounded">
-                    <span className="text-xs text-slate-400">Metadata URL</span>
+                  <div className="flex items-center justify-between p-2 bg-karau-card rounded-lg">
+                    <span className="text-xs text-karau-muted">{t("karauMeet.metadataUrl")}</span>
                     <a href={`${API}/api/karau-meet/sso/metadata`} target="_blank" rel="noopener noreferrer"
-                      className="text-xs text-turquoise hover:underline flex items-center gap-1">
-                      View XML <ExternalLink className="w-3 h-3" />
+                      className="text-xs text-purple-400 hover:underline flex items-center gap-1">
+                      {t("karauMeet.viewXml")} <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>
                 </div>
               </div>
 
               <div className="space-y-3">
-                <h4 className="text-white font-medium">Identity Provider (IdP) Configuration</h4>
+                <h4 className="text-white font-medium">{t("karauMeet.idpConfig")}</h4>
                 <div>
-                  <Label className="text-slate-300 text-sm">IdP Entity ID</Label>
-                  <Input
-                    placeholder="https://idp.example.com/saml/metadata"
-                    value={ssoForm.idp_entity_id}
+                  <Label className="text-slate-300 text-sm">{t("karauMeet.idpEntityId")}</Label>
+                  <Input placeholder="https://idp.example.com/saml/metadata" value={ssoForm.idp_entity_id}
                     onChange={e => setSsoForm(f => ({ ...f, idp_entity_id: e.target.value }))}
-                    className="bg-slate-900 border-slate-600 text-white mt-1"
-                    data-testid="sso-idp-entity-id"
-                  />
+                    className="bg-karau-bg border-white/10 text-white mt-1 rounded-xl" data-testid="sso-idp-entity-id" />
                 </div>
                 <div>
-                  <Label className="text-slate-300 text-sm">SSO Login URL</Label>
-                  <Input
-                    placeholder="https://idp.example.com/saml/sso"
-                    value={ssoForm.idp_sso_url}
+                  <Label className="text-slate-300 text-sm">{t("karauMeet.ssoLoginUrl")}</Label>
+                  <Input placeholder="https://idp.example.com/saml/sso" value={ssoForm.idp_sso_url}
                     onChange={e => setSsoForm(f => ({ ...f, idp_sso_url: e.target.value }))}
-                    className="bg-slate-900 border-slate-600 text-white mt-1"
-                    data-testid="sso-sso-url"
-                  />
+                    className="bg-karau-bg border-white/10 text-white mt-1 rounded-xl" data-testid="sso-sso-url" />
                 </div>
                 <div>
-                  <Label className="text-slate-300 text-sm">SLO URL (Optional)</Label>
-                  <Input
-                    placeholder="https://idp.example.com/saml/slo"
-                    value={ssoForm.idp_slo_url}
+                  <Label className="text-slate-300 text-sm">{t("karauMeet.sloUrlOptional")}</Label>
+                  <Input placeholder="https://idp.example.com/saml/slo" value={ssoForm.idp_slo_url}
                     onChange={e => setSsoForm(f => ({ ...f, idp_slo_url: e.target.value }))}
-                    className="bg-slate-900 border-slate-600 text-white mt-1"
-                    data-testid="sso-slo-url"
-                  />
+                    className="bg-karau-bg border-white/10 text-white mt-1 rounded-xl" data-testid="sso-slo-url" />
                 </div>
                 <div>
-                  <Label className="text-slate-300 text-sm">IdP Certificate (PEM)</Label>
-                  <textarea
-                    placeholder="-----BEGIN CERTIFICATE-----&#10;...&#10;-----END CERTIFICATE-----"
-                    value={ssoForm.idp_certificate}
+                  <Label className="text-slate-300 text-sm">{t("karauMeet.idpCertificate")}</Label>
+                  <textarea placeholder={"-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----"} value={ssoForm.idp_certificate}
                     onChange={e => setSsoForm(f => ({ ...f, idp_certificate: e.target.value }))}
-                    className="w-full bg-slate-900 border border-slate-600 text-white rounded-lg px-3 py-2 mt-1 h-24 text-xs font-mono"
-                    data-testid="sso-certificate"
-                  />
+                    className="w-full bg-karau-bg border border-white/10 text-white rounded-xl px-3 py-2 mt-1 h-24 text-xs font-mono" data-testid="sso-certificate" />
                 </div>
-
                 <div className="flex items-center justify-between">
-                  <div>
-                    <Label className="text-white">Enforce SSO</Label>
-                    <p className="text-xs text-slate-400">Require SSO for all users in your org</p>
-                  </div>
-                  <Switch checked={ssoForm.enforce_sso}
-                    onCheckedChange={v => setSsoForm(f => ({ ...f, enforce_sso: v }))}
-                    data-testid="sso-enforce-toggle" />
+                  <div><Label className="text-white">{t("karauMeet.enforceSso")}</Label><p className="text-xs text-karau-muted">{t("karauMeet.enforceSsoDesc")}</p></div>
+                  <Switch checked={ssoForm.enforce_sso} onCheckedChange={v => setSsoForm(f => ({ ...f, enforce_sso: v }))} data-testid="sso-enforce-toggle" />
                 </div>
-
                 <div className="flex items-center justify-between">
-                  <div>
-                    <Label className="text-white">Auto-Provision Users</Label>
-                    <p className="text-xs text-slate-400">Automatically create accounts on first SSO login</p>
-                  </div>
-                  <Switch checked={ssoForm.auto_provision}
-                    onCheckedChange={v => setSsoForm(f => ({ ...f, auto_provision: v }))}
-                    data-testid="sso-auto-provision-toggle" />
+                  <div><Label className="text-white">{t("karauMeet.autoProvision")}</Label><p className="text-xs text-karau-muted">{t("karauMeet.autoProvisionDesc")}</p></div>
+                  <Switch checked={ssoForm.auto_provision} onCheckedChange={v => setSsoForm(f => ({ ...f, auto_provision: v }))} data-testid="sso-auto-provision-toggle" />
                 </div>
-
-                <Button className="bg-turquoise hover:bg-turquoise/80 w-full" disabled={ssoSaving || !ssoForm.idp_entity_id || !ssoForm.idp_sso_url}
+                <Button className="bg-karau-accent hover:bg-karau-accent-bright w-full rounded-xl" disabled={ssoSaving || !ssoForm.idp_entity_id || !ssoForm.idp_sso_url}
                   data-testid="btn-save-sso"
                   onClick={async () => {
                     setSsoSaving(true);
@@ -610,30 +441,24 @@ const KarauSettingsPage = () => {
                         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                         body: JSON.stringify({ org_id: orgId, ...ssoForm })
                       });
-                      if (res.ok) {
-                        toast.success('SSO configuration saved');
-                      } else {
-                        const err = await res.json();
-                        toast.error(err.detail || 'Failed to save SSO');
-                      }
-                    } catch { toast.error('Failed to save SSO configuration'); }
+                      if (res.ok) { toast.success(t("karauMeet.ssoSaved")); }
+                      else { const err = await res.json(); toast.error(err.detail || t("karauMeet.ssoSaveFailed")); }
+                    } catch { toast.error(t("karauMeet.ssoSaveError")); }
                     setSsoSaving(false);
                   }}>
                   {ssoSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Key className="w-4 h-4 mr-2" />}
-                  Save SSO Configuration
+                  {t("karauMeet.saveSsoConfig")}
                 </Button>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white text-lg">Supported Identity Providers</CardTitle>
-            </CardHeader>
+          <Card className="bg-karau-card/50 border-karau-border rounded-2xl">
+            <CardHeader><CardTitle className="text-white text-lg">{t("karauMeet.supportedIdps")}</CardTitle></CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {['Okta', 'Azure AD', 'OneLogin', 'Google Workspace', 'PingIdentity', 'Auth0', 'Duo', 'JumpCloud'].map(idp => (
-                  <div key={idp} className="p-3 bg-slate-900/50 rounded-lg text-center border border-slate-700/30">
+                  <div key={idp} className="p-3 bg-karau-bg/50 rounded-xl text-center border border-white/5">
                     <p className="text-sm text-slate-300">{idp}</p>
                   </div>
                 ))}
@@ -643,91 +468,69 @@ const KarauSettingsPage = () => {
         </div>
       )}
 
-      {/* Security Tab */}
       {activeTab === 'security' && (
         <div className="space-y-4">
-          <Card className="bg-slate-800/50 border-slate-700">
+          <Card className="bg-karau-card/50 border-karau-border rounded-2xl">
             <CardHeader>
               <CardTitle className="text-white text-lg flex items-center gap-2">
-                <Shield className="w-5 h-5 text-turquoise" />
-                Email Verification
+                <Shield className="w-5 h-5 text-emerald-400" />
+                {t("karauMeet.emailVerification")}
               </CardTitle>
-              <CardDescription className="text-slate-400">
-                Verify your email for enhanced security
-              </CardDescription>
+              <CardDescription className="text-karau-muted">{t("karauMeet.emailVerificationDesc")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {securityStatus.email_verified ? (
-                <div className="flex items-center gap-2 p-4 bg-green-500/10 border border-green-500/30 rounded-lg" data-testid="email-verified">
-                  <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
-                    <Shield className="w-4 h-4 text-green-400" />
+                <div className="flex items-center gap-2 p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl" data-testid="email-verified">
+                  <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                    <Shield className="w-4 h-4 text-emerald-400" />
                   </div>
                   <div>
-                    <p className="text-green-400 font-medium">Email Verified</p>
-                    <p className="text-xs text-slate-400">Your email is verified for this session</p>
+                    <p className="text-emerald-400 font-medium">{t("karauMeet.emailVerifiedLabel")}</p>
+                    <p className="text-xs text-karau-muted">{t("karauMeet.emailVerifiedDesc")}</p>
                   </div>
                 </div>
               ) : (
                 <>
-                  <p className="text-slate-300 text-sm">
-                    Verify your email to enable additional security features for meetings.
-                  </p>
-                  
-                  <Button
-                    onClick={sendVerificationCode}
-                    disabled={sendingCode}
-                    className="bg-turquoise hover:bg-turquoise/80"
-                    data-testid="btn-send-code"
-                  >
+                  <p className="text-slate-300 text-sm">{t("karauMeet.emailVerifyPrompt")}</p>
+                  <Button onClick={sendVerificationCode} disabled={sendingCode}
+                    className="bg-karau-accent hover:bg-karau-accent-bright rounded-xl" data-testid="btn-send-code">
                     {sendingCode ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                    Send Verification Code
+                    {t("karauMeet.sendVerificationCode")}
                   </Button>
-
                   {mockCode && (
-                    <div className="p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                      <p className="text-yellow-400 text-sm">
-                        Demo Mode: Your verification code is <strong>{mockCode}</strong>
-                      </p>
+                    <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-xl">
+                      <p className="text-amber-400 text-sm">{t("karauMeet.demoModeCode")} <strong>{mockCode}</strong></p>
                     </div>
                   )}
-
                   <div className="flex gap-2">
-                    <Input
-                      placeholder={t("karauMeet.verificationCodePlaceholder")}
-                      value={verificationCode}
+                    <Input placeholder={t("karauMeet.verificationCodePlaceholder")} value={verificationCode}
                       onChange={(e) => setVerificationCode(e.target.value)}
-                      className="bg-slate-900 border-slate-600 text-white"
-                      maxLength={6}
-                      data-testid="input-verification-code"
-                    />
-                    <Button onClick={verifyCode} disabled={verificationCode.length !== 6} data-testid="btn-verify">
-                      Verify
-                    </Button>
+                      className="bg-karau-bg border-white/10 text-white rounded-xl" maxLength={6} data-testid="input-verification-code" />
+                    <Button onClick={verifyCode} disabled={verificationCode.length !== 6}
+                      className="rounded-xl" data-testid="btn-verify">{t("karauMeet.verify")}</Button>
                   </div>
                 </>
               )}
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800/50 border-slate-700">
-            <CardHeader>
-              <CardTitle className="text-white text-lg">Security Features</CardTitle>
-            </CardHeader>
+          <Card className="bg-karau-card/50 border-karau-border rounded-2xl">
+            <CardHeader><CardTitle className="text-white text-lg">{t("karauMeet.securityFeatures")}</CardTitle></CardHeader>
             <CardContent>
               <div className="grid gap-3">
                 {[
-                  { label: 'End-to-End Encryption', enabled: true, description: 'All meetings are encrypted' },
-                  { label: 'Waiting Room', enabled: true, description: 'Control who joins your meetings' },
-                  { label: 'Meeting Lock', enabled: true, description: 'Lock meetings to prevent new joins' },
-                  { label: 'Recording Consent', enabled: true, description: 'Participants notified of recording' }
+                  { label: t("karauMeet.endToEndEncryptionLabel"), enabled: true, description: t("karauMeet.encryptionDesc") },
+                  { label: t("karauMeet.waitingRoom"), enabled: true, description: t("karauMeet.waitingRoomDesc") },
+                  { label: t("karauMeet.meetingLock"), enabled: true, description: t("karauMeet.meetingLockDesc") },
+                  { label: t("karauMeet.recordingConsentLabel"), enabled: true, description: t("karauMeet.recordingConsentDesc") }
                 ].map((feature, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-3 bg-slate-900/50 rounded-lg">
+                  <div key={idx} className="flex items-center justify-between p-3 bg-karau-bg/50 rounded-xl">
                     <div>
                       <p className="text-white text-sm">{feature.label}</p>
-                      <p className="text-xs text-slate-400">{feature.description}</p>
+                      <p className="text-xs text-karau-muted">{feature.description}</p>
                     </div>
-                    <Badge className={feature.enabled ? 'bg-green-500/20 text-green-400' : 'bg-slate-500/20 text-slate-400'}>
-                      {feature.enabled ? 'Enabled' : 'Disabled'}
+                    <Badge className={feature.enabled ? 'bg-emerald-500/20 text-emerald-400' : 'bg-slate-500/20 text-karau-muted'}>
+                      {feature.enabled ? t("karauMeet.enabled") : t("karauMeet.disabled")}
                     </Badge>
                   </div>
                 ))}
@@ -737,55 +540,50 @@ const KarauSettingsPage = () => {
         </div>
       )}
 
-      {/* Compliance Tab */}
       {activeTab === 'compliance' && complianceStatus && (
         <div className="space-y-4">
-          <Card className="bg-slate-800/50 border-slate-700">
+          <Card className="bg-karau-card/50 border-karau-border rounded-2xl">
             <CardHeader>
               <CardTitle className="text-white text-lg flex items-center gap-2">
-                <FileText className="w-5 h-5 text-blue-400" />
-                GDPR Compliance
+                <FileText className="w-5 h-5 text-purple-400" />
+                {t("karauMeet.gdprCompliance")}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2 mb-4">
-                <Badge className={complianceStatus.gdpr?.compliant ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'} data-testid="gdpr-status">
-                  {complianceStatus.gdpr?.compliant ? 'Compliant' : 'Non-Compliant'}
+                <Badge className={complianceStatus.gdpr?.compliant ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'} data-testid="gdpr-status">
+                  {complianceStatus.gdpr?.compliant ? t("karauMeet.compliant") : t("karauMeet.nonCompliant")}
                 </Badge>
               </div>
               <div className="grid gap-2">
                 {complianceStatus.gdpr?.features?.map((feature, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-2 bg-slate-900/50 rounded">
+                  <div key={idx} className="flex items-center justify-between p-2 bg-karau-bg/50 rounded-lg">
                     <span className="text-sm text-slate-300">{feature.name}</span>
-                    <Badge variant="outline" className="text-green-400 border-green-400/30 text-xs">
-                      {feature.status}
-                    </Badge>
+                    <Badge variant="outline" className="text-emerald-400 border-emerald-400/30 text-xs">{feature.status}</Badge>
                   </div>
                 ))}
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800/50 border-slate-700">
+          <Card className="bg-karau-card/50 border-karau-border rounded-2xl">
             <CardHeader>
               <CardTitle className="text-white text-lg flex items-center gap-2">
                 <Shield className="w-5 h-5 text-violet-400" />
-                HIPAA Compliance
+                {t("karauMeet.hipaaCompliance")}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-2 mb-4">
-                <Badge className={complianceStatus.hipaa?.compliant ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'} data-testid="hipaa-status">
-                  {complianceStatus.hipaa?.compliant ? 'Compliant' : 'Non-Compliant'}
+                <Badge className={complianceStatus.hipaa?.compliant ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'} data-testid="hipaa-status">
+                  {complianceStatus.hipaa?.compliant ? t("karauMeet.compliant") : t("karauMeet.nonCompliant")}
                 </Badge>
               </div>
               <div className="grid gap-2">
                 {complianceStatus.hipaa?.features?.map((feature, idx) => (
-                  <div key={idx} className="flex items-center justify-between p-2 bg-slate-900/50 rounded">
+                  <div key={idx} className="flex items-center justify-between p-2 bg-karau-bg/50 rounded-lg">
                     <span className="text-sm text-slate-300">{feature.name}</span>
-                    <Badge variant="outline" className="text-green-400 border-green-400/30 text-xs">
-                      {feature.status}
-                    </Badge>
+                    <Badge variant="outline" className="text-emerald-400 border-emerald-400/30 text-xs">{feature.status}</Badge>
                   </div>
                 ))}
               </div>
@@ -794,15 +592,13 @@ const KarauSettingsPage = () => {
         </div>
       )}
 
-      {/* Webhooks / CRM Integration */}
-      {activeTab === 'webhooks' && (
-        <WebhookSettings />
-      )}
+      {activeTab === 'webhooks' && <WebhookSettings />}
     </div>
   );
 };
 
 const WebhookSettings = () => {
+  const { t } = useTranslation();
   const [webhooks, setWebhooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [newUrl, setNewUrl] = useState('');
@@ -812,13 +608,8 @@ const WebhookSettings = () => {
   const fetchWebhooks = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`${API}/api/karau-features/webhooks`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setWebhooks(data.webhooks || []);
-      }
+      const res = await fetch(`${API}/api/karau-features/webhooks`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) { const data = await res.json(); setWebhooks(data.webhooks || []); }
     } catch (e) { console.error(e); }
     setLoading(false);
   };
@@ -832,87 +623,74 @@ const WebhookSettings = () => {
       const res = await fetch(`${API}/api/karau-features/webhooks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({
-          webhook_url: newUrl,
-          name: newName || 'Custom CRM',
-          events: ['meeting_ended', 'meeting_created']
-        })
+        body: JSON.stringify({ webhook_url: newUrl, name: newName || 'Custom CRM', events: ['meeting_ended', 'meeting_created'] })
       });
-      if (res.ok) {
-        toast.success('Webhook added');
-        setNewUrl(''); setNewName(''); setShowAdd(false);
-        fetchWebhooks();
-      }
-    } catch (e) { toast.error('Failed to add webhook'); }
+      if (res.ok) { toast.success(t("karauMeet.webhookAdded")); setNewUrl(''); setNewName(''); setShowAdd(false); fetchWebhooks(); }
+    } catch { toast.error(t("karauMeet.failedAddWebhook")); }
   };
 
   const deleteWebhook = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await fetch(`${API}/api/karau-features/webhooks/${id}`, {
-        method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` }
-      });
-      toast.success('Webhook deleted');
-      fetchWebhooks();
-    } catch (e) { toast.error('Failed to delete'); }
+      await fetch(`${API}/api/karau-features/webhooks/${id}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      toast.success(t("karauMeet.webhookDeleted")); fetchWebhooks();
+    } catch { toast.error(t("karauMeet.failedDeleteWebhook")); }
   };
 
   const testWebhook = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`${API}/api/karau-features/webhooks/test/${id}`, {
-        method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
-      });
+      const res = await fetch(`${API}/api/karau-features/webhooks/test/${id}`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
       const data = await res.json();
-      if (data.success) toast.success(`Test successful (${data.status_code})`);
-      else toast.error(`Test failed: ${data.error || data.status_code}`);
-    } catch (e) { toast.error('Test failed'); }
+      if (data.success) toast.success(t("karauMeet.testSuccessful", { code: data.status_code }));
+      else toast.error(`${t("karauMeet.testFailed")}: ${data.error || data.status_code}`);
+    } catch { toast.error(t("karauMeet.testFailed")); }
   };
 
   return (
     <div className="space-y-4">
-      <Card className="bg-slate-800/50 border-slate-700">
+      <Card className="bg-karau-card/50 border-karau-border rounded-2xl">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
-              <CardTitle className="text-white">CRM Webhook Integration</CardTitle>
-              <CardDescription className="text-slate-400">
-                Send meeting events to your CRM, Salesforce, HubSpot, or any service
-              </CardDescription>
+              <CardTitle className="text-white">{t("karauMeet.crmWebhookIntegration")}</CardTitle>
+              <CardDescription className="text-karau-muted">{t("karauMeet.crmWebhookDesc")}</CardDescription>
             </div>
-            <Button onClick={() => setShowAdd(!showAdd)} className="bg-teal-500/80 hover:bg-teal-400 text-white rounded-lg" data-testid="add-webhook-btn">
-              <Plus className="w-4 h-4 mr-1" />Add Webhook
+            <Button onClick={() => setShowAdd(!showAdd)} className="bg-emerald-500/80 hover:bg-emerald-400 text-white rounded-xl" data-testid="add-webhook-btn">
+              <Plus className="w-4 h-4 mr-1" />{t("karauMeet.addWebhook")}
             </Button>
           </div>
         </CardHeader>
         <CardContent className="space-y-3">
           {showAdd && (
-            <div className="p-4 bg-slate-900/50 rounded-xl border border-slate-600/50 space-y-3">
-              <Input placeholder="Webhook Name (e.g., Salesforce)" value={newName} onChange={e => setNewName(e.target.value)} className="bg-slate-800 border-slate-600 text-white" data-testid="webhook-name-input" />
-              <Input placeholder="https://your-crm.com/webhook" value={newUrl} onChange={e => setNewUrl(e.target.value)} className="bg-slate-800 border-slate-600 text-white" data-testid="webhook-url-input" />
+            <div className="p-4 bg-karau-bg/50 rounded-xl border border-white/5 space-y-3">
+              <Input placeholder={t("karauMeet.webhookNamePlaceholder")} value={newName} onChange={e => setNewName(e.target.value)}
+                className="bg-karau-card border-white/10 text-white rounded-xl" data-testid="webhook-name-input" />
+              <Input placeholder={t("karauMeet.webhookUrlPlaceholder")} value={newUrl} onChange={e => setNewUrl(e.target.value)}
+                className="bg-karau-card border-white/10 text-white rounded-xl" data-testid="webhook-url-input" />
               <div className="flex gap-2">
-                <Button onClick={addWebhook} className="bg-teal-500 text-white" data-testid="save-webhook-btn">Save</Button>
-                <Button variant="ghost" onClick={() => setShowAdd(false)} className="text-slate-400">Cancel</Button>
+                <Button onClick={addWebhook} className="bg-emerald-500 text-white rounded-xl" data-testid="save-webhook-btn">{t("karauMeet.save")}</Button>
+                <Button variant="ghost" onClick={() => setShowAdd(false)} className="text-karau-muted rounded-xl">{t("karauMeet.cancel")}</Button>
               </div>
             </div>
           )}
           {loading ? (
-            <div className="flex justify-center py-8"><Loader2 className="w-5 h-5 animate-spin text-teal-400" /></div>
+            <div className="flex justify-center py-8"><Loader2 className="w-5 h-5 animate-spin text-purple-400" /></div>
           ) : webhooks.length === 0 ? (
-            <div className="text-center py-8 text-slate-500">
+            <div className="text-center py-8 text-karau-muted">
               <Webhook className="w-10 h-10 mx-auto mb-2 opacity-30" />
-              <p>No webhooks configured</p>
-              <p className="text-xs mt-1">Add a webhook to send meeting events to your CRM</p>
+              <p>{t("karauMeet.noWebhooks")}</p>
+              <p className="text-xs mt-1">{t("karauMeet.noWebhooksDesc")}</p>
             </div>
           ) : (
             webhooks.map(wh => (
-              <div key={wh.webhook_id} className="flex items-center justify-between p-3 bg-slate-900/30 rounded-lg border border-slate-700/50" data-testid={`webhook-${wh.webhook_id}`}>
+              <div key={wh.webhook_id} className="flex items-center justify-between p-3 bg-karau-bg/30 rounded-xl border border-white/5" data-testid={`webhook-${wh.webhook_id}`}>
                 <div className="flex-1 min-w-0">
                   <p className="text-white text-sm font-medium">{wh.name}</p>
                   <p className="text-slate-500 text-xs truncate">{wh.webhook_url}</p>
                   <div className="flex gap-1 mt-1">
                     {wh.events?.map(ev => (
-                      <Badge key={ev} className="bg-slate-700/50 text-slate-400 text-[10px]">{ev}</Badge>
+                      <Badge key={ev} className="bg-karau-surface text-karau-muted text-[10px]">{ev}</Badge>
                     ))}
                   </div>
                 </div>
