@@ -1544,6 +1544,46 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
     safeSend({ type: 'raise_hand', raised: newState });
   }, [isHandRaised, safeSend]);
 
+  // Toggle noise cancellation on/off
+  const toggleNoiseCancellation = useCallback(async () => {
+    if (isNCActive) {
+      disableNoiseCancellation();
+      if (originalAudioTrackRef.current && localStreamRef.current) {
+        const currentAudioTrack = localStreamRef.current.getAudioTracks()[0];
+        if (currentAudioTrack) localStreamRef.current.removeTrack(currentAudioTrack);
+        localStreamRef.current.addTrack(originalAudioTrackRef.current);
+        Object.values(peerConnectionsRef.current).forEach(pc => {
+          const sender = pc.getSenders().find(s => s.track?.kind === 'audio');
+          if (sender) sender.replaceTrack(originalAudioTrackRef.current);
+        });
+      }
+      toast.success('Noise cancellation off');
+    } else {
+      if (localStreamRef.current?.getAudioTracks().length > 0) {
+        try {
+          originalAudioTrackRef.current = localStreamRef.current.getAudioTracks()[0].clone();
+          const processedStream = await enableNoiseCancellation(localStreamRef.current);
+          if (processedStream && processedStream !== localStreamRef.current) {
+            const processedTrack = processedStream.getAudioTracks()[0];
+            const currentTrack = localStreamRef.current.getAudioTracks()[0];
+            if (processedTrack && currentTrack) {
+              localStreamRef.current.removeTrack(currentTrack);
+              localStreamRef.current.addTrack(processedTrack);
+              Object.values(peerConnectionsRef.current).forEach(pc => {
+                const sender = pc.getSenders().find(s => s.track?.kind === 'audio');
+                if (sender) sender.replaceTrack(processedTrack);
+              });
+            }
+          }
+          toast.success('Noise cancellation on');
+        } catch (e) {
+          console.warn('Failed to enable NC:', e);
+          toast.error('Failed to enable noise cancellation');
+        }
+      }
+    }
+  }, [isNCActive, enableNoiseCancellation, disableNoiseCancellation]);
+
   const sendChatMessage = useCallback((message) => {
     safeSend({ type: 'chat', message });
   }, [safeSend]);
