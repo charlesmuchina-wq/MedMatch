@@ -119,6 +119,88 @@ async def get_my_meetings(
 
 
 
+
+@router.get("/upcoming")
+async def get_upcoming_meetings(user: dict = Depends(require_auth)):
+    """Get upcoming scheduled meetings."""
+    from utils.database import db
+    from datetime import datetime, timezone
+
+    user_id = user["user_id"]
+    now = datetime.now(timezone.utc).isoformat()
+
+    # Get meetings that are scheduled in the future or waiting to start
+    upcoming = await db.karau_meetings.find(
+        {
+            "$or": [{"host_id": user_id}, {"participants.user_id": user_id}],
+            "status": {"$in": ["waiting", "scheduled"]},
+        },
+        {"_id": 0, "meeting_id": 1, "title": 1, "scheduled_time": 1, "status": 1,
+         "host_name": 1, "created_at": 1, "settings": 1}
+    ).sort("created_at", -1).limit(5).to_list(5)
+
+    return {"upcoming": upcoming}
+
+
+@router.get("/trending-topics")
+async def get_trending_topics(user: dict = Depends(require_auth)):
+    """Extract trending discussion topics from recent meetings using AI."""
+    from utils.database import db
+
+    user_id = user["user_id"]
+
+    # Get recent meetings with AI notes
+    recent = await db.karau_meetings.find(
+        {
+            "$or": [{"host_id": user_id}, {"participants.user_id": user_id}],
+            "ai_notes": {"$exists": True, "$ne": []}
+        },
+        {"_id": 0, "title": 1, "ai_notes": 1}
+    ).sort("created_at", -1).limit(10).to_list(10)
+
+    # Extract topics from ai_notes
+    all_content = []
+    for m in recent:
+        for note in m.get("ai_notes", []):
+            if note.get("content"):
+                all_content.append(note["content"][:100])
+
+    if not all_content:
+        return {"topics": [], "source": "no_data"}
+
+    # Use AI to extract trending topics
+    try:
+        from utils.config import EMERGENT_LLM_KEY
+        if not EMERGENT_LLM_KEY:
+            return {"topics": [], "source": "no_key"}
+
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id="trending-topics",
+            system_message="You extract trending discussion topics. Return ONLY a JSON array of objects with 'topic' and 'count' keys. Max 5 topics."
+        ).with_model("openai", "gpt-4o-mini")
+
+        content_text = "\n".join(all_content[:30])
+        prompt = f"""From these meeting notes, identify the top 5 trending discussion topics:
+
+{content_text}
+
+Return JSON array: [{{"topic": "Topic Name", "count": 3, "sentiment": "positive"}}]
+Only valid JSON, no markdown."""
+
+        result = await chat.send_message(UserMessage(text=prompt))
+
+        import json
+        try:
+            topics = json.loads(result.strip().strip("```json").strip("```"))
+            return {"topics": topics[:5], "source": "ai"}
+        except json.JSONDecodeError:
+            return {"topics": [], "source": "parse_error"}
+    except Exception as e:
+        print(f"Trending topics error: {e}")
+        return {"topics": [], "source": "error"}
 @router.get("/stats")
 async def get_dashboard_stats(user: dict = Depends(require_auth)):
     """Get real dashboard statistics from MongoDB."""
