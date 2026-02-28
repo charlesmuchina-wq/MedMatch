@@ -194,6 +194,14 @@ const KarauMeetPortal = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) setSidebarCollapsed(true);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
     // Check for existing session
     const savedUser = localStorage.getItem('karau_user');
     const token = localStorage.getItem('token');
