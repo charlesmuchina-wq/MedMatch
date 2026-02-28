@@ -22,6 +22,7 @@ import MeetingReactions from './MeetingReactions';
 import { PollsPanel } from './PollsPanel';
 import MeetingWhiteboard from './MeetingWhiteboard';
 import AIAssistantPanel from './AIAssistantPanel';
+import FileSharingPanel from './FileSharingPanel';
 import { useNoiseCancellation } from './useNoiseCancellation';
 import { useTranslation } from '@/utils/i18n';
 
@@ -1778,7 +1779,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
           <div className="w-80 h-full bg-karau-card flex flex-col">
             <div className="flex items-center justify-between px-4 py-3 border-b border-karau-border flex-shrink-0">
               <span className="text-white font-medium text-sm">
-                {activePanel === 'ai-notes' ? t("karauMeet.aiNotes") : activePanel === 'ai-assistant' ? t("karauMeet.aiAssistant") : activePanel === 'participants' ? t("karauMeet.people") : activePanel === 'chat' ? t("karauMeet.chat") : activePanel === 'polls' ? t("karauMeet.polls") : activePanel === 'settings' ? t("karauMeet.settings") : activePanel ? activePanel.charAt(0).toUpperCase() + activePanel.slice(1) : ''}
+                {activePanel === 'ai-notes' ? t("karauMeet.aiNotes") : activePanel === 'ai-assistant' ? t("karauMeet.aiAssistant") : activePanel === 'participants' ? t("karauMeet.people") : activePanel === 'chat' ? t("karauMeet.chat") : activePanel === 'polls' ? t("karauMeet.polls") : activePanel === 'file-sharing' ? (t("karauMeet.fileSharing") || "File Sharing") : activePanel === 'settings' ? t("karauMeet.settings") : activePanel ? activePanel.charAt(0).toUpperCase() + activePanel.slice(1) : ''}
               </span>
               <button onClick={() => setActivePanel(null)} className="p-1 text-slate-400 hover:text-white rounded-md hover:bg-karau-surface transition-colors" data-testid="close-panel-btn">
                 <X className="w-4 h-4" />
@@ -1807,6 +1808,14 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               )}
               {activePanel === 'polls' && (
                 <PollsPanel meetingId={meetingId} isHost={isHost} />
+              )}
+              {activePanel === 'file-sharing' && (
+                <FileSharingPanel
+                  meetingId={meetingId}
+                  userId={user?.user_id}
+                  userName={user?.name || 'User'}
+                  ws={wsRef}
+                />
               )}
               {activePanel === 'settings' && (
                 <SettingsPanel 
