@@ -185,6 +185,17 @@ export const AINotesPanel = ({ notes, isTranscribing, onGenerateSummary, isSumma
           <Download className="w-4 h-4 mr-2" />
           Export Notes
         </Button>
+        {meetingId && (
+          <Button variant="outline" size="sm" className="w-full text-turquoise border-turquoise/30 hover:bg-turquoise/10" data-testid="export-pdf-summary"
+            onClick={() => {
+              const API = process.env.REACT_APP_BACKEND_URL;
+              window.open(`${API}/api/karau-meet/meetings/${meetingId}/summary/pdf`, '_blank');
+            }}
+          >
+            <FileText className="w-4 h-4 mr-2" />
+            Download PDF Summary
+          </Button>
+        )}
       </div>
     </div>
   );
