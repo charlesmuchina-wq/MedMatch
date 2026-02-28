@@ -189,7 +189,7 @@ const AnalyticsPage = () => {
 const KarauMeetPortal = () => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(() => window.innerWidth < 768);
   const location = useLocation();
   const navigate = useNavigate();
 
