@@ -4,8 +4,8 @@ import { toast } from 'sonner';
 import {
   Radio, Users, Mic, MicOff, Video, VideoOff, MonitorUp,
   Hand, MessageCircleQuestion, Play, Square, Settings,
-  ChevronUp, ChevronDown, Send, ThumbsUp, X, Loader2,
-  Crown, UserPlus, UserMinus, Shield, Phone
+  Send, ThumbsUp, Loader2, Crown, UserPlus, UserMinus,
+  Shield, Phone, Clipboard, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -15,50 +15,85 @@ import { useTranslation } from '@/utils/i18n';
 const API = process.env.REACT_APP_BACKEND_URL;
 const WS_URL = API.replace('https://', 'wss://').replace('http://', 'ws://');
 
+const ROLE_COLORS = {
+  host: 'text-amber-400',
+  coordinator: 'text-cyan-400',
+  presenter: 'text-emerald-400',
+  panelist: 'text-blue-400',
+  attendee: 'text-slate-400'
+};
+const ROLE_BG = {
+  host: 'bg-amber-500/10 border-amber-500/20',
+  coordinator: 'bg-cyan-500/10 border-cyan-500/20',
+  presenter: 'bg-emerald-500/10 border-emerald-500/20',
+  panelist: 'bg-blue-500/10 border-blue-500/20',
+  attendee: 'bg-slate-500/10 border-slate-500/20'
+};
+
 const WebinarLiveRoom = () => {
   const { webinarId } = useParams();
-  const [searchParams] = useSearchParams();
-  const regId = searchParams.get('reg');
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  // Room state
   const [roomInfo, setRoomInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [myRole, setMyRole] = useState('attendee');
 
-  // Media state
+  // Media
   const [isMicOn, setIsMicOn] = useState(false);
   const [isCamOn, setIsCamOn] = useState(false);
-  const [isScreenSharing, setIsScreenSharing] = useState(false);
   const [isHandRaised, setIsHandRaised] = useState(false);
 
   // Panels
-  const [showQA, setShowQA] = useState(false);
-  const [showParticipants, setShowParticipants] = useState(false);
-  const [showControls, setShowControls] = useState(false);
+  const [activePanel, setActivePanel] = useState(null);
 
   // Q&A
   const [questions, setQuestions] = useState([]);
   const [newQuestion, setNewQuestion] = useState('');
   const [answerTexts, setAnswerTexts] = useState({});
 
-  // Participants & hands
+  // Participants
   const [handRaises, setHandRaises] = useState([]);
   const [activeRoles, setActiveRoles] = useState({});
-  const [attendeeCount, setAttendeeCount] = useState(0);
 
-  // Media refs
+  // Slide drive
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // WebRTC
   const localVideoRef = useRef(null);
   const localStreamRef = useRef(null);
+  const peerConnectionsRef = useRef({});
+  const remoteStreamsRef = useRef({});
+  const [remoteStreams, setRemoteStreams] = useState({});
   const wsRef = useRef(null);
+  const reconnectRef = useRef(null);
 
-  // Fetch room info and determine permissions
   useEffect(() => {
     fetchRoomInfo();
-    const interval = setInterval(() => { fetchQA(); fetchHandRaises(); }, 5000);
-    return () => clearInterval(interval);
+    return () => {
+      cleanup();
+    };
   }, [webinarId]);
+
+  // Poll Q&A and hand raises
+  useEffect(() => {
+    if (!roomInfo) return;
+    const interval = setInterval(() => {
+      fetchQA();
+      if (roomInfo.can_control) fetchHandRaises();
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [roomInfo]);
+
+  const cleanup = () => {
+    if (localStreamRef.current) {
+      localStreamRef.current.getTracks().forEach(t => t.stop());
+    }
+    Object.values(peerConnectionsRef.current).forEach(pc => pc.close());
+    peerConnectionsRef.current = {};
+    if (wsRef.current) wsRef.current.close();
+    if (reconnectRef.current) clearTimeout(reconnectRef.current);
+  };
 
   const fetchRoomInfo = async () => {
     const token = localStorage.getItem('token');
@@ -72,10 +107,8 @@ const WebinarLiveRoom = () => {
         setMyRole(data.my_role);
         setHandRaises(data.hand_raises || []);
         setActiveRoles(data.active_roles || {});
-        // Auto-start media if host/presenter
-        if (data.can_stream_video) {
-          startLocalMedia(true, true);
-        }
+        if (data.can_stream_video) startLocalMedia(true, true);
+        connectWebSocket(data);
       } else if (res.status === 403) {
         toast.error('Practice session in progress');
         navigate(-1);
@@ -84,24 +117,131 @@ const WebinarLiveRoom = () => {
     setLoading(false);
   };
 
-  const fetchQA = async () => {
-    try {
-      const res = await fetch(`${API}/api/karau/webinar/${webinarId}/qa`);
-      if (res.ok) { const d = await res.json(); setQuestions(d.questions || []); }
-    } catch {}
-  };
-
-  const fetchHandRaises = async () => {
-    if (myRole !== 'host') return;
+  // --- WebRTC Signaling ---
+  const connectWebSocket = (info) => {
     const token = localStorage.getItem('token');
-    try {
-      const res = await fetch(`${API}/api/karau/webinar/${webinarId}/hand-raises`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      if (res.ok) { const d = await res.json(); setHandRaises(d.hand_raises || []); }
-    } catch {}
+    const wsUrl = `${WS_URL}/api/karau-meet/ws/webinar-${webinarId}?token=${token}&user_name=${encodeURIComponent(info.host_name || 'User')}&is_host=${info.my_role === 'host'}`;
+    
+    const ws = new WebSocket(wsUrl);
+    wsRef.current = ws;
+
+    ws.onopen = () => { console.log('WebRTC WS connected'); };
+
+    ws.onmessage = async (event) => {
+      try {
+        const msg = JSON.parse(event.data);
+        switch (msg.type) {
+          case 'user_joined':
+            if (info.can_stream_video) createPeerConnection(msg.user_id, msg.user_name, true);
+            break;
+          case 'user_left':
+            closePeerConnection(msg.user_id);
+            break;
+          case 'offer':
+            await handleOffer(msg);
+            break;
+          case 'answer':
+            await handleAnswer(msg);
+            break;
+          case 'ice_candidate':
+            await handleIceCandidate(msg);
+            break;
+          case 'role_changed':
+            fetchRoomInfo();
+            break;
+          case 'slide_change':
+            setCurrentSlide(msg.slide_index || 0);
+            break;
+          default:
+            break;
+        }
+      } catch (e) { console.error('WS message error:', e); }
+    };
+
+    ws.onclose = () => {
+      reconnectRef.current = setTimeout(() => connectWebSocket(info), 3000);
+    };
   };
 
+  const createPeerConnection = async (remoteUserId, remoteName, createOffer) => {
+    if (peerConnectionsRef.current[remoteUserId]) return;
+
+    const pc = new RTCPeerConnection({
+      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+    });
+    peerConnectionsRef.current[remoteUserId] = pc;
+
+    // Add local tracks
+    if (localStreamRef.current) {
+      localStreamRef.current.getTracks().forEach(track => {
+        pc.addTrack(track, localStreamRef.current);
+      });
+    }
+
+    // Handle remote stream
+    pc.ontrack = (event) => {
+      const [stream] = event.streams;
+      remoteStreamsRef.current[remoteUserId] = stream;
+      setRemoteStreams(prev => ({ ...prev, [remoteUserId]: { stream, name: remoteName } }));
+    };
+
+    pc.onicecandidate = (event) => {
+      if (event.candidate && wsRef.current?.readyState === WebSocket.OPEN) {
+        wsRef.current.send(JSON.stringify({
+          type: 'ice_candidate',
+          target_user_id: remoteUserId,
+          candidate: event.candidate.toJSON()
+        }));
+      }
+    };
+
+    if (createOffer) {
+      const offer = await pc.createOffer();
+      await pc.setLocalDescription(offer);
+      wsRef.current?.send(JSON.stringify({
+        type: 'offer',
+        target_user_id: remoteUserId,
+        sdp: offer.sdp
+      }));
+    }
+  };
+
+  const handleOffer = async (msg) => {
+    await createPeerConnection(msg.user_id, msg.user_name || 'Peer', false);
+    const pc = peerConnectionsRef.current[msg.user_id];
+    if (!pc) return;
+    await pc.setRemoteDescription(new RTCSessionDescription({ type: 'offer', sdp: msg.sdp }));
+    const answer = await pc.createAnswer();
+    await pc.setLocalDescription(answer);
+    wsRef.current?.send(JSON.stringify({
+      type: 'answer', target_user_id: msg.user_id, sdp: answer.sdp
+    }));
+  };
+
+  const handleAnswer = async (msg) => {
+    const pc = peerConnectionsRef.current[msg.user_id];
+    if (pc) await pc.setRemoteDescription(new RTCSessionDescription({ type: 'answer', sdp: msg.sdp }));
+  };
+
+  const handleIceCandidate = async (msg) => {
+    const pc = peerConnectionsRef.current[msg.user_id];
+    if (pc && msg.candidate) await pc.addIceCandidate(new RTCIceCandidate(msg.candidate));
+  };
+
+  const closePeerConnection = (userId) => {
+    if (peerConnectionsRef.current[userId]) {
+      peerConnectionsRef.current[userId].close();
+      delete peerConnectionsRef.current[userId];
+    }
+    delete remoteStreamsRef.current[userId];
+    setRemoteStreams(prev => {
+      const next = { ...prev };
+      delete next[userId];
+      return next;
+    });
+  };
+
+  // --- Media Controls ---
   const startLocalMedia = async (video, audio) => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video, audio });
@@ -118,475 +258,382 @@ const WebinarLiveRoom = () => {
   const toggleMic = () => {
     if (!localStreamRef.current) return;
     const track = localStreamRef.current.getAudioTracks()[0];
-    if (track) {
-      track.enabled = !track.enabled;
-      setIsMicOn(track.enabled);
-    }
+    if (track) { track.enabled = !track.enabled; setIsMicOn(track.enabled); }
   };
 
   const toggleCam = () => {
     if (!localStreamRef.current) return;
     const track = localStreamRef.current.getVideoTracks()[0];
-    if (track) {
-      track.enabled = !track.enabled;
-      setIsCamOn(track.enabled);
-    }
+    if (track) { track.enabled = !track.enabled; setIsCamOn(track.enabled); }
+  };
+
+  // --- Webinar Actions ---
+  const apiPost = async (path) => {
+    const token = localStorage.getItem('token');
+    return fetch(`${API}/api/karau/webinar/${webinarId}${path}`, {
+      method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
+    });
+  };
+
+  const apiPostJson = async (path, body) => {
+    const token = localStorage.getItem('token');
+    return fetch(`${API}/api/karau/webinar/${webinarId}${path}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify(body)
+    });
   };
 
   const toggleHandRaise = async () => {
-    const token = localStorage.getItem('token');
-    const endpoint = isHandRaised ? 'hand-lower' : 'hand-raise';
-    await fetch(`${API}/api/karau/webinar/${webinarId}/${endpoint}`, {
-      method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
-    });
+    await apiPost(isHandRaised ? '/hand-lower' : '/hand-raise');
     setIsHandRaised(!isHandRaised);
   };
 
-  // Host controls
-  const promoteUser = async (userId, role = 'presenter') => {
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${API}/api/karau/webinar/${webinarId}/roles/promote`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-      body: JSON.stringify({ user_id: userId, role })
-    });
+  const promoteUser = async (userId, role) => {
+    const res = await apiPostJson('/roles/promote', { user_id: userId, role });
     if (res.ok) { toast.success(`Promoted to ${role}`); fetchRoomInfo(); }
   };
 
   const demoteUser = async (userId) => {
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${API}/api/karau/webinar/${webinarId}/roles/demote`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-      body: JSON.stringify({ user_id: userId })
-    });
-    if (res.ok) { toast.success('Demoted to attendee'); fetchRoomInfo(); }
+    const res = await apiPostJson('/roles/demote', { user_id: userId });
+    if (res.ok) { toast.success('Demoted'); fetchRoomInfo(); }
   };
 
-  const startWebinar = async () => {
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${API}/api/karau/webinar/${webinarId}/start`, {
-      method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
-    });
-    if (res.ok) { toast.success('Webinar is LIVE!'); fetchRoomInfo(); }
+  const startWebinar = async () => { const r = await apiPost('/start'); if (r.ok) { toast.success('LIVE!'); fetchRoomInfo(); } };
+  const endWebinar = async () => { const r = await apiPost('/end'); if (r.ok) { toast.success('Ended'); navigate('/karau-meet/webinars'); } };
+  const startPractice = async () => { const r = await apiPost('/practice/start'); if (r.ok) { toast.success('Practice started'); fetchRoomInfo(); } };
+  const endPractice = async () => { const r = await apiPost('/practice/end'); if (r.ok) { toast.success('Practice ended'); fetchRoomInfo(); } };
+  const muteAll = async () => { await apiPost('/controls/mute-all'); toast.success('All muted'); };
+
+  // --- Slide Drive ---
+  const changeSlide = (direction) => {
+    const newIdx = direction === 'next' ? currentSlide + 1 : Math.max(0, currentSlide - 1);
+    setCurrentSlide(newIdx);
+    wsRef.current?.send(JSON.stringify({ type: 'slide_change', slide_index: newIdx }));
   };
 
-  const endWebinar = async () => {
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${API}/api/karau/webinar/${webinarId}/end`, {
-      method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
-    });
-    if (res.ok) { toast.success('Webinar ended'); navigate('/karau-meet/webinars'); }
+  // --- Q&A ---
+  const fetchQA = async () => {
+    try {
+      const res = await fetch(`${API}/api/karau/webinar/${webinarId}/qa`);
+      if (res.ok) { const d = await res.json(); setQuestions(d.questions || []); }
+    } catch {}
   };
 
-  const startPractice = async () => {
+  const fetchHandRaises = async () => {
     const token = localStorage.getItem('token');
-    const res = await fetch(`${API}/api/karau/webinar/${webinarId}/practice/start`, {
-      method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
-    });
-    if (res.ok) { toast.success('Practice session started'); fetchRoomInfo(); }
-  };
-
-  const endPractice = async () => {
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${API}/api/karau/webinar/${webinarId}/practice/end`, {
-      method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
-    });
-    if (res.ok) { toast.success('Practice session ended'); fetchRoomInfo(); }
-  };
-
-  const muteAll = async () => {
-    const token = localStorage.getItem('token');
-    await fetch(`${API}/api/karau/webinar/${webinarId}/controls/mute-all`, {
-      method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
-    });
-    toast.success('All attendees muted');
+    try {
+      const res = await fetch(`${API}/api/karau/webinar/${webinarId}/hand-raises`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) { const d = await res.json(); setHandRaises(d.hand_raises || []); }
+    } catch {}
   };
 
   const submitQuestion = async () => {
     if (!newQuestion.trim()) return;
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${API}/api/karau/webinar/${webinarId}/qa/ask`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-      body: JSON.stringify({ question: newQuestion, is_anonymous: false })
-    });
-    if (res.ok) { setNewQuestion(''); fetchQA(); toast.success('Question submitted'); }
+    const res = await apiPostJson('/qa/ask', { question: newQuestion, is_anonymous: false });
+    if (res.ok) { setNewQuestion(''); fetchQA(); }
   };
 
   const answerQuestion = async (qId) => {
     if (!answerTexts[qId]?.trim()) return;
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${API}/api/karau/webinar/${webinarId}/qa/${qId}/answer`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-      body: JSON.stringify({ answer: answerTexts[qId] })
-    });
+    const res = await apiPostJson(`/qa/${qId}/answer`, { answer: answerTexts[qId] });
     if (res.ok) { setAnswerTexts(p => ({ ...p, [qId]: '' })); fetchQA(); }
   };
 
-  const upvoteQuestion = async (qId) => {
-    const token = localStorage.getItem('token');
-    await fetch(`${API}/api/karau/webinar/${webinarId}/qa/${qId}/upvote`, {
-      method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
-    });
-    fetchQA();
-  };
+  const upvoteQuestion = async (qId) => { await apiPost(`/qa/${qId}/upvote`); fetchQA(); };
 
-  const leaveWebinar = () => {
-    if (localStreamRef.current) {
-      localStreamRef.current.getTracks().forEach(t => t.stop());
-    }
-    navigate('/karau-meet/webinars');
-  };
+  const leaveWebinar = () => { cleanup(); navigate('/karau-meet/webinars'); };
+
+  const togglePanel = (panel) => setActivePanel(prev => prev === panel ? null : panel);
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-karau-bg flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-purple-400 animate-spin" />
-      </div>
-    );
+    return <div className="min-h-screen bg-karau-bg flex items-center justify-center"><Loader2 className="w-8 h-8 text-purple-400 animate-spin" /></div>;
   }
-
   if (!roomInfo) {
-    return (
-      <div className="min-h-screen bg-karau-bg flex items-center justify-center">
-        <p className="text-red-400">Unable to join webinar</p>
-      </div>
-    );
+    return <div className="min-h-screen bg-karau-bg flex items-center justify-center"><p className="text-red-400">Unable to join webinar</p></div>;
   }
 
   const canStream = roomInfo.can_stream_video;
+  const canControl = roomInfo.can_control;
+  const canDriveSlides = roomInfo.can_drive_slides;
   const isHost = myRole === 'host';
-  const isPresenter = myRole === 'presenter';
-  const isPanelist = myRole === 'panelist';
+  const isCoord = myRole === 'coordinator';
   const isAttendee = myRole === 'attendee';
   const pendingQs = questions.filter(q => q.status === 'pending');
+  const remoteStreamEntries = Object.entries(remoteStreams);
 
   return (
     <div className="min-h-screen bg-karau-bg flex flex-col" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }} data-testid="webinar-live-room">
       {/* Top Bar */}
-      <div className="h-12 bg-karau-card/80 border-b border-white/5 flex items-center justify-between px-4 shrink-0">
-        <div className="flex items-center gap-3">
+      <div className="h-11 bg-karau-card/80 border-b border-white/5 flex items-center justify-between px-4 shrink-0">
+        <div className="flex items-center gap-2.5">
           {roomInfo.status === 'live' ? (
-            <Badge className="bg-red-500/20 text-red-400 border-red-500/20 animate-pulse text-[10px]" data-testid="live-badge">
-              <Radio className="w-2.5 h-2.5 mr-1" />LIVE
-            </Badge>
+            <Badge className="bg-red-500/20 text-red-400 border-red-500/20 animate-pulse text-[10px]" data-testid="live-badge"><Radio className="w-2.5 h-2.5 mr-1" />LIVE</Badge>
           ) : roomInfo.practice_mode ? (
-            <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/20 text-[10px]" data-testid="practice-badge">
-              <Shield className="w-2.5 h-2.5 mr-1" />PRACTICE
-            </Badge>
+            <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/20 text-[10px]" data-testid="practice-badge"><Shield className="w-2.5 h-2.5 mr-1" />PRACTICE</Badge>
           ) : (
             <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/20 text-[10px]">{roomInfo.status}</Badge>
           )}
-          <span className="text-sm font-medium text-white truncate max-w-xs">{roomInfo.title}</span>
+          <span className="text-sm font-medium text-white truncate max-w-[300px]">{roomInfo.title}</span>
         </div>
-
         <div className="flex items-center gap-2">
-          <Badge className="bg-white/5 text-slate-300 border-white/10 text-[10px]" data-testid="role-badge">
-            {isHost && <Crown className="w-2.5 h-2.5 mr-1 text-amber-400" />}
-            {isPresenter && <MonitorUp className="w-2.5 h-2.5 mr-1 text-emerald-400" />}
+          <Badge className={`${ROLE_BG[myRole] || ROLE_BG.attendee} ${ROLE_COLORS[myRole]} border text-[10px]`} data-testid="role-badge">
+            {isHost && <Crown className="w-2.5 h-2.5 mr-1" />}
+            {isCoord && <Clipboard className="w-2.5 h-2.5 mr-1" />}
+            {myRole === 'presenter' && <MonitorUp className="w-2.5 h-2.5 mr-1" />}
             {myRole.charAt(0).toUpperCase() + myRole.slice(1)}
           </Badge>
-          <Button variant="destructive" size="sm" onClick={leaveWebinar}
-            className="h-7 px-2.5 text-[11px] rounded-lg" data-testid="leave-webinar-btn">
+          <Button variant="destructive" size="sm" onClick={leaveWebinar} className="h-7 px-2 text-[11px] rounded-lg" data-testid="leave-webinar-btn">
             <Phone className="w-3 h-3 mr-1 rotate-[135deg]" />Leave
           </Button>
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main */}
       <div className="flex flex-1 overflow-hidden">
-        {/* Video Area */}
+        {/* Video Stage */}
         <div className="flex-1 flex flex-col">
-          {/* Stage */}
-          <div className="flex-1 p-3 flex items-center justify-center relative" data-testid="video-stage">
-            {canStream ? (
-              <div className="relative w-full h-full max-w-4xl">
-                <video ref={localVideoRef} autoPlay muted playsInline
-                  className="w-full h-full object-cover rounded-2xl bg-karau-card/60" data-testid="local-video" />
-                {!isCamOn && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-karau-card/80 rounded-2xl">
-                    <div className="w-20 h-20 rounded-full bg-purple-500/20 flex items-center justify-center">
-                      <span className="text-3xl font-bold text-purple-400">
-                        {roomInfo.host_name?.[0] || 'H'}
-                      </span>
+          <div className="flex-1 p-2 flex gap-2" data-testid="video-stage">
+            {/* Main video - host/presenter or own camera */}
+            <div className="flex-1 relative rounded-xl overflow-hidden bg-karau-card/40 border border-white/5">
+              {canStream ? (
+                <>
+                  <video ref={localVideoRef} autoPlay muted playsInline className="w-full h-full object-cover" data-testid="local-video" />
+                  {!isCamOn && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-karau-card/80">
+                      <div className="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center">
+                        <span className="text-2xl font-bold text-purple-400">{roomInfo.host_name?.[0] || 'H'}</span>
+                      </div>
                     </div>
+                  )}
+                  <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-sm rounded px-1.5 py-0.5">
+                    <span className="text-[9px] text-white flex items-center gap-1">
+                      {isHost && <Crown className="w-2 h-2 text-amber-400" />}
+                      {isCoord && <Clipboard className="w-2 h-2 text-cyan-400" />}
+                      You ({myRole})
+                    </span>
                   </div>
-                )}
-                {/* Role label */}
-                <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm rounded-lg px-2 py-1">
-                  <span className="text-[10px] text-white font-medium flex items-center gap-1">
-                    {isHost && <Crown className="w-2.5 h-2.5 text-amber-400" />}
-                    {roomInfo.host_name || 'Host'}
-                    {isPresenter && ' (Presenter)'}
-                  </span>
-                </div>
-              </div>
-            ) : (
-              /* Attendee view - watching stream */
-              <div className="w-full h-full max-w-4xl flex items-center justify-center bg-karau-card/40 rounded-2xl border border-white/5">
-                <div className="text-center">
-                  <div className="w-24 h-24 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mx-auto mb-4">
-                    <Radio className="w-12 h-12 text-purple-400/60" />
+                </>
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="w-20 h-20 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mx-auto mb-3">
+                      <Radio className="w-10 h-10 text-purple-400/60" />
+                    </div>
+                    <p className="text-white font-medium text-sm">{roomInfo.title}</p>
+                    <p className="text-[10px] text-karau-muted mt-1">
+                      {roomInfo.status === 'live' ? `Watching live - ${roomInfo.host_name}` : 'Waiting for host...'}
+                    </p>
+                    {isCoord && (
+                      <Badge className="mt-2 bg-cyan-500/10 text-cyan-400 border-cyan-500/20 text-[10px]">
+                        <Clipboard className="w-2.5 h-2.5 mr-1" />Coordinator - Monitoring
+                      </Badge>
+                    )}
+                    {isAttendee && <Badge className="mt-2 bg-slate-500/10 text-slate-400 border-slate-500/15 text-[10px]">View Only</Badge>}
                   </div>
-                  <p className="text-white font-medium">{roomInfo.title}</p>
-                  <p className="text-xs text-karau-muted mt-1">
-                    {roomInfo.status === 'live' 
-                      ? `${t("karauMeet.watchingLive") || "Watching live"} · Hosted by ${roomInfo.host_name}`
-                      : roomInfo.status === 'scheduled'
-                        ? t("karauMeet.waitingToStart") || "Waiting for host to start..."
-                        : 'Webinar has ended'}
-                  </p>
-                  <Badge className="mt-3 bg-slate-500/10 text-slate-400 border-slate-500/15 text-[10px]">
-                    View Only
-                  </Badge>
                 </div>
+              )}
+            </div>
+
+            {/* Remote streams sidebar */}
+            {remoteStreamEntries.length > 0 && (
+              <div className="w-44 flex flex-col gap-1.5 overflow-y-auto">
+                {remoteStreamEntries.map(([uid, { stream, name }]) => (
+                  <RemoteVideo key={uid} stream={stream} name={name} userId={uid} />
+                ))}
               </div>
             )}
           </div>
 
+          {/* Slide Drive Bar (for coordinator/host/presenter) */}
+          {canDriveSlides && (
+            <div className="h-9 bg-karau-card/40 border-t border-white/5 flex items-center justify-center gap-3 px-4" data-testid="slide-drive-bar">
+              <Button variant="ghost" size="sm" onClick={() => changeSlide('prev')} className="h-7 w-7 p-0 text-slate-300 hover:text-white" data-testid="slide-prev">
+                <ChevronLeft className="w-4 h-4" />
+              </Button>
+              <span className="text-[11px] text-slate-300 font-medium min-w-[80px] text-center">Slide {currentSlide + 1}</span>
+              <Button variant="ghost" size="sm" onClick={() => changeSlide('next')} className="h-7 w-7 p-0 text-slate-300 hover:text-white" data-testid="slide-next">
+                <ChevronRight className="w-4 h-4" />
+              </Button>
+            </div>
+          )}
+
           {/* Bottom Controls */}
-          <div className="h-16 bg-karau-card/60 border-t border-white/5 flex items-center justify-center gap-2 px-4 shrink-0" data-testid="webinar-controls">
-            {/* Mic/Cam for streamers */}
+          <div className="h-14 bg-karau-card/60 border-t border-white/5 flex items-center justify-center gap-1.5 px-4 shrink-0" data-testid="webinar-controls">
             {canStream && (
               <>
-                <Button variant="ghost" size="sm" onClick={toggleMic}
-                  className={`h-10 w-10 rounded-full ${isMicOn ? 'bg-white/10 text-white' : 'bg-red-500/20 text-red-400'}`}
-                  data-testid="mic-toggle">
-                  {isMicOn ? <Mic className="w-4 h-4" /> : <MicOff className="w-4 h-4" />}
-                </Button>
-                <Button variant="ghost" size="sm" onClick={toggleCam}
-                  className={`h-10 w-10 rounded-full ${isCamOn ? 'bg-white/10 text-white' : 'bg-red-500/20 text-red-400'}`}
-                  data-testid="cam-toggle">
-                  {isCamOn ? <Video className="w-4 h-4" /> : <VideoOff className="w-4 h-4" />}
-                </Button>
+                <CtrlBtn on={isMicOn} onClick={toggleMic} icon={isMicOn ? Mic : MicOff} testId="mic-toggle" />
+                <CtrlBtn on={isCamOn} onClick={toggleCam} icon={isCamOn ? Video : VideoOff} testId="cam-toggle" />
               </>
             )}
-
-            {/* Hand raise for attendees */}
-            {isAttendee && (
-              <Button variant="ghost" size="sm" onClick={toggleHandRaise}
-                className={`h-10 w-10 rounded-full ${isHandRaised ? 'bg-amber-500/20 text-amber-400' : 'bg-white/10 text-white'}`}
-                data-testid="hand-raise-btn">
-                <Hand className="w-4 h-4" />
-              </Button>
+            {isAttendee && <CtrlBtn on={isHandRaised} onClick={toggleHandRaise} icon={Hand} testId="hand-raise-btn" color="amber" />}
+            <CtrlBtn on={activePanel === 'qa'} onClick={() => togglePanel('qa')} icon={MessageCircleQuestion} testId="qa-toggle" badge={pendingQs.length || null} />
+            {canControl && (
+              <>
+                <CtrlBtn on={activePanel === 'participants'} onClick={() => togglePanel('participants')} icon={Users} testId="participants-toggle" />
+                <CtrlBtn on={activePanel === 'controls'} onClick={() => togglePanel('controls')} icon={Settings} testId="controls-toggle" />
+              </>
             )}
-
-            {/* Q&A toggle */}
-            <Button variant="ghost" size="sm" onClick={() => { setShowQA(!showQA); setShowParticipants(false); setShowControls(false); }}
-              className={`h-10 w-10 rounded-full ${showQA ? 'bg-purple-500/20 text-purple-400' : 'bg-white/10 text-white'}`}
-              data-testid="qa-toggle">
-              <MessageCircleQuestion className="w-4 h-4" />
-              {pendingQs.length > 0 && (
-                <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-500 text-[8px] text-white flex items-center justify-center">{pendingQs.length}</span>
-              )}
-            </Button>
-
-            {/* Participants panel for host */}
-            {isHost && (
-              <Button variant="ghost" size="sm" onClick={() => { setShowParticipants(!showParticipants); setShowQA(false); setShowControls(false); }}
-                className={`h-10 w-10 rounded-full ${showParticipants ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/10 text-white'}`}
-                data-testid="participants-toggle">
-                <Users className="w-4 h-4" />
-              </Button>
-            )}
-
-            {/* Host controls */}
-            {isHost && (
-              <Button variant="ghost" size="sm" onClick={() => { setShowControls(!showControls); setShowQA(false); setShowParticipants(false); }}
-                className={`h-10 w-10 rounded-full ${showControls ? 'bg-violet-500/20 text-violet-400' : 'bg-white/10 text-white'}`}
-                data-testid="controls-toggle">
-                <Settings className="w-4 h-4" />
-              </Button>
-            )}
-
             <div className="w-px h-6 bg-white/10 mx-1" />
-
-            {/* Host actions */}
+            {/* Host-only session controls */}
             {isHost && roomInfo.status === 'scheduled' && !roomInfo.practice_mode && (
               <>
-                <Button size="sm" onClick={startPractice}
-                  className="h-9 px-3 text-[11px] bg-amber-500/80 hover:bg-amber-400 rounded-lg" data-testid="start-practice-btn">
-                  <Shield className="w-3.5 h-3.5 mr-1" />Practice
+                <Button size="sm" onClick={startPractice} className="h-8 px-2.5 text-[11px] bg-amber-500/80 hover:bg-amber-400 rounded-lg" data-testid="start-practice-btn">
+                  <Shield className="w-3 h-3 mr-1" />Practice
                 </Button>
-                <Button size="sm" onClick={startWebinar}
-                  className="h-9 px-3 text-[11px] bg-emerald-500/80 hover:bg-emerald-400 rounded-lg" data-testid="go-live-btn">
-                  <Play className="w-3.5 h-3.5 mr-1" />Go Live
+                <Button size="sm" onClick={startWebinar} className="h-8 px-2.5 text-[11px] bg-emerald-500/80 hover:bg-emerald-400 rounded-lg" data-testid="go-live-btn">
+                  <Play className="w-3 h-3 mr-1" />Go Live
                 </Button>
               </>
             )}
             {isHost && roomInfo.practice_mode && (
               <>
-                <Button size="sm" onClick={endPractice}
-                  className="h-9 px-3 text-[11px] bg-slate-500/80 hover:bg-slate-400 rounded-lg" data-testid="end-practice-btn">
-                  End Practice
-                </Button>
-                <Button size="sm" onClick={startWebinar}
-                  className="h-9 px-3 text-[11px] bg-emerald-500/80 hover:bg-emerald-400 rounded-lg" data-testid="go-live-from-practice-btn">
-                  <Play className="w-3.5 h-3.5 mr-1" />Go Live
+                <Button size="sm" onClick={endPractice} className="h-8 px-2.5 text-[11px] bg-slate-500/80 hover:bg-slate-400 rounded-lg" data-testid="end-practice-btn">End Practice</Button>
+                <Button size="sm" onClick={startWebinar} className="h-8 px-2.5 text-[11px] bg-emerald-500/80 hover:bg-emerald-400 rounded-lg" data-testid="go-live-from-practice-btn">
+                  <Play className="w-3 h-3 mr-1" />Go Live
                 </Button>
               </>
             )}
             {isHost && roomInfo.status === 'live' && (
-              <Button size="sm" variant="destructive" onClick={endWebinar}
-                className="h-9 px-3 text-[11px] rounded-lg" data-testid="end-webinar-btn">
-                <Square className="w-3.5 h-3.5 mr-1" />End Webinar
+              <Button size="sm" variant="destructive" onClick={endWebinar} className="h-8 px-2.5 text-[11px] rounded-lg" data-testid="end-webinar-btn">
+                <Square className="w-3 h-3 mr-1" />End
               </Button>
             )}
           </div>
         </div>
 
         {/* Side Panel */}
-        {(showQA || showParticipants || showControls) && (
-          <div className="w-80 bg-karau-card/60 border-l border-white/5 flex flex-col shrink-0" data-testid="side-panel">
-            {/* Q&A Panel */}
-            {showQA && (
-              <div className="flex-1 flex flex-col overflow-hidden">
-                <div className="p-3 border-b border-white/5">
-                  <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                    <MessageCircleQuestion className="w-4 h-4 text-amber-400" />
-                    Q&A ({pendingQs.length} pending)
-                  </h3>
-                </div>
-                <div className="flex-1 overflow-y-auto p-3 space-y-2">
-                  {questions.length === 0 ? (
-                    <p className="text-xs text-slate-500 text-center py-4">No questions yet</p>
-                  ) : (
-                    questions.map(q => (
-                      <div key={q.question_id} className={`p-2.5 rounded-lg ${q.status === 'answered' ? 'bg-emerald-500/5 border border-emerald-500/10' : 'bg-karau-bg/40'}`}
-                        data-testid={`qa-item-${q.question_id}`}>
-                        <p className="text-xs text-white">{q.question}</p>
-                        <div className="flex items-center gap-2 mt-1 text-[10px] text-slate-500">
-                          <span>{q.asked_by}</span>
-                          <button onClick={() => upvoteQuestion(q.question_id)} className="flex items-center gap-0.5 hover:text-purple-400">
-                            <ThumbsUp className="w-2.5 h-2.5" />{q.upvotes}
-                          </button>
-                          <Badge className={`text-[8px] ${q.status === 'answered' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}`}>
-                            {q.status}
-                          </Badge>
-                        </div>
-                        {q.answer && (
-                          <div className="mt-1.5 p-1.5 bg-emerald-500/5 rounded text-[10px] text-emerald-300">
-                            <span className="font-medium">A: </span>{q.answer}
-                          </div>
-                        )}
-                        {(isHost || isPresenter) && q.status === 'pending' && (
-                          <div className="flex gap-1 mt-1.5">
-                            <Input value={answerTexts[q.question_id] || ''} 
-                              onChange={e => setAnswerTexts(p => ({ ...p, [q.question_id]: e.target.value }))}
-                              placeholder="Answer..." className="bg-karau-card border-white/10 text-white text-[10px] h-6 rounded" />
-                            <Button size="sm" onClick={() => answerQuestion(q.question_id)} className="h-6 w-6 p-0 bg-emerald-500/80 rounded">
-                              <Send className="w-2.5 h-2.5" />
-                            </Button>
-                          </div>
-                        )}
-                      </div>
-                    ))
-                  )}
-                </div>
-                <div className="p-3 border-t border-white/5">
-                  <div className="flex gap-1.5">
-                    <Input value={newQuestion} onChange={e => setNewQuestion(e.target.value)}
-                      placeholder="Ask a question..." onKeyDown={e => e.key === 'Enter' && submitQuestion()}
-                      className="bg-karau-bg/60 border-white/10 text-white text-xs h-8 rounded-lg" data-testid="question-input" />
-                    <Button size="sm" onClick={submitQuestion} className="h-8 px-2.5 bg-purple-500/80 rounded-lg" data-testid="submit-question-btn">
-                      <Send className="w-3.5 h-3.5" />
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Participants / Hand Raises (Host only) */}
-            {showParticipants && isHost && (
-              <div className="flex-1 overflow-y-auto p-3 space-y-3">
-                <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                  <Users className="w-4 h-4 text-emerald-400" />Participants & Roles
-                </h3>
-
-                {/* Hand Raises */}
-                {handRaises.length > 0 && (
-                  <div className="space-y-1.5">
-                    <p className="text-[10px] text-amber-400 font-semibold uppercase tracking-wider flex items-center gap-1">
-                      <Hand className="w-3 h-3" />Raised Hands ({handRaises.length})
-                    </p>
-                    {handRaises.map(h => (
-                      <div key={h.user_id} className="flex items-center justify-between p-2 bg-amber-500/5 rounded-lg border border-amber-500/10"
-                        data-testid={`hand-${h.user_id}`}>
-                        <span className="text-xs text-white">{h.name}</span>
-                        <div className="flex gap-1">
-                          <Button size="sm" onClick={() => promoteUser(h.user_id, 'presenter')}
-                            className="h-6 px-2 text-[9px] bg-emerald-500/80 rounded" data-testid={`promote-presenter-${h.user_id}`}>
-                            <MonitorUp className="w-2.5 h-2.5 mr-0.5" />Presenter
-                          </Button>
-                          <Button size="sm" onClick={() => promoteUser(h.user_id, 'panelist')}
-                            className="h-6 px-2 text-[9px] bg-blue-500/80 rounded" data-testid={`promote-panelist-${h.user_id}`}>
-                            <UserPlus className="w-2.5 h-2.5 mr-0.5" />Panelist
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Active Roles */}
-                <div className="space-y-1.5">
-                  <p className="text-[10px] text-purple-400 font-semibold uppercase tracking-wider">Active Roles</p>
-                  {Object.entries(activeRoles).length === 0 ? (
-                    <p className="text-[10px] text-slate-500 py-2">No promoted participants</p>
-                  ) : (
-                    Object.entries(activeRoles).map(([uid, info]) => (
-                      <div key={uid} className="flex items-center justify-between p-2 bg-purple-500/5 rounded-lg border border-purple-500/10"
-                        data-testid={`role-${uid}`}>
-                        <div>
-                          <span className="text-xs text-white">{uid}</span>
-                          <Badge className="ml-1.5 text-[8px] bg-purple-500/10 text-purple-400">{info.role}</Badge>
-                        </div>
-                        <Button size="sm" variant="ghost" onClick={() => demoteUser(uid)}
-                          className="h-6 px-1.5 text-red-400 hover:bg-red-500/10" data-testid={`demote-${uid}`}>
-                          <UserMinus className="w-3 h-3" />
-                        </Button>
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Host Controls Panel */}
-            {showControls && isHost && (
-              <div className="flex-1 overflow-y-auto p-3 space-y-3">
-                <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                  <Settings className="w-4 h-4 text-violet-400" />Host Controls
-                </h3>
-                <div className="space-y-2">
-                  <button onClick={muteAll} className="w-full flex items-center gap-2 p-2.5 bg-karau-bg/40 rounded-lg hover:bg-white/5 transition-colors text-left"
-                    data-testid="mute-all-control">
-                    <MicOff className="w-4 h-4 text-red-400" />
-                    <span className="text-xs text-slate-300">Mute All Attendees</span>
-                  </button>
-                  <div className="p-2.5 bg-karau-bg/40 rounded-lg">
-                    <p className="text-[10px] text-karau-muted mb-1">Webinar Status</p>
-                    <p className="text-xs text-white font-medium">{roomInfo.status} {roomInfo.practice_mode && '(Practice)'}</p>
-                  </div>
-                  <div className="p-2.5 bg-karau-bg/40 rounded-lg">
-                    <p className="text-[10px] text-karau-muted mb-1">Settings</p>
-                    <div className="space-y-1 text-[10px] text-slate-400">
-                      <p>Chat: {roomInfo.settings?.chat_enabled ? 'Enabled' : 'Disabled'}</p>
-                      <p>Q&A: {roomInfo.settings?.q_and_a_enabled ? 'Enabled' : 'Disabled'}</p>
-                      <p>Attendee Video: {roomInfo.settings?.attendee_video ? 'Allowed' : 'Disabled'}</p>
-                      <p>Attendee Audio: {roomInfo.settings?.attendee_audio ? 'Allowed' : 'Disabled'}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
+        {activePanel && (
+          <div className="w-72 bg-karau-card/60 border-l border-white/5 flex flex-col shrink-0 overflow-hidden" data-testid="side-panel">
+            {activePanel === 'qa' && <QAPanel questions={questions} pendingQs={pendingQs} newQuestion={newQuestion} setNewQuestion={setNewQuestion} submitQuestion={submitQuestion} answerTexts={answerTexts} setAnswerTexts={setAnswerTexts} answerQuestion={answerQuestion} upvoteQuestion={upvoteQuestion} canControl={canControl} myRole={myRole} />}
+            {activePanel === 'participants' && canControl && <ParticipantsPanel handRaises={handRaises} activeRoles={activeRoles} promoteUser={promoteUser} demoteUser={demoteUser} isHost={isHost} />}
+            {activePanel === 'controls' && canControl && <ControlsPanel muteAll={muteAll} roomInfo={roomInfo} />}
           </div>
         )}
       </div>
     </div>
   );
 };
+
+// --- Sub Components ---
+
+const CtrlBtn = ({ on, onClick, icon: Icon, testId, color, badge }) => (
+  <div className="relative">
+    <Button variant="ghost" size="sm" onClick={onClick} data-testid={testId}
+      className={`h-9 w-9 rounded-full ${on ? (color === 'amber' ? 'bg-amber-500/20 text-amber-400' : 'bg-purple-500/20 text-purple-400') : 'bg-white/10 text-white hover:bg-white/15'}`}>
+      <Icon className="w-4 h-4" />
+    </Button>
+    {badge && <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-red-500 text-[7px] text-white flex items-center justify-center">{badge}</span>}
+  </div>
+);
+
+const RemoteVideo = ({ stream, name, userId }) => {
+  const ref = useRef(null);
+  useEffect(() => { if (ref.current && stream) ref.current.srcObject = stream; }, [stream]);
+  return (
+    <div className="relative rounded-lg overflow-hidden bg-karau-card/60 border border-white/5 aspect-video" data-testid={`remote-${userId}`}>
+      <video ref={ref} autoPlay playsInline className="w-full h-full object-cover" />
+      <div className="absolute bottom-1 left-1 bg-black/60 backdrop-blur-sm rounded px-1 py-0.5">
+        <span className="text-[8px] text-white">{name}</span>
+      </div>
+    </div>
+  );
+};
+
+const QAPanel = ({ questions, pendingQs, newQuestion, setNewQuestion, submitQuestion, answerTexts, setAnswerTexts, answerQuestion, upvoteQuestion, canControl, myRole }) => (
+  <div className="flex-1 flex flex-col overflow-hidden">
+    <div className="p-2.5 border-b border-white/5">
+      <h3 className="text-xs font-semibold text-white flex items-center gap-1.5">
+        <MessageCircleQuestion className="w-3.5 h-3.5 text-amber-400" />Q&A ({pendingQs.length} pending)
+      </h3>
+    </div>
+    <div className="flex-1 overflow-y-auto p-2 space-y-1.5">
+      {questions.length === 0 ? (
+        <p className="text-[10px] text-slate-500 text-center py-6">No questions yet</p>
+      ) : questions.map(q => (
+        <div key={q.question_id} className={`p-2 rounded-lg ${q.status === 'answered' ? 'bg-emerald-500/5 border border-emerald-500/10' : 'bg-karau-bg/40'}`}>
+          <p className="text-[11px] text-white leading-tight">{q.question}</p>
+          <div className="flex items-center gap-2 mt-1 text-[9px] text-slate-500">
+            <span>{q.asked_by}</span>
+            <button onClick={() => upvoteQuestion(q.question_id)} className="flex items-center gap-0.5 hover:text-purple-400"><ThumbsUp className="w-2 h-2" />{q.upvotes}</button>
+            <Badge className={`text-[7px] ${q.status === 'answered' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'}`}>{q.status}</Badge>
+          </div>
+          {q.answer && <div className="mt-1 p-1 bg-emerald-500/5 rounded text-[9px] text-emerald-300"><b>A:</b> {q.answer}</div>}
+          {canControl && q.status === 'pending' && (
+            <div className="flex gap-1 mt-1">
+              <Input value={answerTexts[q.question_id] || ''} onChange={e => setAnswerTexts(p => ({ ...p, [q.question_id]: e.target.value }))}
+                placeholder="Answer..." className="bg-karau-card border-white/10 text-white text-[9px] h-5 rounded" />
+              <Button size="sm" onClick={() => answerQuestion(q.question_id)} className="h-5 w-5 p-0 bg-emerald-500/80 rounded"><Send className="w-2 h-2" /></Button>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+    <div className="p-2 border-t border-white/5">
+      <div className="flex gap-1">
+        <Input value={newQuestion} onChange={e => setNewQuestion(e.target.value)} placeholder="Ask a question..."
+          onKeyDown={e => e.key === 'Enter' && submitQuestion()} className="bg-karau-bg/60 border-white/10 text-white text-[10px] h-7 rounded-lg" data-testid="question-input" />
+        <Button size="sm" onClick={submitQuestion} className="h-7 px-2 bg-purple-500/80 rounded-lg" data-testid="submit-question-btn"><Send className="w-3 h-3" /></Button>
+      </div>
+    </div>
+  </div>
+);
+
+const ParticipantsPanel = ({ handRaises, activeRoles, promoteUser, demoteUser, isHost }) => (
+  <div className="flex-1 overflow-y-auto p-2.5 space-y-3">
+    <h3 className="text-xs font-semibold text-white flex items-center gap-1.5"><Users className="w-3.5 h-3.5 text-emerald-400" />Participants</h3>
+    {handRaises.length > 0 && (
+      <div className="space-y-1">
+        <p className="text-[9px] text-amber-400 font-semibold uppercase tracking-wider flex items-center gap-1"><Hand className="w-2.5 h-2.5" />Raised Hands ({handRaises.length})</p>
+        {handRaises.map(h => (
+          <div key={h.user_id} className="flex items-center justify-between p-1.5 bg-amber-500/5 rounded-lg border border-amber-500/10" data-testid={`hand-${h.user_id}`}>
+            <span className="text-[10px] text-white">{h.name}</span>
+            <div className="flex gap-0.5">
+              {isHost && <Button size="sm" onClick={() => promoteUser(h.user_id, 'coordinator')} className="h-5 px-1.5 text-[8px] bg-cyan-500/80 rounded" data-testid={`promote-coord-${h.user_id}`}>Coord</Button>}
+              <Button size="sm" onClick={() => promoteUser(h.user_id, 'presenter')} className="h-5 px-1.5 text-[8px] bg-emerald-500/80 rounded" data-testid={`promote-presenter-${h.user_id}`}>Presenter</Button>
+              <Button size="sm" onClick={() => promoteUser(h.user_id, 'panelist')} className="h-5 px-1.5 text-[8px] bg-blue-500/80 rounded" data-testid={`promote-panelist-${h.user_id}`}>Panel</Button>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+    <div className="space-y-1">
+      <p className="text-[9px] text-purple-400 font-semibold uppercase tracking-wider">Active Roles</p>
+      {Object.entries(activeRoles).length === 0 ? (
+        <p className="text-[9px] text-slate-500 py-2">No promoted participants</p>
+      ) : Object.entries(activeRoles).map(([uid, info]) => (
+        <div key={uid} className={`flex items-center justify-between p-1.5 rounded-lg border ${ROLE_BG[info.role] || 'bg-white/5 border-white/10'}`} data-testid={`role-${uid}`}>
+          <div className="flex items-center gap-1.5">
+            <span className="text-[10px] text-white">{uid.substring(0, 12)}</span>
+            <Badge className={`text-[7px] ${ROLE_COLORS[info.role]}`}>{info.role}</Badge>
+          </div>
+          <Button size="sm" variant="ghost" onClick={() => demoteUser(uid)} className="h-5 px-1 text-red-400 hover:bg-red-500/10" data-testid={`demote-${uid}`}>
+            <UserMinus className="w-2.5 h-2.5" />
+          </Button>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const ControlsPanel = ({ muteAll, roomInfo }) => (
+  <div className="flex-1 overflow-y-auto p-2.5 space-y-2">
+    <h3 className="text-xs font-semibold text-white flex items-center gap-1.5"><Settings className="w-3.5 h-3.5 text-violet-400" />Controls</h3>
+    <button onClick={muteAll} className="w-full flex items-center gap-2 p-2 bg-karau-bg/40 rounded-lg hover:bg-white/5 transition-colors" data-testid="mute-all-control">
+      <MicOff className="w-3.5 h-3.5 text-red-400" /><span className="text-[10px] text-slate-300">Mute All</span>
+    </button>
+    <div className="p-2 bg-karau-bg/40 rounded-lg space-y-1">
+      <p className="text-[9px] text-karau-muted">Settings</p>
+      <div className="text-[9px] text-slate-400 space-y-0.5">
+        <p>Chat: {roomInfo.settings?.chat_enabled ? 'On' : 'Off'}</p>
+        <p>Q&A: {roomInfo.settings?.q_and_a_enabled ? 'On' : 'Off'}</p>
+        <p>Attendee Video: {roomInfo.settings?.attendee_video ? 'On' : 'Off'}</p>
+        <p>Attendee Audio: {roomInfo.settings?.attendee_audio ? 'On' : 'Off'}</p>
+      </div>
+    </div>
+  </div>
+);
 
 export default WebinarLiveRoom;
