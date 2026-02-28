@@ -1939,6 +1939,15 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             <Sparkles className="w-[18px] h-[18px]" />
           </button>
 
+          <button
+            onClick={() => { setActivePanel(activePanel === 'ai-assistant' ? null : 'ai-assistant'); setShowMoreMenu(false); }}
+            className={`hidden sm:flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'ai-assistant' ? 'bg-gradient-to-br from-teal-500/25 to-emerald-500/15 text-teal-300 ring-1 ring-teal-500/30' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            data-testid="panel-ai-assistant-btn"
+            title="AI Assistant"
+          >
+            <Bot className="w-[18px] h-[18px]" />
+          </button>
+
           {/* More Menu */}
           <div className="relative" ref={moreMenuRef}>
             <button
