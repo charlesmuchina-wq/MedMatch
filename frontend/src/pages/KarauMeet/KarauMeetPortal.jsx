@@ -402,6 +402,9 @@ const KarauMeetPortal = () => {
           <Route path="settings" element={<KarauSettingsPage />} />
         </Routes>
       </main>
+
+      {/* Floating KARAU AI Avatar */}
+      <KarauAIAvatar />
     </div>
   );
 };
