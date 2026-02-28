@@ -1,13 +1,30 @@
 """
-AI Meeting Assistant - Background service that automatically generates
-notes, action items, and summaries during meetings.
+AI Meeting Assistant - Full-featured AI agent that provides
+real-time insights, answers questions, generates summaries,
+extracts action items, and offers smart follow-ups during meetings.
 """
 import os
+import json
 import asyncio
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Optional, List
 from utils.config import EMERGENT_LLM_KEY
 from utils.database import db
+
+
+# ===== Conversation History Store (in-memory, per meeting) =====
+_conversation_histories = {}
+
+def _get_history(meeting_id: str) -> list:
+    if meeting_id not in _conversation_histories:
+        _conversation_histories[meeting_id] = []
+    return _conversation_histories[meeting_id]
+
+def _add_to_history(meeting_id: str, role: str, content: str):
+    hist = _get_history(meeting_id)
+    hist.append({"role": role, "content": content})
+    if len(hist) > 20:
+        _conversation_histories[meeting_id] = hist[-20:]
 
 
 async def process_transcript_segment(meeting_id: str, segment: str, speaker: str = "Unknown") -> dict:
@@ -34,6 +51,7 @@ Return a JSON object with:
 - "is_key_point": boolean  
 - "key_point": string (if is_key_point is true)
 - "topic": string (brief topic label)
+- "sentiment": string (one of: "positive", "neutral", "concern")
 
 Return ONLY valid JSON."""
 
@@ -42,7 +60,6 @@ Return ONLY valid JSON."""
             UserMessage(content=prompt)
         )
 
-        import json
         try:
             parsed = json.loads(result.content.strip().strip("```json").strip("```"))
             if parsed.get("has_action_item") and parsed.get("action_item"):
@@ -89,7 +106,7 @@ async def generate_meeting_summary(meeting_id: str) -> Optional[str]:
     action_items = [n["content"] for n in ai_notes if n.get("type") == "action_item"]
 
     if not highlights and not action_items:
-        return "No content available for summary generation."
+        return "No content available for summary generation. Enable captions to start capturing meeting content."
 
     try:
         from emergentintegrations.llm.chat import LlmChat, UserMessage
@@ -141,17 +158,25 @@ Keep it concise and professional."""
         return None
 
 
-async def get_ai_answer(meeting_id: str, question: str) -> str:
-    """Answer a question based on meeting context."""
+async def get_ai_answer(meeting_id: str, question: str) -> dict:
+    """Answer a question based on meeting context with follow-up suggestions."""
     if not EMERGENT_LLM_KEY:
-        return "AI assistant is not configured."
+        return {"answer": "AI assistant is not configured. Please set up the Emergent LLM key.", "follow_up_suggestions": []}
 
     meeting = await db.karau_meetings.find_one({"meeting_id": meeting_id}, {"_id": 0})
     if not meeting:
-        return "Meeting not found."
+        return {"answer": "Meeting not found.", "follow_up_suggestions": []}
 
     ai_notes = meeting.get("ai_notes", [])
-    context_items = [n["content"] for n in ai_notes if n.get("content")][-20:]
+    context_items = [f"[{n.get('type','note')}] {n['content']}" for n in ai_notes if n.get("content")][-25:]
+
+    # Build conversation history context
+    conv_history = _get_history(meeting_id)
+    history_text = ""
+    if conv_history:
+        history_text = "\nPrevious conversation:\n" + "\n".join(
+            f"{'User' if m['role'] == 'user' else 'Assistant'}: {m['content']}" for m in conv_history[-6:]
+        )
 
     try:
         from emergentintegrations.llm.chat import LlmChat, UserMessage
@@ -162,23 +187,66 @@ async def get_ai_answer(meeting_id: str, question: str) -> str:
             properties={}
         ).with_model("openai", "gpt-4o-mini")
 
-        context = "\n".join(f"- {item}" for item in context_items)
+        context = "\n".join(f"- {item}" for item in context_items) if context_items else "(No meeting content captured yet)"
 
-        prompt = f"""You are an AI meeting assistant for "{meeting.get('title', 'Meeting')}".
-Based on the meeting context below, answer the user's question concisely.
+        prompt = f"""You are KARAU AI, an intelligent meeting assistant for "{meeting.get('title', 'Meeting')}".
+You help participants understand discussions, track action items, and make meetings more productive.
 
 Meeting context:
 {context}
+{history_text}
 
 User question: {question}
 
-Answer concisely and helpfully."""
+Respond in this JSON format:
+{{
+  "answer": "Your concise, helpful answer here",
+  "follow_up_suggestions": ["suggestion 1", "suggestion 2"]
+}}
+
+Rules:
+- Be concise but thorough
+- If asked about action items, format them as a numbered list
+- If no relevant context exists, say so honestly and suggest enabling captions
+- Provide 2 relevant follow-up suggestions
+- Return ONLY valid JSON"""
 
         result = await asyncio.to_thread(
             chat.send_message,
             UserMessage(content=prompt)
         )
 
-        return result.content.strip()
+        # Save conversation
+        _add_to_history(meeting_id, "user", question)
+
+        try:
+            parsed = json.loads(result.content.strip().strip("```json").strip("```"))
+            answer = parsed.get("answer", result.content.strip())
+            suggestions = parsed.get("follow_up_suggestions", [])
+            _add_to_history(meeting_id, "assistant", answer)
+            return {"answer": answer, "follow_up_suggestions": suggestions[:3]}
+        except json.JSONDecodeError:
+            answer = result.content.strip()
+            _add_to_history(meeting_id, "assistant", answer)
+            return {"answer": answer, "follow_up_suggestions": []}
     except Exception as e:
-        return f"Sorry, I couldn't process that: {str(e)}"
+        return {"answer": f"Sorry, I couldn't process that: {str(e)}", "follow_up_suggestions": []}
+
+
+async def get_meeting_insights(meeting_id: str) -> dict:
+    """Get a structured overview of meeting insights."""
+    meeting = await db.karau_meetings.find_one({"meeting_id": meeting_id}, {"_id": 0})
+    if not meeting:
+        return {"action_items": [], "key_points": [], "topics": [], "total_insights": 0}
+
+    ai_notes = meeting.get("ai_notes", [])
+    action_items = [n for n in ai_notes if n.get("type") == "action_item"]
+    key_points = [n for n in ai_notes if n.get("type") == "highlight"]
+    topics = list(set(n.get("topic", "") for n in ai_notes if n.get("topic")))
+
+    return {
+        "action_items": [{"content": a["content"], "speaker": a.get("speaker", "Unknown"), "timestamp": a.get("timestamp")} for a in action_items],
+        "key_points": [{"content": k["content"], "speaker": k.get("speaker", "Unknown"), "timestamp": k.get("timestamp")} for k in key_points],
+        "topics": topics[:10],
+        "total_insights": len(action_items) + len(key_points)
+    }
