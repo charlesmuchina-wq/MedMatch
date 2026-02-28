@@ -121,12 +121,14 @@ const KarauMeetDashboard = ({ user }) => {
   const fetchAnalytics = async () => {
     const token = localStorage.getItem('token');
     try {
-      const [effRes, gamRes] = await Promise.all([
+      const [effRes, gamRes, lbRes] = await Promise.all([
         fetch(`${API}/api/karau/analytics/effectiveness`, { headers: { 'Authorization': `Bearer ${token}` } }),
-        fetch(`${API}/api/karau/analytics/gamification`, { headers: { 'Authorization': `Bearer ${token}` } })
+        fetch(`${API}/api/karau/analytics/gamification`, { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch(`${API}/api/karau/analytics/leaderboard`, { headers: { 'Authorization': `Bearer ${token}` } })
       ]);
       if (effRes.ok) setEffectiveness(await effRes.json());
       if (gamRes.ok) setGamification(await gamRes.json());
+      if (lbRes.ok) setLeaderboard(await lbRes.json());
     } catch (e) { console.error('Analytics error:', e); }
   };
 
