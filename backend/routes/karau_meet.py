@@ -357,6 +357,172 @@ async def add_meeting_ai_note(
     return note
 
 
+@router.get("/meetings/{meeting_id}/summary/pdf")
+async def export_meeting_summary_pdf(meeting_id: str, user: dict = Depends(require_auth)):
+    """Generate and download a meeting summary PDF with highlights and key takeaways"""
+    from fastapi.responses import StreamingResponse
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib.units import mm, inch
+    from reportlab.lib.colors import HexColor
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, HRFlowable
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.enums import TA_CENTER, TA_LEFT
+    from utils.database import db
+    import io
+
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+
+    # Fetch org branding for enterprise users
+    org_branding = None
+    if meeting.get("org_id"):
+        org_branding = await db.karau_organizations.find_one(
+            {"org_id": meeting["org_id"]}, {"_id": 0}
+        )
+
+    # Fetch AI notes from the meeting
+    ai_notes = meeting.get("ai_notes", [])
+    summaries = [n for n in ai_notes if n.get("type") == "summary"]
+    action_items = [n for n in ai_notes if n.get("type") == "action_item"]
+    highlights = [n for n in ai_notes if n.get("type") in ("highlight", "transcription")]
+    participants = meeting.get("participants", [])
+
+    # Colors
+    turquoise = HexColor("#2DD4BF")
+    dark_bg = HexColor("#1E293B")
+    text_dark = HexColor("#1E293B")
+    text_gray = HexColor("#64748B")
+    accent = HexColor(org_branding.get("primary_color", "#2DD4BF")) if org_branding else turquoise
+
+    # Build PDF in memory
+    buffer = io.BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=A4, leftMargin=20*mm, rightMargin=20*mm, topMargin=20*mm, bottomMargin=20*mm)
+
+    styles = getSampleStyleSheet()
+    styles.add(ParagraphStyle(name='MeetingTitle', fontSize=22, leading=28, textColor=text_dark, fontName='Helvetica-Bold', spaceAfter=4))
+    styles.add(ParagraphStyle(name='Subtitle', fontSize=10, leading=14, textColor=text_gray, spaceAfter=12))
+    styles.add(ParagraphStyle(name='SectionHead', fontSize=14, leading=18, textColor=text_dark, fontName='Helvetica-Bold', spaceBefore=16, spaceAfter=8))
+    styles.add(ParagraphStyle(name='BodyText2', fontSize=10, leading=15, textColor=text_dark, spaceAfter=4))
+    styles.add(ParagraphStyle(name='BulletItem', fontSize=10, leading=15, textColor=text_dark, leftIndent=12, bulletIndent=0, spaceAfter=3))
+    styles.add(ParagraphStyle(name='FooterStyle', fontSize=8, leading=10, textColor=text_gray, alignment=TA_CENTER))
+
+    elements = []
+
+    # Header with branding
+    org_name = org_branding.get("name", "") if org_branding else "AI KARAU"
+    elements.append(Paragraph(f'<font color="#{accent.hexval()[2:]}">{org_name}</font> Meeting Summary', styles['MeetingTitle']))
+
+    # Meeting metadata
+    title = meeting.get("title", "Untitled Meeting")
+    created = meeting.get("created_at", "")
+    started = meeting.get("started_at", "")
+    ended = meeting.get("ended_at", "")
+    duration_str = ""
+    if started and ended:
+        try:
+            s = datetime.fromisoformat(started.replace("Z", "+00:00"))
+            e = datetime.fromisoformat(ended.replace("Z", "+00:00"))
+            mins = int((e - s).total_seconds() / 60)
+            duration_str = f"{mins} minutes"
+        except:
+            pass
+
+    meta_lines = [f"<b>Meeting:</b> {title}"]
+    if created:
+        try:
+            dt = datetime.fromisoformat(created.replace("Z", "+00:00"))
+            meta_lines.append(f"<b>Date:</b> {dt.strftime('%B %d, %Y at %I:%M %p UTC')}")
+        except:
+            meta_lines.append(f"<b>Date:</b> {created}")
+    if duration_str:
+        meta_lines.append(f"<b>Duration:</b> {duration_str}")
+    meta_lines.append(f"<b>Participants:</b> {len(participants)}")
+
+    for line in meta_lines:
+        elements.append(Paragraph(line, styles['Subtitle']))
+
+    elements.append(Spacer(1, 8))
+    elements.append(HRFlowable(width="100%", thickness=1, color=HexColor("#E2E8F0")))
+    elements.append(Spacer(1, 8))
+
+    # Participants
+    if participants:
+        elements.append(Paragraph("Participants", styles['SectionHead']))
+        participant_names = []
+        for p in participants:
+            name = p.get("user_name", "Unknown") if isinstance(p, dict) else str(p)
+            role = ""
+            if isinstance(p, dict) and p.get("is_host"):
+                role = " (Host)"
+            participant_names.append(f"{name}{role}")
+        elements.append(Paragraph(", ".join(participant_names), styles['BodyText2']))
+        elements.append(Spacer(1, 6))
+
+    # Key Takeaways / Summary
+    if summaries:
+        elements.append(Paragraph("Key Takeaways", styles['SectionHead']))
+        for note in summaries:
+            content = note.get("content", "")
+            for line in content.split("\n"):
+                line = line.strip()
+                if line:
+                    elements.append(Paragraph(f"&bull; {line}", styles['BulletItem']))
+        elements.append(Spacer(1, 6))
+
+    # Action Items
+    if action_items:
+        elements.append(Paragraph("Action Items", styles['SectionHead']))
+        for i, item in enumerate(action_items, 1):
+            content = item.get("content", "")
+            elements.append(Paragraph(f"<b>{i}.</b> {content}", styles['BulletItem']))
+        elements.append(Spacer(1, 6))
+
+    # Highlights
+    if highlights:
+        elements.append(Paragraph("Discussion Highlights", styles['SectionHead']))
+        shown = 0
+        for note in highlights[-20:]:
+            content = note.get("content", "")
+            if content and shown < 20:
+                ts = note.get("timestamp", "")
+                time_label = ""
+                if ts:
+                    try:
+                        dt = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+                        time_label = f'<font color="#94A3B8">[{dt.strftime("%H:%M")}]</font> '
+                    except:
+                        pass
+                elements.append(Paragraph(f"{time_label}{content}", styles['BodyText2']))
+                shown += 1
+        elements.append(Spacer(1, 6))
+
+    # If no AI notes at all
+    if not summaries and not action_items and not highlights:
+        elements.append(Spacer(1, 20))
+        elements.append(Paragraph("No AI notes or transcription data available for this meeting.", styles['BodyText2']))
+        elements.append(Paragraph("Enable AI Transcription during meetings to generate summaries and action items.", styles['Subtitle']))
+
+    # Footer
+    elements.append(Spacer(1, 20))
+    elements.append(HRFlowable(width="100%", thickness=0.5, color=HexColor("#E2E8F0")))
+    elements.append(Spacer(1, 6))
+    footer_text = org_branding.get("watermark_text", "AI KARAU") if org_branding else "AI KARAU"
+    elements.append(Paragraph(f"Generated by {footer_text} | {datetime.now(timezone.utc).strftime('%B %d, %Y')}", styles['FooterStyle']))
+
+    doc.build(elements)
+    buffer.seek(0)
+
+    safe_title = "".join(c for c in title if c.isalnum() or c in " -_").strip()[:50]
+    filename = f"Meeting_Summary_{safe_title}_{meeting_id[:8]}.pdf"
+
+    return StreamingResponse(
+        buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'}
+    )
+
+
 @router.post("/meetings/{meeting_id}/breakout-rooms")
 async def create_meeting_breakout_room(
     meeting_id: str,
