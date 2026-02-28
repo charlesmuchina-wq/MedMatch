@@ -48,13 +48,12 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
     { path: '/karau-meet/schedule', icon: CalendarDays, labelKey: 'karau.schedule' },
     { path: '/karau-meet/recordings', icon: Archive, labelKey: 'karau.recordings' },
     { path: '/karau-meet/notes', icon: FileText, labelKey: 'karau.meetingNotes' },
-    { path: '/karau-meet/analytics', icon: BarChart3, labelKey: 'karau.analytics' },
     { path: '/karau-meet/settings', icon: Settings, labelKey: 'karau.settings' },
   ];
 
   return (
     <div className={`h-screen bg-karau-bg border-r border-white/5 flex flex-col transition-all duration-300 ${
-      isCollapsed ? 'w-16' : 'w-64'
+      isCollapsed ? 'w-14' : 'w-52'
     }`} style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
       {/* Header */}
       <div className="h-16 flex items-center justify-between px-3 border-b border-white/5">
