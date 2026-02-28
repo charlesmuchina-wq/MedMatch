@@ -315,6 +315,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   const [isSummarizing, setIsSummarizing] = useState(false);
   const [showWhiteboard, setShowWhiteboard] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
+  const [showReactionBar, setShowReactionBar] = useState(false);
   const moreMenuRef = useRef(null);
   const originalAudioTrackRef = useRef(null);
   const { isActive: isNCActive, enableNoiseCancellation, disableNoiseCancellation } = useNoiseCancellation();
