@@ -113,8 +113,8 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
       <div className="p-3 border-t border-white/5">
         {!isCollapsed && (
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500/20 to-emerald-500/10 border border-teal-500/20 flex items-center justify-center">
-              <span className="text-teal-400 font-semibold text-sm">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/10 border border-purple-500/20 flex items-center justify-center">
+              <span className="text-purple-400 font-semibold text-sm">
                 {user?.name?.charAt(0) || user?.email?.charAt(0) || '?'}
               </span>
             </div>
