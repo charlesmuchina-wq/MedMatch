@@ -6,7 +6,7 @@ import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 
 // Use environment variable or default to production
-const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'https://meeting-redesign.preview.emergentagent.com';
+const API_BASE_URL = process.env.EXPO_PUBLIC_API_URL || 'https://karau-premium.preview.emergentagent.com';
 
 const apiClient = axios.create({
   baseURL: `${API_BASE_URL}/api`,
