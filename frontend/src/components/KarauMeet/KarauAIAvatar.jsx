@@ -225,7 +225,8 @@ const KarauAIAvatar = ({ meetingId }) => {
           to { opacity: 1; transform: translateY(0) scale(1); }
         }
       `}</style>
-    </>
+    </>,
+    document.body
   );
 };
 
