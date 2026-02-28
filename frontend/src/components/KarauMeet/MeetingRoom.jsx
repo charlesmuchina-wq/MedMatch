@@ -1968,6 +1968,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                       ))}
                     </div>
                   )}
+                </div>
                 <button onClick={() => { setShowBgSelector(true); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
                   <ImageIcon className="w-4 h-4 flex-shrink-0" />Virtual Background
                 </button>
