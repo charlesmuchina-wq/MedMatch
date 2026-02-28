@@ -1825,7 +1825,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         </div>
       </div>
 
-      {/* Unified Control Bar - Teams Style */}
+      {/* Unified Control Bar */}
       <div className="h-[60px] bg-karau-card/95 backdrop-blur-xl border-t border-karau-border flex items-center justify-between px-2 md:px-4 flex-shrink-0" data-testid="meeting-controls">
         {/* Left spacer with optional branding */}
         <div className="hidden md:flex items-center flex-1 min-w-0">
