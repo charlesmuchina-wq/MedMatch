@@ -1759,6 +1759,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
               isEnabled={isCaptionsEnabled}
               onTranscriptUpdate={handleTranscriptUpdate}
               onToggle={() => setIsCaptionsEnabled(!isCaptionsEnabled)}
+              targetLang={captionLang}
             />
             <MeetingReactions
               onSendReaction={sendReaction}
