@@ -39,8 +39,16 @@ const KarauMeetDashboard = ({ user }) => {
 
   useEffect(() => {
     fetchMeetings();
+    fetchTemplates();
     setStats({ total_meetings: 24, total_hours: 48, recordings: 12, participants: 156 });
   }, []);
+
+  const fetchTemplates = async () => {
+    try {
+      const res = await fetch(`${API}/api/karau-features/templates`);
+      if (res.ok) { const data = await res.json(); setTemplates(data.templates || []); }
+    } catch (e) { console.error(e); }
+  };
 
   const fetchMeetings = async () => {
     try {
