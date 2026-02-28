@@ -408,6 +408,7 @@ const KarauMeetPortal = () => {
           <Route path="notes" element={<NotesPage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="settings" element={<KarauSettingsPage />} />
+          <Route path="webinar/:webinarId/register" element={<WebinarRegistrationPage />} />
         </Routes>
       </main>
 
