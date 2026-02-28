@@ -383,9 +383,18 @@ const KarauMeetPortal = () => {
     return <MeetingRoom user={meetingUser} meetingIdProp={meetingId} />;
   }
 
-  // For non-meeting routes, require login
-  if (!user) {
+  // For non-meeting routes, require login (except webinar registration which is public)
+  if (!user && !isWebinarRegisterPage) {
     return <KarauMeetLogin onLogin={handleLogin} />;
+  }
+  
+  // Public webinar registration page (no login required)
+  if (isWebinarRegisterPage) {
+    return (
+      <div className="min-h-screen bg-karau-bg">
+        <WebinarRegistrationPage />
+      </div>
+    );
   }
 
   return (
