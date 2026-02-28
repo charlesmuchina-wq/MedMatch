@@ -1791,7 +1791,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 />
               )}
               {activePanel === 'ai-notes' && (
-                <AINotesPanel notes={aiNotes} isTranscribing={isCaptionsEnabled} onGenerateSummary={generateSummary} isSummarizing={isSummarizing} />
+                <AINotesPanel notes={aiNotes} isTranscribing={isCaptionsEnabled} onGenerateSummary={generateSummary} isSummarizing={isSummarizing} meetingId={meetingId} />
               )}
               {activePanel === 'polls' && (
                 <PollsPanel meetingId={meetingId} isHost={isHost} />
