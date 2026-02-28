@@ -104,12 +104,12 @@ const KarauMeetLanding = ({ user }) => {
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-turquoise to-cyan-400 flex items-center justify-center">
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-violet-400 flex items-center justify-center">
               <Video className="w-8 h-8 text-white" />
             </div>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            AI KARAU <span className="text-turquoise">Meeting</span>
+            AI KARAU <span className="text-purple-400">Meeting</span>
           </h1>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">
             {t("karauMeet.heroTagline")}
@@ -119,12 +119,12 @@ const KarauMeetLanding = ({ user }) => {
         {/* Action Cards */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           {/* Start New Meeting */}
-          <Card className="bg-slate-800/50 border-slate-700 hover:border-turquoise/50 transition-all cursor-pointer group"
+          <Card className="bg-karau-card/50 border-karau-border hover:border-purple-500/40 transition-all cursor-pointer group"
                 onClick={() => setShowCreateDialog(true)}>
             <CardContent className="p-8">
               <div className="flex items-start gap-4">
-                <div className="w-14 h-14 rounded-xl bg-turquoise/20 flex items-center justify-center group-hover:bg-turquoise/30 transition-colors">
-                  <Plus className="w-7 h-7 text-turquoise" />
+                <div className="w-14 h-14 rounded-xl bg-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/30 transition-colors">
+                  <Plus className="w-7 h-7 text-purple-400" />
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-white mb-2">{t("karauMeet.newMeeting")}</h3>
@@ -135,7 +135,7 @@ const KarauMeetLanding = ({ user }) => {
           </Card>
 
           {/* Join Meeting */}
-          <Card className="bg-slate-800/50 border-slate-700">
+          <Card className="bg-karau-card/50 border-karau-border">
             <CardContent className="p-8">
               <div className="flex items-start gap-4">
                 <div className="w-14 h-14 rounded-xl bg-violet-500/20 flex items-center justify-center">
@@ -148,7 +148,7 @@ const KarauMeetLanding = ({ user }) => {
                       placeholder={t("meeting.enterMeetingId")}
                       value={joinMeetingId}
                       onChange={(e) => setJoinMeetingId(e.target.value.toUpperCase())}
-                      className="bg-slate-900 border-slate-600 text-white"
+                      className="bg-karau-bg border-white/10 text-white"
                       onKeyPress={(e) => e.key === 'Enter' && joinMeeting()}
                     />
                     <Button onClick={joinMeeting} className="bg-violet-500 hover:bg-violet-600">
@@ -165,11 +165,11 @@ const KarauMeetLanding = ({ user }) => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {[
             { icon: Shield, label: t("karauMeet.endToEndEncrypted"), color: 'text-green-400' },
-            { icon: Sparkles, label: t("karauMeet.aiNotesTranscription"), color: 'text-turquoise' },
+            { icon: Sparkles, label: t("karauMeet.aiNotesTranscription"), color: 'text-purple-400' },
             { icon: MonitorPlay, label: t("karauMeet.screenSharing"), color: 'text-blue-400' },
             { icon: Users, label: t("karauMeet.breakoutRooms"), color: 'text-violet-400' }
           ].map((feature, idx) => (
-            <div key={idx} className="flex items-center gap-2 p-4 bg-slate-800/30 rounded-lg">
+            <div key={idx} className="flex items-center gap-2 p-4 bg-karau-card/30 rounded-lg">
               <feature.icon className={`w-5 h-5 ${feature.color}`} />
               <span className="text-sm text-slate-300">{feature.label}</span>
             </div>
@@ -177,7 +177,7 @@ const KarauMeetLanding = ({ user }) => {
         </div>
 
         {/* Recent Meetings */}
-        <Card className="bg-slate-800/50 border-slate-700">
+        <Card className="bg-karau-card/50 border-karau-border">
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
               <History className="w-5 h-5 text-slate-400" />
@@ -190,7 +190,7 @@ const KarauMeetLanding = ({ user }) => {
           <CardContent>
             {loading ? (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-6 h-6 text-turquoise animate-spin" />
+                <Loader2 className="w-6 h-6 text-purple-400 animate-spin" />
               </div>
             ) : meetings.length === 0 ? (
               <div className="text-center py-8">
@@ -202,11 +202,11 @@ const KarauMeetLanding = ({ user }) => {
                 {meetings.slice(0, 5).map((meeting) => (
                   <div
                     key={meeting.meeting_id}
-                    className="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg hover:bg-slate-900 transition-colors"
+                    className="flex items-center justify-between p-4 bg-karau-bg/50 rounded-lg hover:bg-karau-bg transition-colors"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-turquoise/20 flex items-center justify-center">
-                        <Video className="w-5 h-5 text-turquoise" />
+                      <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                        <Video className="w-5 h-5 text-purple-400" />
                       </div>
                       <div>
                         <h4 className="font-medium text-white">{meeting.title}</h4>
@@ -236,7 +236,7 @@ const KarauMeetLanding = ({ user }) => {
                         <Button
                           size="sm"
                           onClick={() => navigate(`/karau-meet/room/${meeting.meeting_id}`)}
-                          className="bg-turquoise hover:bg-turquoise/80"
+                          className="bg-karau-accent hover:bg-karau-accent/80"
                         >
                           {meeting.status === 'active' ? t("meeting.rejoin") : t("meeting.start")}
                         </Button>
@@ -252,7 +252,7 @@ const KarauMeetLanding = ({ user }) => {
 
       {/* Create Meeting Dialog */}
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-        <DialogContent className="bg-slate-800 border-slate-700">
+        <DialogContent className="bg-karau-card border-karau-border">
           <DialogHeader>
             <DialogTitle className="text-white">{t("karauMeet.createNewMeeting")}</DialogTitle>
           </DialogHeader>
@@ -263,7 +263,7 @@ const KarauMeetLanding = ({ user }) => {
                 placeholder={t("karauMeet.meetingTitlePlaceholder")}
                 value={newMeetingTitle}
                 onChange={(e) => setNewMeetingTitle(e.target.value)}
-                className="bg-slate-900 border-slate-600 text-white mt-2"
+                className="bg-karau-bg border-white/10 text-white mt-2"
               />
             </div>
             <div className="flex items-center justify-between">
@@ -285,7 +285,7 @@ const KarauMeetLanding = ({ user }) => {
             <Button variant="ghost" onClick={() => setShowCreateDialog(false)} className="text-slate-300">
               {t("karauMeet.cancel")}
             </Button>
-            <Button onClick={createMeeting} disabled={creating} className="bg-turquoise hover:bg-turquoise/80">
+            <Button onClick={createMeeting} disabled={creating} className="bg-karau-accent hover:bg-karau-accent/80">
               {creating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
               {t("karauMeet.startMeeting")}
             </Button>
