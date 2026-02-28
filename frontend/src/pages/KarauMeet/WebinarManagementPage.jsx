@@ -197,6 +197,13 @@ const WebinarManagementPage = () => {
           <CreateWebinarForm onCreated={handleCreated} onCancel={() => setShowCreate(false)} />
         </DialogContent>
       </Dialog>
+
+      {/* Webinar Analytics Slide-over */}
+      <Dialog open={!!analyticsWebinarId} onOpenChange={(open) => { if (!open) setAnalyticsWebinarId(null); }}>
+        <DialogContent className="bg-karau-card border-white/10 rounded-2xl max-w-lg max-h-[85vh] overflow-y-auto" data-testid="analytics-dialog">
+          <WebinarAnalyticsPage webinarId={analyticsWebinarId} onClose={() => setAnalyticsWebinarId(null)} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
