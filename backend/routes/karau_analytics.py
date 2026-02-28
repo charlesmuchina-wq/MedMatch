@@ -239,3 +239,103 @@ async def get_gamification(user=Depends(get_current_user)):
         streak_days=streak, badges=badges, rank_title=rank_title,
         total_meetings=total, total_hours=round(total_hours, 1)
     )
+
+
+class LeaderboardEntry(BaseModel):
+    user_id: str
+    name: str
+    email: str
+    xp: int
+    level: int
+    rank_title: str
+    streak_days: int
+    total_meetings: int
+    badges_count: int
+
+
+class LeaderboardResponse(BaseModel):
+    leaderboard: List[LeaderboardEntry]
+    my_rank: int
+    total_users: int
+
+
+@router.get("/leaderboard", response_model=LeaderboardResponse)
+async def get_leaderboard(user=Depends(get_current_user)):
+    """Team leaderboard showing XP rankings, streaks, and badges."""
+    # Get all users
+    users_cursor = db.users.find({}, {"_id": 0, "user_id": 1, "name": 1, "email": 1})
+    all_users = await users_cursor.to_list(length=500)
+
+    entries = []
+    for u in all_users:
+        uid = u.get("user_id", "")
+        meetings = await db.meetings.find(
+            {"$or": [{"host_id": uid}, {"participants": uid}]},
+            {"_id": 0, "created_at": 1, "duration": 1, "ai_notes": 1, "host_id": 1}
+        ).to_list(length=500)
+
+        total = len(meetings)
+        total_hours = sum(m.get("duration", 0) for m in meetings) / 3600
+        hosted = sum(1 for m in meetings if m.get("host_id") == uid)
+        with_notes = sum(1 for m in meetings if m.get("ai_notes"))
+
+        xp = total * 50 + hosted * 25 + with_notes * 30 + int(total_hours * 10)
+
+        level = 1
+        xp_needed = 100
+        remaining = xp
+        while remaining >= xp_needed:
+            remaining -= xp_needed
+            level += 1
+            xp_needed = int(100 * (1.2 ** (level - 1)))
+
+        # Streak
+        now = datetime.now(timezone.utc)
+        streak = 0
+        for d in range(30):
+            day = now - timedelta(days=d)
+            ds = day.replace(hour=0, minute=0, second=0, microsecond=0)
+            de = day.replace(hour=23, minute=59, second=59, microsecond=999999)
+            has = any(
+                isinstance(m.get("created_at"), datetime) and ds <= m["created_at"] <= de
+                for m in meetings
+            )
+            if has:
+                streak += 1
+            elif d > 0:
+                break
+
+        badges_count = 0
+        if total >= 1: badges_count += 1
+        if total >= 10: badges_count += 1
+        if total >= 50: badges_count += 1
+        if hosted >= 5: badges_count += 1
+        if with_notes >= 5: badges_count += 1
+        if streak >= 3: badges_count += 1
+        if streak >= 7: badges_count += 1
+        if total_hours >= 10: badges_count += 1
+
+        ranks = {1: "Newcomer", 3: "Participant", 5: "Contributor", 8: "Collaborator",
+                 12: "Meeting Pro", 15: "Team Leader", 20: "Meeting Master"}
+        rank_title = "Newcomer"
+        for lvl, title in sorted(ranks.items()):
+            if level >= lvl: rank_title = title
+
+        entries.append(LeaderboardEntry(
+            user_id=uid, name=u.get("name", "Unknown"),
+            email=u.get("email", ""), xp=xp, level=level,
+            rank_title=rank_title, streak_days=streak,
+            total_meetings=total, badges_count=badges_count
+        ))
+
+    # Sort by XP descending
+    entries.sort(key=lambda e: e.xp, reverse=True)
+
+    # Find current user's rank
+    my_rank = next((i + 1 for i, e in enumerate(entries) if e.user_id == user["user_id"]), 0)
+
+    return LeaderboardResponse(
+        leaderboard=entries[:50],
+        my_rank=my_rank,
+        total_users=len(entries)
+    )
