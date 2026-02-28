@@ -158,7 +158,7 @@ const AIAssistantPanel = ({ meetingId, aiNotes = [] }) => {
 
               {/* Smart Suggestions */}
               <div className="space-y-1.5">
-                <span className="text-[10px] uppercase tracking-wider text-slate-600 font-medium px-1">Quick Actions</span>
+                <span className="text-[10px] uppercase tracking-wider text-slate-600 font-medium px-1">{t("karauMeet.quickActions")}</span>
                 {SMART_SUGGESTIONS.map((s, i) => (
                   <button
                     key={i}
