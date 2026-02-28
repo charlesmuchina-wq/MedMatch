@@ -154,15 +154,29 @@ const WebinarManagementPage = () => {
 
                 <div className="flex items-center gap-1.5">
                   {w.status === 'scheduled' && (
-                    <Button size="sm" onClick={() => startWebinar(w.webinar_id)}
-                      className="h-7 px-2.5 text-[11px] bg-emerald-500/80 hover:bg-emerald-400 rounded-lg" data-testid={`start-${w.webinar_id}`}>
-                      <Play className="w-3 h-3 mr-1" />{t("karauMeet.start") || "Start"}
-                    </Button>
+                    <>
+                      <Button size="sm" onClick={() => navigate(`/karau-meet/webinar/${w.webinar_id}/live`)}
+                        className="h-7 px-2.5 text-[11px] bg-purple-500/80 hover:bg-purple-400 rounded-lg" data-testid={`join-${w.webinar_id}`}>
+                        <Video className="w-3 h-3 mr-1" />Join Room
+                      </Button>
+                      <Button size="sm" onClick={() => startWebinar(w.webinar_id)}
+                        className="h-7 px-2.5 text-[11px] bg-emerald-500/80 hover:bg-emerald-400 rounded-lg" data-testid={`start-${w.webinar_id}`}>
+                        <Play className="w-3 h-3 mr-1" />{t("karauMeet.start") || "Start"}
+                      </Button>
+                    </>
                   )}
-                  {w.status === 'live' && (
-                    <Button size="sm" variant="destructive" onClick={() => endWebinar(w.webinar_id)}
-                      className="h-7 px-2.5 text-[11px] rounded-lg" data-testid={`end-${w.webinar_id}`}>
-                      <Square className="w-3 h-3 mr-1" />{t("karauMeet.end") || "End"}
+                  {(w.status === 'live' || w.status === 'practice') && (
+                    <>
+                      <Button size="sm" onClick={() => navigate(`/karau-meet/webinar/${w.webinar_id}/live`)}
+                        className="h-7 px-2.5 text-[11px] bg-purple-500/80 hover:bg-purple-400 rounded-lg animate-pulse" data-testid={`join-live-${w.webinar_id}`}>
+                        <Video className="w-3 h-3 mr-1" />Join Live
+                      </Button>
+                      <Button size="sm" variant="destructive" onClick={() => endWebinar(w.webinar_id)}
+                        className="h-7 px-2.5 text-[11px] rounded-lg" data-testid={`end-${w.webinar_id}`}>
+                        <Square className="w-3 h-3 mr-1" />{t("karauMeet.end") || "End"}
+                      </Button>
+                    </>
+                  )}
                     </Button>
                   )}
                   <Button size="sm" variant="outline" onClick={() => copyRegLink(w.webinar_id)}
