@@ -19,6 +19,7 @@ Build "MedMatch-AI KARAU" - a dual-purpose platform featuring:
   - Real-time stats, activity feed, upcoming meetings with countdowns, trending topics
   - Meeting Effectiveness Score (circular gauge, engagement level, tip)
   - Gamification (XP, levels, badges, streaks, rank titles)
+  - Collapsible Team Leaderboard (top 50 users, XP ranking, streak indicators)
   - Quick Analytics (on-time rate, AI notes usage, action items progress bars)
   - Collapsible sections, floating KARAU AI Avatar
   - Auto-refresh every 30s with visual spinner
@@ -29,6 +30,14 @@ Build "MedMatch-AI KARAU" - a dual-purpose platform featuring:
   - Screen share, breakout rooms, polls, whiteboard, live captions
   - Virtual backgrounds, recording with consent
   - AI assistant panel
+  - **In-Meeting File Sharing** (P2P via WebSocket, 10MB limit, link sharing)
+
+- **Webinar Mode** (WebEx-style, 1000+ attendees):
+  - Webinar management page with create/list/start/end
+  - Public registration page (no login required)
+  - Host controls: mute all, disable chat, manage audio
+  - Q&A system: submit, answer, upvote, dismiss questions
+  - Webinar analytics: registrations, attendance rate, engagement score
 
 - **Settings**: 6 tabs (Accessibility, Calendar, Security, SSO/SAML, Compliance, Webhooks)
 - **Recordings**: Local recording management with stats
@@ -40,7 +49,7 @@ Build "MedMatch-AI KARAU" - a dual-purpose platform featuring:
 - Admin panel, analytics, trust score system
 
 ### Internationalization (52 Languages)
-- 344 i18n keys (322 karauMeet + 22 candidateSearch)
+- 344+ i18n keys (karauMeet, candidateSearch, karau sections)
 - AI-translated via GPT-4o-mini to all 51 non-English locales
 - 50/50 locales at 80%+ translation coverage
 
@@ -52,6 +61,17 @@ Build "MedMatch-AI KARAU" - a dual-purpose platform featuring:
 - `GET /api/karau/analytics/effectiveness` - Meeting effectiveness score
 - `GET /api/karau/analytics/gamification` - XP, levels, badges, streaks
 - `GET /api/karau/analytics/participation` - Participation breakdown
+- `GET /api/karau/analytics/leaderboard` - Team leaderboard (top 50)
+- `GET /api/karau/webinar/list` - List user's webinars
+- `POST /api/karau/webinar/create` - Create new webinar
+- `GET /api/karau/webinar/{id}` - Get webinar details (public)
+- `POST /api/karau/webinar/{id}/register` - Register for webinar (public)
+- `POST /api/karau/webinar/{id}/start` - Start webinar (host only)
+- `POST /api/karau/webinar/{id}/end` - End webinar (host only)
+- `POST /api/karau/webinar/{id}/qa/ask` - Ask Q&A question
+- `POST /api/karau/webinar/{id}/qa/{qid}/answer` - Answer question
+- `GET /api/karau/webinar/{id}/qa` - Get all questions
+- `GET /api/karau/webinar/{id}/analytics` - Webinar analytics
 - `GET /api/karau/stats` - Dashboard statistics
 - `GET /api/karau/activity` - Live activity feed
 - `GET /api/karau/upcoming-meetings` - Scheduled meetings
@@ -61,12 +81,15 @@ Build "MedMatch-AI KARAU" - a dual-purpose platform featuring:
 
 ## P0/P1/P2 Backlog
 
+### P1 - Upcoming
+- Refinement of rnnoise-wasm noise cancellation
+- i18n propagation for new webinar/file-sharing keys to all 51 languages
+- UI polish & UX refinements
+
 ### P2 - Future
 - Payment gateway live keys (Stripe/PayPal)
-- Enhanced gamification leaderboard UI
 - Meeting recording cloud storage
-- File sharing panel in meetings
-- Webinar mode for large events
+- Enhanced webinar analytics dashboard
 
 ## Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
