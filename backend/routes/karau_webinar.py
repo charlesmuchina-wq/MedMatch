@@ -386,10 +386,24 @@ async def promote_participant(webinar_id: str, data: PromoteRequest, user=Depend
 
 @router.post("/{webinar_id}/roles/demote")
 async def demote_participant(webinar_id: str, data: PromoteRequest, user=Depends(get_current_user)):
-    """Demote a presenter/panelist back to attendee (host only). Revokes video/audio."""
-    webinar = await db.webinars.find_one({"webinar_id": webinar_id, "host_id": user["user_id"]})
+    """Demote a participant back to attendee (host or coordinator). Revokes elevated permissions."""
+    webinar = await db.webinars.find_one({"webinar_id": webinar_id})
     if not webinar:
+        raise HTTPException(404, "Webinar not found")
+
+    uid = user["user_id"]
+    is_host = uid == webinar.get("host_id")
+    is_coordinator = webinar.get("active_roles", {}).get(uid, {}).get("role") == "coordinator"
+    user_email = user.get("email", "")
+    is_assigned_coordinator = any(c["email"] == user_email for c in webinar.get("coordinators", []))
+
+    if not (is_host or is_coordinator or is_assigned_coordinator):
         raise HTTPException(403, "Not authorized")
+
+    # Coordinators cannot demote other coordinators
+    target_role = webinar.get("active_roles", {}).get(data.user_id, {}).get("role")
+    if target_role == "coordinator" and not is_host:
+        raise HTTPException(403, "Only host can demote coordinators")
 
     await db.webinars.update_one(
         {"webinar_id": webinar_id},
