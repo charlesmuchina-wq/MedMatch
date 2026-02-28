@@ -12,29 +12,23 @@ Build "AI KARAU," a sophisticated AI-powered video meeting portal, and MedMatch 
 ### AI KARAU Portal
 - Real-time video meetings with WebRTC
 - AI Meeting Notes with PDF export (reportlab)
-- **Full AI Meeting Assistant** - Real LLM integration (GPT-4o-mini) for Q&A, action items, summaries, smart suggestions
-- **Floating KARAU AI Avatar** - App-wide chatbot at bottom-right (React Portal)
-- **Real-time Dashboard Analytics** - Stats from MongoDB + Live Meeting Pulse activity feed
+- Full AI Meeting Assistant - Real LLM integration (GPT-4o-mini) for Q&A, action items, summaries
+- Floating KARAU AI Avatar - App-wide chatbot at bottom-right (React Portal)
+- Real-time Dashboard Analytics - Stats from MongoDB + Live Meeting Pulse
 - Real-time caption translation (16+ languages)
-- Industry-specific meeting templates (6 templates)
-- CRM webhook integration (generic webhooks)
+- Industry-specific meeting templates
+- CRM webhook integration
 - Collaborative whiteboard, polls, reactions
-- Noise cancellation hook
-- Meeting recordings
-- Semantic search
+- Noise cancellation hook, recordings, semantic search
 
-### Dashboard & UI
-- **Single-page horizontal layout** - No scrolling, bento grid
-- **Collapsible Recent Meetings** - Collapsed by default
-- **Purple/Blue/Green color scheme** - 60-30-10 rule with gradients
-- **Meeting Pulse** - Live activity feed with real-time events
-- **Real stats** - From MongoDB aggregation (meetings, hours, participants, AI insights)
-- Premium dark theme with custom font (IBM Plex Sans)
-- Responsive design (desktop + mobile)
-
-### MedMatch Toolkit
-- Talent CRM (Kanban), AI Job Description Generator, AI Candidate Scoring
-- Offer Management, Advanced Reporting (PDF/CSV export)
+### Dashboard & UI (Current)
+- Single-page horizontal layout, no scrolling required
+- **Collapsible Highlights** - Only AI insights & meeting starts, hidden by default
+- **Collapsible Recent Meetings** - Compact list, hidden by default
+- Sidebar: 6 nav items, w-52 expanded / w-14 collapsed, auto-collapse on mobile
+- Purple/Blue/Green color scheme (60-30-10 rule)
+- Real stats from MongoDB (meetings, hours, AI insights, participants)
+- Premium dark theme, IBM Plex Sans font
 
 ## Architecture
 - Frontend: React + Tailwind CSS + Shadcn/UI
@@ -42,29 +36,24 @@ Build "AI KARAU," a sophisticated AI-powered video meeting portal, and MedMatch 
 - AI: Emergent LLM Key (GPT-4o-mini via emergentintegrations)
 - Auth: JWT-based
 
-## Color Palette
-- 60% Blue: `#0a0e1a` (bg), `#3b82f6` (accents)
-- 30% Purple: `#6c3ce0` (secondary), `#8b5cf6` (bright)
-- 10% Green: `#10b981` (CTAs, success)
-
 ## Key API Endpoints
-- GET /api/karau-meet/stats - Real dashboard stats
+- GET /api/karau-meet/stats - Real dashboard stats from MongoDB
 - GET /api/karau-meet/activity-feed - Live activity feed
-- POST /api/karau-features/ai-assistant/ask - AI Q&A
+- POST /api/karau-features/ai-assistant/ask - AI Q&A with follow-up suggestions
 - POST /api/karau-features/ai-assistant/generate-summary/{id} - Meeting summary
 - GET /api/karau-features/ai-assistant/insights/{id} - Meeting insights
 
 ## P0 Backlog
-- **Trending Topics** - Extract and display trending discussion topics from recent meetings using AI
+- Trending Topics - AI-powered extraction from recent meetings
 
 ## P1 Backlog
-- Enhanced noise cancellation with rnnoise-wasm
+- Enhanced noise cancellation (rnnoise-wasm)
 - Semantic search improvements
 
 ## P2 Backlog
-- Payment gateway configuration (Stripe/PayPal - needs API keys)
+- Payment gateway config (Stripe/PayPal - needs API keys)
 - Production email OTP (Resend)
-- Mobile app optimization
+- Mobile optimization
 
 ## Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
