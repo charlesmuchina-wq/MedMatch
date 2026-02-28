@@ -300,7 +300,7 @@ export const CreateWebinarForm = ({ onCreated, onCancel }) => {
     max_attendees: 1000, registration_required: true,
     q_and_a_enabled: true, chat_enabled: true,
     attendee_video: false, attendee_audio: false,
-    panelist_emails: ''
+    panelist_emails: '', coordinator_emails: ''
   });
   const [creating, setCreating] = useState(false);
 
