@@ -1,71 +1,70 @@
-# MedMatch-AI KARAU Platform PRD
+# MedMatch-AI KARAU Platform - Product Requirements Document
 
 ## Original Problem Statement
-Build "MedMatch," an AI-powered Life Sciences & Engineering Talent Ecosystem, combined with "AI KARAU," a sophisticated video meeting portal.
+Build "AI KARAU," a sophisticated AI-powered video meeting portal, and MedMatch Job Toolkit for Life Sciences & Engineering talent.
 
 ## Core Products
-1. **AI KARAU Portal** - Video meeting solution with real-time transcription, AI summaries, collaborative whiteboard, polls, reactions, DEI analytics
-2. **MedMatch Job Toolkit** - Comprehensive hiring platform with Talent CRM, AI Job Description Generator, AI Candidate Scoring, Offer Management, Advanced Reporting
+1. **AI KARAU Meeting Portal** - Enterprise video conferencing with AI features
+2. **MedMatch Job Toolkit** - Hiring platform with Talent CRM, AI scoring, offer management
+
+## User Personas
+- Enterprise meeting hosts and participants
+- Life Sciences/Engineering recruiters and hiring managers
+- Admin/org managers
+
+## Implemented Features
+
+### AI KARAU Portal
+- Real-time video meetings with WebRTC
+- AI Meeting Notes with PDF export (reportlab)
+- **Full AI Meeting Assistant** - Real LLM integration (Emergent Key + GPT-4o-mini) for Q&A, action items, summaries, smart suggestions
+- **Floating KARAU AI Avatar** - App-wide chatbot at bottom-right (React Portal)
+- Real-time caption translation (16+ languages)
+- Industry-specific meeting templates (6 templates)
+- CRM webhook integration (generic webhooks)
+- Collaborative whiteboard, polls, reactions
+- Noise cancellation hook
+- Meeting recordings
+- Semantic search
+
+### Dashboard & UI
+- **Single-page horizontal layout** - No scrolling, bento grid
+- **Collapsible Recent Meetings** - Collapsed by default
+- **Purple/Blue/Green color scheme** - 60-30-10 rule with gradients
+- Premium dark theme with custom font (IBM Plex Sans)
+- Responsive design (desktop + mobile)
+
+### MedMatch Toolkit
+- Talent CRM (Kanban)
+- AI Job Description Generator
+- AI Candidate Scoring
+- Offer Management
+- Advanced Reporting (PDF/CSV export)
 
 ## Architecture
-- **Frontend**: React (port 3000) with Tailwind CSS + shadcn/ui
-- **Backend**: FastAPI (port 8001) with MongoDB
-- **Real-time**: WebSockets for whiteboard collaboration and meeting signaling
-- **Auth**: Cookie-based session management + KARAU separate auth
+- Frontend: React + Tailwind CSS + Shadcn/UI
+- Backend: FastAPI + MongoDB
+- AI: Emergent LLM Key (GPT-4o-mini via emergentintegrations)
+- Auth: JWT-based
 
-## What's Been Implemented
+## Color Palette (Current)
+- 60% Blue: `#0a0e1a` (bg), `#3b82f6` (accents)
+- 30% Purple: `#6c3ce0` (secondary), `#8b5cf6` (bright)
+- 10% Green: `#10b981` (CTAs, success)
 
-### AI KARAU Meeting Room - REDESIGNED (Feb 27, 2026)
-- **Minimal header**: Title + E2E badge + share/copy buttons only
-- **Full-width video area** as the central focus
-- **Single unified bottom control bar** (Teams-style): Audio | Video | Screen Share | Record | Hand Raise | Chat | People | AI Notes | More (...) | Leave
-- **Smooth sliding side panel** from right (flex-based, 300ms transition)
-- **"More" dropdown menu**: Polls, Captions, Virtual Background, Noise Cancellation, Whiteboard, Breakout Rooms, Add to Calendar, Settings
-- **Mobile bottom sheet** for panels on small screens
-- **Fixed pre-existing bug**: `effectiveUserId` ReferenceError in active speaker detection
-- **Fixed duplicate panel headers**: Hidden internal panel headers, moved Mute All to panel footer
+## P0 Backlog
+- None currently
 
-### Noise Cancellation Integration (Feb 28, 2026)
-- **useNoiseCancellation hook** wired into meeting room audio pipeline
-- **Auto-applies** on meeting start when noise_cancellation setting is enabled
-- **Toggle** available in More (...) menu with Volume2 icon showing On/Off state
-- **Filter chain**: High-pass (85Hz) -> Notch (60Hz hum) -> Low-pass (14kHz) -> DynamicsCompressor
-- **Peer connection update**: toggleing NC updates audio tracks in all peer connections
+## P1 Backlog
+- Dashboard stats from real API (currently hardcoded)
+- Enhanced noise cancellation with rnnoise-wasm
+- Semantic search improvements
 
-### Enhanced Semantic Search (Feb 28, 2026)
-- **Search history**: Persists in localStorage (max 8 entries), shows query, hit count, time ago
-- **Example queries**: 6 pre-defined queries for life sciences roles, clickable to search
-- **Enhanced result cards**: Ranking number, matched skills highlighted in turquoise, location display
-- **AI criteria display**: Shows extracted skills, experience level, domain badges from AI parsing
-- **Clear history** button to reset search history
+## P2 Backlog
+- Payment gateway configuration (Stripe/PayPal - needs API keys)
+- Production email OTP (Resend)
+- Mobile app optimization
 
-### Enhanced Meeting Reactions (Feb 28, 2026)
-- **Varied floating animations**: Each emoji gets random drift, rotation, size, and duration
-- **Burst particles**: Celebration (party) and fire emojis trigger 6 radial burst particles
-- **Improved reaction bar**: Rounded design with hover scale effects
-- **Button style**: Matches redesigned control bar aesthetic (rounded-xl)
-
-### Previously Completed Features
-- Talent CRM with Kanban view (react-beautiful-dnd)
-- Advanced Reporting with PDF/CSV export (reportlab)
-- Offer Management with approval workflow
-- Real-time Collaborative Whiteboard (WebSocket-based)
-- Enhanced Platform Settings (HRIS, Background Checks, Compliance)
-- One-Click Apply, Team Collaboration & Outreach
-- Mobile Responsiveness across entire platform
-- Onboarding Wizard
-
-## Test Credentials
+## Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
-- Test User: test@medmatch.io / TestPassword123!
-
-## Key Files
-- `/app/frontend/src/components/KarauMeet/MeetingRoom.jsx` - Meeting room with NC integration
-- `/app/frontend/src/components/KarauMeet/MeetingPanels.jsx` - Panel components
-- `/app/frontend/src/components/KarauMeet/useNoiseCancellation.js` - Web Audio API noise hook
-- `/app/frontend/src/components/KarauMeet/MeetingReactions.jsx` - Enhanced reactions with burst
-- `/app/frontend/src/pages/SemanticSearchPage.jsx` - Enhanced semantic search UI
-
-## Backlog
-- **P3**: Payment Gateway Configuration (Stripe/PayPal - needs API keys from user)
-- **P3**: Production email OTP (Resend - needs API key)
+- Test: test@medmatch.io / TestPassword123!
