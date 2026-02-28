@@ -37,12 +37,16 @@ const KarauMeetDashboard = ({ user }) => {
   });
   const [activities, setActivities] = useState([]);
   const [activitiesLoading, setActivitiesLoading] = useState(true);
+  const [upcoming, setUpcoming] = useState([]);
+  const [trendingTopics, setTrendingTopics] = useState([]);
 
   useEffect(() => {
     fetchMeetings();
     fetchTemplates();
     fetchStats();
     fetchActivityFeed();
+    fetchUpcoming();
+    fetchTrendingTopics();
   }, []);
 
   const fetchStats = async () => {
