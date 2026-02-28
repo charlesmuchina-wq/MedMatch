@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import {
   Video, Clock, Archive, X, Loader2, Cloud, HardDrive,
-  Download, CloudUpload, CheckCircle2
+  Download, CloudUpload, CheckCircle2, FileText, ChevronDown, ChevronUp
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
