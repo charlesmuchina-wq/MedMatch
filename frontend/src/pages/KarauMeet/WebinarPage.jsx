@@ -86,7 +86,7 @@ export const WebinarRegistrationPage = () => {
               </div>
               <h3 className="text-lg font-semibold text-white mb-1">{t("karauMeet.youreRegistered") || "You're Registered!"}</h3>
               <p className="text-sm text-karau-muted mb-4">{t("karauMeet.joinWhenLive") || "You'll be able to join when the webinar goes live."}</p>
-              <Button onClick={() => navigate(joinUrl)} className="bg-gradient-to-r from-purple-600 to-violet-600 rounded-xl" data-testid="join-webinar-btn">
+              <Button onClick={() => navigate(`/karau-meet/webinar/${webinarId}/live`)} className="bg-gradient-to-r from-purple-600 to-violet-600 rounded-xl" data-testid="join-webinar-btn">
                 <Video className="w-4 h-4 mr-2" />{t("karauMeet.joinWebinar") || "Join Webinar"}
               </Button>
             </div>
