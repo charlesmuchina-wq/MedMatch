@@ -561,6 +561,24 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
       }
       
       if (mediaResult.success && mediaResult.stream) {
+        // Apply noise cancellation if enabled
+        if (meetingSettings.noise_cancellation && mediaResult.stream.getAudioTracks().length > 0) {
+          try {
+            originalAudioTrackRef.current = mediaResult.stream.getAudioTracks()[0].clone();
+            const processedStream = await enableNoiseCancellation(mediaResult.stream);
+            if (processedStream && processedStream !== mediaResult.stream) {
+              const processedTrack = processedStream.getAudioTracks()[0];
+              const originalTrack = mediaResult.stream.getAudioTracks()[0];
+              if (processedTrack && originalTrack) {
+                mediaResult.stream.removeTrack(originalTrack);
+                mediaResult.stream.addTrack(processedTrack);
+              }
+            }
+            console.log('Noise cancellation applied');
+          } catch (e) {
+            console.warn('Noise cancellation setup failed:', e);
+          }
+        }
         // Store stream in ref as single source of truth
         localStreamRef.current = mediaResult.stream;
         setLocalStream(mediaResult.stream);
