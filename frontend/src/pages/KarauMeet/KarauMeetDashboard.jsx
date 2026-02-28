@@ -232,57 +232,59 @@ const KarauMeetDashboard = ({ user }) => {
         )}
       </div>
 
-      {/* Row 4: Activity Feed + Collapsible Meetings side by side */}
-      <div className="flex-1 min-h-0 grid grid-cols-12 gap-3 overflow-hidden">
-        {/* Live Activity Feed */}
-        <div className="col-span-12 md:col-span-7 flex flex-col min-h-0">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-            <span className="text-sm font-semibold text-white">Meeting Pulse</span>
-            <span className="text-[10px] text-slate-500">Live activity</span>
-          </div>
-          <div className="flex-1 min-h-0 rounded-xl border border-white/5 bg-karau-card/40 backdrop-blur-sm overflow-auto" data-testid="activity-feed">
-            {activitiesLoading ? (
-              <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-4 h-4 text-purple-400 animate-spin" />
-              </div>
-            ) : activities.length === 0 ? (
-              <div className="text-center py-8">
-                <Clock className="w-6 h-6 text-slate-600 mx-auto mb-2" />
-                <p className="text-slate-500 text-xs">No recent activity</p>
-              </div>
-            ) : (
-              <div className="divide-y divide-white/[0.03]">
-                {activities.map((a, idx) => (
-                  <div key={idx} className="flex items-start gap-3 px-3 py-2.5 hover:bg-white/[0.02] transition-colors" data-testid={`activity-${idx}`}>
-                    <div className={`mt-0.5 w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                      a.type === 'meeting_created' ? 'bg-blue-500/10' :
-                      a.type === 'meeting_started' ? 'bg-emerald-500/10' :
-                      a.type === 'meeting_ended' ? 'bg-slate-500/10' :
-                      a.type === 'participant_joined' ? 'bg-purple-500/10' :
-                      a.type === 'ai_insight' ? 'bg-violet-500/10' : 'bg-slate-500/10'
-                    }`}>
-                      {a.icon === 'video' && <Video className="w-3 h-3 text-blue-400" />}
-                      {a.icon === 'play' && <Video className="w-3 h-3 text-emerald-400" />}
-                      {a.icon === 'check' && <Clock className="w-3 h-3 text-slate-400" />}
-                      {a.icon === 'user' && <Users className="w-3 h-3 text-purple-400" />}
-                      {a.icon === 'sparkles' && <Sparkles className="w-3 h-3 text-violet-400" />}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-xs text-slate-300 truncate">{a.text}</p>
-                      <p className="text-[10px] text-slate-600 mt-0.5">
-                        {a.timestamp ? new Date(a.timestamp).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : ''}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+      {/* Row 4: Collapsible Sections */}
+      <div className="flex-1 min-h-0 space-y-2 overflow-auto">
+        {/* Highlights & Action Items - Collapsible */}
+        <div>
+          <button
+            onClick={() => setShowPulse(!showPulse)}
+            className="flex items-center gap-2 group w-full text-left py-1"
+            data-testid="toggle-pulse"
+          >
+            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
+            <span className="text-sm font-semibold text-white">Highlights</span>
+            {importantActivities.length > 0 && (
+              <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[10px]">{importantActivities.length}</Badge>
             )}
-          </div>
+            {showPulse ? (
+              <ChevronUp className="w-3 h-3 text-slate-500 group-hover:text-white transition-colors" />
+            ) : (
+              <ChevronDown className="w-3 h-3 text-slate-500 group-hover:text-white transition-colors" />
+            )}
+          </button>
+          {showPulse && (
+            <div className="rounded-xl border border-white/5 bg-karau-card/40 overflow-auto max-h-48 mt-1" data-testid="activity-feed">
+              {activitiesLoading ? (
+                <div className="flex items-center justify-center py-4">
+                  <Loader2 className="w-4 h-4 text-purple-400 animate-spin" />
+                </div>
+              ) : importantActivities.length === 0 ? (
+                <div className="text-center py-4">
+                  <p className="text-slate-600 text-xs">No highlights yet</p>
+                </div>
+              ) : (
+                <div className="divide-y divide-white/[0.03]">
+                  {importantActivities.map((a, idx) => (
+                    <div key={idx} className="flex items-center gap-2.5 px-3 py-2 hover:bg-white/[0.02] transition-colors" data-testid={`activity-${idx}`}>
+                      <div className={`w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 ${
+                        a.type === 'ai_insight' ? 'bg-violet-500/10' : 'bg-emerald-500/10'
+                      }`}>
+                        {a.icon === 'sparkles' ? <Sparkles className="w-2.5 h-2.5 text-violet-400" /> : <Video className="w-2.5 h-2.5 text-emerald-400" />}
+                      </div>
+                      <p className="text-[11px] text-slate-300 truncate flex-1">{a.text}</p>
+                      <span className="text-[9px] text-slate-600 flex-shrink-0">
+                        {a.timestamp ? new Date(a.timestamp).toLocaleString([], { month: 'short', day: 'numeric' }) : ''}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
-        {/* Collapsible Recent Meetings */}
-        <div className="col-span-12 md:col-span-5 flex flex-col min-h-0">
+        {/* Recent Meetings - Collapsible */}
+        <div>
         <button
           onClick={() => setShowMeetings(!showMeetings)}
           className="flex items-center gap-2 mb-2 group w-full text-left"
