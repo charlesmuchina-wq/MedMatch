@@ -2,16 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Bot, Send, Loader2, X, Sparkles, ChevronRight, Minimize2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-const QUICK_ACTIONS = [
-  { label: 'Summarize last meeting', question: 'Summarize the key points from my last meeting' },
-  { label: 'List my action items', question: 'What are my pending action items from recent meetings?' },
-  { label: 'Meeting best practices', question: 'What are best practices for running effective meetings?' },
-];
-
 const KarauAIAvatar = ({ meetingId }) => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
