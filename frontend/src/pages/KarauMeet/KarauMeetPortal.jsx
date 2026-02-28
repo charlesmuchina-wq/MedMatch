@@ -401,6 +401,18 @@ const KarauMeetPortal = () => {
     );
   }
 
+  // Full-screen webinar live room (authenticated, no sidebar)
+  if (isWebinarLiveRoom) {
+    return (
+      <div className="min-h-screen bg-karau-bg">
+        <Toaster position="top-right" theme="dark" />
+        <Routes>
+          <Route path="webinar/:webinarId/live" element={<WebinarLiveRoom />} />
+        </Routes>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-karau-bg flex">
       <Toaster position="top-right" theme="dark" />
