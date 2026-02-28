@@ -22,6 +22,7 @@ const WebinarManagementPage = () => {
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
   const [copiedId, setCopiedId] = useState(null);
+  const [analyticsWebinarId, setAnalyticsWebinarId] = useState(null);
 
   useEffect(() => { fetchWebinars(); }, []);
 
