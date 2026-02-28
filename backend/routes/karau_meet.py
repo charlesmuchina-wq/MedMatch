@@ -390,7 +390,6 @@ async def export_meeting_summary_pdf(meeting_id: str, user: dict = Depends(requi
 
     # Colors
     turquoise = HexColor("#2DD4BF")
-    dark_bg = HexColor("#1E293B")
     text_dark = HexColor("#1E293B")
     text_gray = HexColor("#64748B")
     accent = HexColor(org_branding.get("primary_color", "#2DD4BF")) if org_branding else turquoise
