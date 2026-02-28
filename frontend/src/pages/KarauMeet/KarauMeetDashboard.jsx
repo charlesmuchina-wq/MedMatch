@@ -289,6 +289,19 @@ const KarauMeetDashboard = ({ user }) => {
               <Label className="text-slate-300 text-sm">{t("karauMeet.meetingTitle")}</Label>
               <Input placeholder={t("karauMeet.meetingTitlePlaceholder")} value={newMeetingTitle} onChange={(e) => setNewMeetingTitle(e.target.value)} className="bg-karau-bg/60 border-white/10 text-white mt-2 rounded-xl focus:border-teal-500/40" data-testid="input-meeting-title" />
             </div>
+            {/* Industry Templates */}
+            <div>
+              <Label className="text-slate-300 text-sm mb-2 block">Meeting Template (Optional)</Label>
+              <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto">
+                {templates.map(tmpl => (
+                  <button key={tmpl.template_id} onClick={() => setSelectedTemplate(selectedTemplate?.template_id === tmpl.template_id ? null : tmpl)}
+                    className={`text-left p-2.5 rounded-xl border transition-all text-xs ${selectedTemplate?.template_id === tmpl.template_id ? 'border-teal-500/50 bg-teal-500/10 text-teal-300' : 'border-white/5 bg-karau-bg/40 text-slate-400 hover:border-white/10'}`} data-testid={`template-${tmpl.template_id}`}>
+                    <span className="font-medium block text-slate-200 text-xs">{tmpl.name}</span>
+                    <span className="text-[10px] text-slate-500">{tmpl.industry}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
             <div className="flex items-center justify-between p-3 bg-karau-bg/40 rounded-xl">
               <div>
                 <Label className="text-slate-300 text-sm">{t("karauMeet.enableAINotes")}</Label>
