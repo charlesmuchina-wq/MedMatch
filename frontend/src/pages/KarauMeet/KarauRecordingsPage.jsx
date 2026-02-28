@@ -90,6 +90,25 @@ const KarauRecordingsPage = () => {
     } catch { toast.error('Failed to delete'); }
   };
 
+  const toggleTranscript = async (recordingId) => {
+    if (expandedTranscript === recordingId) {
+      setExpandedTranscript(null);
+      return;
+    }
+    setExpandedTranscript(recordingId);
+    if (transcriptData[recordingId]) return;
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`${API}/api/karau-meet/recordings/transcript/${recordingId}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setTranscriptData(prev => ({ ...prev, [recordingId]: data }));
+      }
+    } catch {}
+  };
+
   if (loading) {
     return (
       <div className="p-6 flex items-center justify-center">
