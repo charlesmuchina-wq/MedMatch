@@ -179,8 +179,6 @@ const WebinarManagementPage = () => {
                       </Button>
                     </>
                   )}
-                    </Button>
-                  )}
                   <Button size="sm" variant="outline" onClick={() => copyRegLink(w.webinar_id)}
                     className="h-7 px-2.5 text-[11px] border-white/10 text-slate-300 hover:bg-white/5 rounded-lg" data-testid={`copy-link-${w.webinar_id}`}>
                     {copiedId === w.webinar_id ? <Check className="w-3 h-3 mr-1 text-emerald-400" /> : <Copy className="w-3 h-3 mr-1" />}
