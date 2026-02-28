@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import {
   Radio, Plus, Users, Calendar, Clock, BarChart3,
-  Loader2, ExternalLink, Copy, Check, Trash2, Play, Square
+  Loader2, ExternalLink, Copy, Check, Trash2, Play, Square, Video
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
