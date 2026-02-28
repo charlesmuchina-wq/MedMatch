@@ -1,7 +1,7 @@
 # MedMatch-AI KARAU Platform - Product Requirements Document
 
 ## Original Problem Statement
-Build "MedMatch-AI KARAU" - a dual-purpose platform featuring:
+Build "MedMatch-AI KARAU" - a dual-purpose platform:
 1. **AI KARAU** - Premium video meeting portal with AI-powered features
 2. **MedMatch Job Toolkit** - AI-powered life sciences talent ecosystem
 
@@ -9,56 +9,58 @@ Build "MedMatch-AI KARAU" - a dual-purpose platform featuring:
 - **Frontend**: React + Tailwind CSS + Shadcn UI + react-i18next (52 locales)
 - **Backend**: FastAPI + MongoDB + Motor (async)
 - **AI**: Emergent LLM Key for assistant, summaries, translation
-- **Theme**: Purple/violet/emerald karau palette
+- **Theme**: Purple/violet/emerald karau dark palette
 - **WebRTC**: Full signaling server + peer connection management
 - **Object Storage**: Emergent Object Storage for cloud recordings
 
 ## What's Implemented
 
 ### AI KARAU Portal
-- **Dashboard**: Single-page horizontal layout with real-time stats, activity feed, upcoming meetings, trending topics, Meeting Effectiveness Score, Gamification (XP, levels, badges, streaks), collapsible Team Leaderboard (top 50), Quick Analytics, auto-refresh every 30s
+- **Dashboard**: Data-driven with real-time stats, gamification (XP/levels/badges/streaks), collapsible Team Leaderboard (top 50), Meeting Effectiveness Score, Quick Analytics, auto-refresh
 
-- **Meeting Room**: Full-featured video conferencing with WebRTC, dual-engine noise cancellation (RNNoise WASM + Web Audio API), screen share, breakout rooms, polls, whiteboard, live captions, virtual backgrounds, recording with cloud auto-upload, AI assistant, **In-Meeting File Sharing** (P2P via WebSocket, 10MB limit)
+- **Meeting Room**: WebRTC video conferencing, dual noise cancellation (RNNoise WASM), screen share, breakout rooms, polls, whiteboard, live captions, virtual backgrounds, AI assistant, In-Meeting File Sharing (P2P, 10MB), cloud recording auto-upload
 
-- **Cloud Recording Storage**: Auto-upload recordings to Emergent Object Storage after meeting ends. Download from cloud. Stats showing cloud vs local counts, total duration, storage used. Graceful fallback to local if cloud fails.
+- **Cloud Recording Storage**: Auto-upload to Emergent Object Storage. Download from cloud. Stats (cloud vs local, duration, storage). Local fallback.
 
-- **Webinar Mode** (WebEx-style, 1000+ attendees): Management page with create/list/start/end. Public registration (no login). Host controls. Q&A system. **Enhanced Analytics Dashboard** with: Engagement score (0-100), Registration-to-Attendance funnel (registered/attended/missed with drop-off rate), Q&A stats (total/pending/answered/dismissed/anonymous/top questions by upvotes), Organization breakdown (top 10), Registration timeline bar chart.
+- **Webinar Mode (WebEx-style, 1000+ attendees)**:
+  - **Multi-Role System**: Host (full control) > Presenter (video/audio/screen share) > Panelist (video/audio) > Attendee (view-only with hand raise)
+  - **Live Webinar Room**: Full-screen layout, video stage, bottom controls, side panels (Q&A, Participants, Settings)
+  - **Host Controls**: Start/End webinar, Practice session (blocks attendees), Mute all, Selective unmute, Enable/disable chat, Promote/Demote participants
+  - **Hand Raise**: Attendees request to speak, host sees raised hands and can promote
+  - **Q&A System**: Submit, answer, upvote, dismiss, anonymous questions
+  - **Enhanced Analytics**: Engagement score (0-100), Registration-Attendance funnel (registered/attended/missed/drop-off), Q&A stats (total/pending/answered/dismissed/anonymous/top questions), Organization breakdown (top 10), Registration timeline
+  - **Management Page**: Create/list/start/end webinars, copy registration links, analytics dialog per webinar
+  - **Public Registration**: No login required for registration page
 
-- **Settings**: 6 tabs (Accessibility, Calendar, Security, SSO/SAML, Compliance, Webhooks)
-- **Recordings**: Cloud/Local distinction, stat cards, download cloud recordings
-- **Guest Join**: 3-step OTP verification
+- **Settings**: 6 tabs, **Recordings**: Cloud/Local with stats, **Guest Join**: 3-step OTP
 
-### MedMatch Job Toolkit
-- Semantic search, resume parser/builder, AI job matching, recruiter network, admin panel, analytics, trust score
-
-### Internationalization (52 Languages)
-- 384+ karauMeet i18n keys, all propagated to 51 locales via AI translation
-- Cloud recording & webinar analytics keys translated (1443 translations in latest batch)
+### Internationalization: 384+ keys across 52 locales (AI-translated)
 
 ## Key API Endpoints
-- `GET /api/karau-meet/recordings/` - List recordings (cloud + local)
-- `GET /api/karau-meet/recordings/stats` - Recording statistics
-- `POST /api/karau-meet/recordings/upload` - Upload recording to cloud (multipart)
+### Webinar Role Management
+- `GET /api/karau/webinar/{id}/room-info` - User role & permissions for live room
+- `POST /api/karau/webinar/{id}/roles/promote` - Promote to presenter/panelist
+- `POST /api/karau/webinar/{id}/roles/demote` - Demote to attendee
+- `GET /api/karau/webinar/{id}/roles` - All active roles
+- `POST /api/karau/webinar/{id}/hand-raise` / `hand-lower` - Hand raise toggle
+- `GET /api/karau/webinar/{id}/hand-raises` - List raised hands
+- `POST /api/karau/webinar/{id}/practice/start` / `end` - Practice session
+- `POST /api/karau/webinar/{id}/controls/unmute-user` - Selective unmute
+- `POST /api/karau/webinar/{id}/controls/mute-all` - Mute all
+### Cloud Recordings
+- `POST /api/karau-meet/recordings/upload` - Upload to cloud (multipart)
 - `GET /api/karau-meet/recordings/download/{id}` - Download cloud recording
-- `DELETE /api/karau-meet/recordings/{id}` - Soft-delete recording
-- `GET /api/karau/webinar/{id}/analytics` - Enhanced webinar analytics (funnel, Q&A, engagement, org breakdown, timeline)
-- `GET /api/karau/webinar/list` - List webinars
-- `POST /api/karau/webinar/create` - Create webinar
-- `POST /api/karau/webinar/{id}/start` - Start webinar
-- `POST /api/karau/webinar/{id}/end` - End webinar
-- `GET /api/karau/analytics/leaderboard` - Team leaderboard
-- `GET /api/karau/analytics/gamification` - XP, levels, badges
+- `GET /api/karau-meet/recordings/stats` - Recording statistics
 
 ## Backlog
-
 ### P1 - Upcoming
-- Refinement of rnnoise-wasm noise cancellation
+- rnnoise-wasm noise cancellation refinement
 - UI polish & UX refinements
 
 ### P2 - Future
 - Payment gateway live keys (Stripe/PayPal)
-- Additional AI analytics enhancements
 - Meeting recording transcription
+- Real-time WebSocket signaling for webinar role changes
 
 ## Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
