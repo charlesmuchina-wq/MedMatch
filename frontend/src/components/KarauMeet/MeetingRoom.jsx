@@ -1941,6 +1941,10 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 <button onClick={() => { setShowBgSelector(true); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
                   <ImageIcon className="w-4 h-4 flex-shrink-0" />Virtual Background
                 </button>
+                <button onClick={() => { toggleNoiseCancellation(); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-testid="nc-toggle-btn">
+                  <Volume2 className={`w-4 h-4 flex-shrink-0 ${isNCActive ? 'text-turquoise' : ''}`} />
+                  {isNCActive ? 'Noise Cancel On' : 'Noise Cancel Off'}
+                </button>
                 <button onClick={() => { setShowWhiteboard(true); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-testid="whiteboard-btn">
                   <PenTool className="w-4 h-4 flex-shrink-0" />Whiteboard
                 </button>
