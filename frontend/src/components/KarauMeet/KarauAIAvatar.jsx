@@ -77,13 +77,13 @@ const KarauAIAvatar = ({ meetingId }) => {
     }
   };
 
-  return (
+  return createPortal(
     <>
       {/* Floating Avatar Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-blue-600 via-purple-600 to-violet-600 shadow-xl shadow-purple-500/30 hover:shadow-purple-500/50 flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+          className="fixed bottom-5 right-5 z-[9999] w-14 h-14 rounded-full bg-gradient-to-br from-blue-600 via-purple-600 to-violet-600 shadow-xl shadow-purple-500/30 hover:shadow-purple-500/50 flex items-center justify-center transition-all duration-300 hover:scale-110 group"
           data-testid="karau-avatar-btn"
           style={{ animation: 'avatarPulse 3s ease-in-out infinite' }}
         >
