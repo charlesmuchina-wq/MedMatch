@@ -283,6 +283,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   // Use prop if provided, otherwise try params (for backward compatibility)
   const meetingId = meetingIdProp || params.meetingId;
   const navigate = useNavigate();
+  const { t } = useTranslation();
   
   // State - Decoupled media and API states
   const [meeting, setMeeting] = useState(null);
