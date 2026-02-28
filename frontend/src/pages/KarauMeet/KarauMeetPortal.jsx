@@ -51,71 +51,68 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
   ];
 
   return (
-    <div className={`h-screen bg-slate-900 border-r border-slate-700 flex flex-col transition-all duration-300 ${
+    <div className={`h-screen bg-karau-bg border-r border-white/5 flex flex-col transition-all duration-300 ${
       isCollapsed ? 'w-16' : 'w-64'
-    }`}>
+    }`} style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
       {/* Header */}
-      <div className="h-16 flex items-center justify-between px-4 border-b border-slate-700">
+      <div className="h-16 flex items-center justify-between px-3 border-b border-white/5">
         {!isCollapsed && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <img 
               src="https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg"
               alt="AI KARAU"
-              className="w-8 h-8 rounded-lg object-cover"
+              className="w-8 h-8 rounded-xl object-cover ring-1 ring-white/10"
             />
-            <span className="font-semibold bg-gradient-to-r from-teal-400 to-amber-400 bg-clip-text text-transparent">AI KARAU</span>
+            <span className="font-bold text-sm bg-gradient-to-r from-teal-400 via-emerald-400 to-amber-400 bg-clip-text text-transparent">AI KARAU</span>
           </div>
         )}
         {isCollapsed && (
           <img 
             src="https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg"
             alt="AI KARAU"
-            className="w-8 h-8 rounded-lg object-cover mx-auto"
+            className="w-8 h-8 rounded-xl object-cover ring-1 ring-white/10 mx-auto"
           />
         )}
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className="text-slate-400 hover:text-white"
-          data-testid="sidebar-toggle"
-        >
+        <Button variant="ghost" size="sm" onClick={() => setIsCollapsed(!isCollapsed)} className="text-slate-500 hover:text-white hover:bg-white/5 rounded-lg h-8 w-8 p-0" data-testid="sidebar-toggle">
           {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
         </Button>
       </div>
       
       {/* Navigation */}
       <ScrollArea className="flex-1 py-4">
-        <nav className="space-y-1 px-2">
-          {navItems.map((item) => (
-            <button
-              key={item.path}
-              onClick={() => navigate(item.path)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
-                currentPath === item.path
-                  ? 'bg-turquoise/20 text-turquoise'
-                  : 'text-slate-400 hover:bg-slate-800 hover:text-white'
-              }`}
-              data-testid={`nav-${item.labelKey}`}
-            >
-              <item.icon className="w-5 h-5 flex-shrink-0" />
-              {!isCollapsed && <span className="text-sm">{t(item.labelKey)}</span>}
-            </button>
-          ))}
+        <nav className="space-y-0.5 px-2">
+          {navItems.map((item) => {
+            const isActive = currentPath === item.path;
+            return (
+              <button
+                key={item.path}
+                onClick={() => navigate(item.path)}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 ${
+                  isActive
+                    ? 'bg-teal-500/10 text-teal-400 border-l-2 border-teal-400'
+                    : 'text-slate-500 hover:bg-white/[0.03] hover:text-slate-300'
+                }`}
+                data-testid={`nav-${item.labelKey}`}
+              >
+                <item.icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? 'text-teal-400' : ''}`} />
+                {!isCollapsed && <span className="text-sm font-medium">{t(item.labelKey)}</span>}
+              </button>
+            );
+          })}
         </nav>
       </ScrollArea>
       
       {/* Language Selector */}
-      <div className="px-3 py-2 border-t border-slate-700">
+      <div className="px-3 py-2 border-t border-white/5">
         <GlobalLanguageSelector compact={isCollapsed} />
       </div>
 
       {/* User section */}
-      <div className="p-4 border-t border-slate-700">
+      <div className="p-3 border-t border-white/5">
         {!isCollapsed && (
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-full bg-turquoise/20 flex items-center justify-center">
-              <span className="text-turquoise font-medium">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-500/20 to-emerald-500/10 border border-teal-500/20 flex items-center justify-center">
+              <span className="text-teal-400 font-semibold text-sm">
                 {user?.name?.charAt(0) || user?.email?.charAt(0) || '?'}
               </span>
             </div>
