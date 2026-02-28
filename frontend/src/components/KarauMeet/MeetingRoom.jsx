@@ -23,6 +23,7 @@ import { PollsPanel } from './PollsPanel';
 import MeetingWhiteboard from './MeetingWhiteboard';
 import AIAssistantPanel from './AIAssistantPanel';
 import { useNoiseCancellation } from './useNoiseCancellation';
+import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
