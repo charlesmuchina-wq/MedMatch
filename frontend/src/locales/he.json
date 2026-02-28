@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "וובינרים",
+    "webinarDesc": "הנחה אירועים בקנה מידה גדול עם 1000+ משתתפים, Q&A ושליטת קהל",
+    "newWebinar": "וובינר חדש",
+    "noWebinars": "עדיין אין וובינרים",
+    "createFirstWebinar": "צור את הוובינר הראשון שלך להנחת אירועים בקנה מידה גדול",
+    "end": "סיים",
+    "uploadingToCloud": "מעלה הקלטה לענן...",
+    "recordingSavedCloud": "ההקלטה נשמרה בענן",
+    "downloadStarted": "ההורדה החלה",
+    "cloudRecordings": "ענן",
+    "engagementScore": "ציון מעורבות",
+    "peakAttendees": "משתתפים בשיא",
+    "attendanceFunnel": "מנוף נוכחות",
+    "attendedLabel": "השתתפו",
+    "missedLabel": "פספסו",
+    "qaStatistics": "סטטיסטיקות Q&A",
+    "totalQuestions": "מספר שאלות כולל",
+    "answerRate": "שיעור תשובות",
+    "topQuestions": "שאלות מובילות",
+    "orgBreakdown": "פירוק ארגוני",
+    "registrationTimeline": "ציר זמן הרשמה",
+    "analyticsNotAvailable": "סטטיסטיקות אינן זמינות"
   },
   "location": {
     "selectLocationPlaceholder": "בחר את המיקום שלך..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "הצג את כל הפגישות הקודמות והקרובות שלך",
     "scheduleDesc": "תזמן ונהל את הפגישות שלך",
     "notesDesc": "סיכומים ותמלולים שנוצרו על ידי בינה מלאכותית",
-    "analyticsDesc": "סטטיסטיקות ותובנות על פגישות"
+    "analyticsDesc": "סטטיסטיקות ותובנות על פגישות",
+    "webinars": "וובינרים"
   },
   "trust": {
     "trustScore": "ציון אמינות",

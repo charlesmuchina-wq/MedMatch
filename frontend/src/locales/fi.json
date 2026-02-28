@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinaarit",
+    "webinarDesc": "Järjestä suuria tapahtumia, joissa on yli 1000 osallistujaa, Q&A ja yleisön valvontatyökalut",
+    "newWebinar": "Uusi webinaari",
+    "noWebinars": "Ei webinaareja vielä",
+    "createFirstWebinar": "Luo ensimmäinen webinaarisi suuria tapahtumia varten",
+    "end": "Lopeta",
+    "uploadingToCloud": "Tallennuksen lataaminen pilveen...",
+    "recordingSavedCloud": "Tallennus tallennettu pilveen",
+    "downloadStarted": "Lataus aloitettu",
+    "cloudRecordings": "Pilvi",
+    "engagementScore": "Osallistumisaste",
+    "peakAttendees": "Huippuosallistujat",
+    "attendanceFunnel": "Osallistujahaarukka",
+    "attendedLabel": "Osallistuneet",
+    "missedLabel": "Jätetyt",
+    "qaStatistics": "Q&A Tilastot",
+    "totalQuestions": "Yhteensä kysymyksiä",
+    "answerRate": "Vastausprosentti",
+    "topQuestions": "Tärkeimmät kysymykset",
+    "orgBreakdown": "Organisaatiojakautuma",
+    "registrationTimeline": "Rekisteröintiaikajana",
+    "analyticsNotAvailable": "Analytiikka ei saatavilla"
   },
   "location": {
     "selectLocationPlaceholder": "Valitse sijaintisi..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "Näytä kaikki menneet ja tulevat kokouksesi",
     "scheduleDesc": "Aikatauluta ja hallinnoi kokouksiasi",
     "notesDesc": "Tekoälyn luomat yhteenvedot ja litteroinnit",
-    "analyticsDesc": "Kokoustilastot ja oivallukset"
+    "analyticsDesc": "Kokoustilastot ja oivallukset",
+    "webinars": "Webinaarit"
   },
   "trust": {
     "trustScore": "Luottamuspisteet",

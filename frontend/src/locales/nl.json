@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinars",
+    "webinarDesc": "Host grootschalige evenementen met 1000+ deelnemers, Q&A en publieksbeheer",
+    "newWebinar": "Nieuw Webinar",
+    "noWebinars": "Nog geen webinars",
+    "createFirstWebinar": "Maak je eerste webinar om grootschalige evenementen te hosten",
+    "end": "Einde",
+    "uploadingToCloud": "Opname wordt geüpload naar de cloud...",
+    "recordingSavedCloud": "Opname opgeslagen in de cloud",
+    "downloadStarted": "Download gestart",
+    "cloudRecordings": "Cloud",
+    "engagementScore": "Betrokkenheidsscore",
+    "peakAttendees": "Piekdeelnemers",
+    "attendanceFunnel": "Deelnemingsfunnel",
+    "attendedLabel": "Deelgenomen",
+    "missedLabel": "Gemist",
+    "qaStatistics": "Q&A Statistieken",
+    "totalQuestions": "Totaal Vragen",
+    "answerRate": "Antwoordsnelheid",
+    "topQuestions": "Top Vragen",
+    "orgBreakdown": "Organisatieverdeling",
+    "registrationTimeline": "Registratietijdlijn",
+    "analyticsNotAvailable": "Analytics niet beschikbaar"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "bijv. Production ATS-webhook",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Bekijk al je eerdere en komende vergaderingen",
     "scheduleDesc": "Plan en beheer je vergaderingen",
     "notesDesc": "AI-gegenereerde samenvattingen en transcripties",
-    "analyticsDesc": "Vergaderstatistieken en inzichten"
+    "analyticsDesc": "Vergaderstatistieken en inzichten",
+    "webinars": "Webinars"
   },
   "trust": {
     "trustScore": "Vertrouwensscore",

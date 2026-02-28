@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinarer",
+    "webinarDesc": "Vær vært for store arrangementer med 1000+ deltagere, Q&A og publikums kontrol",
+    "newWebinar": "Nyt Webinar",
+    "noWebinars": "Ingen webinarer endnu",
+    "createFirstWebinar": "Opret dit første webinar for at være vært for store arrangementer",
+    "end": "Afslut",
+    "uploadingToCloud": "Uploader optagelse til sky...",
+    "recordingSavedCloud": "Optagelse gemt i skyen",
+    "downloadStarted": "Download startet",
+    "cloudRecordings": "Sky",
+    "engagementScore": "Engagement Score",
+    "peakAttendees": "Maksimale deltagere",
+    "attendanceFunnel": "Deltagertragt",
+    "attendedLabel": "Deltaget",
+    "missedLabel": "Gået glip af",
+    "qaStatistics": "Q&A Statistikker",
+    "totalQuestions": "Samlede spørgsmål",
+    "answerRate": "Svarrate",
+    "topQuestions": "Top spørgsmål",
+    "orgBreakdown": "Organisationsopdeling",
+    "registrationTimeline": "Tilmeldings tidslinje",
+    "analyticsNotAvailable": "Analyser ikke tilgængelige"
   },
   "location": {
     "selectLocationPlaceholder": "Vælg din lokation..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "Se alle dine tidligere og kommende møder",
     "scheduleDesc": "Planlæg og administrer dine møder",
     "notesDesc": "AI-genererede resuméer og transskriptioner",
-    "analyticsDesc": "Mødestatistik og indsigt"
+    "analyticsDesc": "Mødestatistik og indsigt",
+    "webinars": "Webinarer"
   },
   "trust": {
     "trustScore": "Tillidsscore",

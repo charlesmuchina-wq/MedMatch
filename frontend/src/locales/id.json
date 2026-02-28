@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinar",
+    "webinarDesc": "Akomodasi acara berskala besar dengan 1000+ peserta, Q&A, dan kontrol audiens",
+    "newWebinar": "Webinar Baru",
+    "noWebinars": "Belum ada webinar",
+    "createFirstWebinar": "Buat webinar pertama Anda untuk mengadakan acara berskala besar",
+    "end": "Akhiri",
+    "uploadingToCloud": "Mengunggah rekaman ke cloud...",
+    "recordingSavedCloud": "Rekaman disimpan di cloud",
+    "downloadStarted": "Unduhan dimulai",
+    "cloudRecordings": "Cloud",
+    "engagementScore": "Skor Keterlibatan",
+    "peakAttendees": "Peserta Puncak",
+    "attendanceFunnel": "Corong Kehadiran",
+    "attendedLabel": "Hadir",
+    "missedLabel": "Tidak Hadir",
+    "qaStatistics": "Statistik Q&A",
+    "totalQuestions": "Total Pertanyaan",
+    "answerRate": "Tingkat Jawaban",
+    "topQuestions": "Pertanyaan Teratas",
+    "orgBreakdown": "Rincian Organisasi",
+    "registrationTimeline": "Garis Waktu Pendaftaran",
+    "analyticsNotAvailable": "Analitik tidak tersedia"
   },
   "location": {
     "selectLocationPlaceholder": "Pilih lokasi Anda..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "Lihat semua rapat Anda yang lalu dan mendatang",
     "scheduleDesc": "Jadwalkan dan kelola rapat Anda",
     "notesDesc": "Ringkasan dan transkripsi yang dibuat AI",
-    "analyticsDesc": "Statistik dan wawasan rapat"
+    "analyticsDesc": "Statistik dan wawasan rapat",
+    "webinars": "Webinar"
   },
   "trust": {
     "trustScore": "Skor Kepercayaan",

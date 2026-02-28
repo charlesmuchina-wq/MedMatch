@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinars",
+    "webinarDesc": "Gudanar da manyan taruka tare da mabiya fiye da 1000, Q&A, da sarrafa masu sauraro",
+    "newWebinar": "Sabon Webinar",
+    "noWebinars": "Babu webinars har yanzu",
+    "createFirstWebinar": "Samar da webinar naka na farko don gudanar da manyan taruka",
+    "end": "ƙarshe",
+    "uploadingToCloud": "Ana ɗora rikodin zuwa gajimare...",
+    "recordingSavedCloud": "An adana rikodin zuwa gajimare",
+    "downloadStarted": "An fara saukarwa",
+    "cloudRecordings": "Gajimare",
+    "engagementScore": "Alamar Mu'amala",
+    "peakAttendees": "Mafi yawan Mabiya",
+    "attendanceFunnel": "Tashar Halarta",
+    "attendedLabel": "An Halarta",
+    "missedLabel": "An Barta",
+    "qaStatistics": "Kididdigar Q&A",
+    "totalQuestions": "Jimlar Tambayoyi",
+    "answerRate": "Kudin Amsa",
+    "topQuestions": "Mafi Kyawun Tambayoyi",
+    "orgBreakdown": "Rarraba Kungiya",
+    "registrationTimeline": "Lokacin Rajista",
+    "analyticsNotAvailable": "Babu Nazari"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "misali, webhook na ATS na Production",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Duba duk tarurrukanka na baya da masu zuwa",
     "scheduleDesc": "Jadawalta kuma sarrafa tarurrukanka",
     "notesDesc": "Takaitawa da rubutattun bayanai da AI ya samar",
-    "analyticsDesc": "Kididdiga da fahimta na taro"
+    "analyticsDesc": "Kididdiga da fahimta na taro",
+    "webinars": "Webinars"
   },
   "trust": {
     "trustScore": "Makin Amincewa",

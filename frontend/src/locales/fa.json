@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "وبینارها",
+    "webinarDesc": "رویدادهای بزرگ با ۱۰۰۰+ شرکت‌کننده، پرسش و پاسخ و کنترل‌های مخاطب را میزبانی کنید",
+    "newWebinar": "وبینار جدید",
+    "noWebinars": "هنوز وبیناری وجود ندارد",
+    "createFirstWebinar": "برای میزبانی رویدادهای بزرگ، وبینار اول خود را بسازید",
+    "end": "پایان",
+    "uploadingToCloud": "در حال بارگذاری ضبط در ابر...",
+    "recordingSavedCloud": "ضبط در ابر ذخیره شد",
+    "downloadStarted": "بارگذاری شروع شد",
+    "cloudRecordings": "ابر",
+    "engagementScore": "امتیاز تعامل",
+    "peakAttendees": "بیشترین شرکت‌کنندگان",
+    "attendanceFunnel": "فunnel حضور",
+    "attendedLabel": "شرکت کرده",
+    "missedLabel": "غایب",
+    "qaStatistics": "آمار پرسش و پاسخ",
+    "totalQuestions": "کل سوالات",
+    "answerRate": "نرخ پاسخ",
+    "topQuestions": "سوالات برتر",
+    "orgBreakdown": "تقسیم‌بندی سازمان",
+    "registrationTimeline": "جدول زمانبندی ثبت‌نام",
+    "analyticsNotAvailable": "آنالیز در دسترس نیست"
   },
   "location": {
     "selectLocationPlaceholder": "موقعیت مکانی خود را انتخاب کنید..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "مشاهده همه جلسات گذشته و آینده شما",
     "scheduleDesc": "جلسات خود را زمان‌بندی و مدیریت کنید",
     "notesDesc": "خلاصه‌ها و رونویسی‌های تولیدشده با هوش مصنوعی",
-    "analyticsDesc": "آمار و بینش‌های جلسه"
+    "analyticsDesc": "آمار و بینش‌های جلسه",
+    "webinars": "وبینارها"
   },
   "trust": {
     "trustScore": "امتیاز اعتماد",

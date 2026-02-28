@@ -2261,7 +2261,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinars",
+    "webinarDesc": "Gas groot skaalgeleenthede met 1000+ deelnemers, Q&A, en gehoorbeheer",
+    "newWebinar": "Nuwe Webinar",
+    "noWebinars": "Nog geen webinars",
+    "createFirstWebinar": "Skep jou eerste webinar om groot skaalgeleenthede te gas",
+    "end": "Einde",
+    "uploadingToCloud": "Oplaai van opname na die wolk...",
+    "recordingSavedCloud": "Opname gestoor in die wolk",
+    "downloadStarted": "Aflaai begin",
+    "cloudRecordings": "Wolk",
+    "engagementScore": "Betrokkenheidspunt",
+    "peakAttendees": "Piekdeelnemers",
+    "attendanceFunnel": "Aanwezigheidfunnel",
+    "attendedLabel": "Aanwesig",
+    "missedLabel": "Gemis",
+    "qaStatistics": "Q&A Statistieke",
+    "totalQuestions": "Totaal Vrae",
+    "answerRate": "Antwoordtempo",
+    "topQuestions": "Top Vrae",
+    "orgBreakdown": "Organisasie-onderverdeling",
+    "registrationTimeline": "Registrasietydlyn",
+    "analyticsNotAvailable": "Analise nie beskikbaar nie"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "bv. Produksie-ATS-webhook",
@@ -2637,7 +2659,8 @@
     "viewAllMeetings": "Bekyk al jou vorige en komende vergaderings",
     "scheduleDesc": "Skeduleer en bestuur jou vergaderings",
     "notesDesc": "KI-gegenereerde opsommings en transkripsies",
-    "analyticsDesc": "Vergaderingsstatistieke en insigte"
+    "analyticsDesc": "Vergaderingsstatistieke en insigte",
+    "webinars": "Webinars"
   },
   "trust": {
     "trustScore": "Vertroutelling",

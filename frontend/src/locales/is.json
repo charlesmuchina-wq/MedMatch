@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Vefnámskeið",
+    "webinarDesc": "Haldið stórum atburðum með meira en 1000 þátttakendum, Q&A, og stjórnun áhorfenda",
+    "newWebinar": "Nýtt Vefnámskeið",
+    "noWebinars": "Engin vefnámskeið enn",
+    "createFirstWebinar": "Búðu til fyrsta vefnámskeiðið til að halda stórum atburðum",
+    "end": "Ljúka",
+    "uploadingToCloud": "Að hlaða upptöku í skýið...",
+    "recordingSavedCloud": "Upptaka vistuð í skýinu",
+    "downloadStarted": "Niðurhal hafið",
+    "cloudRecordings": "Sky",
+    "engagementScore": "Þátttökustig",
+    "peakAttendees": "Max þátttakendur",
+    "attendanceFunnel": "Þátttökugöng",
+    "attendedLabel": "Heimsótt",
+    "missedLabel": "Sóknað",
+    "qaStatistics": "Q&A tölfræði",
+    "totalQuestions": "Heildarfyrirspurnir",
+    "answerRate": "Svörunartími",
+    "topQuestions": "Top Fyrirspurnir",
+    "orgBreakdown": "Skipulagsupplýsingar",
+    "registrationTimeline": "Skráningartími",
+    "analyticsNotAvailable": "Tölfræði ekki fáanleg"
   },
   "location": {
     "selectLocationPlaceholder": "Veldu staðsetningu..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "Skoða alla fyrri og komandi fundi",
     "scheduleDesc": "Bóka og stjórna fundum",
     "notesDesc": "AI-unnar samantektir og afritanir",
-    "analyticsDesc": "Tölfræði og innsýn um fundi"
+    "analyticsDesc": "Tölfræði og innsýn um fundi",
+    "webinars": "Vefnámskeið"
   },
   "trust": {
     "trustScore": "Trauststig",

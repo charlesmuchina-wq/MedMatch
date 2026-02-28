@@ -2261,7 +2261,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinars",
+    "webinarDesc": "Haas iddoo heddummina 1000+ fi deggersa Q&A",
+    "newWebinar": "Webinar Haaraa",
+    "noWebinars": "Webinar hin jiru",
+    "createFirstWebinar": "Webinar kee jalqabaa uumuu",
+    "end": "Xumura",
+    "uploadingToCloud": "Suuraa gara cloudatti olkaawuu...",
+    "recordingSavedCloud": "Suuraan cloud irratti kuufame",
+    "downloadStarted": "Buusii jalqabame",
+    "cloudRecordings": "Cloud",
+    "engagementScore": "Gatii Hirmaannaa",
+    "peakAttendees": "Hirmaattotaa Ijaarsa",
+    "attendanceFunnel": "Funnela Hirmaannaa",
+    "attendedLabel": "Hirmaate",
+    "missedLabel": "Kallatti",
+    "qaStatistics": "Q&A Odeeffannoo",
+    "totalQuestions": "Gaaffilee Walitti Qabaa",
+    "answerRate": "Gatii Deebii",
+    "topQuestions": "Gaaffilee Ijaajii",
+    "orgBreakdown": "Gara Gurutuma",
+    "registrationTimeline": "Gadi fageenya Galmee",
+    "analyticsNotAvailable": "Odeeffannoo safaruu hin jiru"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "fakkeenyaaf, Webhook ATS Production",
@@ -2637,7 +2659,8 @@
     "viewAllMeetings": "Walga'iilee kee duraanii fi kan dhufan hunda ilaali",
     "scheduleDesc": "Walga'iilee kee saganteessi fi bulchi",
     "notesDesc": "Cuunfaa fi barruu-jijjiirraa AI'n qophaa'e",
-    "analyticsDesc": "Istaatistiksii fi hubannoo walga'ii"
+    "analyticsDesc": "Istaatistiksii fi hubannoo walga'ii",
+    "webinars": "Webinars"
   },
   "trust": {
     "trustScore": "Qabxii Amanamummaa",

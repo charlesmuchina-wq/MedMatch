@@ -2304,7 +2304,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinare",
+    "webinarDesc": "Veranstalten Sie umfangreiche Events mit 1000+ Teilnehmern, Q&A und Zuschauersteuerung",
+    "newWebinar": "Neues Webinar",
+    "noWebinars": "Noch keine Webinare",
+    "createFirstWebinar": "Erstellen Sie Ihr erstes Webinar, um umfangreiche Events zu veranstalten",
+    "end": "Beenden",
+    "uploadingToCloud": "Aufnahme wird in die Cloud hochgeladen...",
+    "recordingSavedCloud": "Aufnahme in der Cloud gespeichert",
+    "downloadStarted": "Download gestartet",
+    "cloudRecordings": "Cloud",
+    "engagementScore": "Engagement-Score",
+    "peakAttendees": "Hochpunkt Teilnehmer",
+    "attendanceFunnel": "Teilnehmertrichter",
+    "attendedLabel": "Teilgenommen",
+    "missedLabel": "Verpasst",
+    "qaStatistics": "Q&A-Statistiken",
+    "totalQuestions": "Gesamtfragen",
+    "answerRate": "Antwortquote",
+    "topQuestions": "Top Fragen",
+    "orgBreakdown": "Organisationsaufteilung",
+    "registrationTimeline": "Registrierungszeitachse",
+    "analyticsNotAvailable": "Analysen nicht verfügbar"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "z. B. Production-ATS-Webhook",
@@ -2680,7 +2702,8 @@
     "viewAllMeetings": "Alle vergangenen und bevorstehenden Meetings anzeigen",
     "scheduleDesc": "Meetings planen und verwalten",
     "notesDesc": "KI-generierte Zusammenfassungen und Transkriptionen",
-    "analyticsDesc": "Meeting-Statistiken und Einblicke"
+    "analyticsDesc": "Meeting-Statistiken und Einblicke",
+    "webinars": "Webinare"
   },
   "trust": {
     "trustScore": "Vertrauensscore",

@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "የእንቅስቃሴ ቪዲዮዎች",
+    "webinarDesc": "ከ1000+ ተሳታፊዎች ጋር ትልቅ-መገናኘት አካሄዶች እና የተመለከተ ቁጥጥር",
+    "newWebinar": "አዲስ የእንቅስቃሴ ቪዲዮ",
+    "noWebinars": "የእንቅስቃሴ ቪዲዮዎች አልነበሩም",
+    "createFirstWebinar": "ትልቅ ክስተቶች ለመድረስ የመጀመሪያውን የእንቅስቃሴ ቪዲዮ ይፍጠሩ",
+    "end": "መጨረሻ",
+    "uploadingToCloud": "ማቅረብ በጭነት እነሱ...",
+    "recordingSavedCloud": "መዝግብ ወደ ሰማይ ተቀመጠ",
+    "downloadStarted": "ወደ ፈለቀባ ሂዶኛ",
+    "cloudRecordings": "ሰማይ",
+    "engagementScore": "የተገናኝ ውጤት",
+    "peakAttendees": "የከፍተኛ ተሳታፊዎች",
+    "attendanceFunnel": "አመለካከት ካንደር",
+    "attendedLabel": "ተሳታፊ",
+    "missedLabel": "አልተሳታፍኩም",
+    "qaStatistics": "የQ&A ቁጥጥር",
+    "totalQuestions": "ጠየቃዎች ጠቅላላ",
+    "answerRate": "የመልስ ደረጃ",
+    "topQuestions": "አላማ ጠየቃዎች",
+    "orgBreakdown": "የተቋማት አጠቃላይ",
+    "registrationTimeline": "የምዝገባ ሰንደቅ",
+    "analyticsNotAvailable": "የትንቢት መንገድ አልተገኘም"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ምሳሌ፦ የምርት ATS ዌብሁክ",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "ያለፉትንና ወደፊት ያሉትን ስብሰባዎችዎን ሁሉ ይመልከቱ",
     "scheduleDesc": "ስብሰባዎችዎን ያቅዱ እና ያስተዳድሩ",
     "notesDesc": "በAI የተፈጠሩ ማጠቃለያዎች እና ትርጉሞች",
-    "analyticsDesc": "የስብሰባ ስታቲስቲክስ እና ግንዛቤዎች"
+    "analyticsDesc": "የስብሰባ ስታቲስቲክስ እና ግንዛቤዎች",
+    "webinars": "የእንቅስቃሴ ቪዲዮዎች"
   },
   "trust": {
     "trustScore": "የእምነት ውጤት",

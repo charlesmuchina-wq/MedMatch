@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "ওয়েবিনার",
+    "webinarDesc": "১০০০+ অংশগ্রহণকারী, Q&A, এবং দর্শক নিয়ন্ত্রণ সহ বৃহৎ ইভেন্ট পরিচালনা করুন",
+    "newWebinar": "নতুন ওয়েবিনার",
+    "noWebinars": "এখনো কোন ওয়েবিনার নেই",
+    "createFirstWebinar": "বৃহৎ ইভেন্টের জন্য আপনার প্রথম ওয়েবিনার তৈরি করুন",
+    "end": "শেষ",
+    "uploadingToCloud": "ক্লাউডে রেকর্ডিং আপলোড হচ্ছে...",
+    "recordingSavedCloud": "রেকর্ডিং ক্লাউডে সংরক্ষিত",
+    "downloadStarted": "ডাউনলোড শুরু হয়েছে",
+    "cloudRecordings": "ক্লাউড",
+    "engagementScore": "এঙ্গেজমেন্ট স্কোর",
+    "peakAttendees": "শীর্ষ অংশগ্রহণকারীরা",
+    "attendanceFunnel": "অংশগ্রহণ ফানেল",
+    "attendedLabel": "অংশগ্রহণ করেছে",
+    "missedLabel": "মিস করেছেন",
+    "qaStatistics": "Q&A পরিসংখ্যান",
+    "totalQuestions": "মোট প্রশ্ন",
+    "answerRate": "উত্তর হার",
+    "topQuestions": "শীর্ষ প্রশ্ন",
+    "orgBreakdown": "সংস্থার বিশ্লেষণ",
+    "registrationTimeline": "রেজিস্ট্রেশন টাইমলাইন",
+    "analyticsNotAvailable": "অ্যানালিটিক্স উপলব্ধ নয়"
   },
   "location": {
     "selectLocationPlaceholder": "আপনার অবস্থান নির্বাচন করুন..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "আপনার অতীত ও আসন্ন সব মিটিং দেখুন",
     "scheduleDesc": "আপনার মিটিংগুলো শিডিউল ও ম্যানেজ করুন",
     "notesDesc": "AI-তৈরি সারসংক্ষেপ ও ট্রান্সক্রিপশন",
-    "analyticsDesc": "মিটিংয়ের পরিসংখ্যান ও ইনসাইটস"
+    "analyticsDesc": "মিটিংয়ের পরিসংখ্যান ও ইনসাইটস",
+    "webinars": "ওয়েবিনার"
   },
   "trust": {
     "trustScore": "ট্রাস্ট স্কোর",

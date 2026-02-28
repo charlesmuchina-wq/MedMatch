@@ -2261,7 +2261,37 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "meetingEffectiveness": "Keberkesanan Mesyuarat",
+    "avgDuration": "Tempoh Purata",
+    "avgParticipants": "Peserta Purata",
+    "withNotes": "Dengan Nota",
+    "quickAnalytics": "Analitik Ringkas",
+    "onTimeRate": "Kadar Tepat Waktu",
+    "aiNotesUsage": "Penggunaan Nota AI",
+    "actionItems": "Item Tindakan",
+    "webinars": "Webinar",
+    "webinarDesc": "Hos acara berskala besar dengan 1000+ peserta, Q&A, dan kawalan penonton",
+    "newWebinar": "Webinar Baru",
+    "noWebinars": "Tiada webinar lagi",
+    "createFirstWebinar": "Buat webinar pertama anda untuk hos acara berskala besar",
+    "end": "Tamat",
+    "uploadingToCloud": "Memuat naik rakaman ke cloud...",
+    "recordingSavedCloud": "Rakaman disimpan ke cloud",
+    "downloadStarted": "Muat turun bermula",
+    "cloudRecordings": "Cloud",
+    "engagementScore": "Skor Penglibatan",
+    "peakAttendees": "Peserta Tertinggi",
+    "attendanceFunnel": "Laluan Kehadiran",
+    "attendedLabel": "Hadir",
+    "missedLabel": "Terlepas",
+    "qaStatistics": "Statistik Q&A",
+    "totalQuestions": "Soalan Jumlah",
+    "answerRate": "Kadar Jawapan",
+    "topQuestions": "Soalan Teratas",
+    "orgBreakdown": "Pecahan Organisasi",
+    "registrationTimeline": "Garis Masa Pendaftaran",
+    "analyticsNotAvailable": "Analitik tidak tersedia"
   },
   "location": {
     "selectLocationPlaceholder": "Pilih lokasi anda..."
@@ -2572,7 +2602,8 @@
     "viewAllMeetings": "Lihat semua mesyuarat anda yang lepas dan akan datang",
     "scheduleDesc": "Jadualkan dan urus mesyuarat anda",
     "notesDesc": "Ringkasan dan transkripsi dijana AI",
-    "analyticsDesc": "Statistik dan cerapan mesyuarat"
+    "analyticsDesc": "Statistik dan cerapan mesyuarat",
+    "webinars": "Webinar"
   },
   "trust": {
     "trustScore": "Skor Kepercayaan",

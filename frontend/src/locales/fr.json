@@ -2304,7 +2304,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinaires",
+    "webinarDesc": "Organisez des événements à grande échelle avec 1000+ participants, Q&A et contrôles du public",
+    "newWebinar": "Nouveau Webinaire",
+    "noWebinars": "Aucun webinaire pour le moment",
+    "createFirstWebinar": "Créez votre premier webinaire pour organiser des événements à grande échelle",
+    "end": "Fin",
+    "uploadingToCloud": "Téléchargement de l'enregistrement sur le cloud...",
+    "recordingSavedCloud": "Enregistrement sauvegardé sur le cloud",
+    "downloadStarted": "Téléchargement commencé",
+    "cloudRecordings": "Cloud",
+    "engagementScore": "Score d'Engagement",
+    "peakAttendees": "Participants Maximaux",
+    "attendanceFunnel": "Taux de Participation",
+    "attendedLabel": "Présents",
+    "missedLabel": "Non Présents",
+    "qaStatistics": "Statistiques Q&A",
+    "totalQuestions": "Total des Questions",
+    "answerRate": "Taux de Réponse",
+    "topQuestions": "Questions Principales",
+    "orgBreakdown": "Répartition par Organisation",
+    "registrationTimeline": "Chronologie des Inscriptions",
+    "analyticsNotAvailable": "Analyse non disponible"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ex. Webhook ATS en production",
@@ -2680,7 +2702,8 @@
     "viewAllMeetings": "Consultez toutes vos réunions passées et à venir",
     "scheduleDesc": "Planifiez et gérez vos réunions",
     "notesDesc": "Résumés et transcriptions générés par IA",
-    "analyticsDesc": "Statistiques et analyses des réunions"
+    "analyticsDesc": "Statistiques et analyses des réunions",
+    "webinars": "Webinaires"
   },
   "trust": {
     "trustScore": "Score de confiance",

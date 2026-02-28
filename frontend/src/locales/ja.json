@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "ウェビナー",
+    "webinarDesc": "1000人以上の参加者、Q&A、オーディエンスコントロールを備えた大規模イベントをホスト",
+    "newWebinar": "新しいウェビナー",
+    "noWebinars": "ウェビナーはまだありません",
+    "createFirstWebinar": "大規模イベントをホストするために最初のウェビナーを作成",
+    "end": "終了",
+    "uploadingToCloud": "クラウドに録画をアップロード中...",
+    "recordingSavedCloud": "録画がクラウドに保存されました",
+    "downloadStarted": "ダウンロードを開始しました",
+    "cloudRecordings": "クラウド",
+    "engagementScore": "エンゲージメントスコア",
+    "peakAttendees": "ピーク参加者",
+    "attendanceFunnel": "出席ファネル",
+    "attendedLabel": "出席",
+    "missedLabel": "欠席",
+    "qaStatistics": "Q&A統計",
+    "totalQuestions": "総質問数",
+    "answerRate": "回答率",
+    "topQuestions": "最も多い質問",
+    "orgBreakdown": "組織の内訳",
+    "registrationTimeline": "登録タイムライン",
+    "analyticsNotAvailable": "分析は利用できません"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "例：本番ATS webhook",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "過去と今後のミーティングをすべて表示",
     "scheduleDesc": "ミーティングの予定を作成・管理",
     "notesDesc": "AI生成の要約と文字起こし",
-    "analyticsDesc": "ミーティングの統計とインサイト"
+    "analyticsDesc": "ミーティングの統計とインサイト",
+    "webinars": "ウェビナー"
   },
   "trust": {
     "trustScore": "信頼スコア",

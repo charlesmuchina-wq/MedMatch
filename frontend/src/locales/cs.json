@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webináře",
+    "webinarDesc": "Užijte si velké akce s 1000+ účastníky, Q&A a ovládáním publika",
+    "newWebinar": "Nový webinář",
+    "noWebinars": "Zatím žádné webináře",
+    "createFirstWebinar": "Vytvořte svůj první webinář pro velké akce",
+    "end": "Konec",
+    "uploadingToCloud": "Nahrávání záznamu do cloudu...",
+    "recordingSavedCloud": "Záznam uložen do cloudu",
+    "downloadStarted": "Stahování spuštěno",
+    "cloudRecordings": "Cloud",
+    "engagementScore": "Skóre zapojení",
+    "peakAttendees": "Maximální účastníci",
+    "attendanceFunnel": "Funnel účasti",
+    "attendedLabel": "Účastnil se",
+    "missedLabel": "Zmeškáno",
+    "qaStatistics": "Statistiky Q&A",
+    "totalQuestions": "Celkem otázek",
+    "answerRate": "Míra odpovědí",
+    "topQuestions": "Nejlepší otázky",
+    "orgBreakdown": "Rozdělení organizací",
+    "registrationTimeline": "Časová osa registrace",
+    "analyticsNotAvailable": "Analýzy nejsou k dispozici"
   },
   "location": {
     "selectLocationPlaceholder": "Vyberte svou polohu..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "Zobrazit všechny své minulé i nadcházející schůzky",
     "scheduleDesc": "Plánujte a spravujte své schůzky",
     "notesDesc": "Souhrny a přepisy generované AI",
-    "analyticsDesc": "Statistiky a přehledy ze schůzek"
+    "analyticsDesc": "Statistiky a přehledy ze schůzek",
+    "webinars": "Webináře"
   },
   "trust": {
     "trustScore": "Skóre důvěry",

@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinar",
+    "webinarDesc": "Ospita eventi su larga scala con oltre 1000 partecipanti, Q&A e controlli del pubblico",
+    "newWebinar": "Nuovo Webinar",
+    "noWebinars": "Nessun webinar ancora",
+    "createFirstWebinar": "Crea il tuo primo webinar per ospitare eventi su larga scala",
+    "end": "Fine",
+    "uploadingToCloud": "Caricamento registrazione su cloud...",
+    "recordingSavedCloud": "Registrazione salvata su cloud",
+    "downloadStarted": "Download avviato",
+    "cloudRecordings": "Cloud",
+    "engagementScore": "Punteggio di Coinvolgimento",
+    "peakAttendees": "Partecipanti di Picco",
+    "attendanceFunnel": "Funnel di Partecipazione",
+    "attendedLabel": "Partecipato",
+    "missedLabel": "Perso",
+    "qaStatistics": "Statistiche Q&A",
+    "totalQuestions": "Domande Totali",
+    "answerRate": "Tasso di Risposta",
+    "topQuestions": "Domande Principali",
+    "orgBreakdown": "Suddivisione per Organizzazione",
+    "registrationTimeline": "Cronologia Registrazioni",
+    "analyticsNotAvailable": "Analytics non disponibili"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ad es., Webhook ATS di produzione",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Visualizza tutte le tue riunioni passate e future",
     "scheduleDesc": "Pianifica e gestisci le tue riunioni",
     "notesDesc": "Riepiloghi e trascrizioni generati dall'IA",
-    "analyticsDesc": "Statistiche e approfondimenti sulle riunioni"
+    "analyticsDesc": "Statistiche e approfondimenti sulle riunioni",
+    "webinars": "Webinar"
   },
   "trust": {
     "trustScore": "Punteggio di fiducia",

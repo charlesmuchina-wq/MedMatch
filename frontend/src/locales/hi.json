@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "वेबिनार",
+    "webinarDesc": "1000+ प्रतिभागियों के साथ बड़े पैमाने पर आयोजन, Q&A और दर्शक नियंत्रण",
+    "newWebinar": "नया वेबिनार",
+    "noWebinars": "अभी कोई वेबिनार नहीं",
+    "createFirstWebinar": "बड़े पैमाने पर आयोजन के लिए अपना पहला वेबिनार बनाएं",
+    "end": "समाप्त",
+    "uploadingToCloud": "रिकॉर्डिंग क्लाउड में अपलोड हो रही है...",
+    "recordingSavedCloud": "रिकॉर्डिंग क्लाउड में सहेजी गई",
+    "downloadStarted": "डाउनलोड प्रारंभ हो गया",
+    "cloudRecordings": "क्लाउड",
+    "engagementScore": "संलग्नता स्कोर",
+    "peakAttendees": "अधिकतम प्रतिभागी",
+    "attendanceFunnel": "उपस्थिति फ़नल",
+    "attendedLabel": "उपस्थित",
+    "missedLabel": "छोड़ दी गई",
+    "qaStatistics": "Q&A सांख्यिकी",
+    "totalQuestions": "कुल प्रश्न",
+    "answerRate": "उत्तर दर",
+    "topQuestions": "शीर्ष प्रश्न",
+    "orgBreakdown": "संगठन विवरण",
+    "registrationTimeline": "पंजीकरण समयरेखा",
+    "analyticsNotAvailable": "विश्लेषण उपलब्ध नहीं है"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "उदाहरण: प्रोडक्शन ATS वेबहुक",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "अपनी पिछली और आने वाली सभी मीटिंग्स देखें",
     "scheduleDesc": "अपनी मीटिंग्स शेड्यूल करें और प्रबंधित करें",
     "notesDesc": "AI-जनरेटेड सारांश और ट्रांसक्रिप्शन",
-    "analyticsDesc": "मीटिंग आँकड़े और इनसाइट्स"
+    "analyticsDesc": "मीटिंग आँकड़े और इनसाइट्स",
+    "webinars": "वेबिनार"
   },
   "trust": {
     "trustScore": "विश्वास स्कोर",

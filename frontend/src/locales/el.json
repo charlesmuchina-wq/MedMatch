@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Διαδικτυακά Σεμινάρια",
+    "webinarDesc": "Διοργανώστε μεγάλης κλίμακας εκδηλώσεις με πάνω από 1000 συμμετέχοντες, Q&A και έλεγχο κοινού",
+    "newWebinar": "Νέο Διαδικτυακό Σεμινάριο",
+    "noWebinars": "Δεν υπάρχουν διαδικτυακά σεμινάρια μέχρι στιγμής",
+    "createFirstWebinar": "Δημιουργήστε το πρώτο σας διαδικτυακό σεμινάριο για να διοργανώσετε μεγάλες εκδηλώσεις",
+    "end": "Τέλος",
+    "uploadingToCloud": "Ανέβασμα εγγραφής στο cloud...",
+    "recordingSavedCloud": "Η εγγραφή αποθηκεύτηκε στο cloud",
+    "downloadStarted": "Ξεκίνησε η λήψη",
+    "cloudRecordings": "Cloud",
+    "engagementScore": "Βαθμολογία Συμμετοχής",
+    "peakAttendees": "Μέγιστοι Συμμετέχοντες",
+    "attendanceFunnel": "Δεξαμενή Παρουσίας",
+    "attendedLabel": "Παρόντες",
+    "missedLabel": "Απόντες",
+    "qaStatistics": "Στατιστικά Q&A",
+    "totalQuestions": "Συνολικές Ερωτήσεις",
+    "answerRate": "Ποσοστό Απαντήσεων",
+    "topQuestions": "Κορυφαίες Ερωτήσεις",
+    "orgBreakdown": "Κατανομή Οργανισμού",
+    "registrationTimeline": "Χρονοδιάγραμμα Εγγραφής",
+    "analyticsNotAvailable": "Στατιστικά μη διαθέσιμα"
   },
   "location": {
     "selectLocationPlaceholder": "Επιλέξτε την τοποθεσία σας..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "Δείτε όλες τις προηγούμενες και τις επερχόμενες συναντήσεις σας",
     "scheduleDesc": "Προγραμματίστε και διαχειριστείτε τις συναντήσεις σας",
     "notesDesc": "Περιλήψεις και απομαγνητοφωνήσεις με τεχνητή νοημοσύνη",
-    "analyticsDesc": "Στατιστικά και πληροφορίες συναντήσεων"
+    "analyticsDesc": "Στατιστικά και πληροφορίες συναντήσεων",
+    "webinars": "Διαδικτυακά Σεμινάρια"
   },
   "trust": {
     "trustScore": "Βαθμολογία Εμπιστοσύνης",

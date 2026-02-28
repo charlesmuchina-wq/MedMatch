@@ -2665,7 +2665,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "الندوات عبر الإنترنت",
+    "webinarDesc": "استضف أحداثًا كبيرة بمشاركة 1000+ متحدث، أسئلة وأجوبة، وضوابط للجمهور",
+    "newWebinar": "ندوة جديدة",
+    "noWebinars": "لا توجد ندوات عبر الإنترنت بعد",
+    "createFirstWebinar": "قم بإنشاء ندوتك الأولى لاستضافة أحداث كبيرة",
+    "end": "إنهاء",
+    "uploadingToCloud": "جارٍ رفع التسجيل إلى السحابة...",
+    "recordingSavedCloud": "تم حفظ التسجيل في السحابة",
+    "downloadStarted": "تم بدء التنزيل",
+    "cloudRecordings": "السحاب",
+    "engagementScore": "درجة التفاعل",
+    "peakAttendees": "أعلى عدد من الحضور",
+    "attendanceFunnel": "مسار الحضور",
+    "attendedLabel": "حضَر",
+    "missedLabel": "فات",
+    "qaStatistics": "إحصائيات الأسئلة والأجوبة",
+    "totalQuestions": "إجمالي الأسئلة",
+    "answerRate": "معدل الإجابة",
+    "topQuestions": "أهم الأسئلة",
+    "orgBreakdown": "تفصيل المؤسسة",
+    "registrationTimeline": "جدول زمني للتسجيل",
+    "analyticsNotAvailable": "التحليلات غير متاحة"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "مثال: Webhook لنظام ATS - الإنتاج",
@@ -3041,7 +3063,8 @@
     "viewAllMeetings": "عرض جميع اجتماعاتك السابقة والقادمة",
     "scheduleDesc": "جدولة اجتماعاتك وإدارتها",
     "notesDesc": "ملخصات ونصوص مُنشأة بالذكاء الاصطناعي",
-    "analyticsDesc": "إحصاءات ورؤى حول الاجتماعات"
+    "analyticsDesc": "إحصاءات ورؤى حول الاجتماعات",
+    "webinars": "الندوات عبر الإنترنت"
   },
   "trust": {
     "trustScore": "درجة الثقة",

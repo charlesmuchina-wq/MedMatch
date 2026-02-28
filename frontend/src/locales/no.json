@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinarer",
+    "webinarDesc": "Vert store arrangement med 1000+ deltakere, Q&A og publikumskontroller",
+    "newWebinar": "Nytt Webinar",
+    "noWebinars": "Ingen webinarer ennå",
+    "createFirstWebinar": "Opprett ditt første webinar for å vert store arrangement",
+    "end": "Avslutt",
+    "uploadingToCloud": "Laster opptak til sky...",
+    "recordingSavedCloud": "Opptak lagret til sky",
+    "downloadStarted": "Nedlastingen er startet",
+    "cloudRecordings": "Sky",
+    "engagementScore": "Engasjementspoeng",
+    "peakAttendees": "Maksimale Deltakere",
+    "attendanceFunnel": "Deltakertrakt",
+    "attendedLabel": "Deltatt",
+    "missedLabel": "Uteblitt",
+    "qaStatistics": "Q&A Statistikk",
+    "totalQuestions": "Totale Spørsmål",
+    "answerRate": "Svarprosent",
+    "topQuestions": "Topp Spørsmål",
+    "orgBreakdown": "Organisasjonsfordeling",
+    "registrationTimeline": "Registreringslinje",
+    "analyticsNotAvailable": "Analyse ikke tilgjengelig"
   },
   "location": {
     "selectLocationPlaceholder": "Velg stedet ditt..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "Se alle dine tidligere og kommende møter",
     "scheduleDesc": "Planlegg og administrer møtene dine",
     "notesDesc": "AI-genererte sammendrag og transkripsjoner",
-    "analyticsDesc": "Møtestatistikk og innsikt"
+    "analyticsDesc": "Møtestatistikk og innsikt",
+    "webinars": "Webinarer"
   },
   "trust": {
     "trustScore": "Tillitscore",

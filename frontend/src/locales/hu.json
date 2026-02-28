@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webináriumok",
+    "webinarDesc": "Rendezzen nagyszabású eseményeket 1000+ résztvevővel, Q&A-val és közönségirányítással",
+    "newWebinar": "Új Webinárium",
+    "noWebinars": "Még nincs webinárium",
+    "createFirstWebinar": "Hozza létre első webináriumát nagyszabású eseményekhez",
+    "end": "Befejezés",
+    "uploadingToCloud": "Felvevő feltöltése a felhőbe...",
+    "recordingSavedCloud": "Felvevő mentve a felhőbe",
+    "downloadStarted": "Letöltés megkezdődött",
+    "cloudRecordings": "Felhő",
+    "engagementScore": "Elköteleződési Pontszám",
+    "peakAttendees": "Csúcs Résztvevők",
+    "attendanceFunnel": "Részvételi tölcsér",
+    "attendedLabel": "Jelen volt",
+    "missedLabel": "Elmaradt",
+    "qaStatistics": "Q&A Statisztikák",
+    "totalQuestions": "Összes Kérdés",
+    "answerRate": "Válaszadási Arány",
+    "topQuestions": "Legjobb Kérdések",
+    "orgBreakdown": "Szervezeti Elemzés",
+    "registrationTimeline": "Regisztrációs Idővonal",
+    "analyticsNotAvailable": "Elemzések nem elérhetőek"
   },
   "location": {
     "selectLocationPlaceholder": "Válaszd ki a tartózkodási helyed..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "Az összes korábbi és közelgő találkozód megtekintése",
     "scheduleDesc": "Találkozóid ütemezése és kezelése",
     "notesDesc": "MI által generált összefoglalók és átiratok",
-    "analyticsDesc": "Találkozóstatisztikák és betekintések"
+    "analyticsDesc": "Találkozóstatisztikák és betekintések",
+    "webinars": "Webináriumok"
   },
   "trust": {
     "trustScore": "Bizalmi pontszám",

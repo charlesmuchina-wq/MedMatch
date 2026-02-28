@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinars",
+    "webinarDesc": "Nkpọgharị nnukwu ihe omume na ndị na-ege ntị 1000+, Q&A, na njikwa ndị na-ege ntị",
+    "newWebinar": "Webinar Ọhụrụ",
+    "noWebinars": "Enweghị webinars afọ ọhụụ",
+    "createFirstWebinar": "Mepụta webinar gị mbụ ka ị nyochaa nnukwu ihe omume",
+    "end": "Gwụchaa",
+    "uploadingToCloud": "Na-ebupụ ndekọ na igwe ojii...",
+    "recordingSavedCloud": "Ndekọ echekwara na igwe ojii",
+    "downloadStarted": "Nnyefe amalitela",
+    "cloudRecordings": "Igwe ojii",
+    "engagementScore": "Ntuziaka Itinye aka",
+    "peakAttendees": "Ndị Na-ege Ntị Kasị Elu",
+    "attendanceFunnel": "Njikọta Nlerịta",
+    "attendedLabel": "Nọrọ",
+    "missedLabel": "Hapụ",
+    "qaStatistics": "Q&A Statistiks",
+    "totalQuestions": "Ajụjụ Mbụ",
+    "answerRate": "Ọrụ Azịza",
+    "topQuestions": "Ajụjụ Kasị Elu",
+    "orgBreakdown": "Nkọwa Òtù",
+    "registrationTimeline": "Oge Ndenye",
+    "analyticsNotAvailable": "Analytics adịghị available"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "dịka, webhook ATS nke Mmepụta",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Lelee nzute gị niile gara aga na ndị na-abịa",
     "scheduleDesc": "Hazie ma jikwaa nzute gị",
     "notesDesc": "Nchịkọta na ntụgharị okwu AI mepụtara",
-    "analyticsDesc": "Ọnụọgụ nzute na nghọta"
+    "analyticsDesc": "Ọnụọgụ nzute na nghọta",
+    "webinars": "Webinars"
   },
   "trust": {
     "trustScore": "Ntụkwasị Obi",

@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinars",
+    "webinarDesc": "Fungsi acara besar dengan 1000+ peserta, Q&A, dan kontrol audiens",
+    "newWebinar": "Webinar Baru",
+    "noWebinars": "Belum ada webinar",
+    "createFirstWebinar": "Buat webinar pertama Anda untuk mengadakan acara besar",
+    "end": "Akhiri",
+    "uploadingToCloud": "Mengunggah rekaman ke cloud...",
+    "recordingSavedCloud": "Rekaman disimpan di cloud",
+    "downloadStarted": "Unduhan dimulai",
+    "cloudRecordings": "Cloud",
+    "engagementScore": "Skor Keterlibatan",
+    "peakAttendees": "Peserta Puncak",
+    "attendanceFunnel": "Funnel Kehadiran",
+    "attendedLabel": "Hadir",
+    "missedLabel": "Tidak Hadir",
+    "qaStatistics": "Statistik Q&A",
+    "totalQuestions": "Total Pertanyaan",
+    "answerRate": "Tingkat Jawaban",
+    "topQuestions": "Pertanyaan Teratas",
+    "orgBreakdown": "Rincian Organisasi",
+    "registrationTimeline": "Garis Waktu Pendaftaran",
+    "analyticsNotAvailable": "Analitik tidak tersedia"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "mwachitsanzo, Production ATS webhook",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Onani misonkhano yanu yonse yakale ndi yamtsogolo",
     "scheduleDesc": "Konzani nthawi ndi kuyendetsa misonkhano yanu",
     "notesDesc": "Mwachidule ndi zolemba za mawu zopangidwa ndi AI",
-    "analyticsDesc": "Ziwerengero za misonkhano ndi zidziwitso"
+    "analyticsDesc": "Ziwerengero za misonkhano ndi zidziwitso",
+    "webinars": "Webinars"
   },
   "trust": {
     "trustScore": "Mlingo wa Chikhulupiriro",
