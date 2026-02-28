@@ -95,7 +95,7 @@ const KarauAIAvatar = ({ meetingId }) => {
       {/* Chat Panel */}
       {isOpen && (
         <div
-          className="fixed bottom-5 right-5 z-50 w-[340px] sm:w-[380px] h-[480px] rounded-2xl bg-karau-card/95 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/40 flex flex-col overflow-hidden"
+          className="fixed bottom-5 right-5 z-[9999] w-[340px] sm:w-[380px] h-[480px] rounded-2xl bg-karau-card/95 backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/40 flex flex-col overflow-hidden"
           style={{ animation: 'avatarSlideUp 0.3s ease-out' }}
           data-testid="karau-avatar-panel"
         >
