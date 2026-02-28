@@ -22,6 +22,8 @@ import { Loader2 } from 'lucide-react';
 import { useTranslation } from '@/utils/i18n';
 import GlobalLanguageSelector from '@/components/GlobalLanguageSelector';
 
+import KarauAIAvatar from '@/components/KarauMeet/KarauAIAvatar';
+
 // Refactored page components
 import KarauMeetLogin from './KarauMeetLogin';
 import KarauMeetDashboard from './KarauMeetDashboard';
