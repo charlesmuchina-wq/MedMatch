@@ -4,13 +4,11 @@ Uses Emergent LLM Key + OpenAI for translation.
 """
 import json
 import os
-import sys
+import asyncio
 import time
 
-sys.path.insert(0, '/app/backend')
-from emergentintegrations.llm.openai import chat_completion, OpenAIModelName
-
 LOCALES_DIR = "/app/frontend/src/locales"
+EMERGENT_KEY = os.environ.get("EMERGENT_LLM_KEY", "sk-emergent-e19D7A22f3f2b9f8a0")
 
 LANG_MAP = {
     "af": "Afrikaans", "am": "Amharic", "ar": "Arabic", "bn": "Bengali",
@@ -28,10 +26,8 @@ LANG_MAP = {
     "vi": "Vietnamese", "yo": "Yoruba", "zh": "Chinese", "zu": "Zulu"
 }
 
-EMERGENT_KEY = os.environ.get("EMERGENT_LLM_KEY", "")
 
 def get_missing_keys(en_data, locale_data):
-    """Find keys in en that are missing from locale, nested."""
     missing = {}
     for section, values in en_data.items():
         if isinstance(values, dict):
@@ -42,8 +38,10 @@ def get_missing_keys(en_data, locale_data):
                         missing.setdefault(section, {})[key] = val
     return missing
 
-def translate_batch(missing_keys, lang_name, lang_code):
-    """Translate a batch of missing keys."""
+
+async def translate_batch(missing_keys, lang_name, lang_code):
+    from emergentintegrations.llm.chat import LlmChat, UserMessage
+
     flat = {}
     for section, keys in missing_keys.items():
         for key, val in keys.items():
@@ -54,31 +52,27 @@ def translate_batch(missing_keys, lang_name, lang_code):
 
     prompt = f"""Translate these English UI strings to {lang_name} ({lang_code}).
 Return ONLY a JSON object mapping the SAME keys to translated values.
-Keep technical terms, brand names (KARAU, AI) untranslated.
+Keep technical terms, brand names (KARAU, AI, Q&A) untranslated.
 Keep translations concise for UI display.
 
-Input:
 {json.dumps(flat, indent=2)}"""
 
     try:
-        response = chat_completion(
-            emergent_key=EMERGENT_KEY,
-            model=OpenAIModelName.gpt_4o_mini,
-            messages=[
-                {"role": "system", "content": "You are a professional UI translator. Return only valid JSON."},
-                {"role": "user", "content": prompt}
-            ],
-            max_tokens=2000
-        )
-        text = response.choices[0].message.content.strip()
-        # Extract JSON from response
+        chat = LlmChat(
+            api_key=EMERGENT_KEY,
+            session_id=f'tr-{lang_code}',
+            system_message='You are a professional UI translator. Return only valid JSON, no markdown code blocks.'
+        ).with_model('openai', 'gpt-4o-mini')
+
+        resp = await chat.send_message(UserMessage(text=prompt))
+        text = resp.strip() if isinstance(resp, str) else str(resp)
+
         if "```" in text:
             text = text.split("```")[1]
             if text.startswith("json"):
                 text = text[4:]
-        result = json.loads(text)
 
-        # Unflatten
+        result = json.loads(text)
         translated = {}
         for dotkey, val in result.items():
             parts = dotkey.split(".", 1)
@@ -90,7 +84,7 @@ Input:
         return {}
 
 
-def main():
+async def main():
     en_path = os.path.join(LOCALES_DIR, "en.json")
     en_data = json.load(open(en_path, "r"))
 
@@ -105,39 +99,36 @@ def main():
 
         locale_data = json.load(open(fpath, "r"))
         missing = get_missing_keys(en_data, locale_data)
-
         total_missing = sum(len(v) for v in missing.values())
+
         if total_missing == 0:
             print(f"  {code}: Up to date")
             continue
 
-        print(f"  {code} ({lang_name}): {total_missing} missing keys...", end=" ", flush=True)
+        print(f"  {code} ({lang_name}): {total_missing} missing...", end=" ", flush=True)
 
-        translated = translate_batch(missing, lang_name, code)
+        translated = await translate_batch(missing, lang_name, code)
         if translated:
             for section, keys in translated.items():
                 if section not in locale_data:
                     locale_data[section] = {}
                 locale_data[section].update(keys)
-
-            json.dump(locale_data, open(fpath, "w"), ensure_ascii=False, indent=2)
             added = sum(len(v) for v in translated.values())
-            print(f"Added {added}")
+            print(f"OK ({added})")
             total_updated += added
         else:
-            # Fallback: copy English values
             for section, keys in missing.items():
                 if section not in locale_data:
                     locale_data[section] = {}
                 locale_data[section].update(keys)
-            json.dump(locale_data, open(fpath, "w"), ensure_ascii=False, indent=2)
-            print(f"Fallback (English) {total_missing}")
+            print(f"Fallback ({total_missing})")
             total_updated += total_missing
 
-        time.sleep(0.5)  # Rate limit
+        json.dump(locale_data, open(fpath, "w"), ensure_ascii=False, indent=2)
+        await asyncio.sleep(0.3)
 
-    print(f"\nDone! Updated {total_updated} translations across all locales.")
+    print(f"\nDone! Updated {total_updated} translations.")
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
