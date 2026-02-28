@@ -61,7 +61,7 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
           ) : (
             messages.map((msg, idx) => (
               <div key={idx} className="text-sm" data-testid={`chat-message-${idx}`}>
-                <span className="font-medium text-turquoise">{msg.sender || msg.user_name}: </span>
+                <span className="font-medium text-purple-400">{msg.sender || msg.user_name}: </span>
                 <span className="text-slate-300">{msg.message}</span>
                 <span className="text-xs text-slate-500 ml-2">
                   {msg.timestamp ? new Date(msg.timestamp).toLocaleTimeString() : ''}
@@ -92,7 +92,7 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
           <Button 
             onClick={handleSend} 
             size="sm" 
-            className="bg-turquoise hover:bg-turquoise/80 px-4" 
+            className="bg-purple-500 hover:bg-purple-400 px-4" 
             data-testid="chat-send"
           >
             Send
@@ -111,7 +111,7 @@ export const AINotesPanel = ({ notes, isTranscribing, onGenerateSummary, isSumma
     <div className="flex flex-col h-full">
       <div className="p-3 border-b border-karau-border hidden">
         <h3 className="font-semibold text-white flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-turquoise" />
+          <Sparkles className="w-4 h-4 text-purple-400" />
           AI Notes
           {isTranscribing && (
             <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
@@ -186,7 +186,7 @@ export const AINotesPanel = ({ notes, isTranscribing, onGenerateSummary, isSumma
           Export Notes
         </Button>
         {meetingId && (
-          <Button variant="outline" size="sm" className="w-full text-turquoise border-turquoise/30 hover:bg-turquoise/10" data-testid="export-pdf-summary"
+          <Button variant="outline" size="sm" className="w-full text-purple-400 border-purple-500/30 hover:bg-purple-500/10" data-testid="export-pdf-summary"
             onClick={() => {
               const API = process.env.REACT_APP_BACKEND_URL;
               window.open(`${API}/api/karau-meet/meetings/${meetingId}/summary/pdf`, '_blank');
@@ -246,9 +246,9 @@ export const ParticipantsPanel = ({ participants, onMuteParticipant, onMuteAll, 
               >
                 <div className="flex items-center gap-2 min-w-0">
                   <div className={`relative w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    isSpeaking ? 'bg-emerald-500/30' : 'bg-turquoise/20'
+                    isSpeaking ? 'bg-emerald-500/30' : 'bg-purple-500/20'
                   }`}>
-                    <span className={`text-sm font-medium ${isSpeaking ? 'text-emerald-400' : 'text-turquoise'}`}>
+                    <span className={`text-sm font-medium ${isSpeaking ? 'text-emerald-400' : 'text-purple-400'}`}>
                       {p.user_name?.charAt(0)?.toUpperCase()}
                     </span>
                     {isSpeaking && (
