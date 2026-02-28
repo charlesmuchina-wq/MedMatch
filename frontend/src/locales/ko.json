@@ -1808,7 +1808,27 @@
   },
   "candidateSearch": {
     "keywordsPlaceholder": "예: 시니어, 원격, 헬스케어...",
-    "skillsPlaceholder": "기술을 입력하고 Enter를 누르세요..."
+    "skillsPlaceholder": "기술을 입력하고 Enter를 누르세요...",
+    "semanticSearch": "Semantic Search",
+    "semanticSearchDesc": "AI-powered deep matching using natural language queries",
+    "searchPlaceholder": "Try: \"bioprocess engineer with 5+ years in monoclonal antibodies\"",
+    "candidates": "Candidates",
+    "jobs": "Jobs",
+    "search": "Search",
+    "matches": "matches",
+    "filters": "Filters",
+    "minRelevance": "Min Relevance",
+    "all": "All",
+    "noMatches": "No matches found",
+    "tryBroader": "Try broadening your search criteria",
+    "excellent": "Excellent",
+    "good": "Good",
+    "fair": "Fair",
+    "low": "Low",
+    "shown": "shown",
+    "recentSearches": "Recent Searches",
+    "aiSearchTitle": "AI-Powered Talent & Job Search",
+    "aiSearchDesc": "Describe what you're looking for in natural language"
   },
   "admin": {
     "translationCoverageDesc": "모든 언어에서 번역 완료 상태 모니터링",

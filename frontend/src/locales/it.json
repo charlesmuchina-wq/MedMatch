@@ -1808,7 +1808,27 @@
   },
   "candidateSearch": {
     "keywordsPlaceholder": "es. senior, da remoto, sanità...",
-    "skillsPlaceholder": "Digita una competenza e premi Invio..."
+    "skillsPlaceholder": "Digita una competenza e premi Invio...",
+    "semanticSearch": "Semantic Search",
+    "semanticSearchDesc": "AI-powered deep matching using natural language queries",
+    "searchPlaceholder": "Try: \"bioprocess engineer with 5+ years in monoclonal antibodies\"",
+    "candidates": "Candidates",
+    "jobs": "Jobs",
+    "search": "Search",
+    "matches": "matches",
+    "filters": "Filters",
+    "minRelevance": "Min Relevance",
+    "all": "All",
+    "noMatches": "No matches found",
+    "tryBroader": "Try broadening your search criteria",
+    "excellent": "Excellent",
+    "good": "Good",
+    "fair": "Fair",
+    "low": "Low",
+    "shown": "shown",
+    "recentSearches": "Recent Searches",
+    "aiSearchTitle": "AI-Powered Talent & Job Search",
+    "aiSearchDesc": "Describe what you're looking for in natural language"
   },
   "admin": {
     "translationCoverageDesc": "Monitora il completamento delle traduzioni in tutte le lingue",

@@ -1879,7 +1879,27 @@
   },
   "candidateSearch": {
     "skillsPlaceholder": "ஒரு திறனை தட்டி Enter அழுத்துங்கள்...",
-    "keywordsPlaceholder": "உதா., மூத்த, தொலைவேலை, சுகாதாரம்..."
+    "keywordsPlaceholder": "உதா., மூத்த, தொலைவேலை, சுகாதாரம்...",
+    "semanticSearch": "Semantic Search",
+    "semanticSearchDesc": "AI-powered deep matching using natural language queries",
+    "searchPlaceholder": "Try: \"bioprocess engineer with 5+ years in monoclonal antibodies\"",
+    "candidates": "Candidates",
+    "jobs": "Jobs",
+    "search": "Search",
+    "matches": "matches",
+    "filters": "Filters",
+    "minRelevance": "Min Relevance",
+    "all": "All",
+    "noMatches": "No matches found",
+    "tryBroader": "Try broadening your search criteria",
+    "excellent": "Excellent",
+    "good": "Good",
+    "fair": "Fair",
+    "low": "Low",
+    "shown": "shown",
+    "recentSearches": "Recent Searches",
+    "aiSearchTitle": "AI-Powered Talent & Job Search",
+    "aiSearchDesc": "Describe what you're looking for in natural language"
   },
   "companyReview": {
     "summaryPlaceholder": "உங்கள் அனுபவத்தை சுருக்கமாக எழுதுங்கள்",
