@@ -417,7 +417,7 @@ async def get_webinar_roles(webinar_id: str, user=Depends(get_current_user)):
     """Get all active roles for a webinar."""
     webinar = await db.webinars.find_one(
         {"webinar_id": webinar_id},
-        {"_id": 0, "host_id": 1, "host_name": 1, "active_roles": 1, "panelists": 1}
+        {"_id": 0, "host_id": 1, "host_name": 1, "active_roles": 1, "panelists": 1, "coordinators": 1}
     )
     if not webinar:
         raise HTTPException(404, "Webinar not found")
@@ -426,7 +426,11 @@ async def get_webinar_roles(webinar_id: str, user=Depends(get_current_user)):
     for uid, info in webinar.get("active_roles", {}).items():
         roles[uid] = info
 
-    return {"roles": roles, "panelist_emails": [p["email"] for p in webinar.get("panelists", [])]}
+    return {
+        "roles": roles,
+        "panelist_emails": [p["email"] for p in webinar.get("panelists", [])],
+        "coordinator_emails": [c["email"] for c in webinar.get("coordinators", [])]
+    }
 
 
 # --- Hand Raise ---
