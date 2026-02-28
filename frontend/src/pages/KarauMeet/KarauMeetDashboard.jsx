@@ -31,14 +31,34 @@ const KarauMeetDashboard = ({ user }) => {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [showMeetings, setShowMeetings] = useState(false);
   const [stats, setStats] = useState({
-    total_meetings: 0, total_hours: 0, recordings: 0, participants: 0
+    total_meetings: 0, total_hours: 0, recordings: 0, total_participants: 0, active_meetings: 0, ai_insights: 0
   });
+  const [activities, setActivities] = useState([]);
+  const [activitiesLoading, setActivitiesLoading] = useState(true);
 
   useEffect(() => {
     fetchMeetings();
     fetchTemplates();
-    setStats({ total_meetings: 24, total_hours: 48, recordings: 12, participants: 156 });
+    fetchStats();
+    fetchActivityFeed();
   }, []);
+
+  const fetchStats = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API}/api/karau-meet/stats`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) { const data = await res.json(); setStats(data); }
+    } catch (e) { console.error('Stats error:', e); }
+  };
+
+  const fetchActivityFeed = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API}/api/karau-meet/activity-feed?limit=12`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) { const data = await res.json(); setActivities(data.activities || []); }
+    } catch (e) { console.error('Activity error:', e); }
+    setActivitiesLoading(false);
+  };
 
   const fetchTemplates = async () => {
     try {
