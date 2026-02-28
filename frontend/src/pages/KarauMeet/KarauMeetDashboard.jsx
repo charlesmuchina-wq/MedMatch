@@ -53,6 +53,7 @@ const KarauMeetDashboard = ({ user }) => {
   const [upcoming, setUpcoming] = useState([]);
   const [trendingTopics, setTrendingTopics] = useState([]);
   const [, setTick] = useState(0);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
     fetchMeetings();
@@ -71,10 +72,10 @@ const KarauMeetDashboard = ({ user }) => {
 
   // Auto-refresh polling every 30 seconds
   useEffect(() => {
-    const refreshInterval = setInterval(() => {
-      fetchStats();
-      fetchActivityFeed();
-      fetchUpcoming();
+    const refreshInterval = setInterval(async () => {
+      setIsRefreshing(true);
+      await Promise.all([fetchStats(), fetchActivityFeed(), fetchUpcoming()]);
+      setTimeout(() => setIsRefreshing(false), 800);
     }, 30000);
     return () => clearInterval(refreshInterval);
   }, []);
