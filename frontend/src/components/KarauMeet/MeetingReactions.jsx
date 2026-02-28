@@ -67,8 +67,7 @@ const BurstParticle = ({ emoji, id, onDone }) => {
   return <div style={style}>{emoji}</div>;
 };
 
-const MeetingReactions = ({ onSendReaction, incomingReaction }) => {
-  const [showBar, setShowBar] = useState(false);
+const MeetingReactions = ({ onSendReaction, incomingReaction, showBar, onToggleBar }) => {
   const [floatingEmojis, setFloatingEmojis] = useState([]);
   const [burstParticles, setBurstParticles] = useState([]);
   const nextId = useRef(0);
@@ -102,11 +101,12 @@ const MeetingReactions = ({ onSendReaction, incomingReaction }) => {
   const handleReaction = (emoji) => {
     addFloating(emoji);
     onSendReaction?.(emoji);
-    setShowBar(false);
+    onToggleBar?.(false);
   };
 
   return (
     <>
+      {/* Floating emojis overlay */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none" data-testid="reaction-overlay">
         {floatingEmojis.map(({ id, emoji }) => (
           <FloatingEmoji key={id} id={id} emoji={emoji} onDone={removeFloating} />
@@ -116,8 +116,9 @@ const MeetingReactions = ({ onSendReaction, incomingReaction }) => {
         ))}
       </div>
 
+      {/* Reaction picker bar */}
       {showBar && (
-        <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-40 bg-slate-800/95 backdrop-blur-xl rounded-2xl px-2 py-1.5 flex gap-0.5 border border-slate-600/50 shadow-2xl shadow-black/30 animate-in slide-in-from-bottom-2 duration-200"
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-40 bg-slate-800/95 backdrop-blur-xl rounded-2xl px-2 py-1.5 flex gap-0.5 border border-slate-600/50 shadow-2xl shadow-black/30"
           data-testid="reaction-bar">
           {EMOJI_OPTIONS.map(({ emoji, label }) => (
             <button
@@ -132,17 +133,6 @@ const MeetingReactions = ({ onSendReaction, incomingReaction }) => {
           ))}
         </div>
       )}
-
-      <button
-        onClick={() => setShowBar(!showBar)}
-        className={`rounded-xl w-10 h-10 md:w-11 md:h-11 flex items-center justify-center text-lg transition-all duration-200 ${
-          showBar ? 'bg-turquoise/20 text-turquoise' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'
-        }`}
-        title="Reactions"
-        data-testid="control-reactions"
-      >
-        {'\ud83d\udc4d'}
-      </button>
 
       <style>{`
         @keyframes floatReaction {
