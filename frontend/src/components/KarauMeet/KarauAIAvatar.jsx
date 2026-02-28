@@ -65,7 +65,7 @@ const KarauAIAvatar = ({ meetingId }) => {
       }
     } catch {
       setMessages(prev => [...prev, {
-        role: 'assistant', content: 'Connection error.',
+        role: 'assistant', content: t("karauMeet.connectionError"),
         timestamp: new Date().toISOString(), isError: true
       }]);
     }
