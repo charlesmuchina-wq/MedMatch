@@ -1997,7 +1997,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 </button>
                 {isHost && (
                   <button onClick={() => { setShowBreakoutManager(true); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
-                    <Users className="w-4 h-4 flex-shrink-0" />Breakout Rooms
+                    <Users className="w-4 h-4 flex-shrink-0" />{t("karauMeet.breakoutRoomsBtn")}
                   </button>
                 )}
                 <div className="border-t border-karau-border my-1" />
