@@ -116,6 +116,18 @@ const KarauMeetDashboard = ({ user }) => {
     } catch (e) { console.error('Trending error:', e); }
   };
 
+  const fetchAnalytics = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const [effRes, gamRes] = await Promise.all([
+        fetch(`${API}/api/karau/analytics/effectiveness`, { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch(`${API}/api/karau/analytics/gamification`, { headers: { 'Authorization': `Bearer ${token}` } })
+      ]);
+      if (effRes.ok) setEffectiveness(await effRes.json());
+      if (gamRes.ok) setGamification(await gamRes.json());
+    } catch (e) { console.error('Analytics error:', e); }
+  };
+
   const fetchTemplates = async () => {
     try {
       const res = await fetch(`${API}/api/karau-features/templates`);
