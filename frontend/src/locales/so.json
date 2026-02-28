@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinars",
+    "webinarDesc": "Marti geli dhacdooyin waaweyn oo ka badan 1000 ka qayb galayaal, Q&A, iyo xakameynta dhagaystayaasha",
+    "newWebinar": "Webinar Cusub",
+    "noWebinars": "Webinars ma jiraan weli",
+    "createFirstWebinar": "Abuur webinar-kii ugu horeeyay si aad u martigeliso dhacdooyin waaweyn",
+    "end": "Dhamaad",
+    "uploadingToCloud": "Duubista waxaa loo rarayaa daruurta...",
+    "recordingSavedCloud": "Duubista waxaa lagu keydiyay daruurta",
+    "downloadStarted": "Degsashada waxay bilaabatay",
+    "cloudRecordings": "Daruur",
+    "engagementScore": "Dhibcaha Ka-qaybgalka",
+    "peakAttendees": "Ka-qayb galayaasha Ugu Badan",
+    "attendanceFunnel": "Maalin Qayb Gal",
+    "attendedLabel": "Ka Qayb Galay",
+    "missedLabel": "Ka maqnaa",
+    "qaStatistics": "Tirakoobka Q&A",
+    "totalQuestions": "Su'aalaha Guud",
+    "answerRate": "Heerka Jawaabaha",
+    "topQuestions": "Su'aalaha Ugu Sareeya",
+    "orgBreakdown": "Qaybta Ururka",
+    "registrationTimeline": "Waqtiga Isdiiwaangelinta",
+    "analyticsNotAvailable": "Falanqaynta ma heli karto"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "tusaale, webhook ATS ee wax-soo-saarka",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Eeg dhammaan kulamadaadii hore iyo kuwa soo socda",
     "scheduleDesc": "Jadwal u samee oo maamul kulamadaada",
     "notesDesc": "Soo-koobyo iyo qoraal-beddelid ay AI soo saartay",
-    "analyticsDesc": "Tirakoobka kulanka iyo aragtiyo"
+    "analyticsDesc": "Tirakoobka kulanka iyo aragtiyo",
+    "webinars": "Webinars"
   },
   "trust": {
     "trustScore": "Dhibcaha Kalsoonida",

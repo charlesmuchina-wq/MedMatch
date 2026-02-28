@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "வெபிநார்கள்",
+    "webinarDesc": "1000+ பங்கேற்பாளர்களுடன் பெரிய அளவிலான நிகழ்வுகளை நடத்துங்கள், Q&A மற்றும் பார்வையாளரின் கட்டுப்பாடுகள்",
+    "newWebinar": "புதிய வெபினார்",
+    "noWebinars": "என்னும் வெபினார்கள் இல்லை",
+    "createFirstWebinar": "பெரிய அளவிலான நிகழ்வுகளை நடத்த உங்கள் முதல் வெபினாரம் உருவாக்குங்கள்",
+    "end": "முடிக்கவும்",
+    "uploadingToCloud": "கிளவுக்கோ பதிவேற்றப்படுகிறது...",
+    "recordingSavedCloud": "கிளவுக்கு பதிவேற்றம் செய்யப்பட்ட பதிவு",
+    "downloadStarted": "பதிவிறக்கம் தொடங்கியது",
+    "cloudRecordings": "கிளாப்",
+    "engagementScore": "சந்திப்பு மதிப்பு",
+    "peakAttendees": "அதிகபட்ச பங்கேற்பாளர்கள்",
+    "attendanceFunnel": "பங்கேற்பு குழாய்",
+    "attendedLabel": "பலரும் பங்கேற்றனர்",
+    "missedLabel": "மறந்தது",
+    "qaStatistics": "Q&A புள்ளிவிவரம்",
+    "totalQuestions": "மொத்த கேள்விகள்",
+    "answerRate": "பதில் வீதம்",
+    "topQuestions": "சிறந்த கேள்விகள்",
+    "orgBreakdown": "அமைப்பு விவரக்குறிப்புகள்",
+    "registrationTimeline": "பதிவு காலரேகை",
+    "analyticsNotAvailable": "புள்ளி விவரம் கிடைக்கவில்லை"
   },
   "location": {
     "selectLocationPlaceholder": "உங்கள் இடத்தைத் தேர்ந்தெடுக்கவும்..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "உங்கள் கடந்த மற்றும் வரவிருக்கும் அனைத்து கூட்டங்களையும் காண்க",
     "scheduleDesc": "உங்கள் கூட்டங்களை அட்டவணைப்படுத்தி நிர்வகிக்கவும்",
     "notesDesc": "AI உருவாக்கிய சுருக்கங்கள் மற்றும் உரைமாற்றங்கள்",
-    "analyticsDesc": "கூட்ட புள்ளிவிவரங்கள் மற்றும் நுண்ணறிவுகள்"
+    "analyticsDesc": "கூட்ட புள்ளிவிவரங்கள் மற்றும் நுண்ணறிவுகள்",
+    "webinars": "வெபிநார்கள்"
   },
   "trust": {
     "trustScore": "நம்பகத்தன்மை மதிப்பெண்",

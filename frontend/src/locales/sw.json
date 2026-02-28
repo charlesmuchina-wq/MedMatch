@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinars",
+    "webinarDesc": "Fanya matukio makubwa na wahudhuriaji 1000+, Q&A, na udhibiti wa watazamaji",
+    "newWebinar": "Webinar Mpya",
+    "noWebinars": "Hakuna webinars bado",
+    "createFirstWebinar": "Fanya webinar yako ya kwanza ili kufanikisha matukio makubwa",
+    "end": "Maliza",
+    "uploadingToCloud": "Ikipakia kurekodi kwenye wingu...",
+    "recordingSavedCloud": "Kurekodi kumehifadhiwa kwenye wingu",
+    "downloadStarted": "Upakuaji umeanza",
+    "cloudRecordings": "Wingu",
+    "engagementScore": "Alama ya Ushiriki",
+    "peakAttendees": "Wahudhuriaji Wakati wa Katika",
+    "attendanceFunnel": "Mfereji wa Uwepo",
+    "attendedLabel": "Walihudhuria",
+    "missedLabel": "Hawakuhudhuria",
+    "qaStatistics": "Takwimu za Q&A",
+    "totalQuestions": "Maswali Yote",
+    "answerRate": "Kiwango cha Majibu",
+    "topQuestions": "Maswali Bora",
+    "orgBreakdown": "Kukosekana kwa Shirika",
+    "registrationTimeline": "Muda wa Usajili",
+    "analyticsNotAvailable": "Takwimu za uchanganuzi hazipatikani"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "mfano, webhook ya ATS ya Uzalishaji",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Tazama mikutano yako yote iliyopita na ijayo",
     "scheduleDesc": "Panga na dhibiti mikutano yako",
     "notesDesc": "Muhtasari na manukuu yaliyotengenezwa na AI",
-    "analyticsDesc": "Takwimu na maarifa ya mikutano"
+    "analyticsDesc": "Takwimu na maarifa ya mikutano",
+    "webinars": "Webinars"
   },
   "trust": {
     "trustScore": "Alama ya Uaminifu",

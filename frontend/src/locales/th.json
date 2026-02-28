@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "สัมมนา",
+    "webinarDesc": "โฮสต์กิจกรรมขนาดใหญ่ที่มีผู้เข้าร่วมมากกว่า 1000 คน, Q&A, และการควบคุมผู้ชม",
+    "newWebinar": "สัมมนาใหม่",
+    "noWebinars": "ยังไม่มีสัมมนา",
+    "createFirstWebinar": "สร้างสัมมนาแรกของคุณเพื่อจัดกิจกรรมขนาดใหญ่",
+    "end": "สิ้นสุด",
+    "uploadingToCloud": "กำลังอัปโหลดการบันทึกไปยังคลาวด์...",
+    "recordingSavedCloud": "บันทึกถูกเก็บในคลาวด์",
+    "downloadStarted": "เริ่มดาวน์โหลด",
+    "cloudRecordings": "คลาวด์",
+    "engagementScore": "คะแนนการมีส่วนร่วม",
+    "peakAttendees": "ผู้เข้าชมสูงสุด",
+    "attendanceFunnel": "ช่องทางการเข้าร่วม",
+    "attendedLabel": "เข้าร่วม",
+    "missedLabel": "พลาด",
+    "qaStatistics": "สถิติ Q&A",
+    "totalQuestions": "จำนวนคำถามทั้งหมด",
+    "answerRate": "อัตราคำตอบ",
+    "topQuestions": "คำถามยอดนิยม",
+    "orgBreakdown": "การแบ่งตามองค์กร",
+    "registrationTimeline": "ไทม์ไลน์การลงทะเบียน",
+    "analyticsNotAvailable": "การวิเคราะห์ไม่สามารถใช้งานได้"
   },
   "location": {
     "selectLocationPlaceholder": "เลือกตำแหน่งที่ตั้งของคุณ..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "ดูการประชุมที่ผ่านมาและที่กำลังจะมาถึงทั้งหมดของคุณ",
     "scheduleDesc": "กำหนดเวลาและจัดการการประชุมของคุณ",
     "notesDesc": "สรุปและถอดเสียงที่สร้างโดย AI",
-    "analyticsDesc": "สถิติและข้อมูลเชิงลึกของการประชุม"
+    "analyticsDesc": "สถิติและข้อมูลเชิงลึกของการประชุม",
+    "webinars": "สัมมนา"
   },
   "trust": {
     "trustScore": "คะแนนความน่าเชื่อถือ",

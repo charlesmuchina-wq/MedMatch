@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinars",
+    "webinarDesc": "Bata mahofisi makuru ane vatori vechirongwa vanopfuura 1000, Q&A, uye kutonga kwevateereri",
+    "newWebinar": "Webinar Itsva",
+    "noWebinars": "Hapana mahofisi achiri",
+    "createFirstWebinar": "Gadzira hofisi yako yekutanga kuti ubate mahofisi makuru",
+    "end": "Pedzisa",
+    "uploadingToCloud": "Kukwidza kurekodhi kumakore...",
+    "recordingSavedCloud": "Kurekodhi kwachengetwa kumakore",
+    "downloadStarted": "Kurodha kwatanga",
+    "cloudRecordings": "Makore",
+    "engagementScore": "Chiratidzo cheKubatanidzwa",
+    "peakAttendees": "Vatori veChikamu Vepamusoro",
+    "attendanceFunnel": "Funnel yePakatja",
+    "attendedLabel": "Vakauya",
+    "missedLabel": "Vakakanganwa",
+    "qaStatistics": "Q&A Statistics",
+    "totalQuestions": "Mibvunzo Yese",
+    "answerRate": "Kuwanda Kwapindurwa",
+    "topQuestions": "Mibvunzo Yepamusoro",
+    "orgBreakdown": "Kupatsanurwa KweSangano",
+    "registrationTimeline": "Nguva yeKunyoresa",
+    "analyticsNotAvailable": "Analytics haapo"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "semuenzaniso, ATS webhook yeProduction",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Ona misangano yako yose yapfuura uye iri kuuya",
     "scheduleDesc": "Ronga uye gadzirisa misangano yako",
     "notesDesc": "Pfupiso uye zvinyorwa zvakagadzirwa neAI",
-    "analyticsDesc": "Nhamba dzemusangano uye maonero"
+    "analyticsDesc": "Nhamba dzemusangano uye maonero",
+    "webinars": "Webinars"
   },
   "trust": {
     "trustScore": "Chiyero cheKuvimbika",

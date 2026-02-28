@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinars",
+    "webinarDesc": "Bamba imicimbi emikhulu enabantu abangaphezu kwe-1000, Q&A, kanye nolawulo lwezithameli",
+    "newWebinar": "Webinar Entsha",
+    "noWebinars": "Ayikho imicimbi eyethuliwe",
+    "createFirstWebinar": "Dala iwebinar yakho yokuqala ukuze uphathe imicimbi emikhulu",
+    "end": "Phetha",
+    "uploadingToCloud": "Uploading recording to cloud...",
+    "recordingSavedCloud": "Ukurekhodwa kugcinwe efwini",
+    "downloadStarted": "Ukulanda kuqashelwe",
+    "cloudRecordings": "Iffu",
+    "engagementScore": "Isixhumanisi Sokuzibandakanya",
+    "peakAttendees": "Abangene kakhulu",
+    "attendanceFunnel": "I-Funnel Yokuhambela",
+    "attendedLabel": "Bebekhona",
+    "missedLabel": "Baphuthelwe",
+    "qaStatistics": "I-Statistics ye-Q&A",
+    "totalQuestions": "Imibuzo Ewusuku",
+    "answerRate": "Izinga Lokuphendula",
+    "topQuestions": "Imibuzo Ephakeme",
+    "orgBreakdown": "Uhlanga Lokuhlukaniswa",
+    "registrationTimeline": "Isikhathi Sokubhalisela",
+    "analyticsNotAvailable": "I-Analytics ayitholakali"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "umz., i-webhook ye-ATS yeMveliso",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Jonga zonke iintlanganiso zakho ezidlulileyo nezizayo",
     "scheduleDesc": "Cwangcisa uze ulawule iintlanganiso zakho",
     "notesDesc": "Izishwankathelo neetranskripthi ezenziwe yi-AI",
-    "analyticsDesc": "Istatistikhi neengqiqo zentlanganiso"
+    "analyticsDesc": "Istatistikhi neengqiqo zentlanganiso",
+    "webinars": "Webinars"
   },
   "trust": {
     "trustScore": "Inqaku Lokuthembeka",

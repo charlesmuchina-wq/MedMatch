@@ -2261,7 +2261,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webbinarier",
+    "webinarDesc": "Håll storskaliga evenemang med 1000+ deltagare, Q&A och publikhantering",
+    "newWebinar": "Nytt Webinar",
+    "noWebinars": "Inga webbinarier än",
+    "createFirstWebinar": "Skapa ditt första webinar för att hålla storskaliga evenemang",
+    "end": "Avsluta",
+    "uploadingToCloud": "Laddar upp inspelning till molnet...",
+    "recordingSavedCloud": "Inspelning sparad i molnet",
+    "downloadStarted": "Nedladdning påbörjad",
+    "cloudRecordings": "Moln",
+    "engagementScore": "Engagemangspoäng",
+    "peakAttendees": "Max deltagare",
+    "attendanceFunnel": "Deltagarfunnel",
+    "attendedLabel": "Deltagit",
+    "missedLabel": "Missat",
+    "qaStatistics": "Q&A Statistik",
+    "totalQuestions": "Totala Frågor",
+    "answerRate": "Svarsfrekvens",
+    "topQuestions": "Toppfrågor",
+    "orgBreakdown": "Organisationsfördelning",
+    "registrationTimeline": "Registreringslinje",
+    "analyticsNotAvailable": "Analys ej tillgänglig"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "t.ex. Produktionswebhook för ATS",
@@ -2637,7 +2659,8 @@
     "viewAllMeetings": "Visa alla dina tidigare och kommande möten",
     "scheduleDesc": "Schemalägg och hantera dina möten",
     "notesDesc": "AI-genererade sammanfattningar och transkriptioner",
-    "analyticsDesc": "Mötesstatistik och insikter"
+    "analyticsDesc": "Mötesstatistik och insikter",
+    "webinars": "Webbinarier"
   },
   "trust": {
     "trustScore": "Förtroendepoäng",

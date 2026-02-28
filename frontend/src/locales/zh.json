@@ -2304,7 +2304,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "网络研讨会",
+    "webinarDesc": "举办1000+参与者的大型活动，问答和观众控制",
+    "newWebinar": "新网络研讨会",
+    "noWebinars": "尚无网络研讨会",
+    "createFirstWebinar": "创建您的第一个网络研讨会以举办大型活动",
+    "end": "结束",
+    "uploadingToCloud": "正在上传录音到云...",
+    "recordingSavedCloud": "录音已保存到云",
+    "downloadStarted": "下载已开始",
+    "cloudRecordings": "云端",
+    "engagementScore": "互动评分",
+    "peakAttendees": "峰值参与者",
+    "attendanceFunnel": "出席漏斗",
+    "attendedLabel": "已出席",
+    "missedLabel": "未出席",
+    "qaStatistics": "问答统计",
+    "totalQuestions": "总问题数",
+    "answerRate": "回答率",
+    "topQuestions": "热门问题",
+    "orgBreakdown": "组织分类",
+    "registrationTimeline": "注册时间线",
+    "analyticsNotAvailable": "分析不可用"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "例如：生产环境 ATS Webhook",
@@ -2680,7 +2702,8 @@
     "viewAllMeetings": "查看你过去和即将开始的所有会议",
     "scheduleDesc": "安排并管理你的会议",
     "notesDesc": "AI 生成的摘要和转录",
-    "analyticsDesc": "会议统计与洞察"
+    "analyticsDesc": "会议统计与洞察",
+    "webinars": "网络研讨会"
   },
   "trust": {
     "trustScore": "信任评分",

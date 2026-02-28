@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinari",
+    "webinarDesc": "Tegura ibirori binini bifite abitabiriye barenga 1000, Q&A, n'ibikoresho by'abarebye",
+    "newWebinar": "Webinari Nshya",
+    "noWebinars": "Nta webinari ziriho",
+    "createFirstWebinar": "Tegura webinari yawe ya mbere yo gukoresha ibirori binini",
+    "end": "Saranganya",
+    "uploadingToCloud": "Ujya muri cloud...",
+    "recordingSavedCloud": "Icyegeranyo kiba mu bicu",
+    "downloadStarted": "Guhitiramo byatangiye",
+    "cloudRecordings": "Cloud",
+    "engagementScore": "Amanota y'ubufatanye",
+    "peakAttendees": "Abitabiriye bari hejuru",
+    "attendanceFunnel": "Imiyoboro y'itabire",
+    "attendedLabel": "Yitabiriye",
+    "missedLabel": "Yabuze",
+    "qaStatistics": "Statistiques za Q&A",
+    "totalQuestions": "Ibibazo Bihari",
+    "answerRate": "Ikigero cyo Gusubiza",
+    "topQuestions": "Ibibazo Byibukwa",
+    "orgBreakdown": "Ibisobanuro by'Umuryango",
+    "registrationTimeline": "Igihe cyo Kwiyandikisha",
+    "analyticsNotAvailable": "Ibipimo ntibihari"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "urugero: Webhook ya ATS ya Production",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Reba inama zawe zose zabaye n'iziteganyijwe",
     "scheduleDesc": "Tegura kandi ucunge inama zawe",
     "notesDesc": "Incamake zakozwe na AI n'inyandiko-mvugo",
-    "analyticsDesc": "Imibare y'inama n'isesengura"
+    "analyticsDesc": "Imibare y'inama n'isesengura",
+    "webinars": "Webinari"
   },
   "trust": {
     "trustScore": "Amanota y’Icyizere",

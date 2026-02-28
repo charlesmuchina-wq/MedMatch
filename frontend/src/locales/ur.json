@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "ویبینا",
+    "webinarDesc": "1000+ شرکاء کے ساتھ بڑے پیمانے پر ایونٹس کی میزبانی کریں، Q&A، اور سامعین کنٹرول",
+    "newWebinar": "نیا ویبینا",
+    "noWebinars": "ابھی تک کوئی ویبینا نہیں",
+    "createFirstWebinar": "بڑے پیمانے پر ایونٹس کی میزبانی کے لیے اپنا پہلا ویبینا بنائیں",
+    "end": "ختم",
+    "uploadingToCloud": "ریکارڈنگ کلاؤڈ میں اپ لوڈ ہو رہی ہے...",
+    "recordingSavedCloud": "ریکارڈنگ کلاؤڈ میں محفوظ کی گئی",
+    "downloadStarted": "ڈاؤن لوڈ شروع ہو گیا",
+    "cloudRecordings": "کلاؤڈ",
+    "engagementScore": "مشغولیت سکور",
+    "peakAttendees": "عروج پر شرکاء",
+    "attendanceFunnel": "حاضری کا کانٹا",
+    "attendedLabel": "حاضر",
+    "missedLabel": "غائب",
+    "qaStatistics": "Q&A کے اعداد و شمار",
+    "totalQuestions": "مجموعی سوالات",
+    "answerRate": "جواب کی شرح",
+    "topQuestions": "سر فہرست سوالات",
+    "orgBreakdown": "تنظیم کی تفصیل",
+    "registrationTimeline": "رجسٹریشن ٹائم لائن",
+    "analyticsNotAvailable": "اعدادوشمار دستیاب نہیں"
   },
   "location": {
     "selectLocationPlaceholder": "اپنا مقام منتخب کریں..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "اپنی تمام پچھلی اور آنے والی میٹنگز دیکھیں",
     "scheduleDesc": "اپنی میٹنگز شیڈول کریں اور منظم کریں",
     "notesDesc": "AI سے تیار کردہ خلاصے اور ٹرانسکرپشنز",
-    "analyticsDesc": "میٹنگ کے اعداد و شمار اور بصیرتیں"
+    "analyticsDesc": "میٹنگ کے اعداد و شمار اور بصیرتیں",
+    "webinars": "ویبینا"
   },
   "trust": {
     "trustScore": "اعتماد اسکور",

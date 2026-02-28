@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinars",
+    "webinarDesc": "Ṣe àjọyọ̀ ńlá pẹ̀lú àwọn alátakò 1000+, Q&A, àti iṣakoso olùgbọ́",
+    "newWebinar": "Webinar Tuntun",
+    "noWebinars": "Kò sí webinars sibẹ",
+    "createFirstWebinar": "Ṣẹda webinar rẹ̀ àkọ́kọ́ láti ṣe àjọyọ̀ ńlá",
+    "end": "Pari",
+    "uploadingToCloud": "Nàà àkọọ́lẹ̀ sí awọ̀sanma...",
+    "recordingSavedCloud": "Àkọọ́lẹ̀ ti pamọ́ sí awọ̀sanma",
+    "downloadStarted": "Ìkànsí bẹ̀rẹ̀",
+    "cloudRecordings": "Awọ̀sanma",
+    "engagementScore": "Ìkànsí ìbáṣepọ̀",
+    "peakAttendees": "Àwọn alátakò tó pọ̀ jùlọ",
+    "attendanceFunnel": "Àfojúsùn ìbẹ̀rẹ̀",
+    "attendedLabel": "Ti wà",
+    "missedLabel": "Ti padanu",
+    "qaStatistics": "Ìṣirò Q&A",
+    "totalQuestions": "Ìkà gbogbo ìbéèrè",
+    "answerRate": "Ìyẹ̀rẹ̀ ìdáhùn",
+    "topQuestions": "Àwọn ìbéèrè tó ga jùlọ",
+    "orgBreakdown": "Ìtàn ìṣẹ̀lú",
+    "registrationTimeline": "Àkókò ìforúkọsílẹ̀",
+    "analyticsNotAvailable": "Àlàyé ìtàn iṣiro ko wà"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "àpẹẹrẹ: webhook ATS Ìṣelọpọ",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Wo gbogbo àwọn ìpàdé rẹ tó ti kọjá àti tó ń bọ",
     "scheduleDesc": "Ṣètò àti ṣàkóso àwọn ìpàdé rẹ",
     "notesDesc": "Àwọn àkótán àti àtúkọ̀wé tí AI dá",
-    "analyticsDesc": "Àwọn iṣirò àti ìmọ̀lára nípa ìpàdé"
+    "analyticsDesc": "Àwọn iṣirò àti ìmọ̀lára nípa ìpàdé",
+    "webinars": "Webinars"
   },
   "trust": {
     "trustScore": "Ami Igbẹkẹle",

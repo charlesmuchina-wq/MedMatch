@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinars",
+    "webinarDesc": "Tɔ nkrɔfo kɛse a ɛyɛ 1000+ a wɔda ho adi, Q&A, ne nyansapɔ",
+    "newWebinar": "Webinar foforɔ",
+    "noWebinars": "Nni webinars biara",
+    "createFirstWebinar": "Bɔ wo webinar a ɛyɛ dɛn a ɛbɛtɔ nkrɔfo kɛse",
+    "end": "Twa to so",
+    "uploadingToCloud": "Rebɔ nsɛm a wɔaka ho kɔ ɔdan mu...",
+    "recordingSavedCloud": "Nsɛm a wɔaka ho abɔ ɔdan mu",
+    "downloadStarted": "Nkasafua no atɔ",
+    "cloudRecordings": "ɔdan mu",
+    "engagementScore": "Nnam di kɔ",
+    "peakAttendees": "Nkrɔfo kɛse a wɔda ho adi",
+    "attendanceFunnel": "Nkrɔfo mu wia",
+    "attendedLabel": "Wɔda ho adi",
+    "missedLabel": "Wɔsii",
+    "qaStatistics": "Q&A Nkyerɛmu",
+    "totalQuestions": "Nsɛm a ɛyɛ nyinaa",
+    "answerRate": "Nsɛm a wɔabɔ ho",
+    "topQuestions": "Nsɛm a ɛyɛ kɛse",
+    "orgBreakdown": "Nkyɛkyerɛ mu",
+    "registrationTimeline": "Nkwankyɛn a wɔyɛ ɔyɛ",
+    "analyticsNotAvailable": "Nkyerɛmu nni hɔ"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "misaal: Production ATS webhook",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Xool sa ndaje yi weesu ak yi ñëw",
     "scheduleDesc": "Program ak saytu say ndaje",
     "notesDesc": "Jëfandikoo AI ngir jumtukaay yi ak transkripsioŋ",
-    "analyticsDesc": "Statistik ak xam-xam ci ndaje yi"
+    "analyticsDesc": "Statistik ak xam-xam ci ndaje yi",
+    "webinars": "Webinars"
   },
   "trust": {
     "trustScore": "Nivóo gu wóor",

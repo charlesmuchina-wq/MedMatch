@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Mga Webinar",
+    "webinarDesc": "Mag-host ng malawakang kaganapan na may 1000+ na dumalo, Q&A, at mga kontrol ng madla",
+    "newWebinar": "Bagong Webinar",
+    "noWebinars": "Walang mga webinar pa",
+    "createFirstWebinar": "Gumawa ng iyong unang webinar upang mag-host ng malawakang kaganapan",
+    "end": "Wakas",
+    "uploadingToCloud": "Nag-a-upload ng recording sa cloud...",
+    "recordingSavedCloud": "Na-save ang recording sa cloud",
+    "downloadStarted": "Nagsimula ang pag-download",
+    "cloudRecordings": "Cloud",
+    "engagementScore": "Iskor ng Pakikilahok",
+    "peakAttendees": "Tuktok ng Dumalo",
+    "attendanceFunnel": "Kanal ng Dumalo",
+    "attendedLabel": "Dumalo",
+    "missedLabel": "Na-miss",
+    "qaStatistics": "Istatistika ng Q&A",
+    "totalQuestions": "Kabuuang Tanong",
+    "answerRate": "Rate ng Pagsagot",
+    "topQuestions": "Nangungunang Mga Tanong",
+    "orgBreakdown": "Paghahati ng Organisasyon",
+    "registrationTimeline": "Timeline ng Pagpaparehistro",
+    "analyticsNotAvailable": "Hindi magagamit ang Analytics"
   },
   "location": {
     "selectLocationPlaceholder": "Piliin ang iyong lokasyon..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "Tingnan ang lahat ng nakaraan at paparating mong meeting",
     "scheduleDesc": "Mag-iskedyul at pamahalaan ang iyong mga meeting",
     "notesDesc": "Mga buod at transcription na binuo ng AI",
-    "analyticsDesc": "Mga istatistika at insight ng meeting"
+    "analyticsDesc": "Mga istatistika at insight ng meeting",
+    "webinars": "Mga Webinar"
   },
   "trust": {
     "trustScore": "Iskor ng Tiwala",

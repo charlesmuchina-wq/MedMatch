@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinarii",
+    "webinarDesc": "Gazduiește evenimente la scară mare cu peste 1000 de participanți, Q&A și controale pentru public",
+    "newWebinar": "Webinar Nou",
+    "noWebinars": "Nu sunt webinarii încă",
+    "createFirstWebinar": "Creează primul tău webinar pentru a găzdui evenimente la scară mare",
+    "end": "Finalizare",
+    "uploadingToCloud": "Se încarcă înregistrarea în cloud...",
+    "recordingSavedCloud": "Înregistrare salvată în cloud",
+    "downloadStarted": "Descărcare începută",
+    "cloudRecordings": "Cloud",
+    "engagementScore": "Scor de Implicare",
+    "peakAttendees": "Participanți de Vârf",
+    "attendanceFunnel": "Funnel de Participare",
+    "attendedLabel": "Prezenți",
+    "missedLabel": "Ratat",
+    "qaStatistics": "Statistici Q&A",
+    "totalQuestions": "Întrebări Totale",
+    "answerRate": "Rata de Răspuns",
+    "topQuestions": "Cele Mai Bune Întrebări",
+    "orgBreakdown": "Împărțirea Organizației",
+    "registrationTimeline": "Cronologia Înregistrării",
+    "analyticsNotAvailable": "Analizele nu sunt disponibile"
   },
   "location": {
     "selectLocationPlaceholder": "Selectați locația..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "Vezi toate întâlnirile tale trecute și viitoare",
     "scheduleDesc": "Programează și gestionează-ți întâlnirile",
     "notesDesc": "Rezumat și transcrieri generate de AI",
-    "analyticsDesc": "Statistici și informații despre întâlniri"
+    "analyticsDesc": "Statistici și informații despre întâlniri",
+    "webinars": "Webinarii"
   },
   "trust": {
     "trustScore": "Scor de încredere",

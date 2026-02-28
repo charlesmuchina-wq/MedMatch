@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Hội thảo trực tuyến",
+    "webinarDesc": "Tổ chức sự kiện quy mô lớn với hơn 1000 người tham gia, Hỏi & Đáp và điều khiển khán giả",
+    "newWebinar": "Hội thảo mới",
+    "noWebinars": "Chưa có hội thảo nào",
+    "createFirstWebinar": "Tạo hội thảo đầu tiên của bạn để tổ chức sự kiện quy mô lớn",
+    "end": "Kết thúc",
+    "uploadingToCloud": "Đang tải ghi âm lên đám mây...",
+    "recordingSavedCloud": "Ghi âm đã được lưu lên đám mây",
+    "downloadStarted": "Bắt đầu tải xuống",
+    "cloudRecordings": "Đám mây",
+    "engagementScore": "Điểm tương tác",
+    "peakAttendees": "Người tham gia tối đa",
+    "attendanceFunnel": "Phễu tham dự",
+    "attendedLabel": "Đã tham dự",
+    "missedLabel": "Bỏ lỡ",
+    "qaStatistics": "Thống kê Hỏi & Đáp",
+    "totalQuestions": "Tổng số câu hỏi",
+    "answerRate": "Tỷ lệ trả lời",
+    "topQuestions": "Câu hỏi hàng đầu",
+    "orgBreakdown": "Phân tích tổ chức",
+    "registrationTimeline": "Thời gian đăng ký",
+    "analyticsNotAvailable": "Phân tích không khả dụng"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "vd: Webhook ATS cho môi trường Production",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Xem tất cả các cuộc họp đã qua và sắp tới của bạn",
     "scheduleDesc": "Lên lịch và quản lý các cuộc họp của bạn",
     "notesDesc": "Tóm tắt và bản chép lời do AI tạo",
-    "analyticsDesc": "Thống kê và thông tin chi tiết về cuộc họp"
+    "analyticsDesc": "Thống kê và thông tin chi tiết về cuộc họp",
+    "webinars": "Hội thảo trực tuyến"
   },
   "trust": {
     "trustScore": "Điểm tin cậy",

@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Webinarlar",
+    "webinarDesc": "1000+ katılımcı ile büyük ölçekli etkinlikler düzenleyin, Soru-Cevap ve katılımcı kontrolleri",
+    "newWebinar": "Yeni Webinar",
+    "noWebinars": "Henüz webinar yok",
+    "createFirstWebinar": "Büyük ölçekli etkinlikler düzenlemek için ilk webinarlınızı oluşturun",
+    "end": "Sonlandır",
+    "uploadingToCloud": "Kaydı buluta yüklüyor...",
+    "recordingSavedCloud": "Kayıt buluta kaydedildi",
+    "downloadStarted": "İndirme başladı",
+    "cloudRecordings": "Bulut",
+    "engagementScore": "Etkileşim Skoru",
+    "peakAttendees": "Zirve Katılımcılar",
+    "attendanceFunnel": "Katılım Aşaması",
+    "attendedLabel": "Katıldılar",
+    "missedLabel": "Kaçırıldı",
+    "qaStatistics": "Soru-Cevap İstatistikleri",
+    "totalQuestions": "Toplam Sorular",
+    "answerRate": "Cevap Oranı",
+    "topQuestions": "En İyi Sorular",
+    "orgBreakdown": "Kuruluş Dağılımı",
+    "registrationTimeline": "Kayıt Zaman Çizelgesi",
+    "analyticsNotAvailable": "Analizler mevcut değil"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "örn. Prodüksiyon ATS webhook'u",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Geçmiş ve yaklaşan tüm toplantılarınızı görüntüleyin",
     "scheduleDesc": "Toplantılarınızı planlayın ve yönetin",
     "notesDesc": "Yapay zeka tarafından oluşturulan özetler ve transkriptler",
-    "analyticsDesc": "Toplantı istatistikleri ve içgörüler"
+    "analyticsDesc": "Toplantı istatistikleri ve içgörüler",
+    "webinars": "Webinarlar"
   },
   "trust": {
     "trustScore": "Güven Puanı",

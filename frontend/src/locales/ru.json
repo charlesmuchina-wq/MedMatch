@@ -2261,7 +2261,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Вебинары",
+    "webinarDesc": "Проводите массовые мероприятия с более чем 1000 участниками, Q&A и управлением аудиторией",
+    "newWebinar": "Новый вебинар",
+    "noWebinars": "Пока нет вебинаров",
+    "createFirstWebinar": "Создайте свой первый вебинар для проведения массовых мероприятий",
+    "end": "Закончить",
+    "uploadingToCloud": "Загрузка записи в облако...",
+    "recordingSavedCloud": "Запись сохранена в облаке",
+    "downloadStarted": "Загрузка начата",
+    "cloudRecordings": "Облако",
+    "engagementScore": "Оценка вовлеченности",
+    "peakAttendees": "Пиковое количество участников",
+    "attendanceFunnel": "Воронка посещаемости",
+    "attendedLabel": "Посетили",
+    "missedLabel": "Пропустили",
+    "qaStatistics": "Статистика Q&A",
+    "totalQuestions": "Всего вопросов",
+    "answerRate": "Процент ответов",
+    "topQuestions": "Популярные вопросы",
+    "orgBreakdown": "Разбивка по организациям",
+    "registrationTimeline": "Сроки регистрации",
+    "analyticsNotAvailable": "Аналитика недоступна"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "например, вебхук ATS для продакшена",
@@ -2637,7 +2659,8 @@
     "viewAllMeetings": "Просматривайте все прошедшие и предстоящие встречи",
     "scheduleDesc": "Планируйте и управляйте встречами",
     "notesDesc": "Сводки и расшифровки, созданные ИИ",
-    "analyticsDesc": "Статистика и инсайты по встречам"
+    "analyticsDesc": "Статистика и инсайты по встречам",
+    "webinars": "Вебинары"
   },
   "trust": {
     "trustScore": "Рейтинг доверия",

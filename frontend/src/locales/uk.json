@@ -2269,7 +2269,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "Вебінари",
+    "webinarDesc": "Організуйте великомасштабні події з 1000+ учасників, Q&A та контролем аудиторії",
+    "newWebinar": "Новий вебінар",
+    "noWebinars": "Ще немає вебінарів",
+    "createFirstWebinar": "Створіть свій перший вебінар для проведення великомасштабних подій",
+    "end": "Закінчити",
+    "uploadingToCloud": "Завантаження запису в хмару...",
+    "recordingSavedCloud": "Запис збережено в хмарі",
+    "downloadStarted": "Завантаження розпочато",
+    "cloudRecordings": "Хмара",
+    "engagementScore": "Оцінка залучення",
+    "peakAttendees": "Максимальна кількість учасників",
+    "attendanceFunnel": "Воронка відвідувань",
+    "attendedLabel": "Відвідано",
+    "missedLabel": "Пропущено",
+    "qaStatistics": "Статистика Q&A",
+    "totalQuestions": "Всього питань",
+    "answerRate": "Рівень відповідей",
+    "topQuestions": "Найкращі питання",
+    "orgBreakdown": "Розклад по організаціях",
+    "registrationTimeline": "Таймлайн реєстрації",
+    "analyticsNotAvailable": "Аналітика недоступна"
   },
   "location": {
     "selectLocationPlaceholder": "Виберіть ваше місцезнаходження..."
@@ -2580,7 +2602,8 @@
     "viewAllMeetings": "Переглядайте всі минулі та майбутні зустрічі",
     "scheduleDesc": "Плануйте та керуйте зустрічами",
     "notesDesc": "Підсумки й транскрипції, створені ШІ",
-    "analyticsDesc": "Статистика та інсайти зустрічей"
+    "analyticsDesc": "Статистика та інсайти зустрічей",
+    "webinars": "Вебінари"
   },
   "trust": {
     "trustScore": "Рівень довіри",

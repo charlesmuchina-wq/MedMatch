@@ -2291,7 +2291,29 @@
     "questions": "questions",
     "pending": "pending",
     "noQuestions": "No questions yet",
-    "typeAnswer": "Type answer..."
+    "typeAnswer": "Type answer...",
+    "webinars": "網路研討會",
+    "webinarDesc": "舉辦1000人以上的大型活動，包含Q&A和觀眾控制",
+    "newWebinar": "新網路研討會",
+    "noWebinars": "目前沒有網路研討會",
+    "createFirstWebinar": "創建您的第一個網路研討會以舉辦大型活動",
+    "end": "結束",
+    "uploadingToCloud": "正在上傳錄音到雲端...",
+    "recordingSavedCloud": "錄音已儲存到雲端",
+    "downloadStarted": "下載已開始",
+    "cloudRecordings": "雲端",
+    "engagementScore": "參與度得分",
+    "peakAttendees": "高峰參加人數",
+    "attendanceFunnel": "出席漏斗",
+    "attendedLabel": "已參加",
+    "missedLabel": "未參加",
+    "qaStatistics": "Q&A 統計",
+    "totalQuestions": "總問題數",
+    "answerRate": "回答率",
+    "topQuestions": "熱門問題",
+    "orgBreakdown": "組織分析",
+    "registrationTimeline": "註冊時間表",
+    "analyticsNotAvailable": "分析不可用"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "sɛ nhwɛso: Production ATS webhook",
@@ -2667,7 +2689,8 @@
     "viewAllMeetings": "Hwɛ wo nhyiam a atwam ne nea ɛreba nyinaa",
     "scheduleDesc": "Hyɛ wo nhyiam ahorow nhyehyɛe na di so",
     "notesDesc": "AI ayɛ nsɛmmisa ne nkyerɛw-to-nkyerɛw",
-    "analyticsDesc": "Nhyiam akontaabu ne nsusuwii"
+    "analyticsDesc": "Nhyiam akontaabu ne nsusuwii",
+    "webinars": "網路研討會"
   },
   "trust": {
     "trustScore": "Gyidi Nkontaa",
