@@ -180,7 +180,7 @@ const AIAssistantPanel = ({ meetingId, aiNotes = [] }) => {
                 data-testid="generate-full-summary"
               >
                 <Sparkles className="w-4 h-4" />
-                Generate Full Summary
+                {t("karauMeet.generateFullSummary")}
               </button>
             </div>
           ) : (
