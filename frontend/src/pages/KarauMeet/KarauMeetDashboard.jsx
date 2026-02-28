@@ -64,6 +64,7 @@ const KarauMeetDashboard = ({ user }) => {
     fetchActivityFeed();
     fetchUpcoming();
     fetchTrendingTopics();
+    fetchAnalytics();
   }, []);
 
   // Countdown timer - update every minute
