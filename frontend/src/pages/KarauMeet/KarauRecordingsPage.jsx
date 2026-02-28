@@ -16,6 +16,8 @@ const KarauRecordingsPage = () => {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [downloadingId, setDownloadingId] = useState(null);
+  const [expandedTranscript, setExpandedTranscript] = useState(null);
+  const [transcriptData, setTranscriptData] = useState({});
 
   useEffect(() => { fetchRecordings(); }, []);
 
