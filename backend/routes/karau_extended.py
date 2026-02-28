@@ -69,8 +69,8 @@ class ProcessSegmentRequest(BaseModel):
 async def ask_ai_assistant(req: AskAssistantRequest, user: dict = Depends(require_auth)):
     """Ask the AI assistant a question about the meeting."""
     from services.karau_meet.ai_assistant_service import get_ai_answer
-    answer = await get_ai_answer(req.meeting_id, req.question)
-    return {"answer": answer, "meeting_id": req.meeting_id}
+    result = await get_ai_answer(req.meeting_id, req.question)
+    return {"answer": result["answer"], "follow_up_suggestions": result.get("follow_up_suggestions", []), "meeting_id": req.meeting_id}
 
 
 @router.post("/ai-assistant/process-segment")
@@ -89,6 +89,13 @@ async def generate_summary(meeting_id: str, user: dict = Depends(require_auth)):
     if summary:
         return {"summary": summary, "meeting_id": meeting_id}
     raise HTTPException(status_code=500, detail="Failed to generate summary")
+
+
+@router.get("/ai-assistant/insights/{meeting_id}")
+async def get_insights(meeting_id: str, user: dict = Depends(require_auth)):
+    """Get structured meeting insights (action items, key points, topics)."""
+    from services.karau_meet.ai_assistant_service import get_meeting_insights
+    return await get_meeting_insights(meeting_id)
 
 
 # ===== CRM Webhook Integration =====
