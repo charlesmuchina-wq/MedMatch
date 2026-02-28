@@ -69,6 +69,16 @@ const KarauMeetDashboard = ({ user }) => {
     return () => clearInterval(interval);
   }, []);
 
+  // Auto-refresh polling every 30 seconds
+  useEffect(() => {
+    const refreshInterval = setInterval(() => {
+      fetchStats();
+      fetchActivityFeed();
+      fetchUpcoming();
+    }, 30000);
+    return () => clearInterval(refreshInterval);
+  }, []);
+
   const fetchStats = async () => {
     try {
       const token = localStorage.getItem('token');
