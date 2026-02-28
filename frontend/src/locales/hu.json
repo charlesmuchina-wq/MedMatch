@@ -2221,7 +2221,15 @@
     "recordingPermissionDesc": "{{name}} szeretné rögzíteni ezt a találkozót. A felvétel videót, hangot és képernyőmegosztásokat fog rögzíteni.",
     "acceptRecording": "Elfogadás",
     "declineRecording": "Elutasítás",
-    "noThanks": "Köszönöm, nem"
+    "noThanks": "Köszönöm, nem",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "location": {
     "selectLocationPlaceholder": "Válaszd ki a tartózkodási helyed..."

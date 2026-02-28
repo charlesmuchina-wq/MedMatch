@@ -2221,7 +2221,15 @@
     "recordingPermissionDesc": "{{name}} chce nahrávat tuto schůzku. Nahrávka zachytí video, audio a sdílení obrazovky.",
     "acceptRecording": "Přijmout",
     "declineRecording": "Odmítnout",
-    "noThanks": "Ne, děkuji"
+    "noThanks": "Ne, děkuji",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "location": {
     "selectLocationPlaceholder": "Vyberte svou polohu..."

@@ -2221,7 +2221,15 @@
     "recordingPermissionDesc": "{{name}} רוצה להקליט את הפגישה הזו. ההקלטה תקלוט וידאו, אודיו ושיתופי מסך.",
     "acceptRecording": "קבל",
     "declineRecording": "סרב",
-    "noThanks": "לא תודה"
+    "noThanks": "לא תודה",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "location": {
     "selectLocationPlaceholder": "בחר את המיקום שלך..."

@@ -2221,7 +2221,15 @@
     "recordingPermissionDesc": "{{name}} ingin merekam pertemuan ini. Perekaman akan menangkap video, audio, dan berbagi layar.",
     "acceptRecording": "Terima",
     "declineRecording": "Tolak",
-    "noThanks": "Tidak Terima Kasih"
+    "noThanks": "Tidak Terima Kasih",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "location": {
     "selectLocationPlaceholder": "Pilih lokasi Anda..."

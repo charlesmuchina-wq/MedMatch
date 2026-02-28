@@ -2256,7 +2256,15 @@
     "recordingPermissionDesc": "{{name}} souhaite enregistrer cette réunion. L'enregistrement capturera la vidéo, l'audio et les partages d'écran.",
     "acceptRecording": "Accepter",
     "declineRecording": "Refuser",
-    "noThanks": "Non merci"
+    "noThanks": "Non merci",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ex. Webhook ATS en production",

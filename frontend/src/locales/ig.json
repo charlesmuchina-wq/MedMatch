@@ -2243,7 +2243,15 @@
     "recordingPermissionDesc": "{{name}} chọrọ ịdekọ nzukọ a. Ndekọ ga-ese vidiyo, ụda, na ikekọrịta ihie.",
     "acceptRecording": "Nabata",
     "declineRecording": "Jụ",
-    "noThanks": "Ewezuga"
+    "noThanks": "Ewezuga",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "dịka, webhook ATS nke Mmepụta",

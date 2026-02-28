@@ -2221,7 +2221,15 @@
     "recordingPermissionDesc": "{{name}} এই সভাটি রেকর্ড করতে চায়। রেকর্ডিং ভিডিও, অডিও এবং স্ক্রীন শেয়ার হবে।",
     "acceptRecording": "গ্রহণ করুন",
     "declineRecording": "অস্বীকার করুন",
-    "noThanks": "না, ধন্যবাদ"
+    "noThanks": "না, ধন্যবাদ",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "location": {
     "selectLocationPlaceholder": "আপনার অবস্থান নির্বাচন করুন..."

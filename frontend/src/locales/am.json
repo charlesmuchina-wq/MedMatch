@@ -2243,7 +2243,15 @@
     "recordingPermissionDesc": "{{name}} ይህ ስብሰባ ይምርቆት። የመርቅ ክፍሎች ቪዲዮ፣ ድምፅና የመሳሪያ እንጀም!",
     "acceptRecording": "እቀበላለሁ",
     "declineRecording": "አቋርጣለሁ",
-    "noThanks": "አይፈልጉም"
+    "noThanks": "አይፈልጉም",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ምሳሌ፦ የምርት ATS ዌብሁክ",

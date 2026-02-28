@@ -2221,7 +2221,15 @@
     "recordingPermissionDesc": "{{name}} wants to record this meeting. The recording will capture video, audio, and screen shares.",
     "acceptRecording": "Accept",
     "declineRecording": "Decline",
-    "noThanks": "No Thanks"
+    "noThanks": "No Thanks",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "location": {
     "selectLocationPlaceholder": "Piliin ang iyong lokasyon..."

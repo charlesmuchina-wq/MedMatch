@@ -1911,7 +1911,7 @@
     "meetingTitlePlaceholder": "AI KARAU Meeting",
     "emailPlaceholder": "your@email.com",
     "meetingIdPlaceholder": "Enter meeting ID (e.g., ABC-123-XYZ)",
-    "verificationCodePlaceholder": "Enter 6-digit code",
+    "verificationCodePlaceholder": "Enter code",
     "welcomeBack": "Welcome back, {{name}}!",
     "readyForMeeting": "Ready for your next meeting?",
     "newMeeting": "New Meeting",
@@ -1970,7 +1970,7 @@
     "signedOut": "Signed out successfully",
     "settingUpdated": "Setting updated",
     "failedUpdateSetting": "Failed to update setting",
-    "failedSendCode": "Failed to send code",
+    "failedSendCode": "Failed to send verification code",
     "verificationFailed": "Verification failed",
     "accessibility": "Accessibility",
     "security": "Security",
@@ -2221,7 +2221,15 @@
     "recordingPermissionDesc": "{{name}} wants to record this meeting. The recording will capture video, audio, and screen shares.",
     "acceptRecording": "Accept",
     "declineRecording": "Decline",
-    "noThanks": "No Thanks"
+    "noThanks": "No Thanks",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."

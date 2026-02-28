@@ -2221,7 +2221,15 @@
     "recordingPermissionDesc": "{{name}} می‌خواهد این جلسه را ضبط کند. ضبط شامل ویدیو، صدا و اشتراک‌گذاری صفحه خواهد بود.",
     "acceptRecording": "پذیرفتن",
     "declineRecording": "رد کردن",
-    "noThanks": "نه ممنون"
+    "noThanks": "نه ممنون",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "location": {
     "selectLocationPlaceholder": "موقعیت مکانی خود را انتخاب کنید..."

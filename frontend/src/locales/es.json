@@ -2256,7 +2256,15 @@
     "recordingPermissionDesc": "{{name}} quiere grabar esta reunión. La grabación capturará video, audio y comparticiones de pantalla.",
     "acceptRecording": "Aceptar",
     "declineRecording": "Rechazar",
-    "noThanks": "No, gracias"
+    "noThanks": "No, gracias",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "p. ej., Webhook ATS de producción",

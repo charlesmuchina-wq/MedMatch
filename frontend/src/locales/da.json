@@ -2221,7 +2221,15 @@
     "recordingPermissionDesc": "{{name}} ønsker at optage dette møde. Optagelsen vil fange video, lyd og skærmdelinger.",
     "acceptRecording": "Accepter",
     "declineRecording": "Afvis",
-    "noThanks": "Nej tak"
+    "noThanks": "Nej tak",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "location": {
     "selectLocationPlaceholder": "Vælg din lokation..."

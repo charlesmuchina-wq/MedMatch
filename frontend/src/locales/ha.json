@@ -2243,7 +2243,15 @@
     "recordingPermissionDesc": "{{name}} na son yin rikodin wannan taron. Rikodin zai ɗauki bidiyo, sauti, da rabon allo.",
     "acceptRecording": "Karɓa",
     "declineRecording": "Kuwa ba",
-    "noThanks": "A'a, Na gode"
+    "noThanks": "A'a, Na gode",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "misali, webhook na ATS na Production",

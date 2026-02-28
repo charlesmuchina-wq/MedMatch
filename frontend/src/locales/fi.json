@@ -2221,7 +2221,15 @@
     "recordingPermissionDesc": "{{name}} haluaa tallentaa tämän kokouksen. Tallennus tallentaa videon, äänen ja näyttöjakamiset.",
     "acceptRecording": "Hyväksy",
     "declineRecording": "Hylkää",
-    "noThanks": "Ei kiitos"
+    "noThanks": "Ei kiitos",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "location": {
     "selectLocationPlaceholder": "Valitse sijaintisi..."

@@ -2617,7 +2617,15 @@
     "recordingPermissionDesc": "{{name}} يريد تسجيل هذا الاجتماع. سيسجل التسجيل الفيديو والصوت ومشاركة الشاشة.",
     "acceptRecording": "قبول",
     "declineRecording": "رفض",
-    "noThanks": "لا، شكراً"
+    "noThanks": "لا، شكراً",
+    "meetingEffectiveness": "Meeting Effectiveness",
+    "avgDuration": "Avg Duration",
+    "avgParticipants": "Avg Participants",
+    "withNotes": "With Notes",
+    "quickAnalytics": "Quick Analytics",
+    "onTimeRate": "On-Time Rate",
+    "aiNotesUsage": "AI Notes Usage",
+    "actionItems": "Action Items"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "مثال: Webhook لنظام ATS - الإنتاج",
