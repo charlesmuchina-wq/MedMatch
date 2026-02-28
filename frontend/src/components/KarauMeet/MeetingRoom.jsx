@@ -67,6 +67,7 @@ const VIRTUAL_BACKGROUNDS = [
 
 // Recording Permission Dialog
 const RecordingPermissionDialog = ({ isOpen, onAccept, onDecline, requesterName }) => {
+  const { t } = useTranslation();
   return (
     <Dialog open={isOpen} onOpenChange={() => {}}>
       <DialogContent className="bg-karau-card border-karau-border">
