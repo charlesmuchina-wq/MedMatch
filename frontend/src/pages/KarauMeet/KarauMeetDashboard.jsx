@@ -209,7 +209,14 @@ const KarauMeetDashboard = ({ user }) => {
           <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight" data-testid="dashboard-welcome">
             {t("karauMeet.welcomeBack", { name: user?.name?.split(' ')[0] || 'User' })}
           </h1>
-          <p className="text-karau-muted text-sm mt-0.5">{t("karauMeet.readyForMeeting")}</p>
+          <p className="text-karau-muted text-sm mt-0.5 flex items-center gap-2">
+            {t("karauMeet.readyForMeeting")}
+            {isRefreshing && (
+              <span className="flex items-center gap-1 text-[10px] text-purple-400/60">
+                <Loader2 className="w-3 h-3 animate-spin" />
+              </span>
+            )}
+          </p>
         </div>
         <div className="flex items-center gap-2">
           {user?.is_admin && (
