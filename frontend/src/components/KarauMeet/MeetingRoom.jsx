@@ -73,11 +73,10 @@ const RecordingPermissionDialog = ({ isOpen, onAccept, onDecline, requesterName 
         <DialogHeader>
           <DialogTitle className="text-white flex items-center gap-2">
             <Circle className="w-4 h-4 text-red-500 fill-red-500 animate-pulse" />
-            Recording Permission Request
+            {t("karauMeet.recordingPermission")}
           </DialogTitle>
           <DialogDescription className="text-slate-300">
-            <strong>{requesterName}</strong> wants to record this meeting. 
-            The recording will capture video, audio, and screen shares.
+            {t("karauMeet.recordingPermissionDesc", { name: requesterName })}
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">
@@ -92,11 +91,11 @@ const RecordingPermissionDialog = ({ isOpen, onAccept, onDecline, requesterName 
         <DialogFooter className="gap-2">
           <Button variant="outline" onClick={onDecline} className="text-slate-300 border-white/10">
             <X className="w-4 h-4 mr-2" />
-            Decline & Leave
+            {t("karauMeet.declineRecording")}
           </Button>
           <Button onClick={onAccept} className="bg-purple-500 hover:bg-purple-500/80">
             <Check className="w-4 h-4 mr-2" />
-            Accept Recording
+            {t("karauMeet.acceptRecording")}
           </Button>
         </DialogFooter>
       </DialogContent>
