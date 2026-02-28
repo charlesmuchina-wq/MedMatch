@@ -118,7 +118,10 @@ const KarauMeetDashboard = ({ user }) => {
     toast.success(t("karauMeet.meetingLinkCopied"));
   };
 
-  const statItems = [
+  // Filter to only highlights and action items
+  const importantActivities = activities.filter(a => 
+    a.type === 'ai_insight' || a.type === 'meeting_started'
+  );
     { label: 'Meetings', value: stats.total_meetings, icon: Video, gradient: 'from-blue-500/20 to-blue-600/5', iconColor: 'text-blue-400' },
     { label: 'Hours', value: stats.total_hours, icon: Clock, gradient: 'from-purple-500/20 to-purple-600/5', iconColor: 'text-purple-400' },
     { label: 'AI Insights', value: stats.ai_insights, icon: Sparkles, gradient: 'from-violet-500/20 to-violet-600/5', iconColor: 'text-violet-400' },
