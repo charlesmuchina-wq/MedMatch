@@ -1886,6 +1886,16 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             <Hand className="w-[18px] h-[18px]" />
           </button>
 
+          {/* Reactions */}
+          <button
+            onClick={() => { setShowReactionBar(!showReactionBar); setShowMoreMenu(false); }}
+            className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${showReactionBar ? 'bg-turquoise/20 text-turquoise' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            data-testid="control-reactions"
+            title="Reactions"
+          >
+            <span className="text-[18px] leading-none">{'\ud83d\udc4d'}</span>
+          </button>
+
           {/* Divider */}
           <div className="w-px h-7 bg-karau-border mx-0.5 md:mx-1.5" />
 
