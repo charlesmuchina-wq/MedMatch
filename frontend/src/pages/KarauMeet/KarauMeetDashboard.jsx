@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import {
   Video, Plus, Clock, Shield, Sparkles, Copy,
-  Loader2, Users, Archive, Share2, Building2,
+  Loader2, Users, Share2, Building2,
   ArrowRight, Globe, Mic, ChevronDown, ChevronUp, Bot
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
