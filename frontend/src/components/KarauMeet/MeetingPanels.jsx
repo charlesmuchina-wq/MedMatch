@@ -106,7 +106,7 @@ export const ChatPanel = ({ messages, onSendMessage }) => {
 /**
  * AI Notes panel with transcription and summaries
  */
-export const AINotesPanel = ({ notes, isTranscribing, onGenerateSummary, isSummarizing }) => {
+export const AINotesPanel = ({ notes, isTranscribing, onGenerateSummary, isSummarizing, meetingId }) => {
   return (
     <div className="flex flex-col h-full">
       <div className="p-3 border-b border-karau-border hidden">
