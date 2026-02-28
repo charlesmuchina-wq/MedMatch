@@ -416,7 +416,7 @@ const KarauMeetDashboard = ({ user }) => {
             </div>
           )}
 
-          {/* Gamification */}
+          {/* Gamification + Leaderboard */}
           {gamification && (
             <div className="col-span-12 md:col-span-4" data-testid="gamification-card">
               <div className="rounded-xl border border-white/5 bg-karau-card/40 p-3 h-full">
@@ -425,7 +425,16 @@ const KarauMeetDashboard = ({ user }) => {
                     <Trophy className="w-3.5 h-3.5 text-amber-400" />
                     <span className="text-xs font-semibold text-white">{gamification.rank_title}</span>
                   </div>
-                  <span className="text-[10px] text-purple-400 font-semibold">Lv.{gamification.level}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-purple-400 font-semibold">Lv.{gamification.level}</span>
+                    {leaderboard && (
+                      <button onClick={() => setShowLeaderboard(!showLeaderboard)}
+                        className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/15 hover:bg-amber-500/20 transition-colors"
+                        data-testid="toggle-leaderboard-btn">
+                        #{leaderboard.my_rank}
+                      </button>
+                    )}
+                  </div>
                 </div>
                 <div className="flex items-center gap-2 mb-2">
                   <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
@@ -451,11 +460,37 @@ const KarauMeetDashboard = ({ user }) => {
                   </div>
                 </div>
                 {gamification.badges.length > 0 && (
-                  <div className="flex flex-wrap gap-1">
+                  <div className="flex flex-wrap gap-1 mb-2">
                     {gamification.badges.slice(0, 5).map(b => (
                       <span key={b.id} className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/15" title={b.name}>
                         {b.name}
                       </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Collapsible Leaderboard */}
+                {showLeaderboard && leaderboard && (
+                  <div className="mt-2 pt-2 border-t border-white/5 space-y-1" data-testid="leaderboard-list">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">{t("karauMeet.teamLeaderboard")}</span>
+                      <span className="text-[10px] text-slate-600">{leaderboard.total_users} {t("karauMeet.members")}</span>
+                    </div>
+                    {leaderboard.leaderboard.slice(0, 8).map((entry, i) => (
+                      <div key={entry.user_id}
+                        className={`flex items-center gap-2 px-2 py-1 rounded-lg text-[10px] ${
+                          entry.user_id === user?.user_id ? 'bg-purple-500/10 border border-purple-500/20' : 'hover:bg-white/[0.02]'
+                        }`} data-testid={`leaderboard-entry-${i}`}>
+                        <span className={`w-4 text-center font-bold ${
+                          i === 0 ? 'text-amber-400' : i === 1 ? 'text-slate-300' : i === 2 ? 'text-orange-400' : 'text-slate-500'
+                        }`}>{i + 1}</span>
+                        <div className="flex-1 min-w-0">
+                          <span className="text-slate-300 truncate block">{entry.name}</span>
+                        </div>
+                        <span className="text-slate-500">{entry.rank_title}</span>
+                        {entry.streak_days > 0 && <Flame className="w-2.5 h-2.5 text-orange-400" />}
+                        <span className="text-purple-400 font-semibold w-12 text-right">{entry.xp} XP</span>
+                      </div>
                     ))}
                   </div>
                 )}
