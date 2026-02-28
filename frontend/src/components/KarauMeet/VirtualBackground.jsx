@@ -275,7 +275,7 @@ const VirtualBackground = ({
                   className={`
                     p-3 rounded-lg border-2 transition-all
                     ${selectedBg === bg.id 
-                      ? 'border-turquoise bg-purple-500/10' 
+                      ? 'border-purple-500 bg-purple-500/10' 
                       : 'border-white/10 bg-karau-surface hover:border-purple-500/40'}
                     ${!modelLoaded && bg.type !== 'none' ? 'opacity-50 cursor-not-allowed' : ''}
                   `}
@@ -301,7 +301,7 @@ const VirtualBackground = ({
                   className={`
                     relative aspect-video rounded-lg border-2 overflow-hidden transition-all
                     ${selectedBg === bg.id 
-                      ? 'border-turquoise' 
+                      ? 'border-purple-500' 
                       : 'border-white/10 hover:border-purple-500/40'}
                     ${!modelLoaded ? 'opacity-50 cursor-not-allowed' : ''}
                   `}
@@ -335,7 +335,7 @@ const VirtualBackground = ({
                   className={`
                     w-12 h-12 rounded-lg border-2 transition-all
                     ${selectedBg === bg.id 
-                      ? 'border-turquoise ring-2 ring-turquoise/50' 
+                      ? 'border-purple-500 ring-2 ring-purple-500/50' 
                       : 'border-white/10 hover:border-purple-500/40'}
                     ${!modelLoaded ? 'opacity-50 cursor-not-allowed' : ''}
                   `}

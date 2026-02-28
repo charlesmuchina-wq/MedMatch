@@ -71,7 +71,7 @@ const VideoParticipant = ({
   if (isMinimized) {
     return (
       <div 
-        className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden bg-karau-card border-2 border-white/10 cursor-pointer hover:border-turquoise transition-colors flex-shrink-0"
+        className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden bg-karau-card border-2 border-white/10 cursor-pointer hover:border-purple-500 transition-colors flex-shrink-0"
         onClick={() => onPin && onPin(participant.user_id)}
         title={`Click to view ${participant?.user_name}`}
       >
