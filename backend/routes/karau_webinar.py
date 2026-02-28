@@ -27,6 +27,7 @@ class WebinarCreate(BaseModel):
     attendee_audio: bool = False
     practice_session: bool = False
     panelist_emails: List[str] = []
+    coordinator_emails: List[str] = []
 
 
 class WebinarResponse(BaseModel):
@@ -64,7 +65,7 @@ class QAAnswer(BaseModel):
 
 class PromoteRequest(BaseModel):
     user_id: str
-    role: str = "presenter"  # presenter or panelist
+    role: str = "presenter"  # coordinator, presenter, or panelist
 
 
 @router.post("/create", response_model=WebinarResponse)
