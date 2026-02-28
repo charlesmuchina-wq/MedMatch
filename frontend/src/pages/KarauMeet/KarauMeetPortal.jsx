@@ -392,7 +392,9 @@ const KarauMeetPortal = () => {
   if (isWebinarRegisterPage) {
     return (
       <div className="min-h-screen bg-karau-bg">
-        <WebinarRegistrationPage />
+        <Routes>
+          <Route path="webinar/:webinarId/register" element={<WebinarRegistrationPage />} />
+        </Routes>
       </div>
     );
   }
