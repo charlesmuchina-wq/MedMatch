@@ -206,7 +206,7 @@ const VirtualBackgroundSelector = ({ isOpen, onClose, currentBg, onSelect, onApp
                     onClick={() => setSelectedBg(bg.id)}
                     className={`relative aspect-video rounded-lg overflow-hidden border-2 transition-all ${
                       selectedBg === bg.id 
-                        ? 'border-purple-500 ring-2 ring-turquoise/50' 
+                        ? 'border-purple-500 ring-2 ring-purple-500/50' 
                         : 'border-slate-600 hover:border-slate-500'
                     }`}
                   >
