@@ -56,7 +56,7 @@ export const useNoiseCancellation = () => {
     }
   };
 
-  const useWebAudioPipeline = (audioContext, source, destination, profile) => {
+  const applyWebAudioPipeline = (audioContext, source, destination, profile) => {
     const highPass = audioContext.createBiquadFilter();
     highPass.type = 'highpass';
     highPass.frequency.setValueAtTime(profile.hpFreq, audioContext.currentTime);
@@ -129,7 +129,7 @@ export const useNoiseCancellation = () => {
       // Try RNNoise first, fallback to Web Audio
       const rnnoiseOk = await tryRnnoise(audioContext, source, monitorGain);
       if (!rnnoiseOk) {
-        useWebAudioPipeline(audioContext, source, monitorGain, profile);
+        applyWebAudioPipeline(audioContext, source, monitorGain, profile);
       }
 
       monitorGain.connect(analyser);
