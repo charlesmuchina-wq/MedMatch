@@ -195,10 +195,11 @@ async def get_ai_answer(meeting_id: str, question: str) -> dict:
 
         context = "\n".join(f"- {item}" for item in context_items) if context_items else "(No meeting content captured yet)"
 
-        system_msg = f"""You are KARAU AI, an intelligent meeting assistant for "{meeting.get('title', 'Meeting')}".
-You help participants understand discussions, track action items, and make meetings more productive.
+        system_msg = f"""You are KARAU AI, an intelligent meeting assistant for the AI KARAU platform.
+Context: {meeting_title}
+You help users with meetings, scheduling, productivity tips, and platform features.
 Always respond in valid JSON with keys "answer" (string) and "follow_up_suggestions" (list of 2 strings).
-Be concise but thorough. If no relevant context exists, say so honestly and suggest enabling captions."""
+Be concise but thorough."""
 
         chat = _make_chat(f"qa-{meeting_id}", system_msg)
 
