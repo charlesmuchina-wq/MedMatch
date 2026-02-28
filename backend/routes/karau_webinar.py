@@ -345,6 +345,197 @@ async def toggle_attendee_audio(webinar_id: str, enabled: bool = False, user=Dep
     return {"success": True, "attendee_audio": enabled}
 
 
+# --- Role Management (Host + Presenter + Panelist) ---
+
+@router.post("/{webinar_id}/roles/promote")
+async def promote_participant(webinar_id: str, data: PromoteRequest, user=Depends(get_current_user)):
+    """Promote an attendee to presenter or panelist (host only). Grants video/audio."""
+    webinar = await db.webinars.find_one({"webinar_id": webinar_id, "host_id": user["user_id"]})
+    if not webinar:
+        raise HTTPException(403, "Not authorized - host only")
+
+    valid_roles = ["presenter", "panelist"]
+    if data.role not in valid_roles:
+        raise HTTPException(400, f"Role must be one of: {valid_roles}")
+
+    await db.webinars.update_one(
+        {"webinar_id": webinar_id},
+        {"$set": {f"active_roles.{data.user_id}": {
+            "role": data.role,
+            "promoted_at": datetime.now(timezone.utc).isoformat(),
+            "promoted_by": user["user_id"]
+        }}}
+    )
+    return {"success": True, "user_id": data.user_id, "role": data.role}
+
+
+@router.post("/{webinar_id}/roles/demote")
+async def demote_participant(webinar_id: str, data: PromoteRequest, user=Depends(get_current_user)):
+    """Demote a presenter/panelist back to attendee (host only). Revokes video/audio."""
+    webinar = await db.webinars.find_one({"webinar_id": webinar_id, "host_id": user["user_id"]})
+    if not webinar:
+        raise HTTPException(403, "Not authorized")
+
+    await db.webinars.update_one(
+        {"webinar_id": webinar_id},
+        {"$unset": {f"active_roles.{data.user_id}": ""}}
+    )
+    return {"success": True, "user_id": data.user_id, "demoted": True}
+
+
+@router.get("/{webinar_id}/roles")
+async def get_webinar_roles(webinar_id: str, user=Depends(get_current_user)):
+    """Get all active roles for a webinar."""
+    webinar = await db.webinars.find_one(
+        {"webinar_id": webinar_id},
+        {"_id": 0, "host_id": 1, "host_name": 1, "active_roles": 1, "panelists": 1}
+    )
+    if not webinar:
+        raise HTTPException(404, "Webinar not found")
+
+    roles = {"host": {"user_id": webinar["host_id"], "name": webinar.get("host_name", "Host")}}
+    for uid, info in webinar.get("active_roles", {}).items():
+        roles[uid] = info
+
+    return {"roles": roles, "panelist_emails": [p["email"] for p in webinar.get("panelists", [])]}
+
+
+# --- Hand Raise ---
+
+@router.post("/{webinar_id}/hand-raise")
+async def raise_hand(webinar_id: str, user=Depends(get_current_user)):
+    """Attendee raises hand to request to speak."""
+    hand = {
+        "user_id": user["user_id"],
+        "name": user.get("name", "Attendee"),
+        "raised_at": datetime.now(timezone.utc).isoformat()
+    }
+    # Remove existing, then add fresh
+    await db.webinars.update_one(
+        {"webinar_id": webinar_id},
+        {"$pull": {"hand_raises": {"user_id": user["user_id"]}}}
+    )
+    await db.webinars.update_one(
+        {"webinar_id": webinar_id},
+        {"$push": {"hand_raises": hand}}
+    )
+    return {"success": True}
+
+
+@router.post("/{webinar_id}/hand-lower")
+async def lower_hand(webinar_id: str, user=Depends(get_current_user)):
+    """Lower hand."""
+    await db.webinars.update_one(
+        {"webinar_id": webinar_id},
+        {"$pull": {"hand_raises": {"user_id": user["user_id"]}}}
+    )
+    return {"success": True}
+
+
+@router.get("/{webinar_id}/hand-raises")
+async def get_hand_raises(webinar_id: str, user=Depends(get_current_user)):
+    """Get list of raised hands (host/presenter view)."""
+    webinar = await db.webinars.find_one({"webinar_id": webinar_id}, {"_id": 0, "hand_raises": 1})
+    return {"hand_raises": webinar.get("hand_raises", []) if webinar else []}
+
+
+# --- Practice Session ---
+
+@router.post("/{webinar_id}/practice/start")
+async def start_practice(webinar_id: str, user=Depends(get_current_user)):
+    """Start practice session (host + presenters only, before going live)."""
+    webinar = await db.webinars.find_one({"webinar_id": webinar_id, "host_id": user["user_id"]})
+    if not webinar:
+        raise HTTPException(403, "Not authorized")
+    if webinar.get("status") == "live":
+        raise HTTPException(400, "Cannot start practice while webinar is live")
+
+    await db.webinars.update_one(
+        {"webinar_id": webinar_id},
+        {"$set": {"practice_mode": True, "status": "practice"}}
+    )
+    return {"success": True, "status": "practice"}
+
+
+@router.post("/{webinar_id}/practice/end")
+async def end_practice(webinar_id: str, user=Depends(get_current_user)):
+    """End practice session."""
+    webinar = await db.webinars.find_one({"webinar_id": webinar_id, "host_id": user["user_id"]})
+    if not webinar:
+        raise HTTPException(403, "Not authorized")
+
+    await db.webinars.update_one(
+        {"webinar_id": webinar_id},
+        {"$set": {"practice_mode": False, "status": "scheduled"}}
+    )
+    return {"success": True, "status": "scheduled"}
+
+
+# --- Selective Unmute ---
+
+@router.post("/{webinar_id}/controls/unmute-user")
+async def unmute_specific_user(webinar_id: str, target_user_id: str, user=Depends(get_current_user)):
+    """Selectively unmute a specific attendee (host only). Grants temporary audio."""
+    webinar = await db.webinars.find_one({"webinar_id": webinar_id, "host_id": user["user_id"]})
+    if not webinar:
+        raise HTTPException(403, "Not authorized")
+    # The actual unmute is handled via WebSocket signal to the specific client
+    return {"success": True, "target_user_id": target_user_id, "action": "unmute_request"}
+
+
+# --- Webinar Room Info ---
+
+@router.get("/{webinar_id}/room-info")
+async def get_room_info(webinar_id: str, user=Depends(get_current_user)):
+    """Get full room info for the live webinar view - determines user's role and permissions."""
+    webinar = await db.webinars.find_one(
+        {"webinar_id": webinar_id},
+        {"_id": 0, "webinar_id": 1, "title": 1, "status": 1, "host_id": 1,
+         "host_name": 1, "settings": 1, "active_roles": 1, "practice_mode": 1,
+         "panelists": 1, "hand_raises": 1}
+    )
+    if not webinar:
+        raise HTTPException(404, "Webinar not found")
+
+    uid = user["user_id"]
+    user_email = user.get("email", "")
+
+    # Determine role
+    if uid == webinar["host_id"]:
+        my_role = "host"
+    elif uid in webinar.get("active_roles", {}):
+        my_role = webinar["active_roles"][uid]["role"]
+    elif any(p["email"] == user_email for p in webinar.get("panelists", [])):
+        my_role = "panelist"
+    else:
+        my_role = "attendee"
+
+    # Permissions based on role
+    can_stream = my_role in ("host", "presenter", "panelist")
+    can_control = my_role == "host"
+    can_present = my_role in ("host", "presenter")
+
+    # If practice mode and attendee, deny entry
+    if webinar.get("practice_mode") and my_role == "attendee":
+        raise HTTPException(403, "Practice session in progress - attendees cannot join yet")
+
+    return {
+        "webinar_id": webinar_id,
+        "title": webinar["title"],
+        "status": webinar["status"],
+        "my_role": my_role,
+        "can_stream_video": can_stream,
+        "can_stream_audio": can_stream,
+        "can_screen_share": can_present,
+        "can_control": can_control,
+        "settings": webinar.get("settings", {}),
+        "practice_mode": webinar.get("practice_mode", False),
+        "hand_raises": webinar.get("hand_raises", []) if can_control else [],
+        "active_roles": webinar.get("active_roles", {}) if can_control else {},
+        "host_name": webinar.get("host_name", "Host"),
+    }
+
+
 # --- Analytics ---
 
 @router.get("/{webinar_id}/analytics")
