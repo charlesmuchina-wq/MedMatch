@@ -178,7 +178,7 @@ class TestCORSConfiguration:
             json={"email": ADMIN_EMAIL, "password": ADMIN_PASSWORD},
             headers={
                 "Content-Type": "application/json",
-                "Origin": "https://ai-meet-hub.preview.emergentagent.com"
+                "Origin": "https://webinar-hub-15.preview.emergentagent.com"
             }
         )
         
