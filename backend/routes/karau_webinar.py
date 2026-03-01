@@ -802,7 +802,7 @@ async def translate_caption(data: TranslateCaptionRequest, user=Depends(get_curr
         raise HTTPException(500, f"Translation failed: {str(e)}")
 
 
-@router.get("/supported-languages")
+@router.get("/caption-languages")
 async def get_supported_languages():
     """Get list of supported languages for captions and translation."""
     return {"languages": SUPPORTED_LANGUAGES}
