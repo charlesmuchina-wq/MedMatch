@@ -70,6 +70,9 @@ const WebinarLiveRoom = () => {
   // Language picker
   const [showLangPicker, setShowLangPicker] = useState(false);
 
+  // Engagement data
+  const [engagementData, setEngagementData] = useState(null);
+
   // Noise Cancellation
   const noiseCancellation = useNoiseCancellation();
 
