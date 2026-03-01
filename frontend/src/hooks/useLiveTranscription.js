@@ -158,6 +158,7 @@ export function useLiveTranscription() {
     sourceLanguage, displayLanguage,
     setSourceLanguage: updateSourceLang,
     setDisplayLanguage: updateDisplayLang,
+    setActiveSpeaker,
     start, stop, clear
   };
 }
