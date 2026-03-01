@@ -6,7 +6,7 @@ import {
   Hand, MessageCircleQuestion, Play, Square, Settings,
   Send, ThumbsUp, Loader2, Crown, UserPlus, UserMinus,
   Shield, Phone, Clipboard, ChevronLeft, ChevronRight,
-  AudioLines, Captions, Save
+  AudioLines, Captions, Save, Globe, ChevronDown as ChevDown
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { useTranslation } from '@/utils/i18n';
 import SlideRenderer from '@/components/KarauMeet/SlideRenderer';
 import { useNoiseCancellation } from '@/hooks/useNoiseCancellation';
-import { useLiveTranscription } from '@/hooks/useLiveTranscription';
+import { useLiveTranscription, CAPTION_LANGUAGES } from '@/hooks/useLiveTranscription';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const WS_URL = API.replace('https://', 'wss://').replace('http://', 'ws://');
