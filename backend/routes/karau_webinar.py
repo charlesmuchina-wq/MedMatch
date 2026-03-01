@@ -28,6 +28,15 @@ class WebinarCreate(BaseModel):
     practice_session: bool = False
     panelist_emails: List[str] = []
     coordinator_emails: List[str] = []
+    # Organization privacy settings
+    org_domains: List[str] = []  # Company email domains for internal classification
+    internal_only_docs: bool = True  # Restrict document sharing to internal members
+    external_download_blocked: bool = True  # Block external users from downloading
+
+
+class GuestPermission(BaseModel):
+    user_id: str
+    permission: str = "upload"  # upload, download, both
 
 
 class WebinarResponse(BaseModel):
