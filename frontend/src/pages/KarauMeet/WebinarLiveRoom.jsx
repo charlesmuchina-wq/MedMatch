@@ -74,6 +74,9 @@ const WebinarLiveRoom = () => {
   // Live Transcription
   const liveTranscription = useLiveTranscription();
 
+  // Speaker Detection
+  const speakerDetection = useSpeakerDetection();
+
   // WebRTC
   const localVideoRef = useRef(null);
   const localStreamRef = useRef(null);
