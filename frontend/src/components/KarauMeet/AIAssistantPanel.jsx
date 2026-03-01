@@ -4,13 +4,14 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import {
   Bot, Send, Loader2, Lightbulb, ListChecks, FileText,
-  Clock, Sparkles, ChevronRight, Brain
+  Clock, Sparkles, ChevronRight, Brain, Search, UserCheck,
+  Activity, Mic, MicOff, Zap, AlertTriangle
 } from 'lucide-react';
 import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-const AIAssistantPanel = ({ meetingId, aiNotes = [] }) => {
+const AIAssistantPanel = ({ meetingId, aiNotes = [], webinarId, engagementData }) => {
   const { t } = useTranslation();
 
   const SMART_SUGGESTIONS = [
@@ -18,6 +19,12 @@ const AIAssistantPanel = ({ meetingId, aiNotes = [] }) => {
     { label: t("karauMeet.listActionItems"), icon: ListChecks, question: 'What action items have been identified?' },
     { label: t("karauMeet.keyDecisions"), icon: Lightbulb, question: 'What decisions have been made in this meeting?' },
     { label: t("karauMeet.whatDidIMiss"), icon: Clock, question: 'Give me a brief catch-up of what was discussed' },
+  ];
+
+  const AGENT_ACTIONS = [
+    { label: 'Research Topic', icon: Search, type: 'research' },
+    { label: 'Auto-Assign Actions', icon: UserCheck, type: 'actions' },
+    { label: 'Engagement Check', icon: Activity, type: 'sentiment' },
   ];
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
