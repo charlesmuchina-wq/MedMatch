@@ -116,6 +116,77 @@ const KarauRecordingsPage = () => {
     } catch {}
   };
 
+  const generateNotes = async (recordingId) => {
+    setGeneratingNotes(recordingId);
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`${API}/api/karau-meet/recordings/${recordingId}/notes/generate`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setNotesData(prev => ({ ...prev, [recordingId]: data.notes }));
+        setExpandedNotes(recordingId);
+        toast.success('AI notes generated');
+      } else {
+        const err = await res.json().catch(() => ({}));
+        toast.error(err.detail || 'Failed to generate notes');
+      }
+    } catch { toast.error('Notes generation error'); }
+    setGeneratingNotes(null);
+  };
+
+  const fetchNotes = async (recordingId) => {
+    if (notesData[recordingId]) {
+      setExpandedNotes(expandedNotes === recordingId ? null : recordingId);
+      return;
+    }
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`${API}/api/karau-meet/recordings/${recordingId}/notes`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.notes) {
+          setNotesData(prev => ({ ...prev, [recordingId]: data.notes }));
+          setExpandedNotes(recordingId);
+        }
+      }
+    } catch {}
+  };
+
+  const sendNotes = async (recordingId) => {
+    if (!sendEmail.trim()) return;
+    setSendingNotes(recordingId);
+    const token = localStorage.getItem('token');
+    const emails = sendEmail.split(',').map(e => e.trim()).filter(Boolean);
+    try {
+      const res = await fetch(`${API}/api/karau-meet/recordings/${recordingId}/notes/send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ recipient_emails: emails })
+      });
+      if (res.ok) {
+        toast.success(`Notes sent to ${emails.length} recipient(s)`);
+        setSendEmail('');
+        setSendingNotes(null);
+      } else {
+        toast.error('Failed to send notes');
+      }
+    } catch { toast.error('Send error'); }
+    setSendingNotes(null);
+  };
+
+  const copyNotes = (recordingId) => {
+    const notes = notesData[recordingId]?.notes;
+    if (notes) {
+      navigator.clipboard.writeText(notes);
+      toast.success('Notes copied to clipboard');
+    }
+  };
+
   if (loading) {
     return (
       <div className="p-6 flex items-center justify-center">
