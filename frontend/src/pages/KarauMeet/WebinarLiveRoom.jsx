@@ -514,7 +514,17 @@ const WebinarLiveRoom = () => {
             )}
           </div>
 
-          {/* Remove old slide drive bar - now integrated in SlideRenderer */}
+          {/* Live Caption Overlay */}
+          {liveTranscription.captions.length > 0 && (
+            <div className="px-4 py-1.5 bg-black/70 backdrop-blur-sm border-t border-white/5" data-testid="live-captions-bar">
+              <div className="flex items-center gap-2">
+                <Captions className="w-3 h-3 text-emerald-400 shrink-0" />
+                <p className="text-[11px] text-white/90 truncate">
+                  {liveTranscription.captions[liveTranscription.captions.length - 1]?.text}
+                </p>
+              </div>
+            </div>
+          )}
 
           {/* Bottom Controls */}
           <div className="h-14 bg-karau-card/60 border-t border-white/5 flex items-center justify-center gap-1.5 px-4 shrink-0" data-testid="webinar-controls">
