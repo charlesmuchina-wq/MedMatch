@@ -17,21 +17,25 @@ Build "MedMatch-AI KARAU" - a dual-purpose platform:
 
 ### AI KARAU Portal
 - **Dashboard**: Data-driven with real-time stats, gamification, Team Leaderboard, auto-refresh
-- **Meeting Room**: WebRTC video conferencing, dual noise cancellation, screen share, breakout rooms, polls, whiteboard, virtual backgrounds, AI assistant, P2P file sharing, cloud recording auto-upload
-- **Cloud Recording Storage**: Auto-upload to Object Storage, auto-transcription via Whisper
+- **Meeting Room**: WebRTC conferencing, dual noise cancellation, screen share, breakout rooms, polls, whiteboard, virtual backgrounds, AI assistant, P2P file sharing, cloud recording auto-upload
+- **Cloud Recordings**: Auto-upload to Object Storage, auto-transcription via Whisper
 - **AI Meeting Notes**: Generate/view/copy/send notes from recording transcripts
 - **Real-time Live Transcription**: CC toggle, useLiveTranscription hook, caption overlay
 - **Multi-language Live Captions** (Mar 1, 2026):
-  - 16 supported languages: EN, ES, FR, DE, IT, PT, JA, KO, ZH, NL, AR, HI, RU, TR, PL, SV
-  - Language picker panel (Globe button) with Speaker Language + Display Language selectors
-  - Real-time translation via GPT-4o-mini when source != display language
-  - Translation badge on captions when translating
-  - Backend: POST /api/karau/webinar/translate-caption
-  - Backend: GET /api/karau/webinar/caption-languages
+  - 16 languages (EN, ES, FR, DE, IT, PT, JA, KO, ZH, NL, AR, HI, RU, TR, PL, SV)
+  - Language picker panel (Globe button) with Speaker + Display language selectors
+  - Real-time translation via GPT-4o-mini
+- **Speaker Identification** (Mar 1, 2026):
+  - useSpeakerDetection hook monitors audio levels via Web Audio API AnalyserNode
+  - Maps each WebRTC stream to participant name with distinct color (10 colors)
+  - Captions labeled with speaker name + color (e.g., "John: Welcome...")
+  - Active speaker indicator badge in top-left of video stage
+  - Dynamic speaking border on local and remote video tiles
+  - Audio level polling at 200ms, threshold avg > 15 for speaking state
 - **Webinar Mode (WebEx-style, 1000+ attendees)**:
   - Multi-Role: Host > Coordinator > Presenter > Panelist > Attendee
-  - Live Webinar Room with WebRTC P2P video, slide driving, Q&A, controls
-  - Presentation Slide Driving (PDF/PPTX, canvas rendering, annotations)
+  - Live Room with WebRTC P2P video, slide driving, Q&A, controls
+  - Presentation Slide Driving (PDF/PPTX, canvas, annotations)
   - Noise Cancellation toggle (RNNoise WASM + Web Audio fallback)
   - Enhanced Analytics
 
@@ -41,22 +45,18 @@ Build "MedMatch-AI KARAU" - a dual-purpose platform:
 ### Internationalization: 384+ keys across 52 locales
 
 ## Key API Endpoints
-### Caption Translation
-- `POST /api/karau/webinar/translate-caption` - Translate text between 16 languages via GPT-4o-mini
-- `GET /api/karau/webinar/caption-languages` - Get supported languages list
-### Live Transcription
-- `POST /api/realtime-stt/transcribe-base64` - Transcribe audio chunk via Whisper
-- `POST /api/karau/webinar/{id}/live-transcript/save` - Save live transcript
-- `GET /api/karau/webinar/{id}/live-transcript` - Get saved transcript
-### Recording Notes
-- `POST /api/karau-meet/recordings/{id}/notes/generate` - Generate AI notes
-- `POST /api/karau-meet/recordings/{id}/notes/send` - Send notes to participants
+- `POST /api/karau/webinar/translate-caption` - Translate captions (GPT-4o-mini)
+- `GET /api/karau/webinar/caption-languages` - 16 supported languages
+- `POST /api/realtime-stt/transcribe-base64` - Whisper STT
+- `POST /api/karau/webinar/{id}/live-transcript/save` - Save transcript
+- `POST /api/karau-meet/recordings/{id}/notes/generate` - AI notes
+- `POST /api/karau-meet/recordings/{id}/notes/send` - Send notes
 
 ## Backlog
 ### P1
-- Subscription UI polish (backend Stripe integration exists)
+- Subscription UI polish (backend Stripe exists)
 ### P2
-- Live Stripe API keys for production payments
+- Live Stripe API keys for production
 - Additional AI analytics
 
 ## Credentials
