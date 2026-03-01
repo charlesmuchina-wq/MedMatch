@@ -6,7 +6,8 @@ import {
   Hand, MessageCircleQuestion, Play, Square, Settings,
   Send, ThumbsUp, Loader2, Crown, UserPlus, UserMinus,
   Shield, Phone, Clipboard, ChevronLeft, ChevronRight,
-  AudioLines, Captions, Save, Globe, ChevronDown as ChevDown
+  AudioLines, Captions, Save, Globe, ChevronDown as ChevDown,
+  Building2, UserX, FileUp, FileDown, ShieldCheck, ShieldOff
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
