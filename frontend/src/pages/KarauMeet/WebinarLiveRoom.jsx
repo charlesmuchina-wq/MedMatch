@@ -942,17 +942,36 @@ const CtrlBtn = ({ on, onClick, icon: Icon, testId, color, badge }) => (
   </div>
 );
 
-const RemoteVideo = ({ stream, name, userId, isSpeaking, speakerColor }) => {
+const RemoteVideo = ({ stream, name, userId, isSpeaking, speakerColor, isMainStage, onPromoteToStage }) => {
   const ref = useRef(null);
   useEffect(() => { if (ref.current && stream) ref.current.srcObject = stream; }, [stream]);
   return (
-    <div className={`relative rounded-lg overflow-hidden bg-karau-card/60 border aspect-video transition-all ${isSpeaking ? 'border-2' : 'border-white/5'}`}
+    <div className={`relative rounded-lg overflow-hidden bg-karau-card/60 border aspect-video transition-all cursor-pointer ${isSpeaking ? 'border-2 animate-speaker-glow' : 'border-white/5'}`}
       style={isSpeaking ? { borderColor: speakerColor } : {}}
+      onClick={onPromoteToStage}
+      title="Click to spotlight"
       data-testid={`remote-${userId}`}>
       <video ref={ref} autoPlay playsInline className="w-full h-full object-cover" />
       <div className="absolute bottom-1 left-1 bg-black/60 backdrop-blur-sm rounded px-1 py-0.5 flex items-center gap-1">
         {isSpeaking && <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: speakerColor }} />}
         <span className="text-[8px] text-white">{name}</span>
+      </div>
+    </div>
+  );
+};
+
+/** Main stage video: large, centered view for the active/spotlighted speaker */
+const MainStageVideo = ({ stream, name, color }) => {
+  const ref = useRef(null);
+  useEffect(() => { if (ref.current && stream) ref.current.srcObject = stream; }, [stream]);
+  return (
+    <div className="absolute inset-0 z-0" data-testid="main-stage-video">
+      <video ref={ref} autoPlay playsInline className="w-full h-full object-cover" />
+      {/* Speaker label overlay */}
+      <div className="absolute bottom-3 left-3 flex items-center gap-2 bg-black/50 backdrop-blur-md rounded-full px-3 py-1.5">
+        <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: color || '#a78bfa' }} />
+        <span className="text-xs text-white font-medium">{name}</span>
+        <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 text-[8px]">Speaking</Badge>
       </div>
     </div>
   );
