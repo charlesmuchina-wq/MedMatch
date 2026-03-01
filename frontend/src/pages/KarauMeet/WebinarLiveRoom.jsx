@@ -889,6 +889,9 @@ const WebinarLiveRoom = () => {
             <CtrlBtn on={showReactions} onClick={() => setShowReactions(!showReactions)} icon={SmilePlus} testId="reactions-toggle" color={showReactions ? 'amber' : undefined} />
             <CtrlBtn on={activePanel === 'leaderboard'} onClick={() => togglePanel('leaderboard')} icon={Trophy} testId="leaderboard-toggle" />
             <CtrlBtn on={spatialAudio.enabled} onClick={spatialAudio.toggle} icon={Headphones} testId="spatial-audio-toggle" color={spatialAudio.enabled ? 'emerald' : undefined} />
+            <CtrlBtn on={activePanel === 'director'} onClick={() => togglePanel('director')} icon={Clapperboard} testId="director-toggle" color={activePanel === 'director' ? 'violet' : undefined} />
+            <CtrlBtn on={activePanel === 'sentiment'} onClick={() => togglePanel('sentiment')} icon={BarChart3} testId="sentiment-toggle" color={activePanel === 'sentiment' ? 'cyan' : undefined} />
+            <CtrlBtn on={activePanel === 'copilot'} onClick={() => togglePanel('copilot')} icon={BrainCircuit} testId="copilot-toggle" color={activePanel === 'copilot' ? 'fuchsia' : undefined} />
             {canStream && (
               <div className="relative">
                 <CtrlBtn on={showCoach} onClick={() => setShowCoach(!showCoach)} icon={Sparkles} testId="coach-toggle" color={showCoach ? 'emerald' : undefined} />
