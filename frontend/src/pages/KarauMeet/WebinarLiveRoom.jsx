@@ -859,6 +859,9 @@ const WebinarLiveRoom = () => {
             </Button>
             <CtrlBtn on={activePanel === 'qa'} onClick={() => togglePanel('qa')} icon={MessageCircleQuestion} testId="qa-toggle" badge={pendingQs.length || null} />
             <CtrlBtn on={activePanel === 'ai'} onClick={() => togglePanel('ai')} icon={Brain} testId="ai-toggle" />
+            <CtrlBtn on={showReactions} onClick={() => setShowReactions(!showReactions)} icon={SmilePlus} testId="reactions-toggle" color={showReactions ? 'amber' : undefined} />
+            <CtrlBtn on={activePanel === 'leaderboard'} onClick={() => togglePanel('leaderboard')} icon={Trophy} testId="leaderboard-toggle" />
+            <CtrlBtn on={spatialAudio.enabled} onClick={spatialAudio.toggle} icon={Headphones} testId="spatial-audio-toggle" color={spatialAudio.enabled ? 'emerald' : undefined} />
             {canStream && (
               <div className="relative">
                 <CtrlBtn on={showCoach} onClick={() => setShowCoach(!showCoach)} icon={Sparkles} testId="coach-toggle" color={showCoach ? 'emerald' : undefined} />
