@@ -560,7 +560,7 @@ const WebinarLiveRoom = () => {
 const CtrlBtn = ({ on, onClick, icon: Icon, testId, color, badge }) => (
   <div className="relative">
     <Button variant="ghost" size="sm" onClick={onClick} data-testid={testId}
-      className={`h-9 w-9 rounded-full ${on ? (color === 'amber' ? 'bg-amber-500/20 text-amber-400' : 'bg-purple-500/20 text-purple-400') : 'bg-white/10 text-white hover:bg-white/15'}`}>
+      className={`h-9 w-9 rounded-full ${on ? (color === 'amber' ? 'bg-amber-500/20 text-amber-400' : color === 'emerald' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-purple-500/20 text-purple-400') : 'bg-white/10 text-white hover:bg-white/15'}`}>
       <Icon className="w-4 h-4" />
     </Button>
     {badge && <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-red-500 text-[7px] text-white flex items-center justify-center">{badge}</span>}
