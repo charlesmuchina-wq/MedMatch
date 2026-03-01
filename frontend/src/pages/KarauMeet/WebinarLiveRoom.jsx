@@ -251,7 +251,13 @@ const WebinarLiveRoom = () => {
   // --- Media Controls ---
   const startLocalMedia = async (video, audio) => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video, audio });
+      let stream = await navigator.mediaDevices.getUserMedia({ video, audio });
+      // Apply noise cancellation if supported
+      if (noiseCancellation.isSupported && audio) {
+        try {
+          stream = await noiseCancellation.applyToStream(stream);
+        } catch (e) { console.warn('Noise cancellation failed:', e); }
+      }
       localStreamRef.current = stream;
       if (localVideoRef.current) localVideoRef.current.srcObject = stream;
       setIsCamOn(video);
@@ -259,6 +265,22 @@ const WebinarLiveRoom = () => {
     } catch (e) {
       console.error('Media error:', e);
       toast.error('Camera/microphone access denied');
+    }
+  };
+
+  const toggleNoiseCancellation = async () => {
+    if (noiseCancellation.enabled) {
+      const original = noiseCancellation.removeFromStream();
+      if (original) {
+        localStreamRef.current = original;
+        if (localVideoRef.current) localVideoRef.current.srcObject = original;
+      }
+    } else if (localStreamRef.current) {
+      const processed = await noiseCancellation.applyToStream(localStreamRef.current);
+      if (processed) {
+        localStreamRef.current = processed;
+        if (localVideoRef.current) localVideoRef.current.srcObject = processed;
+      }
     }
   };
 
