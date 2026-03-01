@@ -30,8 +30,12 @@ const AIAssistantPanel = ({ meetingId, aiNotes = [], webinarId, engagementData }
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [insightsCount, setInsightsCount] = useState(0);
+  const [activeTab, setActiveTab] = useState('chat'); // chat, agent, sentiment
+  const [actionItems, setActionItems] = useState([]);
+  const [voiceListening, setVoiceListening] = useState(false);
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
+  const recognitionRef = useRef(null);
 
   // Auto-count insights from aiNotes
   useEffect(() => {
