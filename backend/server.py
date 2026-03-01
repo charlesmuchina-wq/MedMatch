@@ -297,6 +297,10 @@ from routes.advanced_features import router as advanced_features_router
 from routes.meeting_infrastructure import router as meeting_infra_router
 from routes.platform_features import router as platform_features_router
 from routes.karau_gamification import router as karau_gamification_router
+from routes.karau_director import router as karau_director_router
+from routes.karau_qr_entry import router as karau_qr_router
+from routes.karau_ghost_booking import router as karau_ghost_router
+from routes.karau_enhanced_sentiment import router as karau_enhanced_sentiment_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
@@ -391,6 +395,10 @@ app.include_router(advanced_features_router, prefix="/api")
 app.include_router(meeting_infra_router, prefix="/api")
 app.include_router(platform_features_router, prefix="/api")
 app.include_router(karau_gamification_router, prefix="/api")
+app.include_router(karau_director_router, prefix="/api")
+app.include_router(karau_qr_router, prefix="/api")
+app.include_router(karau_ghost_router, prefix="/api")
+app.include_router(karau_enhanced_sentiment_router, prefix="/api")
 
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
