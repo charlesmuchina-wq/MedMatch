@@ -280,6 +280,8 @@ const WebinarLiveRoom = () => {
       if (localVideoRef.current) localVideoRef.current.srcObject = stream;
       setIsCamOn(video);
       setIsMicOn(audio);
+      // Register local stream for speaker detection
+      speakerDetection.addLocalStream(roomInfo?.host_name || 'You', stream);
     } catch (e) {
       console.error('Media error:', e);
       toast.error('Camera/microphone access denied');
