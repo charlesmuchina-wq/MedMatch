@@ -79,7 +79,7 @@
       "configured": true,
       "environment": "production",
       "client_id": "APP-K9HUYS6GQY2RERX6",
-      "redirect_url": "https://immersive-karau.preview.emergentagent.com/api/auth/orcid/callback",
+      "redirect_url": "https://immersive-collab.preview.emergentagent.com/api/auth/orcid/callback",
       "login_button": "data-testid='orcid-login-btn' with text 'Sign in with ORCID'"
     },
     "linkedin_sync": {
