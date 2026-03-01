@@ -704,13 +704,16 @@ const CtrlBtn = ({ on, onClick, icon: Icon, testId, color, badge }) => (
   </div>
 );
 
-const RemoteVideo = ({ stream, name, userId }) => {
+const RemoteVideo = ({ stream, name, userId, isSpeaking, speakerColor }) => {
   const ref = useRef(null);
   useEffect(() => { if (ref.current && stream) ref.current.srcObject = stream; }, [stream]);
   return (
-    <div className="relative rounded-lg overflow-hidden bg-karau-card/60 border border-white/5 aspect-video" data-testid={`remote-${userId}`}>
+    <div className={`relative rounded-lg overflow-hidden bg-karau-card/60 border aspect-video transition-all ${isSpeaking ? 'border-2' : 'border-white/5'}`}
+      style={isSpeaking ? { borderColor: speakerColor } : {}}
+      data-testid={`remote-${userId}`}>
       <video ref={ref} autoPlay playsInline className="w-full h-full object-cover" />
-      <div className="absolute bottom-1 left-1 bg-black/60 backdrop-blur-sm rounded px-1 py-0.5">
+      <div className="absolute bottom-1 left-1 bg-black/60 backdrop-blur-sm rounded px-1 py-0.5 flex items-center gap-1">
+        {isSpeaking && <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: speakerColor }} />}
         <span className="text-[8px] text-white">{name}</span>
       </div>
     </div>
