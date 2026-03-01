@@ -31,7 +31,7 @@ class LeaderboardAction(BaseModel):
 
 
 @router.post("/{webinar_id}/reaction")
-async def send_reaction(webinar_id: str, data: ReactionRequest, user=Depends(get_current_user)):
+async def send_reaction(webinar_id: str, data: ReactionRequest, user=Depends(require_auth)):
     """Send a floating emoji reaction in the webinar."""
     if data.reaction not in VALID_REACTIONS:
         raise HTTPException(400, f"Invalid reaction. Valid: {VALID_REACTIONS}")
@@ -110,7 +110,7 @@ async def get_leaderboard(webinar_id: str, limit: int = 10):
 
 
 @router.post("/{webinar_id}/leaderboard/track")
-async def track_participation(webinar_id: str, data: LeaderboardAction, user=Depends(get_current_user)):
+async def track_participation(webinar_id: str, data: LeaderboardAction, user=Depends(require_auth)):
     """Track a participation action for the leaderboard."""
     score_map = {"question": 5, "reaction": 2, "speaking": 1, "chat": 1}
     score = score_map.get(data.action, 1) * data.value
