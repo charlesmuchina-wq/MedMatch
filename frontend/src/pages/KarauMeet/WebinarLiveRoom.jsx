@@ -587,6 +587,13 @@ const WebinarLiveRoom = () => {
         {/* Video Stage */}
         <div className="flex-1 flex flex-col">
           <div className="flex-1 p-2 flex gap-2" data-testid="video-stage">
+            {/* Enhanced Whiteboard (replaces video stage when active) */}
+            {showWhiteboard ? (
+              <div className="flex-1" data-testid="whiteboard-container">
+                <EnhancedWhiteboard meetingId={webinarId} onClose={() => setShowWhiteboard(false)} />
+              </div>
+            ) : (
+            <>
             {/* Presentation slides (main area when uploaded) */}
             {showSlides && (
               <div className="flex-1 relative rounded-xl overflow-hidden">
