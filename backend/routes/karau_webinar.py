@@ -296,10 +296,14 @@ async def start_webinar(webinar_id: str, user=Depends(get_current_user)):
 
 @router.post("/{webinar_id}/end")
 async def end_webinar(webinar_id: str, user=Depends(get_current_user)):
-    """End the webinar (host only)."""
+    """End the webinar (host only). Auto-expires all guest permissions."""
     await db.webinars.update_one(
         {"webinar_id": webinar_id, "host_id": user["user_id"]},
-        {"$set": {"status": "ended", "ended_at": datetime.now(timezone.utc).isoformat()}}
+        {"$set": {
+            "status": "ended",
+            "ended_at": datetime.now(timezone.utc).isoformat(),
+            "guest_permissions": {}  # Clear all guest permissions on end
+        }}
     )
     return {"success": True, "status": "ended"}
 
