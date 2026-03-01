@@ -210,6 +210,80 @@ async def get_transcript(recording_id: str, user: dict = Depends(require_auth)):
 
 
 
+class SendNotesRequest(BaseModel):
+    recipient_emails: list = []
+
+
+@router.post("/{recording_id}/notes/generate")
+async def generate_recording_notes(recording_id: str, user: dict = Depends(require_auth)):
+    """Generate AI meeting notes from a recording's transcript."""
+    record = await recordings.find_one(
+        {"recording_id": recording_id, "recorded_by": user["user_id"]},
+        {"_id": 0, "transcription_status": 1, "transcription": 1, "meeting_title": 1, "meeting_notes": 1}
+    )
+    if not record:
+        raise HTTPException(404, "Recording not found")
+
+    if record.get("transcription_status") != "completed":
+        raise HTTPException(400, "Transcript not available for this recording")
+
+    transcript_text = (record.get("transcription") or {}).get("text", "")
+    if not transcript_text:
+        raise HTTPException(400, "Transcript is empty")
+
+    from services.meeting_notes_service import generate_meeting_notes
+    result = await generate_meeting_notes(transcript_text, record.get("meeting_title", "Meeting"))
+
+    if result.get("error"):
+        raise HTTPException(500, result["error"])
+
+    await recordings.update_one(
+        {"recording_id": recording_id},
+        {"$set": {"meeting_notes": result}}
+    )
+
+    return {"success": True, "notes": result}
+
+
+@router.get("/{recording_id}/notes")
+async def get_recording_notes(recording_id: str, user: dict = Depends(require_auth)):
+    """Get existing meeting notes for a recording."""
+    record = await recordings.find_one(
+        {"recording_id": recording_id, "recorded_by": user["user_id"]},
+        {"_id": 0, "meeting_notes": 1}
+    )
+    if not record:
+        raise HTTPException(404, "Recording not found")
+    return {"notes": record.get("meeting_notes")}
+
+
+@router.post("/{recording_id}/notes/send")
+async def send_recording_notes(recording_id: str, data: SendNotesRequest, user: dict = Depends(require_auth)):
+    """Send meeting notes to recipients via email record."""
+    record = await recordings.find_one(
+        {"recording_id": recording_id, "recorded_by": user["user_id"]},
+        {"_id": 0, "meeting_notes": 1, "meeting_title": 1}
+    )
+    if not record or not record.get("meeting_notes"):
+        raise HTTPException(400, "No meeting notes to send")
+
+    send_record = {
+        "sent_by": user["user_id"],
+        "sent_by_name": user.get("name", user.get("email")),
+        "sent_to": data.recipient_emails,
+        "sent_at": datetime.now(timezone.utc).isoformat(),
+        "recording_id": recording_id,
+        "meeting_title": record.get("meeting_title", "Meeting")
+    }
+    await db.meeting_notes_sent.insert_one(send_record)
+
+    return {
+        "success": True,
+        "sent_to": data.recipient_emails,
+        "notes_preview": record["meeting_notes"]["notes"][:200] + "..."
+    }
+
+
 @router.get("/stats")
 async def get_recording_stats(user: dict = Depends(require_auth)):
     """Get recording statistics for user"""
