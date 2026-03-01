@@ -533,6 +533,7 @@ const WebinarLiveRoom = () => {
               </>
             )}
             {isAttendee && <CtrlBtn on={isHandRaised} onClick={toggleHandRaise} icon={Hand} testId="hand-raise-btn" color="amber" />}
+            <CtrlBtn on={liveTranscription.active} onClick={toggleLiveCaptions} icon={Captions} testId="captions-toggle" color={liveTranscription.active ? 'emerald' : undefined} />
             <CtrlBtn on={activePanel === 'qa'} onClick={() => togglePanel('qa')} icon={MessageCircleQuestion} testId="qa-toggle" badge={pendingQs.length || null} />
             {canControl && (
               <>
