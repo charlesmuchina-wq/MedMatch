@@ -89,11 +89,22 @@ module.exports = {
                                 to: {
                                         height: '0'
                                 }
+                        },
+                        'float-up': {
+                                '0%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+                                '50%': { opacity: '0.8', transform: 'translateY(-120px) scale(1.2)' },
+                                '100%': { opacity: '0', transform: 'translateY(-260px) scale(0.6)' }
+                        },
+                        'speaker-glow': {
+                                '0%, 100%': { boxShadow: '0 0 8px 2px rgba(139, 92, 246, 0.3)' },
+                                '50%': { boxShadow: '0 0 20px 6px rgba(139, 92, 246, 0.5)' }
                         }
                 },
                 animation: {
                         'accordion-down': 'accordion-down 0.2s ease-out',
-                        'accordion-up': 'accordion-up 0.2s ease-out'
+                        'accordion-up': 'accordion-up 0.2s ease-out',
+                        'float-up': 'float-up 2.8s ease-out forwards',
+                        'speaker-glow': 'speaker-glow 2s ease-in-out infinite'
                 }
         }
   },
