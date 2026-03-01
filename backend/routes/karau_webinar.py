@@ -177,6 +177,10 @@ async def translate_caption(data: TranslateCaptionRequest, user=Depends(get_curr
     tgt_name = SUPPORTED_LANGUAGES.get(data.target_language, data.target_language)
 
     try:
+        import os
+        key = os.environ.get("EMERGENT_LLM_KEY")
+        if not key:
+            raise HTTPException(500, "Translation service not configured")
         from emergentintegrations.llm.chat import LlmChat, UserMessage
         chat = LlmChat(
             api_key=key,
