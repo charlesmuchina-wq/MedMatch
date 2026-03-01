@@ -164,10 +164,11 @@ class TranslateCaptionRequest(BaseModel):
 @router.post("/translate-caption")
 async def translate_caption(data: TranslateCaptionRequest, user=Depends(get_current_user)):
     """Translate a caption text to a target language using AI."""
-    import os
-    key = os.environ.get("EMERGENT_LLM_KEY")
-    if not key:
-        raise HTTPException(500, "Translation service not configured")
+    if not user:
+        raise HTTPException(401, "Authentication required")
+
+    if not data.text.strip():
+        return {"translated": "", "source": data.source_language, "target": data.target_language}
 
     if data.source_language == data.target_language:
         return {"translated": data.text, "source": data.source_language, "target": data.target_language}
