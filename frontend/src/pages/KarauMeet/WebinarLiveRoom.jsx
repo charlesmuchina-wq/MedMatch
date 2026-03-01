@@ -684,6 +684,32 @@ const WebinarLiveRoom = () => {
             </div>
           )}
 
+          {/* AI Coach Tips (Private - Host/Presenter Only) */}
+          {showCoach && coachTips.length > 0 && (
+            <div className="absolute top-12 right-3 w-64 max-h-48 overflow-y-auto space-y-1.5 z-10" data-testid="coach-tips-panel">
+              {coachTips.slice(-3).map((tip, i) => (
+                <div key={i} className={`p-2 rounded-lg backdrop-blur-md border transition-all ${
+                  tip.urgency === 'high' ? 'bg-red-500/10 border-red-500/20' :
+                  tip.urgency === 'medium' ? 'bg-amber-500/10 border-amber-500/20' :
+                  'bg-emerald-500/10 border-emerald-500/20'
+                }`} data-testid={`coach-tip-${i}`}>
+                  <div className="flex items-start gap-1.5">
+                    <span className="text-sm">{tip.emoji}</span>
+                    <div>
+                      <p className="text-[9px] text-white/90 leading-relaxed">{tip.tip}</p>
+                      <Badge className={`mt-1 text-[7px] ${
+                        tip.category === 'engagement' ? 'bg-violet-500/10 text-violet-400' :
+                        tip.category === 'pacing' ? 'bg-blue-500/10 text-blue-400' :
+                        tip.category === 'clarity' ? 'bg-teal-500/10 text-teal-400' :
+                        'bg-white/5 text-slate-400'
+                      }`}>{tip.category}</Badge>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           {/* Language Picker Dropdown */}
           {showLangPicker && (
             <div className="px-4 py-2 bg-karau-card/90 backdrop-blur-md border-t border-white/5" data-testid="language-picker-panel">
