@@ -496,6 +496,14 @@ const WebinarLiveRoom = () => {
               <>
                 <CtrlBtn on={isMicOn} onClick={toggleMic} icon={isMicOn ? Mic : MicOff} testId="mic-toggle" />
                 <CtrlBtn on={isCamOn} onClick={toggleCam} icon={isCamOn ? Video : VideoOff} testId="cam-toggle" />
+                {noiseCancellation.isSupported && (
+                  <div className="relative">
+                    <CtrlBtn on={noiseCancellation.enabled} onClick={toggleNoiseCancellation} icon={AudioLines} testId="noise-cancel-toggle" color={noiseCancellation.enabled ? 'emerald' : undefined} />
+                    {noiseCancellation.enabled && (
+                      <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    )}
+                  </div>
+                )}
               </>
             )}
             {isAttendee && <CtrlBtn on={isHandRaised} onClick={toggleHandRaise} icon={Hand} testId="hand-raise-btn" color="amber" />}
