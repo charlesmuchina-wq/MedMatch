@@ -308,6 +308,31 @@ const WebinarLiveRoom = () => {
     }
   };
 
+  const grantGuestPermission = async (userId, permission) => {
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`${API}/api/karau/webinar/${webinarId}/guest-permission/grant`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ user_id: userId, permission })
+      });
+      if (res.ok) toast.success(`${permission} permission granted`);
+      else toast.error('Failed to grant permission');
+    } catch { toast.error('Permission error'); }
+  };
+
+  const revokeGuestPermission = async (userId) => {
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`${API}/api/karau/webinar/${webinarId}/guest-permission/revoke`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ user_id: userId, permission: '' })
+      });
+      if (res.ok) toast.success('Permission revoked');
+    } catch { toast.error('Revoke error'); }
+  };
+
   const toggleLiveCaptions = () => {
     if (liveTranscription.active) {
       liveTranscription.stop();
