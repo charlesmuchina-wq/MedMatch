@@ -712,6 +712,7 @@ const WebinarLiveRoom = () => {
               )}
             </Button>
             <CtrlBtn on={activePanel === 'qa'} onClick={() => togglePanel('qa')} icon={MessageCircleQuestion} testId="qa-toggle" badge={pendingQs.length || null} />
+            <CtrlBtn on={activePanel === 'ai'} onClick={() => togglePanel('ai')} icon={Brain} testId="ai-toggle" />
             {canControl && (
               <>
                 <CtrlBtn on={activePanel === 'participants'} onClick={() => togglePanel('participants')} icon={Users} testId="participants-toggle" />
