@@ -761,6 +761,7 @@ const WebinarLiveRoom = () => {
                     )}
                   </div>
                 )}
+                <CtrlBtn on={eyeContactOn} onClick={() => setEyeContactOn(!eyeContactOn)} icon={Eye} testId="eye-contact-toggle" color={eyeContactOn ? 'emerald' : undefined} />
               </>
             )}
             {isAttendee && <CtrlBtn on={isHandRaised} onClick={toggleHandRaise} icon={Hand} testId="hand-raise-btn" color="amber" />}
