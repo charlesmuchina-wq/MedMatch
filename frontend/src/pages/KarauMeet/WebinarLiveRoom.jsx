@@ -803,6 +803,7 @@ const WebinarLiveRoom = () => {
               <>
                 <CtrlBtn on={activePanel === 'participants'} onClick={() => togglePanel('participants')} icon={Users} testId="participants-toggle" />
                 <CtrlBtn on={activePanel === 'controls'} onClick={() => togglePanel('controls')} icon={Settings} testId="controls-toggle" />
+            <CtrlBtn on={showWhiteboard} onClick={() => setShowWhiteboard(!showWhiteboard)} icon={PenLine} testId="whiteboard-toggle" color={showWhiteboard ? 'emerald' : undefined} />
               </>
             )}
             <div className="w-px h-6 bg-white/10 mx-1" />
