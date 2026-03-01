@@ -2,7 +2,7 @@
 Webinar Mode API - Large Event Support (1000+ attendees)
 WebEx-equivalent features: audience control, Q&A, registration, analytics.
 """
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from pydantic import BaseModel, Field
 from typing import Optional, List, Dict
 from datetime import datetime, timezone
