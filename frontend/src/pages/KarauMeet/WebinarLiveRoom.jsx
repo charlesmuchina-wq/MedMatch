@@ -59,6 +59,7 @@ const WebinarLiveRoom = () => {
 
   // Slide drive
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showSlides, setShowSlides] = useState(true);
 
   // WebRTC
   const localVideoRef = useRef(null);
