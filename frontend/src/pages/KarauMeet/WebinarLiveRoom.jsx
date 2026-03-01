@@ -288,6 +288,28 @@ const WebinarLiveRoom = () => {
     }
   };
 
+  const toggleLiveCaptions = () => {
+    if (liveTranscription.active) {
+      liveTranscription.stop();
+    } else if (localStreamRef.current) {
+      liveTranscription.start(localStreamRef.current);
+    }
+  };
+
+  const saveTranscript = async () => {
+    if (!liveTranscription.fullTranscript.trim()) return;
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`${API}/api/karau/webinar/${webinarId}/live-transcript/save`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ transcript: liveTranscription.fullTranscript.trim() })
+      });
+      if (res.ok) toast.success('Transcript saved');
+      else toast.error('Failed to save transcript');
+    } catch { toast.error('Save error'); }
+  };
+
   const toggleMic = () => {
     if (!localStreamRef.current) return;
     const track = localStreamRef.current.getAudioTracks()[0];
