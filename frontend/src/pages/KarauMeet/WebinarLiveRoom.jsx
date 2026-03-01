@@ -639,6 +639,17 @@ const WebinarLiveRoom = () => {
       {/* Emoji Reactions Overlay */}
       <EmojiReactions webinarId={webinarId} senderName={roomInfo.host_name || 'User'} show={showReactions} onToggle={() => setShowReactions(!showReactions)} />
 
+      {/* Ghost Booking Alert */}
+      <GhostBookingAlert ghostBooking={ghostBooking} onClose={() => {}} />
+
+      {/* Director Mode Indicator */}
+      {directorMode.enabled && directorMode.mode === 'auto' && directorMode.activeView !== 'panoramic' && (
+        <div className="absolute top-12 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1.5 bg-violet-500/10 backdrop-blur-sm border border-violet-500/20 rounded-full px-3 py-1" data-testid="director-mode-indicator">
+          <Clapperboard className="w-3 h-3 text-violet-400" />
+          <span className="text-[9px] text-violet-300 font-medium">Director: {directorMode.activeView}</span>
+        </div>
+      )}
+
       {/* Main */}
       <div className="flex flex-1 overflow-hidden">
         {/* Video Stage */}
