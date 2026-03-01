@@ -4,14 +4,14 @@ import { Button } from '@/components/ui/button';
 const API = process.env.REACT_APP_BACKEND_URL;
 
 const REACTIONS = [
-  { key: 'thumbsup', emoji: '\ud83d\udc4d', label: 'Thumbs Up' },
-  { key: 'clap', emoji: '\ud83d\udc4f', label: 'Clap' },
-  { key: 'heart', emoji: '\u2764\ufe0f', label: 'Heart' },
-  { key: 'laugh', emoji: '\ud83d\ude02', label: 'Laugh' },
-  { key: 'fire', emoji: '\ud83d\udd25', label: 'Fire' },
-  { key: 'mindblown', emoji: '\ud83e\udd2f', label: 'Mind Blown' },
-  { key: 'wave', emoji: '\ud83d\udc4b', label: 'Wave' },
-  { key: '100', emoji: '\ud83d\udcaf', label: '100' },
+  { key: 'thumbsup', emoji: '👍', label: 'Thumbs Up' },
+  { key: 'clap', emoji: '👏', label: 'Clap' },
+  { key: 'heart', emoji: '❤️', label: 'Heart' },
+  { key: 'laugh', emoji: '😂', label: 'Laugh' },
+  { key: 'fire', emoji: '🔥', label: 'Fire' },
+  { key: 'mindblown', emoji: '🤯', label: 'Mind Blown' },
+  { key: 'wave', emoji: '👋', label: 'Wave' },
+  { key: '100', emoji: '💯', label: '100' },
 ];
 
 /**
