@@ -93,7 +93,12 @@ const WebinarLiveRoom = () => {
     };
   }, [webinarId]);
 
-  // Poll Q&A and hand raises
+  // Sync active speaker to transcription
+  useEffect(() => {
+    if (speakerDetection.activeSpeaker) {
+      liveTranscription.setActiveSpeaker(speakerDetection.activeSpeaker);
+    }
+  }, [speakerDetection.activeSpeaker]);
   useEffect(() => {
     if (!roomInfo) return;
     const interval = setInterval(() => {
