@@ -527,7 +527,9 @@ const WebinarLiveRoom = () => {
             {remoteStreamEntries.length > 0 && (
               <div className="w-36 flex flex-col gap-1 overflow-y-auto shrink-0">
                 {remoteStreamEntries.map(([uid, { stream, name }]) => (
-                  <RemoteVideo key={uid} stream={stream} name={name} userId={uid} />
+                  <RemoteVideo key={uid} stream={stream} name={name} userId={uid}
+                    isSpeaking={speakerDetection.speakers[uid]?.speaking}
+                    speakerColor={speakerDetection.speakers[uid]?.color} />
                 ))}
               </div>
             )}
