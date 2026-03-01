@@ -393,6 +393,52 @@ const KarauRecordingsPage = () => {
                       )}
                     </div>
                   )}
+
+                  {/* Expandable AI Notes */}
+                  {expandedNotes === rec.recording_id && notesData[rec.recording_id] && (
+                    <div className="mt-1 p-3 bg-violet-500/5 rounded-lg border border-violet-500/10 ml-13" data-testid={`notes-content-${rec.recording_id}`}>
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-[10px] text-violet-400 font-medium flex items-center gap-1">
+                          <Sparkles className="w-3 h-3" />AI Meeting Notes
+                        </span>
+                        <div className="flex items-center gap-1">
+                          <Button variant="ghost" size="sm" onClick={() => copyNotes(rec.recording_id)}
+                            className="h-5 px-1.5 text-[8px] text-slate-400 hover:text-white" data-testid={`copy-notes-${rec.recording_id}`}>
+                            <Copy className="w-2.5 h-2.5 mr-0.5" />Copy
+                          </Button>
+                          <Button variant="ghost" size="sm" onClick={() => setExpandedNotes(null)}
+                            className="h-5 w-5 p-0 text-slate-400 hover:text-white">
+                            <X className="w-3 h-3" />
+                          </Button>
+                        </div>
+                      </div>
+                      <div className="max-h-60 overflow-y-auto text-[10px] text-slate-300 whitespace-pre-wrap leading-relaxed prose-sm">
+                        {notesData[rec.recording_id].notes}
+                      </div>
+                      <div className="mt-2 pt-2 border-t border-violet-500/10">
+                        <p className="text-[9px] text-violet-400/70 mb-1.5 flex items-center gap-1">
+                          <Mail className="w-2.5 h-2.5" />Send notes to participants
+                        </p>
+                        <div className="flex gap-1">
+                          <Input
+                            value={sendEmail}
+                            onChange={e => setSendEmail(e.target.value)}
+                            placeholder="email@example.com (comma-separated)"
+                            className="bg-karau-bg/60 border-white/10 text-white text-[9px] h-6 rounded-lg flex-1"
+                            data-testid={`send-notes-email-${rec.recording_id}`}
+                          />
+                          <Button size="sm" onClick={() => sendNotes(rec.recording_id)}
+                            disabled={sendingNotes === rec.recording_id || !sendEmail.trim()}
+                            className="h-6 px-2 text-[9px] bg-violet-500/80 hover:bg-violet-400 rounded-lg"
+                            data-testid={`send-notes-btn-${rec.recording_id}`}>
+                            {sendingNotes === rec.recording_id
+                              ? <Loader2 className="w-2.5 h-2.5 animate-spin" />
+                              : <Send className="w-2.5 h-2.5" />}
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
