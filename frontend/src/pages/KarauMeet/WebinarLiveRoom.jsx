@@ -951,6 +951,10 @@ const WebinarLiveRoom = () => {
             {activePanel === 'ai' && <AIAssistantPanel meetingId={webinarId} webinarId={webinarId} engagementData={engagementData} />}
             {activePanel === 'leaderboard' && <LeaderboardPanel webinarId={webinarId} />}
             {activePanel === 'controls' && canControl && <ControlsPanel muteAll={muteAll} roomInfo={roomInfo} />}
+            {activePanel === 'director' && <DirectorModePanel directorMode={directorMode} />}
+            {activePanel === 'qr' && <QRCodePanel meetingId={webinarId} meetingTitle={roomInfo.title} />}
+            {activePanel === 'sentiment' && <SentimentDashboard meetingId={webinarId} />}
+            {activePanel === 'copilot' && <CopilotPanel meetingId={webinarId} />}
           </div>
         )}
       </div>
