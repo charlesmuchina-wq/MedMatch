@@ -298,6 +298,32 @@ const KarauRecordingsPage = () => {
                           {expandedTranscript === rec.recording_id ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                         </Button>
                       )}
+                      {rec.transcription_status === 'completed' && (
+                        notesData[rec.recording_id] ? (
+                          <Button variant="ghost" size="sm" onClick={() => fetchNotes(rec.recording_id)}
+                            className="h-7 px-1.5 text-violet-400 hover:text-violet-300 hover:bg-violet-500/10"
+                            data-testid={`view-notes-${rec.recording_id}`}>
+                            <Sparkles className="w-3.5 h-3.5 mr-0.5" />Notes
+                          </Button>
+                        ) : (
+                          <Button variant="ghost" size="sm" onClick={() => generateNotes(rec.recording_id)}
+                            disabled={generatingNotes === rec.recording_id}
+                            className="h-7 px-1.5 text-amber-400 hover:text-amber-300 hover:bg-amber-500/10"
+                            data-testid={`generate-notes-${rec.recording_id}`}>
+                            {generatingNotes === rec.recording_id
+                              ? <Loader2 className="w-3.5 h-3.5 mr-0.5 animate-spin" />
+                              : <Sparkles className="w-3.5 h-3.5 mr-0.5" />}
+                            AI Notes
+                          </Button>
+                        )
+                      )}
+                      {rec.transcription_status === 'completed' && rec.meeting_notes && !notesData[rec.recording_id] && (
+                        <Button variant="ghost" size="sm" onClick={() => fetchNotes(rec.recording_id)}
+                          className="h-7 px-1.5 text-violet-400 hover:text-violet-300 hover:bg-violet-500/10"
+                          data-testid={`saved-notes-${rec.recording_id}`}>
+                          <Sparkles className="w-3.5 h-3.5 mr-0.5" />Notes
+                        </Button>
+                      )}
                       {rec.transcription_status === 'processing' && (
                         <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/15 text-[8px]">
                           <Loader2 className="w-2 h-2 mr-0.5 animate-spin" />Transcribing
