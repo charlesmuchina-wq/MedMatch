@@ -964,15 +964,25 @@ const WebinarLiveRoom = () => {
 
 // --- Sub Components ---
 
-const CtrlBtn = ({ on, onClick, icon: Icon, testId, color, badge }) => (
-  <div className="relative">
-    <Button variant="ghost" size="sm" onClick={onClick} data-testid={testId}
-      className={`h-9 w-9 rounded-full ${on ? (color === 'amber' ? 'bg-amber-500/20 text-amber-400' : color === 'emerald' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-purple-500/20 text-purple-400') : 'bg-white/10 text-white hover:bg-white/15'}`}>
-      <Icon className="w-4 h-4" />
-    </Button>
-    {badge && <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-red-500 text-[7px] text-white flex items-center justify-center">{badge}</span>}
-  </div>
-);
+const CtrlBtn = ({ on, onClick, icon: Icon, testId, color, badge }) => {
+  const colorClasses = {
+    amber: 'bg-amber-500/20 text-amber-400',
+    emerald: 'bg-emerald-500/20 text-emerald-400',
+    violet: 'bg-violet-500/20 text-violet-400',
+    cyan: 'bg-cyan-500/20 text-cyan-400',
+    teal: 'bg-teal-500/20 text-teal-400',
+    fuchsia: 'bg-fuchsia-500/20 text-fuchsia-400',
+  };
+  return (
+    <div className="relative">
+      <Button variant="ghost" size="sm" onClick={onClick} data-testid={testId}
+        className={`h-9 w-9 rounded-full ${on ? (colorClasses[color] || 'bg-purple-500/20 text-purple-400') : 'bg-white/10 text-white hover:bg-white/15'}`}>
+        <Icon className="w-4 h-4" />
+      </Button>
+      {badge && <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-red-500 text-[7px] text-white flex items-center justify-center">{badge}</span>}
+    </div>
+  );
+};
 
 const RemoteVideo = ({ stream, name, userId, isSpeaking, speakerColor, isMainStage, onPromoteToStage }) => {
   const ref = useRef(null);
