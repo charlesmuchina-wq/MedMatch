@@ -623,6 +623,9 @@ const WebinarLiveRoom = () => {
         </div>
       </div>
 
+      {/* Emoji Reactions Overlay */}
+      <EmojiReactions webinarId={webinarId} senderName={roomInfo.host_name || 'User'} show={showReactions} onToggle={() => setShowReactions(!showReactions)} />
+
       {/* Main */}
       <div className="flex flex-1 overflow-hidden">
         {/* Video Stage */}
