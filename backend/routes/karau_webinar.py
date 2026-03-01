@@ -757,57 +757,6 @@ async def get_slide_image(webinar_id: str, slide_index: int, user=Depends(get_cu
     return Response(content=data, media_type="image/png")
 
 
-# --- Caption Translation ---
-
-SUPPORTED_LANGUAGES = {
-    "en": "English", "es": "Spanish", "fr": "French", "de": "German",
-    "it": "Italian", "pt": "Portuguese", "ja": "Japanese", "ko": "Korean",
-    "zh": "Chinese", "nl": "Dutch", "ar": "Arabic", "hi": "Hindi",
-    "ru": "Russian", "tr": "Turkish", "pl": "Polish", "sv": "Swedish"
-}
-
-
-class TranslateCaptionRequest(BaseModel):
-    text: str
-    source_language: str = "en"
-    target_language: str = "es"
-
-
-@router.post("/translate-caption")
-async def translate_caption(data: TranslateCaptionRequest, user=Depends(get_current_user)):
-    """Translate a caption text to a target language using AI."""
-    import os
-    key = os.environ.get("EMERGENT_LLM_KEY")
-    if not key:
-        raise HTTPException(500, "Translation service not configured")
-
-    if data.source_language == data.target_language:
-        return {"translated": data.text, "source": data.source_language, "target": data.target_language}
-
-    src_name = SUPPORTED_LANGUAGES.get(data.source_language, data.source_language)
-    tgt_name = SUPPORTED_LANGUAGES.get(data.target_language, data.target_language)
-
-    try:
-        from emergentintegrations.llm.chat import LlmChat, UserMessage
-        chat = LlmChat(
-            api_key=key,
-            session_id=f'caption-translate-{datetime.now().strftime("%H%M%S")}',
-            system_message=f'You are a real-time caption translator. Translate from {src_name} to {tgt_name}. Return ONLY the translated text, nothing else.'
-        ).with_model('openai', 'gpt-4o-mini')
-
-        response = await chat.send_message(UserMessage(text=data.text))
-        translated = response if isinstance(response, str) else str(response)
-        return {"translated": translated.strip(), "source": data.source_language, "target": data.target_language}
-    except Exception as e:
-        raise HTTPException(500, f"Translation failed: {str(e)}")
-
-
-@router.get("/caption-languages")
-async def get_supported_languages():
-    """Get list of supported languages for captions and translation."""
-    return {"languages": SUPPORTED_LANGUAGES}
-
-
 # --- Live Transcript ---
 
 class SaveTranscriptRequest(BaseModel):
