@@ -109,14 +109,27 @@ async def track_participation(webinar_id: str, data: LeaderboardAction, user=Dep
         "chat": "chat_messages"
     }.get(data.action, "reactions")
 
+    # Ensure document exists first
+    exists = await db.webinar_leaderboard.find_one(
+        {"webinar_id": webinar_id, "user_id": user["user_id"]}
+    )
+    if not exists:
+        await db.webinar_leaderboard.insert_one({
+            "webinar_id": webinar_id,
+            "user_id": user["user_id"],
+            "user_name": user.get("name", "User"),
+            "reactions": 0, "questions": 0, "speaking_time": 0, "chat_messages": 0,
+            "total_score": 0,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        })
+
     await db.webinar_leaderboard.update_one(
         {"webinar_id": webinar_id, "user_id": user["user_id"]},
         {
             "$inc": {field: data.value, "total_score": score},
-            "$set": {"user_name": user.get("name", "User"), "updated_at": datetime.now(timezone.utc).isoformat()},
-            "$setOnInsert": {"reactions": 0, "questions": 0, "speaking_time": 0, "chat_messages": 0, "created_at": datetime.now(timezone.utc).isoformat()}
-        },
-        upsert=True
+            "$set": {"user_name": user.get("name", "User"), "updated_at": datetime.now(timezone.utc).isoformat()}
+        }
     )
 
     return {"success": True, "action": data.action, "score_added": score}
