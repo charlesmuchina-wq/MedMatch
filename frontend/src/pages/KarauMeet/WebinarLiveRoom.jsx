@@ -110,6 +110,7 @@ const WebinarLiveRoom = () => {
 
   const cleanup = () => {
     if (liveTranscription.active) liveTranscription.stop();
+    speakerDetection.cleanup();
     if (localStreamRef.current) {
       localStreamRef.current.getTracks().forEach(t => t.stop());
     }
