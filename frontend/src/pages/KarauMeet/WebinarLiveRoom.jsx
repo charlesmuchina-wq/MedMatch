@@ -67,6 +67,9 @@ const WebinarLiveRoom = () => {
   // Noise Cancellation
   const noiseCancellation = useNoiseCancellation();
 
+  // Live Transcription
+  const liveTranscription = useLiveTranscription();
+
   // WebRTC
   const localVideoRef = useRef(null);
   const localStreamRef = useRef(null);
