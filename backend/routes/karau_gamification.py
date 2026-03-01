@@ -52,14 +52,26 @@ async def send_reaction(webinar_id: str, data: ReactionRequest, user=Depends(get
     })
 
     # Increment reaction count in leaderboard
+    exists = await db.webinar_leaderboard.find_one(
+        {"webinar_id": webinar_id, "user_id": user["user_id"]}
+    )
+    if not exists:
+        await db.webinar_leaderboard.insert_one({
+            "webinar_id": webinar_id,
+            "user_id": user["user_id"],
+            "user_name": data.sender_name or user.get("name", "User"),
+            "reactions": 0, "questions": 0, "speaking_time": 0, "chat_messages": 0,
+            "total_score": 0,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        })
+
     await db.webinar_leaderboard.update_one(
         {"webinar_id": webinar_id, "user_id": user["user_id"]},
         {
             "$inc": {"reactions": 1, "total_score": 2},
-            "$set": {"user_name": data.sender_name or user.get("name", "User"), "updated_at": datetime.now(timezone.utc).isoformat()},
-            "$setOnInsert": {"questions": 0, "speaking_time": 0, "chat_messages": 0, "created_at": datetime.now(timezone.utc).isoformat()}
-        },
-        upsert=True
+            "$set": {"user_name": data.sender_name or user.get("name", "User"), "updated_at": datetime.now(timezone.utc).isoformat()}
+        }
     )
 
     return {
