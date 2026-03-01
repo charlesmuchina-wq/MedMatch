@@ -547,7 +547,21 @@ const WebinarLiveRoom = () => {
               </>
             )}
             {isAttendee && <CtrlBtn on={isHandRaised} onClick={toggleHandRaise} icon={Hand} testId="hand-raise-btn" color="amber" />}
-            <CtrlBtn on={liveTranscription.active} onClick={toggleLiveCaptions} icon={Captions} testId="captions-toggle" color={liveTranscription.active ? 'emerald' : undefined} />
+            <div className="relative">
+              <CtrlBtn on={liveTranscription.active} onClick={toggleLiveCaptions} icon={Captions} testId="captions-toggle" color={liveTranscription.active ? 'emerald' : undefined} />
+              {liveTranscription.active && (
+                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              )}
+            </div>
+            {/* Language picker toggle */}
+            <Button variant="ghost" size="sm" onClick={() => setShowLangPicker(!showLangPicker)} data-testid="lang-picker-toggle"
+              className={`h-9 px-2 rounded-full text-[10px] ${showLangPicker ? 'bg-violet-500/20 text-violet-400' : 'bg-white/10 text-white hover:bg-white/15'}`}>
+              <Globe className="w-3.5 h-3.5 mr-0.5" />
+              {liveTranscription.sourceLanguage.toUpperCase()}
+              {liveTranscription.sourceLanguage !== liveTranscription.displayLanguage && (
+                <span className="text-emerald-400 ml-0.5">{liveTranscription.displayLanguage.toUpperCase()}</span>
+              )}
+            </Button>
             <CtrlBtn on={activePanel === 'qa'} onClick={() => togglePanel('qa')} icon={MessageCircleQuestion} testId="qa-toggle" badge={pendingQs.length || null} />
             {canControl && (
               <>
