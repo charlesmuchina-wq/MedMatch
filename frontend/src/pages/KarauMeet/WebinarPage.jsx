@@ -300,7 +300,8 @@ export const CreateWebinarForm = ({ onCreated, onCancel }) => {
     max_attendees: 1000, registration_required: true,
     q_and_a_enabled: true, chat_enabled: true,
     attendee_video: false, attendee_audio: false,
-    panelist_emails: '', coordinator_emails: ''
+    panelist_emails: '', coordinator_emails: '',
+    org_domains: '', internal_only_docs: true, external_download_blocked: true
   });
   const [creating, setCreating] = useState(false);
 
@@ -313,7 +314,8 @@ export const CreateWebinarForm = ({ onCreated, onCancel }) => {
       const payload = {
         ...form,
         panelist_emails: form.panelist_emails.split(',').map(e => e.trim()).filter(Boolean),
-        coordinator_emails: form.coordinator_emails.split(',').map(e => e.trim()).filter(Boolean)
+        coordinator_emails: form.coordinator_emails.split(',').map(e => e.trim()).filter(Boolean),
+        org_domains: form.org_domains.split(',').map(d => d.trim().replace('@', '')).filter(Boolean)
       };
       const res = await fetch(`${API}/api/karau/webinar/create`, {
         method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
