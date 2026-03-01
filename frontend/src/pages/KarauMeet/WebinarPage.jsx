@@ -366,6 +366,29 @@ export const CreateWebinarForm = ({ onCreated, onCancel }) => {
           placeholder="panelist1@org.com, panelist2@org.com"
           className="bg-karau-bg/60 border-white/10 text-white rounded-xl" />
       </div>
+      {/* Organization Privacy Settings */}
+      <div className="p-2.5 bg-violet-500/5 border border-violet-500/10 rounded-xl space-y-2" data-testid="org-privacy-section">
+        <p className="text-[10px] text-violet-400 font-semibold uppercase tracking-wider flex items-center gap-1">
+          Organization Privacy
+        </p>
+        <div>
+          <label className="text-xs text-slate-300 mb-1 block">Company Email Domains (comma-separated)</label>
+          <Input value={form.org_domains} onChange={e => setForm(f => ({ ...f, org_domains: e.target.value }))}
+            placeholder="acme.com, acme.org"
+            className="bg-karau-bg/60 border-white/10 text-white rounded-xl text-sm" data-testid="org-domains-input" />
+          <p className="text-[8px] text-slate-500 mt-0.5">Users with these email domains are classified as internal members</p>
+        </div>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="flex items-center justify-between p-2 bg-karau-bg/40 rounded-lg">
+            <span className="text-xs text-slate-300">Internal-only docs</span>
+            <Switch checked={form.internal_only_docs} onCheckedChange={v => setForm(f => ({ ...f, internal_only_docs: v }))} data-testid="internal-only-docs-switch" />
+          </div>
+          <div className="flex items-center justify-between p-2 bg-karau-bg/40 rounded-lg">
+            <span className="text-xs text-slate-300">Block external downloads</span>
+            <Switch checked={form.external_download_blocked} onCheckedChange={v => setForm(f => ({ ...f, external_download_blocked: v }))} data-testid="block-external-download-switch" />
+          </div>
+        </div>
+      </div>
       <div className="grid grid-cols-2 gap-3">
         <div className="flex items-center justify-between p-2 bg-karau-bg/40 rounded-lg">
           <span className="text-xs text-slate-300">Q&A</span>
