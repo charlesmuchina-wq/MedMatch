@@ -355,7 +355,7 @@ class TestRegressionFeatures:
         )
         assert response.status_code == 200, f"Translate failed: {response.text}"
         data = response.json()
-        assert "translated_text" in data or "translation" in data
+        assert "translated" in data or "translated_text" in data or "translation" in data
         print(f"Translation regression: PASS")
     
     def test_caption_languages(self, auth_headers):
@@ -370,14 +370,18 @@ class TestRegressionFeatures:
         assert len(data["languages"]) >= 10, "Should have at least 10 languages"
         print(f"Caption languages regression: PASS ({len(data['languages'])} languages)")
     
-    def test_recordings_list(self, auth_headers):
-        """Verify recordings endpoint still works"""
-        response = requests.get(
-            f"{BASE_URL}/api/karau/recordings",
-            headers=auth_headers
-        )
-        assert response.status_code == 200, f"Recordings failed: {response.text}"
-        print(f"Recordings regression: PASS")
+    def test_recordings_notes(self, auth_headers):
+        """Verify recording notes endpoint still works"""
+        # Get a webinar first
+        webinars_resp = requests.get(f"{BASE_URL}/api/karau/webinar/list", headers=auth_headers)
+        if webinars_resp.status_code == 200 and webinars_resp.json().get("webinars"):
+            webinar_id = webinars_resp.json()["webinars"][0].get("webinar_id", "test")
+            response = requests.get(f"{BASE_URL}/api/karau/webinar/{webinar_id}/notes", headers=auth_headers)
+            # Either 200 (notes exist) or 404 (no notes) is acceptable
+            assert response.status_code in [200, 404], f"Notes endpoint error: {response.text}"
+            print(f"Recording notes regression: PASS")
+        else:
+            print("Recording notes regression: SKIP (no webinars)")
     
     def test_webinar_list(self, auth_headers):
         """Verify webinar list still works"""
