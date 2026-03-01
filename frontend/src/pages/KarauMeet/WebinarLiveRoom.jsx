@@ -63,6 +63,9 @@ const WebinarLiveRoom = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showSlides, setShowSlides] = useState(true);
 
+  // Noise Cancellation
+  const noiseCancellation = useNoiseCancellation();
+
   // WebRTC
   const localVideoRef = useRef(null);
   const localStreamRef = useRef(null);
