@@ -664,3 +664,162 @@ async def get_webinar_analytics(webinar_id: str, user=Depends(get_current_user))
         "registration_timeline": reg_timeline_sorted,
         "max_attendees": webinar.get("max_attendees", 1000),
     }
+
+
+# --- Presentation Upload ---
+
+@router.post("/{webinar_id}/presentation/upload")
+async def upload_presentation(
+    webinar_id: str,
+    file: UploadFile = File(...),
+    user=Depends(get_current_user)
+):
+    """Upload a PDF/PPTX presentation for the webinar. Converts to slide images."""
+    webinar = await db.webinars.find_one({"webinar_id": webinar_id})
+    if not webinar:
+        raise HTTPException(404, "Webinar not found")
+
+    uid = user["user_id"]
+    is_host = uid == webinar.get("host_id")
+    is_coordinator = webinar.get("active_roles", {}).get(uid, {}).get("role") == "coordinator"
+    user_email = user.get("email", "")
+    is_assigned_coord = any(c["email"] == user_email for c in webinar.get("coordinators", []))
+
+    if not (is_host or is_coordinator or is_assigned_coord):
+        raise HTTPException(403, "Only host or coordinator can upload presentations")
+
+    ext = (file.filename or "").rsplit(".", 1)[-1].lower()
+    if ext not in ("pdf", "pptx", "ppt"):
+        raise HTTPException(400, "Only PDF and PPTX files are supported")
+
+    data = await file.read()
+    if len(data) > 50 * 1024 * 1024:
+        raise HTTPException(413, "File too large (max 50MB)")
+
+    try:
+        from services.presentation_service import process_presentation
+        result = await process_presentation(data, file.filename, webinar_id, uid)
+    except Exception as e:
+        raise HTTPException(500, f"Presentation processing failed: {str(e)}")
+
+    await db.webinars.update_one(
+        {"webinar_id": webinar_id},
+        {"$set": {
+            "presentation": {
+                "filename": result["filename"],
+                "total_slides": result["total_slides"],
+                "slide_paths": result["slide_paths"],
+                "uploaded_by": uid,
+                "uploaded_at": datetime.now(timezone.utc).isoformat()
+            }
+        }}
+    )
+
+    return {"success": True, "total_slides": result["total_slides"], "filename": result["filename"]}
+
+
+@router.get("/{webinar_id}/presentation/slides")
+async def get_presentation_slides(webinar_id: str, user=Depends(get_current_user)):
+    """Get presentation slide URLs for the webinar."""
+    webinar = await db.webinars.find_one(
+        {"webinar_id": webinar_id},
+        {"_id": 0, "presentation": 1}
+    )
+    if not webinar or not webinar.get("presentation"):
+        raise HTTPException(404, "No presentation uploaded")
+
+    pres = webinar["presentation"]
+    return {
+        "filename": pres["filename"],
+        "total_slides": pres["total_slides"],
+        "slide_paths": pres["slide_paths"]
+    }
+
+
+@router.get("/{webinar_id}/presentation/slide/{slide_index}")
+async def get_slide_image(webinar_id: str, slide_index: int, user=Depends(get_current_user)):
+    """Get a specific slide image."""
+    from fastapi.responses import Response
+    from services.object_storage import get_object
+
+    webinar = await db.webinars.find_one(
+        {"webinar_id": webinar_id},
+        {"_id": 0, "presentation": 1}
+    )
+    if not webinar or not webinar.get("presentation"):
+        raise HTTPException(404, "No presentation")
+
+    paths = webinar["presentation"].get("slide_paths", [])
+    if slide_index < 0 or slide_index >= len(paths):
+        raise HTTPException(404, "Slide not found")
+
+    data, ct = get_object(paths[slide_index])
+    return Response(content=data, media_type="image/png")
+
+
+# --- AI Meeting Notes ---
+
+class SendNotesRequest(BaseModel):
+    recording_id: str
+    recipient_emails: List[str] = []
+
+
+@router.post("/{webinar_id}/notes/generate")
+async def generate_notes(webinar_id: str, recording_id: str, user=Depends(get_current_user)):
+    """Generate AI meeting notes from a recording's transcript."""
+    webinar = await db.webinars.find_one({"webinar_id": webinar_id}, {"_id": 0, "title": 1, "host_id": 1})
+    if not webinar:
+        raise HTTPException(404, "Webinar not found")
+
+    recording = await db.karau_recordings.find_one(
+        {"recording_id": recording_id},
+        {"_id": 0, "transcription": 1, "transcription_status": 1}
+    )
+    if not recording or recording.get("transcription_status") != "completed":
+        raise HTTPException(400, "Transcript not available for this recording")
+
+    transcript_text = recording["transcription"].get("text", "")
+    if not transcript_text:
+        raise HTTPException(400, "Transcript is empty")
+
+    from services.meeting_notes_service import generate_meeting_notes
+    result = await generate_meeting_notes(transcript_text, webinar.get("title", "Meeting"))
+
+    if result.get("error"):
+        raise HTTPException(500, result["error"])
+
+    # Store notes
+    await db.karau_recordings.update_one(
+        {"recording_id": recording_id},
+        {"$set": {"meeting_notes": result}}
+    )
+
+    return {"success": True, "notes": result}
+
+
+@router.post("/{webinar_id}/notes/send")
+async def send_notes(webinar_id: str, data: SendNotesRequest, user=Depends(get_current_user)):
+    """Send meeting notes to recipients. Stores the send record."""
+    recording = await db.karau_recordings.find_one(
+        {"recording_id": data.recording_id},
+        {"_id": 0, "meeting_notes": 1}
+    )
+    if not recording or not recording.get("meeting_notes"):
+        raise HTTPException(400, "No meeting notes to send")
+
+    # Store send record
+    send_record = {
+        "sent_by": user["user_id"],
+        "sent_by_name": user.get("name", user.get("email")),
+        "sent_to": data.recipient_emails,
+        "sent_at": datetime.now(timezone.utc).isoformat(),
+        "recording_id": data.recording_id,
+        "webinar_id": webinar_id
+    }
+    await db.meeting_notes_sent.insert_one(send_record)
+
+    return {
+        "success": True,
+        "sent_to": data.recipient_emails,
+        "notes_preview": recording["meeting_notes"]["notes"][:200] + "..."
+    }
