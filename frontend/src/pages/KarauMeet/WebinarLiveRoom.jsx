@@ -131,6 +131,32 @@ const WebinarLiveRoom = () => {
       liveTranscription.setActiveSpeaker(speakerDetection.activeSpeaker);
     }
   }, [speakerDetection.activeSpeaker]);
+
+  // AI Video Framing: auto-promote active speaker to main stage with debounce
+  useEffect(() => {
+    const speaker = speakerDetection.activeSpeaker;
+    if (!speaker) return;
+    // Don't switch for local user or same user
+    if (speaker.userId === '__local__' || speaker.userId === mainStageUserId) return;
+    // Debounce: only switch after 1.5s of continuous speaking
+    if (mainStageSwitchRef.current) clearTimeout(mainStageSwitchRef.current);
+    mainStageSwitchRef.current = setTimeout(() => {
+      setMainStageUserId(speaker.userId);
+    }, 1500);
+    return () => { if (mainStageSwitchRef.current) clearTimeout(mainStageSwitchRef.current); };
+  }, [speakerDetection.activeSpeaker]);
+
+  // Spatial Audio: connect/update remote streams with tile positions
+  useEffect(() => {
+    if (!spatialAudio.enabled) return;
+    const entries = Object.entries(remoteStreams);
+    const total = entries.length;
+    entries.forEach(([uid, { stream }], idx) => {
+      // Distribute positions across horizontal space (-1 to 1)
+      const x = total > 1 ? ((idx / (total - 1)) * 2 - 1) : 0;
+      spatialAudio.connectStream(uid, stream, { x, y: 0 });
+    });
+  }, [remoteStreams, spatialAudio.enabled]);
   useEffect(() => {
     if (!roomInfo) return;
     const interval = setInterval(() => {
