@@ -261,6 +261,7 @@ const WebinarLiveRoom = () => {
       delete peerConnectionsRef.current[userId];
     }
     delete remoteStreamsRef.current[userId];
+    speakerDetection.removeStream(userId);
     setRemoteStreams(prev => {
       const next = { ...prev };
       delete next[userId];
