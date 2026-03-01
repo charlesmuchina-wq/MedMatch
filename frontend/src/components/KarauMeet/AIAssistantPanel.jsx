@@ -103,6 +103,103 @@ const AIAssistantPanel = ({ meetingId, aiNotes = [], webinarId, engagementData }
     }
   };
 
+  // --- Agentic AI: Research ---
+  const researchTopic = async (topic) => {
+    if (!topic.trim()) return;
+    setIsLoading(true);
+    setMessages(prev => [...prev, { role: 'user', content: `Research: ${topic}`, timestamp: new Date().toISOString() }]);
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`${API}/api/karau-features/ai-agent/research`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ meeting_id: meetingId, topic, context: '' })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setMessages(prev => [...prev, {
+          role: 'assistant', content: data.research, timestamp: new Date().toISOString(),
+          isResearch: true, suggestions: data.follow_up_suggestions || []
+        }]);
+      }
+    } catch { setMessages(prev => [...prev, { role: 'assistant', content: 'Research failed.', timestamp: new Date().toISOString(), isError: true }]); }
+    setIsLoading(false);
+  };
+
+  // --- Agentic AI: Voice Commands ---
+  const toggleVoiceCommand = () => {
+    if (voiceListening) {
+      recognitionRef.current?.stop();
+      setVoiceListening(false);
+      return;
+    }
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.onresult = async (event) => {
+      const text = event.results[0][0].transcript;
+      setVoiceListening(false);
+      await executeVoiceCommand(text);
+    };
+    recognition.onerror = () => setVoiceListening(false);
+    recognition.onend = () => setVoiceListening(false);
+    recognitionRef.current = recognition;
+    recognition.start();
+    setVoiceListening(true);
+  };
+
+  const executeVoiceCommand = async (text) => {
+    setMessages(prev => [...prev, { role: 'user', content: `Voice: "${text}"`, timestamp: new Date().toISOString(), isVoice: true }]);
+    setIsLoading(true);
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`${API}/api/karau-features/voice-command/execute`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ meeting_id: meetingId, command_text: text, webinar_id: webinarId })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const cmd = data.command;
+        let responseText = data.executed
+          ? `Executed: ${cmd.action}${cmd.params ? ' - ' + JSON.stringify(cmd.params) : ''}`
+          : `Could not understand: "${text}". Try: "mute all", "start recording", "summarize last 5 minutes"`;
+        setMessages(prev => [...prev, { role: 'assistant', content: responseText, timestamp: new Date().toISOString(), isCommand: true }]);
+      }
+    } catch { setMessages(prev => [...prev, { role: 'assistant', content: 'Voice command failed.', timestamp: new Date().toISOString(), isError: true }]); }
+    setIsLoading(false);
+  };
+
+  // --- Agentic AI: Assign Action Items ---
+  const assignAction = async (actionItem, assignee) => {
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`${API}/api/karau-features/ai-agent/assign-action`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ meeting_id: meetingId, action_item: actionItem, assignee })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setActionItems(prev => [...prev, data.action]);
+      }
+    } catch {}
+  };
+
+  // --- Fetch action items ---
+  const fetchActionItems = async () => {
+    const token = localStorage.getItem('token');
+    try {
+      const res = await fetch(`${API}/api/karau-features/ai-agent/actions/${meetingId}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) { const data = await res.json(); setActionItems(data.action_items || []); }
+    } catch {}
+  };
+
   const generateSummary = async () => {
     if (isLoading) return;
     setIsLoading(true);
