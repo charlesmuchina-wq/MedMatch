@@ -233,6 +233,23 @@ const AIAssistantPanel = ({ meetingId, aiNotes = [], webinarId, engagementData }
 
   return (
     <div className="flex flex-col h-full" data-testid="ai-assistant-panel">
+      {/* Tab Bar */}
+      <div className="flex border-b border-karau-border">
+        {[
+          { id: 'chat', label: 'AI Chat', icon: Bot },
+          { id: 'agent', label: 'Agent', icon: Zap },
+          { id: 'sentiment', label: 'Pulse', icon: Activity },
+        ].map(tab => (
+          <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+            data-testid={`ai-tab-${tab.id}`}
+            className={`flex-1 flex items-center justify-center gap-1 py-2 text-[10px] font-medium transition-colors ${activeTab === tab.id
+              ? 'text-teal-400 border-b-2 border-teal-400 bg-teal-500/5'
+              : 'text-slate-500 hover:text-slate-300'}`}>
+            <tab.icon className="w-3 h-3" />{tab.label}
+          </button>
+        ))}
+      </div>
+
       {/* Insights Bar */}
       {insightsCount > 0 && (
         <div className="px-3 py-2 border-b border-karau-border bg-gradient-to-r from-emerald-500/5 to-teal-500/5">
