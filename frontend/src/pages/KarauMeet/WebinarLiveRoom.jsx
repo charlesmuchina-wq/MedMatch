@@ -601,7 +601,12 @@ const WebinarLiveRoom = () => {
               style={speakerDetection.speakers['__local__']?.speaking ? { borderColor: speakerDetection.speakers['__local__']?.color } : {}}>
               {canStream ? (
                 <>
-                  <video ref={localVideoRef} autoPlay muted playsInline className="w-full h-full object-cover" data-testid="local-video" />
+                  <video ref={localVideoRef} autoPlay muted playsInline className="w-full h-full object-cover"
+                style={eyeContactOn ? {
+                  transform: 'scaleX(-1) perspective(800px) rotateY(2deg) translateY(-2%)',
+                  filter: 'contrast(1.02) brightness(1.01)'
+                } : { transform: 'scaleX(-1)' }}
+                data-testid="local-video" />
                   {!isCamOn && (
                     <div className="absolute inset-0 flex items-center justify-center bg-karau-card/80">
                       <div className={`${showSlides ? 'w-10 h-10' : 'w-16 h-16'} rounded-full bg-purple-500/20 flex items-center justify-center`}>
