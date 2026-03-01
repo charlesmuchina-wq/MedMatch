@@ -15,8 +15,8 @@ router = APIRouter(prefix="/karau/webinar", tags=["Gamification"])
 
 VALID_REACTIONS = ["thumbsup", "clap", "heart", "laugh", "fire", "mindblown", "wave", "100"]
 REACTION_EMOJIS = {
-    "thumbsup": "\ud83d\udc4d", "clap": "\ud83d\udc4f", "heart": "\u2764\ufe0f", "laugh": "\ud83d\ude02",
-    "fire": "\ud83d\udd25", "mindblown": "\ud83e\udd2f", "wave": "\ud83d\udc4b", "100": "\ud83d\udcaf"
+    "thumbsup": "thumbsup", "clap": "clap", "heart": "heart", "laugh": "laugh",
+    "fire": "fire", "mindblown": "mindblown", "wave": "wave", "100": "100"
 }
 
 
