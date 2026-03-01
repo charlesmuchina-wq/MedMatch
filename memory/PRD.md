@@ -23,33 +23,36 @@ Build "MedMatch-AI KARAU" - a dual-purpose platform:
 
 - **Cloud Recording Storage**: Auto-upload to Emergent Object Storage. Auto-transcription via Whisper on upload. Recordings page with Cloud/Local badges, transcription status (Queued/Transcribing/Completed), expandable timestamped transcript. Download from cloud.
 
-- **AI Meeting Notes** (NEW - Mar 1, 2026):
+- **AI Meeting Notes** (Mar 1, 2026):
   - Generate AI-powered meeting notes from recording transcripts
   - Backend: POST /api/karau-meet/recordings/{id}/notes/generate
   - View existing notes: GET /api/karau-meet/recordings/{id}/notes
   - Send notes to participants: POST /api/karau-meet/recordings/{id}/notes/send
   - Frontend: Notes buttons in Recordings page, copy to clipboard, send via email input
 
+- **Real-time Live Transcription** (Mar 1, 2026):
+  - CC (Closed Captions) toggle button in webinar control bar
+  - useLiveTranscription hook captures audio via MediaRecorder, sends 8-second chunks to Whisper
+  - Live caption overlay bar at bottom of video stage
+  - Host can save accumulated transcript: POST /api/karau/webinar/{id}/live-transcript/save
+  - Saved transcript enables immediate AI notes generation post-meeting
+
 - **Webinar Mode (WebEx-style, 1000+ attendees)**:
   - **Multi-Role Hierarchy**: Host > Coordinator > Presenter > Panelist > Attendee
   - **Coordinator Role (Proxy Host)**: Can monitor webinar, drive presentation slides, manage Q&A, promote/demote (except other coordinators), mute all. NO video capability.
   - **Live Webinar Room**: Full-screen layout with WebRTC peer-to-peer video, slide drive bar, Q&A panel, Participants panel, Controls panel
-  - **Presentation Slide Driving** (NEW - Mar 1, 2026):
+  - **Presentation Slide Driving** (Mar 1, 2026):
     - Upload PDF/PPTX presentations via SlideRenderer component
     - Backend converts to slide images using pdf2image/python-pptx
     - Canvas-based rendering with laser pointer, pen, highlighter, eraser annotations
     - Slide navigation synced via WebSocket to all participants
-    - Host/Coordinator/Presenter can drive slides
-  - **Noise Cancellation in Live Room** (NEW - Mar 1, 2026):
+  - **Noise Cancellation in Live Room** (Mar 1, 2026):
     - AudioLines toggle button in webinar control bar
     - Dual-engine: RNNoise WASM (preferred) + Web Audio API fallback
     - Green indicator dot when active
-    - Toggle on/off during live session
-  - **Host Controls**: Start/End, Practice session, Mute all, Selective unmute, Promote/Demote, Enable/disable chat
-  - **WebRTC P2P Video**: Host/Presenter/Panelist stream video. Attendees view-only.
-  - **Hand Raise**: Attendees request to speak
-  - **Q&A System**: Submit, answer, upvote, dismiss, anonymous
-  - **Enhanced Analytics**: Engagement score, Registration-Attendance funnel, Q&A stats, Org breakdown, Timeline
+  - **Host Controls**: Start/End, Practice session, Mute all, Selective unmute, Promote/Demote
+  - **WebRTC P2P Video**: Host/Presenter/Panelist stream video
+  - **Hand Raise, Q&A System, Enhanced Analytics**
 
 ### MedMatch Job Toolkit
 - Semantic search, resume parser/builder, AI job matching, recruiter network, admin panel
@@ -57,21 +60,19 @@ Build "MedMatch-AI KARAU" - a dual-purpose platform:
 ### Internationalization: 384+ keys across 52 locales
 
 ## Key API Endpoints
-### Webinar Role Management
-- `POST /api/karau/webinar/create` - Now accepts coordinator_emails
-- `GET /api/karau/webinar/{id}/room-info` - Returns my_role, can_stream_video, can_control, can_drive_slides
-- `POST /api/karau/webinar/{id}/roles/promote` - Promote to coordinator/presenter/panelist
-- `POST /api/karau/webinar/{id}/roles/demote` - Demote to attendee
+### Live Transcription
+- `POST /api/realtime-stt/transcribe-base64` - Transcribe audio chunk
+- `GET /api/realtime-stt/status` - STT service status
+- `POST /api/karau/webinar/{id}/live-transcript/save` - Save live transcript
+- `GET /api/karau/webinar/{id}/live-transcript` - Get saved transcript
 ### Presentation Slides
 - `POST /api/karau/webinar/{id}/presentation/upload` - Upload PDF/PPTX
 - `GET /api/karau/webinar/{id}/presentation/slides` - Get slide info
 - `GET /api/karau/webinar/{id}/presentation/slide/{idx}` - Get slide image
-### Recording Transcription & Notes
-- `POST /api/karau-meet/recordings/upload` - Auto-triggers Whisper transcription
-- `GET /api/karau-meet/recordings/transcript/{id}` - Get transcript
+### Recording Notes
 - `POST /api/karau-meet/recordings/{id}/notes/generate` - Generate AI notes
 - `GET /api/karau-meet/recordings/{id}/notes` - Get notes
-- `POST /api/karau-meet/recordings/{id}/notes/send` - Send notes to participants
+- `POST /api/karau-meet/recordings/{id}/notes/send` - Send notes
 
 ## Backlog
 ### P1
