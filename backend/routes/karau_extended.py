@@ -325,3 +325,303 @@ async def get_template(template_id: str):
         if t["template_id"] == template_id:
             return t
     raise HTTPException(status_code=404, detail="Template not found")
+
+
+# ===== Agentic AI Features =====
+
+class ResearchRequest(BaseModel):
+    meeting_id: str
+    topic: str
+    context: str = ""
+
+
+class VoiceCommandRequest(BaseModel):
+    meeting_id: str
+    command_text: str
+    webinar_id: Optional[str] = None
+
+
+class SentimentSegment(BaseModel):
+    meeting_id: str
+    text: str
+    speaker: str = "Unknown"
+
+
+class PredictScheduleRequest(BaseModel):
+    participants: List[str] = []
+    duration_minutes: int = 30
+    meeting_type: str = "general"
+    timezone: str = "UTC"
+
+
+class ActionItemAssign(BaseModel):
+    meeting_id: str
+    action_item: str
+    assignee: str
+    due_date: Optional[str] = None
+
+
+@router.post("/ai-agent/research")
+async def ai_research_topic(req: ResearchRequest, user: dict = Depends(require_auth)):
+    """Agentic AI researches a topic in real-time during a meeting."""
+    from services.karau_meet.ai_assistant_service import _make_chat
+    from emergentintegrations.llm.chat import UserMessage
+
+    chat = _make_chat(
+        f"research-{req.meeting_id}-{req.topic[:20]}",
+        "You are an AI research agent in a live meeting. Provide concise, factual, well-structured research on the requested topic. Include key statistics, recent developments, and actionable insights. Keep responses under 300 words. Format with bullet points for clarity."
+    )
+
+    prompt = f"Research this topic for our live meeting discussion:\nTopic: {req.topic}"
+    if req.context:
+        prompt += f"\nMeeting context: {req.context}"
+
+    result = await chat.send_message(UserMessage(text=prompt))
+    research_text = result if isinstance(result, str) else str(result)
+
+    # Store research in meeting record
+    await db.karau_meetings.update_one(
+        {"meeting_id": req.meeting_id},
+        {"$push": {"ai_research": {
+            "topic": req.topic,
+            "result": research_text,
+            "requested_by": user["user_id"],
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }}},
+        upsert=True
+    )
+
+    return {
+        "research": research_text,
+        "topic": req.topic,
+        "follow_up_suggestions": [
+            f"What are the risks of {req.topic}?",
+            f"How does {req.topic} compare to alternatives?",
+            f"What are the latest trends in {req.topic}?"
+        ]
+    }
+
+
+@router.post("/ai-agent/assign-action")
+async def assign_action_item(req: ActionItemAssign, user: dict = Depends(require_auth)):
+    """AI auto-assigns an action item to a participant."""
+    action = {
+        "action_id": str(__import__('uuid').uuid4())[:8].upper(),
+        "action_item": req.action_item,
+        "assignee": req.assignee,
+        "assigned_by": user.get("name", user["user_id"]),
+        "due_date": req.due_date,
+        "status": "pending",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.karau_meetings.update_one(
+        {"meeting_id": req.meeting_id},
+        {"$push": {"action_items": action}},
+        upsert=True
+    )
+    return {"success": True, "action": action}
+
+
+@router.get("/ai-agent/actions/{meeting_id}")
+async def get_action_items(meeting_id: str, user: dict = Depends(require_auth)):
+    """Get all action items for a meeting."""
+    meeting = await db.karau_meetings.find_one(
+        {"meeting_id": meeting_id}, {"_id": 0, "action_items": 1}
+    )
+    return {"action_items": meeting.get("action_items", []) if meeting else []}
+
+
+@router.post("/voice-command/execute")
+async def execute_voice_command(req: VoiceCommandRequest, user: dict = Depends(require_auth)):
+    """Parse and execute a voice command using AI."""
+    from services.karau_meet.ai_assistant_service import _make_chat
+    from emergentintegrations.llm.chat import UserMessage
+
+    chat = _make_chat(
+        f"voice-cmd-{req.meeting_id}",
+        """You are a voice command parser for a video meeting platform. Parse the user's natural language command and return a JSON response.
+
+Supported commands:
+- {"action": "mute_all"} - Mute all participants
+- {"action": "unmute_all"} - Unmute all
+- {"action": "start_recording"} - Start recording
+- {"action": "stop_recording"} - Stop recording
+- {"action": "summarize", "params": {"minutes": N}} - Summarize last N minutes
+- {"action": "schedule_followup", "params": {"topic": "...", "duration": N}} - Schedule a follow-up
+- {"action": "set_timer", "params": {"minutes": N, "label": "..."}} - Set a timer
+- {"action": "search", "params": {"query": "..."}} - Research a topic
+- {"action": "assign_action", "params": {"task": "...", "assignee": "..."}} - Assign an action item
+- {"action": "toggle_captions"} - Toggle live captions
+- {"action": "end_meeting"} - End the meeting
+- {"action": "unknown", "params": {"original": "..."}} - Unrecognized command
+
+Return ONLY valid JSON. No explanation."""
+    )
+
+    result = await chat.send_message(UserMessage(text=req.command_text))
+    result_text = result if isinstance(result, str) else str(result)
+
+    try:
+        import json
+        parsed = json.loads(result_text.strip().strip("```json").strip("```"))
+    except Exception:
+        parsed = {"action": "unknown", "params": {"original": req.command_text}}
+
+    # Store command log
+    await db.karau_meetings.update_one(
+        {"meeting_id": req.meeting_id},
+        {"$push": {"voice_commands": {
+            "command": req.command_text,
+            "parsed": parsed,
+            "user_id": user["user_id"],
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }}},
+        upsert=True
+    )
+
+    return {
+        "command": parsed,
+        "original_text": req.command_text,
+        "executed": parsed.get("action") != "unknown"
+    }
+
+
+@router.post("/sentiment/analyze")
+async def analyze_sentiment(req: SentimentSegment, user: dict = Depends(require_auth)):
+    """Analyze sentiment and engagement from a transcript segment."""
+    from services.karau_meet.ai_assistant_service import _make_chat
+    from emergentintegrations.llm.chat import UserMessage
+
+    chat = _make_chat(
+        f"sentiment-{req.meeting_id}",
+        """Analyze the sentiment and engagement level of this meeting transcript segment. Return ONLY valid JSON:
+{
+  "sentiment": "positive"|"neutral"|"negative"|"confused"|"excited",
+  "engagement_level": 1-10,
+  "energy": "high"|"medium"|"low",
+  "key_emotion": "focused"|"enthusiastic"|"bored"|"frustrated"|"curious"|"agreeable",
+  "alert": null or "Engagement dropping - consider a break" or "High energy - good time for decisions"
+}"""
+    )
+
+    result = await chat.send_message(
+        UserMessage(text=f"Speaker: {req.speaker}\nText: \"{req.text}\"")
+    )
+    result_text = result if isinstance(result, str) else str(result)
+
+    try:
+        import json
+        parsed = json.loads(result_text.strip().strip("```json").strip("```"))
+    except Exception:
+        parsed = {"sentiment": "neutral", "engagement_level": 5, "energy": "medium", "key_emotion": "focused", "alert": None}
+
+    # Store sentiment data
+    await db.karau_meetings.update_one(
+        {"meeting_id": req.meeting_id},
+        {"$push": {"sentiment_log": {
+            **parsed,
+            "speaker": req.speaker,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }}},
+        upsert=True
+    )
+
+    return parsed
+
+
+@router.get("/sentiment/dashboard/{meeting_id}")
+async def get_sentiment_dashboard(meeting_id: str, user: dict = Depends(require_auth)):
+    """Get real-time engagement and sentiment dashboard for a meeting."""
+    meeting = await db.karau_meetings.find_one(
+        {"meeting_id": meeting_id},
+        {"_id": 0, "sentiment_log": 1, "action_items": 1, "ai_research": 1}
+    )
+    if not meeting:
+        return {"engagement_score": 0, "sentiment_log": [], "action_items": [], "alerts": []}
+
+    log = meeting.get("sentiment_log", [])
+    recent = log[-10:] if log else []
+
+    # Calculate aggregate metrics
+    avg_engagement = sum(s.get("engagement_level", 5) for s in recent) / len(recent) if recent else 5
+    energy_counts = {}
+    for s in recent:
+        e = s.get("energy", "medium")
+        energy_counts[e] = energy_counts.get(e, 0) + 1
+    dominant_energy = max(energy_counts, key=energy_counts.get) if energy_counts else "medium"
+
+    # Generate alerts
+    alerts = []
+    if avg_engagement < 4:
+        alerts.append({"type": "warning", "message": "Engagement dropping - consider a break or interactive activity"})
+    elif avg_engagement > 8:
+        alerts.append({"type": "positive", "message": "High engagement - great time for key decisions"})
+
+    sentiment_counts = {}
+    for s in recent:
+        sent = s.get("sentiment", "neutral")
+        sentiment_counts[sent] = sentiment_counts.get(sent, 0) + 1
+    if sentiment_counts.get("confused", 0) > 2:
+        alerts.append({"type": "warning", "message": "Multiple confused signals detected - consider clarifying"})
+
+    return {
+        "engagement_score": round(avg_engagement, 1),
+        "dominant_energy": dominant_energy,
+        "sentiment_breakdown": sentiment_counts,
+        "alerts": alerts,
+        "recent_log": recent,
+        "action_items_count": len(meeting.get("action_items", [])),
+        "research_count": len(meeting.get("ai_research", []))
+    }
+
+
+@router.post("/scheduling/predict")
+async def predict_optimal_schedule(req: PredictScheduleRequest, user: dict = Depends(require_auth)):
+    """AI predicts optimal meeting times based on patterns."""
+    from services.karau_meet.ai_assistant_service import _make_chat
+    from emergentintegrations.llm.chat import UserMessage
+
+    # Get user's recent meeting history for pattern analysis
+    recent_meetings = await db.karau_meetings.find(
+        {"host_id": user["user_id"]},
+        {"_id": 0, "scheduled_time": 1, "duration": 1, "engagement_score": 1}
+    ).sort("scheduled_time", -1).limit(20).to_list(20)
+
+    history_summary = "No previous meeting data" if not recent_meetings else f"{len(recent_meetings)} recent meetings found"
+
+    chat = _make_chat(
+        f"schedule-{user['user_id']}",
+        """You are a scheduling AI. Based on meeting patterns, suggest 3 optimal meeting times. Return ONLY valid JSON:
+{
+  "suggestions": [
+    {"day": "Monday", "time": "10:00", "reason": "High team energy after weekend"},
+    {"day": "Wednesday", "time": "14:00", "reason": "Mid-week check-in, post-lunch focus"},
+    {"day": "Friday", "time": "09:00", "reason": "Early wrap-up before weekend"}
+  ],
+  "avoid": [
+    {"day": "Monday", "time": "08:00", "reason": "Low engagement typically on Monday mornings"}
+  ],
+  "tips": ["Keep stand-ups under 15 min", "Schedule deep-work discussions before lunch"]
+}"""
+    )
+
+    result = await chat.send_message(
+        UserMessage(text=f"Meeting type: {req.meeting_type}\nDuration: {req.duration_minutes}min\nTimezone: {req.timezone}\nParticipants: {len(req.participants)}\nHistory: {history_summary}")
+    )
+    result_text = result if isinstance(result, str) else str(result)
+
+    try:
+        import json
+        parsed = json.loads(result_text.strip().strip("```json").strip("```"))
+    except Exception:
+        parsed = {
+            "suggestions": [
+                {"day": "Tuesday", "time": "10:00", "reason": "Optimal mid-morning focus"},
+                {"day": "Thursday", "time": "14:00", "reason": "Post-lunch collaborative window"},
+                {"day": "Wednesday", "time": "09:30", "reason": "Mid-week planning alignment"}
+            ],
+            "avoid": [],
+            "tips": ["Schedule important decisions for mid-morning when focus is highest"]
+        }
+
+    return parsed
