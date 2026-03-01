@@ -752,6 +752,14 @@ const WebinarLiveRoom = () => {
             </Button>
             <CtrlBtn on={activePanel === 'qa'} onClick={() => togglePanel('qa')} icon={MessageCircleQuestion} testId="qa-toggle" badge={pendingQs.length || null} />
             <CtrlBtn on={activePanel === 'ai'} onClick={() => togglePanel('ai')} icon={Brain} testId="ai-toggle" />
+            {canStream && (
+              <div className="relative">
+                <CtrlBtn on={showCoach} onClick={() => setShowCoach(!showCoach)} icon={Sparkles} testId="coach-toggle" color={showCoach ? 'emerald' : undefined} />
+                {coachTips.length > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-amber-500 text-[7px] text-white flex items-center justify-center">{coachTips.length}</span>
+                )}
+              </div>
+            )}
             {canControl && (
               <>
                 <CtrlBtn on={activePanel === 'participants'} onClick={() => togglePanel('participants')} icon={Users} testId="participants-toggle" />
