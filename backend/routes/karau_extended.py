@@ -625,3 +625,103 @@ async def predict_optimal_schedule(req: PredictScheduleRequest, user: dict = Dep
         }
 
     return parsed
+
+
+
+# ===== AI Meeting Coach =====
+
+class CoachRequest(BaseModel):
+    meeting_id: str
+    transcript_segment: str = ""
+    speaker: str = ""
+    speaking_duration_seconds: float = 0
+    total_meeting_seconds: float = 0
+    engagement_score: float = 5.0
+    participant_count: int = 2
+
+
+@router.post("/ai-coach/tip")
+async def get_coaching_tip(req: CoachRequest, user: dict = Depends(require_auth)):
+    """AI Meeting Coach provides real-time private tips to the presenter/host."""
+    from services.karau_meet.ai_assistant_service import _make_chat
+    from emergentintegrations.llm.chat import UserMessage
+
+    chat = _make_chat(
+        f"coach-{req.meeting_id}",
+        """You are an AI Meeting Coach providing real-time, private coaching tips to a meeting presenter. Analyze the context and provide ONE actionable coaching tip. Return ONLY valid JSON:
+{
+  "tip": "Consider asking participants for their input - you've been presenting for a while",
+  "category": "engagement"|"pacing"|"clarity"|"energy"|"interaction"|"time_management",
+  "urgency": "low"|"medium"|"high",
+  "emoji": "an appropriate single emoji character"
+}
+Be specific, constructive, and brief. Only flag genuine improvement opportunities."""
+    )
+
+    context = f"""Meeting context:
+- Speaker: {req.speaker}
+- Speaking duration: {req.speaking_duration_seconds}s continuously
+- Total meeting time: {req.total_meeting_seconds}s
+- Current engagement score: {req.engagement_score}/10
+- Participants: {req.participant_count}
+- Latest transcript: "{req.transcript_segment[:300]}" """
+
+    result = await chat.send_message(UserMessage(text=context))
+    result_text = result if isinstance(result, str) else str(result)
+
+    try:
+        import json
+        parsed = json.loads(result_text.strip().strip("```json").strip("```"))
+    except Exception:
+        parsed = {"tip": "Keep up the good work!", "category": "engagement", "urgency": "low", "emoji": ""}
+
+    await db.karau_meetings.update_one(
+        {"meeting_id": req.meeting_id},
+        {"$push": {"coach_tips": {
+            **parsed,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "context": {"engagement": req.engagement_score, "duration": req.speaking_duration_seconds}
+        }}},
+        upsert=True
+    )
+
+    return parsed
+
+
+@router.get("/ai-coach/report/{meeting_id}")
+async def get_coach_report(meeting_id: str, user: dict = Depends(require_auth)):
+    """Get post-meeting coaching summary report."""
+    from services.karau_meet.ai_assistant_service import _make_chat
+    from emergentintegrations.llm.chat import UserMessage
+
+    meeting = await db.karau_meetings.find_one(
+        {"meeting_id": meeting_id},
+        {"_id": 0, "coach_tips": 1, "sentiment_log": 1, "action_items": 1}
+    )
+    if not meeting or not meeting.get("coach_tips"):
+        return {"report": "No coaching data available for this meeting.", "tips_count": 0, "areas": []}
+
+    tips = meeting.get("coach_tips", [])
+    sentiments = meeting.get("sentiment_log", [])
+
+    categories = {}
+    for t in tips:
+        cat = t.get("category", "general")
+        categories[cat] = categories.get(cat, 0) + 1
+
+    chat = _make_chat(
+        f"coach-report-{meeting_id}",
+        "You are an AI Meeting Coach. Generate a brief, constructive post-meeting coaching report. Be encouraging but honest. Under 200 words."
+    )
+
+    summary_input = f"Tips given: {len(tips)}. Categories: {categories}. Avg engagement: {sum(s.get('engagement_level', 5) for s in sentiments[-10:]) / max(len(sentiments[-10:]), 1):.1f}/10. Action items: {len(meeting.get('action_items', []))}."
+
+    result = await chat.send_message(UserMessage(text=summary_input))
+    report_text = result if isinstance(result, str) else str(result)
+
+    return {
+        "report": report_text,
+        "tips_count": len(tips),
+        "areas": [{"category": k, "count": v} for k, v in sorted(categories.items(), key=lambda x: -x[1])],
+        "improvement_focus": max(categories, key=categories.get) if categories else "none"
+    }
