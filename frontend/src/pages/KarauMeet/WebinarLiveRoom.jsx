@@ -759,6 +759,7 @@ const WebinarLiveRoom = () => {
           <div className="w-72 bg-karau-card/60 border-l border-white/5 flex flex-col shrink-0 overflow-hidden" data-testid="side-panel">
             {activePanel === 'qa' && <QAPanel questions={questions} pendingQs={pendingQs} newQuestion={newQuestion} setNewQuestion={setNewQuestion} submitQuestion={submitQuestion} answerTexts={answerTexts} setAnswerTexts={setAnswerTexts} answerQuestion={answerQuestion} upvoteQuestion={upvoteQuestion} canControl={canControl} myRole={myRole} />}
             {activePanel === 'participants' && canControl && <ParticipantsPanel handRaises={handRaises} activeRoles={activeRoles} promoteUser={promoteUser} demoteUser={demoteUser} isHost={isHost} roomInfo={roomInfo} onGrantPermission={grantGuestPermission} onRevokePermission={revokeGuestPermission} />}
+            {activePanel === 'ai' && <AIAssistantPanel meetingId={webinarId} webinarId={webinarId} engagementData={engagementData} />}
             {activePanel === 'controls' && canControl && <ControlsPanel muteAll={muteAll} roomInfo={roomInfo} />}
           </div>
         )}
