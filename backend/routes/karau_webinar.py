@@ -595,12 +595,13 @@ async def unmute_specific_user(webinar_id: str, target_user_id: str, user=Depend
 
 @router.get("/{webinar_id}/room-info")
 async def get_room_info(webinar_id: str, user=Depends(get_current_user)):
-    """Get full room info for the live webinar view - determines user's role and permissions."""
+    """Get full room info for the live webinar view - determines user's role, permissions, and org classification."""
     webinar = await db.webinars.find_one(
         {"webinar_id": webinar_id},
         {"_id": 0, "webinar_id": 1, "title": 1, "status": 1, "host_id": 1,
          "host_name": 1, "settings": 1, "active_roles": 1, "practice_mode": 1,
-         "panelists": 1, "coordinators": 1, "hand_raises": 1}
+         "panelists": 1, "coordinators": 1, "hand_raises": 1,
+         "org_privacy": 1, "guest_permissions": 1}
     )
     if not webinar:
         raise HTTPException(404, "Webinar not found")
@@ -620,8 +621,29 @@ async def get_room_info(webinar_id: str, user=Depends(get_current_user)):
     else:
         my_role = "attendee"
 
+    # Organization classification
+    org_privacy = webinar.get("org_privacy", {})
+    org_domains = org_privacy.get("org_domains", [])
+    email_domain = user_email.split("@")[-1].lower() if "@" in user_email else ""
+    is_internal = email_domain in org_domains if org_domains else True  # No domains = everyone internal
+
+    # Lookup employee info for internal users
+    employee_info = None
+    if is_internal and org_domains:
+        emp = await db.karau_employees.find_one(
+            {"email": user_email},
+            {"_id": 0, "first_name": 1, "last_name": 1, "department": 1, "title": 1}
+        )
+        if emp:
+            employee_info = emp
+
+    # Document sharing permissions
+    guest_perms = webinar.get("guest_permissions", {})
+    my_guest_perm = guest_perms.get(uid, {})
+    can_download = is_internal or not org_privacy.get("external_download_blocked", True) or my_guest_perm.get("permission") in ("download", "both")
+    can_upload_docs = is_internal or my_guest_perm.get("permission") in ("upload", "both")
+
     # Permissions based on role hierarchy
-    # Coordinator: can control (promote/demote/mute/Q&A) but NO video. Host: full control + video.
     can_stream = my_role in ("host", "presenter", "panelist")
     can_control = my_role in ("host", "coordinator")
     can_present = my_role in ("host", "presenter")
@@ -646,6 +668,18 @@ async def get_room_info(webinar_id: str, user=Depends(get_current_user)):
         "hand_raises": webinar.get("hand_raises", []) if can_control else [],
         "active_roles": webinar.get("active_roles", {}) if can_control else {},
         "host_name": webinar.get("host_name", "Host"),
+        # Organization & privacy
+        "is_internal": is_internal,
+        "attendee_type": "internal" if is_internal else "external",
+        "employee_info": employee_info,
+        "can_download": can_download,
+        "can_upload_docs": can_upload_docs,
+        "org_privacy": {
+            "has_org_domains": len(org_domains) > 0,
+            "internal_only_docs": org_privacy.get("internal_only_docs", True),
+            "external_download_blocked": org_privacy.get("external_download_blocked", True),
+        },
+        "guest_permissions": guest_perms if can_control else {},
     }
 
 
