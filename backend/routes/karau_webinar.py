@@ -757,6 +757,52 @@ async def get_slide_image(webinar_id: str, slide_index: int, user=Depends(get_cu
     return Response(content=data, media_type="image/png")
 
 
+# --- Live Transcript ---
+
+class SaveTranscriptRequest(BaseModel):
+    transcript: str
+    duration_seconds: float = 0
+
+
+@router.post("/{webinar_id}/live-transcript/save")
+async def save_live_transcript(webinar_id: str, data: SaveTranscriptRequest, user=Depends(get_current_user)):
+    """Save accumulated live transcript from a webinar session."""
+    webinar = await db.webinars.find_one({"webinar_id": webinar_id}, {"_id": 0, "host_id": 1, "title": 1})
+    if not webinar:
+        raise HTTPException(404, "Webinar not found")
+
+    uid = user["user_id"]
+    is_host = uid == webinar.get("host_id")
+    if not is_host:
+        raise HTTPException(403, "Only host can save transcript")
+
+    await db.webinars.update_one(
+        {"webinar_id": webinar_id},
+        {"$set": {
+            "live_transcript": {
+                "text": data.transcript,
+                "saved_by": uid,
+                "saved_at": datetime.now(timezone.utc).isoformat(),
+                "word_count": len(data.transcript.split()),
+                "duration_seconds": data.duration_seconds
+            }
+        }}
+    )
+    return {"success": True, "word_count": len(data.transcript.split())}
+
+
+@router.get("/{webinar_id}/live-transcript")
+async def get_live_transcript(webinar_id: str, user=Depends(get_current_user)):
+    """Get saved live transcript for a webinar."""
+    webinar = await db.webinars.find_one(
+        {"webinar_id": webinar_id},
+        {"_id": 0, "live_transcript": 1}
+    )
+    if not webinar:
+        raise HTTPException(404, "Webinar not found")
+    return {"transcript": webinar.get("live_transcript")}
+
+
 # --- AI Meeting Notes ---
 
 class SendNotesRequest(BaseModel):
