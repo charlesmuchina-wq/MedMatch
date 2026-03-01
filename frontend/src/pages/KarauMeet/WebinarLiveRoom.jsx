@@ -208,6 +208,8 @@ const WebinarLiveRoom = () => {
       const [stream] = event.streams;
       remoteStreamsRef.current[remoteUserId] = stream;
       setRemoteStreams(prev => ({ ...prev, [remoteUserId]: { stream, name: remoteName } }));
+      // Register for speaker detection
+      speakerDetection.addStream(remoteUserId, remoteName, stream);
     };
 
     pc.onicecandidate = (event) => {
