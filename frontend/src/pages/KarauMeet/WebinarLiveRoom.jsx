@@ -7,7 +7,8 @@ import {
   Send, ThumbsUp, Loader2, Crown, UserPlus, UserMinus,
   Shield, Phone, Clipboard, ChevronLeft, ChevronRight,
   AudioLines, Captions, Save, Globe, ChevronDown as ChevDown,
-  Building2, UserX, FileUp, FileDown, ShieldCheck, ShieldOff, Brain, Sparkles, Eye, PenLine
+  Building2, UserX, FileUp, FileDown, ShieldCheck, ShieldOff, Brain, Sparkles, Eye, PenLine,
+  SmilePlus, Trophy, Headphones
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -17,8 +18,11 @@ import SlideRenderer from '@/components/KarauMeet/SlideRenderer';
 import { useNoiseCancellation } from '@/hooks/useNoiseCancellation';
 import { useLiveTranscription, CAPTION_LANGUAGES } from '@/hooks/useLiveTranscription';
 import { useSpeakerDetection } from '@/hooks/useSpeakerDetection';
+import { useSpatialAudio } from '@/hooks/useSpatialAudio';
 import AIAssistantPanel from '@/components/KarauMeet/AIAssistantPanel';
 import EnhancedWhiteboard from '@/components/KarauMeet/EnhancedWhiteboard';
+import EmojiReactions from '@/components/KarauMeet/EmojiReactions';
+import LeaderboardPanel from '@/components/KarauMeet/LeaderboardPanel';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const WS_URL = API.replace('https://', 'wss://').replace('http://', 'ws://');
