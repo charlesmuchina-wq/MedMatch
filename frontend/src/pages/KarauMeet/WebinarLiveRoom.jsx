@@ -460,6 +460,16 @@ const WebinarLiveRoom = () => {
             {myRole === 'presenter' && <MonitorUp className="w-2.5 h-2.5 mr-1" />}
             {myRole.charAt(0).toUpperCase() + myRole.slice(1)}
           </Badge>
+          {roomInfo.org_privacy?.has_org_domains && (
+            <Badge className={`text-[9px] border ${roomInfo.is_internal
+              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+              : 'bg-orange-500/10 text-orange-400 border-orange-500/20'}`}
+              data-testid="attendee-type-badge">
+              {roomInfo.is_internal
+                ? <><Building2 className="w-2.5 h-2.5 mr-0.5" />Internal</>
+                : <><UserX className="w-2.5 h-2.5 mr-0.5" />External</>}
+            </Badge>
+          )}
           <Button variant="destructive" size="sm" onClick={leaveWebinar} className="h-7 px-2 text-[11px] rounded-lg" data-testid="leave-webinar-btn">
             <Phone className="w-3 h-3 mr-1 rotate-[135deg]" />Leave
           </Button>
