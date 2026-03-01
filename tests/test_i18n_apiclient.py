@@ -6,7 +6,7 @@ import pytest
 import requests
 import os
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://karau-webex-pro.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://immersive-karau.preview.emergentagent.com')
 
 class TestJobSearchAPI:
     """Tests for Job Search API endpoints used by apiClient"""
