@@ -572,9 +572,16 @@ const WebinarLiveRoom = () => {
               </>
             )}
             {isHost && roomInfo.status === 'live' && (
-              <Button size="sm" variant="destructive" onClick={endWebinar} className="h-8 px-2.5 text-[11px] rounded-lg" data-testid="end-webinar-btn">
-                <Square className="w-3 h-3 mr-1" />End
-              </Button>
+              <>
+                {liveTranscription.fullTranscript.trim() && (
+                  <Button size="sm" onClick={saveTranscript} className="h-8 px-2.5 text-[11px] bg-violet-500/80 hover:bg-violet-400 rounded-lg" data-testid="save-transcript-btn">
+                    <Save className="w-3 h-3 mr-1" />Save Transcript
+                  </Button>
+                )}
+                <Button size="sm" variant="destructive" onClick={endWebinar} className="h-8 px-2.5 text-[11px] rounded-lg" data-testid="end-webinar-btn">
+                  <Square className="w-3 h-3 mr-1" />End
+                </Button>
+              </>
             )}
           </div>
         </div>
