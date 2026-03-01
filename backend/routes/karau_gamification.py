@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 import uuid
 
 from utils.database import db
-from routes.auth import get_current_user
+from routes.auth import get_current_user, require_auth
 
 router = APIRouter(prefix="/karau/webinar", tags=["Gamification"])
 
