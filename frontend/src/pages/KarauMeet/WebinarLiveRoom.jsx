@@ -648,11 +648,25 @@ const WebinarLiveRoom = () => {
               </div>
             )}
 
-            {/* Video area (side when slides shown, full when not) */}
-            <div className={`relative rounded-xl overflow-hidden bg-karau-card/40 border transition-all ${showSlides ? 'w-56 shrink-0' : 'flex-1'} ${speakerDetection.speakers['__local__']?.speaking ? 'border-2' : 'border-white/5'}`}
+            {/* Video area with Active Speaker Framing */}
+            <div className={`relative rounded-xl overflow-hidden bg-karau-card/40 border transition-all duration-500 ${showSlides ? 'w-56 shrink-0' : 'flex-1'} ${speakerDetection.speakers['__local__']?.speaking ? 'border-2' : 'border-white/5'}`}
               style={speakerDetection.speakers['__local__']?.speaking ? { borderColor: speakerDetection.speakers['__local__']?.color } : {}}>
+
+              {/* Main Stage: Show active speaker's remote feed if framed */}
+              {!showSlides && mainStageUserId && remoteStreams[mainStageUserId] && (
+                <MainStageVideo
+                  stream={remoteStreams[mainStageUserId].stream}
+                  name={remoteStreams[mainStageUserId].name}
+                  color={speakerDetection.speakers[mainStageUserId]?.color}
+                  data-testid="main-stage-video"
+                />
+              )}
+
+              {/* Local video (shows as main if no active remote speaker, or as PiP overlay) */}
               {canStream ? (
-                <>
+                <div className={mainStageUserId && remoteStreams[mainStageUserId] && !showSlides
+                  ? 'absolute bottom-2 right-2 w-32 h-24 rounded-lg overflow-hidden border-2 border-white/20 shadow-xl z-10 transition-all duration-500'
+                  : 'w-full h-full'}>
                   <video ref={localVideoRef} autoPlay muted playsInline className="w-full h-full object-cover"
                 style={eyeContactOn ? {
                   transform: 'scaleX(-1) perspective(800px) rotateY(2deg) translateY(-2%)',
@@ -661,8 +675,8 @@ const WebinarLiveRoom = () => {
                 data-testid="local-video" />
                   {!isCamOn && (
                     <div className="absolute inset-0 flex items-center justify-center bg-karau-card/80">
-                      <div className={`${showSlides ? 'w-10 h-10' : 'w-16 h-16'} rounded-full bg-purple-500/20 flex items-center justify-center`}>
-                        <span className={`${showSlides ? 'text-lg' : 'text-2xl'} font-bold text-purple-400`}>{roomInfo.host_name?.[0] || 'H'}</span>
+                      <div className={`${showSlides ? 'w-10 h-10' : mainStageUserId ? 'w-8 h-8' : 'w-16 h-16'} rounded-full bg-purple-500/20 flex items-center justify-center`}>
+                        <span className={`${showSlides ? 'text-lg' : mainStageUserId ? 'text-sm' : 'text-2xl'} font-bold text-purple-400`}>{roomInfo.host_name?.[0] || 'H'}</span>
                       </div>
                     </div>
                   )}
@@ -673,7 +687,7 @@ const WebinarLiveRoom = () => {
                       You
                     </span>
                   </div>
-                </>
+                </div>
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
                   <div className="text-center p-3">
