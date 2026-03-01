@@ -15,6 +15,7 @@ import { useTranslation } from '@/utils/i18n';
 import SlideRenderer from '@/components/KarauMeet/SlideRenderer';
 import { useNoiseCancellation } from '@/hooks/useNoiseCancellation';
 import { useLiveTranscription, CAPTION_LANGUAGES } from '@/hooks/useLiveTranscription';
+import { useSpeakerDetection } from '@/hooks/useSpeakerDetection';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const WS_URL = API.replace('https://', 'wss://').replace('http://', 'ws://');
