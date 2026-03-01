@@ -773,9 +773,30 @@ const QAPanel = ({ questions, pendingQs, newQuestion, setNewQuestion, submitQues
   </div>
 );
 
-const ParticipantsPanel = ({ handRaises, activeRoles, promoteUser, demoteUser, isHost }) => (
+const ParticipantsPanel = ({ handRaises, activeRoles, promoteUser, demoteUser, isHost, roomInfo, onGrantPermission, onRevokePermission }) => (
   <div className="flex-1 overflow-y-auto p-2.5 space-y-3">
     <h3 className="text-xs font-semibold text-white flex items-center gap-1.5"><Users className="w-3.5 h-3.5 text-emerald-400" />Participants</h3>
+
+    {/* Org Privacy Status */}
+    {roomInfo?.org_privacy?.has_org_domains && (
+      <div className="p-1.5 bg-karau-bg/40 rounded-lg border border-white/5" data-testid="org-privacy-status">
+        <div className="flex items-center gap-1.5 mb-1">
+          <Building2 className="w-3 h-3 text-violet-400" />
+          <span className="text-[9px] text-violet-400 font-semibold uppercase tracking-wider">Org Privacy Active</span>
+        </div>
+        <div className="text-[8px] text-slate-500 space-y-0.5">
+          <p className="flex items-center gap-1">
+            {roomInfo.org_privacy.internal_only_docs ? <ShieldCheck className="w-2 h-2 text-emerald-400" /> : <ShieldOff className="w-2 h-2 text-orange-400" />}
+            Docs: {roomInfo.org_privacy.internal_only_docs ? 'Internal only' : 'Open'}
+          </p>
+          <p className="flex items-center gap-1">
+            {roomInfo.org_privacy.external_download_blocked ? <ShieldCheck className="w-2 h-2 text-emerald-400" /> : <ShieldOff className="w-2 h-2 text-orange-400" />}
+            External download: {roomInfo.org_privacy.external_download_blocked ? 'Blocked' : 'Allowed'}
+          </p>
+        </div>
+      </div>
+    )}
+
     {handRaises.length > 0 && (
       <div className="space-y-1">
         <p className="text-[9px] text-amber-400 font-semibold uppercase tracking-wider flex items-center gap-1"><Hand className="w-2.5 h-2.5" />Raised Hands ({handRaises.length})</p>
@@ -801,9 +822,23 @@ const ParticipantsPanel = ({ handRaises, activeRoles, promoteUser, demoteUser, i
             <span className="text-[10px] text-white">{uid.substring(0, 12)}</span>
             <Badge className={`text-[7px] ${ROLE_COLORS[info.role]}`}>{info.role}</Badge>
           </div>
-          <Button size="sm" variant="ghost" onClick={() => demoteUser(uid)} className="h-5 px-1 text-red-400 hover:bg-red-500/10" data-testid={`demote-${uid}`}>
-            <UserMinus className="w-2.5 h-2.5" />
-          </Button>
+          <div className="flex items-center gap-0.5">
+            {isHost && roomInfo?.org_privacy?.has_org_domains && (
+              <>
+                <Button size="sm" variant="ghost" onClick={() => onGrantPermission?.(uid, 'upload')}
+                  className="h-5 px-1 text-emerald-400 hover:bg-emerald-500/10" data-testid={`grant-upload-${uid}`} title="Grant upload">
+                  <FileUp className="w-2.5 h-2.5" />
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => onGrantPermission?.(uid, 'download')}
+                  className="h-5 px-1 text-blue-400 hover:bg-blue-500/10" data-testid={`grant-download-${uid}`} title="Grant download">
+                  <FileDown className="w-2.5 h-2.5" />
+                </Button>
+              </>
+            )}
+            <Button size="sm" variant="ghost" onClick={() => demoteUser(uid)} className="h-5 px-1 text-red-400 hover:bg-red-500/10" data-testid={`demote-${uid}`}>
+              <UserMinus className="w-2.5 h-2.5" />
+            </Button>
+          </div>
         </div>
       ))}
     </div>
