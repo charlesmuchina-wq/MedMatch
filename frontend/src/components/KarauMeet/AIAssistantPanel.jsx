@@ -266,6 +266,8 @@ const AIAssistantPanel = ({ meetingId, aiNotes = [], webinarId, engagementData }
       )}
 
       {/* Messages Area */}
+      {activeTab === 'chat' && (
+      <>
       <ScrollArea ref={scrollRef} className="flex-1">
         <div className="p-3 space-y-4">
           {messages.length === 0 ? (
