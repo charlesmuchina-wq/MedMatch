@@ -78,7 +78,10 @@ export function useLiveTranscription() {
         const data = await res.json();
         if (data.text?.trim()) {
           const originalText = data.text.trim();
-          setFullTranscript(prev => prev + ' ' + originalText);
+          const speaker = activeSpeakerRef.current;
+          const speakerLabel = speaker?.name || '';
+          const fullLine = speakerLabel ? `${speakerLabel}: ${originalText}` : originalText;
+          setFullTranscript(prev => prev + ' ' + fullLine);
 
           // Translate if display language differs
           let displayText = originalText;
@@ -89,6 +92,8 @@ export function useLiveTranscription() {
           const caption = {
             text: displayText,
             original: originalText,
+            speaker: speakerLabel,
+            speakerColor: speaker?.color || '#a78bfa',
             ts: Date.now(),
             lang: dspLangRef.current
           };
