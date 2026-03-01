@@ -412,7 +412,7 @@ const WebinarLiveRoom = () => {
       } catch {}
     }, 60000);
     return () => clearInterval(interval);
-  }, [webinarId, canStream]);
+  }, [webinarId, roomInfo?.can_stream_video]);
 
   const toggleLiveCaptions = () => {
     if (liveTranscription.active) {
