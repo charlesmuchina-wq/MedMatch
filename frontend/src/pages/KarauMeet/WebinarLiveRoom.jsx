@@ -337,6 +337,37 @@ const WebinarLiveRoom = () => {
     } catch { toast.error('Revoke error'); }
   };
 
+  // Fetch engagement dashboard periodically
+  useEffect(() => {
+    if (!webinarId) return;
+    const fetchEngagement = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const res = await fetch(`${API}/api/karau-features/sentiment/dashboard/${webinarId}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) setEngagementData(await res.json());
+      } catch {}
+    };
+    fetchEngagement();
+    const interval = setInterval(fetchEngagement, 30000);
+    return () => clearInterval(interval);
+  }, [webinarId]);
+
+  // Auto-analyze sentiment from live captions
+  useEffect(() => {
+    if (!liveTranscription.captions.length || !webinarId) return;
+    const last = liveTranscription.captions[liveTranscription.captions.length - 1];
+    if (!last?.original || last.original.length < 20) return;
+
+    const token = localStorage.getItem('token');
+    fetch(`${API}/api/karau-features/sentiment/analyze`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ meeting_id: webinarId, text: last.original, speaker: last.speaker || 'Unknown' })
+    }).catch(() => {});
+  }, [liveTranscription.captions.length]);
+
   const toggleLiveCaptions = () => {
     if (liveTranscription.active) {
       liveTranscription.stop();
