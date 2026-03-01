@@ -53,6 +53,12 @@ export function useLiveTranscription() {
     return text;
   }, []);
 
+  const activeSpeakerRef = useRef(null);
+
+  const setActiveSpeaker = useCallback((speaker) => {
+    activeSpeakerRef.current = speaker;
+  }, []);
+
   const transcribeChunk = useCallback(async (blob) => {
     if (blob.size < 1000) return;
     const token = localStorage.getItem('token') || localStorage.getItem('karau_token');
