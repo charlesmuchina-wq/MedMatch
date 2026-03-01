@@ -101,6 +101,12 @@ async def create_webinar(data: WebinarCreate, user=Depends(get_current_user)):
             "attendee_audio": data.attendee_audio,
             "practice_session": data.practice_session,
         },
+        "org_privacy": {
+            "org_domains": [d.lower().strip() for d in data.org_domains],
+            "internal_only_docs": data.internal_only_docs,
+            "external_download_blocked": data.external_download_blocked,
+        },
+        "guest_permissions": {},  # {user_id: {permission, granted_by, granted_at, expires_at}}
         "panelists": [{"email": e, "role": "panelist"} for e in data.panelist_emails],
         "coordinators": [{"email": e, "role": "coordinator"} for e in data.coordinator_emails],
         "active_roles": {},
