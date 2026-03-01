@@ -484,7 +484,8 @@ const WebinarLiveRoom = () => {
             )}
 
             {/* Video area (side when slides shown, full when not) */}
-            <div className={`relative rounded-xl overflow-hidden bg-karau-card/40 border border-white/5 ${showSlides ? 'w-56 shrink-0' : 'flex-1'}`}>
+            <div className={`relative rounded-xl overflow-hidden bg-karau-card/40 border transition-all ${showSlides ? 'w-56 shrink-0' : 'flex-1'} ${speakerDetection.speakers['__local__']?.speaking ? 'border-2' : 'border-white/5'}`}
+              style={speakerDetection.speakers['__local__']?.speaking ? { borderColor: speakerDetection.speakers['__local__']?.color } : {}}>
               {canStream ? (
                 <>
                   <video ref={localVideoRef} autoPlay muted playsInline className="w-full h-full object-cover" data-testid="local-video" />
