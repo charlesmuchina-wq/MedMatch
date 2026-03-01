@@ -8,7 +8,7 @@ import {
   Shield, Phone, Clipboard, ChevronLeft, ChevronRight,
   AudioLines, Captions, Save, Globe, ChevronDown as ChevDown,
   Building2, UserX, FileUp, FileDown, ShieldCheck, ShieldOff, Brain, Sparkles, Eye, PenLine,
-  SmilePlus, Trophy, Headphones
+  SmilePlus, Trophy, Headphones, Clapperboard, QrCode, BarChart3, BrainCircuit
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -19,10 +19,17 @@ import { useNoiseCancellation } from '@/hooks/useNoiseCancellation';
 import { useLiveTranscription, CAPTION_LANGUAGES } from '@/hooks/useLiveTranscription';
 import { useSpeakerDetection } from '@/hooks/useSpeakerDetection';
 import { useSpatialAudio } from '@/hooks/useSpatialAudio';
+import { useDirectorMode } from '@/hooks/useDirectorMode';
+import { useGhostBooking } from '@/hooks/useGhostBooking';
 import AIAssistantPanel from '@/components/KarauMeet/AIAssistantPanel';
 import EnhancedWhiteboard from '@/components/KarauMeet/EnhancedWhiteboard';
 import EmojiReactions from '@/components/KarauMeet/EmojiReactions';
 import LeaderboardPanel from '@/components/KarauMeet/LeaderboardPanel';
+import DirectorModePanel from '@/components/KarauMeet/DirectorModePanel';
+import QRCodePanel from '@/components/KarauMeet/QRCodePanel';
+import GhostBookingAlert from '@/components/KarauMeet/GhostBookingAlert';
+import SentimentDashboard from '@/components/KarauMeet/SentimentDashboard';
+import CopilotPanel from '@/components/KarauMeet/CopilotPanel';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const WS_URL = API.replace('https://', 'wss://').replace('http://', 'ws://');
