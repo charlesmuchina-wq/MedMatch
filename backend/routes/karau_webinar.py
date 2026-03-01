@@ -547,6 +547,103 @@ async def get_hand_raises(webinar_id: str, user=Depends(get_current_user)):
     return {"hand_raises": webinar.get("hand_raises", []) if webinar else []}
 
 
+# --- Guest Permissions (Document Sharing) ---
+
+@router.post("/{webinar_id}/guest-permission/grant")
+async def grant_guest_permission(webinar_id: str, data: GuestPermission, user=Depends(get_current_user)):
+    """Host grants upload/download permission to a specific external guest. Expires when meeting ends."""
+    webinar = await db.webinars.find_one(
+        {"webinar_id": webinar_id},
+        {"_id": 0, "host_id": 1, "status": 1}
+    )
+    if not webinar:
+        raise HTTPException(404, "Webinar not found")
+    if user["user_id"] != webinar["host_id"]:
+        raise HTTPException(403, "Only host can grant permissions")
+    if webinar["status"] == "ended":
+        raise HTTPException(400, "Cannot grant permissions after meeting ends")
+
+    perm = {
+        "permission": data.permission,
+        "granted_by": user["user_id"],
+        "granted_at": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.webinars.update_one(
+        {"webinar_id": webinar_id},
+        {"$set": {f"guest_permissions.{data.user_id}": perm}}
+    )
+    return {"success": True, "user_id": data.user_id, "permission": data.permission}
+
+
+@router.post("/{webinar_id}/guest-permission/revoke")
+async def revoke_guest_permission(webinar_id: str, data: GuestPermission, user=Depends(get_current_user)):
+    """Host revokes a guest's permission."""
+    webinar = await db.webinars.find_one({"webinar_id": webinar_id}, {"_id": 0, "host_id": 1})
+    if not webinar or user["user_id"] != webinar["host_id"]:
+        raise HTTPException(403, "Only host can revoke permissions")
+
+    await db.webinars.update_one(
+        {"webinar_id": webinar_id},
+        {"$unset": {f"guest_permissions.{data.user_id}": ""}}
+    )
+    return {"success": True, "user_id": data.user_id, "revoked": True}
+
+
+@router.get("/{webinar_id}/attendees-classified")
+async def get_classified_attendees(webinar_id: str, user=Depends(get_current_user)):
+    """Get attendees classified as internal/external with appropriate info visibility."""
+    webinar = await db.webinars.find_one(
+        {"webinar_id": webinar_id},
+        {"_id": 0, "host_id": 1, "org_privacy": 1, "registrations": 1,
+         "attendees": 1, "guest_permissions": 1, "active_roles": 1}
+    )
+    if not webinar:
+        raise HTTPException(404, "Webinar not found")
+
+    org_domains = webinar.get("org_privacy", {}).get("org_domains", [])
+    is_host = user["user_id"] == webinar["host_id"]
+    requester_email = user.get("email", "")
+    requester_domain = requester_email.split("@")[-1].lower() if "@" in requester_email else ""
+    requester_is_internal = requester_domain in org_domains if org_domains else True
+
+    classified = []
+    for reg in webinar.get("registrations", []):
+        email = reg.get("email", "")
+        domain = email.split("@")[-1].lower() if "@" in email else ""
+        is_internal = domain in org_domains if org_domains else True
+
+        entry = {
+            "name": reg.get("name", ""),
+            "is_internal": is_internal,
+            "attendee_type": "internal" if is_internal else "external",
+            "attended": reg.get("attended", False),
+        }
+
+        if is_internal:
+            # Internal: show full info
+            emp = await db.karau_employees.find_one({"email": email}, {"_id": 0, "title": 1, "department": 1})
+            entry["title"] = emp.get("title", "") if emp else reg.get("role", "")
+            entry["department"] = emp.get("department", "") if emp else ""
+            entry["email"] = email if (is_host or requester_is_internal) else ""
+        else:
+            # External: limited info
+            entry["title"] = "External Guest"
+            entry["department"] = ""
+            entry["email"] = email if is_host else ""
+            gp = webinar.get("guest_permissions", {})
+            # Find by matching email in any user mapping
+            entry["has_upload_permission"] = False
+
+        classified.append(entry)
+
+    return {
+        "attendees": classified,
+        "internal_count": sum(1 for a in classified if a["is_internal"]),
+        "external_count": sum(1 for a in classified if not a["is_internal"]),
+        "org_domains": org_domains if is_host else [],
+    }
+
+
 # --- Practice Session ---
 
 @router.post("/{webinar_id}/practice/start")
