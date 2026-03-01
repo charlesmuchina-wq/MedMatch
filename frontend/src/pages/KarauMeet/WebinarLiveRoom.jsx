@@ -73,6 +73,12 @@ const WebinarLiveRoom = () => {
   // Engagement data
   const [engagementData, setEngagementData] = useState(null);
 
+  // AI Coach
+  const [coachTips, setCoachTips] = useState([]);
+  const [showCoach, setShowCoach] = useState(false);
+  const speakingStartRef = useRef(null);
+  const meetingStartRef = useRef(Date.now());
+
   // Noise Cancellation
   const noiseCancellation = useNoiseCancellation();
 
