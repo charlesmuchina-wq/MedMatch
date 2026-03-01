@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 import {
   Video, Clock, Archive, X, Loader2, Cloud, HardDrive,
-  Download, CloudUpload, CheckCircle2, FileText, ChevronDown, ChevronUp
+  Download, CloudUpload, CheckCircle2, FileText, ChevronDown, ChevronUp,
+  Sparkles, Send, Copy, Mail
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
@@ -18,6 +20,11 @@ const KarauRecordingsPage = () => {
   const [downloadingId, setDownloadingId] = useState(null);
   const [expandedTranscript, setExpandedTranscript] = useState(null);
   const [transcriptData, setTranscriptData] = useState({});
+  const [generatingNotes, setGeneratingNotes] = useState(null);
+  const [notesData, setNotesData] = useState({});
+  const [expandedNotes, setExpandedNotes] = useState(null);
+  const [sendingNotes, setSendingNotes] = useState(null);
+  const [sendEmail, setSendEmail] = useState('');
 
   useEffect(() => { fetchRecordings(); }, []);
 
