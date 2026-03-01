@@ -538,9 +538,21 @@ const WebinarLiveRoom = () => {
             <div className="px-4 py-1.5 bg-black/70 backdrop-blur-sm border-t border-white/5" data-testid="live-captions-bar">
               <div className="flex items-center gap-2">
                 <Captions className="w-3 h-3 text-emerald-400 shrink-0" />
-                <p className="text-[11px] text-white/90 truncate flex-1">
-                  {liveTranscription.captions[liveTranscription.captions.length - 1]?.text}
-                </p>
+                <div className="flex-1 truncate">
+                  {(() => {
+                    const last = liveTranscription.captions[liveTranscription.captions.length - 1];
+                    return (
+                      <p className="text-[11px] text-white/90 truncate">
+                        {last?.speaker && (
+                          <span className="font-semibold mr-1" style={{ color: last.speakerColor }} data-testid="speaker-label">
+                            {last.speaker}:
+                          </span>
+                        )}
+                        {last?.text}
+                      </p>
+                    );
+                  })()}
+                </div>
                 {liveTranscription.sourceLanguage !== liveTranscription.displayLanguage && (
                   <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[7px] shrink-0" data-testid="translation-badge">
                     {CAPTION_LANGUAGES[liveTranscription.sourceLanguage]?.substring(0, 2)}{' > '}
@@ -548,6 +560,14 @@ const WebinarLiveRoom = () => {
                   </Badge>
                 )}
               </div>
+            </div>
+          )}
+
+          {/* Active Speaker Indicator */}
+          {speakerDetection.activeSpeaker && (
+            <div className="absolute top-12 left-3 flex items-center gap-1.5 bg-black/50 backdrop-blur-sm rounded-full px-2 py-0.5" data-testid="active-speaker-indicator">
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: speakerDetection.activeSpeaker.color }} />
+              <span className="text-[9px] text-white/80">{speakerDetection.activeSpeaker.name}</span>
             </div>
           )}
 
