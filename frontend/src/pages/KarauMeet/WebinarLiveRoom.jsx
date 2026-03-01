@@ -64,6 +64,9 @@ const WebinarLiveRoom = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showSlides, setShowSlides] = useState(true);
 
+  // Language picker
+  const [showLangPicker, setShowLangPicker] = useState(false);
+
   // Noise Cancellation
   const noiseCancellation = useNoiseCancellation();
 
