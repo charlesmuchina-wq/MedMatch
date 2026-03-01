@@ -6,7 +6,7 @@ import pytest
 import requests
 import os
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://webinar-hub-15.preview.emergentagent.com').rstrip('/')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://karau-webex-pro.preview.emergentagent.com').rstrip('/')
 
 class TestTranslationAPI:
     """Translation API - 39 languages with EFIGS, CJK, expanding markets"""

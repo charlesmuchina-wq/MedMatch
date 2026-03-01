@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://webinar-hub-15.preview.emergentagent.com/api
+**API Target:** https://karau-webex-pro.preview.emergentagent.com/api
 
 ---
 
