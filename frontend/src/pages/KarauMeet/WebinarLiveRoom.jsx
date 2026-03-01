@@ -112,6 +112,12 @@ const WebinarLiveRoom = () => {
   // Gamification
   const [showReactions, setShowReactions] = useState(false);
 
+  // Director Mode
+  const directorMode = useDirectorMode(webinarId, speakerDetection, remoteStreams);
+
+  // Ghost Booking Prevention
+  const ghostBooking = useGhostBooking(webinarId);
+
   // Active Speaker Framing - track which user is "main stage"
   const [mainStageUserId, setMainStageUserId] = useState(null);
   const mainStageSwitchRef = useRef(null);
