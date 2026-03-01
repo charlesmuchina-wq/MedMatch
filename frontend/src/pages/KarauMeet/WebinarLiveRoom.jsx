@@ -663,6 +663,8 @@ const WebinarLiveRoom = () => {
                 ))}
               </div>
             )}
+            </>
+            )}
           </div>
 
           {/* Live Caption Overlay */}
