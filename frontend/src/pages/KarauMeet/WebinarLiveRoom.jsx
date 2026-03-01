@@ -383,7 +383,7 @@ const WebinarLiveRoom = () => {
 
   // AI Coach - auto-request tips every 60s for host/presenter
   useEffect(() => {
-    if (!webinarId || !canStream) return;
+    if (!webinarId || !roomInfo?.can_stream_video) return;
     const interval = setInterval(async () => {
       const captions = liveTranscription.captions;
       if (captions.length === 0) return;
