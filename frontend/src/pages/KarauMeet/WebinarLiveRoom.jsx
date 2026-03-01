@@ -67,6 +67,9 @@ const WebinarLiveRoom = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [showSlides, setShowSlides] = useState(true);
 
+  // Eye Contact Correction
+  const [eyeContactOn, setEyeContactOn] = useState(false);
+
   // Language picker
   const [showLangPicker, setShowLangPicker] = useState(false);
 
