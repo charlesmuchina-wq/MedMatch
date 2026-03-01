@@ -374,6 +374,39 @@ const WebinarLiveRoom = () => {
     }).catch(() => {});
   }, [liveTranscription.captions.length]);
 
+  // AI Coach - auto-request tips every 60s for host/presenter
+  useEffect(() => {
+    if (!webinarId || !canStream) return;
+    const interval = setInterval(async () => {
+      const captions = liveTranscription.captions;
+      if (captions.length === 0) return;
+      const recentText = captions.slice(-5).map(c => c.original || c.text).join(' ');
+      const speakingDuration = speakingStartRef.current ? (Date.now() - speakingStartRef.current) / 1000 : 0;
+      const totalDuration = (Date.now() - meetingStartRef.current) / 1000;
+      const token = localStorage.getItem('token');
+      try {
+        const res = await fetch(`${API}/api/karau-features/ai-coach/tip`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({
+            meeting_id: webinarId,
+            transcript_segment: recentText,
+            speaker: 'You',
+            speaking_duration_seconds: speakingDuration,
+            total_meeting_seconds: totalDuration,
+            engagement_score: engagementData?.engagement_score || 5,
+            participant_count: Object.keys(remoteStreams).length + 1
+          })
+        });
+        if (res.ok) {
+          const tip = await res.json();
+          if (tip.tip) setCoachTips(prev => [...prev.slice(-5), { ...tip, ts: Date.now() }]);
+        }
+      } catch {}
+    }, 60000);
+    return () => clearInterval(interval);
+  }, [webinarId, canStream]);
+
   const toggleLiveCaptions = () => {
     if (liveTranscription.active) {
       liveTranscription.stop();
