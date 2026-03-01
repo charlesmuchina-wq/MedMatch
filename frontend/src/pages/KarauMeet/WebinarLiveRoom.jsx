@@ -99,6 +99,16 @@ const WebinarLiveRoom = () => {
   // Speaker Detection
   const speakerDetection = useSpeakerDetection();
 
+  // Spatial Audio
+  const spatialAudio = useSpatialAudio();
+
+  // Gamification
+  const [showReactions, setShowReactions] = useState(false);
+
+  // Active Speaker Framing - track which user is "main stage"
+  const [mainStageUserId, setMainStageUserId] = useState(null);
+  const mainStageSwitchRef = useRef(null);
+
   // WebRTC
   const localVideoRef = useRef(null);
   const localStreamRef = useRef(null);
