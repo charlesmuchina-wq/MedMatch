@@ -398,42 +398,54 @@ const WebinarLiveRoom = () => {
         {/* Video Stage */}
         <div className="flex-1 flex flex-col">
           <div className="flex-1 p-2 flex gap-2" data-testid="video-stage">
-            {/* Main video - host/presenter or own camera */}
-            <div className="flex-1 relative rounded-xl overflow-hidden bg-karau-card/40 border border-white/5">
+            {/* Presentation slides (main area when uploaded) */}
+            {showSlides && (
+              <div className="flex-1 relative rounded-xl overflow-hidden">
+                <SlideRenderer
+                  webinarId={webinarId}
+                  currentSlide={currentSlide}
+                  onSlideChange={(idx) => { setCurrentSlide(idx); wsRef.current?.send(JSON.stringify({ type: 'slide_change', slide_index: idx })); }}
+                  canDrive={canDriveSlides}
+                  ws={wsRef}
+                />
+              </div>
+            )}
+
+            {/* Video area (side when slides shown, full when not) */}
+            <div className={`relative rounded-xl overflow-hidden bg-karau-card/40 border border-white/5 ${showSlides ? 'w-56 shrink-0' : 'flex-1'}`}>
               {canStream ? (
                 <>
                   <video ref={localVideoRef} autoPlay muted playsInline className="w-full h-full object-cover" data-testid="local-video" />
                   {!isCamOn && (
                     <div className="absolute inset-0 flex items-center justify-center bg-karau-card/80">
-                      <div className="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center">
-                        <span className="text-2xl font-bold text-purple-400">{roomInfo.host_name?.[0] || 'H'}</span>
+                      <div className={`${showSlides ? 'w-10 h-10' : 'w-16 h-16'} rounded-full bg-purple-500/20 flex items-center justify-center`}>
+                        <span className={`${showSlides ? 'text-lg' : 'text-2xl'} font-bold text-purple-400`}>{roomInfo.host_name?.[0] || 'H'}</span>
                       </div>
                     </div>
                   )}
-                  <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-sm rounded px-1.5 py-0.5">
-                    <span className="text-[9px] text-white flex items-center gap-1">
+                  <div className="absolute bottom-1 left-1 bg-black/60 backdrop-blur-sm rounded px-1 py-0.5">
+                    <span className="text-[8px] text-white flex items-center gap-0.5">
                       {isHost && <Crown className="w-2 h-2 text-amber-400" />}
                       {isCoord && <Clipboard className="w-2 h-2 text-cyan-400" />}
-                      You ({myRole})
+                      You
                     </span>
                   </div>
                 </>
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-20 h-20 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mx-auto mb-3">
-                      <Radio className="w-10 h-10 text-purple-400/60" />
+                  <div className="text-center p-3">
+                    <div className={`${showSlides ? 'w-12 h-12' : 'w-20 h-20'} rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center mx-auto mb-2`}>
+                      <Radio className={`${showSlides ? 'w-6 h-6' : 'w-10 h-10'} text-purple-400/60`} />
                     </div>
-                    <p className="text-white font-medium text-sm">{roomInfo.title}</p>
-                    <p className="text-[10px] text-karau-muted mt-1">
-                      {roomInfo.status === 'live' ? `Watching live - ${roomInfo.host_name}` : 'Waiting for host...'}
+                    {!showSlides && <p className="text-white font-medium text-sm">{roomInfo.title}</p>}
+                    <p className="text-[9px] text-karau-muted mt-0.5">
+                      {roomInfo.status === 'live' ? roomInfo.host_name : 'Waiting...'}
                     </p>
-                    {isCoord && (
-                      <Badge className="mt-2 bg-cyan-500/10 text-cyan-400 border-cyan-500/20 text-[10px]">
-                        <Clipboard className="w-2.5 h-2.5 mr-1" />Coordinator - Monitoring
+                    {isCoord && !showSlides && (
+                      <Badge className="mt-1 bg-cyan-500/10 text-cyan-400 border-cyan-500/20 text-[9px]">
+                        <Clipboard className="w-2 h-2 mr-0.5" />Coordinator
                       </Badge>
                     )}
-                    {isAttendee && <Badge className="mt-2 bg-slate-500/10 text-slate-400 border-slate-500/15 text-[10px]">View Only</Badge>}
                   </div>
                 </div>
               )}
@@ -441,7 +453,7 @@ const WebinarLiveRoom = () => {
 
             {/* Remote streams sidebar */}
             {remoteStreamEntries.length > 0 && (
-              <div className="w-44 flex flex-col gap-1.5 overflow-y-auto">
+              <div className="w-36 flex flex-col gap-1 overflow-y-auto shrink-0">
                 {remoteStreamEntries.map(([uid, { stream, name }]) => (
                   <RemoteVideo key={uid} stream={stream} name={name} userId={uid} />
                 ))}
@@ -449,18 +461,7 @@ const WebinarLiveRoom = () => {
             )}
           </div>
 
-          {/* Slide Drive Bar (for coordinator/host/presenter) */}
-          {canDriveSlides && (
-            <div className="h-9 bg-karau-card/40 border-t border-white/5 flex items-center justify-center gap-3 px-4" data-testid="slide-drive-bar">
-              <Button variant="ghost" size="sm" onClick={() => changeSlide('prev')} className="h-7 w-7 p-0 text-slate-300 hover:text-white" data-testid="slide-prev">
-                <ChevronLeft className="w-4 h-4" />
-              </Button>
-              <span className="text-[11px] text-slate-300 font-medium min-w-[80px] text-center">Slide {currentSlide + 1}</span>
-              <Button variant="ghost" size="sm" onClick={() => changeSlide('next')} className="h-7 w-7 p-0 text-slate-300 hover:text-white" data-testid="slide-next">
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-            </div>
-          )}
+          {/* Remove old slide drive bar - now integrated in SlideRenderer */}
 
           {/* Bottom Controls */}
           <div className="h-14 bg-karau-card/60 border-t border-white/5 flex items-center justify-center gap-1.5 px-4 shrink-0" data-testid="webinar-controls">
