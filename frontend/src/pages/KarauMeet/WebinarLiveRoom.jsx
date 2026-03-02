@@ -30,6 +30,11 @@ import QRCodePanel from '@/components/KarauMeet/QRCodePanel';
 import GhostBookingAlert from '@/components/KarauMeet/GhostBookingAlert';
 import SentimentDashboard from '@/components/KarauMeet/SentimentDashboard';
 import CopilotPanel from '@/components/KarauMeet/CopilotPanel';
+import SpatialTrackingPanel from '@/components/KarauMeet/SpatialTrackingPanel';
+import PanoramicFramingPanel from '@/components/KarauMeet/PanoramicFramingPanel';
+import SpatialMeetingPanel from '@/components/KarauMeet/SpatialMeetingPanel';
+import RoomControlPanel from '@/components/KarauMeet/RoomControlPanel';
+import BeamformingPanel from '@/components/KarauMeet/BeamformingPanel';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const WS_URL = API.replace('https://', 'wss://').replace('http://', 'ws://');
