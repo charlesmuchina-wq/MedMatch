@@ -125,6 +125,9 @@ const WebinarLiveRoom = () => {
   // Gamification
   const [showReactions, setShowReactions] = useState(false);
 
+  // Feature Command Bar
+  const [commandBarOpen, setCommandBarOpen] = useState(false);
+
   // Director Mode
   const directorMode = useDirectorMode(webinarId, speakerDetection, remoteStreams);
 
