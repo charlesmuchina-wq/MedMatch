@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import {
-  Video, Plus, Clock, Shield, Sparkles, Copy,
-  Loader2, Users, Share2, Building2,
-  ArrowRight, Globe, Mic, ChevronDown, ChevronUp, Bot,
-  CalendarClock, TrendingUp, Trophy, Flame, Target, BarChart3
+  Video, Plus, Clock, Sparkles, Copy,
+  Loader2, Users, ArrowRight, Globe, Mic, Bot,
+  CalendarClock, TrendingUp, Trophy, Flame, Target, BarChart3,
+  Brain, Eye, Wand2, Volume2, Radio, Zap,
+  ChevronDown, ChevronUp, Play, ExternalLink
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -18,7 +19,6 @@ import ShareMeetingDialog from '@/components/KarauMeet/ShareMeetingDialog';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-// Countdown helper
 const getCountdown = (scheduledTime) => {
   if (!scheduledTime) return null;
   const diff = new Date(scheduledTime) - new Date();
@@ -29,6 +29,17 @@ const getCountdown = (scheduledTime) => {
   if (h > 0) return `${h}h ${m}m`;
   return `${m}m`;
 };
+
+const AI_CAPABILITIES = [
+  { icon: Brain, label: 'AI Coach', color: 'text-purple-400', bg: 'bg-purple-500/10' },
+  { icon: Eye, label: 'Eye Contact', color: 'text-teal-400', bg: 'bg-teal-500/10' },
+  { icon: Globe, label: 'Live Captions', color: 'text-blue-400', bg: 'bg-blue-500/10' },
+  { icon: Wand2, label: 'Director Mode', color: 'text-amber-400', bg: 'bg-amber-500/10' },
+  { icon: Volume2, label: 'Spatial Audio', color: 'text-rose-400', bg: 'bg-rose-500/10' },
+  { icon: Mic, label: 'Noise Cancel', color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
+  { icon: Sparkles, label: 'AI Notes', color: 'text-violet-400', bg: 'bg-violet-500/10' },
+  { icon: Bot, label: 'Assistant', color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
+];
 
 const KarauMeetDashboard = ({ user }) => {
   const navigate = useNavigate();
@@ -42,14 +53,9 @@ const KarauMeetDashboard = ({ user }) => {
   const [shareMeeting, setShareMeeting] = useState(null);
   const [templates, setTemplates] = useState([]);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
-  const [showMeetings, setShowMeetings] = useState(false);
-  const [showPulse, setShowPulse] = useState(false);
   const [scheduledTime, setScheduledTime] = useState('');
-  const [stats, setStats] = useState({
-    total_meetings: 0, total_hours: 0, recordings: 0, total_participants: 0, active_meetings: 0, ai_insights: 0
-  });
+  const [stats, setStats] = useState({ total_meetings: 0, total_hours: 0, recordings: 0, total_participants: 0, active_meetings: 0, ai_insights: 0 });
   const [activities, setActivities] = useState([]);
-  const [activitiesLoading, setActivitiesLoading] = useState(true);
   const [upcoming, setUpcoming] = useState([]);
   const [trendingTopics, setTrendingTopics] = useState([]);
   const [, setTick] = useState(0);
@@ -58,6 +64,7 @@ const KarauMeetDashboard = ({ user }) => {
   const [gamification, setGamification] = useState(null);
   const [leaderboard, setLeaderboard] = useState(null);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [expandedSection, setExpandedSection] = useState('upcoming');
 
   useEffect(() => {
     fetchMeetings();
@@ -69,13 +76,11 @@ const KarauMeetDashboard = ({ user }) => {
     fetchAnalytics();
   }, []);
 
-  // Countdown timer - update every minute
   useEffect(() => {
     const interval = setInterval(() => setTick(t => t + 1), 60000);
     return () => clearInterval(interval);
   }, []);
 
-  // Auto-refresh polling every 30 seconds
   useEffect(() => {
     const refreshInterval = setInterval(async () => {
       setIsRefreshing(true);
@@ -89,19 +94,16 @@ const KarauMeetDashboard = ({ user }) => {
     try {
       const token = localStorage.getItem('token');
       const res = await fetch(`${API}/api/karau-meet/stats`, { headers: { 'Authorization': `Bearer ${token}` } });
-      if (res.ok) { const data = await res.json(); setStats(data); }
+      if (res.ok) setStats(await res.json());
     } catch (e) { console.error('Stats error:', e); }
   };
-
   const fetchActivityFeed = async () => {
     try {
       const token = localStorage.getItem('token');
       const res = await fetch(`${API}/api/karau-meet/activity-feed?limit=12`, { headers: { 'Authorization': `Bearer ${token}` } });
       if (res.ok) { const data = await res.json(); setActivities(data.activities || []); }
     } catch (e) { console.error('Activity error:', e); }
-    setActivitiesLoading(false);
   };
-
   const fetchUpcoming = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -109,7 +111,6 @@ const KarauMeetDashboard = ({ user }) => {
       if (res.ok) { const data = await res.json(); setUpcoming(data.upcoming || []); }
     } catch (e) { console.error('Upcoming error:', e); }
   };
-
   const fetchTrendingTopics = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -117,7 +118,6 @@ const KarauMeetDashboard = ({ user }) => {
       if (res.ok) { const data = await res.json(); setTrendingTopics(data.topics || []); }
     } catch (e) { console.error('Trending error:', e); }
   };
-
   const fetchAnalytics = async () => {
     const token = localStorage.getItem('token');
     try {
@@ -131,27 +131,18 @@ const KarauMeetDashboard = ({ user }) => {
       if (lbRes.ok) setLeaderboard(await lbRes.json());
     } catch (e) { console.error('Analytics error:', e); }
   };
-
   const fetchTemplates = async () => {
     try {
       const res = await fetch(`${API}/api/karau-features/templates`);
       if (res.ok) { const data = await res.json(); setTemplates(data.templates || []); }
     } catch (e) { console.error(e); }
   };
-
   const fetchMeetings = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${API}/api/karau-meet/meetings`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setMeetings(data.meetings || []);
-      }
-    } catch (error) {
-      console.error('Error fetching meetings:', error);
-    }
+      const response = await fetch(`${API}/api/karau-meet/meetings`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (response.ok) { const data = await response.json(); setMeetings(data.meetings || []); }
+    } catch (error) { console.error('Error fetching meetings:', error); }
     setLoading(false);
   };
 
@@ -160,9 +151,7 @@ const KarauMeetDashboard = ({ user }) => {
     try {
       const token = localStorage.getItem('token');
       const body = { title: newMeetingTitle || 'AI KARAU Meeting' };
-      if (isScheduled && scheduledTime) {
-        body.scheduled_time = new Date(scheduledTime).toISOString();
-      }
+      if (isScheduled && scheduledTime) body.scheduled_time = new Date(scheduledTime).toISOString();
       const response = await fetch(`${API}/api/karau-meet/meetings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
@@ -170,20 +159,10 @@ const KarauMeetDashboard = ({ user }) => {
       });
       if (response.ok) {
         const data = await response.json();
-        if (isScheduled) {
-          toast.success(t("karauMeet.meetingScheduled"));
-          fetchUpcoming();
-          fetchMeetings();
-        } else {
-          toast.success(t("karauMeet.meetingCreated"));
-          navigate(`/karau-meet/lobby/${data.meeting_id}`);
-        }
-      } else {
-        toast.error(t("karauMeet.failedCreate"));
-      }
-    } catch {
-      toast.error(t("karauMeet.failedCreate"));
-    }
+        if (isScheduled) { toast.success(t("karauMeet.meetingScheduled")); fetchUpcoming(); fetchMeetings(); }
+        else { toast.success(t("karauMeet.meetingCreated")); navigate(`/karau-meet/lobby/${data.meeting_id}`); }
+      } else { toast.error(t("karauMeet.failedCreate")); }
+    } catch { toast.error(t("karauMeet.failedCreate")); }
     setCreating(false);
     setShowCreateDialog(false);
     setScheduledTime('');
@@ -195,524 +174,446 @@ const KarauMeetDashboard = ({ user }) => {
   };
 
   const copyMeetingLink = (meetingId) => {
-    const link = `${window.location.origin}/karau-meet/join/${meetingId}`;
-    navigator.clipboard.writeText(link);
+    navigator.clipboard.writeText(`${window.location.origin}/karau-meet/join/${meetingId}`);
     toast.success(t("karauMeet.meetingLinkCopied"));
   };
 
-  // Filter to only highlights and action items
-  const importantActivities = activities.filter(a =>
-    a.type === 'ai_insight' || a.type === 'meeting_started'
-  );
+  const importantActivities = activities.filter(a => a.type === 'ai_insight' || a.type === 'meeting_started');
+  const activeMeetings = meetings.filter(m => m.status === 'active');
+  const pastMeetings = meetings.filter(m => m.status === 'ended').slice(0, 5);
 
   const statItems = [
-    { label: t("karauMeet.meetings"), value: stats.total_meetings, icon: Video, gradient: 'from-blue-500/20 to-blue-600/5', iconColor: 'text-blue-400' },
-    { label: t("karauMeet.hours"), value: stats.total_hours, icon: Clock, gradient: 'from-purple-500/20 to-purple-600/5', iconColor: 'text-purple-400' },
-    { label: t("karauMeet.aiInsights"), value: stats.ai_insights, icon: Sparkles, gradient: 'from-violet-500/20 to-violet-600/5', iconColor: 'text-violet-400' },
-    { label: t("karauMeet.participants"), value: stats.total_participants, icon: Users, gradient: 'from-emerald-500/20 to-emerald-600/5', iconColor: 'text-emerald-400' }
-  ];
-
-  const features = [
-    { icon: Shield, label: t("karauMeet.e2eEncrypted"), color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/20' },
-    { icon: Sparkles, label: t("karauMeet.aiNotes"), color: 'text-purple-400', bg: 'bg-purple-500/10 border-purple-500/20' },
-    { icon: Globe, label: t("karauMeet.multiLanguage"), color: 'text-violet-400', bg: 'bg-violet-500/10 border-violet-500/20' },
-    { icon: Mic, label: t("karauMeet.noiseCancel"), color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' },
-    { icon: Bot, label: t("karauMeet.aiAssistant"), color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' }
+    { label: 'Meetings', value: stats.total_meetings, icon: Video, accent: 'text-blue-400', glow: 'group-hover:shadow-blue-500/20' },
+    { label: 'Hours', value: stats.total_hours, icon: Clock, accent: 'text-purple-400', glow: 'group-hover:shadow-purple-500/20' },
+    { label: 'AI Insights', value: stats.ai_insights, icon: Sparkles, accent: 'text-violet-400', glow: 'group-hover:shadow-violet-500/20' },
+    { label: 'Participants', value: stats.total_participants, icon: Users, accent: 'text-emerald-400', glow: 'group-hover:shadow-emerald-500/20' }
   ];
 
   return (
-    <div className="h-full flex flex-col p-4 md:p-6 overflow-hidden" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }} data-testid="karau-dashboard">
-      {/* Row 1: Welcome + Actions */}
-      <div className="flex items-center justify-between mb-4 flex-shrink-0">
+    <div className="h-full flex flex-col overflow-hidden" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }} data-testid="karau-dashboard">
+      {/* Header */}
+      <header className="flex items-center justify-between px-8 py-5 flex-shrink-0 border-b border-white/[0.04]">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bold text-white tracking-tight" data-testid="dashboard-welcome">
+          <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-3" data-testid="dashboard-welcome">
             {t("karauMeet.welcomeBack", { name: user?.name?.split(' ')[0] || 'User' })}
+            {isRefreshing && <Loader2 className="w-4 h-4 text-purple-400/50 animate-spin" />}
           </h1>
-          <p className="text-karau-muted text-sm mt-0.5 flex items-center gap-2">
-            {t("karauMeet.readyForMeeting")}
-            {isRefreshing && (
-              <span className="flex items-center gap-1 text-[10px] text-purple-400/60">
-                <Loader2 className="w-3 h-3 animate-spin" />
-              </span>
-            )}
-          </p>
+          <p className="text-slate-500 text-sm mt-0.5">{t("karauMeet.readyForMeeting")}</p>
         </div>
-        <div className="flex items-center gap-2">
-          {user?.is_admin && (
-            <Button variant="outline" className="border-white/10 text-slate-300 hover:text-white hover:border-purple-500/40 rounded-xl text-xs h-9" onClick={() => navigate('/karau-meet/enterprise')} data-testid="btn-enterprise">
-              <Building2 className="w-3.5 h-3.5 mr-1.5" />{t("karauMeet.enterprise")}
-            </Button>
-          )}
-          <Button onClick={() => setShowCreateDialog(true)} className="bg-gradient-to-r from-blue-600 via-purple-600 to-violet-600 hover:from-blue-500 hover:via-purple-500 hover:to-violet-500 text-white rounded-xl shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 transition-all duration-300 hover:scale-[1.02] h-9 text-xs" data-testid="btn-new-meeting">
-            <Plus className="w-3.5 h-3.5 mr-1.5" />{t("karauMeet.newMeeting")}
+        <div className="flex items-center gap-3">
+          <Button
+            onClick={() => setShowCreateDialog(true)}
+            className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-full px-6 h-10 shadow-lg shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] font-medium"
+            data-testid="btn-new-meeting"
+          >
+            <Plus className="w-4 h-4 mr-2" /> New Meeting
           </Button>
         </div>
-      </div>
+      </header>
 
-      {/* Row 2: Horizontal Bento Grid - Actions + Stats */}
-      <div className="grid grid-cols-12 gap-3 mb-3 flex-shrink-0">
-        {/* Start Meeting Card */}
-        <div className="col-span-12 md:col-span-5">
+      {/* Main content */}
+      <div className="flex-1 overflow-auto p-8 space-y-6">
+        {/* Row 1: Actions + Stats */}
+        <div className="grid grid-cols-12 gap-5">
+          {/* Start Meeting */}
           <div
-            className="relative group cursor-pointer overflow-hidden rounded-2xl border border-white/5 bg-gradient-to-br from-karau-card via-karau-panel to-karau-card p-5 hover:border-purple-500/30 transition-all duration-500 h-full"
+            className="col-span-12 md:col-span-5 group cursor-pointer rounded-2xl bg-white/[0.03] border border-white/[0.06] p-6 hover:bg-white/[0.06] hover:border-purple-500/20 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/5"
             onClick={() => setShowCreateDialog(true)}
             data-testid="card-instant-meeting"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-emerald-500/3 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative z-10 flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 via-purple-600 to-violet-600 flex items-center justify-center shadow-lg shadow-purple-500/25 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                <Video className="w-6 h-6 text-white" />
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-purple-500/25 group-hover:scale-110 transition-transform duration-300">
+                <Video className="w-7 h-7 text-white" />
               </div>
-              <div className="flex-1 min-w-0">
-                <h2 className="text-base font-semibold text-white">{t("karauMeet.startInstantMeeting")}</h2>
-                <p className="text-karau-muted text-xs mt-0.5">{t("karauMeet.createNewMeetingNow")}</p>
+              <div className="flex-1">
+                <h2 className="text-lg font-semibold text-white">{t("karauMeet.startInstantMeeting")}</h2>
+                <p className="text-slate-500 text-sm">{t("karauMeet.createNewMeetingNow")}</p>
               </div>
-              <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-purple-400 group-hover:translate-x-1 transition-all flex-shrink-0" />
+              <ArrowRight className="w-5 h-5 text-slate-700 group-hover:text-purple-400 group-hover:translate-x-1 transition-all" />
             </div>
           </div>
-        </div>
 
-        {/* Join Meeting Card */}
-        <div className="col-span-12 md:col-span-3">
-          <div className="h-full rounded-2xl border border-white/5 bg-gradient-to-br from-karau-card to-karau-panel p-5 hover:border-emerald-500/30 transition-all duration-300" data-testid="card-join-meeting">
-            <h3 className="text-sm font-semibold text-white mb-2">{t("karauMeet.joinMeeting")}</h3>
+          {/* Join Meeting */}
+          <div className="col-span-12 md:col-span-3 rounded-2xl bg-white/[0.03] border border-white/[0.06] p-6 hover:border-teal-500/20 transition-all duration-300" data-testid="card-join-meeting">
+            <h3 className="text-sm font-semibold text-white mb-3">{t("karauMeet.joinMeeting")}</h3>
             <div className="flex gap-2">
               <Input
-                placeholder={t("karauMeet.enterCode")}
+                placeholder="Enter code"
                 value={joinMeetingId}
                 onChange={(e) => setJoinMeetingId(e.target.value.toUpperCase())}
-                className="bg-karau-bg/60 border-white/10 text-white rounded-xl focus:border-emerald-500/40 focus:ring-emerald-500/20 font-mono tracking-wider text-xs h-9"
+                className="bg-black/30 border-white/[0.08] text-white rounded-xl font-mono tracking-wider text-xs h-10 focus:border-teal-500/40 focus:ring-teal-500/20 placeholder-slate-600"
                 onKeyPress={(e) => e.key === 'Enter' && joinMeeting()}
                 data-testid="input-join-id"
               />
-              <Button onClick={joinMeeting} className="bg-emerald-500/90 hover:bg-emerald-400 text-white font-medium rounded-xl px-4 h-9 text-xs shadow-lg shadow-emerald-500/15" data-testid="btn-join">
-                {t("karauMeet.join")}
+              <Button onClick={joinMeeting} className="bg-teal-600 hover:bg-teal-500 text-white rounded-xl px-4 h-10 shadow-lg shadow-teal-500/15" data-testid="btn-join">
+                Join
               </Button>
             </div>
           </div>
-        </div>
 
-        {/* Stats */}
-        <div className="col-span-12 md:col-span-4 grid grid-cols-4 gap-2">
-          {statItems.map((stat, idx) => (
-            <div key={idx} className={`rounded-xl border border-white/5 bg-gradient-to-br ${stat.gradient} p-3 transition-all duration-300 hover:border-white/10`} data-testid={`stat-${idx}`}>
-              <stat.icon className={`w-4 h-4 ${stat.iconColor} mb-1`} />
-              <p className="text-xl font-bold text-white">{stat.value}</p>
-              <p className="text-[10px] text-karau-muted">{stat.label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Row 3: Upcoming Meetings + Trending Topics */}
-      <div className="grid grid-cols-12 gap-3 mb-3 flex-shrink-0">
-        {/* Upcoming Meetings with countdown */}
-        <div className="col-span-12 md:col-span-7">
-          <div className="rounded-xl border border-white/5 bg-karau-card/40 p-3" data-testid="upcoming-meetings">
-            <div className="flex items-center gap-2 mb-2">
-              <CalendarClock className="w-3.5 h-3.5 text-blue-400" />
-              <span className="text-xs font-semibold text-white">{t("karauMeet.upcoming")}</span>
-              {upcoming.length > 0 && <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/20 text-[10px]">{upcoming.length}</Badge>}
-            </div>
-            {upcoming.length === 0 ? (
-              <p className="text-[11px] text-slate-600">{t("karauMeet.noScheduledMeetings")}</p>
-            ) : (
-              <div className="space-y-1.5">
-                {upcoming.slice(0, 3).map((m) => {
-                  const countdown = getCountdown(m.scheduled_time);
-                  return (
-                    <div key={m.meeting_id} className="flex items-center justify-between gap-2 px-2 py-1.5 rounded-lg bg-karau-bg/40 hover:bg-karau-surface transition-colors" data-testid={`upcoming-${m.meeting_id}`}>
-                      <div className="flex items-center gap-2 min-w-0 flex-1">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0" />
-                        <span className="text-[11px] text-slate-300 truncate">{m.title}</span>
-                        {countdown && (
-                          <Badge className="bg-blue-500/10 text-blue-300 border-blue-500/20 text-[9px] px-1.5 py-0 flex-shrink-0">
-                            {t("karauMeet.startsIn")} {countdown}
-                          </Badge>
-                        )}
-                        {m.scheduled_time && !countdown && (
-                          <span className="text-[9px] text-slate-500 flex-shrink-0">
-                            {new Date(m.scheduled_time).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
-                          </span>
-                        )}
-                      </div>
-                      <Button size="sm" onClick={() => navigate(`/karau-meet/lobby/${m.meeting_id}`)}
-                        className="bg-blue-500/80 hover:bg-blue-400 text-white rounded text-[9px] px-2 h-6">
-                        {t("karauMeet.start")}
-                      </Button>
-                    </div>
-                  );
-                })}
+          {/* Stats grid */}
+          <div className="col-span-12 md:col-span-4 grid grid-cols-2 gap-3">
+            {statItems.map((stat, idx) => (
+              <div key={idx} className={`group rounded-2xl bg-white/[0.03] border border-white/[0.06] p-4 hover:bg-white/[0.06] hover:border-white/[0.1] transition-all duration-300 ${stat.glow}`} data-testid={`stat-${idx}`}>
+                <stat.icon className={`w-4 h-4 ${stat.accent} mb-2 opacity-70`} />
+                <p className="text-2xl font-bold text-white tabular-nums">{stat.value}</p>
+                <p className="text-[11px] text-slate-500">{stat.label}</p>
               </div>
-            )}
+            ))}
           </div>
         </div>
 
-        {/* Trending Topics */}
-        <div className="col-span-12 md:col-span-5">
-          <div className="rounded-xl border border-white/5 bg-karau-card/40 p-3 h-full" data-testid="trending-topics">
-            <div className="flex items-center gap-2 mb-2">
-              <TrendingUp className="w-3.5 h-3.5 text-violet-400" />
-              <span className="text-xs font-semibold text-white">{t("karauMeet.trendingTopics")}</span>
+        {/* Row 2: AI Capabilities Banner */}
+        <div className="rounded-2xl bg-gradient-to-r from-purple-900/20 via-indigo-900/10 to-teal-900/20 border border-white/[0.06] p-5" data-testid="ai-capabilities-banner">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Zap className="w-4 h-4 text-amber-400" />
+              <span className="text-xs font-semibold text-white uppercase tracking-wider">AI-Powered Features</span>
             </div>
-            {trendingTopics.length === 0 ? (
-              <p className="text-[11px] text-slate-600">{t("karauMeet.topicsAppearHint")}</p>
-            ) : (
-              <div className="flex flex-wrap gap-1.5">
-                {trendingTopics.map((tp, i) => (
-                  <div key={i} className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] ${
-                    tp.sentiment === 'positive' ? 'bg-emerald-500/5 border-emerald-500/15 text-emerald-300' :
-                    tp.sentiment === 'concern' ? 'bg-amber-500/5 border-amber-500/15 text-amber-300' :
-                    'bg-purple-500/5 border-purple-500/15 text-purple-300'
-                  }`} data-testid={`topic-${i}`}>
-                    <span className="font-medium">{tp.topic}</span>
-                    {tp.count > 1 && <span className="text-[9px] opacity-60">x{tp.count}</span>}
-                  </div>
-                ))}
+            <span className="text-[10px] text-slate-500">Available in every meeting</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {AI_CAPABILITIES.map((cap, i) => (
+              <div key={i} className={`flex items-center gap-2 px-3 py-2 ${cap.bg} rounded-xl border border-white/[0.06] hover:border-white/[0.12] transition-all duration-200 cursor-default`}>
+                <cap.icon className={`w-3.5 h-3.5 ${cap.color}`} />
+                <span className="text-xs text-slate-300 font-medium">{cap.label}</span>
               </div>
-            )}
+            ))}
           </div>
         </div>
-      </div>
 
-      {/* Row 3b: Analytics - Effectiveness + Gamification */}
-      {(effectiveness || gamification) && (
-        <div className="grid grid-cols-12 gap-3 mb-3 flex-shrink-0">
-          {/* Meeting Effectiveness Score */}
-          {effectiveness && (
-            <div className="col-span-12 md:col-span-4" data-testid="effectiveness-card">
-              <div className="rounded-xl border border-white/5 bg-karau-card/40 p-3 h-full">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-1.5">
-                    <Target className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-xs font-semibold text-white">{t("karauMeet.meetingEffectiveness")}</span>
-                  </div>
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full border ${
-                    effectiveness.engagement_level === 'High' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
-                    effectiveness.engagement_level === 'Medium' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
-                    'bg-slate-500/10 text-slate-400 border-slate-500/20'
-                  }`}>{effectiveness.engagement_level}</span>
+        {/* Row 3: Upcoming + Analytics */}
+        <div className="grid grid-cols-12 gap-5">
+          {/* Upcoming Meetings */}
+          <div className="col-span-12 md:col-span-7">
+            <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden" data-testid="upcoming-meetings">
+              <button
+                onClick={() => setExpandedSection(expandedSection === 'upcoming' ? '' : 'upcoming')}
+                className="w-full flex items-center justify-between px-5 py-4 hover:bg-white/[0.02] transition-colors"
+              >
+                <div className="flex items-center gap-2">
+                  <CalendarClock className="w-4 h-4 text-blue-400" />
+                  <span className="text-sm font-semibold text-white">Upcoming</span>
+                  {upcoming.length > 0 && <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/20 text-[10px] ml-1">{upcoming.length}</Badge>}
                 </div>
-                <div className="flex items-end gap-3">
-                  <div className="relative w-14 h-14">
-                    <svg viewBox="0 0 36 36" className="w-14 h-14 -rotate-90">
-                      <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="3" />
-                      <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                        fill="none"
-                        stroke={effectiveness.overall_score >= 75 ? '#10b981' : effectiveness.overall_score >= 50 ? '#f59e0b' : '#6366f1'}
-                        strokeWidth="3" strokeDasharray={`${effectiveness.overall_score}, 100`} strokeLinecap="round" />
-                    </svg>
-                    <span className="absolute inset-0 flex items-center justify-center text-sm font-bold text-white">{effectiveness.overall_score}</span>
-                  </div>
-                  <div className="flex-1 text-[10px] text-slate-400 space-y-0.5">
-                    <p>{t("karauMeet.avgDuration")}: <span className="text-slate-300">{effectiveness.avg_duration_minutes}m</span></p>
-                    <p>{t("karauMeet.avgParticipants")}: <span className="text-slate-300">{effectiveness.avg_participants}</span></p>
-                    <p>{t("karauMeet.withNotes")}: <span className="text-slate-300">{effectiveness.meetings_with_notes}/{effectiveness.total_meetings}</span></p>
-                  </div>
-                </div>
-                <p className="text-[10px] text-slate-500 mt-2 italic">{effectiveness.tip}</p>
-              </div>
-            </div>
-          )}
-
-          {/* Gamification + Leaderboard */}
-          {gamification && (
-            <div className="col-span-12 md:col-span-4" data-testid="gamification-card">
-              <div className="rounded-xl border border-white/5 bg-karau-card/40 p-3 h-full">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-1.5">
-                    <Trophy className="w-3.5 h-3.5 text-amber-400" />
-                    <span className="text-xs font-semibold text-white">{gamification.rank_title}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-purple-400 font-semibold">Lv.{gamification.level}</span>
-                    {leaderboard && (
-                      <button onClick={() => setShowLeaderboard(!showLeaderboard)}
-                        className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/15 hover:bg-amber-500/20 transition-colors"
-                        data-testid="toggle-leaderboard-btn">
-                        #{leaderboard.my_rank}
-                      </button>
-                    )}
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
-                    <div className="h-full bg-gradient-to-r from-purple-500 to-violet-500 rounded-full transition-all"
-                      style={{ width: `${Math.max(5, (gamification.xp / (gamification.xp + gamification.xp_to_next)) * 100)}%` }} />
-                  </div>
-                  <span className="text-[10px] text-slate-500">{gamification.xp} XP</span>
-                </div>
-                <div className="flex items-center gap-3 mb-2">
-                  {gamification.streak_days > 0 && (
-                    <div className="flex items-center gap-1 text-[10px]">
-                      <Flame className="w-3 h-3 text-orange-400" />
-                      <span className="text-orange-300 font-semibold">{gamification.streak_days}d</span>
+                {expandedSection === 'upcoming' ? <ChevronUp className="w-4 h-4 text-slate-600" /> : <ChevronDown className="w-4 h-4 text-slate-600" />}
+              </button>
+              {expandedSection === 'upcoming' && (
+                <div className="px-5 pb-4">
+                  {upcoming.length === 0 ? (
+                    <p className="text-xs text-slate-600 py-3">No upcoming meetings scheduled</p>
+                  ) : (
+                    <div className="space-y-2">
+                      {upcoming.slice(0, 5).map((m) => {
+                        const countdown = getCountdown(m.scheduled_time);
+                        return (
+                          <div key={m.meeting_id} className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.04] transition-all" data-testid={`upcoming-${m.meeting_id}`}>
+                            <div className="flex items-center gap-3 min-w-0 flex-1">
+                              <div className="w-2 h-2 rounded-full bg-blue-400 flex-shrink-0" />
+                              <span className="text-sm text-slate-300 truncate">{m.title}</span>
+                              {countdown && (
+                                <Badge className="bg-blue-500/10 text-blue-300 border-blue-500/20 text-[10px] flex-shrink-0">{countdown}</Badge>
+                              )}
+                            </div>
+                            <Button size="sm" onClick={() => navigate(`/karau-meet/lobby/${m.meeting_id}`)}
+                              className="bg-blue-600/80 hover:bg-blue-500 text-white rounded-lg text-xs px-3 h-7">
+                              <Play className="w-3 h-3 mr-1" /> Start
+                            </Button>
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
-                  <div className="flex items-center gap-1 text-[10px]">
-                    <Video className="w-3 h-3 text-blue-400" />
-                    <span className="text-slate-400">{gamification.total_meetings}</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-[10px]">
-                    <Clock className="w-3 h-3 text-emerald-400" />
-                    <span className="text-slate-400">{gamification.total_hours}h</span>
-                  </div>
                 </div>
-                {gamification.badges.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mb-2">
-                    {gamification.badges.slice(0, 5).map(b => (
-                      <span key={b.id} className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/15" title={b.name}>
-                        {b.name}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                {/* Collapsible Leaderboard */}
-                {showLeaderboard && leaderboard && (
-                  <div className="mt-2 pt-2 border-t border-white/5 space-y-1" data-testid="leaderboard-list">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">{t("karauMeet.teamLeaderboard")}</span>
-                      <span className="text-[10px] text-slate-600">{leaderboard.total_users} {t("karauMeet.members")}</span>
-                    </div>
-                    {leaderboard.leaderboard.slice(0, 8).map((entry, i) => (
-                      <div key={entry.user_id}
-                        className={`flex items-center gap-2 px-2 py-1 rounded-lg text-[10px] ${
-                          entry.user_id === user?.user_id ? 'bg-purple-500/10 border border-purple-500/20' : 'hover:bg-white/[0.02]'
-                        }`} data-testid={`leaderboard-entry-${i}`}>
-                        <span className={`w-4 text-center font-bold ${
-                          i === 0 ? 'text-amber-400' : i === 1 ? 'text-slate-300' : i === 2 ? 'text-orange-400' : 'text-slate-500'
-                        }`}>{i + 1}</span>
-                        <div className="flex-1 min-w-0">
-                          <span className="text-slate-300 truncate block">{entry.name}</span>
-                        </div>
-                        <span className="text-slate-500">{entry.rank_title}</span>
-                        {entry.streak_days > 0 && <Flame className="w-2.5 h-2.5 text-orange-400" />}
-                        <span className="text-purple-400 font-semibold w-12 text-right">{entry.xp} XP</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+              )}
             </div>
-          )}
+          </div>
 
-          {/* Quick Analytics */}
-          {effectiveness && (
-            <div className="col-span-12 md:col-span-4" data-testid="quick-analytics-card">
-              <div className="rounded-xl border border-white/5 bg-karau-card/40 p-3 h-full">
-                <div className="flex items-center gap-1.5 mb-2">
-                  <BarChart3 className="w-3.5 h-3.5 text-blue-400" />
-                  <span className="text-xs font-semibold text-white">{t("karauMeet.quickAnalytics")}</span>
+          {/* Trending Topics */}
+          <div className="col-span-12 md:col-span-5">
+            <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5 h-full" data-testid="trending-topics">
+              <div className="flex items-center gap-2 mb-3">
+                <TrendingUp className="w-4 h-4 text-violet-400" />
+                <span className="text-sm font-semibold text-white">Trending Topics</span>
+              </div>
+              {trendingTopics.length === 0 ? (
+                <p className="text-xs text-slate-600">Topics will appear after your first meetings</p>
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {trendingTopics.map((tp, i) => (
+                    <div key={i} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs ${
+                      tp.sentiment === 'positive' ? 'bg-emerald-500/5 border-emerald-500/15 text-emerald-300' :
+                      tp.sentiment === 'concern' ? 'bg-amber-500/5 border-amber-500/15 text-amber-300' :
+                      'bg-purple-500/5 border-purple-500/15 text-purple-300'
+                    }`} data-testid={`topic-${i}`}>
+                      <span className="font-medium">{tp.topic}</span>
+                      {tp.count > 1 && <span className="text-[10px] opacity-60">x{tp.count}</span>}
+                    </div>
+                  ))}
                 </div>
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-slate-400">{t("karauMeet.onTimeRate")}</span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Row 4: Analytics row */}
+        {(effectiveness || gamification) && (
+          <div className="grid grid-cols-12 gap-5">
+            {effectiveness && (
+              <div className="col-span-12 md:col-span-4" data-testid="effectiveness-card">
+                <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5 h-full">
+                  <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-20 h-1.5 bg-white/5 rounded-full overflow-hidden">
-                        <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${effectiveness.on_time_rate}%` }} />
-                      </div>
-                      <span className="text-[10px] text-emerald-400 font-semibold">{effectiveness.on_time_rate}%</span>
+                      <Target className="w-4 h-4 text-emerald-400" />
+                      <span className="text-sm font-semibold text-white">Effectiveness</span>
                     </div>
+                    <span className={`text-[10px] px-2 py-0.5 rounded-full border ${
+                      effectiveness.engagement_level === 'High' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
+                      effectiveness.engagement_level === 'Medium' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
+                      'bg-slate-500/10 text-slate-400 border-slate-500/20'
+                    }`}>{effectiveness.engagement_level}</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-slate-400">{t("karauMeet.aiNotesUsage")}</span>
-                    <div className="flex items-center gap-2">
-                      <div className="w-20 h-1.5 bg-white/5 rounded-full overflow-hidden">
-                        <div className="h-full bg-violet-500 rounded-full" style={{ width: `${effectiveness.total_meetings > 0 ? (effectiveness.meetings_with_notes / effectiveness.total_meetings * 100) : 0}%` }} />
-                      </div>
-                      <span className="text-[10px] text-violet-400 font-semibold">{effectiveness.total_meetings > 0 ? Math.round(effectiveness.meetings_with_notes / effectiveness.total_meetings * 100) : 0}%</span>
+                  <div className="flex items-end gap-4">
+                    <div className="relative w-16 h-16">
+                      <svg viewBox="0 0 36 36" className="w-16 h-16 -rotate-90">
+                        <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="3" />
+                        <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none"
+                          stroke={effectiveness.overall_score >= 75 ? '#10b981' : effectiveness.overall_score >= 50 ? '#f59e0b' : '#6366f1'}
+                          strokeWidth="3" strokeDasharray={`${effectiveness.overall_score}, 100`} strokeLinecap="round" />
+                      </svg>
+                      <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-white">{effectiveness.overall_score}</span>
                     </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-slate-400">{t("karauMeet.actionItems")}</span>
-                    <div className="flex items-center gap-2">
-                      <div className="w-20 h-1.5 bg-white/5 rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-500 rounded-full" style={{ width: `${effectiveness.total_meetings > 0 ? (effectiveness.meetings_with_action_items / effectiveness.total_meetings * 100) : 0}%` }} />
-                      </div>
-                      <span className="text-[10px] text-blue-400 font-semibold">{effectiveness.total_meetings > 0 ? Math.round(effectiveness.meetings_with_action_items / effectiveness.total_meetings * 100) : 0}%</span>
+                    <div className="flex-1 text-xs text-slate-500 space-y-1">
+                      <p>Avg: <span className="text-slate-300">{effectiveness.avg_duration_minutes}m</span></p>
+                      <p>Participants: <span className="text-slate-300">{effectiveness.avg_participants}</span></p>
+                      <p>With notes: <span className="text-slate-300">{effectiveness.meetings_with_notes}/{effectiveness.total_meetings}</span></p>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Row 4: Feature Badges + Active Badge */}
-      <div className="flex items-center justify-between mb-2 flex-shrink-0">
-        <div className="flex flex-wrap gap-1.5">
-          {features.map((f, i) => (
-            <div key={i} className={`flex items-center gap-1 px-2 py-1 ${f.bg} rounded-full border text-[10px]`}>
-              <f.icon className={`w-2.5 h-2.5 ${f.color}`} />
-              <span className="font-medium text-slate-400">{f.label}</span>
-            </div>
-          ))}
-        </div>
-        {stats.active_meetings > 0 && (
-          <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px] animate-pulse" data-testid="active-meetings-badge">
-            {stats.active_meetings} {t("karauMeet.active")}
-          </Badge>
-        )}
-      </div>
-
-      {/* Row 5: Collapsible Sections */}
-      <div className="flex-1 min-h-0 space-y-2 overflow-auto">
-        {/* Highlights - Collapsible */}
-        <div>
-          <button onClick={() => setShowPulse(!showPulse)} className="flex items-center gap-2 group w-full text-left py-1" data-testid="toggle-pulse">
-            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-            <span className="text-sm font-semibold text-white">{t("karauMeet.highlights")}</span>
-            {importantActivities.length > 0 && (
-              <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[10px]">{importantActivities.length}</Badge>
             )}
-            {showPulse ? <ChevronUp className="w-3 h-3 text-slate-500" /> : <ChevronDown className="w-3 h-3 text-slate-500" />}
-          </button>
-          {showPulse && (
-            <div className="rounded-xl border border-white/5 bg-karau-card/40 overflow-auto max-h-48 mt-1" data-testid="activity-feed">
-              {activitiesLoading ? (
-                <div className="flex items-center justify-center py-4"><Loader2 className="w-4 h-4 text-purple-400 animate-spin" /></div>
-              ) : importantActivities.length === 0 ? (
-                <div className="text-center py-4"><p className="text-slate-600 text-xs">{t("karauMeet.noHighlights")}</p></div>
-              ) : (
-                <div className="divide-y divide-white/[0.03]">
-                  {importantActivities.map((a, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 px-3 py-2 hover:bg-white/[0.02] transition-colors" data-testid={`activity-${idx}`}>
-                      <div className={`w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 ${a.type === 'ai_insight' ? 'bg-violet-500/10' : 'bg-emerald-500/10'}`}>
-                        {a.icon === 'sparkles' ? <Sparkles className="w-2.5 h-2.5 text-violet-400" /> : <Video className="w-2.5 h-2.5 text-emerald-400" />}
-                      </div>
-                      <p className="text-[11px] text-slate-300 truncate flex-1">{a.text}</p>
-                      <span className="text-[9px] text-slate-600 flex-shrink-0">
-                        {a.timestamp ? new Date(a.timestamp).toLocaleString([], { month: 'short', day: 'numeric' }) : ''}
-                      </span>
+            {gamification && (
+              <div className="col-span-12 md:col-span-4" data-testid="gamification-card">
+                <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5 h-full">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <Trophy className="w-4 h-4 text-amber-400" />
+                      <span className="text-sm font-semibold text-white">{gamification.rank_title}</span>
                     </div>
-                  ))}
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-purple-400 font-semibold">Lv.{gamification.level}</span>
+                      {leaderboard && (
+                        <button onClick={() => setShowLeaderboard(!showLeaderboard)}
+                          className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/15 hover:bg-amber-500/20 transition-colors"
+                          data-testid="toggle-leaderboard-btn">#{leaderboard.my_rank}</button>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="flex-1 h-2 bg-white/[0.04] rounded-full overflow-hidden">
+                      <div className="h-full bg-gradient-to-r from-purple-500 to-violet-500 rounded-full transition-all" style={{ width: `${Math.max(5, (gamification.xp / (gamification.xp + gamification.xp_to_next)) * 100)}%` }} />
+                    </div>
+                    <span className="text-xs text-slate-500">{gamification.xp} XP</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {gamification.streak_days > 0 && <div className="flex items-center gap-1 text-xs"><Flame className="w-3.5 h-3.5 text-orange-400" /><span className="text-orange-300 font-semibold">{gamification.streak_days}d</span></div>}
+                    <div className="flex items-center gap-1 text-xs"><Video className="w-3.5 h-3.5 text-blue-400" /><span className="text-slate-400">{gamification.total_meetings}</span></div>
+                    <div className="flex items-center gap-1 text-xs"><Clock className="w-3.5 h-3.5 text-emerald-400" /><span className="text-slate-400">{gamification.total_hours}h</span></div>
+                  </div>
+                  {gamification.badges.length > 0 && (
+                    <div className="flex flex-wrap gap-1 mt-3">
+                      {gamification.badges.slice(0, 5).map(b => (
+                        <span key={b.id} className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/15" title={b.name}>{b.name}</span>
+                      ))}
+                    </div>
+                  )}
+                  {showLeaderboard && leaderboard && (
+                    <div className="mt-3 pt-3 border-t border-white/[0.05] space-y-1" data-testid="leaderboard-list">
+                      {leaderboard.leaderboard.slice(0, 8).map((entry, i) => (
+                        <div key={entry.user_id} className={`flex items-center gap-2 px-2 py-1.5 rounded-lg text-xs ${entry.user_id === user?.user_id ? 'bg-purple-500/10 border border-purple-500/20' : ''}`} data-testid={`leaderboard-entry-${i}`}>
+                          <span className={`w-4 text-center font-bold ${i === 0 ? 'text-amber-400' : i === 1 ? 'text-slate-300' : i === 2 ? 'text-orange-400' : 'text-slate-500'}`}>{i + 1}</span>
+                          <span className="text-slate-300 flex-1 truncate">{entry.name}</span>
+                          <span className="text-purple-400 font-semibold">{entry.xp} XP</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          )}
-        </div>
+              </div>
+            )}
+            {effectiveness && (
+              <div className="col-span-12 md:col-span-4" data-testid="quick-analytics-card">
+                <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5 h-full">
+                  <div className="flex items-center gap-2 mb-3">
+                    <BarChart3 className="w-4 h-4 text-blue-400" />
+                    <span className="text-sm font-semibold text-white">Quick Analytics</span>
+                  </div>
+                  <div className="space-y-3">
+                    {[
+                      { label: 'On-time rate', value: effectiveness.on_time_rate, color: 'bg-emerald-500', textColor: 'text-emerald-400' },
+                      { label: 'AI Notes usage', value: effectiveness.total_meetings > 0 ? Math.round(effectiveness.meetings_with_notes / effectiveness.total_meetings * 100) : 0, color: 'bg-violet-500', textColor: 'text-violet-400' },
+                      { label: 'Action items', value: effectiveness.total_meetings > 0 ? Math.round(effectiveness.meetings_with_action_items / effectiveness.total_meetings * 100) : 0, color: 'bg-blue-500', textColor: 'text-blue-400' },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-center justify-between">
+                        <span className="text-xs text-slate-500">{item.label}</span>
+                        <div className="flex items-center gap-2">
+                          <div className="w-24 h-1.5 bg-white/[0.04] rounded-full overflow-hidden">
+                            <div className={`h-full ${item.color} rounded-full transition-all`} style={{ width: `${item.value}%` }} />
+                          </div>
+                          <span className={`text-xs ${item.textColor} font-semibold w-8 text-right`}>{item.value}%</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
-        {/* Recent Meetings - Collapsible */}
-        <div>
-          <button onClick={() => setShowMeetings(!showMeetings)} className="flex items-center gap-2 group w-full text-left py-1" data-testid="toggle-meetings">
-            <span className="text-sm font-semibold text-white">{t("karauMeet.recentMeetings")}</span>
-            <Badge className="bg-karau-surface text-slate-400 border-white/5 text-[10px]">{meetings.length}</Badge>
-            {showMeetings ? <ChevronUp className="w-3 h-3 text-slate-500" /> : <ChevronDown className="w-3 h-3 text-slate-500" />}
-          </button>
-          {showMeetings && (
-            <div className="rounded-xl border border-white/5 bg-karau-card/40 overflow-auto max-h-48 mt-1" data-testid="meetings-list">
-              {loading ? (
-                <div className="flex items-center justify-center py-4"><Loader2 className="w-4 h-4 text-purple-400 animate-spin" /></div>
-              ) : meetings.length === 0 ? (
-                <div className="text-center py-4" data-testid="no-meetings"><p className="text-slate-500 text-xs">{t("karauMeet.noMeetingsYet")}</p></div>
+        {/* Row 5: Recent Meetings + Highlights */}
+        <div className="grid grid-cols-12 gap-5">
+          {/* Recent Meetings */}
+          <div className="col-span-12 md:col-span-7">
+            <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden" data-testid="meetings-list">
+              <button
+                onClick={() => setExpandedSection(expandedSection === 'meetings' ? '' : 'meetings')}
+                className="w-full flex items-center justify-between px-5 py-4 hover:bg-white/[0.02] transition-colors"
+              >
+                <div className="flex items-center gap-2">
+                  <Video className="w-4 h-4 text-slate-400" />
+                  <span className="text-sm font-semibold text-white">Recent Meetings</span>
+                  <Badge className="bg-white/[0.06] text-slate-400 border-white/[0.06] text-[10px]">{meetings.length}</Badge>
+                  {activeMeetings.length > 0 && <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px] animate-pulse">{activeMeetings.length} active</Badge>}
+                </div>
+                {expandedSection === 'meetings' ? <ChevronUp className="w-4 h-4 text-slate-600" /> : <ChevronDown className="w-4 h-4 text-slate-600" />}
+              </button>
+              {expandedSection === 'meetings' && (
+                <div className="px-5 pb-4">
+                  {loading ? (
+                    <div className="flex items-center justify-center py-6"><Loader2 className="w-5 h-5 text-purple-400 animate-spin" /></div>
+                  ) : meetings.length === 0 ? (
+                    <p className="text-xs text-slate-600 py-4" data-testid="no-meetings">No meetings yet. Start your first one!</p>
+                  ) : (
+                    <div className="space-y-2">
+                      {meetings.slice(0, 8).map((meeting) => (
+                        <div key={meeting.meeting_id} className="flex items-center justify-between px-4 py-3 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.04] transition-all" data-testid={`meeting-${meeting.meeting_id}`}>
+                          <div className="flex items-center gap-3 min-w-0 flex-1">
+                            <div className={`w-2 h-2 rounded-full flex-shrink-0 ${meeting.status === 'active' ? 'bg-emerald-400 animate-pulse' : meeting.status === 'ended' ? 'bg-slate-600' : 'bg-blue-400'}`} />
+                            <span className="text-sm text-slate-300 truncate">{meeting.title}</span>
+                            <span className="text-[10px] text-slate-600">{new Date(meeting.created_at).toLocaleDateString([], { month: 'short', day: 'numeric' })}</span>
+                          </div>
+                          <div className="flex items-center gap-2 flex-shrink-0">
+                            <button onClick={() => copyMeetingLink(meeting.meeting_id)} className="text-slate-600 hover:text-white p-1 rounded-lg hover:bg-white/[0.06] transition-colors">
+                              <Copy className="w-3.5 h-3.5" />
+                            </button>
+                            {meeting.status !== 'ended' && (
+                              <Button size="sm" onClick={() => navigate(`/karau-meet/lobby/${meeting.meeting_id}`)} className={`rounded-lg text-xs px-3 h-7 ${meeting.status === 'active' ? 'bg-emerald-600 hover:bg-emerald-500' : 'bg-purple-600/80 hover:bg-purple-500'} text-white`}>
+                                {meeting.status === 'active' ? 'Rejoin' : 'Start'}
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Activity Highlights */}
+          <div className="col-span-12 md:col-span-5">
+            <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5 h-full" data-testid="activity-feed">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                <span className="text-sm font-semibold text-white">Highlights</span>
+                {importantActivities.length > 0 && <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[10px]">{importantActivities.length}</Badge>}
+              </div>
+              {importantActivities.length === 0 ? (
+                <p className="text-xs text-slate-600">Highlights will appear after meetings</p>
               ) : (
-                <div className="divide-y divide-white/[0.03]">
-                  {meetings.slice(0, 6).map((meeting) => (
-                    <div key={meeting.meeting_id} className="flex items-center justify-between px-3 py-2 hover:bg-white/[0.02] transition-colors" data-testid={`meeting-${meeting.meeting_id}`}>
-                      <div className="flex items-center gap-2 min-w-0 flex-1">
-                        <div className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${meeting.status === 'active' ? 'bg-emerald-400' : 'bg-slate-600'}`} />
-                        <span className="text-[11px] text-slate-300 truncate">{meeting.title}</span>
-                        <Badge className={`text-[8px] px-1 py-0 rounded flex-shrink-0 ${meeting.status === 'active' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-slate-500/10 text-slate-500 border-slate-500/20'}`}>{meeting.status}</Badge>
+                <div className="space-y-2 max-h-48 overflow-auto">
+                  {importantActivities.map((a, idx) => (
+                    <div key={idx} className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/[0.02] border border-white/[0.03] hover:bg-white/[0.04] transition-colors" data-testid={`activity-${idx}`}>
+                      <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${a.type === 'ai_insight' ? 'bg-violet-500/10' : 'bg-emerald-500/10'}`}>
+                        {a.icon === 'sparkles' ? <Sparkles className="w-3.5 h-3.5 text-violet-400" /> : <Video className="w-3.5 h-3.5 text-emerald-400" />}
                       </div>
-                      <div className="flex items-center gap-1 flex-shrink-0">
-                        <Button variant="ghost" size="sm" onClick={() => copyMeetingLink(meeting.meeting_id)} className="text-slate-600 hover:text-white rounded h-6 w-6 p-0">
-                          <Copy className="w-2.5 h-2.5" />
-                        </Button>
-                        {meeting.status !== 'ended' && (
-                          <Button size="sm" onClick={() => navigate(`/karau-meet/lobby/${meeting.meeting_id}`)} className={`rounded text-[9px] px-2 h-6 ${meeting.status === 'active' ? 'bg-emerald-500 hover:bg-emerald-400 text-white' : 'bg-purple-500/80 hover:bg-purple-400 text-white'}`}>
-                            {meeting.status === 'active' ? t("karauMeet.rejoin") : t("karauMeet.start")}
-                          </Button>
-                        )}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs text-slate-300 truncate">{a.text}</p>
+                        <span className="text-[10px] text-slate-600">{a.timestamp ? new Date(a.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric' }) : ''}</span>
                       </div>
                     </div>
                   ))}
                 </div>
               )}
             </div>
-          )}
+          </div>
         </div>
       </div>
 
-      {/* Create Meeting Dialog with Scheduling */}
+      {/* Create Meeting Dialog */}
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-        <DialogContent className="bg-karau-card border-white/10 rounded-2xl shadow-2xl shadow-black/50 max-w-lg">
+        <DialogContent className="bg-[#1a1b2e] border-white/[0.08] rounded-2xl shadow-2xl shadow-black/60 max-w-lg">
           <DialogHeader>
-            <DialogTitle className="text-white font-semibold" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>{t("karauMeet.createNewMeeting")}</DialogTitle>
+            <DialogTitle className="text-white text-lg font-semibold" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>{t("karauMeet.createNewMeeting")}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-2">
             <div>
-              <Label className="text-slate-300 text-sm">{t("karauMeet.meetingTitle")}</Label>
-              <Input placeholder={t("karauMeet.meetingTitlePlaceholder")} value={newMeetingTitle} onChange={(e) => setNewMeetingTitle(e.target.value)} className="bg-karau-bg/60 border-white/10 text-white mt-1.5 rounded-xl focus:border-purple-500/40" data-testid="input-meeting-title" />
-            </div>
-            {/* Schedule Date/Time */}
-            <div>
-              <Label className="text-slate-300 text-sm">{t("karauMeet.selectDateTime")}</Label>
-              <Input
-                type="datetime-local"
-                value={scheduledTime}
-                onChange={(e) => setScheduledTime(e.target.value)}
-                className="bg-karau-bg/60 border-white/10 text-white mt-1.5 rounded-xl focus:border-blue-500/40 [color-scheme:dark]"
-                data-testid="input-scheduled-time"
-              />
-              {scheduledTime && (
-                <p className="text-[10px] text-blue-400 mt-1">
-                  {t("karauMeet.scheduledFor")} {new Date(scheduledTime).toLocaleString()}
-                </p>
-              )}
+              <Label className="text-slate-400 text-xs uppercase tracking-wider">Meeting title</Label>
+              <Input placeholder="e.g. Weekly Team Sync" value={newMeetingTitle} onChange={(e) => setNewMeetingTitle(e.target.value)}
+                className="bg-black/30 border-white/[0.08] text-white mt-2 rounded-xl h-11 focus:border-purple-500/40 placeholder-slate-600" data-testid="input-meeting-title" />
             </div>
             <div>
-              <Label className="text-slate-300 text-sm mb-2 block">{t("karauMeet.templateOptional")}</Label>
-              <div className="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto">
-                {templates.map(tmpl => (
-                  <button key={tmpl.template_id} onClick={() => setSelectedTemplate(selectedTemplate?.template_id === tmpl.template_id ? null : tmpl)}
-                    className={`text-left p-2 rounded-xl border transition-all text-xs ${selectedTemplate?.template_id === tmpl.template_id ? 'border-purple-500/50 bg-purple-500/10 text-purple-300' : 'border-white/5 bg-karau-bg/40 text-slate-400 hover:border-white/10'}`} data-testid={`template-${tmpl.template_id}`}>
-                    <span className="font-medium block text-slate-200 text-xs">{tmpl.name}</span>
-                    <span className="text-[10px] text-slate-500">{tmpl.industry}</span>
-                  </button>
-                ))}
-              </div>
+              <Label className="text-slate-400 text-xs uppercase tracking-wider">Schedule (optional)</Label>
+              <Input type="datetime-local" value={scheduledTime} onChange={(e) => setScheduledTime(e.target.value)}
+                className="bg-black/30 border-white/[0.08] text-white mt-2 rounded-xl h-11 focus:border-blue-500/40 [color-scheme:dark]" data-testid="input-scheduled-time" />
             </div>
-            <div className="flex items-center justify-between p-3 bg-karau-bg/40 rounded-xl">
+            {templates.length > 0 && (
               <div>
-                <Label className="text-slate-300 text-sm">{t("karauMeet.enableAINotes")}</Label>
-                <p className="text-xs text-karau-muted">{t("karauMeet.autoTranscription")}</p>
+                <Label className="text-slate-400 text-xs uppercase tracking-wider mb-2 block">Template (optional)</Label>
+                <div className="grid grid-cols-2 gap-2 max-h-28 overflow-y-auto">
+                  {templates.map(tmpl => (
+                    <button key={tmpl.template_id} onClick={() => setSelectedTemplate(selectedTemplate?.template_id === tmpl.template_id ? null : tmpl)}
+                      className={`text-left p-3 rounded-xl border transition-all text-xs ${selectedTemplate?.template_id === tmpl.template_id ? 'border-purple-500/40 bg-purple-500/10 text-purple-300' : 'border-white/[0.06] bg-white/[0.02] text-slate-400 hover:border-white/[0.1]'}`}
+                      data-testid={`template-${tmpl.template_id}`}>
+                      <span className="font-medium block text-slate-200">{tmpl.name}</span>
+                      <span className="text-[10px] text-slate-500">{tmpl.industry}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
+            )}
+            <div className="flex items-center justify-between p-4 bg-white/[0.03] rounded-xl border border-white/[0.05]">
+              <div><Label className="text-slate-300 text-sm">AI Notes</Label><p className="text-[11px] text-slate-500">Auto-transcribe and summarize</p></div>
               <Switch defaultChecked />
             </div>
-            <div className="flex items-center justify-between p-3 bg-karau-bg/40 rounded-xl">
-              <div>
-                <Label className="text-slate-300 text-sm">{t("karauMeet.enableRecording")}</Label>
-                <p className="text-xs text-karau-muted">{t("karauMeet.recordingConsent")}</p>
-              </div>
+            <div className="flex items-center justify-between p-4 bg-white/[0.03] rounded-xl border border-white/[0.05]">
+              <div><Label className="text-slate-300 text-sm">Recording</Label><p className="text-[11px] text-slate-500">Cloud recording with consent</p></div>
               <Switch defaultChecked />
             </div>
           </div>
           <DialogFooter className="flex-col sm:flex-row gap-2">
-            <Button variant="ghost" onClick={() => { setShowCreateDialog(false); setScheduledTime(''); }} className="text-slate-400 rounded-xl">
-              {t("karauMeet.cancel")}
-            </Button>
+            <Button variant="ghost" onClick={() => { setShowCreateDialog(false); setScheduledTime(''); }} className="text-slate-400 rounded-full">Cancel</Button>
             <div className="flex gap-2">
               {scheduledTime && (
-                <Button variant="outline" onClick={() => createMeeting(true)} disabled={creating} className="border-blue-500/30 text-blue-300 hover:bg-blue-500/10 rounded-xl" data-testid="btn-schedule">
+                <Button variant="outline" onClick={() => createMeeting(true)} disabled={creating}
+                  className="border-blue-500/30 text-blue-300 hover:bg-blue-500/10 rounded-full" data-testid="btn-schedule">
                   {creating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <CalendarClock className="w-4 h-4 mr-2" />}
-                  {t("karauMeet.scheduleMeeting")}
+                  Schedule
                 </Button>
               )}
-              <Button onClick={() => createMeeting(false)} disabled={creating} className="bg-gradient-to-r from-blue-600 via-purple-600 to-violet-600 hover:from-blue-500 hover:via-purple-500 hover:to-violet-500 text-white rounded-xl shadow-lg shadow-purple-500/20" data-testid="btn-create-meeting">
+              <Button onClick={() => createMeeting(false)} disabled={creating}
+                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-full shadow-lg shadow-purple-500/20" data-testid="btn-create-meeting">
                 {creating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                {t("karauMeet.startMeeting")}
+                Start Now
               </Button>
             </div>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
-      {shareMeeting && (
-        <ShareMeetingDialog isOpen={!!shareMeeting} onClose={() => setShareMeeting(null)} meetingId={shareMeeting.meeting_id} meetingTitle={shareMeeting.title} />
-      )}
+      {shareMeeting && <ShareMeetingDialog isOpen={!!shareMeeting} onClose={() => setShareMeeting(null)} meetingId={shareMeeting.meeting_id} meetingTitle={shareMeeting.title} />}
     </div>
   );
 };

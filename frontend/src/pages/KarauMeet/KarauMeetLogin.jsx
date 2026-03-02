@@ -1,14 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'sonner';
-import { Video, Users, Shield, Sparkles, Loader2 } from 'lucide-react';
+import {
+  Video, Users, Shield, Sparkles, Loader2, Eye, Mic,
+  Globe, Brain, Wand2, Radio, Volume2, Zap, Lock,
+  ArrowRight, ChevronRight
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
+
+const AI_FEATURES = [
+  { icon: Brain, label: 'AI Meeting Coach', desc: 'Real-time presentation tips', color: 'from-purple-500 to-violet-600' },
+  { icon: Eye, label: 'Eye Contact Correction', desc: 'AI-powered gaze alignment', color: 'from-teal-500 to-emerald-600' },
+  { icon: Globe, label: 'Live Transcription', desc: '40+ language captions', color: 'from-blue-500 to-indigo-600' },
+  { icon: Wand2, label: 'Cinematic Director', desc: 'Auto camera switching', color: 'from-amber-500 to-orange-600' },
+  { icon: Volume2, label: 'Spatial Audio', desc: '3D positional sound', color: 'from-rose-500 to-pink-600' },
+  { icon: Mic, label: 'Noise Cancellation', desc: 'AI-powered audio cleanup', color: 'from-cyan-500 to-blue-600' },
+];
 
 const KarauMeetLogin = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -19,6 +31,14 @@ const KarauMeetLogin = ({ onLogin }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState('signin');
+  const [activeFeature, setActiveFeature] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveFeature(prev => (prev + 1) % AI_FEATURES.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -58,42 +78,107 @@ const KarauMeetLogin = ({ onLogin }) => {
     window.location.href = `${API}/api/auth/google`;
   };
 
-  const handleAppleSignIn = async () => {
-    toast.info(t("karauMeet.appleComingSoon"));
-  };
-
   return (
-    <div className="min-h-screen bg-karau-bg flex items-center justify-center p-4" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 25% 25%, rgba(108, 60, 224, 0.3) 0%, transparent 50%),
-                           radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.3) 0%, transparent 50%)`
-        }} />
-      </div>
+    <div className="min-h-screen bg-[#0c0d1a] flex overflow-hidden" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
+      {/* Left side - Feature showcase */}
+      <div className="hidden lg:flex lg:w-[55%] relative flex-col justify-between p-12 overflow-hidden">
+        {/* Ambient background effects */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-600/8 rounded-full blur-[120px]" />
+          <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-teal-500/8 rounded-full blur-[100px]" />
+          <div className="absolute top-1/2 left-1/3 w-[300px] h-[300px] bg-indigo-500/5 rounded-full blur-[80px]" />
+        </div>
 
-      <Card className="w-full max-w-md bg-karau-card/90 border-karau-border backdrop-blur-xl relative z-10 rounded-2xl">
-        <CardHeader className="text-center pb-2">
-          <div className="mx-auto mb-4">
+        {/* Logo + tagline */}
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-2">
             <img
               src="https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg"
-              alt="AI KARAU - The Meeting Place"
-              className="w-28 h-28 rounded-2xl object-cover shadow-lg shadow-purple-500/20"
+              alt="AI KARAU"
+              className="w-12 h-12 rounded-2xl object-cover ring-2 ring-white/10"
             />
+            <span className="text-xl font-bold text-white tracking-tight">AI KARAU</span>
           </div>
-          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-violet-300 to-emerald-400 bg-clip-text text-transparent">
-            {t("karauMeet.aiKarauMeeting")}
-          </CardTitle>
-          <CardDescription className="text-karau-muted">
-            {t("karauMeet.tagline")}
-          </CardDescription>
-        </CardHeader>
+          <p className="text-slate-500 text-sm ml-[60px] -mt-1">Distance Zero Communication</p>
+        </div>
 
-        <CardContent className="space-y-4">
-          <div className="flex gap-2 p-1 bg-karau-bg/60 rounded-xl">
+        {/* Hero section */}
+        <div className="relative z-10 flex-1 flex flex-col justify-center max-w-xl">
+          <h1 className="text-5xl font-bold text-white leading-[1.1] tracking-tight mb-6">
+            Meetings that feel
+            <br />
+            <span className="bg-gradient-to-r from-teal-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+              like being there
+            </span>
+          </h1>
+          <p className="text-lg text-slate-400 leading-relaxed mb-10 max-w-md">
+            AI-powered video meetings with eye contact correction, spatial audio, 
+            live transcription, and cinematic replay. Zero distance, full presence.
+          </p>
+
+          {/* Feature carousel */}
+          <div className="space-y-3" data-testid="feature-carousel">
+            {AI_FEATURES.map((feature, idx) => (
+              <div
+                key={idx}
+                className={`flex items-center gap-4 p-4 rounded-2xl border transition-all duration-500 cursor-default ${
+                  idx === activeFeature
+                    ? 'bg-white/[0.06] border-white/15 scale-[1.02]'
+                    : 'bg-transparent border-transparent opacity-40 scale-100'
+                }`}
+                onMouseEnter={() => setActiveFeature(idx)}
+                data-testid={`feature-${idx}`}
+              >
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${feature.color} flex items-center justify-center flex-shrink-0 shadow-lg ${
+                  idx === activeFeature ? 'shadow-purple-500/20' : ''
+                }`}>
+                  <feature.icon className="w-5 h-5 text-white" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-white">{feature.label}</p>
+                  <p className="text-xs text-slate-500">{feature.desc}</p>
+                </div>
+                {idx === activeFeature && (
+                  <Zap className="w-4 h-4 text-teal-400 ml-auto flex-shrink-0 animate-pulse" />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom trust badges */}
+        <div className="relative z-10 flex items-center gap-6 text-xs text-slate-600">
+          <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> E2E Encrypted</span>
+          <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> SOC 2 Compliant</span>
+          <span className="flex items-center gap-1.5"><Globe className="w-3.5 h-3.5" /> 40+ Languages</span>
+        </div>
+      </div>
+
+      {/* Right side - Auth form */}
+      <div className="flex-1 flex items-center justify-center p-6 lg:p-12 relative">
+        {/* Subtle background glow */}
+        <div className="absolute inset-0 bg-gradient-to-bl from-purple-600/5 via-transparent to-teal-500/5" />
+        
+        <div className="w-full max-w-[420px] relative z-10">
+          {/* Mobile logo */}
+          <div className="lg:hidden text-center mb-8">
+            <img
+              src="https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg"
+              alt="AI KARAU"
+              className="w-20 h-20 rounded-2xl object-cover shadow-lg shadow-purple-500/20 mx-auto mb-4"
+            />
+            <h2 className="text-2xl font-bold text-white">AI KARAU</h2>
+            <p className="text-slate-500 text-sm">Distance Zero Communication</p>
+          </div>
+
+          {/* Tab switcher */}
+          <div className="flex gap-1 p-1 bg-white/[0.04] rounded-full mb-8 border border-white/[0.06]">
             <button
               onClick={() => setActiveTab('signin')}
-              className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
-                activeTab === 'signin' ? 'bg-karau-accent text-white shadow-lg shadow-purple-500/20' : 'text-karau-muted hover:text-white'
+              className={`flex-1 py-2.5 px-4 rounded-full text-sm font-medium transition-all duration-300 ${
+                activeTab === 'signin'
+                  ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/25'
+                  : 'text-slate-500 hover:text-slate-300'
               }`}
               data-testid="tab-signin"
             >
@@ -101,8 +186,10 @@ const KarauMeetLogin = ({ onLogin }) => {
             </button>
             <button
               onClick={() => setActiveTab('join')}
-              className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
-                activeTab === 'join' ? 'bg-karau-accent text-white shadow-lg shadow-purple-500/20' : 'text-karau-muted hover:text-white'
+              className={`flex-1 py-2.5 px-4 rounded-full text-sm font-medium transition-all duration-300 ${
+                activeTab === 'join'
+                  ? 'bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-lg shadow-teal-500/25'
+                  : 'text-slate-500 hover:text-slate-300'
               }`}
               data-testid="tab-join"
             >
@@ -111,81 +198,80 @@ const KarauMeetLogin = ({ onLogin }) => {
           </div>
 
           {activeTab === 'signin' && (
-            <>
-              <form onSubmit={handleLogin} className="space-y-4">
+            <div className="animate-in fade-in duration-300">
+              <h3 className="text-2xl font-bold text-white mb-1">Welcome back</h3>
+              <p className="text-slate-500 text-sm mb-8">Sign in to your AI KARAU account</p>
+
+              <form onSubmit={handleLogin} className="space-y-5">
                 <div>
-                  <Label className="text-slate-300">{t("karauMeet.email")}</Label>
+                  <Label className="text-slate-400 text-xs font-medium uppercase tracking-wider">{t("karauMeet.email")}</Label>
                   <Input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={t("karauMeet.emailPlaceholder")}
-                    className="bg-karau-bg/60 border-white/10 text-white mt-1 rounded-xl focus:border-purple-500/40 focus:ring-purple-500/20"
+                    className="bg-black/30 border-white/10 text-white mt-2 h-12 rounded-xl focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 placeholder-slate-600"
                     required
                     data-testid="input-email"
                   />
                 </div>
 
                 <div>
-                  <Label className="text-slate-300">{t("karauMeet.password")}</Label>
+                  <Label className="text-slate-400 text-xs font-medium uppercase tracking-wider">{t("karauMeet.password")}</Label>
                   <div className="relative">
                     <Input
                       type={showPassword ? 'text' : 'password'}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder={t("auth.passwordPlaceholder")}
-                      className="bg-karau-bg/60 border-white/10 text-white mt-1 pr-10 rounded-xl focus:border-purple-500/40 focus:ring-purple-500/20"
+                      placeholder="Enter your password"
+                      className="bg-black/30 border-white/10 text-white mt-2 h-12 pr-12 rounded-xl focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 placeholder-slate-600"
                       required
                       data-testid="input-password"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-karau-muted hover:text-white"
+                      className="absolute right-4 top-1/2 translate-y-[1px] text-slate-600 hover:text-slate-400 transition-colors"
                     >
-                      {showPassword ? '👁️' : '👁️‍🗨️'}
+                      <Eye className="w-4 h-4" />
                     </button>
                   </div>
                 </div>
 
                 <Button
                   type="submit"
-                  className="w-full h-12 bg-gradient-to-r from-purple-600 via-violet-600 to-karau-accent hover:from-purple-500 hover:via-violet-500 hover:to-purple-500 text-white font-semibold text-base rounded-xl shadow-lg shadow-purple-500/20"
+                  className="w-full h-12 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold rounded-full shadow-lg shadow-purple-500/25 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                   disabled={isLoading}
                   data-testid="btn-signin"
                 >
                   {isLoading ? (
-                    <>
-                      <Loader2 className="w-5 h-5 animate-spin mr-2" />
-                      {t("karauMeet.signingIn")}
-                    </>
+                    <><Loader2 className="w-5 h-5 animate-spin mr-2" /> Signing in...</>
                   ) : (
-                    <>
-                      <Video className="w-5 h-5 mr-2" />
-                      {t("karauMeet.signIn")}
-                    </>
+                    <>Sign In <ArrowRight className="w-4 h-4 ml-2" /></>
                   )}
                 </Button>
               </form>
 
-              <div className="relative">
+              {/* Divider */}
+              <div className="relative my-8">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-karau-border"></div>
+                  <div className="w-full border-t border-white/[0.06]"></div>
                 </div>
-                <div className="relative flex justify-center text-xs">
-                  <span className="px-2 bg-karau-card text-karau-muted">{t("karauMeet.orContinueWith")}</span>
+                <div className="relative flex justify-center">
+                  <span className="px-4 bg-[#0c0d1a] text-slate-600 text-xs uppercase tracking-wider">or</span>
                 </div>
               </div>
 
+              {/* Social buttons */}
               <div className="grid grid-cols-2 gap-3">
                 <Button
                   type="button"
                   variant="outline"
                   onClick={handleGoogleSignIn}
-                  className="h-11 bg-white hover:bg-gray-100 text-gray-800 border-gray-300 rounded-xl"
+                  className="h-11 bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border-white/[0.08] rounded-xl transition-all duration-300"
                   data-testid="btn-google"
                 >
-                  <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                     <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                     <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
@@ -193,79 +279,88 @@ const KarauMeetLogin = ({ onLogin }) => {
                   </svg>
                   Google
                 </Button>
-
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={handleAppleSignIn}
-                  className="h-11 bg-black hover:bg-gray-900 text-white border-gray-700 rounded-xl"
+                  onClick={() => toast.info('Apple Sign-In coming soon')}
+                  className="h-11 bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border-white/[0.08] rounded-xl transition-all duration-300"
                   data-testid="btn-apple"
                 >
-                  <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                  <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
                   </svg>
                   Apple
                 </Button>
               </div>
-            </>
+            </div>
           )}
 
           {activeTab === 'join' && (
-            <form onSubmit={handleJoinMeeting} className="space-y-4">
-              <div className="text-center py-4">
-                <Users className="w-12 h-12 text-emerald-400 mx-auto mb-3" />
-                <p className="text-slate-300 text-sm">
-                  {t("karauMeet.joinAsGuest")}
+            <div className="animate-in fade-in duration-300">
+              <h3 className="text-2xl font-bold text-white mb-1">Join a meeting</h3>
+              <p className="text-slate-500 text-sm mb-8">Enter a meeting code to join as a guest</p>
+
+              <form onSubmit={handleJoinMeeting} className="space-y-5">
+                <div>
+                  <Label className="text-slate-400 text-xs font-medium uppercase tracking-wider">{t("karauMeet.meetingId")}</Label>
+                  <Input
+                    type="text"
+                    value={meetingId}
+                    onChange={(e) => setMeetingId(e.target.value.toUpperCase())}
+                    placeholder="ABC-DEFG-HIJ"
+                    className="bg-black/30 border-white/10 text-white mt-2 h-14 text-center text-lg uppercase tracking-[0.3em] rounded-xl focus:border-teal-500/50 focus:ring-2 focus:ring-teal-500/20 placeholder-slate-600 font-mono"
+                    data-testid="input-meeting-id"
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  className="w-full h-12 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-semibold rounded-full shadow-lg shadow-teal-500/25 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                  data-testid="btn-join-meeting"
+                >
+                  <Users className="w-5 h-5 mr-2" />
+                  Join as Guest
+                </Button>
+
+                <p className="text-xs text-slate-600 text-center leading-relaxed">
+                  No account needed. You'll enter the meeting lobby where the host can admit you.
                 </p>
-              </div>
+              </form>
 
-              <div>
-                <Label className="text-slate-300">{t("karauMeet.meetingId")}</Label>
-                <Input
-                  type="text"
-                  value={meetingId}
-                  onChange={(e) => setMeetingId(e.target.value.toUpperCase())}
-                  placeholder={t("karauMeet.meetingIdPlaceholder")}
-                  className="bg-karau-bg/60 border-white/10 text-white mt-1 text-center uppercase tracking-widest rounded-xl focus:border-emerald-500/40"
-                  data-testid="input-meeting-id"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                className="w-full h-11 bg-gradient-to-r from-emerald-500 to-karau-emerald hover:from-emerald-400 hover:to-emerald-500 text-white font-semibold rounded-xl shadow-lg shadow-emerald-500/20"
-                data-testid="btn-join-meeting"
-              >
-                <Users className="w-5 h-5 mr-2" />
-                {t("karauMeet.joinMeetingBtn")}
-              </Button>
-
-              <p className="text-xs text-karau-muted text-center">
-                {t("karauMeet.guestNote")}
-              </p>
-            </form>
-          )}
-
-          <div className="pt-4 border-t border-karau-border">
-            <div className="flex items-center justify-center gap-4 text-sm text-karau-muted">
-              <div className="flex items-center gap-1">
-                <Shield className="w-4 h-4 text-emerald-400" />
-                {t("karauMeet.e2eEncrypted")}
-              </div>
-              <div className="flex items-center gap-1">
-                <Sparkles className="w-4 h-4 text-purple-400" />
-                {t("karauMeet.aiPowered")}
+              {/* AI Features grid for mobile */}
+              <div className="mt-10 grid grid-cols-3 gap-3 lg:hidden">
+                {AI_FEATURES.slice(0, 3).map((f, i) => (
+                  <div key={i} className="flex flex-col items-center gap-2 p-3 bg-white/[0.03] rounded-xl border border-white/[0.05]">
+                    <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${f.color} flex items-center justify-center`}>
+                      <f.icon className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="text-[10px] text-slate-500 text-center">{f.label}</span>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
+          )}
 
-          <div className="text-center">
-            <Link to="/" className="text-sm text-karau-muted hover:text-purple-400 transition-colors">
-              &larr; {t("karauMeet.backToPortal")}
+          {/* Footer */}
+          <div className="mt-8 pt-6 border-t border-white/[0.04] flex items-center justify-between">
+            <div className="flex items-center gap-3 text-xs text-slate-600">
+              <Shield className="w-3.5 h-3.5 text-teal-500/50" />
+              <span>E2E Encrypted</span>
+              <Sparkles className="w-3.5 h-3.5 text-purple-500/50" />
+              <span>AI Powered</span>
+            </div>
+            <Link to="/" className="text-xs text-slate-600 hover:text-purple-400 transition-colors flex items-center gap-1">
+              Home <ChevronRight className="w-3 h-3" />
             </Link>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
+
+      {/* CSS Animations */}
+      <style>{`
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeIn 0.3s ease-out; }
+      `}</style>
     </div>
   );
 };

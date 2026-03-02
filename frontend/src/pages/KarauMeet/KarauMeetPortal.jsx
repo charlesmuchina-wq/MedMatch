@@ -1,20 +1,12 @@
 /**
  * AI KARAU Meeting Portal - Main Entry Point
- * 
- * This file has been refactored for better maintainability.
- * Components are now split into separate files:
- * - KarauMeetLogin.jsx - Login page
- * - KarauMeetDashboard.jsx - Main dashboard
- * - KarauRecordingsPage.jsx - Recordings management
- * - KarauSettingsPage.jsx - Settings with accessibility/security/compliance
  */
-
 import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { toast, Toaster } from 'sonner';
 import {
-  Video, LogOut, Settings, FileText, BarChart3,
-  Menu, ChevronRight, Home, CalendarDays, Archive, Radio
+  Video, LogOut, Settings, FileText,
+  Menu, ChevronRight, Home, CalendarDays, Archive, Radio, Zap
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -24,7 +16,6 @@ import GlobalLanguageSelector from '@/components/GlobalLanguageSelector';
 
 import KarauAIAvatar from '@/components/KarauMeet/KarauAIAvatar';
 
-// Refactored page components
 import KarauMeetLogin from './KarauMeetLogin';
 import KarauMeetDashboard from './KarauMeetDashboard';
 import KarauRecordingsPage from './KarauRecordingsPage';
@@ -35,13 +26,9 @@ import WebinarManagementPage from './WebinarManagementPage';
 import WebinarLiveRoom from './WebinarLiveRoom';
 import MeetingReplayPage from './MeetingReplayPage';
 
-// Meeting room component
 import MeetingRoom from '@/components/KarauMeet/MeetingRoom';
 import MeetingLobby from '@/components/KarauMeet/MeetingLobby';
 
-/**
- * Sidebar Navigation for AI KARAU Meeting Portal
- */
 const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsCollapsed }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -57,74 +44,94 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
   ];
 
   return (
-    <div className={`h-screen bg-karau-bg border-r border-white/5 flex flex-col transition-all duration-300 ${
-      isCollapsed ? 'w-14' : 'w-52'
-    }`} style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
+    <div className={`h-screen flex flex-col transition-all duration-300 border-r border-white/[0.04] ${
+      isCollapsed ? 'w-[72px]' : 'w-[240px]'
+    }`} style={{ fontFamily: "'IBM Plex Sans', sans-serif", background: 'linear-gradient(180deg, #13142a 0%, #0f1020 100%)' }}>
       {/* Header */}
-      <div className="h-16 flex items-center justify-between px-3 border-b border-white/5">
+      <div className="h-16 flex items-center justify-between px-4 border-b border-white/[0.04] flex-shrink-0">
         {!isCollapsed && (
           <div className="flex items-center gap-2.5">
             <img 
               src="https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg"
               alt="AI KARAU"
-              className="w-8 h-8 rounded-xl object-cover ring-1 ring-white/10"
+              className="w-9 h-9 rounded-xl object-cover ring-1 ring-white/10"
             />
-            <span className="font-bold text-sm bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 bg-clip-text text-transparent">AI KARAU</span>
+            <div>
+              <span className="font-bold text-sm text-white block leading-tight">AI KARAU</span>
+              <span className="text-[10px] text-slate-600 leading-tight">Distance Zero</span>
+            </div>
           </div>
         )}
         {isCollapsed && (
           <img 
             src="https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg"
             alt="AI KARAU"
-            className="w-8 h-8 rounded-xl object-cover ring-1 ring-white/10 mx-auto"
+            className="w-9 h-9 rounded-xl object-cover ring-1 ring-white/10 mx-auto"
           />
         )}
-        <Button variant="ghost" size="sm" onClick={() => setIsCollapsed(!isCollapsed)} className="text-slate-500 hover:text-white hover:bg-white/5 rounded-lg h-8 w-8 p-0" data-testid="sidebar-toggle">
+        <Button variant="ghost" size="sm" onClick={() => setIsCollapsed(!isCollapsed)}
+          className="text-slate-600 hover:text-white hover:bg-white/[0.06] rounded-lg h-8 w-8 p-0" data-testid="sidebar-toggle">
           {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
         </Button>
       </div>
       
       {/* Navigation */}
-      <ScrollArea className="flex-1 py-4">
-        <nav className="space-y-0.5 px-2">
+      <ScrollArea className="flex-1 py-3">
+        <nav className="space-y-0.5 px-3">
           {navItems.map((item) => {
-            const isActive = currentPath === item.path;
+            const isActive = currentPath === item.path || 
+              (item.path !== '/karau-meet' && currentPath.startsWith(item.path));
             return (
               <button
                 key={item.path}
                 onClick={() => navigate(item.path)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 ${
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 group ${
                   isActive
-                    ? 'bg-purple-500/10 text-purple-400 border-l-2 border-purple-400'
-                    : 'text-slate-500 hover:bg-white/[0.03] hover:text-slate-300'
+                    ? 'bg-purple-500/10 text-white'
+                    : 'text-slate-500 hover:bg-white/[0.04] hover:text-slate-300'
                 }`}
                 data-testid={`nav-${item.labelKey}`}
               >
-                <item.icon className={`w-[18px] h-[18px] flex-shrink-0 ${isActive ? 'text-purple-400' : ''}`} />
-                {!isCollapsed && <span className="text-sm font-medium">{t(item.labelKey)}</span>}
+                <div className={`flex items-center justify-center w-8 h-8 rounded-lg transition-all ${
+                  isActive ? 'bg-gradient-to-br from-purple-600 to-indigo-600 shadow-lg shadow-purple-500/20' : 'bg-white/[0.04] group-hover:bg-white/[0.06]'
+                }`}>
+                  <item.icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-500 group-hover:text-slate-300'}`} />
+                </div>
+                {!isCollapsed && <span className={`text-sm font-medium ${isActive ? 'text-white' : ''}`}>{t(item.labelKey)}</span>}
+                {isActive && !isCollapsed && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-purple-400" />}
               </button>
             );
           })}
         </nav>
       </ScrollArea>
+
+      {/* AI Feature indicator */}
+      {!isCollapsed && (
+        <div className="mx-3 mb-3 px-3 py-2.5 rounded-xl bg-gradient-to-r from-purple-500/[0.06] to-teal-500/[0.06] border border-white/[0.04]">
+          <div className="flex items-center gap-2">
+            <Zap className="w-3.5 h-3.5 text-amber-400" />
+            <span className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">AI Powered</span>
+          </div>
+        </div>
+      )}
       
       {/* Language Selector */}
-      <div className="px-3 py-2 border-t border-white/5">
+      <div className="px-3 py-2 border-t border-white/[0.04]">
         <GlobalLanguageSelector compact={isCollapsed} />
       </div>
 
       {/* User section */}
-      <div className="p-3 border-t border-white/5">
+      <div className="p-3 border-t border-white/[0.04]">
         {!isCollapsed && (
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/10 border border-purple-500/20 flex items-center justify-center">
-              <span className="text-purple-400 font-semibold text-sm">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-600/30 to-indigo-600/20 border border-purple-500/20 flex items-center justify-center">
+              <span className="text-purple-300 font-semibold text-sm">
                 {user?.name?.charAt(0) || user?.email?.charAt(0) || '?'}
               </span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-white truncate">{user?.name || 'User'}</p>
-              <p className="text-xs text-slate-400 truncate">{user?.email}</p>
+              <p className="text-[11px] text-slate-500 truncate">{user?.email}</p>
             </div>
           </div>
         )}
@@ -132,7 +139,7 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
           variant="ghost"
           size="sm"
           onClick={onLogout}
-          className={`text-slate-400 hover:text-red-400 hover:bg-red-500/10 ${
+          className={`text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-xl ${
             isCollapsed ? 'w-full justify-center' : 'w-full justify-start'
           }`}
           data-testid="btn-logout"
@@ -145,15 +152,12 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
   );
 };
 
-/**
- * Placeholder pages for sections not yet refactored
- */
 const MeetingsListPage = () => {
   const { t } = useTranslation();
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold text-white mb-4">{t("karau.myMeetings")}</h1>
-      <p className="text-karau-muted">{t("karau.viewAllMeetings")}</p>
+      <p className="text-slate-500">{t("karau.viewAllMeetings")}</p>
     </div>
   );
 };
@@ -163,7 +167,7 @@ const SchedulePage = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold text-white mb-4">{t("karau.schedule")}</h1>
-      <p className="text-karau-muted">{t("karau.scheduleDesc")}</p>
+      <p className="text-slate-500">{t("karau.scheduleDesc")}</p>
     </div>
   );
 };
@@ -173,7 +177,7 @@ const NotesPage = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold text-white mb-4">{t("karau.meetingNotes")}</h1>
-      <p className="text-karau-muted">{t("karau.notesDesc")}</p>
+      <p className="text-slate-500">{t("karau.notesDesc")}</p>
     </div>
   );
 };
@@ -183,20 +187,18 @@ const AnalyticsPage = () => {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold text-white mb-4">{t("karau.analytics")}</h1>
-      <p className="text-karau-muted">{t("karau.analyticsDesc")}</p>
+      <p className="text-slate-500">{t("karau.analyticsDesc")}</p>
     </div>
   );
 };
 
-/**
- * Main AI KARAU Meeting Portal App
- */
 const KarauMeetPortal = () => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => window.innerWidth < 768);
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -207,19 +209,13 @@ const KarauMeetPortal = () => {
   }, []);
 
   useEffect(() => {
-    // Check for existing session
     const savedUser = localStorage.getItem('karau_user');
     const token = localStorage.getItem('token');
-    
-    if (savedUser && token) {
-      setUser(JSON.parse(savedUser));
-    }
+    if (savedUser && token) setUser(JSON.parse(savedUser));
     setIsLoading(false);
   }, []);
 
-  const handleLogin = (userData) => {
-    setUser(userData);
-  };
+  const handleLogin = (userData) => setUser(userData);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -229,7 +225,6 @@ const KarauMeetPortal = () => {
     toast.success(t("karauMeet.signedOut"));
   };
 
-  // Check if we're in a meeting room (room routes only - join routes handled separately)
   const isInRoom = location.pathname.includes('/room/');
   const isJoinPage = location.pathname.includes('/join/');
   const isLobbyPage = location.pathname.includes('/lobby/');
@@ -237,37 +232,29 @@ const KarauMeetPortal = () => {
   const isWebinarRegisterPage = location.pathname.includes('/webinar/') && location.pathname.includes('/register');
   const isWebinarLiveRoom = location.pathname.includes('/webinar/') && location.pathname.includes('/live');
   
-  // Extract meeting ID from URL for meeting routes
   const extractMeetingId = () => {
     const pathParts = location.pathname.split('/');
+    const lobbyIndex = pathParts.indexOf('lobby');
     const joinIndex = pathParts.indexOf('join');
     const roomIndex = pathParts.indexOf('room');
-    const lobbyIndex = pathParts.indexOf('lobby');
-    if (lobbyIndex !== -1 && pathParts[lobbyIndex + 1]) {
-      return pathParts[lobbyIndex + 1];
-    }
-    if (joinIndex !== -1 && pathParts[joinIndex + 1]) {
-      return pathParts[joinIndex + 1];
-    }
-    if (roomIndex !== -1 && pathParts[roomIndex + 1]) {
-      return pathParts[roomIndex + 1];
-    }
+    if (lobbyIndex !== -1 && pathParts[lobbyIndex + 1]) return pathParts[lobbyIndex + 1];
+    if (joinIndex !== -1 && pathParts[joinIndex + 1]) return pathParts[joinIndex + 1];
+    if (roomIndex !== -1 && pathParts[roomIndex + 1]) return pathParts[roomIndex + 1];
     return null;
   };
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-karau-bg flex items-center justify-center">
+      <div className="min-h-screen bg-[#0c0d1a] flex items-center justify-center">
         <Loader2 className="w-8 h-8 text-purple-400 animate-spin" />
       </div>
     );
   }
 
-  // Guest Join Page - redirect guests to lobby instead of direct join
   if (isEnterprisePage && user) {
     const OrganizationAdmin = require('@/components/KarauMeet/OrganizationAdmin').default;
     return (
-      <div className="min-h-screen bg-karau-bg">
+      <div className="min-h-screen bg-[#0c0d1a]">
         <div className="max-w-7xl mx-auto py-6 px-4">
           <OrganizationAdmin user={user} />
         </div>
@@ -279,27 +266,21 @@ const KarauMeetPortal = () => {
     const meetingId = extractMeetingId();
     if (!meetingId) {
       return (
-        <div className="min-h-screen bg-karau-bg flex items-center justify-center">
+        <div className="min-h-screen bg-[#0c0d1a] flex items-center justify-center">
           <div className="text-center">
             <p className="text-red-400 text-lg">{t("karauMeet.invalidMeetingUrl")}</p>
-            <button onClick={() => navigate('/karau-meet')} className="mt-4 text-purple-400 hover:underline">
-              {t("karauMeet.backToPortalBtn")}
-            </button>
+            <button onClick={() => navigate('/karau-meet')} className="mt-4 text-purple-400 hover:underline">{t("karauMeet.backToPortalBtn")}</button>
           </div>
         </div>
       );
     }
-    
-    // Show GuestJoinPage to collect name, then navigate to lobby
     const handleGuestJoin = (guestUser, mId) => {
       localStorage.setItem('karau_guest', JSON.stringify(guestUser));
       navigate(`/karau-meet/lobby/${mId}`);
     };
-    
     return <GuestJoinPage onJoin={handleGuestJoin} meetingIdProp={meetingId} />;
   }
 
-  // Logged-in user clicking join link - redirect to lobby
   if (isJoinPage && user) {
     const meetingId = extractMeetingId();
     if (meetingId) {
@@ -308,12 +289,11 @@ const KarauMeetPortal = () => {
     }
   }
 
-  // Lobby page - pre-meeting lobby for all users
   if (isLobbyPage) {
     const meetingId = extractMeetingId();
     if (!meetingId) {
       return (
-        <div className="min-h-screen bg-karau-bg flex items-center justify-center">
+        <div className="min-h-screen bg-[#0c0d1a] flex items-center justify-center">
           <div className="text-center">
             <p className="text-red-400 text-lg">{t("karauMeet.invalidMeetingUrl")}</p>
             <button onClick={() => navigate('/karau-meet')} className="mt-4 text-purple-400 hover:underline">{t("karauMeet.backToPortalBtn")}</button>
@@ -321,80 +301,43 @@ const KarauMeetPortal = () => {
         </div>
       );
     }
-
     const guestData = localStorage.getItem('karau_guest');
-    const lobbyUser = user || (guestData ? JSON.parse(guestData) : {
-      user_id: `guest_${Date.now()}`,
-      name: 'Guest',
-      email: 'guest@meeting.local',
-      is_guest: true
-    });
+    const lobbyUser = user || (guestData ? JSON.parse(guestData) : { user_id: `guest_${Date.now()}`, name: 'Guest', email: 'guest@meeting.local', is_guest: true });
     const isGuest = !user;
-
     const handleJoinFromLobby = (config) => {
-      // Store config for use by MeetingRoom
       localStorage.setItem('karau_lobby_config', JSON.stringify(config));
       if (isGuest) {
-        localStorage.setItem('karau_guest', JSON.stringify({
-          ...lobbyUser,
-          user_id: config.userId,
-          name: config.userName
-        }));
+        localStorage.setItem('karau_guest', JSON.stringify({ ...lobbyUser, user_id: config.userId, name: config.userName }));
       }
       navigate(`/karau-meet/webinar/${meetingId}/live`);
     };
-
-    return (
-      <MeetingLobby
-        meetingId={meetingId}
-        user={lobbyUser}
-        isGuest={isGuest}
-        onJoinMeeting={handleJoinFromLobby}
-      />
-    );
+    return <MeetingLobby meetingId={meetingId} user={lobbyUser} isGuest={isGuest} onJoinMeeting={handleJoinFromLobby} />;
   }
 
-  // In meeting room
   if (isInRoom) {
     const meetingId = extractMeetingId();
-    
     if (!meetingId) {
       return (
-        <div className="min-h-screen bg-karau-bg flex items-center justify-center">
+        <div className="min-h-screen bg-[#0c0d1a] flex items-center justify-center">
           <div className="text-center">
             <p className="text-red-400 text-lg">{t("karauMeet.invalidMeetingUrl")}</p>
-            <button 
-              onClick={() => navigate('/karau-meet')}
-              className="mt-4 text-purple-400 hover:underline"
-            >
-              {t("karauMeet.backToPortalBtn")}
-            </button>
+            <button onClick={() => navigate('/karau-meet')} className="mt-4 text-purple-400 hover:underline">{t("karauMeet.backToPortalBtn")}</button>
           </div>
         </div>
       );
     }
-    
-    // Check for guest user from localStorage
     const guestData = localStorage.getItem('karau_guest');
-    const meetingUser = user || (guestData ? JSON.parse(guestData) : {
-      user_id: `guest_${Date.now()}`,
-      name: 'Guest',
-      email: 'guest@meeting.local',
-      is_guest: true
-    });
-    
+    const meetingUser = user || (guestData ? JSON.parse(guestData) : { user_id: `guest_${Date.now()}`, name: 'Guest', email: 'guest@meeting.local', is_guest: true });
     return <MeetingRoom user={meetingUser} meetingIdProp={meetingId} />;
   }
 
-  // For non-meeting routes, require login (except webinar registration which is public)
   if (!user && !isWebinarRegisterPage) {
     return <KarauMeetLogin onLogin={handleLogin} />;
   }
   
-  // Public webinar registration page (no login required)
   if (isWebinarRegisterPage) {
     return (
-      <div className="min-h-screen bg-karau-bg">
+      <div className="min-h-screen bg-[#0c0d1a]">
         <Routes>
           <Route path="webinar/:webinarId/register" element={<WebinarRegistrationPage />} />
         </Routes>
@@ -402,10 +345,9 @@ const KarauMeetPortal = () => {
     );
   }
 
-  // Full-screen webinar live room (authenticated, no sidebar)
   if (isWebinarLiveRoom) {
     return (
-      <div className="min-h-screen bg-karau-bg">
+      <div className="min-h-screen bg-[#0c0d1a]">
         <Toaster position="top-right" theme="dark" />
         <Routes>
           <Route path="webinar/:webinarId/live" element={<WebinarLiveRoom />} />
@@ -415,10 +357,8 @@ const KarauMeetPortal = () => {
   }
 
   return (
-    <div className="min-h-screen bg-karau-bg flex">
+    <div className="min-h-screen bg-[#0c0d1a] flex">
       <Toaster position="top-right" theme="dark" />
-      
-      {/* Sidebar */}
       <KarauMeetSidebar
         user={user}
         currentPath={location.pathname}
@@ -426,8 +366,6 @@ const KarauMeetPortal = () => {
         isCollapsed={sidebarCollapsed}
         setIsCollapsed={setSidebarCollapsed}
       />
-      
-      {/* Main content */}
       <main className="flex-1 overflow-auto">
         <Routes>
           <Route index element={<KarauMeetDashboard user={user} />} />
@@ -442,8 +380,6 @@ const KarauMeetPortal = () => {
           <Route path="webinar/:webinarId/register" element={<WebinarRegistrationPage />} />
         </Routes>
       </main>
-
-      {/* Floating KARAU AI Avatar */}
       <KarauAIAvatar />
     </div>
   );

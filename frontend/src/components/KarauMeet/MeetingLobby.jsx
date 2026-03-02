@@ -1,14 +1,13 @@
 /**
- * MeetingLobby - Teams-style Pre-Meeting Lobby
- * Camera/mic preview, device selection, virtual background, guest admission flow
+ * MeetingLobby - Pre-Meeting Lobby with Camera/Mic Preview
  */
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import {
   Shield, Mic, MicOff, Video, VideoOff, Settings2,
-  Monitor, ChevronDown, Loader2, UserCheck, Clock,
-  Image as ImageIcon, Check, Volume2, X, Users, Bell
+  Monitor, Loader2, UserCheck, Clock,
+  Image as ImageIcon, Check, X, Brain, Eye, Globe, Wand2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -34,18 +33,23 @@ const BACKGROUND_URLS = {
   abstract: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=1280&q=80',
 };
 
+const AI_BADGES = [
+  { icon: Brain, label: 'AI Coach' },
+  { icon: Eye, label: 'Eye Contact' },
+  { icon: Globe, label: 'Live Captions' },
+  { icon: Wand2, label: 'Director Mode' },
+];
+
 const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
   const navigate = useNavigate();
   const videoRef = useRef(null);
   const [videoElement, setVideoElement] = useState(null);
   const localStreamRef = useRef(null);
 
-  // Media state
   const [isVideoEnabled, setIsVideoEnabled] = useState(true);
   const [isAudioEnabled, setIsAudioEnabled] = useState(true);
   const [localStream, setLocalStream] = useState(null);
 
-  // Device state
   const [videoDevices, setVideoDevices] = useState([]);
   const [audioInputDevices, setAudioInputDevices] = useState([]);
   const [audioOutputDevices, setAudioOutputDevices] = useState([]);
@@ -53,33 +57,25 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
   const [selectedAudioInput, setSelectedAudioInput] = useState('');
   const [selectedAudioOutput, setSelectedAudioOutput] = useState('');
 
-  // Background
   const [selectedBg, setSelectedBg] = useState('none');
   const [showBgPicker, setShowBgPicker] = useState(false);
 
-  // Lobby state
   const [meetingInfo, setMeetingInfo] = useState(null);
-  const [lobbyStatus, setLobbyStatus] = useState('loading'); // loading | preview | waiting | admitted | rejected
+  const [lobbyStatus, setLobbyStatus] = useState('loading');
   const [lobbyUserId, setLobbyUserId] = useState(null);
   const [isJoining, setIsJoining] = useState(false);
   const [showDeviceSettings, setShowDeviceSettings] = useState(false);
 
-  // Host lobby management
-  const [waitingGuests, setWaitingGuests] = useState([]);
-
-  // Virtual background
   const bgUrl = BACKGROUND_URLS[selectedBg] || null;
   const { canvasRef, isActive: bgActive } = useVirtualBackground(videoElement, selectedBg, bgUrl);
   const showProcessed = selectedBg !== 'none' && bgActive;
 
-  // Fetch meeting info
   useEffect(() => {
     const fetchInfo = async () => {
       try {
         const res = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/info`);
         if (res.ok) {
-          const data = await res.json();
-          setMeetingInfo(data);
+          setMeetingInfo(await res.json());
           setLobbyStatus('preview');
         } else {
           toast.error('Meeting not found');
@@ -93,7 +89,6 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
     fetchInfo();
   }, [meetingId]);
 
-  // Enumerate devices and start camera
   useEffect(() => {
     const initMedia = async () => {
       try {
@@ -103,12 +98,10 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
         });
         localStreamRef.current = stream;
         setLocalStream(stream);
-
         const devices = await navigator.mediaDevices.enumerateDevices();
         setVideoDevices(devices.filter(d => d.kind === 'videoinput'));
         setAudioInputDevices(devices.filter(d => d.kind === 'audioinput'));
         setAudioOutputDevices(devices.filter(d => d.kind === 'audiooutput'));
-
         const vt = stream.getVideoTracks()[0];
         const at = stream.getAudioTracks()[0];
         if (vt) setSelectedVideoDevice(vt.getSettings().deviceId || '');
@@ -121,13 +114,9 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
       }
     };
     initMedia();
-
-    return () => {
-      localStreamRef.current?.getTracks().forEach(t => t.stop());
-    };
+    return () => { localStreamRef.current?.getTracks().forEach(t => t.stop()); };
   }, []);
 
-  // Attach stream to video element
   useEffect(() => {
     if (videoRef.current && localStream) {
       videoRef.current.srcObject = localStream;
@@ -135,7 +124,6 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
     }
   }, [localStream]);
 
-  // Switch camera
   const switchCamera = useCallback(async (deviceId) => {
     if (!deviceId) return;
     try {
@@ -147,12 +135,9 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
       localStreamRef.current = newStream;
       setLocalStream(newStream);
       setSelectedVideoDevice(deviceId);
-    } catch {
-      toast.error('Could not switch camera');
-    }
+    } catch { toast.error('Could not switch camera'); }
   }, [selectedAudioInput]);
 
-  // Switch mic
   const switchMic = useCallback(async (deviceId) => {
     if (!deviceId) return;
     try {
@@ -164,12 +149,9 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
       localStreamRef.current = newStream;
       setLocalStream(newStream);
       setSelectedAudioInput(deviceId);
-    } catch {
-      toast.error('Could not switch microphone');
-    }
+    } catch { toast.error('Could not switch microphone'); }
   }, [selectedVideoDevice]);
 
-  // Toggle video/audio
   const toggleVideo = () => {
     const vt = localStreamRef.current?.getVideoTracks()[0];
     if (vt) { vt.enabled = !vt.enabled; setIsVideoEnabled(vt.enabled); }
@@ -179,7 +161,6 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
     if (at) { at.enabled = !at.enabled; setIsAudioEnabled(at.enabled); }
   };
 
-  // Poll lobby status for guests
   useEffect(() => {
     if (lobbyStatus !== 'waiting' || !lobbyUserId) return;
     const interval = setInterval(async () => {
@@ -187,29 +168,14 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
         const res = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/lobby/status?user_id=${lobbyUserId}`);
         if (res.ok) {
           const data = await res.json();
-          if (data.admitted) {
-            setLobbyStatus('admitted');
-            toast.success('You have been admitted!');
-            clearInterval(interval);
-          } else if (data.rejected) {
-            setLobbyStatus('rejected');
-            toast.error('Your request to join was denied');
-            clearInterval(interval);
-          }
+          if (data.admitted) { setLobbyStatus('admitted'); toast.success('You have been admitted!'); clearInterval(interval); }
+          else if (data.rejected) { setLobbyStatus('rejected'); toast.error('Your request was denied'); clearInterval(interval); }
         }
       } catch {}
     }, 2000);
     return () => clearInterval(interval);
   }, [lobbyStatus, lobbyUserId, meetingId]);
 
-  // For host: poll waiting list
-  const isHost = !isGuest && user && meetingInfo && meetingInfo.host_name;
-  useEffect(() => {
-    if (!isHost || lobbyStatus === 'loading') return;
-    // Host doesn't need to poll in lobby, they get WS notifications in room
-  }, [isHost, lobbyStatus]);
-
-  // Join lobby (request admission)
   const requestAdmission = async () => {
     setIsJoining(true);
     try {
@@ -217,35 +183,24 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
       let res;
       if (isGuest || !token) {
         res = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/lobby/join`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ guest_name: user?.name || 'Guest', guest_email: user?.email || '', is_guest: true })
         });
       } else {
         res = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/lobby/join-auth`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
+          method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
         });
       }
-
       if (res.ok) {
         const data = await res.json();
         setLobbyUserId(data.user_id);
-        if (data.status === 'admitted' || data.is_host) {
-          setLobbyStatus('admitted');
-        } else {
-          setLobbyStatus('waiting');
-        }
-      } else {
-        toast.error('Could not join lobby');
-      }
-    } catch {
-      toast.error('Connection error');
-    }
+        if (data.status === 'admitted' || data.is_host) setLobbyStatus('admitted');
+        else setLobbyStatus('waiting');
+      } else { toast.error('Could not join lobby'); }
+    } catch { toast.error('Connection error'); }
     setIsJoining(false);
   };
 
-  // Actually join the meeting room
   const handleJoinMeeting = () => {
     localStreamRef.current?.getTracks().forEach(t => t.stop());
     if (onJoinMeeting) {
@@ -262,38 +217,34 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
     }
   };
 
-  // Auto-join for host or when admitted
   useEffect(() => {
     if (lobbyStatus === 'admitted' && lobbyUserId) {
-      // Short delay to show the "admitted" message
       const t = setTimeout(handleJoinMeeting, 800);
       return () => clearTimeout(t);
     }
   }, [lobbyStatus, lobbyUserId]);
 
-  // Loading state
   if (lobbyStatus === 'loading') {
     return (
-      <div className="min-h-screen bg-[#1b1b1b] flex items-center justify-center" data-testid="lobby-loading">
+      <div className="min-h-screen bg-[#0c0d1a] flex items-center justify-center" data-testid="lobby-loading">
         <div className="text-center">
-          <Loader2 className="w-10 h-10 text-[#5b5fc7] animate-spin mx-auto mb-3" />
-          <p className="text-white/80 text-sm">Loading meeting...</p>
+          <Loader2 className="w-10 h-10 text-purple-400 animate-spin mx-auto mb-3" />
+          <p className="text-slate-400 text-sm">Connecting to meeting...</p>
         </div>
       </div>
     );
   }
 
-  // Rejected state
   if (lobbyStatus === 'rejected') {
     return (
-      <div className="min-h-screen bg-[#1b1b1b] flex items-center justify-center" data-testid="lobby-rejected">
+      <div className="min-h-screen bg-[#0c0d1a] flex items-center justify-center" data-testid="lobby-rejected">
         <div className="text-center max-w-md mx-auto px-6">
-          <div className="w-16 h-16 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mx-auto mb-4">
             <X className="w-8 h-8 text-red-400" />
           </div>
           <h2 className="text-xl font-semibold text-white mb-2">Unable to Join</h2>
-          <p className="text-white/60 text-sm mb-6">The meeting was not found or your request was denied.</p>
-          <Button onClick={() => navigate('/karau-meet')} variant="outline" className="border-white/20 text-white hover:bg-white/10">
+          <p className="text-slate-500 text-sm mb-6">The meeting was not found or your request was denied.</p>
+          <Button onClick={() => navigate('/karau-meet')} className="bg-white/[0.06] hover:bg-white/[0.1] text-white border border-white/[0.08] rounded-full px-6">
             Back to Portal
           </Button>
         </div>
@@ -302,23 +253,27 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
   }
 
   return (
-    <div className="min-h-screen bg-[#1b1b1b] flex flex-col" data-testid="meeting-lobby">
+    <div className="min-h-screen bg-[#0c0d1a] flex flex-col" data-testid="meeting-lobby" style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
       {/* Top bar */}
-      <header className="h-12 flex items-center justify-between px-4 border-b border-white/10 flex-shrink-0">
-        <div className="flex items-center gap-2">
-          <Shield className="w-4 h-4 text-[#5b5fc7]" />
-          <span className="text-white font-medium text-sm">AI KARAU</span>
+      <header className="h-14 flex items-center justify-between px-6 border-b border-white/[0.04] flex-shrink-0">
+        <div className="flex items-center gap-3">
+          <img
+            src="https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg"
+            alt="AI KARAU"
+            className="w-8 h-8 rounded-xl object-cover ring-1 ring-white/10"
+          />
+          <span className="text-white font-semibold text-sm">AI KARAU</span>
         </div>
-        <Badge variant="outline" className="text-white/50 border-white/20 text-xs">
+        <Badge className="bg-white/[0.04] text-slate-400 border-white/[0.06] font-mono text-xs tracking-wider">
           {meetingId}
         </Badge>
       </header>
 
       {/* Main lobby area */}
-      <div className="flex-1 flex flex-col lg:flex-row items-center justify-center gap-8 p-4 lg:p-8 max-w-6xl mx-auto w-full">
+      <div className="flex-1 flex flex-col lg:flex-row items-center justify-center gap-10 p-6 lg:p-12 max-w-7xl mx-auto w-full">
         {/* Video preview */}
         <div className="w-full max-w-2xl lg:flex-1">
-          <div className="relative aspect-video bg-[#292929] rounded-2xl overflow-hidden shadow-2xl border border-white/5">
+          <div className="relative aspect-video bg-[#13142a] rounded-3xl overflow-hidden shadow-2xl shadow-black/40 border border-white/[0.06]">
             {isVideoEnabled ? (
               <>
                 <video
@@ -339,80 +294,84 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
               </>
             ) : (
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-24 h-24 rounded-full bg-[#5b5fc7]/30 flex items-center justify-center">
-                  <span className="text-4xl font-bold text-white">
+                <div className="w-28 h-28 rounded-3xl bg-gradient-to-br from-purple-600/30 to-indigo-600/20 border border-purple-500/20 flex items-center justify-center">
+                  <span className="text-5xl font-bold text-white/80">
                     {(user?.name || 'G').charAt(0).toUpperCase()}
                   </span>
                 </div>
               </div>
             )}
 
-            {/* Skin tone protection badge */}
+            {/* Skin tone badge */}
             {isVideoEnabled && selectedBg !== 'none' && bgActive && (
-              <Badge className="absolute top-3 left-3 bg-emerald-600/80 text-white border-0 text-[10px] z-10" data-testid="skin-tone-badge">
+              <Badge className="absolute top-4 left-4 bg-emerald-600/80 text-white border-0 text-[10px] z-10 rounded-full" data-testid="skin-tone-badge">
                 Skin Tone Protection Active
               </Badge>
             )}
 
             {/* Control overlay */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-3 z-10">
               <Button
                 size="sm"
-                variant={isAudioEnabled ? 'secondary' : 'destructive'}
-                className="rounded-full w-10 h-10 p-0"
+                className={`rounded-full w-12 h-12 p-0 shadow-lg transition-all duration-200 ${
+                  isAudioEnabled
+                    ? 'bg-white/[0.1] hover:bg-white/[0.15] border border-white/[0.1] text-white'
+                    : 'bg-red-500/80 hover:bg-red-500 border-0 text-white'
+                }`}
                 onClick={toggleAudio}
                 data-testid="lobby-toggle-audio"
               >
-                {isAudioEnabled ? <Mic className="w-4 h-4" /> : <MicOff className="w-4 h-4" />}
+                {isAudioEnabled ? <Mic className="w-5 h-5" /> : <MicOff className="w-5 h-5" />}
               </Button>
               <Button
                 size="sm"
-                variant={isVideoEnabled ? 'secondary' : 'destructive'}
-                className="rounded-full w-10 h-10 p-0"
+                className={`rounded-full w-12 h-12 p-0 shadow-lg transition-all duration-200 ${
+                  isVideoEnabled
+                    ? 'bg-white/[0.1] hover:bg-white/[0.15] border border-white/[0.1] text-white'
+                    : 'bg-red-500/80 hover:bg-red-500 border-0 text-white'
+                }`}
                 onClick={toggleVideo}
                 data-testid="lobby-toggle-video"
               >
-                {isVideoEnabled ? <Video className="w-4 h-4" /> : <VideoOff className="w-4 h-4" />}
+                {isVideoEnabled ? <Video className="w-5 h-5" /> : <VideoOff className="w-5 h-5" />}
               </Button>
               <Button
                 size="sm"
-                variant="secondary"
-                className={`rounded-full w-10 h-10 p-0 ${showBgPicker ? 'ring-2 ring-[#5b5fc7]' : ''}`}
+                className={`rounded-full w-12 h-12 p-0 shadow-lg bg-white/[0.1] hover:bg-white/[0.15] border border-white/[0.1] text-white ${showBgPicker ? 'ring-2 ring-purple-500/50' : ''}`}
                 onClick={() => setShowBgPicker(!showBgPicker)}
                 data-testid="lobby-toggle-bg"
               >
-                <ImageIcon className="w-4 h-4" />
+                <ImageIcon className="w-5 h-5" />
               </Button>
               <Button
                 size="sm"
-                variant="secondary"
-                className={`rounded-full w-10 h-10 p-0 ${showDeviceSettings ? 'ring-2 ring-[#5b5fc7]' : ''}`}
+                className={`rounded-full w-12 h-12 p-0 shadow-lg bg-white/[0.1] hover:bg-white/[0.15] border border-white/[0.1] text-white ${showDeviceSettings ? 'ring-2 ring-purple-500/50' : ''}`}
                 onClick={() => setShowDeviceSettings(!showDeviceSettings)}
                 data-testid="lobby-toggle-settings"
               >
-                <Settings2 className="w-4 h-4" />
+                <Settings2 className="w-5 h-5" />
               </Button>
             </div>
           </div>
 
-          {/* Background picker strip */}
+          {/* Background picker */}
           {showBgPicker && (
-            <div className="mt-3 flex gap-2 overflow-x-auto pb-1 px-1" data-testid="lobby-bg-picker">
+            <div className="mt-4 flex gap-2 overflow-x-auto pb-1 px-1" data-testid="lobby-bg-picker">
               {LOBBY_BACKGROUNDS.map(bg => (
                 <button
                   key={bg.id}
                   onClick={() => setSelectedBg(bg.id)}
-                  className={`flex-shrink-0 rounded-lg border-2 transition-all ${
-                    selectedBg === bg.id ? 'border-[#5b5fc7] ring-1 ring-[#5b5fc7]/50' : 'border-white/10 hover:border-white/30'
-                  } ${bg.url ? 'w-16 h-10 overflow-hidden' : 'w-16 h-10 flex items-center justify-center bg-[#292929]'}`}
+                  className={`flex-shrink-0 rounded-xl border-2 transition-all ${
+                    selectedBg === bg.id ? 'border-purple-500 ring-1 ring-purple-500/30' : 'border-white/[0.06] hover:border-white/[0.15]'
+                  } ${bg.url ? 'w-16 h-10 overflow-hidden' : 'w-16 h-10 flex items-center justify-center bg-white/[0.03]'}`}
                 >
                   {bg.url ? (
                     <img src={bg.url} alt={bg.name} className="w-full h-full object-cover" />
                   ) : (
-                    <span className="text-[10px] text-white/70">{bg.name}</span>
+                    <span className="text-[10px] text-slate-500">{bg.name}</span>
                   )}
                   {selectedBg === bg.id && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-xl">
                       <Check className="w-3 h-3 text-white" />
                     </div>
                   )}
@@ -423,19 +382,17 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
 
           {/* Device settings */}
           {showDeviceSettings && (
-            <div className="mt-3 bg-[#292929] rounded-xl p-4 space-y-3 border border-white/5" data-testid="lobby-device-settings">
+            <div className="mt-4 bg-white/[0.03] rounded-2xl p-5 space-y-4 border border-white/[0.06]" data-testid="lobby-device-settings">
               {videoDevices.length > 0 && (
                 <div>
-                  <label className="text-xs text-white/50 mb-1 block">Camera</label>
+                  <label className="text-xs text-slate-500 mb-1.5 block uppercase tracking-wider">Camera</label>
                   <Select value={selectedVideoDevice} onValueChange={switchCamera}>
-                    <SelectTrigger className="bg-[#1b1b1b] border-white/10 text-white text-sm h-9">
+                    <SelectTrigger className="bg-black/30 border-white/[0.08] text-white text-sm h-10 rounded-xl">
                       <SelectValue placeholder="Select camera" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#292929] border-white/10">
+                    <SelectContent className="bg-[#1a1b2e] border-white/[0.08]">
                       {videoDevices.map(d => (
-                        <SelectItem key={d.deviceId} value={d.deviceId} className="text-white text-sm">
-                          {d.label || `Camera ${d.deviceId.slice(0, 8)}`}
-                        </SelectItem>
+                        <SelectItem key={d.deviceId} value={d.deviceId} className="text-white text-sm">{d.label || `Camera ${d.deviceId.slice(0, 8)}`}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -443,16 +400,14 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
               )}
               {audioInputDevices.length > 0 && (
                 <div>
-                  <label className="text-xs text-white/50 mb-1 block">Microphone</label>
+                  <label className="text-xs text-slate-500 mb-1.5 block uppercase tracking-wider">Microphone</label>
                   <Select value={selectedAudioInput} onValueChange={switchMic}>
-                    <SelectTrigger className="bg-[#1b1b1b] border-white/10 text-white text-sm h-9">
+                    <SelectTrigger className="bg-black/30 border-white/[0.08] text-white text-sm h-10 rounded-xl">
                       <SelectValue placeholder="Select microphone" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#292929] border-white/10">
+                    <SelectContent className="bg-[#1a1b2e] border-white/[0.08]">
                       {audioInputDevices.map(d => (
-                        <SelectItem key={d.deviceId} value={d.deviceId} className="text-white text-sm">
-                          {d.label || `Mic ${d.deviceId.slice(0, 8)}`}
-                        </SelectItem>
+                        <SelectItem key={d.deviceId} value={d.deviceId} className="text-white text-sm">{d.label || `Mic ${d.deviceId.slice(0, 8)}`}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -460,16 +415,14 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
               )}
               {audioOutputDevices.length > 0 && (
                 <div>
-                  <label className="text-xs text-white/50 mb-1 block">Speaker</label>
+                  <label className="text-xs text-slate-500 mb-1.5 block uppercase tracking-wider">Speaker</label>
                   <Select value={selectedAudioOutput} onValueChange={setSelectedAudioOutput}>
-                    <SelectTrigger className="bg-[#1b1b1b] border-white/10 text-white text-sm h-9">
+                    <SelectTrigger className="bg-black/30 border-white/[0.08] text-white text-sm h-10 rounded-xl">
                       <SelectValue placeholder="Select speaker" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#292929] border-white/10">
+                    <SelectContent className="bg-[#1a1b2e] border-white/[0.08]">
                       {audioOutputDevices.map(d => (
-                        <SelectItem key={d.deviceId} value={d.deviceId} className="text-white text-sm">
-                          {d.label || `Speaker ${d.deviceId.slice(0, 8)}`}
-                        </SelectItem>
+                        <SelectItem key={d.deviceId} value={d.deviceId} className="text-white text-sm">{d.label || `Speaker ${d.deviceId.slice(0, 8)}`}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -480,64 +433,65 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
         </div>
 
         {/* Join panel */}
-        <div className="w-full max-w-sm lg:w-80 text-center lg:text-left">
-          <h1 className="text-2xl font-semibold text-white mb-1" data-testid="lobby-meeting-title">
-            {meetingInfo?.title || 'AI KARAU Meeting'}
-          </h1>
-          <p className="text-white/50 text-sm mb-6">
-            Hosted by {meetingInfo?.host_name || 'Host'}
-          </p>
+        <div className="w-full max-w-sm lg:w-80 text-center lg:text-left space-y-6">
+          <div>
+            <h1 className="text-2xl font-bold text-white mb-1" data-testid="lobby-meeting-title">
+              {meetingInfo?.title || 'AI KARAU Meeting'}
+            </h1>
+            <p className="text-slate-500 text-sm">
+              Hosted by {meetingInfo?.host_name || 'Host'}
+            </p>
+          </div>
 
-          {/* Preview state — ready to join */}
+          {/* AI Features available */}
+          <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+            {AI_BADGES.map((badge, i) => (
+              <div key={i} className="flex items-center gap-1.5 px-2.5 py-1.5 bg-white/[0.04] rounded-lg border border-white/[0.06]">
+                <badge.icon className="w-3 h-3 text-purple-400" />
+                <span className="text-[10px] text-slate-400 font-medium">{badge.label}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Preview state */}
           {lobbyStatus === 'preview' && (
-            <div className="space-y-3">
+            <div className="space-y-4">
               <Button
-                className="w-full bg-[#5b5fc7] hover:bg-[#4e52b5] text-white h-11 rounded-lg font-medium"
+                className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white h-12 rounded-full font-semibold shadow-lg shadow-purple-500/25 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                 onClick={requestAdmission}
                 disabled={isJoining}
                 data-testid="lobby-join-btn"
               >
-                {isJoining ? (
-                  <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Joining...</>
-                ) : (
-                  'Join now'
-                )}
+                {isJoining ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Joining...</> : 'Join now'}
               </Button>
-              <div className="flex items-center justify-center gap-4 text-xs text-white/40">
-                <span className="flex items-center gap-1">
-                  <Shield className="w-3 h-3" /> E2E Encrypted
-                </span>
-                <span className="flex items-center gap-1">
-                  <Monitor className="w-3 h-3" /> HD Video
-                </span>
+              <div className="flex items-center justify-center gap-5 text-xs text-slate-600">
+                <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> E2E Encrypted</span>
+                <span className="flex items-center gap-1.5"><Monitor className="w-3.5 h-3.5" /> HD Video</span>
               </div>
             </div>
           )}
 
-          {/* Waiting state — waiting for host admission */}
+          {/* Waiting state */}
           {lobbyStatus === 'waiting' && (
             <div className="space-y-4" data-testid="lobby-waiting">
-              <div className="bg-[#292929] rounded-xl p-5 border border-white/5">
+              <div className="bg-white/[0.03] rounded-2xl p-6 border border-white/[0.06]">
                 <div className="flex items-center justify-center gap-2 mb-3">
                   <Clock className="w-5 h-5 text-amber-400 animate-pulse" />
                   <span className="text-white font-medium text-sm">Waiting for host</span>
                 </div>
-                <p className="text-white/50 text-xs leading-relaxed">
+                <p className="text-slate-500 text-xs leading-relaxed text-center">
                   The host has been notified. You'll be admitted shortly.
                 </p>
                 <div className="mt-4">
-                  <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#5b5fc7] rounded-full animate-pulse" style={{ width: '60%' }} />
+                  <div className="h-1.5 bg-white/[0.04] rounded-full overflow-hidden">
+                    <div className="h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full animate-pulse" style={{ width: '60%' }} />
                   </div>
                 </div>
               </div>
               <Button
                 variant="outline"
-                className="w-full border-white/20 text-white/70 hover:bg-white/5 h-9"
-                onClick={() => {
-                  localStreamRef.current?.getTracks().forEach(t => t.stop());
-                  navigate('/karau-meet');
-                }}
+                className="w-full border-white/[0.08] text-slate-400 hover:bg-white/[0.04] h-10 rounded-full"
+                onClick={() => { localStreamRef.current?.getTracks().forEach(t => t.stop()); navigate('/karau-meet'); }}
                 data-testid="lobby-cancel-btn"
               >
                 Leave lobby
@@ -545,22 +499,21 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
             </div>
           )}
 
-          {/* Admitted state — brief transition */}
+          {/* Admitted state */}
           {lobbyStatus === 'admitted' && (
             <div className="space-y-3" data-testid="lobby-admitted">
-              <div className="bg-emerald-500/10 rounded-xl p-4 border border-emerald-500/20">
+              <div className="bg-emerald-500/10 rounded-2xl p-5 border border-emerald-500/20">
                 <div className="flex items-center justify-center gap-2">
                   <UserCheck className="w-5 h-5 text-emerald-400" />
                   <span className="text-emerald-400 font-medium text-sm">Admitted! Joining...</span>
                 </div>
               </div>
-              <Loader2 className="w-6 h-6 text-[#5b5fc7] animate-spin mx-auto" />
+              <Loader2 className="w-6 h-6 text-purple-400 animate-spin mx-auto" />
             </div>
           )}
         </div>
       </div>
 
-      {/* Mirror CSS */}
       <style>{`.mirror-video { transform: scaleX(-1); }`}</style>
     </div>
   );
