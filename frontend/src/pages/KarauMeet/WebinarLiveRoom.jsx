@@ -1068,8 +1068,19 @@ const QAPanel = ({ questions, pendingQs, newQuestion, setNewQuestion, submitQues
 );
 
 const ParticipantsPanel = ({ handRaises, activeRoles, promoteUser, demoteUser, isHost, roomInfo, onGrantPermission, onRevokePermission }) => (
-  <div className="flex-1 overflow-y-auto p-2.5 space-y-3">
-    <h3 className="text-xs font-semibold text-white flex items-center gap-1.5"><Users className="w-3.5 h-3.5 text-emerald-400" />Participants</h3>
+  <div className="flex-1 overflow-y-auto space-y-3" data-testid="participants-panel">
+    <div className="p-3 border-b border-white/[0.06]">
+      <div className="flex items-center gap-2">
+        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-emerald-500/20 to-green-500/10 flex items-center justify-center">
+          <Users className="w-3.5 h-3.5 text-emerald-400" />
+        </div>
+        <div>
+          <h3 className="text-xs font-semibold text-white">Participants</h3>
+          <p className="text-[9px] text-slate-500">{Object.keys(activeRoles).length} active</p>
+        </div>
+      </div>
+    </div>
+    <div className="px-3 space-y-3">
 
     {/* Org Privacy Status */}
     {roomInfo?.org_privacy?.has_org_domains && (
