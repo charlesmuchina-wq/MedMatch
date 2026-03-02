@@ -9,23 +9,26 @@ AI KARAU is an intelligent, immersive video meeting platform with "Distance Zero
 - Multi-role webinar system (Host, Panelist, Attendee)
 - Cloud recordings with transcription (OpenAI Whisper)
 - Stripe payment integration (test keys)
-- i18n internationalization
 - Noise cancellation (rnnoise-wasm)
 - Speaker detection (hark.js)
+
+### i18n Internationalization (Mar 2026)
+- **Full i18n coverage**: All KarauMeet pages use `t()` translation function - no hardcoded English
+- **Language selector on login page**: Users choose language before authentication
+- **40+ languages supported**: English, Portuguese (PT+BR), German, Swahili, Spanish, French, Japanese, Arabic, Hindi, Chinese, and 30+ more
+- **473 karauMeet translation keys** in en.json with manually translated keys for pt-PT, de, sw
+- **AI runtime translation**: Missing translations are dynamically translated via Emergent LLM
+- **Per-user language persistence**: Each user can have their own UI language independent of meeting host
 
 ### Distance Zero - Phase 1 (Core AI)
 - AI Assistant with voice commands
 - AI Meeting Coach (real-time presentation tips)
-- Eye contact correction
-- Spatial audio
+- Eye contact correction, Spatial audio
 - Live transcription with multi-language captions
-- AI-powered video framing
+- AI-powered video framing, Cinematic Director Mode
 - Gamification (leaderboard, emoji reactions)
-- Cinematic Director Mode
-- QR Code touchless entry
-- Ghost Booking prevention
-- Enhanced Sentiment Dashboard
-- Multiplayer Copilot (cross-meeting context)
+- QR Code touchless entry, Ghost Booking prevention
+- Enhanced Sentiment Dashboard, Multiplayer Copilot
 
 ### Distance Zero - Phase 2 (Hardware Layer - MOCKED)
 - SLAM, 360 Camera, Beamforming, WebXR, IoT, Hardware Discovery, Biometric
@@ -33,30 +36,21 @@ AI KARAU is an intelligent, immersive video meeting platform with "Distance Zero
 ### Distance Zero - Phase 3 (Interactive Tools)
 - AI Agenda, Resource Allocation, Polls & Quizzes, Action Items, Meeting Replay
 
-### UI Polish (Feb 2026)
-- FeatureToolbar with grouped categories
-- Feature Command Bar (Cmd+K)
-- More Tools expandable tray
-- Enhanced panel designs with animations
-- Routing fix: meeting join -> WebinarLiveRoom
+### UI/UX Complete Redesign (Mar 2026)
+- **KarauMeetLogin**: Split layout with AI feature showcase, language selector, trust badges
+- **KarauMeetDashboard**: Bento grid, AI Capabilities banner (8 features), stats, Meeting Insights card (AI summaries/decisions/actions), featured Next Meeting with countdown, collapsible upcoming
+- **KarauMeetPortal**: Redesigned sidebar with gradient icons, AI POWERED badge
+- **MeetingLobby**: Immersive pre-meeting lobby with AI feature badges
+- **How-To Guide** (`/karau-meet/guide`): 9 sections, 50 articles, role-based filters (Enterprise, Admin, Host, Attendee), searchable
+- **Seed Data**: 5 past + 5 upcoming meetings, 5 past + 5 upcoming webinars, enriched AI notes
 
-### Production-Ready Refactor (Feb 2026)
-- **WebinarLiveRoom.jsx:** 1197 -> 475 lines (60% reduction)
-- **Extracted hooks:** useWebRTC.js, useWebinarActions.js
-- **Extracted components:** TopBar, VideoStage, SidePanel, QAPanel, ParticipantsPanel, ControlsPanel
-- **React.memo** on all extracted components
-- **useCallback** for all event handlers
-- **React.lazy + Suspense** for 15+ side panels (lazy-loaded on demand)
-
-### Complete UI/UX Redesign (Mar 2026)
-- **KarauMeetLogin.jsx:** Split layout with AI feature showcase (left) and auth form (right), animated feature carousel, trust badges
-- **KarauMeetDashboard.jsx:** Bento grid layout with AI Capabilities banner (8 features), stats cards, upcoming meetings with countdowns, trending topics, analytics
-- **KarauMeetPortal.jsx:** Redesigned sidebar with gradient active icons, AI POWERED badge, Distance Zero branding
-- **MeetingLobby.jsx:** Immersive pre-meeting lobby with AI feature badges, glass-morphism controls
-- **Seed Data:** 5 past + 5 upcoming meetings, 5 past + 5 upcoming webinars, 10 activity feed items
+### Performance Refactor (Feb 2026)
+- WebinarLiveRoom: 1197 -> 475 lines (60% reduction)
+- React.lazy for 15+ side panels, useCallback/React.memo memoization
+- Custom hooks: usePanelManager, useWebinarState, useWebinarLifecycle, usePolling
 
 ## Architecture
-- **Frontend:** React + Tailwind + Shadcn UI
+- **Frontend:** React + Tailwind + Shadcn UI + react-i18next
 - **Backend:** FastAPI + MongoDB
 - **Auth:** JWT-based
 - **LLM:** Emergent LLM Key (OpenAI)
@@ -70,7 +64,7 @@ AI KARAU is an intelligent, immersive video meeting platform with "Distance Zero
 - Stripe (test keys), Hardware APIs, Resource prediction
 
 ## Backlog
-- P2: Enhance mocked hardware APIs (more interactive with connection states, calibration flows)
+- P2: Enhance mocked hardware APIs (interactive connection states, calibration flows)
 - P2: Add UI micro-animations across panels
 - P3: Transition mocked hardware features to real implementations
 - P3: Live Stripe payment keys
