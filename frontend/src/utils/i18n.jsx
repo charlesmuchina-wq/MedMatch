@@ -16,6 +16,7 @@ import ja from "@/locales/ja.json";
 import ar from "@/locales/ar.json";
 import hi from "@/locales/hi.json";
 import ptBR from "@/locales/pt-BR.json";
+import ptPT from "@/locales/pt-PT.json";  // Portuguese (Portugal)
 // African Languages - ALL BUNDLED
 import sw from "@/locales/sw.json";  // Swahili
 import ha from "@/locales/ha.json";  // Hausa
@@ -77,6 +78,7 @@ const translations = {
   ar,      // Arabic
   hi,      // Hindi
   "pt-BR": ptBR,  // Portuguese-BR
+  "pt-PT": ptPT,  // Portuguese-PT
   // African Languages
   sw,      // Swahili
   ha,      // Hausa
@@ -127,7 +129,8 @@ const translations = {
   "en-GB": en,
   "en-IE": en,
   "en-SG": en,
-  pt: ptBR,
+  pt: ptPT,
+  "pt-PT": ptPT,
   "ar-AE": ar,
   "ar-EG": ar,
   // Testing
@@ -174,6 +177,7 @@ export const LANGUAGE_META = {
   
   // European Languages (AI translation)
   pt: { name: "Portuguese", native: "Português", flag: "🇵🇹", rtl: false },
+  "pt-PT": { name: "Portuguese (Portugal)", native: "Português (Portugal)", flag: "🇵🇹", rtl: false },
   "pt-BR": { name: "Portuguese (Brazil)", native: "Português (Brasil)", flag: "🇧🇷", rtl: false },
   it: { name: "Italian", native: "Italiano", flag: "🇮🇹", rtl: false },
   ru: { name: "Russian", native: "Русский", flag: "🇷🇺", rtl: false },
@@ -263,7 +267,7 @@ export const BUNDLED_LANGUAGES = [
   // Core languages
   "en", "es", "fr", "zh", "de",
   // High-demand languages
-  "ja", "ar", "hi", "pt-BR",
+  "ja", "ar", "hi", "pt-BR", "pt-PT",
   // African Languages (16)
   "sw", "ha", "yo", "ig", "zu", "xh", "af", "am",
   "om", "so", "rw", "sn", "ny", "tw", "wo", "lg",
@@ -277,7 +281,7 @@ export const BUNDLED_LANGUAGES = [
   // Additional languages
   "cs", "el", "hu", "is", "ms", "ro", "ta", "tl", "ur",
   // Variant mappings (use base locale)
-  "en-GB", "en-IE", "en-SG", "pt", "ar-AE", "ar-EG"
+  "en-GB", "en-IE", "en-SG", "pt", "pt-PT", "ar-AE", "ar-EG"
 ];
 
 // Popular languages order (including African languages and key regional variants)
@@ -287,7 +291,7 @@ export const POPULAR_LANGUAGES = [
   // English variants
   "en", "en-GB", "en-IE", "en-SG",
   // Major European languages
-  "es", "fr", "de", "it", "pt", "pt-BR", "nl", "pl", "ru", "uk",
+  "es", "fr", "de", "it", "pt", "pt-PT", "pt-BR", "nl", "pl", "ru", "uk",
   // Nordic languages
   "no", "sv", "da", "fi",
   // Asian languages

@@ -31,14 +31,14 @@ const getCountdown = (scheduledTime) => {
 };
 
 const AI_CAPABILITIES = [
-  { icon: Brain, label: 'AI Coach', color: 'text-purple-400', bg: 'bg-purple-500/10' },
-  { icon: Eye, label: 'Eye Contact', color: 'text-teal-400', bg: 'bg-teal-500/10' },
-  { icon: Globe, label: 'Live Captions', color: 'text-blue-400', bg: 'bg-blue-500/10' },
-  { icon: Wand2, label: 'Director Mode', color: 'text-amber-400', bg: 'bg-amber-500/10' },
-  { icon: Volume2, label: 'Spatial Audio', color: 'text-rose-400', bg: 'bg-rose-500/10' },
-  { icon: Mic, label: 'Noise Cancel', color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
-  { icon: Sparkles, label: 'AI Notes', color: 'text-violet-400', bg: 'bg-violet-500/10' },
-  { icon: Bot, label: 'Assistant', color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
+  { icon: Brain, labelKey: 'karauMeet.aiCoach', color: 'text-purple-400', bg: 'bg-purple-500/10' },
+  { icon: Eye, labelKey: 'karauMeet.eyeContact', color: 'text-teal-400', bg: 'bg-teal-500/10' },
+  { icon: Globe, labelKey: 'karauMeet.liveCaptions', color: 'text-blue-400', bg: 'bg-blue-500/10' },
+  { icon: Wand2, labelKey: 'karauMeet.directorMode', color: 'text-amber-400', bg: 'bg-amber-500/10' },
+  { icon: Volume2, labelKey: 'karauMeet.spatialAudio', color: 'text-rose-400', bg: 'bg-rose-500/10' },
+  { icon: Mic, labelKey: 'karauMeet.noiseCancel', color: 'text-cyan-400', bg: 'bg-cyan-500/10' },
+  { icon: Sparkles, labelKey: 'karauMeet.aiNotesShort', color: 'text-violet-400', bg: 'bg-violet-500/10' },
+  { icon: Bot, labelKey: 'karauMeet.assistant', color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
 ];
 
 const KarauMeetDashboard = ({ user }) => {
@@ -194,10 +194,10 @@ const KarauMeetDashboard = ({ user }) => {
   const pastMeetings = meetings.filter(m => m.status === 'ended').slice(0, 5);
 
   const statItems = [
-    { label: 'Meetings', value: stats.total_meetings, icon: Video, accent: 'text-blue-400', glow: 'group-hover:shadow-blue-500/20' },
-    { label: 'Hours', value: stats.total_hours, icon: Clock, accent: 'text-purple-400', glow: 'group-hover:shadow-purple-500/20' },
-    { label: 'AI Insights', value: stats.ai_insights, icon: Sparkles, accent: 'text-violet-400', glow: 'group-hover:shadow-violet-500/20' },
-    { label: 'Participants', value: stats.total_participants, icon: Users, accent: 'text-emerald-400', glow: 'group-hover:shadow-emerald-500/20' }
+    { label: t('karauMeet.meetings'), value: stats.total_meetings, icon: Video, accent: 'text-blue-400', glow: 'group-hover:shadow-blue-500/20' },
+    { label: t('karauMeet.hours'), value: stats.total_hours, icon: Clock, accent: 'text-purple-400', glow: 'group-hover:shadow-purple-500/20' },
+    { label: t('karauMeet.aiInsights'), value: stats.ai_insights, icon: Sparkles, accent: 'text-violet-400', glow: 'group-hover:shadow-violet-500/20' },
+    { label: t('karauMeet.participants'), value: stats.total_participants, icon: Users, accent: 'text-emerald-400', glow: 'group-hover:shadow-emerald-500/20' }
   ];
 
   return (
@@ -217,7 +217,7 @@ const KarauMeetDashboard = ({ user }) => {
             className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-full px-6 h-10 shadow-lg shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] font-medium"
             data-testid="btn-new-meeting"
           >
-            <Plus className="w-4 h-4 mr-2" /> New Meeting
+            <Plus className="w-4 h-4 mr-2" /> {t("karauMeet.newMeetingBtn")}
           </Button>
         </div>
       </header>
@@ -279,15 +279,15 @@ const KarauMeetDashboard = ({ user }) => {
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Zap className="w-4 h-4 text-amber-400" />
-              <span className="text-xs font-semibold text-white uppercase tracking-wider">AI-Powered Features</span>
+              <span className="text-xs font-semibold text-white uppercase tracking-wider">{t("karauMeet.aiPoweredFeatures")}</span>
             </div>
-            <span className="text-[10px] text-slate-500">Available in every meeting</span>
+            <span className="text-[10px] text-slate-500">{t("karauMeet.availableEveryMeeting")}</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {AI_CAPABILITIES.map((cap, i) => (
               <div key={i} className={`flex items-center gap-2 px-3 py-2 ${cap.bg} rounded-xl border border-white/[0.06] hover:border-white/[0.12] transition-all duration-200 cursor-default`}>
                 <cap.icon className={`w-3.5 h-3.5 ${cap.color}`} />
-                <span className="text-xs text-slate-300 font-medium">{cap.label}</span>
+                <span className="text-xs text-slate-300 font-medium">{t(cap.labelKey)}</span>
               </div>
             ))}
           </div>
@@ -303,7 +303,7 @@ const KarauMeetDashboard = ({ user }) => {
                   <CalendarClock className="w-4 h-4 text-blue-400" />
                   <span className="text-sm font-semibold text-white">Upcoming</span>
                 </div>
-                <p className="text-xs text-slate-600">No upcoming meetings scheduled</p>
+                <p className="text-xs text-slate-600">{t("karauMeet.noUpcoming")}</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -317,7 +317,7 @@ const KarauMeetDashboard = ({ user }) => {
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
                           <div className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-pulse" />
-                          <span className="text-xs font-semibold text-blue-300 uppercase tracking-wider">Next Meeting</span>
+                          <span className="text-xs font-semibold text-blue-300 uppercase tracking-wider">{t("karauMeet.nextMeeting")}</span>
                         </div>
                         {upcoming.length > 1 && (
                           <Badge className="bg-white/[0.06] text-slate-400 border-white/[0.06] text-[10px]">
@@ -338,7 +338,7 @@ const KarauMeetDashboard = ({ user }) => {
                       <Button onClick={() => navigate(`/karau-meet/lobby/${next.meeting_id}`)}
                         className="bg-blue-600 hover:bg-blue-500 text-white rounded-full px-6 h-9 text-sm shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
                         data-testid="btn-start-next-meeting">
-                        <Play className="w-3.5 h-3.5 mr-2" /> Start Meeting
+                        <Play className="w-3.5 h-3.5 mr-2" /> {t("karauMeet.startMeeting")}
                       </Button>
                     </div>
                   );
@@ -387,14 +387,14 @@ const KarauMeetDashboard = ({ user }) => {
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-violet-400" />
-                  <span className="text-sm font-semibold text-white">Meeting Insights</span>
+                  <span className="text-sm font-semibold text-white">{t("karauMeet.meetingInsights")}</span>
                 </div>
                 {insights.length > 1 && (
                   <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[10px]">{insights.filter(i => i.summary).length} summaries</Badge>
                 )}
               </div>
               {insights.filter(i => i.summary).length === 0 ? (
-                <p className="text-xs text-slate-600">AI insights will appear after your first meetings</p>
+                <p className="text-xs text-slate-600">{t("karauMeet.insightsAppearAfter")}</p>
               ) : (
                 <div className="space-y-3">
                   {/* Featured insight (latest) */}
@@ -412,7 +412,7 @@ const KarauMeetDashboard = ({ user }) => {
                         <p className="text-xs text-slate-400 leading-relaxed mb-3">{featured.summary}</p>
                         {featured.key_decisions.length > 0 && (
                           <div className="mb-2">
-                            <span className="text-[10px] text-emerald-400 font-semibold uppercase tracking-wider">Decisions</span>
+                            <span className="text-[10px] text-emerald-400 font-semibold uppercase tracking-wider">{t("karauMeet.decisions")}</span>
                             {featured.key_decisions.map((d, i) => (
                               <p key={i} className="text-[11px] text-slate-400 mt-1 pl-2 border-l-2 border-emerald-500/30">{d}</p>
                             ))}
@@ -420,7 +420,7 @@ const KarauMeetDashboard = ({ user }) => {
                         )}
                         {featured.action_items.length > 0 && (
                           <div>
-                            <span className="text-[10px] text-amber-400 font-semibold uppercase tracking-wider">Action Items</span>
+                            <span className="text-[10px] text-amber-400 font-semibold uppercase tracking-wider">{t("karauMeet.actionItems")}</span>
                             {featured.action_items.slice(0, 2).map((a, i) => (
                               <p key={i} className="text-[11px] text-slate-400 mt-1 pl-2 border-l-2 border-amber-500/30">{a}</p>
                             ))}
@@ -471,10 +471,10 @@ const KarauMeetDashboard = ({ user }) => {
         <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5" data-testid="trending-topics">
           <div className="flex items-center gap-2 mb-3">
             <TrendingUp className="w-4 h-4 text-violet-400" />
-            <span className="text-sm font-semibold text-white">Trending Topics</span>
+            <span className="text-sm font-semibold text-white">{t("karauMeet.trendingTopics")}</span>
           </div>
           {trendingTopics.length === 0 ? (
-            <p className="text-xs text-slate-600">Topics will appear after your first meetings</p>
+            <p className="text-xs text-slate-600">{t("karauMeet.topicsAppearAfter")}</p>
           ) : (
             <div className="flex flex-wrap gap-2">
               {trendingTopics.map((tp, i) => (
@@ -500,7 +500,7 @@ const KarauMeetDashboard = ({ user }) => {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                       <Target className="w-4 h-4 text-emerald-400" />
-                      <span className="text-sm font-semibold text-white">Effectiveness</span>
+                      <span className="text-sm font-semibold text-white">{t("karauMeet.effectiveness")}</span>
                     </div>
                     <span className={`text-[10px] px-2 py-0.5 rounded-full border ${
                       effectiveness.engagement_level === 'High' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :
@@ -617,7 +617,7 @@ const KarauMeetDashboard = ({ user }) => {
               >
                 <div className="flex items-center gap-2">
                   <Video className="w-4 h-4 text-slate-400" />
-                  <span className="text-sm font-semibold text-white">Recent Meetings</span>
+                  <span className="text-sm font-semibold text-white">{t("karauMeet.recentMeetings")}</span>
                   <Badge className="bg-white/[0.06] text-slate-400 border-white/[0.06] text-[10px]">{meetings.length}</Badge>
                   {activeMeetings.length > 0 && <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px] animate-pulse">{activeMeetings.length} active</Badge>}
                 </div>
@@ -628,7 +628,7 @@ const KarauMeetDashboard = ({ user }) => {
                   {loading ? (
                     <div className="flex items-center justify-center py-6"><Loader2 className="w-5 h-5 text-purple-400 animate-spin" /></div>
                   ) : meetings.length === 0 ? (
-                    <p className="text-xs text-slate-600 py-4" data-testid="no-meetings">No meetings yet. Start your first one!</p>
+                    <p className="text-xs text-slate-600 py-4" data-testid="no-meetings">{t("karauMeet.noMeetingsYet")}</p>
                   ) : (
                     <div className="space-y-2">
                       {meetings.slice(0, 8).map((meeting) => (
@@ -662,11 +662,11 @@ const KarauMeetDashboard = ({ user }) => {
             <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5 h-full" data-testid="activity-feed">
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                <span className="text-sm font-semibold text-white">Highlights</span>
+                <span className="text-sm font-semibold text-white">{t("karauMeet.highlights")}</span>
                 {importantActivities.length > 0 && <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[10px]">{importantActivities.length}</Badge>}
               </div>
               {importantActivities.length === 0 ? (
-                <p className="text-xs text-slate-600">Highlights will appear after meetings</p>
+                <p className="text-xs text-slate-600">{t("karauMeet.highlightsAppearAfter")}</p>
               ) : (
                 <div className="space-y-2 max-h-48 overflow-auto">
                   {importantActivities.map((a, idx) => (
@@ -695,18 +695,18 @@ const KarauMeetDashboard = ({ user }) => {
           </DialogHeader>
           <div className="space-y-4 py-2">
             <div>
-              <Label className="text-slate-400 text-xs uppercase tracking-wider">Meeting title</Label>
+              <Label className="text-slate-400 text-xs uppercase tracking-wider">{t("karauMeet.meetingTitle")}</Label>
               <Input placeholder="e.g. Weekly Team Sync" value={newMeetingTitle} onChange={(e) => setNewMeetingTitle(e.target.value)}
                 className="bg-black/30 border-white/[0.08] text-white mt-2 rounded-xl h-11 focus:border-purple-500/40 placeholder-slate-600" data-testid="input-meeting-title" />
             </div>
             <div>
-              <Label className="text-slate-400 text-xs uppercase tracking-wider">Schedule (optional)</Label>
+              <Label className="text-slate-400 text-xs uppercase tracking-wider">{t("karauMeet.scheduleOptional")}</Label>
               <Input type="datetime-local" value={scheduledTime} onChange={(e) => setScheduledTime(e.target.value)}
                 className="bg-black/30 border-white/[0.08] text-white mt-2 rounded-xl h-11 focus:border-blue-500/40 [color-scheme:dark]" data-testid="input-scheduled-time" />
             </div>
             {templates.length > 0 && (
               <div>
-                <Label className="text-slate-400 text-xs uppercase tracking-wider mb-2 block">Template (optional)</Label>
+                <Label className="text-slate-400 text-xs uppercase tracking-wider mb-2 block">{t("karauMeet.templateOptional")}</Label>
                 <div className="grid grid-cols-2 gap-2 max-h-28 overflow-y-auto">
                   {templates.map(tmpl => (
                     <button key={tmpl.template_id} onClick={() => setSelectedTemplate(selectedTemplate?.template_id === tmpl.template_id ? null : tmpl)}
@@ -720,28 +720,28 @@ const KarauMeetDashboard = ({ user }) => {
               </div>
             )}
             <div className="flex items-center justify-between p-4 bg-white/[0.03] rounded-xl border border-white/[0.05]">
-              <div><Label className="text-slate-300 text-sm">AI Notes</Label><p className="text-[11px] text-slate-500">Auto-transcribe and summarize</p></div>
+              <div><Label className="text-slate-300 text-sm">{t("karauMeet.aiNotesShort")}</Label><p className="text-[11px] text-slate-500">{t("karauMeet.autoTranscribeAndSummarize")}</p></div>
               <Switch defaultChecked />
             </div>
             <div className="flex items-center justify-between p-4 bg-white/[0.03] rounded-xl border border-white/[0.05]">
-              <div><Label className="text-slate-300 text-sm">Recording</Label><p className="text-[11px] text-slate-500">Cloud recording with consent</p></div>
+              <div><Label className="text-slate-300 text-sm">{t("karauMeet.recording")}</Label><p className="text-[11px] text-slate-500">{t("karauMeet.cloudRecordingConsent")}</p></div>
               <Switch defaultChecked />
             </div>
           </div>
           <DialogFooter className="flex-col sm:flex-row gap-2">
-            <Button variant="ghost" onClick={() => { setShowCreateDialog(false); setScheduledTime(''); }} className="text-slate-400 rounded-full">Cancel</Button>
+            <Button variant="ghost" onClick={() => { setShowCreateDialog(false); setScheduledTime(''); }} className="text-slate-400 rounded-full">{t("karauMeet.cancel")}</Button>
             <div className="flex gap-2">
               {scheduledTime && (
                 <Button variant="outline" onClick={() => createMeeting(true)} disabled={creating}
                   className="border-blue-500/30 text-blue-300 hover:bg-blue-500/10 rounded-full" data-testid="btn-schedule">
                   {creating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <CalendarClock className="w-4 h-4 mr-2" />}
-                  Schedule
+                  {t("karauMeet.schedule")}
                 </Button>
               )}
               <Button onClick={() => createMeeting(false)} disabled={creating}
                 className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white rounded-full shadow-lg shadow-purple-500/20" data-testid="btn-create-meeting">
                 {creating ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
-                Start Now
+                {t("karauMeet.startNow")}
               </Button>
             </div>
           </DialogFooter>

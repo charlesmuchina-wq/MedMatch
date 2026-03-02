@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useVirtualBackground } from './useVirtualBackground';
+import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
@@ -42,6 +43,7 @@ const AI_BADGES = [
 
 const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const videoRef = useRef(null);
   const [videoElement, setVideoElement] = useState(null);
   const localStreamRef = useRef(null);
@@ -229,7 +231,7 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
       <div className="min-h-screen bg-[#0c0d1a] flex items-center justify-center" data-testid="lobby-loading">
         <div className="text-center">
           <Loader2 className="w-10 h-10 text-purple-400 animate-spin mx-auto mb-3" />
-          <p className="text-slate-400 text-sm">Connecting to meeting...</p>
+          <p className="text-slate-400 text-sm">{t("karauMeet.connectingToMeeting")}</p>
         </div>
       </div>
     );
@@ -242,10 +244,10 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
           <div className="w-16 h-16 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center mx-auto mb-4">
             <X className="w-8 h-8 text-red-400" />
           </div>
-          <h2 className="text-xl font-semibold text-white mb-2">Unable to Join</h2>
-          <p className="text-slate-500 text-sm mb-6">The meeting was not found or your request was denied.</p>
+          <h2 className="text-xl font-semibold text-white mb-2">{t("karauMeet.unableToJoin")}</h2>
+          <p className="text-slate-500 text-sm mb-6">{t("karauMeet.meetingNotFoundOrDenied")}</p>
           <Button onClick={() => navigate('/karau-meet')} className="bg-white/[0.06] hover:bg-white/[0.1] text-white border border-white/[0.08] rounded-full px-6">
-            Back to Portal
+            {t("karauMeet.backToPortalBtn")}
           </Button>
         </div>
       </div>
@@ -305,7 +307,7 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
             {/* Skin tone badge */}
             {isVideoEnabled && selectedBg !== 'none' && bgActive && (
               <Badge className="absolute top-4 left-4 bg-emerald-600/80 text-white border-0 text-[10px] z-10 rounded-full" data-testid="skin-tone-badge">
-                Skin Tone Protection Active
+                {t("karauMeet.skinToneProtection")}
               </Badge>
             )}
 
@@ -385,10 +387,10 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
             <div className="mt-4 bg-white/[0.03] rounded-2xl p-5 space-y-4 border border-white/[0.06]" data-testid="lobby-device-settings">
               {videoDevices.length > 0 && (
                 <div>
-                  <label className="text-xs text-slate-500 mb-1.5 block uppercase tracking-wider">Camera</label>
+                  <label className="text-xs text-slate-500 mb-1.5 block uppercase tracking-wider">{t("karauMeet.camera")}</label>
                   <Select value={selectedVideoDevice} onValueChange={switchCamera}>
                     <SelectTrigger className="bg-black/30 border-white/[0.08] text-white text-sm h-10 rounded-xl">
-                      <SelectValue placeholder="Select camera" />
+                      <SelectValue placeholder={t("karauMeet.selectCamera")} />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1a1b2e] border-white/[0.08]">
                       {videoDevices.map(d => (
@@ -400,10 +402,10 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
               )}
               {audioInputDevices.length > 0 && (
                 <div>
-                  <label className="text-xs text-slate-500 mb-1.5 block uppercase tracking-wider">Microphone</label>
+                  <label className="text-xs text-slate-500 mb-1.5 block uppercase tracking-wider">{t("karauMeet.microphone")}</label>
                   <Select value={selectedAudioInput} onValueChange={switchMic}>
                     <SelectTrigger className="bg-black/30 border-white/[0.08] text-white text-sm h-10 rounded-xl">
-                      <SelectValue placeholder="Select microphone" />
+                      <SelectValue placeholder={t("karauMeet.selectMicrophone")} />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1a1b2e] border-white/[0.08]">
                       {audioInputDevices.map(d => (
@@ -415,10 +417,10 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
               )}
               {audioOutputDevices.length > 0 && (
                 <div>
-                  <label className="text-xs text-slate-500 mb-1.5 block uppercase tracking-wider">Speaker</label>
+                  <label className="text-xs text-slate-500 mb-1.5 block uppercase tracking-wider">{t("karauMeet.speaker")}</label>
                   <Select value={selectedAudioOutput} onValueChange={setSelectedAudioOutput}>
                     <SelectTrigger className="bg-black/30 border-white/[0.08] text-white text-sm h-10 rounded-xl">
-                      <SelectValue placeholder="Select speaker" />
+                      <SelectValue placeholder={t("karauMeet.selectSpeaker")} />
                     </SelectTrigger>
                     <SelectContent className="bg-[#1a1b2e] border-white/[0.08]">
                       {audioOutputDevices.map(d => (
@@ -439,7 +441,7 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
               {meetingInfo?.title || 'AI KARAU Meeting'}
             </h1>
             <p className="text-slate-500 text-sm">
-              Hosted by {meetingInfo?.host_name || 'Host'}
+              {t("karauMeet.hostedBy", { name: meetingInfo?.host_name || 'Host' })}
             </p>
           </div>
 
@@ -462,11 +464,11 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
                 disabled={isJoining}
                 data-testid="lobby-join-btn"
               >
-                {isJoining ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Joining...</> : 'Join now'}
+                {isJoining ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("karauMeet.joining")}</> : t("karauMeet.joinNow")}
               </Button>
               <div className="flex items-center justify-center gap-5 text-xs text-slate-600">
-                <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> E2E Encrypted</span>
-                <span className="flex items-center gap-1.5"><Monitor className="w-3.5 h-3.5" /> HD Video</span>
+                <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> {t("karauMeet.e2eEncrypted")}</span>
+                <span className="flex items-center gap-1.5"><Monitor className="w-3.5 h-3.5" /> {t("karauMeet.hdVideo")}</span>
               </div>
             </div>
           )}
@@ -477,10 +479,10 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
               <div className="bg-white/[0.03] rounded-2xl p-6 border border-white/[0.06]">
                 <div className="flex items-center justify-center gap-2 mb-3">
                   <Clock className="w-5 h-5 text-amber-400 animate-pulse" />
-                  <span className="text-white font-medium text-sm">Waiting for host</span>
+                  <span className="text-white font-medium text-sm">{t("karauMeet.waitingForHost")}</span>
                 </div>
                 <p className="text-slate-500 text-xs leading-relaxed text-center">
-                  The host has been notified. You'll be admitted shortly.
+                  {t("karauMeet.hostNotified")}
                 </p>
                 <div className="mt-4">
                   <div className="h-1.5 bg-white/[0.04] rounded-full overflow-hidden">
@@ -494,7 +496,7 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
                 onClick={() => { localStreamRef.current?.getTracks().forEach(t => t.stop()); navigate('/karau-meet'); }}
                 data-testid="lobby-cancel-btn"
               >
-                Leave lobby
+                {t("karauMeet.leaveLobby")}
               </Button>
             </div>
           )}
@@ -505,7 +507,7 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
               <div className="bg-emerald-500/10 rounded-2xl p-5 border border-emerald-500/20">
                 <div className="flex items-center justify-center gap-2">
                   <UserCheck className="w-5 h-5 text-emerald-400" />
-                  <span className="text-emerald-400 font-medium text-sm">Admitted! Joining...</span>
+                  <span className="text-emerald-400 font-medium text-sm">{t("karauMeet.admittedJoining")}</span>
                 </div>
               </div>
               <Loader2 className="w-6 h-6 text-purple-400 animate-spin mx-auto" />

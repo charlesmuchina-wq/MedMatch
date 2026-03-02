@@ -35,14 +35,14 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
   const { t } = useTranslation();
   
   const navItems = [
-    { path: '/karau-meet', icon: Home, label: 'Dashboard' },
-    { path: '/karau-meet/meetings', icon: Video, label: 'My Meetings' },
-    { path: '/karau-meet/schedule', icon: CalendarDays, label: 'Schedule' },
-    { path: '/karau-meet/recordings', icon: Archive, label: 'Recordings' },
-    { path: '/karau-meet/webinars', icon: Radio, label: 'Webinars' },
-    { path: '/karau-meet/notes', icon: FileText, label: 'Meeting Notes' },
-    { path: '/karau-meet/guide', icon: BookOpen, label: 'How-To Guide' },
-    { path: '/karau-meet/settings', icon: Settings, label: 'Settings' },
+    { path: '/karau-meet', icon: Home, label: t('karauMeet.dashboard') },
+    { path: '/karau-meet/meetings', icon: Video, label: t('karauMeet.myMeetings') },
+    { path: '/karau-meet/schedule', icon: CalendarDays, label: t('karauMeet.scheduleSidebar') },
+    { path: '/karau-meet/recordings', icon: Archive, label: t('karauMeet.recordings') },
+    { path: '/karau-meet/webinars', icon: Radio, label: t('karauMeet.webinars') },
+    { path: '/karau-meet/notes', icon: FileText, label: t('karauMeet.meetingNotes') },
+    { path: '/karau-meet/guide', icon: BookOpen, label: t('karauMeet.howToGuide') },
+    { path: '/karau-meet/settings', icon: Settings, label: t('karauMeet.settings') },
   ];
 
   return (
@@ -147,7 +147,7 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
           data-testid="btn-logout"
         >
           <LogOut className="w-4 h-4" />
-          {!isCollapsed && <span className="ml-2">{t("auth.signOut")}</span>}
+          {!isCollapsed && <span className="ml-2">{t("karauMeet.signOut")}</span>}
         </Button>
       </div>
     </div>

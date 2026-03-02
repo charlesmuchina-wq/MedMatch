@@ -2,25 +2,17 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import {
-  Video, Users, Shield, Sparkles, Loader2, Eye, Mic,
-  Globe, Brain, Wand2, Radio, Volume2, Zap, Lock,
+  Users, Shield, Sparkles, Loader2, Eye, Mic,
+  Globe, Brain, Wand2, Volume2, Zap, Lock,
   ArrowRight, ChevronRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useTranslation } from '@/utils/i18n';
+import GlobalLanguageSelector from '@/components/GlobalLanguageSelector';
 
 const API = process.env.REACT_APP_BACKEND_URL;
-
-const AI_FEATURES = [
-  { icon: Brain, label: 'AI Meeting Coach', desc: 'Real-time presentation tips', color: 'from-purple-500 to-violet-600' },
-  { icon: Eye, label: 'Eye Contact Correction', desc: 'AI-powered gaze alignment', color: 'from-teal-500 to-emerald-600' },
-  { icon: Globe, label: 'Live Transcription', desc: '40+ language captions', color: 'from-blue-500 to-indigo-600' },
-  { icon: Wand2, label: 'Cinematic Director', desc: 'Auto camera switching', color: 'from-amber-500 to-orange-600' },
-  { icon: Volume2, label: 'Spatial Audio', desc: '3D positional sound', color: 'from-rose-500 to-pink-600' },
-  { icon: Mic, label: 'Noise Cancellation', desc: 'AI-powered audio cleanup', color: 'from-cyan-500 to-blue-600' },
-];
 
 const KarauMeetLogin = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -32,6 +24,15 @@ const KarauMeetLogin = ({ onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState('signin');
   const [activeFeature, setActiveFeature] = useState(0);
+
+  const AI_FEATURES = [
+    { icon: Brain, labelKey: 'karauMeet.aiMeetingCoach', descKey: 'karauMeet.realtimeTips', color: 'from-purple-500 to-violet-600' },
+    { icon: Eye, labelKey: 'karauMeet.eyeContactCorrection', descKey: 'karauMeet.aiGazeAlignment', color: 'from-teal-500 to-emerald-600' },
+    { icon: Globe, labelKey: 'karauMeet.liveTranscription', descKey: 'karauMeet.fortyLangCaptions', color: 'from-blue-500 to-indigo-600' },
+    { icon: Wand2, labelKey: 'karauMeet.cinematicDirector', descKey: 'karauMeet.autoCameraSwitching', color: 'from-amber-500 to-orange-600' },
+    { icon: Volume2, labelKey: 'karauMeet.spatialAudio', descKey: 'karauMeet.threeDPositionalSound', color: 'from-rose-500 to-pink-600' },
+    { icon: Mic, labelKey: 'karauMeet.noiseCancellation', descKey: 'karauMeet.aiAudioCleanup', color: 'from-cyan-500 to-blue-600' },
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -99,21 +100,20 @@ const KarauMeetLogin = ({ onLogin }) => {
             />
             <span className="text-xl font-bold text-white tracking-tight">AI KARAU</span>
           </div>
-          <p className="text-slate-500 text-sm ml-[60px] -mt-1">Distance Zero Communication</p>
+          <p className="text-slate-500 text-sm ml-[60px] -mt-1">{t("karauMeet.distanceZero")}</p>
         </div>
 
         {/* Hero section */}
         <div className="relative z-10 flex-1 flex flex-col justify-center max-w-xl">
           <h1 className="text-5xl font-bold text-white leading-[1.1] tracking-tight mb-6">
-            Meetings that feel
+            {t("karauMeet.meetingsFeelLike")}
             <br />
             <span className="bg-gradient-to-r from-teal-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
-              like being there
+              {t("karauMeet.likeBeingThere")}
             </span>
           </h1>
           <p className="text-lg text-slate-400 leading-relaxed mb-10 max-w-md">
-            AI-powered video meetings with eye contact correction, spatial audio, 
-            live transcription, and cinematic replay. Zero distance, full presence.
+            {t("karauMeet.loginHeroDesc")}
           </p>
 
           {/* Feature carousel */}
@@ -135,8 +135,8 @@ const KarauMeetLogin = ({ onLogin }) => {
                   <feature.icon className="w-5 h-5 text-white" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-white">{feature.label}</p>
-                  <p className="text-xs text-slate-500">{feature.desc}</p>
+                  <p className="text-sm font-semibold text-white">{t(feature.labelKey)}</p>
+                  <p className="text-xs text-slate-500">{t(feature.descKey)}</p>
                 </div>
                 {idx === activeFeature && (
                   <Zap className="w-4 h-4 text-teal-400 ml-auto flex-shrink-0 animate-pulse" />
@@ -148,9 +148,9 @@ const KarauMeetLogin = ({ onLogin }) => {
 
         {/* Bottom trust badges */}
         <div className="relative z-10 flex items-center gap-6 text-xs text-slate-600">
-          <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> E2E Encrypted</span>
-          <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> SOC 2 Compliant</span>
-          <span className="flex items-center gap-1.5"><Globe className="w-3.5 h-3.5" /> 40+ Languages</span>
+          <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> {t("karauMeet.e2eEncrypted")}</span>
+          <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> {t("karauMeet.soc2Compliant")}</span>
+          <span className="flex items-center gap-1.5"><Globe className="w-3.5 h-3.5" /> {t("karauMeet.fortyPlusLanguages")}</span>
         </div>
       </div>
 
@@ -158,6 +158,11 @@ const KarauMeetLogin = ({ onLogin }) => {
       <div className="flex-1 flex items-center justify-center p-6 lg:p-12 relative">
         {/* Subtle background glow */}
         <div className="absolute inset-0 bg-gradient-to-bl from-purple-600/5 via-transparent to-teal-500/5" />
+
+        {/* Language selector - top right */}
+        <div className="absolute top-4 right-4 z-20" data-testid="login-language-selector">
+          <GlobalLanguageSelector compact={false} />
+        </div>
         
         <div className="w-full max-w-[420px] relative z-10">
           {/* Mobile logo */}
@@ -168,7 +173,7 @@ const KarauMeetLogin = ({ onLogin }) => {
               className="w-20 h-20 rounded-2xl object-cover shadow-lg shadow-purple-500/20 mx-auto mb-4"
             />
             <h2 className="text-2xl font-bold text-white">AI KARAU</h2>
-            <p className="text-slate-500 text-sm">Distance Zero Communication</p>
+            <p className="text-slate-500 text-sm">{t("karauMeet.distanceZero")}</p>
           </div>
 
           {/* Tab switcher */}
@@ -199,8 +204,8 @@ const KarauMeetLogin = ({ onLogin }) => {
 
           {activeTab === 'signin' && (
             <div className="animate-in fade-in duration-300">
-              <h3 className="text-2xl font-bold text-white mb-1">Welcome back</h3>
-              <p className="text-slate-500 text-sm mb-8">Sign in to your AI KARAU account</p>
+              <h3 className="text-2xl font-bold text-white mb-1">{t("karauMeet.welcomeBackLogin")}</h3>
+              <p className="text-slate-500 text-sm mb-8">{t("karauMeet.signInToAccount")}</p>
 
               <form onSubmit={handleLogin} className="space-y-5">
                 <div>
@@ -223,7 +228,7 @@ const KarauMeetLogin = ({ onLogin }) => {
                       type={showPassword ? 'text' : 'password'}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      placeholder="Enter your password"
+                      placeholder={t("karauMeet.enterPassword")}
                       className="bg-black/30 border-white/10 text-white mt-2 h-12 pr-12 rounded-xl focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 placeholder-slate-600"
                       required
                       data-testid="input-password"
@@ -245,9 +250,9 @@ const KarauMeetLogin = ({ onLogin }) => {
                   data-testid="btn-signin"
                 >
                   {isLoading ? (
-                    <><Loader2 className="w-5 h-5 animate-spin mr-2" /> Signing in...</>
+                    <><Loader2 className="w-5 h-5 animate-spin mr-2" /> {t("karauMeet.signingIn")}</>
                   ) : (
-                    <>Sign In <ArrowRight className="w-4 h-4 ml-2" /></>
+                    <>{t("karauMeet.signIn")} <ArrowRight className="w-4 h-4 ml-2" /></>
                   )}
                 </Button>
               </form>
@@ -258,7 +263,7 @@ const KarauMeetLogin = ({ onLogin }) => {
                   <div className="w-full border-t border-white/[0.06]"></div>
                 </div>
                 <div className="relative flex justify-center">
-                  <span className="px-4 bg-[#0c0d1a] text-slate-600 text-xs uppercase tracking-wider">or</span>
+                  <span className="px-4 bg-[#0c0d1a] text-slate-600 text-xs uppercase tracking-wider">{t("karauMeet.or")}</span>
                 </div>
               </div>
 
@@ -277,19 +282,19 @@ const KarauMeetLogin = ({ onLogin }) => {
                     <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
                     <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                   </svg>
-                  Google
+                  {t("karauMeet.google")}
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => toast.info('Apple Sign-In coming soon')}
+                  onClick={() => toast.info(t("karauMeet.appleComingSoon"))}
                   className="h-11 bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border-white/[0.08] rounded-xl transition-all duration-300"
                   data-testid="btn-apple"
                 >
                   <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
                   </svg>
-                  Apple
+                  {t("karauMeet.apple")}
                 </Button>
               </div>
             </div>
@@ -297,8 +302,8 @@ const KarauMeetLogin = ({ onLogin }) => {
 
           {activeTab === 'join' && (
             <div className="animate-in fade-in duration-300">
-              <h3 className="text-2xl font-bold text-white mb-1">Join a meeting</h3>
-              <p className="text-slate-500 text-sm mb-8">Enter a meeting code to join as a guest</p>
+              <h3 className="text-2xl font-bold text-white mb-1">{t("karauMeet.joinAMeeting")}</h3>
+              <p className="text-slate-500 text-sm mb-8">{t("karauMeet.enterCodeToJoin")}</p>
 
               <form onSubmit={handleJoinMeeting} className="space-y-5">
                 <div>
@@ -319,11 +324,11 @@ const KarauMeetLogin = ({ onLogin }) => {
                   data-testid="btn-join-meeting"
                 >
                   <Users className="w-5 h-5 mr-2" />
-                  Join as Guest
+                  {t("karauMeet.joinAsGuest")}
                 </Button>
 
                 <p className="text-xs text-slate-600 text-center leading-relaxed">
-                  No account needed. You'll enter the meeting lobby where the host can admit you.
+                  {t("karauMeet.noAccountNeeded")}
                 </p>
               </form>
 
@@ -334,7 +339,7 @@ const KarauMeetLogin = ({ onLogin }) => {
                     <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${f.color} flex items-center justify-center`}>
                       <f.icon className="w-4 h-4 text-white" />
                     </div>
-                    <span className="text-[10px] text-slate-500 text-center">{f.label}</span>
+                    <span className="text-[10px] text-slate-500 text-center">{t(f.labelKey)}</span>
                   </div>
                 ))}
               </div>
@@ -345,12 +350,12 @@ const KarauMeetLogin = ({ onLogin }) => {
           <div className="mt-8 pt-6 border-t border-white/[0.04] flex items-center justify-between">
             <div className="flex items-center gap-3 text-xs text-slate-600">
               <Shield className="w-3.5 h-3.5 text-teal-500/50" />
-              <span>E2E Encrypted</span>
+              <span>{t("karauMeet.e2eEncrypted")}</span>
               <Sparkles className="w-3.5 h-3.5 text-purple-500/50" />
-              <span>AI Powered</span>
+              <span>{t("karauMeet.aiPowered")}</span>
             </div>
             <Link to="/" className="text-xs text-slate-600 hover:text-purple-400 transition-colors flex items-center gap-1">
-              Home <ChevronRight className="w-3 h-3" />
+              {t("karauMeet.home")} <ChevronRight className="w-3 h-3" />
             </Link>
           </div>
         </div>

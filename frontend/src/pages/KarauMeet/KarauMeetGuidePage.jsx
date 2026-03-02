@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
+import { useTranslation } from '@/utils/i18n';
 
 const GUIDE_SECTIONS = [
   {
@@ -152,17 +153,18 @@ const GUIDE_SECTIONS = [
 ];
 
 const KarauMeetGuidePage = () => {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedSection, setExpandedSection] = useState('getting-started');
   const [expandedItem, setExpandedItem] = useState(null);
   const [roleFilter, setRoleFilter] = useState('all');
 
   const roles = [
-    { id: 'all', label: 'All Roles', icon: Users },
-    { id: 'host', label: 'Host', icon: Presentation },
-    { id: 'attendee', label: 'Attendee', icon: User },
-    { id: 'admin', label: 'Admin', icon: UserCog },
-    { id: 'enterprise', label: 'Enterprise', icon: Building2 },
+    { id: 'all', label: t('karauMeet.allRoles'), icon: Users },
+    { id: 'host', label: t('karauMeet.host'), icon: Presentation },
+    { id: 'attendee', label: t('karauMeet.attendee'), icon: User },
+    { id: 'admin', label: t('karauMeet.admin'), icon: UserCog },
+    { id: 'enterprise', label: t('karauMeet.enterprise'), icon: Building2 },
   ];
 
   const filteredSections = GUIDE_SECTIONS.filter(section => {
@@ -186,9 +188,9 @@ const KarauMeetGuidePage = () => {
         <div>
           <h1 className="text-2xl font-bold text-white tracking-tight flex items-center gap-3">
             <BookOpen className="w-6 h-6 text-purple-400" />
-            How-To Guide
+            {t("karauMeet.guideTitle")}
           </h1>
-          <p className="text-slate-500 text-sm mt-0.5">Documentation for AI KARAU features, integrations, and best practices</p>
+          <p className="text-slate-500 text-sm mt-0.5">{t("karauMeet.guideDescription")}</p>
         </div>
         <Badge className="bg-white/[0.04] text-slate-400 border-white/[0.06] text-xs">
           {GUIDE_SECTIONS.reduce((acc, s) => acc + s.items.length, 0)} articles
@@ -200,7 +202,7 @@ const KarauMeetGuidePage = () => {
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
           <Input
-            placeholder="Search guides..."
+            placeholder={t("karauMeet.searchGuides")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="bg-black/30 border-white/[0.08] text-white pl-10 h-10 rounded-xl focus:border-purple-500/40 placeholder-slate-600"
@@ -232,7 +234,7 @@ const KarauMeetGuidePage = () => {
           {filteredSections.length === 0 ? (
             <div className="text-center py-16">
               <Search className="w-10 h-10 text-slate-700 mx-auto mb-3" />
-              <p className="text-slate-500 text-sm">No guides found matching your search</p>
+              <p className="text-slate-500 text-sm">{t("karauMeet.noGuidesFound")}</p>
             </div>
           ) : (
             filteredSections.map(section => {
