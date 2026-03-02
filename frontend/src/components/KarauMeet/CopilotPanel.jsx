@@ -73,12 +73,16 @@ export default function CopilotPanel({ meetingId }) {
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden" data-testid="copilot-panel">
-      <div className="p-2.5 border-b border-white/5">
-        <h3 className="text-xs font-semibold text-white flex items-center gap-1.5">
-          <BrainCircuit className="w-3.5 h-3.5 text-fuchsia-400" />
-          AI Copilot
-        </h3>
-        <p className="text-[8px] text-slate-500 mt-0.5">Cross-meeting intelligence</p>
+      <div className="p-3 border-b border-white/[0.06]">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-fuchsia-500/20 to-purple-500/10 flex items-center justify-center">
+            <BrainCircuit className="w-3.5 h-3.5 text-fuchsia-400" />
+          </div>
+          <div>
+            <h3 className="text-xs font-semibold text-white">AI Copilot</h3>
+            <p className="text-[9px] text-slate-500">Cross-meeting intelligence</p>
+          </div>
+        </div>
       </div>
 
       {/* Past History Toggle */}
