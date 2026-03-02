@@ -41,6 +41,8 @@ import HardwareDiscoveryPanel from '@/components/KarauMeet/HardwareDiscoveryPane
 import BreakoutLoungePanel from '@/components/KarauMeet/BreakoutLoungePanel';
 import PollsChallengesPanel from '@/components/KarauMeet/PollsChallengesPanel';
 import BiometricVerifyPanel from '@/components/KarauMeet/BiometricVerifyPanel';
+import FeatureToolbar from '@/components/KarauMeet/FeatureToolbar';
+import FeatureCommandBar from '@/components/KarauMeet/FeatureCommandBar';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const WS_URL = API.replace('https://', 'wss://').replace('http://', 'ws://');
