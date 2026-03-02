@@ -75,12 +75,16 @@ export default function QRCodePanel({ meetingId, meetingTitle }) {
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden" data-testid="qr-code-panel">
-      <div className="p-2.5 border-b border-white/5">
-        <h3 className="text-xs font-semibold text-white flex items-center gap-1.5">
-          <QrCode className="w-3.5 h-3.5 text-teal-400" />
-          Touchless QR Entry
-        </h3>
-        <p className="text-[8px] text-slate-500 mt-0.5">Scan to join instantly</p>
+      <div className="p-3 border-b border-white/[0.06]">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-teal-500/20 to-emerald-500/10 flex items-center justify-center">
+            <QrCode className="w-3.5 h-3.5 text-teal-400" />
+          </div>
+          <div>
+            <h3 className="text-xs font-semibold text-white">QR Code Entry</h3>
+            <p className="text-[9px] text-slate-500">Scan to join instantly</p>
+          </div>
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-2 space-y-2">
