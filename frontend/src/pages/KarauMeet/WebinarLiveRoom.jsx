@@ -881,105 +881,29 @@ const WebinarLiveRoom = () => {
             </div>
           )}
 
-          {/* Bottom Controls */}
-          <div className="h-14 bg-karau-card/60 border-t border-white/5 flex items-center justify-center gap-1.5 px-4 shrink-0" data-testid="webinar-controls">
-            {canStream && (
-              <>
-                <CtrlBtn on={isMicOn} onClick={toggleMic} icon={isMicOn ? Mic : MicOff} testId="mic-toggle" />
-                <CtrlBtn on={isCamOn} onClick={toggleCam} icon={isCamOn ? Video : VideoOff} testId="cam-toggle" />
-                {noiseCancellation.isSupported && (
-                  <div className="relative">
-                    <CtrlBtn on={noiseCancellation.enabled} onClick={toggleNoiseCancellation} icon={AudioLines} testId="noise-cancel-toggle" color={noiseCancellation.enabled ? 'emerald' : undefined} />
-                    {noiseCancellation.enabled && (
-                      <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    )}
-                  </div>
-                )}
-                <CtrlBtn on={eyeContactOn} onClick={() => setEyeContactOn(!eyeContactOn)} icon={Eye} testId="eye-contact-toggle" color={eyeContactOn ? 'emerald' : undefined} />
-              </>
-            )}
-            {isAttendee && <CtrlBtn on={isHandRaised} onClick={toggleHandRaise} icon={Hand} testId="hand-raise-btn" color="amber" />}
-            <div className="relative">
-              <CtrlBtn on={liveTranscription.active} onClick={toggleLiveCaptions} icon={Captions} testId="captions-toggle" color={liveTranscription.active ? 'emerald' : undefined} />
-              {liveTranscription.active && (
-                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              )}
-            </div>
-            {/* Language picker toggle */}
-            <Button variant="ghost" size="sm" onClick={() => setShowLangPicker(!showLangPicker)} data-testid="lang-picker-toggle"
-              className={`h-9 px-2 rounded-full text-[10px] ${showLangPicker ? 'bg-violet-500/20 text-violet-400' : 'bg-white/10 text-white hover:bg-white/15'}`}>
-              <Globe className="w-3.5 h-3.5 mr-0.5" />
-              {liveTranscription.sourceLanguage.toUpperCase()}
-              {liveTranscription.sourceLanguage !== liveTranscription.displayLanguage && (
-                <span className="text-emerald-400 ml-0.5">{liveTranscription.displayLanguage.toUpperCase()}</span>
-              )}
-            </Button>
-            <CtrlBtn on={activePanel === 'qa'} onClick={() => togglePanel('qa')} icon={MessageCircleQuestion} testId="qa-toggle" badge={pendingQs.length || null} />
-            <CtrlBtn on={activePanel === 'ai'} onClick={() => togglePanel('ai')} icon={Brain} testId="ai-toggle" />
-            <CtrlBtn on={showReactions} onClick={() => setShowReactions(!showReactions)} icon={SmilePlus} testId="reactions-toggle" color={showReactions ? 'amber' : undefined} />
-            <CtrlBtn on={activePanel === 'leaderboard'} onClick={() => togglePanel('leaderboard')} icon={Trophy} testId="leaderboard-toggle" />
-            <CtrlBtn on={spatialAudio.enabled} onClick={spatialAudio.toggle} icon={Headphones} testId="spatial-audio-toggle" color={spatialAudio.enabled ? 'emerald' : undefined} />
-            <CtrlBtn on={activePanel === 'director'} onClick={() => togglePanel('director')} icon={Clapperboard} testId="director-toggle" color={activePanel === 'director' ? 'violet' : undefined} />
-            <CtrlBtn on={activePanel === 'sentiment'} onClick={() => togglePanel('sentiment')} icon={BarChart3} testId="sentiment-toggle" color={activePanel === 'sentiment' ? 'cyan' : undefined} />
-            <CtrlBtn on={activePanel === 'copilot'} onClick={() => togglePanel('copilot')} icon={BrainCircuit} testId="copilot-toggle" color={activePanel === 'copilot' ? 'fuchsia' : undefined} />
-            <CtrlBtn on={activePanel === 'slam'} onClick={() => togglePanel('slam')} icon={Scan} testId="slam-toggle" color={activePanel === 'slam' ? 'rose' : undefined} />
-            <CtrlBtn on={activePanel === 'panoramic'} onClick={() => togglePanel('panoramic')} icon={Disc} testId="panoramic-toggle" color={activePanel === 'panoramic' ? 'orange' : undefined} />
-            <CtrlBtn on={activePanel === 'webxr'} onClick={() => togglePanel('webxr')} icon={Glasses} testId="webxr-toggle" color={activePanel === 'webxr' ? 'indigo' : undefined} />
-            <CtrlBtn on={activePanel === 'iot'} onClick={() => togglePanel('iot')} icon={Wand2} testId="iot-toggle" color={activePanel === 'iot' ? 'amber' : undefined} />
-            <CtrlBtn on={activePanel === 'beamforming'} onClick={() => togglePanel('beamforming')} icon={RadioIcon} testId="beamforming-toggle" color={activePanel === 'beamforming' ? 'sky' : undefined} />
-            <CtrlBtn on={activePanel === 'hardware'} onClick={() => togglePanel('hardware')} icon={Cpu} testId="hardware-toggle" color={activePanel === 'hardware' ? 'lime' : undefined} />
-            <CtrlBtn on={activePanel === 'breakout'} onClick={() => togglePanel('breakout')} icon={UsersIcon} testId="breakout-toggle" color={activePanel === 'breakout' ? 'pink' : undefined} />
-            <CtrlBtn on={activePanel === 'polls'} onClick={() => togglePanel('polls')} icon={BarChartIcon} testId="polls-toggle" color={activePanel === 'polls' ? 'yellow' : undefined} />
-            <CtrlBtn on={activePanel === 'biometric'} onClick={() => togglePanel('biometric')} icon={Fingerprint} testId="biometric-toggle" color={activePanel === 'biometric' ? 'teal' : undefined} />
-            {canStream && (
-              <div className="relative">
-                <CtrlBtn on={showCoach} onClick={() => setShowCoach(!showCoach)} icon={Sparkles} testId="coach-toggle" color={showCoach ? 'emerald' : undefined} />
-                {coachTips.length > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-amber-500 text-[7px] text-white flex items-center justify-center">{coachTips.length}</span>
-                )}
-              </div>
-            )}
-            {canControl && (
-              <>
-                <CtrlBtn on={activePanel === 'participants'} onClick={() => togglePanel('participants')} icon={Users} testId="participants-toggle" />
-                <CtrlBtn on={activePanel === 'controls'} onClick={() => togglePanel('controls')} icon={Settings} testId="controls-toggle" />
-            <CtrlBtn on={showWhiteboard} onClick={() => setShowWhiteboard(!showWhiteboard)} icon={PenLine} testId="whiteboard-toggle" color={showWhiteboard ? 'emerald' : undefined} />
-                <CtrlBtn on={activePanel === 'qr'} onClick={() => togglePanel('qr')} icon={QrCode} testId="qr-toggle" color={activePanel === 'qr' ? 'teal' : undefined} />
-              </>
-            )}
-            <div className="w-px h-6 bg-white/10 mx-1" />
-            {/* Host-only session controls */}
-            {isHost && roomInfo.status === 'scheduled' && !roomInfo.practice_mode && (
-              <>
-                <Button size="sm" onClick={startPractice} className="h-8 px-2.5 text-[11px] bg-amber-500/80 hover:bg-amber-400 rounded-lg" data-testid="start-practice-btn">
-                  <Shield className="w-3 h-3 mr-1" />Practice
-                </Button>
-                <Button size="sm" onClick={startWebinar} className="h-8 px-2.5 text-[11px] bg-emerald-500/80 hover:bg-emerald-400 rounded-lg" data-testid="go-live-btn">
-                  <Play className="w-3 h-3 mr-1" />Go Live
-                </Button>
-              </>
-            )}
-            {isHost && roomInfo.practice_mode && (
-              <>
-                <Button size="sm" onClick={endPractice} className="h-8 px-2.5 text-[11px] bg-slate-500/80 hover:bg-slate-400 rounded-lg" data-testid="end-practice-btn">End Practice</Button>
-                <Button size="sm" onClick={startWebinar} className="h-8 px-2.5 text-[11px] bg-emerald-500/80 hover:bg-emerald-400 rounded-lg" data-testid="go-live-from-practice-btn">
-                  <Play className="w-3 h-3 mr-1" />Go Live
-                </Button>
-              </>
-            )}
-            {isHost && roomInfo.status === 'live' && (
-              <>
-                {liveTranscription.fullTranscript.trim() && (
-                  <Button size="sm" onClick={saveTranscript} className="h-8 px-2.5 text-[11px] bg-violet-500/80 hover:bg-violet-400 rounded-lg" data-testid="save-transcript-btn">
-                    <Save className="w-3 h-3 mr-1" />Save Transcript
-                  </Button>
-                )}
-                <Button size="sm" variant="destructive" onClick={endWebinar} className="h-8 px-2.5 text-[11px] rounded-lg" data-testid="end-webinar-btn">
-                  <Square className="w-3 h-3 mr-1" />End
-                </Button>
-              </>
-            )}
-          </div>
+          {/* Bottom Controls - New Feature Toolbar */}
+          <FeatureToolbar
+            isMicOn={isMicOn} onToggleMic={toggleMic}
+            isCamOn={isCamOn} onToggleCam={toggleCam}
+            noiseEnabled={noiseCancellation.enabled} onToggleNoise={toggleNoiseCancellation} noiseSupported={noiseCancellation.isSupported}
+            eyeContactOn={eyeContactOn} onToggleEye={() => setEyeContactOn(!eyeContactOn)}
+            captionsActive={liveTranscription.active} onToggleCaptions={toggleLiveCaptions}
+            spatialEnabled={spatialAudio.enabled} onToggleSpatial={spatialAudio.toggle}
+            activePanel={activePanel} onTogglePanel={togglePanel}
+            showReactions={showReactions} onToggleReactions={() => setShowReactions(!showReactions)}
+            showCoach={showCoach} onToggleCoach={() => setShowCoach(!showCoach)} coachTipsCount={coachTips.length || null}
+            showWhiteboard={showWhiteboard} onToggleWhiteboard={() => setShowWhiteboard(!showWhiteboard)}
+            isHandRaised={isHandRaised} onToggleHand={toggleHandRaise} isAttendee={isAttendee}
+            pendingQCount={pendingQs.length || null}
+            canStream={canStream} canControl={canControl}
+            onOpenCommandBar={() => setCommandBarOpen(true)}
+            isHost={isHost} roomStatus={roomInfo.status} practiceMode={roomInfo.practice_mode}
+            onStartPractice={startPractice} onEndPractice={endPractice}
+            onStartWebinar={startWebinar} onEndWebinar={endWebinar}
+            onSaveTranscript={saveTranscript} hasTranscript={!!liveTranscription.fullTranscript.trim()}
+            onToggleLang={() => setShowLangPicker(!showLangPicker)} showLangPicker={showLangPicker}
+            sourceLanguage={liveTranscription.sourceLanguage} displayLanguage={liveTranscription.displayLanguage}
+          />
         </div>
 
         {/* Side Panel */}
