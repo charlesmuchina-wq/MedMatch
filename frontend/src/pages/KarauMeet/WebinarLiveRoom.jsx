@@ -966,6 +966,11 @@ const WebinarLiveRoom = () => {
             {activePanel === 'qr' && <QRCodePanel meetingId={webinarId} meetingTitle={roomInfo.title} />}
             {activePanel === 'sentiment' && <SentimentDashboard meetingId={webinarId} />}
             {activePanel === 'copilot' && <CopilotPanel meetingId={webinarId} />}
+            {activePanel === 'slam' && <SpatialTrackingPanel meetingId={webinarId} />}
+            {activePanel === 'panoramic' && <PanoramicFramingPanel meetingId={webinarId} />}
+            {activePanel === 'webxr' && <SpatialMeetingPanel meetingId={webinarId} />}
+            {activePanel === 'iot' && <RoomControlPanel meetingId={webinarId} />}
+            {activePanel === 'beamforming' && <BeamformingPanel meetingId={webinarId} />}
           </div>
         )}
       </div>
