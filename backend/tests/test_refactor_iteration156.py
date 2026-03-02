@@ -96,7 +96,11 @@ class TestPollsAPI:
                 "meeting_id": WEBINAR_ID,
                 "poll_type": "multiple_choice",
                 "question": "TEST_POLL: Refactor test question?",
-                "options": ["Option A", "Option B", "Option C"]
+                "options": [
+                    {"text": "Option A", "is_correct": False},
+                    {"text": "Option B", "is_correct": True},
+                    {"text": "Option C", "is_correct": False}
+                ]
             }
         )
         # 200 or 201 both acceptable for create
