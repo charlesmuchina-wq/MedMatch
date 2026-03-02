@@ -909,6 +909,11 @@ const WebinarLiveRoom = () => {
         {/* Side Panel */}
         {activePanel && (
           <div className="w-80 bg-karau-card/80 backdrop-blur-xl border-l border-white/[0.06] flex flex-col shrink-0 overflow-hidden animate-panel-slide-in" data-testid="side-panel">
+            {/* Panel close bar */}
+            <button onClick={() => setActivePanel(null)} data-testid="close-panel-btn"
+              className="absolute top-2 right-2 z-10 w-6 h-6 rounded-lg bg-white/[0.06] hover:bg-white/[0.12] flex items-center justify-center text-slate-500 hover:text-white transition-colors">
+              <span className="text-xs">&times;</span>
+            </button>
             {activePanel === 'qa' && <QAPanel questions={questions} pendingQs={pendingQs} newQuestion={newQuestion} setNewQuestion={setNewQuestion} submitQuestion={submitQuestion} answerTexts={answerTexts} setAnswerTexts={setAnswerTexts} answerQuestion={answerQuestion} upvoteQuestion={upvoteQuestion} canControl={canControl} myRole={myRole} />}
             {activePanel === 'participants' && canControl && <ParticipantsPanel handRaises={handRaises} activeRoles={activeRoles} promoteUser={promoteUser} demoteUser={demoteUser} isHost={isHost} roomInfo={roomInfo} onGrantPermission={grantGuestPermission} onRevokePermission={revokeGuestPermission} />}
             {activePanel === 'ai' && <AIAssistantPanel meetingId={webinarId} webinarId={webinarId} engagementData={engagementData} />}
