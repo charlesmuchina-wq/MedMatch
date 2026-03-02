@@ -267,3 +267,19 @@ def _detect_noise_sources(profiles: list) -> list:
             "auto_suppressed": nt in ["hvac", "ambient"]
         })
     return sources
+
+
+def _get_active_filters(config: dict, dominant_noise: str) -> list:
+    """Get list of active audio filters based on config and noise profile."""
+    filters = ["noise_gate", "echo_cancellation"]
+    if config.get("echo_cancellation", True):
+        filters.append("adaptive_echo_suppression")
+    if config.get("wind_filter"):
+        filters.append("wind_filter")
+    if dominant_noise == "hvac":
+        filters.append("120hz_notch_filter")
+    if dominant_noise == "keyboard":
+        filters.append("transient_suppression")
+    if config.get("mode") in ("auto", "directional"):
+        filters.append("spatial_beamforming")
+    return filters
