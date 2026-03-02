@@ -930,6 +930,13 @@ const WebinarLiveRoom = () => {
           </div>
         )}
       </div>
+
+      {/* Feature Command Bar (Cmd+K) */}
+      <FeatureCommandBar
+        isOpen={commandBarOpen}
+        onClose={() => setCommandBarOpen(false)}
+        onSelectFeature={handleCommandSelect}
+      />
     </div>
   );
 };
