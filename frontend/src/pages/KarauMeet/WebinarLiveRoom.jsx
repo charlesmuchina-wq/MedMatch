@@ -599,6 +599,20 @@ const WebinarLiveRoom = () => {
 
   const togglePanel = (panel) => setActivePanel(prev => prev === panel ? null : panel);
 
+  const handleCommandSelect = (featureId) => {
+    if (featureId === '__open_command__') { setCommandBarOpen(true); return; }
+    // Route to the right handler
+    const toggleMap = {
+      mic: toggleMic, cam: toggleCam, noise: toggleNoiseCancellation,
+      eye: () => setEyeContactOn(!eyeContactOn), captions: toggleLiveCaptions,
+      spatial: spatialAudio.toggle, reactions: () => setShowReactions(!showReactions),
+      coach: () => setShowCoach(!showCoach), whiteboard: () => setShowWhiteboard(!showWhiteboard),
+      hand: toggleHandRaise,
+    };
+    if (toggleMap[featureId]) { toggleMap[featureId](); }
+    else { togglePanel(featureId); }
+  };
+
   if (loading) {
     return <div className="min-h-screen bg-karau-bg flex items-center justify-center"><Loader2 className="w-8 h-8 text-purple-400 animate-spin" /></div>;
   }
