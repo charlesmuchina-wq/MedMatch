@@ -128,16 +128,6 @@ const WebinarLiveRoom = () => {
   // Feature Command Bar
   const [commandBarOpen, setCommandBarOpen] = useState(false);
 
-  // Director Mode
-  const directorMode = useDirectorMode(webinarId, speakerDetection, remoteStreams);
-
-  // Ghost Booking Prevention
-  const ghostBooking = useGhostBooking(webinarId);
-
-  // Active Speaker Framing - track which user is "main stage"
-  const [mainStageUserId, setMainStageUserId] = useState(null);
-  const mainStageSwitchRef = useRef(null);
-
   // WebRTC
   const localVideoRef = useRef(null);
   const localStreamRef = useRef(null);
@@ -146,6 +136,16 @@ const WebinarLiveRoom = () => {
   const [remoteStreams, setRemoteStreams] = useState({});
   const wsRef = useRef(null);
   const reconnectRef = useRef(null);
+
+  // Director Mode (needs remoteStreams)
+  const directorMode = useDirectorMode(webinarId, speakerDetection, remoteStreams);
+
+  // Ghost Booking Prevention
+  const ghostBooking = useGhostBooking(webinarId);
+
+  // Active Speaker Framing - track which user is "main stage"
+  const [mainStageUserId, setMainStageUserId] = useState(null);
+  const mainStageSwitchRef = useRef(null);
 
   useEffect(() => {
     fetchRoomInfo();
