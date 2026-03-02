@@ -271,6 +271,51 @@ async def get_dashboard_stats(user: dict = Depends(require_auth)):
     }
 
 
+@router.get("/meeting-insights")
+async def get_meeting_insights(user: dict = Depends(require_auth)):
+    """Get AI-generated insights from recent past meetings for the dashboard."""
+    from utils.database import db
+
+    user_id = user["user_id"]
+
+    # Fetch recent ended meetings with ai_notes
+    past_meetings = await db.karau_meetings.find(
+        {
+            "$or": [{"host_id": user_id}, {"participants.user_id": user_id}],
+            "status": "ended",
+        },
+        {"_id": 0, "meeting_id": 1, "title": 1, "host_name": 1,
+         "ended_at": 1, "participants": 1, "ai_notes": 1, "created_at": 1}
+    ).sort("ended_at", -1).limit(10).to_list(10)
+
+    insights = []
+    for m in past_meetings:
+        ai_notes = m.get("ai_notes", [])
+        summary_notes = [n for n in ai_notes if n.get("type") == "summary"]
+        action_items = [n for n in ai_notes if n.get("type") == "action_item"]
+
+        summary_text = summary_notes[0].get("content", "") if summary_notes else ""
+        if not summary_text and ai_notes:
+            summary_text = ai_notes[0].get("content", "Meeting completed successfully.")
+
+        insight = {
+            "meeting_id": m.get("meeting_id"),
+            "title": m.get("title", "Meeting"),
+            "host_name": m.get("host_name", "Host"),
+            "ended_at": m.get("ended_at", m.get("created_at", "")),
+            "participant_count": len(m.get("participants", [])),
+            "summary": summary_text,
+            "key_decisions": [n.get("content", "") for n in ai_notes if n.get("type") == "decision"][:3],
+            "action_items": [n.get("content", "") for n in action_items][:5],
+            "unresolved_count": len([n for n in action_items if n.get("status") != "done"]),
+            "notes_count": len(ai_notes),
+        }
+        insights.append(insight)
+
+    return {"insights": insights}
+
+
+
 @router.get("/activity-feed")
 async def get_activity_feed(limit: int = 15, user: dict = Depends(require_auth)):
     """Get live activity feed for dashboard."""

@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { toast, Toaster } from 'sonner';
 import {
-  Video, LogOut, Settings, FileText,
+  Video, LogOut, Settings, FileText, BookOpen,
   Menu, ChevronRight, Home, CalendarDays, Archive, Radio, Zap
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -20,6 +20,7 @@ import KarauMeetLogin from './KarauMeetLogin';
 import KarauMeetDashboard from './KarauMeetDashboard';
 import KarauRecordingsPage from './KarauRecordingsPage';
 import KarauSettingsPage from './KarauSettingsPage';
+import KarauMeetGuidePage from './KarauMeetGuidePage';
 import GuestJoinPage from './GuestJoinPage';
 import { WebinarRegistrationPage } from './WebinarPage';
 import WebinarManagementPage from './WebinarManagementPage';
@@ -34,13 +35,14 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
   const { t } = useTranslation();
   
   const navItems = [
-    { path: '/karau-meet', icon: Home, labelKey: 'karau.dashboard' },
-    { path: '/karau-meet/meetings', icon: Video, labelKey: 'karau.myMeetings' },
-    { path: '/karau-meet/schedule', icon: CalendarDays, labelKey: 'karau.schedule' },
-    { path: '/karau-meet/recordings', icon: Archive, labelKey: 'karau.recordings' },
-    { path: '/karau-meet/webinars', icon: Radio, labelKey: 'karau.webinars' },
-    { path: '/karau-meet/notes', icon: FileText, labelKey: 'karau.meetingNotes' },
-    { path: '/karau-meet/settings', icon: Settings, labelKey: 'karau.settings' },
+    { path: '/karau-meet', icon: Home, label: 'Dashboard' },
+    { path: '/karau-meet/meetings', icon: Video, label: 'My Meetings' },
+    { path: '/karau-meet/schedule', icon: CalendarDays, label: 'Schedule' },
+    { path: '/karau-meet/recordings', icon: Archive, label: 'Recordings' },
+    { path: '/karau-meet/webinars', icon: Radio, label: 'Webinars' },
+    { path: '/karau-meet/notes', icon: FileText, label: 'Meeting Notes' },
+    { path: '/karau-meet/guide', icon: BookOpen, label: 'How-To Guide' },
+    { path: '/karau-meet/settings', icon: Settings, label: 'Settings' },
   ];
 
   return (
@@ -90,14 +92,14 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
                     ? 'bg-purple-500/10 text-white'
                     : 'text-slate-500 hover:bg-white/[0.04] hover:text-slate-300'
                 }`}
-                data-testid={`nav-${item.labelKey}`}
+                data-testid={`nav-${item.label}`}
               >
                 <div className={`flex items-center justify-center w-8 h-8 rounded-lg transition-all ${
                   isActive ? 'bg-gradient-to-br from-purple-600 to-indigo-600 shadow-lg shadow-purple-500/20' : 'bg-white/[0.04] group-hover:bg-white/[0.06]'
                 }`}>
                   <item.icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-500 group-hover:text-slate-300'}`} />
                 </div>
-                {!isCollapsed && <span className={`text-sm font-medium ${isActive ? 'text-white' : ''}`}>{t(item.labelKey)}</span>}
+                {!isCollapsed && <span className={`text-sm font-medium ${isActive ? 'text-white' : ''}`}>{item.label}</span>}
                 {isActive && !isCollapsed && <div className="ml-auto w-1.5 h-1.5 rounded-full bg-purple-400" />}
               </button>
             );
@@ -375,6 +377,7 @@ const KarauMeetPortal = () => {
           <Route path="replay/:meetingId" element={<MeetingReplayPage />} />
           <Route path="webinars" element={<WebinarManagementPage />} />
           <Route path="notes" element={<NotesPage />} />
+          <Route path="guide" element={<KarauMeetGuidePage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="settings" element={<KarauSettingsPage />} />
           <Route path="webinar/:webinarId/register" element={<WebinarRegistrationPage />} />

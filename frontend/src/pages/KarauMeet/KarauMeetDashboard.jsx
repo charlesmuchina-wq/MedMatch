@@ -64,7 +64,10 @@ const KarauMeetDashboard = ({ user }) => {
   const [gamification, setGamification] = useState(null);
   const [leaderboard, setLeaderboard] = useState(null);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
-  const [expandedSection, setExpandedSection] = useState('upcoming');
+  const [expandedSection, setExpandedSection] = useState('');
+  const [insights, setInsights] = useState([]);
+  const [showAllUpcoming, setShowAllUpcoming] = useState(false);
+  const [showAllInsights, setShowAllInsights] = useState(false);
 
   useEffect(() => {
     fetchMeetings();
@@ -74,6 +77,7 @@ const KarauMeetDashboard = ({ user }) => {
     fetchUpcoming();
     fetchTrendingTopics();
     fetchAnalytics();
+    fetchInsights();
   }, []);
 
   useEffect(() => {
@@ -130,6 +134,13 @@ const KarauMeetDashboard = ({ user }) => {
       if (gamRes.ok) setGamification(await gamRes.json());
       if (lbRes.ok) setLeaderboard(await lbRes.json());
     } catch (e) { console.error('Analytics error:', e); }
+  };
+  const fetchInsights = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API}/api/karau-meet/meeting-insights`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) { const data = await res.json(); setInsights(data.insights || []); }
+    } catch (e) { console.error('Insights error:', e); }
   };
   const fetchTemplates = async () => {
     try {
@@ -282,78 +293,202 @@ const KarauMeetDashboard = ({ user }) => {
           </div>
         </div>
 
-        {/* Row 3: Upcoming + Analytics */}
+        {/* Row 3: Next Meeting + Meeting Insights */}
         <div className="grid grid-cols-12 gap-5">
-          {/* Upcoming Meetings */}
-          <div className="col-span-12 md:col-span-7">
-            <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden" data-testid="upcoming-meetings">
-              <button
-                onClick={() => setExpandedSection(expandedSection === 'upcoming' ? '' : 'upcoming')}
-                className="w-full flex items-center justify-between px-5 py-4 hover:bg-white/[0.02] transition-colors"
-              >
-                <div className="flex items-center gap-2">
+          {/* Next Upcoming Meeting (featured) + hidden rest */}
+          <div className="col-span-12 md:col-span-7" data-testid="upcoming-meetings">
+            {upcoming.length === 0 ? (
+              <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5">
+                <div className="flex items-center gap-2 mb-2">
                   <CalendarClock className="w-4 h-4 text-blue-400" />
                   <span className="text-sm font-semibold text-white">Upcoming</span>
-                  {upcoming.length > 0 && <Badge className="bg-blue-500/10 text-blue-400 border-blue-500/20 text-[10px] ml-1">{upcoming.length}</Badge>}
                 </div>
-                {expandedSection === 'upcoming' ? <ChevronUp className="w-4 h-4 text-slate-600" /> : <ChevronDown className="w-4 h-4 text-slate-600" />}
-              </button>
-              {expandedSection === 'upcoming' && (
-                <div className="px-5 pb-4">
-                  {upcoming.length === 0 ? (
-                    <p className="text-xs text-slate-600 py-3">No upcoming meetings scheduled</p>
-                  ) : (
-                    <div className="space-y-2">
-                      {upcoming.slice(0, 5).map((m) => {
-                        const countdown = getCountdown(m.scheduled_time);
-                        return (
-                          <div key={m.meeting_id} className="flex items-center justify-between gap-3 px-4 py-3 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.04] transition-all" data-testid={`upcoming-${m.meeting_id}`}>
-                            <div className="flex items-center gap-3 min-w-0 flex-1">
-                              <div className="w-2 h-2 rounded-full bg-blue-400 flex-shrink-0" />
-                              <span className="text-sm text-slate-300 truncate">{m.title}</span>
-                              {countdown && (
-                                <Badge className="bg-blue-500/10 text-blue-300 border-blue-500/20 text-[10px] flex-shrink-0">{countdown}</Badge>
-                              )}
+                <p className="text-xs text-slate-600">No upcoming meetings scheduled</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {/* Featured next meeting */}
+                {(() => {
+                  const next = upcoming[0];
+                  const countdown = getCountdown(next.scheduled_time);
+                  const scheduledDate = new Date(next.scheduled_time);
+                  return (
+                    <div className="rounded-2xl bg-gradient-to-r from-blue-900/20 via-indigo-900/10 to-purple-900/15 border border-blue-500/15 p-5 hover:border-blue-500/25 transition-all" data-testid="next-meeting-card">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-pulse" />
+                          <span className="text-xs font-semibold text-blue-300 uppercase tracking-wider">Next Meeting</span>
+                        </div>
+                        {upcoming.length > 1 && (
+                          <Badge className="bg-white/[0.06] text-slate-400 border-white/[0.06] text-[10px]">
+                            +{upcoming.length - 1} more
+                          </Badge>
+                        )}
+                      </div>
+                      <h3 className="text-lg font-semibold text-white mb-2">{next.title}</h3>
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                          <CalendarClock className="w-3.5 h-3.5" />
+                          <span>{scheduledDate.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' })} at {scheduledDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                        </div>
+                        {countdown && (
+                          <Badge className="bg-blue-500/15 text-blue-300 border-blue-500/25 text-xs font-semibold px-3">{countdown}</Badge>
+                        )}
+                      </div>
+                      <Button onClick={() => navigate(`/karau-meet/lobby/${next.meeting_id}`)}
+                        className="bg-blue-600 hover:bg-blue-500 text-white rounded-full px-6 h-9 text-sm shadow-lg shadow-blue-500/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                        data-testid="btn-start-next-meeting">
+                        <Play className="w-3.5 h-3.5 mr-2" /> Start Meeting
+                      </Button>
+                    </div>
+                  );
+                })()}
+
+                {/* Collapsible remaining meetings */}
+                {upcoming.length > 1 && (
+                  <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden">
+                    <button
+                      onClick={() => setShowAllUpcoming(!showAllUpcoming)}
+                      className="w-full flex items-center justify-between px-5 py-3 hover:bg-white/[0.02] transition-colors"
+                      data-testid="toggle-all-upcoming"
+                    >
+                      <span className="text-xs font-medium text-slate-400">{upcoming.length - 1} more upcoming meeting{upcoming.length > 2 ? 's' : ''}</span>
+                      {showAllUpcoming ? <ChevronUp className="w-4 h-4 text-slate-600" /> : <ChevronDown className="w-4 h-4 text-slate-600" />}
+                    </button>
+                    {showAllUpcoming && (
+                      <div className="px-5 pb-3 space-y-1.5">
+                        {upcoming.slice(1).map((m) => {
+                          const cd = getCountdown(m.scheduled_time);
+                          return (
+                            <div key={m.meeting_id} className="flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.04] transition-all" data-testid={`upcoming-${m.meeting_id}`}>
+                              <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400/60 flex-shrink-0" />
+                                <span className="text-xs text-slate-400 truncate">{m.title}</span>
+                                {cd && <Badge className="bg-blue-500/10 text-blue-300/70 border-blue-500/15 text-[9px] flex-shrink-0">{cd}</Badge>}
+                              </div>
+                              <Button size="sm" onClick={() => navigate(`/karau-meet/lobby/${m.meeting_id}`)}
+                                className="bg-blue-600/60 hover:bg-blue-500 text-white rounded-lg text-[10px] px-2.5 h-6">
+                                Start
+                              </Button>
                             </div>
-                            <Button size="sm" onClick={() => navigate(`/karau-meet/lobby/${m.meeting_id}`)}
-                              className="bg-blue-600/80 hover:bg-blue-500 text-white rounded-lg text-xs px-3 h-7">
-                              <Play className="w-3 h-3 mr-1" /> Start
-                            </Button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Meeting Insights */}
+          <div className="col-span-12 md:col-span-5" data-testid="meeting-insights-card">
+            <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5 h-full">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-violet-400" />
+                  <span className="text-sm font-semibold text-white">Meeting Insights</span>
+                </div>
+                {insights.length > 1 && (
+                  <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[10px]">{insights.filter(i => i.summary).length} summaries</Badge>
+                )}
+              </div>
+              {insights.filter(i => i.summary).length === 0 ? (
+                <p className="text-xs text-slate-600">AI insights will appear after your first meetings</p>
+              ) : (
+                <div className="space-y-3">
+                  {/* Featured insight (latest) */}
+                  {(() => {
+                    const featured = insights.find(i => i.summary) || insights[0];
+                    if (!featured) return null;
+                    return (
+                      <div className="rounded-xl bg-white/[0.03] border border-white/[0.05] p-4" data-testid="featured-insight">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs font-semibold text-white truncate flex-1">{featured.title}</span>
+                          <span className="text-[10px] text-slate-600 flex-shrink-0 ml-2">
+                            {featured.ended_at ? new Date(featured.ended_at).toLocaleDateString([], { month: 'short', day: 'numeric' }) : ''}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-400 leading-relaxed mb-3">{featured.summary}</p>
+                        {featured.key_decisions.length > 0 && (
+                          <div className="mb-2">
+                            <span className="text-[10px] text-emerald-400 font-semibold uppercase tracking-wider">Decisions</span>
+                            {featured.key_decisions.map((d, i) => (
+                              <p key={i} className="text-[11px] text-slate-400 mt-1 pl-2 border-l-2 border-emerald-500/30">{d}</p>
+                            ))}
                           </div>
-                        );
-                      })}
+                        )}
+                        {featured.action_items.length > 0 && (
+                          <div>
+                            <span className="text-[10px] text-amber-400 font-semibold uppercase tracking-wider">Action Items</span>
+                            {featured.action_items.slice(0, 2).map((a, i) => (
+                              <p key={i} className="text-[11px] text-slate-400 mt-1 pl-2 border-l-2 border-amber-500/30">{a}</p>
+                            ))}
+                            {featured.unresolved_count > 0 && (
+                              <Badge className="bg-amber-500/10 text-amber-300 border-amber-500/15 text-[9px] mt-2">{featured.unresolved_count} unresolved</Badge>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
+
+                  {/* Collapsible rest */}
+                  {insights.filter(i => i.summary).length > 1 && (
+                    <div>
+                      <button onClick={() => setShowAllInsights(!showAllInsights)}
+                        className="flex items-center gap-1.5 text-[11px] text-purple-400 hover:text-purple-300 transition-colors"
+                        data-testid="toggle-all-insights">
+                        {showAllInsights ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                        {showAllInsights ? 'Hide' : `View ${insights.filter(i => i.summary).length - 1} more`}
+                      </button>
+                      {showAllInsights && (
+                        <div className="mt-2 space-y-2 max-h-48 overflow-auto">
+                          {insights.filter(i => i.summary).slice(1).map((ins, idx) => (
+                            <div key={idx} className="px-3 py-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors" data-testid={`insight-${idx}`}>
+                              <div className="flex items-center justify-between mb-1">
+                                <span className="text-[11px] font-semibold text-slate-300 truncate">{ins.title}</span>
+                                <span className="text-[9px] text-slate-600 ml-2">{ins.ended_at ? new Date(ins.ended_at).toLocaleDateString([], { month: 'short', day: 'numeric' }) : ''}</span>
+                              </div>
+                              <p className="text-[10px] text-slate-500 line-clamp-2">{ins.summary}</p>
+                              <div className="flex gap-2 mt-1.5">
+                                {ins.key_decisions.length > 0 && <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/15 text-[8px]">{ins.key_decisions.length} decisions</Badge>}
+                                {ins.action_items.length > 0 && <Badge className="bg-amber-500/10 text-amber-300 border-amber-500/15 text-[8px]">{ins.action_items.length} actions</Badge>}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
               )}
             </div>
           </div>
+        </div>
 
-          {/* Trending Topics */}
-          <div className="col-span-12 md:col-span-5">
-            <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5 h-full" data-testid="trending-topics">
-              <div className="flex items-center gap-2 mb-3">
-                <TrendingUp className="w-4 h-4 text-violet-400" />
-                <span className="text-sm font-semibold text-white">Trending Topics</span>
-              </div>
-              {trendingTopics.length === 0 ? (
-                <p className="text-xs text-slate-600">Topics will appear after your first meetings</p>
-              ) : (
-                <div className="flex flex-wrap gap-2">
-                  {trendingTopics.map((tp, i) => (
-                    <div key={i} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs ${
-                      tp.sentiment === 'positive' ? 'bg-emerald-500/5 border-emerald-500/15 text-emerald-300' :
-                      tp.sentiment === 'concern' ? 'bg-amber-500/5 border-amber-500/15 text-amber-300' :
-                      'bg-purple-500/5 border-purple-500/15 text-purple-300'
-                    }`} data-testid={`topic-${i}`}>
-                      <span className="font-medium">{tp.topic}</span>
-                      {tp.count > 1 && <span className="text-[10px] opacity-60">x{tp.count}</span>}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+        {/* Row 3b: Trending Topics */}
+        <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5" data-testid="trending-topics">
+          <div className="flex items-center gap-2 mb-3">
+            <TrendingUp className="w-4 h-4 text-violet-400" />
+            <span className="text-sm font-semibold text-white">Trending Topics</span>
           </div>
+          {trendingTopics.length === 0 ? (
+            <p className="text-xs text-slate-600">Topics will appear after your first meetings</p>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {trendingTopics.map((tp, i) => (
+                <div key={i} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs ${
+                  tp.sentiment === 'positive' ? 'bg-emerald-500/5 border-emerald-500/15 text-emerald-300' :
+                  tp.sentiment === 'concern' ? 'bg-amber-500/5 border-amber-500/15 text-amber-300' :
+                  'bg-purple-500/5 border-purple-500/15 text-purple-300'
+                }`} data-testid={`topic-${i}`}>
+                  <span className="font-medium">{tp.topic}</span>
+                  {tp.count > 1 && <span className="text-[10px] opacity-60">x{tp.count}</span>}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Row 4: Analytics row */}
