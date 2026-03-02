@@ -436,22 +436,22 @@ const WebinarLiveRoom = () => {
             isMicOn={isMicOn} onToggleMic={toggleMic}
             isCamOn={isCamOn} onToggleCam={toggleCam}
             noiseEnabled={noiseCancellation.enabled} onToggleNoise={toggleNoiseCancellation} noiseSupported={noiseCancellation.isSupported}
-            eyeContactOn={eyeContactOn} onToggleEye={useCallback(() => setEyeContactOn(v => !v), [])}
+            eyeContactOn={eyeContactOn} onToggleEye={toggleEyeContact}
             captionsActive={liveTranscription.active} onToggleCaptions={toggleLiveCaptions}
             spatialEnabled={spatialAudio.enabled} onToggleSpatial={spatialAudio.toggle}
             activePanel={activePanel} onTogglePanel={togglePanel}
-            showReactions={showReactions} onToggleReactions={useCallback(() => setShowReactions(v => !v), [])}
-            showCoach={showCoach} onToggleCoach={useCallback(() => setShowCoach(v => !v), [])} coachTipsCount={coachTips.length || null}
-            showWhiteboard={showWhiteboard} onToggleWhiteboard={useCallback(() => setShowWhiteboard(v => !v), [])}
+            showReactions={showReactions} onToggleReactions={toggleReactionsUI}
+            showCoach={showCoach} onToggleCoach={toggleCoachUI} coachTipsCount={coachTips.length || null}
+            showWhiteboard={showWhiteboard} onToggleWhiteboard={toggleWhiteboardUI}
             isHandRaised={isHandRaised} onToggleHand={handleToggleHandRaise} isAttendee={isAttendee}
             pendingQCount={pendingQs.length || null}
             canStream={canStream} canControl={canControl}
-            onOpenCommandBar={useCallback(() => setCommandBarOpen(true), [])}
+            onOpenCommandBar={openCommandBar}
             isHost={isHost} roomStatus={roomInfo.status} practiceMode={roomInfo.practice_mode}
             onStartPractice={actions.startPractice} onEndPractice={actions.endPractice}
             onStartWebinar={actions.startWebinar} onEndWebinar={actions.endWebinar}
             onSaveTranscript={handleSaveTranscript} hasTranscript={!!liveTranscription.fullTranscript?.trim()}
-            onToggleLang={useCallback(() => setShowLangPicker(v => !v), [])} showLangPicker={showLangPicker}
+            onToggleLang={toggleLangUI} showLangPicker={showLangPicker}
             sourceLanguage={liveTranscription.sourceLanguage} displayLanguage={liveTranscription.displayLanguage}
           />
         </div>
