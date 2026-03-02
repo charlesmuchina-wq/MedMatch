@@ -980,6 +980,10 @@ const WebinarLiveRoom = () => {
             {activePanel === 'webxr' && <SpatialMeetingPanel meetingId={webinarId} />}
             {activePanel === 'iot' && <RoomControlPanel meetingId={webinarId} />}
             {activePanel === 'beamforming' && <BeamformingPanel meetingId={webinarId} />}
+            {activePanel === 'hardware' && <HardwareDiscoveryPanel meetingId={webinarId} />}
+            {activePanel === 'breakout' && <BreakoutLoungePanel meetingId={webinarId} userName={roomInfo.host_name} userId={roomInfo.host_id} />}
+            {activePanel === 'polls' && <PollsChallengesPanel meetingId={webinarId} />}
+            {activePanel === 'biometric' && <BiometricVerifyPanel meetingId={webinarId} />}
           </div>
         )}
       </div>
