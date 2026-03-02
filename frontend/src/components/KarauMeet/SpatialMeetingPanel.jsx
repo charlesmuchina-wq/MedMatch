@@ -58,12 +58,16 @@ export default function SpatialMeetingPanel({ meetingId }) {
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden" data-testid="spatial-meeting-panel">
-      <div className="p-2.5 border-b border-white/5">
-        <h3 className="text-xs font-semibold text-white flex items-center gap-1.5">
-          <Glasses className="w-3.5 h-3.5 text-indigo-400" />
-          WebXR Spatial Meeting
-        </h3>
-        <p className="text-[8px] text-slate-500 mt-0.5">Apple Vision Pro / Quest 3 ready</p>
+      <div className="p-3 border-b border-white/[0.06]">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500/20 to-violet-500/10 flex items-center justify-center">
+            <Glasses className="w-3.5 h-3.5 text-indigo-400" />
+          </div>
+          <div>
+            <h3 className="text-xs font-semibold text-white">WebXR Spatial</h3>
+            <p className="text-[9px] text-slate-500">Vision Pro / Quest 3 ready</p>
+          </div>
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-2 space-y-2">
