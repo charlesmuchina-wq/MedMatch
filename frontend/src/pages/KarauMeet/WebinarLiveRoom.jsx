@@ -898,6 +898,11 @@ const WebinarLiveRoom = () => {
             <CtrlBtn on={activePanel === 'director'} onClick={() => togglePanel('director')} icon={Clapperboard} testId="director-toggle" color={activePanel === 'director' ? 'violet' : undefined} />
             <CtrlBtn on={activePanel === 'sentiment'} onClick={() => togglePanel('sentiment')} icon={BarChart3} testId="sentiment-toggle" color={activePanel === 'sentiment' ? 'cyan' : undefined} />
             <CtrlBtn on={activePanel === 'copilot'} onClick={() => togglePanel('copilot')} icon={BrainCircuit} testId="copilot-toggle" color={activePanel === 'copilot' ? 'fuchsia' : undefined} />
+            <CtrlBtn on={activePanel === 'slam'} onClick={() => togglePanel('slam')} icon={Scan} testId="slam-toggle" color={activePanel === 'slam' ? 'rose' : undefined} />
+            <CtrlBtn on={activePanel === 'panoramic'} onClick={() => togglePanel('panoramic')} icon={Disc} testId="panoramic-toggle" color={activePanel === 'panoramic' ? 'orange' : undefined} />
+            <CtrlBtn on={activePanel === 'webxr'} onClick={() => togglePanel('webxr')} icon={Glasses} testId="webxr-toggle" color={activePanel === 'webxr' ? 'indigo' : undefined} />
+            <CtrlBtn on={activePanel === 'iot'} onClick={() => togglePanel('iot')} icon={Wand2} testId="iot-toggle" color={activePanel === 'iot' ? 'amber' : undefined} />
+            <CtrlBtn on={activePanel === 'beamforming'} onClick={() => togglePanel('beamforming')} icon={RadioIcon} testId="beamforming-toggle" color={activePanel === 'beamforming' ? 'sky' : undefined} />
             {canStream && (
               <div className="relative">
                 <CtrlBtn on={showCoach} onClick={() => setShowCoach(!showCoach)} icon={Sparkles} testId="coach-toggle" color={showCoach ? 'emerald' : undefined} />
