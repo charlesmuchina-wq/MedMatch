@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://cinematic-meet.preview.emergentagent.com/api
+**API Target:** https://future-comms.preview.emergentagent.com/api
 
 ---
 

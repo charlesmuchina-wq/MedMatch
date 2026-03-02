@@ -17,7 +17,7 @@ BASE_URL = os.environ.get('REACT_APP_BACKEND_URL')
 if BASE_URL:
     BASE_URL = BASE_URL.rstrip('/')
 else:
-    BASE_URL = "https://cinematic-meet.preview.emergentagent.com"
+    BASE_URL = "https://future-comms.preview.emergentagent.com"
 
 # Test credentials
 TEST_ADMIN_EMAIL = "admin@medmatch.com"

@@ -84,7 +84,7 @@
 **Credentials**: Already in `.env`
 - `LINKEDIN_CLIENT_ID=77wcvs14tufhyu`
 - `LINKEDIN_CLIENT_SECRET=WPL_AP1.1wRrxdl0yr0cMnTN.9xbXZg==`
-- `LINKEDIN_REDIRECT_URI=https://cinematic-meet.preview.emergentagent.com/settings?linkedin_callback=true`
+- `LINKEDIN_REDIRECT_URI=https://future-comms.preview.emergentagent.com/settings?linkedin_callback=true`
 
 **What may need attention:**
 - The redirect URI points to `/settings?linkedin_callback=true` which may need to be updated
