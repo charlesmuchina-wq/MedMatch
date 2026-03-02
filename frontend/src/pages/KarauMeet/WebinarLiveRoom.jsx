@@ -458,24 +458,16 @@ const WebinarLiveRoom = () => {
 
         <SidePanel
           activePanel={activePanel}
-          onClose={useCallback(() => setActivePanel(null), [])}
+          onClose={closePanel}
           webinarId={webinarId}
           roomInfo={roomInfo}
-          qaProps={useMemo(() => ({
-            questions, pendingQs, newQuestion, setNewQuestion,
-            submitQuestion: handleSubmitQuestion, answerTexts, setAnswerTexts,
-            answerQuestion: handleAnswerQuestion, upvoteQuestion: handleUpvoteQuestion,
-            canControl, myRole,
-          }), [questions, pendingQs, newQuestion, answerTexts, handleSubmitQuestion, handleAnswerQuestion, handleUpvoteQuestion, canControl, myRole])}
-          participantsProps={useMemo(() => ({
-            handRaises, activeRoles, promoteUser: actions.promoteUser, demoteUser: actions.demoteUser,
-            isHost, roomInfo, onGrantPermission: actions.grantGuestPermission, onRevokePermission: actions.revokeGuestPermission,
-          }), [handRaises, activeRoles, actions, isHost, roomInfo])}
-          controlsProps={useMemo(() => ({ muteAll: actions.muteAll, roomInfo }), [actions, roomInfo])}
+          qaProps={qaProps}
+          participantsProps={participantsProps}
+          controlsProps={controlsProps}
         />
       </div>
 
-      <FeatureCommandBar isOpen={commandBarOpen} onClose={useCallback(() => setCommandBarOpen(false), [])} onSelectFeature={handleCommandSelect} />
+      <FeatureCommandBar isOpen={commandBarOpen} onClose={closeCommandBar} onSelectFeature={handleCommandSelect} />
     </div>
   );
 };
