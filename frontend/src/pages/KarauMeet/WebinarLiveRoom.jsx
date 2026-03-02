@@ -9,7 +9,8 @@ import {
   AudioLines, Captions, Save, Globe, ChevronDown as ChevDown,
   Building2, UserX, FileUp, FileDown, ShieldCheck, ShieldOff, Brain, Sparkles, Eye, PenLine,
   SmilePlus, Trophy, Headphones, Clapperboard, QrCode, BarChart3, BrainCircuit,
-  Scan, Disc, Glasses, Wand2, Radio as RadioIcon
+  Scan, Disc, Glasses, Wand2, Radio as RadioIcon,
+  Cpu, Users as UsersIcon, BarChart as BarChartIcon, Fingerprint
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
