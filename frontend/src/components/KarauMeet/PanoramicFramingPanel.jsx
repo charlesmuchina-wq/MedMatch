@@ -30,12 +30,16 @@ export default function PanoramicFramingPanel({ meetingId }) {
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden" data-testid="panoramic-framing-panel">
-      <div className="p-2.5 border-b border-white/5">
-        <h3 className="text-xs font-semibold text-white flex items-center gap-1.5">
-          <Disc className="w-3.5 h-3.5 text-orange-400" />
-          360 Multi-Focus Framing
-        </h3>
-        <p className="text-[8px] text-slate-500 mt-0.5">AI headshot extraction from panoramic feed</p>
+      <div className="p-3 border-b border-white/[0.06]">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-orange-500/20 to-amber-500/10 flex items-center justify-center">
+            <Disc className="w-3.5 h-3.5 text-orange-400" />
+          </div>
+          <div>
+            <h3 className="text-xs font-semibold text-white">360° Multi-Focus</h3>
+            <p className="text-[9px] text-slate-500">AI headshot extraction from panoramic</p>
+          </div>
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-2 space-y-2">
