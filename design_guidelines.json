@@ -1,141 +1,149 @@
 {
-  "project_name": "AI KARAU Video Portal",
-  "design_philosophy": {
-    "identity": "E1: The Anti-AI Designer",
-    "core_principles": [
-      "Fusion over Imitation: Mix video tech with cinematic aesthetics",
-      "Emotion First: Focus, clarity, and reliability",
-      "Content is King: The video feed is the hero",
-      "Negative Space: Reduce cognitive load in meetings",
-      "Contrast: High visibility for controls"
-    ],
-    "anti_patterns": [
-      "Purple/Teal gradients everywhere (Use solid vibrant accents)",
-      "Inter font for headings (Use IBM Plex Sans)",
-      "Center-everything layouts (Use asymmetric Bento grids)",
-      "Pure black backgrounds (Use deep blue-tinted charcoal)"
-    ]
-  },
+  "project_name": "AI KARAU - Redesign",
   "theme": {
     "mode": "dark",
-    "primary_palette": {
-      "background": "#1a1b2e",
-      "foreground": "#f5f5f5",
-      "card": "#232436",
-      "card_foreground": "#ffffff",
-      "popover": "#1f2033",
-      "popover_foreground": "#ffffff",
-      "primary": "#20b2aa",
-      "primary_foreground": "#1a1b2e",
-      "secondary": "#2d2e42",
-      "secondary_foreground": "#ffffff",
-      "muted": "#1f2033",
-      "muted_foreground": "#94a3b8",
-      "accent": "#40e0d0",
-      "accent_foreground": "#1a1b2e",
-      "destructive": "#ef4444",
-      "destructive_foreground": "#ffffff",
-      "border": "#2e303e",
-      "input": "#2e303e",
-      "ring": "#20b2aa"
+    "colors": {
+      "background": {
+        "primary": "#1a1b2e",
+        "secondary": "#0f1629",
+        "tertiary": "#111827"
+      },
+      "accent": {
+        "primary": "#6c3ce0",
+        "secondary": "#20b2aa",
+        "tertiary": "#40e0d0",
+        "success": "#10b981",
+        "warning": "#eab308",
+        "danger": "#ef4444"
+      },
+      "surface": {
+        "glass": "rgba(255, 255, 255, 0.05)",
+        "glass_hover": "rgba(255, 255, 255, 0.1)",
+        "glass_active": "rgba(108, 60, 224, 0.15)",
+        "border": "rgba(255, 255, 255, 0.1)",
+        "border_glow": "rgba(108, 60, 224, 0.5)"
+      },
+      "text": {
+        "primary": "#f5f5f5",
+        "secondary": "#94a3b8",
+        "tertiary": "#64748b"
+      }
     },
-    "gradients": {
-      "active_speaker": "linear-gradient(135deg, rgba(32, 178, 170, 0.1), rgba(64, 224, 208, 0.05))",
-      "glass_surface": "linear-gradient(180deg, rgba(35, 36, 54, 0.7), rgba(35, 36, 54, 0.4))"
+    "typography": {
+      "headings": {
+        "font_family": "IBM Plex Sans, sans-serif",
+        "weights": {
+          "normal": 400,
+          "medium": 500,
+          "bold": 700
+        },
+        "tracking": "-0.02em"
+      },
+      "body": {
+        "font_family": "Inter, sans-serif",
+        "weights": {
+          "normal": 400,
+          "medium": 500,
+          "semibold": 600
+        }
+      }
     },
-    "box_shadows": {
-      "glow": "0 0 20px rgba(32, 178, 170, 0.15)",
-      "floating": "0 8px 32px rgba(0, 0, 0, 0.25)"
-    }
-  },
-  "typography": {
-    "font_family": {
-      "heading": "IBM Plex Sans, sans-serif",
-      "body": "Inter, sans-serif",
-      "mono": "JetBrains Mono, monospace"
+    "shadows": {
+      "glow_primary": "0 0 20px rgba(108, 60, 224, 0.3)",
+      "glow_secondary": "0 0 20px rgba(32, 178, 170, 0.3)",
+      "card": "0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3)"
     },
-    "scale": {
-      "h1": "text-4xl font-bold tracking-tight",
-      "h2": "text-3xl font-semibold tracking-tight",
-      "h3": "text-2xl font-semibold",
-      "body_lg": "text-lg leading-relaxed",
-      "body_base": "text-base leading-relaxed text-gray-300",
-      "caption": "text-sm text-gray-400"
+    "radii": {
+      "card": "1rem",
+      "button": "9999px",
+      "input": "0.75rem"
     }
   },
   "layout_strategies": {
-    "bento_grid": {
-      "description": "Asymmetric grid for video feeds and panels",
-      "rules": [
-        "Use 'grid-cols-12' as base",
-        "Speaker Focus Mode: Main speaker takes 'col-span-9 row-span-full', sidebar takes 'col-span-3'",
-        "Gallery Mode: Uniform 'col-span-4' or 'col-span-3' based on participant count",
-        "Control Bar: Floating, persistent at bottom, 'z-50'"
-      ]
+    "dashboard": {
+      "type": "bento_grid",
+      "grid_cols": "grid-cols-1 md:grid-cols-4 lg:grid-cols-12",
+      "gap": "gap-6",
+      "padding": "p-8"
     },
-    "spacing": {
-      "container_padding": "p-6 md:p-8",
-      "grid_gap": "gap-4 md:gap-6",
-      "section_spacing": "my-12"
+    "sidebar": {
+      "style": "floating_glass",
+      "width_expanded": "w-64",
+      "width_collapsed": "w-20"
     }
   },
   "components": {
-    "buttons": {
-      "primary": "bg-primary text-primary-foreground hover:bg-accent rounded-full px-6 py-3 font-medium transition-all shadow-glow hover:scale-105",
-      "secondary": "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-full px-6 py-3 font-medium transition-all",
-      "destructive": "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-full px-6 py-3 font-medium",
-      "ghost": "hover:bg-white/10 text-foreground rounded-full p-3 transition-colors",
-      "icon_control": "w-12 h-12 rounded-full flex items-center justify-center bg-secondary hover:bg-primary hover:text-primary-foreground transition-all duration-300 shadow-lg"
-    },
     "cards": {
-      "base": "bg-card border border-white/5 rounded-2xl overflow-hidden shadow-floating backdrop-blur-sm",
-      "interactive": "hover:border-primary/50 transition-colors cursor-pointer"
+      "base_class": "bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 transition-all duration-300 hover:bg-white/10 hover:border-purple-500/30 hover:shadow-glow_primary group",
+      "glass_effect": "backdrop-blur-xl bg-white/5 border border-white/10"
+    },
+    "buttons": {
+      "primary": "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-500/25 rounded-full px-6 py-2.5 font-medium transition-all duration-300 hover:scale-105 active:scale-95",
+      "secondary": "bg-white/10 hover:bg-white/20 text-white border border-white/10 rounded-full px-6 py-2.5 font-medium transition-all duration-300",
+      "ghost": "text-slate-400 hover:text-white hover:bg-white/5 rounded-full px-4 py-2 transition-all duration-300"
     },
     "inputs": {
-      "base": "bg-input border-transparent focus:border-primary focus:ring-1 focus:ring-primary rounded-xl px-4 py-3 text-foreground placeholder:text-muted-foreground transition-all"
-    },
-    "video_tile": {
-      "base": "relative rounded-xl overflow-hidden bg-black aspect-video group border border-transparent hover:border-white/10 transition-all",
-      "active_speaker": "ring-2 ring-primary shadow-glow z-10 scale-[1.01]"
+      "base": "bg-black/20 border border-white/10 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 transition-all duration-300 backdrop-blur-sm"
     }
   },
   "assets": {
     "images": {
+      "login_bg": {
+        "url": "https://images.unsplash.com/photo-1771013304380-dfaf9f928de6?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "alt": "Abstract Blue Wavy Background",
+        "usage": "Login page background with heavy overlay"
+      },
+      "lobby_bg": {
+        "url": "https://images.unsplash.com/photo-1556442669-c07f12469979?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "alt": "Futuristic Office Blurred",
+        "usage": "Lobby and Virtual Background preview"
+      },
       "avatars": [
-        "https://images.unsplash.com/photo-1562228802-4b1052d0f845?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGhlYWRzaG90fGVufDB8fHx8MTc3MjIwNzE3Nnww&ixlib=rb-4.1.0&q=85",
-        "https://images.unsplash.com/photo-1672685667592-0392f458f46f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGhlYWRzaG90fGVufDB8fHx8MTc3MjIwNzE3Nnww&ixlib=rb-4.1.0&q=85",
-        "https://images.unsplash.com/photo-1576558656222-ba66febe3dec?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdCUyMGhlYWRzaG90fGVufDB8fHx8MTc3MjIwNzE3Nnww&ixlib=rb-4.1.0&q=85",
-        "https://images.pexels.com/photos/30004324/pexels-photo-30004324.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-      ],
-      "backgrounds": [
-        "https://images.unsplash.com/photo-1770992161088-7ad66282c9af?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODd8MHwxfHNlYXJjaHwzfHxtb2Rlcm4lMjBvZmZpY2UlMjBpbnRlcmlvciUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzcyMjA3MTc3fDA&ixlib=rb-4.1.0&q=85",
-        "https://images.unsplash.com/photo-1703355685722-2996b01483be?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjBpbnRlcmlvciUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzcyMjA3MTc3fDA&ixlib=rb-4.1.0&q=85"
+        "https://images.unsplash.com/photo-1698092826352-38667b6ed6f2?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "https://images.unsplash.com/photo-1659353221237-6a1cfb73fd90?crop=entropy&cs=srgb&fm=jpg&q=85",
+        "https://images.unsplash.com/photo-1589668944320-409833e5ba10?crop=entropy&cs=srgb&fm=jpg&q=85"
       ]
     },
-    "icons_library": "lucide-react"
+    "icons": "lucide-react"
   },
-  "instructions_to_main_agent": {
-    "general": [
-      "Implement the 'blue-tinted' dark theme strictly. No pure greys.",
-      "Use 'sonner' for notifications.",
-      "Ensure all interactive elements have 'data-testid'.",
-      "Do NOT use 'transition: all'. Use specific transitions.",
-      "For the Video Grid, use a responsive grid that adapts to participant count.",
-      "The Control Bar must be 'fixed bottom-6 left-1/2 -translate-x-1/2' with a glass effect."
+  "animations": {
+    "hover_lift": "hover:-translate-y-1 hover:shadow-lg transition-transform duration-300",
+    "fade_in": "animate-fade-in",
+    "slide_up": "animate-slide-up",
+    "pulse_glow": "animate-pulse-glow"
+  },
+  "page_specific_instructions": {
+    "KarauMeetLogin.jsx": [
+      "Use 'login_bg' as the full-screen background with 'bg-black/60' overlay.",
+      "Center the login card with 'glass_effect'.",
+      "Add a 'Neon Glow' border to the active tab.",
+      "Showcase AI features (AI Assistant, Noise Cancellation) as floating, glowing badges around the card.",
+      "Title should use a gradient text effect (Purple to Teal)."
     ],
-    "specific_pages": {
-      "meeting_room": "Implement Bento Grid layout. Main area for video, collapsible side panels for Chat/Participants. Use <Split> or Resizable panels if possible, or CSS Grid.",
-      "lobby": "Clean, centered card for audio/video check. Background should be one of the office images with overlay.",
-      "dashboard": "Use cards to show 'Upcoming Meetings', 'Recent Recordings'. Use the 'Trace Beam' effect on these cards."
-    }
+    "KarauMeetDashboard.jsx": [
+      "Implement a 'Bento Grid' layout.",
+      "Top section: 'Upcoming Meeting' (Large Card) + 'Quick Actions' (Square Cards).",
+      "Middle section: 'Analytics' (Wide Card) + 'Recent Recordings' (List Card).",
+      "Use 'glass_effect' for all cards.",
+      "Add a 'Welcome Back' header with large typography."
+    ],
+    "KarauMeetPortal.jsx": [
+      "Redesign sidebar to be 'floating' (detached from edges) with rounded corners.",
+      "Sidebar items: Active state should be a glowing pill shape with gradient bg.",
+      "Add a 'New Meeting' FAB (Floating Action Button) or prominent button at the top of sidebar."
+    ],
+    "MeetingLobby.jsx": [
+      "Hero layout: Large video preview in center.",
+      "Right/Bottom panel: Settings (Mic, Cam, Background).",
+      "Background Picker: Use circular thumbnails with glow on selection."
+    ]
   },
   "universal_guidelines": [
-    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients",
-    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
-    "Create depth through layered design elements with z-index hierarchy",
-    "Use glass-morphism effects with backdrop filters (12-24px blur)",
-    "You MUST NOT apply universal transition. Eg: transition: all",
-    "Every interaction needs micro-animations - hover states, transitions, entrance animations.",
-    "Use 2-3x more spacing than feels comfortable."
+    "Always use 'data-testid' for interactive elements.",
+    "Do NOT use gradients for dark backgrounds; use solid dark colors with subtle noise or radial gradient overlays.",
+    "Ensure text contrast meets WCAG AA standards.",
+    "Use 'sonner' for toasts.",
+    "Use 'lucide-react' for icons.",
+    "Follow the 'Karau' color palette defined in tailwind.config.js."
   ]
 }
