@@ -36,6 +36,10 @@ import PanoramicFramingPanel from '@/components/KarauMeet/PanoramicFramingPanel'
 import SpatialMeetingPanel from '@/components/KarauMeet/SpatialMeetingPanel';
 import RoomControlPanel from '@/components/KarauMeet/RoomControlPanel';
 import BeamformingPanel from '@/components/KarauMeet/BeamformingPanel';
+import HardwareDiscoveryPanel from '@/components/KarauMeet/HardwareDiscoveryPanel';
+import BreakoutLoungePanel from '@/components/KarauMeet/BreakoutLoungePanel';
+import PollsChallengesPanel from '@/components/KarauMeet/PollsChallengesPanel';
+import BiometricVerifyPanel from '@/components/KarauMeet/BiometricVerifyPanel';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 const WS_URL = API.replace('https://', 'wss://').replace('http://', 'ws://');
