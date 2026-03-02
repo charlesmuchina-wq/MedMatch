@@ -300,6 +300,31 @@ const WebinarLiveRoom = () => {
     if (qa) setQuestions(qa);
   }, [actions]);
 
+  // Stable toggle callbacks (must be before early returns)
+  const toggleEyeContact = useCallback(() => setEyeContactOn(v => !v), []);
+  const toggleReactionsUI = useCallback(() => setShowReactions(v => !v), []);
+  const toggleCoachUI = useCallback(() => setShowCoach(v => !v), []);
+  const toggleWhiteboardUI = useCallback(() => setShowWhiteboard(v => !v), []);
+  const openCommandBar = useCallback(() => setCommandBarOpen(true), []);
+  const closeCommandBar = useCallback(() => setCommandBarOpen(false), []);
+  const closePanel = useCallback(() => setActivePanel(null), []);
+  const toggleLangUI = useCallback(() => setShowLangPicker(v => !v), []);
+
+  // Memoized props for sub-panels
+  const qaProps = useMemo(() => ({
+    questions, pendingQs, newQuestion, setNewQuestion,
+    submitQuestion: handleSubmitQuestion, answerTexts, setAnswerTexts,
+    answerQuestion: handleAnswerQuestion, upvoteQuestion: handleUpvoteQuestion,
+    canControl, myRole,
+  }), [questions, pendingQs, newQuestion, answerTexts, handleSubmitQuestion, handleAnswerQuestion, handleUpvoteQuestion, canControl, myRole]);
+
+  const participantsProps = useMemo(() => ({
+    handRaises, activeRoles, promoteUser: actions.promoteUser, demoteUser: actions.demoteUser,
+    isHost, roomInfo, onGrantPermission: actions.grantGuestPermission, onRevokePermission: actions.revokeGuestPermission,
+  }), [handRaises, activeRoles, actions, isHost, roomInfo]);
+
+  const controlsProps = useMemo(() => ({ muteAll: actions.muteAll, roomInfo }), [actions, roomInfo]);
+
   // --- Loading states ---
   if (loading) return <div className="min-h-screen bg-karau-bg flex items-center justify-center"><Loader2 className="w-8 h-8 text-purple-400 animate-spin" /></div>;
   if (!roomInfo) return <div className="min-h-screen bg-karau-bg flex items-center justify-center"><p className="text-red-400">Unable to join webinar</p></div>;
