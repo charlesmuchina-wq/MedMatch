@@ -112,15 +112,17 @@ export default function CopilotPanel({ meetingId }) {
       <div className="flex-1 overflow-y-auto p-2 space-y-2">
         {messages.length === 0 && (
           <div className="text-center py-6">
-            <BrainCircuit className="w-8 h-8 text-fuchsia-400/30 mx-auto mb-2" />
+            <div className="w-12 h-12 rounded-2xl bg-fuchsia-500/10 flex items-center justify-center mx-auto mb-3">
+              <BrainCircuit className="w-6 h-6 text-fuchsia-400/40" />
+            </div>
             <p className="text-[10px] text-slate-500">Ask about past decisions, action items, or meeting context</p>
-            <div className="flex flex-wrap gap-1 mt-2 justify-center">
+            <div className="flex flex-wrap gap-1.5 mt-3 justify-center">
               {['What were the action items from last meeting?',
                 'Summarize key decisions this week',
                 'Any unresolved topics from previous sessions?'
               ].map(suggestion => (
                 <button key={suggestion} onClick={() => { setQuery(suggestion); }}
-                  className="text-[7px] px-1.5 py-0.5 rounded bg-fuchsia-500/10 text-fuchsia-300 border border-fuchsia-500/20 hover:bg-fuchsia-500/20 transition-colors"
+                  className="text-[8px] px-2 py-1 rounded-lg bg-fuchsia-500/[0.06] text-fuchsia-300 border border-fuchsia-500/15 hover:bg-fuchsia-500/[0.12] transition-all duration-200"
                   data-testid="copilot-suggestion">
                   {suggestion}
                 </button>
