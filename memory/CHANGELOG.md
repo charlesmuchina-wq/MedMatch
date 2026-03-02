@@ -1,5 +1,42 @@
 # AI KARAU Changelog
 
+## Mar 2, 2026 — Phase 3: Hardware Discovery, Breakout Lounges, Polls, Biometric Verification
+
+### New Features
+
+#### Hardware Discovery Dashboard
+- Auto-detect 6 device types: 360 cameras, mic arrays, IoT hubs, XR headsets, displays, speaker arrays
+- Device scan with realistic simulated results (Meeting Owl 3, Shure MXA920, Crestron CP4, Apple Vision Pro, Samsung Flip, Bose ES1)
+- Live/Simulation mode toggle per device
+- Backend: `karau_hardware_discovery.py` with 5 endpoints
+
+#### Virtual Breakout Lounges
+- Interactive 2D map with draggable avatar positioning
+- Proximity-based audio (150px threshold with volume falloff)
+- Host controls: create/edit/close lounges with topics and capacity
+- Automatic lounge zone detection based on avatar position
+- Backend: `karau_breakout_lounges.py` with 6 endpoints
+
+#### Interactive Polls & Challenges
+- 4 poll types: Multiple Choice, Quiz (with scoring), Word Cloud, Rating (1-10)
+- Duplicate vote prevention (409 conflict)
+- Quiz scoring with correct_answer_id and leaderboard point integration
+- Poll lifecycle: create -> vote -> results -> close
+- Backend: `karau_polls_challenges.py` with 6 endpoints
+
+#### Biometric Feed Verification
+- SHA256 session watermarks with unique visual patterns
+- Rolling integrity score with continuous verification checks
+- Trust levels: high (>90%), medium (>70%), low (>40%), unverified
+- Simulated anti-deepfake detection for 6 participants
+- Backend: `karau_biometric_verify.py` with 3 endpoints
+
+### Testing
+- 35/35 backend tests passed (100%)
+- Test report: `/app/test_reports/iteration_154.json`
+
+---
+
 ## Mar 2, 2026 — Meeting Replay with Director Cuts + Hardware Integration Layer
 
 ### New Features
