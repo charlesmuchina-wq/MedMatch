@@ -1147,22 +1147,47 @@ const ParticipantsPanel = ({ handRaises, activeRoles, promoteUser, demoteUser, i
         </div>
       ))}
     </div>
+    </div>
   </div>
 );
 
 const ControlsPanel = ({ muteAll, roomInfo }) => (
-  <div className="flex-1 overflow-y-auto p-2.5 space-y-2">
-    <h3 className="text-xs font-semibold text-white flex items-center gap-1.5"><Settings className="w-3.5 h-3.5 text-violet-400" />Controls</h3>
-    <button onClick={muteAll} className="w-full flex items-center gap-2 p-2 bg-karau-bg/40 rounded-lg hover:bg-white/5 transition-colors" data-testid="mute-all-control">
-      <MicOff className="w-3.5 h-3.5 text-red-400" /><span className="text-[10px] text-slate-300">Mute All</span>
-    </button>
-    <div className="p-2 bg-karau-bg/40 rounded-lg space-y-1">
-      <p className="text-[9px] text-karau-muted">Settings</p>
-      <div className="text-[9px] text-slate-400 space-y-0.5">
-        <p>Chat: {roomInfo.settings?.chat_enabled ? 'On' : 'Off'}</p>
-        <p>Q&A: {roomInfo.settings?.q_and_a_enabled ? 'On' : 'Off'}</p>
-        <p>Attendee Video: {roomInfo.settings?.attendee_video ? 'On' : 'Off'}</p>
-        <p>Attendee Audio: {roomInfo.settings?.attendee_audio ? 'On' : 'Off'}</p>
+  <div className="flex-1 overflow-y-auto space-y-3" data-testid="controls-panel">
+    <div className="p-3 border-b border-white/[0.06]">
+      <div className="flex items-center gap-2">
+        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500/20 to-purple-500/10 flex items-center justify-center">
+          <Settings className="w-3.5 h-3.5 text-violet-400" />
+        </div>
+        <div>
+          <h3 className="text-xs font-semibold text-white">Room Controls</h3>
+          <p className="text-[9px] text-slate-500">Settings & permissions</p>
+        </div>
+      </div>
+    </div>
+    <div className="px-3 space-y-2">
+      <button onClick={muteAll} className="w-full flex items-center gap-2.5 p-2.5 rounded-xl bg-red-500/[0.04] border border-red-500/15 hover:bg-red-500/[0.08] transition-all" data-testid="mute-all-control">
+        <MicOff className="w-4 h-4 text-red-400" /><span className="text-[11px] text-red-300 font-medium">Mute All</span>
+      </button>
+      <div className="p-2.5 rounded-xl border border-white/[0.06] bg-white/[0.02] space-y-1.5">
+        <p className="text-[9px] text-slate-400 font-semibold uppercase tracking-widest">Room Settings</p>
+        <div className="text-[10px] text-slate-400 space-y-1">
+          <div className="flex items-center justify-between">
+            <span>Chat</span>
+            <span className={roomInfo.settings?.chat_enabled ? 'text-emerald-400' : 'text-red-400'}>{roomInfo.settings?.chat_enabled ? 'On' : 'Off'}</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span>Q&A</span>
+            <span className={roomInfo.settings?.q_and_a_enabled ? 'text-emerald-400' : 'text-red-400'}>{roomInfo.settings?.q_and_a_enabled ? 'On' : 'Off'}</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span>Attendee Video</span>
+            <span className={roomInfo.settings?.attendee_video ? 'text-emerald-400' : 'text-red-400'}>{roomInfo.settings?.attendee_video ? 'On' : 'Off'}</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span>Attendee Audio</span>
+            <span className={roomInfo.settings?.attendee_audio ? 'text-emerald-400' : 'text-red-400'}>{roomInfo.settings?.attendee_audio ? 'On' : 'Off'}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
