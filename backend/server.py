@@ -306,6 +306,10 @@ from routes.karau_webxr import router as karau_webxr_router
 from routes.karau_iot_control import router as karau_iot_router
 from routes.karau_beamforming import router as karau_beamforming_router
 from routes.karau_replay import router as karau_replay_router
+from routes.karau_hardware_discovery import router as karau_hardware_router
+from routes.karau_breakout_lounges import router as karau_breakout_router
+from routes.karau_polls_challenges import router as karau_polls_router
+from routes.karau_biometric_verify import router as karau_biometric_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
@@ -409,6 +413,10 @@ app.include_router(karau_webxr_router, prefix="/api")
 app.include_router(karau_iot_router, prefix="/api")
 app.include_router(karau_beamforming_router, prefix="/api")
 app.include_router(karau_replay_router, prefix="/api")
+app.include_router(karau_hardware_router, prefix="/api")
+app.include_router(karau_breakout_router, prefix="/api")
+app.include_router(karau_polls_router, prefix="/api")
+app.include_router(karau_biometric_router, prefix="/api")
 
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
