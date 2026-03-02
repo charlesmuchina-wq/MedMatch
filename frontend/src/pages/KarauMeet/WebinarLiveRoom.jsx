@@ -908,6 +908,10 @@ const WebinarLiveRoom = () => {
             <CtrlBtn on={activePanel === 'webxr'} onClick={() => togglePanel('webxr')} icon={Glasses} testId="webxr-toggle" color={activePanel === 'webxr' ? 'indigo' : undefined} />
             <CtrlBtn on={activePanel === 'iot'} onClick={() => togglePanel('iot')} icon={Wand2} testId="iot-toggle" color={activePanel === 'iot' ? 'amber' : undefined} />
             <CtrlBtn on={activePanel === 'beamforming'} onClick={() => togglePanel('beamforming')} icon={RadioIcon} testId="beamforming-toggle" color={activePanel === 'beamforming' ? 'sky' : undefined} />
+            <CtrlBtn on={activePanel === 'hardware'} onClick={() => togglePanel('hardware')} icon={Cpu} testId="hardware-toggle" color={activePanel === 'hardware' ? 'lime' : undefined} />
+            <CtrlBtn on={activePanel === 'breakout'} onClick={() => togglePanel('breakout')} icon={UsersIcon} testId="breakout-toggle" color={activePanel === 'breakout' ? 'pink' : undefined} />
+            <CtrlBtn on={activePanel === 'polls'} onClick={() => togglePanel('polls')} icon={BarChartIcon} testId="polls-toggle" color={activePanel === 'polls' ? 'yellow' : undefined} />
+            <CtrlBtn on={activePanel === 'biometric'} onClick={() => togglePanel('biometric')} icon={Fingerprint} testId="biometric-toggle" color={activePanel === 'biometric' ? 'teal' : undefined} />
             {canStream && (
               <div className="relative">
                 <CtrlBtn on={showCoach} onClick={() => setShowCoach(!showCoach)} icon={Sparkles} testId="coach-toggle" color={showCoach ? 'emerald' : undefined} />
