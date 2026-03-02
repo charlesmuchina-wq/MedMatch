@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Lightbulb, Thermometer, BlindsOpen, Monitor, Volume2, Wand2, Mic } from 'lucide-react';
+import { Lightbulb, Thermometer, Blinds, Monitor, Volume2, Wand2, Mic } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -12,7 +12,7 @@ const DEVICE_CONFIG = {
   lights_presentation: { icon: Lightbulb, label: 'Presentation', unit: '%', color: 'amber', min: 0, max: 100 },
   lights_ambient: { icon: Lightbulb, label: 'Ambient', unit: '%', color: 'amber', min: 0, max: 100 },
   temperature_main: { icon: Thermometer, label: 'Temperature', unit: 'C', color: 'blue', min: 16, max: 28 },
-  shades_main: { icon: BlindsOpen, label: 'Shades', unit: '%', color: 'slate', min: 0, max: 100 },
+  shades_main: { icon: Blinds, label: 'Shades', unit: '%', color: 'slate', min: 0, max: 100 },
   display_main: { icon: Monitor, label: 'Display', unit: '%', color: 'violet', min: 0, max: 100 },
   speaker_volume_main: { icon: Volume2, label: 'Volume', unit: '%', color: 'emerald', min: 0, max: 100 },
 };
