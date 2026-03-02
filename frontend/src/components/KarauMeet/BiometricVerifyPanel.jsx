@@ -73,13 +73,13 @@ export default function BiometricVerifyPanel({ meetingId }) {
 
         {/* Participant Trust Cards */}
         <div className="space-y-1" data-testid="participant-trust-list">
-          {participants.map(p => {
+          {participants.map((p, idx) => {
             const colors = TRUST_COLORS[p.trust_level] || TRUST_COLORS.medium;
             const pattern = p.visual_pattern || {};
             const score = Math.round((p.integrity_score || 0) * 100);
 
             return (
-              <div key={p.user_id} className={`p-1.5 rounded-lg border ${colors.border} ${colors.bg}`} data-testid={`trust-${p.user_id}`}>
+              <div key={p.user_id} className={`p-1.5 rounded-lg border ${colors.border} ${colors.bg} animate-fade-in-up`} style={{animationDelay: `${idx * 60}ms`}} data-testid={`trust-${p.user_id}`}>
                 <div className="flex items-center gap-2">
                   {/* Watermark Visual */}
                   <div className="w-6 h-6 rounded-full bg-karau-bg/60 flex items-center justify-center relative overflow-hidden">

@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import axios from "axios";
 import "@/index.css";
+import "@/styles/animations.css";
 import App from "@/App";
 
 // Configure axios to always send credentials (cookies) with requests

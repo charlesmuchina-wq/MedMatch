@@ -4,26 +4,42 @@ const API = process.env.REACT_APP_BACKEND_URL;
 
 export const CAPTION_LANGUAGES = {
   en: 'English', es: 'Spanish', fr: 'French', de: 'German',
-  it: 'Italian', pt: 'Portuguese', ja: 'Japanese', ko: 'Korean',
-  zh: 'Chinese', nl: 'Dutch', ar: 'Arabic', hi: 'Hindi',
-  ru: 'Russian', tr: 'Turkish', pl: 'Polish', sv: 'Swedish'
+  it: 'Italian', pt: 'Portuguese', 'pt-BR': 'Portuguese (Brazil)', 'pt-PT': 'Portuguese (Portugal)',
+  ja: 'Japanese', ko: 'Korean', zh: 'Chinese', nl: 'Dutch', ar: 'Arabic', hi: 'Hindi',
+  ru: 'Russian', tr: 'Turkish', pl: 'Polish', sv: 'Swedish', sw: 'Swahili',
+  da: 'Danish', fi: 'Finnish', el: 'Greek', cs: 'Czech', hu: 'Hungarian', ro: 'Romanian',
+  bn: 'Bengali', ta: 'Tamil', ur: 'Urdu', vi: 'Vietnamese', th: 'Thai', id: 'Indonesian',
+  ms: 'Malay', tl: 'Filipino', am: 'Amharic', ha: 'Hausa', yo: 'Yoruba', ig: 'Igbo'
 };
 
 /**
  * Live transcription hook with multi-language support.
  * Captures audio, sends to Whisper, optionally translates captions.
+ * Auto-syncs display language from user's i18n locale preference.
  */
 export function useLiveTranscription() {
   const [active, setActive] = useState(false);
   const [captions, setCaptions] = useState([]);
   const [fullTranscript, setFullTranscript] = useState('');
+
+  // Auto-detect user's preferred language from localStorage (set by i18n)
+  const getUserLangPref = () => {
+    const savedLang = localStorage.getItem('karau_language') || localStorage.getItem('language') || 'en';
+    // Map i18n locale to caption language (strip region if needed)
+    const base = savedLang.split('-')[0];
+    // Check exact match first (pt-BR, pt-PT), then base
+    if (CAPTION_LANGUAGES[savedLang]) return savedLang;
+    if (CAPTION_LANGUAGES[base]) return base;
+    return 'en';
+  };
+
   const [sourceLanguage, setSourceLanguage] = useState('en');
-  const [displayLanguage, setDisplayLanguage] = useState('en');
+  const [displayLanguage, setDisplayLanguage] = useState(getUserLangPref);
   const recorderRef = useRef(null);
   const intervalRef = useRef(null);
   const chunksRef = useRef([]);
   const srcLangRef = useRef('en');
-  const dspLangRef = useRef('en');
+  const dspLangRef = useRef(getUserLangPref());
 
   // Keep refs in sync with state for use inside callbacks
   const updateSourceLang = useCallback((lang) => {

@@ -89,7 +89,7 @@ export default function RoomControlPanel({ meetingId }) {
     } catch {}
   };
 
-  if (loading) return <div className="p-3 text-[9px] text-slate-500">Connecting to room hub...</div>;
+  if (loading) return <div className="p-3 text-[9px] text-slate-500 animate-soft-pulse">Connecting to room hub...</div>;
 
   const devices = roomState?.devices || {};
 

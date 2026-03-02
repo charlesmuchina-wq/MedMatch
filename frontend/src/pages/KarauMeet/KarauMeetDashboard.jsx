@@ -225,7 +225,7 @@ const KarauMeetDashboard = ({ user }) => {
       {/* Main content */}
       <div className="flex-1 overflow-auto p-8 space-y-6">
         {/* Row 1: Actions + Stats */}
-        <div className="grid grid-cols-12 gap-5">
+        <div className="grid grid-cols-12 gap-5 animate-fade-in-up">
           {/* Start Meeting */}
           <div
             className="col-span-12 md:col-span-5 group cursor-pointer rounded-2xl bg-white/[0.03] border border-white/[0.06] p-6 hover:bg-white/[0.06] hover:border-purple-500/20 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/5"
@@ -265,7 +265,7 @@ const KarauMeetDashboard = ({ user }) => {
           {/* Stats grid */}
           <div className="col-span-12 md:col-span-4 grid grid-cols-2 gap-3">
             {statItems.map((stat, idx) => (
-              <div key={idx} className={`group rounded-2xl bg-white/[0.03] border border-white/[0.06] p-4 hover:bg-white/[0.06] hover:border-white/[0.1] transition-all duration-300 ${stat.glow}`} data-testid={`stat-${idx}`}>
+              <div key={idx} className={`group rounded-2xl bg-white/[0.03] border border-white/[0.06] p-4 hover:bg-white/[0.06] hover:border-white/[0.1] transition-all duration-300 hover-lift ${stat.glow}`} data-testid={`stat-${idx}`}>
                 <stat.icon className={`w-4 h-4 ${stat.accent} mb-2 opacity-70`} />
                 <p className="text-2xl font-bold text-white tabular-nums">{stat.value}</p>
                 <p className="text-[11px] text-slate-500">{stat.label}</p>
@@ -275,7 +275,7 @@ const KarauMeetDashboard = ({ user }) => {
         </div>
 
         {/* Row 2: AI Capabilities Banner */}
-        <div className="rounded-2xl bg-gradient-to-r from-purple-900/20 via-indigo-900/10 to-teal-900/20 border border-white/[0.06] p-5" data-testid="ai-capabilities-banner">
+        <div className="rounded-2xl bg-gradient-to-r from-purple-900/20 via-indigo-900/10 to-teal-900/20 border border-white/[0.06] p-5 animate-fade-in-up stagger-2" data-testid="ai-capabilities-banner">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Zap className="w-4 h-4 text-amber-400" />
@@ -294,7 +294,7 @@ const KarauMeetDashboard = ({ user }) => {
         </div>
 
         {/* Row 3: Next Meeting + Meeting Insights */}
-        <div className="grid grid-cols-12 gap-5">
+        <div className="grid grid-cols-12 gap-5 animate-fade-in-up stagger-3">
           {/* Next Upcoming Meeting (featured) + hidden rest */}
           <div className="col-span-12 md:col-span-7" data-testid="upcoming-meetings">
             {upcoming.length === 0 ? (

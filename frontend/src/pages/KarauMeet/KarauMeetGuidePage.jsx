@@ -241,7 +241,7 @@ const KarauMeetGuidePage = () => {
               const isExpanded = expandedSection === section.id;
               const items = filteredItems(section);
               return (
-                <div key={section.id} className="rounded-2xl bg-white/[0.02] border border-white/[0.06] overflow-hidden" data-testid={`guide-section-${section.id}`}>
+                <div key={section.id} className="rounded-2xl bg-white/[0.02] border border-white/[0.06] overflow-hidden card-interactive" data-testid={`guide-section-${section.id}`}>
                   <button
                     onClick={() => setExpandedSection(isExpanded ? null : section.id)}
                     className="w-full flex items-center justify-between px-6 py-4 hover:bg-white/[0.02] transition-colors"

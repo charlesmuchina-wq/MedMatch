@@ -11,6 +11,7 @@ export default function SpatialTrackingPanel({ meetingId }) {
   const [loading, setLoading] = useState(true);
   const [connected, setConnected] = useState(false);
   const [calibrating, setCalibrating] = useState(false);
+  const [connectPhase, setConnectPhase] = useState(null); // null, 'scanning', 'initializing', 'done'
 
   const fetchTracking = useCallback(async () => {
     const token = localStorage.getItem('token');
@@ -29,7 +30,11 @@ export default function SpatialTrackingPanel({ meetingId }) {
     return () => clearInterval(interval);
   }, [fetchTracking]);
 
-  const handleConnect = () => { setConnected(true); toast.success('SLAM sensor connected'); fetchTracking(); };
+  const handleConnect = () => {
+    setConnectPhase('scanning');
+    setTimeout(() => setConnectPhase('initializing'), 1200);
+    setTimeout(() => { setConnectPhase('done'); setConnected(true); toast.success('SLAM sensor connected'); fetchTracking(); }, 2800);
+  };
   const handleCalibrate = () => {
     setCalibrating(true);
     setTimeout(() => { setCalibrating(false); toast.success('Room calibration complete'); fetchTracking(); }, 2500);
@@ -59,14 +64,41 @@ export default function SpatialTrackingPanel({ meetingId }) {
       <div className="flex-1 overflow-y-auto p-3 space-y-2.5">
         {!connected ? (
           <div className="text-center py-6 animate-fade-in">
-            <div className="w-14 h-14 rounded-2xl bg-rose-500/10 flex items-center justify-center mx-auto mb-3">
-              <Scan className="w-7 h-7 text-rose-400/50" />
+            <div className="w-14 h-14 rounded-2xl bg-rose-500/10 flex items-center justify-center mx-auto mb-3 relative">
+              <Scan className={`w-7 h-7 text-rose-400/50 ${connectPhase === 'scanning' ? 'animate-scan-rotate' : ''}`} />
+              {connectPhase === 'scanning' && (
+                <div className="absolute inset-0 rounded-2xl border border-rose-400/30 animate-pulse-ring" />
+              )}
             </div>
-            <p className="text-xs text-white font-medium mb-1">Connect SLAM Sensor</p>
-            <p className="text-[10px] text-slate-500 mb-4">Enable 3D room tracking for auto-framing</p>
-            <Button size="sm" onClick={handleConnect} className="bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl shadow-lg shadow-rose-500/20 hover:shadow-rose-500/30 transition-all" data-testid="connect-slam-btn">
-              <Zap className="w-3 h-3 mr-1.5" />Connect & Initialize
-            </Button>
+            {!connectPhase ? (
+              <>
+                <p className="text-xs text-white font-medium mb-1">Connect SLAM Sensor</p>
+                <p className="text-[10px] text-slate-500 mb-4">Enable 3D room tracking for auto-framing</p>
+                <Button size="sm" onClick={handleConnect} className="bg-gradient-to-r from-rose-500 to-pink-500 text-white rounded-xl shadow-lg shadow-rose-500/20 hover:shadow-rose-500/30 hover-scale transition-all" data-testid="connect-slam-btn">
+                  <Zap className="w-3 h-3 mr-1.5" />Connect & Initialize
+                </Button>
+              </>
+            ) : connectPhase === 'scanning' ? (
+              <div className="animate-fade-in-up">
+                <p className="text-xs text-rose-300 font-medium mb-1">Scanning for SLAM sensor...</p>
+                <div className="w-32 h-1.5 bg-white/[0.04] rounded-full mx-auto overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-rose-500 to-pink-500 rounded-full animate-bar-grow" style={{width: '40%'}} />
+                </div>
+              </div>
+            ) : connectPhase === 'initializing' ? (
+              <div className="animate-fade-in-up">
+                <p className="text-xs text-rose-300 font-medium mb-1">Initializing depth sensor...</p>
+                <div className="w-32 h-1.5 bg-white/[0.04] rounded-full mx-auto overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-rose-500 to-pink-500 rounded-full transition-all duration-1000" style={{width: '80%'}} />
+                </div>
+                <p className="text-[9px] text-slate-500 mt-2">Calibrating IR projector</p>
+              </div>
+            ) : (
+              <div className="animate-fade-in-scale">
+                <p className="text-xs text-emerald-400 font-medium mb-1">Connected!</p>
+                <Loader2 className="w-4 h-4 text-emerald-400 animate-spin mx-auto" />
+              </div>
+            )}
           </div>
         ) : (
           <>

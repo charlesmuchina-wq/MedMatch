@@ -66,7 +66,7 @@ export default function HardwareDiscoveryPanel({ meetingId }) {
     } catch {}
   };
 
-  if (loading) return <div className="p-3 text-[9px] text-slate-500">Discovering devices...</div>;
+  if (loading) return <div className="p-3 text-[9px] text-slate-500 animate-soft-pulse">Discovering devices...</div>;
 
   const devices = data?.devices || [];
 
@@ -88,8 +88,8 @@ export default function HardwareDiscoveryPanel({ meetingId }) {
         {/* Scan Button + Summary */}
         <div className="flex items-center justify-between">
           <Button size="sm" onClick={scanDevices} disabled={scanning}
-            className="h-6 text-[9px] bg-lime-500/80 hover:bg-lime-400 rounded-lg" data-testid="scan-devices-btn">
-            <ScanSearch className="w-3 h-3 mr-1" />{scanning ? 'Scanning...' : 'Scan Devices'}
+            className={`h-6 text-[9px] bg-lime-500/80 hover:bg-lime-400 rounded-lg hover-scale transition-all ${scanning ? 'animate-pulse-glow' : ''}`} data-testid="scan-devices-btn">
+            <ScanSearch className={`w-3 h-3 mr-1 ${scanning ? 'animate-scan-rotate' : ''}`} />{scanning ? 'Scanning...' : 'Scan Devices'}
           </Button>
           <div className="flex gap-2 text-[8px]">
             <span className="text-emerald-400">{data?.online || 0} online</span>

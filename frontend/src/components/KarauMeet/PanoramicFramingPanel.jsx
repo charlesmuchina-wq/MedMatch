@@ -7,6 +7,7 @@ const API = process.env.REACT_APP_BACKEND_URL;
 export default function PanoramicFramingPanel({ meetingId }) {
   const [headshots, setHeadshots] = useState([]);
   const [panoramicStatus, setPanoramicStatus] = useState('initializing');
+  const [speakerPulse, setSpeakerPulse] = useState(null);
 
   const fetchHeadshots = useCallback(async () => {
     const token = localStorage.getItem('token');
@@ -27,6 +28,16 @@ export default function PanoramicFramingPanel({ meetingId }) {
     const interval = setInterval(fetchHeadshots, 8000);
     return () => clearInterval(interval);
   }, [fetchHeadshots]);
+
+  // Simulate speaker rotation for liveliness
+  useEffect(() => {
+    if (headshots.length === 0) return;
+    const interval = setInterval(() => {
+      setSpeakerPulse(Math.floor(Math.random() * headshots.length));
+      setTimeout(() => setSpeakerPulse(null), 1500);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [headshots.length]);
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden" data-testid="panoramic-framing-panel">
@@ -69,10 +80,10 @@ export default function PanoramicFramingPanel({ meetingId }) {
               <div key={h.user_id || i}
                 className="absolute top-1/2 -translate-y-1/2 flex flex-col items-center group"
                 style={{ left: `${left}%` }}>
-                <div className={`w-8 h-10 rounded-lg border-2 ${
-                  h.is_speaking ? 'border-orange-400 bg-orange-500/20' : 'border-slate-500/50 bg-slate-600/30'
+                <div className={`w-8 h-10 rounded-lg border-2 transition-all duration-300 ${
+                  h.is_speaking || speakerPulse === i ? 'border-orange-400 bg-orange-500/20 scale-110' : 'border-slate-500/50 bg-slate-600/30'
                 } flex items-center justify-center`}>
-                  <User className={`w-4 h-4 ${h.is_speaking ? 'text-orange-300' : 'text-slate-400'}`} />
+                  <User className={`w-4 h-4 ${h.is_speaking || speakerPulse === i ? 'text-orange-300' : 'text-slate-400'}`} />
                 </div>
                 <span className="text-[6px] text-white mt-0.5 truncate max-w-[40px]">{h.user_name || `S${h.seat_position}`}</span>
                 {h.is_speaking && <span className="w-1 h-1 rounded-full bg-orange-400 mt-0.5 animate-pulse" />}

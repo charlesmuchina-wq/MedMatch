@@ -52,7 +52,7 @@ export default function BeamformingPanel({ meetingId }) {
     } catch {}
   };
 
-  if (loading) return <div className="p-3 text-[9px] text-slate-500">Analyzing audio environment...</div>;
+  if (loading) return <div className="p-3 text-[9px] text-slate-500 animate-soft-pulse">Analyzing audio environment...</div>;
 
   const config = status?.config || {};
   const health = status?.health || {};
@@ -86,7 +86,7 @@ export default function BeamformingPanel({ meetingId }) {
         </div>
 
         {/* Beam Pattern Visualization */}
-        <div className="relative aspect-square bg-slate-900/80 rounded-lg border border-white/5 p-1" data-testid="beam-pattern">
+        <div className="relative aspect-square bg-slate-900/80 rounded-lg border border-white/5 p-1 animate-fade-in" data-testid="beam-pattern">
           <svg viewBox="0 0 200 200" className="w-full h-full">
             {/* Grid circles */}
             {[0.25, 0.5, 0.75, 1].map(r => (
@@ -95,6 +95,8 @@ export default function BeamformingPanel({ meetingId }) {
             {/* Cross lines */}
             <line x1="100" y1="20" x2="100" y2="180" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
             <line x1="20" y1="100" x2="180" y2="100" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+            {/* Radar sweep indicator */}
+            <circle cx="100" cy="100" r="78" fill="none" stroke="rgba(56,189,248,0.1)" strokeWidth="1" strokeDasharray="6 6" className="animate-scan-rotate" style={{transformOrigin:'100px 100px'}} />
 
             {/* Beam pattern */}
             {beamPattern.length > 0 && (
