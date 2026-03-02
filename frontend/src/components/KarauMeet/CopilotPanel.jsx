@@ -162,14 +162,14 @@ export default function CopilotPanel({ meetingId }) {
       </div>
 
       {/* Input */}
-      <div className="p-2 border-t border-white/5">
-        <div className="flex gap-1">
+      <div className="p-3 border-t border-white/[0.06]">
+        <div className="flex gap-2">
           <Input value={query} onChange={e => setQuery(e.target.value)}
             placeholder="Ask the AI Copilot..."
             onKeyDown={e => e.key === 'Enter' && sendQuery()}
-            className="bg-karau-bg/60 border-white/10 text-white text-[10px] h-7 rounded-lg" data-testid="copilot-input" />
+            className="bg-karau-bg/60 border-white/10 text-white text-[10px] h-8 rounded-xl" data-testid="copilot-input" />
           <Button size="sm" onClick={sendQuery} disabled={loading}
-            className="h-7 px-2 bg-fuchsia-500/80 hover:bg-fuchsia-400 rounded-lg" data-testid="copilot-send-btn">
+            className="h-8 px-3 bg-fuchsia-500/80 hover:bg-fuchsia-400 rounded-xl shadow-lg shadow-fuchsia-500/15" data-testid="copilot-send-btn">
             <Send className="w-3 h-3" />
           </Button>
         </div>
