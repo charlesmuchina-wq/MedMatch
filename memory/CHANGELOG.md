@@ -1,6 +1,62 @@
 # AI KARAU Changelog
 
-## Mar 2, 2026 — Distance Zero Feature Suite
+## Mar 2, 2026 — Meeting Replay with Director Cuts + Hardware Integration Layer
+
+### New Features
+
+#### Meeting Replay with Director Cuts
+- Cinematic replay page at `/karau-meet/replay/:meetingId`
+- Playback controls (play/pause, skip +/-15s, timeline scrubbing)
+- Key moments markers (intro, presentation, discussion, decision, action_item, wrap_up)
+- Camera view simulation (panoramic gallery, speaker close-up, conversation side-by-side)
+- AI Highlights generation via Emergent LLM in 3 styles (executive_summary, action_items, full_replay)
+- View distribution analytics with percentages
+- Demo replay auto-generation for showcase (30 min, ~75 cuts, 7 key moments)
+
+#### SLAM Spatial Tracking
+- 3D room mapping with user positions around conference table
+- Face confidence scoring and auto-frame adjustments
+- Lighting quality assessment with auto-enhancement recommendations
+- Top-down room visualization with position dots
+
+#### 360 Multi-Focus Framing
+- Panoramic-to-headshot extraction pipeline
+- Per-person crop regions with quality scores and gaze direction
+- Panoramic view simulation with speaking indicators
+- Headshot grid with real-time quality metrics
+
+#### Apple Vision Pro / WebXR Spatial Meetings
+- 3D meeting room environments (boardroom, amphitheater, lounge)
+- Spatial persona rendering with headset type labels (Vision Pro, Quest 3, Browser)
+- Hand tracking, eye tracking, spatial audio, shared objects capabilities
+- 3D perspective room visualization with positioned avatars
+
+#### IoT Room Environmental Control
+- Voice-activated commands: "dim the lights", "close shades", "raise temperature", etc.
+- 4 room presets: Presentation, Discussion, Break, Focus
+- 7 controllable devices: 3x lights, temperature, shades, display, speaker volume
+- Natural language command parsing with suggestions for unrecognized commands
+
+#### Adaptive Beamforming Audio
+- 4 beam modes: Auto, Directional, Omnidirectional, Interview
+- Polar beam pattern SVG visualization
+- Per-user audio profiles with SNR scoring and noise type detection
+- Noise source detection (ambient, HVAC, keyboard) with auto-suppression
+- Audio quality dashboard with latency, sample rate, channels metrics
+
+### Files Created
+- `backend/routes/karau_slam_spatial.py`, `karau_webxr.py`, `karau_iot_control.py`, `karau_beamforming.py`, `karau_replay.py`
+- `frontend/src/pages/KarauMeet/MeetingReplayPage.jsx`
+- `frontend/src/components/KarauMeet/SpatialTrackingPanel.jsx`, `PanoramicFramingPanel.jsx`, `SpatialMeetingPanel.jsx`, `RoomControlPanel.jsx`, `BeamformingPanel.jsx`, `ReplayListPanel.jsx`
+
+### Testing
+- 51/51 backend tests passed (100%)
+- All frontend components verified
+- Test report: `/app/test_reports/iteration_153.json`
+
+---
+
+## Mar 2, 2026 — Distance Zero Feature Suite (Phase 1)
 
 ### Bug Fix
 - **P2 Fix**: Gamification endpoints (`/api/karau/webinar/{id}/reaction`, `/api/karau/webinar/{id}/leaderboard/track`) now return 401 for unauthenticated requests (was 500). Changed `get_current_user` to `require_auth`.
