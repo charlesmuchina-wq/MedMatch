@@ -341,7 +341,7 @@ const KarauMeetPortal = () => {
           name: config.userName
         }));
       }
-      navigate(`/karau-meet/room/${meetingId}`);
+      navigate(`/karau-meet/webinar/${meetingId}/live`);
     };
 
     return (
