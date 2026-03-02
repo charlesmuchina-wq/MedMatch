@@ -988,6 +988,10 @@ const CtrlBtn = ({ on, onClick, icon: Icon, testId, color, badge }) => {
     cyan: 'bg-cyan-500/20 text-cyan-400',
     teal: 'bg-teal-500/20 text-teal-400',
     fuchsia: 'bg-fuchsia-500/20 text-fuchsia-400',
+    rose: 'bg-rose-500/20 text-rose-400',
+    orange: 'bg-orange-500/20 text-orange-400',
+    indigo: 'bg-indigo-500/20 text-indigo-400',
+    sky: 'bg-sky-500/20 text-sky-400',
   };
   return (
     <div className="relative">
