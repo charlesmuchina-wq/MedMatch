@@ -33,6 +33,7 @@ import GuestJoinPage from './GuestJoinPage';
 import { WebinarRegistrationPage } from './WebinarPage';
 import WebinarManagementPage from './WebinarManagementPage';
 import WebinarLiveRoom from './WebinarLiveRoom';
+import MeetingReplayPage from './MeetingReplayPage';
 
 // Meeting room component
 import MeetingRoom from '@/components/KarauMeet/MeetingRoom';
