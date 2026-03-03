@@ -1,7 +1,7 @@
 # AI KARAU - Distance Zero Communication Platform
 
 ## Original Problem Statement
-Transform "AI KARAU" into a futuristic "Distance Zero" communication platform with AI-powered video meetings, cinematic replay, and hardware integration capabilities.
+Transform "AI KARAU" into a futuristic "Distance Zero" communication platform with AI-powered video meetings, cinematic replay, hardware integration, and team messaging capabilities.
 
 ## Core Requirements
 - AI-powered video meetings with eye contact correction, spatial audio, live transcription
@@ -10,6 +10,7 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
 - Full internationalization (60 languages) - all UI strings must use t() function
 - Enterprise features (scheduling, recordings, webinars, analytics)
 - Clean, collapsible dashboard UI with hidden-by-default detail sections
+- LUMI Messenger - standalone real-time team messaging with channels/groups
 
 ## What's Been Implemented
 
@@ -37,21 +38,36 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
 
 ### Phase 5 - i18n Completeness Fix (Complete - Mar 2026)
 - Fixed 15 hardcoded English strings on dashboard with t() function calls
-- Added proper Swahili translations for all new keys (not English copies)
+- Added proper Swahili translations for all new keys
 - Updated all 53 locale files with new keys
-- Translated: interactiveReplay, watchDemo, quickAnalytics, onTimeRate, aiNotesUsage, avgDuration, avgParticipants, withNotes, enterCode, join, level, xpLabel, rankNewcomer, replayDescription, moreUpcomingMeetings
+
+### Phase 6 - LUMI Messenger (Complete - Mar 2026)
+- Standalone real-time team messaging app at /lumi route
+- Channel-based messaging: Group, Project, Announcement channel types
+- 5 seed channels: General, Engineering, Design, Announcements, Random
+- WebSocket for real-time message delivery and typing indicators
+- Create Channel modal with type selection and private toggle
+- Portal Selector updated with 3-column grid: MedMatch AI, AI KARAU, LUMI
+- LUMI login page with KARAU account reuse (same auth system)
+- Navigation: LUMI ↔ AI KARAU ↔ Portal switching
+- Full i18n: English and Swahili translations for all LUMI strings
+- LUMI link added to KARAU Meet sidebar
 
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI + react-i18next
 - Backend: FastAPI + MongoDB
-- Real-time: WebRTC + WebSocket
+- Real-time: WebRTC + WebSocket (LUMI messaging)
 - AI: OpenAI (via Emergent LLM key)
 - Payments: Stripe (test keys)
 
 ## Prioritized Backlog
 
-### P2 - Medium Priority
+### P1 - High Priority
 - Meeting Insights Intelligence (cross-meeting theme tracking)
+- TSR (Test Summary Report) generator for admin setup
+
+### P2 - Medium Priority
+- LUMI enhancements: DMs, file sharing, message reactions, search
 
 ### P3 - Low Priority / Blocked
 - Live Stripe payment gateway (blocked on user's live keys)
