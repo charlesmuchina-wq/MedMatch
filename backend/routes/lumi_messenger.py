@@ -265,6 +265,87 @@ async def send_message(channel_id: str, data: MessageSend, request: Request):
 
     return msg
 
+# ============== Reactions ==============
+
+class ReactionAdd(BaseModel):
+    emoji: str
+
+@router.post("/messages/{message_id}/react")
+async def add_reaction(message_id: str, data: ReactionAdd, request: Request):
+    """Toggle a reaction on a message"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    msg = await db.lumi_messages.find_one({"id": message_id}, {"_id": 0})
+    if not msg:
+        raise HTTPException(status_code=404, detail="Message not found")
+
+    reactions = msg.get("reactions", {})
+    emoji = data.emoji
+    user_id = user["user_id"]
+
+    if emoji not in reactions:
+        reactions[emoji] = []
+
+    if user_id in reactions[emoji]:
+        reactions[emoji].remove(user_id)
+        if not reactions[emoji]:
+            del reactions[emoji]
+    else:
+        reactions[emoji].append(user_id)
+
+    await db.lumi_messages.update_one(
+        {"id": message_id},
+        {"$set": {"reactions": reactions}}
+    )
+
+    # Broadcast reaction update
+    await manager.send_to_channel(msg["channel_id"], {
+        "type": "reaction",
+        "data": {"message_id": message_id, "reactions": reactions}
+    })
+
+    return {"reactions": reactions}
+
+# ============== Search ==============
+
+@router.get("/search")
+async def search_messages(request: Request, q: str = "", limit: int = 20):
+    """Search messages across all channels the user is a member of"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    if not q or len(q) < 2:
+        return {"results": []}
+
+    # Get channels user is in
+    user_channels = await db.lumi_channels.find(
+        {"members.user_id": user["user_id"]},
+        {"_id": 0, "id": 1, "name": 1, "channel_type": 1}
+    ).to_list(100)
+
+    channel_ids = [ch["id"] for ch in user_channels]
+    channel_map = {ch["id"]: ch for ch in user_channels}
+
+    results = await db.lumi_messages.find(
+        {
+            "channel_id": {"$in": channel_ids},
+            "content": {"$regex": q, "$options": "i"},
+            "type": "message"
+        },
+        {"_id": 0}
+    ).sort("created_at", -1).limit(limit).to_list(limit)
+
+    # Enrich with channel info
+    for r in results:
+        ch = channel_map.get(r["channel_id"], {})
+        r["channel_name"] = ch.get("name", "")
+        r["channel_type"] = ch.get("channel_type", "")
+
+    return {"results": results, "query": q}
+
 # ============== Presence & Typing ==============
 
 @router.get("/presence")

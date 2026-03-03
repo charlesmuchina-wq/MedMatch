@@ -2761,5 +2761,15 @@
     "searchUsers": "Search by name or email...",
     "noUsersFound": "No users found",
     "noDmsYet": "No conversations yet"
+  },
+  "karauMeet_intelligence": {
+    "meetingIntelligence": "Meeting Intelligence",
+    "unresolvedShort": "open",
+    "meetingsAnalyzed": "Analyzed",
+    "actionItemsTotal": "Action Items",
+    "unresolvedItems": "Unresolved",
+    "resolutionRate": "Resolution",
+    "topThemes": "Top Discussion Themes",
+    "weeklyActivity": "Weekly Meeting Activity"
   }
 }

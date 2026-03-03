@@ -28,8 +28,10 @@ const ChannelIcon = ({ type, size = 16 }) => {
 };
 
 // ============== Message Component ==============
-const MessageBubble = ({ msg, isOwn, prevSameSender }) => {
+const MessageBubble = ({ msg, isOwn, prevSameSender, onReact }) => {
   const time = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const [showReactPicker, setShowReactPicker] = useState(false);
+  const quickEmojis = ['👍', '❤️', '😂', '🎉', '🔥', '👀'];
 
   if (msg.type === 'system') {
     return (
@@ -44,6 +46,7 @@ const MessageBubble = ({ msg, isOwn, prevSameSender }) => {
   const initials = (msg.sender_name || '?').split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
   const colors = ['from-violet-600 to-purple-600', 'from-teal-600 to-cyan-600', 'from-amber-600 to-orange-600', 'from-rose-600 to-pink-600', 'from-blue-600 to-indigo-600'];
   const colorIdx = (msg.sender_id || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0) % colors.length;
+  const reactions = msg.reactions || {};
 
   return (
     <div className={`group flex gap-3 px-5 py-0.5 hover:bg-white/[0.02] ${!prevSameSender ? 'mt-3' : 'mt-0'}`} data-testid={`msg-${msg.id}`}>
@@ -62,6 +65,38 @@ const MessageBubble = ({ msg, isOwn, prevSameSender }) => {
           </div>
         )}
         <p className="text-sm text-slate-300 leading-relaxed break-words">{msg.content}</p>
+
+        {/* Reactions display */}
+        {Object.keys(reactions).length > 0 && (
+          <div className="flex flex-wrap gap-1 mt-1">
+            {Object.entries(reactions).map(([emoji, users]) => (
+              <button key={emoji} onClick={() => onReact && onReact(msg.id, emoji)}
+                className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-xs border transition-all ${
+                  users.includes('self') ? 'bg-violet-600/15 border-violet-500/30 text-violet-300' : 'bg-white/[0.03] border-white/[0.06] text-slate-400 hover:bg-white/[0.06]'
+                }`} data-testid={`reaction-${emoji}-${msg.id}`}>
+                <span>{emoji}</span>
+                <span className="text-[10px]">{users.length}</span>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* Quick react button (visible on hover) */}
+        <div className="relative">
+          <button onClick={() => setShowReactPicker(!showReactPicker)}
+            className="opacity-0 group-hover:opacity-100 absolute -top-5 right-0 p-1 text-slate-700 hover:text-white hover:bg-white/[0.06] rounded-lg transition-all"
+            data-testid={`react-btn-${msg.id}`}>
+            <Smile className="w-3.5 h-3.5" />
+          </button>
+          {showReactPicker && (
+            <div className="absolute -top-10 right-0 flex items-center gap-0.5 px-2 py-1 bg-[#1a1b2e] border border-white/[0.1] rounded-xl shadow-xl z-10" data-testid={`react-picker-${msg.id}`}>
+              {quickEmojis.map(e => (
+                <button key={e} onClick={() => { onReact && onReact(msg.id, e); setShowReactPicker(false); }}
+                  className="p-1 hover:bg-white/[0.06] rounded-lg text-sm transition-all">{e}</button>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -242,6 +277,9 @@ const LumiMessenger = () => {
   const [typingUsers, setTypingUsers] = useState({});
   const [onlineUsers, setOnlineUsers] = useState([]);
   const [mobileSidebar, setMobileSidebar] = useState(true);
+  const [globalSearch, setGlobalSearch] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [showSearchResults, setShowSearchResults] = useState(false);
 
   const messagesEndRef = useRef(null);
   const wsRef = useRef(null);
@@ -343,6 +381,8 @@ const LumiMessenger = () => {
           // Update channel and DM lists
           loadChannels();
           loadDms();
+        } else if (msg.type === 'reaction') {
+          setMessages(prev => prev.map(m => m.id === msg.data.message_id ? { ...m, reactions: msg.data.reactions } : m));
         } else if (msg.type === 'dm_created') {
           loadDms();
         } else if (msg.type === 'typing') {
@@ -453,6 +493,37 @@ const LumiMessenger = () => {
     navigate('/');
   };
 
+  // React to message
+  const handleReact = async (messageId, emoji) => {
+    try {
+      const res = await fetch(`${API}/api/lumi/messages/${messageId}/react`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ emoji })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setMessages(prev => prev.map(m => m.id === messageId ? { ...m, reactions: data.reactions } : m));
+      }
+    } catch (e) { console.error('React error:', e); }
+  };
+
+  // Global search
+  const handleGlobalSearch = async (query) => {
+    setGlobalSearch(query);
+    if (query.length < 2) { setSearchResults([]); setShowSearchResults(false); return; }
+    try {
+      const res = await fetch(`${API}/api/lumi/search?q=${encodeURIComponent(query)}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setSearchResults(data.results || []);
+        setShowSearchResults(true);
+      }
+    } catch (e) { console.error('Search error:', e); }
+  };
+
   // Filtered channels
   const filteredChannels = channels.filter(ch =>
     ch.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -504,10 +575,35 @@ const LumiMessenger = () => {
         <div className="px-3 pt-3 pb-1">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-600" />
-            <Input value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
-              placeholder={t('lumi.searchChannels') || 'Search channels...'}
+            <Input value={globalSearch || searchQuery} onChange={e => { setSearchQuery(e.target.value); handleGlobalSearch(e.target.value); }}
+              placeholder={t('lumi.searchChannels') || 'Search channels & messages...'}
               className="pl-9 h-9 bg-white/[0.03] border-white/[0.06] text-white placeholder:text-slate-700 rounded-xl text-sm" data-testid="search-channels" />
+            {globalSearch && (
+              <button onClick={() => { setGlobalSearch(''); setSearchQuery(''); setShowSearchResults(false); setSearchResults([]); }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-600 hover:text-white">
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
+          {/* Search Results Dropdown */}
+          {showSearchResults && searchResults.length > 0 && (
+            <div className="mt-1 max-h-48 overflow-y-auto bg-[#1a1b2e] border border-white/[0.08] rounded-xl shadow-xl" data-testid="search-results">
+              {searchResults.map((r, i) => (
+                <button key={i} onClick={() => {
+                  const ch = channels.find(c => c.id === r.channel_id) || dms.find(d => d.id === r.channel_id);
+                  if (ch) { setActiveChannel(ch); setMobileSidebar(false); }
+                  setShowSearchResults(false); setGlobalSearch(''); setSearchQuery('');
+                }}
+                  className="w-full px-3 py-2 text-left hover:bg-white/[0.04] transition-all border-b border-white/[0.03] last:border-0" data-testid={`search-result-${i}`}>
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="text-[10px] text-violet-400 font-medium">#{r.channel_name}</span>
+                    <span className="text-[10px] text-slate-700">{r.sender_name}</span>
+                  </div>
+                  <p className="text-xs text-slate-400 truncate">{r.content}</p>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Channel List */}
@@ -682,7 +778,7 @@ const LumiMessenger = () => {
               )}
               {messages.map((msg, i) => {
                 const prevSameSender = i > 0 && messages[i - 1].sender_id === msg.sender_id && messages[i - 1].type !== 'system';
-                return <MessageBubble key={msg.id} msg={msg} isOwn={msg.sender_id === user?.user_id} prevSameSender={prevSameSender} />;
+                return <MessageBubble key={msg.id} msg={msg} isOwn={msg.sender_id === user?.user_id} prevSameSender={prevSameSender} onReact={handleReact} />;
               })}
               <div ref={messagesEndRef} />
             </ScrollArea>

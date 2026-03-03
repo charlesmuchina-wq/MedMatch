@@ -6,7 +6,8 @@ import {
   Loader2, Users, ArrowRight, Globe, Mic, Bot,
   CalendarClock, TrendingUp, Trophy, Flame, Target, BarChart3,
   Brain, Eye, Wand2, Volume2, Radio, Zap,
-  ChevronDown, ChevronUp, Play, ExternalLink
+  ChevronDown, ChevronUp, Play, ExternalLink,
+  AlertCircle, CheckCircle2, CircleDot, Lightbulb
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -67,6 +68,7 @@ const KarauMeetDashboard = ({ user }) => {
   const [expandedSection, setExpandedSection] = useState('');
   const [insights, setInsights] = useState([]);
   const [showAllUpcoming, setShowAllUpcoming] = useState(false);
+  const [intelligence, setIntelligence] = useState(null);
 
   useEffect(() => {
     fetchMeetings();
@@ -77,6 +79,7 @@ const KarauMeetDashboard = ({ user }) => {
     fetchTrendingTopics();
     fetchAnalytics();
     fetchInsights();
+    fetchIntelligence();
   }, []);
 
   useEffect(() => {
@@ -140,6 +143,13 @@ const KarauMeetDashboard = ({ user }) => {
       const res = await fetch(`${API}/api/karau-meet/meeting-insights`, { headers: { 'Authorization': `Bearer ${token}` } });
       if (res.ok) { const data = await res.json(); setInsights(data.insights || []); }
     } catch (e) { console.error('Insights error:', e); }
+  };
+  const fetchIntelligence = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API}/api/karau-meet/intelligence/summary`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) { setIntelligence(await res.json()); }
+    } catch (e) { console.error('Intelligence error:', e); }
   };
   const fetchTemplates = async () => {
     try {
@@ -321,6 +331,80 @@ const KarauMeetDashboard = ({ user }) => {
             <Play className="w-3 h-3 mr-1.5" />{t("karauMeet.watchDemo")}
           </Button>
         </div>
+
+        {/* Meeting Intelligence Widget */}
+        {intelligence && (
+          <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden animate-fade-in-up stagger-2" data-testid="meeting-intelligence-widget">
+            <button
+              onClick={() => setExpandedSection(expandedSection === 'intelligence' ? '' : 'intelligence')}
+              className="w-full flex items-center justify-between px-5 py-4 hover:bg-white/[0.02] transition-colors"
+              data-testid="toggle-intelligence"
+            >
+              <div className="flex items-center gap-2">
+                <Lightbulb className="w-4 h-4 text-amber-400" />
+                <span className="text-sm font-semibold text-white">{t('karauMeet.meetingIntelligence') || 'Meeting Intelligence'}</span>
+                {intelligence.unresolved_items > 0 && (
+                  <Badge className="bg-red-500/10 text-red-400 border-red-500/20 text-[10px]">{intelligence.unresolved_items} {t('karauMeet.unresolvedShort') || 'open'}</Badge>
+                )}
+              </div>
+              {expandedSection === 'intelligence' ? <ChevronUp className="w-4 h-4 text-slate-600" /> : <ChevronDown className="w-4 h-4 text-slate-600" />}
+            </button>
+            {expandedSection === 'intelligence' && (
+              <div className="px-5 pb-5">
+                {/* Stats row */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                  {[
+                    { label: t('karauMeet.meetingsAnalyzed') || 'Analyzed', value: intelligence.meetings_analyzed, icon: BarChart3, color: 'text-blue-400' },
+                    { label: t('karauMeet.actionItemsTotal') || 'Action Items', value: intelligence.total_action_items, icon: Target, color: 'text-amber-400' },
+                    { label: t('karauMeet.unresolvedItems') || 'Unresolved', value: intelligence.unresolved_items, icon: AlertCircle, color: 'text-red-400' },
+                    { label: t('karauMeet.resolutionRate') || 'Resolution', value: `${intelligence.resolution_rate}%`, icon: CheckCircle2, color: 'text-emerald-400' },
+                  ].map((s, i) => (
+                    <div key={i} className="rounded-xl bg-white/[0.02] border border-white/[0.04] p-3">
+                      <s.icon className={`w-3.5 h-3.5 ${s.color} mb-1.5`} />
+                      <p className="text-lg font-bold text-white">{s.value}</p>
+                      <p className="text-[10px] text-slate-600">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Top Themes */}
+                {intelligence.top_themes?.length > 0 && (
+                  <div className="mb-4">
+                    <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">{t('karauMeet.topThemes') || 'Top Discussion Themes'}</h4>
+                    <div className="flex flex-wrap gap-2">
+                      {intelligence.top_themes.map((theme, i) => (
+                        <div key={i} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/5 border border-amber-500/15 text-xs text-amber-300" data-testid={`intel-theme-${i}`}>
+                          <CircleDot className="w-3 h-3" />
+                          <span className="font-medium">{theme.theme}</span>
+                          <span className="text-[10px] opacity-60">x{theme.count}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Weekly Trend */}
+                {intelligence.weekly_trend?.length > 1 && (
+                  <div>
+                    <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">{t('karauMeet.weeklyActivity') || 'Weekly Meeting Activity'}</h4>
+                    <div className="flex items-end gap-1.5 h-16">
+                      {intelligence.weekly_trend.map((w, i) => {
+                        const maxCount = Math.max(...intelligence.weekly_trend.map(x => x.count));
+                        const height = maxCount > 0 ? (w.count / maxCount) * 100 : 10;
+                        return (
+                          <div key={i} className="flex-1 flex flex-col items-center gap-1">
+                            <div className="w-full rounded-t bg-gradient-to-t from-blue-600/40 to-blue-400/20 transition-all" style={{ height: `${Math.max(height, 8)}%` }} />
+                            <span className="text-[8px] text-slate-700">{w.count}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Row 3: Next Meeting + Meeting Insights */}
         <div className="grid grid-cols-12 gap-5 animate-fade-in-up stagger-3">
