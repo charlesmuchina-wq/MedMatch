@@ -5,10 +5,11 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
 
 ## Core Requirements
 - AI-powered video meetings with eye contact correction, spatial audio, live transcription
-- Cinematic Director's Cut meeting replay
+- Cinematic Director's Cut meeting replay with shareable timestamped links
 - Hardware ecosystem integration (SLAM, 360 Camera, Beamforming, IoT, Biometrics)
 - Full internationalization (60 languages)
 - Enterprise features (scheduling, recordings, webinars, analytics)
+- Clean, collapsible dashboard UI with hidden-by-default detail sections
 
 ## What's Been Implemented
 
@@ -38,7 +39,7 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
   - 8-chapter timeline with rich Q4 Strategy Review dialogue (62 segments)
   - Waveform visualization with 17 color-coded key moment markers
   - 3 viewport modes: Gallery, Close-Up, Dialogue with smooth transitions
-  - Playback controls: play/pause, skip ±15s/±5s, speed (0.5x-2x)
+  - Playback controls: play/pause, skip +/-15s/5s, speed (0.5x-2x)
   - Synchronized transcript panel with speaker color coding
   - AI Highlights generation (executive summary, action items, full replay)
   - 6 distinct speakers with roles and personalities
@@ -48,8 +49,11 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
   - Beamforming: Beam pattern SVG, frequency spectrum, SNR per user, noise typing
   - IoT: Temperature/humidity/CO2/light/noise sensors, comfort scoring, ventilation alerts
   - Biometric: Trust scoring, liveness detection, scan cycles, visual watermark patterns
-- Backend: `/api/karau/simulation/{meeting_id}/{slam,camera,audio,iot,biometric}-stream`
-- Enhanced demo replay: `/api/karau/replay/demo-meeting` with chapters, waveform, rich data
+
+### Phase 4 - Shareable Replay & Dashboard Cleanup (Complete - Mar 2026)
+- **Shareable Replay Links**: Share Moment button copies timestamped URL (?t=seconds), auto-seeks on open, fuchsia marker on timeline
+- **Dashboard Collapsible Sections**: AI Capabilities, Meeting Insights, Trending Topics, Activity Highlights all collapsed by default with badge counts and chevron toggles. Stats grid and Next Meeting always visible.
+- **Dashboard route alias**: Added `/karau-meet/dashboard` route alongside index route
 
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI + react-i18next
@@ -59,9 +63,6 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
 - Payments: Stripe (test keys)
 
 ## Prioritized Backlog
-
-### P1 - Next Up
-- None currently planned
 
 ### P2 - Medium Priority
 - Meeting Insights Intelligence (cross-meeting theme tracking, unresolved action items)
