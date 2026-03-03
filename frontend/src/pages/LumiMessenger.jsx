@@ -8,7 +8,7 @@ import { toast, Toaster } from 'sonner';
 import {
   Hash, Lock, Megaphone, Plus, Send, LogOut, ArrowLeft,
   Users, Search, Settings, ChevronDown, Circle, MessageCircle,
-  Loader2, X, MoreVertical, Smile, Paperclip, Eye, EyeOff
+  Loader2, X, MoreVertical, Smile, Paperclip, Eye, EyeOff, UserPlus, User
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -154,6 +154,75 @@ const CreateChannelModal = ({ onClose, onCreated, token }) => {
   );
 };
 
+// ============== New DM Modal ==============
+const NewDmModal = ({ onClose, onSelect, token }) => {
+  const { t } = useTranslation();
+  const [query, setQuery] = useState('');
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const search = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`${API}/api/lumi/users/search?q=${encodeURIComponent(query)}`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setUsers(data.users || []);
+        }
+      } catch (e) {
+        console.error('User search failed:', e);
+      }
+      setLoading(false);
+    };
+    const timer = setTimeout(search, 300);
+    return () => clearTimeout(timer);
+  }, [query, token]);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
+      <div className="bg-[#1a1b2e] border border-white/[0.06] rounded-2xl w-full max-w-md p-6 shadow-2xl" onClick={e => e.stopPropagation()} data-testid="new-dm-modal">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-bold text-white">{t('lumi.newMessage') || 'New Message'}</h3>
+          <button onClick={onClose} className="text-slate-500 hover:text-white"><X className="w-5 h-5" /></button>
+        </div>
+        <div className="relative mb-4">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
+          <Input value={query} onChange={e => setQuery(e.target.value)}
+            placeholder={t('lumi.searchUsers') || 'Search by name or email...'}
+            className="pl-10 bg-white/[0.04] border-white/[0.08] text-white placeholder:text-slate-600 rounded-xl"
+            autoFocus data-testid="dm-search-input" />
+        </div>
+        <div className="max-h-64 overflow-y-auto space-y-1">
+          {loading && (
+            <div className="flex justify-center py-4"><Loader2 className="w-5 h-5 text-violet-400 animate-spin" /></div>
+          )}
+          {!loading && users.length === 0 && (
+            <p className="text-sm text-slate-600 text-center py-4">{t('lumi.noUsersFound') || 'No users found'}</p>
+          )}
+          {!loading && users.map(u => {
+            const initials = (u.name || u.email || '?').split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+            return (
+              <button key={u.user_id} onClick={() => onSelect(u.user_id)}
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/[0.04] transition-all" data-testid={`dm-user-${u.user_id}`}>
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-600/20 to-cyan-600/10 border border-teal-500/10 flex items-center justify-center">
+                  <span className="text-xs font-bold text-teal-400">{initials}</span>
+                </div>
+                <div className="flex-1 text-left">
+                  <p className="text-sm font-medium text-white">{u.name || 'Unknown'}</p>
+                  <p className="text-[11px] text-slate-600">{u.email}</p>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // ============== Main LUMI Messenger ==============
 const LumiMessenger = () => {
   const navigate = useNavigate();
@@ -167,6 +236,8 @@ const LumiMessenger = () => {
   const [messageText, setMessageText] = useState('');
   const [sending, setSending] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showNewDmModal, setShowNewDmModal] = useState(false);
+  const [dms, setDms] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [typingUsers, setTypingUsers] = useState({});
   const [onlineUsers, setOnlineUsers] = useState([]);
@@ -216,6 +287,44 @@ const LumiMessenger = () => {
 
   useEffect(() => { if (user) loadChannels(); }, [user, loadChannels]);
 
+  // Load DMs
+  const loadDms = useCallback(async () => {
+    if (!token) return;
+    try {
+      const res = await fetch(`${API}/api/lumi/dm`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setDms(data.dms || []);
+      }
+    } catch (e) {
+      console.error('Failed to load DMs:', e);
+    }
+  }, [token]);
+
+  useEffect(() => { if (user) loadDms(); }, [user, loadDms]);
+
+  // Start DM with a user
+  const handleStartDm = async (recipientId) => {
+    try {
+      const res = await fetch(`${API}/api/lumi/dm`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ recipient_id: recipientId })
+      });
+      if (res.ok) {
+        const dm = await res.json();
+        await loadDms();
+        setActiveChannel(dm);
+        setShowNewDmModal(false);
+        setMobileSidebar(false);
+      }
+    } catch (e) {
+      toast.error('Failed to start conversation');
+    }
+  };
+
   // WebSocket connection
   useEffect(() => {
     if (!user) return;
@@ -231,8 +340,11 @@ const LumiMessenger = () => {
             if (prev.some(m => m.id === msg.data.id)) return prev;
             return [...prev, msg.data];
           });
-          // Update channel list
+          // Update channel and DM lists
           loadChannels();
+          loadDms();
+        } else if (msg.type === 'dm_created') {
+          loadDms();
         } else if (msg.type === 'typing') {
           setTypingUsers(prev => ({
             ...prev,
@@ -452,6 +564,39 @@ const LumiMessenger = () => {
                 ))}
               </>
             )}
+
+            {/* Direct Messages */}
+            <div className="flex items-center justify-between mt-4 mb-2">
+              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-widest">{t('lumi.directMessages') || 'Direct Messages'}</span>
+              <button onClick={() => setShowNewDmModal(true)} className="p-1 text-slate-600 hover:text-teal-400 hover:bg-teal-500/10 rounded-lg transition-all" data-testid="new-dm-btn">
+                <UserPlus className="w-3.5 h-3.5" />
+              </button>
+            </div>
+            {dms.map(dm => {
+              const partner = dm.dm_partner || {};
+              const initials = (partner.name || partner.email || '?').split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+              return (
+                <button key={dm.id} onClick={() => { setActiveChannel(dm); setMobileSidebar(false); }}
+                  className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-xl transition-all mb-0.5 ${
+                    activeChannel?.id === dm.id
+                      ? 'bg-teal-600/10 text-white'
+                      : 'text-slate-500 hover:bg-white/[0.03] hover:text-slate-300'
+                  }`} data-testid={`dm-${dm.id}`}>
+                  <div className={`w-7 h-7 rounded-lg flex items-center justify-center text-[10px] font-bold ${
+                    activeChannel?.id === dm.id ? 'bg-teal-600/20 text-teal-300' : 'bg-white/[0.04] text-slate-500'
+                  }`}>{initials}</div>
+                  <div className="flex-1 text-left min-w-0">
+                    <span className="text-sm font-medium truncate block">{partner.name || partner.email || 'User'}</span>
+                    {dm.last_message && (
+                      <span className="text-[10px] text-slate-700 truncate block">{dm.last_message.content}</span>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+            {dms.length === 0 && (
+              <p className="text-[11px] text-slate-700 px-3 py-1">{t('lumi.noDmsYet') || 'No conversations yet'}</p>
+            )}
           </div>
         </ScrollArea>
 
@@ -489,19 +634,33 @@ const LumiMessenger = () => {
       <div className={`${!mobileSidebar ? 'flex' : 'hidden'} md:flex flex-col flex-1 min-w-0`}>
         {activeChannel ? (
           <>
-            {/* Channel Header */}
+            {/* Channel/DM Header */}
             <div className="h-16 flex items-center justify-between px-5 border-b border-white/[0.04] flex-shrink-0 bg-[#0c0d1a]/80 backdrop-blur-xl">
               <div className="flex items-center gap-3">
                 <button className="md:hidden p-2 text-slate-500 hover:text-white" onClick={() => setMobileSidebar(true)}>
                   <ArrowLeft className="w-4 h-4" />
                 </button>
-                <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600/20 to-purple-600/10 border border-violet-500/10 flex items-center justify-center">
-                  <ChannelIcon type={activeChannel.channel_type} size={18} />
-                </div>
-                <div>
-                  <h2 className="text-sm font-bold text-white">#{activeChannel.name}</h2>
-                  <p className="text-[10px] text-slate-600">{activeChannel.members?.length || 0} {t('lumi.members') || 'members'} &middot; {activeChannel.description}</p>
-                </div>
+                {activeChannel.channel_type === 'dm' ? (
+                  <>
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-600/20 to-cyan-600/10 border border-teal-500/10 flex items-center justify-center">
+                      <User className="w-4.5 h-4.5 text-teal-400" />
+                    </div>
+                    <div>
+                      <h2 className="text-sm font-bold text-white">{activeChannel.dm_partner?.name || activeChannel.name}</h2>
+                      <p className="text-[10px] text-teal-500">{t('lumi.directMessage') || 'Direct Message'}</p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-violet-600/20 to-purple-600/10 border border-violet-500/10 flex items-center justify-center">
+                      <ChannelIcon type={activeChannel.channel_type} size={18} />
+                    </div>
+                    <div>
+                      <h2 className="text-sm font-bold text-white">#{activeChannel.name}</h2>
+                      <p className="text-[10px] text-slate-600">{activeChannel.members?.length || 0} {t('lumi.members') || 'members'} &middot; {activeChannel.description}</p>
+                    </div>
+                  </>
+                )}
               </div>
               <div className="flex items-center gap-2">
                 <button className="p-2 text-slate-600 hover:text-white hover:bg-white/[0.04] rounded-lg" data-testid="channel-members-btn">
@@ -578,6 +737,15 @@ const LumiMessenger = () => {
         <CreateChannelModal
           onClose={() => setShowCreateModal(false)}
           onCreated={(ch) => { setChannels(prev => [ch, ...prev]); setActiveChannel(ch); setShowCreateModal(false); setMobileSidebar(false); }}
+          token={token}
+        />
+      )}
+
+      {/* New DM Modal */}
+      {showNewDmModal && (
+        <NewDmModal
+          onClose={() => setShowNewDmModal(false)}
+          onSelect={handleStartDm}
           token={token}
         />
       )}

@@ -2783,6 +2783,12 @@
     "noMessages": "Hakuna ujumbe bado",
     "startConversation": "Anza mazungumzo!",
     "messagePlaceholder": "Ujumbe",
-    "welcomeMessage": "Chagua chaneli kuanza mazungumzo, au unda mpya."
+    "welcomeMessage": "Chagua chaneli kuanza mazungumzo, au unda mpya.",
+    "directMessages": "Ujumbe wa Moja kwa Moja",
+    "directMessage": "Ujumbe wa Moja kwa Moja",
+    "newMessage": "Ujumbe Mpya",
+    "searchUsers": "Tafuta kwa jina au barua pepe...",
+    "noUsersFound": "Hakuna watumiaji waliopatikana",
+    "noDmsYet": "Hakuna mazungumzo bado"
   }
 }

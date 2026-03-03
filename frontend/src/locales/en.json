@@ -2754,6 +2754,12 @@
     "noMessages": "No messages yet",
     "startConversation": "Start the conversation!",
     "messagePlaceholder": "Message",
-    "welcomeMessage": "Select a channel to start chatting, or create a new one."
+    "welcomeMessage": "Select a channel to start chatting, or create a new one.",
+    "directMessages": "Direct Messages",
+    "directMessage": "Direct Message",
+    "newMessage": "New Message",
+    "searchUsers": "Search by name or email...",
+    "noUsersFound": "No users found",
+    "noDmsYet": "No conversations yet"
   }
 }

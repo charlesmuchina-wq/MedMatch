@@ -27,6 +27,9 @@ class MessageSend(BaseModel):
     content: str
     reply_to: Optional[str] = None
 
+class DMCreate(BaseModel):
+    recipient_id: str
+
 # ============== WebSocket Connection Manager ==============
 
 class ConnectionManager:
@@ -118,13 +121,13 @@ async def list_channels(request: Request):
         raise HTTPException(status_code=401, detail="Authentication required")
 
     channels = await db.lumi_channels.find(
-        {"members.user_id": user["user_id"]},
+        {"members.user_id": user["user_id"], "channel_type": {"$ne": "dm"}},
         {"_id": 0}
     ).sort("last_message_at", -1).to_list(100)
 
     # Also get public channels user hasn't joined
     public_channels = await db.lumi_channels.find(
-        {"is_private": False, "members.user_id": {"$ne": user["user_id"]}},
+        {"is_private": False, "channel_type": {"$ne": "dm"}, "members.user_id": {"$ne": user["user_id"]}},
         {"_id": 0}
     ).sort("message_count", -1).to_list(20)
 
@@ -284,6 +287,118 @@ async def notify_typing(channel_id: str, request: Request):
         "data": {"user_id": user["user_id"], "name": user.get("name", ""), "channel_id": channel_id}
     })
     return {"status": "ok"}
+
+# ============== Direct Messages ==============
+
+@router.post("/dm")
+async def create_or_get_dm(data: DMCreate, request: Request):
+    """Create a DM channel with a user, or return existing one"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    if data.recipient_id == user["user_id"]:
+        raise HTTPException(status_code=400, detail="Cannot DM yourself")
+
+    recipient = await db.users.find_one({"user_id": data.recipient_id}, {"_id": 0, "user_id": 1, "name": 1, "email": 1})
+    if not recipient:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Check if DM already exists between these two users
+    dm_key = "_".join(sorted([user["user_id"], data.recipient_id]))
+    existing = await db.lumi_channels.find_one({"dm_key": dm_key}, {"_id": 0})
+    if existing:
+        return existing
+
+    channel_id = f"dm_{uuid.uuid4().hex[:10]}"
+    channel = {
+        "id": channel_id,
+        "dm_key": dm_key,
+        "name": recipient.get("name", recipient.get("email", "User")),
+        "description": "",
+        "channel_type": "dm",
+        "is_private": True,
+        "created_by": user["user_id"],
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "members": [
+            {
+                "user_id": user["user_id"],
+                "name": user.get("name", ""),
+                "email": user.get("email", ""),
+                "role": "member",
+                "joined_at": datetime.now(timezone.utc).isoformat()
+            },
+            {
+                "user_id": recipient["user_id"],
+                "name": recipient.get("name", ""),
+                "email": recipient.get("email", ""),
+                "role": "member",
+                "joined_at": datetime.now(timezone.utc).isoformat()
+            }
+        ],
+        "last_message": None,
+        "last_message_at": datetime.now(timezone.utc).isoformat(),
+        "message_count": 0
+    }
+    await db.lumi_channels.insert_one(channel)
+    channel.pop("_id", None)
+
+    # Notify the recipient via WebSocket
+    await manager.send_to_user(data.recipient_id, {
+        "type": "dm_created",
+        "data": {"channel_id": channel_id, "from_user": user.get("name", user.get("email", ""))}
+    })
+
+    return channel
+
+@router.get("/dm")
+async def list_dms(request: Request):
+    """List all DM conversations for the current user"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    dms = await db.lumi_channels.find(
+        {"channel_type": "dm", "members.user_id": user["user_id"]},
+        {"_id": 0}
+    ).sort("last_message_at", -1).to_list(50)
+
+    # For each DM, resolve the "other" user's name for display
+    for dm in dms:
+        other = next((m for m in dm.get("members", []) if m["user_id"] != user["user_id"]), None)
+        if other:
+            dm["dm_partner"] = {"user_id": other["user_id"], "name": other.get("name", ""), "email": other.get("email", "")}
+            dm["name"] = other.get("name", other.get("email", "User"))
+
+    return {"dms": dms}
+
+@router.get("/users/search")
+async def search_users(request: Request, q: str = ""):
+    """Search users for starting a DM"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    if not q or len(q) < 2:
+        # Return recent users from the platform
+        users = await db.users.find(
+            {"user_id": {"$ne": user["user_id"]}},
+            {"_id": 0, "user_id": 1, "name": 1, "email": 1}
+        ).limit(20).to_list(20)
+        return {"users": users}
+
+    users = await db.users.find(
+        {
+            "user_id": {"$ne": user["user_id"]},
+            "$or": [
+                {"name": {"$regex": q, "$options": "i"}},
+                {"email": {"$regex": q, "$options": "i"}}
+            ]
+        },
+        {"_id": 0, "user_id": 1, "name": 1, "email": 1}
+    ).limit(20).to_list(20)
+
+    return {"users": users}
 
 # ============== Seed Channels ==============
 
