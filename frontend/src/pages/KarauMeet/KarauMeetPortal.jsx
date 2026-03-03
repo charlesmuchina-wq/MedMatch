@@ -233,6 +233,7 @@ const KarauMeetPortal = () => {
   const isEnterprisePage = location.pathname.includes('/enterprise');
   const isWebinarRegisterPage = location.pathname.includes('/webinar/') && location.pathname.includes('/register');
   const isWebinarLiveRoom = location.pathname.includes('/webinar/') && location.pathname.includes('/live');
+  const isReplayPage = location.pathname.includes('/replay/');
   
   const extractMeetingId = () => {
     const pathParts = location.pathname.split('/');
@@ -342,6 +343,17 @@ const KarauMeetPortal = () => {
       <div className="min-h-screen bg-[#0c0d1a]">
         <Routes>
           <Route path="webinar/:webinarId/register" element={<WebinarRegistrationPage />} />
+        </Routes>
+      </div>
+    );
+  }
+
+  if (isReplayPage && user) {
+    return (
+      <div className="h-screen bg-[#08080d]">
+        <Toaster position="top-right" theme="dark" />
+        <Routes>
+          <Route path="replay/:meetingId" element={<MeetingReplayPage />} />
         </Routes>
       </div>
     );

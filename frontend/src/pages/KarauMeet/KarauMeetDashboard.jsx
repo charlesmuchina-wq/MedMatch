@@ -293,6 +293,24 @@ const KarauMeetDashboard = ({ user }) => {
           </div>
         </div>
 
+        {/* Demo Replay Banner */}
+        <div className="rounded-2xl bg-gradient-to-r from-violet-900/20 via-fuchsia-900/10 to-rose-900/15 border border-violet-500/15 p-5 flex items-center justify-between animate-fade-in-up stagger-2" data-testid="demo-replay-banner">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-violet-500/15 flex items-center justify-center">
+              <Play className="w-5 h-5 text-violet-400" />
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-white">Interactive Meeting Replay</h3>
+              <p className="text-[11px] text-slate-400">Watch the Director's Cut of a Q4 Strategy Review with AI highlights</p>
+            </div>
+          </div>
+          <Button onClick={() => navigate('/karau-meet/replay/demo-meeting')}
+            className="bg-violet-600/80 hover:bg-violet-500 text-white rounded-full px-5 h-9 text-xs font-medium shadow-lg shadow-violet-500/15 transition-all hover:scale-[1.02]"
+            data-testid="btn-watch-demo-replay">
+            <Play className="w-3 h-3 mr-1.5" />Watch Demo
+          </Button>
+        </div>
+
         {/* Row 3: Next Meeting + Meeting Insights */}
         <div className="grid grid-cols-12 gap-5 animate-fade-in-up stagger-3">
           {/* Next Upcoming Meeting (featured) + hidden rest */}

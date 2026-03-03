@@ -8,6 +8,7 @@ from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime, timezone
 import os
+import random
 import logging
 
 from utils.database import db
@@ -304,60 +305,163 @@ async def _generate_replay_from_history(meeting_id: str) -> dict:
 
 
 def _generate_demo_replay(meeting_id: str) -> dict:
-    """Generate a demo replay for showcase purposes."""
-    import random
+    """Generate a cinematic demo replay with rich chapters, dialogue, and transitions."""
+    speakers = [
+        {"name": "Alex Chen", "role": "CEO", "color": "#f43f5e"},
+        {"name": "Sarah Miller", "role": "CTO", "color": "#3b82f6"},
+        {"name": "James Park", "role": "Head of Design", "color": "#f59e0b"},
+        {"name": "Maria Garcia", "role": "VP Product", "color": "#10b981"},
+        {"name": "David Kim", "role": "Lead Engineer", "color": "#8b5cf6"},
+        {"name": "Emma Wilson", "role": "Data Analyst", "color": "#ec4899"},
+    ]
+    duration = 1800
+
+    chapters = [
+        {"title": "Opening & Welcome", "start": 0, "end": 120, "icon": "intro"},
+        {"title": "Q4 Performance Review", "start": 120, "end": 420, "icon": "presentation"},
+        {"title": "Product Roadmap 2026", "start": 420, "end": 720, "icon": "discussion"},
+        {"title": "Budget & Resources", "start": 720, "end": 1020, "icon": "decision"},
+        {"title": "Technical Deep-Dive", "start": 1020, "end": 1320, "icon": "presentation"},
+        {"title": "Action Items & Owners", "start": 1320, "end": 1560, "icon": "action_item"},
+        {"title": "Open Discussion", "start": 1560, "end": 1700, "icon": "discussion"},
+        {"title": "Wrap-Up & Next Steps", "start": 1700, "end": 1800, "icon": "wrap_up"},
+    ]
+
+    transcript = [
+        {"ts": 5, "speaker": "Alex Chen", "text": "Good morning everyone. Let's get started with our quarterly strategy review.", "energy": 0.6},
+        {"ts": 18, "speaker": "Alex Chen", "text": "We have a packed agenda today, so let's dive right in.", "energy": 0.7},
+        {"ts": 35, "speaker": "Alex Chen", "text": "First, Sarah will walk us through the Q4 numbers, then we'll discuss the 2026 roadmap.", "energy": 0.65},
+        {"ts": 60, "speaker": "Sarah Miller", "text": "Thanks Alex. I'll share my screen with the quarterly dashboard.", "energy": 0.5},
+        {"ts": 90, "speaker": "Alex Chen", "text": "Before we begin, any questions on the agenda?", "energy": 0.5},
+        {"ts": 105, "speaker": "Maria Garcia", "text": "Can we add 10 minutes for the customer feedback analysis?", "energy": 0.6},
+        {"ts": 115, "speaker": "Alex Chen", "text": "Absolutely. Sarah, please go ahead.", "energy": 0.5},
+        {"ts": 130, "speaker": "Sarah Miller", "text": "Q4 revenue came in at $4.2M, that's 23% above our target.", "energy": 0.8},
+        {"ts": 155, "speaker": "Sarah Miller", "text": "Our user growth accelerated to 18% month-over-month in December.", "energy": 0.85},
+        {"ts": 180, "speaker": "Sarah Miller", "text": "The Distance Zero platform specifically drove 40% of new enterprise deals.", "energy": 0.9},
+        {"ts": 210, "speaker": "James Park", "text": "That's impressive. The new UI we shipped in November clearly resonated.", "energy": 0.7},
+        {"ts": 240, "speaker": "Sarah Miller", "text": "Exactly. Customer satisfaction scores are at an all-time high of 4.8 out of 5.", "energy": 0.75},
+        {"ts": 270, "speaker": "David Kim", "text": "On the infrastructure side, we reduced latency by 35% with the edge deployment.", "energy": 0.7},
+        {"ts": 300, "speaker": "Emma Wilson", "text": "The data shows our churn rate dropped to 2.1%, lowest in company history.", "energy": 0.65},
+        {"ts": 330, "speaker": "Alex Chen", "text": "These are outstanding results. The team should be very proud.", "energy": 0.8},
+        {"ts": 360, "speaker": "Maria Garcia", "text": "I want to highlight that enterprise retention is now at 98.5%.", "energy": 0.75},
+        {"ts": 390, "speaker": "Sarah Miller", "text": "Wrapping up Q4: we exceeded every KPI. Now let's look forward.", "energy": 0.7},
+        {"ts": 430, "speaker": "Maria Garcia", "text": "For the 2026 roadmap, I've identified three strategic pillars.", "energy": 0.8},
+        {"ts": 460, "speaker": "Maria Garcia", "text": "Pillar one: Immersive AI - making every meeting feel like you're in the same room.", "energy": 0.85},
+        {"ts": 490, "speaker": "Maria Garcia", "text": "Pillar two: Enterprise Scale - supporting 10,000+ concurrent meetings.", "energy": 0.8},
+        {"ts": 520, "speaker": "Maria Garcia", "text": "Pillar three: Hardware Integration - our Distance Zero hardware ecosystem.", "energy": 0.9},
+        {"ts": 560, "speaker": "James Park", "text": "For the immersive AI pillar, we're designing spatial audio that adapts to room geometry.", "energy": 0.75},
+        {"ts": 590, "speaker": "David Kim", "text": "We've prototyped the SLAM integration. The 3D tracking is incredibly precise.", "energy": 0.8},
+        {"ts": 620, "speaker": "Sarah Miller", "text": "What's the timeline for the SLAM hardware availability?", "energy": 0.6},
+        {"ts": 650, "speaker": "David Kim", "text": "Beta units ship in March. Full production by Q2.", "energy": 0.7},
+        {"ts": 680, "speaker": "Alex Chen", "text": "This aligns perfectly with our enterprise launch window.", "energy": 0.75},
+        {"ts": 710, "speaker": "Maria Garcia", "text": "Let me transition to the budget discussion.", "energy": 0.6},
+        {"ts": 740, "speaker": "Sarah Miller", "text": "We're proposing a 15% increase in R&D spending for 2026.", "energy": 0.8},
+        {"ts": 770, "speaker": "Sarah Miller", "text": "The bulk goes to the hardware team and AI infrastructure.", "energy": 0.75},
+        {"ts": 800, "speaker": "Alex Chen", "text": "I'm supportive of this. The ROI from Q4 justifies the investment.", "energy": 0.7},
+        {"ts": 830, "speaker": "James Park", "text": "We'll need three additional designers for the spatial UI work.", "energy": 0.65},
+        {"ts": 860, "speaker": "Emma Wilson", "text": "Based on my analysis, the hardware investment has a 14-month payback period.", "energy": 0.7},
+        {"ts": 900, "speaker": "Alex Chen", "text": "Let's vote on the budget proposal.", "energy": 0.8},
+        {"ts": 920, "speaker": "Alex Chen", "text": "All in favor? ...That's unanimous. The budget is approved.", "energy": 0.9},
+        {"ts": 950, "speaker": "Maria Garcia", "text": "Excellent. I'll send the final allocation breakdown by Friday.", "energy": 0.7},
+        {"ts": 980, "speaker": "Sarah Miller", "text": "One more item: we need to decide on the hardware partner selection.", "energy": 0.65},
+        {"ts": 1010, "speaker": "Alex Chen", "text": "Good point. David, can you take us through the technical evaluation?", "energy": 0.6},
+        {"ts": 1040, "speaker": "David Kim", "text": "We evaluated three SLAM vendors. Vendor A leads in accuracy at sub-centimeter precision.", "energy": 0.85},
+        {"ts": 1080, "speaker": "David Kim", "text": "The beamforming array from Vendor B achieves 48dB signal-to-noise ratio.", "energy": 0.8},
+        {"ts": 1120, "speaker": "David Kim", "text": "For the 360 camera system, we're recommending the OWL Pro 4K.", "energy": 0.75},
+        {"ts": 1160, "speaker": "James Park", "text": "The OWL Pro integrates seamlessly with our spatial audio framework.", "energy": 0.7},
+        {"ts": 1200, "speaker": "Sarah Miller", "text": "What about the biometric verification module?", "energy": 0.6},
+        {"ts": 1230, "speaker": "David Kim", "text": "We've built our own. It uses visual watermarking and real-time integrity hashing.", "energy": 0.8},
+        {"ts": 1260, "speaker": "Emma Wilson", "text": "Our internal testing shows 99.7% deepfake detection accuracy.", "energy": 0.85},
+        {"ts": 1290, "speaker": "Alex Chen", "text": "Impressive. Let's formalize the vendor selections.", "energy": 0.7},
+        {"ts": 1330, "speaker": "Maria Garcia", "text": "Now for action items. Sarah, you'll own the revised budget timeline.", "energy": 0.7},
+        {"ts": 1360, "speaker": "Maria Garcia", "text": "David, finalize the hardware vendor contracts by end of February.", "energy": 0.75},
+        {"ts": 1390, "speaker": "Maria Garcia", "text": "James, prepare the spatial UI design spec for review next week.", "energy": 0.7},
+        {"ts": 1420, "speaker": "Maria Garcia", "text": "Emma, deliver the full ROI analysis with hardware cost projections.", "energy": 0.65},
+        {"ts": 1450, "speaker": "Alex Chen", "text": "I'll handle the board presentation. Any blockers on these items?", "energy": 0.6},
+        {"ts": 1480, "speaker": "David Kim", "text": "I need final sign-off on the security audit before vendor contracts.", "energy": 0.65},
+        {"ts": 1510, "speaker": "Sarah Miller", "text": "I'll expedite the security review. Should have it by Wednesday.", "energy": 0.6},
+        {"ts": 1540, "speaker": "Maria Garcia", "text": "All items assigned. Let's move to open discussion.", "energy": 0.55},
+        {"ts": 1570, "speaker": "James Park", "text": "Quick topic: the new meeting replay feature is getting amazing user feedback.", "energy": 0.8},
+        {"ts": 1600, "speaker": "Emma Wilson", "text": "Usage data confirms it. Replay views increased 300% since launch.", "energy": 0.85},
+        {"ts": 1630, "speaker": "Alex Chen", "text": "That validates our investment in the Director's Cut feature.", "energy": 0.75},
+        {"ts": 1660, "speaker": "Sarah Miller", "text": "We should showcase this at the industry conference next month.", "energy": 0.7},
+        {"ts": 1690, "speaker": "Alex Chen", "text": "Great idea. I'll add it to the keynote deck.", "energy": 0.65},
+        {"ts": 1710, "speaker": "Alex Chen", "text": "Alright, let's wrap up. This was an exceptional quarter for the team.", "energy": 0.7},
+        {"ts": 1740, "speaker": "Alex Chen", "text": "We have clear direction for 2026 and the budget to execute.", "energy": 0.75},
+        {"ts": 1770, "speaker": "Alex Chen", "text": "Next sync is in two weeks. Thanks everyone for a productive session.", "energy": 0.65},
+        {"ts": 1790, "speaker": "Maria Garcia", "text": "Thanks all. Let's make 2026 our best year yet.", "energy": 0.7},
+    ]
+
     cuts = []
-    speakers = ["Alex Chen", "Sarah Miller", "James Park", "Maria Garcia"]
-    transcript = []
-    duration = 1800  # 30 min meeting
+    for seg in transcript:
+        if seg["ts"] < 35:
+            mode = "panoramic"
+            focus = []
+        elif seg["energy"] > 0.8:
+            mode = "speaker_closeup"
+            focus = [seg["speaker"]]
+        elif any(seg["ts"] >= ch["start"] and seg["ts"] < ch["start"] + 15 for ch in chapters):
+            mode = "panoramic"
+            focus = []
+        else:
+            is_dialogue = seg["ts"] > 0 and transcript[max(0, transcript.index(seg) - 1)]["speaker"] != seg["speaker"]
+            if is_dialogue:
+                prev_speaker = transcript[max(0, transcript.index(seg) - 1)]["speaker"]
+                mode = "conversation"
+                focus = [seg["speaker"], prev_speaker]
+            else:
+                mode = "speaker_closeup"
+                focus = [seg["speaker"]]
 
-    t = 0
-    while t < duration:
-        mode = random.choice(["panoramic", "speaker_closeup", "speaker_closeup", "conversation"])
-        focus = []
-        if mode == "speaker_closeup":
-            focus = [random.choice(speakers)]
-        elif mode == "conversation":
-            focus = random.sample(speakers, 2)
-
-        segment_len = random.uniform(8, 45)
+        transition = "dissolve" if mode == "panoramic" else "smooth" if mode == "conversation" else "cut"
         cuts.append({
-            "timestamp_seconds": round(t, 1),
+            "timestamp_seconds": seg["ts"],
             "view_mode": mode,
             "focus_users": focus,
-            "active_speaker_count": len(focus) if focus else 0,
-            "transition": random.choice(["smooth", "cut", "dissolve"])
+            "active_speaker_count": len(focus),
+            "transition": transition,
+            "energy": seg.get("energy", 0.5),
         })
-
-        if focus:
-            transcript.append({
-                "ts": round(t, 1),
-                "speaker": focus[0],
-                "text": f"[Segment at {int(t)}s] Discussion point about the quarterly strategy..."
-            })
-
-        t += segment_len
 
     key_moments = [
         {"ts": 0, "type": "intro", "label": "Meeting started - Welcome & agenda review"},
-        {"ts": 120, "type": "presentation", "label": "Q4 results presentation by Alex"},
-        {"ts": 480, "type": "discussion", "label": "Budget allocation debate"},
-        {"ts": 720, "type": "decision", "label": "Decision: Approved 15% increase for R&D"},
-        {"ts": 1080, "type": "action_item", "label": "Action: Sarah to draft revised timeline"},
-        {"ts": 1440, "type": "discussion", "label": "Cross-team collaboration planning"},
-        {"ts": 1680, "type": "wrap_up", "label": "Next steps and follow-up scheduling"},
+        {"ts": 130, "type": "presentation", "label": "Q4 revenue: $4.2M (23% above target)"},
+        {"ts": 180, "type": "presentation", "label": "Distance Zero drove 40% of enterprise deals"},
+        {"ts": 300, "type": "speaker_change", "label": "Emma presents churn analysis"},
+        {"ts": 430, "type": "presentation", "label": "2026 Roadmap: Three strategic pillars revealed"},
+        {"ts": 520, "type": "discussion", "label": "Hardware ecosystem deep-dive begins"},
+        {"ts": 590, "type": "discussion", "label": "SLAM integration prototype demo results"},
+        {"ts": 720, "type": "decision", "label": "Budget discussion: 15% R&D increase proposed"},
+        {"ts": 920, "type": "decision", "label": "Unanimous vote: Budget APPROVED"},
+        {"ts": 1040, "type": "presentation", "label": "Technical evaluation: SLAM vendor comparison"},
+        {"ts": 1260, "type": "presentation", "label": "Biometric module: 99.7% deepfake detection"},
+        {"ts": 1330, "type": "action_item", "label": "Sarah: Revised budget timeline"},
+        {"ts": 1360, "type": "action_item", "label": "David: Hardware vendor contracts by Feb"},
+        {"ts": 1390, "type": "action_item", "label": "James: Spatial UI design spec"},
+        {"ts": 1420, "type": "action_item", "label": "Emma: Full ROI analysis"},
+        {"ts": 1570, "type": "discussion", "label": "Replay feature: 300% usage increase"},
+        {"ts": 1710, "type": "wrap_up", "label": "Meeting wrap-up and next steps"},
     ]
+
+    waveform = []
+    for i in range(0, duration, 2):
+        matching = [s for s in transcript if abs(s["ts"] - i) < 15]
+        energy = max((s["energy"] for s in matching), default=0.1)
+        waveform.append(round(energy + random.uniform(-0.1, 0.1), 2))
 
     return {
         "meeting_id": meeting_id,
-        "title": "Executive Strategy Review - Director's Cut",
+        "title": "Q4 Executive Strategy Review - Director's Cut",
         "duration_seconds": duration,
         "director_cuts": cuts,
         "transcript_segments": transcript,
         "key_moments": key_moments,
+        "chapters": chapters,
+        "speakers": speakers,
+        "waveform": waveform,
         "cut_count": len(cuts),
         "view_distribution": _calculate_view_distribution(cuts),
-        "status": "demo"
+        "status": "demo",
     }
 
 
