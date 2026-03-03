@@ -47,6 +47,11 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
 - 5 seed channels: General, Engineering, Design, Announcements, Random
 - WebSocket for real-time message delivery and typing indicators
 - Create Channel modal with type selection and private toggle
+- **Direct Messages (DMs)**: 1:1 private conversations with user search
+  - New DM modal with real-time user search by name/email
+  - DM section in sidebar with teal-themed styling (distinct from channels)
+  - DM header with "Direct Message" label, DM-specific avatar
+  - Duplicate prevention via dm_key (sorted user IDs)
 - Portal Selector updated with 3-column grid: MedMatch AI, AI KARAU, LUMI
 - LUMI login page with KARAU account reuse (same auth system)
 - Navigation: LUMI ↔ AI KARAU ↔ Portal switching
@@ -67,7 +72,7 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
 - TSR (Test Summary Report) generator for admin setup
 
 ### P2 - Medium Priority
-- LUMI enhancements: DMs, file sharing, message reactions, search
+- LUMI enhancements: file sharing, message reactions, message search, read receipts
 
 ### P3 - Low Priority / Blocked
 - Live Stripe payment gateway (blocked on user's live keys)
