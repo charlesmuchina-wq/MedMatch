@@ -48,15 +48,24 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
 - WebSocket for real-time message delivery and typing indicators
 - Create Channel modal with type selection and private toggle
 - **Direct Messages (DMs)**: 1:1 private conversations with user search
-  - New DM modal with real-time user search by name/email
-  - DM section in sidebar with teal-themed styling (distinct from channels)
-  - DM header with "Direct Message" label, DM-specific avatar
-  - Duplicate prevention via dm_key (sorted user IDs)
+- **Emoji Reactions**: 6 quick emojis (👍❤️😂🎉🔥👀), toggle on/off, real-time via WebSocket
+- **Global Message Search**: Search across all channels and DMs with result dropdown
 - Portal Selector updated with 3-column grid: MedMatch AI, AI KARAU, LUMI
-- LUMI login page with KARAU account reuse (same auth system)
-- Navigation: LUMI ↔ AI KARAU ↔ Portal switching
-- Full i18n: English and Swahili translations for all LUMI strings
-- LUMI link added to KARAU Meet sidebar
+- Full i18n: English and Swahili translations
+
+### Phase 7 - Meeting Intelligence & TSR (Complete - Mar 2026)
+- **Meeting Intelligence Widget** on KARAU dashboard (collapsible):
+  - Cross-meeting theme tracking (10 categories: Budget, Hiring, Tech, Strategy, etc.)
+  - Unresolved action items counter with resolution rate
+  - Top 5 discussion themes with occurrence counts
+  - Weekly meeting activity bar chart
+- **TSR (Test Summary Report) Generator** in Settings:
+  - Auto-generated comprehensive report: test metrics, platform metrics, feature coverage (12 features)
+  - AI-powered release recommendation (RELEASE_READY / CONDITIONAL / NOT_READY)
+  - Defect summary with severity levels
+  - Downloadable as formatted text file
+  - Report history with pass rate badges
+  - Scope coverage (tested vs not-tested features)
 
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI + react-i18next
@@ -68,11 +77,11 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
 ## Prioritized Backlog
 
 ### P1 - High Priority
-- Meeting Insights Intelligence (cross-meeting theme tracking)
-- TSR (Test Summary Report) generator for admin setup
+- LUMI file sharing (upload & share files in channels/DMs)
+- LUMI read receipts / seen indicators
 
 ### P2 - Medium Priority
-- LUMI enhancements: file sharing, message reactions, message search, read receipts
+- Meeting Intelligence: AI-powered theme summarization using LLM
 
 ### P3 - Low Priority / Blocked
 - Live Stripe payment gateway (blocked on user's live keys)
