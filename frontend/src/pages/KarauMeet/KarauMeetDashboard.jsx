@@ -67,7 +67,6 @@ const KarauMeetDashboard = ({ user }) => {
   const [expandedSection, setExpandedSection] = useState('');
   const [insights, setInsights] = useState([]);
   const [showAllUpcoming, setShowAllUpcoming] = useState(false);
-  const [showAllInsights, setShowAllInsights] = useState(false);
 
   useEffect(() => {
     fetchMeetings();
@@ -274,23 +273,35 @@ const KarauMeetDashboard = ({ user }) => {
           </div>
         </div>
 
-        {/* Row 2: AI Capabilities Banner */}
-        <div className="rounded-2xl bg-gradient-to-r from-purple-900/20 via-indigo-900/10 to-teal-900/20 border border-white/[0.06] p-5 animate-fade-in-up stagger-2" data-testid="ai-capabilities-banner">
-          <div className="flex items-center justify-between mb-3">
+        {/* Row 2: AI Capabilities Banner - Collapsible */}
+        <div className="rounded-2xl bg-gradient-to-r from-purple-900/20 via-indigo-900/10 to-teal-900/20 border border-white/[0.06] overflow-hidden animate-fade-in-up stagger-2" data-testid="ai-capabilities-banner">
+          <button
+            onClick={() => setExpandedSection(expandedSection === 'ai' ? '' : 'ai')}
+            className="w-full flex items-center justify-between px-5 py-4 hover:bg-white/[0.02] transition-colors"
+            data-testid="toggle-ai-capabilities"
+          >
             <div className="flex items-center gap-2">
               <Zap className="w-4 h-4 text-amber-400" />
               <span className="text-xs font-semibold text-white uppercase tracking-wider">{t("karauMeet.aiPoweredFeatures")}</span>
+              <Badge className="bg-white/[0.06] text-slate-400 border-white/[0.06] text-[10px]">{AI_CAPABILITIES.length}</Badge>
             </div>
-            <span className="text-[10px] text-slate-500">{t("karauMeet.availableEveryMeeting")}</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {AI_CAPABILITIES.map((cap, i) => (
-              <div key={i} className={`flex items-center gap-2 px-3 py-2 ${cap.bg} rounded-xl border border-white/[0.06] hover:border-white/[0.12] transition-all duration-200 cursor-default`}>
-                <cap.icon className={`w-3.5 h-3.5 ${cap.color}`} />
-                <span className="text-xs text-slate-300 font-medium">{t(cap.labelKey)}</span>
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] text-slate-500">{t("karauMeet.availableEveryMeeting")}</span>
+              {expandedSection === 'ai' ? <ChevronUp className="w-4 h-4 text-slate-600" /> : <ChevronDown className="w-4 h-4 text-slate-600" />}
+            </div>
+          </button>
+          {expandedSection === 'ai' && (
+            <div className="px-5 pb-4">
+              <div className="flex flex-wrap gap-2">
+                {AI_CAPABILITIES.map((cap, i) => (
+                  <div key={i} className={`flex items-center gap-2 px-3 py-2 ${cap.bg} rounded-xl border border-white/[0.06] hover:border-white/[0.12] transition-all duration-200 cursor-default`}>
+                    <cap.icon className={`w-3.5 h-3.5 ${cap.color}`} />
+                    <span className="text-xs text-slate-300 font-medium">{t(cap.labelKey)}</span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* Demo Replay Banner */}
@@ -399,84 +410,45 @@ const KarauMeetDashboard = ({ user }) => {
             )}
           </div>
 
-          {/* Meeting Insights */}
+          {/* Meeting Insights - Collapsible */}
           <div className="col-span-12 md:col-span-5" data-testid="meeting-insights-card">
-            <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5 h-full">
-              <div className="flex items-center justify-between mb-3">
+            <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden h-full">
+              <button
+                onClick={() => setExpandedSection(expandedSection === 'insights' ? '' : 'insights')}
+                className="w-full flex items-center justify-between px-5 py-4 hover:bg-white/[0.02] transition-colors"
+                data-testid="toggle-insights"
+              >
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-violet-400" />
                   <span className="text-sm font-semibold text-white">{t("karauMeet.meetingInsights")}</span>
+                  {insights.filter(i => i.summary).length > 0 && (
+                    <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[10px]">{insights.filter(i => i.summary).length}</Badge>
+                  )}
                 </div>
-                {insights.length > 1 && (
-                  <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[10px]">{insights.filter(i => i.summary).length} summaries</Badge>
-                )}
-              </div>
-              {insights.filter(i => i.summary).length === 0 ? (
-                <p className="text-xs text-slate-600">{t("karauMeet.insightsAppearAfter")}</p>
-              ) : (
-                <div className="space-y-3">
-                  {/* Featured insight (latest) */}
-                  {(() => {
-                    const featured = insights.find(i => i.summary) || insights[0];
-                    if (!featured) return null;
-                    return (
-                      <div className="rounded-xl bg-white/[0.03] border border-white/[0.05] p-4" data-testid="featured-insight">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-xs font-semibold text-white truncate flex-1">{featured.title}</span>
-                          <span className="text-[10px] text-slate-600 flex-shrink-0 ml-2">
-                            {featured.ended_at ? new Date(featured.ended_at).toLocaleDateString([], { month: 'short', day: 'numeric' }) : ''}
-                          </span>
-                        </div>
-                        <p className="text-xs text-slate-400 leading-relaxed mb-3">{featured.summary}</p>
-                        {featured.key_decisions.length > 0 && (
-                          <div className="mb-2">
-                            <span className="text-[10px] text-emerald-400 font-semibold uppercase tracking-wider">{t("karauMeet.decisions")}</span>
-                            {featured.key_decisions.map((d, i) => (
-                              <p key={i} className="text-[11px] text-slate-400 mt-1 pl-2 border-l-2 border-emerald-500/30">{d}</p>
-                            ))}
+                {expandedSection === 'insights' ? <ChevronUp className="w-4 h-4 text-slate-600" /> : <ChevronDown className="w-4 h-4 text-slate-600" />}
+              </button>
+              {expandedSection === 'insights' && (
+                <div className="px-5 pb-4">
+                  {insights.filter(i => i.summary).length === 0 ? (
+                    <p className="text-xs text-slate-600">{t("karauMeet.insightsAppearAfter")}</p>
+                  ) : (
+                    <div className="space-y-3">
+                      {insights.filter(i => i.summary).map((ins, idx) => (
+                        <div key={idx} className="rounded-xl bg-white/[0.03] border border-white/[0.05] p-4" data-testid={`insight-${idx}`}>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-xs font-semibold text-white truncate flex-1">{ins.title}</span>
+                            <span className="text-[10px] text-slate-600 flex-shrink-0 ml-2">
+                              {ins.ended_at ? new Date(ins.ended_at).toLocaleDateString([], { month: 'short', day: 'numeric' }) : ''}
+                            </span>
                           </div>
-                        )}
-                        {featured.action_items.length > 0 && (
-                          <div>
-                            <span className="text-[10px] text-amber-400 font-semibold uppercase tracking-wider">{t("karauMeet.actionItems")}</span>
-                            {featured.action_items.slice(0, 2).map((a, i) => (
-                              <p key={i} className="text-[11px] text-slate-400 mt-1 pl-2 border-l-2 border-amber-500/30">{a}</p>
-                            ))}
-                            {featured.unresolved_count > 0 && (
-                              <Badge className="bg-amber-500/10 text-amber-300 border-amber-500/15 text-[9px] mt-2">{featured.unresolved_count} unresolved</Badge>
-                            )}
+                          <p className="text-xs text-slate-400 leading-relaxed mb-2">{ins.summary}</p>
+                          <div className="flex gap-2">
+                            {ins.key_decisions.length > 0 && <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/15 text-[8px]">{ins.key_decisions.length} decisions</Badge>}
+                            {ins.action_items.length > 0 && <Badge className="bg-amber-500/10 text-amber-300 border-amber-500/15 text-[8px]">{ins.action_items.length} actions</Badge>}
+                            {ins.unresolved_count > 0 && <Badge className="bg-red-500/10 text-red-300 border-red-500/15 text-[8px]">{ins.unresolved_count} unresolved</Badge>}
                           </div>
-                        )}
-                      </div>
-                    );
-                  })()}
-
-                  {/* Collapsible rest */}
-                  {insights.filter(i => i.summary).length > 1 && (
-                    <div>
-                      <button onClick={() => setShowAllInsights(!showAllInsights)}
-                        className="flex items-center gap-1.5 text-[11px] text-purple-400 hover:text-purple-300 transition-colors"
-                        data-testid="toggle-all-insights">
-                        {showAllInsights ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-                        {showAllInsights ? 'Hide' : `View ${insights.filter(i => i.summary).length - 1} more`}
-                      </button>
-                      {showAllInsights && (
-                        <div className="mt-2 space-y-2 max-h-48 overflow-auto">
-                          {insights.filter(i => i.summary).slice(1).map((ins, idx) => (
-                            <div key={idx} className="px-3 py-2.5 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:bg-white/[0.04] transition-colors" data-testid={`insight-${idx}`}>
-                              <div className="flex items-center justify-between mb-1">
-                                <span className="text-[11px] font-semibold text-slate-300 truncate">{ins.title}</span>
-                                <span className="text-[9px] text-slate-600 ml-2">{ins.ended_at ? new Date(ins.ended_at).toLocaleDateString([], { month: 'short', day: 'numeric' }) : ''}</span>
-                              </div>
-                              <p className="text-[10px] text-slate-500 line-clamp-2">{ins.summary}</p>
-                              <div className="flex gap-2 mt-1.5">
-                                {ins.key_decisions.length > 0 && <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/15 text-[8px]">{ins.key_decisions.length} decisions</Badge>}
-                                {ins.action_items.length > 0 && <Badge className="bg-amber-500/10 text-amber-300 border-amber-500/15 text-[8px]">{ins.action_items.length} actions</Badge>}
-                              </div>
-                            </div>
-                          ))}
                         </div>
-                      )}
+                      ))}
                     </div>
                   )}
                 </div>
@@ -485,26 +457,38 @@ const KarauMeetDashboard = ({ user }) => {
           </div>
         </div>
 
-        {/* Row 3b: Trending Topics */}
-        <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5" data-testid="trending-topics">
-          <div className="flex items-center gap-2 mb-3">
-            <TrendingUp className="w-4 h-4 text-violet-400" />
-            <span className="text-sm font-semibold text-white">{t("karauMeet.trendingTopics")}</span>
-          </div>
-          {trendingTopics.length === 0 ? (
-            <p className="text-xs text-slate-600">{t("karauMeet.topicsAppearAfter")}</p>
-          ) : (
-            <div className="flex flex-wrap gap-2">
-              {trendingTopics.map((tp, i) => (
-                <div key={i} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs ${
-                  tp.sentiment === 'positive' ? 'bg-emerald-500/5 border-emerald-500/15 text-emerald-300' :
-                  tp.sentiment === 'concern' ? 'bg-amber-500/5 border-amber-500/15 text-amber-300' :
-                  'bg-purple-500/5 border-purple-500/15 text-purple-300'
-                }`} data-testid={`topic-${i}`}>
-                  <span className="font-medium">{tp.topic}</span>
-                  {tp.count > 1 && <span className="text-[10px] opacity-60">x{tp.count}</span>}
+        {/* Row 3b: Trending Topics - Collapsible */}
+        <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden" data-testid="trending-topics">
+          <button
+            onClick={() => setExpandedSection(expandedSection === 'topics' ? '' : 'topics')}
+            className="w-full flex items-center justify-between px-5 py-4 hover:bg-white/[0.02] transition-colors"
+            data-testid="toggle-trending-topics"
+          >
+            <div className="flex items-center gap-2">
+              <TrendingUp className="w-4 h-4 text-violet-400" />
+              <span className="text-sm font-semibold text-white">{t("karauMeet.trendingTopics")}</span>
+              {trendingTopics.length > 0 && <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[10px]">{trendingTopics.length}</Badge>}
+            </div>
+            {expandedSection === 'topics' ? <ChevronUp className="w-4 h-4 text-slate-600" /> : <ChevronDown className="w-4 h-4 text-slate-600" />}
+          </button>
+          {expandedSection === 'topics' && (
+            <div className="px-5 pb-4">
+              {trendingTopics.length === 0 ? (
+                <p className="text-xs text-slate-600">{t("karauMeet.topicsAppearAfter")}</p>
+              ) : (
+                <div className="flex flex-wrap gap-2">
+                  {trendingTopics.map((tp, i) => (
+                    <div key={i} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs ${
+                      tp.sentiment === 'positive' ? 'bg-emerald-500/5 border-emerald-500/15 text-emerald-300' :
+                      tp.sentiment === 'concern' ? 'bg-amber-500/5 border-amber-500/15 text-amber-300' :
+                      'bg-purple-500/5 border-purple-500/15 text-purple-300'
+                    }`} data-testid={`topic-${i}`}>
+                      <span className="font-medium">{tp.topic}</span>
+                      {tp.count > 1 && <span className="text-[10px] opacity-60">x{tp.count}</span>}
+                    </div>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
           )}
         </div>
@@ -675,29 +659,40 @@ const KarauMeetDashboard = ({ user }) => {
             </div>
           </div>
 
-          {/* Activity Highlights */}
+          {/* Activity Highlights - Collapsible */}
           <div className="col-span-12 md:col-span-5">
-            <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5 h-full" data-testid="activity-feed">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                <span className="text-sm font-semibold text-white">{t("karauMeet.highlights")}</span>
-                {importantActivities.length > 0 && <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[10px]">{importantActivities.length}</Badge>}
-              </div>
-              {importantActivities.length === 0 ? (
-                <p className="text-xs text-slate-600">{t("karauMeet.highlightsAppearAfter")}</p>
-              ) : (
-                <div className="space-y-2 max-h-48 overflow-auto">
-                  {importantActivities.map((a, idx) => (
-                    <div key={idx} className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/[0.02] border border-white/[0.03] hover:bg-white/[0.04] transition-colors" data-testid={`activity-${idx}`}>
-                      <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${a.type === 'ai_insight' ? 'bg-violet-500/10' : 'bg-emerald-500/10'}`}>
-                        {a.icon === 'sparkles' ? <Sparkles className="w-3.5 h-3.5 text-violet-400" /> : <Video className="w-3.5 h-3.5 text-emerald-400" />}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-slate-300 truncate">{a.text}</p>
-                        <span className="text-[10px] text-slate-600">{a.timestamp ? new Date(a.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric' }) : ''}</span>
-                      </div>
+            <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] overflow-hidden h-full" data-testid="activity-feed">
+              <button
+                onClick={() => setExpandedSection(expandedSection === 'activity' ? '' : 'activity')}
+                className="w-full flex items-center justify-between px-5 py-4 hover:bg-white/[0.02] transition-colors"
+                data-testid="toggle-activity"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                  <span className="text-sm font-semibold text-white">{t("karauMeet.highlights")}</span>
+                  {importantActivities.length > 0 && <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 text-[10px]">{importantActivities.length}</Badge>}
+                </div>
+                {expandedSection === 'activity' ? <ChevronUp className="w-4 h-4 text-slate-600" /> : <ChevronDown className="w-4 h-4 text-slate-600" />}
+              </button>
+              {expandedSection === 'activity' && (
+                <div className="px-5 pb-4">
+                  {importantActivities.length === 0 ? (
+                    <p className="text-xs text-slate-600">{t("karauMeet.highlightsAppearAfter")}</p>
+                  ) : (
+                    <div className="space-y-2 max-h-48 overflow-auto">
+                      {importantActivities.map((a, idx) => (
+                        <div key={idx} className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/[0.02] border border-white/[0.03] hover:bg-white/[0.04] transition-colors" data-testid={`activity-${idx}`}>
+                          <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${a.type === 'ai_insight' ? 'bg-violet-500/10' : 'bg-emerald-500/10'}`}>
+                            {a.icon === 'sparkles' ? <Sparkles className="w-3.5 h-3.5 text-violet-400" /> : <Video className="w-3.5 h-3.5 text-emerald-400" />}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs text-slate-300 truncate">{a.text}</p>
+                            <span className="text-[10px] text-slate-600">{a.timestamp ? new Date(a.timestamp).toLocaleDateString([], { month: 'short', day: 'numeric' }) : ''}</span>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  )}
                 </div>
               )}
             </div>

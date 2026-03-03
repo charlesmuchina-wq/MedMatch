@@ -383,6 +383,7 @@ const KarauMeetPortal = () => {
       <main className="flex-1 overflow-auto">
         <Routes>
           <Route index element={<KarauMeetDashboard user={user} />} />
+          <Route path="dashboard" element={<KarauMeetDashboard user={user} />} />
           <Route path="meetings" element={<MeetingsListPage />} />
           <Route path="schedule" element={<SchedulePage />} />
           <Route path="recordings" element={<KarauRecordingsPage />} />

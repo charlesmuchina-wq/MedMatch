@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import {
   Play, Pause, SkipForward, SkipBack, Film, Clock, Users,
   ChevronLeft, Sparkles, Loader2, Bookmark, Volume2,
-  Gauge, ChevronRight, Maximize2, Minimize2, Rewind, FastForward
+  Gauge, ChevronRight, Maximize2, Minimize2, Rewind, FastForward, Share2, Link, Check
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -46,6 +46,7 @@ const SPEAKER_COLORS = {
 export default function MeetingReplayPage() {
   const { meetingId } = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [replay, setReplay] = useState(null);
   const [loading, setLoading] = useState(true);
   const [playing, setPlaying] = useState(false);
@@ -55,9 +56,12 @@ export default function MeetingReplayPage() {
   const [hlLoading, setHlLoading] = useState(false);
   const [highlights, setHighlights] = useState(null);
   const [hlStyle, setHlStyle] = useState('executive_summary');
+  const [shareMarker, setShareMarker] = useState(null);
+  const [copied, setCopied] = useState(false);
   const timerRef = useRef(null);
   const transcriptRef = useRef(null);
   const timelineRef = useRef(null);
+  const initialSeekDone = useRef(false);
 
   const fetchReplay = useCallback(async () => {
     const token = localStorage.getItem('token');
@@ -72,6 +76,33 @@ export default function MeetingReplayPage() {
   }, [meetingId]);
 
   useEffect(() => { fetchReplay(); }, [fetchReplay]);
+
+  // Seek to shared timestamp from URL param ?t=
+  useEffect(() => {
+    if (replay && !initialSeekDone.current) {
+      const t = searchParams.get('t');
+      if (t) {
+        const ts = parseFloat(t);
+        if (!isNaN(ts) && ts >= 0 && ts <= replay.duration_seconds) {
+          setCurrentTime(ts);
+          setShareMarker(ts);
+          toast.success(`Jumped to shared moment at ${formatTime(ts)}`);
+        }
+      }
+      initialSeekDone.current = true;
+    }
+  }, [replay, searchParams]);
+
+  const shareMoment = () => {
+    const ts = Math.floor(currentTime);
+    const url = `${window.location.origin}/karau-meet/replay/${meetingId}?t=${ts}`;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setShareMarker(ts);
+      toast.success(`Link copied! Shared moment at ${formatTime(ts)}`);
+      setTimeout(() => setCopied(false), 2000);
+    }).catch(() => toast.error('Failed to copy'));
+  };
 
   useEffect(() => {
     if (playing && replay) {
@@ -184,6 +215,11 @@ export default function MeetingReplayPage() {
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" onClick={shareMoment}
+            className="h-7 px-2.5 text-slate-400 hover:text-white hover:bg-white/[0.06] rounded-lg gap-1.5" data-testid="share-moment-btn">
+            {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Share2 className="w-3 h-3" />}
+            <span className="text-[9px]">{copied ? 'Copied!' : 'Share Moment'}</span>
+          </Button>
           <Badge className="text-[8px] bg-violet-500/10 text-violet-400 border border-violet-500/20">Director's Cut</Badge>
           <button onClick={() => setShowChapters(!showChapters)}
             className="text-slate-500 hover:text-white transition-colors p-1 rounded" data-testid="toggle-chapters">
@@ -394,6 +430,16 @@ export default function MeetingReplayPage() {
                   </div>
                 </button>
               ))}
+
+              {/* Shared moment marker */}
+              {shareMarker !== null && (
+                <div className="absolute top-0 bottom-0 z-15 pointer-events-none" style={{ left: `${(shareMarker / duration) * 100}%` }} data-testid="share-marker">
+                  <div className="absolute top-0 w-1 h-full bg-fuchsia-400/60 rounded-full" />
+                  <div className="absolute -top-1 -left-[5px]">
+                    <Share2 className="w-3 h-3 text-fuchsia-400" />
+                  </div>
+                </div>
+              )}
 
               {/* Playhead */}
               <div className="absolute top-0 bottom-0 w-0.5 bg-white shadow-[0_0_6px_rgba(255,255,255,0.4)] rounded-full z-20 pointer-events-none transition-all" style={{ left: `${progress}%` }}>
