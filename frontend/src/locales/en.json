@@ -1460,6 +1460,12 @@
       "e2eEncrypted": "E2E Encrypted",
       "enterMeetingPortal": "Enter Meeting Portal",
       "enterPortal": "Enter Portal",
+      "messenger": "Messenger",
+      "lumiDesc": "Real-time team messaging with channels, groups, and project spaces.",
+      "channels": "Channels & Groups",
+      "realtimeChat": "Real-time Chat",
+      "projectSpaces": "Project Spaces",
+      "enterLumi": "Open LUMI Messenger",
       "poweredByAI": "Powered by AI",
       "trustedBy": "Trusted by Life Sciences Professionals"
     },
@@ -2724,5 +2730,30 @@
       "tenure": "Tenure",
       "reviews": "Reviews"
     }
+  },
+  "lumi": {
+    "messenger": "Messenger",
+    "tagline": "Team messaging for the KARAU ecosystem",
+    "welcomeToLumi": "Welcome to LUMI!",
+    "signIn": "Sign in to LUMI",
+    "backToPortal": "Back to Portal",
+    "channels": "Channels",
+    "discover": "Discover",
+    "searchChannels": "Search channels...",
+    "createChannel": "Create Channel",
+    "channelCreated": "Channel created!",
+    "channelName": "Channel Name",
+    "description": "Description",
+    "channelType": "Type",
+    "typeGroup": "Group",
+    "typeProject": "Project",
+    "typeAnnouncement": "Announcement",
+    "privateChannel": "Private channel",
+    "members": "members",
+    "online": "Online",
+    "noMessages": "No messages yet",
+    "startConversation": "Start the conversation!",
+    "messagePlaceholder": "Message",
+    "welcomeMessage": "Select a channel to start chatting, or create a new one."
   }
 }

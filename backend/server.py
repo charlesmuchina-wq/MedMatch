@@ -311,6 +311,7 @@ from routes.karau_breakout_lounges import router as karau_breakout_router
 from routes.karau_polls_challenges import router as karau_polls_router
 from routes.karau_biometric_verify import router as karau_biometric_router
 from routes.karau_simulation import router as karau_simulation_router
+from routes.lumi_messenger import router as lumi_messenger_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
@@ -419,6 +420,7 @@ app.include_router(karau_breakout_router, prefix="/api")
 app.include_router(karau_polls_router, prefix="/api")
 app.include_router(karau_biometric_router, prefix="/api")
 app.include_router(karau_simulation_router, prefix="/api")
+app.include_router(lumi_messenger_router, prefix="/api")
 
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos

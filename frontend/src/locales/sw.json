@@ -1323,7 +1323,13 @@
       "poweredByAI": "Inaendeshwa na AI",
       "aiKarau": "AI KARAU",
       "recruiterNetwork": "Mtandao wa Waajiri",
-      "enterJobToolkit": "Fungua Zana za Kazi"
+      "enterJobToolkit": "Fungua Zana za Kazi",
+      "messenger": "Mjumbe",
+      "lumiDesc": "Ujumbe wa timu wa wakati halisi na chaneli, vikundi, na nafasi za miradi.",
+      "channels": "Chaneli na Vikundi",
+      "realtimeChat": "Mazungumzo ya Wakati Halisi",
+      "projectSpaces": "Nafasi za Miradi",
+      "enterLumi": "Fungua Mjumbe wa LUMI"
     },
     "dragonAutomator": {
       "title": "Kiotomatiki cha KARAU",
@@ -2753,5 +2759,30 @@
       "tenure": "Muda wa Uanachama",
       "reviews": "Maoni"
     }
+  },
+  "lumi": {
+    "messenger": "Mjumbe",
+    "tagline": "Ujumbe wa timu kwa mfumo wa KARAU",
+    "welcomeToLumi": "Karibu LUMI!",
+    "signIn": "Ingia LUMI",
+    "backToPortal": "Rudi kwenye Lango",
+    "channels": "Chaneli",
+    "discover": "Gundua",
+    "searchChannels": "Tafuta chaneli...",
+    "createChannel": "Unda Chaneli",
+    "channelCreated": "Chaneli imeundwa!",
+    "channelName": "Jina la Chaneli",
+    "description": "Maelezo",
+    "channelType": "Aina",
+    "typeGroup": "Kundi",
+    "typeProject": "Mradi",
+    "typeAnnouncement": "Tangazo",
+    "privateChannel": "Chaneli ya faragha",
+    "members": "wanachama",
+    "online": "Mtandaoni",
+    "noMessages": "Hakuna ujumbe bado",
+    "startConversation": "Anza mazungumzo!",
+    "messagePlaceholder": "Ujumbe",
+    "welcomeMessage": "Chagua chaneli kuanza mazungumzo, au unda mpya."
   }
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Video, Briefcase, ArrowRight, Sparkles, Users, FileText, Shield } from 'lucide-react';
+import { Video, Briefcase, ArrowRight, Sparkles, Users, FileText, Shield, MessageCircle, Hash, Megaphone } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import GlobalLanguageSelector from '@/components/GlobalLanguageSelector';
 import { useTranslation } from "@/utils/i18n";
@@ -50,6 +50,23 @@ const PortalSelector = () => {
       route: '/karau-meet',
       buttonText: t('pages.portalSelector.enterMeetingPortal'),
       logo: 'https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg'
+    },
+    {
+      id: 'lumi',
+      title: 'LUMI',
+      subtitle: t('pages.portalSelector.messenger') || 'Messenger',
+      description: t('pages.portalSelector.lumiDesc') || 'Real-time team messaging with channels, groups, and project spaces.',
+      icon: MessageCircle,
+      gradient: 'from-violet-500 to-indigo-600',
+      glowColor: 'indigo',
+      features: [
+        { icon: Hash, text: t('pages.portalSelector.channels') || 'Channels & Groups' },
+        { icon: MessageCircle, text: t('pages.portalSelector.realtimeChat') || 'Real-time Chat' },
+        { icon: Megaphone, text: t('pages.portalSelector.projectSpaces') || 'Project Spaces' },
+      ],
+      route: '/lumi',
+      buttonText: t('pages.portalSelector.enterLumi') || 'Open LUMI Messenger',
+      logo: null
     }
   ];
 
@@ -188,8 +205,8 @@ const PortalSelector = () => {
           </p>
         </div>
 
-        {/* Portal Cards - Stack on mobile, side by side on md+ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-4xl w-full px-4">
+        {/* Portal Cards - Stack on mobile, 3 columns on lg+ */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl w-full px-4">
           {portals.map((portal) => (
             <Card
               key={portal.id}

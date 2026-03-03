@@ -85,6 +85,7 @@ import PlatformSettingsPage from "@/pages/PlatformSettingsPage";
 import SemanticSearchPage from "@/pages/SemanticSearchPage";
 import KarauMeetLanding from "@/pages/KarauMeet/KarauMeetLanding";
 import KarauMeetPortal from "@/pages/KarauMeet/KarauMeetPortal";
+import LumiMessenger from "@/pages/LumiMessenger";
 import MeetingRoom from "@/components/KarauMeet/MeetingRoom";
 import { UpgradeBanner } from "@/components/PremiumGate";
 import PremiumGate from "@/components/PremiumGate";
@@ -812,9 +813,10 @@ function AppContent({ skipPortalSelector = false }) {
   
   // Check if current path is AI KARAU Meeting standalone portal
   const isKarauMeetPortal = location.pathname.startsWith('/karau-meet');
+  const isLumiMessenger = location.pathname.startsWith('/lumi');
 
   // Show loading while checking auth (except for public routes and karau-meet)
-  if (isAuthChecking && !isPublicRoute && !isKarauMeetPortal) {
+  if (isAuthChecking && !isPublicRoute && !isKarauMeetPortal && !isLumiMessenger) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${isDark ? 'bg-batik-black' : 'bg-slate-50'}`}>
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-turquoise"></div>
@@ -828,6 +830,18 @@ function AppContent({ skipPortalSelector = false }) {
       <>
         <Routes>
           <Route path="/karau-meet/*" element={<KarauMeetPortal />} />
+        </Routes>
+        <Toaster position="top-right" richColors theme="dark" />
+      </>
+    );
+  }
+
+  // Render LUMI Messenger standalone
+  if (isLumiMessenger) {
+    return (
+      <>
+        <Routes>
+          <Route path="/lumi/*" element={<LumiMessenger />} />
         </Routes>
         <Toaster position="top-right" richColors theme="dark" />
       </>
@@ -1103,6 +1117,11 @@ const SubdomainRouter = () => {
   // meet.aikarau.com -> AI KARAU Meeting Portal
   if (subdomain === 'meet') {
     return <KarauMeetPortal />;
+  }
+  
+  // lumi.aikarau.com -> LUMI Messenger
+  if (subdomain === 'lumi') {
+    return <LumiMessenger />;
   }
   
   // medmatch.aikarau.com, careers.aikarau.com, jobs.aikarau.com -> MedMatch Jobs (skip portal selector)
