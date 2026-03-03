@@ -217,7 +217,12 @@ const KarauMeetPortal = () => {
     setIsLoading(false);
   }, []);
 
-  const handleLogin = (userData) => setUser(userData);
+  const handleLogin = (userData) => {
+    setUser(userData);
+    if (location.pathname.includes('/login')) {
+      navigate('/karau-meet', { replace: true });
+    }
+  };
 
   const handleLogout = () => {
     localStorage.removeItem('token');

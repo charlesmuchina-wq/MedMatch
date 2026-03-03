@@ -2291,7 +2291,16 @@
     "topQuestions": "שאלות מובילות",
     "orgBreakdown": "פירוק ארגוני",
     "registrationTimeline": "ציר זמן הרשמה",
-    "analyticsNotAvailable": "סטטיסטיקות אינן זמינות"
+    "analyticsNotAvailable": "סטטיסטיקות אינן זמינות",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "location": {
     "selectLocationPlaceholder": "בחר את המיקום שלך..."

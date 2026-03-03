@@ -2326,7 +2326,16 @@
     "topQuestions": "热门问题",
     "orgBreakdown": "组织分类",
     "registrationTimeline": "注册时间线",
-    "analyticsNotAvailable": "分析不可用"
+    "analyticsNotAvailable": "分析不可用",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "例如：生产环境 ATS Webhook",

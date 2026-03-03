@@ -2291,7 +2291,16 @@
     "topQuestions": "คำถามยอดนิยม",
     "orgBreakdown": "การแบ่งตามองค์กร",
     "registrationTimeline": "ไทม์ไลน์การลงทะเบียน",
-    "analyticsNotAvailable": "การวิเคราะห์ไม่สามารถใช้งานได้"
+    "analyticsNotAvailable": "การวิเคราะห์ไม่สามารถใช้งานได้",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "location": {
     "selectLocationPlaceholder": "เลือกตำแหน่งที่ตั้งของคุณ..."

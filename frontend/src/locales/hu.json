@@ -2291,7 +2291,16 @@
     "topQuestions": "Legjobb Kérdések",
     "orgBreakdown": "Szervezeti Elemzés",
     "registrationTimeline": "Regisztrációs Idővonal",
-    "analyticsNotAvailable": "Elemzések nem elérhetőek"
+    "analyticsNotAvailable": "Elemzések nem elérhetőek",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "location": {
     "selectLocationPlaceholder": "Válaszd ki a tartózkodási helyed..."

@@ -2291,7 +2291,16 @@
     "topQuestions": "Soalan Teratas",
     "orgBreakdown": "Pecahan Organisasi",
     "registrationTimeline": "Garis Masa Pendaftaran",
-    "analyticsNotAvailable": "Analitik tidak tersedia"
+    "analyticsNotAvailable": "Analitik tidak tersedia",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "location": {
     "selectLocationPlaceholder": "Pilih lokasi anda..."

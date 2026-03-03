@@ -2313,7 +2313,16 @@
     "topQuestions": "शीर्ष प्रश्न",
     "orgBreakdown": "संगठन विवरण",
     "registrationTimeline": "पंजीकरण समयरेखा",
-    "analyticsNotAvailable": "विश्लेषण उपलब्ध नहीं है"
+    "analyticsNotAvailable": "विश्लेषण उपलब्ध नहीं है",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "उदाहरण: प्रोडक्शन ATS वेबहुक",

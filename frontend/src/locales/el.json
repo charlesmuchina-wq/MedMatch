@@ -2291,7 +2291,16 @@
     "topQuestions": "Κορυφαίες Ερωτήσεις",
     "orgBreakdown": "Κατανομή Οργανισμού",
     "registrationTimeline": "Χρονοδιάγραμμα Εγγραφής",
-    "analyticsNotAvailable": "Στατιστικά μη διαθέσιμα"
+    "analyticsNotAvailable": "Στατιστικά μη διαθέσιμα",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "location": {
     "selectLocationPlaceholder": "Επιλέξτε την τοποθεσία σας..."

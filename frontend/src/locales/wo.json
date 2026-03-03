@@ -2313,7 +2313,16 @@
     "topQuestions": "Nsɛm a ɛyɛ kɛse",
     "orgBreakdown": "Nkyɛkyerɛ mu",
     "registrationTimeline": "Nkwankyɛn a wɔyɛ ɔyɛ",
-    "analyticsNotAvailable": "Nkyerɛmu nni hɔ"
+    "analyticsNotAvailable": "Nkyerɛmu nni hɔ",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "misaal: Production ATS webhook",

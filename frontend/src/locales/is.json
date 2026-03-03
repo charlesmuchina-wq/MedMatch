@@ -2291,7 +2291,16 @@
     "topQuestions": "Top Fyrirspurnir",
     "orgBreakdown": "Skipulagsupplýsingar",
     "registrationTimeline": "Skráningartími",
-    "analyticsNotAvailable": "Tölfræði ekki fáanleg"
+    "analyticsNotAvailable": "Tölfræði ekki fáanleg",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "location": {
     "selectLocationPlaceholder": "Veldu staðsetningu..."

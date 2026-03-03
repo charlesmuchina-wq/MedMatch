@@ -2313,7 +2313,16 @@
     "topQuestions": "주요 질문",
     "orgBreakdown": "조직 분포",
     "registrationTimeline": "등록 타임라인",
-    "analyticsNotAvailable": "분석 사용 불가"
+    "analyticsNotAvailable": "분석 사용 불가",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "예: 프로덕션 ATS 웹훅",

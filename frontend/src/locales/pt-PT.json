@@ -2370,7 +2370,16 @@
     "startNow": "Iniciar Agora",
     "recording": "Gravação",
     "schedule": "Agendar",
-    "noGuidesFound": "Nenhum guia encontrado para a sua pesquisa"
+    "noGuidesFound": "Nenhum guia encontrado para a sua pesquisa",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ex.: Webhook ATS de produção",

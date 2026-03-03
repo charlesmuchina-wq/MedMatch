@@ -2283,7 +2283,16 @@
     "topQuestions": "Toppfrågor",
     "orgBreakdown": "Organisationsfördelning",
     "registrationTimeline": "Registreringslinje",
-    "analyticsNotAvailable": "Analys ej tillgänglig"
+    "analyticsNotAvailable": "Analys ej tillgänglig",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "t.ex. Produktionswebhook för ATS",

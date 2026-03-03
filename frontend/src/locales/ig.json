@@ -2313,7 +2313,16 @@
     "topQuestions": "Ajụjụ Kasị Elu",
     "orgBreakdown": "Nkọwa Òtù",
     "registrationTimeline": "Oge Ndenye",
-    "analyticsNotAvailable": "Analytics adịghị available"
+    "analyticsNotAvailable": "Analytics adịghị available",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "dịka, webhook ATS nke Mmepụta",

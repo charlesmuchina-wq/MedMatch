@@ -2313,7 +2313,16 @@
     "topQuestions": "Principais Perguntas",
     "orgBreakdown": "Divisão por Organização",
     "registrationTimeline": "Linha do Tempo de Registro",
-    "analyticsNotAvailable": "Análises não disponíveis"
+    "analyticsNotAvailable": "Análises não disponíveis",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ex.: Webhook ATS de produção",

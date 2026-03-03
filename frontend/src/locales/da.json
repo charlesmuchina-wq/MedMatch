@@ -2291,7 +2291,16 @@
     "topQuestions": "Top spørgsmål",
     "orgBreakdown": "Organisationsopdeling",
     "registrationTimeline": "Tilmeldings tidslinje",
-    "analyticsNotAvailable": "Analyser ikke tilgængelige"
+    "analyticsNotAvailable": "Analyser ikke tilgængelige",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "location": {
     "selectLocationPlaceholder": "Vælg din lokation..."

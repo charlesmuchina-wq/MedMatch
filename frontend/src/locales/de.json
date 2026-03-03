@@ -2368,7 +2368,16 @@
     "waitingForHost": "Warten auf Gastgeber",
     "leaveLobby": "Lobby verlassen",
     "admittedJoining": "Zugelassen! Beitritt...",
-    "startNow": "Jetzt starten"
+    "startNow": "Jetzt starten",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "z. B. Production-ATS-Webhook",

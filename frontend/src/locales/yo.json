@@ -2313,7 +2313,16 @@
     "topQuestions": "Àwọn ìbéèrè tó ga jùlọ",
     "orgBreakdown": "Ìtàn ìṣẹ̀lú",
     "registrationTimeline": "Àkókò ìforúkọsílẹ̀",
-    "analyticsNotAvailable": "Àlàyé ìtàn iṣiro ko wà"
+    "analyticsNotAvailable": "Àlàyé ìtàn iṣiro ko wà",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "àpẹẹrẹ: webhook ATS Ìṣelọpọ",

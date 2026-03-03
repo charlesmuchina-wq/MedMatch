@@ -248,7 +248,7 @@ const KarauMeetDashboard = ({ user }) => {
             <h3 className="text-sm font-semibold text-white mb-3">{t("karauMeet.joinMeeting")}</h3>
             <div className="flex gap-2">
               <Input
-                placeholder="Enter code"
+                placeholder={t("karauMeet.enterCode")}
                 value={joinMeetingId}
                 onChange={(e) => setJoinMeetingId(e.target.value.toUpperCase())}
                 className="bg-black/30 border-white/[0.08] text-white rounded-xl font-mono tracking-wider text-xs h-10 focus:border-teal-500/40 focus:ring-teal-500/20 placeholder-slate-600"
@@ -256,7 +256,7 @@ const KarauMeetDashboard = ({ user }) => {
                 data-testid="input-join-id"
               />
               <Button onClick={joinMeeting} className="bg-teal-600 hover:bg-teal-500 text-white rounded-xl px-4 h-10 shadow-lg shadow-teal-500/15" data-testid="btn-join">
-                Join
+                {t("karauMeet.join")}
               </Button>
             </div>
           </div>
@@ -311,14 +311,14 @@ const KarauMeetDashboard = ({ user }) => {
               <Play className="w-5 h-5 text-violet-400" />
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-white">Interactive Meeting Replay</h3>
-              <p className="text-[11px] text-slate-400">Watch the Director's Cut of a Q4 Strategy Review with AI highlights</p>
+              <h3 className="text-sm font-semibold text-white">{t("karauMeet.interactiveReplay")}</h3>
+              <p className="text-[11px] text-slate-400">{t("karauMeet.replayDescription")}</p>
             </div>
           </div>
           <Button onClick={() => navigate('/karau-meet/replay/demo-meeting')}
             className="bg-violet-600/80 hover:bg-violet-500 text-white rounded-full px-5 h-9 text-xs font-medium shadow-lg shadow-violet-500/15 transition-all hover:scale-[1.02]"
             data-testid="btn-watch-demo-replay">
-            <Play className="w-3 h-3 mr-1.5" />Watch Demo
+            <Play className="w-3 h-3 mr-1.5" />{t("karauMeet.watchDemo")}
           </Button>
         </div>
 
@@ -381,7 +381,7 @@ const KarauMeetDashboard = ({ user }) => {
                       className="w-full flex items-center justify-between px-5 py-3 hover:bg-white/[0.02] transition-colors"
                       data-testid="toggle-all-upcoming"
                     >
-                      <span className="text-xs font-medium text-slate-400">{upcoming.length - 1} more upcoming meeting{upcoming.length > 2 ? 's' : ''}</span>
+                      <span className="text-xs font-medium text-slate-400">{t("karauMeet.moreUpcomingMeetings", { count: upcoming.length - 1 })}</span>
                       {showAllUpcoming ? <ChevronUp className="w-4 h-4 text-slate-600" /> : <ChevronDown className="w-4 h-4 text-slate-600" />}
                     </button>
                     {showAllUpcoming && (
@@ -521,9 +521,9 @@ const KarauMeetDashboard = ({ user }) => {
                       <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-white">{effectiveness.overall_score}</span>
                     </div>
                     <div className="flex-1 text-xs text-slate-500 space-y-1">
-                      <p>Avg: <span className="text-slate-300">{effectiveness.avg_duration_minutes}m</span></p>
-                      <p>Participants: <span className="text-slate-300">{effectiveness.avg_participants}</span></p>
-                      <p>With notes: <span className="text-slate-300">{effectiveness.meetings_with_notes}/{effectiveness.total_meetings}</span></p>
+                      <p>{t("karauMeet.avgDuration")}: <span className="text-slate-300">{effectiveness.avg_duration_minutes}m</span></p>
+                      <p>{t("karauMeet.avgParticipants")}: <span className="text-slate-300">{effectiveness.avg_participants}</span></p>
+                      <p>{t("karauMeet.withNotes")}: <span className="text-slate-300">{effectiveness.meetings_with_notes}/{effectiveness.total_meetings}</span></p>
                     </div>
                   </div>
                 </div>
@@ -535,10 +535,10 @@ const KarauMeetDashboard = ({ user }) => {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                       <Trophy className="w-4 h-4 text-amber-400" />
-                      <span className="text-sm font-semibold text-white">{gamification.rank_title}</span>
+                      <span className="text-sm font-semibold text-white">{t(`karauMeet.rank${gamification.rank_title}`, { defaultValue: gamification.rank_title })}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-purple-400 font-semibold">Lv.{gamification.level}</span>
+                      <span className="text-xs text-purple-400 font-semibold">{t("karauMeet.level")}{gamification.level}</span>
                       {leaderboard && (
                         <button onClick={() => setShowLeaderboard(!showLeaderboard)}
                           className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/15 hover:bg-amber-500/20 transition-colors"
@@ -550,7 +550,7 @@ const KarauMeetDashboard = ({ user }) => {
                     <div className="flex-1 h-2 bg-white/[0.04] rounded-full overflow-hidden">
                       <div className="h-full bg-gradient-to-r from-purple-500 to-violet-500 rounded-full transition-all" style={{ width: `${Math.max(5, (gamification.xp / (gamification.xp + gamification.xp_to_next)) * 100)}%` }} />
                     </div>
-                    <span className="text-xs text-slate-500">{gamification.xp} XP</span>
+                    <span className="text-xs text-slate-500">{gamification.xp} {t("karauMeet.xpLabel")}</span>
                   </div>
                   <div className="flex items-center gap-4">
                     {gamification.streak_days > 0 && <div className="flex items-center gap-1 text-xs"><Flame className="w-3.5 h-3.5 text-orange-400" /><span className="text-orange-300 font-semibold">{gamification.streak_days}d</span></div>}
@@ -570,7 +570,7 @@ const KarauMeetDashboard = ({ user }) => {
                         <div key={entry.user_id} className={`flex items-center gap-2 px-2 py-1.5 rounded-lg text-xs ${entry.user_id === user?.user_id ? 'bg-purple-500/10 border border-purple-500/20' : ''}`} data-testid={`leaderboard-entry-${i}`}>
                           <span className={`w-4 text-center font-bold ${i === 0 ? 'text-amber-400' : i === 1 ? 'text-slate-300' : i === 2 ? 'text-orange-400' : 'text-slate-500'}`}>{i + 1}</span>
                           <span className="text-slate-300 flex-1 truncate">{entry.name}</span>
-                          <span className="text-purple-400 font-semibold">{entry.xp} XP</span>
+                          <span className="text-purple-400 font-semibold">{entry.xp} {t("karauMeet.xpLabel")}</span>
                         </div>
                       ))}
                     </div>
@@ -583,13 +583,13 @@ const KarauMeetDashboard = ({ user }) => {
                 <div className="rounded-2xl bg-white/[0.03] border border-white/[0.06] p-5 h-full">
                   <div className="flex items-center gap-2 mb-3">
                     <BarChart3 className="w-4 h-4 text-blue-400" />
-                    <span className="text-sm font-semibold text-white">Quick Analytics</span>
+                    <span className="text-sm font-semibold text-white">{t("karauMeet.quickAnalytics")}</span>
                   </div>
                   <div className="space-y-3">
                     {[
-                      { label: 'On-time rate', value: effectiveness.on_time_rate, color: 'bg-emerald-500', textColor: 'text-emerald-400' },
-                      { label: 'AI Notes usage', value: effectiveness.total_meetings > 0 ? Math.round(effectiveness.meetings_with_notes / effectiveness.total_meetings * 100) : 0, color: 'bg-violet-500', textColor: 'text-violet-400' },
-                      { label: 'Action items', value: effectiveness.total_meetings > 0 ? Math.round(effectiveness.meetings_with_action_items / effectiveness.total_meetings * 100) : 0, color: 'bg-blue-500', textColor: 'text-blue-400' },
+                      { label: t("karauMeet.onTimeRate"), value: effectiveness.on_time_rate, color: 'bg-emerald-500', textColor: 'text-emerald-400' },
+                      { label: t("karauMeet.aiNotesUsage"), value: effectiveness.total_meetings > 0 ? Math.round(effectiveness.meetings_with_notes / effectiveness.total_meetings * 100) : 0, color: 'bg-violet-500', textColor: 'text-violet-400' },
+                      { label: t("karauMeet.actionItems"), value: effectiveness.total_meetings > 0 ? Math.round(effectiveness.meetings_with_action_items / effectiveness.total_meetings * 100) : 0, color: 'bg-blue-500', textColor: 'text-blue-400' },
                     ].map((item, i) => (
                       <div key={i} className="flex items-center justify-between">
                         <span className="text-xs text-slate-500">{item.label}</span>

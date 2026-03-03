@@ -2687,7 +2687,16 @@
     "topQuestions": "أهم الأسئلة",
     "orgBreakdown": "تفصيل المؤسسة",
     "registrationTimeline": "جدول زمني للتسجيل",
-    "analyticsNotAvailable": "التحليلات غير متاحة"
+    "analyticsNotAvailable": "التحليلات غير متاحة",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "مثال: Webhook لنظام ATS - الإنتاج",

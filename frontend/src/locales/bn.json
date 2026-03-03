@@ -2291,7 +2291,16 @@
     "topQuestions": "শীর্ষ প্রশ্ন",
     "orgBreakdown": "সংস্থার বিশ্লেষণ",
     "registrationTimeline": "রেজিস্ট্রেশন টাইমলাইন",
-    "analyticsNotAvailable": "অ্যানালিটিক্স উপলব্ধ নয়"
+    "analyticsNotAvailable": "অ্যানালিটিক্স উপলব্ধ নয়",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "location": {
     "selectLocationPlaceholder": "আপনার অবস্থান নির্বাচন করুন..."

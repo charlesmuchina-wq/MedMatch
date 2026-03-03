@@ -2313,7 +2313,16 @@
     "topQuestions": "Su'aalaha Ugu Sareeya",
     "orgBreakdown": "Qaybta Ururka",
     "registrationTimeline": "Waqtiga Isdiiwaangelinta",
-    "analyticsNotAvailable": "Falanqaynta ma heli karto"
+    "analyticsNotAvailable": "Falanqaynta ma heli karto",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "tusaale, webhook ATS ee wax-soo-saarka",

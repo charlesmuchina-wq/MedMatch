@@ -2283,7 +2283,16 @@
     "topQuestions": "Gaaffilee Ijaajii",
     "orgBreakdown": "Gara Gurutuma",
     "registrationTimeline": "Gadi fageenya Galmee",
-    "analyticsNotAvailable": "Odeeffannoo safaruu hin jiru"
+    "analyticsNotAvailable": "Odeeffannoo safaruu hin jiru",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "fakkeenyaaf, Webhook ATS Production",

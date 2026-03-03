@@ -2313,7 +2313,16 @@
     "topQuestions": "Câu hỏi hàng đầu",
     "orgBreakdown": "Phân tích tổ chức",
     "registrationTimeline": "Thời gian đăng ký",
-    "analyticsNotAvailable": "Phân tích không khả dụng"
+    "analyticsNotAvailable": "Phân tích không khả dụng",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "vd: Webhook ATS cho môi trường Production",

@@ -2313,7 +2313,16 @@
     "topQuestions": "Mibvunzo Yepamusoro",
     "orgBreakdown": "Kupatsanurwa KweSangano",
     "registrationTimeline": "Nguva yeKunyoresa",
-    "analyticsNotAvailable": "Analytics haapo"
+    "analyticsNotAvailable": "Analytics haapo",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "semuenzaniso, ATS webhook yeProduction",

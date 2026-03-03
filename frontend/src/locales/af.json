@@ -2283,7 +2283,16 @@
     "topQuestions": "Top Vrae",
     "orgBreakdown": "Organisasie-onderverdeling",
     "registrationTimeline": "Registrasietydlyn",
-    "analyticsNotAvailable": "Analise nie beskikbaar nie"
+    "analyticsNotAvailable": "Analise nie beskikbaar nie",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "bv. Produksie-ATS-webhook",

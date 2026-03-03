@@ -2313,7 +2313,16 @@
     "topQuestions": "Ngā Pātai Rahi",
     "orgBreakdown": "Tātari Whakahaere",
     "registrationTimeline": "Rārangi Wā Rēhita",
-    "analyticsNotAvailable": "Kāore e wātea ana ngā tātaritanga"
+    "analyticsNotAvailable": "Kāore e wātea ana ngā tātaritanga",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ng'ekyokulabirako: ATS webhook ey'Obukugu",

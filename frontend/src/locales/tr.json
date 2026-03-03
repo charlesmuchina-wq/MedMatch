@@ -2313,7 +2313,16 @@
     "topQuestions": "En İyi Sorular",
     "orgBreakdown": "Kuruluş Dağılımı",
     "registrationTimeline": "Kayıt Zaman Çizelgesi",
-    "analyticsNotAvailable": "Analizler mevcut değil"
+    "analyticsNotAvailable": "Analizler mevcut değil",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "örn. Prodüksiyon ATS webhook'u",

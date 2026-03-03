@@ -2380,7 +2380,16 @@
     "speaker": "Speaker",
     "selectCamera": "Select camera",
     "selectMicrophone": "Select microphone",
-    "selectSpeaker": "Select speaker"
+    "selectSpeaker": "Select speaker",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."

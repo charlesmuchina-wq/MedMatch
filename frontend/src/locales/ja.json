@@ -2313,7 +2313,16 @@
     "topQuestions": "最も多い質問",
     "orgBreakdown": "組織の内訳",
     "registrationTimeline": "登録タイムライン",
-    "analyticsNotAvailable": "分析は利用できません"
+    "analyticsNotAvailable": "分析は利用できません",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "例：本番ATS webhook",

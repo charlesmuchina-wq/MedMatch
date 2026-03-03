@@ -2291,7 +2291,16 @@
     "topQuestions": "Nejlepší otázky",
     "orgBreakdown": "Rozdělení organizací",
     "registrationTimeline": "Časová osa registrace",
-    "analyticsNotAvailable": "Analýzy nejsou k dispozici"
+    "analyticsNotAvailable": "Analýzy nejsou k dispozici",
+    "interactiveReplay": "Interactive Meeting Replay",
+    "replayDescription": "Watch the Director's Cut of a Q4 Strategy Review with AI highlights",
+    "watchDemo": "Watch Demo",
+    "level": "Lv.",
+    "xpLabel": "XP",
+    "rankNewcomer": "Newcomer",
+    "rankRegular": "Regular",
+    "rankExpert": "Expert",
+    "rankChampion": "Champion"
   },
   "location": {
     "selectLocationPlaceholder": "Vyberte svou polohu..."
