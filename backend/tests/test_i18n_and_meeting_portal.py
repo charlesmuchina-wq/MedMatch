@@ -6,7 +6,7 @@ import pytest
 import requests
 import os
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://distance-zero-replay.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://realtime-simulations.preview.emergentagent.com')
 
 class TestTranslationBenchmark:
     """P0: i18n Translation Benchmark API Tests"""

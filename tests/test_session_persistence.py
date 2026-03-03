@@ -178,7 +178,7 @@ class TestCORSConfiguration:
             json={"email": ADMIN_EMAIL, "password": ADMIN_PASSWORD},
             headers={
                 "Content-Type": "application/json",
-                "Origin": "https://distance-zero-replay.preview.emergentagent.com"
+                "Origin": "https://realtime-simulations.preview.emergentagent.com"
             }
         )
         
