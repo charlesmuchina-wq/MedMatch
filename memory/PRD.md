@@ -3,14 +3,6 @@
 ## Original Problem Statement
 Transform "AI KARAU" into a futuristic "Distance Zero" communication platform with AI-powered video meetings, cinematic replay, hardware integration, and the LUMI Enterprise Team Messenger with AI productivity features.
 
-## Core Requirements
-- AI-powered video meetings with eye contact correction, spatial audio, live transcription
-- Cinematic Director's Cut meeting replay with shareable timestamped links
-- Hardware ecosystem integration (SLAM, 360 Camera, Beamforming, IoT, Biometrics)
-- Full internationalization (60 languages)
-- LUMI Messenger - standalone real-time team messaging with AI intelligence
-- ESY Color Theme - honoring ESY with Pink (#E84393), Turquoise (#00CEC9), Deep Red (#D63031)
-
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI + react-i18next
 - Backend: FastAPI + MongoDB
@@ -28,106 +20,96 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
 - Meeting Intelligence, TSR generation, i18n (60 languages)
 
 ### Phase 10 - UI Contrast Fix & Footer Navigation (Complete - Mar 4, 2026)
-- Fixed sidebar text contrast for WCAG AA compliance on charcoal background
-- Added "Switch to AI KARAU" footer button in sidebar
+- Fixed sidebar text contrast for WCAG AA compliance
+- Added "Switch to AI KARAU" footer button
 
 ### Phase 11 - AI Productivity Features + ESY Theme (Complete - Mar 4, 2026)
+- ESY Color Theme: Pink (#E84393), Turquoise (#00CEC9), Deep Red (#D63031)
+- Intelligent Meeting Summaries with action items extraction
+- Conversational AI Chat ("Ask LUMI AI")
+- Interactive Decision Cards with actionable buttons
+- Proactive Anomaly Alerts (overdue items, low morale, stale channels)
+- Sentiment Analysis + Smart Task Extraction + Automated Reports
 
-**ESY Color Theme:**
-- Pink (#E84393), Turquoise (#00CEC9), Deep Red (#D63031) accent colors
-- Applied to: login button/logo, sidebar LUMI icon, user avatar, unread badges, send button
-- Turquoise-to-pink gradient used across primary actions
-- Named after ESY in "Powered by ESY Intelligence" subtitle
+### Phase 12 - Command Bar + Knowledge Graph + Bottleneck Detection (Complete - Mar 4, 2026)
 
-**Intelligent Meeting Summaries (AI KARAU):**
-- Enhanced AI summary extracts action items with assignees, deadlines, priorities
-- Key decisions and risk alerts identified from meeting notes
-- Action Items Tracker widget on dashboard with toggle status (open/done)
-- Tracks completion rate and stores items in DB
+**LUMI Command Bar (Ctrl+K):**
+- Unified search modal triggered by Ctrl+K or Command button
+- Searches across: channels, DMs, messages, tasks, action items
+- AI mode: prefix with "?" to ask natural language questions
+- Quick actions: Create channel, Generate report, Analyze sentiment, Extract tasks, Check anomalies
+- Keyboard navigation: ↑↓ to navigate, ↵ to select, ESC to close
+- Debounced search with real-time results
 
-**Conversational Data Querying (LUMI):**
-- "Ask LUMI AI" panel with natural language interface
-- Queries across meetings, channels, tasks, and action items
-- Suggestion buttons for common queries
-- Full conversation history stored for reference
+**Knowledge Graph:**
+- Entity relationship visualization: People ↔ Channels ↔ Tasks ↔ Meetings ↔ Actions
+- 99 nodes, 86 edges built from existing data
+- Filter by entity type (All, Persons, Channels, Tasks, Meetings, Actions)
+- Stats cards showing counts per entity type
+- Click any node for Impact Analysis (AI-powered risk assessment)
+- Impact analysis shows direct/indirect effects and risk level
 
-**Interactive Decision Cards (LUMI):**
-- AI-generated decision cards based on project state
-- Severity levels: critical, warning, info
-- Actionable buttons: Reassign, Escalate, Defer, Resolve, Notify
-- Actions logged and executed (e.g., mark tasks in-progress)
+**Bottleneck Detection:**
+- Auto-detect overloaded team members (5+ tasks or 3+ high-priority)
+- Identify unassigned critical work
+- Channel engagement gap analysis (inactive members)
+- Task concentration analysis (high-priority clusters)
+- Overall Project Health score (0-100)
+- Workload summary (open items, people assigned, avg workload)
+- Suggestions for each bottleneck
 
-**Proactive Anomaly Alerts (LUMI):**
-- Auto-detects: overdue items, low morale, stale channels, unassigned tasks, low completion rate
-- Severity-coded alerts (critical/warning/info)
-- Suggested actions for each anomaly
-- Real-time scanning of all project data
+## Key API Endpoints (All /api prefixed)
 
-**Sentiment Analysis (LUMI):**
-- AI-powered channel mood analysis (0-100 score)
-- Engagement level assessment (High/Medium/Low)
-- Highlights and alerts for team dynamics
-- Sentiment history tracking
+### Authentication
+- POST /auth/login, POST /auth/register, GET /auth/me
 
-**Smart Task Extraction (LUMI):**
-- AI extracts tasks from chat messages with assignees and deadlines
-- Priority classification (high/medium/low)
-- Context from conversation preserved
-- Tasks stored with full tracking (open/done status)
+### LUMI Messenger
+- GET /lumi/channels, POST /lumi/channels
+- POST /lumi/channels/{id}/messages, GET /lumi/channels/{id}/messages
+- POST /lumi/messages/{id}/react
+- GET /lumi/dm, POST /lumi/dms
+- GET /lumi/search, GET /lumi/presence/all
 
-**Automated Status Reporting (LUMI):**
-- One-click weekly report generation for any channel
-- AI-powered analysis of message data
-- Stakeholder-ready Markdown format
-- Reports stored with stats (messages, participants, period)
+### AI Productivity
+- POST /lumi/command/search — Command Bar search + AI mode
+- POST /karau-meet/ai/enhanced-summary — Meeting intelligence
+- GET /karau-meet/ai/action-items — Action items tracker
+- PUT /karau-meet/ai/action-items/{id} — Update action item
+- POST /lumi/ai/ask — Conversational AI
+- POST /lumi/ai/decision-card — Decision cards
+- POST /lumi/ai/decision-card/{id}/action — Execute card action
+- GET /lumi/ai/anomalies — Anomaly alerts
+- POST /lumi/ai/sentiment/{channel_id} — Sentiment analysis
+- POST /lumi/ai/extract-tasks/{channel_id} — Task extraction
+- POST /lumi/ai/report/{channel_id} — Status reports
+- GET /lumi/knowledge-graph — Knowledge graph
+- POST /lumi/knowledge-graph/impact — Impact analysis
+- GET /lumi/bottlenecks — Bottleneck detection
 
-## Key API Endpoints
-
-### AI Productivity (NEW)
-- `POST /api/karau-meet/ai/enhanced-summary` - Enhanced meeting summary with action items
-- `GET /api/karau-meet/ai/action-items` - List action items with tracking
-- `PUT /api/karau-meet/ai/action-items/{id}` - Update action item status
-- `POST /api/lumi/ai/ask` - Conversational AI querying
-- `GET /api/lumi/ai/conversation-history` - Chat history
-- `POST /api/lumi/ai/decision-card` - Generate decision cards
-- `POST /api/lumi/ai/decision-card/{id}/action` - Execute card action
-- `GET /api/lumi/ai/anomalies` - Detect anomalies
-- `POST /api/lumi/ai/sentiment/{channel_id}` - Sentiment analysis
-- `GET /api/lumi/ai/sentiment-history/{channel_id}` - Sentiment trend
-- `POST /api/lumi/ai/extract-tasks/{channel_id}` - Extract tasks from chat
-- `GET /api/lumi/ai/tasks` - List tasks
-- `PUT /api/lumi/ai/tasks/{id}` - Update task
-- `POST /api/lumi/ai/report/{channel_id}` - Generate channel report
-- `GET /api/lumi/ai/reports` - List reports
+## DB Collections
+- karau_meetings, karau_users, karau_recordings
+- lumi_channels, lumi_messages, lumi_dms
+- ai_action_items, lumi_tasks, lumi_sentiment
+- lumi_reports, lumi_ai_conversations, lumi_decision_log
 
 ## Prioritized Backlog
 
 ### P1 - High Priority
-- Knowledge Graph Foundation (People/Tasks/Documents/Channels relationships)
-- "What-If" Simulations (Digital Twin Lite for project timelines)
-- Bottleneck Detection & Alerts (auto-detect overloaded team members)
-- Message Threading full UI
+- "What-If" Simulations (Digital Twin Lite)
+- Real-time Message Translation (per-message AI translation)
+- Message Threading full UI (backend exists)
 - Voice & Video Calls from LUMI
-- Real-time Message Translation
 
 ### P2 - Medium Priority
 - Calendar Integrations (Google/Microsoft)
-- Message Retention Policy admin settings
 - Message Edit/Delete
+- Message Retention Policy admin settings
 - Predictive Analytics dashboard
 - End-to-End Encryption (E2EE)
 
-### P3 - Low Priority / Requires External Credentials
-- MS Graph API / Power BI Integration (requires Azure App registration)
-- Neo4j Graph Database (requires separate infrastructure)
+### P3 - Requires External Credentials
+- MS Graph API / Power BI Integration (Azure App registration)
+- Neo4j Graph Database (separate infrastructure)
 - Multi-Agent Orchestration
 - RAG 2.0 with Document Parsing
 - Live Stripe payment gateway
-
-## DB Collections (AI Productivity)
-- `ai_action_items`: Action items from meeting summaries
-- `lumi_tasks`: Tasks extracted from chat
-- `lumi_sentiment`: Channel sentiment history
-- `lumi_reports`: Generated channel reports
-- `lumi_ai_conversations`: Conversational AI history
-- `lumi_decision_log`: Decision card action log
