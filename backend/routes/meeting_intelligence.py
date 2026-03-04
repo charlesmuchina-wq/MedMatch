@@ -10,9 +10,13 @@ from datetime import datetime, timezone, timedelta
 import uuid
 import io
 import json
+import os
+import logging
 
 from utils.database import db
 from routes.auth import get_current_user
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/karau-meet", tags=["Meeting Intelligence & TSR"])
 
@@ -200,6 +204,90 @@ async def get_intelligence_summary(request: Request):
         "weekly_trend": [{"week": k, "count": v} for k, v in sorted(weekly_meetings.items())[-8:]],
         "generated_at": datetime.now(timezone.utc).isoformat()
     }
+
+
+@router.get("/intelligence/ai-summary")
+async def get_ai_theme_summary(request: Request):
+    """Generate AI-powered natural language summary of meeting themes"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    user_id = user["user_id"]
+
+    # Get meetings with notes
+    meetings = await db.karau_meetings.find(
+        {
+            "$or": [{"host_id": user_id}, {"participants.user_id": user_id}],
+            "status": "ended"
+        },
+        {"_id": 0, "title": 1, "ai_notes": 1, "ended_at": 1}
+    ).sort("ended_at", -1).limit(20).to_list(20)
+
+    # Collect all notes content
+    all_notes = []
+    for m in meetings:
+        title = m.get("title", "Meeting")
+        for note in m.get("ai_notes", []):
+            all_notes.append(f"[{title}] ({note.get('type', 'note')}): {note.get('content', '')}")
+
+    if not all_notes:
+        return {
+            "summary": "No meeting data available yet. Complete some meetings with AI notes enabled to get intelligent theme analysis.",
+            "key_insights": [],
+            "recommendations": [],
+            "generated_at": datetime.now(timezone.utc).isoformat()
+        }
+
+    notes_text = "\n".join(all_notes[:50])
+
+    try:
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+
+        api_key = os.environ.get("EMERGENT_LLM_KEY")
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=f"intel_{user_id}_{uuid.uuid4().hex[:6]}",
+            system_message="You are a meeting intelligence analyst. Analyze meeting notes and provide actionable insights. Be concise and specific. Respond in valid JSON only."
+        ).with_model("openai", "gpt-5.2")
+
+        prompt = f"""Analyze these meeting notes from {len(meetings)} recent meetings and provide insights:
+
+{notes_text}
+
+Respond in this exact JSON format:
+{{
+  "summary": "A 2-3 sentence overview of the key themes across meetings",
+  "key_insights": ["insight 1", "insight 2", "insight 3"],
+  "recommendations": ["recommendation 1", "recommendation 2"],
+  "trending_up": ["topic rising in frequency"],
+  "needs_attention": ["items that need follow-up"]
+}}"""
+
+        response = await chat.send_message(UserMessage(text=prompt))
+
+        # Parse JSON from response
+        response_text = response.strip()
+        if response_text.startswith("```"):
+            response_text = response_text.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+
+        result = json.loads(response_text)
+
+        return {
+            **result,
+            "meetings_analyzed": len(meetings),
+            "notes_processed": len(all_notes),
+            "generated_at": datetime.now(timezone.utc).isoformat()
+        }
+    except Exception as e:
+        logger.error(f"AI summary error: {e}")
+        return {
+            "summary": "AI analysis is temporarily unavailable. Please try again shortly.",
+            "key_insights": [],
+            "recommendations": [],
+            "error": str(e),
+            "generated_at": datetime.now(timezone.utc).isoformat()
+        }
 
 
 # ============== TSR (Test Summary Report) ==============

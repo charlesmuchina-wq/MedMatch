@@ -42,6 +42,66 @@ const AI_CAPABILITIES = [
   { icon: Bot, labelKey: 'karauMeet.assistant', color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
 ];
 
+// AI Summary Widget for Meeting Intelligence
+const AiSummaryWidget = () => {
+  const { t } = useTranslation();
+  const [aiSummary, setAiSummary] = useState(null);
+  const [loadingAi, setLoadingAi] = useState(false);
+
+  const generateAiSummary = async () => {
+    setLoadingAi(true);
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API}/api/karau-meet/intelligence/ai-summary`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) setAiSummary(await res.json());
+    } catch (e) { console.error('AI summary error:', e); }
+    setLoadingAi(false);
+  };
+
+  return (
+    <div className="mt-3 pt-3 border-t border-white/[0.04]" data-testid="ai-summary-section">
+      {!aiSummary ? (
+        <button onClick={generateAiSummary} disabled={loadingAi}
+          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gradient-to-r from-amber-600/10 to-orange-600/5 border border-amber-500/15 text-amber-300 text-xs font-medium hover:from-amber-600/15 hover:to-orange-600/10 transition-all"
+          data-testid="generate-ai-summary">
+          {loadingAi ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
+          {loadingAi ? (t('karauMeet.analyzingThemes') || 'Analyzing themes...') : (t('karauMeet.generateAiSummary') || 'Generate AI Theme Summary')}
+        </button>
+      ) : (
+        <div className="space-y-3">
+          <div className="flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span className="text-xs font-semibold text-amber-300">{t('karauMeet.aiInsights') || 'AI Insights'}</span>
+          </div>
+          <p className="text-xs text-slate-300 leading-relaxed">{aiSummary.summary}</p>
+          {aiSummary.key_insights?.length > 0 && (
+            <div className="space-y-1">
+              {aiSummary.key_insights.map((insight, i) => (
+                <div key={i} className="flex items-start gap-2 text-xs text-slate-400">
+                  <Lightbulb className="w-3 h-3 text-amber-500 mt-0.5 flex-shrink-0" />
+                  <span>{insight}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          {aiSummary.recommendations?.length > 0 && (
+            <div className="space-y-1">
+              {aiSummary.recommendations.map((rec, i) => (
+                <div key={i} className="flex items-start gap-2 text-xs text-teal-400">
+                  <CheckCircle2 className="w-3 h-3 text-teal-500 mt-0.5 flex-shrink-0" />
+                  <span>{rec}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
 const KarauMeetDashboard = ({ user }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -401,6 +461,9 @@ const KarauMeetDashboard = ({ user }) => {
                     </div>
                   </div>
                 )}
+
+                {/* AI Summary Button */}
+                <AiSummaryWidget />
               </div>
             )}
           </div>

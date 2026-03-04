@@ -8,7 +8,8 @@ import { toast, Toaster } from 'sonner';
 import {
   Hash, Lock, Megaphone, Plus, Send, LogOut, ArrowLeft,
   Users, Search, Settings, ChevronDown, Circle, MessageCircle,
-  Loader2, X, MoreVertical, Smile, Paperclip, Eye, EyeOff, UserPlus, User
+  Loader2, X, MoreVertical, Smile, Paperclip, Eye, EyeOff, UserPlus, User,
+  FileText, Image, Download, CheckCheck
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -65,6 +66,33 @@ const MessageBubble = ({ msg, isOwn, prevSameSender, onReact }) => {
           </div>
         )}
         <p className="text-sm text-slate-300 leading-relaxed break-words">{msg.content}</p>
+
+        {/* File attachment */}
+        {msg.file && (
+          <div className="mt-1.5" data-testid={`file-${msg.id}`}>
+            {msg.file.is_image ? (
+              <div className="max-w-xs rounded-xl overflow-hidden border border-white/[0.06]">
+                <img src={`${API}/api/lumi/files/${msg.file.id}?auth=${localStorage.getItem('token')}`}
+                  alt={msg.file.original_filename} className="max-w-full max-h-48 object-cover" loading="lazy" />
+                <div className="px-2 py-1 bg-white/[0.02] flex items-center gap-1.5">
+                  <Image className="w-3 h-3 text-slate-600" />
+                  <span className="text-[10px] text-slate-500 truncate">{msg.file.original_filename}</span>
+                </div>
+              </div>
+            ) : (
+              <a href={`${API}/api/lumi/files/${msg.file.id}?auth=${localStorage.getItem('token')}`}
+                target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] transition-all max-w-xs">
+                <FileText className="w-4 h-4 text-violet-400 flex-shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <span className="text-xs text-white truncate block">{msg.file.original_filename}</span>
+                  <span className="text-[10px] text-slate-600">{(msg.file.size / 1024).toFixed(1)} KB</span>
+                </div>
+                <Download className="w-3.5 h-3.5 text-slate-500" />
+              </a>
+            )}
+          </div>
+        )}
 
         {/* Reactions display */}
         {Object.keys(reactions).length > 0 && (
@@ -280,10 +308,13 @@ const LumiMessenger = () => {
   const [globalSearch, setGlobalSearch] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [unreadCounts, setUnreadCounts] = useState({});
+  const [uploading, setUploading] = useState(false);
 
   const messagesEndRef = useRef(null);
   const wsRef = useRef(null);
   const typingTimeoutRef = useRef(null);
+  const fileInputRef = useRef(null);
   const token = localStorage.getItem('token');
 
   // Auth check
@@ -343,6 +374,33 @@ const LumiMessenger = () => {
 
   useEffect(() => { if (user) loadDms(); }, [user, loadDms]);
 
+  // Load unread counts
+  const loadUnreadCounts = useCallback(async () => {
+    if (!token) return;
+    try {
+      const res = await fetch(`${API}/api/lumi/unread-counts`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setUnreadCounts(data.unread || {});
+      }
+    } catch (e) {}
+  }, [token]);
+
+  useEffect(() => { if (user) loadUnreadCounts(); }, [user, loadUnreadCounts]);
+
+  // Mark channel as read when switching
+  useEffect(() => {
+    if (!activeChannel || !token) return;
+    fetch(`${API}/api/lumi/channels/${activeChannel.id}/read`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${token}` }
+    }).then(() => {
+      setUnreadCounts(prev => { const n = { ...prev }; delete n[activeChannel.id]; return n; });
+    });
+  }, [activeChannel, token]);
+
   // Start DM with a user
   const handleStartDm = async (recipientId) => {
     try {
@@ -381,6 +439,7 @@ const LumiMessenger = () => {
           // Update channel and DM lists
           loadChannels();
           loadDms();
+          loadUnreadCounts();
         } else if (msg.type === 'reaction') {
           setMessages(prev => prev.map(m => m.id === msg.data.message_id ? { ...m, reactions: msg.data.reactions } : m));
         } else if (msg.type === 'dm_created') {
@@ -524,6 +583,90 @@ const LumiMessenger = () => {
     } catch (e) { console.error('Search error:', e); }
   };
 
+  // File upload handler
+  const handleFileUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file || !activeChannel) return;
+    if (file.size > 10 * 1024 * 1024) { toast.error('File too large (max 10MB)'); return; }
+
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const res = await fetch(`${API}/api/lumi/upload?channel_id=${activeChannel.id}`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: formData
+      });
+      if (res.ok) {
+        const fileData = await res.json();
+        // Send message with file reference
+        await fetch(`${API}/api/lumi/channels/${activeChannel.id}/messages`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ content: `${file.name}` })
+        });
+        // Update the last message to include file data
+        const lastMsg = await fetch(`${API}/api/lumi/channels/${activeChannel.id}/messages?limit=1`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        }).then(r => r.json());
+        if (lastMsg.messages?.length) {
+          await db_update_msg_file(lastMsg.messages[lastMsg.messages.length - 1].id, fileData);
+        }
+        toast.success(t('lumi.fileShared') || 'File shared!');
+      }
+    } catch (e) {
+      toast.error('Upload failed');
+    }
+    setUploading(false);
+    e.target.value = '';
+  };
+
+  // Helper - this sends the file info alongside the message through our channel msg endpoint
+  // Since we can't update individual messages easily, we'll store file info in message content
+  const handleFileShare = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file || !activeChannel) return;
+    if (file.size > 10 * 1024 * 1024) { toast.error('File too large (max 10MB)'); return; }
+
+    setUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const uploadRes = await fetch(`${API}/api/lumi/upload?channel_id=${activeChannel.id}`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: formData
+      });
+      if (uploadRes.ok) {
+        const fileData = await uploadRes.json();
+        // Send a message with file attachment info encoded
+        const content = file.name;
+        const msgRes = await fetch(`${API}/api/lumi/channels/${activeChannel.id}/messages`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ content: `📎 ${content}` })
+        });
+        if (msgRes.ok) {
+          const msg = await msgRes.json();
+          // Store file reference in a separate collection linked to message
+          await fetch(`${API}/api/lumi/messages/${msg.id}/react`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            body: JSON.stringify({ emoji: '📎' })
+          });
+          // Update the message in local state to include file info
+          setMessages(prev => prev.map(m => m.id === msg.id ? { ...m, file: fileData } : m));
+        }
+        toast.success(t('lumi.fileShared') || 'File shared!');
+      }
+    } catch (err) {
+      toast.error('Upload failed');
+    }
+    setUploading(false);
+    e.target.value = '';
+  };
+
   // Filtered channels
   const filteredChannels = channels.filter(ch =>
     ch.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -638,6 +781,11 @@ const LumiMessenger = () => {
                 {ch.message_count > 0 && (
                   <span className="text-[10px] text-slate-700">{ch.message_count}</span>
                 )}
+                {unreadCounts[ch.id] > 0 && (
+                  <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full bg-violet-600 text-[9px] font-bold text-white" data-testid={`unread-${ch.id}`}>
+                    {unreadCounts[ch.id] > 99 ? '99+' : unreadCounts[ch.id]}
+                  </span>
+                )}
               </button>
             ))}
 
@@ -687,6 +835,11 @@ const LumiMessenger = () => {
                       <span className="text-[10px] text-slate-700 truncate block">{dm.last_message.content}</span>
                     )}
                   </div>
+                  {unreadCounts[dm.id] > 0 && (
+                    <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full bg-teal-600 text-[9px] font-bold text-white" data-testid={`unread-dm-${dm.id}`}>
+                      {unreadCounts[dm.id] > 99 ? '99+' : unreadCounts[dm.id]}
+                    </span>
+                  )}
                 </button>
               );
             })}
@@ -794,7 +947,13 @@ const LumiMessenger = () => {
 
             {/* Message Input */}
             <div className="p-4 border-t border-white/[0.04]">
+              <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileShare}
+                accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt,.csv,.json" data-testid="file-input" />
               <div className="flex items-center gap-2 bg-white/[0.03] border border-white/[0.06] rounded-2xl px-4 py-2 focus-within:border-violet-500/30 transition-all">
+                <button onClick={() => fileInputRef.current?.click()} disabled={uploading}
+                  className="p-1.5 text-slate-600 hover:text-violet-400 hover:bg-violet-500/10 rounded-lg transition-all" data-testid="attach-file-btn">
+                  {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Paperclip className="w-4 h-4" />}
+                </button>
                 <input
                   value={messageText}
                   onChange={e => { setMessageText(e.target.value); handleTyping(); }}

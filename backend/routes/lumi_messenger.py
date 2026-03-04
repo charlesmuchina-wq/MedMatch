@@ -346,6 +346,90 @@ async def search_messages(request: Request, q: str = "", limit: int = 20):
 
     return {"results": results, "query": q}
 
+# ============== Read Receipts ==============
+
+@router.post("/channels/{channel_id}/read")
+async def mark_as_read(channel_id: str, request: Request):
+    """Mark all messages in a channel as read for the current user"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    await db.lumi_read_receipts.update_one(
+        {"channel_id": channel_id, "user_id": user["user_id"]},
+        {
+            "$set": {
+                "last_read_at": datetime.now(timezone.utc).isoformat(),
+                "channel_id": channel_id,
+                "user_id": user["user_id"]
+            }
+        },
+        upsert=True
+    )
+
+    # Notify other channel members
+    await manager.send_to_channel(channel_id, {
+        "type": "read_receipt",
+        "data": {"channel_id": channel_id, "user_id": user["user_id"], "name": user.get("name", "")}
+    })
+
+    return {"status": "read"}
+
+@router.get("/channels/{channel_id}/read-status")
+async def get_read_status(channel_id: str, request: Request):
+    """Get read receipts for a channel"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    receipts = await db.lumi_read_receipts.find(
+        {"channel_id": channel_id},
+        {"_id": 0}
+    ).to_list(100)
+
+    return {"receipts": receipts}
+
+@router.get("/unread-counts")
+async def get_unread_counts(request: Request):
+    """Get unread message counts for all user's channels"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    # Get all channels user is in
+    all_channels = await db.lumi_channels.find(
+        {"members.user_id": user["user_id"]},
+        {"_id": 0, "id": 1}
+    ).to_list(200)
+
+    channel_ids = [ch["id"] for ch in all_channels]
+
+    # Get read receipts
+    receipts = await db.lumi_read_receipts.find(
+        {"user_id": user["user_id"], "channel_id": {"$in": channel_ids}},
+        {"_id": 0}
+    ).to_list(200)
+    receipt_map = {r["channel_id"]: r["last_read_at"] for r in receipts}
+
+    counts = {}
+    for ch_id in channel_ids:
+        last_read = receipt_map.get(ch_id)
+        if last_read:
+            count = await db.lumi_messages.count_documents({
+                "channel_id": ch_id,
+                "created_at": {"$gt": last_read},
+                "sender_id": {"$ne": user["user_id"]}
+            })
+        else:
+            count = await db.lumi_messages.count_documents({
+                "channel_id": ch_id,
+                "sender_id": {"$ne": user["user_id"]}
+            })
+        if count > 0:
+            counts[ch_id] = count
+
+    return {"unread": counts}
+
 # ============== Presence & Typing ==============
 
 @router.get("/presence")
