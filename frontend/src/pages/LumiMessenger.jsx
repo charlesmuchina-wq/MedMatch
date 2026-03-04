@@ -1,7 +1,8 @@
 /**
  * LUMI Prestige — Enterprise Team Messenger
- * Design: Charcoal (#36454F), Cool Grey, Teal (#008080) accent
- * 60-30-10 Rule: Slate base / Charcoal brand / Teal action
+ * Design: Charcoal (#36454F), Cool Grey, ESY accents (Pink, Turquoise, Deep Red)
+ * ESY Color Theme: Honoring ESY — Pink (#E84393), Turquoise (#00CEC9), Deep Red (#D63031)
+ * 60-30-10 Rule: Slate base / Charcoal brand / ESY accents
  */
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +12,9 @@ import {
   Users, Search, ChevronDown, Circle, MessageCircle,
   Loader2, X, Smile, Paperclip, Eye, EyeOff, UserPlus, User,
   FileText, Image, Download, CheckCheck, Phone, PhoneOff,
-  Settings, MessageSquare, Shield, Building2, MoreHorizontal
+  Settings, MessageSquare, Shield, Building2, MoreHorizontal,
+  Sparkles, BarChart3, ListTodo, FileBarChart, Brain,
+  CheckCircle2, AlertTriangle, Activity
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,6 +24,15 @@ import { useTranslation } from '@/utils/i18n';
 const API = process.env.REACT_APP_BACKEND_URL;
 const WS_URL = API.replace('https://', 'wss://').replace('http://', 'ws://');
 
+// ESY Color Palette — Honoring ESY
+const ESY = {
+  pink: '#E84393',
+  pinkLight: '#FD79A8',
+  turquoise: '#00CEC9',
+  turquoiseLight: '#55EFC4',
+  deepRed: '#D63031',
+  deepRedLight: '#FF7675',
+};
 // ============== Presence Colors ==============
 const STATUS_COLORS = {
   available: 'bg-emerald-500',
@@ -267,6 +279,511 @@ const MembersPanel = ({ channelId, onClose, token }) => {
   );
 };
 
+// ============== AI Productivity Panel ==============
+const AiProductivityPanel = ({ channelId, channelName, onClose, token }) => {
+  const [activeTab, setActiveTab] = useState('sentiment');
+  const [sentiment, setSentiment] = useState(null);
+  const [tasks, setTasks] = useState([]);
+  const [report, setReport] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const analyzeSentiment = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/api/lumi/ai/sentiment/${channelId}`, {
+        method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) setSentiment(await res.json());
+    } catch (e) { toast.error('Analysis failed'); }
+    setLoading(false);
+  };
+
+  const extractTasks = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/api/lumi/ai/extract-tasks/${channelId}`, {
+        method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) { const d = await res.json(); setTasks(d.tasks || []); }
+    } catch (e) { toast.error('Extraction failed'); }
+    setLoading(false);
+  };
+
+  const generateReport = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/api/lumi/ai/report/${channelId}`, {
+        method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) setReport(await res.json());
+    } catch (e) { toast.error('Report failed'); }
+    setLoading(false);
+  };
+
+  const toggleTask = async (taskId, current) => {
+    const newStatus = current === 'done' ? 'open' : 'done';
+    try {
+      await fetch(`${API}/api/lumi/ai/tasks/${taskId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ status: newStatus })
+      });
+      setTasks(prev => prev.map(t => t.id === taskId ? { ...t, status: newStatus } : t));
+    } catch (e) {}
+  };
+
+  const scoreColor = (score) => {
+    if (score >= 70) return 'text-emerald-500';
+    if (score >= 40) return 'text-amber-500';
+    return 'text-red-500';
+  };
+
+  const priorityBadge = {
+    high: 'bg-red-50 text-red-600 border-red-200',
+    medium: 'bg-amber-50 text-amber-600 border-amber-200',
+    low: 'bg-slate-50 text-slate-500 border-slate-200',
+  };
+
+  const tabs = [
+    { key: 'sentiment', label: 'Sentiment', icon: Activity },
+    { key: 'tasks', label: 'Tasks', icon: ListTodo },
+    { key: 'report', label: 'Report', icon: FileBarChart },
+  ];
+
+  return (
+    <div className="w-[350px] border-l border-slate-200 bg-white flex flex-col h-full" data-testid="ai-panel">
+      <div className="h-14 flex items-center justify-between px-4 border-b border-slate-200">
+        <div className="flex items-center gap-2">
+          <Brain className="w-4 h-4 text-[#008080]" />
+          <h3 className="text-sm font-semibold text-slate-900">AI Insights</h3>
+        </div>
+        <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-md"><X className="w-4 h-4 text-slate-500" /></button>
+      </div>
+
+      {/* Tabs */}
+      <div className="flex border-b border-slate-200">
+        {tabs.map(tab => (
+          <button key={tab.key} onClick={() => setActiveTab(tab.key)}
+            className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 text-xs font-medium transition-colors ${
+              activeTab === tab.key ? 'text-[#008080] border-b-2 border-[#008080]' : 'text-slate-400 hover:text-slate-600'
+            }`} data-testid={`ai-tab-${tab.key}`}>
+            <tab.icon className="w-3.5 h-3.5" />{tab.label}
+          </button>
+        ))}
+      </div>
+
+      <ScrollArea className="flex-1">
+        <div className="p-4">
+          {/* Sentiment Tab */}
+          {activeTab === 'sentiment' && (
+            <div className="space-y-4">
+              {!sentiment ? (
+                <button onClick={analyzeSentiment} disabled={loading}
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-[#008080]/5 border border-[#008080]/20 text-[#008080] text-sm font-medium hover:bg-[#008080]/10 transition-colors"
+                  data-testid="analyze-sentiment-btn">
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Activity className="w-4 h-4" />}
+                  {loading ? 'Analyzing...' : 'Analyze Channel Mood'}
+                </button>
+              ) : (
+                <>
+                  <div className="flex items-center justify-between p-4 rounded-lg bg-slate-50 border border-slate-100">
+                    <div>
+                      <p className="text-xs text-slate-500 mb-1">Team Morale Score</p>
+                      <p className={`text-3xl font-bold ${scoreColor(sentiment.score)}`}>{sentiment.score}</p>
+                    </div>
+                    <div className="text-right">
+                      <span className={`text-sm font-semibold ${scoreColor(sentiment.score)}`}>{sentiment.label}</span>
+                      <p className="text-[10px] text-slate-400 mt-0.5">{sentiment.engagement_level} engagement</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate-600 leading-relaxed">{sentiment.summary}</p>
+                  {sentiment.highlights?.length > 0 && (
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-semibold text-emerald-600 uppercase tracking-wider">Highlights</span>
+                      {sentiment.highlights.map((h, i) => (
+                        <div key={i} className="flex items-start gap-2 text-xs text-slate-600">
+                          <CheckCircle2 className="w-3 h-3 text-emerald-500 mt-0.5 flex-shrink-0" /><span>{h}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {sentiment.alerts?.length > 0 && (
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-semibold text-amber-600 uppercase tracking-wider">Attention Needed</span>
+                      {sentiment.alerts.map((a, i) => (
+                        <div key={i} className="flex items-start gap-2 text-xs text-amber-700">
+                          <AlertTriangle className="w-3 h-3 text-amber-500 mt-0.5 flex-shrink-0" /><span>{a}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  <button onClick={() => { setSentiment(null); analyzeSentiment(); }}
+                    className="w-full text-xs text-slate-400 hover:text-[#008080] py-1 transition-colors">Refresh Analysis</button>
+                </>
+              )}
+            </div>
+          )}
+
+          {/* Tasks Tab */}
+          {activeTab === 'tasks' && (
+            <div className="space-y-3">
+              <button onClick={extractTasks} disabled={loading}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-[#008080]/5 border border-[#008080]/20 text-[#008080] text-sm font-medium hover:bg-[#008080]/10 transition-colors"
+                data-testid="extract-tasks-btn">
+                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
+                {loading ? 'Extracting...' : 'Extract Tasks from Chat'}
+              </button>
+              {tasks.length > 0 && (
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-slate-700">{tasks.length} tasks found</span>
+                    <span className="text-[10px] text-slate-400">{tasks.filter(t => t.status === 'done').length} done</span>
+                  </div>
+                  {tasks.map(task => (
+                    <div key={task.id} className={`p-3 rounded-lg border transition-all ${task.status === 'done' ? 'bg-slate-50 border-slate-100 opacity-70' : 'bg-white border-slate-200'}`}
+                      data-testid={`task-${task.id}`}>
+                      <div className="flex items-start gap-2">
+                        <button onClick={() => toggleTask(task.id, task.status)}
+                          className={`w-4 h-4 mt-0.5 rounded border flex-shrink-0 flex items-center justify-center ${task.status === 'done' ? 'bg-[#008080]/20 border-[#008080]/40 text-[#008080]' : 'border-slate-300 hover:border-[#008080]'}`}
+                          data-testid={`toggle-task-${task.id}`}>
+                          {task.status === 'done' && <CheckCircle2 className="w-3 h-3" />}
+                        </button>
+                        <div className="flex-1 min-w-0">
+                          <p className={`text-xs leading-relaxed ${task.status === 'done' ? 'text-slate-400 line-through' : 'text-slate-800'}`}>{task.task}</p>
+                          <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                            {task.assignee && task.assignee !== 'Unassigned' && (
+                              <span className="text-[9px] bg-[#008080]/10 text-[#008080] px-1.5 py-0.5 rounded font-medium">{task.assignee}</span>
+                            )}
+                            {task.deadline && task.deadline !== 'TBD' && (
+                              <span className="text-[9px] text-slate-400 bg-slate-50 px-1.5 py-0.5 rounded">{task.deadline}</span>
+                            )}
+                            {task.priority && (
+                              <span className={`text-[9px] px-1.5 py-0.5 rounded border ${priorityBadge[task.priority] || priorityBadge.low}`}>{task.priority}</span>
+                            )}
+                          </div>
+                          {task.context && <p className="text-[10px] text-slate-400 mt-1 italic">"{task.context}"</p>}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Report Tab */}
+          {activeTab === 'report' && (
+            <div className="space-y-3">
+              {!report ? (
+                <button onClick={generateReport} disabled={loading}
+                  className="w-full flex items-center justify-center gap-2 py-3 rounded-lg bg-[#008080]/5 border border-[#008080]/20 text-[#008080] text-sm font-medium hover:bg-[#008080]/10 transition-colors"
+                  data-testid="generate-report-btn">
+                  {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <FileBarChart className="w-4 h-4" />}
+                  {loading ? 'Generating...' : 'Generate Weekly Report'}
+                </button>
+              ) : (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-slate-700">#{report.channel_name} Report</span>
+                    <span className="text-[10px] text-slate-400">{report.stats?.messages || 0} msgs / {report.stats?.participants || 0} people</span>
+                  </div>
+                  <div className="prose prose-sm max-w-none">
+                    <div className="text-xs text-slate-700 leading-relaxed whitespace-pre-wrap bg-slate-50 p-4 rounded-lg border border-slate-100 max-h-[400px] overflow-auto" data-testid="report-content">
+                      {report.report}
+                    </div>
+                  </div>
+                  <button onClick={() => { setReport(null); }}
+                    className="w-full text-xs text-slate-400 hover:text-[#008080] py-1 transition-colors">Generate New Report</button>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </ScrollArea>
+    </div>
+  );
+};
+
+// ============== Conversational AI Chat ==============
+const AiChatPanel = ({ channelId, onClose, token }) => {
+  const [question, setQuestion] = useState('');
+  const [conversations, setConversations] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const chatEndRef = useRef(null);
+
+  const askAi = async () => {
+    if (!question.trim() || loading) return;
+    const q = question.trim();
+    setQuestion('');
+    setConversations(prev => [...prev, { role: 'user', text: q }]);
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/api/lumi/ai/ask`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ question: q, channel_id: channelId })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setConversations(prev => [...prev, { role: 'ai', text: data.answer }]);
+      }
+    } catch (e) { setConversations(prev => [...prev, { role: 'ai', text: 'Sorry, I could not process that.' }]); }
+    setLoading(false);
+  };
+
+  useEffect(() => { chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [conversations]);
+
+  return (
+    <div className="w-[380px] border-l border-slate-200 bg-white flex flex-col h-full" data-testid="ai-chat-panel">
+      <div className="h-14 flex items-center justify-between px-4 border-b border-slate-200" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}08, ${ESY.pink}08)` }}>
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}>
+            <Sparkles className="w-3.5 h-3.5 text-white" />
+          </div>
+          <div>
+            <h3 className="text-sm font-semibold text-slate-900">Ask LUMI AI</h3>
+            <p className="text-[9px] text-slate-400">Powered by ESY Intelligence</p>
+          </div>
+        </div>
+        <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-md" data-testid="close-ai-chat"><X className="w-4 h-4 text-slate-500" /></button>
+      </div>
+
+      <ScrollArea className="flex-1">
+        <div className="p-4 space-y-3">
+          {conversations.length === 0 && (
+            <div className="text-center py-8">
+              <div className="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-3" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}15, ${ESY.pink}15)` }}>
+                <MessageSquare className="w-6 h-6" style={{ color: ESY.turquoise }} />
+              </div>
+              <p className="text-sm font-medium text-slate-700 mb-1">Ask me anything</p>
+              <p className="text-xs text-slate-400 mb-4">I can query your meetings, tasks, and channel data</p>
+              <div className="space-y-2">
+                {['What tasks are overdue?', 'Summarize recent meetings', 'Who is most active this week?'].map((q, i) => (
+                  <button key={i} onClick={() => { setQuestion(q); }}
+                    className="w-full text-left text-xs px-3 py-2 rounded-lg border border-slate-100 text-slate-600 hover:border-slate-200 hover:bg-slate-50 transition-colors"
+                    data-testid={`ai-suggestion-${i}`}>{q}</button>
+                ))}
+              </div>
+            </div>
+          )}
+          {conversations.map((msg, i) => (
+            <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`max-w-[85%] px-3 py-2 rounded-xl text-xs leading-relaxed ${
+                msg.role === 'user'
+                  ? 'text-white rounded-br-sm'
+                  : 'bg-slate-50 text-slate-700 border border-slate-100 rounded-bl-sm'
+              }`} style={msg.role === 'user' ? { background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink}90)` } : {}}
+                data-testid={`ai-msg-${i}`}>
+                <span className="whitespace-pre-wrap">{msg.text}</span>
+              </div>
+            </div>
+          ))}
+          {loading && (
+            <div className="flex justify-start">
+              <div className="bg-slate-50 border border-slate-100 px-3 py-2 rounded-xl rounded-bl-sm">
+                <Loader2 className="w-4 h-4 animate-spin" style={{ color: ESY.turquoise }} />
+              </div>
+            </div>
+          )}
+          <div ref={chatEndRef} />
+        </div>
+      </ScrollArea>
+
+      <div className="p-3 border-t border-slate-200">
+        <div className="flex items-center gap-2">
+          <input value={question} onChange={e => setQuestion(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && askAi()}
+            placeholder="Ask about projects, tasks, meetings..."
+            className="flex-1 h-9 px-3 text-xs bg-slate-50 border border-slate-200 rounded-lg outline-none focus:border-[#00CEC9] transition-colors"
+            data-testid="ai-chat-input" />
+          <button onClick={askAi} disabled={!question.trim() || loading}
+            className="h-9 w-9 flex items-center justify-center rounded-lg text-white transition-all disabled:opacity-40"
+            style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}
+            data-testid="ai-chat-send"><Send className="w-3.5 h-3.5" /></button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ============== Decision Cards & Anomaly Alerts ==============
+const AlertsPanel = ({ onClose, token }) => {
+  const [alerts, setAlerts] = useState([]);
+  const [cards, setCards] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('alerts');
+
+  const loadAlerts = async () => {
+    try {
+      const res = await fetch(`${API}/api/lumi/ai/anomalies`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) { const d = await res.json(); setAlerts(d.alerts || []); }
+    } catch (e) {}
+  };
+
+  const loadDecisionCards = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/api/lumi/ai/decision-card`, {
+        method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) { const d = await res.json(); setCards(d.cards || []); }
+    } catch (e) {}
+    setLoading(false);
+  };
+
+  const executeCardAction = async (cardId, actionType, payload) => {
+    try {
+      const res = await fetch(`${API}/api/lumi/ai/decision-card/${cardId}/action`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ action_type: actionType, payload })
+      });
+      if (res.ok) {
+        const d = await res.json();
+        toast.success(d.message || 'Action executed');
+        setCards(prev => prev.map(c => c.id === cardId ? { ...c, status: 'resolved' } : c));
+      }
+    } catch (e) { toast.error('Action failed'); }
+  };
+
+  useEffect(() => { loadAlerts(); }, []);
+
+  const severityStyles = {
+    critical: { bg: `${ESY.deepRed}10`, border: `${ESY.deepRed}25`, text: ESY.deepRed, icon: AlertTriangle },
+    warning: { bg: '#FFF3E0', border: '#FFB74D40', text: '#E65100', icon: AlertTriangle },
+    info: { bg: `${ESY.turquoise}10`, border: `${ESY.turquoise}25`, text: ESY.turquoise, icon: Activity },
+  };
+
+  const cardSeverityStyles = {
+    critical: { gradient: `linear-gradient(135deg, ${ESY.deepRed}10, ${ESY.deepRedLight}05)`, border: `${ESY.deepRed}30` },
+    warning: { gradient: `linear-gradient(135deg, ${ESY.pink}08, #FFF3E005)`, border: `${ESY.pink}30` },
+    info: { gradient: `linear-gradient(135deg, ${ESY.turquoise}08, ${ESY.turquoiseLight}05)`, border: `${ESY.turquoise}30` },
+  };
+
+  return (
+    <div className="w-[350px] border-l border-slate-200 bg-white flex flex-col h-full" data-testid="alerts-panel">
+      <div className="h-14 flex items-center justify-between px-4 border-b border-slate-200">
+        <div className="flex items-center gap-2">
+          <AlertTriangle className="w-4 h-4" style={{ color: ESY.deepRed }} />
+          <h3 className="text-sm font-semibold text-slate-900">Alerts & Decisions</h3>
+          {alerts.length > 0 && (
+            <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[9px] font-bold text-white" style={{ backgroundColor: ESY.deepRed }}>{alerts.length}</span>
+          )}
+        </div>
+        <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-md"><X className="w-4 h-4 text-slate-500" /></button>
+      </div>
+
+      <div className="flex border-b border-slate-200">
+        <button onClick={() => setActiveTab('alerts')}
+          className={`flex-1 py-2.5 text-xs font-medium transition-colors ${activeTab === 'alerts' ? 'border-b-2 text-slate-900' : 'text-slate-400'}`}
+          style={activeTab === 'alerts' ? { borderColor: ESY.deepRed, color: ESY.deepRed } : {}}
+          data-testid="tab-alerts">Anomaly Alerts</button>
+        <button onClick={() => { setActiveTab('cards'); if (cards.length === 0) loadDecisionCards(); }}
+          className={`flex-1 py-2.5 text-xs font-medium transition-colors ${activeTab === 'cards' ? 'border-b-2 text-slate-900' : 'text-slate-400'}`}
+          style={activeTab === 'cards' ? { borderColor: ESY.pink, color: ESY.pink } : {}}
+          data-testid="tab-decisions">Decision Cards</button>
+      </div>
+
+      <ScrollArea className="flex-1">
+        <div className="p-4 space-y-3">
+          {activeTab === 'alerts' && (
+            <>
+              {alerts.length === 0 ? (
+                <div className="text-center py-8">
+                  <CheckCircle2 className="w-10 h-10 mx-auto mb-2" style={{ color: ESY.turquoise }} />
+                  <p className="text-sm font-medium text-slate-700">All Clear</p>
+                  <p className="text-xs text-slate-400 mt-1">No anomalies detected at this time</p>
+                </div>
+              ) : (
+                alerts.map((alert) => {
+                  const s = severityStyles[alert.severity] || severityStyles.info;
+                  const Icon = s.icon;
+                  return (
+                    <div key={alert.id} className="p-3 rounded-lg border" style={{ backgroundColor: s.bg, borderColor: s.border }}
+                      data-testid={`alert-${alert.id}`}>
+                      <div className="flex items-start gap-2">
+                        <Icon className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color: s.text }} />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-semibold" style={{ color: s.text }}>{alert.title}</p>
+                          <p className="text-[11px] text-slate-600 mt-1 leading-relaxed">{alert.description}</p>
+                          {alert.suggested_action && (
+                            <p className="text-[10px] mt-2 font-medium" style={{ color: ESY.turquoise }}>Suggested: {alert.suggested_action}</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+              <button onClick={loadAlerts} className="w-full text-xs py-1.5 rounded-md hover:bg-slate-50 transition-colors" style={{ color: ESY.turquoise }}>
+                Refresh Alerts
+              </button>
+            </>
+          )}
+
+          {activeTab === 'cards' && (
+            <>
+              {loading ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="w-5 h-5 animate-spin" style={{ color: ESY.pink }} />
+                </div>
+              ) : cards.length === 0 ? (
+                <div className="text-center py-8">
+                  <button onClick={loadDecisionCards}
+                    className="w-full py-3 rounded-lg border text-sm font-medium transition-colors hover:opacity-90"
+                    style={{ borderColor: `${ESY.pink}30`, color: ESY.pink, backgroundColor: `${ESY.pink}05` }}
+                    data-testid="generate-cards-btn">
+                    <Sparkles className="w-4 h-4 inline mr-2" />Generate Decision Cards
+                  </button>
+                </div>
+              ) : (
+                cards.map((card) => {
+                  const cs = cardSeverityStyles[card.severity] || cardSeverityStyles.info;
+                  return (
+                    <div key={card.id} className={`rounded-xl border overflow-hidden ${card.status === 'resolved' ? 'opacity-50' : ''}`}
+                      style={{ background: cs.gradient, borderColor: cs.border }}
+                      data-testid={`card-${card.id}`}>
+                      <div className="p-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="text-xs font-bold text-slate-800">{card.title}</h4>
+                          {card.metric && (
+                            <span className="text-lg font-bold" style={{ color: ESY.deepRed }}>{card.metric.value}</span>
+                          )}
+                        </div>
+                        <p className="text-[11px] text-slate-600 leading-relaxed">{card.description}</p>
+                        {card.metric?.label && <p className="text-[9px] text-slate-400 mt-1">{card.metric.label}</p>}
+                      </div>
+                      {card.actions?.length > 0 && card.status !== 'resolved' && (
+                        <div className="px-4 pb-3 flex flex-wrap gap-2">
+                          {card.actions.map((action, j) => (
+                            <button key={j} onClick={() => executeCardAction(card.id, action.action_type, action.payload)}
+                              className="px-3 py-1.5 rounded-md text-[10px] font-semibold text-white transition-all hover:opacity-90"
+                              style={{ background: action.action_type === 'escalate' ? ESY.deepRed : action.action_type === 'resolve' ? ESY.turquoise : ESY.pink }}
+                              data-testid={`card-action-${card.id}-${j}`}>
+                              {action.label}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                      {card.status === 'resolved' && (
+                        <div className="px-4 pb-3">
+                          <span className="text-[10px] font-medium" style={{ color: ESY.turquoise }}>Resolved</span>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })
+              )}
+            </>
+          )}
+        </div>
+      </ScrollArea>
+    </div>
+  );
+};
+
 // ============== Create Channel Modal ==============
 const CreateChannelModal = ({ onClose, onCreated, token }) => {
   const { t } = useTranslation();
@@ -419,6 +936,9 @@ const LumiMessenger = () => {
   const [uploading, setUploading] = useState(false);
   const [showThread, setShowThread] = useState(null);
   const [showMembers, setShowMembers] = useState(false);
+  const [showAiPanel, setShowAiPanel] = useState(false);
+  const [showAiChat, setShowAiChat] = useState(false);
+  const [showAlerts, setShowAlerts] = useState(false);
   const [presenceMap, setPresenceMap] = useState({});
 
   const messagesEndRef = useRef(null);
@@ -603,7 +1123,7 @@ const LumiMessenger = () => {
         {/* Header */}
         <div className="h-14 flex items-center justify-between px-4 border-b border-white/10">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-md bg-[#008080] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-md flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}>
               <MessageCircle className="w-4.5 h-4.5 text-white" />
             </div>
             <span className="font-bold text-sm text-white tracking-wide">LUMI</span>
@@ -644,13 +1164,13 @@ const LumiMessenger = () => {
               <button onClick={() => setShowCreateModal(true)} className="p-1 text-slate-300 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="add-channel-btn"><Plus className="w-3.5 h-3.5" /></button>
             </div>
             {filteredChannels.map(ch => (
-              <button key={ch.id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); setShowThread(null); setShowMembers(false); }}
+              <button key={ch.id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); }}
                 className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${
                   activeChannel?.id === ch.id ? 'bg-white/15 text-white' : 'text-slate-300 hover:bg-white/10 hover:text-white'
                 }`} data-testid={`channel-${ch.id}`}>
                 <ChannelIcon type={ch.channel_type} />
                 <span className="flex-1 text-sm truncate text-left">{ch.name}</span>
-                {unreadCounts[ch.id] > 0 && <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full bg-[#008080] text-[9px] font-bold text-white" data-testid={`unread-${ch.id}`}>{unreadCounts[ch.id]}</span>}
+                {unreadCounts[ch.id] > 0 && <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[9px] font-bold text-white" style={{ backgroundColor: ESY.pink }} data-testid={`unread-${ch.id}`}>{unreadCounts[ch.id]}</span>}
               </button>
             ))}
 
@@ -676,7 +1196,7 @@ const LumiMessenger = () => {
               const init = (partner.name || partner.email || '?')[0].toUpperCase();
               const st = presenceMap[partner.user_id] || 'offline';
               return (
-                <button key={dm.id} onClick={() => { setActiveChannel(dm); setMobileSidebar(false); setShowThread(null); setShowMembers(false); }}
+                <button key={dm.id} onClick={() => { setActiveChannel(dm); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); }}
                   className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${
                     activeChannel?.id === dm.id ? 'bg-white/15 text-white' : 'text-slate-300 hover:bg-white/10 hover:text-white'
                   }`} data-testid={`dm-${dm.id}`}>
@@ -685,7 +1205,7 @@ const LumiMessenger = () => {
                     <span className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full ring-1 ring-[#36454F] ${STATUS_COLORS[st]}`} />
                   </div>
                   <span className="flex-1 text-sm truncate text-left">{partner.name || partner.email || 'User'}</span>
-                  {unreadCounts[dm.id] > 0 && <span className="min-w-[16px] h-[16px] flex items-center justify-center rounded-full bg-[#008080] text-[8px] font-bold text-white" data-testid={`unread-dm-${dm.id}`}>{unreadCounts[dm.id]}</span>}
+                  {unreadCounts[dm.id] > 0 && <span className="min-w-[16px] h-[16px] flex items-center justify-center rounded-full text-[8px] font-bold text-white" style={{ backgroundColor: ESY.pink }} data-testid={`unread-dm-${dm.id}`}>{unreadCounts[dm.id]}</span>}
                 </button>
               );
             })}
@@ -697,7 +1217,7 @@ const LumiMessenger = () => {
         <div className="p-3 border-t border-white/10">
           <div className="flex items-center gap-3">
             <div className="relative">
-              <div className="w-8 h-8 rounded-full bg-[#008080] flex items-center justify-center"><span className="text-xs font-semibold text-white">{(user?.name || user?.email || '?')[0].toUpperCase()}</span></div>
+              <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}><span className="text-xs font-semibold text-white">{(user?.name || user?.email || '?')[0].toUpperCase()}</span></div>
               <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full ring-2 ring-[#36454F] bg-emerald-500" />
             </div>
             <div className="flex-1 min-w-0"><p className="text-sm font-medium text-white truncate">{user?.name || 'User'}</p><p className="text-[10px] text-slate-300">Available</p></div>
@@ -708,7 +1228,7 @@ const LumiMessenger = () => {
         {/* Footer Nav - Switch to AI KARAU */}
         <div className="px-3 pb-3">
           <button onClick={() => navigate('/karau-meet')} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md transition-colors group" data-testid="switch-to-karau-footer">
-            <Building2 className="w-3.5 h-3.5 text-[#5bbfbf] group-hover:text-[#7dd3d3]" />
+            <Building2 className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.turquoise }} />
             <span className="text-xs font-medium text-slate-300 group-hover:text-white">Switch to AI KARAU</span>
           </button>
         </div>
@@ -734,6 +1254,17 @@ const LumiMessenger = () => {
                 {activeChannel.channel_type === 'dm' && (
                   <button onClick={() => toast.info('Calling...')} className="p-2 text-slate-400 hover:text-[#008080] hover:bg-[#008080]/5 rounded-md" data-testid="voice-call-btn"><Phone className="w-4 h-4" /></button>
                 )}
+                <button onClick={() => { setShowAiChat(!showAiChat); if (showAlerts) setShowAlerts(false); if (showAiPanel) setShowAiPanel(false); }}
+                  className={`p-2 rounded-md transition-colors ${showAiChat ? 'bg-[#00CEC9]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
+                  style={showAiChat ? { color: ESY.turquoise } : {}}
+                  data-testid="ai-chat-btn" title="Ask AI"><Sparkles className="w-4 h-4" /></button>
+                <button onClick={() => { setShowAlerts(!showAlerts); if (showAiChat) setShowAiChat(false); if (showAiPanel) setShowAiPanel(false); }}
+                  className={`p-2 rounded-md transition-colors ${showAlerts ? 'bg-[#D63031]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
+                  style={showAlerts ? { color: ESY.deepRed } : {}}
+                  data-testid="alerts-btn" title="Alerts & Decisions"><AlertTriangle className="w-4 h-4" /></button>
+                <button onClick={() => { setShowAiPanel(!showAiPanel); if (showAiChat) setShowAiChat(false); if (showAlerts) setShowAlerts(false); }}
+                  className={`p-2 rounded-md transition-colors ${showAiPanel ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
+                  data-testid="ai-panel-btn" title="AI Insights"><Brain className="w-4 h-4" /></button>
                 <button onClick={() => setShowMembers(!showMembers)} className={`p-2 rounded-md transition-colors ${showMembers ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`} data-testid="channel-members-btn"><Users className="w-4 h-4" /></button>
               </div>
             </div>
@@ -770,7 +1301,9 @@ const LumiMessenger = () => {
                       placeholder={`Message ${activeChannel.channel_type === 'dm' ? activeChannel.dm_partner?.name || '' : '#' + activeChannel.name}`}
                       className="flex-1 text-sm bg-transparent outline-none text-slate-800 placeholder:text-slate-400" data-testid="message-input" />
                     <button onClick={handleSend} disabled={!messageText.trim() || sending}
-                      className={`p-2 rounded-md transition-colors ${messageText.trim() ? 'bg-[#008080] text-white hover:bg-[#006666]' : 'text-slate-300'}`} data-testid="send-message-btn">
+                      className={`p-2 rounded-md transition-colors ${messageText.trim() ? 'text-white hover:opacity-90' : 'text-slate-300'}`}
+                      style={messageText.trim() ? { background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` } : {}}
+                      data-testid="send-message-btn">
                       <Send className="w-4 h-4" />
                     </button>
                   </div>
@@ -779,6 +1312,15 @@ const LumiMessenger = () => {
 
               {/* Thread Panel */}
               {showThread && <ThreadPanel messageId={showThread} onClose={() => setShowThread(null)} token={token} />}
+
+              {/* AI Productivity Panel */}
+              {showAiPanel && activeChannel && <AiProductivityPanel channelId={activeChannel.id} channelName={activeChannel.name} onClose={() => setShowAiPanel(false)} token={token} />}
+
+              {/* AI Chat Panel */}
+              {showAiChat && activeChannel && <AiChatPanel channelId={activeChannel.id} onClose={() => setShowAiChat(false)} token={token} />}
+
+              {/* Alerts & Decision Cards Panel */}
+              {showAlerts && <AlertsPanel onClose={() => setShowAlerts(false)} token={token} />}
 
               {/* Members Panel */}
               {showMembers && <MembersPanel channelId={activeChannel.id} onClose={() => setShowMembers(false)} token={token} />}
@@ -834,7 +1376,7 @@ const LumiLogin = ({ onLogin }) => {
       <div className="hidden lg:flex lg:w-1/2 bg-[#36454F] items-center justify-center relative overflow-hidden">
         <img src="https://images.unsplash.com/photo-1719667052333-1cba4797fd85?w=1200&q=80" alt="" className="absolute inset-0 w-full h-full object-cover opacity-20" />
         <div className="relative z-10 text-center px-12">
-          <div className="w-16 h-16 mx-auto rounded-lg bg-[#008080] flex items-center justify-center mb-6 shadow-lg">
+          <div className="w-16 h-16 mx-auto rounded-lg flex items-center justify-center mb-6 shadow-lg" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}>
             <MessageCircle className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-4xl font-bold text-white mb-3">LUMI</h1>
@@ -846,7 +1388,7 @@ const LumiLogin = ({ onLogin }) => {
       <div className="flex-1 flex items-center justify-center p-8 bg-slate-50">
         <div className="w-full max-w-sm">
           <div className="lg:hidden flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-lg bg-[#008080] flex items-center justify-center"><MessageCircle className="w-5 h-5 text-white" /></div>
+            <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}><MessageCircle className="w-5 h-5 text-white" /></div>
             <span className="text-xl font-bold text-slate-900">LUMI</span>
           </div>
           <h2 className="text-2xl font-semibold text-slate-900 mb-1">{t('lumi.signIn') || 'Sign in to LUMI'}</h2>
@@ -862,7 +1404,9 @@ const LumiLogin = ({ onLogin }) => {
               </button>
             </div>
             <Button type="submit" disabled={isLoading || !email || !password}
-              className="w-full h-11 bg-[#008080] hover:bg-[#006666] text-white rounded-md font-medium" data-testid="lumi-login-btn">
+              className="w-full h-11 text-white rounded-md font-medium hover:opacity-90 transition-opacity"
+              style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}
+              data-testid="lumi-login-btn">
               {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Sign in'}
             </Button>
           </form>

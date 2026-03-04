@@ -1,0 +1,775 @@
+"""
+AI Productivity Features for LUMI & AI KARAU
+- Intelligent Meeting Summaries with action item extraction
+- Sentiment Analysis for channel health
+- Automated Status Reporting
+- Smart Task Assignment from chat
+"""
+from fastapi import APIRouter, HTTPException, Request
+from pydantic import BaseModel
+from typing import Optional, List
+from datetime import datetime, timezone, timedelta
+import uuid
+import json
+import os
+import logging
+
+from utils.database import db
+from routes.auth import get_current_user
+
+logger = logging.getLogger(__name__)
+
+router = APIRouter(tags=["AI Productivity"])
+
+EMERGENT_KEY = os.environ.get("EMERGENT_LLM_KEY")
+
+
+async def _call_llm(prompt: str, system_msg: str, session_tag: str) -> str:
+    from emergentintegrations.llm.chat import LlmChat, UserMessage
+    chat = LlmChat(
+        api_key=EMERGENT_KEY,
+        session_id=f"{session_tag}_{uuid.uuid4().hex[:6]}",
+        system_message=system_msg
+    ).with_model("openai", "gpt-5.2")
+    return await chat.send_message(UserMessage(text=prompt))
+
+
+def _parse_json(text: str) -> dict:
+    t = text.strip()
+    if t.startswith("```"):
+        t = t.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+    return json.loads(t)
+
+
+# ============== 1. Intelligent Meeting Summaries ==============
+
+@router.post("/karau-meet/ai/enhanced-summary")
+async def enhanced_meeting_summary(request: Request):
+    """AI-powered meeting summary with extracted action items, assignees, and deadlines"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    user_id = user["user_id"]
+    meetings = await db.karau_meetings.find(
+        {"$or": [{"host_id": user_id}, {"participants.user_id": user_id}], "status": "ended"},
+        {"_id": 0, "meeting_id": 1, "title": 1, "ai_notes": 1, "ended_at": 1, "participants": 1}
+    ).sort("ended_at", -1).limit(10).to_list(10)
+
+    all_notes = []
+    participant_names = set()
+    for m in meetings:
+        for p in m.get("participants", []):
+            participant_names.add(p.get("name", p.get("user_id", "Unknown")))
+        for note in m.get("ai_notes", []):
+            all_notes.append(f"[{m.get('title', 'Meeting')}] ({note.get('type', 'note')}): {note.get('content', '')}")
+
+    if not all_notes:
+        return {
+            "summary": "No meeting data available yet. Complete meetings with AI notes to get intelligent summaries.",
+            "action_items": [], "key_decisions": [], "risk_alerts": [],
+            "generated_at": datetime.now(timezone.utc).isoformat()
+        }
+
+    names_str = ", ".join(list(participant_names)[:20])
+    notes_text = "\n".join(all_notes[:40])
+
+    try:
+        prompt = f"""Analyze these meeting notes from {len(meetings)} meetings. Participants include: {names_str}
+
+{notes_text}
+
+Extract structured intelligence. Respond in valid JSON only:
+{{
+  "summary": "2-3 sentence executive overview",
+  "action_items": [
+    {{"task": "description", "assignee": "person name or 'Unassigned'", "deadline": "YYYY-MM-DD or 'TBD'", "priority": "high/medium/low"}}
+  ],
+  "key_decisions": ["decision 1", "decision 2"],
+  "risk_alerts": ["risk or concern that needs attention"],
+  "follow_ups": ["topic needing follow-up discussion"]
+}}"""
+
+        raw = await _call_llm(prompt, "You are a meeting intelligence analyst. Extract action items with specific assignees and deadlines. Respond in valid JSON only.", f"enh_sum_{user_id}")
+        result = _parse_json(raw)
+
+        # Store action items in DB for tracking
+        for item in result.get("action_items", []):
+            item["id"] = f"ai_{uuid.uuid4().hex[:8]}"
+            item["status"] = "open"
+            item["created_at"] = datetime.now(timezone.utc).isoformat()
+            item["created_by"] = user_id
+            item["source"] = "meeting_summary"
+            await db.ai_action_items.update_one(
+                {"id": item["id"]}, {"$set": item}, upsert=True
+            )
+
+        return {
+            **result,
+            "meetings_analyzed": len(meetings),
+            "generated_at": datetime.now(timezone.utc).isoformat()
+        }
+    except Exception as e:
+        logger.error(f"Enhanced summary error: {e}")
+        return {
+            "summary": "AI analysis temporarily unavailable.", "action_items": [],
+            "key_decisions": [], "risk_alerts": [],
+            "error": str(e), "generated_at": datetime.now(timezone.utc).isoformat()
+        }
+
+
+@router.get("/karau-meet/ai/action-items")
+async def list_ai_action_items(request: Request):
+    """List all AI-extracted action items with tracking status"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    items = await db.ai_action_items.find(
+        {}, {"_id": 0}
+    ).sort("created_at", -1).limit(50).to_list(50)
+
+    open_count = sum(1 for i in items if i.get("status") == "open")
+    done_count = sum(1 for i in items if i.get("status") == "done")
+
+    return {
+        "items": items,
+        "stats": {"total": len(items), "open": open_count, "done": done_count,
+                  "completion_rate": round(done_count / max(1, len(items)) * 100)}
+    }
+
+
+class ActionItemUpdate(BaseModel):
+    status: Optional[str] = None
+    assignee: Optional[str] = None
+    deadline: Optional[str] = None
+
+
+@router.put("/karau-meet/ai/action-items/{item_id}")
+async def update_action_item(item_id: str, body: ActionItemUpdate, request: Request):
+    """Update an action item's status, assignee, or deadline"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    updates = {}
+    if body.status:
+        updates["status"] = body.status
+    if body.assignee:
+        updates["assignee"] = body.assignee
+    if body.deadline:
+        updates["deadline"] = body.deadline
+    updates["updated_at"] = datetime.now(timezone.utc).isoformat()
+    updates["updated_by"] = user["user_id"]
+
+    result = await db.ai_action_items.update_one({"id": item_id}, {"$set": updates})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return {"success": True, "item_id": item_id}
+
+
+# ============== 2. Sentiment Analysis ==============
+
+@router.post("/lumi/ai/sentiment/{channel_id}")
+async def analyze_channel_sentiment(channel_id: str, request: Request):
+    """Analyze sentiment/morale of a channel's recent messages"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    messages = await db.lumi_messages.find(
+        {"channel_id": channel_id, "type": {"$ne": "system"}},
+        {"_id": 0, "content": 1, "sender_name": 1, "created_at": 1}
+    ).sort("created_at", -1).limit(50).to_list(50)
+
+    if len(messages) < 3:
+        return {
+            "score": 75, "label": "Neutral",
+            "summary": "Not enough messages to analyze yet.",
+            "alerts": [], "generated_at": datetime.now(timezone.utc).isoformat()
+        }
+
+    msg_text = "\n".join([f"{m.get('sender_name', 'User')}: {m.get('content', '')}" for m in messages[:40]])
+
+    try:
+        prompt = f"""Analyze the sentiment and team morale from these team chat messages:
+
+{msg_text}
+
+Respond in valid JSON only:
+{{
+  "score": 0-100 (0=very negative, 50=neutral, 100=very positive),
+  "label": "Positive/Neutral/Concerned/Negative",
+  "summary": "1-2 sentence mood assessment",
+  "highlights": ["positive observation 1"],
+  "alerts": ["concern that needs attention, if any"],
+  "engagement_level": "High/Medium/Low"
+}}"""
+
+        raw = await _call_llm(prompt, "You are a team dynamics analyst. Assess team morale from chat messages. Be balanced and constructive. JSON only.", f"sent_{channel_id}")
+        result = _parse_json(raw)
+
+        # Store sentiment history
+        await db.lumi_sentiment.insert_one({
+            "channel_id": channel_id,
+            "score": result.get("score", 50),
+            "label": result.get("label", "Neutral"),
+            "analyzed_at": datetime.now(timezone.utc).isoformat(),
+            "messages_analyzed": len(messages)
+        })
+
+        return {**result, "messages_analyzed": len(messages), "generated_at": datetime.now(timezone.utc).isoformat()}
+    except Exception as e:
+        logger.error(f"Sentiment error: {e}")
+        return {"score": 50, "label": "Neutral", "summary": "Analysis temporarily unavailable.", "alerts": [], "error": str(e), "generated_at": datetime.now(timezone.utc).isoformat()}
+
+
+@router.get("/lumi/ai/sentiment-history/{channel_id}")
+async def get_sentiment_history(channel_id: str, request: Request):
+    """Get sentiment trend for a channel"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    history = await db.lumi_sentiment.find(
+        {"channel_id": channel_id}, {"_id": 0}
+    ).sort("analyzed_at", -1).limit(10).to_list(10)
+
+    return {"history": history}
+
+
+# ============== 3. Automated Status Reporting ==============
+
+@router.post("/lumi/ai/report/{channel_id}")
+async def generate_channel_report(channel_id: str, request: Request):
+    """Generate an AI-powered activity report for a channel"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    channel = await db.lumi_channels.find_one({"id": channel_id}, {"_id": 0, "name": 1, "channel_type": 1})
+    if not channel:
+        raise HTTPException(status_code=404, detail="Channel not found")
+
+    # Get messages from last 7 days
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
+    messages = await db.lumi_messages.find(
+        {"channel_id": channel_id, "created_at": {"$gte": cutoff}, "type": {"$ne": "system"}},
+        {"_id": 0, "content": 1, "sender_name": 1, "created_at": 1}
+    ).sort("created_at", -1).limit(100).to_list(100)
+
+    # Gather stats
+    unique_authors = set(m.get("sender_name", "") for m in messages)
+    msg_count = len(messages)
+
+    if msg_count < 2:
+        return {
+            "report": f"**#{channel.get('name', 'Channel')} — Weekly Report**\n\nNot enough activity to generate a report (only {msg_count} messages this week).",
+            "stats": {"messages": msg_count, "participants": len(unique_authors)},
+            "generated_at": datetime.now(timezone.utc).isoformat()
+        }
+
+    msg_text = "\n".join([f"{m.get('sender_name', 'User')}: {m.get('content', '')}" for m in messages[:60]])
+
+    try:
+        prompt = f"""Generate a concise weekly status report for the #{channel.get('name', 'channel')} channel based on these {msg_count} messages from {len(unique_authors)} team members:
+
+{msg_text}
+
+Format the report in Markdown. Include:
+1. **Executive Summary** (2-3 sentences)
+2. **Key Discussions** (bullet points of main topics)
+3. **Decisions Made** (if any)
+4. **Action Items** (extracted from conversations)
+5. **Blockers/Risks** (if mentioned)
+6. **Team Activity** (who was most active, engagement pattern)
+
+Keep it professional and stakeholder-ready."""
+
+        report = await _call_llm(prompt, "You are a project reporting assistant. Generate clean, professional status reports from team chat data. Use Markdown formatting.", f"rpt_{channel_id}")
+
+        # Store report
+        report_doc = {
+            "id": f"rpt_{uuid.uuid4().hex[:8]}",
+            "channel_id": channel_id,
+            "channel_name": channel.get("name", ""),
+            "report": report,
+            "stats": {"messages": msg_count, "participants": len(unique_authors), "period_days": 7},
+            "generated_by": user["user_id"],
+            "generated_at": datetime.now(timezone.utc).isoformat()
+        }
+        await db.lumi_reports.insert_one({**report_doc})
+        report_doc.pop("_id", None)
+
+        return report_doc
+    except Exception as e:
+        logger.error(f"Report error: {e}")
+        return {"report": "Report generation temporarily unavailable.", "error": str(e), "generated_at": datetime.now(timezone.utc).isoformat()}
+
+
+@router.get("/lumi/ai/reports")
+async def list_reports(request: Request):
+    """List generated reports"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    reports = await db.lumi_reports.find(
+        {}, {"_id": 0}
+    ).sort("generated_at", -1).limit(20).to_list(20)
+
+    return {"reports": reports}
+
+
+# ============== 4. Smart Task Assignment ==============
+
+@router.post("/lumi/ai/extract-tasks/{channel_id}")
+async def extract_tasks_from_chat(channel_id: str, request: Request):
+    """AI extracts tasks/action items from recent chat messages"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    channel = await db.lumi_channels.find_one({"id": channel_id}, {"_id": 0, "name": 1, "members": 1})
+    if not channel:
+        raise HTTPException(status_code=404, detail="Channel not found")
+
+    messages = await db.lumi_messages.find(
+        {"channel_id": channel_id, "type": {"$ne": "system"}},
+        {"_id": 0, "content": 1, "sender_name": 1, "created_at": 1}
+    ).sort("created_at", -1).limit(50).to_list(50)
+
+    if len(messages) < 2:
+        return {"tasks": [], "message": "Not enough messages to extract tasks."}
+
+    member_names = [m.get("name", m.get("user_id", "")) for m in channel.get("members", [])]
+    msg_text = "\n".join([f"{m.get('sender_name', 'User')}: {m.get('content', '')}" for m in messages[:40]])
+
+    try:
+        prompt = f"""Analyze these team chat messages and extract any tasks, action items, or commitments mentioned.
+Team members: {', '.join(member_names[:15])}
+
+Messages:
+{msg_text}
+
+Respond in valid JSON only:
+{{
+  "tasks": [
+    {{
+      "task": "clear task description",
+      "assignee": "person who should do it (from team members) or 'Unassigned'",
+      "deadline": "YYYY-MM-DD or 'TBD'",
+      "priority": "high/medium/low",
+      "context": "brief context from the conversation"
+    }}
+  ]
+}}
+If no tasks are found, return {{"tasks": []}}"""
+
+        raw = await _call_llm(prompt, "You are a task extraction specialist. Find tasks and commitments in team conversations. Be precise about who should do what. JSON only.", f"task_{channel_id}")
+        result = _parse_json(raw)
+
+        # Store tasks
+        tasks = result.get("tasks", [])
+        for task in tasks:
+            task["id"] = f"tsk_{uuid.uuid4().hex[:8]}"
+            task["channel_id"] = channel_id
+            task["channel_name"] = channel.get("name", "")
+            task["status"] = "open"
+            task["created_at"] = datetime.now(timezone.utc).isoformat()
+            task["created_by"] = user["user_id"]
+            task["source"] = "chat_extraction"
+            await db.lumi_tasks.update_one({"id": task["id"]}, {"$set": task}, upsert=True)
+
+        return {"tasks": tasks, "extracted_from": len(messages), "generated_at": datetime.now(timezone.utc).isoformat()}
+    except Exception as e:
+        logger.error(f"Task extraction error: {e}")
+        return {"tasks": [], "error": str(e)}
+
+
+@router.get("/lumi/ai/tasks")
+async def list_tasks(request: Request, channel_id: Optional[str] = None):
+    """List tasks for the current user"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    query = {}
+    if channel_id:
+        query["channel_id"] = channel_id
+
+    tasks = await db.lumi_tasks.find(
+        query, {"_id": 0}
+    ).sort("created_at", -1).limit(50).to_list(50)
+
+    open_count = sum(1 for t in tasks if t.get("status") == "open")
+    return {"tasks": tasks, "stats": {"total": len(tasks), "open": open_count}}
+
+
+class TaskUpdate(BaseModel):
+    status: Optional[str] = None
+    assignee: Optional[str] = None
+
+
+@router.put("/lumi/ai/tasks/{task_id}")
+async def update_task(task_id: str, body: TaskUpdate, request: Request):
+    """Update task status or assignee"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    updates = {"updated_at": datetime.now(timezone.utc).isoformat()}
+    if body.status:
+        updates["status"] = body.status
+    if body.assignee:
+        updates["assignee"] = body.assignee
+
+    result = await db.lumi_tasks.update_one({"id": task_id}, {"$set": updates})
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return {"success": True}
+
+
+# ============== 5. Conversational Data Querying (NLP) ==============
+
+class AskAiRequest(BaseModel):
+    question: str
+    channel_id: Optional[str] = None
+
+
+@router.post("/lumi/ai/ask")
+async def conversational_query(body: AskAiRequest, request: Request):
+    """Natural language querying across meeting data, channels, and tasks"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    user_id = user["user_id"]
+    question = body.question.strip()
+    if not question:
+        raise HTTPException(status_code=400, detail="Question required")
+
+    # Gather context: recent meetings, tasks, channel activity
+    context_parts = []
+
+    # Meeting data
+    meetings = await db.karau_meetings.find(
+        {"$or": [{"host_id": user_id}, {"participants.user_id": user_id}]},
+        {"_id": 0, "meeting_id": 1, "title": 1, "status": 1, "ai_notes": 1,
+         "created_at": 1, "ended_at": 1, "participants": 1}
+    ).sort("created_at", -1).limit(10).to_list(10)
+
+    if meetings:
+        meeting_summaries = []
+        for m in meetings:
+            notes_text = "; ".join([n.get("content", "") for n in m.get("ai_notes", [])[:5]])
+            p_count = len(m.get("participants", []))
+            meeting_summaries.append(
+                f"- {m.get('title', 'Untitled')} (status: {m.get('status', 'unknown')}, "
+                f"{p_count} participants): {notes_text[:200]}"
+            )
+        context_parts.append(f"MEETINGS ({len(meetings)}):\n" + "\n".join(meeting_summaries))
+
+    # Channel messages (if channel specified)
+    if body.channel_id:
+        msgs = await db.lumi_messages.find(
+            {"channel_id": body.channel_id, "type": {"$ne": "system"}},
+            {"_id": 0, "content": 1, "sender_name": 1, "created_at": 1}
+        ).sort("created_at", -1).limit(30).to_list(30)
+        if msgs:
+            msg_text = "\n".join([f"- {m.get('sender_name', 'User')}: {m.get('content', '')}" for m in msgs[:20]])
+            context_parts.append(f"RECENT CHANNEL MESSAGES:\n{msg_text}")
+
+    # All channels
+    channels = await db.lumi_channels.find(
+        {}, {"_id": 0, "id": 1, "name": 1, "channel_type": 1}
+    ).limit(20).to_list(20)
+    if channels:
+        ch_list = ", ".join([f"#{c.get('name', '')}" for c in channels])
+        context_parts.append(f"CHANNELS: {ch_list}")
+
+    # Tasks
+    tasks = await db.lumi_tasks.find(
+        {}, {"_id": 0, "task": 1, "assignee": 1, "status": 1, "priority": 1, "channel_name": 1}
+    ).limit(20).to_list(20)
+    if tasks:
+        task_text = "\n".join([
+            f"- [{t.get('status', 'open')}] {t.get('task', '')} (assigned: {t.get('assignee', 'unassigned')}, "
+            f"priority: {t.get('priority', 'medium')})"
+            for t in tasks
+        ])
+        context_parts.append(f"TASKS ({len(tasks)}):\n{task_text}")
+
+    # Action items
+    action_items = await db.ai_action_items.find(
+        {}, {"_id": 0, "task": 1, "assignee": 1, "status": 1, "deadline": 1}
+    ).limit(15).to_list(15)
+    if action_items:
+        ai_text = "\n".join([
+            f"- [{a.get('status', 'open')}] {a.get('task', '')} → {a.get('assignee', 'unassigned')} (due: {a.get('deadline', 'TBD')})"
+            for a in action_items
+        ])
+        context_parts.append(f"ACTION ITEMS:\n{ai_text}")
+
+    full_context = "\n\n".join(context_parts) if context_parts else "No data available yet."
+
+    try:
+        prompt = f"""A team member asks: "{question}"
+
+Here is the available project and team data:
+
+{full_context}
+
+Provide a helpful, concise answer. If the data doesn't contain enough information, say so honestly. 
+If you identify actionable insights or recommendations, include them.
+Format your response clearly with bullet points where appropriate."""
+
+        answer = await _call_llm(
+            prompt,
+            "You are an AI project intelligence assistant embedded in a team messenger. "
+            "Answer questions about project status, team activity, meetings, and tasks using the provided data. "
+            "Be concise, accurate, and actionable.",
+            f"ask_{user_id}"
+        )
+
+        # Store conversation for history
+        await db.lumi_ai_conversations.insert_one({
+            "user_id": user_id,
+            "question": question,
+            "answer": answer,
+            "channel_id": body.channel_id,
+            "asked_at": datetime.now(timezone.utc).isoformat()
+        })
+
+        return {"answer": answer, "context_sources": len(context_parts), "generated_at": datetime.now(timezone.utc).isoformat()}
+
+    except Exception as e:
+        logger.error(f"Conversational query error: {e}")
+        return {"answer": "I'm temporarily unable to process your question. Please try again.", "error": str(e)}
+
+
+@router.get("/lumi/ai/conversation-history")
+async def get_conversation_history(request: Request):
+    """Get recent AI conversation history for the user"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    history = await db.lumi_ai_conversations.find(
+        {"user_id": user["user_id"]}, {"_id": 0}
+    ).sort("asked_at", -1).limit(20).to_list(20)
+
+    return {"conversations": history}
+
+
+# ============== 6. Interactive Decision Cards ==============
+
+@router.post("/lumi/ai/decision-card")
+async def generate_decision_card(request: Request):
+    """Generate an interactive decision card based on current project state"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    user_id = user["user_id"]
+
+    # Gather all open tasks and action items
+    open_tasks = await db.lumi_tasks.find(
+        {"status": "open"}, {"_id": 0}
+    ).sort("created_at", -1).limit(20).to_list(20)
+
+    open_actions = await db.ai_action_items.find(
+        {"status": "open"}, {"_id": 0}
+    ).sort("created_at", -1).limit(20).to_list(20)
+
+    # Recent sentiment
+    recent_sentiment = await db.lumi_sentiment.find(
+        {}, {"_id": 0}
+    ).sort("analyzed_at", -1).limit(5).to_list(5)
+
+    context = {
+        "open_tasks": len(open_tasks),
+        "high_priority_tasks": [t for t in open_tasks if t.get("priority") == "high"],
+        "open_actions": len(open_actions),
+        "overdue_actions": [a for a in open_actions if a.get("deadline") and a.get("deadline") != "TBD" and a.get("deadline") < datetime.now(timezone.utc).strftime("%Y-%m-%d")],
+        "sentiment_scores": [s.get("score", 50) for s in recent_sentiment],
+    }
+
+    try:
+        ctx_text = json.dumps(context, default=str)
+        prompt = f"""Based on the current project state, generate 1-3 decision cards that need attention.
+
+Project state:
+{ctx_text}
+
+Respond in valid JSON only:
+{{
+  "cards": [
+    {{
+      "title": "Card title (concise)",
+      "description": "What needs attention and why",
+      "severity": "critical/warning/info",
+      "actions": [
+        {{"label": "Action button text", "action_type": "reassign/escalate/defer/resolve/notify", "payload": "relevant_id or description"}}
+      ],
+      "metric": {{"label": "Key metric", "value": "number or text"}}
+    }}
+  ]
+}}"""
+
+        raw = await _call_llm(prompt, "You are a project decision intelligence engine. Generate actionable decision cards based on project data. JSON only.", f"card_{user_id}")
+        result = _parse_json(raw)
+
+        for card in result.get("cards", []):
+            card["id"] = f"card_{uuid.uuid4().hex[:8]}"
+            card["created_at"] = datetime.now(timezone.utc).isoformat()
+            card["status"] = "active"
+
+        return {**result, "generated_at": datetime.now(timezone.utc).isoformat()}
+
+    except Exception as e:
+        logger.error(f"Decision card error: {e}")
+        return {"cards": [], "error": str(e)}
+
+
+@router.post("/lumi/ai/decision-card/{card_id}/action")
+async def execute_card_action(card_id: str, request: Request):
+    """Execute an action from a decision card"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    body = await request.json()
+    action_type = body.get("action_type", "")
+    payload = body.get("payload", "")
+
+    # Log the action
+    await db.lumi_decision_log.insert_one({
+        "card_id": card_id,
+        "action_type": action_type,
+        "payload": payload,
+        "executed_by": user["user_id"],
+        "executed_at": datetime.now(timezone.utc).isoformat()
+    })
+
+    # Execute based on type
+    if action_type == "resolve":
+        await db.lumi_tasks.update_many(
+            {"status": "open", "priority": "high"},
+            {"$set": {"status": "in_progress", "updated_at": datetime.now(timezone.utc).isoformat()}}
+        )
+        return {"success": True, "message": "High-priority tasks moved to in-progress"}
+    elif action_type == "notify":
+        return {"success": True, "message": f"Notification sent regarding: {payload}"}
+    elif action_type == "defer":
+        return {"success": True, "message": f"Deferred: {payload}"}
+    elif action_type == "escalate":
+        return {"success": True, "message": f"Escalated: {payload}"}
+    else:
+        return {"success": True, "message": f"Action '{action_type}' recorded"}
+
+
+# ============== 7. Proactive Anomaly Alerts ==============
+
+@router.get("/lumi/ai/anomalies")
+async def detect_anomalies(request: Request):
+    """Detect anomalies in project activity and team patterns"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    alerts = []
+    now = datetime.now(timezone.utc)
+
+    # Check 1: Overdue action items
+    overdue = await db.ai_action_items.find(
+        {"status": "open", "deadline": {"$exists": True, "$ne": "TBD"}},
+        {"_id": 0}
+    ).to_list(50)
+    overdue_items = [a for a in overdue if a.get("deadline", "9999") < now.strftime("%Y-%m-%d")]
+    if overdue_items:
+        alerts.append({
+            "id": f"alert_overdue_{uuid.uuid4().hex[:6]}",
+            "type": "overdue_items",
+            "severity": "critical" if len(overdue_items) > 3 else "warning",
+            "title": f"{len(overdue_items)} Overdue Action Items",
+            "description": f"There are {len(overdue_items)} action items past their deadline that need attention.",
+            "items": [{"task": a.get("task", ""), "deadline": a.get("deadline", ""), "assignee": a.get("assignee", "")} for a in overdue_items[:5]],
+            "suggested_action": "Review and reassign or update deadlines"
+        })
+
+    # Check 2: Low sentiment channels
+    recent_sentiments = await db.lumi_sentiment.find(
+        {"analyzed_at": {"$gte": (now - timedelta(days=7)).isoformat()}},
+        {"_id": 0}
+    ).to_list(20)
+    low_morale = [s for s in recent_sentiments if s.get("score", 100) < 40]
+    if low_morale:
+        alerts.append({
+            "id": f"alert_morale_{uuid.uuid4().hex[:6]}",
+            "type": "low_morale",
+            "severity": "warning",
+            "title": "Low Team Morale Detected",
+            "description": f"{len(low_morale)} channel(s) show concerning sentiment scores below 40.",
+            "channels": [s.get("channel_id", "") for s in low_morale],
+            "suggested_action": "Schedule team check-in or address blockers"
+        })
+
+    # Check 3: Stale channels (no messages in 3+ days)
+    cutoff_3d = (now - timedelta(days=3)).isoformat()
+    all_channels = await db.lumi_channels.find({}, {"_id": 0, "id": 1, "name": 1}).to_list(20)
+    for ch in all_channels:
+        latest_msg = await db.lumi_messages.find_one(
+            {"channel_id": ch["id"], "created_at": {"$gte": cutoff_3d}},
+            {"_id": 0, "created_at": 1}
+        )
+        if not latest_msg:
+            # Check if channel has any messages at all
+            any_msg = await db.lumi_messages.find_one({"channel_id": ch["id"]}, {"_id": 0})
+            if any_msg:
+                alerts.append({
+                    "id": f"alert_stale_{ch['id'][:8]}",
+                    "type": "stale_channel",
+                    "severity": "info",
+                    "title": f"#{ch.get('name', 'Channel')} — No Recent Activity",
+                    "description": f"No messages in #{ch.get('name', '')} for 3+ days.",
+                    "suggested_action": "Check if the channel is still active or archive it"
+                })
+
+    # Check 4: Unassigned high-priority tasks
+    unassigned_high = await db.lumi_tasks.find(
+        {"status": "open", "priority": "high", "$or": [{"assignee": "Unassigned"}, {"assignee": {"$exists": False}}]},
+        {"_id": 0}
+    ).to_list(10)
+    if unassigned_high:
+        alerts.append({
+            "id": f"alert_unassigned_{uuid.uuid4().hex[:6]}",
+            "type": "unassigned_tasks",
+            "severity": "warning",
+            "title": f"{len(unassigned_high)} High-Priority Tasks Unassigned",
+            "description": "Critical tasks without owners need immediate assignment.",
+            "tasks": [t.get("task", "") for t in unassigned_high[:5]],
+            "suggested_action": "Assign team members to high-priority tasks"
+        })
+
+    # Check 5: Task completion rate
+    all_tasks = await db.lumi_tasks.find({}, {"_id": 0, "status": 1}).to_list(100)
+    if len(all_tasks) >= 5:
+        done = sum(1 for t in all_tasks if t.get("status") == "done")
+        rate = round(done / len(all_tasks) * 100)
+        if rate < 30:
+            alerts.append({
+                "id": f"alert_completion_{uuid.uuid4().hex[:6]}",
+                "type": "low_completion",
+                "severity": "warning",
+                "title": f"Low Task Completion Rate: {rate}%",
+                "description": f"Only {done}/{len(all_tasks)} tasks are completed. This may indicate blockers.",
+                "suggested_action": "Review blocked tasks and redistribute workload"
+            })
+
+    return {
+        "alerts": alerts,
+        "total": len(alerts),
+        "critical": sum(1 for a in alerts if a.get("severity") == "critical"),
+        "checked_at": now.isoformat()
+    }

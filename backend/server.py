@@ -321,6 +321,7 @@ from routes.karau_biometric_verify import router as karau_biometric_router
 from routes.karau_simulation import router as karau_simulation_router
 from routes.lumi_messenger import router as lumi_messenger_router
 from routes.meeting_intelligence import router as meeting_intelligence_router
+from routes.ai_productivity import router as ai_productivity_router
 from routes.lumi_files import router as lumi_files_router
 
 # Register all routers with /api prefix
@@ -433,6 +434,7 @@ app.include_router(karau_simulation_router, prefix="/api")
 app.include_router(lumi_messenger_router, prefix="/api")
 app.include_router(meeting_intelligence_router, prefix="/api")
 app.include_router(lumi_files_router, prefix="/api")
+app.include_router(ai_productivity_router, prefix="/api")
 
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
