@@ -74,14 +74,19 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
 - AI: OpenAI (via Emergent LLM key)
 - Payments: Stripe (test keys)
 
+### Phase 8 - File Sharing, Read Receipts & AI Summarization (Complete - Mar 2026)
+- **LUMI File Sharing**: Upload images/docs/PDFs via object storage, image previews, file cards with download
+- **LUMI Read Receipts**: Unread count badges (violet for channels, teal for DMs), auto-mark-as-read on open
+- **AI-Powered Theme Summarization**: GPT-5.2 via Emergent key generates natural language meeting insights with key findings and recommendations
+
 ## Prioritized Backlog
 
 ### P1 - High Priority
-- LUMI file sharing (upload & share files in channels/DMs)
-- LUMI read receipts / seen indicators
+- LUMI enhancements: message threads/replies, channel member management
 
 ### P2 - Medium Priority
-- Meeting Intelligence: AI-powered theme summarization using LLM
+- LUMI: message pinning, channel notifications settings
+- Meeting Intelligence: schedule-based AI briefings
 
 ### P3 - Low Priority / Blocked
 - Live Stripe payment gateway (blocked on user's live keys)
