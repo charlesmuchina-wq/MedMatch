@@ -48,9 +48,9 @@ const ChannelIcon = ({ type }) => {
 };
 
 // ============== Status Dot ==============
-const StatusDot = ({ status, size = 'sm' }) => {
+const StatusDot = ({ status, size = 'sm', ringColor = 'ring-white' }) => {
   const s = size === 'sm' ? 'w-2.5 h-2.5' : 'w-3 h-3';
-  return <span className={`inline-block ${s} rounded-full ${STATUS_COLORS[status] || STATUS_COLORS.offline} ring-2 ring-white`} />;
+  return <span className={`inline-block ${s} rounded-full ${STATUS_COLORS[status] || STATUS_COLORS.offline} ring-2 ${ringColor}`} />;
 };
 
 // ============== Message Bubble ==============
@@ -62,7 +62,7 @@ const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, token })
   if (msg.type === 'system') {
     return (
       <div className="flex justify-center my-4" data-testid={`msg-system-${msg.id}`}>
-        <span className="text-xs text-slate-400 bg-slate-100 px-3 py-1 rounded-full">{msg.content}</span>
+        <span className="text-xs text-slate-500 bg-slate-100 px-3 py-1 rounded-full">{msg.content}</span>
       </div>
     );
   }
@@ -608,7 +608,7 @@ const LumiMessenger = () => {
             </div>
             <span className="font-bold text-sm text-white tracking-wide">LUMI</span>
           </div>
-          <button onClick={() => navigate('/')} className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-md transition-colors" data-testid="back-to-karau">
+          <button onClick={() => navigate('/')} className="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-md transition-colors" data-testid="back-to-karau">
             <ArrowLeft className="w-4 h-4" />
           </button>
         </div>
@@ -616,19 +616,19 @@ const LumiMessenger = () => {
         {/* Search */}
         <div className="px-3 pt-3 pb-1">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-500" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
             <input value={globalSearch || searchQuery} onChange={e => { setSearchQuery(e.target.value); handleGlobalSearch(e.target.value); }}
               placeholder={t('lumi.searchChannels') || 'Search...'}
-              className="w-full pl-9 h-8 bg-white/10 border-0 rounded-md text-sm text-white placeholder:text-slate-500 outline-none focus:bg-white/15 transition-colors" data-testid="search-channels" />
-            {globalSearch && <button onClick={() => { setGlobalSearch(''); setSearchQuery(''); setShowSearchResults(false); }} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white"><X className="w-3.5 h-3.5" /></button>}
+              className="w-full pl-9 h-8 bg-white/10 border-0 rounded-md text-sm text-white placeholder:text-slate-400 outline-none focus:bg-white/15 transition-colors" data-testid="search-channels" />
+            {globalSearch && <button onClick={() => { setGlobalSearch(''); setSearchQuery(''); setShowSearchResults(false); }} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-300 hover:text-white"><X className="w-3.5 h-3.5" /></button>}
           </div>
           {showSearchResults && searchResults.length > 0 && (
             <div className="mt-1 max-h-48 overflow-y-auto bg-[#2d3a42] border border-white/10 rounded-md shadow-lg" data-testid="search-results">
               {searchResults.map((r, i) => (
                 <button key={i} onClick={() => { const ch = channels.find(c => c.id === r.channel_id) || dms.find(d => d.id === r.channel_id); if (ch) { setActiveChannel(ch); setMobileSidebar(false); } setShowSearchResults(false); setGlobalSearch(''); setSearchQuery(''); }}
-                  className="w-full px-3 py-2 text-left hover:bg-white/5 border-b border-white/5 last:border-0" data-testid={`search-result-${i}`}>
-                  <span className="text-[10px] text-[#008080] font-medium">#{r.channel_name}</span>
-                  <p className="text-xs text-slate-300 truncate">{r.content}</p>
+                  className="w-full px-3 py-2 text-left hover:bg-white/10 border-b border-white/5 last:border-0" data-testid={`search-result-${i}`}>
+                  <span className="text-[10px] text-[#5bbfbf] font-medium">#{r.channel_name}</span>
+                  <p className="text-xs text-slate-200 truncate">{r.content}</p>
                 </button>
               ))}
             </div>
@@ -640,13 +640,13 @@ const LumiMessenger = () => {
           <div className="px-3">
             {/* Channels */}
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Channels</span>
-              <button onClick={() => setShowCreateModal(true)} className="p-1 text-slate-500 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="add-channel-btn"><Plus className="w-3.5 h-3.5" /></button>
+              <span className="text-[11px] font-semibold text-slate-300/70 uppercase tracking-widest">Channels</span>
+              <button onClick={() => setShowCreateModal(true)} className="p-1 text-slate-300 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="add-channel-btn"><Plus className="w-3.5 h-3.5" /></button>
             </div>
             {filteredChannels.map(ch => (
               <button key={ch.id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); setShowThread(null); setShowMembers(false); }}
                 className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${
-                  activeChannel?.id === ch.id ? 'bg-white/15 text-white' : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
+                  activeChannel?.id === ch.id ? 'bg-white/15 text-white' : 'text-slate-300 hover:bg-white/10 hover:text-white'
                 }`} data-testid={`channel-${ch.id}`}>
                 <ChannelIcon type={ch.channel_type} />
                 <span className="flex-1 text-sm truncate text-left">{ch.name}</span>
@@ -657,10 +657,10 @@ const LumiMessenger = () => {
             {/* Discover */}
             {discoverChannels.length > 0 && (
               <>
-                <div className="flex items-center mt-3 mb-1.5"><span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Discover</span></div>
+                <div className="flex items-center mt-3 mb-1.5"><span className="text-[11px] font-semibold text-slate-300/70 uppercase tracking-widest">Discover</span></div>
                 {discoverChannels.map(ch => (
-                  <button key={ch.id} onClick={() => handleJoinChannel(ch)} className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-slate-500 hover:bg-white/5 hover:text-slate-300 mb-0.5" data-testid={`discover-${ch.id}`}>
-                    <ChannelIcon type={ch.channel_type} /><span className="flex-1 text-sm truncate text-left">{ch.name}</span><Plus className="w-3 h-3 opacity-50" />
+                  <button key={ch.id} onClick={() => handleJoinChannel(ch)} className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-slate-400 hover:bg-white/10 hover:text-white mb-0.5" data-testid={`discover-${ch.id}`}>
+                    <ChannelIcon type={ch.channel_type} /><span className="flex-1 text-sm truncate text-left">{ch.name}</span><Plus className="w-3 h-3 opacity-70" />
                   </button>
                 ))}
               </>
@@ -668,8 +668,8 @@ const LumiMessenger = () => {
 
             {/* DMs */}
             <div className="flex items-center justify-between mt-3 mb-1.5">
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Direct Messages</span>
-              <button onClick={() => setShowNewDmModal(true)} className="p-1 text-slate-500 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="new-dm-btn"><UserPlus className="w-3.5 h-3.5" /></button>
+              <span className="text-[11px] font-semibold text-slate-300/70 uppercase tracking-widest">Direct Messages</span>
+              <button onClick={() => setShowNewDmModal(true)} className="p-1 text-slate-300 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="new-dm-btn"><UserPlus className="w-3.5 h-3.5" /></button>
             </div>
             {dms.map(dm => {
               const partner = dm.dm_partner || {};
@@ -678,10 +678,10 @@ const LumiMessenger = () => {
               return (
                 <button key={dm.id} onClick={() => { setActiveChannel(dm); setMobileSidebar(false); setShowThread(null); setShowMembers(false); }}
                   className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${
-                    activeChannel?.id === dm.id ? 'bg-white/15 text-white' : 'text-slate-400 hover:bg-white/5 hover:text-slate-200'
+                    activeChannel?.id === dm.id ? 'bg-white/15 text-white' : 'text-slate-300 hover:bg-white/10 hover:text-white'
                   }`} data-testid={`dm-${dm.id}`}>
                   <div className="relative">
-                    <div className="w-6 h-6 rounded-full bg-slate-600 flex items-center justify-center text-[9px] font-semibold text-white">{init}</div>
+                    <div className="w-6 h-6 rounded-full bg-slate-500 flex items-center justify-center text-[9px] font-semibold text-white">{init}</div>
                     <span className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full ring-1 ring-[#36454F] ${STATUS_COLORS[st]}`} />
                   </div>
                   <span className="flex-1 text-sm truncate text-left">{partner.name || partner.email || 'User'}</span>
@@ -689,7 +689,7 @@ const LumiMessenger = () => {
                 </button>
               );
             })}
-            {dms.length === 0 && <p className="text-[11px] text-slate-600 px-2.5 py-1">No conversations yet</p>}
+            {dms.length === 0 && <p className="text-[11px] text-slate-400 px-2.5 py-1">No conversations yet</p>}
           </div>
         </ScrollArea>
 
@@ -700,10 +700,17 @@ const LumiMessenger = () => {
               <div className="w-8 h-8 rounded-full bg-[#008080] flex items-center justify-center"><span className="text-xs font-semibold text-white">{(user?.name || user?.email || '?')[0].toUpperCase()}</span></div>
               <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full ring-2 ring-[#36454F] bg-emerald-500" />
             </div>
-            <div className="flex-1 min-w-0"><p className="text-sm font-medium text-white truncate">{user?.name || 'User'}</p><p className="text-[10px] text-slate-500">Available</p></div>
-            <button onClick={() => navigate('/karau-meet')} className="p-1.5 text-slate-500 hover:text-white hover:bg-white/10 rounded-md" title="AI KARAU" data-testid="go-karau-meet"><Building2 className="w-3.5 h-3.5" /></button>
-            <button onClick={() => { localStorage.removeItem('token'); localStorage.removeItem('karau_user'); setUser(null); navigate('/'); }} className="p-1.5 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-md" data-testid="lumi-logout"><LogOut className="w-3.5 h-3.5" /></button>
+            <div className="flex-1 min-w-0"><p className="text-sm font-medium text-white truncate">{user?.name || 'User'}</p><p className="text-[10px] text-slate-300">Available</p></div>
+            <button onClick={() => { localStorage.removeItem('token'); localStorage.removeItem('karau_user'); setUser(null); navigate('/'); }} className="p-1.5 text-slate-300 hover:text-red-400 hover:bg-red-500/10 rounded-md" data-testid="lumi-logout"><LogOut className="w-3.5 h-3.5" /></button>
           </div>
+        </div>
+
+        {/* Footer Nav - Switch to AI KARAU */}
+        <div className="px-3 pb-3">
+          <button onClick={() => navigate('/karau-meet')} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md transition-colors group" data-testid="switch-to-karau-footer">
+            <Building2 className="w-3.5 h-3.5 text-[#5bbfbf] group-hover:text-[#7dd3d3]" />
+            <span className="text-xs font-medium text-slate-300 group-hover:text-white">Switch to AI KARAU</span>
+          </button>
         </div>
       </div>
 
@@ -825,14 +832,14 @@ const LumiLogin = ({ onLogin }) => {
       <Toaster position="top-right" richColors />
       {/* Left - Image */}
       <div className="hidden lg:flex lg:w-1/2 bg-[#36454F] items-center justify-center relative overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1719667052333-1cba4797fd85?w=1200&q=80" alt="" className="absolute inset-0 w-full h-full object-cover opacity-30" />
+        <img src="https://images.unsplash.com/photo-1719667052333-1cba4797fd85?w=1200&q=80" alt="" className="absolute inset-0 w-full h-full object-cover opacity-20" />
         <div className="relative z-10 text-center px-12">
           <div className="w-16 h-16 mx-auto rounded-lg bg-[#008080] flex items-center justify-center mb-6 shadow-lg">
             <MessageCircle className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-4xl font-bold text-white mb-3">LUMI</h1>
-          <p className="text-lg text-slate-300">Enterprise Team Messenger</p>
-          <p className="text-sm text-slate-400 mt-2 max-w-sm">Secure, domain-protected team communication for the modern workplace.</p>
+          <p className="text-lg text-slate-200">Enterprise Team Messenger</p>
+          <p className="text-sm text-slate-300 mt-2 max-w-sm">Secure, domain-protected team communication for the modern workplace.</p>
         </div>
       </div>
       {/* Right - Form */}
@@ -842,8 +849,8 @@ const LumiLogin = ({ onLogin }) => {
             <div className="w-10 h-10 rounded-lg bg-[#008080] flex items-center justify-center"><MessageCircle className="w-5 h-5 text-white" /></div>
             <span className="text-xl font-bold text-slate-900">LUMI</span>
           </div>
-          <h2 className="text-2xl font-semibold text-slate-900 mb-1">{t('lumi.signIn') || 'Sign in'}</h2>
-          <p className="text-sm text-slate-400 mb-6">{t('lumi.tagline') || 'Access your team workspace'}</p>
+          <h2 className="text-2xl font-semibold text-slate-900 mb-1">{t('lumi.signIn') || 'Sign in to LUMI'}</h2>
+          <p className="text-sm text-slate-500 mb-6">{t('lumi.tagline') || 'Team messaging for the KARAU ecosystem'}</p>
           <form onSubmit={handleLogin} className="space-y-4">
             <Input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="Email"
               className="h-11 border-slate-200 rounded-md focus:ring-[#008080]/20 focus:border-[#008080]" data-testid="lumi-email" />
