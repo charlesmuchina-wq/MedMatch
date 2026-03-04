@@ -47,25 +47,33 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
 - 5 seed channels: General, Engineering, Design, Announcements, Random
 - WebSocket for real-time message delivery and typing indicators
 - Create Channel modal with type selection and private toggle
-- **Direct Messages (DMs)**: 1:1 private conversations with user search
-- **Emoji Reactions**: 6 quick emojis (👍❤️😂🎉🔥👀), toggle on/off, real-time via WebSocket
-- **Global Message Search**: Search across all channels and DMs with result dropdown
+- Direct Messages (DMs): 1:1 private conversations with user search
+- Emoji Reactions: 6 quick emojis, toggle on/off, real-time via WebSocket
+- Global Message Search: Search across all channels and DMs with result dropdown
 - Portal Selector updated with 3-column grid: MedMatch AI, AI KARAU, LUMI
 - Full i18n: English and Swahili translations
 
 ### Phase 7 - Meeting Intelligence & TSR (Complete - Mar 2026)
-- **Meeting Intelligence Widget** on KARAU dashboard (collapsible):
-  - Cross-meeting theme tracking (10 categories: Budget, Hiring, Tech, Strategy, etc.)
-  - Unresolved action items counter with resolution rate
-  - Top 5 discussion themes with occurrence counts
-  - Weekly meeting activity bar chart
-- **TSR (Test Summary Report) Generator** in Settings:
-  - Auto-generated comprehensive report: test metrics, platform metrics, feature coverage (12 features)
-  - AI-powered release recommendation (RELEASE_READY / CONDITIONAL / NOT_READY)
-  - Defect summary with severity levels
-  - Downloadable as formatted text file
-  - Report history with pass rate badges
-  - Scope coverage (tested vs not-tested features)
+- Meeting Intelligence Widget on KARAU dashboard (collapsible)
+- TSR (Test Summary Report) Generator in Settings
+
+### Phase 8 - File Sharing, Read Receipts & AI Summarization (Complete - Mar 2026)
+- LUMI File Sharing: Upload images/docs/PDFs via object storage
+- LUMI Read Receipts: Unread count badges, auto-mark-as-read on open
+- AI-Powered Theme Summarization via Emergent LLM key
+
+### Phase 9 - LUMI Prestige UI & Advanced Features (Complete - Mar 2026)
+- Full UI redesign with "Prestige" theme (Charcoal/Teal)
+- Domain-based privacy (users only see colleagues from same email domain)
+- User presence indicators (Available, Busy, Away)
+- Backend endpoints for message threading and retention policies
+
+### Phase 10 - UI Contrast Fix & Footer Navigation (Complete - Mar 2026)
+- Fixed sidebar text contrast: upgraded from text-slate-400/500/600 to text-slate-300/400 on charcoal (#36454F) background
+- Section headers now use text-slate-300/70 for WCAG AA compliance
+- Login page left panel text improved with text-slate-200/300
+- Added "Switch to AI KARAU" footer button in sidebar with Building2 icon
+- All verified passing 100% frontend + backend tests (iteration 168)
 
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI + react-i18next
@@ -74,20 +82,22 @@ Transform "AI KARAU" into a futuristic "Distance Zero" communication platform wi
 - AI: OpenAI (via Emergent LLM key)
 - Payments: Stripe (test keys)
 
-### Phase 8 - File Sharing, Read Receipts & AI Summarization (Complete - Mar 2026)
-- **LUMI File Sharing**: Upload images/docs/PDFs via object storage, image previews, file cards with download
-- **LUMI Read Receipts**: Unread count badges (violet for channels, teal for DMs), auto-mark-as-read on open
-- **AI-Powered Theme Summarization**: GPT-5.2 via Emergent key generates natural language meeting insights with key findings and recommendations
-
 ## Prioritized Backlog
 
 ### P1 - High Priority
-- LUMI enhancements: message threads/replies, channel member management
+- Message Threading: Full UI for threads (backend endpoint /lumi/threads exists)
+- Voice & Video Calls: Trigger AI KARAU meeting from LUMI
+- Calendar Integrations: Google Calendar & Microsoft Calendar for user status
 
 ### P2 - Medium Priority
-- LUMI: message pinning, channel notifications settings
-- Meeting Intelligence: schedule-based AI briefings
+- Message Retention Policy: Admin settings for message retention duration
+- Message Edit/Delete: Allow users to edit/delete sent messages
+- End-to-End Encryption (E2EE): Research and implement
+- Admin Audit Logs: Secure, searchable admin action logs
 
 ### P3 - Low Priority / Blocked
 - Live Stripe payment gateway (blocked on user's live keys)
 - Transition mocked hardware to real SDK implementations (blocked on hardware decisions)
+
+## Refactoring Needed
+- LumiMessenger.jsx (873 lines): Should be broken into Sidebar, ChatView, MessageBubble, ThreadPanel, etc.
