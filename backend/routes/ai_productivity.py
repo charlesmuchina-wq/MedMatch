@@ -773,3 +773,449 @@ async def detect_anomalies(request: Request):
         "critical": sum(1 for a in alerts if a.get("severity") == "critical"),
         "checked_at": now.isoformat()
     }
+
+
+# ============== 8. Command Bar Search ==============
+
+class CommandSearchRequest(BaseModel):
+    query: str
+    mode: Optional[str] = "search"  # "search" or "ai"
+
+
+@router.post("/lumi/command/search")
+async def command_bar_search(body: CommandSearchRequest, request: Request):
+    """Unified search for command bar — channels, DMs, messages, tasks, actions"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    q = body.query.strip().lower()
+    if not q:
+        return {"results": []}
+
+    # If AI mode, delegate to conversational AI
+    if body.mode == "ai":
+        try:
+            res_data = await conversational_query(
+                AskAiRequest(question=body.query), request
+            )
+            return {"results": [{"type": "ai_answer", "content": res_data.get("answer", ""), "icon": "sparkles"}], "mode": "ai"}
+        except Exception as e:
+            return {"results": [{"type": "ai_answer", "content": f"Error: {str(e)}", "icon": "sparkles"}], "mode": "ai"}
+
+    results = []
+
+    # Search channels
+    channels = await db.lumi_channels.find(
+        {"name": {"$regex": q, "$options": "i"}},
+        {"_id": 0, "id": 1, "name": 1, "channel_type": 1}
+    ).limit(5).to_list(5)
+    for ch in channels:
+        results.append({"type": "channel", "id": ch["id"], "name": ch["name"], "subtype": ch.get("channel_type", "group"), "icon": "hash"})
+
+    # Search DMs
+    user_id = user["user_id"]
+    dms = await db.lumi_dms.find(
+        {"participants": user_id},
+        {"_id": 0, "id": 1, "dm_partner": 1}
+    ).limit(5).to_list(5)
+    for dm in dms:
+        partner = dm.get("dm_partner", {})
+        p_name = partner.get("name", partner.get("email", ""))
+        if q in p_name.lower():
+            results.append({"type": "dm", "id": dm["id"], "name": p_name, "icon": "user"})
+
+    # Search messages
+    messages = await db.lumi_messages.find(
+        {"content": {"$regex": q, "$options": "i"}, "type": {"$ne": "system"}},
+        {"_id": 0, "id": 1, "content": 1, "sender_name": 1, "channel_id": 1}
+    ).sort("created_at", -1).limit(5).to_list(5)
+    for msg in messages:
+        results.append({"type": "message", "id": msg.get("id", ""), "content": msg.get("content", "")[:80], "sender": msg.get("sender_name", ""), "channel_id": msg.get("channel_id", ""), "icon": "message"})
+
+    # Search tasks
+    tasks = await db.lumi_tasks.find(
+        {"task": {"$regex": q, "$options": "i"}},
+        {"_id": 0, "id": 1, "task": 1, "status": 1, "assignee": 1, "priority": 1}
+    ).limit(5).to_list(5)
+    for t in tasks:
+        results.append({"type": "task", "id": t["id"], "name": t.get("task", ""), "status": t.get("status", ""), "assignee": t.get("assignee", ""), "priority": t.get("priority", ""), "icon": "list-todo"})
+
+    # Search action items
+    actions = await db.ai_action_items.find(
+        {"task": {"$regex": q, "$options": "i"}},
+        {"_id": 0, "id": 1, "task": 1, "status": 1, "assignee": 1}
+    ).limit(3).to_list(3)
+    for a in actions:
+        results.append({"type": "action_item", "id": a["id"], "name": a.get("task", ""), "status": a.get("status", ""), "icon": "check-circle"})
+
+    # Quick actions
+    quick_actions = [
+        {"type": "action", "id": "create_channel", "name": "Create new channel", "icon": "plus", "command": "create_channel"},
+        {"type": "action", "id": "gen_report", "name": "Generate channel report", "icon": "file-bar-chart", "command": "generate_report"},
+        {"type": "action", "id": "check_sentiment", "name": "Analyze channel sentiment", "icon": "activity", "command": "analyze_sentiment"},
+        {"type": "action", "id": "extract_tasks", "name": "Extract tasks from chat", "icon": "list-todo", "command": "extract_tasks"},
+        {"type": "action", "id": "check_anomalies", "name": "Check for anomalies", "icon": "alert-triangle", "command": "check_anomalies"},
+    ]
+    for qa in quick_actions:
+        if q in qa["name"].lower():
+            results.append(qa)
+
+    return {"results": results[:15], "mode": "search"}
+
+
+# ============== 9. Knowledge Graph ==============
+
+@router.get("/lumi/knowledge-graph")
+async def get_knowledge_graph(request: Request):
+    """Build and return the knowledge graph of entity relationships"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    nodes = []
+    edges = []
+    node_ids = set()
+
+    # Get all channels
+    channels = await db.lumi_channels.find(
+        {}, {"_id": 0, "id": 1, "name": 1, "channel_type": 1, "members": 1}
+    ).to_list(30)
+
+    for ch in channels:
+        ch_node_id = f"ch_{ch['id'][:8]}"
+        nodes.append({
+            "id": ch_node_id, "type": "channel", "label": f"#{ch['name']}",
+            "subtype": ch.get("channel_type", "group"), "size": "medium"
+        })
+        node_ids.add(ch_node_id)
+
+        # Connect members to channels
+        for member in ch.get("members", []):
+            m_id = member.get("user_id", member.get("email", ""))
+            m_name = member.get("name", member.get("email", "unknown"))
+            person_node_id = f"person_{m_id[:12]}"
+            if person_node_id not in node_ids:
+                nodes.append({
+                    "id": person_node_id, "type": "person", "label": m_name,
+                    "email": member.get("email", ""), "size": "small"
+                })
+                node_ids.add(person_node_id)
+            edges.append({"source": person_node_id, "target": ch_node_id, "relationship": "member_of", "label": "member"})
+
+    # Get tasks and connect to channels and people
+    tasks = await db.lumi_tasks.find(
+        {}, {"_id": 0, "id": 1, "task": 1, "channel_id": 1, "channel_name": 1, "assignee": 1, "status": 1, "priority": 1}
+    ).limit(50).to_list(50)
+
+    for t in tasks:
+        task_node_id = f"task_{t['id']}"
+        nodes.append({
+            "id": task_node_id, "type": "task", "label": t.get("task", "")[:40],
+            "status": t.get("status", "open"), "priority": t.get("priority", "medium"), "size": "small"
+        })
+        node_ids.add(task_node_id)
+
+        # Connect task to channel
+        if t.get("channel_id"):
+            ch_node = f"ch_{t['channel_id'][:8]}"
+            if ch_node in node_ids:
+                edges.append({"source": task_node_id, "target": ch_node, "relationship": "belongs_to", "label": "from"})
+
+        # Connect task to assignee
+        if t.get("assignee") and t["assignee"] != "Unassigned":
+            assignee_node = None
+            for n in nodes:
+                if n["type"] == "person" and t["assignee"].lower() in n["label"].lower():
+                    assignee_node = n["id"]
+                    break
+            if assignee_node:
+                edges.append({"source": assignee_node, "target": task_node_id, "relationship": "assigned_to", "label": "owns"})
+
+    # Get action items
+    action_items = await db.ai_action_items.find(
+        {}, {"_id": 0, "id": 1, "task": 1, "assignee": 1, "status": 1, "source": 1}
+    ).limit(30).to_list(30)
+
+    for a in action_items:
+        ai_node_id = f"action_{a['id']}"
+        nodes.append({
+            "id": ai_node_id, "type": "action_item", "label": a.get("task", "")[:40],
+            "status": a.get("status", "open"), "size": "small"
+        })
+        node_ids.add(ai_node_id)
+
+        if a.get("assignee") and a["assignee"] != "Unassigned":
+            for n in nodes:
+                if n["type"] == "person" and a["assignee"].lower() in n["label"].lower():
+                    edges.append({"source": n["id"], "target": ai_node_id, "relationship": "responsible_for", "label": "owns"})
+                    break
+
+    # Get meetings
+    meetings = await db.karau_meetings.find(
+        {}, {"_id": 0, "meeting_id": 1, "title": 1, "participants": 1, "status": 1}
+    ).limit(15).to_list(15)
+
+    for m in meetings:
+        m_node_id = f"meeting_{m['meeting_id'][:8]}"
+        nodes.append({
+            "id": m_node_id, "type": "meeting", "label": m.get("title", "Meeting")[:30],
+            "status": m.get("status", ""), "size": "medium"
+        })
+        node_ids.add(m_node_id)
+
+        for p in m.get("participants", []):
+            p_id = p.get("user_id", "")
+            person_node = f"person_{p_id[:12]}"
+            if person_node in node_ids:
+                edges.append({"source": person_node, "target": m_node_id, "relationship": "attended", "label": "attended"})
+
+    # Stats
+    type_counts = {}
+    for n in nodes:
+        t = n["type"]
+        type_counts[t] = type_counts.get(t, 0) + 1
+
+    return {
+        "nodes": nodes,
+        "edges": edges,
+        "stats": {
+            "total_nodes": len(nodes),
+            "total_edges": len(edges),
+            "by_type": type_counts
+        }
+    }
+
+
+@router.post("/lumi/knowledge-graph/impact")
+async def impact_analysis(request: Request):
+    """Analyze the impact of removing/changing an entity"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    body = await request.json()
+    entity_type = body.get("entity_type", "")
+    entity_id = body.get("entity_id", "")
+    entity_name = body.get("entity_name", "")
+
+    if not entity_type or not (entity_id or entity_name):
+        raise HTTPException(status_code=400, detail="entity_type and entity_id/entity_name required")
+
+    # Gather affected entities
+    impacts = {"direct": [], "indirect": [], "risk_level": "low"}
+
+    if entity_type == "person":
+        # Find tasks assigned to this person
+        assigned_tasks = await db.lumi_tasks.find(
+            {"assignee": {"$regex": entity_name, "$options": "i"}, "status": {"$ne": "done"}},
+            {"_id": 0, "task": 1, "priority": 1, "channel_name": 1}
+        ).to_list(20)
+        if assigned_tasks:
+            impacts["direct"].append({
+                "type": "tasks", "count": len(assigned_tasks),
+                "description": f"{len(assigned_tasks)} open tasks will be unassigned",
+                "items": [t.get("task", "")[:50] for t in assigned_tasks[:5]]
+            })
+
+        # Find action items
+        assigned_actions = await db.ai_action_items.find(
+            {"assignee": {"$regex": entity_name, "$options": "i"}, "status": {"$ne": "done"}},
+            {"_id": 0, "task": 1}
+        ).to_list(20)
+        if assigned_actions:
+            impacts["direct"].append({
+                "type": "action_items", "count": len(assigned_actions),
+                "description": f"{len(assigned_actions)} action items need reassignment"
+            })
+
+        # Find channels they're in
+        member_channels = await db.lumi_channels.find(
+            {"members.name": {"$regex": entity_name, "$options": "i"}},
+            {"_id": 0, "name": 1}
+        ).to_list(20)
+        if member_channels:
+            impacts["indirect"].append({
+                "type": "channels", "count": len(member_channels),
+                "description": f"Active in {len(member_channels)} channels",
+                "items": [c.get("name", "") for c in member_channels[:5]]
+            })
+
+        high_pri = sum(1 for t in assigned_tasks if t.get("priority") == "high")
+        if high_pri > 0:
+            impacts["risk_level"] = "critical"
+        elif len(assigned_tasks) > 3:
+            impacts["risk_level"] = "high"
+        elif len(assigned_tasks) > 0:
+            impacts["risk_level"] = "medium"
+
+    elif entity_type == "channel":
+        # Count messages, tasks, members
+        msg_count = await db.lumi_messages.count_documents({"channel_id": entity_id})
+        task_count = await db.lumi_tasks.count_documents({"channel_id": entity_id})
+        channel = await db.lumi_channels.find_one({"id": entity_id}, {"_id": 0, "members": 1})
+        member_count = len(channel.get("members", [])) if channel else 0
+
+        if msg_count > 0:
+            impacts["direct"].append({"type": "messages", "count": msg_count, "description": f"{msg_count} messages will be lost"})
+        if task_count > 0:
+            impacts["direct"].append({"type": "tasks", "count": task_count, "description": f"{task_count} tasks linked to this channel"})
+        if member_count > 0:
+            impacts["indirect"].append({"type": "members", "count": member_count, "description": f"{member_count} members will lose access"})
+
+        impacts["risk_level"] = "critical" if msg_count > 50 or task_count > 5 else "high" if msg_count > 10 else "medium"
+
+    elif entity_type == "task":
+        task = await db.lumi_tasks.find_one({"id": entity_id}, {"_id": 0})
+        if task:
+            impacts["direct"].append({
+                "type": "task_detail",
+                "description": f"Task '{task.get('task', '')}' (priority: {task.get('priority', 'medium')}) assigned to {task.get('assignee', 'Unassigned')}"
+            })
+
+    # AI analysis if there are impacts
+    if impacts["direct"] or impacts["indirect"]:
+        try:
+            ctx = json.dumps({"entity_type": entity_type, "entity_name": entity_name, "impacts": impacts}, default=str)
+            prompt = f"""Analyze the impact of removing or changing this entity from the project:
+
+{ctx}
+
+Provide a brief risk assessment (2-3 sentences) and suggest mitigation steps. Be specific and actionable."""
+
+            analysis = await _call_llm(prompt, "You are a project risk analyst. Provide concise impact assessments.", f"impact_{entity_type}")
+            impacts["ai_analysis"] = analysis
+        except Exception as e:
+            impacts["ai_analysis"] = "AI analysis unavailable."
+
+    return impacts
+
+
+# ============== 10. Bottleneck Detection ==============
+
+@router.get("/lumi/bottlenecks")
+async def detect_bottlenecks(request: Request):
+    """Detect team bottlenecks: overloaded members, blocked chains, resource gaps"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    bottlenecks = []
+
+    # 1. Workload Analysis — find overloaded team members
+    all_tasks = await db.lumi_tasks.find(
+        {"status": {"$ne": "done"}}, {"_id": 0, "assignee": 1, "priority": 1, "task": 1}
+    ).to_list(200)
+
+    all_actions = await db.ai_action_items.find(
+        {"status": {"$ne": "done"}}, {"_id": 0, "assignee": 1, "task": 1}
+    ).to_list(200)
+
+    # Aggregate workload per person
+    workload = {}
+    for item in all_tasks + all_actions:
+        assignee = item.get("assignee", "Unassigned")
+        if assignee == "Unassigned":
+            continue
+        if assignee not in workload:
+            workload[assignee] = {"total": 0, "high": 0, "items": []}
+        workload[assignee]["total"] += 1
+        if item.get("priority") == "high":
+            workload[assignee]["high"] += 1
+        workload[assignee]["items"].append(item.get("task", "")[:50])
+
+    for person, load in workload.items():
+        if load["total"] >= 5 or load["high"] >= 3:
+            bottlenecks.append({
+                "id": f"bn_overload_{uuid.uuid4().hex[:6]}",
+                "type": "overloaded_member",
+                "severity": "critical" if load["high"] >= 3 else "warning",
+                "person": person,
+                "title": f"{person} — Overloaded ({load['total']} open items)",
+                "description": f"{load['total']} tasks/actions ({load['high']} high-priority). Risk of burnout and delays.",
+                "workload": load,
+                "suggestion": "Consider redistributing tasks or extending deadlines"
+            })
+
+    # 2. Unassigned critical work
+    unassigned = [t for t in all_tasks if t.get("assignee", "Unassigned") == "Unassigned"]
+    unassigned_high = [t for t in unassigned if t.get("priority") == "high"]
+    if unassigned_high:
+        bottlenecks.append({
+            "id": f"bn_unassigned_{uuid.uuid4().hex[:6]}",
+            "type": "unassigned_critical",
+            "severity": "critical",
+            "title": f"{len(unassigned_high)} Critical Tasks Without Owners",
+            "description": "High-priority tasks are unassigned and at risk of being missed.",
+            "items": [t.get("task", "")[:50] for t in unassigned_high[:5]],
+            "suggestion": "Immediately assign owners to high-priority tasks"
+        })
+
+    # 3. Channel engagement gaps
+    channels = await db.lumi_channels.find({}, {"_id": 0, "id": 1, "name": 1, "members": 1}).to_list(30)
+    now = datetime.now(timezone.utc)
+    cutoff_7d = (now - timedelta(days=7)).isoformat()
+
+    for ch in channels:
+        members = ch.get("members", [])
+        if len(members) < 2:
+            continue
+        recent_msgs = await db.lumi_messages.find(
+            {"channel_id": ch["id"], "created_at": {"$gte": cutoff_7d}, "type": {"$ne": "system"}},
+            {"_id": 0, "sender_id": 1}
+        ).to_list(200)
+
+        active_senders = set(m.get("sender_id", "") for m in recent_msgs)
+        inactive_members = [m for m in members if m.get("user_id", "") not in active_senders]
+
+        if len(inactive_members) > len(members) * 0.5 and len(members) > 3:
+            bottlenecks.append({
+                "id": f"bn_engage_{ch['id'][:6]}",
+                "type": "low_engagement",
+                "severity": "info",
+                "title": f"#{ch['name']} — Low Participation",
+                "description": f"{len(inactive_members)}/{len(members)} members haven't contributed in 7 days.",
+                "inactive_members": [m.get("name", m.get("email", "")) for m in inactive_members[:5]],
+                "suggestion": "Check in with inactive members or review channel relevance"
+            })
+
+    # 4. Dependency chain analysis (tasks blocking other tasks)
+    high_tasks = [t for t in all_tasks if t.get("priority") == "high"]
+    if len(high_tasks) > 3:
+        channels_with_high = {}
+        for t in high_tasks:
+            ch = t.get("channel_name", t.get("channel_id", "unknown"))
+            if ch not in channels_with_high:
+                channels_with_high[ch] = []
+            channels_with_high[ch].append(t.get("task", ""))
+
+        for ch, ch_tasks in channels_with_high.items():
+            if len(ch_tasks) >= 3:
+                bottlenecks.append({
+                    "id": f"bn_chain_{uuid.uuid4().hex[:6]}",
+                    "type": "task_concentration",
+                    "severity": "warning",
+                    "title": f"High-Priority Cluster in #{ch}",
+                    "description": f"{len(ch_tasks)} high-priority tasks concentrated in one channel. Risk of cascading delays.",
+                    "tasks": ch_tasks[:5],
+                    "suggestion": "Review task dependencies and consider parallel execution"
+                })
+
+    # Overall health score
+    total_items = len(all_tasks) + len(all_actions)
+    critical_count = sum(1 for b in bottlenecks if b.get("severity") == "critical")
+    warning_count = sum(1 for b in bottlenecks if b.get("severity") == "warning")
+    health_score = max(0, 100 - (critical_count * 20) - (warning_count * 10))
+
+    return {
+        "bottlenecks": bottlenecks,
+        "total": len(bottlenecks),
+        "health_score": health_score,
+        "workload_summary": {
+            "total_open_items": total_items,
+            "people_with_work": len(workload),
+            "overloaded_count": sum(1 for p, l in workload.items() if l["total"] >= 5),
+            "avg_workload": round(total_items / max(1, len(workload)), 1)
+        },
+        "checked_at": now.isoformat()
+    }

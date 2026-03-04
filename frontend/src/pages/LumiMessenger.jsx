@@ -14,7 +14,8 @@ import {
   FileText, Image, Download, CheckCheck, Phone, PhoneOff,
   Settings, MessageSquare, Shield, Building2, MoreHorizontal,
   Sparkles, BarChart3, ListTodo, FileBarChart, Brain,
-  CheckCircle2, AlertTriangle, Activity
+  CheckCircle2, AlertTriangle, Activity, Command, Network,
+  Zap, ArrowRight, Globe, TrendingDown
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -784,6 +785,395 @@ const AlertsPanel = ({ onClose, token }) => {
   );
 };
 
+// ============== Command Bar (Ctrl+K) ==============
+const CommandBar = ({ isOpen, onClose, onNavigate, token, onAction }) => {
+  const [query, setQuery] = useState('');
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const [mode, setMode] = useState('search');
+  const inputRef = useRef(null);
+
+  useEffect(() => { if (isOpen) { setQuery(''); setResults([]); setSelectedIdx(0); setMode('search'); setTimeout(() => inputRef.current?.focus(), 100); } }, [isOpen]);
+
+  useEffect(() => {
+    if (!query.trim()) { setResults([]); return; }
+    const isAi = query.startsWith('?');
+    setMode(isAi ? 'ai' : 'search');
+    const timer = setTimeout(async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`${API}/api/lumi/command/search`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ query: isAi ? query.slice(1).trim() : query, mode: isAi ? 'ai' : 'search' })
+        });
+        if (res.ok) { const d = await res.json(); setResults(d.results || []); setSelectedIdx(0); }
+      } catch (e) {}
+      setLoading(false);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [query, token]);
+
+  const handleSelect = (item) => {
+    if (item.type === 'channel' || item.type === 'dm') { onNavigate(item); onClose(); }
+    else if (item.type === 'message') { onNavigate({ type: 'channel', id: item.channel_id }); onClose(); }
+    else if (item.type === 'action') { onAction(item.command); onClose(); }
+    else { onClose(); }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); setSelectedIdx(prev => Math.min(prev + 1, results.length - 1)); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); setSelectedIdx(prev => Math.max(prev - 1, 0)); }
+    else if (e.key === 'Enter' && results[selectedIdx]) { handleSelect(results[selectedIdx]); }
+    else if (e.key === 'Escape') { onClose(); }
+  };
+
+  const iconMap = { hash: Hash, user: User, message: MessageSquare, 'list-todo': ListTodo, 'check-circle': CheckCircle2, plus: Plus, 'file-bar-chart': FileBarChart, activity: Activity, 'alert-triangle': AlertTriangle, sparkles: Sparkles };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh]" onClick={onClose} data-testid="command-bar-overlay">
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      <div className="relative w-full max-w-[560px] bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden" onClick={e => e.stopPropagation()} data-testid="command-bar">
+        {/* Search Input */}
+        <div className="flex items-center gap-3 px-4 h-14 border-b border-slate-100">
+          {mode === 'ai' ? (
+            <Sparkles className="w-4.5 h-4.5 flex-shrink-0" style={{ color: ESY.turquoise }} />
+          ) : (
+            <Search className="w-4.5 h-4.5 text-slate-400 flex-shrink-0" />
+          )}
+          <input ref={inputRef} value={query} onChange={e => setQuery(e.target.value)} onKeyDown={handleKeyDown}
+            placeholder='Search channels, tasks, people... (prefix ? for AI)'
+            className="flex-1 text-sm bg-transparent outline-none text-slate-900 placeholder:text-slate-400"
+            data-testid="command-input" />
+          <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-slate-400 bg-slate-50 rounded border border-slate-200">ESC</kbd>
+          {loading && <Loader2 className="w-4 h-4 animate-spin" style={{ color: ESY.turquoise }} />}
+        </div>
+
+        {/* Results */}
+        <div className="max-h-[360px] overflow-auto">
+          {results.length === 0 && query && !loading && (
+            <div className="px-4 py-6 text-center text-xs text-slate-400">
+              {mode === 'ai' ? 'Type your question after ?' : 'No results found'}
+            </div>
+          )}
+
+          {mode === 'ai' && results.length > 0 && results[0].type === 'ai_answer' ? (
+            <div className="p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Sparkles className="w-3.5 h-3.5" style={{ color: ESY.turquoise }} />
+                <span className="text-xs font-semibold" style={{ color: ESY.turquoise }}>AI Answer</span>
+              </div>
+              <p className="text-xs text-slate-700 leading-relaxed whitespace-pre-wrap" data-testid="command-ai-answer">{results[0].content}</p>
+            </div>
+          ) : (
+            results.map((item, idx) => {
+              const Icon = iconMap[item.icon] || Hash;
+              const typeLabels = { channel: 'Channel', dm: 'Direct Message', message: 'Message', task: 'Task', action_item: 'Action Item', action: 'Quick Action' };
+              return (
+                <button key={`${item.type}-${item.id}-${idx}`} onClick={() => handleSelect(item)}
+                  className={`w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors ${idx === selectedIdx ? 'bg-slate-50' : 'hover:bg-slate-50'}`}
+                  data-testid={`command-result-${idx}`}>
+                  <div className={`w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0 ${item.type === 'action' ? 'bg-gradient-to-br' : 'bg-slate-100'}`}
+                    style={item.type === 'action' ? { background: `linear-gradient(135deg, ${ESY.turquoise}15, ${ESY.pink}15)` } : {}}>
+                    <Icon className="w-3.5 h-3.5" style={item.type === 'action' ? { color: ESY.turquoise } : { color: '#64748b' }} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-medium text-slate-800 truncate">{item.name || item.content || ''}</p>
+                    {item.sender && <p className="text-[10px] text-slate-400">by {item.sender}</p>}
+                    {item.assignee && <p className="text-[10px] text-slate-400">assigned to {item.assignee}</p>}
+                  </div>
+                  <span className="text-[9px] text-slate-400 uppercase tracking-wider flex-shrink-0">{typeLabels[item.type] || item.type}</span>
+                  {item.type === 'action' && <ArrowRight className="w-3 h-3 text-slate-300 flex-shrink-0" />}
+                </button>
+              );
+            })
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="px-4 py-2 border-t border-slate-100 flex items-center justify-between">
+          <div className="flex items-center gap-3 text-[10px] text-slate-400">
+            <span><kbd className="px-1 py-0.5 bg-slate-50 rounded border border-slate-200 font-mono text-[9px]">↑↓</kbd> navigate</span>
+            <span><kbd className="px-1 py-0.5 bg-slate-50 rounded border border-slate-200 font-mono text-[9px]">↵</kbd> select</span>
+            <span><kbd className="px-1 py-0.5 bg-slate-50 rounded border border-slate-200 font-mono text-[9px]">?</kbd> ask AI</span>
+          </div>
+          <span className="text-[9px] font-medium" style={{ color: ESY.pink }}>LUMI Command</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ============== Knowledge Graph Panel ==============
+const KnowledgeGraphPanel = ({ onClose, token }) => {
+  const [graph, setGraph] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [impactResult, setImpactResult] = useState(null);
+  const [impactLoading, setImpactLoading] = useState(false);
+  const [selectedNode, setSelectedNode] = useState(null);
+  const [filterType, setFilterType] = useState('all');
+
+  const loadGraph = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/api/lumi/knowledge-graph`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) setGraph(await res.json());
+    } catch (e) { toast.error('Failed to load graph'); }
+    setLoading(false);
+  };
+
+  const runImpactAnalysis = async (node) => {
+    setSelectedNode(node);
+    setImpactLoading(true);
+    try {
+      const res = await fetch(`${API}/api/lumi/knowledge-graph/impact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ entity_type: node.type, entity_id: node.id.split('_').slice(1).join('_'), entity_name: node.label })
+      });
+      if (res.ok) setImpactResult(await res.json());
+    } catch (e) {}
+    setImpactLoading(false);
+  };
+
+  useEffect(() => { loadGraph(); }, []);
+
+  const nodeColors = {
+    person: { bg: ESY.turquoise, text: 'white' },
+    channel: { bg: '#36454F', text: 'white' },
+    task: { bg: ESY.pink, text: 'white' },
+    action_item: { bg: ESY.deepRed, text: 'white' },
+    meeting: { bg: '#6C5CE7', text: 'white' },
+  };
+
+  const riskColors = { critical: ESY.deepRed, high: ESY.pink, medium: '#E17055', low: ESY.turquoise };
+
+  const filteredNodes = graph?.nodes?.filter(n => filterType === 'all' || n.type === filterType) || [];
+
+  return (
+    <div className="w-[380px] border-l border-slate-200 bg-white flex flex-col h-full" data-testid="knowledge-graph-panel">
+      <div className="h-14 flex items-center justify-between px-4 border-b border-slate-200">
+        <div className="flex items-center gap-2">
+          <Network className="w-4 h-4" style={{ color: ESY.turquoise }} />
+          <h3 className="text-sm font-semibold text-slate-900">Knowledge Graph</h3>
+          {graph && <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-500">{graph.stats?.total_nodes} nodes</span>}
+        </div>
+        <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-md"><X className="w-4 h-4 text-slate-500" /></button>
+      </div>
+
+      {/* Filter */}
+      <div className="flex gap-1 px-3 py-2 border-b border-slate-100 overflow-x-auto">
+        {['all', 'person', 'channel', 'task', 'meeting', 'action_item'].map(t => (
+          <button key={t} onClick={() => setFilterType(t)}
+            className={`px-2.5 py-1 rounded-full text-[10px] font-medium whitespace-nowrap transition-colors ${filterType === t ? 'text-white' : 'bg-slate-50 text-slate-500 hover:bg-slate-100'}`}
+            style={filterType === t ? { backgroundColor: nodeColors[t]?.bg || ESY.turquoise } : {}}
+            data-testid={`graph-filter-${t}`}>
+            {t === 'all' ? 'All' : t === 'action_item' ? 'Actions' : t.charAt(0).toUpperCase() + t.slice(1)}s
+          </button>
+        ))}
+      </div>
+
+      <ScrollArea className="flex-1">
+        <div className="p-3">
+          {loading ? (
+            <div className="flex items-center justify-center py-8"><Loader2 className="w-5 h-5 animate-spin" style={{ color: ESY.turquoise }} /></div>
+          ) : !graph ? (
+            <button onClick={loadGraph} className="w-full py-3 rounded-lg border text-sm" style={{ borderColor: `${ESY.turquoise}30`, color: ESY.turquoise }}>Load Knowledge Graph</button>
+          ) : (
+            <>
+              {/* Stats Cards */}
+              <div className="grid grid-cols-3 gap-2 mb-3">
+                {Object.entries(graph.stats?.by_type || {}).map(([type, count]) => (
+                  <div key={type} className="p-2 rounded-lg border border-slate-100 text-center">
+                    <p className="text-lg font-bold" style={{ color: nodeColors[type]?.bg || '#64748b' }}>{count}</p>
+                    <p className="text-[9px] text-slate-400 capitalize">{type === 'action_item' ? 'Actions' : type}s</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Edge count */}
+              <div className="mb-3 p-2 rounded-lg border border-slate-100 flex items-center justify-between">
+                <span className="text-xs text-slate-500">Relationships</span>
+                <span className="text-sm font-bold" style={{ color: ESY.pink }}>{graph.stats?.total_edges}</span>
+              </div>
+
+              {/* Node List */}
+              <div className="space-y-1">
+                {filteredNodes.slice(0, 30).map((node) => {
+                  const nc = nodeColors[node.type] || { bg: '#64748b', text: 'white' };
+                  const connections = graph.edges?.filter(e => e.source === node.id || e.target === node.id).length || 0;
+                  return (
+                    <button key={node.id} onClick={() => runImpactAnalysis(node)}
+                      className={`w-full flex items-center gap-2.5 p-2 rounded-lg border transition-all hover:shadow-sm ${selectedNode?.id === node.id ? 'border-slate-300 bg-slate-50' : 'border-slate-100 hover:border-slate-200'}`}
+                      data-testid={`graph-node-${node.id}`}>
+                      <div className="w-6 h-6 rounded-full flex items-center justify-center text-[8px] font-bold flex-shrink-0" style={{ backgroundColor: nc.bg, color: nc.text }}>
+                        {node.label?.[0]?.toUpperCase() || '?'}
+                      </div>
+                      <div className="flex-1 min-w-0 text-left">
+                        <p className="text-xs font-medium text-slate-800 truncate">{node.label}</p>
+                        <p className="text-[9px] text-slate-400">{node.type} · {connections} connections</p>
+                      </div>
+                      {node.status && (
+                        <span className={`text-[8px] px-1.5 py-0.5 rounded ${node.status === 'done' ? 'bg-emerald-50 text-emerald-600' : node.status === 'open' ? 'bg-amber-50 text-amber-600' : 'bg-slate-50 text-slate-500'}`}>{node.status}</span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </>
+          )}
+
+          {/* Impact Analysis Result */}
+          {impactLoading && (
+            <div className="mt-3 p-3 rounded-lg border border-slate-200 bg-slate-50 text-center">
+              <Loader2 className="w-4 h-4 animate-spin mx-auto" style={{ color: ESY.turquoise }} />
+              <p className="text-[10px] text-slate-400 mt-1">Analyzing impact...</p>
+            </div>
+          )}
+          {impactResult && !impactLoading && (
+            <div className="mt-3 p-3 rounded-xl border" style={{ borderColor: `${riskColors[impactResult.risk_level]}30`, background: `${riskColors[impactResult.risk_level]}05` }}
+              data-testid="impact-result">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xs font-bold text-slate-800">Impact Analysis</span>
+                <span className="text-[9px] font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: riskColors[impactResult.risk_level] }}>{impactResult.risk_level?.toUpperCase()}</span>
+              </div>
+              {impactResult.direct?.map((d, i) => (
+                <div key={i} className="flex items-start gap-2 text-xs text-slate-600 mb-1">
+                  <Zap className="w-3 h-3 mt-0.5 flex-shrink-0" style={{ color: ESY.deepRed }} />
+                  <span>{d.description}</span>
+                </div>
+              ))}
+              {impactResult.indirect?.map((d, i) => (
+                <div key={i} className="flex items-start gap-2 text-xs text-slate-500 mb-1">
+                  <Globe className="w-3 h-3 mt-0.5 flex-shrink-0" style={{ color: ESY.pink }} />
+                  <span>{d.description}</span>
+                </div>
+              ))}
+              {impactResult.ai_analysis && (
+                <div className="mt-2 pt-2 border-t border-slate-100">
+                  <p className="text-[10px] text-slate-600 leading-relaxed whitespace-pre-wrap">{impactResult.ai_analysis}</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </ScrollArea>
+    </div>
+  );
+};
+
+// ============== Bottleneck Panel ==============
+const BottleneckPanel = ({ onClose, token }) => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const loadBottlenecks = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/api/lumi/bottlenecks`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) setData(await res.json());
+    } catch (e) { toast.error('Failed to load bottlenecks'); }
+    setLoading(false);
+  };
+
+  useEffect(() => { loadBottlenecks(); }, []);
+
+  const severityIcon = { critical: AlertTriangle, warning: TrendingDown, info: Activity };
+  const healthColor = (score) => score >= 80 ? ESY.turquoise : score >= 50 ? '#E17055' : ESY.deepRed;
+
+  return (
+    <div className="w-[350px] border-l border-slate-200 bg-white flex flex-col h-full" data-testid="bottleneck-panel">
+      <div className="h-14 flex items-center justify-between px-4 border-b border-slate-200">
+        <div className="flex items-center gap-2">
+          <TrendingDown className="w-4 h-4" style={{ color: ESY.deepRed }} />
+          <h3 className="text-sm font-semibold text-slate-900">Bottlenecks</h3>
+        </div>
+        <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-md"><X className="w-4 h-4 text-slate-500" /></button>
+      </div>
+
+      <ScrollArea className="flex-1">
+        <div className="p-4">
+          {loading ? (
+            <div className="flex items-center justify-center py-8"><Loader2 className="w-5 h-5 animate-spin" style={{ color: ESY.turquoise }} /></div>
+          ) : !data ? (
+            <button onClick={loadBottlenecks} className="w-full py-3 rounded-lg border text-sm" style={{ borderColor: `${ESY.deepRed}30`, color: ESY.deepRed }}>Scan for Bottlenecks</button>
+          ) : (
+            <>
+              {/* Health Score */}
+              <div className="flex items-center justify-between p-4 rounded-xl bg-slate-50 border border-slate-100 mb-4">
+                <div>
+                  <p className="text-[10px] text-slate-400 uppercase tracking-wider mb-1">Project Health</p>
+                  <p className="text-3xl font-bold" style={{ color: healthColor(data.health_score) }}>{data.health_score}</p>
+                </div>
+                <div className="text-right space-y-1">
+                  <div className="text-[10px] text-slate-500"><span className="font-semibold">{data.workload_summary?.total_open_items || 0}</span> open items</div>
+                  <div className="text-[10px] text-slate-500"><span className="font-semibold">{data.workload_summary?.people_with_work || 0}</span> people assigned</div>
+                  <div className="text-[10px] text-slate-500"><span className="font-semibold">{data.workload_summary?.avg_workload || 0}</span> avg workload</div>
+                </div>
+              </div>
+
+              {/* Bottleneck Items */}
+              {data.bottlenecks?.length === 0 ? (
+                <div className="text-center py-6">
+                  <CheckCircle2 className="w-10 h-10 mx-auto mb-2" style={{ color: ESY.turquoise }} />
+                  <p className="text-sm font-medium text-slate-700">No Bottlenecks</p>
+                  <p className="text-xs text-slate-400 mt-1">Team workload is balanced</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {data.bottlenecks.map((bn) => {
+                    const Icon = severityIcon[bn.severity] || Activity;
+                    const color = bn.severity === 'critical' ? ESY.deepRed : bn.severity === 'warning' ? ESY.pink : ESY.turquoise;
+                    return (
+                      <div key={bn.id} className="p-3 rounded-xl border" style={{ borderColor: `${color}20`, background: `${color}05` }}
+                        data-testid={`bottleneck-${bn.id}`}>
+                        <div className="flex items-start gap-2">
+                          <Icon className="w-4 h-4 mt-0.5 flex-shrink-0" style={{ color }} />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-semibold text-slate-800">{bn.title}</p>
+                            <p className="text-[11px] text-slate-600 mt-1 leading-relaxed">{bn.description}</p>
+                            {bn.items && (
+                              <div className="mt-2 space-y-0.5">
+                                {bn.items.slice(0, 3).map((item, i) => (
+                                  <p key={i} className="text-[10px] text-slate-500 pl-2 border-l-2" style={{ borderColor: `${color}30` }}>{item}</p>
+                                ))}
+                              </div>
+                            )}
+                            {bn.workload && (
+                              <div className="mt-2 flex items-center gap-2">
+                                <span className="text-[9px] px-2 py-0.5 rounded-full font-medium text-white" style={{ backgroundColor: color }}>{bn.workload.total} tasks</span>
+                                {bn.workload.high > 0 && <span className="text-[9px] px-2 py-0.5 rounded-full font-medium text-white" style={{ backgroundColor: ESY.deepRed }}>{bn.workload.high} critical</span>}
+                              </div>
+                            )}
+                            {bn.suggestion && (
+                              <p className="text-[10px] mt-2 font-medium" style={{ color: ESY.turquoise }}>Suggestion: {bn.suggestion}</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              <button onClick={loadBottlenecks} className="w-full mt-3 text-xs py-1.5 rounded-md hover:bg-slate-50 transition-colors" style={{ color: ESY.turquoise }}>
+                Rescan
+              </button>
+            </>
+          )}
+        </div>
+      </ScrollArea>
+    </div>
+  );
+};
+
 // ============== Create Channel Modal ==============
 const CreateChannelModal = ({ onClose, onCreated, token }) => {
   const { t } = useTranslation();
@@ -939,6 +1329,9 @@ const LumiMessenger = () => {
   const [showAiPanel, setShowAiPanel] = useState(false);
   const [showAiChat, setShowAiChat] = useState(false);
   const [showAlerts, setShowAlerts] = useState(false);
+  const [showCommandBar, setShowCommandBar] = useState(false);
+  const [showKnowledgeGraph, setShowKnowledgeGraph] = useState(false);
+  const [showBottlenecks, setShowBottlenecks] = useState(false);
   const [presenceMap, setPresenceMap] = useState({});
 
   const messagesEndRef = useRef(null);
@@ -1044,6 +1437,15 @@ const LumiMessenger = () => {
     fetch(`${API}/api/lumi/channels/${activeChannel.id}/messages?limit=100`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then(r => r.json()).then(d => setMessages(d.messages || []));
   }, [activeChannel, token]);
+
+  // Ctrl+K Command Bar
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); setShowCommandBar(true); }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
 
@@ -1254,15 +1656,26 @@ const LumiMessenger = () => {
                 {activeChannel.channel_type === 'dm' && (
                   <button onClick={() => toast.info('Calling...')} className="p-2 text-slate-400 hover:text-[#008080] hover:bg-[#008080]/5 rounded-md" data-testid="voice-call-btn"><Phone className="w-4 h-4" /></button>
                 )}
-                <button onClick={() => { setShowAiChat(!showAiChat); if (showAlerts) setShowAlerts(false); if (showAiPanel) setShowAiPanel(false); }}
+                <button onClick={() => setShowCommandBar(true)}
+                  className="p-2 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+                  data-testid="command-bar-btn" title="Command Bar (Ctrl+K)"><Command className="w-4 h-4" /></button>
+                <button onClick={() => { setShowAiChat(!showAiChat); setShowAlerts(false); setShowAiPanel(false); setShowKnowledgeGraph(false); setShowBottlenecks(false); }}
                   className={`p-2 rounded-md transition-colors ${showAiChat ? 'bg-[#00CEC9]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
                   style={showAiChat ? { color: ESY.turquoise } : {}}
                   data-testid="ai-chat-btn" title="Ask AI"><Sparkles className="w-4 h-4" /></button>
-                <button onClick={() => { setShowAlerts(!showAlerts); if (showAiChat) setShowAiChat(false); if (showAiPanel) setShowAiPanel(false); }}
+                <button onClick={() => { setShowAlerts(!showAlerts); setShowAiChat(false); setShowAiPanel(false); setShowKnowledgeGraph(false); setShowBottlenecks(false); }}
                   className={`p-2 rounded-md transition-colors ${showAlerts ? 'bg-[#D63031]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
                   style={showAlerts ? { color: ESY.deepRed } : {}}
                   data-testid="alerts-btn" title="Alerts & Decisions"><AlertTriangle className="w-4 h-4" /></button>
-                <button onClick={() => { setShowAiPanel(!showAiPanel); if (showAiChat) setShowAiChat(false); if (showAlerts) setShowAlerts(false); }}
+                <button onClick={() => { setShowKnowledgeGraph(!showKnowledgeGraph); setShowAiChat(false); setShowAlerts(false); setShowAiPanel(false); setShowBottlenecks(false); }}
+                  className={`p-2 rounded-md transition-colors ${showKnowledgeGraph ? 'bg-[#00CEC9]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
+                  style={showKnowledgeGraph ? { color: ESY.turquoise } : {}}
+                  data-testid="knowledge-graph-btn" title="Knowledge Graph"><Network className="w-4 h-4" /></button>
+                <button onClick={() => { setShowBottlenecks(!showBottlenecks); setShowAiChat(false); setShowAlerts(false); setShowAiPanel(false); setShowKnowledgeGraph(false); }}
+                  className={`p-2 rounded-md transition-colors ${showBottlenecks ? 'bg-[#D63031]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
+                  style={showBottlenecks ? { color: ESY.deepRed } : {}}
+                  data-testid="bottleneck-btn" title="Bottlenecks"><TrendingDown className="w-4 h-4" /></button>
+                <button onClick={() => { setShowAiPanel(!showAiPanel); setShowAiChat(false); setShowAlerts(false); setShowKnowledgeGraph(false); setShowBottlenecks(false); }}
                   className={`p-2 rounded-md transition-colors ${showAiPanel ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
                   data-testid="ai-panel-btn" title="AI Insights"><Brain className="w-4 h-4" /></button>
                 <button onClick={() => setShowMembers(!showMembers)} className={`p-2 rounded-md transition-colors ${showMembers ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`} data-testid="channel-members-btn"><Users className="w-4 h-4" /></button>
@@ -1322,6 +1735,12 @@ const LumiMessenger = () => {
               {/* Alerts & Decision Cards Panel */}
               {showAlerts && <AlertsPanel onClose={() => setShowAlerts(false)} token={token} />}
 
+              {/* Knowledge Graph Panel */}
+              {showKnowledgeGraph && <KnowledgeGraphPanel onClose={() => setShowKnowledgeGraph(false)} token={token} />}
+
+              {/* Bottleneck Panel */}
+              {showBottlenecks && <BottleneckPanel onClose={() => setShowBottlenecks(false)} token={token} />}
+
               {/* Members Panel */}
               {showMembers && <MembersPanel channelId={activeChannel.id} onClose={() => setShowMembers(false)} token={token} />}
             </div>
@@ -1340,6 +1759,26 @@ const LumiMessenger = () => {
 
       {showCreateModal && <CreateChannelModal onClose={() => setShowCreateModal(false)} onCreated={(ch) => { setChannels(prev => [ch, ...prev]); setActiveChannel(ch); setShowCreateModal(false); setMobileSidebar(false); }} token={token} />}
       {showNewDmModal && <NewDmModal onClose={() => setShowNewDmModal(false)} onSelect={handleStartDm} token={token} />}
+
+      {/* Command Bar (Ctrl+K) */}
+      <CommandBar isOpen={showCommandBar} onClose={() => setShowCommandBar(false)} token={token}
+        onNavigate={(item) => {
+          if (item.type === 'channel') {
+            const ch = channels.find(c => c.id === item.id) || dms.find(d => d.id === item.id);
+            if (ch) { setActiveChannel(ch); setMobileSidebar(false); }
+          } else if (item.type === 'dm') {
+            const dm = dms.find(d => d.id === item.id);
+            if (dm) { setActiveChannel(dm); setMobileSidebar(false); }
+          }
+        }}
+        onAction={(cmd) => {
+          if (cmd === 'create_channel') setShowCreateModal(true);
+          else if (cmd === 'generate_report') { if (activeChannel) { setShowAiPanel(true); } }
+          else if (cmd === 'analyze_sentiment') { if (activeChannel) { setShowAiPanel(true); } }
+          else if (cmd === 'extract_tasks') { if (activeChannel) { setShowAiPanel(true); } }
+          else if (cmd === 'check_anomalies') { setShowAlerts(true); }
+        }}
+      />
     </div>
   );
 };
