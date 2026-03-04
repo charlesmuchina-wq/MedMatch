@@ -1,149 +1,173 @@
 {
-  "project_name": "AI KARAU - Redesign",
+  "identity": {
+    "persona": "E1",
+    "mission": "Create a Prestigious & Sophisticated messaging platform that feels like an executive command center.",
+    "principles": [
+      "Fusion over Imitation: Combine 'Editorial' typography with 'SaaS' density.",
+      "Emotion First: Every interaction should feel 'calm' and 'authoritative'.",
+      "Content is King: The message content is the hero; UI recedes.",
+      "Negative Space: Use generous padding (p-6, p-8) in panels to avoid clutter.",
+      "Contrast: High contrast text for readability, subtle contrast for containers."
+    ]
+  },
   "theme": {
-    "mode": "dark",
-    "colors": {
-      "background": {
-        "primary": "#1a1b2e",
-        "secondary": "#0f1629",
-        "tertiary": "#111827"
-      },
-      "accent": {
-        "primary": "#6c3ce0",
-        "secondary": "#20b2aa",
-        "tertiary": "#40e0d0",
-        "success": "#10b981",
-        "warning": "#eab308",
-        "danger": "#ef4444"
-      },
-      "surface": {
-        "glass": "rgba(255, 255, 255, 0.05)",
-        "glass_hover": "rgba(255, 255, 255, 0.1)",
-        "glass_active": "rgba(108, 60, 224, 0.15)",
-        "border": "rgba(255, 255, 255, 0.1)",
-        "border_glow": "rgba(108, 60, 224, 0.5)"
-      },
-      "text": {
-        "primary": "#f5f5f5",
-        "secondary": "#94a3b8",
-        "tertiary": "#64748b"
-      }
+    "name": "LUMI Prestige",
+    "mode": "light",
+    "strategy": "Hybrid",
+    "description": "A sophisticated light-themed base with a commanding charcoal sidebar and electric teal accents. 60% Neutral (Slate-50), 30% Secondary (Charcoal Sidebar), 10% Accent (Teal)."
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Manrope, sans-serif",
+      "body": "Inter, sans-serif",
+      "code": "JetBrains Mono, monospace"
     },
-    "typography": {
-      "headings": {
-        "font_family": "IBM Plex Sans, sans-serif",
-        "weights": {
-          "normal": 400,
-          "medium": 500,
-          "bold": 700
-        },
-        "tracking": "-0.02em"
-      },
-      "body": {
-        "font_family": "Inter, sans-serif",
-        "weights": {
-          "normal": 400,
-          "medium": 500,
-          "semibold": 600
-        }
-      }
-    },
-    "shadows": {
-      "glow_primary": "0 0 20px rgba(108, 60, 224, 0.3)",
-      "glow_secondary": "0 0 20px rgba(32, 178, 170, 0.3)",
-      "card": "0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3)"
-    },
-    "radii": {
-      "card": "1rem",
-      "button": "9999px",
-      "input": "0.75rem"
+    "scale": {
+      "h1": "text-4xl font-bold tracking-tight text-slate-900",
+      "h2": "text-3xl font-semibold tracking-tight text-slate-900",
+      "h3": "text-2xl font-semibold text-slate-900",
+      "h4": "text-xl font-medium text-slate-900",
+      "body_lg": "text-lg leading-relaxed text-slate-700",
+      "body_base": "text-base leading-relaxed text-slate-600",
+      "body_sm": "text-sm leading-relaxed text-slate-500",
+      "caption": "text-xs font-medium uppercase tracking-wider text-slate-400"
     }
   },
-  "layout_strategies": {
-    "dashboard": {
-      "type": "bento_grid",
-      "grid_cols": "grid-cols-1 md:grid-cols-4 lg:grid-cols-12",
-      "gap": "gap-6",
-      "padding": "p-8"
+  "colors": {
+    "palette": {
+      "primary": {
+        "DEFAULT": "#008080",
+        "foreground": "#ffffff",
+        "50": "#f0fdfa",
+        "100": "#ccfbf1",
+        "200": "#99f6e4",
+        "300": "#5eead4",
+        "400": "#2dd4bf",
+        "500": "#14b8a6",
+        "600": "#008080",
+        "700": "#0f766e",
+        "800": "#115e59",
+        "900": "#134e4a"
+      },
+      "slate": {
+        "50": "#f8fafc",
+        "100": "#f1f5f9",
+        "200": "#e2e8f0",
+        "300": "#cbd5e1",
+        "400": "#94a3b8",
+        "500": "#64748b",
+        "600": "#475569",
+        "700": "#334155",
+        "800": "#1e293b",
+        "900": "#0f172a",
+        "charcoal": "#36454F"
+      },
+      "background": "#f8fafc",
+      "surface": "#ffffff",
+      "sidebar": "#36454F",
+      "border": "#e2e8f0"
+    },
+    "semantic": {
+      "background": "bg-slate-50",
+      "surface": "bg-white border border-slate-200 shadow-sm",
+      "sidebar": "bg-[#36454F] text-slate-200",
+      "sidebar_active": "bg-teal-600/20 text-teal-300 border-l-2 border-teal-400",
+      "primary_btn": "bg-[#008080] hover:bg-[#006666] text-white shadow-md",
+      "secondary_btn": "bg-white border border-slate-200 hover:bg-slate-50 text-slate-700",
+      "text_primary": "text-slate-900",
+      "text_secondary": "text-slate-500",
+      "text_accent": "text-[#008080]",
+      "border_default": "border-slate-200",
+      "status_online": "bg-emerald-500",
+      "status_busy": "bg-amber-500",
+      "status_offline": "bg-slate-400"
+    }
+  },
+  "layout": {
+    "grid_system": "Use 'Bento' grids for dashboard views, but standard flex layouts for the messenger interface.",
+    "spacing": {
+      "container_padding": "p-6 md:p-8",
+      "section_gap": "gap-6",
+      "item_gap": "gap-3"
     },
     "sidebar": {
-      "style": "floating_glass",
-      "width_expanded": "w-64",
-      "width_collapsed": "w-20"
+      "width": "w-[280px]",
+      "collapsed_width": "w-[72px]",
+      "behavior": "Fixed left, dark themed."
+    },
+    "chat_area": {
+      "behavior": "Flexible, white background, scrollable message list."
+    },
+    "thread_panel": {
+      "width": "w-[350px]",
+      "behavior": "Slide-over from right, border-l border-slate-200, bg-white."
     }
   },
   "components": {
-    "cards": {
-      "base_class": "bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 transition-all duration-300 hover:bg-white/10 hover:border-purple-500/30 hover:shadow-glow_primary group",
-      "glass_effect": "backdrop-blur-xl bg-white/5 border border-white/10"
-    },
+    "general_rules": [
+      "Radius: rounded-md (6px) for inputs/buttons, rounded-lg (8px) for cards.",
+      "Shadows: minimal 'shadow-sm' for cards, 'shadow-lg' for floating panels.",
+      "Borders: 1px solid slate-200 is standard. Active states get slate-400 or teal-600."
+    ],
     "buttons": {
-      "primary": "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-500/25 rounded-full px-6 py-2.5 font-medium transition-all duration-300 hover:scale-105 active:scale-95",
-      "secondary": "bg-white/10 hover:bg-white/20 text-white border border-white/10 rounded-full px-6 py-2.5 font-medium transition-all duration-300",
-      "ghost": "text-slate-400 hover:text-white hover:bg-white/5 rounded-full px-4 py-2 transition-all duration-300"
+      "primary": "h-10 px-4 py-2 bg-[#008080] text-white rounded-md hover:bg-[#006666] transition-colors font-medium",
+      "ghost": "h-10 px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-md transition-colors",
+      "icon": "h-9 w-9 p-0 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-md"
     },
     "inputs": {
-      "base": "bg-black/20 border border-white/10 focus:border-purple-500/50 focus:ring-2 focus:ring-purple-500/20 rounded-xl px-4 py-3 text-white placeholder-slate-500 transition-all duration-300 backdrop-blur-sm"
+      "default": "h-10 px-3 py-2 border border-slate-200 rounded-md bg-white text-sm focus:ring-2 focus:ring-teal-600/20 focus:border-teal-600 transition-all placeholder:text-slate-400",
+      "chat_input": "min-h-[44px] px-4 py-3 border border-slate-200 rounded-lg bg-white shadow-sm focus-within:ring-2 focus-within:ring-teal-500/20 focus-within:border-teal-500"
+    },
+    "cards": {
+      "default": "bg-white border border-slate-200 rounded-lg shadow-sm p-6"
+    },
+    "avatars": {
+      "style": "rounded-full border-2 border-white shadow-sm",
+      "sizes": {
+        "sm": "h-8 w-8",
+        "md": "h-10 w-10",
+        "lg": "h-12 w-12"
+      }
+    },
+    "message_bubbles": {
+      "sent": "bg-[#008080]/10 text-slate-900 rounded-2xl rounded-tr-sm p-3 max-w-[80%]",
+      "received": "bg-white border border-slate-200 text-slate-800 rounded-2xl rounded-tl-sm p-3 max-w-[80%] shadow-sm"
     }
   },
-  "assets": {
-    "images": {
-      "login_bg": {
-        "url": "https://images.unsplash.com/photo-1771013304380-dfaf9f928de6?crop=entropy&cs=srgb&fm=jpg&q=85",
-        "alt": "Abstract Blue Wavy Background",
-        "usage": "Login page background with heavy overlay"
-      },
-      "lobby_bg": {
-        "url": "https://images.unsplash.com/photo-1556442669-c07f12469979?crop=entropy&cs=srgb&fm=jpg&q=85",
-        "alt": "Futuristic Office Blurred",
-        "usage": "Lobby and Virtual Background preview"
-      },
-      "avatars": [
-        "https://images.unsplash.com/photo-1698092826352-38667b6ed6f2?crop=entropy&cs=srgb&fm=jpg&q=85",
-        "https://images.unsplash.com/photo-1659353221237-6a1cfb73fd90?crop=entropy&cs=srgb&fm=jpg&q=85",
-        "https://images.unsplash.com/photo-1589668944320-409833e5ba10?crop=entropy&cs=srgb&fm=jpg&q=85"
-      ]
-    },
-    "icons": "lucide-react"
+  "visual_enhancers": {
+    "glassmorphism": "backdrop-blur-md bg-white/80 border-b border-slate-200/50 sticky top-0 z-10",
+    "gradients": "No full-screen gradients. Use subtle radial gradients (slate-50 to white) for backgrounds.",
+    "textures": "None. Keep it clean and 'slate' smooth."
   },
-  "animations": {
-    "hover_lift": "hover:-translate-y-1 hover:shadow-lg transition-transform duration-300",
-    "fade_in": "animate-fade-in",
-    "slide_up": "animate-slide-up",
-    "pulse_glow": "animate-pulse-glow"
+  "motion": {
+    "transitions": "transition-all duration-200 ease-out",
+    "hover_lift": "hover:-translate-y-0.5 hover:shadow-md",
+    "fade_in": "animate-in fade-in duration-300",
+    "slide_in_right": "animate-in slide-in-from-right duration-300"
   },
-  "page_specific_instructions": {
-    "KarauMeetLogin.jsx": [
-      "Use 'login_bg' as the full-screen background with 'bg-black/60' overlay.",
-      "Center the login card with 'glass_effect'.",
-      "Add a 'Neon Glow' border to the active tab.",
-      "Showcase AI features (AI Assistant, Noise Cancellation) as floating, glowing badges around the card.",
-      "Title should use a gradient text effect (Purple to Teal)."
+  "image_urls": {
+    "avatars": [
+      "https://images.unsplash.com/photo-1737574821698-862e77f044c1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwxfHxleGVjdXRpdmUlMjBwb3J0cmFpdCUyMHByb2Zlc3Npb25hbHxlbnwwfHx8fDE3NzI2MTc3MTl8MA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1717068341511-204207d72705?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwyfHxleGVjdXRpdmUlMjBwb3J0cmFpdCUyMHByb2Zlc3Npb25hbHxlbnwwfHx8fDE3NzI2MTc3MTl8MA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1717068342612-64ed5d77124d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwzfHxleGVjdXRpdmUlMjBwb3J0cmFpdCUyMHByb2Zlc3Npb25hbHxlbnwwfHx8fDE3NzI2MTc3MTl8MA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1717068341198-95cce0b54b26?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHw0fHxleGVjdXRpdmUlMjBwb3J0cmFpdCUyMHByb2Zlc3Npb25hbHxlbnwwfHx8fDE3NzI2MTc3MTl8MA&ixlib=rb-4.1.0&q=85"
     ],
-    "KarauMeetDashboard.jsx": [
-      "Implement a 'Bento Grid' layout.",
-      "Top section: 'Upcoming Meeting' (Large Card) + 'Quick Actions' (Square Cards).",
-      "Middle section: 'Analytics' (Wide Card) + 'Recent Recordings' (List Card).",
-      "Use 'glass_effect' for all cards.",
-      "Add a 'Welcome Back' header with large typography."
-    ],
-    "KarauMeetPortal.jsx": [
-      "Redesign sidebar to be 'floating' (detached from edges) with rounded corners.",
-      "Sidebar items: Active state should be a glowing pill shape with gradient bg.",
-      "Add a 'New Meeting' FAB (Floating Action Button) or prominent button at the top of sidebar."
-    ],
-    "MeetingLobby.jsx": [
-      "Hero layout: Large video preview in center.",
-      "Right/Bottom panel: Settings (Mic, Cam, Background).",
-      "Background Picker: Use circular thumbnails with glow on selection."
-    ]
+    "login_bg": "https://images.unsplash.com/photo-1719667052333-1cba4797fd85?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2ODh8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGdlb21ldHJpYyUyMGFyY2hpdGVjdHVyZSUyMGdyZXl8ZW58MHx8fHwxNzcyNjE3NzI4fDA&ixlib=rb-4.1.0&q=85",
+    "empty_state": "https://images.unsplash.com/photo-1770085057307-c9a38bb834e0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2ODh8MHwxfHNlYXJjaHwzfHxhYnN0cmFjdCUyMGdlb21ldHJpYyUyMGFyY2hpdGVjdHVyZSUyMGdyZXl8ZW58MHx8fHwxNzcyNjE3NzI4fDA&ixlib=rb-4.1.0&q=85"
   },
-  "universal_guidelines": [
-    "Always use 'data-testid' for interactive elements.",
-    "Do NOT use gradients for dark backgrounds; use solid dark colors with subtle noise or radial gradient overlays.",
-    "Ensure text contrast meets WCAG AA standards.",
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic, 'on distribution' outputs. Avoid this.",
+    "Do NOT use dark colors as gradients. Dark colors look good when used independently.",
+    "Don't make generic centered layouts. Create depth through layered design elements.",
+    "You MUST NOT apply universal transition. Eg: transition: all. Always add transitions for specific interactive elements.",
+    "You MUST NOT center align the app container. This disrupts the human natural reading flow.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations.",
+    "NEVER: use AI assistant Emoji characters like 🤖🧠 etc for icons.",
+    "Use 2-3x more spacing than feels comfortable.",
+    "Main agent relies on these image URLs. Missing categories = main agent will use placeholder text which is FORBIDDEN",
+    "Prioritize using pre-existing components from src/components/ui when applicable.",
     "Use 'sonner' for toasts.",
-    "Use 'lucide-react' for icons.",
-    "Follow the 'Karau' color palette defined in tailwind.config.js."
-  ]
+    "All interactive and key informational elements MUST include a data-testid attribute."
+  ],
+  "instructions_to_main_agent": "1. Remove the 'batik' theme pattern from index.css. 2. Update tailwind.config.js to include the new 'charcoal' and 'teal' colors. 3. Implement the Layout first (Sidebar + Main Area). 4. Refactor the Login page to use the architectural image as a side panel. 5. Refactor the Chat Interface to be 'clean slate' style."
 }
