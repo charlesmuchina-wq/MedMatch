@@ -72,18 +72,29 @@ const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, token })
   const [showReact, setShowReact] = useState(false);
   const [translation, setTranslation] = useState(null);
   const [translating, setTranslating] = useState(false);
+  const [showLangPicker, setShowLangPicker] = useState(false);
   const quickEmojis = ['👍', '❤️', '😂', '🎉', '🔥', '👀'];
 
-  const translateMsg = async () => {
+  const languages = [
+    { code: 'en', name: 'English' }, { code: 'es', name: 'Spanish' }, { code: 'fr', name: 'French' },
+    { code: 'de', name: 'German' }, { code: 'pt', name: 'Portuguese' }, { code: 'it', name: 'Italian' },
+    { code: 'ar', name: 'Arabic' }, { code: 'zh', name: 'Chinese' }, { code: 'ja', name: 'Japanese' },
+    { code: 'ko', name: 'Korean' }, { code: 'hi', name: 'Hindi' }, { code: 'ru', name: 'Russian' },
+    { code: 'sw', name: 'Swahili' }, { code: 'tr', name: 'Turkish' }, { code: 'nl', name: 'Dutch' },
+    { code: 'pl', name: 'Polish' }, { code: 'vi', name: 'Vietnamese' }, { code: 'th', name: 'Thai' },
+    { code: 'id', name: 'Indonesian' }, { code: 'he', name: 'Hebrew' },
+  ];
+
+  const translateMsg = async (langName) => {
     if (translating) return;
-    if (translation) { setTranslation(null); return; }
+    setShowLangPicker(false);
+    if (translation && translation.target_language === langName) { setTranslation(null); return; }
     setTranslating(true);
     try {
-      const lang = navigator.language?.split('-')[0] === 'en' ? 'Spanish' : 'English';
       const res = await fetch(`${API}/api/lumi/ai/translate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ text: msg.content, target_language: lang })
+        body: JSON.stringify({ text: msg.content, target_language: langName })
       });
       if (res.ok) { const d = await res.json(); setTranslation(d); }
     } catch (e) {}
@@ -181,7 +192,7 @@ const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, token })
             <button onClick={() => onThread?.(msg.id)} className="p-1 hover:bg-slate-100 rounded" data-testid={`thread-btn-${msg.id}`}>
               <MessageSquare className="w-3.5 h-3.5 text-slate-500" />
             </button>
-            <button onClick={translateMsg} className="p-1 hover:bg-slate-100 rounded" data-testid={`translate-btn-${msg.id}`}>
+            <button onClick={() => setShowLangPicker(!showLangPicker)} className="p-1 hover:bg-slate-100 rounded" data-testid={`translate-btn-${msg.id}`}>
               {translating ? <Loader2 className="w-3.5 h-3.5 animate-spin" style={{ color: ESY.turquoise }} /> : <Globe className="w-3.5 h-3.5" style={{ color: translation ? ESY.turquoise : '#64748b' }} />}
             </button>
           </div>
@@ -193,6 +204,25 @@ const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, token })
             </div>
           )}
         </div>
+
+        {/* Language Picker Dropdown */}
+        {showLangPicker && (
+          <div className="mt-1 inline-block w-48 max-h-56 overflow-auto bg-white border border-slate-200 rounded-lg shadow-xl z-20 py-1" data-testid={`lang-picker-${msg.id}`}>
+            <div className="flex items-center justify-between px-3 py-1.5 border-b border-slate-100 sticky top-0 bg-white">
+              <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">Translate to</span>
+              <button onClick={() => setShowLangPicker(false)} className="p-0.5 hover:bg-slate-100 rounded"><X className="w-3 h-3 text-slate-400" /></button>
+            </div>
+            {languages.map(lang => (
+              <button key={lang.code} onClick={() => translateMsg(lang.name)}
+                className={`w-full text-left px-3 py-1.5 text-xs hover:bg-slate-50 transition-colors flex items-center gap-2 ${translation?.target_language === lang.name ? 'font-semibold' : 'text-slate-700'}`}
+                style={translation?.target_language === lang.name ? { color: ESY.turquoise } : {}}
+                data-testid={`lang-${lang.code}`}>
+                <span className="w-5 text-center text-[10px] text-slate-400">{lang.code.toUpperCase()}</span>
+                {lang.name}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
