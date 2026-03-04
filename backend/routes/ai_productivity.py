@@ -1219,3 +1219,216 @@ async def detect_bottlenecks(request: Request):
         },
         "checked_at": now.isoformat()
     }
+
+# ============== 11. What-If Simulations ==============
+
+class SimulationRequest(BaseModel):
+    scenario: str
+    entity_type: Optional[str] = None
+    entity_name: Optional[str] = None
+
+
+@router.post("/lumi/ai/simulate")
+async def what_if_simulation(body: SimulationRequest, request: Request):
+    """Run a What-If simulation against current project state"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    # Gather current project state
+    tasks = await db.lumi_tasks.find({}, {"_id": 0, "task": 1, "assignee": 1, "status": 1, "priority": 1, "channel_name": 1}).limit(30).to_list(30)
+    actions = await db.ai_action_items.find({}, {"_id": 0, "task": 1, "assignee": 1, "status": 1, "deadline": 1}).limit(20).to_list(20)
+    channels = await db.lumi_channels.find({}, {"_id": 0, "name": 1, "members": 1}).limit(15).to_list(15)
+
+    member_set = set()
+    for ch in channels:
+        for m in ch.get("members", []):
+            member_set.add(m.get("name", m.get("email", "")))
+
+    state = {
+        "tasks": tasks, "action_items": actions,
+        "channels": [{"name": c["name"], "member_count": len(c.get("members", []))} for c in channels],
+        "team_members": list(member_set)[:30],
+        "total_open_tasks": sum(1 for t in tasks if t.get("status") != "done"),
+        "total_open_actions": sum(1 for a in actions if a.get("status") != "done"),
+    }
+
+    try:
+        prompt = f"""You are a project simulation engine. A project manager wants to run a "What-If" scenario.
+
+SCENARIO: "{body.scenario}"
+
+CURRENT PROJECT STATE:
+{json.dumps(state, default=str)}
+
+Analyze this scenario thoroughly and respond in valid JSON:
+{{
+  "scenario_summary": "Brief restatement of the scenario",
+  "impact_timeline": [
+    {{"timeframe": "Immediate/1 week/2 weeks/1 month", "impact": "what happens", "severity": "high/medium/low"}}
+  ],
+  "affected_entities": [
+    {{"type": "person/task/channel", "name": "entity name", "effect": "how it's affected"}}
+  ],
+  "risk_score": 0-100,
+  "recommendation": "What should the PM do",
+  "alternative_approaches": ["alternative 1", "alternative 2"],
+  "before_after": {{
+    "before": {{"open_tasks": number, "team_capacity": "description", "risk_level": "low/medium/high"}},
+    "after": {{"open_tasks": number, "team_capacity": "description", "risk_level": "low/medium/high"}}
+  }}
+}}"""
+
+        raw = await _call_llm(prompt, "You are a project simulation engine. Provide realistic impact analysis for what-if scenarios. Be specific about timeline and affected entities. JSON only.", f"sim_{user['user_id']}")
+        result = _parse_json(raw)
+        result["generated_at"] = datetime.now(timezone.utc).isoformat()
+        return result
+
+    except Exception as e:
+        logger.error(f"Simulation error: {e}")
+        return {"error": str(e), "scenario_summary": body.scenario, "recommendation": "Simulation temporarily unavailable."}
+
+
+# ============== 12. Message Translation ==============
+
+class TranslateRequest(BaseModel):
+    text: str
+    target_language: str
+
+
+@router.post("/lumi/ai/translate")
+async def translate_message(body: TranslateRequest, request: Request):
+    """Translate a message to the target language"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    if not body.text.strip():
+        raise HTTPException(status_code=400, detail="Text required")
+
+    try:
+        prompt = f"Translate the following text to {body.target_language}. Return ONLY the translated text, nothing else:\n\n{body.text}"
+        translated = await _call_llm(prompt, f"You are a professional translator. Translate accurately to {body.target_language}. Return only the translated text.", f"tr_{user['user_id']}")
+        return {
+            "original": body.text,
+            "translated": translated.strip(),
+            "target_language": body.target_language,
+            "generated_at": datetime.now(timezone.utc).isoformat()
+        }
+    except Exception as e:
+        logger.error(f"Translation error: {e}")
+        return {"original": body.text, "translated": body.text, "error": str(e)}
+
+
+# ============== 13. Smart Notifications ==============
+
+@router.get("/lumi/ai/notifications")
+async def get_smart_notifications(request: Request):
+    """Get AI-prioritized notifications for the current user"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Auth required")
+
+    user_id = user["user_id"]
+    user_name = user.get("name", user.get("email", ""))
+    notifications = []
+
+    # 1. Direct mentions in messages (last 24h)
+    cutoff_24h = (datetime.now(timezone.utc) - timedelta(hours=24)).isoformat()
+    mention_pattern = f"@{user_name}" if user_name else None
+
+    if mention_pattern:
+        mentions = await db.lumi_messages.find(
+            {"content": {"$regex": mention_pattern, "$options": "i"}, "created_at": {"$gte": cutoff_24h}, "sender_id": {"$ne": user_id}},
+            {"_id": 0, "id": 1, "content": 1, "sender_name": 1, "channel_id": 1, "created_at": 1}
+        ).sort("created_at", -1).limit(10).to_list(10)
+
+        for m in mentions:
+            notifications.append({
+                "id": f"notif_mention_{m['id'][:8]}",
+                "type": "mention", "priority": "high",
+                "title": f"{m.get('sender_name', 'Someone')} mentioned you",
+                "body": m.get("content", "")[:100],
+                "channel_id": m.get("channel_id", ""),
+                "created_at": m.get("created_at", ""),
+                "read": False
+            })
+
+    # 2. Tasks assigned to user
+    user_tasks = await db.lumi_tasks.find(
+        {"assignee": {"$regex": user_name, "$options": "i"}, "status": "open"},
+        {"_id": 0, "id": 1, "task": 1, "priority": 1, "deadline": 1, "created_at": 1}
+    ).sort("created_at", -1).limit(5).to_list(5)
+
+    for t in user_tasks:
+        is_overdue = t.get("deadline") and t.get("deadline") != "TBD" and t["deadline"] < datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        notifications.append({
+            "id": f"notif_task_{t['id']}",
+            "type": "task_assigned", "priority": "critical" if is_overdue else ("high" if t.get("priority") == "high" else "medium"),
+            "title": f"{'OVERDUE: ' if is_overdue else ''}Task assigned to you",
+            "body": t.get("task", "")[:100],
+            "deadline": t.get("deadline", ""),
+            "created_at": t.get("created_at", ""),
+            "read": False
+        })
+
+    # 3. Action items assigned to user
+    user_actions = await db.ai_action_items.find(
+        {"assignee": {"$regex": user_name, "$options": "i"}, "status": "open"},
+        {"_id": 0, "id": 1, "task": 1, "deadline": 1, "created_at": 1}
+    ).limit(5).to_list(5)
+
+    for a in user_actions:
+        notifications.append({
+            "id": f"notif_action_{a['id']}",
+            "type": "action_item", "priority": "medium",
+            "title": "Action item needs attention",
+            "body": a.get("task", "")[:100],
+            "deadline": a.get("deadline", ""),
+            "created_at": a.get("created_at", ""),
+            "read": False
+        })
+
+    # 4. Anomaly alerts (critical only)
+    overdue_actions = await db.ai_action_items.find(
+        {"status": "open", "deadline": {"$exists": True, "$ne": "TBD"}}, {"_id": 0}
+    ).to_list(20)
+    overdue_count = sum(1 for a in overdue_actions if a.get("deadline", "9999") < datetime.now(timezone.utc).strftime("%Y-%m-%d"))
+    if overdue_count > 0:
+        notifications.append({
+            "id": f"notif_anomaly_overdue",
+            "type": "anomaly", "priority": "critical",
+            "title": f"{overdue_count} overdue items across the team",
+            "body": "Review and reassign or update deadlines",
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "read": False
+        })
+
+    # 5. Low sentiment warnings
+    low_sentiment = await db.lumi_sentiment.find(
+        {"score": {"$lt": 40}, "analyzed_at": {"$gte": cutoff_24h}},
+        {"_id": 0, "channel_id": 1, "score": 1, "label": 1}
+    ).limit(3).to_list(3)
+    for s in low_sentiment:
+        notifications.append({
+            "id": f"notif_sentiment_{s['channel_id'][:8]}",
+            "type": "sentiment_warning", "priority": "medium",
+            "title": f"Low morale alert (score: {s.get('score', 0)})",
+            "body": f"Channel sentiment is {s.get('label', 'Concerning')}",
+            "channel_id": s.get("channel_id", ""),
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "read": False
+        })
+
+    # Sort by priority
+    priority_order = {"critical": 0, "high": 1, "medium": 2, "low": 3}
+    notifications.sort(key=lambda n: priority_order.get(n.get("priority", "low"), 4))
+
+    return {
+        "notifications": notifications,
+        "total": len(notifications),
+        "unread": sum(1 for n in notifications if not n.get("read")),
+        "critical": sum(1 for n in notifications if n.get("priority") == "critical"),
+        "checked_at": datetime.now(timezone.utc).isoformat()
+    }
+

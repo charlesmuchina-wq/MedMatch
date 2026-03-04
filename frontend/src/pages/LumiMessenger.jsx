@@ -15,7 +15,7 @@ import {
   Settings, MessageSquare, Shield, Building2, MoreHorizontal,
   Sparkles, BarChart3, ListTodo, FileBarChart, Brain,
   CheckCircle2, AlertTriangle, Activity, Command, Network,
-  Zap, ArrowRight, Globe, TrendingDown
+  Zap, ArrowRight, Globe, TrendingDown, Bell
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -70,7 +70,25 @@ const StatusDot = ({ status, size = 'sm', ringColor = 'ring-white' }) => {
 const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, token }) => {
   const time = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   const [showReact, setShowReact] = useState(false);
+  const [translation, setTranslation] = useState(null);
+  const [translating, setTranslating] = useState(false);
   const quickEmojis = ['👍', '❤️', '😂', '🎉', '🔥', '👀'];
+
+  const translateMsg = async () => {
+    if (translating) return;
+    if (translation) { setTranslation(null); return; }
+    setTranslating(true);
+    try {
+      const lang = navigator.language?.split('-')[0] === 'en' ? 'Spanish' : 'English';
+      const res = await fetch(`${API}/api/lumi/ai/translate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ text: msg.content, target_language: lang })
+      });
+      if (res.ok) { const d = await res.json(); setTranslation(d); }
+    } catch (e) {}
+    setTranslating(false);
+  };
 
   if (msg.type === 'system') {
     return (
@@ -137,10 +155,21 @@ const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, token })
 
         {/* Thread indicator */}
         {msg.thread_count > 0 && (
-          <button onClick={() => onThread?.(msg.id)} className="flex items-center gap-1.5 mt-1.5 text-[#008080] text-xs hover:underline" data-testid={`thread-${msg.id}`}>
+          <button onClick={() => onThread?.(msg.id)} className="flex items-center gap-1.5 mt-1.5 text-xs hover:underline" style={{ color: ESY.turquoise }} data-testid={`thread-${msg.id}`}>
             <MessageSquare className="w-3.5 h-3.5" />
             {msg.thread_count} {msg.thread_count === 1 ? 'reply' : 'replies'}
           </button>
+        )}
+
+        {/* Translation */}
+        {translation && (
+          <div className="mt-1.5 p-2 rounded-md border text-xs leading-relaxed" style={{ borderColor: `${ESY.turquoise}20`, background: `${ESY.turquoise}05` }} data-testid={`translation-${msg.id}`}>
+            <div className="flex items-center gap-1 mb-1">
+              <Globe className="w-3 h-3" style={{ color: ESY.turquoise }} />
+              <span className="text-[9px] font-medium" style={{ color: ESY.turquoise }}>{translation.target_language}</span>
+            </div>
+            <p className="text-slate-700">{translation.translated}</p>
+          </div>
         )}
 
         {/* Hover actions */}
@@ -151,6 +180,9 @@ const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, token })
             </button>
             <button onClick={() => onThread?.(msg.id)} className="p-1 hover:bg-slate-100 rounded" data-testid={`thread-btn-${msg.id}`}>
               <MessageSquare className="w-3.5 h-3.5 text-slate-500" />
+            </button>
+            <button onClick={translateMsg} className="p-1 hover:bg-slate-100 rounded" data-testid={`translate-btn-${msg.id}`}>
+              {translating ? <Loader2 className="w-3.5 h-3.5 animate-spin" style={{ color: ESY.turquoise }} /> : <Globe className="w-3.5 h-3.5" style={{ color: translation ? ESY.turquoise : '#64748b' }} />}
             </button>
           </div>
           {showReact && (
@@ -172,12 +204,16 @@ const ThreadPanel = ({ messageId, onClose, token }) => {
   const [thread, setThread] = useState(null);
   const [replyText, setReplyText] = useState('');
   const [sending, setSending] = useState(false);
+  const repliesEndRef = useRef(null);
 
-  useEffect(() => {
+  const loadThread = () => {
     if (!messageId) return;
     fetch(`${API}/api/lumi/messages/${messageId}/thread`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then(r => r.json()).then(setThread);
-  }, [messageId, token]);
+  };
+
+  useEffect(() => { loadThread(); }, [messageId, token]);
+  useEffect(() => { repliesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [thread?.replies]);
 
   const sendReply = async () => {
     if (!replyText.trim()) return;
@@ -189,53 +225,77 @@ const ThreadPanel = ({ messageId, onClose, token }) => {
         body: JSON.stringify({ content: replyText.trim() })
       });
       setReplyText('');
-      // Refresh
-      const res = await fetch(`${API}/api/lumi/messages/${messageId}/thread`, { headers: { 'Authorization': `Bearer ${token}` } });
-      if (res.ok) setThread(await res.json());
+      loadThread();
     } catch (e) { toast.error('Failed to send reply'); }
     setSending(false);
   };
 
-  if (!thread) return null;
+  if (!thread) return (
+    <div className="w-[350px] border-l border-slate-200 bg-white flex flex-col h-full items-center justify-center">
+      <Loader2 className="w-5 h-5 animate-spin" style={{ color: ESY.turquoise }} />
+    </div>
+  );
 
   return (
     <div className="w-[350px] border-l border-slate-200 bg-white flex flex-col h-full" data-testid="thread-panel">
       <div className="h-14 flex items-center justify-between px-4 border-b border-slate-200">
-        <h3 className="text-sm font-semibold text-slate-900">{t('lumi.thread') || 'Thread'}</h3>
+        <div className="flex items-center gap-2">
+          <MessageSquare className="w-4 h-4" style={{ color: ESY.turquoise }} />
+          <h3 className="text-sm font-semibold text-slate-900">{t('lumi.thread') || 'Thread'}</h3>
+          <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-500">{(thread.replies || []).length} replies</span>
+        </div>
         <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-md"><X className="w-4 h-4 text-slate-500" /></button>
       </div>
-      <ScrollArea className="flex-1 py-3">
-        {/* Parent */}
-        <div className="px-4 pb-3 border-b border-slate-100">
-          <p className="text-xs font-semibold text-slate-500 mb-1">{thread.parent?.sender_name}</p>
-          <p className="text-sm text-slate-800">{thread.parent?.content}</p>
+      <ScrollArea className="flex-1">
+        {/* Parent Message */}
+        <div className="px-4 py-3 border-b border-slate-100" style={{ background: `${ESY.turquoise}05` }}>
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-7 h-7 rounded-full flex items-center justify-center text-[9px] font-bold text-white" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}>
+              {(thread.parent?.sender_name || '?')[0].toUpperCase()}
+            </div>
+            <div>
+              <span className="text-xs font-semibold text-slate-900">{thread.parent?.sender_name}</span>
+              <span className="text-[10px] text-slate-400 ml-2">
+                {thread.parent?.created_at && new Date(thread.parent.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </span>
+            </div>
+          </div>
+          <p className="text-sm text-slate-800 leading-relaxed">{thread.parent?.content}</p>
         </div>
+
         {/* Replies */}
         <div className="px-4 pt-3 space-y-3">
+          {(thread.replies || []).length === 0 && (
+            <p className="text-xs text-slate-400 text-center py-4">No replies yet. Start the conversation!</p>
+          )}
           {(thread.replies || []).map(r => (
-            <div key={r.id} className="flex gap-2" data-testid={`thread-reply-${r.id}`}>
+            <div key={r.id} className="flex gap-2.5 group" data-testid={`thread-reply-${r.id}`}>
               <div className="w-7 h-7 rounded-full bg-[#36454F] flex items-center justify-center flex-shrink-0">
-                <span className="text-[9px] font-semibold text-white">{(r.sender_name || '?')[0]}</span>
+                <span className="text-[9px] font-semibold text-white">{(r.sender_name || '?')[0].toUpperCase()}</span>
               </div>
-              <div>
+              <div className="flex-1 min-w-0">
                 <div className="flex items-baseline gap-1.5">
                   <span className="text-xs font-semibold text-slate-900">{r.sender_name}</span>
                   <span className="text-[10px] text-slate-400">{new Date(r.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                 </div>
-                <p className="text-xs text-slate-700">{r.content}</p>
+                <p className="text-xs text-slate-700 leading-relaxed mt-0.5">{r.content}</p>
               </div>
             </div>
           ))}
+          <div ref={repliesEndRef} />
         </div>
       </ScrollArea>
       <div className="p-3 border-t border-slate-200">
-        <div className="flex items-center gap-2 border border-slate-200 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:ring-[#008080]/20 focus-within:border-[#008080]">
+        <div className="flex items-center gap-2 border border-slate-200 rounded-lg px-3 py-2 focus-within:ring-2 focus-within:border-transparent transition-all"
+          style={{ '--tw-ring-color': `${ESY.turquoise}30` }}>
           <input value={replyText} onChange={e => setReplyText(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter') sendReply(); }}
+            onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendReply(); } }}
             placeholder={t('lumi.replyPlaceholder') || 'Reply...'}
             className="flex-1 text-sm bg-transparent outline-none text-slate-800 placeholder:text-slate-400" data-testid="thread-reply-input" />
           <button onClick={sendReply} disabled={!replyText.trim() || sending}
-            className={`p-1.5 rounded-md transition-colors ${replyText.trim() ? 'bg-[#008080] text-white' : 'text-slate-400'}`} data-testid="thread-send-btn">
+            className="p-1.5 rounded-md transition-all text-white disabled:opacity-40"
+            style={{ background: replyText.trim() ? `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` : '#cbd5e1' }}
+            data-testid="thread-send-btn">
             <Send className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -1174,6 +1234,251 @@ const BottleneckPanel = ({ onClose, token }) => {
   );
 };
 
+// ============== What-If Simulations Panel ==============
+const SimulationPanel = ({ onClose, token }) => {
+  const [scenario, setScenario] = useState('');
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [history, setHistory] = useState([]);
+
+  const runSimulation = async () => {
+    if (!scenario.trim() || loading) return;
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/api/lumi/ai/simulate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ scenario: scenario.trim() })
+      });
+      if (res.ok) {
+        const d = await res.json();
+        setResult(d);
+        setHistory(prev => [{ scenario: scenario.trim(), result: d }, ...prev].slice(0, 5));
+      }
+    } catch (e) { toast.error('Simulation failed'); }
+    setLoading(false);
+  };
+
+  const riskColor = (score) => score >= 70 ? ESY.deepRed : score >= 40 ? ESY.pink : ESY.turquoise;
+  const severityColor = { high: ESY.deepRed, medium: ESY.pink, low: ESY.turquoise };
+
+  const suggestions = [
+    'What if we delay the project by 2 weeks?',
+    'What if we remove a team member?',
+    'What if we add 5 more high-priority tasks?',
+    'What if we reassign all tasks from Engineering?'
+  ];
+
+  return (
+    <div className="w-[380px] border-l border-slate-200 bg-white flex flex-col h-full" data-testid="simulation-panel">
+      <div className="h-14 flex items-center justify-between px-4 border-b border-slate-200" style={{ background: `linear-gradient(135deg, ${ESY.pink}05, ${ESY.turquoise}05)` }}>
+        <div className="flex items-center gap-2">
+          <Zap className="w-4 h-4" style={{ color: ESY.pink }} />
+          <h3 className="text-sm font-semibold text-slate-900">What-If Simulator</h3>
+        </div>
+        <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-md"><X className="w-4 h-4 text-slate-500" /></button>
+      </div>
+
+      {/* Input */}
+      <div className="p-3 border-b border-slate-100">
+        <textarea value={scenario} onChange={e => setScenario(e.target.value)}
+          placeholder="Describe a scenario to simulate..."
+          rows={2}
+          className="w-full text-xs bg-slate-50 border border-slate-200 rounded-lg p-3 outline-none resize-none focus:border-[#E84393] transition-colors"
+          data-testid="simulation-input" />
+        <button onClick={runSimulation} disabled={!scenario.trim() || loading}
+          className="w-full mt-2 py-2 rounded-lg text-xs font-medium text-white transition-all disabled:opacity-40 hover:opacity-90"
+          style={{ background: `linear-gradient(135deg, ${ESY.pink}, ${ESY.turquoise})` }}
+          data-testid="run-simulation-btn">
+          {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin inline mr-1" /> : <Zap className="w-3.5 h-3.5 inline mr-1" />}
+          {loading ? 'Simulating...' : 'Run Simulation'}
+        </button>
+        {!result && !loading && (
+          <div className="mt-2 space-y-1">
+            {suggestions.map((s, i) => (
+              <button key={i} onClick={() => setScenario(s)}
+                className="w-full text-left text-[10px] px-2 py-1.5 rounded border border-slate-100 text-slate-500 hover:bg-slate-50 transition-colors"
+                data-testid={`sim-suggestion-${i}`}>{s}</button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <ScrollArea className="flex-1">
+        <div className="p-3">
+          {result && (
+            <div className="space-y-3">
+              {/* Risk Score */}
+              <div className="flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-100">
+                <div>
+                  <p className="text-[10px] text-slate-400 uppercase tracking-wider mb-1">Risk Score</p>
+                  <p className="text-3xl font-bold" style={{ color: riskColor(result.risk_score || 0) }}>{result.risk_score || 0}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs font-medium text-slate-700">{result.scenario_summary}</p>
+                </div>
+              </div>
+
+              {/* Before/After */}
+              {result.before_after && (
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="p-2.5 rounded-lg border border-slate-200">
+                    <p className="text-[9px] font-semibold text-slate-400 uppercase mb-1">Before</p>
+                    <p className="text-xs text-slate-600">{result.before_after.before?.team_capacity}</p>
+                    <p className="text-[10px] text-slate-400">Risk: {result.before_after.before?.risk_level}</p>
+                  </div>
+                  <div className="p-2.5 rounded-lg border" style={{ borderColor: `${ESY.pink}30`, background: `${ESY.pink}05` }}>
+                    <p className="text-[9px] font-semibold uppercase mb-1" style={{ color: ESY.pink }}>After</p>
+                    <p className="text-xs text-slate-600">{result.before_after.after?.team_capacity}</p>
+                    <p className="text-[10px] text-slate-400">Risk: {result.before_after.after?.risk_level}</p>
+                  </div>
+                </div>
+              )}
+
+              {/* Impact Timeline */}
+              {result.impact_timeline?.length > 0 && (
+                <div>
+                  <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2">Impact Timeline</p>
+                  <div className="space-y-2">
+                    {result.impact_timeline.map((item, i) => (
+                      <div key={i} className="flex gap-2 items-start">
+                        <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: severityColor[item.severity] || ESY.turquoise }} />
+                        <div>
+                          <p className="text-[10px] font-medium" style={{ color: severityColor[item.severity] || ESY.turquoise }}>{item.timeframe}</p>
+                          <p className="text-[11px] text-slate-600">{item.impact}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Recommendation */}
+              {result.recommendation && (
+                <div className="p-3 rounded-lg border" style={{ borderColor: `${ESY.turquoise}20`, background: `${ESY.turquoise}05` }}>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider mb-1" style={{ color: ESY.turquoise }}>Recommendation</p>
+                  <p className="text-xs text-slate-700 leading-relaxed">{result.recommendation}</p>
+                </div>
+              )}
+
+              {/* Alternatives */}
+              {result.alternative_approaches?.length > 0 && (
+                <div>
+                  <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-1">Alternatives</p>
+                  {result.alternative_approaches.map((alt, i) => (
+                    <p key={i} className="text-[11px] text-slate-600 flex items-start gap-1.5 mb-1">
+                      <ArrowRight className="w-3 h-3 mt-0.5 flex-shrink-0" style={{ color: ESY.pink }} />
+                      {alt}
+                    </p>
+                  ))}
+                </div>
+              )}
+
+              <button onClick={() => { setResult(null); setScenario(''); }}
+                className="w-full text-xs py-1.5 rounded-md hover:bg-slate-50 transition-colors" style={{ color: ESY.turquoise }}>
+                New Simulation
+              </button>
+            </div>
+          )}
+        </div>
+      </ScrollArea>
+    </div>
+  );
+};
+
+// ============== Smart Notifications Panel ==============
+const NotificationsPanel = ({ onClose, token, onNavigate }) => {
+  const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const loadNotifications = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/api/lumi/ai/notifications`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) { const d = await res.json(); setNotifications(d.notifications || []); }
+    } catch (e) {}
+    setLoading(false);
+  };
+
+  useEffect(() => { loadNotifications(); }, []);
+
+  const priorityStyles = {
+    critical: { bg: `${ESY.deepRed}08`, border: `${ESY.deepRed}20`, dot: ESY.deepRed, label: 'URGENT' },
+    high: { bg: `${ESY.pink}08`, border: `${ESY.pink}20`, dot: ESY.pink, label: 'HIGH' },
+    medium: { bg: '#FFF8E1', border: '#FFD54F30', dot: '#F9A825', label: 'MEDIUM' },
+    low: { bg: `${ESY.turquoise}05`, border: `${ESY.turquoise}15`, dot: ESY.turquoise, label: 'LOW' },
+  };
+
+  const typeIcons = {
+    mention: MessageCircle, task_assigned: ListTodo, action_item: CheckCircle2,
+    anomaly: AlertTriangle, sentiment_warning: Activity,
+  };
+
+  return (
+    <div className="w-[320px] border-l border-slate-200 bg-white flex flex-col h-full" data-testid="notifications-panel">
+      <div className="h-14 flex items-center justify-between px-4 border-b border-slate-200">
+        <div className="flex items-center gap-2">
+          <div className="relative">
+            <Bell className="w-4 h-4" style={{ color: ESY.pink }} />
+            {notifications.length > 0 && (
+              <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full" style={{ backgroundColor: ESY.deepRed }} />
+            )}
+          </div>
+          <h3 className="text-sm font-semibold text-slate-900">Notifications</h3>
+          <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-500">{notifications.length}</span>
+        </div>
+        <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-md"><X className="w-4 h-4 text-slate-500" /></button>
+      </div>
+
+      <ScrollArea className="flex-1">
+        <div className="p-3 space-y-2">
+          {loading ? (
+            <div className="flex items-center justify-center py-8"><Loader2 className="w-5 h-5 animate-spin" style={{ color: ESY.pink }} /></div>
+          ) : notifications.length === 0 ? (
+            <div className="text-center py-8">
+              <CheckCircle2 className="w-10 h-10 mx-auto mb-2" style={{ color: ESY.turquoise }} />
+              <p className="text-sm font-medium text-slate-700">All caught up!</p>
+              <p className="text-xs text-slate-400 mt-1">No notifications right now</p>
+            </div>
+          ) : (
+            notifications.map((notif) => {
+              const ps = priorityStyles[notif.priority] || priorityStyles.low;
+              const Icon = typeIcons[notif.type] || Zap;
+              return (
+                <button key={notif.id} onClick={() => { if (notif.channel_id && onNavigate) onNavigate({ type: 'channel', id: notif.channel_id }); onClose(); }}
+                  className="w-full text-left p-3 rounded-lg border transition-all hover:shadow-sm"
+                  style={{ backgroundColor: ps.bg, borderColor: ps.border }}
+                  data-testid={`notif-${notif.id}`}>
+                  <div className="flex items-start gap-2.5">
+                    <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: `${ps.dot}15` }}>
+                      <Icon className="w-3.5 h-3.5" style={{ color: ps.dot }} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-1.5 mb-0.5">
+                        <p className="text-xs font-semibold text-slate-800 truncate">{notif.title}</p>
+                        <span className="text-[8px] font-bold px-1.5 py-0.5 rounded-full text-white flex-shrink-0" style={{ backgroundColor: ps.dot }}>{ps.label}</span>
+                      </div>
+                      <p className="text-[11px] text-slate-600 line-clamp-2">{notif.body}</p>
+                      {notif.deadline && notif.deadline !== 'TBD' && (
+                        <p className="text-[9px] mt-1" style={{ color: ESY.deepRed }}>Due: {notif.deadline}</p>
+                      )}
+                    </div>
+                  </div>
+                </button>
+              );
+            })
+          )}
+          {notifications.length > 0 && (
+            <button onClick={loadNotifications} className="w-full text-xs py-1.5 rounded-md hover:bg-slate-50" style={{ color: ESY.turquoise }}>Refresh</button>
+          )}
+        </div>
+      </ScrollArea>
+    </div>
+  );
+};
+
 // ============== Create Channel Modal ==============
 const CreateChannelModal = ({ onClose, onCreated, token }) => {
   const { t } = useTranslation();
@@ -1332,6 +1637,8 @@ const LumiMessenger = () => {
   const [showCommandBar, setShowCommandBar] = useState(false);
   const [showKnowledgeGraph, setShowKnowledgeGraph] = useState(false);
   const [showBottlenecks, setShowBottlenecks] = useState(false);
+  const [showSimulation, setShowSimulation] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
   const [presenceMap, setPresenceMap] = useState({});
 
   const messagesEndRef = useRef(null);
@@ -1675,7 +1982,15 @@ const LumiMessenger = () => {
                   className={`p-2 rounded-md transition-colors ${showBottlenecks ? 'bg-[#D63031]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
                   style={showBottlenecks ? { color: ESY.deepRed } : {}}
                   data-testid="bottleneck-btn" title="Bottlenecks"><TrendingDown className="w-4 h-4" /></button>
-                <button onClick={() => { setShowAiPanel(!showAiPanel); setShowAiChat(false); setShowAlerts(false); setShowKnowledgeGraph(false); setShowBottlenecks(false); }}
+                <button onClick={() => { setShowSimulation(!showSimulation); setShowAiChat(false); setShowAlerts(false); setShowKnowledgeGraph(false); setShowBottlenecks(false); setShowAiPanel(false); setShowNotifications(false); }}
+                  className={`p-2 rounded-md transition-colors ${showSimulation ? 'bg-[#E84393]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
+                  style={showSimulation ? { color: ESY.pink } : {}}
+                  data-testid="simulation-btn" title="What-If Simulator"><Zap className="w-4 h-4" /></button>
+                <button onClick={() => { setShowNotifications(!showNotifications); setShowAiChat(false); setShowAlerts(false); setShowKnowledgeGraph(false); setShowBottlenecks(false); setShowAiPanel(false); setShowSimulation(false); }}
+                  className={`p-2 rounded-md transition-colors relative ${showNotifications ? 'bg-[#E84393]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
+                  style={showNotifications ? { color: ESY.pink } : {}}
+                  data-testid="notifications-btn" title="Smart Notifications"><Bell className="w-3.5 h-3.5" /><span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: ESY.deepRed }} /></button>
+                <button onClick={() => { setShowAiPanel(!showAiPanel); setShowAiChat(false); setShowAlerts(false); setShowKnowledgeGraph(false); setShowBottlenecks(false); setShowSimulation(false); setShowNotifications(false); }}
                   className={`p-2 rounded-md transition-colors ${showAiPanel ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`}
                   data-testid="ai-panel-btn" title="AI Insights"><Brain className="w-4 h-4" /></button>
                 <button onClick={() => setShowMembers(!showMembers)} className={`p-2 rounded-md transition-colors ${showMembers ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`} data-testid="channel-members-btn"><Users className="w-4 h-4" /></button>
@@ -1740,6 +2055,16 @@ const LumiMessenger = () => {
 
               {/* Bottleneck Panel */}
               {showBottlenecks && <BottleneckPanel onClose={() => setShowBottlenecks(false)} token={token} />}
+
+              {/* What-If Simulation Panel */}
+              {showSimulation && <SimulationPanel onClose={() => setShowSimulation(false)} token={token} />}
+
+              {/* Notifications Panel */}
+              {showNotifications && <NotificationsPanel onClose={() => setShowNotifications(false)} token={token}
+                onNavigate={(item) => {
+                  const ch = channels.find(c => c.id === item.id) || dms.find(d => d.id === item.id);
+                  if (ch) { setActiveChannel(ch); setMobileSidebar(false); }
+                }} />}
 
               {/* Members Panel */}
               {showMembers && <MembersPanel channelId={activeChannel.id} onClose={() => setShowMembers(false)} token={token} />}
