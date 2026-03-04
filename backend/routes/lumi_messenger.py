@@ -1,11 +1,12 @@
 """
 LUMI Messenger - Real-time Channel-based Messaging
 Standalone messaging platform integrated with KARAU auth
+Features: Domain privacy, threads, presence, retention, voice calls
 """
 from fastapi import APIRouter, HTTPException, Request, WebSocket, WebSocketDisconnect
 from pydantic import BaseModel
 from typing import Optional, List
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import uuid
 import json
 import asyncio
@@ -21,7 +22,16 @@ class ChannelCreate(BaseModel):
     name: str
     description: Optional[str] = ""
     is_private: bool = False
-    channel_type: str = "group"  # group, project, announcement
+    channel_type: str = "group"  # group, project, announcement, domain
+
+class ThreadReply(BaseModel):
+    content: str
+
+class PresenceUpdate(BaseModel):
+    status: str  # available, busy, in_meeting, ooo, vacation
+
+class RetentionConfig(BaseModel):
+    days: int = 90
 
 class MessageSend(BaseModel):
     content: str
@@ -539,29 +549,37 @@ async def list_dms(request: Request):
 
 @router.get("/users/search")
 async def search_users(request: Request, q: str = ""):
-    """Search users for starting a DM"""
+    """Search users for starting a DM - filtered by same domain"""
     user = await get_current_user(request)
     if not user:
         raise HTTPException(status_code=401, detail="Authentication required")
 
-    if not q or len(q) < 2:
-        # Return recent users from the platform
-        users = await db.users.find(
-            {"user_id": {"$ne": user["user_id"]}},
-            {"_id": 0, "user_id": 1, "name": 1, "email": 1}
-        ).limit(20).to_list(20)
-        return {"users": users}
+    email = user.get("email", "")
+    domain = email.split("@")[-1] if "@" in email else ""
+
+    base_query = {"user_id": {"$ne": user["user_id"]}}
+    # Domain privacy: only show users from same domain
+    if domain:
+        base_query["email"] = {"$regex": f"@{domain}$", "$options": "i"}
+
+    if q and len(q) >= 2:
+        base_query["$or"] = [
+            {"name": {"$regex": q, "$options": "i"}},
+            {"email": {"$regex": q, "$options": "i"}}
+        ]
 
     users = await db.users.find(
-        {
-            "user_id": {"$ne": user["user_id"]},
-            "$or": [
-                {"name": {"$regex": q, "$options": "i"}},
-                {"email": {"$regex": q, "$options": "i"}}
-            ]
-        },
+        base_query,
         {"_id": 0, "user_id": 1, "name": 1, "email": 1}
     ).limit(20).to_list(20)
+
+    # Add presence
+    presences = await db.lumi_presence.find({}, {"_id": 0}).to_list(500)
+    presence_map = {p["user_id"]: p["status"] for p in presences}
+    online = manager.get_online_users()
+    for u in users:
+        uid = u["user_id"]
+        u["status"] = presence_map.get(uid, "available" if uid in online else "offline")
 
     return {"users": users}
 
@@ -621,6 +639,423 @@ async def seed_channels(request: Request):
         await db.lumi_messages.insert_one(welcome)
 
     return {"status": "seeded", "count": len(seed_data)}
+
+# ============== Domain Channels ==============
+
+@router.get("/domain/members")
+async def get_domain_members(request: Request, last_name: str = ""):
+    """Get members from the same email domain, optionally filtered by last name"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    email = user.get("email", "")
+    domain = email.split("@")[-1] if "@" in email else ""
+    if not domain:
+        return {"members": [], "domain": ""}
+
+    query = {"email": {"$regex": f"@{domain}$", "$options": "i"}}
+    if last_name and len(last_name) >= 2:
+        query["name"] = {"$regex": last_name, "$options": "i"}
+
+    members = await db.users.find(
+        query, {"_id": 0, "user_id": 1, "name": 1, "email": 1}
+    ).limit(50).to_list(50)
+
+    # Add presence info
+    for m in members:
+        presence = await db.lumi_presence.find_one({"user_id": m["user_id"]}, {"_id": 0})
+        m["status"] = presence.get("status", "offline") if presence else "offline"
+
+    return {"members": members, "domain": domain}
+
+@router.post("/domain/auto-channel")
+async def create_domain_channel(request: Request):
+    """Auto-create a domain-protected channel with all domain members"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    email = user.get("email", "")
+    domain = email.split("@")[-1] if "@" in email else ""
+    if not domain:
+        raise HTTPException(status_code=400, detail="No domain found")
+
+    # Check if domain channel exists
+    existing = await db.lumi_channels.find_one({"domain": domain, "channel_type": "domain"}, {"_id": 0})
+    if existing:
+        return existing
+
+    # Get all domain members
+    domain_users = await db.users.find(
+        {"email": {"$regex": f"@{domain}$", "$options": "i"}},
+        {"_id": 0, "user_id": 1, "name": 1, "email": 1}
+    ).to_list(200)
+
+    channel_id = f"dom_{uuid.uuid4().hex[:10]}"
+    members = [{
+        "user_id": u["user_id"],
+        "name": u.get("name", ""),
+        "email": u.get("email", ""),
+        "role": "admin" if u["user_id"] == user["user_id"] else "member",
+        "joined_at": datetime.now(timezone.utc).isoformat()
+    } for u in domain_users]
+
+    org_name = domain.split(".")[0].capitalize()
+    channel = {
+        "id": channel_id,
+        "name": f"{org_name} Team",
+        "description": f"Protected channel for @{domain}",
+        "channel_type": "domain",
+        "domain": domain,
+        "is_private": True,
+        "threads_enabled": True,
+        "created_by": user["user_id"],
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "members": members,
+        "last_message": None,
+        "last_message_at": datetime.now(timezone.utc).isoformat(),
+        "message_count": 0
+    }
+    await db.lumi_channels.insert_one(channel)
+    channel.pop("_id", None)
+
+    # Welcome message
+    welcome = {
+        "id": f"msg_{uuid.uuid4().hex[:10]}",
+        "channel_id": channel_id,
+        "sender_id": "system",
+        "sender_name": "LUMI",
+        "content": f"Welcome to the {org_name} team channel! This is a protected space for @{domain} members.",
+        "type": "system",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.lumi_messages.insert_one(welcome)
+
+    return channel
+
+# ============== Message Threads ==============
+
+@router.post("/messages/{message_id}/thread")
+async def reply_to_thread(message_id: str, data: ThreadReply, request: Request):
+    """Reply to a message in a thread"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    parent = await db.lumi_messages.find_one({"id": message_id}, {"_id": 0})
+    if not parent:
+        raise HTTPException(status_code=404, detail="Message not found")
+
+    reply = {
+        "id": f"msg_{uuid.uuid4().hex[:10]}",
+        "channel_id": parent["channel_id"],
+        "thread_parent_id": message_id,
+        "sender_id": user["user_id"],
+        "sender_name": user.get("name", user.get("email", "Unknown")),
+        "content": data.content,
+        "type": "thread_reply",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "reactions": {}
+    }
+    await db.lumi_messages.insert_one(reply)
+    reply.pop("_id", None)
+
+    # Update thread count on parent
+    await db.lumi_messages.update_one(
+        {"id": message_id},
+        {"$inc": {"thread_count": 1}, "$set": {"last_thread_at": reply["created_at"]}}
+    )
+
+    # Broadcast
+    await manager.send_to_channel(parent["channel_id"], {
+        "type": "thread_reply",
+        "data": {**reply, "parent_id": message_id}
+    })
+
+    return reply
+
+@router.get("/messages/{message_id}/thread")
+async def get_thread(message_id: str, request: Request):
+    """Get all replies in a thread"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    parent = await db.lumi_messages.find_one({"id": message_id}, {"_id": 0})
+    if not parent:
+        raise HTTPException(status_code=404, detail="Message not found")
+
+    replies = await db.lumi_messages.find(
+        {"thread_parent_id": message_id},
+        {"_id": 0}
+    ).sort("created_at", 1).to_list(200)
+
+    return {"parent": parent, "replies": replies}
+
+# ============== Presence ==============
+
+@router.put("/presence")
+async def update_presence(data: PresenceUpdate, request: Request):
+    """Update user presence status"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    valid = ["available", "busy", "in_meeting", "ooo", "vacation"]
+    if data.status not in valid:
+        raise HTTPException(status_code=400, detail=f"Status must be one of: {valid}")
+
+    await db.lumi_presence.update_one(
+        {"user_id": user["user_id"]},
+        {"$set": {
+            "status": data.status,
+            "last_seen": datetime.now(timezone.utc).isoformat(),
+            "user_id": user["user_id"]
+        }},
+        upsert=True
+    )
+
+    # Broadcast presence change
+    for uid in manager.get_online_users():
+        await manager.send_to_user(uid, {
+            "type": "presence_change",
+            "data": {"user_id": user["user_id"], "status": data.status, "name": user.get("name", "")}
+        })
+
+    return {"status": data.status}
+
+@router.get("/presence/all")
+async def get_all_presence(request: Request):
+    """Get presence for all domain users"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    presences = await db.lumi_presence.find({}, {"_id": 0}).to_list(500)
+    # Also check who is in active KARAU meetings
+    active_meetings = await db.karau_meetings.find(
+        {"status": "active"},
+        {"_id": 0, "participants": 1}
+    ).to_list(100)
+    in_meeting = set()
+    for m in active_meetings:
+        for p in m.get("participants", []):
+            in_meeting.add(p.get("user_id"))
+
+    presence_map = {p["user_id"]: p["status"] for p in presences}
+    online_users = manager.get_online_users()
+
+    # Auto-set in_meeting for users in active KARAU meetings
+    for uid in in_meeting:
+        presence_map[uid] = "in_meeting"
+
+    # Set online users to available if no explicit status
+    for uid in online_users:
+        if uid not in presence_map:
+            presence_map[uid] = "available"
+
+    return {"presence": presence_map}
+
+# ============== Retention ==============
+
+@router.get("/settings/retention")
+async def get_retention(request: Request):
+    """Get message retention settings"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    settings = await db.lumi_settings.find_one({"key": "retention"}, {"_id": 0})
+    return {"retention_days": settings.get("days", 90) if settings else 90}
+
+@router.put("/settings/retention")
+async def update_retention(data: RetentionConfig, request: Request):
+    """Update message retention (admin only)"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    await db.lumi_settings.update_one(
+        {"key": "retention"},
+        {"$set": {"key": "retention", "days": data.days, "updated_by": user["user_id"], "updated_at": datetime.now(timezone.utc).isoformat()}},
+        upsert=True
+    )
+    return {"retention_days": data.days}
+
+@router.post("/settings/cleanup")
+async def cleanup_old_messages(request: Request):
+    """Run retention cleanup"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    settings = await db.lumi_settings.find_one({"key": "retention"}, {"_id": 0})
+    days = settings.get("days", 90) if settings else 90
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+
+    result = await db.lumi_messages.delete_many({"created_at": {"$lt": cutoff}})
+    return {"deleted": result.deleted_count, "retention_days": days}
+
+# ============== Channel Members ==============
+
+@router.get("/channels/{channel_id}/members")
+async def get_channel_members(channel_id: str, request: Request):
+    """Get channel members with presence"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    channel = await db.lumi_channels.find_one({"id": channel_id}, {"_id": 0})
+    if not channel:
+        raise HTTPException(status_code=404, detail="Channel not found")
+
+    members = channel.get("members", [])
+    presences = await db.lumi_presence.find({}, {"_id": 0}).to_list(500)
+    presence_map = {p["user_id"]: p["status"] for p in presences}
+    online = manager.get_online_users()
+
+    for m in members:
+        uid = m["user_id"]
+        if uid in presence_map:
+            m["status"] = presence_map[uid]
+        elif uid in online:
+            m["status"] = "available"
+        else:
+            m["status"] = "offline"
+
+    return {"members": members, "channel_id": channel_id}
+
+@router.post("/channels/{channel_id}/members/add")
+async def add_member(channel_id: str, request: Request):
+    """Add a member to a channel (admin only)"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    body = await request.json()
+    target_id = body.get("user_id")
+    if not target_id:
+        raise HTTPException(status_code=400, detail="user_id required")
+
+    channel = await db.lumi_channels.find_one({"id": channel_id}, {"_id": 0})
+    if not channel:
+        raise HTTPException(status_code=404, detail="Channel not found")
+
+    # Check admin
+    is_admin = any(m["user_id"] == user["user_id"] and m.get("role") == "admin" for m in channel.get("members", []))
+    if not is_admin:
+        raise HTTPException(status_code=403, detail="Admin only")
+
+    # Get target user
+    target = await db.users.find_one({"user_id": target_id}, {"_id": 0, "user_id": 1, "name": 1, "email": 1})
+    if not target:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Domain check for domain channels
+    if channel.get("channel_type") == "domain" and channel.get("domain"):
+        target_domain = target.get("email", "").split("@")[-1]
+        if target_domain != channel["domain"]:
+            raise HTTPException(status_code=403, detail="User not in this domain")
+
+    existing = any(m["user_id"] == target_id for m in channel.get("members", []))
+    if existing:
+        return {"status": "already_member"}
+
+    member = {
+        "user_id": target["user_id"],
+        "name": target.get("name", ""),
+        "email": target.get("email", ""),
+        "role": "member",
+        "joined_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.lumi_channels.update_one({"id": channel_id}, {"$push": {"members": member}})
+    return {"status": "added"}
+
+@router.post("/channels/{channel_id}/members/remove")
+async def remove_member(channel_id: str, request: Request):
+    """Remove a member from a channel (admin only)"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    body = await request.json()
+    target_id = body.get("user_id")
+    if not target_id:
+        raise HTTPException(status_code=400, detail="user_id required")
+
+    channel = await db.lumi_channels.find_one({"id": channel_id}, {"_id": 0})
+    if not channel:
+        raise HTTPException(status_code=404, detail="Channel not found")
+
+    is_admin = any(m["user_id"] == user["user_id"] and m.get("role") == "admin" for m in channel.get("members", []))
+    if not is_admin:
+        raise HTTPException(status_code=403, detail="Admin only")
+
+    await db.lumi_channels.update_one({"id": channel_id}, {"$pull": {"members": {"user_id": target_id}}})
+    return {"status": "removed"}
+
+# ============== Voice Call ==============
+
+@router.post("/voice/call")
+async def initiate_call(request: Request):
+    """Initiate a 1:1 voice call"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    body = await request.json()
+    recipient_id = body.get("recipient_id")
+    call_type = body.get("type", "voice")  # voice or video
+
+    if not recipient_id:
+        raise HTTPException(status_code=400, detail="recipient_id required")
+
+    call_id = f"call_{uuid.uuid4().hex[:10]}"
+    call = {
+        "id": call_id,
+        "caller_id": user["user_id"],
+        "caller_name": user.get("name", ""),
+        "recipient_id": recipient_id,
+        "type": call_type,
+        "status": "ringing",
+        "started_at": datetime.now(timezone.utc).isoformat()
+    }
+    await db.lumi_calls.insert_one(call)
+    call.pop("_id", None)
+
+    # Notify recipient
+    await manager.send_to_user(recipient_id, {
+        "type": "incoming_call",
+        "data": call
+    })
+
+    return call
+
+@router.post("/voice/call/{call_id}/answer")
+async def answer_call(call_id: str, request: Request):
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    await db.lumi_calls.update_one({"id": call_id}, {"$set": {"status": "active"}})
+    call = await db.lumi_calls.find_one({"id": call_id}, {"_id": 0})
+    if call:
+        await manager.send_to_user(call["caller_id"], {"type": "call_answered", "data": {"call_id": call_id}})
+    return {"status": "active"}
+
+@router.post("/voice/call/{call_id}/end")
+async def end_call(call_id: str, request: Request):
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    call = await db.lumi_calls.find_one({"id": call_id}, {"_id": 0})
+    await db.lumi_calls.update_one({"id": call_id}, {"$set": {"status": "ended", "ended_at": datetime.now(timezone.utc).isoformat()}})
+    if call:
+        other = call["recipient_id"] if call["caller_id"] == user["user_id"] else call["caller_id"]
+        await manager.send_to_user(other, {"type": "call_ended", "data": {"call_id": call_id}})
+    return {"status": "ended"}
 
 # ============== WebSocket ==============
 
