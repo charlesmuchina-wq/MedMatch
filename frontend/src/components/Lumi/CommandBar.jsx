@@ -75,7 +75,7 @@ export const CommandBar = ({ isOpen, onClose, onNavigate, token, onAction }) => 
                 </div>
                 <div className="flex-1 min-w-0"><p className="text-xs font-medium text-slate-800 truncate">{item.name || item.content || ''}</p>{item.sender && <p className="text-[10px] text-slate-400">by {item.sender}</p>}{item.assignee && <p className="text-[10px] text-slate-400">assigned to {item.assignee}</p>}</div>
                 <span className="text-[9px] text-slate-400 uppercase tracking-wider flex-shrink-0">{typeLabels[item.type] || item.type}</span>
-                {item.type === 'action' && <ArrowRight className="w-3 h-3 text-slate-300 flex-shrink-0" />}
+                {item.type === 'action' && <ArrowRight className="w-3 h-3 text-slate-500 flex-shrink-0" />}
               </button>
             );
           }))}

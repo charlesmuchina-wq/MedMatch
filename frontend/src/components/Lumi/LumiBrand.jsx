@@ -52,7 +52,7 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
           LUMI
         </span>
         {showTagline && (
-          <span className={`${s.tagline} font-medium mt-0.5 tracking-wide ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>
+          <span className={`${s.tagline} font-medium mt-0.5 tracking-wide ${isDark ? 'text-white/80' : 'text-slate-500'}`}>
             Intelligence in Every Conversation
           </span>
         )}
@@ -74,7 +74,7 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
             LUMI
           </span>
           {showTagline && (
-            <span className={`${s.tagline} font-medium tracking-wide ${isDark ? 'text-slate-300' : 'text-slate-500'}`}>
+            <span className={`${s.tagline} font-medium tracking-wide ${isDark ? 'text-white/80' : 'text-slate-500'}`}>
               Intelligence in Every Conversation
             </span>
           )}

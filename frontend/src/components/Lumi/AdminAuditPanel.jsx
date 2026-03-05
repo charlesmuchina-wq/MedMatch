@@ -143,7 +143,7 @@ export const AdminAuditPanel = ({ isOpen, onClose, token }) => {
                     <div className="flex items-center gap-2 text-xs text-slate-500">
                       <User className="w-3 h-3" />
                       <span>{log.user_name || log.user_id}</span>
-                      <span className="text-slate-300">|</span>
+                      <span className="text-slate-400">|</span>
                       <Clock className="w-3 h-3" />
                       <span>{new Date(log.timestamp).toLocaleString()}</span>
                     </div>

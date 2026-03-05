@@ -62,7 +62,7 @@ export const LumiLogin = ({ onLogin }) => {
         <img src="https://images.unsplash.com/photo-1719667052333-1cba4797fd85?w=1200&q=80" alt="" className="absolute inset-0 w-full h-full object-cover opacity-20" />
         <div className="relative z-10 text-center px-12">
           <LumiBrand variant="full-dark" size="xl" />
-          <p className="text-sm text-slate-300 mt-6 max-w-sm text-center">Secure, domain-protected team communication for the modern workplace.</p>
+          <p className="text-sm text-white/80 mt-6 max-w-sm text-center">Secure, domain-protected team communication for the modern workplace.</p>
         </div>
       </div>
       <div className="flex-1 flex items-center justify-center p-8 bg-slate-50">
