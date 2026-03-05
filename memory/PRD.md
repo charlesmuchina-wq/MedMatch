@@ -1,35 +1,98 @@
-# AI KARAU - Distance Zero Communication Platform
+# AI KARAU + LUMI — Product Requirements Document
 
 ## Original Problem Statement
-Transform "AI KARAU" into a futuristic "Distance Zero" communication platform with AI-powered video meetings, cinematic replay, hardware integration, and the LUMI Enterprise Team Messenger with AI productivity features. ESY Color Theme: honoring ESY with Pink (#E84393), Turquoise (#00CEC9), Deep Red (#D63031).
+Build a dual-platform communication suite:
+- **AI KARAU**: Feature-rich webinar/meeting tool with AI meeting intelligence
+- **LUMI**: Professional-grade enterprise messenger with AI-driven "Actionable Intelligence" hub
+
+## Core Requirements
+1. Secure, compliant messenger (chat, DMs, file sharing, reactions, presence)
+2. ESY-themed UI with accessibility (pink, turquoise, deep red accents)
+3. AI productivity features (summaries, action items, sentiment analysis, reports)
+4. Futuristic AI & agentic workflows (NLP querying, anomaly alerts, decision cards, knowledge graph, bottleneck detection, what-if simulations, real-time translation)
+5. SSO integration (Google + Microsoft)
+6. Core app features (threading, voice/video calls, message retention)
 
 ## Architecture
-- Frontend: React + Tailwind + Shadcn/UI + react-i18next
-- Backend: FastAPI + MongoDB
-- Real-time: WebRTC + WebSocket (LUMI messaging)
-- AI: OpenAI GPT-5.2 via Emergent LLM key
-- Payments: Stripe (test keys), Object Storage: Emergent
+```
+/app/
+├── backend/
+│   ├── routes/
+│   │   ├── auth.py                      # Auth: login, register, Google SSO, Microsoft placeholder
+│   │   ├── lumi_ai_routes.py            # AI: sentiment, tasks, reports, translation
+│   │   ├── futuristic_ai_routes.py      # AI: ask, anomalies, decision cards
+│   │   ├── knowledge_graph_routes.py    # Knowledge graph, impact analysis
+│   │   └── advanced_collaboration_routes.py  # Simulations, bottlenecks, notifications
+│   └── server.py
+└── frontend/
+    └── src/
+        ├── components/
+        │   └── Lumi/                    # REFACTORED components
+        │       ├── constants.js         # ESY theme, API, status constants
+        │       ├── ChannelIcon.jsx      
+        │       ├── StatusDot.jsx        
+        │       ├── MessageBubble.jsx    # Message display with reactions, translation
+        │       ├── ThreadPanel.jsx      # Message threading
+        │       ├── MembersPanel.jsx     # Channel members
+        │       ├── AiProductivityPanel.jsx  # Sentiment, Tasks, Reports
+        │       ├── AiChatPanel.jsx      # Conversational AI
+        │       ├── AlertsPanel.jsx      # Anomaly Alerts & Decision Cards
+        │       ├── CommandBar.jsx       # Ctrl+K global search
+        │       ├── KnowledgeGraphPanel.jsx  # Knowledge graph visualization
+        │       ├── BottleneckPanel.jsx  # Bottleneck detection
+        │       ├── SimulationPanel.jsx  # What-if simulations
+        │       ├── NotificationsPanel.jsx   # Smart notifications
+        │       ├── CreateChannelModal.jsx
+        │       ├── NewDmModal.jsx
+        │       ├── LumiLogin.jsx        # Login with Google SSO + Microsoft placeholder
+        │       └── index.js             # Barrel exports
+        └── pages/
+            ├── LoginPage.jsx            # Main login (Google, Apple, ORCID, Microsoft)
+            ├── LumiMessenger.jsx        # Main LUMI container (imports from /Lumi)
+            └── KarauMeet/
+                ├── KarauMeetLogin.jsx   # KarauMeet login (Google SSO + Microsoft)
+                └── Dashboard.jsx
+```
 
-## Implemented Features
+## What's Been Implemented
 
-### Core Platform (Phases 1-9)
-- AI KARAU: auth, meetings, video, transcription, replay, hardware sims, i18n (60 languages)
-- LUMI: channels, DMs, reactions, search, file sharing, read receipts, domain privacy, presence
+### Phase 1-5 (Previous Sessions)
+- Full LUMI messenger: channels, DMs, reactions, search, file sharing, read receipts
+- AI Feature Suite: Sentiment, Tasks, Reports, Ask LUMI AI, Decision Cards, Anomaly Alerts
+- Graph Intelligence: Ctrl+K Command Bar, Knowledge Graph, Bottleneck Detection
+- Advanced: What-If Simulations, Smart Notifications
+- Real-time Translation (20 languages)
+- ESY theme throughout
 
-### Phase 10-13 (Mar 4, 2026)
-- UI contrast fix + footer nav + ESY theme
-- AI Productivity: Meeting Summaries, AI Chat, Decision Cards, Anomaly Alerts, Sentiment, Tasks, Reports
-- Command Bar (Ctrl+K), Knowledge Graph, Bottleneck Detection
-- What-If Simulations, Enhanced Threading, Smart Notifications
-- **Multi-language Translation**: 20 languages (EN, ES, FR, DE, PT, IT, AR, ZH, JA, KO, HI, RU, SW, TR, NL, PL, VI, TH, ID, HE) via language picker dropdown on any message
+### Current Session (Feb 2026)
+- **Google SSO**: Integrated Emergent-managed Google Auth across all 3 login pages (/lumi, /karau-meet, /login)
+- **Microsoft SSO**: Placeholder button on all login pages (shows "coming soon" toast)
+- **Backend**: Fixed /api/auth/google/session to verify session_id with Emergent Auth service
+- **Backend**: Added /api/auth/microsoft/login placeholder endpoint (501)
+- **Refactoring**: LumiMessenger.jsx broken from 2218 lines into 16 smaller components under /components/Lumi/
 
 ## Prioritized Backlog
 
-### P1
-- Voice & Video Calls, Message Edit/Delete, Calendar Integrations, Predictive Analytics
+### P1 - Upcoming
+- User Profile & Status Sync (calendar status from Google/Microsoft)
+- Centralized Notification Center (consolidate all AI alerts)
+- Voice & Video Calls (LUMI → AI KARAU integration)
+- Message Edit/Delete with configurable time window
 
-### P2
-- Message Retention Policy, E2EE, Admin Audit Logs
+### P2 - Future
+- Message Retention Policy (admin UI)
+- Full Knowledge Graph Integration (MS Project/SharePoint)
+- End-to-End Encryption (E2EE)
+- Admin Audit Logs
+- Live Payment Gateway (Stripe live keys)
 
-### P3 (External Creds)
-- MS Graph API/Power BI, Neo4j, Multi-Agent, RAG 2.0, Live Stripe
+## 3rd Party Integrations
+- **Emergent LLM Key**: Gemini + GPT-5.2 for AI features
+- **Emergent Object Storage**: File sharing in LUMI
+- **Emergent Google Auth**: SSO for all login pages
+- **Stripe**: Payments (test keys)
+- **Microsoft Graph API**: To be integrated (SSO placeholder ready)
+
+## Test Credentials
+- Admin: admin@medmatch.com / Swampdrainer2026!
+- Test: test@medmatch.io / TestPassword123!
