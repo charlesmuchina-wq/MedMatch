@@ -16,4 +16,8 @@ export { NewDmModal } from './NewDmModal';
 export { LumiLogin } from './LumiLogin';
 export { UserProfileModal } from './UserProfileModal';
 export { RetentionPanel } from './RetentionPanel';
+export { EmojiPicker } from './EmojiPicker';
+export { ShortcutsPanel, useKeyboardShortcuts } from './KeyboardShortcuts';
+export { AdminAuditPanel } from './AdminAuditPanel';
+export { CompliancePanel } from './CompliancePanel';
 export { API, WS_URL, ESY, STATUS_COLORS, STATUS_LABELS } from './constants';

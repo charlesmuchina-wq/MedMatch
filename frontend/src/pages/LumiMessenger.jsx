@@ -10,7 +10,8 @@ import {
   Users, Search, MessageCircle,
   Loader2, X, Paperclip, UserPlus, User, Phone, Video,
   Building2, Sparkles, Brain, AlertTriangle, Shield,
-  Command, Network, Zap, TrendingDown, Bell
+  Command, Network, Zap, TrendingDown, Bell,
+  Smile, Keyboard, ClipboardList, Globe
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -21,7 +22,9 @@ import {
   AiProductivityPanel, AiChatPanel, AlertsPanel, CommandBar,
   KnowledgeGraphPanel, BottleneckPanel, SimulationPanel,
   NotificationsPanel, CreateChannelModal, NewDmModal, LumiLogin,
-  UserProfileModal, RetentionPanel,
+  UserProfileModal, RetentionPanel, EmojiPicker,
+  ShortcutsPanel, useKeyboardShortcuts,
+  AdminAuditPanel, CompliancePanel,
   API, WS_URL, ESY, STATUS_COLORS, STATUS_LABELS
 } from '@/components/Lumi';
 
@@ -59,6 +62,10 @@ const LumiMessenger = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [showRetention, setShowRetention] = useState(false);
+  const [showAuditLog, setShowAuditLog] = useState(false);
+  const [showCompliance, setShowCompliance] = useState(false);
+  const [showShortcuts, setShowShortcuts] = useState(false);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [userAccentColor, setUserAccentColor] = useState('');
   const [presenceMap, setPresenceMap] = useState({});
 
@@ -190,12 +197,32 @@ const LumiMessenger = () => {
       .then(r => r.json()).then(d => setMessages(d.messages || []));
   }, [activeChannel, token]);
 
-  // Ctrl+K
+  // Keyboard shortcuts
+  useKeyboardShortcuts({
+    command_bar: () => setShowCommandBar(true),
+    emoji_picker: () => setShowEmojiPicker(prev => !prev),
+    new_channel: () => setShowCreateModal(true),
+    new_dm: () => setShowNewDmModal(true),
+    shortcuts: () => setShowShortcuts(prev => !prev),
+    ai_panel: () => { closeAllPanels(); setShowAiPanel(prev => !prev); },
+    notifications: () => { closeAllPanels(); setShowNotifications(prev => !prev); },
+    members: () => setShowMembers(prev => !prev),
+    profile: () => setShowProfile(true),
+    search: () => document.querySelector('[data-testid="search-channels"]')?.focus(),
+  });
+
+  // Google Calendar status sync (every 5 minutes for Google SSO users)
   useEffect(() => {
-    const handleKeyDown = (e) => { if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); setShowCommandBar(true); } };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
+    if (!user || !token) return;
+    const syncCalendar = async () => {
+      try {
+        await fetch(`${API}/api/lumi/calendar/sync`, { method: 'POST', headers: { Authorization: `Bearer ${token}` } });
+      } catch (e) {}
+    };
+    syncCalendar();
+    const interval = setInterval(syncCalendar, 5 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, [user, token]);
 
   useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [messages]);
 
@@ -288,6 +315,7 @@ const LumiMessenger = () => {
   };
 
   const handleKeyDown = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } };
+  const handleEmojiSelect = (emoji) => { setMessageText(prev => prev + emoji); setShowEmojiPicker(false); };
   const handleTyping = () => {
     if (!activeChannel || !wsRef.current || typingTimeoutRef.current) return;
     try { wsRef.current.send(JSON.stringify({ type: 'typing', channel_id: activeChannel.id })); } catch (e) {}
@@ -403,6 +431,18 @@ const LumiMessenger = () => {
             <Shield className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.deepRed }} />
             <span className="text-xs font-medium text-slate-300 group-hover:text-white">Retention & Holds</span>
           </button>
+          <button onClick={() => setShowAuditLog(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md transition-colors group" data-testid="open-audit-btn">
+            <ClipboardList className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.turquoise }} />
+            <span className="text-xs font-medium text-slate-300 group-hover:text-white">Audit Log</span>
+          </button>
+          <button onClick={() => setShowCompliance(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md transition-colors group" data-testid="open-compliance-btn">
+            <Globe className="w-3.5 h-3.5 group-hover:text-white" style={{ color: '#00B894' }} />
+            <span className="text-xs font-medium text-slate-300 group-hover:text-white">Privacy & Compliance</span>
+          </button>
+          <button onClick={() => setShowShortcuts(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md transition-colors group" data-testid="open-shortcuts-btn">
+            <Keyboard className="w-3.5 h-3.5 text-slate-400 group-hover:text-white" />
+            <span className="text-xs font-medium text-slate-300 group-hover:text-white">Shortcuts</span>
+          </button>
           <button onClick={() => navigate('/karau-meet')} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md transition-colors group" data-testid="switch-to-karau-footer">
             <Building2 className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.turquoise }} />
             <span className="text-xs font-medium text-slate-300 group-hover:text-white">Switch to AI KARAU</span>
@@ -463,10 +503,16 @@ const LumiMessenger = () => {
 
               <div className="p-4 border-t border-slate-200">
                 <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileShare} accept="image/*,.pdf,.doc,.docx,.txt,.csv" data-testid="file-input" />
-                <div className="flex items-center gap-2 border border-slate-200 rounded-lg px-4 py-2.5 focus-within:ring-2 focus-within:ring-[#008080]/20 focus-within:border-[#008080] transition-all bg-white shadow-sm">
+                <div className="relative flex items-center gap-2 border border-slate-200 rounded-lg px-4 py-2.5 focus-within:ring-2 focus-within:ring-[#008080]/20 focus-within:border-[#008080] transition-all bg-white shadow-sm">
                   <button onClick={() => fileInputRef.current?.click()} disabled={uploading} className="p-1 text-slate-500 hover:text-[#008080] rounded transition-colors" data-testid="attach-file-btn">
                     {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Paperclip className="w-4 h-4" />}
                   </button>
+                  <div className="relative">
+                    <button onClick={() => setShowEmojiPicker(!showEmojiPicker)} className={`p-1 rounded transition-colors ${showEmojiPicker ? 'text-[#008080] bg-[#008080]/10' : 'text-slate-500 hover:text-[#008080]'}`} data-testid="emoji-picker-btn">
+                      <Smile className="w-4 h-4" />
+                    </button>
+                    <EmojiPicker isOpen={showEmojiPicker} onClose={() => setShowEmojiPicker(false)} onSelect={handleEmojiSelect} position="above" />
+                  </div>
                   <input value={messageText} onChange={e => { setMessageText(e.target.value); handleTyping(); }} onKeyDown={handleKeyDown}
                     placeholder={`Message ${activeChannel.channel_type === 'dm' ? activeChannel.dm_partner?.name || '' : '#' + activeChannel.name}`}
                     className="flex-1 text-sm bg-transparent outline-none text-slate-900 placeholder:text-slate-500" data-testid="message-input" />
@@ -504,6 +550,9 @@ const LumiMessenger = () => {
       {showNewDmModal && <NewDmModal onClose={() => setShowNewDmModal(false)} onSelect={handleStartDm} token={token} />}
       {showProfile && <UserProfileModal onClose={() => setShowProfile(false)} token={token} onStatusChange={(s) => {}} onThemeChange={(c) => setUserAccentColor(c)} />}
       {showRetention && <RetentionPanel onClose={() => setShowRetention(false)} token={token} />}
+      {showAuditLog && <AdminAuditPanel isOpen={showAuditLog} onClose={() => setShowAuditLog(false)} token={token} />}
+      {showCompliance && <CompliancePanel isOpen={showCompliance} onClose={() => setShowCompliance(false)} token={token} />}
+      <ShortcutsPanel isOpen={showShortcuts} onClose={() => setShowShortcuts(false)} />
 
       <CommandBar isOpen={showCommandBar} onClose={() => setShowCommandBar(false)} token={token}
         onNavigate={(item) => {
