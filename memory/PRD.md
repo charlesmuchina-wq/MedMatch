@@ -12,6 +12,7 @@ Build a dual-platform communication suite:
 4. Futuristic AI & agentic workflows (NLP querying, anomaly alerts, decision cards, knowledge graph, bottleneck detection, what-if simulations, real-time translation)
 5. SSO integration (Google + Microsoft)
 6. Core app features (threading, voice/video calls, message retention)
+7. User Profile Dashboard (capabilities, channel subscriptions, notification preferences, status)
 
 ## Architecture
 ```
@@ -19,6 +20,7 @@ Build a dual-platform communication suite:
 ├── backend/
 │   ├── routes/
 │   │   ├── auth.py                      # Auth: login, register, Google SSO, Microsoft placeholder
+│   │   ├── lumi_messenger.py            # Core LUMI: channels, DMs, presence, profile, notification prefs
 │   │   ├── lumi_ai_routes.py            # AI: sentiment, tasks, reports, translation
 │   │   ├── futuristic_ai_routes.py      # AI: ask, anomalies, decision cards
 │   │   ├── knowledge_graph_routes.py    # Knowledge graph, impact analysis
@@ -27,7 +29,7 @@ Build a dual-platform communication suite:
 └── frontend/
     └── src/
         ├── components/
-        │   └── Lumi/                    # REFACTORED components
+        │   └── Lumi/                    # REFACTORED components (16 files)
         │       ├── constants.js         # ESY theme, API, status constants
         │       ├── ChannelIcon.jsx      
         │       ├── StatusDot.jsx        
@@ -45,6 +47,7 @@ Build a dual-platform communication suite:
         │       ├── CreateChannelModal.jsx
         │       ├── NewDmModal.jsx
         │       ├── LumiLogin.jsx        # Login with Google SSO + Microsoft placeholder
+        │       ├── UserProfileModal.jsx # NEW: Profile, capabilities, channel prefs, status
         │       └── index.js             # Barrel exports
         └── pages/
             ├── LoginPage.jsx            # Main login (Google, Apple, ORCID, Microsoft)
@@ -56,20 +59,23 @@ Build a dual-platform communication suite:
 
 ## What's Been Implemented
 
-### Phase 1-5 (Previous Sessions)
+### Previous Sessions
 - Full LUMI messenger: channels, DMs, reactions, search, file sharing, read receipts
 - AI Feature Suite: Sentiment, Tasks, Reports, Ask LUMI AI, Decision Cards, Anomaly Alerts
 - Graph Intelligence: Ctrl+K Command Bar, Knowledge Graph, Bottleneck Detection
 - Advanced: What-If Simulations, Smart Notifications
-- Real-time Translation (20 languages)
-- ESY theme throughout
+- Real-time Translation (20 languages), ESY theme throughout
 
 ### Current Session (Feb 2026)
-- **Google SSO**: Integrated Emergent-managed Google Auth across all 3 login pages (/lumi, /karau-meet, /login)
+- **Google SSO**: Integrated Emergent-managed Google Auth across all 3 login pages
 - **Microsoft SSO**: Placeholder button on all login pages (shows "coming soon" toast)
-- **Backend**: Fixed /api/auth/google/session to verify session_id with Emergent Auth service
-- **Backend**: Added /api/auth/microsoft/login placeholder endpoint (501)
-- **Refactoring**: LumiMessenger.jsx broken from 2218 lines into 16 smaller components under /components/Lumi/
+- **Refactoring**: LumiMessenger.jsx from 2218→~500 lines with 16 extracted components
+- **Contrast Fix**: Fixed faint grey text against white background across LUMI
+- **User Profile Modal**: Accessible from sidebar avatar, shows:
+  - User info (name, email, role, messages sent)
+  - Presence status selector (5 statuses)
+  - LUMI Capabilities (15 features in 7 categories, collapsible)
+  - Channel Subscriptions (11 channels) with per-channel notification preferences (All/Mentions/None)
 
 ## Prioritized Backlog
 
