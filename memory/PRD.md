@@ -25,14 +25,21 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "LUMI" 
 - Data visualizations panel (KPI charts, project timeline, knowledge graph)
 - Reusable LumiBrand component with inline SVG icon, shared footer
 - Dark/Light mode toggle in LUMI sidebar
-- **P0 Accessibility Fix (March 5, 2026):** Fixed critical dark mode CSS specificity bug — removed global `.dark h1-h6, .dark p/span/label` color overrides from index.css that were overriding Tailwind utility classes
-- **Icon Visibility Fix (March 5, 2026):** Replaced invisible dark PNG bubble icon with bright inline SVG chat bubble using turquoise→purple→pink gradient. Removed dark PNG logo from Portal Selector LUMI card.
+- **P0 Accessibility Fix (March 5, 2026):** Fixed dark mode CSS specificity bug
+- **Icon Visibility Fix (March 5, 2026):** Replaced dark PNG with bright inline SVG bubble icon
+- **LUMI Mini Messenger in AI KARAU (March 5, 2026):** Added LUMI Messenger as a side panel inside AI KARAU meeting rooms, allowing users to chat in LUMI channels while in a meeting. Accessible via toolbar button and "More" menu.
 
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI
 - Backend: FastAPI + MongoDB
 - Real-time: WebSocket at /api/lumi/ws/{user_id}
 - Charts: Recharts library
+
+## Key Files
+- `components/KarauMeet/LumiMiniMessenger.jsx` - Mini LUMI messenger for meeting rooms
+- `components/KarauMeet/MeetingRoom.jsx` - Meeting room with LUMI panel integration
+- `components/Lumi/LumiBrand.jsx` - SVG-based brand component
+- `pages/LumiMessenger.jsx` - Full LUMI messenger
 
 ## Pending / Backlog
 - **P0:** Microsoft SSO finalization (blocked on Azure API keys)

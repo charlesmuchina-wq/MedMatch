@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import { Shield, Copy, Calendar, Loader2, Circle,
   Check, X, AlertTriangle, Image as ImageIcon,
   Mic, MicOff, Video, VideoOff, Monitor, MonitorOff,
-  Hand, PhoneOff, Square, MessageSquare, Users, Sparkles, Share2,
+  Hand, PhoneOff, Square, MessageSquare, MessageCircle, Users, Sparkles, Share2,
   Captions, CaptionsOff, BarChart3, PenTool,
   MoreHorizontal, Settings, Volume2, Bot
 } from 'lucide-react';
@@ -24,6 +24,7 @@ import MeetingWhiteboard from './MeetingWhiteboard';
 import AIAssistantPanel from './AIAssistantPanel';
 import FileSharingPanel from './FileSharingPanel';
 import { useNoiseCancellation } from './useNoiseCancellation';
+import LumiMiniMessenger from './LumiMiniMessenger';
 import { useTranslation } from '@/utils/i18n';
 
 const API = process.env.REACT_APP_BACKEND_URL;
@@ -1807,7 +1808,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
           <div className="w-80 h-full bg-karau-card flex flex-col">
             <div className="flex items-center justify-between px-4 py-3 border-b border-karau-border flex-shrink-0">
               <span className="text-white font-medium text-sm">
-                {activePanel === 'ai-notes' ? t("karauMeet.aiNotes") : activePanel === 'ai-assistant' ? t("karauMeet.aiAssistant") : activePanel === 'participants' ? t("karauMeet.people") : activePanel === 'chat' ? t("karauMeet.chat") : activePanel === 'polls' ? t("karauMeet.polls") : activePanel === 'file-sharing' ? (t("karauMeet.fileSharing") || "File Sharing") : activePanel === 'settings' ? t("karauMeet.settings") : activePanel ? activePanel.charAt(0).toUpperCase() + activePanel.slice(1) : ''}
+                {activePanel === 'ai-notes' ? t("karauMeet.aiNotes") : activePanel === 'ai-assistant' ? t("karauMeet.aiAssistant") : activePanel === 'participants' ? t("karauMeet.people") : activePanel === 'chat' ? t("karauMeet.chat") : activePanel === 'polls' ? t("karauMeet.polls") : activePanel === 'file-sharing' ? (t("karauMeet.fileSharing") || "File Sharing") : activePanel === 'lumi' ? 'LUMI Messenger' : activePanel === 'settings' ? t("karauMeet.settings") : activePanel ? activePanel.charAt(0).toUpperCase() + activePanel.slice(1) : ''}
               </span>
               <button onClick={() => setActivePanel(null)} className="p-1 text-slate-400 hover:text-white rounded-md hover:bg-karau-surface transition-colors" data-testid="close-panel-btn">
                 <X className="w-4 h-4" />
@@ -1850,6 +1851,9 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                   settings={meetingSettings} 
                   onUpdateSettings={(updates) => setMeetingSettings(prev => ({ ...prev, ...updates }))}
                 />
+              )}
+              {activePanel === 'lumi' && (
+                <LumiMiniMessenger />
               )}
               {showBreakoutManager && (
                 <BreakoutRoomManager
@@ -1987,6 +1991,15 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             <Bot className="w-[18px] h-[18px]" />
           </button>
 
+          <button
+            onClick={() => { setActivePanel(activePanel === 'lumi' ? null : 'lumi'); setShowMoreMenu(false); }}
+            className={`hidden sm:flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'lumi' ? 'bg-gradient-to-br from-violet-500/25 to-pink-500/15 text-violet-300 ring-1 ring-violet-500/30' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            data-testid="panel-lumi-btn"
+            title="LUMI Messenger"
+          >
+            <MessageCircle className="w-[18px] h-[18px]" />
+          </button>
+
           {/* More Menu */}
           <div className="relative" ref={moreMenuRef}>
             <button
@@ -2034,6 +2047,9 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 </button>
                 <button onClick={() => { setActivePanel(activePanel === 'file-sharing' ? null : 'file-sharing'); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-testid="file-sharing-btn">
                   <Share2 className="w-4 h-4 flex-shrink-0" />{t("karauMeet.fileSharing") || "File Sharing"}
+                </button>
+                <button onClick={() => { setActivePanel(activePanel === 'lumi' ? null : 'lumi'); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-testid="lumi-panel-more-btn">
+                  <MessageCircle className="w-4 h-4 flex-shrink-0" />LUMI Messenger
                 </button>
                 {isHost && (
                   <button onClick={() => { setShowBreakoutManager(true); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
