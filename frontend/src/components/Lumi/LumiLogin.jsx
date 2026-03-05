@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, Toaster } from 'sonner';
-import { MessageCircle, Eye, EyeOff, Loader2 } from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useTranslation } from '@/utils/i18n';
 import { API, ESY } from './constants';
+import { LumiBrand } from './LumiBrand';
 
 export const LumiLogin = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -60,21 +61,14 @@ export const LumiLogin = ({ onLogin }) => {
       <div className="hidden lg:flex lg:w-1/2 bg-[#36454F] items-center justify-center relative overflow-hidden">
         <img src="https://images.unsplash.com/photo-1719667052333-1cba4797fd85?w=1200&q=80" alt="" className="absolute inset-0 w-full h-full object-cover opacity-20" />
         <div className="relative z-10 text-center px-12">
-          <div className="w-20 h-20 mx-auto rounded-2xl flex items-center justify-center mb-6 shadow-lg overflow-hidden bg-black/30 backdrop-blur-sm">
-            <img src="/lumi-icon.png" alt="LUMI" className="w-20 h-20" />
-          </div>
-          <h1 className="text-4xl font-bold text-white mb-3">LUMI</h1>
-          <p className="text-lg text-slate-200">Intelligence in Every Conversation</p>
-          <p className="text-sm text-slate-300 mt-2 max-w-sm">Secure, domain-protected team communication for the modern workplace.</p>
+          <LumiBrand variant="full-dark" size="xl" />
+          <p className="text-sm text-slate-300 mt-6 max-w-sm text-center">Secure, domain-protected team communication for the modern workplace.</p>
         </div>
       </div>
       <div className="flex-1 flex items-center justify-center p-8 bg-slate-50">
         <div className="w-full max-w-sm">
           <div className="lg:hidden flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md bg-slate-900 flex-shrink-0">
-              <img src="/lumi-icon.png" alt="LUMI" className="w-10 h-10" />
-            </div>
-            <span className="text-xl font-bold text-slate-800">LUMI</span>
+            <LumiBrand variant="inline-light" size="sm" />
           </div>
           <h2 className="text-2xl font-bold text-slate-800 mb-1">{t('lumi.signIn') || 'Sign in to LUMI'}</h2>
           <p className="text-sm text-slate-600 mb-6">{t('lumi.tagline') || 'Team messaging for the KARAU ecosystem'}</p>

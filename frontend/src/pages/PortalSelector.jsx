@@ -66,7 +66,7 @@ const PortalSelector = () => {
       ],
       route: '/lumi',
       buttonText: t('pages.portalSelector.enterLumi') || 'Open LUMI Messenger',
-      logo: '/lumi-icon.png'
+      logo: '/lumi-logo-clean.png'
     }
   ];
 

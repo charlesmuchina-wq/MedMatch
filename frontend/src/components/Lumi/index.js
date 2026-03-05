@@ -22,4 +22,5 @@ export { AdminAuditPanel } from './AdminAuditPanel';
 export { CompliancePanel } from './CompliancePanel';
 export { ComplianceWidget } from './ComplianceWidget';
 export { VisualizationsPanel } from './VisualizationsPanel';
+export { LumiBrand } from './LumiBrand';
 export { API, WS_URL, ESY, STATUS_COLORS, STATUS_LABELS } from './constants';

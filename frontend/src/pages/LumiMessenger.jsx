@@ -25,7 +25,7 @@ import {
   UserProfileModal, RetentionPanel, EmojiPicker,
   ShortcutsPanel, useKeyboardShortcuts,
   AdminAuditPanel, CompliancePanel, ComplianceWidget,
-  VisualizationsPanel,
+  VisualizationsPanel, LumiBrand,
   API, WS_URL, ESY, STATUS_COLORS, STATUS_LABELS
 } from '@/components/Lumi';
 
@@ -340,13 +340,7 @@ const LumiMessenger = () => {
       <div className={`${mobileSidebar ? 'flex' : 'hidden'} md:flex flex-col w-full md:w-[280px] bg-[#36454F] flex-shrink-0`}>
         <div className="h-14 flex items-center justify-between px-4 border-b border-white/10">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg overflow-hidden shadow-md flex-shrink-0">
-              <img src="/lumi-icon.png" alt="LUMI" className="w-8 h-8" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-sm text-white tracking-wide">LUMI</span>
-              <span className="text-[8px] text-slate-300 font-medium hidden lg:inline">Intelligence in Every Conversation</span>
-            </div>
+            <LumiBrand variant="inline-dark" size="xs" showTagline />
           </div>
           <button onClick={() => navigate('/')} className="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-md transition-colors" data-testid="back-to-karau"><ArrowLeft className="w-4 h-4" /></button>
         </div>
@@ -504,9 +498,7 @@ const LumiMessenger = () => {
               <ScrollArea className="flex-1 py-3">
                 {messages.length === 0 && (
                   <div className="flex flex-col items-center justify-center h-full text-center px-6">
-                    <div className="w-16 h-16 rounded-xl shadow-md overflow-hidden bg-slate-900 flex items-center justify-center mb-4">
-                      <img src="/lumi-icon.png" alt="LUMI" className="w-16 h-16" />
-                    </div>
+                    <LumiBrand variant="icon-light" size="md" className="mb-4" />
                     <p className="text-slate-600 text-sm">{t('lumi.noMessages') || 'No messages yet. Start the conversation!'}</p>
                   </div>
                 )}
@@ -554,12 +546,8 @@ const LumiMessenger = () => {
           </div>
         </>) : (
           <div className="flex-1 flex flex-col items-center justify-center text-center px-6 bg-slate-50">
-            <div className="w-20 h-20 rounded-2xl mb-5 shadow-lg overflow-hidden bg-slate-900 flex items-center justify-center">
-              <img src="/lumi-icon.png" alt="LUMI" className="w-20 h-20" />
-            </div>
-            <h2 className="text-xl font-bold text-slate-800 mb-1">LUMI</h2>
-            <p className="text-sm font-semibold mb-2" style={{ color: ESY.turquoise }}>Intelligence in Every Conversation</p>
-            <p className="text-slate-600 text-sm max-w-xs">{t('lumi.welcomeMessage') || 'Select a channel to start chatting, or create a new one.'}</p>
+            <LumiBrand variant="inline-light" size="lg" showTagline />
+            <p className="text-slate-600 text-sm max-w-xs mt-4">{t('lumi.welcomeMessage') || 'Select a channel to start chatting, or create a new one.'}</p>
             <Button onClick={() => setShowCreateModal(true)} className="mt-4 bg-[#008080] hover:bg-[#006666] text-white rounded-md" data-testid="create-first-channel">
               <Plus className="w-4 h-4 mr-2" />{t('lumi.createChannel') || 'Create Channel'}
             </Button>
