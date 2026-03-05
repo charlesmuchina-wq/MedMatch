@@ -15,6 +15,8 @@ Build a dual-platform communication suite:
 7. User Profile Dashboard (capabilities, channel subscriptions, notification preferences, status)
 8. Centralized Notification Center (aggregated from all sources)
 9. **Message Retention Policy**: 90-day auto-delete with privileged hold management (approval workflow)
+10. **Content Moderation**: Professional environment filtering with auto-profanity filter
+11. **Multi-jurisdiction Privacy Compliance**: HIPAA, GDPR, PIPL, APPI, UK DPA, Australian Privacy Act
 
 ## Architecture
 ```
@@ -22,7 +24,7 @@ Build a dual-platform communication suite:
 ├── backend/
 │   ├── routes/
 │   │   ├── auth.py                       # Auth + Google SSO + Microsoft placeholder
-│   │   ├── lumi_messenger.py             # Core: channels, DMs, presence, profile, edit/delete, calls, notif hub, retention, org-settings
+│   │   ├── lumi_messenger.py             # Core: channels, DMs, presence, profile, edit/delete, calls, notif hub, retention, org-settings, audit log, moderation, compliance, calendar sync
 │   │   ├── lumi_ai_routes.py             # AI: sentiment, tasks, reports, translation
 │   │   ├── futuristic_ai_routes.py       # AI: ask, anomalies, decision cards
 │   │   ├── knowledge_graph_routes.py     # Knowledge graph, impact analysis
@@ -30,12 +32,16 @@ Build a dual-platform communication suite:
 │   └── server.py
 └── frontend/
     └── src/
-        ├── components/Lumi/              # 20 extracted components
+        ├── components/Lumi/              # 23 extracted components
         │   ├── RetentionPanel.jsx        # Retention with approval workflow, org settings, tabs
         │   ├── UserProfileModal.jsx      # Profile with theme picker, capabilities, subscriptions
         │   ├── MessageBubble.jsx         # + edit/delete, profile pics, (edited) label
         │   ├── NotificationsPanel.jsx    # Centralized hub with source tabs
-        │   └── ... (16 more components)
+        │   ├── EmojiPicker.jsx           # Native emoji picker with categories, search, recents
+        │   ├── KeyboardShortcuts.jsx     # Shortcuts panel + useKeyboardShortcuts hook
+        │   ├── AdminAuditPanel.jsx       # Admin audit log viewer with search & filters
+        │   ├── CompliancePanel.jsx       # Multi-jurisdiction compliance dashboard
+        │   └── ... (15 more components)
         └── pages/
             ├── LumiMessenger.jsx         # Main orchestrator
             ├── LoginPage.jsx             # Google + Microsoft SSO
@@ -69,7 +75,7 @@ Build a dual-platform communication suite:
 - **Message Edit/Delete**: Pencil/trash on hover, 15-min window, inline edit, (edited) label
 - **Contrast/Accessibility Fix**: All text darkened for readability
 
-### Message Retention & Privacy (Updated)
+### Message Retention & Privacy
 - **Global 90-day auto-delete**: Automatic for all channels (not per-channel)
 - **Hold Approval Workflow**: Holds require IT admin + manager approval
 - **Organization Admin Settings**: IT admin, manager contacts, department, compliance officer
@@ -78,34 +84,63 @@ Build a dual-platform communication suite:
 - **Contractual Hold**: Custom duration with expiration date
 - **Hold Release**: Admins can release active holds
 
+### New Features (Current Session - March 5, 2026)
+- **Emoji Picker**: Native picker with 9 categories, search, recent emojis. Integrated into chat input with Smile icon. Keyboard shortcut: Ctrl+E
+- **Keyboard Shortcuts**: Full shortcut system with useKeyboardShortcuts hook. Shortcuts panel accessible via sidebar button or Ctrl+/. Covers navigation, messaging, and panel toggles
+- **Admin Audit Log**: Comprehensive audit trail for all admin actions (hold requests, approvals, moderation settings, compliance changes). Searchable with category filters
+- **Google Calendar Status Sync**: Auto-syncs every 5 minutes for Google SSO users. Updates presence based on calendar events
+- **Content Moderation**: Professional environment filter. Auto-filters profanity from messages. Configurable settings (enable/disable, auto-filter, block, notify admin). Moderation log for incident tracking
+- **Multi-jurisdiction Compliance Framework**: 
+  - HIPAA (US) - PHI protection, audit trails, access controls
+  - GDPR (EU) - Data minimization, right to erasure, consent management
+  - UK DPA 2018 - ICO registration, SAR process
+  - Australian Privacy Act + APPs - NDB scheme, security measures
+  - China PIPL - Data localization, cross-border assessment
+  - Japan APPI - Purpose limitation, PPC oversight
+  - AI KARAU compliance reference integration
+  - 92% compliance score with 10 platform security controls
+
 ## Prioritized Backlog
 
 ### P0 - Next
 - Finalize Microsoft SSO Integration (user has no Azure credentials yet)
+- Visualizations: Data/activity charts, interactive project graphs/timelines, knowledge graph visualization
 
 ### P1
-- User Status Sync from Google/Microsoft calendars
+- User Status Sync from Microsoft calendars (after MS SSO)
 
 ### P2 - Future
 - Full Knowledge Graph Integration (MS Project/SharePoint via Graph API)
 - End-to-End Encryption (E2EE) for messages and files
-- Admin Audit Logs (secure, searchable admin action log)
 
 ### P3 - Backlog
 - Live Payment Gateway (Stripe test → production keys)
 
-## Key API Endpoints (Retention)
-- `GET /api/lumi/admin/retention` - Overview with channels, holds, requests, global_retention_days
+## Key API Endpoints
+- `GET /api/lumi/admin/retention` - Retention overview
 - `GET/PUT /api/lumi/admin/org-settings` - IT admin and manager contacts
-- `POST /api/lumi/admin/hold` - Submit hold request (creates pending)
+- `POST /api/lumi/admin/hold` - Submit hold request
 - `PUT /api/lumi/admin/hold-requests/{id}` - Approve/reject hold request
 - `DELETE /api/lumi/admin/hold/{id}` - Release active hold
+- `GET /api/lumi/admin/audit-log` - Audit log with category filtering
+- `POST /api/lumi/moderation/check` - Content moderation check
+- `GET/PUT /api/lumi/moderation/settings` - Moderation settings
+- `GET /api/lumi/moderation/log` - Moderation incident log
+- `GET /api/lumi/compliance/frameworks` - Compliance frameworks
+- `GET /api/lumi/compliance/status` - Compliance posture
+- `PUT /api/lumi/compliance/frameworks` - Enable/disable frameworks
+- `POST /api/lumi/calendar/sync` - Google Calendar status sync
+- `GET /api/lumi/calendar/status` - Calendar sync status
 - `GET/PUT /api/lumi/profile/theme` - User accent color
 
-## DB Collections (Retention)
-- `lumi_org_settings`: key="admin_config", it_admin_name/email, manager_name/email, department, compliance_officer
-- `lumi_hold_requests`: id, channel_id, hold_type, reason, status (pending/approved/rejected), it_admin_email, manager_email
-- `lumi_holds`: id, channel_id, hold_type, reason, duration_days, active, approved_by, expires_at
+## DB Collections
+- `lumi_org_settings`: key="admin_config", IT admin/manager contacts
+- `lumi_hold_requests`: Hold request approval workflow
+- `lumi_holds`: Active holds with expiration
+- `lumi_audit_log`: Admin action audit trail
+- `lumi_moderation_settings`: Content moderation configuration
+- `lumi_moderation_log`: Moderation incident records
+- `lumi_compliance_config`: Enabled compliance frameworks
 
 ## 3rd Party Integrations
 - Emergent LLM Key (Gemini + GPT-5.2), Emergent Object Storage, Emergent Google Auth
@@ -119,3 +154,6 @@ Build a dual-platform communication suite:
 - Microsoft SSO (501 placeholder)
 - Voice/Video calls (record created, no real WebRTC)
 - Stripe payments (test keys)
+
+## Known Issues
+- WebSocket connection returns 403 (non-blocking, affects real-time updates)
