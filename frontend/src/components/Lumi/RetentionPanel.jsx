@@ -293,7 +293,7 @@ export const RetentionPanel = ({ onClose, token }) => {
             <div className="p-5 space-y-3">
               {data?.all_requests?.length === 0 ? (
                 <div className="text-center py-10">
-                  <Send className="w-8 h-8 text-gray-300 mx-auto mb-2" />
+                  <Send className="w-8 h-8 text-gray-400 mx-auto mb-2" />
                   <p className="text-sm font-bold text-gray-600">No hold requests yet</p>
                   <p className="text-xs text-gray-500 mt-1">Submit a hold request from the Overview tab</p>
                 </div>

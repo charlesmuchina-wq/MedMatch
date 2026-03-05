@@ -71,11 +71,13 @@ export const LumiLogin = ({ onLogin }) => {
       <div className="flex-1 flex items-center justify-center p-8 bg-slate-50">
         <div className="w-full max-w-sm">
           <div className="lg:hidden flex items-center gap-3 mb-8">
-            <img src="/lumi-icon.png" alt="LUMI" className="w-10 h-10 rounded-lg" />
-            <span className="text-xl font-bold text-slate-900">LUMI</span>
+            <div className="w-10 h-10 rounded-xl overflow-hidden shadow-md bg-slate-900 flex-shrink-0">
+              <img src="/lumi-icon.png" alt="LUMI" className="w-10 h-10" />
+            </div>
+            <span className="text-xl font-bold text-slate-800">LUMI</span>
           </div>
-          <h2 className="text-2xl font-semibold text-slate-900 mb-1">{t('lumi.signIn') || 'Sign in to LUMI'}</h2>
-          <p className="text-sm text-slate-500 mb-6">{t('lumi.tagline') || 'Team messaging for the KARAU ecosystem'}</p>
+          <h2 className="text-2xl font-bold text-slate-800 mb-1">{t('lumi.signIn') || 'Sign in to LUMI'}</h2>
+          <p className="text-sm text-slate-600 mb-6">{t('lumi.tagline') || 'Team messaging for the KARAU ecosystem'}</p>
 
           {/* SSO Buttons */}
           <div className="space-y-3 mb-6">
@@ -95,7 +97,7 @@ export const LumiLogin = ({ onLogin }) => {
 
           <div className="relative mb-6">
             <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-200" /></div>
-            <div className="relative flex justify-center text-xs"><span className="bg-slate-50 px-3 text-slate-400">or continue with email</span></div>
+            <div className="relative flex justify-center text-xs"><span className="bg-slate-50 px-3 text-slate-500">or continue with email</span></div>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
@@ -116,7 +118,7 @@ export const LumiLogin = ({ onLogin }) => {
             </Button>
           </form>
           <div className="mt-6 text-center">
-            <button onClick={() => navigate('/')} className="text-sm text-slate-400 hover:text-[#008080] transition-colors" data-testid="back-to-portal">
+            <button onClick={() => navigate('/')} className="text-sm text-slate-600 hover:text-[#008080] transition-colors" data-testid="back-to-portal">
               {t('lumi.backToPortal') || 'Back to Portal'}
             </button>
           </div>

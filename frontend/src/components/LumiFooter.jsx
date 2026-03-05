@@ -24,9 +24,11 @@ const LumiFooter = ({ variant = 'default' }) => {
       data-testid="lumi-footer">
       <div className="flex items-center justify-center gap-2">
         {!isCompact && (
-          <img src="/lumi-icon.png" alt="LUMI" className="w-5 h-5 rounded" />
+          <div className="w-5 h-5 rounded overflow-hidden bg-slate-900 flex-shrink-0">
+            <img src="/lumi-icon.png" alt="LUMI" className="w-5 h-5" />
+          </div>
         )}
-        <span className={`font-medium tracking-wide ${isCompact ? 'text-[9px] text-slate-400' : 'text-[10px] text-slate-500'}`}
+        <span className={`font-medium tracking-wide ${isCompact ? 'text-[9px] text-slate-500' : 'text-[10px] text-slate-600'}`}
           data-testid="lumi-footer-tagline">
           Intelligence in Every Conversation
         </span>

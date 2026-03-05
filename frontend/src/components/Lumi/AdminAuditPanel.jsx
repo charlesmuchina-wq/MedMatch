@@ -121,9 +121,9 @@ export const AdminAuditPanel = ({ isOpen, onClose, token }) => {
               </div>
             ) : filtered.length === 0 ? (
               <div className="text-center py-12">
-                <FileText className="w-10 h-10 text-slate-300 mx-auto mb-3" />
-                <p className="text-sm text-slate-500 font-medium">No audit logs found</p>
-                <p className="text-xs text-slate-400 mt-1">Admin actions will appear here</p>
+                <FileText className="w-10 h-10 text-slate-400 mx-auto mb-3" />
+                <p className="text-sm text-slate-600 font-medium">No audit logs found</p>
+                <p className="text-xs text-slate-500 mt-1">Admin actions will appear here</p>
               </div>
             ) : (
               filtered.map(log => (
