@@ -432,6 +432,7 @@ app.include_router(karau_polls_router, prefix="/api")
 app.include_router(karau_biometric_router, prefix="/api")
 app.include_router(karau_simulation_router, prefix="/api")
 app.include_router(lumi_messenger_router, prefix="/api")
+
 app.include_router(meeting_intelligence_router, prefix="/api")
 app.include_router(lumi_files_router, prefix="/api")
 app.include_router(ai_productivity_router, prefix="/api")
@@ -465,8 +466,8 @@ app.add_middleware(
 @app.middleware("http")
 async def global_rate_limit_middleware(request: Request, call_next):
     """Apply tier-based rate limiting with proper headers"""
-    # Skip rate limiting for health checks
-    if request.url.path in ["/api/health", "/api/status", "/docs", "/openapi.json"]:
+    # Skip rate limiting for health checks and websockets
+    if request.url.path in ["/api/health", "/api/status", "/docs", "/openapi.json"] or "/ws/" in request.url.path:
         return await call_next(request)
     
     # Get client identifier and tier
@@ -500,6 +501,9 @@ async def global_rate_limit_middleware(request: Request, call_next):
 async def add_process_time_header(request: Request, call_next):
     """Add processing time header and track in AI Supervisor + ML Data"""
     import time
+    # Skip for websockets
+    if "/ws/" in request.url.path:
+        return await call_next(request)
     start_time = time.perf_counter()
     
     # Track request in AI Supervisor metrics
@@ -548,8 +552,8 @@ async def add_process_time_header(request: Request, call_next):
 @app.middleware("http")
 async def overload_protection(request: Request, call_next):
     """Protect system from overload using AI Supervisor"""
-    # Skip protection for health checks and status
-    if request.url.path in ["/api/health", "/api/status", "/api/supervisor/status"]:
+    # Skip protection for health checks, status, and websockets
+    if request.url.path in ["/api/health", "/api/status", "/api/supervisor/status"] or "/ws/" in request.url.path:
         return await call_next(request)
     
     # Check if system is overloaded

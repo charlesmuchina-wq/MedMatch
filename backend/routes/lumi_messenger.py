@@ -2150,6 +2150,7 @@ async def update_compliance_frameworks(request: Request):
     return {"status": "saved", "enabled": frameworks}
 
 
+@router.websocket("/ws/{user_id}")
 async def websocket_endpoint(websocket: WebSocket, user_id: str):
     await manager.connect(websocket, user_id)
     try:

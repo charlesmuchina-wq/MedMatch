@@ -95,6 +95,7 @@ import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import KarauDragonAI, { DragonButton } from "@/components/KarauDragonAI";
 import GlobalLanguageSelector from "@/components/GlobalLanguageSelector";
 import NotificationCenter from "@/components/NotificationCenter";
+import LumiFooter from "@/components/LumiFooter";
 import { I18nProvider, useTranslation } from "@/utils/i18n";
 import { OfflineBanner, OfflineIndicator } from "@/components/OfflineIndicator";
 import { offlineStorage } from "@/utils/offlineStorage";
@@ -827,37 +828,46 @@ function AppContent({ skipPortalSelector = false }) {
   // Render AI KARAU Meeting standalone portal (has its own auth)
   if (isKarauMeetPortal) {
     return (
-      <>
-        <Routes>
-          <Route path="/karau-meet/*" element={<KarauMeetPortal />} />
-        </Routes>
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1">
+          <Routes>
+            <Route path="/karau-meet/*" element={<KarauMeetPortal />} />
+          </Routes>
+        </div>
+        <LumiFooter variant="compact" />
         <Toaster position="top-right" richColors theme="dark" />
-      </>
+      </div>
     );
   }
 
   // Render LUMI Messenger standalone
   if (isLumiMessenger) {
     return (
-      <>
-        <Routes>
-          <Route path="/lumi/*" element={<LumiMessenger />} />
-        </Routes>
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1">
+          <Routes>
+            <Route path="/lumi/*" element={<LumiMessenger />} />
+          </Routes>
+        </div>
+        <LumiFooter variant="compact" />
         <Toaster position="top-right" richColors theme="dark" />
-      </>
+      </div>
     );
   }
 
   // Render public routes without authentication
   if (isPublicRoute) {
     return (
-      <>
-        <Routes>
-          <Route path="/apply/:token" element={<PublicApplicationPage />} />
-          <Route path="/track-application/:applicationId" element={<TrackApplicationPage />} />
-        </Routes>
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1">
+          <Routes>
+            <Route path="/apply/:token" element={<PublicApplicationPage />} />
+            <Route path="/track-application/:applicationId" element={<TrackApplicationPage />} />
+          </Routes>
+        </div>
+        <LumiFooter variant="compact" />
         <Toaster position="top-right" richColors theme={isDark ? 'dark' : 'light'} />
-      </>
+      </div>
     );
   }
 
@@ -867,20 +877,26 @@ function AppContent({ skipPortalSelector = false }) {
   // Show Portal Selector if not authenticated (except for login page, session_id hash, or when skipPortalSelector is true)
   if (!user && !window.location.hash.includes('session_id') && !isLoginPage && !skipPortalSelector) {
     return (
-      <>
-        <PortalSelector />
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1">
+          <PortalSelector />
+        </div>
+        <LumiFooter />
         <Toaster position="top-right" richColors theme="dark" />
-      </>
+      </div>
     );
   }
 
   // Show login page if on /login route, processing session_id, or skipPortalSelector is true
   if (!user && (isLoginPage || window.location.hash.includes('session_id') || skipPortalSelector)) {
     return (
-      <>
-        <LoginPage onAuthSuccess={handleAuthSuccess} />
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1">
+          <LoginPage onAuthSuccess={handleAuthSuccess} />
+        </div>
+        <LumiFooter />
         <Toaster position="top-right" richColors theme={isDark ? 'dark' : 'light'} />
-      </>
+      </div>
     );
   }
 
@@ -1042,6 +1058,8 @@ function AppContent({ skipPortalSelector = false }) {
             <Route path="/semantic-search" element={<SemanticSearchPage />} />
           </Routes>
         </main>
+
+        <LumiFooter />
       </div>
 
       {/* Onboarding Tour for first-time users */}
