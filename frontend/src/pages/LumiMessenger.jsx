@@ -11,7 +11,7 @@ import {
   Loader2, X, Paperclip, UserPlus, User, Phone, Video,
   Building2, Sparkles, Brain, AlertTriangle, Shield,
   Command, Network, Zap, TrendingDown, Bell,
-  Smile, Keyboard, ClipboardList, Globe
+  Smile, Keyboard, ClipboardList, Globe, BarChart3
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -24,7 +24,8 @@ import {
   NotificationsPanel, CreateChannelModal, NewDmModal, LumiLogin,
   UserProfileModal, RetentionPanel, EmojiPicker,
   ShortcutsPanel, useKeyboardShortcuts,
-  AdminAuditPanel, CompliancePanel,
+  AdminAuditPanel, CompliancePanel, ComplianceWidget,
+  VisualizationsPanel,
   API, WS_URL, ESY, STATUS_COLORS, STATUS_LABELS
 } from '@/components/Lumi';
 
@@ -66,6 +67,7 @@ const LumiMessenger = () => {
   const [showCompliance, setShowCompliance] = useState(false);
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showVisualizations, setShowVisualizations] = useState(false);
   const [userAccentColor, setUserAccentColor] = useState('');
   const [presenceMap, setPresenceMap] = useState({});
 
@@ -340,6 +342,7 @@ const LumiMessenger = () => {
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-md flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}><MessageCircle className="w-4.5 h-4.5 text-white" /></div>
             <span className="font-bold text-sm text-white tracking-wide">LUMI</span>
+            <span className="text-[8px] text-slate-400 font-medium -ml-0.5 hidden lg:inline">Intelligence in Every Conversation</span>
           </div>
           <button onClick={() => navigate('/')} className="p-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-md transition-colors" data-testid="back-to-karau"><ArrowLeft className="w-4 h-4" /></button>
         </div>
@@ -426,7 +429,16 @@ const LumiMessenger = () => {
           </div>
         </div>
 
+        {/* Compliance Widget & Quick Actions */}
+        <div className="px-3 pb-1">
+          <ComplianceWidget token={token} onClick={() => setShowCompliance(true)} />
+        </div>
+
         <div className="px-3 pb-3 space-y-2">
+          <button onClick={() => setShowVisualizations(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md transition-colors group" data-testid="open-visualizations-btn">
+            <BarChart3 className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.pink }} />
+            <span className="text-xs font-medium text-slate-300 group-hover:text-white">Visualizations</span>
+          </button>
           <button onClick={() => setShowRetention(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md transition-colors group" data-testid="open-retention-btn">
             <Shield className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.deepRed }} />
             <span className="text-xs font-medium text-slate-300 group-hover:text-white">Retention & Holds</span>
@@ -537,7 +549,8 @@ const LumiMessenger = () => {
         </>) : (
           <div className="flex-1 flex flex-col items-center justify-center text-center px-6 bg-slate-50">
             <div className="w-20 h-20 rounded-lg bg-slate-100 flex items-center justify-center mb-5"><MessageCircle className="w-10 h-10 text-slate-300" /></div>
-            <h2 className="text-xl font-semibold text-slate-900 mb-2">LUMI</h2>
+            <h2 className="text-xl font-semibold text-slate-900 mb-1">LUMI</h2>
+            <p className="text-xs font-medium mb-2" style={{ color: ESY.turquoise }}>Intelligence in Every Conversation</p>
             <p className="text-slate-500 text-sm max-w-xs">{t('lumi.welcomeMessage') || 'Select a channel to start chatting, or create a new one.'}</p>
             <Button onClick={() => setShowCreateModal(true)} className="mt-4 bg-[#008080] hover:bg-[#006666] text-white rounded-md" data-testid="create-first-channel">
               <Plus className="w-4 h-4 mr-2" />{t('lumi.createChannel') || 'Create Channel'}
@@ -552,6 +565,7 @@ const LumiMessenger = () => {
       {showRetention && <RetentionPanel onClose={() => setShowRetention(false)} token={token} />}
       {showAuditLog && <AdminAuditPanel isOpen={showAuditLog} onClose={() => setShowAuditLog(false)} token={token} />}
       {showCompliance && <CompliancePanel isOpen={showCompliance} onClose={() => setShowCompliance(false)} token={token} />}
+      {showVisualizations && <VisualizationsPanel isOpen={showVisualizations} onClose={() => setShowVisualizations(false)} token={token} />}
       <ShortcutsPanel isOpen={showShortcuts} onClose={() => setShowShortcuts(false)} />
 
       <CommandBar isOpen={showCommandBar} onClose={() => setShowCommandBar(false)} token={token}

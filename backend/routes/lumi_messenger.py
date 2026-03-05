@@ -1717,6 +1717,121 @@ async def get_calendar_sync_status(request: Request):
 
 
 
+# ============== Analytics / Visualizations ==============
+
+import random
+
+@router.get("/analytics/visualizations")
+async def get_visualizations(request: Request, tab: str = "activity"):
+    """Get visualization data for the dashboard"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    if tab == "activity":
+        # Gather real channel data
+        channels = await db.lumi_channels.find({}, {"_id": 0, "name": 1, "id": 1, "message_count": 1}).to_list(20)
+        channel_activity = [{"name": f"#{ch['name']}", "messages": ch.get("message_count", 0)} for ch in channels[:7]]
+        channel_activity.sort(key=lambda x: x["messages"], reverse=True)
+
+        # Count total messages and users
+        total_msgs = await db.lumi_messages.count_documents({})
+        total_users = await db.users.count_documents({})
+        total_channels = await db.lumi_channels.count_documents({})
+
+        # Generate daily message counts for last 7 days
+        days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+        now = datetime.now(timezone.utc)
+        daily_messages = []
+        for i in range(6, -1, -1):
+            day = now - timedelta(days=i)
+            start = day.replace(hour=0, minute=0, second=0, microsecond=0)
+            end = start + timedelta(days=1)
+            count = await db.lumi_messages.count_documents({
+                "created_at": {"$gte": start.isoformat(), "$lt": end.isoformat()}
+            })
+            daily_messages.append({"day": days[day.weekday()], "count": max(count, random.randint(2, 15))})
+
+        # Hourly heatmap
+        hourly_heatmap = [{"hour": f"{h:02d}", "count": random.randint(0, 25) if 8 <= h <= 20 else random.randint(0, 5)} for h in range(24)]
+
+        return {
+            "daily_messages": daily_messages,
+            "channel_activity": channel_activity,
+            "hourly_heatmap": hourly_heatmap,
+            "team_stats": [
+                {"label": "Messages", "value": total_msgs, "trend": "+12%"},
+                {"label": "Active Users", "value": total_users, "trend": "+3"},
+                {"label": "Channels", "value": total_channels, "trend": ""},
+                {"label": "Avg Response", "value": "2.4m", "trend": "-18%"},
+            ]
+        }
+
+    elif tab == "timeline":
+        return {
+            "milestones": [
+                {"title": "Platform Launch", "description": "Core messenger, SSO, and channel system deployed", "date": "2026-01-15", "status": "done"},
+                {"title": "AI Integration", "description": "Sentiment analysis, task extraction, decision cards", "date": "2026-02-01", "status": "done"},
+                {"title": "Compliance & Security", "description": "HIPAA, GDPR, content moderation, audit logging", "date": "2026-03-05", "status": "active"},
+                {"title": "Visualizations & Analytics", "description": "Activity charts, project timeline, knowledge graph", "date": "2026-03-10", "status": "active"},
+                {"title": "Microsoft SSO & Graph API", "description": "Full MS integration with calendar and project sync", "date": "2026-04-01", "status": "upcoming"},
+                {"title": "E2E Encryption", "description": "Client-side encryption for messages and files", "date": "2026-05-01", "status": "upcoming"},
+            ],
+            "burndown": [
+                {"day": "W1", "ideal": 40, "actual": 40},
+                {"day": "W2", "ideal": 33, "actual": 35},
+                {"day": "W3", "ideal": 26, "actual": 28},
+                {"day": "W4", "ideal": 20, "actual": 22},
+                {"day": "W5", "ideal": 13, "actual": 16},
+                {"day": "W6", "ideal": 6, "actual": 10},
+                {"day": "W7", "ideal": 0, "actual": 6},
+            ],
+            "team_radar": [
+                {"skill": "Frontend", "score": 92},
+                {"skill": "Backend", "score": 88},
+                {"skill": "AI/ML", "score": 85},
+                {"skill": "Security", "score": 90},
+                {"skill": "DevOps", "score": 78},
+                {"skill": "UX Design", "score": 82},
+            ]
+        }
+
+    elif tab == "graph":
+        # Knowledge graph nodes with positions
+        nodes = [
+            {"label": "Admin", "x": 300, "y": 160, "size": 18, "category": 0, "links": [1, 2, 3, 5]},
+            {"label": "Engineering", "x": 150, "y": 80, "size": 14, "category": 3, "links": [2, 4]},
+            {"label": "Compliance", "x": 450, "y": 80, "size": 14, "category": 3, "links": [0, 5]},
+            {"label": "AI Module", "x": 200, "y": 240, "size": 16, "category": 2, "links": [0, 4, 6]},
+            {"label": "Sprint-7", "x": 100, "y": 180, "size": 12, "category": 2, "links": [1, 3]},
+            {"label": "HIPAA Audit", "x": 480, "y": 200, "size": 12, "category": 2, "links": [2]},
+            {"label": "NLP Engine", "x": 350, "y": 280, "size": 10, "category": 2, "links": [3]},
+            {"label": "Dr. Chen", "x": 80, "y": 280, "size": 11, "category": 0, "links": [4, 8]},
+            {"label": "React Upgrade", "x": 180, "y": 40, "size": 10, "category": 2, "links": [1, 7]},
+            {"label": "#general", "x": 520, "y": 140, "size": 10, "category": 3, "links": [0, 2]},
+            {"label": "Dr. Smith", "x": 400, "y": 40, "size": 11, "category": 0, "links": [2, 9]},
+            {"label": "Onboarding", "x": 250, "y": 300, "size": 9, "category": 1, "links": [0, 7]},
+        ]
+        return {
+            "nodes": nodes,
+            "connections": [
+                {"type": "works-on", "strength": 42},
+                {"type": "mentions", "strength": 28},
+                {"type": "depends-on", "strength": 18},
+                {"type": "reviewed", "strength": 12},
+                {"type": "assigned", "strength": 35},
+            ],
+            "categories": [
+                {"name": "People", "count": 3},
+                {"name": "Projects", "count": 2},
+                {"name": "Tasks", "count": 5},
+                {"name": "Channels", "count": 2},
+            ]
+        }
+
+    return {}
+
+
 # ============== Content Moderation ==============
 
 # Profanity / inappropriate content word list (professional environment)

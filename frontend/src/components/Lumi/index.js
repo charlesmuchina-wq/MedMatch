@@ -20,4 +20,6 @@ export { EmojiPicker } from './EmojiPicker';
 export { ShortcutsPanel, useKeyboardShortcuts } from './KeyboardShortcuts';
 export { AdminAuditPanel } from './AdminAuditPanel';
 export { CompliancePanel } from './CompliancePanel';
+export { ComplianceWidget } from './ComplianceWidget';
+export { VisualizationsPanel } from './VisualizationsPanel';
 export { API, WS_URL, ESY, STATUS_COLORS, STATUS_LABELS } from './constants';
