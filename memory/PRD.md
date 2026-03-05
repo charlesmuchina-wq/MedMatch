@@ -24,7 +24,8 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "LUMI" 
 - Message retention & holds system (legal, contractual holds with approval workflow)
 - Data visualizations panel (KPI charts, project timeline, knowledge graph)
 - Reusable LumiBrand component, shared footer
-- **P0 Accessibility Fix (March 2026):** Fixed critical dark mode CSS specificity bug — global `.dark` CSS rules were overriding Tailwind utility classes, making all modal text invisible on white backgrounds
+- **P0 Accessibility Fix (March 5, 2026):** Fixed critical dark mode CSS specificity bug — global `.dark` CSS rules overriding Tailwind utility classes
+- **Dark/Light Mode Toggle (March 5, 2026):** Added sidebar toggle button for manual theme switching with sun/moon icons, persisted via localStorage
 
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI

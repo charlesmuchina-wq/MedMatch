@@ -11,11 +11,13 @@ import {
   Loader2, X, Paperclip, UserPlus, User, Phone, Video,
   Building2, Sparkles, Brain, AlertTriangle, Shield,
   Command, Network, Zap, TrendingDown, Bell,
-  Smile, Keyboard, ClipboardList, Globe, BarChart3
+  Smile, Keyboard, ClipboardList, Globe, BarChart3,
+  Sun, Moon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useTranslation } from '@/utils/i18n';
+import { useTheme } from '@/App';
 
 import {
   ChannelIcon, StatusDot, MessageBubble, ThreadPanel, MembersPanel,
@@ -32,6 +34,7 @@ import {
 const LumiMessenger = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { isDark, toggleTheme } = useTheme();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [channels, setChannels] = useState([]);
@@ -452,6 +455,10 @@ const LumiMessenger = () => {
           <button onClick={() => setShowShortcuts(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="open-shortcuts-btn">
             <Keyboard className="w-3.5 h-3.5 text-white/80 group-hover:text-white" />
             <span className="text-xs font-semibold text-white/90 group-hover:text-white">Shortcuts</span>
+          </button>
+          <button onClick={toggleTheme} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="theme-toggle-btn">
+            {isDark ? <Sun className="w-3.5 h-3.5 text-amber-400 group-hover:text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-indigo-300 group-hover:text-indigo-200" />}
+            <span className="text-xs font-semibold text-white/90 group-hover:text-white">{isDark ? 'Light Mode' : 'Dark Mode'}</span>
           </button>
           <button onClick={() => navigate('/karau-meet')} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="switch-to-karau-footer">
             <Building2 className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.turquoise }} />
