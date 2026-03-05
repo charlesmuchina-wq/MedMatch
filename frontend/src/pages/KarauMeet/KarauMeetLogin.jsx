@@ -41,6 +41,39 @@ const KarauMeetLogin = ({ onLogin }) => {
     return () => clearInterval(interval);
   }, []);
 
+  // Handle Google OAuth callback (session_id in URL hash)
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash && hash.includes('session_id=')) {
+      const sessionId = hash.split('session_id=')[1]?.split('&')[0];
+      if (sessionId) {
+        setIsLoading(true);
+        (async () => {
+          try {
+            const res = await fetch(`${API}/api/auth/google/session`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ session_id: sessionId })
+            });
+            if (res.ok) {
+              const data = await res.json();
+              localStorage.setItem('token', data.access_token);
+              localStorage.setItem('karau_user', JSON.stringify(data.user));
+              onLogin(data.user);
+              toast.success(t("karauMeet.welcomeToast"));
+            } else {
+              toast.error('Google login failed');
+            }
+          } catch (e) {
+            toast.error('Connection error');
+          }
+          setIsLoading(false);
+          window.history.replaceState(null, '', window.location.pathname);
+        })();
+      }
+    }
+  }, [onLogin, t]);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -75,8 +108,13 @@ const KarauMeetLogin = ({ onLogin }) => {
     navigate(`/karau-meet/join/${meetingId.toUpperCase()}`);
   };
 
-  const handleGoogleSignIn = async () => {
-    window.location.href = `${API}/api/auth/google`;
+  const handleGoogleSignIn = () => {
+    const redirectUrl = window.location.origin + '/karau-meet';
+    window.location.href = `https://auth.emergentagent.com/?redirect=${encodeURIComponent(redirectUrl)}`;
+  };
+
+  const handleMicrosoftSignIn = () => {
+    toast.info('Microsoft SSO is coming soon. Please use Google or email login.');
   };
 
   return (
@@ -287,14 +325,17 @@ const KarauMeetLogin = ({ onLogin }) => {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={() => toast.info(t("karauMeet.appleComingSoon"))}
+                  onClick={handleMicrosoftSignIn}
                   className="h-11 bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border-white/[0.08] rounded-xl transition-all duration-300"
-                  data-testid="btn-apple"
+                  data-testid="btn-microsoft"
                 >
-                  <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                  <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
+                    <rect x="1" y="1" width="10" height="10" fill="#F25022"/>
+                    <rect x="13" y="1" width="10" height="10" fill="#7FBA00"/>
+                    <rect x="1" y="13" width="10" height="10" fill="#00A4EF"/>
+                    <rect x="13" y="13" width="10" height="10" fill="#FFB900"/>
                   </svg>
-                  {t("karauMeet.apple")}
+                  {t("karauMeet.microsoft") || "Microsoft"}
                 </Button>
               </div>
             </div>

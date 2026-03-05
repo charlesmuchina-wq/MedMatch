@@ -996,7 +996,8 @@
     "selectRole": "Select your role",
     "registerAsJobSeeker": "Looking for opportunities in life sciences",
     "registerAsRecruiter": "Hiring talent for your organization",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "microsoft": "Sign in with Microsoft"
   },
   "onboarding": {
     "welcome": "Welcome to MedMatch!",
@@ -2309,6 +2310,7 @@
     "or": "or",
     "google": "Google",
     "apple": "Apple",
+    "microsoft": "Microsoft",
     "joinAMeeting": "Join a meeting",
     "enterCodeToJoin": "Enter a meeting code to join as a guest",
     "noAccountNeeded": "No account needed. You'll enter the meeting lobby where the host can admit you.",

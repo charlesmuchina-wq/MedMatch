@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://lumi-prestige.preview.emergentagent.com/api
+**API Target:** https://lumi-productivity-ai.preview.emergentagent.com/api
 
 ---
 

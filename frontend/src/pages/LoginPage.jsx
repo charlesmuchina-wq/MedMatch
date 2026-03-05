@@ -398,9 +398,24 @@ const LoginPage = ({ onAuthSuccess }) => {
               </svg>
               {t("auth.orcid") || "Sign in with ORCID"}
             </Button>
+
+            {/* Microsoft Sign In Button */}
+            <Button 
+              variant="outline" 
+              className="w-full h-12 font-medium"
+              onClick={() => toast.info('Microsoft SSO is coming soon. Please use Google or email login.')}
+              disabled={isLoading}
+              data-testid="microsoft-login-btn"
+            >
+              <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
+                <rect x="1" y="1" width="10" height="10" fill="#F25022"/>
+                <rect x="13" y="1" width="10" height="10" fill="#7FBA00"/>
+                <rect x="1" y="13" width="10" height="10" fill="#00A4EF"/>
+                <rect x="13" y="13" width="10" height="10" fill="#FFB900"/>
+              </svg>
+              {t("auth.microsoft") || "Sign in with Microsoft"}
+            </Button>
           </div>
-          
-          {/* Back to Portal Selection */}
           <div className="pt-3 border-t border-slate-200 dark:border-slate-700">
             <button 
               onClick={() => navigate('/')}

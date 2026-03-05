@@ -1,69 +1,86 @@
 <analysis>**original_problem_statement:**
-The user's vision is to transform AI KARAU into a futuristic Distance Zero communication platform. The project has evolved from implementing a vast suite of AI and mocked hardware features to focusing on production-readiness and user experience.
+The user's vision is to create a dual-platform communication suite: AI KARAU, a feature-rich webinar tool, and LUMI, a professional-grade messenger.
 
-Recent user requests have driven a complete overhaul of the user interface, the addition of seed data, and a full internationalization implementation. The most recent, highest-priority requests included:
-1.  **Web-based Interactive Replay:** Create a cinematic, interactive replay feature for past meetings. (Completed)
-2.  **Realistic Hardware Simulations:** Transition the existing static mocked hardware APIs into realistic, dynamic simulations. (Completed)
-3.  **UI/UX Enhancements**: Make dashboard sections collapsible and add shareable, timestamped links to the replay feature. (Completed)
-4.  **i18n Bug Fix**: The user reported that many parts of the dashboard were not translated into Swahili, remaining hardcoded in English. (Completed, pending user verification)
-5.  **New Feature Requests**: The user has requested a Meeting Insights Intelligence enhancement, an internal membership app for messaging, and a downloadable file () during admin setup.
+The project has evolved significantly based on user research and feedback. The primary focus is now on transforming LUMI into a futuristic, AI-driven Actionable Intelligence hub for project productivity and internal communication.
+
+**Key Requirements (Cumulative):**
+1.  **Foundation:** Build a secure, compliant messenger with core features (chat, DMs, file sharing, reactions, presence).
+2.  **UI/UX:** Evolve the UI from a Prestige theme to an ESY theme, incorporating the user's mother's favorite colors (pink, turquoise, deep red) as accents, while ensuring high accessibility and readability.
+3.  **Productivity AI:** Integrate AI to generate meeting summaries, extract action items, perform sentiment analysis, and automate status reporting.
+4.  **Futuristic AI & Agentic Workflows:** Implement advanced capabilities including conversational data querying (NLP), proactive anomaly alerts, interactive decision cards, knowledge graph visualization for impact analysis, bottleneck detection, what-if project simulations, and real-time translation.
+5.  **Integrations:**
+    *   **P0 - Single Sign-On (SSO):** Implement Google and Microsoft SSO to unify access across all company platforms.
+    *   Sync user status from Google/Microsoft calendars.
+    *   Integrate with MS Project and SharePoint data via the Microsoft Graph API.
+6.  **Core App Features:** Implement message threading, voice/video calls (triggering AI KARAU meetings), and message retention policies.
 
 **User's preferred language**: English
 
 **what currently exists?**
-The application is a mature, feature-rich webinar platform with a polished, dark-themed UI. The latest session successfully implemented two major features:
-1.  **A cinematic, interactive meeting replay page** () which includes a timeline, chapter navigation, speaker-coded transcript, and AI highlights.
-2.  **Realistic, real-time hardware simulations** for SLAM, Beamforming, IoT, Biometrics, and 360° cameras, powered by new backend Server-Sent Events (SSE) endpoints.
-
-Additionally, the agent implemented user-requested enhancements, including shareable, timestamped links for the replay feature and making the main dashboard sections collapsible for a cleaner UI. Most recently, the agent addressed a critical bug where numerous dashboard components were hardcoded in English, implementing i18n keys and adding translations for Swahili and other languages. A login redirect bug was also discovered and fixed during this process.
+The application is a dual-portal platform with a shared authentication page:
+1.  **AI KARAU:** A mature webinar platform with a dark-themed UI, meeting replay, and a Meeting Intelligence widget.
+2.  **LUMI Messenger:** A highly advanced, real-time messaging application with a sophisticated ESY themed UI.
+    *   **Core Features:** Real-time channels/DMs, reactions, search, file sharing, and read receipts are fully functional.
+    *   **Advanced Features:** Domain-based privacy, user presence, enhanced message threading, and real-time translation with a 20-language picker are implemented.
+    *   **Futuristic AI Suite:** A comprehensive set of AI features has been integrated directly into the chat interface, including:
+        *   An AI Productivity Panel (Sentiment, Tasks, Reports).
+        *   A conversational Ask LUMI AI chat bot.
+        *   Panels for Decision Cards and Anomaly Alerts.
+        *   A global Command Bar () for quick search and AI queries.
+        *   Panels for Knowledge Graph visualization and Bottleneck Detection.
+        *   Panels for What-If Simulations and a Smart Notifications center.
+    *   **Backend:** A robust FastAPI backend supports all features with numerous dedicated API endpoints for the AI functionalities, all powered by Gemini and GPT-5.2 via the Emergent LLM Key.
 
 **Last working item**:
-    - Last item agent was working: Fixing numerous hardcoded English strings on the  page. The user reported that despite selecting Swahili, many elements remained in English. The agent identified all hardcoded strings, replaced them with   function calls, and added the corresponding translations to the  locale file (and others). A bug preventing redirection to the dashboard after login was also fixed.
-    - Status: USER VERIFICATION PENDING
-    - Agent Testing Done: Y
-    - Which testing method agent to use? Manual verification by the user is required to confirm the visual translation fixes. No further agent testing is needed for this item.
+    - Last item agent was working: The agent was beginning the implementation of the highest priority user request: Single Sign-On (SSO). It had just received the integration playbook for Google Auth and had started exploring the existing JWT-based authentication code to plan the necessary modifications.
+    - Status: IN PROGRESS
+    - Agent Testing Done: N
+    - Which testing method agent to use? both
     - User Testing Done: N
 
 **All Pending/In progress Issue list**:
-  - **Issue 1: I18n Fix Verification on Dashboard (P0)**
-     - **Description:** The user needs to confirm that the hardcoded English text on the dashboard is now correctly translated into Swahili (and other languages) after the recent fixes.
-     - **Status:** USER VERIFICATION PENDING
-     - **Is recurring issue?** Y (i18n issues have appeared before)
-     - **Blocked on other issue:** None
+There are no pending bugs or issues. The current work is on a new feature.
 
 **In progress Task List**:
-There are no tasks currently in progress. The agent is awaiting user feedback.
+  - **Task 1: Implement Unified Single Sign-On (SSO) (P0)**
+     - **Description:** Implement Sign in with Google and Sign in with Microsoft to provide seamless, secure access to the platform, connecting the user to all their company tools. This is the user's current top priority.
+     - **Where to resume:**
+         1. Call  to get the playbook for **Microsoft Auth**.
+         2. Review the Google Auth playbook obtained in the last step.
+         3. Modify  to add the new SSO buttons to the login form.
+         4. Modify  and  to add the new endpoints required for the OAuth2 callback, token exchange, and user creation/login logic for both Google and Microsoft.
+     - **What will be achieved with this?** A simplified and more secure login experience for users, and the foundational step for deeper calendar and profile integrations.
+     - **Status:** IN PROGRESS
+     - **Should Test frontend/backend/both after fix?** both
+     - **Blocked on something:** Nothing.
 
 **Upcoming and Future Tasks**
-*   **Upcoming Tasks (Clarification Required):**
-    *   **Meeting Insights Intelligence (P1):** The user approved this enhancement. The next step is to plan the implementation for tracking discussion themes and unresolved action items across multiple meetings.
-    *   **Internal Membership Messaging App (P1):** The user requested a message app for internal membership. This is a major new feature requiring detailed planning and user clarification on its scope, features (e.g., real-time chat, channels, DMs), and integration with the existing user model.
-    *   **Admin Setup Downloadable File (P2):** The user mentioned: . This is unclear and requires clarification. The agent needs to ask the user what tsr is and what purpose this downloadable file serves during admin setup.
+*   **Upcoming Tasks:**
+    *   **P1 - User Profile & Status Sync:** After SSO is complete, use the authenticated Microsoft/Google sessions to sync user profile pictures and calendar status (e.g., In a meeting) to display in LUMI.
+    *   **P1 - Centralized Notification Center:** Consolidate all AI-driven alerts (anomaly, bottleneck, smart notifications) and user mentions into a single, unified notification panel.
+    *   **P1 - Voice & Video Calls:** Add a start call button in LUMI channels/DMs that creates and links to a new AI KARAU meeting room.
+    *   **P1 - Message Edit/Delete:** Implement the functionality for users to edit and delete their sent messages within a configurable time window.
 *   **Future Tasks:**
-    *   **Live Payment Gateway Configuration (P3):** Switch the Stripe integration from test keys to live keys to enable real payments. This is blocked pending user provision of live keys.
-    *   **Transition Mocked Hardware to Real Implementations (P3):** Replace the simulated APIs with actual hardware integrations using specific SDKs. This is blocked on user decisions regarding hardware choices.
+    *   **P2 - Message Retention Policy:** Build the admin UI to configure and enforce message retention rules.
+    *   **P2 - Full Knowledge Graph Integration:** Deepen the MS Project/SharePoint integration to allow the AI to perform agentic cross-platform actions based on graph insights.
+    *   **P2 - End-to-End Encryption (E2EE):** Research and implement a client-side encryption strategy for all messages and files.
+    *   **P2 - Admin Audit Logs:** Create a secure, searchable log for all administrative actions within the platform.
+    *   **P3 - Live Payment Gateway:** Transition the Stripe integration from test keys to live keys for production use.
 
 **Completed work in this session**
-- **Feature: Interactive Meeting Replay**:
-  - Created a full-screen, cinematic replay page () with a multi-track timeline, chapter navigation, speaker gallery, and AI highlights.
-  - Implemented a backend endpoint () to serve rich, structured data for the replay.
-- **Feature: Realistic Hardware Simulations**:
-  - Created a new backend route () using Server-Sent Events (SSE) to stream realistic data.
-  - Refactored all hardware UI panels (, , etc.) to consume and visualize these real-time data streams.
-- **Enhancement: Shareable Replay Links**:
-  - Added support for a  URL query parameter to seek to a specific timestamp on page load.
-  - Added a Share button to the replay UI that copies the timestamped URL to the clipboard.
-- **Enhancement: Dashboard UI Overhaul**:
-  - Converted AI-Powered Features, Meeting Insights, Trending Topics, and Activity Highlights into collapsible accordion sections to reduce clutter.
-- **Bug Fix: Major i18n Refactor on Dashboard**:
-  - Replaced dozens of hardcoded English strings in  with   function calls.
-  - Added/updated translation keys and values in , , , , , .
-  - Implemented a client-side translation map for backend-driven rank_title as a temporary i18n solution.
-- **Bug Fix: Login Redirect**:
-  - Fixed an issue where the user was not redirected to the dashboard after a successful login, causing a blank content area.
+- **UI/UX Overhaul:**
+  - Fixed all contrast and accessibility issues in the LUMI messenger.
+  - Implemented the ESY theme, adding pink, turquoise, and deep red accents throughout the LUMI UI and login page.
+- **Advanced AI Feature Suite (Full Implementation):**
+  - **Productivity AI:** Delivered an AI panel for sentiment analysis, task extraction, and report generation.
+  - **Actionable Intelligence:** Implemented a conversational AI bot, Decision Cards, and Anomaly Alerts.
+  - **Graph Intelligence:** Built a  Command Bar, a Knowledge Graph visualizer, and a Bottleneck Detection panel.
+  - **Advanced Collaboration:** Added a What-If simulation panel and a smart notifications system.
+- **Real-time Translation Enhancement:**
+  - Upgraded the simple translate toggle to a polished, multi-language dropdown supporting 20 languages, with inline translation display.
 
 **Earlier issues found/mentioned but not fixed**
-  - None.
+   - None.
 
 **Known issue recurrence from previous fork**
   - None.
@@ -72,76 +89,70 @@ There are no tasks currently in progress. The agent is awaiting user feedback.
 
 
 **Key Technical Concepts**
-- **Server-Sent Events (SSE):** Used for efficient, unidirectional real-time data streaming from the backend for hardware simulations.
-- **Full-Stack Feature Implementation:** Built features from backend (new API endpoints, data generators) to frontend (new pages, components, hooks).
-- **Advanced i18n Debugging:** Traced and fixed numerous hardcoded strings, updated multiple locale files, and implemented a temporary client-side translation strategy for backend data.
-- **React Hooks for State & URL Management:** Used  for managing collapsible UI state and / for handling shareable, timestamped URLs.
-- **Dynamic CSS & Layouts:** Conditionally applied CSS classes and modified the root layout in  to enable a full-screen, cinematic experience for the replay page.
+- **Monolithic Frontend Component:**  has become extremely large and complex, containing the UI and logic for nearly all of LUMI's features.
+- **Backend-Driven AI:** All advanced AI features are powered by a suite of new, dedicated FastAPI endpoints organized into thematic route files.
+- **Phased Feature Delivery:** The agent successfully implemented a vast number of features by grouping them into logical, testable phases.
+- **Dynamic Theming:** The ESY color scheme was applied using CSS-in-JS variables for a consistent and vibrant look.
+- **Integration via Playbooks:** The process for integrating third-party services like Google Auth is guided by the  subagent.
 
 **key DB schema**
-- No changes were made to the database schema.
+  - No new database schema changes were made in this session.
 
 **changes in tech stack**
-- None.
+  - No new dependencies were added.
 
 **All files of reference**
-- **New/Created:**
-  - : Provides real-time data streams for hardware simulations via SSE.
-  - : Generates the rich, cinematic data structure for the demo replay.
-  - : The new cinematic, interactive meeting replay page.
-- **Heavily Modified:**
-  - : Rewritten to use collapsible sections and fully internationalized.
-  - : Multiple locale files updated with new translation keys for the dashboard.
-  - All hardware panel components in : Refactored to connect to and visualize the new real-time simulation streams.
-  - : Logic added to render the replay page in a full-screen layout.
+- : The primary file for almost all UI work. It is in critical need of refactoring.
+- : The main entry point for user login, will be modified for SSO.
+- : The backend logic for authentication, will be extended for SSO.
+- **New Backend Route Files:**
+    - 
+    - 
+    - 
+    - 
 
-**Areas that need refactoring**
-- The client-side translation map for  in  is a workaround. A more robust solution would be to add i18n support to the backend API that provides this data.
+**Areas that need refactoring**:
+- **:** This file is now over 2,500 lines long and is a significant technical debt. It is unmaintainable and must be broken down into smaller components. The next agent should prioritize refactoring this file by extracting major UI sections (e.g., , , , ) into their own dedicated files under .
 
 **key api endpoints**
-- : (New) SSE endpoint that streams JSON data for hardware simulations (e.g., , ).
-- : (New) Endpoint that returns a large JSON object with all data needed for the cinematic replay.
+- A large suite of new AI-related endpoints were created across four new backend route files.
+- The next set of endpoints to be created will be for Google/Microsoft SSO callbacks in .
 
 **Critical Info for New Agent**
-- **Priority 1: User Communication.** Do not start any new work until you receive feedback from the user on the i18n fixes. After that, your first action must be to use  to clarify the new feature requests (membership app and tsr download) and propose a plan that includes the Meeting Insights Intelligence task.
-- **New Feature Scope:** The user's request for an internal membership message app is a significant new feature. You must gather requirements before any implementation.
-- **i18n is Critical:** The user is sensitive to internationalization issues. Any new UI text MUST use the  function, and new keys must be added to . The agent should also make a best effort to add translations for other key languages like Swahili (), German (), and Portuguese ().
+1.  **Priority #1 is SSO:** Your immediate task is to implement Google and Microsoft Single Sign-On. You have the Google playbook; your first action should be to get the Microsoft playbook. Then, proceed to modify the frontend () and backend ().
+2.  **URGENT - Refactor :** The main LUMI component is critically oversized and complex. You MUST propose a refactoring plan to the user alongside the SSO implementation. As you work, proactively break out UI sections into smaller, dedicated components. The application's future maintainability depends on this.
+3.  **Follow Integration Playbooks:** For security-sensitive features like SSO, adhere strictly to the provided integration playbooks. Do not deviate.
 
 **documents and test reports created in this job**
-- 
-- 
-- 
--  (Updated)
+-  (Continuously updated)
+- Multiple test reports in  were generated after each major feature phase.
 
 **Last 10 User Messages and any pending HUMAN messages**
-1.  **User**: Asks for Meeting Insights Intelligence, an internal membership app, and a tsr download feature. (PENDING CLARIFICATION)
-2.  **Agent**: Finishes work on i18n fixes and proposes the Meeting Insights Intelligence enhancement.
-3.  **User**: Points out via screenshot that the interface is still hardcoded in English, even when Swahili is selected. (RESOLVED, PENDING VERIFICATION)
-4.  **Agent**: Finishes implementing shareable links and collapsible dashboard sections.
-5.  **User**: Approves the plan for shareable links and collapsible sections. (COMPLETED)
-6.  **Agent**: Finishes implementing the interactive replay and hardware simulations, and proposes the next enhancements.
-7.  **User**: Provides high-level direction for the replay feature: 1. Create dedicated data. 2. Realtime 3. Cinema. (COMPLETED)
-8.  **Agent**: Proposes a detailed plan for the interactive replay and hardware simulations.
-9.  **User**: (Previous session) Approves starting the next phase of work.
-10. **User**: (Previous session) Asks for a status update.
+1.  **User:** Yes - Approved plan to start work on SSO. (PENDING IMPLEMENTATION)
+2.  **Agent:** Proposed plan to implement SSO, user profile/status sync, and a centralized notification center.
+3.  **User:** Confirmed the need for company SSO (Microsoft/Google) and approved working on future tasks.
+4.  **Agent:** Finished implementing the enhanced language picker for translation.
+5.  **User:** Yes, add. - Approved the enhancement to add a full language picker. (COMPLETED)
+6.  **Agent:** Asked for confirmation to upgrade the translation feature from a toggle to a full language picker.
+7.  **User:** Asked about language availability beyond English and Spanish. (ANSWERED)
+8.  **Agent:** Finished a major feature set including threading enhancements, simulations, and smart notifications.
+9.  **User:** Yes - Approved the plan to implement the above feature set. (COMPLETED)
+10. **Agent:** Proposed plan to implement threading, simulations, and smart notifications.
 
 **Project Health Check:**
--   **Broken:** None.
--   **Mocked:**
-    -   **Stripe:** Backend is complete but uses test keys.
-    -   **Hardware APIs:** While they now have realistic data streams, they are still simulations not connected to real hardware.
--   **Healthy:** The application is stable and feature-rich. Major features like interactive replay and real-time simulations have been added and tested. The UI is polished and almost fully translated (pending verification).
+- **Broken:** None. The application is stable.
+- **Mocked:** Stripe payments (test keys), hardware API simulations.
+- **Technical Debt:**  is a critical technical debt that hinders development velocity and increases the risk of bugs.
 
 **3rd Party Integrations**
--   **Emergent LLM Key:** Used for all OpenAI and LLM-based features.
--   **OpenAI Whisper:** Used for recording transcription.
--   **Stripe:** For payments (requires User API Key for live mode).
--   ****: For internationalization.
--   ****: For client-side noise cancellation.
--   ****: For speaker detection.
+- **Emergent LLM Key:** Used for Gemini and GPT-5.2 AI features.
+- **Emergent Object Storage:** Used for file sharing in LUMI.
+- **Stripe:** For payments (requires User API Key for live mode).
+- **Google Auth:** **To be integrated.**
+- **Microsoft Graph API:** **To be integrated.**
 
 **Testing status**
-  - Testing agent used after significant changes: YES. The testing agent was used to validate the replay feature, hardware simulations, UI enhancements, and the i18n fixes. All runs passed successfully.
+  - Testing agent used after significant changes: YES. The agent was used successfully after every major feature phase.
   - Troubleshoot agent used after agent stuck in loop: NO
   - Test files created: []
   - Known regressions: None.
@@ -151,4 +162,4 @@ There are no tasks currently in progress. The agent is awaiting user feedback.
 -   **Test User (Recruiter):**  / 
 
 **What agent forgot to execute**
-- The agent has not forgotten any tasks. The next step is to address the user's newest, and somewhat ambiguous, requests from their last message after getting confirmation on the completed i18n fix.</analysis>
+The agent has successfully kept pace with a rapid succession of large feature requests from the user. Older, lower-priority tasks from the initial problem statement (like voice calls) are correctly placed in the upcoming backlog while the agent focuses on the user's current top priority (SSO).</analysis>

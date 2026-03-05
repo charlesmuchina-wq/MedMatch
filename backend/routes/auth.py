@@ -330,15 +330,34 @@ async def login_user(login_data: UserLogin, response: Response):
 
 @router.post("/google/session")
 async def google_session_login(auth_data: Dict[str, Any], response: Response):
-    """Handle Google OAuth session"""
-    if "email" not in auth_data:
-        raise HTTPException(status_code=400, detail="Email required")
+    """Handle Google OAuth session - verify session_id with Emergent Auth"""
+    session_id = auth_data.get("session_id")
+    if not session_id:
+        raise HTTPException(status_code=400, detail="session_id required")
+    
+    # Verify session with Emergent Auth service
+    async with httpx.AsyncClient() as client:
+        try:
+            verify_res = await client.post(
+                "https://auth.emergentagent.com/verify",
+                json={"session_id": session_id},
+                timeout=10.0
+            )
+            if verify_res.status_code != 200:
+                raise HTTPException(status_code=401, detail="Invalid session")
+            google_user = verify_res.json()
+        except httpx.RequestError:
+            raise HTTPException(status_code=502, detail="Auth service unavailable")
+    
+    email = google_user.get("email")
+    if not email:
+        raise HTTPException(status_code=400, detail="Email not returned from auth")
     
     current_time = datetime.now(timezone.utc).isoformat()
     
     user = await get_or_create_user(
-        email=auth_data["email"],
-        name=auth_data.get("name", ""),
+        email=email,
+        name=google_user.get("name", ""),
         auth_method="google"
     )
     
@@ -374,6 +393,15 @@ async def google_session_login(auth_data: Dict[str, Any], response: Response):
             "previous_login": previous_login
         }
     }
+
+@router.post("/microsoft/login")
+async def microsoft_sso_placeholder():
+    """Microsoft SSO placeholder - not yet configured"""
+    raise HTTPException(
+        status_code=501,
+        detail="Microsoft SSO is not yet configured. Please use Google or email login."
+    )
+
 
 @router.get("/apple/config")
 async def get_apple_config():
