@@ -21,6 +21,7 @@ import {
   AiProductivityPanel, AiChatPanel, AlertsPanel, CommandBar,
   KnowledgeGraphPanel, BottleneckPanel, SimulationPanel,
   NotificationsPanel, CreateChannelModal, NewDmModal, LumiLogin,
+  UserProfileModal,
   API, WS_URL, ESY, STATUS_COLORS, STATUS_LABELS
 } from '@/components/Lumi';
 
@@ -56,6 +57,7 @@ const LumiMessenger = () => {
   const [showBottlenecks, setShowBottlenecks] = useState(false);
   const [showSimulation, setShowSimulation] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const [presenceMap, setPresenceMap] = useState({});
 
   const messagesEndRef = useRef(null);
@@ -344,11 +346,14 @@ const LumiMessenger = () => {
 
         <div className="p-3 border-t border-white/10">
           <div className="flex items-center gap-3">
-            <div className="relative">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}><span className="text-xs font-semibold text-white">{(user?.name || user?.email || '?')[0].toUpperCase()}</span></div>
+            <button onClick={() => setShowProfile(true)} className="relative group" data-testid="open-profile-btn" title="My Profile">
+              <div className="w-8 h-8 rounded-full flex items-center justify-center group-hover:ring-2 group-hover:ring-white/30 transition-all" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}><span className="text-xs font-semibold text-white">{(user?.name || user?.email || '?')[0].toUpperCase()}</span></div>
               <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full ring-2 ring-[#36454F] bg-emerald-500" />
-            </div>
-            <div className="flex-1 min-w-0"><p className="text-sm font-medium text-white truncate">{user?.name || 'User'}</p><p className="text-[10px] text-slate-300">Available</p></div>
+            </button>
+            <button onClick={() => setShowProfile(true)} className="flex-1 min-w-0 text-left hover:opacity-80 transition-opacity" data-testid="open-profile-name">
+              <p className="text-sm font-medium text-white truncate">{user?.name || 'User'}</p>
+              <p className="text-[10px] text-slate-300">View Profile</p>
+            </button>
             <button onClick={() => { localStorage.removeItem('token'); localStorage.removeItem('karau_user'); setUser(null); navigate('/'); }} className="p-1.5 text-slate-300 hover:text-red-400 hover:bg-red-500/10 rounded-md" data-testid="lumi-logout"><LogOut className="w-3.5 h-3.5" /></button>
           </div>
         </div>
@@ -448,6 +453,7 @@ const LumiMessenger = () => {
 
       {showCreateModal && <CreateChannelModal onClose={() => setShowCreateModal(false)} onCreated={(ch) => { setChannels(prev => [ch, ...prev]); setActiveChannel(ch); setShowCreateModal(false); setMobileSidebar(false); }} token={token} />}
       {showNewDmModal && <NewDmModal onClose={() => setShowNewDmModal(false)} onSelect={handleStartDm} token={token} />}
+      {showProfile && <UserProfileModal onClose={() => setShowProfile(false)} token={token} onStatusChange={(s) => { /* status updated via ws broadcast */ }} />}
 
       <CommandBar isOpen={showCommandBar} onClose={() => setShowCommandBar(false)} token={token}
         onNavigate={(item) => {

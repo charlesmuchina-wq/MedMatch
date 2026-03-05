@@ -14,4 +14,5 @@ export { NotificationsPanel } from './NotificationsPanel';
 export { CreateChannelModal } from './CreateChannelModal';
 export { NewDmModal } from './NewDmModal';
 export { LumiLogin } from './LumiLogin';
+export { UserProfileModal } from './UserProfileModal';
 export { API, WS_URL, ESY, STATUS_COLORS, STATUS_LABELS } from './constants';

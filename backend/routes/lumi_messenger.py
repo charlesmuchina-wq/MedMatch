@@ -40,6 +40,11 @@ class MessageSend(BaseModel):
 class DMCreate(BaseModel):
     recipient_id: str
 
+class ChannelNotifPrefs(BaseModel):
+    channel_id: str
+    mute: bool = False
+    level: str = "all"  # all, mentions, none
+
 # ============== WebSocket Connection Manager ==============
 
 class ConnectionManager:
@@ -1057,7 +1062,98 @@ async def end_call(call_id: str, request: Request):
         await manager.send_to_user(other, {"type": "call_ended", "data": {"call_id": call_id}})
     return {"status": "ended"}
 
-# ============== WebSocket ==============
+# ============== User Profile & Capabilities ==============
+
+AI_CAPABILITIES = [
+    {"id": "sentiment", "name": "Sentiment Analysis", "description": "Analyze team morale and mood from channel conversations", "category": "Productivity AI"},
+    {"id": "tasks", "name": "Task Extraction", "description": "AI extracts action items and tasks from chat messages", "category": "Productivity AI"},
+    {"id": "reports", "name": "Weekly Reports", "description": "Auto-generate channel activity and progress reports", "category": "Productivity AI"},
+    {"id": "ask_ai", "name": "Ask LUMI AI", "description": "Conversational AI to query projects, tasks, and meetings", "category": "Actionable Intelligence"},
+    {"id": "decision_cards", "name": "Decision Cards", "description": "AI-generated interactive cards for quick team decisions", "category": "Actionable Intelligence"},
+    {"id": "anomaly_alerts", "name": "Anomaly Alerts", "description": "Proactive alerts when unusual patterns are detected", "category": "Actionable Intelligence"},
+    {"id": "knowledge_graph", "name": "Knowledge Graph", "description": "Visualize relationships between people, tasks, and projects", "category": "Graph Intelligence"},
+    {"id": "bottleneck_detection", "name": "Bottleneck Detection", "description": "Identify workload imbalances and project blockers", "category": "Graph Intelligence"},
+    {"id": "what_if", "name": "What-If Simulator", "description": "Simulate project scenarios and predict outcomes", "category": "Advanced Collaboration"},
+    {"id": "smart_notifications", "name": "Smart Notifications", "description": "AI-prioritized alerts based on urgency and relevance", "category": "Advanced Collaboration"},
+    {"id": "translation", "name": "Real-time Translation", "description": "Translate messages into 20+ languages instantly", "category": "Communication"},
+    {"id": "command_bar", "name": "Command Bar (Ctrl+K)", "description": "Quick search and AI queries from anywhere", "category": "Navigation"},
+    {"id": "threading", "name": "Message Threading", "description": "Organize conversations with threaded replies", "category": "Core"},
+    {"id": "file_sharing", "name": "File Sharing", "description": "Share images, documents, and files securely", "category": "Core"},
+    {"id": "reactions", "name": "Reactions", "description": "React to messages with emoji reactions", "category": "Core"},
+]
+
+@router.get("/profile/capabilities")
+async def get_user_capabilities(request: Request):
+    """Get user profile with LUMI capabilities"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    # Get user's channels
+    my_channels = await db.lumi_channels.find(
+        {"members.user_id": user["user_id"]},
+        {"_id": 0, "id": 1, "name": 1, "channel_type": 1, "description": 1, "is_private": 1}
+    ).to_list(100)
+
+    # Get user's DMs
+    dms = await db.lumi_dms.find(
+        {"participants": user["user_id"]},
+        {"_id": 0, "id": 1, "participants": 1}
+    ).to_list(100)
+
+    # Get presence
+    presence = await db.lumi_presence.find_one(
+        {"user_id": user["user_id"]}, {"_id": 0}
+    )
+    current_status = presence.get("status", "available") if presence else "available"
+
+    # Get notification preferences
+    notif_prefs = await db.lumi_notif_prefs.find(
+        {"user_id": user["user_id"]}, {"_id": 0}
+    ).to_list(200)
+    prefs_map = {p["channel_id"]: {"mute": p.get("mute", False), "level": p.get("level", "all")} for p in notif_prefs}
+
+    # Activity stats
+    msg_count = await db.lumi_messages.count_documents({"sender_id": user["user_id"]})
+
+    return {
+        "user": {
+            "user_id": user["user_id"],
+            "name": user.get("name", ""),
+            "email": user.get("email", ""),
+            "role": user.get("role", "member"),
+            "status": current_status,
+            "messages_sent": msg_count,
+        },
+        "capabilities": AI_CAPABILITIES,
+        "channels": my_channels,
+        "dm_count": len(dms),
+        "notification_preferences": prefs_map,
+    }
+
+
+@router.put("/profile/notification-prefs")
+async def update_notification_prefs(data: ChannelNotifPrefs, request: Request):
+    """Update notification preferences for a channel"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    await db.lumi_notif_prefs.update_one(
+        {"user_id": user["user_id"], "channel_id": data.channel_id},
+        {"$set": {
+            "user_id": user["user_id"],
+            "channel_id": data.channel_id,
+            "mute": data.mute,
+            "level": data.level,
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        }},
+        upsert=True
+    )
+
+    return {"status": "updated", "channel_id": data.channel_id, "mute": data.mute, "level": data.level}
+
+
 
 @router.websocket("/ws/{user_id}")
 async def websocket_endpoint(websocket: WebSocket, user_id: str):
