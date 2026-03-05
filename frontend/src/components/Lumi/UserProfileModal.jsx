@@ -53,15 +53,16 @@ const NOTIF_LEVELS = [
   { value: 'none', label: 'Nothing', icon: BellOff },
 ];
 
-export const UserProfileModal = ({ onClose, token, onStatusChange }) => {
+export const UserProfileModal = ({ onClose, token, onStatusChange, onThemeChange }) => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showStatusPicker, setShowStatusPicker] = useState(false);
   const [updatingStatus, setUpdatingStatus] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState({});
   const [notifPrefs, setNotifPrefs] = useState({});
+  const [accentColor, setAccentColor] = useState('');
 
-  useEffect(() => { loadProfile(); }, []);
+  useEffect(() => { loadProfile(); loadTheme(); }, []);
 
   const loadProfile = async () => {
     setLoading(true);
@@ -70,6 +71,26 @@ export const UserProfileModal = ({ onClose, token, onStatusChange }) => {
       if (res.ok) { const data = await res.json(); setProfile(data); setNotifPrefs(data.notification_preferences || {}); }
     } catch (e) { toast.error('Failed to load profile'); }
     setLoading(false);
+  };
+
+  const loadTheme = async () => {
+    try {
+      const res = await fetch(`${API}/api/lumi/profile/theme`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) { const d = await res.json(); if (d.accent_color) setAccentColor(d.accent_color); }
+    } catch (e) {}
+  };
+
+  const saveTheme = async (color) => {
+    setAccentColor(color);
+    onThemeChange?.(color);
+    try {
+      await fetch(`${API}/api/lumi/profile/theme`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ accent_color: color })
+      });
+      toast.success('Theme updated!');
+    } catch (e) {}
   };
 
   const updateStatus = async (newStatus) => {
@@ -190,6 +211,46 @@ export const UserProfileModal = ({ onClose, token, onStatusChange }) => {
         <ScrollArea className="flex-1">
           {!loading && profile && (
             <div className="p-5 space-y-6">
+
+              {/* Profile Theme Accent */}
+              <div>
+                <h3 className="text-sm font-black text-gray-900 mb-3 flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg flex items-center justify-center bg-gradient-to-br from-pink-400 to-violet-500">
+                    <span className="text-white text-xs">🎨</span>
+                  </div>
+                  Profile Theme
+                </h3>
+                <div className="flex flex-wrap gap-2" data-testid="theme-color-picker">
+                  {[
+                    { color: '#00CEC9', name: 'Turquoise' },
+                    { color: '#E84393', name: 'Pink' },
+                    { color: '#D63031', name: 'Deep Red' },
+                    { color: '#6C5CE7', name: 'Violet' },
+                    { color: '#0984E3', name: 'Blue' },
+                    { color: '#00B894', name: 'Emerald' },
+                    { color: '#FDCB6E', name: 'Gold' },
+                    { color: '#E17055', name: 'Coral' },
+                    { color: '#2D3436', name: 'Charcoal' },
+                    { color: '#636E72', name: 'Slate' },
+                  ].map(t => (
+                    <button key={t.color} onClick={() => saveTheme(t.color)} title={t.name}
+                      className={`w-8 h-8 rounded-xl transition-all hover:scale-110 ${accentColor === t.color ? 'ring-[3px] ring-offset-2 ring-gray-900 scale-110' : 'ring-1 ring-black/10'}`}
+                      style={{ backgroundColor: t.color }}
+                      data-testid={`theme-${t.name.toLowerCase()}`} />
+                  ))}
+                </div>
+                {accentColor && (
+                  <div className="mt-2 flex items-center gap-2">
+                    <span className="text-[11px] text-gray-600 font-medium">Preview:</span>
+                    <div className="w-7 h-7 rounded-lg p-[2px]" style={{ background: `linear-gradient(135deg, ${accentColor}, ${ESY.pink})` }}>
+                      <div className="w-full h-full rounded-[6px] bg-white flex items-center justify-center">
+                        <span className="text-[10px] font-black" style={{ color: accentColor }}>A</span>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-bold text-gray-500">{accentColor}</span>
+                  </div>
+                )}
+              </div>
 
               {/* AI Capabilities */}
               <div>

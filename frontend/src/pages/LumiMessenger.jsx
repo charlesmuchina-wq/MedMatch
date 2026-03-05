@@ -9,7 +9,7 @@ import {
   Plus, Send, LogOut, ArrowLeft,
   Users, Search, MessageCircle,
   Loader2, X, Paperclip, UserPlus, User, Phone, Video,
-  Building2, Sparkles, Brain, AlertTriangle,
+  Building2, Sparkles, Brain, AlertTriangle, Shield,
   Command, Network, Zap, TrendingDown, Bell
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -21,7 +21,7 @@ import {
   AiProductivityPanel, AiChatPanel, AlertsPanel, CommandBar,
   KnowledgeGraphPanel, BottleneckPanel, SimulationPanel,
   NotificationsPanel, CreateChannelModal, NewDmModal, LumiLogin,
-  UserProfileModal,
+  UserProfileModal, RetentionPanel,
   API, WS_URL, ESY, STATUS_COLORS, STATUS_LABELS
 } from '@/components/Lumi';
 
@@ -58,6 +58,8 @@ const LumiMessenger = () => {
   const [showSimulation, setShowSimulation] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
+  const [showRetention, setShowRetention] = useState(false);
+  const [userAccentColor, setUserAccentColor] = useState('');
   const [presenceMap, setPresenceMap] = useState({});
 
   const messagesEndRef = useRef(null);
@@ -396,7 +398,11 @@ const LumiMessenger = () => {
           </div>
         </div>
 
-        <div className="px-3 pb-3">
+        <div className="px-3 pb-3 space-y-2">
+          <button onClick={() => setShowRetention(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md transition-colors group" data-testid="open-retention-btn">
+            <Shield className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.deepRed }} />
+            <span className="text-xs font-medium text-slate-300 group-hover:text-white">Retention & Holds</span>
+          </button>
           <button onClick={() => navigate('/karau-meet')} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-md transition-colors group" data-testid="switch-to-karau-footer">
             <Building2 className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.turquoise }} />
             <span className="text-xs font-medium text-slate-300 group-hover:text-white">Switch to AI KARAU</span>
@@ -496,7 +502,8 @@ const LumiMessenger = () => {
 
       {showCreateModal && <CreateChannelModal onClose={() => setShowCreateModal(false)} onCreated={(ch) => { setChannels(prev => [ch, ...prev]); setActiveChannel(ch); setShowCreateModal(false); setMobileSidebar(false); }} token={token} />}
       {showNewDmModal && <NewDmModal onClose={() => setShowNewDmModal(false)} onSelect={handleStartDm} token={token} />}
-      {showProfile && <UserProfileModal onClose={() => setShowProfile(false)} token={token} onStatusChange={(s) => { /* status updated via ws broadcast */ }} />}
+      {showProfile && <UserProfileModal onClose={() => setShowProfile(false)} token={token} onStatusChange={(s) => {}} onThemeChange={(c) => setUserAccentColor(c)} />}
+      {showRetention && <RetentionPanel onClose={() => setShowRetention(false)} token={token} />}
 
       <CommandBar isOpen={showCommandBar} onClose={() => setShowCommandBar(false)} token={token}
         onNavigate={(item) => {

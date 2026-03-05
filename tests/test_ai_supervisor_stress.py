@@ -9,7 +9,7 @@ import os
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://lumi-productivity-ai.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://lumi-ai-hub.preview.emergentagent.com')
 
 
 class TestAISupervisorHealth:

@@ -45,6 +45,33 @@ class ChannelNotifPrefs(BaseModel):
     mute: bool = False
     level: str = "all"  # all, mentions, none
 
+class UserTheme(BaseModel):
+    accent_color: str  # hex color
+
+class RetentionPolicy(BaseModel):
+    channel_id: str
+    auto_delete_days: int = 0  # 0 = no auto-delete
+    enabled: bool = True
+
+class HoldPolicy(BaseModel):
+    channel_id: str
+    hold_type: str  # "contractual" or "legal"
+    reason: str = ""
+    duration_days: int = 0  # 0 = indefinite (for legal hold)
+    active: bool = True
+
+class OrgAdminSettings(BaseModel):
+    it_admin_name: str = ""
+    it_admin_email: str = ""
+    manager_name: str = ""
+    manager_email: str = ""
+    department: str = ""
+    compliance_officer: str = ""
+
+class HoldRequestAction(BaseModel):
+    action: str  # "approve" or "reject"
+    note: str = ""
+
 # ============== WebSocket Connection Manager ==============
 
 class ConnectionManager:
@@ -1328,8 +1355,208 @@ async def get_notification_hub(request: Request):
     }
 
 
+# ============== Profile Theme ==============
 
-@router.websocket("/ws/{user_id}")
+@router.put("/profile/theme")
+async def update_profile_theme(data: UserTheme, request: Request):
+    """Update user accent color theme"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    await db.users.update_one(
+        {"user_id": user["user_id"]},
+        {"$set": {"accent_color": data.accent_color}}
+    )
+    return {"status": "updated", "accent_color": data.accent_color}
+
+
+@router.get("/profile/theme")
+async def get_profile_theme(request: Request):
+    """Get user accent color theme"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+    return {"accent_color": user.get("accent_color", "")}
+
+
+# ============== Message Retention & Holds (Admin) ==============
+
+GLOBAL_RETENTION_DAYS = 90  # Automatic 90-day retention for all channels
+
+@router.get("/admin/retention")
+async def get_retention_policies(request: Request):
+    """Get retention overview: global 90-day policy, holds, and pending requests"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    channels = await db.lumi_channels.find({}, {"_id": 0, "id": 1, "name": 1, "channel_type": 1}).to_list(100)
+    holds = await db.lumi_holds.find({"active": True}, {"_id": 0}).to_list(100)
+    pending_requests = await db.lumi_hold_requests.find({"status": "pending"}, {"_id": 0}).to_list(100)
+    all_requests = await db.lumi_hold_requests.find({}, {"_id": 0}).sort("created_at", -1).to_list(200)
+    org_settings = await db.lumi_org_settings.find_one({"key": "admin_config"}, {"_id": 0})
+
+    hold_map = {}
+    for h in holds:
+        if h["channel_id"] not in hold_map:
+            hold_map[h["channel_id"]] = []
+        hold_map[h["channel_id"]].append(h)
+
+    return {
+        "channels": channels,
+        "holds": hold_map,
+        "pending_requests": pending_requests,
+        "all_requests": all_requests,
+        "global_retention_days": GLOBAL_RETENTION_DAYS,
+        "org_settings_configured": bool(org_settings and org_settings.get("it_admin_email")),
+    }
+
+
+@router.get("/admin/org-settings")
+async def get_org_settings(request: Request):
+    """Get org admin settings (IT admin, manager contacts)"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    settings = await db.lumi_org_settings.find_one({"key": "admin_config"}, {"_id": 0})
+    if not settings:
+        return {"it_admin_name": "", "it_admin_email": "", "manager_name": "", "manager_email": "", "department": "", "compliance_officer": ""}
+    return {k: settings.get(k, "") for k in ["it_admin_name", "it_admin_email", "manager_name", "manager_email", "department", "compliance_officer"]}
+
+
+@router.put("/admin/org-settings")
+async def update_org_settings(data: OrgAdminSettings, request: Request):
+    """Update org admin settings — required before creating hold requests"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    await db.lumi_org_settings.update_one(
+        {"key": "admin_config"},
+        {"$set": {
+            "key": "admin_config",
+            "it_admin_name": data.it_admin_name,
+            "it_admin_email": data.it_admin_email,
+            "manager_name": data.manager_name,
+            "manager_email": data.manager_email,
+            "department": data.department,
+            "compliance_officer": data.compliance_officer,
+            "updated_by": user["user_id"],
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        }},
+        upsert=True
+    )
+    return {"status": "saved"}
+
+
+@router.post("/admin/hold")
+async def create_hold_request(data: HoldPolicy, request: Request):
+    """Submit a hold request — sends to IT admin + manager for approval"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    org_settings = await db.lumi_org_settings.find_one({"key": "admin_config"}, {"_id": 0})
+    if not org_settings or not org_settings.get("it_admin_email"):
+        raise HTTPException(status_code=400, detail="Organization admin settings must be configured before creating hold requests. Please set IT Admin and Manager contacts first.")
+
+    request_id = f"req_{uuid.uuid4().hex[:10]}"
+    channel = await db.lumi_channels.find_one({"id": data.channel_id}, {"_id": 0, "name": 1})
+
+    hold_request = {
+        "id": request_id,
+        "channel_id": data.channel_id,
+        "channel_name": channel["name"] if channel else data.channel_id,
+        "hold_type": data.hold_type,
+        "reason": data.reason,
+        "duration_days": data.duration_days if data.hold_type == "contractual" else 0,
+        "status": "pending",
+        "requested_by": user["user_id"],
+        "requested_by_name": user.get("name", user.get("email", "")),
+        "it_admin_email": org_settings.get("it_admin_email", ""),
+        "manager_email": org_settings.get("manager_email", ""),
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "reviewed_at": None,
+        "reviewed_by": None,
+        "review_note": None,
+    }
+
+    await db.lumi_hold_requests.insert_one(hold_request)
+    return {"id": request_id, "status": "pending", "message": f"Hold request submitted. Approval required from IT Admin ({org_settings.get('it_admin_email')}) and Manager ({org_settings.get('manager_email')})."}
+
+
+@router.put("/admin/hold-requests/{request_id}")
+async def review_hold_request(request_id: str, data: HoldRequestAction, request: Request):
+    """Approve or reject a hold request"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    hold_req = await db.lumi_hold_requests.find_one({"id": request_id}, {"_id": 0})
+    if not hold_req:
+        raise HTTPException(status_code=404, detail="Hold request not found")
+    if hold_req["status"] != "pending":
+        raise HTTPException(status_code=400, detail=f"Request already {hold_req['status']}")
+
+    if data.action == "approve":
+        hold_id = f"hold_{uuid.uuid4().hex[:10]}"
+        hold_doc = {
+            "id": hold_id,
+            "channel_id": hold_req["channel_id"],
+            "hold_type": hold_req["hold_type"],
+            "reason": hold_req["reason"],
+            "duration_days": hold_req["duration_days"],
+            "active": True,
+            "created_by": hold_req["requested_by"],
+            "approved_by": user["user_id"],
+            "created_at": hold_req["created_at"],
+            "approved_at": datetime.now(timezone.utc).isoformat(),
+        }
+        if hold_req["hold_type"] == "contractual" and hold_req["duration_days"] > 0:
+            hold_doc["expires_at"] = (datetime.now(timezone.utc) + timedelta(days=hold_req["duration_days"])).isoformat()
+        await db.lumi_holds.insert_one(hold_doc)
+
+    await db.lumi_hold_requests.update_one(
+        {"id": request_id},
+        {"$set": {
+            "status": "approved" if data.action == "approve" else "rejected",
+            "reviewed_by": user["user_id"],
+            "reviewed_at": datetime.now(timezone.utc).isoformat(),
+            "review_note": data.note,
+        }}
+    )
+    return {"status": "approved" if data.action == "approve" else "rejected", "request_id": request_id}
+
+
+@router.delete("/admin/hold/{hold_id}")
+async def release_hold(hold_id: str, request: Request):
+    """Release/deactivate a hold"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    result = await db.lumi_holds.update_one(
+        {"id": hold_id},
+        {"$set": {"active": False, "released_by": user["user_id"], "released_at": datetime.now(timezone.utc).isoformat()}}
+    )
+    if result.modified_count == 0:
+        raise HTTPException(status_code=404, detail="Hold not found")
+    return {"status": "released", "id": hold_id}
+
+
+@router.get("/admin/audit-log")
+async def get_audit_log(request: Request, limit: int = 50):
+    """Get admin audit log"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    logs = await db.lumi_audit_log.find({}, {"_id": 0}).sort("timestamp", -1).to_list(limit)
+    return {"logs": logs, "total": len(logs)}
+
+
+
 async def websocket_endpoint(websocket: WebSocket, user_id: str):
     await manager.connect(websocket, user_id)
     try:

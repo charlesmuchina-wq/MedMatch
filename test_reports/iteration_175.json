@@ -1,0 +1,140 @@
+{
+  "summary": "Iteration 175 - LUMI Retention & Holds + Profile Theme Testing. Backend: 23/23 tests passed. Frontend: All features verified working. Fixed typo bug in hold request rejection response ('rejectd' -> 'rejected'). Profile Theme picker persists color selection. Retention panel shows 90-day global auto-delete with approval workflow for holds.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "WebSocket", "issues": ["WebSocket connection to lumi/ws/{user_id} returns 403 - affects real-time updates but non-blocking"]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_retention_theme_iteration175.py",
+    "/app/test_reports/pytest/retention_theme_iteration175_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [],
+  "updated_files": [
+    "/app/backend/tests/test_retention_theme_iteration175.py",
+    "/app/backend/routes/lumi_messenger.py"
+  ],
+  "success_rate": {
+    "backend": "100% (23/23 tests passed)",
+    "frontend": "100% (all retention & theme features verified)"
+  },
+  "test_credentials": {
+    "admin_email": "admin@medmatch.com",
+    "admin_password": "Swampdrainer2026!"
+  },
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Retention & Holds + Profile Theme features complete. Fixed bug: line 1529 in lumi_messenger.py had 'data.action + d' causing 'rejectd' instead of 'rejected'. Profile theme picker saves/loads accent_color via GET/PUT /api/lumi/profile/theme. Retention panel: global 90-day auto-delete, org settings required before creating holds, approval workflow with approve/reject actions, hold release functionality. All data-testids in place.",
+  "bug_fix_applied": {
+    "file": "/app/backend/routes/lumi_messenger.py",
+    "line": 1529,
+    "issue": "Typo in rejection response - 'reject' + 'd' = 'rejectd' instead of 'rejected'",
+    "fix": "Changed from `data.action + 'd'` to proper ternary returning 'approved' or 'rejected'"
+  },
+  "verified_features": {
+    "profile_theme_picker": {
+      "get_theme": "✅ GET /api/lumi/profile/theme - returns current accent_color",
+      "put_theme": "✅ PUT /api/lumi/profile/theme - saves accent_color and returns status=updated",
+      "ui_theme_picker": "✅ data-testid='theme-color-picker' with 10 color options",
+      "color_persistence": "✅ Theme color persists across page reloads",
+      "requires_auth": "✅ Returns 401 without authentication"
+    },
+    "retention_overview": {
+      "get_retention": "✅ GET /api/lumi/admin/retention - returns channels, holds, pending_requests, all_requests",
+      "global_retention": "✅ global_retention_days=90 in response",
+      "org_settings_flag": "✅ org_settings_configured=true/false in response",
+      "ui_banner": "✅ 'Global Auto-Delete: 90 Days' banner shown",
+      "channel_list": "✅ Shows all channels with hold status and 'Auto-deletes after 90 days' text"
+    },
+    "org_admin_settings": {
+      "get_settings": "✅ GET /api/lumi/admin/org-settings - returns IT admin, manager, department, compliance info",
+      "put_settings": "✅ PUT /api/lumi/admin/org-settings - saves settings and returns status=saved",
+      "ui_form": "✅ Admin Settings tab with IT Admin/Manager/Additional Info fields",
+      "save_button": "✅ data-testid='save-org-settings-btn' saves and shows toast"
+    },
+    "hold_request_workflow": {
+      "create_hold": "✅ POST /api/lumi/admin/hold - creates pending request with legal/contractual type",
+      "requires_org_settings": "✅ Returns 400 if org settings not configured",
+      "pending_in_overview": "✅ Pending requests appear in retention overview",
+      "request_details": "✅ Request includes channel_name, hold_type, reason, requested_by, it_admin_email, manager_email",
+      "ui_hold_form": "✅ data-testid='hold-form-{channel_id}' with hold type selector and reason input",
+      "submit_button": "✅ data-testid='submit-hold-request-btn' submits request"
+    },
+    "hold_approval": {
+      "approve_request": "✅ PUT /api/lumi/admin/hold-requests/{id} with action=approve - creates hold",
+      "reject_request": "✅ PUT /api/lumi/admin/hold-requests/{id} with action=reject - marks rejected",
+      "approved_hold_visible": "✅ Approved hold appears in holds map and shows LEGAL HOLD badge on channel",
+      "ui_approve_button": "✅ data-testid='approve-{request_id}' in Requests tab",
+      "ui_reject_button": "✅ data-testid='reject-{request_id}' in Requests tab"
+    },
+    "hold_release": {
+      "release_hold": "✅ DELETE /api/lumi/admin/hold/{id} - marks hold as inactive",
+      "release_nonexistent": "✅ Returns 404 for nonexistent hold",
+      "ui_release_button": "✅ data-testid='release-hold-{hold_id}' in expanded channel holds"
+    },
+    "profile_capabilities": {
+      "get_capabilities": "✅ GET /api/lumi/profile/capabilities - returns user info, 15 AI capabilities, channels"
+    }
+  },
+  "ui_data_testids": {
+    "retention_panel": [
+      "retention-panel",
+      "close-retention",
+      "tab-overview",
+      "tab-requests",
+      "tab-settings",
+      "global-retention-banner",
+      "settings-warning",
+      "retention-ch-{channel_id}",
+      "legal-badge-{channel_id}",
+      "contract-badge-{channel_id}",
+      "add-hold-{channel_id}",
+      "hold-form-{channel_id}",
+      "hold-type-legal",
+      "hold-type-contractual",
+      "hold-reason-input",
+      "hold-days-input",
+      "submit-hold-request-btn",
+      "request-{request_id}",
+      "approve-{request_id}",
+      "reject-{request_id}",
+      "hold-{hold_id}",
+      "release-hold-{hold_id}",
+      "org-it-admin-name",
+      "org-it-admin-email",
+      "org-manager-name",
+      "org-manager-email",
+      "org-department",
+      "org-compliance-officer",
+      "save-org-settings-btn"
+    ],
+    "profile_theme": [
+      "theme-color-picker",
+      "theme-turquoise",
+      "theme-pink",
+      "theme-deep-red",
+      "theme-violet",
+      "theme-blue",
+      "theme-emerald",
+      "theme-gold",
+      "theme-coral",
+      "theme-charcoal",
+      "theme-slate"
+    ]
+  },
+  "mocked_api": {
+    "has_mocked_apis": true,
+    "mocked_apis_list": [
+      "Microsoft SSO - returns 501 Not Implemented",
+      "Voice/Video calls - record created but no real WebRTC"
+    ]
+  }
+}
