@@ -338,7 +338,7 @@ const LumiMessenger = () => {
                 </button>
               );
             })}
-            {dms.length === 0 && <p className="text-[11px] text-slate-400 px-2.5 py-1">No conversations yet</p>}
+            {dms.length === 0 && <p className="text-[11px] text-slate-300 px-2.5 py-1">No conversations yet</p>}
           </div>
         </ScrollArea>
 
@@ -369,23 +369,23 @@ const LumiMessenger = () => {
               <button className="md:hidden p-2 text-slate-500 hover:text-slate-900" onClick={() => setMobileSidebar(true)}><ArrowLeft className="w-4 h-4" /></button>
               {activeChannel.channel_type === 'dm' ? (<>
                 <div className="relative"><div className="w-9 h-9 rounded-full bg-[#36454F] flex items-center justify-center"><User className="w-4 h-4 text-white" /></div><StatusDot status={presenceMap[activeChannel.dm_partner?.user_id] || 'offline'} /></div>
-                <div><h2 className="text-sm font-semibold text-slate-900">{activeChannel.dm_partner?.name || activeChannel.name}</h2><p className="text-[11px] text-slate-400">{STATUS_LABELS[presenceMap[activeChannel.dm_partner?.user_id]] || 'Offline'}</p></div>
+                <div><h2 className="text-sm font-semibold text-slate-900">{activeChannel.dm_partner?.name || activeChannel.name}</h2><p className="text-[11px] text-slate-500">{STATUS_LABELS[presenceMap[activeChannel.dm_partner?.user_id]] || 'Offline'}</p></div>
               </>) : (<>
                 <div className="w-9 h-9 rounded-md bg-slate-100 flex items-center justify-center text-slate-600"><ChannelIcon type={activeChannel.channel_type} /></div>
-                <div><h2 className="text-sm font-semibold text-slate-900">#{activeChannel.name}</h2><p className="text-[11px] text-slate-400">{activeChannel.members?.length || 0} members</p></div>
+                <div><h2 className="text-sm font-semibold text-slate-900">#{activeChannel.name}</h2><p className="text-[11px] text-slate-500">{activeChannel.members?.length || 0} members</p></div>
               </>)}
             </div>
             <div className="flex items-center gap-1">
               {activeChannel.channel_type === 'dm' && <button onClick={() => toast.info('Calling...')} className="p-2 text-slate-400 hover:text-[#008080] hover:bg-[#008080]/5 rounded-md" data-testid="voice-call-btn"><Phone className="w-4 h-4" /></button>}
-              <button onClick={() => setShowCommandBar(true)} className="p-2 rounded-md text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors" data-testid="command-bar-btn" title="Command Bar (Ctrl+K)"><Command className="w-4 h-4" /></button>
-              <button onClick={() => { closeAllPanels(); setShowAiChat(!showAiChat); }} className={`p-2 rounded-md transition-colors ${showAiChat ? 'bg-[#00CEC9]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`} style={showAiChat ? { color: ESY.turquoise } : {}} data-testid="ai-chat-btn" title="Ask AI"><Sparkles className="w-4 h-4" /></button>
-              <button onClick={() => { closeAllPanels(); setShowAlerts(!showAlerts); }} className={`p-2 rounded-md transition-colors ${showAlerts ? 'bg-[#D63031]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`} style={showAlerts ? { color: ESY.deepRed } : {}} data-testid="alerts-btn" title="Alerts & Decisions"><AlertTriangle className="w-4 h-4" /></button>
-              <button onClick={() => { closeAllPanels(); setShowKnowledgeGraph(!showKnowledgeGraph); }} className={`p-2 rounded-md transition-colors ${showKnowledgeGraph ? 'bg-[#00CEC9]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`} style={showKnowledgeGraph ? { color: ESY.turquoise } : {}} data-testid="knowledge-graph-btn" title="Knowledge Graph"><Network className="w-4 h-4" /></button>
-              <button onClick={() => { closeAllPanels(); setShowBottlenecks(!showBottlenecks); }} className={`p-2 rounded-md transition-colors ${showBottlenecks ? 'bg-[#D63031]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`} style={showBottlenecks ? { color: ESY.deepRed } : {}} data-testid="bottleneck-btn" title="Bottlenecks"><TrendingDown className="w-4 h-4" /></button>
-              <button onClick={() => { closeAllPanels(); setShowSimulation(!showSimulation); }} className={`p-2 rounded-md transition-colors ${showSimulation ? 'bg-[#E84393]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`} style={showSimulation ? { color: ESY.pink } : {}} data-testid="simulation-btn" title="What-If Simulator"><Zap className="w-4 h-4" /></button>
-              <button onClick={() => { closeAllPanels(); setShowNotifications(!showNotifications); }} className={`p-2 rounded-md transition-colors relative ${showNotifications ? 'bg-[#E84393]/10' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`} style={showNotifications ? { color: ESY.pink } : {}} data-testid="notifications-btn" title="Smart Notifications"><Bell className="w-3.5 h-3.5" /><span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: ESY.deepRed }} /></button>
-              <button onClick={() => { closeAllPanels(); setShowAiPanel(!showAiPanel); }} className={`p-2 rounded-md transition-colors ${showAiPanel ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`} data-testid="ai-panel-btn" title="AI Insights"><Brain className="w-4 h-4" /></button>
-              <button onClick={() => setShowMembers(!showMembers)} className={`p-2 rounded-md transition-colors ${showMembers ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-400 hover:text-slate-600 hover:bg-slate-100'}`} data-testid="channel-members-btn"><Users className="w-4 h-4" /></button>
+              <button onClick={() => setShowCommandBar(true)} className="p-2 rounded-md text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-colors" data-testid="command-bar-btn" title="Command Bar (Ctrl+K)"><Command className="w-4 h-4" /></button>
+              <button onClick={() => { closeAllPanels(); setShowAiChat(!showAiChat); }} className={`p-2 rounded-md transition-colors ${showAiChat ? 'bg-[#00CEC9]/10' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} style={showAiChat ? { color: ESY.turquoise } : {}} data-testid="ai-chat-btn" title="Ask AI"><Sparkles className="w-4 h-4" /></button>
+              <button onClick={() => { closeAllPanels(); setShowAlerts(!showAlerts); }} className={`p-2 rounded-md transition-colors ${showAlerts ? 'bg-[#D63031]/10' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} style={showAlerts ? { color: ESY.deepRed } : {}} data-testid="alerts-btn" title="Alerts & Decisions"><AlertTriangle className="w-4 h-4" /></button>
+              <button onClick={() => { closeAllPanels(); setShowKnowledgeGraph(!showKnowledgeGraph); }} className={`p-2 rounded-md transition-colors ${showKnowledgeGraph ? 'bg-[#00CEC9]/10' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} style={showKnowledgeGraph ? { color: ESY.turquoise } : {}} data-testid="knowledge-graph-btn" title="Knowledge Graph"><Network className="w-4 h-4" /></button>
+              <button onClick={() => { closeAllPanels(); setShowBottlenecks(!showBottlenecks); }} className={`p-2 rounded-md transition-colors ${showBottlenecks ? 'bg-[#D63031]/10' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} style={showBottlenecks ? { color: ESY.deepRed } : {}} data-testid="bottleneck-btn" title="Bottlenecks"><TrendingDown className="w-4 h-4" /></button>
+              <button onClick={() => { closeAllPanels(); setShowSimulation(!showSimulation); }} className={`p-2 rounded-md transition-colors ${showSimulation ? 'bg-[#E84393]/10' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} style={showSimulation ? { color: ESY.pink } : {}} data-testid="simulation-btn" title="What-If Simulator"><Zap className="w-4 h-4" /></button>
+              <button onClick={() => { closeAllPanels(); setShowNotifications(!showNotifications); }} className={`p-2 rounded-md transition-colors relative ${showNotifications ? 'bg-[#E84393]/10' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} style={showNotifications ? { color: ESY.pink } : {}} data-testid="notifications-btn" title="Smart Notifications"><Bell className="w-3.5 h-3.5" /><span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: ESY.deepRed }} /></button>
+              <button onClick={() => { closeAllPanels(); setShowAiPanel(!showAiPanel); }} className={`p-2 rounded-md transition-colors ${showAiPanel ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} data-testid="ai-panel-btn" title="AI Insights"><Brain className="w-4 h-4" /></button>
+              <button onClick={() => setShowMembers(!showMembers)} className={`p-2 rounded-md transition-colors ${showMembers ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} data-testid="channel-members-btn"><Users className="w-4 h-4" /></button>
             </div>
           </div>
 
@@ -395,7 +395,7 @@ const LumiMessenger = () => {
                 {messages.length === 0 && (
                   <div className="flex flex-col items-center justify-center h-full text-center px-6">
                     <div className="w-16 h-16 rounded-lg bg-slate-100 flex items-center justify-center mb-4"><MessageCircle className="w-8 h-8 text-slate-300" /></div>
-                    <p className="text-slate-400 text-sm">{t('lumi.noMessages') || 'No messages yet'}</p>
+                    <p className="text-slate-500 text-sm">{t('lumi.noMessages') || 'No messages yet'}</p>
                   </div>
                 )}
                 {messages.filter(m => !m.thread_parent_id).map((msg, i, arr) => {
@@ -405,17 +405,17 @@ const LumiMessenger = () => {
                 <div ref={messagesEndRef} />
               </ScrollArea>
 
-              {activeTyping.length > 0 && <div className="px-5 py-1"><span className="text-xs text-[#008080] animate-pulse">{activeTyping.join(', ')} typing...</span></div>}
+              {activeTyping.length > 0 && <div className="px-5 py-1"><span className="text-xs text-[#006666] font-medium animate-pulse">{activeTyping.join(', ')} typing...</span></div>}
 
               <div className="p-4 border-t border-slate-200">
                 <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileShare} accept="image/*,.pdf,.doc,.docx,.txt,.csv" data-testid="file-input" />
                 <div className="flex items-center gap-2 border border-slate-200 rounded-lg px-4 py-2.5 focus-within:ring-2 focus-within:ring-[#008080]/20 focus-within:border-[#008080] transition-all bg-white shadow-sm">
-                  <button onClick={() => fileInputRef.current?.click()} disabled={uploading} className="p-1 text-slate-400 hover:text-[#008080] rounded transition-colors" data-testid="attach-file-btn">
+                  <button onClick={() => fileInputRef.current?.click()} disabled={uploading} className="p-1 text-slate-500 hover:text-[#008080] rounded transition-colors" data-testid="attach-file-btn">
                     {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Paperclip className="w-4 h-4" />}
                   </button>
                   <input value={messageText} onChange={e => { setMessageText(e.target.value); handleTyping(); }} onKeyDown={handleKeyDown}
                     placeholder={`Message ${activeChannel.channel_type === 'dm' ? activeChannel.dm_partner?.name || '' : '#' + activeChannel.name}`}
-                    className="flex-1 text-sm bg-transparent outline-none text-slate-800 placeholder:text-slate-400" data-testid="message-input" />
+                    className="flex-1 text-sm bg-transparent outline-none text-slate-900 placeholder:text-slate-500" data-testid="message-input" />
                   <button onClick={handleSend} disabled={!messageText.trim() || sending}
                     className={`p-2 rounded-md transition-colors ${messageText.trim() ? 'text-white hover:opacity-90' : 'text-slate-300'}`}
                     style={messageText.trim() ? { background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` } : {}}
@@ -438,7 +438,7 @@ const LumiMessenger = () => {
           <div className="flex-1 flex flex-col items-center justify-center text-center px-6 bg-slate-50">
             <div className="w-20 h-20 rounded-lg bg-slate-100 flex items-center justify-center mb-5"><MessageCircle className="w-10 h-10 text-slate-300" /></div>
             <h2 className="text-xl font-semibold text-slate-900 mb-2">LUMI</h2>
-            <p className="text-slate-400 text-sm max-w-xs">{t('lumi.welcomeMessage') || 'Select a channel to start chatting, or create a new one.'}</p>
+            <p className="text-slate-500 text-sm max-w-xs">{t('lumi.welcomeMessage') || 'Select a channel to start chatting, or create a new one.'}</p>
             <Button onClick={() => setShowCreateModal(true)} className="mt-4 bg-[#008080] hover:bg-[#006666] text-white rounded-md" data-testid="create-first-channel">
               <Plus className="w-4 h-4 mr-2" />{t('lumi.createChannel') || 'Create Channel'}
             </Button>

@@ -43,7 +43,7 @@ export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, t
   if (msg.type === 'system') {
     return (
       <div className="flex justify-center my-4" data-testid={`msg-system-${msg.id}`}>
-        <span className="text-xs text-slate-500 bg-slate-100 px-3 py-1 rounded-full">{msg.content}</span>
+        <span className="text-xs text-slate-600 bg-slate-100 px-3 py-1 rounded-full">{msg.content}</span>
       </div>
     );
   }
@@ -65,11 +65,11 @@ export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, t
       <div className="flex-1 min-w-0">
         {!prevSameSender && (
           <div className="flex items-baseline gap-2 mb-0.5">
-            <span className="text-sm font-semibold text-slate-900">{msg.sender_name}</span>
-            <span className="text-[11px] text-slate-400">{time}</span>
+            <span className="text-sm font-bold text-slate-900">{msg.sender_name}</span>
+            <span className="text-[11px] text-slate-500">{time}</span>
           </div>
         )}
-        <p className="text-sm text-slate-700 leading-relaxed break-words">{msg.content}</p>
+        <p className="text-sm text-slate-900 leading-relaxed break-words">{msg.content}</p>
 
         {msg.file && (
           <div className="mt-2" data-testid={`file-${msg.id}`}>
@@ -93,7 +93,7 @@ export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, t
           <div className="flex flex-wrap gap-1 mt-1.5">
             {Object.entries(reactions).map(([emoji, users]) => (
               <button key={emoji} onClick={() => onReact?.(msg.id, emoji)}
-                className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs border border-slate-200 bg-white hover:bg-slate-50 transition-colors text-slate-600"
+                className="flex items-center gap-1 px-2 py-0.5 rounded-full text-xs border border-slate-200 bg-white hover:bg-slate-50 transition-colors text-slate-700"
                 data-testid={`reaction-${emoji}-${msg.id}`}>
                 <span>{emoji}</span><span className="text-[10px]">{users.length}</span>
               </button>
@@ -114,7 +114,7 @@ export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, t
               <Globe className="w-3 h-3" style={{ color: ESY.turquoise }} />
               <span className="text-[9px] font-medium" style={{ color: ESY.turquoise }}>{translation.target_language}</span>
             </div>
-            <p className="text-slate-700">{translation.translated}</p>
+            <p className="text-slate-800">{translation.translated}</p>
           </div>
         )}
 
