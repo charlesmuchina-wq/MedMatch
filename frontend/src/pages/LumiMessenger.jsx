@@ -340,7 +340,7 @@ const LumiMessenger = () => {
       <div className={`${mobileSidebar ? 'flex' : 'hidden'} md:flex flex-col w-full md:w-[280px] bg-[#36454F] flex-shrink-0`}>
         <div className="h-14 flex items-center justify-between px-4 border-b border-white/10">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-md flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}><MessageCircle className="w-4.5 h-4.5 text-white" /></div>
+            <img src="/lumi-icon.png" alt="LUMI" className="w-8 h-8 rounded-md" />
             <span className="font-bold text-sm text-white tracking-wide">LUMI</span>
             <span className="text-[8px] text-slate-400 font-medium -ml-0.5 hidden lg:inline">Intelligence in Every Conversation</span>
           </div>
@@ -500,7 +500,7 @@ const LumiMessenger = () => {
               <ScrollArea className="flex-1 py-3">
                 {messages.length === 0 && (
                   <div className="flex flex-col items-center justify-center h-full text-center px-6">
-                    <div className="w-16 h-16 rounded-lg bg-slate-100 flex items-center justify-center mb-4"><MessageCircle className="w-8 h-8 text-slate-300" /></div>
+                    <img src="/lumi-icon.png" alt="LUMI" className="w-16 h-16 rounded-lg mb-4" />
                     <p className="text-slate-500 text-sm">{t('lumi.noMessages') || 'No messages yet'}</p>
                   </div>
                 )}
@@ -548,7 +548,7 @@ const LumiMessenger = () => {
           </div>
         </>) : (
           <div className="flex-1 flex flex-col items-center justify-center text-center px-6 bg-slate-50">
-            <div className="w-20 h-20 rounded-lg bg-slate-100 flex items-center justify-center mb-5"><MessageCircle className="w-10 h-10 text-slate-300" /></div>
+            <img src="/lumi-icon.png" alt="LUMI" className="w-20 h-20 rounded-lg mb-5" />
             <h2 className="text-xl font-semibold text-slate-900 mb-1">LUMI</h2>
             <p className="text-xs font-medium mb-2" style={{ color: ESY.turquoise }}>Intelligence in Every Conversation</p>
             <p className="text-slate-500 text-sm max-w-xs">{t('lumi.welcomeMessage') || 'Select a channel to start chatting, or create a new one.'}</p>

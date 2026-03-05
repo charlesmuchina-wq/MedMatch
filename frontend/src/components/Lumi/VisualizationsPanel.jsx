@@ -258,12 +258,33 @@ const TimelineTab = ({ data }) => {
 
 /* ============ Knowledge Graph Tab ============ */
 const KnowledgeTab = ({ data }) => {
+  const [hovered, setHovered] = useState(null);
+  const [selected, setSelected] = useState(null);
+
   if (!data) return null;
   const { nodes, connections, categories } = data;
 
+  const CATEGORY_NAMES = ['People', 'Projects', 'Tasks', 'Channels'];
+
+  const handleNodeClick = (node, i) => {
+    setSelected(selected === i ? null : i);
+  };
+
+  const getConnectedNodes = (idx) => {
+    if (idx === null) return new Set();
+    const node = nodes[idx];
+    const linked = new Set(node.links || []);
+    // Also find nodes that link TO this node
+    nodes.forEach((n, ni) => { if ((n.links || []).includes(idx)) linked.add(ni); });
+    return linked;
+  };
+
+  const activeConnections = hovered !== null ? getConnectedNodes(hovered) : (selected !== null ? getConnectedNodes(selected) : null);
+  const activeIdx = hovered !== null ? hovered : selected;
+
   return (
     <div className="space-y-6">
-      {/* Category distribution */}
+      {/* Category distribution + Connection strength */}
       <div className="grid grid-cols-2 gap-4">
         <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
           <h3 className="text-sm font-bold text-slate-800 mb-3">Entity Distribution</h3>
@@ -301,37 +322,100 @@ const KnowledgeTab = ({ data }) => {
         </div>
       </div>
 
-      {/* Interactive knowledge graph (force-directed layout) */}
+      {/* Interactive knowledge graph */}
       <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
         <h3 className="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
           <Network className="w-4 h-4" style={{ color: ESY.turquoise }} />Knowledge Network
+          <span className="text-[10px] text-slate-400 font-normal ml-auto">Click a node to explore connections</span>
         </h3>
-        <div className="relative bg-slate-900 rounded-xl overflow-hidden" style={{ height: 320 }} data-testid="knowledge-network-viz">
-          <svg width="100%" height="100%" viewBox="0 0 600 320">
+        <div className="relative bg-slate-900 rounded-xl overflow-hidden" style={{ height: 340 }} data-testid="knowledge-network-viz">
+          <svg width="100%" height="100%" viewBox="0 0 600 340" className="cursor-pointer" onClick={() => { setSelected(null); setHovered(null); }}>
             {/* Links */}
             {(nodes || []).map((node, ni) => {
               const links = node.links || [];
               return links.map((linkIdx, li) => {
                 const target = (nodes || [])[linkIdx];
                 if (!target) return null;
+                const isActive = activeIdx !== null && (activeIdx === ni || activeIdx === linkIdx);
+                const isDirectConnection = activeConnections && (activeConnections.has(ni) || activeConnections.has(linkIdx)) && (activeIdx === ni || activeIdx === linkIdx);
                 return (
                   <line key={`link-${ni}-${li}`}
                     x1={node.x} y1={node.y} x2={target.x} y2={target.y}
-                    stroke="rgba(255,255,255,0.08)" strokeWidth={1} />
+                    stroke={isDirectConnection ? CHART_COLORS[node.category % CHART_COLORS.length] : activeIdx !== null ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.08)'}
+                    strokeWidth={isDirectConnection ? 2 : 1}
+                    style={{ transition: 'all 0.3s ease' }} />
                 );
               });
             })}
             {/* Nodes */}
-            {(nodes || []).map((node, i) => (
-              <g key={i} transform={`translate(${node.x},${node.y})`}>
-                <circle r={node.size || 12} fill={CHART_COLORS[node.category % CHART_COLORS.length]} opacity={0.85} />
-                <circle r={node.size || 12} fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth={1} />
-                <text y={-((node.size || 12) + 6)} textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize={9} fontWeight="600">{node.label}</text>
-              </g>
-            ))}
+            {(nodes || []).map((node, i) => {
+              const isActive = activeIdx === i;
+              const isConnected = activeConnections ? activeConnections.has(i) : false;
+              const isDimmed = activeIdx !== null && !isActive && !isConnected;
+              const size = node.size || 12;
+              const renderSize = isActive ? size * 1.3 : isConnected ? size * 1.1 : size;
+              return (
+                <g key={i} transform={`translate(${node.x},${node.y})`}
+                  onMouseEnter={() => setHovered(i)}
+                  onMouseLeave={() => setHovered(null)}
+                  onClick={(e) => { e.stopPropagation(); handleNodeClick(node, i); }}
+                  style={{ cursor: 'pointer', transition: 'all 0.3s ease' }}
+                  data-testid={`kg-node-${i}`}>
+                  {/* Glow */}
+                  {isActive && <circle r={renderSize + 8} fill={CHART_COLORS[node.category % CHART_COLORS.length]} opacity={0.15} />}
+                  {/* Pulse ring for active */}
+                  {isActive && <circle r={renderSize + 4} fill="none" stroke={CHART_COLORS[node.category % CHART_COLORS.length]} strokeWidth={1.5} opacity={0.4}>
+                    <animate attributeName="r" from={renderSize + 2} to={renderSize + 12} dur="1.5s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" from="0.4" to="0" dur="1.5s" repeatCount="indefinite" />
+                  </circle>}
+                  {/* Node circle */}
+                  <circle r={renderSize} fill={CHART_COLORS[node.category % CHART_COLORS.length]}
+                    opacity={isDimmed ? 0.2 : 0.9}
+                    style={{ transition: 'all 0.3s ease' }} />
+                  <circle r={renderSize} fill="none"
+                    stroke={isActive ? 'white' : 'rgba(255,255,255,0.2)'}
+                    strokeWidth={isActive ? 2 : 1}
+                    style={{ transition: 'all 0.3s ease' }} />
+                  {/* Label */}
+                  <text y={-(renderSize + 6)} textAnchor="middle"
+                    fill={isDimmed ? 'rgba(255,255,255,0.15)' : isActive ? 'white' : 'rgba(255,255,255,0.7)'}
+                    fontSize={isActive ? 11 : 9} fontWeight={isActive ? '700' : '600'}
+                    style={{ transition: 'all 0.3s ease' }}>
+                    {node.label}
+                  </text>
+                  {/* Category label on hover */}
+                  {isActive && (
+                    <text y={renderSize + 14} textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize={8} fontWeight="500">
+                      {CATEGORY_NAMES[node.category] || 'Unknown'}
+                    </text>
+                  )}
+                </g>
+              );
+            })}
           </svg>
+
+          {/* Selected node detail card */}
+          {selected !== null && nodes[selected] && (
+            <div className="absolute top-3 right-3 bg-black/80 backdrop-blur-md border border-white/10 rounded-xl p-3 max-w-[180px]" data-testid="kg-detail-card">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-6 h-6 rounded-full flex items-center justify-center" style={{ backgroundColor: CHART_COLORS[nodes[selected].category % CHART_COLORS.length] }}>
+                  <span className="text-[9px] text-white font-bold">{nodes[selected].label[0]}</span>
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-white">{nodes[selected].label}</p>
+                  <p className="text-[9px] text-white/50">{CATEGORY_NAMES[nodes[selected].category]}</p>
+                </div>
+              </div>
+              <div className="text-[9px] text-white/60 space-y-1">
+                <p>Connections: {(nodes[selected].links || []).length}</p>
+                <p className="text-white/40">Click elsewhere to deselect</p>
+              </div>
+            </div>
+          )}
+
+          {/* Legend */}
           <div className="absolute bottom-3 left-3 flex items-center gap-3">
-            {['People', 'Projects', 'Tasks', 'Channels'].map((label, i) => (
+            {CATEGORY_NAMES.map((label, i) => (
               <span key={i} className="flex items-center gap-1 text-[9px] font-semibold text-white/50">
                 <span className="w-2 h-2 rounded-full" style={{ backgroundColor: CHART_COLORS[i] }} />{label}
               </span>

@@ -13,6 +13,7 @@ import uuid
 import logging
 import httpx
 import os
+import jwt
 
 from utils.database import db
 from utils.config import (
@@ -20,6 +21,8 @@ from utils.config import (
 )
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
+
+JWT_SECRET = os.environ.get("JWT_SECRET_KEY", "medmatch_default_secret_key_change_in_production")
 
 # ============== Models ==============
 
@@ -403,11 +406,124 @@ async def google_session_login(auth_data: Dict[str, Any], response: Response):
 
 @router.post("/microsoft/login")
 async def microsoft_sso_placeholder():
-    """Microsoft SSO placeholder - not yet configured"""
-    raise HTTPException(
-        status_code=501,
-        detail="Microsoft SSO is not yet configured. Please use Google or email login."
-    )
+    """Microsoft SSO - returns config status"""
+    tenant_id = os.environ.get("AZURE_TENANT_ID", "")
+    client_id = os.environ.get("AZURE_CLIENT_ID", "")
+    if not tenant_id or not client_id:
+        raise HTTPException(
+            status_code=501,
+            detail="Microsoft SSO is not yet configured. Azure AD credentials required. Please use Google or email login."
+        )
+    # Return the authorization URL for the frontend to redirect
+    redirect_uri = f"{os.environ.get('REACT_APP_BACKEND_URL', '')}/api/auth/microsoft/callback"
+    auth_url = f"https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/authorize?client_id={client_id}&response_type=code&redirect_uri={redirect_uri}&response_mode=query&scope=openid+profile+email+User.Read+Calendars.Read"
+    return {"auth_url": auth_url, "configured": True}
+
+
+@router.get("/microsoft/callback")
+async def microsoft_sso_callback(code: str = None, error: str = None):
+    """Handle Microsoft OAuth2 callback"""
+    import httpx
+
+    if error:
+        raise HTTPException(status_code=400, detail=f"Microsoft auth error: {error}")
+    if not code:
+        raise HTTPException(status_code=400, detail="No authorization code received")
+
+    tenant_id = os.environ.get("AZURE_TENANT_ID", "")
+    client_id = os.environ.get("AZURE_CLIENT_ID", "")
+    client_secret = os.environ.get("AZURE_CLIENT_SECRET", "")
+    redirect_uri = f"{os.environ.get('REACT_APP_BACKEND_URL', '')}/api/auth/microsoft/callback"
+
+    if not all([tenant_id, client_id, client_secret]):
+        raise HTTPException(status_code=501, detail="Microsoft SSO not fully configured")
+
+    # Exchange code for tokens
+    token_url = f"https://login.microsoftonline.com/{tenant_id}/oauth2/v2.0/token"
+    async with httpx.AsyncClient() as client:
+        token_resp = await client.post(token_url, data={
+            "client_id": client_id,
+            "client_secret": client_secret,
+            "code": code,
+            "redirect_uri": redirect_uri,
+            "grant_type": "authorization_code",
+            "scope": "openid profile email User.Read Calendars.Read",
+        })
+
+        if token_resp.status_code != 200:
+            raise HTTPException(status_code=400, detail="Failed to exchange authorization code")
+
+        tokens = token_resp.json()
+        access_token = tokens.get("access_token")
+
+        # Get user profile from Microsoft Graph
+        graph_resp = await client.get(
+            "https://graph.microsoft.com/v1.0/me",
+            headers={"Authorization": f"Bearer {access_token}"}
+        )
+
+        if graph_resp.status_code != 200:
+            raise HTTPException(status_code=400, detail="Failed to get user profile from Microsoft")
+
+        ms_user = graph_resp.json()
+
+    email = ms_user.get("mail") or ms_user.get("userPrincipalName", "")
+    name = ms_user.get("displayName", email.split("@")[0])
+    ms_id = ms_user.get("id", "")
+
+    # Find or create user
+    existing = await db.users.find_one({"email": email}, {"_id": 0})
+    if existing:
+        # Update with MS data
+        await db.users.update_one(
+            {"email": email},
+            {"$set": {
+                "ms_id": ms_id,
+                "auth_method": "microsoft_sso",
+                "ms_access_token": access_token,
+                "last_login": datetime.now(timezone.utc).isoformat(),
+            }}
+        )
+        user = await db.users.find_one({"email": email}, {"_id": 0})
+    else:
+        user = {
+            "user_id": f"ms_{uuid.uuid4().hex[:10]}",
+            "email": email,
+            "name": name,
+            "ms_id": ms_id,
+            "auth_method": "microsoft_sso",
+            "ms_access_token": access_token,
+            "role": "user",
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "last_login": datetime.now(timezone.utc).isoformat(),
+        }
+        await db.users.insert_one(user)
+        user.pop("_id", None)
+
+    # Generate JWT
+    token_data = {
+        "user_id": user["user_id"],
+        "email": email,
+        "name": name,
+        "exp": datetime.now(timezone.utc) + timedelta(hours=24),
+    }
+    jwt_token = jwt.encode(token_data, JWT_SECRET, algorithm="HS256")
+
+    # Redirect to frontend with token
+    frontend_url = os.environ.get("REACT_APP_BACKEND_URL", "")
+    from starlette.responses import RedirectResponse
+    return RedirectResponse(url=f"{frontend_url}/lumi#session_id={jwt_token}&user_name={name}")
+
+
+@router.get("/microsoft/config")
+async def microsoft_sso_config():
+    """Check if Microsoft SSO is configured"""
+    tenant_id = os.environ.get("AZURE_TENANT_ID", "")
+    client_id = os.environ.get("AZURE_CLIENT_ID", "")
+    return {
+        "configured": bool(tenant_id and client_id),
+        "message": "Microsoft SSO is ready" if (tenant_id and client_id) else "Configure AZURE_TENANT_ID and AZURE_CLIENT_ID in .env to enable Microsoft SSO",
+    }
 
 
 @router.get("/apple/config")
