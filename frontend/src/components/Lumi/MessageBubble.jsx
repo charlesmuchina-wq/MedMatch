@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Smile, MessageSquare, FileText, Download,
-  Globe, Loader2, X
+  Globe, Loader2, X, Pencil, Trash2, Check
 } from 'lucide-react';
 import { API, ESY } from './constants';
 
@@ -17,12 +17,16 @@ const languages = [
 
 const quickEmojis = ['👍', '❤️', '😂', '🎉', '🔥', '👀'];
 
-export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, token }) => {
+export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, onEdit, onDelete, token }) => {
   const time = new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   const [showReact, setShowReact] = useState(false);
   const [translation, setTranslation] = useState(null);
   const [translating, setTranslating] = useState(false);
   const [showLangPicker, setShowLangPicker] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [editText, setEditText] = useState(msg.content);
+  const [showMenu, setShowMenu] = useState(false);
+  const editRef = useRef(null);
 
   const translateMsg = async (langName) => {
     if (translating) return;
@@ -40,6 +44,17 @@ export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, t
     setTranslating(false);
   };
 
+  const handleEditSave = () => {
+    if (editText.trim() && editText.trim() !== msg.content) {
+      onEdit?.(msg.id, editText.trim());
+    }
+    setEditing(false);
+  };
+
+  const handleEditCancel = () => { setEditText(msg.content); setEditing(false); };
+
+  useEffect(() => { if (editing && editRef.current) editRef.current.focus(); }, [editing]);
+
   if (msg.type === 'system') {
     return (
       <div className="flex justify-center my-4" data-testid={`msg-system-${msg.id}`}>
@@ -52,14 +67,19 @@ export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, t
   const colors = ['bg-[#36454F]', 'bg-[#008080]', 'bg-slate-600', 'bg-[#6B7280]', 'bg-[#4B5563]'];
   const ci = (msg.sender_id || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0) % colors.length;
   const reactions = msg.reactions || {};
+  const profilePic = msg.sender_profile_picture;
 
   return (
     <div className={`group flex gap-3 px-5 py-1 hover:bg-slate-50/50 ${!prevSameSender ? 'mt-4' : 'mt-0.5'}`} data-testid={`msg-${msg.id}`}>
       <div className="w-9 flex-shrink-0">
         {!prevSameSender && (
-          <div className={`w-9 h-9 rounded-full ${colors[ci]} flex items-center justify-center`}>
-            <span className="text-[11px] font-semibold text-white">{initials}</span>
-          </div>
+          profilePic ? (
+            <img src={profilePic} alt="" className="w-9 h-9 rounded-full object-cover" />
+          ) : (
+            <div className={`w-9 h-9 rounded-full ${colors[ci]} flex items-center justify-center`}>
+              <span className="text-[11px] font-semibold text-white">{initials}</span>
+            </div>
+          )
         )}
       </div>
       <div className="flex-1 min-w-0">
@@ -67,9 +87,24 @@ export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, t
           <div className="flex items-baseline gap-2 mb-0.5">
             <span className="text-sm font-bold text-slate-900">{msg.sender_name}</span>
             <span className="text-[11px] text-slate-500">{time}</span>
+            {msg.edited && <span className="text-[10px] text-slate-400 italic">(edited)</span>}
           </div>
         )}
-        <p className="text-sm text-slate-900 leading-relaxed break-words">{msg.content}</p>
+
+        {editing ? (
+          <div className="flex items-center gap-2 mt-1" data-testid={`edit-input-${msg.id}`}>
+            <input ref={editRef} value={editText} onChange={e => setEditText(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') handleEditSave(); if (e.key === 'Escape') handleEditCancel(); }}
+              className="flex-1 text-sm px-3 py-1.5 border border-slate-300 rounded-md outline-none focus:border-[#008080] bg-white text-slate-900" />
+            <button onClick={handleEditSave} className="p-1.5 rounded-md bg-[#008080] text-white hover:bg-[#006666]" data-testid={`edit-save-${msg.id}`}><Check className="w-3.5 h-3.5" /></button>
+            <button onClick={handleEditCancel} className="p-1.5 rounded-md bg-slate-200 text-slate-600 hover:bg-slate-300" data-testid={`edit-cancel-${msg.id}`}><X className="w-3.5 h-3.5" /></button>
+          </div>
+        ) : (
+          <p className="text-sm text-slate-900 leading-relaxed break-words">
+            {msg.content}
+            {msg.edited && prevSameSender && <span className="text-[10px] text-slate-400 italic ml-1">(edited)</span>}
+          </p>
+        )}
 
         {msg.file && (
           <div className="mt-2" data-testid={`file-${msg.id}`}>
@@ -129,6 +164,16 @@ export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, t
             <button onClick={() => setShowLangPicker(!showLangPicker)} className="p-1 hover:bg-slate-100 rounded" data-testid={`translate-btn-${msg.id}`}>
               {translating ? <Loader2 className="w-3.5 h-3.5 animate-spin" style={{ color: ESY.turquoise }} /> : <Globe className="w-3.5 h-3.5" style={{ color: translation ? ESY.turquoise : '#64748b' }} />}
             </button>
+            {isOwn && (
+              <>
+                <button onClick={() => { setEditing(true); setShowMenu(false); }} className="p-1 hover:bg-slate-100 rounded" data-testid={`edit-btn-${msg.id}`}>
+                  <Pencil className="w-3.5 h-3.5 text-slate-500" />
+                </button>
+                <button onClick={() => onDelete?.(msg.id)} className="p-1 hover:bg-red-50 rounded" data-testid={`delete-btn-${msg.id}`}>
+                  <Trash2 className="w-3.5 h-3.5 text-red-400" />
+                </button>
+              </>
+            )}
           </div>
           {showReact && (
             <div className="absolute -top-12 right-0 flex items-center gap-0.5 px-1.5 py-1 bg-white border border-slate-200 rounded-lg shadow-lg z-20" data-testid={`react-picker-${msg.id}`}>

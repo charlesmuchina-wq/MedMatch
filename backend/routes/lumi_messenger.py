@@ -323,7 +323,77 @@ async def add_reaction(message_id: str, data: ReactionAdd, request: Request):
 
     return {"reactions": reactions}
 
-# ============== Search ==============
+# ============== Message Edit & Delete ==============
+
+class MessageEdit(BaseModel):
+    content: str
+
+EDIT_WINDOW_MINUTES = 15
+
+@router.put("/messages/{message_id}")
+async def edit_message(message_id: str, data: MessageEdit, request: Request):
+    """Edit a message within the edit window"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    msg = await db.lumi_messages.find_one({"id": message_id}, {"_id": 0})
+    if not msg:
+        raise HTTPException(status_code=404, detail="Message not found")
+    if msg["sender_id"] != user["user_id"]:
+        raise HTTPException(status_code=403, detail="Can only edit your own messages")
+
+    created = datetime.fromisoformat(msg["created_at"].replace('Z', '+00:00'))
+    if (datetime.now(timezone.utc) - created).total_seconds() > EDIT_WINDOW_MINUTES * 60:
+        raise HTTPException(status_code=403, detail=f"Edit window ({EDIT_WINDOW_MINUTES} min) has expired")
+
+    if not data.content.strip():
+        raise HTTPException(status_code=400, detail="Message content cannot be empty")
+
+    await db.lumi_messages.update_one(
+        {"id": message_id},
+        {"$set": {
+            "content": data.content.strip(),
+            "edited": True,
+            "edited_at": datetime.now(timezone.utc).isoformat()
+        }}
+    )
+
+    await manager.send_to_channel(msg["channel_id"], {
+        "type": "message_edited",
+        "data": {"message_id": message_id, "content": data.content.strip(), "edited_at": datetime.now(timezone.utc).isoformat()}
+    })
+
+    return {"id": message_id, "content": data.content.strip(), "edited": True}
+
+
+@router.delete("/messages/{message_id}")
+async def delete_message(message_id: str, request: Request):
+    """Delete a message within the edit window"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    msg = await db.lumi_messages.find_one({"id": message_id}, {"_id": 0})
+    if not msg:
+        raise HTTPException(status_code=404, detail="Message not found")
+    if msg["sender_id"] != user["user_id"]:
+        raise HTTPException(status_code=403, detail="Can only delete your own messages")
+
+    created = datetime.fromisoformat(msg["created_at"].replace('Z', '+00:00'))
+    if (datetime.now(timezone.utc) - created).total_seconds() > EDIT_WINDOW_MINUTES * 60:
+        raise HTTPException(status_code=403, detail=f"Delete window ({EDIT_WINDOW_MINUTES} min) has expired")
+
+    await db.lumi_messages.delete_one({"id": message_id})
+
+    await manager.send_to_channel(msg["channel_id"], {
+        "type": "message_deleted",
+        "data": {"message_id": message_id}
+    })
+
+    return {"deleted": True, "id": message_id}
+
+
 
 @router.get("/search")
 async def search_messages(request: Request, q: str = "", limit: int = 20):
@@ -1121,7 +1191,9 @@ async def get_user_capabilities(request: Request):
             "user_id": user["user_id"],
             "name": user.get("name", ""),
             "email": user.get("email", ""),
+            "profile_picture": user.get("profile_picture", ""),
             "role": user.get("role", "member"),
+            "auth_method": user.get("auth_method", "email"),
             "status": current_status,
             "messages_sent": msg_count,
         },
@@ -1152,6 +1224,108 @@ async def update_notification_prefs(data: ChannelNotifPrefs, request: Request):
     )
 
     return {"status": "updated", "channel_id": data.channel_id, "mute": data.mute, "level": data.level}
+
+
+@router.get("/notifications/hub")
+async def get_notification_hub(request: Request):
+    """Centralized notification hub - aggregates all notification sources"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    notifications = []
+
+    # 1. Unread mentions (messages containing @user)
+    user_channels = await db.lumi_channels.find(
+        {"members.user_id": user["user_id"]}, {"_id": 0, "id": 1, "name": 1}
+    ).to_list(100)
+    channel_ids = [ch["id"] for ch in user_channels]
+    channel_names = {ch["id"]: ch["name"] for ch in user_channels}
+
+    mentions = await db.lumi_messages.find(
+        {"channel_id": {"$in": channel_ids}, "content": {"$regex": f"@{user.get('name', '')}", "$options": "i"}, "sender_id": {"$ne": user["user_id"]}},
+        {"_id": 0}
+    ).sort("created_at", -1).to_list(10)
+    for m in mentions:
+        notifications.append({
+            "id": f"mention_{m['id']}", "type": "mention", "source": "chat",
+            "title": f"Mentioned in #{channel_names.get(m['channel_id'], 'channel')}",
+            "body": m.get("content", "")[:120], "channel_id": m.get("channel_id"),
+            "priority": "high", "timestamp": m.get("created_at", "")
+        })
+
+    # 2. AI anomaly alerts
+    try:
+        anomalies = await db.lumi_anomalies.find({}, {"_id": 0}).sort("created_at", -1).to_list(5)
+        for a in anomalies:
+            notifications.append({
+                "id": f"anomaly_{a.get('id', '')}", "type": "anomaly", "source": "ai",
+                "title": a.get("title", "Anomaly Detected"),
+                "body": a.get("description", ""), "priority": a.get("severity", "medium"),
+                "timestamp": a.get("created_at", "")
+            })
+    except Exception:
+        pass
+
+    # 3. Assigned tasks
+    try:
+        tasks = await db.lumi_tasks.find(
+            {"assignee_id": user["user_id"], "status": {"$ne": "done"}},
+            {"_id": 0}
+        ).sort("created_at", -1).to_list(10)
+        for t in tasks:
+            prio = t.get("priority", "medium")
+            notifications.append({
+                "id": f"task_{t.get('id', '')}", "type": "task", "source": "ai",
+                "title": f"Task: {t.get('task', '')[:60]}",
+                "body": f"Assigned by AI from channel conversation",
+                "priority": prio, "deadline": t.get("deadline", ""),
+                "timestamp": t.get("created_at", "")
+            })
+    except Exception:
+        pass
+
+    # 4. Unread DMs
+    dms = await db.lumi_dms.find(
+        {"participants": user["user_id"]}, {"_id": 0, "id": 1}
+    ).to_list(50)
+    dm_ids = [d["id"] for d in dms]
+    if dm_ids:
+        last_reads = {}
+        read_records = await db.lumi_read_receipts.find(
+            {"user_id": user["user_id"], "channel_id": {"$in": dm_ids}}, {"_id": 0}
+        ).to_list(50)
+        for r in read_records:
+            last_reads[r["channel_id"]] = r.get("last_read_at", "")
+
+        for dm_id in dm_ids:
+            last_read = last_reads.get(dm_id, "2000-01-01T00:00:00")
+            unread = await db.lumi_messages.find(
+                {"channel_id": dm_id, "sender_id": {"$ne": user["user_id"]}, "created_at": {"$gt": last_read}},
+                {"_id": 0}
+            ).sort("created_at", -1).to_list(3)
+            for m in unread:
+                notifications.append({
+                    "id": f"dm_{m['id']}", "type": "dm", "source": "chat",
+                    "title": f"Message from {m.get('sender_name', 'Someone')}",
+                    "body": m.get("content", "")[:120], "channel_id": dm_id,
+                    "priority": "medium", "timestamp": m.get("created_at", "")
+                })
+
+    # Sort by timestamp desc and priority
+    priority_order = {"critical": 0, "high": 1, "medium": 2, "low": 3}
+    notifications.sort(key=lambda n: (priority_order.get(n.get("priority", "low"), 3), -(hash(n.get("timestamp", "")))), reverse=False)
+
+    return {
+        "notifications": notifications[:30],
+        "total": len(notifications),
+        "sources": {
+            "mentions": sum(1 for n in notifications if n["type"] == "mention"),
+            "anomalies": sum(1 for n in notifications if n["type"] == "anomaly"),
+            "tasks": sum(1 for n in notifications if n["type"] == "task"),
+            "dms": sum(1 for n in notifications if n["type"] == "dm"),
+        }
+    }
 
 
 

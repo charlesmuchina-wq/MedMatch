@@ -83,10 +83,14 @@ async def create_session(user_id: str, session_token: str):
         "expires_at": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat()
     })
 
-async def get_or_create_user(email: str, name: str = "", auth_method: str = "email"):
+async def get_or_create_user(email: str, name: str = "", auth_method: str = "email", profile_picture: str = ""):
     """Get existing user or create new one"""
     user = await db.users.find_one({"email": email}, {"_id": 0})
     if user:
+        # Update profile picture if provided and not already set
+        if profile_picture and not user.get("profile_picture"):
+            await db.users.update_one({"email": email}, {"$set": {"profile_picture": profile_picture}})
+            user["profile_picture"] = profile_picture
         return user
     
     user_doc = {
@@ -94,6 +98,7 @@ async def get_or_create_user(email: str, name: str = "", auth_method: str = "ema
         "email": email,
         "name": name,
         "auth_method": auth_method,
+        "profile_picture": profile_picture,
         "role": "job_seeker",
         "created_at": datetime.now(timezone.utc).isoformat(),
         "membership_status": "trial",
@@ -358,7 +363,8 @@ async def google_session_login(auth_data: Dict[str, Any], response: Response):
     user = await get_or_create_user(
         email=email,
         name=google_user.get("name", ""),
-        auth_method="google"
+        auth_method="google",
+        profile_picture=google_user.get("picture", "")
     )
     
     previous_login = user.get("last_login")
@@ -387,6 +393,7 @@ async def google_session_login(auth_data: Dict[str, Any], response: Response):
             "user_id": user["user_id"],
             "email": user["email"],
             "name": user.get("name", ""),
+            "profile_picture": user.get("profile_picture", ""),
             "auth_method": "google",
             "created_at": user.get("created_at", ""),
             "last_login": current_time,

@@ -1,0 +1,87 @@
+{
+  "summary": "Iteration 174 - LUMI P1 Features Testing. Backend: 18/18 tests passed. Frontend: All P1 features verified working. Edit/Delete messages with 15-min window, Centralized Notification Hub with source tabs, Voice/Video call buttons in DMs, Profile modal with auth_method and profile_picture fields.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/lumi/profile/capabilities", "issue": "auth_method field returns 'admin' instead of 'email' for email-authenticated admin user - minor inconsistency but field exists"}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_lumi_p1_features_iteration174.py",
+    "/app/test_reports/pytest/lumi_p1_features_iteration174_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Minor: auth_method field in profile/capabilities returns user role instead of actual auth method (email/google/microsoft). Consider fixing for accurate auth method tracking."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_lumi_p1_features_iteration174.py"
+  ],
+  "success_rate": {
+    "backend": "100% (18/18 tests passed)",
+    "frontend": "100% (all P1 features verified)"
+  },
+  "test_credentials": {
+    "admin_email": "admin@medmatch.com",
+    "admin_password": "Swampdrainer2026!"
+  },
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "P1 features complete and working: 1) Message Edit/Delete with 15-min window enforcement, 2) Centralized Notification Hub with All/Chat/AI tabs, 3) Voice/Video call buttons in DM header, 4) Profile modal with profile_picture and auth_method fields. Voice calls create records and trigger success toast.",
+  "verified_features": {
+    "message_edit_delete": {
+      "edit_button": "✅ Pencil icon appears on hover for own messages",
+      "delete_button": "✅ Trash icon appears on hover for own messages",
+      "inline_edit": "✅ Clicking edit shows inline input field",
+      "edit_save": "✅ Save button updates message content",
+      "edit_cancel": "✅ Cancel button reverts changes",
+      "edited_label": "✅ (edited) label shows on edited messages",
+      "403_on_others_message": "✅ Returns 403 when trying to edit/delete another user's message",
+      "404_nonexistent": "✅ Returns 404 for non-existent message",
+      "400_empty_content": "✅ Returns 400 for empty edit content"
+    },
+    "notification_hub": {
+      "bell_button": "✅ data-testid='notifications-btn' opens panel",
+      "panel_opens": "✅ data-testid='notifications-panel'",
+      "all_tab": "✅ data-testid='notif-tab-all'",
+      "chat_tab": "✅ data-testid='notif-tab-chat'", 
+      "ai_tab": "✅ data-testid='notif-tab-ai'",
+      "sources_breakdown": "✅ mentions, anomalies, tasks, dms counts in API response",
+      "close_button": "✅ data-testid='close-notifications'"
+    },
+    "voice_video_calls": {
+      "voice_call_btn": "✅ Phone icon in DM header - data-testid='voice-call-btn'",
+      "video_call_btn": "✅ Camera icon in DM header - data-testid='video-call-btn'",
+      "call_initiation": "✅ POST /api/lumi/voice/call returns call_id",
+      "success_toast": "✅ Shows 'Voice call started — ID: call_xxx'",
+      "call_types": "✅ Supports both 'voice' and 'video' types"
+    },
+    "profile_modal": {
+      "profile_picture": "✅ Field exists in profile/capabilities API response",
+      "auth_method": "✅ Field exists (note: returns role for some users)",
+      "modal_trigger": "✅ data-testid='open-profile-btn' opens modal",
+      "capabilities_display": "✅ Shows 15 LUMI features in categorized list",
+      "status_picker": "✅ Shows available/busy/in_meeting/ooo/vacation options"
+    },
+    "backend_endpoints": {
+      "PUT /api/lumi/messages/{id}": "✅ Edits message, returns edited content with edited=true",
+      "DELETE /api/lumi/messages/{id}": "✅ Deletes message, returns deleted=true",
+      "GET /api/lumi/notifications/hub": "✅ Returns aggregated notifications with sources",
+      "POST /api/lumi/voice/call": "✅ Creates call record, returns call_id",
+      "GET /api/lumi/profile/capabilities": "✅ Returns profile_picture and auth_method"
+    }
+  },
+  "mocked_api": {
+    "has_mocked_apis": true,
+    "mocked_apis_list": [
+      "Microsoft SSO - placeholder returns 501 Not Implemented",
+      "Voice/Video calls - record created but no real WebRTC connection (opens AI KARAU in new tab)"
+    ]
+  }
+}

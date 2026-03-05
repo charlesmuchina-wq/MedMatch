@@ -138,15 +138,20 @@ export const UserProfileModal = ({ onClose, token, onStatusChange }) => {
             </div>
           ) : profile && (
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-md"
-                style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}>
-                {(profile.user.name || profile.user.email || '?')[0].toUpperCase()}
-              </div>
+              {profile.user.profile_picture ? (
+                <img src={profile.user.profile_picture} alt="" className="w-14 h-14 rounded-xl object-cover shadow-md" />
+              ) : (
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-md"
+                  style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}>
+                  {(profile.user.name || profile.user.email || '?')[0].toUpperCase()}
+                </div>
+              )}
               <div className="flex-1 min-w-0">
                 <h3 className="text-base font-bold text-slate-900 truncate">{profile.user.name || 'User'}</h3>
                 <p className="text-sm text-slate-600 truncate">{profile.user.email}</p>
                 <div className="flex items-center gap-3 mt-1">
                   <span className="text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium capitalize">{profile.user.role}</span>
+                  {profile.user.auth_method === 'google' && <span className="text-[11px] px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 font-medium">Google SSO</span>}
                   <span className="text-[11px] text-slate-500">{profile.user.messages_sent} messages sent</span>
                 </div>
               </div>

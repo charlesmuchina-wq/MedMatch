@@ -8,7 +8,7 @@ import { toast, Toaster } from 'sonner';
 import {
   Plus, Send, LogOut, ArrowLeft,
   Users, Search, MessageCircle,
-  Loader2, X, Paperclip, UserPlus, User, Phone,
+  Loader2, X, Paperclip, UserPlus, User, Phone, Video,
   Building2, Sparkles, Brain, AlertTriangle,
   Command, Network, Zap, TrendingDown, Bell
 } from 'lucide-react';
@@ -162,6 +162,10 @@ const LumiMessenger = () => {
           setMessages(prev => prev.map(m => m.id === msg.data.message_id ? { ...m, reactions: msg.data.reactions } : m));
         } else if (msg.type === 'thread_reply') {
           setMessages(prev => prev.map(m => m.id === msg.data.parent_id ? { ...m, thread_count: (m.thread_count || 0) + 1 } : m));
+        } else if (msg.type === 'message_edited') {
+          setMessages(prev => prev.map(m => m.id === msg.data.message_id ? { ...m, content: msg.data.content, edited: true, edited_at: msg.data.edited_at } : m));
+        } else if (msg.type === 'message_deleted') {
+          setMessages(prev => prev.filter(m => m.id !== msg.data.message_id));
         } else if (msg.type === 'dm_created') {
           loadDms();
         } else if (msg.type === 'presence_change') {
@@ -213,6 +217,40 @@ const LumiMessenger = () => {
       const res = await fetch(`${API}/api/lumi/messages/${messageId}/react`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ emoji }) });
       if (res.ok) { const d = await res.json(); setMessages(prev => prev.map(m => m.id === messageId ? { ...m, reactions: d.reactions } : m)); }
     } catch (e) {}
+  };
+
+  const handleEditMessage = async (messageId, newContent) => {
+    try {
+      const res = await fetch(`${API}/api/lumi/messages/${messageId}`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ content: newContent }) });
+      if (res.ok) { setMessages(prev => prev.map(m => m.id === messageId ? { ...m, content: newContent, edited: true } : m)); toast.success('Message edited'); }
+      else { const err = await res.json(); toast.error(err.detail || 'Edit failed'); }
+    } catch (e) { toast.error('Edit failed'); }
+  };
+
+  const handleDeleteMessage = async (messageId) => {
+    try {
+      const res = await fetch(`${API}/api/lumi/messages/${messageId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) { setMessages(prev => prev.filter(m => m.id !== messageId)); toast.success('Message deleted'); }
+      else { const err = await res.json(); toast.error(err.detail || 'Delete failed'); }
+    } catch (e) { toast.error('Delete failed'); }
+  };
+
+  const handleStartCall = async (callType = 'voice') => {
+    if (!activeChannel) return;
+    const recipientId = activeChannel.channel_type === 'dm' ? activeChannel.dm_partner?.user_id : null;
+    try {
+      const res = await fetch(`${API}/api/lumi/voice/call`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ recipient_id: recipientId || 'channel', type: callType, channel_id: activeChannel.id })
+      });
+      if (res.ok) {
+        const call = await res.json();
+        toast.success(`${callType === 'video' ? 'Video' : 'Voice'} call started — ID: ${call.id}`);
+        // Open AI KARAU meeting room in new tab
+        window.open(`${window.location.origin}/karau-meet?call=${call.id}`, '_blank');
+      }
+    } catch (e) { toast.error('Call failed to connect'); }
   };
 
   const handleFileShare = async (e) => {
@@ -381,7 +419,12 @@ const LumiMessenger = () => {
               </>)}
             </div>
             <div className="flex items-center gap-1">
-              {activeChannel.channel_type === 'dm' && <button onClick={() => toast.info('Calling...')} className="p-2 text-slate-400 hover:text-[#008080] hover:bg-[#008080]/5 rounded-md" data-testid="voice-call-btn"><Phone className="w-4 h-4" /></button>}
+              {activeChannel.channel_type === 'dm' && (
+                <>
+                  <button onClick={() => handleStartCall('voice')} className="p-2 text-slate-500 hover:text-[#008080] hover:bg-[#008080]/5 rounded-md transition-colors" data-testid="voice-call-btn" title="Voice Call"><Phone className="w-4 h-4" /></button>
+                  <button onClick={() => handleStartCall('video')} className="p-2 text-slate-500 hover:text-[#008080] hover:bg-[#008080]/5 rounded-md transition-colors" data-testid="video-call-btn" title="Video Call"><Video className="w-4 h-4" /></button>
+                </>
+              )}
               <button onClick={() => setShowCommandBar(true)} className="p-2 rounded-md text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-colors" data-testid="command-bar-btn" title="Command Bar (Ctrl+K)"><Command className="w-4 h-4" /></button>
               <button onClick={() => { closeAllPanels(); setShowAiChat(!showAiChat); }} className={`p-2 rounded-md transition-colors ${showAiChat ? 'bg-[#00CEC9]/10' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} style={showAiChat ? { color: ESY.turquoise } : {}} data-testid="ai-chat-btn" title="Ask AI"><Sparkles className="w-4 h-4" /></button>
               <button onClick={() => { closeAllPanels(); setShowAlerts(!showAlerts); }} className={`p-2 rounded-md transition-colors ${showAlerts ? 'bg-[#D63031]/10' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} style={showAlerts ? { color: ESY.deepRed } : {}} data-testid="alerts-btn" title="Alerts & Decisions"><AlertTriangle className="w-4 h-4" /></button>
@@ -405,7 +448,7 @@ const LumiMessenger = () => {
                 )}
                 {messages.filter(m => !m.thread_parent_id).map((msg, i, arr) => {
                   const prevSameSender = i > 0 && arr[i - 1].sender_id === msg.sender_id && arr[i - 1].type !== 'system';
-                  return <MessageBubble key={msg.id} msg={msg} isOwn={msg.sender_id === user?.user_id} prevSameSender={prevSameSender} onReact={handleReact} onThread={(id) => setShowThread(id)} token={token} />;
+                  return <MessageBubble key={msg.id} msg={msg} isOwn={msg.sender_id === user?.user_id} prevSameSender={prevSameSender} onReact={handleReact} onThread={(id) => setShowThread(id)} onEdit={handleEditMessage} onDelete={handleDeleteMessage} token={token} />;
                 })}
                 <div ref={messagesEndRef} />
               </ScrollArea>
