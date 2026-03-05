@@ -35,7 +35,7 @@ export const ComplianceWidget = ({ token, onClick }) => {
         {isGood ? <CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> : <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />}
       </div>
       <div className="flex-1 min-w-0 text-left">
-        <p className="text-[10px] font-semibold text-white/70 uppercase tracking-wider">Compliance</p>
+        <p className="text-[10px] font-semibold text-white/90 uppercase tracking-wider">Compliance</p>
         <div className="flex items-center gap-2 mt-0.5">
           <div className="flex-1 h-1.5 bg-white/10 rounded-full overflow-hidden">
             <div className={`h-full rounded-full transition-all ${isGood ? 'bg-emerald-400' : 'bg-amber-400'}`}

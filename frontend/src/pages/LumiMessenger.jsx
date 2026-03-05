@@ -342,7 +342,7 @@ const LumiMessenger = () => {
           <div className="flex items-center gap-2.5">
             <LumiBrand variant="inline-dark" size="xs" showTagline />
           </div>
-          <button onClick={() => navigate('/')} className="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-md transition-colors" data-testid="back-to-karau"><ArrowLeft className="w-4 h-4" /></button>
+          <button onClick={() => navigate('/')} className="p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors" data-testid="back-to-karau"><ArrowLeft className="w-4 h-4" /></button>
         </div>
 
         <div className="px-3 pt-3 pb-1">
@@ -369,8 +369,8 @@ const LumiMessenger = () => {
         <ScrollArea className="flex-1 py-2">
           <div className="px-3">
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-[11px] font-bold text-white/80 uppercase tracking-widest">Channels</span>
-              <button onClick={() => setShowCreateModal(true)} className="p-1 text-white/70 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="add-channel-btn"><Plus className="w-3.5 h-3.5" /></button>
+              <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Channels</span>
+              <button onClick={() => setShowCreateModal(true)} className="p-1 text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="add-channel-btn"><Plus className="w-3.5 h-3.5" /></button>
             </div>
             {filteredChannels.map(ch => (
               <button key={ch.id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); }}
@@ -381,17 +381,17 @@ const LumiMessenger = () => {
             ))}
 
             {discoverChannels.length > 0 && (<>
-              <div className="flex items-center mt-3 mb-1.5"><span className="text-[11px] font-bold text-white/80 uppercase tracking-widest">Discover</span></div>
+              <div className="flex items-center mt-3 mb-1.5"><span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Discover</span></div>
               {discoverChannels.map(ch => (
-                <button key={ch.id} onClick={() => handleJoinChannel(ch)} className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-white/70 hover:bg-white/10 hover:text-white mb-0.5" data-testid={`discover-${ch.id}`}>
+                <button key={ch.id} onClick={() => handleJoinChannel(ch)} className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-white/80 hover:bg-white/10 hover:text-white mb-0.5" data-testid={`discover-${ch.id}`}>
                   <ChannelIcon type={ch.channel_type} /><span className="flex-1 text-sm truncate text-left">{ch.name}</span><Plus className="w-3 h-3 opacity-70" />
                 </button>
               ))}
             </>)}
 
             <div className="flex items-center justify-between mt-3 mb-1.5">
-              <span className="text-[11px] font-bold text-white/80 uppercase tracking-widest">Direct Messages</span>
-              <button onClick={() => setShowNewDmModal(true)} className="p-1 text-white/70 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="new-dm-btn"><UserPlus className="w-3.5 h-3.5" /></button>
+              <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Direct Messages</span>
+              <button onClick={() => setShowNewDmModal(true)} className="p-1 text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="new-dm-btn"><UserPlus className="w-3.5 h-3.5" /></button>
             </div>
             {dms.map(dm => {
               const partner = dm.dm_partner || {};
@@ -409,7 +409,7 @@ const LumiMessenger = () => {
                 </button>
               );
             })}
-            {dms.length === 0 && <p className="text-[11px] text-white/70 px-2.5 py-1">No conversations yet</p>}
+            {dms.length === 0 && <p className="text-[11px] text-white/80 px-2.5 py-1">No conversations yet</p>}
           </div>
         </ScrollArea>
 
@@ -421,9 +421,9 @@ const LumiMessenger = () => {
             </button>
             <button onClick={() => setShowProfile(true)} className="flex-1 min-w-0 text-left hover:opacity-80 transition-opacity" data-testid="open-profile-name">
               <p className="text-sm font-medium text-white truncate">{user?.name || 'User'}</p>
-              <p className="text-[10px] text-white/70">View Profile</p>
+              <p className="text-[10px] text-white/80">View Profile</p>
             </button>
-            <button onClick={() => { localStorage.removeItem('token'); localStorage.removeItem('karau_user'); setUser(null); navigate('/'); }} className="p-1.5 text-white/70 hover:text-red-400 hover:bg-red-500/10 rounded-md" data-testid="lumi-logout"><LogOut className="w-3.5 h-3.5" /></button>
+            <button onClick={() => { localStorage.removeItem('token'); localStorage.removeItem('karau_user'); setUser(null); navigate('/'); }} className="p-1.5 text-white/80 hover:text-red-400 hover:bg-red-500/10 rounded-md" data-testid="lumi-logout"><LogOut className="w-3.5 h-3.5" /></button>
           </div>
         </div>
 
@@ -435,27 +435,27 @@ const LumiMessenger = () => {
         <div className="px-3 pb-3 space-y-1.5">
           <button onClick={() => setShowVisualizations(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="open-visualizations-btn">
             <BarChart3 className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.pink }} />
-            <span className="text-xs font-semibold text-white/80 group-hover:text-white">Visualizations</span>
+            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Visualizations</span>
           </button>
           <button onClick={() => setShowRetention(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="open-retention-btn">
             <Shield className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.deepRed }} />
-            <span className="text-xs font-semibold text-white/80 group-hover:text-white">Retention & Holds</span>
+            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Retention & Holds</span>
           </button>
           <button onClick={() => setShowAuditLog(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="open-audit-btn">
             <ClipboardList className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.turquoise }} />
-            <span className="text-xs font-semibold text-white/80 group-hover:text-white">Audit Log</span>
+            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Audit Log</span>
           </button>
           <button onClick={() => setShowCompliance(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="open-compliance-btn">
             <Globe className="w-3.5 h-3.5 group-hover:text-white" style={{ color: '#00B894' }} />
-            <span className="text-xs font-semibold text-white/80 group-hover:text-white">Privacy & Compliance</span>
+            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Privacy & Compliance</span>
           </button>
           <button onClick={() => setShowShortcuts(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="open-shortcuts-btn">
-            <Keyboard className="w-3.5 h-3.5 text-white/70 group-hover:text-white" />
-            <span className="text-xs font-semibold text-white/80 group-hover:text-white">Shortcuts</span>
+            <Keyboard className="w-3.5 h-3.5 text-white/80 group-hover:text-white" />
+            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Shortcuts</span>
           </button>
           <button onClick={() => navigate('/karau-meet')} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="switch-to-karau-footer">
             <Building2 className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.turquoise }} />
-            <span className="text-xs font-semibold text-white/80 group-hover:text-white">Switch to AI KARAU</span>
+            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Switch to AI KARAU</span>
           </button>
         </div>
       </div>

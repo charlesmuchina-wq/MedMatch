@@ -36,7 +36,7 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
   // Just the bubble icon
   if (variant === 'icon-dark' || variant === 'icon-light') {
     return (
-      <div className={`${s.icon} rounded-xl overflow-hidden flex-shrink-0 ${variant === 'icon-light' ? 'bg-slate-800 p-1.5' : ''} ${className}`} data-testid="lumi-brand-icon">
+      <div className={`${s.icon} rounded-xl overflow-hidden flex-shrink-0 ${variant === 'icon-light' ? 'bg-slate-800 p-1.5' : 'bg-white/20 p-1 ring-1 ring-white/10'} ${className}`} data-testid="lumi-brand-icon">
         <img src="/lumi-bubble.png" alt="LUMI" className="w-full h-full object-contain" />
       </div>
     );
@@ -52,7 +52,7 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
           LUMI
         </span>
         {showTagline && (
-          <span className={`${s.tagline} font-medium mt-0.5 tracking-wide ${isDark ? 'text-white/80' : 'text-slate-500'}`}>
+          <span className={`${s.tagline} font-medium mt-0.5 tracking-wide ${isDark ? 'text-white/90' : 'text-slate-500'}`}>
             Intelligence in Every Conversation
           </span>
         )}
@@ -65,7 +65,7 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
     const isDark = variant === 'inline-dark';
     return (
       <div className={`flex items-center gap-3 ${className}`} data-testid="lumi-brand">
-        <div className={`${s.icon} rounded-xl overflow-hidden flex-shrink-0 ${!isDark ? 'bg-slate-800 p-1' : ''}`}>
+        <div className={`${s.icon} rounded-xl overflow-hidden flex-shrink-0 ${isDark ? 'bg-white/20 p-0.5 ring-1 ring-white/10' : 'bg-slate-800 p-1'}`}>
           <img src="/lumi-bubble.png" alt="LUMI" className="w-full h-full object-contain" />
         </div>
         <div className="flex flex-col">
@@ -74,7 +74,7 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
             LUMI
           </span>
           {showTagline && (
-            <span className={`${s.tagline} font-medium tracking-wide ${isDark ? 'text-white/80' : 'text-slate-500'}`}>
+            <span className={`${s.tagline} font-medium tracking-wide ${isDark ? 'text-white/90' : 'text-slate-500'}`}>
               Intelligence in Every Conversation
             </span>
           )}

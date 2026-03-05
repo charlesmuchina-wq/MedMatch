@@ -200,7 +200,7 @@ const PortalSelector = () => {
               {t('pages.portalSelector.title')}
             </span>
           </h1>
-          <p className="text-base sm:text-lg text-slate-300 max-w-xl mx-auto px-4">
+          <p className="text-base sm:text-lg text-slate-200 max-w-xl mx-auto px-4">
             {t('pages.portalSelector.subtitle')}
           </p>
         </div>
@@ -274,7 +274,7 @@ const PortalSelector = () => {
                 </div>
 
                 {/* Description */}
-                <p className="text-slate-200 text-sm sm:text-base mb-4 sm:mb-6 min-h-[40px] sm:min-h-[48px]">
+                <p className="text-white/90 text-sm sm:text-base mb-4 sm:mb-6 min-h-[40px] sm:min-h-[48px]">
                   {portal.description}
                 </p>
 
@@ -283,7 +283,7 @@ const PortalSelector = () => {
                   {portal.features.map((feature, idx) => (
                     <div 
                       key={idx} 
-                      className="feature-item flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-slate-200"
+                      className="feature-item flex items-center gap-2 sm:gap-3 text-xs sm:text-sm text-white/90"
                     >
                       <div className={`
                         w-6 h-6 rounded-md flex items-center justify-center
@@ -291,7 +291,7 @@ const PortalSelector = () => {
                         ${hoveredCard === portal.id ? 'bg-opacity-20' : ''}
                         transition-all duration-300
                       `}>
-                        <feature.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white/80" />
+                        <feature.icon className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white/90" />
                       </div>
                       <span>{feature.text}</span>
                     </div>
@@ -323,7 +323,7 @@ const PortalSelector = () => {
 
         {/* Footer Info */}
         <div className="mt-8 md:mt-12 text-center px-4">
-          <p className="text-xs sm:text-sm text-slate-400">
+          <p className="text-xs sm:text-sm text-slate-300">
             {t('pages.portalSelector.poweredByAI')} • {t('pages.portalSelector.trustedBy')}
           </p>
         </div>
