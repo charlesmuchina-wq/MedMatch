@@ -25,9 +25,9 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "LUMI" 
 - Data visualizations panel (KPI charts, project timeline, knowledge graph)
 - Reusable LumiBrand component with inline SVG icon, shared footer
 - Dark/Light mode toggle in LUMI sidebar
-- **P0 Accessibility Fix (March 5, 2026):** Fixed dark mode CSS specificity bug
-- **Icon Visibility Fix (March 5, 2026):** Replaced dark PNG with bright inline SVG bubble icon
-- **LUMI Mini Messenger in AI KARAU (March 5, 2026):** Added LUMI Messenger as a side panel inside AI KARAU meeting rooms, allowing users to chat in LUMI channels while in a meeting. Accessible via toolbar button and "More" menu.
+- P0 Accessibility Fix: Fixed dark mode CSS specificity bug
+- Icon Visibility Fix: Replaced dark PNG with bright inline SVG bubble icon
+- **LUMI Mini Messenger in AI KARAU (March 5, 2026):** Compact LUMI messenger panel inside AI KARAU meeting rooms with channel list, real-time chat, and unread count notification badges on toolbar button (polls every 30s). Accessible via toolbar button + "More" menu.
 
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI
@@ -36,8 +36,8 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "LUMI" 
 - Charts: Recharts library
 
 ## Key Files
-- `components/KarauMeet/LumiMiniMessenger.jsx` - Mini LUMI messenger for meeting rooms
-- `components/KarauMeet/MeetingRoom.jsx` - Meeting room with LUMI panel integration
+- `components/KarauMeet/LumiMiniMessenger.jsx` - Mini LUMI messenger for meeting rooms (with unread badges)
+- `components/KarauMeet/MeetingRoom.jsx` - Meeting room with LUMI panel + unread polling
 - `components/Lumi/LumiBrand.jsx` - SVG-based brand component
 - `pages/LumiMessenger.jsx` - Full LUMI messenger
 

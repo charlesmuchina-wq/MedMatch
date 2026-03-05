@@ -11,8 +11,9 @@ import {
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-const LumiMiniMessenger = () => {
+const LumiMiniMessenger = ({ onUnreadChange }) => {
   const [channels, setChannels] = useState([]);
+  const [unreadCounts, setUnreadCounts] = useState({});
   const [selectedChannel, setSelectedChannel] = useState(null);
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState('');
@@ -27,7 +28,22 @@ const LumiMiniMessenger = () => {
 
   const headers = { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) };
 
-  // Fetch channels
+  // Fetch unread counts
+  const fetchUnread = useCallback(async () => {
+    if (!token) return;
+    try {
+      const res = await fetch(`${API}/api/lumi/unread-counts`, { headers });
+      if (res.ok) {
+        const data = await res.json();
+        const counts = data.unread || {};
+        setUnreadCounts(counts);
+        const total = Object.values(counts).reduce((a, b) => a + b, 0);
+        onUnreadChange?.(total);
+      }
+    } catch {}
+  }, [token]);
+
+  // Fetch channels + unread on mount, poll unread every 15s
   useEffect(() => {
     const fetchChannels = async () => {
       try {
@@ -42,9 +58,15 @@ const LumiMiniMessenger = () => {
         setLoading(false);
       }
     };
-    if (token) fetchChannels();
-    else setLoading(false);
-  }, [token]);
+    if (token) {
+      fetchChannels();
+      fetchUnread();
+    } else {
+      setLoading(false);
+    }
+    const interval = setInterval(fetchUnread, 15000);
+    return () => clearInterval(interval);
+  }, [token, fetchUnread]);
 
   // Fetch messages when channel selected
   useEffect(() => {
@@ -163,7 +185,13 @@ const LumiMiniMessenger = () => {
                     <p className="text-sm font-medium text-white truncate">{ch.name}</p>
                     <p className="text-[10px] text-slate-500 truncate">{ch.type === 'dm' ? 'Direct Message' : `${ch.members?.length || 0} members`}</p>
                   </div>
-                  <Circle className="w-2 h-2 text-emerald-400 fill-emerald-400 flex-shrink-0" />
+                  {unreadCounts[ch.id] > 0 ? (
+                    <span className="min-w-[18px] h-[18px] bg-violet-500 rounded-full text-[9px] text-white flex items-center justify-center font-bold px-1">
+                      {unreadCounts[ch.id] > 9 ? '9+' : unreadCounts[ch.id]}
+                    </span>
+                  ) : (
+                    <Circle className="w-2 h-2 text-emerald-400 fill-emerald-400 flex-shrink-0" />
+                  )}
                 </button>
               ))}
             </div>

@@ -323,6 +323,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
   const [showReactionBar, setShowReactionBar] = useState(false);
   const [captionLang, setCaptionLang] = useState('en');
   const [showLangMenu, setShowLangMenu] = useState(false);
+  const [lumiUnreadCount, setLumiUnreadCount] = useState(0);
   const moreMenuRef = useRef(null);
   const originalAudioTrackRef = useRef(null);
   const { isActive: isNCActive, enableNoiseCancellation, disableNoiseCancellation } = useNoiseCancellation();
@@ -699,6 +700,25 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
     };
     fetchBranding();
   }, [user?.email]);
+
+  // Poll LUMI unread counts for toolbar badge
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    const fetchLumiUnread = async () => {
+      try {
+        const res = await fetch(`${API}/api/lumi/unread-counts`, { headers: { Authorization: `Bearer ${token}` } });
+        if (res.ok) {
+          const data = await res.json();
+          const total = Object.values(data.unread || {}).reduce((a, b) => a + b, 0);
+          setLumiUnreadCount(total);
+        }
+      } catch {}
+    };
+    fetchLumiUnread();
+    const interval = setInterval(fetchLumiUnread, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Close "More" menu on outside click
   useEffect(() => {
@@ -1853,7 +1873,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 />
               )}
               {activePanel === 'lumi' && (
-                <LumiMiniMessenger />
+                <LumiMiniMessenger onUnreadChange={setLumiUnreadCount} />
               )}
               {showBreakoutManager && (
                 <BreakoutRoomManager
@@ -1993,11 +2013,16 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
 
           <button
             onClick={() => { setActivePanel(activePanel === 'lumi' ? null : 'lumi'); setShowMoreMenu(false); }}
-            className={`hidden sm:flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'lumi' ? 'bg-gradient-to-br from-violet-500/25 to-pink-500/15 text-violet-300 ring-1 ring-violet-500/30' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
+            className={`hidden sm:flex relative items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'lumi' ? 'bg-gradient-to-br from-violet-500/25 to-pink-500/15 text-violet-300 ring-1 ring-violet-500/30' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="panel-lumi-btn"
             title="LUMI Messenger"
           >
             <MessageCircle className="w-[18px] h-[18px]" />
+            {lumiUnreadCount > 0 && (
+              <span className="absolute -top-1 -right-1 min-w-[16px] h-4 bg-violet-500 rounded-full text-[9px] text-white flex items-center justify-center font-medium px-1">
+                {lumiUnreadCount > 9 ? '9+' : lumiUnreadCount}
+              </span>
+            )}
           </button>
 
           {/* More Menu */}
@@ -2050,6 +2075,11 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                 </button>
                 <button onClick={() => { setActivePanel(activePanel === 'lumi' ? null : 'lumi'); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-testid="lumi-panel-more-btn">
                   <MessageCircle className="w-4 h-4 flex-shrink-0" />LUMI Messenger
+                  {lumiUnreadCount > 0 && (
+                    <span className="ml-auto min-w-[18px] h-[18px] bg-violet-500 rounded-full text-[9px] text-white flex items-center justify-center font-medium px-1">
+                      {lumiUnreadCount > 9 ? '9+' : lumiUnreadCount}
+                    </span>
+                  )}
                 </button>
                 {isHost && (
                   <button onClick={() => { setShowBreakoutManager(true); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors">
