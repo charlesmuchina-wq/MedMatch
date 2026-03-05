@@ -14,10 +14,27 @@
 
 const GRADIENT = 'linear-gradient(135deg, #00CEC9, #6C5CE7, #E84393)';
 
+const BubbleIcon = ({ className }) => (
+  <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <defs>
+      <linearGradient id="bubble-grad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stopColor="#00CEC9" />
+        <stop offset="50%" stopColor="#6C5CE7" />
+        <stop offset="100%" stopColor="#E84393" />
+      </linearGradient>
+    </defs>
+    <rect x="6" y="10" width="52" height="34" rx="10" stroke="url(#bubble-grad)" strokeWidth="4" fill="none" />
+    <polygon points="16,44 24,44 18,54" fill="url(#bubble-grad)" />
+    <circle cx="24" cy="27" r="3" fill="#00CEC9" />
+    <circle cx="32" cy="27" r="3" fill="#6C5CE7" />
+    <circle cx="40" cy="27" r="3" fill="#E84393" />
+  </svg>
+);
+
 export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', showTagline = false }) => {
   const sizes = {
-    xs: { icon: 'w-6 h-6', text: 'text-sm', tagline: 'text-[8px]', logo: 'h-10' },
-    sm: { icon: 'w-8 h-8', text: 'text-base', tagline: 'text-[9px]', logo: 'h-16' },
+    xs: { icon: 'w-7 h-7', text: 'text-sm', tagline: 'text-[8px]', logo: 'h-10' },
+    sm: { icon: 'w-9 h-9', text: 'text-base', tagline: 'text-[9px]', logo: 'h-16' },
     md: { icon: 'w-12 h-12', text: 'text-xl', tagline: 'text-[10px]', logo: 'h-24' },
     lg: { icon: 'w-16 h-16', text: 'text-3xl', tagline: 'text-xs', logo: 'h-32' },
     xl: { icon: 'w-24 h-24', text: 'text-4xl', tagline: 'text-sm', logo: 'h-48' },
@@ -36,8 +53,8 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
   // Just the bubble icon
   if (variant === 'icon-dark' || variant === 'icon-light') {
     return (
-      <div className={`${s.icon} rounded-xl overflow-hidden flex-shrink-0 ${variant === 'icon-light' ? 'bg-slate-800 p-1.5' : 'bg-white/20 p-1 ring-1 ring-white/10'} ${className}`} data-testid="lumi-brand-icon">
-        <img src="/lumi-bubble.png" alt="LUMI" className="w-full h-full object-contain" />
+      <div className={`${s.icon} flex-shrink-0 flex items-center justify-center ${className}`} data-testid="lumi-brand-icon">
+        <BubbleIcon className="w-full h-full" />
       </div>
     );
   }
@@ -64,9 +81,9 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
   if (variant === 'inline-dark' || variant === 'inline-light') {
     const isDark = variant === 'inline-dark';
     return (
-      <div className={`flex items-center gap-3 ${className}`} data-testid="lumi-brand">
-        <div className={`${s.icon} rounded-xl overflow-hidden flex-shrink-0 ${isDark ? 'bg-white/20 p-0.5 ring-1 ring-white/10' : 'bg-slate-800 p-1'}`}>
-          <img src="/lumi-bubble.png" alt="LUMI" className="w-full h-full object-contain" />
+      <div className={`flex items-center gap-2 ${className}`} data-testid="lumi-brand">
+        <div className={`${s.icon} flex-shrink-0 flex items-center justify-center`}>
+          <BubbleIcon className="w-full h-full" />
         </div>
         <div className="flex flex-col">
           <span className={`${s.text} font-black tracking-[0.12em] uppercase leading-tight`}

@@ -65,8 +65,7 @@ const PortalSelector = () => {
         { icon: Megaphone, text: t('pages.portalSelector.projectSpaces') || 'Project Spaces' },
       ],
       route: '/lumi',
-      buttonText: t('pages.portalSelector.enterLumi') || 'Open LUMI Messenger',
-      logo: '/lumi-logo-clean.png'
+      buttonText: t('pages.portalSelector.enterLumi') || 'Open LUMI Messenger'
     }
   ];
 

@@ -23,9 +23,10 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "LUMI" 
 - Compliance framework panel with HIPAA/GDPR/PIPL/APPI/UK DPA coverage
 - Message retention & holds system (legal, contractual holds with approval workflow)
 - Data visualizations panel (KPI charts, project timeline, knowledge graph)
-- Reusable LumiBrand component, shared footer
-- **P0 Accessibility Fix (March 5, 2026):** Fixed critical dark mode CSS specificity bug — global `.dark` CSS rules overriding Tailwind utility classes
-- **Dark/Light Mode Toggle (March 5, 2026):** Added sidebar toggle button for manual theme switching with sun/moon icons, persisted via localStorage
+- Reusable LumiBrand component with inline SVG icon, shared footer
+- Dark/Light mode toggle in LUMI sidebar
+- **P0 Accessibility Fix (March 5, 2026):** Fixed critical dark mode CSS specificity bug — removed global `.dark h1-h6, .dark p/span/label` color overrides from index.css that were overriding Tailwind utility classes
+- **Icon Visibility Fix (March 5, 2026):** Replaced invisible dark PNG bubble icon with bright inline SVG chat bubble using turquoise→purple→pink gradient. Removed dark PNG logo from Portal Selector LUMI card.
 
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI
