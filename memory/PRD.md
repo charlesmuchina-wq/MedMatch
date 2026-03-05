@@ -14,6 +14,7 @@ Build a dual-platform communication suite:
 6. Core app features (threading, voice/video calls, message edit/delete, retention)
 7. User Profile Dashboard (capabilities, channel subscriptions, notification preferences, status)
 8. Centralized Notification Center (aggregated from all sources)
+9. **Message Retention Policy**: 90-day auto-delete with privileged hold management (approval workflow)
 
 ## Architecture
 ```
@@ -21,7 +22,7 @@ Build a dual-platform communication suite:
 ├── backend/
 │   ├── routes/
 │   │   ├── auth.py                       # Auth + Google SSO + Microsoft placeholder
-│   │   ├── lumi_messenger.py             # Core: channels, DMs, presence, profile, edit/delete, calls, notif hub
+│   │   ├── lumi_messenger.py             # Core: channels, DMs, presence, profile, edit/delete, calls, notif hub, retention, org-settings
 │   │   ├── lumi_ai_routes.py             # AI: sentiment, tasks, reports, translation
 │   │   ├── futuristic_ai_routes.py       # AI: ask, anomalies, decision cards
 │   │   ├── knowledge_graph_routes.py     # Knowledge graph, impact analysis
@@ -29,13 +30,14 @@ Build a dual-platform communication suite:
 │   └── server.py
 └── frontend/
     └── src/
-        ├── components/Lumi/              # 17 extracted components
+        ├── components/Lumi/              # 20 extracted components
+        │   ├── RetentionPanel.jsx        # Retention with approval workflow, org settings, tabs
+        │   ├── UserProfileModal.jsx      # Profile with theme picker, capabilities, subscriptions
         │   ├── MessageBubble.jsx         # + edit/delete, profile pics, (edited) label
         │   ├── NotificationsPanel.jsx    # Centralized hub with source tabs
-        │   ├── UserProfileModal.jsx      # + profile pic, auth method badge
-        │   └── ... (14 more components)
+        │   └── ... (16 more components)
         └── pages/
-            ├── LumiMessenger.jsx         # + edit/delete/call handlers, ws events
+            ├── LumiMessenger.jsx         # Main orchestrator
             ├── LoginPage.jsx             # Google + Microsoft SSO
             └── KarauMeet/KarauMeetLogin.jsx
 ```
@@ -58,24 +60,52 @@ Build a dual-platform communication suite:
 - Knowledge Graph, Bottleneck Detection, What-If Simulations
 - Command Bar (Ctrl+K), Smart Notifications
 
-### P1 Features (Current Session)
+### P1 Features
 - **User Profile Modal**: Capabilities, channel subscriptions, notification prefs, status picker
+- **Profile Theme Picker**: 10 accent colors, persists to DB, preview
 - **Profile Picture Sync**: Stored from Google SSO, displayed in chat & profile
 - **Centralized Notification Hub**: Aggregates mentions, anomalies, tasks, DMs with source tabs
-- **Voice & Video Calls**: Phone + Camera buttons in DM headers, creates call records, opens AI KARAU
-- **Message Edit/Delete**: Pencil/trash on hover (own messages), 15-min window, inline edit, (edited) label
+- **Voice & Video Calls**: Phone + Camera buttons in DM headers, creates call records
+- **Message Edit/Delete**: Pencil/trash on hover, 15-min window, inline edit, (edited) label
 - **Contrast/Accessibility Fix**: All text darkened for readability
+
+### Message Retention & Privacy (Updated)
+- **Global 90-day auto-delete**: Automatic for all channels (not per-channel)
+- **Hold Approval Workflow**: Holds require IT admin + manager approval
+- **Organization Admin Settings**: IT admin, manager contacts, department, compliance officer
+- **Hold Request System**: Submit → Pending → Approve/Reject → Active hold
+- **Legal Hold**: Indefinite preservation until released
+- **Contractual Hold**: Custom duration with expiration date
+- **Hold Release**: Admins can release active holds
 
 ## Prioritized Backlog
 
+### P0 - Next
+- Finalize Microsoft SSO Integration (user has no Azure credentials yet)
+
+### P1
+- User Status Sync from Google/Microsoft calendars
+
 ### P2 - Future
-- Message Retention Policy (admin UI for auto-delete rules)
 - Full Knowledge Graph Integration (MS Project/SharePoint via Graph API)
 - End-to-End Encryption (E2EE) for messages and files
 - Admin Audit Logs (secure, searchable admin action log)
 
 ### P3 - Backlog
 - Live Payment Gateway (Stripe test → production keys)
+
+## Key API Endpoints (Retention)
+- `GET /api/lumi/admin/retention` - Overview with channels, holds, requests, global_retention_days
+- `GET/PUT /api/lumi/admin/org-settings` - IT admin and manager contacts
+- `POST /api/lumi/admin/hold` - Submit hold request (creates pending)
+- `PUT /api/lumi/admin/hold-requests/{id}` - Approve/reject hold request
+- `DELETE /api/lumi/admin/hold/{id}` - Release active hold
+- `GET/PUT /api/lumi/profile/theme` - User accent color
+
+## DB Collections (Retention)
+- `lumi_org_settings`: key="admin_config", it_admin_name/email, manager_name/email, department, compliance_officer
+- `lumi_hold_requests`: id, channel_id, hold_type, reason, status (pending/approved/rejected), it_admin_email, manager_email
+- `lumi_holds`: id, channel_id, hold_type, reason, duration_days, active, approved_by, expires_at
 
 ## 3rd Party Integrations
 - Emergent LLM Key (Gemini + GPT-5.2), Emergent Object Storage, Emergent Google Auth
