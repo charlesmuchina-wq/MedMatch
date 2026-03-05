@@ -3,37 +3,48 @@ import { toast } from 'sonner';
 import {
   X, User, Loader2, ChevronDown, ChevronRight,
   Brain, Sparkles, Network, Zap, MessageSquare,
-  Globe, Hash, Search, Bell, BellOff, Volume2
+  Globe, Hash, Search, Bell, BellOff, Volume2,
+  Activity, ListTodo, FileBarChart, AlertTriangle,
+  TrendingDown, MessageCircle, Paperclip, Heart,
+  Command, Languages
 } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { API, ESY, STATUS_LABELS } from './constants';
 
 const STATUS_OPTIONS = [
-  { value: 'available', label: 'Available', color: 'bg-emerald-500' },
-  { value: 'busy', label: 'Busy', color: 'bg-amber-500' },
-  { value: 'in_meeting', label: 'In a meeting', color: 'bg-red-500' },
-  { value: 'ooo', label: 'Out of office', color: 'bg-red-500' },
-  { value: 'vacation', label: 'On vacation', color: 'bg-red-500' },
+  { value: 'available', label: 'Available', color: 'bg-emerald-500', emoji: '🟢' },
+  { value: 'busy', label: 'Busy', color: 'bg-amber-500', emoji: '🟡' },
+  { value: 'in_meeting', label: 'In a meeting', color: 'bg-red-500', emoji: '🔴' },
+  { value: 'ooo', label: 'Out of office', color: 'bg-red-500', emoji: '🚫' },
+  { value: 'vacation', label: 'On vacation', color: 'bg-red-500', emoji: '🏖️' },
 ];
 
-const CATEGORY_ICONS = {
-  'Productivity AI': Brain,
-  'Actionable Intelligence': Sparkles,
-  'Graph Intelligence': Network,
-  'Advanced Collaboration': Zap,
-  'Communication': Globe,
-  'Navigation': Search,
-  'Core': MessageSquare,
+const FEATURE_ICONS = {
+  sentiment: Activity,
+  tasks: ListTodo,
+  reports: FileBarChart,
+  ask_ai: Sparkles,
+  decision_cards: Zap,
+  anomaly_alerts: AlertTriangle,
+  knowledge_graph: Network,
+  bottleneck_detection: TrendingDown,
+  what_if: Zap,
+  smart_notifications: Bell,
+  translation: Languages,
+  command_bar: Command,
+  threading: MessageCircle,
+  file_sharing: Paperclip,
+  reactions: Heart,
 };
 
-const CATEGORY_COLORS = {
-  'Productivity AI': ESY.turquoise,
-  'Actionable Intelligence': ESY.pink,
-  'Graph Intelligence': '#6C5CE7',
-  'Advanced Collaboration': ESY.deepRed,
-  'Communication': '#0984E3',
-  'Navigation': '#636E72',
-  'Core': '#2D3436',
+const CATEGORY_META = {
+  'Productivity AI': { icon: Brain, color: ESY.turquoise, bg: '#00CEC915', border: '#00CEC930' },
+  'Actionable Intelligence': { icon: Sparkles, color: ESY.pink, bg: '#E8439315', border: '#E8439330' },
+  'Graph Intelligence': { icon: Network, color: '#6C5CE7', bg: '#6C5CE715', border: '#6C5CE730' },
+  'Advanced Collaboration': { icon: Zap, color: ESY.deepRed, bg: '#D6303115', border: '#D6303130' },
+  'Communication': { icon: Globe, color: '#0984E3', bg: '#0984E315', border: '#0984E330' },
+  'Navigation': { icon: Search, color: '#2D3436', bg: '#2D343612', border: '#2D343625' },
+  'Core': { icon: MessageSquare, color: '#00B894', bg: '#00B89415', border: '#00B89430' },
 };
 
 const NOTIF_LEVELS = [
@@ -50,65 +61,35 @@ export const UserProfileModal = ({ onClose, token, onStatusChange }) => {
   const [expandedCategories, setExpandedCategories] = useState({});
   const [notifPrefs, setNotifPrefs] = useState({});
 
-  useEffect(() => {
-    loadProfile();
-  }, []);
+  useEffect(() => { loadProfile(); }, []);
 
   const loadProfile = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${API}/api/lumi/profile/capabilities`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setProfile(data);
-        setNotifPrefs(data.notification_preferences || {});
-      }
-    } catch (e) {
-      toast.error('Failed to load profile');
-    }
+      const res = await fetch(`${API}/api/lumi/profile/capabilities`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) { const data = await res.json(); setProfile(data); setNotifPrefs(data.notification_preferences || {}); }
+    } catch (e) { toast.error('Failed to load profile'); }
     setLoading(false);
   };
 
   const updateStatus = async (newStatus) => {
     setUpdatingStatus(true);
     try {
-      const res = await fetch(`${API}/api/lumi/presence`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ status: newStatus })
-      });
-      if (res.ok) {
-        setProfile(prev => ({ ...prev, user: { ...prev.user, status: newStatus } }));
-        onStatusChange?.(newStatus);
-        toast.success(`Status: ${STATUS_LABELS[newStatus]}`);
-      }
-    } catch (e) {
-      toast.error('Failed to update status');
-    }
-    setUpdatingStatus(false);
-    setShowStatusPicker(false);
+      const res = await fetch(`${API}/api/lumi/presence`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ status: newStatus }) });
+      if (res.ok) { setProfile(prev => ({ ...prev, user: { ...prev.user, status: newStatus } })); onStatusChange?.(newStatus); toast.success(`Status: ${STATUS_LABELS[newStatus]}`); }
+    } catch (e) { toast.error('Failed to update status'); }
+    setUpdatingStatus(false); setShowStatusPicker(false);
   };
 
   const updateNotifPref = async (channelId, mute, level) => {
     try {
-      await fetch(`${API}/api/lumi/profile/notification-prefs`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify({ channel_id: channelId, mute, level })
-      });
+      await fetch(`${API}/api/lumi/profile/notification-prefs`, { method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ channel_id: channelId, mute, level }) });
       setNotifPrefs(prev => ({ ...prev, [channelId]: { mute, level } }));
-    } catch (e) {
-      toast.error('Failed to update');
-    }
+    } catch (e) { toast.error('Failed to update'); }
   };
 
-  const toggleCategory = (cat) => {
-    setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
-  };
+  const toggleCategory = (cat) => setExpandedCategories(prev => ({ ...prev, [cat]: !prev[cat] }));
 
-  // Group capabilities by category
   const grouped = {};
   if (profile?.capabilities) {
     for (const cap of profile.capabilities) {
@@ -121,74 +102,88 @@ export const UserProfileModal = ({ onClose, token, onStatusChange }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" onClick={onClose}>
-      <div className="bg-white rounded-xl w-full max-w-lg max-h-[85vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden" onClick={e => e.stopPropagation()} data-testid="user-profile-modal">
+      <div className="bg-white rounded-2xl w-full max-w-lg max-h-[85vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden" onClick={e => e.stopPropagation()} data-testid="user-profile-modal">
 
-        {/* Header */}
-        <div className="px-6 py-5 border-b border-slate-100 flex-shrink-0" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}08, ${ESY.pink}08)` }}>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-bold text-slate-900">My Profile</h2>
-            <button onClick={onClose} className="p-1.5 hover:bg-slate-100 rounded-lg transition-colors" data-testid="close-profile-modal">
-              <X className="w-5 h-5 text-slate-500" />
-            </button>
-          </div>
+        {/* Header with Avatar */}
+        <div className="px-6 pt-6 pb-5 border-b border-slate-100 flex-shrink-0 relative overflow-hidden">
+          {/* Gradient bg */}
+          <div className="absolute inset-0 opacity-[0.07]" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink}, ${ESY.deepRed})` }} />
 
-          {loading ? (
-            <div className="flex items-center justify-center py-4">
-              <Loader2 className="w-6 h-6 animate-spin" style={{ color: ESY.turquoise }} />
+          <div className="relative">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-lg font-black text-gray-900 tracking-tight">My Profile</h2>
+              <button onClick={onClose} className="p-1.5 hover:bg-black/5 rounded-lg transition-colors" data-testid="close-profile-modal">
+                <X className="w-5 h-5 text-gray-600" />
+              </button>
             </div>
-          ) : profile && (
-            <div className="flex items-center gap-4">
-              {profile.user.profile_picture ? (
-                <img src={profile.user.profile_picture} alt="" className="w-14 h-14 rounded-xl object-cover shadow-md" />
-              ) : (
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-md"
-                  style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}>
-                  {(profile.user.name || profile.user.email || '?')[0].toUpperCase()}
+
+            {loading ? (
+              <div className="flex items-center justify-center py-6"><Loader2 className="w-6 h-6 animate-spin" style={{ color: ESY.turquoise }} /></div>
+            ) : profile && (
+              <div className="flex items-center gap-4">
+                {/* Highlighted Avatar with gradient ring */}
+                <div className="relative">
+                  <div className="w-16 h-16 rounded-2xl p-[2px] shadow-lg" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink}, ${ESY.deepRed})` }}>
+                    {profile.user.profile_picture ? (
+                      <img src={profile.user.profile_picture} alt="" className="w-full h-full rounded-[14px] object-cover" />
+                    ) : (
+                      <div className="w-full h-full rounded-[14px] bg-white flex items-center justify-center">
+                        <span className="text-xl font-black text-gray-800">{(profile.user.name || profile.user.email || '?')[0].toUpperCase()}</span>
+                      </div>
+                    )}
+                  </div>
+                  <span className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full ring-[3px] ring-white ${currentStatusOption.color}`} />
                 </div>
-              )}
-              <div className="flex-1 min-w-0">
-                <h3 className="text-base font-bold text-slate-900 truncate">{profile.user.name || 'User'}</h3>
-                <p className="text-sm text-slate-600 truncate">{profile.user.email}</p>
-                <div className="flex items-center gap-3 mt-1">
-                  <span className="text-[11px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 font-medium capitalize">{profile.user.role}</span>
-                  {profile.user.auth_method === 'google' && <span className="text-[11px] px-2 py-0.5 rounded-full bg-blue-50 text-blue-600 font-medium">Google SSO</span>}
-                  <span className="text-[11px] text-slate-500">{profile.user.messages_sent} messages sent</span>
+
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-lg font-black text-gray-900 truncate">{profile.user.name || 'User'}</h3>
+                  <p className="text-sm font-medium text-gray-700 truncate">{profile.user.email}</p>
+                  <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                    <span className="text-[11px] px-2.5 py-1 rounded-full bg-gray-900 text-white font-bold uppercase tracking-wide">{profile.user.role}</span>
+                    {profile.user.auth_method === 'google' && (
+                      <span className="text-[11px] px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 font-bold flex items-center gap-1">
+                        <svg className="w-3 h-3" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                        Google SSO
+                      </span>
+                    )}
+                    <span className="text-[11px] px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 font-bold">{profile.user.messages_sent} msgs</span>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Status Picker */}
-          {profile && (
-            <div className="mt-4 relative">
-              <button onClick={() => setShowStatusPicker(!showStatusPicker)}
-                className="w-full flex items-center justify-between px-3 py-2.5 bg-white border border-slate-200 rounded-lg hover:border-slate-300 transition-colors"
-                data-testid="status-picker-trigger">
-                <div className="flex items-center gap-2.5">
-                  <span className={`w-3 h-3 rounded-full ${currentStatusOption.color}`} />
-                  <span className="text-sm font-medium text-slate-800">{currentStatusOption.label}</span>
-                </div>
-                <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showStatusPicker ? 'rotate-180' : ''}`} />
-              </button>
+            {/* Status Picker */}
+            {profile && (
+              <div className="mt-4 relative">
+                <button onClick={() => setShowStatusPicker(!showStatusPicker)}
+                  className="w-full flex items-center justify-between px-4 py-3 bg-white border-2 border-slate-200 rounded-xl hover:border-slate-300 transition-colors shadow-sm"
+                  data-testid="status-picker-trigger">
+                  <div className="flex items-center gap-3">
+                    <span className="text-base">{currentStatusOption.emoji}</span>
+                    <span className="text-sm font-bold text-gray-900">{currentStatusOption.label}</span>
+                  </div>
+                  <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform ${showStatusPicker ? 'rotate-180' : ''}`} />
+                </button>
 
-              {showStatusPicker && (
-                <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-slate-200 rounded-lg shadow-xl z-10 py-1" data-testid="status-dropdown">
-                  {STATUS_OPTIONS.map(opt => (
-                    <button key={opt.value} onClick={() => updateStatus(opt.value)} disabled={updatingStatus}
-                      className={`w-full flex items-center gap-2.5 px-3 py-2 text-left hover:bg-slate-50 transition-colors ${
-                        profile.user.status === opt.value ? 'bg-slate-50' : ''
-                      }`} data-testid={`status-${opt.value}`}>
-                      <span className={`w-2.5 h-2.5 rounded-full ${opt.color}`} />
-                      <span className="text-sm text-slate-700">{opt.label}</span>
-                      {profile.user.status === opt.value && (
-                        <span className="ml-auto text-[10px] font-semibold" style={{ color: ESY.turquoise }}>Current</span>
-                      )}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
+                {showStatusPicker && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white border-2 border-slate-200 rounded-xl shadow-xl z-10 py-1 overflow-hidden" data-testid="status-dropdown">
+                    {STATUS_OPTIONS.map(opt => (
+                      <button key={opt.value} onClick={() => updateStatus(opt.value)} disabled={updatingStatus}
+                        className={`w-full flex items-center gap-3 px-4 py-2.5 text-left hover:bg-slate-50 transition-colors ${
+                          profile.user.status === opt.value ? 'bg-slate-50' : ''
+                        }`} data-testid={`status-${opt.value}`}>
+                        <span className="text-base">{opt.emoji}</span>
+                        <span className="text-sm font-semibold text-gray-800">{opt.label}</span>
+                        {profile.user.status === opt.value && (
+                          <span className="ml-auto text-[10px] font-black uppercase tracking-wider" style={{ color: ESY.turquoise }}>Current</span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Content */}
@@ -198,42 +193,52 @@ export const UserProfileModal = ({ onClose, token, onStatusChange }) => {
 
               {/* AI Capabilities */}
               <div>
-                <h3 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
-                  <Brain className="w-4 h-4" style={{ color: ESY.turquoise }} />
+                <h3 className="text-sm font-black text-gray-900 mb-3 flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}>
+                    <Brain className="w-3.5 h-3.5 text-white" />
+                  </div>
                   LUMI Capabilities
-                  <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold text-white" style={{ backgroundColor: ESY.turquoise }}>
+                  <span className="text-[10px] px-2.5 py-0.5 rounded-full font-black text-white shadow-sm" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}>
                     {profile.capabilities.length} features
                   </span>
                 </h3>
                 <div className="space-y-2">
                   {Object.entries(grouped).map(([category, caps]) => {
-                    const CatIcon = CATEGORY_ICONS[category] || Brain;
-                    const catColor = CATEGORY_COLORS[category] || '#64748b';
+                    const meta = CATEGORY_META[category] || { icon: Brain, color: '#64748b', bg: '#64748b15', border: '#64748b30' };
+                    const CatIcon = meta.icon;
                     const isExpanded = expandedCategories[category] !== false;
                     return (
-                      <div key={category} className="border border-slate-100 rounded-lg overflow-hidden" data-testid={`cap-category-${category.replace(/\s+/g, '-').toLowerCase()}`}>
+                      <div key={category} className="rounded-xl overflow-hidden border-2 transition-colors" style={{ borderColor: isExpanded ? meta.border : '#e2e8f0' }} data-testid={`cap-category-${category.replace(/\s+/g, '-').toLowerCase()}`}>
                         <button onClick={() => toggleCategory(category)}
-                          className="w-full flex items-center gap-2.5 px-3 py-2.5 hover:bg-slate-50 transition-colors text-left">
-                          <div className="w-7 h-7 rounded-md flex items-center justify-center" style={{ backgroundColor: `${catColor}12` }}>
-                            <CatIcon className="w-3.5 h-3.5" style={{ color: catColor }} />
+                          className="w-full flex items-center gap-3 px-3 py-3 hover:bg-slate-50 transition-colors text-left"
+                          style={isExpanded ? { backgroundColor: meta.bg } : {}}>
+                          <div className="w-8 h-8 rounded-lg flex items-center justify-center shadow-sm" style={{ backgroundColor: meta.color }}>
+                            <CatIcon className="w-4 h-4 text-white" />
                           </div>
                           <div className="flex-1">
-                            <span className="text-xs font-semibold text-slate-800">{category}</span>
-                            <span className="text-[10px] text-slate-400 ml-2">{caps.length} features</span>
+                            <span className="text-sm font-bold text-gray-900">{category}</span>
+                            <span className="text-[10px] font-bold ml-2 px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: meta.color }}>
+                              {caps.length}
+                            </span>
                           </div>
-                          {isExpanded ? <ChevronDown className="w-3.5 h-3.5 text-slate-400" /> : <ChevronRight className="w-3.5 h-3.5 text-slate-400" />}
+                          {isExpanded ? <ChevronDown className="w-4 h-4 text-gray-600" /> : <ChevronRight className="w-4 h-4 text-gray-600" />}
                         </button>
                         {isExpanded && (
-                          <div className="px-3 pb-2 space-y-1.5">
-                            {caps.map(cap => (
-                              <div key={cap.id} className="flex items-start gap-2 pl-9" data-testid={`cap-${cap.id}`}>
-                                <div className="w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: catColor }} />
-                                <div>
-                                  <p className="text-xs font-medium text-slate-700">{cap.name}</p>
-                                  <p className="text-[10px] text-slate-500 leading-relaxed">{cap.description}</p>
+                          <div className="px-3 pb-3 space-y-2 bg-white">
+                            {caps.map(cap => {
+                              const FeatureIcon = FEATURE_ICONS[cap.id] || Sparkles;
+                              return (
+                                <div key={cap.id} className="flex items-start gap-3 ml-2 p-2 rounded-lg hover:bg-slate-50 transition-colors" data-testid={`cap-${cap.id}`}>
+                                  <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5" style={{ backgroundColor: `${meta.color}15`, border: `1px solid ${meta.color}30` }}>
+                                    <FeatureIcon className="w-3.5 h-3.5" style={{ color: meta.color }} />
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <p className="text-xs font-bold text-gray-900">{cap.name}</p>
+                                    <p className="text-[11px] text-gray-600 leading-relaxed mt-0.5">{cap.description}</p>
+                                  </div>
                                 </div>
-                              </div>
-                            ))}
+                              );
+                            })}
                           </div>
                         )}
                       </div>
@@ -244,29 +249,27 @@ export const UserProfileModal = ({ onClose, token, onStatusChange }) => {
 
               {/* Channel Subscriptions */}
               <div>
-                <h3 className="text-sm font-bold text-slate-900 mb-3 flex items-center gap-2">
-                  <Hash className="w-4 h-4" style={{ color: ESY.pink }} />
+                <h3 className="text-sm font-black text-gray-900 mb-3 flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ backgroundColor: ESY.pink }}>
+                    <Hash className="w-3.5 h-3.5 text-white" />
+                  </div>
                   Channel Subscriptions
-                  <span className="text-[10px] px-2 py-0.5 rounded-full font-semibold text-white" style={{ backgroundColor: ESY.pink }}>
+                  <span className="text-[10px] px-2.5 py-0.5 rounded-full font-black text-white shadow-sm" style={{ backgroundColor: ESY.pink }}>
                     {profile.channels.length} channels
                   </span>
                 </h3>
                 <div className="space-y-1.5">
                   {profile.channels.map(ch => {
                     const pref = notifPrefs[ch.id] || { mute: false, level: 'all' };
-                    const currentLevel = NOTIF_LEVELS.find(l => l.value === pref.level) || NOTIF_LEVELS[0];
-                    const LevelIcon = currentLevel.icon;
                     return (
-                      <div key={ch.id} className="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-slate-100 hover:border-slate-200 transition-colors" data-testid={`ch-sub-${ch.id}`}>
-                        <div className="w-8 h-8 rounded-md bg-slate-100 flex items-center justify-center flex-shrink-0">
-                          <Hash className="w-3.5 h-3.5 text-slate-500" />
+                      <div key={ch.id} className="flex items-center gap-3 px-3 py-2.5 rounded-xl border-2 border-slate-100 hover:border-slate-200 transition-colors" data-testid={`ch-sub-${ch.id}`}>
+                        <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0">
+                          <Hash className="w-3.5 h-3.5 text-white" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-slate-800 truncate">{ch.name}</p>
-                          <p className="text-[10px] text-slate-500 capitalize">{ch.channel_type}{ch.is_private ? ' (Private)' : ''}</p>
+                          <p className="text-sm font-bold text-gray-900 truncate">{ch.name}</p>
+                          <p className="text-[10px] text-gray-600 font-medium capitalize">{ch.channel_type}{ch.is_private ? ' · Private' : ''}</p>
                         </div>
-
-                        {/* Notification Level Selector */}
                         <div className="flex items-center gap-1">
                           {NOTIF_LEVELS.map(level => {
                             const Icon = level.icon;
@@ -275,11 +278,12 @@ export const UserProfileModal = ({ onClose, token, onStatusChange }) => {
                               <button key={level.value}
                                 onClick={() => updateNotifPref(ch.id, level.value === 'none', level.value)}
                                 title={level.label}
-                                className={`p-1.5 rounded-md transition-all ${
+                                className={`p-1.5 rounded-lg transition-all ${
                                   isActive
-                                    ? 'bg-slate-800 text-white shadow-sm'
-                                    : 'text-slate-400 hover:bg-slate-100 hover:text-slate-600'
+                                    ? 'text-white shadow-sm'
+                                    : 'text-gray-400 hover:bg-slate-100 hover:text-gray-700'
                                 }`}
+                                style={isActive ? { backgroundColor: '#1e293b' } : {}}
                                 data-testid={`notif-${ch.id}-${level.value}`}>
                                 <Icon className="w-3.5 h-3.5" />
                               </button>
@@ -290,14 +294,16 @@ export const UserProfileModal = ({ onClose, token, onStatusChange }) => {
                     );
                   })}
                   {profile.channels.length === 0 && (
-                    <p className="text-sm text-slate-500 text-center py-4">No channel subscriptions yet</p>
+                    <p className="text-sm text-gray-600 text-center py-4 font-medium">No channel subscriptions yet</p>
                   )}
                 </div>
 
                 {profile.dm_count > 0 && (
-                  <div className="mt-3 flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-50 border border-slate-100">
-                    <User className="w-3.5 h-3.5 text-slate-500" />
-                    <span className="text-xs text-slate-600">{profile.dm_count} direct message conversation{profile.dm_count !== 1 ? 's' : ''}</span>
+                  <div className="mt-3 flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-slate-50 border-2 border-slate-100">
+                    <div className="w-7 h-7 rounded-lg bg-slate-700 flex items-center justify-center">
+                      <User className="w-3.5 h-3.5 text-white" />
+                    </div>
+                    <span className="text-xs text-gray-800 font-bold">{profile.dm_count} direct message conversation{profile.dm_count !== 1 ? 's' : ''}</span>
                   </div>
                 )}
               </div>
