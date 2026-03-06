@@ -16,7 +16,7 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "LUMI" 
 - **Bento Grid Command Center**: Modular dashboard with glass-morphism tiles for Quick Actions, Recent Conversations, AI Intelligence stats, Smart Buckets preview
 - **Liquid Glass CSS System**: glass-surface, glass-card, bento-tile utility classes
 - **Outfit Font**: Imported for futuristic heading typography
-- **Official LUMI Logo**: Integrated with transparent versions for light backgrounds, dark versions for dark backgrounds
+- **Official LUMI Logo**: Icon-only crops for scalable rendering; transparent versions for light backgrounds
 - **Portal Title**: Vibrant cyan-purple-pink gradient for "MedMatch-AI KARAU"
 
 ### AI Writing Assistant (Completed - March 6, 2026)
@@ -32,25 +32,25 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "LUMI" 
 - **Pending Invites Panel**: Shows channel invites with Accept/Decline buttons on dashboard
 - **Channel Creation with Authorization**: 2-step flow (details → invite emails), supports private channels, requires_approval flag
 - **Channel Invite System**: Invite by email, accept/decline invites, join approval for restricted channels
-- **Logo Fix**: Created transparent versions of logos for light backgrounds, dark versions for dark backgrounds
 - Backend: `/api/lumi/channels/{id}/invite`, `/api/lumi/invites`, `/api/lumi/invites/{id}/respond`
 - **Testing**: 100% pass rate (12/12 backend tests, all frontend verified)
+
+### Logo & Dark Mode Accessibility Fix (Completed - March 6, 2026)
+- **Logo Fix**: Created icon-only PNG crops from full logo (just chat bubble, no text). Renders properly as icons at any size.
+- **Dark Mode Root Cause Fix**: CSS rules `html.dark .bg-white/bg-slate-50 { color: #111827 }` were overriding Tailwind text-white with higher specificity. Fix: restructured LumiMessenger JSX so dashboard renders in its own dark container (bg-[#0D1117]), while chat area wraps in scoped `lumi-light-panel` class.
+- **Testing**: 100% pass rate (11/11 frontend features verified)
 
 ### Navigation
 - Return to Portal link in both LUMI and AI KARAU sidebars
 - LUMI Messenger link in AI KARAU sidebar
 - LUMI Mini Messenger panel inside meeting rooms with unread badges
 
-### Accessibility Fixes
-- Fixed `e.key.toLowerCase()` crash on mobile
-- Fixed global dark mode CSS variables overriding Tailwind utilities
-- All text readable in both dark and light modes
-
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI + Outfit font
 - Backend: FastAPI + MongoDB + emergentintegrations (LLM)
 - Real-time: WebSocket at /api/lumi/ws/{user_id}
 - CSS: Liquid Glass design system (glass-surface, bento-tile)
+- Dark Mode: Scoped via `lumi-light-panel` class for white-background sections
 
 ## Pending / Backlog
 - **P1:** Save as Template - Allow saving refined AI messages as reusable templates
