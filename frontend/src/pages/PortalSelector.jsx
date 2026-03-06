@@ -240,13 +240,8 @@ const PortalSelector = () => {
                 <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                   <div className="icon-container">
                     {portal.lumiIcon ? (
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-slate-900/80 flex items-center justify-center shadow-lg ring-2 ring-violet-500/30 p-2">
-                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                          <defs><linearGradient id="pg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#00CEC9"/><stop offset="50%" stopColor="#6C5CE7"/><stop offset="100%" stopColor="#E84393"/></linearGradient></defs>
-                          <rect x="6" y="10" width="52" height="34" rx="10" stroke="url(#pg)" strokeWidth="4" fill="none"/>
-                          <polygon points="16,44 24,44 18,54" fill="url(#pg)"/>
-                          <circle cx="24" cy="27" r="3" fill="#00CEC9"/><circle cx="32" cy="27" r="3" fill="#6C5CE7"/><circle cx="40" cy="27" r="3" fill="#E84393"/>
-                        </svg>
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-[#0B0F1A] flex items-center justify-center shadow-lg ring-2 ring-violet-500/30 p-1.5">
+                        <img src="/lumi-bubble-official.png" alt="LUMI" className="w-full h-full object-contain" />
                       </div>
                     ) : portal.logo ? (
                       <img 

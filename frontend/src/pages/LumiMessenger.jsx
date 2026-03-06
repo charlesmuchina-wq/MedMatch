@@ -464,6 +464,10 @@ const LumiMessenger = () => {
             <Building2 className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.turquoise }} />
             <span className="text-xs font-semibold text-white/90 group-hover:text-white">Switch to AI KARAU</span>
           </button>
+          <button onClick={() => navigate('/')} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="return-to-portal">
+            <ArrowLeft className="w-3.5 h-3.5 text-white/70 group-hover:text-white" />
+            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Return to Portal</span>
+          </button>
         </div>
       </div>
 

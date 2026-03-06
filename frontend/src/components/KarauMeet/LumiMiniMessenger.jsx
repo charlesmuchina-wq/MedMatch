@@ -144,12 +144,7 @@ const LumiMiniMessenger = ({ onUnreadChange }) => {
         <div className="p-3 border-b border-karau-border">
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 flex-shrink-0">
-              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                <defs><linearGradient id="lm-grad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#00CEC9"/><stop offset="50%" stopColor="#6C5CE7"/><stop offset="100%" stopColor="#E84393"/></linearGradient></defs>
-                <rect x="6" y="10" width="52" height="34" rx="10" stroke="url(#lm-grad)" strokeWidth="4" fill="none"/>
-                <polygon points="16,44 24,44 18,54" fill="url(#lm-grad)"/>
-                <circle cx="24" cy="27" r="3" fill="#00CEC9"/><circle cx="32" cy="27" r="3" fill="#6C5CE7"/><circle cx="40" cy="27" r="3" fill="#E84393"/>
-              </svg>
+              <img src="/lumi-bubble-official.png" alt="LUMI" className="w-full h-full object-contain" />
             </div>
             <span className="text-sm font-bold tracking-wide"
               style={{ background: 'linear-gradient(135deg, #00CEC9, #6C5CE7, #E84393)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
