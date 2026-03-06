@@ -3,7 +3,7 @@
 ## Original Problem Statement
 Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "LUMI" (professional-grade messenger). LUMI is the primary focus — a futuristic, AI-driven "Actionable Intelligence" hub with Liquid Glass aesthetics and predictive design.
 
-## What's Been Implemented (March 2026)
+## What's Been Implemented
 
 ### Core Infrastructure
 - Full LUMI messenger with channels, DMs, WebSocket real-time messaging
@@ -13,20 +13,28 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "LUMI" 
 - Dark/Light mode toggle, keyboard shortcuts
 
 ### Futuristic UI (Liquid Glass Phase)
-- **Bento Grid Command Center**: Modular dashboard with glass-morphism tiles for Quick Actions, Recent Channels, AI Intelligence stats, Smart Buckets preview
+- **Bento Grid Command Center**: Modular dashboard with glass-morphism tiles for Quick Actions, Recent Conversations, AI Intelligence stats, Smart Buckets preview
 - **Liquid Glass CSS System**: glass-surface, glass-card, bento-tile utility classes
 - **Outfit Font**: Imported for futuristic heading typography
-- **Official LUMI Logo**: Integrated throughout (sidebar, login, portal, welcome, mini messenger)
+- **Official LUMI Logo**: Integrated with transparent versions for light backgrounds, dark versions for dark backgrounds
 - **Portal Title**: Vibrant cyan-purple-pink gradient for "MedMatch-AI KARAU"
 
 ### AI Writing Assistant (Completed - March 6, 2026)
 - **Refine**: Tone adjustment (Professional, Friendly, Assertive, Concise) via LLM
 - **Smart Reply**: Context-aware reply suggestions based on conversation history
-- **Translate**: Real-time translation to 10 languages (Spanish, French, German, Japanese, Chinese, Korean, Portuguese, Arabic, Hindi, Russian)
-- **Voice-to-Text**: Whisper transcription with LLM polishing to remove filler words
+- **Translate**: Real-time translation to 10 languages
+- **Voice-to-Text**: Whisper transcription with LLM polishing
 - Backend: `/api/lumi/ai/refine`, `/api/lumi/ai/smart-reply`, `/api/lumi/ai/translate`, `/api/lumi/ai/voice-to-text`
-- Frontend: `AIWritingToolbar.jsx` component integrated above message input
-- **Testing**: 100% pass rate (18/18 backend tests, all frontend features verified)
+- **Testing**: 100% pass rate (18/18 backend, all frontend verified)
+
+### Dashboard & Channel Invite System (Completed - March 6, 2026)
+- **Enhanced Dashboard**: Recent Conversations panel combining channels + DMs with unread counts
+- **Pending Invites Panel**: Shows channel invites with Accept/Decline buttons on dashboard
+- **Channel Creation with Authorization**: 2-step flow (details → invite emails), supports private channels, requires_approval flag
+- **Channel Invite System**: Invite by email, accept/decline invites, join approval for restricted channels
+- **Logo Fix**: Created transparent versions of logos for light backgrounds, dark versions for dark backgrounds
+- Backend: `/api/lumi/channels/{id}/invite`, `/api/lumi/invites`, `/api/lumi/invites/{id}/respond`
+- **Testing**: 100% pass rate (12/12 backend tests, all frontend verified)
 
 ### Navigation
 - Return to Portal link in both LUMI and AI KARAU sidebars
@@ -45,6 +53,7 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "LUMI" 
 - CSS: Liquid Glass design system (glass-surface, bento-tile)
 
 ## Pending / Backlog
+- **P1:** Save as Template - Allow saving refined AI messages as reusable templates
 - **P1:** Task-Driven Side Layout with Smart Buckets (Urgent, Action Required, Meeting Requests) - backend ML categorization
 - **P1:** Microsoft SSO finalization (blocked on Azure API keys)
 - **P2:** User Status Sync (Microsoft Calendar)
