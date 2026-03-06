@@ -240,8 +240,8 @@ const PortalSelector = () => {
                 <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                   <div className="icon-container">
                     {portal.lumiIcon ? (
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-[#0B0F1A] flex items-center justify-center shadow-lg ring-2 ring-violet-500/30 p-1.5">
-                        <img src="/lumi-bubble-official.png" alt="LUMI" className="w-full h-full object-contain" />
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-[#0B0F1A] flex items-center justify-center shadow-lg ring-2 ring-violet-500/30 p-2">
+                        <img src="/lumi-icon-only.png" alt="LUMI" className="w-full h-full object-contain" />
                       </div>
                     ) : portal.logo ? (
                       <img 
