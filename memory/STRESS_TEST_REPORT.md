@@ -3,7 +3,7 @@
 
 **Test Date:** January 18, 2026  
 **Environment:** Production Preview  
-**API Target:** https://lumi-intelligence.preview.emergentagent.com/api
+**API Target:** https://liquid-glass-chat-5.preview.emergentagent.com/api
 
 ---
 

@@ -30,6 +30,7 @@ import {
   VisualizationsPanel, LumiBrand,
   API, WS_URL, ESY, STATUS_COLORS, STATUS_LABELS
 } from '@/components/Lumi';
+import AIWritingToolbar from '@/components/Lumi/AIWritingToolbar';
 
 const LumiMessenger = () => {
   const navigate = useNavigate();
@@ -522,7 +523,17 @@ const LumiMessenger = () => {
 
               {activeTyping.length > 0 && <div className="px-5 py-1"><span className="text-xs text-[#006666] font-medium animate-pulse">{activeTyping.join(', ')} typing...</span></div>}
 
-              <div className="p-4 border-t border-slate-200">
+              {/* AI Writing Toolbar */}
+              <div className="px-4 py-1.5 border-t border-slate-100">
+                <AIWritingToolbar
+                  messageText={messageText}
+                  onTextChange={setMessageText}
+                  messages={messages}
+                  channelName={activeChannel?.name || ''}
+                />
+              </div>
+
+              <div className="p-4 pt-2 border-t border-slate-100">
                 <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileShare} accept="image/*,.pdf,.doc,.docx,.txt,.csv" data-testid="file-input" />
                 <div className="relative flex items-center gap-2 border border-slate-200 rounded-lg px-4 py-2.5 focus-within:ring-2 focus-within:ring-[#008080]/20 focus-within:border-[#008080] transition-all bg-white shadow-sm">
                   <button onClick={() => fileInputRef.current?.click()} disabled={uploading} className="p-1 text-slate-500 hover:text-[#008080] rounded transition-colors" data-testid="attach-file-btn">

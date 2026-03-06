@@ -320,6 +320,7 @@ from routes.karau_polls_challenges import router as karau_polls_router
 from routes.karau_biometric_verify import router as karau_biometric_router
 from routes.karau_simulation import router as karau_simulation_router
 from routes.lumi_messenger import router as lumi_messenger_router
+from routes.lumi_ai import router as lumi_ai_router
 from routes.meeting_intelligence import router as meeting_intelligence_router
 from routes.ai_productivity import router as ai_productivity_router
 from routes.lumi_files import router as lumi_files_router
@@ -432,6 +433,7 @@ app.include_router(karau_polls_router, prefix="/api")
 app.include_router(karau_biometric_router, prefix="/api")
 app.include_router(karau_simulation_router, prefix="/api")
 app.include_router(lumi_messenger_router, prefix="/api")
+app.include_router(lumi_ai_router, prefix="/api")
 
 app.include_router(meeting_intelligence_router, prefix="/api")
 app.include_router(lumi_files_router, prefix="/api")

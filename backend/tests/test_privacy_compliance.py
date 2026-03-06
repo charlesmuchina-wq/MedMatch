@@ -7,7 +7,7 @@ Tests for GDPR/CCPA compliance features.
 import pytest
 import httpx
 
-API_BASE_URL = "https://lumi-intelligence.preview.emergentagent.com/api"
+API_BASE_URL = "https://liquid-glass-chat-5.preview.emergentagent.com/api"
 TIMEOUT = 30.0
 
 TEST_ADMIN = {
