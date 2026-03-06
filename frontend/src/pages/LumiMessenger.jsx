@@ -6,7 +6,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast, Toaster } from 'sonner';
 import {
-  Plus, Send, LogOut, ArrowLeft,
+  Plus, Send, LogOut, ArrowLeft, Hash,
   Users, Search, MessageCircle,
   Loader2, X, Paperclip, UserPlus, User, Phone, Video,
   Building2, Sparkles, Brain, AlertTriangle, Shield,
@@ -340,7 +340,7 @@ const LumiMessenger = () => {
       <Toaster position="top-right" richColors />
 
       {/* Sidebar */}
-      <div className={`${mobileSidebar ? 'flex' : 'hidden'} md:flex flex-col w-full md:w-[280px] bg-[#1A2332] flex-shrink-0`}>
+      <div className={`${mobileSidebar ? 'flex' : 'hidden'} md:flex flex-col w-full md:w-[280px] bg-[#0D1117] flex-shrink-0 border-r border-white/5`}>
         <div className="h-14 flex items-center justify-between px-4 border-b border-white/10">
           <div className="flex items-center gap-2.5">
             <LumiBrand variant="inline-dark" size="xs" showTagline />
@@ -556,12 +556,129 @@ const LumiMessenger = () => {
             {showMembers && <MembersPanel channelId={activeChannel.id} onClose={() => setShowMembers(false)} token={token} />}
           </div>
         </>) : (
-          <div className="flex-1 flex flex-col items-center justify-center text-center px-6 bg-slate-50">
-            <LumiBrand variant="inline-light" size="lg" showTagline />
-            <p className="text-slate-600 text-sm max-w-xs mt-4">{t('lumi.welcomeMessage') || 'Select a channel to start chatting, or create a new one.'}</p>
-            <Button onClick={() => setShowCreateModal(true)} className="mt-4 bg-[#008080] hover:bg-[#006666] text-white rounded-md" data-testid="create-first-channel">
-              <Plus className="w-4 h-4 mr-2" />{t('lumi.createChannel') || 'Create Channel'}
-            </Button>
+          <div className="flex-1 flex flex-col bg-[#0D1117] overflow-auto">
+            {/* Bento Grid Command Center */}
+            <div className="max-w-4xl mx-auto w-full p-6 md:p-10 space-y-6">
+              {/* Hero */}
+              <div className="text-center mb-2">
+                <LumiBrand variant="inline-dark" size="md" showTagline className="justify-center" />
+                <p className="text-slate-400 text-sm mt-3 font-outfit">Your intelligent command center</p>
+              </div>
+
+              {/* Bento Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                {/* Quick Action - Create Channel */}
+                <button onClick={() => setShowCreateModal(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group" data-testid="bento-create-channel">
+                  <div className="w-10 h-10 rounded-xl lumi-gradient flex items-center justify-center shadow-lg shadow-violet-500/20">
+                    <Plus className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-semibold font-outfit">New Channel</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">Start a conversation</p>
+                  </div>
+                </button>
+
+                {/* Quick Action - New DM */}
+                <button onClick={() => setShowNewDmModal(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group" data-testid="bento-new-dm">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                    <UserPlus className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-semibold font-outfit">Direct Message</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">Reach someone directly</p>
+                  </div>
+                </button>
+
+                {/* Quick Action - Command Bar */}
+                <button onClick={() => setShowCommandBar(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group" data-testid="bento-command">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-600 to-slate-700 flex items-center justify-center shadow-lg shadow-slate-500/20">
+                    <Command className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-semibold font-outfit">Command Bar</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">Ctrl+K to search</p>
+                  </div>
+                </button>
+
+                {/* Quick Action - Visualizations */}
+                <button onClick={() => setShowVisualizations(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group" data-testid="bento-viz">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                    <BarChart3 className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-semibold font-outfit">Analytics</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">View insights & data</p>
+                  </div>
+                </button>
+
+                {/* Recent Channels - Span 2 cols */}
+                <div className="bento-tile col-span-2 row-span-2">
+                  <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mb-3 font-outfit">Recent Channels</p>
+                  <div className="space-y-1.5">
+                    {channels.slice(0, 5).map(ch => (
+                      <button key={ch.id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); }}
+                        className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl hover:bg-white/5 transition-all group text-left"
+                        data-testid={`bento-recent-${ch.id}`}>
+                        <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 group-hover:bg-white/10 transition-colors">
+                          <Hash className="w-3.5 h-3.5 text-violet-400" />
+                        </div>
+                        <span className="text-sm text-white/80 group-hover:text-white truncate font-medium">{ch.name}</span>
+                        <span className="text-[10px] text-slate-600 ml-auto">{ch.members?.length || 0}</span>
+                      </button>
+                    ))}
+                    {channels.length === 0 && <p className="text-slate-600 text-xs py-2">No channels yet</p>}
+                  </div>
+                </div>
+
+                {/* AI Status Widget */}
+                <div className="bento-tile col-span-2">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">AI Intelligence</p>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
+                    <div className="text-center p-2 rounded-xl bg-white/[0.03]">
+                      <p className="text-lg font-bold lumi-gradient-text font-outfit">92%</p>
+                      <p className="text-[9px] text-slate-500 mt-0.5">Compliance</p>
+                    </div>
+                    <div className="text-center p-2 rounded-xl bg-white/[0.03]">
+                      <p className="text-lg font-bold text-cyan-400 font-outfit">{channels.length}</p>
+                      <p className="text-[9px] text-slate-500 mt-0.5">Channels</p>
+                    </div>
+                    <div className="text-center p-2 rounded-xl bg-white/[0.03]">
+                      <p className="text-lg font-bold text-emerald-400 font-outfit">{dms.length}</p>
+                      <p className="text-[9px] text-slate-500 mt-0.5">DMs</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Smart Buckets Preview */}
+                <div className="bento-tile col-span-2">
+                  <div className="flex items-center gap-2 mb-3">
+                    <ClipboardList className="w-3.5 h-3.5 text-pink-400" />
+                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">Smart Buckets</p>
+                  </div>
+                  <div className="space-y-1.5">
+                    {[
+                      { label: 'Urgent', count: 0, color: 'bg-red-500' },
+                      { label: 'Action Required', count: 0, color: 'bg-amber-500' },
+                      { label: 'Meeting Requests', count: 0, color: 'bg-blue-500' },
+                    ].map(b => (
+                      <div key={b.label} className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors">
+                        <div className={`w-2 h-2 rounded-full ${b.color}`} />
+                        <span className="text-xs text-white/70 flex-1">{b.label}</span>
+                        <span className="text-[10px] text-slate-600 bg-white/5 px-1.5 py-0.5 rounded-full">{b.count}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Keyboard hint */}
+              <p className="text-center text-[11px] text-slate-600 font-outfit">
+                Press <kbd className="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-[10px] text-slate-400 font-mono">Ctrl+K</kbd> to search anything
+              </p>
+            </div>
           </div>
         )}
       </div>

@@ -1,53 +1,51 @@
 # AI KARAU + LUMI - Product Requirements Document
 
 ## Original Problem Statement
-Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "LUMI" (professional-grade messenger). LUMI is the primary focus — a futuristic, AI-driven "Actionable Intelligence" hub for project productivity and internal communication.
+Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "LUMI" (professional-grade messenger). LUMI is the primary focus — a futuristic, AI-driven "Actionable Intelligence" hub with Liquid Glass aesthetics and predictive design.
 
-## Core Requirements
-1. **Foundation:** Secure, compliant messenger with chat, DMs, file sharing, reactions, presence
-2. **UI/UX:** Highly accessible, readable UI with user-selectable profile themes (pink, turquoise, deep red accents)
-3. **Productivity AI:** Meeting summaries, action items, sentiment analysis, status reporting
-4. **Futuristic AI:** Conversational data querying, anomaly alerts, decision cards, knowledge graph, bottleneck detection, what-if simulations, real-time translation
-5. **Integrations:** Google SSO (done), Microsoft SSO (placeholder), MS Graph API
-6. **Core Features:** Threading, edit/delete, voice/video, retention policies, emoji reactions, keyboard shortcuts
-7. **Admin:** Audit logging for all administrative actions
-8. **Compliance:** HIPAA, GDPR, PIPL, APPI, UK data laws content filtering
+## What's Been Implemented (March 2026)
 
-## What's Been Implemented
+### Core Infrastructure
 - Full LUMI messenger with channels, DMs, WebSocket real-time messaging
-- Google SSO authentication
-- Microsoft SSO placeholder (awaiting API keys)
-- Emoji picker, keyboard shortcuts panel, admin audit logs
-- Google Calendar status sync
-- Content moderation system (profanity filter)
-- Compliance framework panel with HIPAA/GDPR/PIPL/APPI/UK DPA coverage
-- Message retention & holds system (legal, contractual holds with approval workflow)
-- Data visualizations panel (KPI charts, project timeline, knowledge graph)
-- Reusable LumiBrand component with inline SVG icon, shared footer
-- Dark/Light mode toggle in LUMI sidebar
-- P0 Accessibility Fix: Fixed dark mode CSS specificity bug
-- Icon Visibility Fix: Replaced dark PNG with bright inline SVG bubble icon
-- **LUMI Mini Messenger in AI KARAU (March 5, 2026):** Compact LUMI messenger panel inside AI KARAU meeting rooms with channel list, real-time chat, and unread count notification badges on toolbar button (polls every 30s). Accessible via toolbar button + "More" menu.
+- Google SSO authentication, Microsoft SSO placeholder
+- Content moderation, compliance framework (HIPAA/GDPR/PIPL/APPI/UK DPA)
+- Message retention & holds system, admin audit logs
+- Dark/Light mode toggle, keyboard shortcuts
+
+### Futuristic UI (Liquid Glass Phase)
+- **Bento Grid Command Center**: Modular dashboard replacing simple welcome text, with glass-morphism tiles for Quick Actions, Recent Channels, AI Intelligence stats, and Smart Buckets preview
+- **Liquid Glass CSS System**: glass-surface, glass-card, bento-tile utility classes with backdrop-blur, hover transitions, and depth layering
+- **Outfit Font**: Imported for futuristic heading typography
+- **Official LUMI Logo**: Integrated throughout (sidebar, login, portal, welcome screen, mini messenger)
+- **Portal Title**: Vibrant cyan→purple→pink gradient for "MedMatch-AI KARAU"
+
+### Navigation
+- Return to Portal link in both LUMI and AI KARAU sidebars
+- LUMI Messenger link in AI KARAU sidebar
+- LUMI Mini Messenger panel inside meeting rooms with unread badges
+
+### Accessibility Fixes
+- Fixed `e.key.toLowerCase()` crash on mobile devices (guard for touch events)
+- Fixed global dark mode CSS variables overriding Tailwind utilities on light-background panels
+- Comprehensive `html.dark .bg-white` CSS reset for modals/panels
+- All text readable in both dark and light modes across all pages
 
 ## Architecture
-- Frontend: React + Tailwind + Shadcn/UI
+- Frontend: React + Tailwind + Shadcn/UI + Outfit font
 - Backend: FastAPI + MongoDB
 - Real-time: WebSocket at /api/lumi/ws/{user_id}
-- Charts: Recharts library
-
-## Key Files
-- `components/KarauMeet/LumiMiniMessenger.jsx` - Mini LUMI messenger for meeting rooms (with unread badges)
-- `components/KarauMeet/MeetingRoom.jsx` - Meeting room with LUMI panel + unread polling
-- `components/Lumi/LumiBrand.jsx` - SVG-based brand component
-- `pages/LumiMessenger.jsx` - Full LUMI messenger
+- CSS: Liquid Glass design system (glass-surface, bento-tile)
 
 ## Pending / Backlog
+- **P1:** AI Writing Assistant (tone refinement, summarization, co-creation model)
+- **P1:** Smart Buckets engine (backend ML categorization: Urgent, Action Required, Meeting Requests)
+- **P1:** Predictive/Behavioral modeling (suggest actions based on conversation context)
+- **P1:** Real-time translation (DeepL/Google free tier)
+- **P1:** Voice-to-text with polishing (OpenAI Whisper)
 - **P0:** Microsoft SSO finalization (blocked on Azure API keys)
-- **P1:** Microsoft Calendar status sync
 - **P2:** Full Knowledge Graph + MS Project/SharePoint integration
 - **P2:** End-to-End Encryption (E2EE)
-- **P2:** Stripe live payment transition
-- **P3:** Legacy admin user display fix (role vs auth_method)
+- **P3:** Stripe live payment transition
 
 ## Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
