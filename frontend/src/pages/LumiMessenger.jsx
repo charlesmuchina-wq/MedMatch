@@ -75,6 +75,10 @@ const LumiMessenger = () => {
   const [userAccentColor, setUserAccentColor] = useState('');
   const [presenceMap, setPresenceMap] = useState({});
   const [pendingInvites, setPendingInvites] = useState([]);
+  const [bucketCounts, setBucketCounts] = useState({ urgent: 0, action_required: 0, meeting_request: 0, fyi: 0, social: 0 });
+  const [activeBucket, setActiveBucket] = useState(null);
+  const [bucketMessages, setBucketMessages] = useState([]);
+  const [bucketLoading, setBucketLoading] = useState(false);
 
   const messagesEndRef = useRef(null);
   const wsRef = useRef(null);
@@ -160,9 +164,41 @@ const LumiMessenger = () => {
     } catch (e) {}
   }, [token]);
 
+  const loadBucketCounts = useCallback(async () => {
+    if (!token) return;
+    try {
+      const res = await fetch(`${API}/api/lumi/buckets/counts`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) setBucketCounts((await res.json()).counts || {});
+    } catch (e) {}
+  }, [token]);
+
+  const scanAndLoadBuckets = useCallback(async () => {
+    if (!token) return;
+    try {
+      await fetch(`${API}/api/lumi/buckets/scan`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
+      loadBucketCounts();
+    } catch (e) {}
+  }, [token, loadBucketCounts]);
+
+  const openBucket = async (category) => {
+    setBucketLoading(true);
+    setActiveBucket(category);
+    try {
+      const res = await fetch(`${API}/api/lumi/buckets/${category}`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) setBucketMessages((await res.json()).messages || []);
+    } catch (e) {}
+    setBucketLoading(false);
+  };
+
+  const dismissBucketItem = async (category, itemId) => {
+    await fetch(`${API}/api/lumi/buckets/${category}/${itemId}/dismiss`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
+    setBucketMessages(prev => prev.filter(m => m.id !== itemId));
+    loadBucketCounts();
+  };
+
   useEffect(() => {
-    if (user) { loadChannels(); loadDms(); loadUnreadCounts(); loadPresence(); loadInvites(); }
-  }, [user, loadChannels, loadDms, loadUnreadCounts, loadPresence, loadInvites]);
+    if (user) { loadChannels(); loadDms(); loadUnreadCounts(); loadPresence(); loadInvites(); scanAndLoadBuckets(); }
+  }, [user, loadChannels, loadDms, loadUnreadCounts, loadPresence, loadInvites, scanAndLoadBuckets]);
 
   // Mark as read
   useEffect(() => {
@@ -569,6 +605,7 @@ const LumiMessenger = () => {
                   onTextChange={setMessageText}
                   messages={messages}
                   channelName={activeChannel?.name || ''}
+                  token={token}
                 />
               </div>
 
@@ -776,20 +813,66 @@ const LumiMessenger = () => {
                     </div>
                     <div className="space-y-1.5">
                       {[
-                        { label: 'Urgent', count: 0, color: 'bg-red-500' },
-                        { label: 'Action Required', count: 0, color: 'bg-amber-500' },
-                        { label: 'Meeting Requests', count: 0, color: 'bg-blue-500' },
+                        { key: 'urgent', label: 'Urgent', color: 'bg-red-500' },
+                        { key: 'action_required', label: 'Action Required', color: 'bg-amber-500' },
+                        { key: 'meeting_request', label: 'Meeting Requests', color: 'bg-blue-500' },
                       ].map(b => (
-                        <div key={b.label} className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors">
+                        <button key={b.key} onClick={() => openBucket(b.key)}
+                          className="w-full flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors text-left"
+                          data-testid={`bucket-${b.key}`}>
                           <div className={`w-2 h-2 rounded-full ${b.color}`} />
                           <span className="text-xs text-white/70 flex-1">{b.label}</span>
-                          <span className="text-[10px] text-slate-600 bg-white/5 px-1.5 py-0.5 rounded-full">{b.count}</span>
-                        </div>
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${bucketCounts[b.key] > 0 ? 'bg-white/10 text-white font-medium' : 'bg-white/5 text-slate-600'}`}>
+                            {bucketCounts[b.key] || 0}
+                          </span>
+                        </button>
                       ))}
                     </div>
                   </div>
                 </div>
               </div>
+
+              {/* Bucket Detail Panel */}
+              {activeBucket && (
+                <div className="bento-tile" data-testid="bucket-detail-panel">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2">
+                      <div className={`w-2.5 h-2.5 rounded-full ${
+                        activeBucket === 'urgent' ? 'bg-red-500' : activeBucket === 'action_required' ? 'bg-amber-500' : 'bg-blue-500'
+                      }`} />
+                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">
+                        {activeBucket.replace('_', ' ')} ({bucketMessages.length})
+                      </p>
+                    </div>
+                    <button onClick={() => { setActiveBucket(null); setBucketMessages([]); }}
+                      className="p-1 hover:bg-white/10 rounded"><X className="w-3.5 h-3.5 text-slate-500" /></button>
+                  </div>
+                  {bucketLoading ? (
+                    <div className="flex justify-center py-4"><Loader2 className="w-5 h-5 text-slate-500 animate-spin" /></div>
+                  ) : bucketMessages.length === 0 ? (
+                    <p className="text-xs text-slate-600 text-center py-4">No messages in this bucket</p>
+                  ) : (
+                    <div className="space-y-2 max-h-[200px] overflow-auto">
+                      {bucketMessages.map(msg => (
+                        <div key={msg.id} className="flex items-start gap-2.5 px-2.5 py-2 rounded-lg bg-white/[0.03] border border-white/5 group">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1.5 mb-0.5">
+                              <span className="text-[10px] font-semibold text-white/80">{msg.sender_name}</span>
+                              <span className="text-[9px] text-slate-600">#{msg.channel_name}</span>
+                            </div>
+                            <p className="text-xs text-white/60 leading-relaxed">{msg.content}</p>
+                          </div>
+                          <button onClick={() => dismissBucketItem(activeBucket, msg.id)}
+                            className="p-1 opacity-0 group-hover:opacity-100 hover:bg-white/10 rounded transition-opacity flex-shrink-0"
+                            data-testid={`dismiss-${msg.id}`}>
+                            <X className="w-3 h-3 text-slate-500" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Keyboard hint */}
               <p className="text-center text-[11px] text-slate-600 font-outfit">
