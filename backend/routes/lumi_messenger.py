@@ -23,6 +23,14 @@ class ChannelCreate(BaseModel):
     description: Optional[str] = ""
     is_private: bool = False
     channel_type: str = "group"  # group, project, announcement, domain
+    invite_emails: Optional[List[str]] = []  # Emails to invite on creation
+    requires_approval: bool = False  # Require admin approval to join
+
+class ChannelInvite(BaseModel):
+    emails: List[str]  # Emails to invite
+
+class InviteAction(BaseModel):
+    action: str  # "accept" or "decline"
 
 class ThreadReply(BaseModel):
     content: str
@@ -139,6 +147,7 @@ async def create_channel(data: ChannelCreate, request: Request):
         "description": data.description,
         "channel_type": data.channel_type,
         "is_private": data.is_private,
+        "requires_approval": data.requires_approval,
         "created_by": user["user_id"],
         "created_at": datetime.now(timezone.utc).isoformat(),
         "members": [{
@@ -154,7 +163,170 @@ async def create_channel(data: ChannelCreate, request: Request):
     }
     await db.lumi_channels.insert_one(channel)
     channel.pop("_id", None)
+
+    # Send invites if emails provided
+    if data.invite_emails:
+        for email in data.invite_emails:
+            invite_user = await db.users.find_one({"email": email}, {"_id": 0})
+            invite_doc = {
+                "id": f"inv_{uuid.uuid4().hex[:10]}",
+                "channel_id": channel_id,
+                "channel_name": data.name,
+                "invited_by": user["user_id"],
+                "invited_by_name": user.get("name", user.get("email", "")),
+                "invited_email": email,
+                "invited_user_id": invite_user["user_id"] if invite_user else None,
+                "status": "pending",
+                "created_at": datetime.now(timezone.utc).isoformat(),
+            }
+            await db.lumi_invites.insert_one(invite_doc)
+            # Notify invited user via WebSocket if online
+            if invite_user:
+                await manager.send_to_user(invite_user["user_id"], {
+                    "type": "channel_invite",
+                    "data": {
+                        "invite_id": invite_doc["id"],
+                        "channel_name": data.name,
+                        "invited_by": user.get("name", "Someone"),
+                    }
+                })
+
     return channel
+
+
+@router.post("/channels/{channel_id}/invite")
+async def invite_to_channel(channel_id: str, data: ChannelInvite, request: Request):
+    """Invite users to a channel by email"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    channel = await db.lumi_channels.find_one({"id": channel_id}, {"_id": 0})
+    if not channel:
+        raise HTTPException(status_code=404, detail="Channel not found")
+
+    # Check if user is a member/admin of the channel
+    is_member = any(m["user_id"] == user["user_id"] for m in channel.get("members", []))
+    if not is_member:
+        raise HTTPException(status_code=403, detail="Not a member of this channel")
+
+    sent = []
+    for email in data.emails:
+        # Check if already invited
+        existing = await db.lumi_invites.find_one({
+            "channel_id": channel_id, "invited_email": email, "status": "pending"
+        })
+        if existing:
+            continue
+
+        invite_user = await db.users.find_one({"email": email}, {"_id": 0})
+        # Check if already a member
+        if invite_user and any(m["user_id"] == invite_user["user_id"] for m in channel.get("members", [])):
+            continue
+
+        invite_doc = {
+            "id": f"inv_{uuid.uuid4().hex[:10]}",
+            "channel_id": channel_id,
+            "channel_name": channel["name"],
+            "invited_by": user["user_id"],
+            "invited_by_name": user.get("name", user.get("email", "")),
+            "invited_email": email,
+            "invited_user_id": invite_user["user_id"] if invite_user else None,
+            "status": "pending",
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        }
+        await db.lumi_invites.insert_one(invite_doc)
+        sent.append(email)
+
+        if invite_user:
+            await manager.send_to_user(invite_user["user_id"], {
+                "type": "channel_invite",
+                "data": {
+                    "invite_id": invite_doc["id"],
+                    "channel_name": channel["name"],
+                    "invited_by": user.get("name", "Someone"),
+                }
+            })
+
+    return {"sent": sent, "total": len(sent)}
+
+
+@router.get("/invites")
+async def get_my_invites(request: Request):
+    """Get pending channel invites for current user"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    invites = await db.lumi_invites.find(
+        {"$or": [
+            {"invited_user_id": user["user_id"], "status": "pending"},
+            {"invited_email": user.get("email", ""), "status": "pending"}
+        ]},
+        {"_id": 0}
+    ).sort("created_at", -1).to_list(50)
+
+    return {"invites": invites}
+
+
+@router.post("/invites/{invite_id}/respond")
+async def respond_to_invite(invite_id: str, data: InviteAction, request: Request):
+    """Accept or decline a channel invite"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Authentication required")
+
+    invite = await db.lumi_invites.find_one({"id": invite_id}, {"_id": 0})
+    if not invite:
+        raise HTTPException(status_code=404, detail="Invite not found")
+
+    # Verify this invite is for the current user
+    is_for_user = (
+        invite.get("invited_user_id") == user["user_id"] or
+        invite.get("invited_email") == user.get("email", "")
+    )
+    if not is_for_user:
+        raise HTTPException(status_code=403, detail="This invite is not for you")
+
+    if invite["status"] != "pending":
+        return {"status": invite["status"], "message": "Invite already responded to"}
+
+    if data.action == "accept":
+        # Add user to channel
+        member = {
+            "user_id": user["user_id"],
+            "name": user.get("name", ""),
+            "email": user.get("email", ""),
+            "role": "member",
+            "joined_at": datetime.now(timezone.utc).isoformat()
+        }
+        await db.lumi_channels.update_one(
+            {"id": invite["channel_id"]},
+            {"$push": {"members": member}}
+        )
+        # System message
+        sys_msg = {
+            "id": f"msg_{uuid.uuid4().hex[:10]}",
+            "channel_id": invite["channel_id"],
+            "sender_id": "system",
+            "sender_name": "LUMI",
+            "content": f"{user.get('name', 'Someone')} accepted the invite and joined the channel",
+            "type": "system",
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+        await db.lumi_messages.insert_one(sys_msg)
+        sys_msg.pop("_id", None)
+        await manager.send_to_channel(invite["channel_id"], {"type": "message", "data": sys_msg})
+
+    # Fix: handle "decline" -> "declined" correctly (not "declineed")
+    final_status = "accepted" if data.action == "accept" else "declined"
+    await db.lumi_invites.update_one(
+        {"id": invite_id},
+        {"$set": {"status": final_status, "responded_at": datetime.now(timezone.utc).isoformat()}}
+    )
+
+    return {"status": final_status, "channel_id": invite["channel_id"]}
+
 
 @router.get("/channels")
 async def list_channels(request: Request):
@@ -202,6 +374,29 @@ async def join_channel(channel_id: str, request: Request):
     existing = any(m["user_id"] == user["user_id"] for m in channel.get("members", []))
     if existing:
         return {"status": "already_member"}
+
+    # Check if channel requires approval
+    if channel.get("requires_approval"):
+        # Create a join request instead of directly joining
+        join_req = {
+            "id": f"jr_{uuid.uuid4().hex[:10]}",
+            "channel_id": channel_id,
+            "channel_name": channel["name"],
+            "user_id": user["user_id"],
+            "user_name": user.get("name", ""),
+            "user_email": user.get("email", ""),
+            "status": "pending",
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+        await db.lumi_join_requests.insert_one(join_req)
+        # Notify channel admin
+        admin_member = next((m for m in channel.get("members", []) if m.get("role") == "admin"), None)
+        if admin_member:
+            await manager.send_to_user(admin_member["user_id"], {
+                "type": "join_request",
+                "data": {"channel_name": channel["name"], "user_name": user.get("name", "")}
+            })
+        return {"status": "pending_approval"}
 
     member = {
         "user_id": user["user_id"],

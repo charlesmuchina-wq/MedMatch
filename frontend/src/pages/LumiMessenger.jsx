@@ -74,6 +74,7 @@ const LumiMessenger = () => {
   const [showVisualizations, setShowVisualizations] = useState(false);
   const [userAccentColor, setUserAccentColor] = useState('');
   const [presenceMap, setPresenceMap] = useState({});
+  const [pendingInvites, setPendingInvites] = useState([]);
 
   const messagesEndRef = useRef(null);
   const wsRef = useRef(null);
@@ -151,9 +152,17 @@ const LumiMessenger = () => {
     try { const res = await fetch(`${API}/api/lumi/presence/all`, { headers: { 'Authorization': `Bearer ${token}` } }); if (res.ok) setPresenceMap((await res.json()).presence || {}); } catch (e) {}
   }, [token]);
 
+  const loadInvites = useCallback(async () => {
+    if (!token) return;
+    try {
+      const res = await fetch(`${API}/api/lumi/invites`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) setPendingInvites((await res.json()).invites || []);
+    } catch (e) {}
+  }, [token]);
+
   useEffect(() => {
-    if (user) { loadChannels(); loadDms(); loadUnreadCounts(); loadPresence(); }
-  }, [user, loadChannels, loadDms, loadUnreadCounts, loadPresence]);
+    if (user) { loadChannels(); loadDms(); loadUnreadCounts(); loadPresence(); loadInvites(); }
+  }, [user, loadChannels, loadDms, loadUnreadCounts, loadPresence, loadInvites]);
 
   // Mark as read
   useEffect(() => {
@@ -316,8 +325,37 @@ const LumiMessenger = () => {
   };
 
   const handleJoinChannel = async (ch) => {
-    await fetch(`${API}/api/lumi/channels/${ch.id}/join`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
+    const res = await fetch(`${API}/api/lumi/channels/${ch.id}/join`, { method: 'POST', headers: { 'Authorization': `Bearer ${token}` } });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.status === 'pending_approval') {
+        toast.info('Join request sent — awaiting approval');
+        return;
+      }
+    }
     await loadChannels(); setActiveChannel(ch); setMobileSidebar(false); toast.success(`Joined #${ch.name}`);
+  };
+
+  const handleInviteResponse = async (inviteId, action) => {
+    try {
+      const res = await fetch(`${API}/api/lumi/invites/${inviteId}/respond`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ action })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (action === 'accept') {
+          toast.success('Invite accepted!');
+          await loadChannels();
+          const ch = channels.find(c => c.id === data.channel_id);
+          if (ch) { setActiveChannel(ch); setMobileSidebar(false); }
+        } else {
+          toast.info('Invite declined');
+        }
+        loadInvites();
+      }
+    } catch (e) { toast.error('Failed to respond'); }
   };
 
   const handleKeyDown = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } };
@@ -510,7 +548,7 @@ const LumiMessenger = () => {
               <ScrollArea className="flex-1 py-3">
                 {messages.length === 0 && (
                   <div className="flex flex-col items-center justify-center h-full text-center px-6">
-                    <LumiBrand variant="icon-light" size="md" className="mb-4" />
+                    <LumiBrand variant="text-light" size="md" className="mb-4" />
                     <p className="text-slate-600 text-sm">{t('lumi.noMessages') || 'No messages yet. Start the conversation!'}</p>
                   </div>
                 )}
@@ -568,28 +606,47 @@ const LumiMessenger = () => {
           </div>
         </>) : (
           <div className="flex-1 flex flex-col bg-[#0D1117] overflow-auto">
-            {/* Bento Grid Command Center */}
-            <div className="max-w-4xl mx-auto w-full p-6 md:p-10 space-y-6">
+            {/* Enhanced Dashboard */}
+            <div className="max-w-5xl mx-auto w-full p-6 md:p-10 space-y-6">
               {/* Hero */}
               <div className="text-center mb-2">
                 <LumiBrand variant="inline-dark" size="md" showTagline className="justify-center" />
                 <p className="text-slate-400 text-sm mt-3 font-outfit">Your intelligent command center</p>
               </div>
 
-              {/* Bento Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                {/* Quick Action - Create Channel */}
-                <button onClick={() => setShowCreateModal(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group" data-testid="bento-create-channel">
-                  <div className="w-10 h-10 rounded-xl lumi-gradient flex items-center justify-center shadow-lg shadow-violet-500/20">
-                    <Plus className="w-5 h-5 text-white" />
+              {/* Pending Invites */}
+              {pendingInvites.length > 0 && (
+                <div className="bento-tile col-span-full" data-testid="pending-invites-panel">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Bell className="w-3.5 h-3.5 text-amber-400" />
+                    <p className="text-[10px] font-semibold text-amber-400 uppercase tracking-widest font-outfit">Pending Invites ({pendingInvites.length})</p>
                   </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold font-outfit">New Channel</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Start a conversation</p>
+                  <div className="space-y-2">
+                    {pendingInvites.map(inv => (
+                      <div key={inv.id} className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/[0.03] border border-white/5" data-testid={`invite-${inv.id}`}>
+                        <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                          <Hash className="w-4 h-4 text-amber-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm text-white font-medium truncate">#{inv.channel_name}</p>
+                          <p className="text-[11px] text-slate-500">Invited by {inv.invited_by_name}</p>
+                        </div>
+                        <button onClick={() => handleInviteResponse(inv.id, 'accept')}
+                          className="px-3 py-1.5 rounded-lg bg-[#00CEC9]/10 text-[#00CEC9] text-xs font-medium hover:bg-[#00CEC9]/20 transition-colors" data-testid={`accept-invite-${inv.id}`}>
+                          Accept
+                        </button>
+                        <button onClick={() => handleInviteResponse(inv.id, 'decline')}
+                          className="px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 text-xs font-medium hover:bg-white/10 transition-colors" data-testid={`decline-invite-${inv.id}`}>
+                          Decline
+                        </button>
+                      </div>
+                    ))}
                   </div>
-                </button>
+                </div>
+              )}
 
-                {/* Quick Action - New DM */}
+              {/* Quick Actions Row */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                 <button onClick={() => setShowNewDmModal(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group" data-testid="bento-new-dm">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
                     <UserPlus className="w-5 h-5 text-white" />
@@ -600,7 +657,6 @@ const LumiMessenger = () => {
                   </div>
                 </button>
 
-                {/* Quick Action - Command Bar */}
                 <button onClick={() => setShowCommandBar(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group" data-testid="bento-command">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-600 to-slate-700 flex items-center justify-center shadow-lg shadow-slate-500/20">
                     <Command className="w-5 h-5 text-white" />
@@ -611,7 +667,6 @@ const LumiMessenger = () => {
                   </div>
                 </button>
 
-                {/* Quick Action - Visualizations */}
                 <button onClick={() => setShowVisualizations(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group" data-testid="bento-viz">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
                     <BarChart3 className="w-5 h-5 text-white" />
@@ -622,65 +677,112 @@ const LumiMessenger = () => {
                   </div>
                 </button>
 
-                {/* Recent Channels - Span 2 cols */}
-                <div className="bento-tile col-span-2 row-span-2">
-                  <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mb-3 font-outfit">Recent Channels</p>
-                  <div className="space-y-1.5">
-                    {channels.slice(0, 5).map(ch => (
-                      <button key={ch.id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); }}
+                <button onClick={() => setShowCreateModal(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group" data-testid="bento-create-channel">
+                  <div className="w-10 h-10 rounded-xl lumi-gradient flex items-center justify-center shadow-lg shadow-violet-500/20">
+                    <Plus className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-semibold font-outfit">New Channel</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">Settings & invites</p>
+                  </div>
+                </button>
+              </div>
+
+              {/* Main Content Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                {/* Recent Conversations — Channels + DMs combined */}
+                <div className="bento-tile" data-testid="recent-conversations-panel">
+                  <div className="flex items-center gap-2 mb-3">
+                    <MessageCircle className="w-3.5 h-3.5 text-cyan-400" />
+                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">Recent Conversations</p>
+                  </div>
+                  <div className="space-y-1">
+                    {/* Mix channels and DMs, sorted by recent activity */}
+                    {[
+                      ...channels.slice(0, 4).map(ch => ({ ...ch, _type: 'channel' })),
+                      ...dms.slice(0, 3).map(dm => ({ ...dm, _type: 'dm' })),
+                    ].slice(0, 6).map(item => (
+                      <button key={item.id} onClick={() => { setActiveChannel(item); setMobileSidebar(false); }}
                         className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl hover:bg-white/5 transition-all group text-left"
-                        data-testid={`bento-recent-${ch.id}`}>
-                        <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 group-hover:bg-white/10 transition-colors">
-                          <Hash className="w-3.5 h-3.5 text-violet-400" />
+                        data-testid={`recent-conv-${item.id}`}>
+                        {item._type === 'dm' ? (
+                          <div className="relative w-7 h-7 flex-shrink-0">
+                            <div className="w-7 h-7 rounded-full bg-slate-600 flex items-center justify-center text-[10px] font-semibold text-white">
+                              {(item.dm_partner?.name || item.dm_partner?.email || '?')[0].toUpperCase()}
+                            </div>
+                            <span className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full ring-1 ring-[#0D1117] ${
+                              presenceMap[item.dm_partner?.user_id] === 'online' ? 'bg-emerald-500' : 'bg-slate-600'
+                            }`} />
+                          </div>
+                        ) : (
+                          <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 group-hover:bg-white/10 transition-colors">
+                            <Hash className="w-3.5 h-3.5 text-violet-400" />
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <span className="text-sm text-white/80 group-hover:text-white truncate font-medium block">
+                            {item._type === 'dm' ? (item.dm_partner?.name || item.dm_partner?.email || 'User') : item.name}
+                          </span>
+                          {item.last_message && (
+                            <p className="text-[10px] text-slate-600 truncate">{typeof item.last_message === 'string' ? item.last_message : item.last_message?.content || ''}</p>
+                          )}
                         </div>
-                        <span className="text-sm text-white/80 group-hover:text-white truncate font-medium">{ch.name}</span>
-                        <span className="text-[10px] text-slate-600 ml-auto">{ch.members?.length || 0}</span>
+                        {unreadCounts[item.id] > 0 && (
+                          <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[9px] font-bold text-white" style={{ backgroundColor: ESY.pink }}>
+                            {unreadCounts[item.id]}
+                          </span>
+                        )}
                       </button>
                     ))}
-                    {channels.length === 0 && <p className="text-slate-600 text-xs py-2">No channels yet</p>}
+                    {channels.length === 0 && dms.length === 0 && (
+                      <p className="text-slate-600 text-xs py-3 text-center">No conversations yet. Start a DM or join a channel!</p>
+                    )}
                   </div>
                 </div>
 
-                {/* AI Status Widget */}
-                <div className="bento-tile col-span-2">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">AI Intelligence</p>
-                  </div>
-                  <div className="grid grid-cols-3 gap-2">
-                    <div className="text-center p-2 rounded-xl bg-white/[0.03]">
-                      <p className="text-lg font-bold lumi-gradient-text font-outfit">92%</p>
-                      <p className="text-[9px] text-slate-500 mt-0.5">Compliance</p>
+                {/* Right Column: AI Status + Smart Buckets */}
+                <div className="space-y-3 md:space-y-4">
+                  {/* AI Status Widget */}
+                  <div className="bento-tile">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">AI Intelligence</p>
                     </div>
-                    <div className="text-center p-2 rounded-xl bg-white/[0.03]">
-                      <p className="text-lg font-bold text-cyan-400 font-outfit">{channels.length}</p>
-                      <p className="text-[9px] text-slate-500 mt-0.5">Channels</p>
-                    </div>
-                    <div className="text-center p-2 rounded-xl bg-white/[0.03]">
-                      <p className="text-lg font-bold text-emerald-400 font-outfit">{dms.length}</p>
-                      <p className="text-[9px] text-slate-500 mt-0.5">DMs</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Smart Buckets Preview */}
-                <div className="bento-tile col-span-2">
-                  <div className="flex items-center gap-2 mb-3">
-                    <ClipboardList className="w-3.5 h-3.5 text-pink-400" />
-                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">Smart Buckets</p>
-                  </div>
-                  <div className="space-y-1.5">
-                    {[
-                      { label: 'Urgent', count: 0, color: 'bg-red-500' },
-                      { label: 'Action Required', count: 0, color: 'bg-amber-500' },
-                      { label: 'Meeting Requests', count: 0, color: 'bg-blue-500' },
-                    ].map(b => (
-                      <div key={b.label} className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors">
-                        <div className={`w-2 h-2 rounded-full ${b.color}`} />
-                        <span className="text-xs text-white/70 flex-1">{b.label}</span>
-                        <span className="text-[10px] text-slate-600 bg-white/5 px-1.5 py-0.5 rounded-full">{b.count}</span>
+                    <div className="grid grid-cols-3 gap-2">
+                      <div className="text-center p-2 rounded-xl bg-white/[0.03]">
+                        <p className="text-lg font-bold lumi-gradient-text font-outfit">92%</p>
+                        <p className="text-[9px] text-slate-500 mt-0.5">Compliance</p>
                       </div>
-                    ))}
+                      <div className="text-center p-2 rounded-xl bg-white/[0.03]">
+                        <p className="text-lg font-bold text-cyan-400 font-outfit">{channels.length}</p>
+                        <p className="text-[9px] text-slate-500 mt-0.5">Channels</p>
+                      </div>
+                      <div className="text-center p-2 rounded-xl bg-white/[0.03]">
+                        <p className="text-lg font-bold text-emerald-400 font-outfit">{dms.length}</p>
+                        <p className="text-[9px] text-slate-500 mt-0.5">DMs</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Smart Buckets Preview */}
+                  <div className="bento-tile">
+                    <div className="flex items-center gap-2 mb-3">
+                      <ClipboardList className="w-3.5 h-3.5 text-pink-400" />
+                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">Smart Buckets</p>
+                    </div>
+                    <div className="space-y-1.5">
+                      {[
+                        { label: 'Urgent', count: 0, color: 'bg-red-500' },
+                        { label: 'Action Required', count: 0, color: 'bg-amber-500' },
+                        { label: 'Meeting Requests', count: 0, color: 'bg-blue-500' },
+                      ].map(b => (
+                        <div key={b.label} className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors">
+                          <div className={`w-2 h-2 rounded-full ${b.color}`} />
+                          <span className="text-xs text-white/70 flex-1">{b.label}</span>
+                          <span className="text-[10px] text-slate-600 bg-white/5 px-1.5 py-0.5 rounded-full">{b.count}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

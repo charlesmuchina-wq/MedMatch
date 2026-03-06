@@ -1,9 +1,14 @@
 /**
  * LumiBrand - LUMI branding component using the official logo
- * Uses the actual LUMI logo imagery with cyan/blue/pink chat bubble
+ * Uses transparent version for light backgrounds, original for dark
  */
 
 const GRADIENT = 'linear-gradient(135deg, #00CEC9, #6C5CE7, #E84393)';
+
+const LOGO_DARK = '/lumi-bubble-official.png';
+const LOGO_LIGHT = '/lumi-bubble-transparent.png';
+const FULL_DARK = '/lumi-logo-official.png';
+const FULL_LIGHT = '/lumi-logo-transparent.png';
 
 export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', showTagline = false }) => {
   const sizes = {
@@ -20,7 +25,7 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
   if (variant === 'full-dark' || variant === 'full-light') {
     return (
       <div className={`flex flex-col items-center ${className}`} data-testid="lumi-brand">
-        <img src="/lumi-logo-official.png" alt="LUMI" className={`${s.logo} object-contain`} />
+        <img src={isDark ? FULL_DARK : FULL_LIGHT} alt="LUMI" className={`${s.logo} object-contain`} />
       </div>
     );
   }
@@ -29,7 +34,7 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
   if (variant === 'icon-dark' || variant === 'icon-light') {
     return (
       <div className={`${s.icon} flex-shrink-0 flex items-center justify-center ${className}`} data-testid="lumi-brand-icon">
-        <img src="/lumi-bubble-official.png" alt="LUMI" className="w-full h-full object-contain" />
+        <img src={isDark ? LOGO_DARK : LOGO_LIGHT} alt="LUMI" className="w-full h-full object-contain" />
       </div>
     );
   }
@@ -56,7 +61,7 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
     return (
       <div className={`flex items-center gap-2 ${className}`} data-testid="lumi-brand">
         <div className={`${s.icon} flex-shrink-0 flex items-center justify-center`}>
-          <img src="/lumi-bubble-official.png" alt="LUMI" className="w-full h-full object-contain" />
+          <img src={isDark ? LOGO_DARK : LOGO_LIGHT} alt="LUMI" className="w-full h-full object-contain" />
         </div>
         <div className="flex flex-col">
           <span className={`${s.text} font-black tracking-[0.12em] uppercase leading-tight`}
