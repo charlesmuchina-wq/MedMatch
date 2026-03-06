@@ -173,10 +173,7 @@ code {
     }
 }
 
-/* Force dark text on white/light-background panels in dark mode */
-html.dark .bg-white,
-html.dark .bg-slate-50,
-html.dark .bg-gray-50,
+/* Dark text override scoped ONLY to actual light-background panels (login forms, modals) */
 html.dark .lumi-light-panel {
     --foreground: 0 0% 10%;
     --card-foreground: 0 0% 10%;
@@ -184,12 +181,6 @@ html.dark .lumi-light-panel {
     --muted-foreground: 0 0% 35%;
     color: #111827;
 }
-html.dark .bg-white h1, html.dark .bg-white h2, html.dark .bg-white h3,
-html.dark .bg-white h4, html.dark .bg-white h5, html.dark .bg-white h6,
-html.dark .bg-white p, html.dark .bg-white span, html.dark .bg-white label,
-html.dark .bg-slate-50 h1, html.dark .bg-slate-50 h2, html.dark .bg-slate-50 h3,
-html.dark .bg-slate-50 h4, html.dark .bg-slate-50 h5, html.dark .bg-slate-50 h6,
-html.dark .bg-slate-50 p, html.dark .bg-slate-50 span, html.dark .bg-slate-50 label,
 html.dark .lumi-light-panel h1, html.dark .lumi-light-panel h2, html.dark .lumi-light-panel h3,
 html.dark .lumi-light-panel p, html.dark .lumi-light-panel span, html.dark .lumi-light-panel label {
     color: inherit;

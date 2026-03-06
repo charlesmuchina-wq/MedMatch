@@ -1,12 +1,16 @@
 /**
- * LumiBrand - LUMI branding component using the official logo
- * Uses transparent version for light backgrounds, original for dark
+ * LumiBrand - LUMI branding using CSS-rendered icon + gradient text
+ * The chat bubble icon is rendered from cropped PNG (icon-only) files
+ * Uses transparent version for light backgrounds, dark version for dark backgrounds
  */
 
 const GRADIENT = 'linear-gradient(135deg, #00CEC9, #6C5CE7, #E84393)';
 
-const LOGO_DARK = '/lumi-bubble-official.png';
-const LOGO_LIGHT = '/lumi-bubble-transparent.png';
+// Icon-only crops (just the chat bubble, no text)
+const ICON_DARK = '/lumi-icon-only.png';
+const ICON_LIGHT = '/lumi-icon-only-transparent.png';
+
+// Full logos (bubble + text + tagline)
 const FULL_DARK = '/lumi-logo-official.png';
 const FULL_LIGHT = '/lumi-logo-transparent.png';
 
@@ -21,7 +25,7 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
   const s = sizes[size] || sizes.md;
   const isDark = variant.includes('dark');
 
-  // Full logo (bubble + text + tagline)
+  // Full logo (bubble + text + tagline in one image)
   if (variant === 'full-dark' || variant === 'full-light') {
     return (
       <div className={`flex flex-col items-center ${className}`} data-testid="lumi-brand">
@@ -30,16 +34,16 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
     );
   }
 
-  // Just the bubble icon
+  // Just the bubble icon (cropped, no text)
   if (variant === 'icon-dark' || variant === 'icon-light') {
     return (
       <div className={`${s.icon} flex-shrink-0 flex items-center justify-center ${className}`} data-testid="lumi-brand-icon">
-        <img src={isDark ? LOGO_DARK : LOGO_LIGHT} alt="LUMI" className="w-full h-full object-contain" />
+        <img src={isDark ? ICON_DARK : ICON_LIGHT} alt="LUMI" className="w-full h-full object-contain" />
       </div>
     );
   }
 
-  // Gradient text
+  // Gradient text only
   if (variant === 'text-dark' || variant === 'text-light') {
     return (
       <div className={`flex flex-col items-center ${className}`} data-testid="lumi-brand">
@@ -56,12 +60,12 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
     );
   }
 
-  // Inline: icon + gradient text (for sidebar headers)
+  // Inline: bubble icon + gradient text (for sidebar/dashboard headers)
   if (variant === 'inline-dark' || variant === 'inline-light') {
     return (
-      <div className={`flex items-center gap-2 ${className}`} data-testid="lumi-brand">
+      <div className={`flex items-center gap-2.5 ${className}`} data-testid="lumi-brand">
         <div className={`${s.icon} flex-shrink-0 flex items-center justify-center`}>
-          <img src={isDark ? LOGO_DARK : LOGO_LIGHT} alt="LUMI" className="w-full h-full object-contain" />
+          <img src={isDark ? ICON_DARK : ICON_LIGHT} alt="LUMI" className="w-full h-full object-contain" />
         </div>
         <div className="flex flex-col">
           <span className={`${s.text} font-black tracking-[0.12em] uppercase leading-tight`}

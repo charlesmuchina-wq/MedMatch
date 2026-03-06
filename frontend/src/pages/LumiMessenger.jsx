@@ -371,11 +371,11 @@ const LumiMessenger = () => {
 
   const closeAllPanels = () => { setShowAiChat(false); setShowAlerts(false); setShowAiPanel(false); setShowKnowledgeGraph(false); setShowBottlenecks(false); setShowSimulation(false); setShowNotifications(false); };
 
-  if (isLoading) return <div className="min-h-screen bg-slate-50 flex items-center justify-center"><Loader2 className="w-8 h-8 text-[#008080] animate-spin" /></div>;
+  if (isLoading) return <div className="min-h-screen bg-[#0D1117] flex items-center justify-center"><Loader2 className="w-8 h-8 text-[#00CEC9] animate-spin" /></div>;
   if (!user) return <LumiLogin onLogin={setUser} />;
 
   return (
-    <div className="h-screen flex bg-slate-50 overflow-hidden" style={{ fontFamily: "'Inter', -apple-system, sans-serif" }}>
+    <div className="h-screen flex bg-[#0D1117] overflow-hidden" style={{ fontFamily: "'Inter', -apple-system, sans-serif" }}>
       <Toaster position="top-right" richColors />
 
       {/* Sidebar */}
@@ -510,9 +510,10 @@ const LumiMessenger = () => {
         </div>
       </div>
 
-      {/* Chat Area */}
-      <div className={`${!mobileSidebar ? 'flex' : 'hidden'} md:flex flex-col flex-1 min-w-0 bg-white`}>
-        {activeChannel ? (<>
+      {/* Content Area */}
+      {activeChannel ? (
+      <div className={`${!mobileSidebar ? 'flex' : 'hidden'} md:flex flex-col flex-1 min-w-0 bg-white lumi-light-panel`}>
+        <>
           <div className="h-14 flex items-center justify-between px-5 border-b border-slate-200 flex-shrink-0 bg-white">
             <div className="flex items-center gap-3">
               <button className="md:hidden p-2 text-slate-500 hover:text-slate-900" onClick={() => setMobileSidebar(true)}><ArrowLeft className="w-4 h-4" /></button>
@@ -604,8 +605,11 @@ const LumiMessenger = () => {
             {showNotifications && <NotificationsPanel onClose={() => setShowNotifications(false)} token={token} onNavigate={(item) => { const ch = channels.find(c => c.id === item.id) || dms.find(d => d.id === item.id); if (ch) { setActiveChannel(ch); setMobileSidebar(false); } }} />}
             {showMembers && <MembersPanel channelId={activeChannel.id} onClose={() => setShowMembers(false)} token={token} />}
           </div>
-        </>) : (
-          <div className="flex-1 flex flex-col bg-[#0D1117] overflow-auto">
+        </>
+      </div>
+      ) : (
+      <div className={`${!mobileSidebar ? 'flex' : 'hidden'} md:flex flex-col flex-1 min-w-0 bg-[#0D1117] overflow-auto`}>
+          <div className="flex-1 flex flex-col">
             {/* Enhanced Dashboard */}
             <div className="max-w-5xl mx-auto w-full p-6 md:p-10 space-y-6">
               {/* Hero */}
@@ -793,8 +797,8 @@ const LumiMessenger = () => {
               </p>
             </div>
           </div>
-        )}
       </div>
+      )}
 
       {showCreateModal && <CreateChannelModal onClose={() => setShowCreateModal(false)} onCreated={(ch) => { setChannels(prev => [ch, ...prev]); setActiveChannel(ch); setShowCreateModal(false); setMobileSidebar(false); }} token={token} />}
       {showNewDmModal && <NewDmModal onClose={() => setShowNewDmModal(false)} onSelect={handleStartDm} token={token} />}

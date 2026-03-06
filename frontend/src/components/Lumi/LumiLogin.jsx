@@ -65,7 +65,7 @@ export const LumiLogin = ({ onLogin }) => {
           <p className="text-sm text-white/90 mt-6 max-w-sm text-center">Secure, domain-protected team communication for the modern workplace.</p>
         </div>
       </div>
-      <div className="flex-1 flex items-center justify-center p-8 bg-slate-50">
+      <div className="flex-1 flex items-center justify-center p-8 bg-slate-50 lumi-light-panel">
         <div className="w-full max-w-sm">
           <div className="lg:hidden flex items-center gap-3 mb-8">
             <LumiBrand variant="inline-light" size="sm" />
