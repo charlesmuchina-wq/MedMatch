@@ -86,7 +86,7 @@ const LumiMessenger = () => {
   const fileInputRef = useRef(null);
   const token = localStorage.getItem('token');
 
-  // Handle Google SSO callback
+  // Handle SSO callback (Google or Microsoft)
   useEffect(() => {
     const hash = window.location.hash;
     if (hash && hash.includes('session_id=')) {
@@ -94,18 +94,26 @@ const LumiMessenger = () => {
       if (sessionId) {
         (async () => {
           try {
-            const res = await fetch(`${API}/api/auth/google/session`, {
+            // Try Google session first (Emergent auth)
+            let res = await fetch(`${API}/api/auth/google/session`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ session_id: sessionId })
             });
+            // If Google fails, try generic session validation (Microsoft SSO)
+            if (!res.ok) {
+              res = await fetch(`${API}/api/auth/session/validate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ session_token: sessionId })
+              });
+            }
             if (res.ok) {
               const data = await res.json();
               localStorage.setItem('token', data.access_token);
               localStorage.setItem('karau_user', JSON.stringify(data.user));
               setUser(data.user);
               toast.success('Welcome to LUMI!');
-              // Clean hash from URL
               window.history.replaceState(null, '', window.location.pathname);
             }
           } catch (e) {

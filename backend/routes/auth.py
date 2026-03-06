@@ -500,19 +500,16 @@ async def microsoft_sso_callback(code: str = None, error: str = None):
         await db.users.insert_one(user)
         user.pop("_id", None)
 
-    # Generate JWT
-    token_data = {
-        "user_id": user["user_id"],
-        "email": email,
-        "name": name,
-        "exp": datetime.now(timezone.utc) + timedelta(hours=24),
-    }
-    jwt_token = jwt.encode(token_data, JWT_SECRET, algorithm="HS256")
+    # Create session (same system as Google/email auth)
+    session_token = create_session_token()
+    await create_session(user["user_id"], session_token)
 
-    # Redirect to frontend with token
+    # Redirect to frontend with session token
     frontend_url = os.environ.get("REACT_APP_BACKEND_URL", "")
+    import urllib.parse
+    encoded_name = urllib.parse.quote(name)
     from starlette.responses import RedirectResponse
-    return RedirectResponse(url=f"{frontend_url}/lumi#session_id={jwt_token}&user_name={name}")
+    return RedirectResponse(url=f"{frontend_url}/lumi#session_id={session_token}&user_name={encoded_name}")
 
 
 @router.get("/microsoft/config")
@@ -522,7 +519,37 @@ async def microsoft_sso_config():
     client_id = os.environ.get("AZURE_CLIENT_ID", "")
     return {
         "configured": bool(tenant_id and client_id),
-        "message": "Microsoft SSO is ready" if (tenant_id and client_id) else "Configure AZURE_TENANT_ID and AZURE_CLIENT_ID in .env to enable Microsoft SSO",
+        "message": "Microsoft SSO is ready" if (tenant_id and client_id) else "Microsoft SSO not configured",
+    }
+
+
+@router.post("/session/validate")
+async def validate_session_token(request: Request):
+    """Validate a session token and return user data (used for SSO redirects)"""
+    body = await request.json()
+    session_token = body.get("session_token", "")
+    if not session_token:
+        raise HTTPException(status_code=400, detail="session_token required")
+
+    session = await db.user_sessions.find_one({"session_token": session_token}, {"_id": 0})
+    if not session:
+        raise HTTPException(status_code=401, detail="Invalid session")
+
+    user = await db.users.find_one({"user_id": session["user_id"]}, {"_id": 0})
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+
+    return {
+        "access_token": session_token,
+        "token_type": "bearer",
+        "user": {
+            "user_id": user["user_id"],
+            "email": user.get("email", ""),
+            "name": user.get("name", ""),
+            "auth_method": user.get("auth_method", ""),
+            "role": user.get("role", "user"),
+            "profile_picture": user.get("profile_picture", ""),
+        }
     }
 
 

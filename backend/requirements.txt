@@ -92,6 +92,7 @@ mccabe==0.7.0
 mdurl==0.1.2
 motor==3.3.1
 moviepy==2.2.1
+msal==1.35.1
 msgpack==1.1.2
 multidict==6.7.0
 mypy==1.19.1
