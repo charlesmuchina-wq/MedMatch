@@ -19,7 +19,7 @@ const PortalSelector = () => {
     {
       id: 'job-toolkit',
       title: t('pages.portalSelector.medmatchAI'),
-      subtitle: t('pages.portalSelector.jobToolkit'),
+      subtitle: t('pages.portalSelector.jobToolkit') || 'Job Toolkit',
       description: t('pages.portalSelector.jobToolkitDesc'),
       icon: Briefcase,
       gradient: 'from-turquoise to-cyan-500',
@@ -59,6 +59,7 @@ const PortalSelector = () => {
       icon: MessageCircle,
       gradient: 'from-violet-500 to-indigo-600',
       glowColor: 'indigo',
+      lumiIcon: true,
       features: [
         { icon: Hash, text: t('pages.portalSelector.channels') || 'Channels & Groups' },
         { icon: MessageCircle, text: t('pages.portalSelector.realtimeChat') || 'Real-time Chat' },
@@ -194,8 +195,8 @@ const PortalSelector = () => {
         <div className="text-center mb-8 md:mb-12">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3">
             {t('pages.portalSelector.welcomeTo')}{' '}
-            <span className="bg-gradient-to-r from-turquoise via-cyan-400 to-turquoise bg-[length:200%_auto] bg-clip-text text-transparent animate-pulse"
-                  style={{ animationDuration: '3s' }}>
+            <span className="text-transparent bg-clip-text"
+                  style={{ backgroundImage: 'linear-gradient(135deg, #00CEC9, #6C5CE7, #E84393)' }}>
               {t('pages.portalSelector.title')}
             </span>
           </h1>
@@ -238,7 +239,16 @@ const PortalSelector = () => {
                 {/* Icon/Logo with pulse animation */}
                 <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                   <div className="icon-container">
-                    {portal.logo ? (
+                    {portal.lumiIcon ? (
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-slate-900/80 flex items-center justify-center shadow-lg ring-2 ring-violet-500/30 p-2">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                          <defs><linearGradient id="pg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#00CEC9"/><stop offset="50%" stopColor="#6C5CE7"/><stop offset="100%" stopColor="#E84393"/></linearGradient></defs>
+                          <rect x="6" y="10" width="52" height="34" rx="10" stroke="url(#pg)" strokeWidth="4" fill="none"/>
+                          <polygon points="16,44 24,44 18,54" fill="url(#pg)"/>
+                          <circle cx="24" cy="27" r="3" fill="#00CEC9"/><circle cx="32" cy="27" r="3" fill="#6C5CE7"/><circle cx="40" cy="27" r="3" fill="#E84393"/>
+                        </svg>
+                      </div>
+                    ) : portal.logo ? (
                       <img 
                         src={portal.logo} 
                         alt={portal.title}

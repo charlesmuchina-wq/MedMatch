@@ -6,7 +6,7 @@ import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { toast, Toaster } from 'sonner';
 import {
   Video, LogOut, Settings, FileText, BookOpen,
-  Menu, ChevronRight, Home, CalendarDays, Archive, Radio, Zap, MessageCircle
+  Menu, ChevronRight, Home, CalendarDays, Archive, Radio, Zap, MessageCircle, ArrowLeft
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -35,6 +35,7 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
   const { t } = useTranslation();
   
   const navItems = [
+    { path: '/', icon: ArrowLeft, label: 'Return to Portal', isExternal: true },
     { path: '/karau-meet', icon: Home, label: t('karauMeet.dashboard') },
     { path: '/karau-meet/meetings', icon: Video, label: t('karauMeet.myMeetings') },
     { path: '/karau-meet/schedule', icon: CalendarDays, label: t('karauMeet.scheduleSidebar') },
@@ -43,7 +44,7 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
     { path: '/karau-meet/notes', icon: FileText, label: t('karauMeet.meetingNotes') },
     { path: '/karau-meet/guide', icon: BookOpen, label: t('karauMeet.howToGuide') },
     { path: '/karau-meet/settings', icon: Settings, label: t('karauMeet.settings') },
-    { path: '/lumi', icon: MessageCircle, label: 'LUMI' },
+    { path: '/lumi', icon: MessageCircle, label: 'LUMI Messenger' },
   ];
 
   return (
@@ -61,7 +62,7 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
             />
             <div>
               <span className="font-bold text-sm text-white block leading-tight">AI KARAU</span>
-              <span className="text-[10px] text-slate-600 leading-tight">Distance Zero</span>
+              <span className="text-[10px] text-slate-400 leading-tight">Distance Zero</span>
             </div>
           </div>
         )}

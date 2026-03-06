@@ -27,6 +27,7 @@ const SHORTCUTS = [
 export const useKeyboardShortcuts = (actions) => {
   useEffect(() => {
     const handler = (e) => {
+      if (!e.key) return; // Guard for mobile/touch events
       const ctrl = e.ctrlKey || e.metaKey;
       const shift = e.shiftKey;
       const key = e.key.toLowerCase();
