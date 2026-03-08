@@ -42,6 +42,7 @@ import EnziMeetingModal from '@/components/Lumi/EnziMeetingModal';
 import MeetingHistoryPanel from '@/components/Lumi/MeetingHistoryPanel';
 import BotStoreModal from '@/components/Lumi/BotStoreModal';
 import BotActionsBar from '@/components/Lumi/BotActionsBar';
+import E2EEIndicator from '@/components/Lumi/E2EEIndicator';
 
 const LumiMessenger = () => {
   const navigate = useNavigate();
@@ -837,6 +838,9 @@ const LumiMessenger = () => {
           {activeChannel?.channel_type !== 'dm' && (
             <BotActionsBar channelId={activeChannel?.id} token={token} />
           )}
+
+          {/* E2EE Status for DMs */}
+          <E2EEIndicator channelId={activeChannel?.id} token={token} isDm={activeChannel?.channel_type === 'dm'} />
 
           <div className="flex flex-1 overflow-hidden">
             <div className="flex-1 flex flex-col min-w-0">
