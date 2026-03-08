@@ -1268,6 +1268,220 @@ async def disconnect_google_calendar(request: Request):
     return {"success": True, "message": "Google Calendar disconnected"}
 
 
+# ============== GitHub SSO (Mocked) ==============
+
+class GitHubMockRequest(BaseModel):
+    code: Optional[str] = None
+
+@router.post("/github/login")
+async def github_sso_login():
+    """Return a mocked GitHub OAuth URL for demo purposes"""
+    backend_url = os.environ.get("REACT_APP_BACKEND_URL", "")
+    # Mocked: generate a state token and return the "auth URL" that actually points to our callback
+    state = secrets.token_urlsafe(16)
+    await db.github_auth_states.insert_one({
+        "state": state,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    })
+    # In production, this would be https://github.com/login/oauth/authorize?...
+    # For mock, we redirect to our own callback with a mock code
+    mock_auth_url = f"{backend_url}/api/auth/github/callback?code=mock_{secrets.token_hex(8)}&state={state}"
+    return {"auth_url": mock_auth_url, "configured": True, "mode": "demo"}
+
+@router.get("/github/callback")
+async def github_sso_callback(code: str = "", state: str = ""):
+    """Handle GitHub OAuth callback (mocked for demo)"""
+    if not code:
+        raise HTTPException(status_code=400, detail="No authorization code")
+
+    # Mocked GitHub user profile
+    mock_email = f"github_user_{secrets.token_hex(4)}@github.demo"
+    mock_name = "GitHub Demo User"
+
+    user = await get_or_create_user(
+        email=mock_email,
+        name=mock_name,
+        auth_method="github"
+    )
+
+    current_time = datetime.now(timezone.utc).isoformat()
+    await db.users.update_one(
+        {"user_id": user["user_id"]},
+        {"$set": {"last_login": current_time, "auth_method": "github"}}
+    )
+
+    session_token = create_session_token()
+    await create_session(user["user_id"], session_token)
+
+    frontend_url = os.environ.get("REACT_APP_BACKEND_URL", "")
+    import urllib.parse
+    encoded_name = urllib.parse.quote(mock_name)
+    return RedirectResponse(url=f"{frontend_url}/lumi#session_id={session_token}&user_name={encoded_name}")
+
+@router.get("/github/config")
+async def github_sso_config():
+    """Check GitHub SSO configuration status"""
+    return {
+        "configured": True,
+        "mode": "demo",
+        "message": "GitHub SSO is running in demo mode"
+    }
+
+
+# ============== Passkeys / WebAuthn ==============
+
+class PasskeyRegisterStart(BaseModel):
+    email: str
+
+class PasskeyRegisterFinish(BaseModel):
+    email: str
+    credential_id: str
+    public_key: str
+    attestation: Optional[str] = ""
+
+class PasskeyLoginStart(BaseModel):
+    email: str
+
+class PasskeyLoginFinish(BaseModel):
+    email: str
+    credential_id: str
+    authenticator_data: Optional[str] = ""
+    signature: Optional[str] = ""
+
+@router.post("/passkey/register/start")
+async def passkey_register_start(req: PasskeyRegisterStart):
+    """Start passkey registration - return challenge for WebAuthn"""
+    if not req.email:
+        raise HTTPException(status_code=400, detail="Email required")
+
+    user = await db.users.find_one({"email": req.email}, {"_id": 0})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found. Register with email first, then add a passkey.")
+
+    challenge = secrets.token_urlsafe(32)
+    await db.passkey_challenges.insert_one({
+        "user_id": user["user_id"],
+        "email": req.email,
+        "challenge": challenge,
+        "type": "register",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    })
+
+    return {
+        "challenge": challenge,
+        "rp": {"name": "ENZI", "id": "preview.emergentagent.com"},
+        "user": {
+            "id": user["user_id"],
+            "name": user.get("name", req.email),
+            "displayName": user.get("name", req.email)
+        },
+        "pubKeyCredParams": [
+            {"type": "public-key", "alg": -7},
+            {"type": "public-key", "alg": -257}
+        ],
+        "timeout": 60000,
+        "attestation": "none"
+    }
+
+@router.post("/passkey/register/finish")
+async def passkey_register_finish(req: PasskeyRegisterFinish):
+    """Complete passkey registration"""
+    user = await db.users.find_one({"email": req.email}, {"_id": 0})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    # Store the passkey credential
+    await db.passkeys.insert_one({
+        "user_id": user["user_id"],
+        "email": req.email,
+        "credential_id": req.credential_id,
+        "public_key": req.public_key,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    })
+
+    # Update user auth method to include passkey
+    await db.users.update_one(
+        {"user_id": user["user_id"]},
+        {"$set": {"has_passkey": True}}
+    )
+
+    return {"success": True, "message": "Passkey registered successfully"}
+
+@router.post("/passkey/login/start")
+async def passkey_login_start(req: PasskeyLoginStart):
+    """Start passkey authentication - return challenge"""
+    if not req.email:
+        raise HTTPException(status_code=400, detail="Email required")
+
+    passkeys = await db.passkeys.find({"email": req.email}, {"_id": 0}).to_list(10)
+    if not passkeys:
+        raise HTTPException(status_code=404, detail="No passkeys registered for this email")
+
+    challenge = secrets.token_urlsafe(32)
+    await db.passkey_challenges.insert_one({
+        "email": req.email,
+        "challenge": challenge,
+        "type": "login",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    })
+
+    return {
+        "challenge": challenge,
+        "rpId": "preview.emergentagent.com",
+        "allowCredentials": [
+            {"type": "public-key", "id": pk["credential_id"]} for pk in passkeys
+        ],
+        "timeout": 60000
+    }
+
+@router.post("/passkey/login/finish")
+async def passkey_login_finish(req: PasskeyLoginFinish, response: Response):
+    """Complete passkey authentication"""
+    passkey = await db.passkeys.find_one(
+        {"email": req.email, "credential_id": req.credential_id},
+        {"_id": 0}
+    )
+    if not passkey:
+        raise HTTPException(status_code=401, detail="Invalid passkey credential")
+
+    user = await db.users.find_one({"user_id": passkey["user_id"]}, {"_id": 0})
+    if not user:
+        raise HTTPException(status_code=401, detail="User not found")
+
+    current_time = datetime.now(timezone.utc).isoformat()
+    await db.users.update_one(
+        {"user_id": user["user_id"]},
+        {"$set": {"last_login": current_time}}
+    )
+
+    session_token = create_session_token()
+    await create_session(user["user_id"], session_token)
+
+    response.set_cookie(
+        key="session_token",
+        value=session_token,
+        httponly=True,
+        secure=True,
+        samesite="none",
+        max_age=7 * 24 * 60 * 60,
+        path="/"
+    )
+
+    return {
+        "access_token": session_token,
+        "token_type": "bearer",
+        "user": {
+            "user_id": user["user_id"],
+            "email": user["email"],
+            "name": user.get("name", ""),
+            "auth_method": "passkey",
+            "role": user.get("role", "job_seeker"),
+            "created_at": user.get("created_at", ""),
+            "last_login": current_time
+        }
+    }
+
+
 # Export helper functions for use in other modules
 __all__ = [
     'router', 

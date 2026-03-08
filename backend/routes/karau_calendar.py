@@ -257,7 +257,7 @@ async def sync_meeting_to_calendar(req: CalendarSyncRequest, user=Depends(requir
             if not access_token:
                 raise HTTPException(status_code=401, detail="Calendar token expired. Please reconnect.")
 
-    join_url = req.join_url or f"https://lumi-ai-hub-1.preview.emergentagent.com/karau-meet/join/{req.meeting_id}"
+    join_url = req.join_url or f"https://karau-enzi-nexus.preview.emergentagent.com/karau-meet/join/{req.meeting_id}"
 
     event_body = {
         "subject": req.title,

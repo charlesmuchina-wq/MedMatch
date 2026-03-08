@@ -358,7 +358,7 @@ async def send_application_status_email(
     Send application status update email to candidate
     """
     # Generate application tracking link if token provided
-    app_url = os.environ.get("APP_URL", "https://lumi-ai-hub-1.preview.emergentagent.com")
+    app_url = os.environ.get("APP_URL", "https://karau-enzi-nexus.preview.emergentagent.com")
     application_link = None
     if application_id and tracking_token:
         application_link = f"{app_url}/track-application/{application_id}?token={tracking_token}"

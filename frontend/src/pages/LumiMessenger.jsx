@@ -38,6 +38,7 @@ import NewMessagePanel from '@/components/Lumi/NewMessagePanel';
 import ConversationSummary from '@/components/Lumi/ConversationSummary';
 import ScheduleMessageModal from '@/components/Lumi/ScheduleMessageModal';
 import NotificationSettings from '@/components/Lumi/NotificationSettings';
+import EnziMeetingModal from '@/components/Lumi/EnziMeetingModal';
 
 const LumiMessenger = () => {
   const navigate = useNavigate();
@@ -98,6 +99,7 @@ const LumiMessenger = () => {
   const [showScheduleModal, setShowScheduleModal] = useState(false);
   const [showNotifSettings, setShowNotifSettings] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
+  const [showMeetingModal, setShowMeetingModal] = useState(false);
 
   const messagesEndRef = useRef(null);
   const wsRef = useRef(null);
@@ -798,6 +800,7 @@ const LumiMessenger = () => {
               <button onClick={() => { closeAllPanels(); setShowNotifications(!showNotifications); }} className={`p-2 rounded-md transition-colors relative ${showNotifications ? 'bg-[#E84393]/10' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} style={showNotifications ? { color: ESY.pink } : {}} data-testid="notifications-btn" title="Smart Notifications"><Bell className="w-3.5 h-3.5" /><span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: ESY.deepRed }} /></button>
               <button onClick={() => { closeAllPanels(); setShowAiPanel(!showAiPanel); }} className={`p-2 rounded-md transition-colors ${showAiPanel ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} data-testid="ai-panel-btn" title="AI Insights"><Brain className="w-4 h-4" /></button>
               <button onClick={() => setShowScheduleModal(true)} className="p-2 rounded-md text-slate-500 hover:text-amber-600 hover:bg-amber-50 transition-colors" data-testid="schedule-msg-btn" title="Schedule Message"><Clock className="w-4 h-4" /></button>
+              <button onClick={() => setShowMeetingModal(true)} className="p-2 rounded-md text-slate-500 hover:text-[#6C5CE7] hover:bg-[#6C5CE7]/5 transition-colors" data-testid="start-meeting-btn" title="Start AI KARAU Meeting"><Video className="w-4 h-4" /></button>
               <button onClick={() => setShowSummary(!showSummary)} className={`p-2 rounded-md transition-colors ${showSummary ? 'text-violet-600 bg-violet-50' : 'text-slate-500 hover:text-violet-600 hover:bg-violet-50'}`} data-testid="summarize-channel-btn" title="Summarize Conversation"><ClipboardList className="w-4 h-4" /></button>
               <button onClick={() => setShowNotifSettings(true)} className="p-2 rounded-md text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-colors" data-testid="notif-settings-btn" title="Notification Settings"><BellOff className="w-4 h-4" /></button>
               <button onClick={() => setShowMembers(!showMembers)} className={`p-2 rounded-md transition-colors ${showMembers ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} data-testid="channel-members-btn"><Users className="w-4 h-4" /></button>
@@ -958,6 +961,18 @@ const LumiMessenger = () => {
                   </div>
                 </button>
               </div>
+
+              {/* KARAU Meeting Quick Action */}
+              <button onClick={() => setShowMeetingModal(true)} className="bento-tile w-full flex items-center gap-4 cursor-pointer group hover:border-[#6C5CE7]/20 transition-all" data-testid="bento-start-meeting">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0" style={{ background: 'linear-gradient(135deg, #6C5CE7, #00CEC9)' }}>
+                  <Video className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white text-sm font-semibold font-outfit">AI KARAU Meeting</p>
+                  <p className="text-slate-500 text-[11px] mt-0.5">Start an instant or scheduled meeting from ENZI</p>
+                </div>
+                <ArrowLeft className="w-4 h-4 text-slate-600 rotate-180 group-hover:translate-x-1 transition-transform" />
+              </button>
 
               {/* Invite to ENZI - Dashboard CTA */}
               <button onClick={() => setShowInviteModal(true)}
@@ -1185,6 +1200,7 @@ const LumiMessenger = () => {
       {showInviteModal && <InviteModal onClose={() => setShowInviteModal(false)} token={token} />}
       {showNewMsgPanel && <NewMessagePanel onClose={() => setShowNewMsgPanel(false)} onSelectUser={handleStartDm} onInvite={handleNewMsgInvite} token={token} />}
       {showScheduleModal && activeChannel && <ScheduleMessageModal channelId={activeChannel.id} channelName={activeChannel.name || ''} token={token} onClose={() => setShowScheduleModal(false)} />}
+      {showMeetingModal && <EnziMeetingModal channelId={activeChannel?.id} channelName={activeChannel?.name || ''} token={token} onClose={() => setShowMeetingModal(false)} />}
       {showNotifSettings && <NotificationSettings token={token} channels={channels} onClose={() => setShowNotifSettings(false)} />}
       {showProfile && <UserProfileModal onClose={() => setShowProfile(false)} token={token} onStatusChange={(s) => {}} onThemeChange={(c) => setUserAccentColor(c)} />}
       {showRetention && <RetentionPanel onClose={() => setShowRetention(false)} token={token} />}

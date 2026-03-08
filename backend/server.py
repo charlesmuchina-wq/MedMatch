@@ -466,6 +466,11 @@ app.include_router(enzi_sentiment_router, prefix="/api")
 app.include_router(enzi_channel_templates_router, prefix="/api")
 app.include_router(enzi_webhook_templates_router, prefix="/api")
 
+from routes.enzi_meetings import router as enzi_meetings_router
+from routes.enzi_bots import router as enzi_bots_router
+app.include_router(enzi_meetings_router, prefix="/api")
+app.include_router(enzi_bots_router, prefix="/api")
+
 app.include_router(meeting_intelligence_router, prefix="/api")
 app.include_router(lumi_files_router, prefix="/api")
 app.include_router(ai_productivity_router, prefix="/api")
