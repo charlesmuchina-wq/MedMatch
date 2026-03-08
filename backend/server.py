@@ -326,6 +326,8 @@ from routes.ai_productivity import router as ai_productivity_router
 from routes.lumi_files import router as lumi_files_router
 from routes.lumi_templates import router as lumi_templates_router
 from routes.lumi_buckets import router as lumi_buckets_router
+from routes.lumi_calendar import router as lumi_calendar_router
+from routes.lumi_predict import router as lumi_predict_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
@@ -438,6 +440,8 @@ app.include_router(lumi_messenger_router, prefix="/api")
 app.include_router(lumi_ai_router, prefix="/api")
 app.include_router(lumi_templates_router, prefix="/api")
 app.include_router(lumi_buckets_router, prefix="/api")
+app.include_router(lumi_calendar_router, prefix="/api")
+app.include_router(lumi_predict_router, prefix="/api")
 
 app.include_router(meeting_intelligence_router, prefix="/api")
 app.include_router(lumi_files_router, prefix="/api")

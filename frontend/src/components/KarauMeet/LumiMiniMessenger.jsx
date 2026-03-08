@@ -1,6 +1,6 @@
 /**
- * LumiMiniMessenger - Compact LUMI messenger for use inside AI KARAU meetings
- * Opens as a side panel allowing users to chat in LUMI channels while in a meeting
+ * LumiMiniMessenger - Compact ENZI messenger for use inside AI KARAU meetings
+ * Opens as a side panel allowing users to chat in ENZI channels while in a meeting
  */
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -132,7 +132,7 @@ const LumiMiniMessenger = ({ onUnreadChange }) => {
     return (
       <div className="flex flex-col items-center justify-center h-full p-4 text-center">
         <MessageCircle className="w-8 h-8 text-slate-500 mb-2" />
-        <p className="text-sm text-slate-400">Log in to LUMI to use the messenger</p>
+        <p className="text-sm text-slate-400">Log in to ENZI to use the messenger</p>
       </div>
     );
   }
@@ -144,11 +144,11 @@ const LumiMiniMessenger = ({ onUnreadChange }) => {
         <div className="p-3 border-b border-karau-border">
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 flex-shrink-0">
-              <img src="/lumi-icon-only.png" alt="LUMI" className="w-full h-full object-contain" />
+              <img src="/lumi-icon-only.png" alt="ENZI" className="w-full h-full object-contain" />
             </div>
             <span className="text-sm font-bold tracking-wide"
               style={{ background: 'linear-gradient(135deg, #00CEC9, #6C5CE7, #E84393)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              LUMI
+              ENZI
             </span>
             <span className="text-[10px] text-slate-500 ml-auto">Messenger</span>
           </div>
@@ -162,7 +162,7 @@ const LumiMiniMessenger = ({ onUnreadChange }) => {
           ) : channels.length === 0 ? (
             <div className="text-center py-8 px-4">
               <Hash className="w-6 h-6 text-slate-600 mx-auto mb-2" />
-              <p className="text-xs text-slate-500">No channels yet. Open LUMI to create one.</p>
+              <p className="text-xs text-slate-500">No channels yet. Open ENZI to create one.</p>
             </div>
           ) : (
             <div className="py-1">

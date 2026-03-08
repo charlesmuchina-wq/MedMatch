@@ -11,7 +11,7 @@ import statistics
 import json
 from datetime import datetime
 
-API_URL = "https://liquid-glass-chat-5.preview.emergentagent.com/api"
+API_URL = "https://lumi-ai-hub-1.preview.emergentagent.com/api"
 
 # Endpoints to test
 ENDPOINTS = [

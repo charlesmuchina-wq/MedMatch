@@ -1,5 +1,5 @@
 /**
- * LUMI Prestige — Enterprise Team Messenger
+ * ENZI Prestige — Enterprise Team Messenger
  * Refactored: Main container imports sub-components from /components/Lumi/
  */
 import { useState, useEffect, useRef, useCallback } from 'react';
@@ -79,6 +79,8 @@ const LumiMessenger = () => {
   const [activeBucket, setActiveBucket] = useState(null);
   const [bucketMessages, setBucketMessages] = useState([]);
   const [bucketLoading, setBucketLoading] = useState(false);
+  const [calendarStatus, setCalendarStatus] = useState({ status: 'available', source: 'manual', calendar_event: null, microsoft_linked: false });
+  const [predictions, setPredictions] = useState({ channels: [], dms: [] });
 
   const messagesEndRef = useRef(null);
   const wsRef = useRef(null);
@@ -113,7 +115,7 @@ const LumiMessenger = () => {
               localStorage.setItem('token', data.access_token);
               localStorage.setItem('karau_user', JSON.stringify(data.user));
               setUser(data.user);
-              toast.success('Welcome to LUMI!');
+              toast.success('Welcome to ENZI!');
               window.history.replaceState(null, '', window.location.pathname);
             }
           } catch (e) {
@@ -188,6 +190,31 @@ const LumiMessenger = () => {
     } catch (e) {}
   }, [token, loadBucketCounts]);
 
+  const loadCalendarStatus = useCallback(async () => {
+    if (!token) return;
+    try {
+      const res = await fetch(`${API}/api/lumi/calendar/status`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) setCalendarStatus(await res.json());
+    } catch (e) {}
+  }, [token]);
+
+  const loadPredictions = useCallback(async () => {
+    if (!token) return;
+    try {
+      const res = await fetch(`${API}/api/lumi/predict/suggestions`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) setPredictions(await res.json());
+    } catch (e) {}
+  }, [token]);
+
+  const trackAction = async (action, targetId, targetName) => {
+    if (!token) return;
+    fetch(`${API}/api/lumi/predict/track`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify({ action, target_id: targetId, target_name: targetName })
+    }).catch(() => {});
+  };
+
   const openBucket = async (category) => {
     setBucketLoading(true);
     setActiveBucket(category);
@@ -205,8 +232,8 @@ const LumiMessenger = () => {
   };
 
   useEffect(() => {
-    if (user) { loadChannels(); loadDms(); loadUnreadCounts(); loadPresence(); loadInvites(); scanAndLoadBuckets(); }
-  }, [user, loadChannels, loadDms, loadUnreadCounts, loadPresence, loadInvites, scanAndLoadBuckets]);
+    if (user) { loadChannels(); loadDms(); loadUnreadCounts(); loadPresence(); loadInvites(); scanAndLoadBuckets(); loadCalendarStatus(); loadPredictions(); }
+  }, [user, loadChannels, loadDms, loadUnreadCounts, loadPresence, loadInvites, scanAndLoadBuckets, loadCalendarStatus, loadPredictions]);
 
   // Mark as read
   useEffect(() => {
@@ -459,7 +486,7 @@ const LumiMessenger = () => {
               <button onClick={() => setShowCreateModal(true)} className="p-1 text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="add-channel-btn"><Plus className="w-3.5 h-3.5" /></button>
             </div>
             {filteredChannels.map(ch => (
-              <button key={ch.id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); }}
+              <button key={ch.id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); trackAction('channel_visit', ch.id, ch.name); }}
                 className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${activeChannel?.id === ch.id ? 'bg-white/15 text-white font-semibold' : 'text-white/80 hover:bg-white/10 hover:text-white'}`} data-testid={`channel-${ch.id}`}>
                 <ChannelIcon type={ch.channel_type} /><span className="flex-1 text-sm truncate text-left">{ch.name}</span>
                 {unreadCounts[ch.id] > 0 && <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[9px] font-bold text-white" style={{ backgroundColor: ESY.pink }} data-testid={`unread-${ch.id}`}>{unreadCounts[ch.id]}</span>}
@@ -484,7 +511,7 @@ const LumiMessenger = () => {
               const init = (partner.name || partner.email || '?')[0].toUpperCase();
               const st = presenceMap[partner.user_id] || 'offline';
               return (
-                <button key={dm.id} onClick={() => { setActiveChannel(dm); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); }}
+                <button key={dm.id} onClick={() => { setActiveChannel(dm); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); trackAction('dm_visit', dm.id, partner.name || partner.email || 'User'); }}
                   className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${activeChannel?.id === dm.id ? 'bg-white/15 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}`} data-testid={`dm-${dm.id}`}>
                   <div className="relative">
                     <div className="w-6 h-6 rounded-full bg-slate-500 flex items-center justify-center text-[9px] font-semibold text-white">{init}</div>
@@ -791,11 +818,27 @@ const LumiMessenger = () => {
 
                 {/* Right Column: AI Status + Smart Buckets */}
                 <div className="space-y-3 md:space-y-4">
-                  {/* AI Status Widget */}
+                  {/* AI Status + Calendar Widget */}
                   <div className="bento-tile">
                     <div className="flex items-center gap-2 mb-3">
                       <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">AI Intelligence</p>
+                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">Status & Intelligence</p>
+                    </div>
+                    {/* Calendar Status */}
+                    <div className="flex items-center gap-2.5 px-2.5 py-2 rounded-xl bg-white/[0.03] mb-2" data-testid="calendar-status">
+                      <div className={`w-2.5 h-2.5 rounded-full ${
+                        calendarStatus.status === 'in_meeting' ? 'bg-red-500 animate-pulse' :
+                        calendarStatus.status === 'ooo' ? 'bg-amber-500' : 'bg-emerald-500'
+                      }`} />
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs text-white/80 font-medium capitalize">{calendarStatus.status.replace('_', ' ')}</p>
+                        {calendarStatus.calendar_event && (
+                          <p className="text-[10px] text-slate-500 truncate">{calendarStatus.calendar_event.subject}</p>
+                        )}
+                      </div>
+                      {calendarStatus.microsoft_linked && (
+                        <span className="text-[8px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400">MS Synced</span>
+                      )}
                     </div>
                     <div className="grid grid-cols-3 gap-2">
                       <div className="text-center p-2 rounded-xl bg-white/[0.03]">
@@ -839,6 +882,42 @@ const LumiMessenger = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Predicted Suggestions */}
+              {(predictions.channels.length > 0 || predictions.dms.length > 0) && (
+                <div className="bento-tile" data-testid="predicted-suggestions">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Zap className="w-3.5 h-3.5 text-amber-400" />
+                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">Suggested for You</p>
+                  </div>
+                  <div className="flex gap-2 overflow-x-auto pb-1">
+                    {predictions.channels.slice(0, 3).map(s => {
+                      const ch = channels.find(c => c.id === s.target_id);
+                      return ch ? (
+                        <button key={s.target_id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); trackAction('channel_visit', ch.id, ch.name); }}
+                          className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/5 transition-colors"
+                          data-testid={`suggest-${s.target_id}`}>
+                          <Hash className="w-3.5 h-3.5 text-violet-400" />
+                          <span className="text-xs text-white/80">{s.target_name}</span>
+                        </button>
+                      ) : null;
+                    })}
+                    {predictions.dms.slice(0, 3).map(s => {
+                      const dm = dms.find(d => d.id === s.target_id);
+                      return dm ? (
+                        <button key={s.target_id} onClick={() => { setActiveChannel(dm); setMobileSidebar(false); trackAction('dm_visit', dm.id, s.target_name); }}
+                          className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/5 transition-colors"
+                          data-testid={`suggest-${s.target_id}`}>
+                          <div className="w-5 h-5 rounded-full bg-slate-600 flex items-center justify-center text-[9px] text-white font-semibold">
+                            {(s.target_name || '?')[0].toUpperCase()}
+                          </div>
+                          <span className="text-xs text-white/80">{s.target_name}</span>
+                        </button>
+                      ) : null;
+                    })}
+                  </div>
+                </div>
+              )}
 
               {/* Bucket Detail Panel */}
               {activeBucket && (

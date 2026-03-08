@@ -1828,7 +1828,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
           <div className="w-80 h-full bg-karau-card flex flex-col">
             <div className="flex items-center justify-between px-4 py-3 border-b border-karau-border flex-shrink-0">
               <span className="text-white font-medium text-sm">
-                {activePanel === 'ai-notes' ? t("karauMeet.aiNotes") : activePanel === 'ai-assistant' ? t("karauMeet.aiAssistant") : activePanel === 'participants' ? t("karauMeet.people") : activePanel === 'chat' ? t("karauMeet.chat") : activePanel === 'polls' ? t("karauMeet.polls") : activePanel === 'file-sharing' ? (t("karauMeet.fileSharing") || "File Sharing") : activePanel === 'lumi' ? 'LUMI Messenger' : activePanel === 'settings' ? t("karauMeet.settings") : activePanel ? activePanel.charAt(0).toUpperCase() + activePanel.slice(1) : ''}
+                {activePanel === 'ai-notes' ? t("karauMeet.aiNotes") : activePanel === 'ai-assistant' ? t("karauMeet.aiAssistant") : activePanel === 'participants' ? t("karauMeet.people") : activePanel === 'chat' ? t("karauMeet.chat") : activePanel === 'polls' ? t("karauMeet.polls") : activePanel === 'file-sharing' ? (t("karauMeet.fileSharing") || "File Sharing") : activePanel === 'lumi' ? 'ENZI Messenger' : activePanel === 'settings' ? t("karauMeet.settings") : activePanel ? activePanel.charAt(0).toUpperCase() + activePanel.slice(1) : ''}
               </span>
               <button onClick={() => setActivePanel(null)} className="p-1 text-slate-400 hover:text-white rounded-md hover:bg-karau-surface transition-colors" data-testid="close-panel-btn">
                 <X className="w-4 h-4" />
@@ -2015,7 +2015,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             onClick={() => { setActivePanel(activePanel === 'lumi' ? null : 'lumi'); setShowMoreMenu(false); }}
             className={`hidden sm:flex relative items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${activePanel === 'lumi' ? 'bg-gradient-to-br from-violet-500/25 to-pink-500/15 text-violet-300 ring-1 ring-violet-500/30' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="panel-lumi-btn"
-            title="LUMI Messenger"
+            title="ENZI Messenger"
           >
             <MessageCircle className="w-[18px] h-[18px]" />
             {lumiUnreadCount > 0 && (
@@ -2074,7 +2074,7 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
                   <Share2 className="w-4 h-4 flex-shrink-0" />{t("karauMeet.fileSharing") || "File Sharing"}
                 </button>
                 <button onClick={() => { setActivePanel(activePanel === 'lumi' ? null : 'lumi'); setShowMoreMenu(false); }} className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-slate-300 hover:bg-white/5 hover:text-white transition-colors" data-testid="lumi-panel-more-btn">
-                  <MessageCircle className="w-4 h-4 flex-shrink-0" />LUMI Messenger
+                  <MessageCircle className="w-4 h-4 flex-shrink-0" />ENZI Messenger
                   {lumiUnreadCount > 0 && (
                     <span className="ml-auto min-w-[18px] h-[18px] bg-violet-500 rounded-full text-[9px] text-white flex items-center justify-center font-medium px-1">
                       {lumiUnreadCount > 9 ? '9+' : lumiUnreadCount}

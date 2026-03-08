@@ -22,7 +22,7 @@ const PortalSelector = () => {
       subtitle: t('pages.portalSelector.jobToolkit') || 'Job Toolkit',
       description: t('pages.portalSelector.jobToolkitDesc'),
       icon: Briefcase,
-      gradient: 'from-turquoise to-cyan-500',
+      gradient: 'from-teal-400 to-cyan-500',
       glowColor: 'turquoise',
       features: [
         { icon: FileText, text: t('pages.portalSelector.resumeParser') },
@@ -53,9 +53,9 @@ const PortalSelector = () => {
     },
     {
       id: 'lumi',
-      title: 'LUMI',
+      title: 'ENZI',
       subtitle: t('pages.portalSelector.messenger') || 'Messenger',
-      description: t('pages.portalSelector.lumiDesc') || 'Real-time team messaging with channels, groups, and project spaces.',
+      description: t('pages.portalSelector.lumiDesc') || 'Real-time conversation with groups, channels, and project spaces',
       icon: MessageCircle,
       gradient: 'from-violet-500 to-indigo-600',
       glowColor: 'indigo',
@@ -66,7 +66,7 @@ const PortalSelector = () => {
         { icon: Megaphone, text: t('pages.portalSelector.projectSpaces') || 'Project Spaces' },
       ],
       route: '/lumi',
-      buttonText: t('pages.portalSelector.enterLumi') || 'Open LUMI Messenger'
+      buttonText: t('pages.portalSelector.enterLumi') || 'Open ENZI Messenger'
     }
   ];
 
@@ -241,7 +241,7 @@ const PortalSelector = () => {
                   <div className="icon-container">
                     {portal.lumiIcon ? (
                       <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-[#0B0F1A] flex items-center justify-center shadow-lg ring-2 ring-violet-500/30 p-2">
-                        <img src="/lumi-icon-only.png" alt="LUMI" className="w-full h-full object-contain" />
+                        <img src="/lumi-icon-only.png" alt="ENZI" className="w-full h-full object-contain" />
                       </div>
                     ) : portal.logo ? (
                       <img 

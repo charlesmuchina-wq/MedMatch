@@ -17,7 +17,7 @@ BASE_URL = os.environ.get('REACT_APP_BACKEND_URL')
 if BASE_URL:
     BASE_URL = BASE_URL.rstrip('/')
 else:
-    BASE_URL = "https://liquid-glass-chat-5.preview.emergentagent.com"
+    BASE_URL = "https://lumi-ai-hub-1.preview.emergentagent.com"
 
 # Test credentials
 TEST_ADMIN_EMAIL = "admin@medmatch.com"

@@ -23,7 +23,7 @@ const LumiFooter = ({ variant = 'default' }) => {
       <div className="flex items-center justify-center gap-2">
         {!isCompact && (
           <div className="w-5 h-5 rounded overflow-hidden flex-shrink-0">
-            <img src="/lumi-bubble.png" alt="LUMI" className="w-5 h-5 object-contain" />
+            <img src="/lumi-bubble.png" alt="ENZI" className="w-5 h-5 object-contain" />
           </div>
         )}
         <span className={`font-semibold tracking-wide ${isCompact ? 'text-[9px]' : 'text-[10px]'}`}

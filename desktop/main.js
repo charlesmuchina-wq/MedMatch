@@ -28,7 +28,7 @@ const store = new Store({
 });
 
 // Configuration
-const APP_URL = process.env.MEDMATCH_URL || 'https://liquid-glass-chat-5.preview.emergentagent.com';
+const APP_URL = process.env.MEDMATCH_URL || 'https://lumi-ai-hub-1.preview.emergentagent.com';
 const isDev = process.env.NODE_ENV === 'development';
 
 let mainWindow = null;

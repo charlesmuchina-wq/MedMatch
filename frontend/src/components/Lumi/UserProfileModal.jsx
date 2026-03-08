@@ -258,7 +258,7 @@ export const UserProfileModal = ({ onClose, token, onStatusChange, onThemeChange
                   <div className="w-6 h-6 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}>
                     <Brain className="w-3.5 h-3.5 text-white" />
                   </div>
-                  LUMI Capabilities
+                  ENZI Capabilities
                   <span className="text-[10px] px-2.5 py-0.5 rounded-full font-black text-white shadow-sm" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}>
                     {profile.capabilities.length} features
                   </span>

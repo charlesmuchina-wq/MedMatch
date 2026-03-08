@@ -44,7 +44,7 @@ const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsColla
     { path: '/karau-meet/notes', icon: FileText, label: t('karauMeet.meetingNotes') },
     { path: '/karau-meet/guide', icon: BookOpen, label: t('karauMeet.howToGuide') },
     { path: '/karau-meet/settings', icon: Settings, label: t('karauMeet.settings') },
-    { path: '/lumi', icon: MessageCircle, label: 'LUMI Messenger' },
+    { path: '/lumi', icon: MessageCircle, label: 'ENZI Messenger' },
   ];
 
   return (

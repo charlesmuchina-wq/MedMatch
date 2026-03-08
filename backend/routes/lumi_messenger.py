@@ -1897,17 +1897,65 @@ async def sync_google_calendar_status(request: Request):
 
 @router.get("/calendar/status")
 async def get_calendar_sync_status(request: Request):
-    """Get the current calendar sync status for the user"""
+    """Get the current calendar sync status for the user, including Microsoft Calendar"""
     user = await get_current_user(request)
     if not user:
         raise HTTPException(status_code=401, detail="Authentication required")
 
-    user_doc = await db.users.find_one({"user_id": user["user_id"]}, {"_id": 0, "status": 1, "status_source": 1, "last_calendar_sync": 1, "auth_method": 1})
+    user_doc = await db.users.find_one({"user_id": user["user_id"]}, {"_id": 0})
+    ms_linked = bool(user_doc.get("ms_access_token")) if user_doc else False
+    google_linked = user_doc.get("auth_method") == "google" if user_doc else False
+
+    # If MS-linked, try to get live calendar status
+    calendar_event = None
+    status = user_doc.get("status", "available") if user_doc else "available"
+    source = user_doc.get("status_source", "manual") if user_doc else "manual"
+
+    if ms_linked:
+        try:
+            import httpx
+            ms_token = user_doc.get("ms_access_token", "")
+            now = datetime.now(timezone.utc)
+            time_max = (now + timedelta(minutes=30)).isoformat()
+
+            async with httpx.AsyncClient() as hclient:
+                res = await hclient.get(
+                    "https://graph.microsoft.com/v1.0/me/calendarView",
+                    params={"startDateTime": now.isoformat(), "endDateTime": time_max, "$top": 3, "$select": "subject,start,end,showAs"},
+                    headers={"Authorization": f"Bearer {ms_token}", "Prefer": 'outlook.timezone="UTC"'},
+                    timeout=10,
+                )
+
+            if res.status_code == 200:
+                source = "microsoft_calendar"
+                for event in res.json().get("value", []):
+                    show_as = event.get("showAs", "free")
+                    if show_as in ("busy", "tentative"):
+                        status = "in_meeting"
+                        calendar_event = {"subject": event.get("subject", "Meeting"), "end": event.get("end", {}).get("dateTime", "")}
+                        break
+                    elif show_as == "oof":
+                        status = "ooo"
+                        calendar_event = {"subject": "Out of Office"}
+                        break
+                    else:
+                        status = "available"
+                # Update presence
+                await db.lumi_presence.update_one(
+                    {"user_id": user["user_id"]},
+                    {"$set": {"status": status, "calendar_synced_at": now.isoformat(), "last_seen": now.isoformat()}},
+                    upsert=True,
+                )
+        except Exception:
+            pass
+
     return {
-        "status": user_doc.get("status", "available") if user_doc else "available",
-        "source": user_doc.get("status_source", "manual") if user_doc else "manual",
+        "status": status,
+        "source": source,
         "last_sync": user_doc.get("last_calendar_sync") if user_doc else None,
-        "google_linked": user_doc.get("auth_method") == "google" if user_doc else False,
+        "google_linked": google_linked,
+        "microsoft_linked": ms_linked,
+        "calendar_event": calendar_event,
     }
 
 

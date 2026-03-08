@@ -63,7 +63,7 @@ export const ShortcutsPanel = ({ isOpen, onClose }) => {
             </div>
             <div>
               <h2 className="text-lg font-black text-gray-900">Keyboard Shortcuts</h2>
-              <p className="text-xs text-gray-600 font-medium">Master LUMI with quick keys</p>
+              <p className="text-xs text-gray-600 font-medium">Master ENZI with quick keys</p>
             </div>
           </div>
           <button onClick={onClose} className="p-1.5 hover:bg-slate-100 rounded-lg" data-testid="close-shortcuts">

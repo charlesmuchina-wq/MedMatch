@@ -1329,7 +1329,7 @@
       "channels": "Chaneli na Vikundi",
       "realtimeChat": "Mazungumzo ya Wakati Halisi",
       "projectSpaces": "Nafasi za Miradi",
-      "enterLumi": "Fungua Mjumbe wa LUMI"
+      "enterLumi": "Fungua Mjumbe wa ENZI"
     },
     "dragonAutomator": {
       "title": "Kiotomatiki cha KARAU",
@@ -2763,8 +2763,8 @@
   "lumi": {
     "messenger": "Mjumbe",
     "tagline": "Ujumbe wa timu kwa mfumo wa KARAU",
-    "welcomeToLumi": "Karibu LUMI!",
-    "signIn": "Ingia LUMI",
+    "welcomeToLumi": "Karibu ENZI!",
+    "signIn": "Ingia ENZI",
     "backToPortal": "Rudi kwenye Lango",
     "channels": "Chaneli",
     "discover": "Gundua",

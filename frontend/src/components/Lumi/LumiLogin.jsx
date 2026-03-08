@@ -26,7 +26,7 @@ export const LumiLogin = ({ onLogin }) => {
         localStorage.setItem('token', data.access_token);
         localStorage.setItem('karau_user', JSON.stringify(data.user));
         onLogin(data.user);
-        toast.success('Welcome to LUMI!');
+        toast.success('Welcome to ENZI!');
       } else { const err = await res.json(); toast.error(err.detail || 'Login failed'); }
     } catch (e) { toast.error('Connection error'); }
     setIsLoading(false);
@@ -70,7 +70,7 @@ export const LumiLogin = ({ onLogin }) => {
           <div className="lg:hidden flex items-center gap-3 mb-8">
             <LumiBrand variant="inline-light" size="sm" />
           </div>
-          <h2 className="text-2xl font-bold text-slate-800 mb-1">{t('lumi.signIn') || 'Sign in to LUMI'}</h2>
+          <h2 className="text-2xl font-bold text-slate-800 mb-1">{t('lumi.signIn') || 'Sign in to ENZI'}</h2>
           <p className="text-sm text-slate-600 mb-6">{t('lumi.tagline') || 'Team messaging for the KARAU ecosystem'}</p>
 
           {/* SSO Buttons */}

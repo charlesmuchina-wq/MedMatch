@@ -1,5 +1,5 @@
 /**
- * LumiBrand - LUMI branding using CSS-rendered icon + gradient text
+ * LumiBrand - ENZI branding using CSS-rendered icon + gradient text
  * The chat bubble icon is rendered from cropped PNG (icon-only) files
  * Uses transparent version for light backgrounds, dark version for dark backgrounds
  */
@@ -10,7 +10,7 @@ const GRADIENT = 'linear-gradient(135deg, #00CEC9, #6C5CE7, #E84393)';
 const ICON_DARK = '/lumi-icon-only.png';
 const ICON_LIGHT = '/lumi-icon-only-transparent.png';
 
-// Full logos (bubble + text + tagline)
+// Full logos (bubble + text + tagline in one image)
 const FULL_DARK = '/lumi-logo-official.png';
 const FULL_LIGHT = '/lumi-logo-transparent.png';
 
@@ -29,7 +29,16 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
   if (variant === 'full-dark' || variant === 'full-light') {
     return (
       <div className={`flex flex-col items-center ${className}`} data-testid="lumi-brand">
-        <img src={isDark ? FULL_DARK : FULL_LIGHT} alt="LUMI" className={`${s.logo} object-contain`} />
+        <div className={`${s.icon} flex-shrink-0 flex items-center justify-center mb-2`}>
+          <img src={isDark ? ICON_DARK : ICON_LIGHT} alt="ENZI" className="w-full h-full object-contain" />
+        </div>
+        <span className={`${s.text} font-black tracking-[0.15em] uppercase`}
+          style={{ background: GRADIENT, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+          ENZI
+        </span>
+        <span className={`${s.tagline} font-medium mt-1 tracking-wide ${isDark ? 'text-white/90' : 'text-slate-500'}`}>
+          Intelligence in Every Conversation
+        </span>
       </div>
     );
   }
@@ -38,7 +47,7 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
   if (variant === 'icon-dark' || variant === 'icon-light') {
     return (
       <div className={`${s.icon} flex-shrink-0 flex items-center justify-center ${className}`} data-testid="lumi-brand-icon">
-        <img src={isDark ? ICON_DARK : ICON_LIGHT} alt="LUMI" className="w-full h-full object-contain" />
+        <img src={isDark ? ICON_DARK : ICON_LIGHT} alt="ENZI" className="w-full h-full object-contain" />
       </div>
     );
   }
@@ -49,7 +58,7 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
       <div className={`flex flex-col items-center ${className}`} data-testid="lumi-brand">
         <span className={`${s.text} font-black tracking-[0.15em] uppercase`}
           style={{ background: GRADIENT, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-          LUMI
+          ENZI
         </span>
         {showTagline && (
           <span className={`${s.tagline} font-medium mt-0.5 tracking-wide ${isDark ? 'text-white/90' : 'text-slate-500'}`}>
@@ -65,12 +74,12 @@ export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', 
     return (
       <div className={`flex items-center gap-2.5 ${className}`} data-testid="lumi-brand">
         <div className={`${s.icon} flex-shrink-0 flex items-center justify-center`}>
-          <img src={isDark ? ICON_DARK : ICON_LIGHT} alt="LUMI" className="w-full h-full object-contain" />
+          <img src={isDark ? ICON_DARK : ICON_LIGHT} alt="ENZI" className="w-full h-full object-contain" />
         </div>
         <div className="flex flex-col">
           <span className={`${s.text} font-black tracking-[0.12em] uppercase leading-tight`}
             style={{ background: GRADIENT, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-            LUMI
+            ENZI
           </span>
           {showTagline && (
             <span className={`${s.tagline} font-medium tracking-wide ${isDark ? 'text-white/90' : 'text-slate-500'}`}>

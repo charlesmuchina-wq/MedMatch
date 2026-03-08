@@ -86,7 +86,7 @@ export const CommandBar = ({ isOpen, onClose, onNavigate, token, onAction }) => 
             <span><kbd className="px-1 py-0.5 bg-slate-50 rounded border border-slate-200 font-mono text-[9px]">↵</kbd> select</span>
             <span><kbd className="px-1 py-0.5 bg-slate-50 rounded border border-slate-200 font-mono text-[9px]">?</kbd> ask AI</span>
           </div>
-          <span className="text-[9px] font-medium" style={{ color: ESY.pink }}>LUMI Command</span>
+          <span className="text-[9px] font-medium" style={{ color: ESY.pink }}>ENZI Command</span>
         </div>
       </div>
     </div>

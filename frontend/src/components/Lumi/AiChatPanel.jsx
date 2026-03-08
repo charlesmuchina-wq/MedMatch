@@ -33,7 +33,7 @@ export const AiChatPanel = ({ channelId, onClose, token }) => {
       <div className="h-14 flex items-center justify-between px-4 border-b border-slate-200" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}08, ${ESY.pink}08)` }}>
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}><Sparkles className="w-3.5 h-3.5 text-white" /></div>
-          <div><h3 className="text-sm font-semibold text-slate-900">Ask LUMI AI</h3><p className="text-[9px] text-slate-400">Powered by ESY Intelligence</p></div>
+          <div><h3 className="text-sm font-semibold text-slate-900">Ask ENZI AI</h3><p className="text-[9px] text-slate-400">Powered by ESY Intelligence</p></div>
         </div>
         <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-md" data-testid="close-ai-chat"><X className="w-4 h-4 text-slate-500" /></button>
       </div>

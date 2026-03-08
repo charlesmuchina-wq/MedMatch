@@ -178,7 +178,7 @@ class TestCORSConfiguration:
             json={"email": ADMIN_EMAIL, "password": ADMIN_PASSWORD},
             headers={
                 "Content-Type": "application/json",
-                "Origin": "https://liquid-glass-chat-5.preview.emergentagent.com"
+                "Origin": "https://lumi-ai-hub-1.preview.emergentagent.com"
             }
         )
         

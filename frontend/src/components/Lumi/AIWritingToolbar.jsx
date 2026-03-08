@@ -1,5 +1,5 @@
 /**
- * AIWritingToolbar - AI-powered writing assistant for LUMI chat
+ * AIWritingToolbar - AI-powered writing assistant for ENZI chat
  * Features: Tone refinement, smart replies, translation, voice-to-text, templates
  */
 import { useState, useRef, useEffect } from 'react';

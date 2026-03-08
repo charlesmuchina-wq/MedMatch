@@ -1,5 +1,5 @@
 /**
- * LUMI Shared Constants
+ * ENZI Shared Constants
  * ESY Color Theme: Pink (#E84393), Turquoise (#00CEC9), Deep Red (#D63031)
  */
 

@@ -840,7 +840,7 @@ function AppContent({ skipPortalSelector = false }) {
     );
   }
 
-  // Render LUMI Messenger standalone
+  // Render ENZI Messenger standalone
   if (isLumiMessenger) {
     return (
       <div className="min-h-screen flex flex-col">
@@ -1137,7 +1137,7 @@ const SubdomainRouter = () => {
     return <KarauMeetPortal />;
   }
   
-  // lumi.aikarau.com -> LUMI Messenger
+  // lumi.aikarau.com -> ENZI Messenger
   if (subdomain === 'lumi') {
     return <LumiMessenger />;
   }
