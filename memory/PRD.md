@@ -6,64 +6,50 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "ENZI" 
 ## What's Been Implemented
 
 ### Brand Rename: LUMI → ENZI (Completed - March 8, 2026)
-- Renamed all user-visible text from "LUMI" to "ENZI" across Portal Selector, Login, Messenger, Mini Messenger, KarauMeetPortal, Footer, Command Bar, AI Chat, User Profile, Keyboard Shortcuts
+- Renamed all user-visible text from "LUMI" to "ENZI" across 15+ files
 - Updated translation files (en.json, sw.json) for ENZI branding
-- Internal code (file names, API routes `/api/lumi/*`, CSS classes) kept unchanged to avoid breaking changes
+- Internal code (file names, API routes `/api/lumi/*`, CSS classes) kept unchanged
 - URL route `/lumi` intentionally preserved for backward compatibility
 
-### Core Infrastructure
+### Invite System with Registration-Gated Security (Completed - March 8, 2026)
+- **Email Invitations**: Send invites via Resend API with branded HTML template
+- **Shareable Links**: Generate invite links with 7-day expiry
+- **Social Sharing**: SMS, LinkedIn, Twitter/X share buttons
+- **Registration Gate**: Invited users MUST register before accessing ENZI
+- **Token Validation**: Expiry checking, already-used detection, invalid token handling
+- **Invite History**: Track all sent invitations with status (pending/accepted)
+- **Dashboard CTA**: Prominent "Invite to ENZI" tile on the command center
+- **Sidebar Button**: "Invite to ENZI" in sidebar for quick access
+- Backend: `/api/lumi/invite/send`, `/api/lumi/invite/link`, `/api/lumi/invite/validate/{token}`, `/api/lumi/invite/register`, `/api/lumi/invite/history`
+
+### Domain-Based Company Discovery (Completed - March 8, 2026)
+- Users with same email domain can find and message each other
+- Free email domains (gmail, yahoo, etc.) excluded from company matching
+- "Company" section in sidebar shows domain colleagues
+- Backend: `/api/lumi/domain/colleagues`, `/api/lumi/domain/info`
+
+### ENZI Splash Screen (Completed - March 8, 2026)
+- Animated logo intro: icon scale-in → gradient text reveal → loading bar → fade out
+- Shows once per session (sessionStorage gated)
+- 2.2 second total animation duration
+
+### Core Infrastructure (Previous Sessions)
 - Full ENZI messenger with channels, DMs, WebSocket real-time messaging
-- Google SSO + **Microsoft SSO (Azure AD)** + email/password authentication
+- Google SSO + Microsoft SSO (Azure AD) + email/password authentication
 - Content moderation, compliance framework (HIPAA/GDPR/PIPL/APPI/UK DPA)
 - Message retention & holds system, admin audit logs
 - Dark/Light mode toggle, keyboard shortcuts
-
-### Microsoft SSO (Completed - March 6, 2026)
-- Full OAuth2 flow: Login → Microsoft auth → Callback → Session creation → ENZI redirect
-- Backend: `/api/auth/microsoft/login`, `/api/auth/microsoft/callback`, `/api/auth/microsoft/config`
-- Generic session validation: `/api/auth/session/validate` (works for both Google and MS SSO)
-- Frontend: "Sign in with Microsoft" button on ENZI login page
-- Scopes: openid, profile, email, User.Read, Calendars.Read
-
-### AI Writing Assistant + Templates (Completed)
-- **Refine**: 4 tones (Professional, Friendly, Assertive, Concise)
-- **Smart Reply**: Context-aware suggestions
-- **Translate**: 10 languages
-- **Voice-to-Text**: Whisper + LLM polishing
-- **Save as Template**: CRUD + library UI, auto-appears after AI actions
-- Backend: `/api/lumi/ai/*`, `/api/lumi/templates/*`
-
-### Smart Buckets (Completed)
-- AI-powered categorization: Urgent, Action Required, Meeting Requests, FYI, Social
-- Clickable dashboard buckets with real counts, detail panel with dismiss
-- Auto-scan on dashboard load using GPT-4.1-mini
-- Backend: `/api/lumi/buckets/*`
-
-### Channel Invite System (Completed)
-- 2-step channel creation (details → invite emails)
-- Private channels, requires_approval flag, accept/decline invites
-- Backend: `/api/lumi/channels/{id}/invite`, `/api/lumi/invites/*`
-
-### MS Calendar Status Sync (Completed)
-- Backend service fetches user's MS Calendar status
-- Updates presence in ENZI (Available, Busy, In Meeting, OOO)
-- Backend: `/api/lumi/calendar/status`, `/api/lumi/calendar/sync`
-
-### Predictive Navigation (Completed)
-- Backend tracking of user navigation events
-- "Suggested for You" section on dashboard
-- Backend: `/api/lumi/predict/track`, `/api/lumi/predict/suggestions`
-
-### Futuristic UI (Liquid Glass Phase)
-- Bento Grid Command Center, Liquid Glass CSS, Outfit font
-- ENZI logo: pixel-analyzed icon crops, transparent versions
-- Dark mode scoped via `lumi-light-panel` class
+- AI Writing Assistant (Refine, Suggest, Translate, Voice) + Templates
+- Smart Buckets (Urgent, Action Required, Meeting Requests)
+- Channel invite system with approval flow
+- MS Calendar status sync
+- Predictive navigation with "Suggested for You"
 
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI + Outfit font
-- Backend: FastAPI + MongoDB + emergentintegrations + msal
+- Backend: FastAPI + MongoDB + emergentintegrations + msal + resend
 - Real-time: WebSocket at /api/lumi/ws/{user_id}
-- Auth: Google SSO (Emergent) + Microsoft SSO (Azure AD) + email/password
+- Auth: Google SSO (Emergent) + Microsoft SSO (Azure AD) + email/password + invite registration
 
 ## Pending / Backlog
 - **P1:** Task-Driven Side Layout with Smart Buckets as primary navigation
@@ -73,10 +59,14 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "ENZI" 
 - **P2:** End-to-End Encryption (E2EE)
 - **P2:** Live Payment Gateway (Stripe)
 - **P2:** Passkeys & Biometric Authentication
-- **P2:** Template Sharing (team-wide template library)
 - **P3:** Legacy Admin User Display fix
+
+## Key DB Schema
+- `enzi_invites`: `{ id, invited_email, invited_by, invited_by_name, invited_by_domain, message, status, type, expires_at, created_at }`
+- `users` (updated): Added `domain`, `auth_method: "invite"`, `invited_by` fields for invite-registered users
 
 ## Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
 - Test: test@medmatch.io / TestPassword123!
 - Azure AD: Client ID 40a72049..., Tenant d4e8b623...
+- Resend: Testing mode (sends only to charles.muchina@gmail.com)
