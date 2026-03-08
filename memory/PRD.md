@@ -10,88 +10,55 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "ENZI" 
 - AI: GPT-4.1-mini via Emergent LLM Key
 - Payments: Stripe via emergentintegrations (LIVE test mode)
 
-## Implementation Status
+## Unified Authentication (All 3 Portals)
+All portals share the same `/api/auth/login` backend. Standardized auth providers:
+- **Google SSO** (Emergent-managed) - All portals
+- **Microsoft SSO** (MSAL) - All portals
+- **Apple Sign-In** - All portals (config-ready)
+- **GitHub SSO** (MOCKED demo) - All portals
+- **Passkeys/WebAuthn** - ENZI + AI KARAU
+- **Phone OTP** - ENZI (planned)
+- **Email/Password** - All portals
+- Credentials: admin@medmatch.com / Swampdrainer2026!, test@medmatch.io / TestPassword123!
 
-### Completed Features
+## Completed Features
 
-#### Authentication (6 Providers)
-- Google SSO (Emergent-managed), Microsoft SSO (MSAL), Apple (config-ready)
-- GitHub SSO (MOCKED demo mode), Passkeys/WebAuthn, Email/Password
-- "More sign-in options" expandable section
-- Backend: `/api/auth/github/*`, `/api/auth/passkey/*`
+### Cross-Portal Meeting Integration
+- Create AI KARAU meetings from ENZI, instant + scheduled, channel notifications
 
-#### Cross-Portal Integration
-- Create AI KARAU meetings from ENZI messenger
-- Instant + scheduled meetings with channel notifications
-- Dashboard bento tile + chat header Video button
-- Backend: `/api/lumi/meetings/quick|schedule|active|history`
+### Bot Store/Marketplace
+- 8 pre-built bots with quick-trigger Bot Actions Bar in channels
 
-#### Bot Store/Marketplace
-- 8 pre-built bots: Standup, Reminder, Poll, Meeting, Welcome, Summary, Translator, GitHub Notify
-- Browse/install/uninstall per channel, category filtering, search
-- Bot Actions Bar in channels with quick-trigger buttons (Start Poll, Run Standup, etc.)
-- Backend: `/api/lumi/bots/catalog|install|installed|uninstall|action|channel/{id}`
+### End-to-End Encryption (E2EE)
+- ECDH P-256 + AES-GCM, client-side keys, DM indicators
 
-#### End-to-End Encryption (E2EE)
-- ECDH P-256 key exchange + AES-GCM 256-bit encryption
-- Client-side keys in IndexedDB (never leave device)
-- E2EE indicator in DM channels with enable button
-- Backend: `/api/lumi/e2ee/keys/*`, `/api/lumi/e2ee/dm/{id}/status`
+### Live Stripe Payments
+- 4 premium tiers ($9.99-$99.99), real Stripe checkout (test mode)
 
-#### Live Stripe Payment Gateway
-- 4 premium tiers: Pro Monthly ($9.99), Pro Yearly ($99.99), Team ($29.99), Enterprise ($99.99)
-- Real Stripe checkout via emergentintegrations (test mode with real sessions)
-- Payment polling, subscription management, transaction history
-- Backend: `/api/lumi/payments/packages|checkout|status/{id}|my-subscription|history`
+### Advanced Behavioral Modeling
+- Context-aware triggers, smart suggestions, usage insights, engagement scoring
 
-#### Advanced Behavioral Modeling
-- Context-aware triggers (unread overload, inactive channels, time-based, scheduled messages)
-- Smart suggestions (bot recommendations, meeting suggestions, wellbeing tips, security)
-- Usage insights (engagement score, message counts, peak hours)
-- Backend: `/api/lumi/behavior/context-triggers|smart-suggestions|usage-insights`
-
-#### Predictive Zero-Click Navigation
+### Predictive Zero-Click Navigation
 - Channels/DMs sorted by predicted usage with Zap indicators
-- Tracks channel visits, DM opens, time-of-day patterns
-- Backend: `/api/lumi/predict/track|suggestions|stats`
 
-#### Screen Sharing (WebRTC)
-- Already implemented in MeetingRoom.jsx with getDisplayMedia API
-- Track replacement for peer connections
-- Auto-revert on share end
+### Screen Sharing (WebRTC)
+- Already in MeetingRoom.jsx with getDisplayMedia
 
-#### Rich Message Formatting
-- Markdown: bold, italic, strikethrough, blockquotes, links, headings
-- Code blocks with syntax highlighting (50+ languages)
-- Tables, ordered/unordered lists
+### Other Features
+- Rich Markdown + code blocks, Sentiment Analysis, AI Summaries, Scheduled Messages
+- AI Writing Assistant, Invite System, Channel/Webhook Templates, Kinetic Typography
+- Notification customization, Domain colleague discovery, Meeting History
 
-#### AI Feature Suite
-- Sentiment Analysis, Conversation Summaries, Scheduled Messages
-- AI Writing Assistant, Auto-Responses, Smart Quick Replies
-
-#### Other Features
-- Channel Templates, Webhook Templates, Kinetic Typography
-- Advanced Invite System (Email, SMS, social media)
-- Sidebar restructure, Notification customization
-- Domain-based colleague discovery
-- Meeting History panel, User Profile with auth method badges
-
-### Refactoring Done
-- Extracted `useEnziData` custom hook for data loading
-- Created separate components: BotActionsBar, BotStoreModal, E2EEIndicator, EnziMeetingModal, MeetingHistoryPanel, PremiumModal, InsightsPanel
-
-## Test Results
-- Batch A (Bot Actions + Predictive Nav): 100% (15/15 BE, 12/12 FE)
-- Batch B (E2EE + Refactoring): 100% (21/21 BE, 12/12 FE)
-- Batch C (Stripe + Behavioral): 100% (24/24 BE, 15/15 FE)
+## Test Results (All 100%)
+- Auth Duplicate: 12/12 BE, all 3 portals FE
+- Batch A-C: All passed 100%
 
 ## Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
 - Test: test@medmatch.io / TestPassword123!
 
-## Remaining / Future Enhancements
-- Voice/Video call improvements (noise cancellation, virtual backgrounds)
-- Advanced ML models for more accurate behavioral predictions
-- Webhook & Channel Template marketplace
-- Mobile app optimization
-- Advanced admin analytics dashboard
+## Remaining Enhancements
+- Voice/Video improvements (noise cancellation, virtual backgrounds)
+- Advanced ML for better predictions
+- Mobile optimization
+- Team Analytics Dashboard (premium feature idea)
