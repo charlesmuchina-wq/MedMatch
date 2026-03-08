@@ -5,57 +5,44 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "ENZI" 
 
 ## What's Been Implemented
 
+### Phase 1 - Bot Store/Marketplace (Completed - March 8, 2026)
+- Bot catalog with 8 pre-built bots: Standup, Reminder, Poll, Meeting, Welcome, Summary, Translator, GitHub Notify
+- Browse/install/uninstall bots per channel with category filtering and search
+- Installed bots tab with remove functionality
+- Backend: `/api/lumi/bots/catalog`, `/api/lumi/bots/install`, `/api/lumi/bots/installed`, `/api/lumi/bots/uninstall/{id}`
+- Frontend: BotStoreModal component with Browse/Installed tabs, category chips, channel selector
+
+### Meeting History Panel (Completed - March 8, 2026)
+- Full meeting history with status badges (Waiting, Active, Scheduled, Ended)
+- Paginated API with total count
+- "New Meeting" shortcut to create meetings from history view
+- Backend: `/api/lumi/meetings/history`
+- Frontend: MeetingHistoryPanel component
+
+### Legacy Admin Display Fix (Completed - March 8, 2026)
+- Auth method badges for ALL providers: Google SSO, Microsoft SSO, GitHub SSO, Passkey Auth, Password Auth
+- Admin user now correctly shows "Password Auth" badge instead of blank
+
 ### Expanded Authentication (Completed - March 8, 2026)
-- GitHub SSO (MOCKED/demo mode): redirects through own callback, creates demo user
-- Passkeys/WebAuthn: register + login endpoints, browser-native biometric/security key support
-- Full login page with 6 auth providers: Google, Microsoft, Apple, GitHub, Phone OTP, Passkey
-- "More sign-in options" expandable section for secondary auth methods
-- Backend: `/api/auth/github/login`, `/api/auth/github/callback`, `/api/auth/github/config`
-- Backend: `/api/auth/passkey/register/start`, `/api/auth/passkey/register/finish`
-- Backend: `/api/auth/passkey/login/start`, `/api/auth/passkey/login/finish`
+- GitHub SSO (MOCKED/demo mode)
+- Passkeys/WebAuthn: register + login endpoints
+- 6 auth providers on login page: Google, Microsoft, Apple, GitHub, Phone OTP, Passkey
+- Backend: `/api/auth/github/*`, `/api/auth/passkey/*`
 
 ### Cross-Portal Integration (Completed - March 8, 2026)
-- Create AI KARAU meetings directly from ENZI messenger
-- Instant meeting creation with channel notification
-- Scheduled meeting creation with date/time picker
-- Meeting modal accessible from dashboard bento tile and chat header toolbar
+- Create AI KARAU meetings from ENZI messenger
+- Instant + scheduled meeting creation with channel notifications
+- Dashboard bento tile + chat header toolbar button
 - Backend: `/api/lumi/meetings/quick`, `/api/lumi/meetings/schedule`, `/api/lumi/meetings/active`
-- Frontend: EnziMeetingModal component with Instant/Schedule tabs
 
-### Rich Message Formatting (Completed - March 8, 2026)
-- Full Markdown rendering: bold, italic, strikethrough, blockquotes, links, headings
-- Code blocks with syntax highlighting (Prism + oneDark theme) for 50+ languages
-- Tables with styled headers/cells, Lists (ordered + unordered)
-- Copy-to-clipboard on code blocks
-- Packages: react-markdown, remark-gfm, react-syntax-highlighter
-
-### Sentiment Analysis (Completed - March 8, 2026)
-- Real-time tone detection: positive, neutral, urgent, negative
-- AI-powered via GPT-4.1-mini with keyword fallback
-- Channel mood trends
-
-### Channel Templates + Webhook Templates (Completed - March 8, 2026)
-- 5 pre-built channel templates, 5 webhook integrations
-
-### Kinetic Typography & Micro-interactions (Completed - March 8, 2026)
-- Stagger-in animations, scale-in, shimmer, float CSS animations
-
-### AI Auto-Responses + Conversation Summaries (Completed - March 8, 2026)
-- Smart quick replies, AI conversation summaries
-
-### Scheduled Messages + Bot/Automation (Completed - March 8, 2026)
-- Schedule future messages, webhook system, auto-responder framework
-
-### Notification Customization (Completed - March 8, 2026)
-- Per-channel mute, DND schedule, keyword alerts
-
-### Sidebar Restructure + Invite System (Completed - March 8, 2026)
-- Recent/New Message quick actions, invite system (Email, SMS, social media)
-
-### Core Infrastructure (Previous Sessions)
-- Full messenger with channels, DMs, WebSocket real-time messaging
-- Google SSO + Microsoft SSO + email/password + invite registration
-- AI Writing Assistant + Templates, Smart Buckets, MS Calendar Sync, Predictive Nav
+### Previous Session Features
+- Rich Message Formatting (markdown, code blocks, tables)
+- Sentiment Analysis, AI Summaries, Scheduled Messages
+- Channel Templates, Webhook Templates, Kinetic Typography
+- Advanced Invite System (Email, SMS, social media)
+- Sidebar restructure, Notification customization
+- Google SSO + Microsoft SSO + email/password auth
+- AI Writing Assistant, Smart Buckets, MS Calendar Sync, Predictive Nav
 - Compliance (HIPAA/GDPR), Dark/Light mode, Keyboard shortcuts
 
 ## Architecture
@@ -66,18 +53,16 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "ENZI" 
 
 ## Pending / Backlog
 ### P1
-- Bot Store/Marketplace: backend routes + frontend UI for browsing/installing bots
 - Full Predictive Zero-Click Navigation: reorder UI elements by predicted user intent
 
 ### P2
-- End-to-End Encryption (E2EE) — client-side key generation, key exchange, encrypted DMs
+- End-to-End Encryption (E2EE) — client-side key gen, key exchange, encrypted DMs
 - Screen Sharing in Calls (WebRTC)
-- Live Payment Gateway (Stripe)
+- Live Stripe Payment Gateway
 - Advanced Behavioral Modeling
 
-### P3
-- Legacy Admin User Display fix (show auth method instead of role)
-- LumiMessenger.jsx refactoring (1200+ lines → smaller components)
+### Refactoring
+- LumiMessenger.jsx (1250+ lines) -> smaller components + custom hooks
 
 ## Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
