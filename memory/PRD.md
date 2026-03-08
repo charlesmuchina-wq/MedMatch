@@ -1,70 +1,97 @@
 # AI KARAU + ENZI - Product Requirements Document
 
 ## Original Problem Statement
-Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "ENZI" (professional-grade messenger, formerly LUMI). ENZI is the primary focus — a futuristic, AI-driven "Actionable Intelligence" hub.
-
-## What's Been Implemented
-
-### Phase 1 - Bot Store/Marketplace (Completed - March 8, 2026)
-- Bot catalog with 8 pre-built bots: Standup, Reminder, Poll, Meeting, Welcome, Summary, Translator, GitHub Notify
-- Browse/install/uninstall bots per channel with category filtering and search
-- Installed bots tab with remove functionality
-- Backend: `/api/lumi/bots/catalog`, `/api/lumi/bots/install`, `/api/lumi/bots/installed`, `/api/lumi/bots/uninstall/{id}`
-- Frontend: BotStoreModal component with Browse/Installed tabs, category chips, channel selector
-
-### Meeting History Panel (Completed - March 8, 2026)
-- Full meeting history with status badges (Waiting, Active, Scheduled, Ended)
-- Paginated API with total count
-- "New Meeting" shortcut to create meetings from history view
-- Backend: `/api/lumi/meetings/history`
-- Frontend: MeetingHistoryPanel component
-
-### Legacy Admin Display Fix (Completed - March 8, 2026)
-- Auth method badges for ALL providers: Google SSO, Microsoft SSO, GitHub SSO, Passkey Auth, Password Auth
-- Admin user now correctly shows "Password Auth" badge instead of blank
-
-### Expanded Authentication (Completed - March 8, 2026)
-- GitHub SSO (MOCKED/demo mode)
-- Passkeys/WebAuthn: register + login endpoints
-- 6 auth providers on login page: Google, Microsoft, Apple, GitHub, Phone OTP, Passkey
-- Backend: `/api/auth/github/*`, `/api/auth/passkey/*`
-
-### Cross-Portal Integration (Completed - March 8, 2026)
-- Create AI KARAU meetings from ENZI messenger
-- Instant + scheduled meeting creation with channel notifications
-- Dashboard bento tile + chat header toolbar button
-- Backend: `/api/lumi/meetings/quick`, `/api/lumi/meetings/schedule`, `/api/lumi/meetings/active`
-
-### Previous Session Features
-- Rich Message Formatting (markdown, code blocks, tables)
-- Sentiment Analysis, AI Summaries, Scheduled Messages
-- Channel Templates, Webhook Templates, Kinetic Typography
-- Advanced Invite System (Email, SMS, social media)
-- Sidebar restructure, Notification customization
-- Google SSO + Microsoft SSO + email/password auth
-- AI Writing Assistant, Smart Buckets, MS Calendar Sync, Predictive Nav
-- Compliance (HIPAA/GDPR), Dark/Light mode, Keyboard shortcuts
+Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "ENZI" (professional-grade messenger). ENZI is the primary focus — a futuristic, AI-driven "Actionable Intelligence" hub with liquid glass aesthetics, bento grid layouts, and predictive behavior.
 
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI + react-markdown + react-syntax-highlighter
 - Backend: FastAPI + MongoDB + emergentintegrations + msal + resend
 - Real-time: WebSocket at /api/lumi/ws/{user_id}
 - AI: GPT-4.1-mini via Emergent LLM Key
+- Payments: Stripe via emergentintegrations (LIVE test mode)
 
-## Pending / Backlog
-### P1
-- Full Predictive Zero-Click Navigation: reorder UI elements by predicted user intent
+## Implementation Status
 
-### P2
-- End-to-End Encryption (E2EE) — client-side key gen, key exchange, encrypted DMs
-- Screen Sharing in Calls (WebRTC)
-- Live Stripe Payment Gateway
-- Advanced Behavioral Modeling
+### Completed Features
 
-### Refactoring
-- LumiMessenger.jsx (1250+ lines) -> smaller components + custom hooks
+#### Authentication (6 Providers)
+- Google SSO (Emergent-managed), Microsoft SSO (MSAL), Apple (config-ready)
+- GitHub SSO (MOCKED demo mode), Passkeys/WebAuthn, Email/Password
+- "More sign-in options" expandable section
+- Backend: `/api/auth/github/*`, `/api/auth/passkey/*`
+
+#### Cross-Portal Integration
+- Create AI KARAU meetings from ENZI messenger
+- Instant + scheduled meetings with channel notifications
+- Dashboard bento tile + chat header Video button
+- Backend: `/api/lumi/meetings/quick|schedule|active|history`
+
+#### Bot Store/Marketplace
+- 8 pre-built bots: Standup, Reminder, Poll, Meeting, Welcome, Summary, Translator, GitHub Notify
+- Browse/install/uninstall per channel, category filtering, search
+- Bot Actions Bar in channels with quick-trigger buttons (Start Poll, Run Standup, etc.)
+- Backend: `/api/lumi/bots/catalog|install|installed|uninstall|action|channel/{id}`
+
+#### End-to-End Encryption (E2EE)
+- ECDH P-256 key exchange + AES-GCM 256-bit encryption
+- Client-side keys in IndexedDB (never leave device)
+- E2EE indicator in DM channels with enable button
+- Backend: `/api/lumi/e2ee/keys/*`, `/api/lumi/e2ee/dm/{id}/status`
+
+#### Live Stripe Payment Gateway
+- 4 premium tiers: Pro Monthly ($9.99), Pro Yearly ($99.99), Team ($29.99), Enterprise ($99.99)
+- Real Stripe checkout via emergentintegrations (test mode with real sessions)
+- Payment polling, subscription management, transaction history
+- Backend: `/api/lumi/payments/packages|checkout|status/{id}|my-subscription|history`
+
+#### Advanced Behavioral Modeling
+- Context-aware triggers (unread overload, inactive channels, time-based, scheduled messages)
+- Smart suggestions (bot recommendations, meeting suggestions, wellbeing tips, security)
+- Usage insights (engagement score, message counts, peak hours)
+- Backend: `/api/lumi/behavior/context-triggers|smart-suggestions|usage-insights`
+
+#### Predictive Zero-Click Navigation
+- Channels/DMs sorted by predicted usage with Zap indicators
+- Tracks channel visits, DM opens, time-of-day patterns
+- Backend: `/api/lumi/predict/track|suggestions|stats`
+
+#### Screen Sharing (WebRTC)
+- Already implemented in MeetingRoom.jsx with getDisplayMedia API
+- Track replacement for peer connections
+- Auto-revert on share end
+
+#### Rich Message Formatting
+- Markdown: bold, italic, strikethrough, blockquotes, links, headings
+- Code blocks with syntax highlighting (50+ languages)
+- Tables, ordered/unordered lists
+
+#### AI Feature Suite
+- Sentiment Analysis, Conversation Summaries, Scheduled Messages
+- AI Writing Assistant, Auto-Responses, Smart Quick Replies
+
+#### Other Features
+- Channel Templates, Webhook Templates, Kinetic Typography
+- Advanced Invite System (Email, SMS, social media)
+- Sidebar restructure, Notification customization
+- Domain-based colleague discovery
+- Meeting History panel, User Profile with auth method badges
+
+### Refactoring Done
+- Extracted `useEnziData` custom hook for data loading
+- Created separate components: BotActionsBar, BotStoreModal, E2EEIndicator, EnziMeetingModal, MeetingHistoryPanel, PremiumModal, InsightsPanel
+
+## Test Results
+- Batch A (Bot Actions + Predictive Nav): 100% (15/15 BE, 12/12 FE)
+- Batch B (E2EE + Refactoring): 100% (21/21 BE, 12/12 FE)
+- Batch C (Stripe + Behavioral): 100% (24/24 BE, 15/15 FE)
 
 ## Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
 - Test: test@medmatch.io / TestPassword123!
-- Azure AD: Client ID 40a72049..., Tenant d4e8b623...
+
+## Remaining / Future Enhancements
+- Voice/Video call improvements (noise cancellation, virtual backgrounds)
+- Advanced ML models for more accurate behavioral predictions
+- Webhook & Channel Template marketplace
+- Mobile app optimization
+- Advanced admin analytics dashboard
