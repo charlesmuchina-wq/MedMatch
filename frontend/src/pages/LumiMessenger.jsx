@@ -12,7 +12,7 @@ import {
   Building2, Sparkles, Brain, AlertTriangle, Shield,
   Command, Network, Zap, TrendingDown, Bell,
   Smile, Keyboard, ClipboardList, Globe, BarChart3,
-  Sun, Moon
+  Sun, Moon, Share2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -31,6 +31,9 @@ import {
   API, WS_URL, ESY, STATUS_COLORS, STATUS_LABELS
 } from '@/components/Lumi';
 import AIWritingToolbar from '@/components/Lumi/AIWritingToolbar';
+import EnziSplash from '@/components/Lumi/EnziSplash';
+import InviteModal from '@/components/Lumi/InviteModal';
+import InviteRegistration from '@/components/Lumi/InviteRegistration';
 
 const LumiMessenger = () => {
   const navigate = useNavigate();
@@ -81,6 +84,10 @@ const LumiMessenger = () => {
   const [bucketLoading, setBucketLoading] = useState(false);
   const [calendarStatus, setCalendarStatus] = useState({ status: 'available', source: 'manual', calendar_event: null, microsoft_linked: false });
   const [predictions, setPredictions] = useState({ channels: [], dms: [] });
+  const [showSplash, setShowSplash] = useState(() => !sessionStorage.getItem('enzi_splash_shown'));
+  const [showInviteModal, setShowInviteModal] = useState(false);
+  const [inviteToken, setInviteToken] = useState(null);
+  const [domainColleagues, setDomainColleagues] = useState([]);
 
   const messagesEndRef = useRef(null);
   const wsRef = useRef(null);
@@ -88,8 +95,17 @@ const LumiMessenger = () => {
   const fileInputRef = useRef(null);
   const token = localStorage.getItem('token');
 
-  // Handle SSO callback (Google or Microsoft)
+  // Handle SSO callback (Google or Microsoft) and invite tokens
   useEffect(() => {
+    // Check for invite token in URL
+    const params = new URLSearchParams(window.location.search);
+    const invToken = params.get('invite_token');
+    if (invToken) {
+      setInviteToken(invToken);
+      setIsLoading(false);
+      return;
+    }
+
     const hash = window.location.hash;
     if (hash && hash.includes('session_id=')) {
       const sessionId = hash.split('session_id=')[1]?.split('&')[0];
@@ -206,6 +222,17 @@ const LumiMessenger = () => {
     } catch (e) {}
   }, [token]);
 
+  const loadDomainColleagues = useCallback(async () => {
+    if (!token) return;
+    try {
+      const res = await fetch(`${API}/api/lumi/domain/colleagues`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.is_company_domain) setDomainColleagues(data.colleagues || []);
+      }
+    } catch (e) {}
+  }, [token]);
+
   const trackAction = async (action, targetId, targetName) => {
     if (!token) return;
     fetch(`${API}/api/lumi/predict/track`, {
@@ -232,8 +259,8 @@ const LumiMessenger = () => {
   };
 
   useEffect(() => {
-    if (user) { loadChannels(); loadDms(); loadUnreadCounts(); loadPresence(); loadInvites(); scanAndLoadBuckets(); loadCalendarStatus(); loadPredictions(); }
-  }, [user, loadChannels, loadDms, loadUnreadCounts, loadPresence, loadInvites, scanAndLoadBuckets, loadCalendarStatus, loadPredictions]);
+    if (user) { loadChannels(); loadDms(); loadUnreadCounts(); loadPresence(); loadInvites(); scanAndLoadBuckets(); loadCalendarStatus(); loadPredictions(); loadDomainColleagues(); }
+  }, [user, loadChannels, loadDms, loadUnreadCounts, loadPresence, loadInvites, scanAndLoadBuckets, loadCalendarStatus, loadPredictions, loadDomainColleagues]);
 
   // Mark as read
   useEffect(() => {
@@ -443,11 +470,13 @@ const LumiMessenger = () => {
   const closeAllPanels = () => { setShowAiChat(false); setShowAlerts(false); setShowAiPanel(false); setShowKnowledgeGraph(false); setShowBottlenecks(false); setShowSimulation(false); setShowNotifications(false); };
 
   if (isLoading) return <div className="min-h-screen bg-[#0D1117] flex items-center justify-center"><Loader2 className="w-8 h-8 text-[#00CEC9] animate-spin" /></div>;
+  if (inviteToken) return <InviteRegistration inviteToken={inviteToken} onComplete={(u) => { setUser(u); setInviteToken(null); window.history.replaceState(null, '', '/lumi'); }} />;
   if (!user) return <LumiLogin onLogin={setUser} />;
 
   return (
     <div className="h-screen flex bg-[#0D1117] overflow-hidden" style={{ fontFamily: "'Inter', -apple-system, sans-serif" }}>
       <Toaster position="top-right" richColors />
+      {showSplash && <EnziSplash onComplete={() => { setShowSplash(false); sessionStorage.setItem('enzi_splash_shown', '1'); }} />}
 
       {/* Sidebar */}
       <div className={`${mobileSidebar ? 'flex' : 'hidden'} md:flex flex-col w-full md:w-[280px] bg-[#0D1117] flex-shrink-0 border-r border-white/5`}>
@@ -523,6 +552,30 @@ const LumiMessenger = () => {
               );
             })}
             {dms.length === 0 && <p className="text-[11px] text-white/80 px-2.5 py-1">No conversations yet</p>}
+
+            {/* Domain Colleagues */}
+            {domainColleagues.length > 0 && (<>
+              <div className="flex items-center mt-3 mb-1.5">
+                <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Company</span>
+              </div>
+              {domainColleagues.slice(0, 5).map(c => (
+                <button key={c.user_id} onClick={() => handleStartDm(c.user_id)}
+                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-white/80 hover:bg-white/10 hover:text-white mb-0.5" data-testid={`colleague-${c.user_id}`}>
+                  <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-[9px] font-semibold text-indigo-300">
+                    {(c.name || c.email || '?')[0].toUpperCase()}
+                  </div>
+                  <span className="flex-1 text-sm truncate text-left">{c.name || c.email}</span>
+                </button>
+              ))}
+            </>)}
+
+            {/* Invite Button */}
+            <button onClick={() => setShowInviteModal(true)}
+              className="w-full flex items-center gap-2 mt-3 px-2.5 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors border border-dashed border-white/10 hover:border-white/20"
+              data-testid="invite-to-enzi-btn">
+              <Share2 className="w-3.5 h-3.5" />
+              <span className="text-xs font-medium">Invite to ENZI</span>
+            </button>
           </div>
         </ScrollArea>
 
@@ -764,6 +817,21 @@ const LumiMessenger = () => {
                 </button>
               </div>
 
+              {/* Invite to ENZI - Dashboard CTA */}
+              <button onClick={() => setShowInviteModal(true)}
+                className="bento-tile w-full flex items-center gap-4 cursor-pointer group hover:border-[#00CEC9]/20 transition-all"
+                data-testid="bento-invite">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0"
+                  style={{ background: 'linear-gradient(135deg, #00CEC9, #6C5CE7)' }}>
+                  <Share2 className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white text-sm font-semibold font-outfit">Invite to ENZI</p>
+                  <p className="text-slate-500 text-[11px] mt-0.5">Share via email, SMS, LinkedIn, or link. Invitees must register first.</p>
+                </div>
+                <ArrowLeft className="w-4 h-4 text-slate-600 rotate-180 group-hover:translate-x-1 transition-transform" />
+              </button>
+
               {/* Main Content Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                 {/* Recent Conversations — Channels + DMs combined */}
@@ -972,6 +1040,7 @@ const LumiMessenger = () => {
 
       {showCreateModal && <CreateChannelModal onClose={() => setShowCreateModal(false)} onCreated={(ch) => { setChannels(prev => [ch, ...prev]); setActiveChannel(ch); setShowCreateModal(false); setMobileSidebar(false); }} token={token} />}
       {showNewDmModal && <NewDmModal onClose={() => setShowNewDmModal(false)} onSelect={handleStartDm} token={token} />}
+      {showInviteModal && <InviteModal onClose={() => setShowInviteModal(false)} token={token} />}
       {showProfile && <UserProfileModal onClose={() => setShowProfile(false)} token={token} onStatusChange={(s) => {}} onThemeChange={(c) => setUserAccentColor(c)} />}
       {showRetention && <RetentionPanel onClose={() => setShowRetention(false)} token={token} />}
       {showAuditLog && <AdminAuditPanel isOpen={showAuditLog} onClose={() => setShowAuditLog(false)} token={token} />}
