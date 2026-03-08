@@ -186,6 +186,12 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.warning(f"Object storage init deferred: {e}")
     
+    # Start scheduled messages processor
+    import asyncio as _asyncio
+    from routes.enzi_automation import process_scheduled_messages
+    _asyncio.create_task(process_scheduled_messages())
+    logger.info("ENZI scheduled messages processor started")
+
     logger.info("MedMatch-AI KARAU API server started successfully - Ready for 1M+ users!")
     
     yield
@@ -330,6 +336,9 @@ from routes.lumi_calendar import router as lumi_calendar_router
 from routes.lumi_predict import router as lumi_predict_router
 from routes.enzi_invites import router as enzi_invites_router
 from routes.enzi_domain import router as enzi_domain_router
+from routes.enzi_ai import router as enzi_ai_router
+from routes.enzi_automation import router as enzi_automation_router
+from routes.enzi_notifications import router as enzi_notifications_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
@@ -446,6 +455,9 @@ app.include_router(lumi_calendar_router, prefix="/api")
 app.include_router(lumi_predict_router, prefix="/api")
 app.include_router(enzi_invites_router, prefix="/api")
 app.include_router(enzi_domain_router, prefix="/api")
+app.include_router(enzi_ai_router, prefix="/api")
+app.include_router(enzi_automation_router, prefix="/api")
+app.include_router(enzi_notifications_router, prefix="/api")
 
 app.include_router(meeting_intelligence_router, prefix="/api")
 app.include_router(lumi_files_router, prefix="/api")

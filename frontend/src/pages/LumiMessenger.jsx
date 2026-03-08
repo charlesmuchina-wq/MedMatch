@@ -12,7 +12,7 @@ import {
   Building2, Sparkles, Brain, AlertTriangle, Shield,
   Command, Network, Zap, TrendingDown, Bell,
   Smile, Keyboard, ClipboardList, Globe, BarChart3,
-  Sun, Moon, Share2, Clock, Edit, ChevronDown, ChevronRight, Settings
+  Sun, Moon, Share2, Clock, Edit, ChevronDown, ChevronRight, Settings, BellOff
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -35,6 +35,9 @@ import EnziSplash from '@/components/Lumi/EnziSplash';
 import InviteModal from '@/components/Lumi/InviteModal';
 import InviteRegistration from '@/components/Lumi/InviteRegistration';
 import NewMessagePanel from '@/components/Lumi/NewMessagePanel';
+import ConversationSummary from '@/components/Lumi/ConversationSummary';
+import ScheduleMessageModal from '@/components/Lumi/ScheduleMessageModal';
+import NotificationSettings from '@/components/Lumi/NotificationSettings';
 
 const LumiMessenger = () => {
   const navigate = useNavigate();
@@ -92,6 +95,9 @@ const LumiMessenger = () => {
   const [showNewMsgPanel, setShowNewMsgPanel] = useState(false);
   const [showAdminTools, setShowAdminTools] = useState(false);
   const [sidebarView, setSidebarView] = useState('channels'); // 'channels' | 'recent'
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [showNotifSettings, setShowNotifSettings] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
 
   const messagesEndRef = useRef(null);
   const wsRef = useRef(null);
@@ -791,12 +797,21 @@ const LumiMessenger = () => {
               <button onClick={() => { closeAllPanels(); setShowSimulation(!showSimulation); }} className={`p-2 rounded-md transition-colors ${showSimulation ? 'bg-[#E84393]/10' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} style={showSimulation ? { color: ESY.pink } : {}} data-testid="simulation-btn" title="What-If Simulator"><Zap className="w-4 h-4" /></button>
               <button onClick={() => { closeAllPanels(); setShowNotifications(!showNotifications); }} className={`p-2 rounded-md transition-colors relative ${showNotifications ? 'bg-[#E84393]/10' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} style={showNotifications ? { color: ESY.pink } : {}} data-testid="notifications-btn" title="Smart Notifications"><Bell className="w-3.5 h-3.5" /><span className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: ESY.deepRed }} /></button>
               <button onClick={() => { closeAllPanels(); setShowAiPanel(!showAiPanel); }} className={`p-2 rounded-md transition-colors ${showAiPanel ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} data-testid="ai-panel-btn" title="AI Insights"><Brain className="w-4 h-4" /></button>
+              <button onClick={() => setShowScheduleModal(true)} className="p-2 rounded-md text-slate-500 hover:text-amber-600 hover:bg-amber-50 transition-colors" data-testid="schedule-msg-btn" title="Schedule Message"><Clock className="w-4 h-4" /></button>
+              <button onClick={() => setShowSummary(!showSummary)} className={`p-2 rounded-md transition-colors ${showSummary ? 'text-violet-600 bg-violet-50' : 'text-slate-500 hover:text-violet-600 hover:bg-violet-50'}`} data-testid="summarize-channel-btn" title="Summarize Conversation"><ClipboardList className="w-4 h-4" /></button>
+              <button onClick={() => setShowNotifSettings(true)} className="p-2 rounded-md text-slate-500 hover:text-slate-700 hover:bg-slate-100 transition-colors" data-testid="notif-settings-btn" title="Notification Settings"><BellOff className="w-4 h-4" /></button>
               <button onClick={() => setShowMembers(!showMembers)} className={`p-2 rounded-md transition-colors ${showMembers ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} data-testid="channel-members-btn"><Users className="w-4 h-4" /></button>
             </div>
           </div>
 
           <div className="flex flex-1 overflow-hidden">
             <div className="flex-1 flex flex-col min-w-0">
+              {/* Conversation Summary Panel */}
+              {showSummary && activeChannel && (
+                <div className="px-4 pt-3">
+                  <ConversationSummary channelId={activeChannel.id} token={token} onClose={() => setShowSummary(false)} />
+                </div>
+              )}
               <ScrollArea className="flex-1 py-3">
                 {messages.length === 0 && (
                   <div className="flex flex-col items-center justify-center h-full text-center px-6">
@@ -1169,6 +1184,8 @@ const LumiMessenger = () => {
       {showNewDmModal && <NewDmModal onClose={() => setShowNewDmModal(false)} onSelect={handleStartDm} token={token} />}
       {showInviteModal && <InviteModal onClose={() => setShowInviteModal(false)} token={token} />}
       {showNewMsgPanel && <NewMessagePanel onClose={() => setShowNewMsgPanel(false)} onSelectUser={handleStartDm} onInvite={handleNewMsgInvite} token={token} />}
+      {showScheduleModal && activeChannel && <ScheduleMessageModal channelId={activeChannel.id} channelName={activeChannel.name || ''} token={token} onClose={() => setShowScheduleModal(false)} />}
+      {showNotifSettings && <NotificationSettings token={token} channels={channels} onClose={() => setShowNotifSettings(false)} />}
       {showProfile && <UserProfileModal onClose={() => setShowProfile(false)} token={token} onStatusChange={(s) => {}} onThemeChange={(c) => setUserAccentColor(c)} />}
       {showRetention && <RetentionPanel onClose={() => setShowRetention(false)} token={token} />}
       {showAuditLog && <AdminAuditPanel isOpen={showAuditLog} onClose={() => setShowAuditLog(false)} token={token} />}
