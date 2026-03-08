@@ -12,7 +12,7 @@ import {
   Building2, Sparkles, Brain, AlertTriangle, Shield,
   Command, Network, Zap, TrendingDown, Bell,
   Smile, Keyboard, ClipboardList, Globe, BarChart3,
-  Sun, Moon, Share2
+  Sun, Moon, Share2, Clock, Edit, ChevronDown, ChevronRight, Settings
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -34,6 +34,7 @@ import AIWritingToolbar from '@/components/Lumi/AIWritingToolbar';
 import EnziSplash from '@/components/Lumi/EnziSplash';
 import InviteModal from '@/components/Lumi/InviteModal';
 import InviteRegistration from '@/components/Lumi/InviteRegistration';
+import NewMessagePanel from '@/components/Lumi/NewMessagePanel';
 
 const LumiMessenger = () => {
   const navigate = useNavigate();
@@ -88,6 +89,9 @@ const LumiMessenger = () => {
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [inviteToken, setInviteToken] = useState(null);
   const [domainColleagues, setDomainColleagues] = useState([]);
+  const [showNewMsgPanel, setShowNewMsgPanel] = useState(false);
+  const [showAdminTools, setShowAdminTools] = useState(false);
+  const [sidebarView, setSidebarView] = useState('channels'); // 'channels' | 'recent'
 
   const messagesEndRef = useRef(null);
   const wsRef = useRef(null);
@@ -467,6 +471,45 @@ const LumiMessenger = () => {
   const filteredChannels = channels.filter(ch => ch.name.toLowerCase().includes(searchQuery.toLowerCase()));
   const activeTyping = activeChannel ? Object.values(typingUsers[activeChannel.id] || {}).filter(n => n !== user?.name) : [];
 
+  // Recent conversations: mix channels + DMs sorted by last activity
+  const recentConversations = [
+    ...channels.map(ch => ({ ...ch, _type: 'channel', _time: ch.last_activity || ch.created_at || '' })),
+    ...dms.map(dm => ({ ...dm, _type: 'dm', _time: dm.last_activity || dm.created_at || '' })),
+  ].sort((a, b) => (b._time || '').localeCompare(a._time || '')).slice(0, 15);
+
+  const handleNewMsgInvite = async (method, query) => {
+    const APP_URL = API;
+    // Generate invite link first
+    try {
+      const res = await fetch(`${API}/api/lumi/invite/link`, { headers: { Authorization: `Bearer ${token}` } });
+      if (!res.ok) return;
+      const data = await res.json();
+      const inviteUrl = data.invite_url;
+      const text = `Join me on ENZI Messenger: ${inviteUrl}`;
+
+      if (method === 'email' && query.includes('@')) {
+        fetch(`${API}/api/lumi/invite/send`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ emails: [query], message: '' })
+        }).then(() => toast.success(`Invite sent to ${query}`)).catch(() => toast.error('Failed'));
+      } else if (method === 'sms') {
+        window.open(`sms:?body=${encodeURIComponent(text)}`, '_blank');
+      } else if (method === 'whatsapp') {
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+      } else if (method === 'linkedin') {
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(inviteUrl)}`, '_blank');
+      } else if (method === 'instagram') {
+        navigator.clipboard.writeText(text);
+        toast.success('Link copied! Paste it in Instagram DM');
+      } else if (method === 'share') {
+        navigator.clipboard.writeText(inviteUrl);
+        toast.success('Invite link copied!');
+      }
+      setShowNewMsgPanel(false);
+    } catch { toast.error('Failed to generate invite'); }
+  };
+
   const closeAllPanels = () => { setShowAiChat(false); setShowAlerts(false); setShowAiPanel(false); setShowKnowledgeGraph(false); setShowBottlenecks(false); setShowSimulation(false); setShowNotifications(false); };
 
   if (isLoading) return <div className="min-h-screen bg-[#0D1117] flex items-center justify-center"><Loader2 className="w-8 h-8 text-[#00CEC9] animate-spin" /></div>;
@@ -480,6 +523,7 @@ const LumiMessenger = () => {
 
       {/* Sidebar */}
       <div className={`${mobileSidebar ? 'flex' : 'hidden'} md:flex flex-col w-full md:w-[280px] bg-[#0D1117] flex-shrink-0 border-r border-white/5`}>
+        {/* Header */}
         <div className="h-14 flex items-center justify-between px-4 border-b border-white/10">
           <div className="flex items-center gap-2.5">
             <LumiBrand variant="inline-dark" size="xs" showTagline />
@@ -487,11 +531,26 @@ const LumiMessenger = () => {
           <button onClick={() => navigate('/')} className="p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors" data-testid="back-to-karau"><ArrowLeft className="w-4 h-4" /></button>
         </div>
 
-        <div className="px-3 pt-3 pb-1">
+        {/* Quick Actions: Recent / New Message */}
+        <div className="px-3 pt-3 pb-2 flex gap-2">
+          <button onClick={() => setSidebarView('recent')}
+            className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-medium transition-all ${sidebarView === 'recent' ? 'bg-[#00CEC9]/10 text-[#00CEC9] border border-[#00CEC9]/20' : 'bg-white/5 text-white/70 hover:bg-white/10 border border-transparent'}`}
+            data-testid="sidebar-recent-btn">
+            <Clock className="w-3.5 h-3.5" />Recent
+          </button>
+          <button onClick={() => setShowNewMsgPanel(true)}
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-medium bg-white/5 text-white/70 hover:bg-white/10 border border-transparent hover:border-white/10 transition-all"
+            data-testid="sidebar-new-msg-btn">
+            <Edit className="w-3.5 h-3.5" />New Message
+          </button>
+        </div>
+
+        {/* Search */}
+        <div className="px-3 pb-1">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/50" />
-            <input value={globalSearch || searchQuery} onChange={e => { setSearchQuery(e.target.value); handleGlobalSearch(e.target.value); }}
-              placeholder={t('lumi.searchChannels') || 'Search channels...'}
+            <input value={globalSearch || searchQuery} onChange={e => { setSearchQuery(e.target.value); handleGlobalSearch(e.target.value); setSidebarView('channels'); }}
+              placeholder={t('lumi.searchChannels') || 'Search channels & people...'}
               className="w-full pl-9 h-8 bg-white/10 border-0 rounded-md text-sm text-white placeholder:text-white/40 outline-none focus:bg-white/15 transition-colors" data-testid="search-channels" />
             {globalSearch && <button onClick={() => { setGlobalSearch(''); setSearchQuery(''); setShowSearchResults(false); }} className="absolute right-2 top-1/2 -translate-y-1/2 text-white/60 hover:text-white"><X className="w-3.5 h-3.5" /></button>}
           </div>
@@ -508,129 +567,197 @@ const LumiMessenger = () => {
           )}
         </div>
 
-        <ScrollArea className="flex-1 py-2">
-          <div className="px-3">
-            <div className="flex items-center justify-between mb-1.5">
-              <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Channels</span>
-              <button onClick={() => setShowCreateModal(true)} className="p-1 text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="add-channel-btn"><Plus className="w-3.5 h-3.5" /></button>
-            </div>
-            {filteredChannels.map(ch => (
-              <button key={ch.id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); trackAction('channel_visit', ch.id, ch.name); }}
-                className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${activeChannel?.id === ch.id ? 'bg-white/15 text-white font-semibold' : 'text-white/80 hover:bg-white/10 hover:text-white'}`} data-testid={`channel-${ch.id}`}>
-                <ChannelIcon type={ch.channel_type} /><span className="flex-1 text-sm truncate text-left">{ch.name}</span>
-                {unreadCounts[ch.id] > 0 && <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[9px] font-bold text-white" style={{ backgroundColor: ESY.pink }} data-testid={`unread-${ch.id}`}>{unreadCounts[ch.id]}</span>}
-              </button>
-            ))}
-
-            {discoverChannels.length > 0 && (<>
-              <div className="flex items-center mt-3 mb-1.5"><span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Discover</span></div>
-              {discoverChannels.map(ch => (
-                <button key={ch.id} onClick={() => handleJoinChannel(ch)} className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-white/80 hover:bg-white/10 hover:text-white mb-0.5" data-testid={`discover-${ch.id}`}>
-                  <ChannelIcon type={ch.channel_type} /><span className="flex-1 text-sm truncate text-left">{ch.name}</span><Plus className="w-3 h-3 opacity-70" />
-                </button>
-              ))}
-            </>)}
-
-            <div className="flex items-center justify-between mt-3 mb-1.5">
-              <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Direct Messages</span>
-              <button onClick={() => setShowNewDmModal(true)} className="p-1 text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="new-dm-btn"><UserPlus className="w-3.5 h-3.5" /></button>
-            </div>
-            {dms.map(dm => {
-              const partner = dm.dm_partner || {};
-              const init = (partner.name || partner.email || '?')[0].toUpperCase();
-              const st = presenceMap[partner.user_id] || 'offline';
-              return (
-                <button key={dm.id} onClick={() => { setActiveChannel(dm); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); trackAction('dm_visit', dm.id, partner.name || partner.email || 'User'); }}
-                  className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${activeChannel?.id === dm.id ? 'bg-white/15 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}`} data-testid={`dm-${dm.id}`}>
-                  <div className="relative">
-                    <div className="w-6 h-6 rounded-full bg-slate-500 flex items-center justify-center text-[9px] font-semibold text-white">{init}</div>
-                    <span className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full ring-1 ring-[#1A2332] ${STATUS_COLORS[st]}`} />
-                  </div>
-                  <span className="flex-1 text-sm truncate text-left">{partner.name || partner.email || 'User'}</span>
-                  {unreadCounts[dm.id] > 0 && <span className="min-w-[16px] h-[16px] flex items-center justify-center rounded-full text-[8px] font-bold text-white" style={{ backgroundColor: ESY.pink }} data-testid={`unread-dm-${dm.id}`}>{unreadCounts[dm.id]}</span>}
-                </button>
-              );
-            })}
-            {dms.length === 0 && <p className="text-[11px] text-white/80 px-2.5 py-1">No conversations yet</p>}
-
-            {/* Domain Colleagues */}
-            {domainColleagues.length > 0 && (<>
-              <div className="flex items-center mt-3 mb-1.5">
-                <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Company</span>
+        {/* Smart Buckets (collapsible) */}
+        {(bucketCounts.urgent > 0 || bucketCounts.action_required > 0 || bucketCounts.meeting_request > 0) && (
+          <div className="px-3 pb-2">
+            <div className="bg-white/[0.02] rounded-lg border border-white/5 overflow-hidden">
+              <div className="flex items-center gap-1.5 px-2.5 py-1.5">
+                <Zap className="w-3 h-3 text-amber-400" />
+                <span className="text-[10px] font-semibold text-white/60 uppercase tracking-wider flex-1">Priority</span>
               </div>
-              {domainColleagues.slice(0, 5).map(c => (
-                <button key={c.user_id} onClick={() => handleStartDm(c.user_id)}
-                  className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-white/80 hover:bg-white/10 hover:text-white mb-0.5" data-testid={`colleague-${c.user_id}`}>
-                  <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-[9px] font-semibold text-indigo-300">
-                    {(c.name || c.email || '?')[0].toUpperCase()}
-                  </div>
-                  <span className="flex-1 text-sm truncate text-left">{c.name || c.email}</span>
-                </button>
-              ))}
-            </>)}
+              <div className="px-1 pb-1 space-y-0.5">
+                {[
+                  { key: 'urgent', label: 'Urgent', color: 'bg-red-500', textColor: 'text-red-400' },
+                  { key: 'action_required', label: 'Action Required', color: 'bg-amber-500', textColor: 'text-amber-400' },
+                  { key: 'meeting_request', label: 'Meetings', color: 'bg-blue-500', textColor: 'text-blue-400' },
+                ].filter(b => bucketCounts[b.key] > 0).map(b => (
+                  <button key={b.key} onClick={() => { openBucket(b.key); setMobileSidebar(false); }}
+                    className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-white/5 transition-colors"
+                    data-testid={`sidebar-bucket-${b.key}`}>
+                    <div className={`w-1.5 h-1.5 rounded-full ${b.color}`} />
+                    <span className="text-xs text-white/70 flex-1 text-left">{b.label}</span>
+                    <span className={`text-[10px] font-bold ${b.textColor}`}>{bucketCounts[b.key]}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
-            {/* Invite Button */}
-            <button onClick={() => setShowInviteModal(true)}
-              className="w-full flex items-center gap-2 mt-3 px-2.5 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors border border-dashed border-white/10 hover:border-white/20"
-              data-testid="invite-to-enzi-btn">
-              <Share2 className="w-3.5 h-3.5" />
-              <span className="text-xs font-medium">Invite to ENZI</span>
-            </button>
+        <ScrollArea className="flex-1 py-1">
+          <div className="px-3">
+            {/* RECENT VIEW */}
+            {sidebarView === 'recent' ? (
+              <>
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Recent</span>
+                  <button onClick={() => setSidebarView('channels')} className="text-[9px] text-[#00CEC9] hover:underline">All Channels</button>
+                </div>
+                {recentConversations.map(item => (
+                  <button key={item.id} onClick={() => { setActiveChannel(item); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); }}
+                    className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${activeChannel?.id === item.id ? 'bg-white/15 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}`}
+                    data-testid={`recent-${item.id}`}>
+                    {item._type === 'dm' ? (
+                      <div className="relative">
+                        <div className="w-6 h-6 rounded-full bg-slate-500 flex items-center justify-center text-[9px] font-semibold text-white">
+                          {(item.dm_partner?.name || item.dm_partner?.email || '?')[0].toUpperCase()}
+                        </div>
+                        <span className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full ring-1 ring-[#0D1117] ${STATUS_COLORS[presenceMap[item.dm_partner?.user_id] || 'offline']}`} />
+                      </div>
+                    ) : (
+                      <ChannelIcon type={item.channel_type} />
+                    )}
+                    <span className="flex-1 text-sm truncate text-left">
+                      {item._type === 'dm' ? (item.dm_partner?.name || item.dm_partner?.email || 'User') : item.name}
+                    </span>
+                    {unreadCounts[item.id] > 0 && <span className="min-w-[16px] h-[16px] flex items-center justify-center rounded-full text-[8px] font-bold text-white" style={{ backgroundColor: ESY.pink }}>{unreadCounts[item.id]}</span>}
+                  </button>
+                ))}
+                {recentConversations.length === 0 && <p className="text-[11px] text-white/50 px-2.5 py-3 text-center">No conversations yet</p>}
+              </>
+            ) : (
+              <>
+                {/* CHANNELS VIEW */}
+                <div className="flex items-center justify-between mb-1.5">
+                  <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Channels</span>
+                  <button onClick={() => setShowCreateModal(true)} className="p-1 text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="add-channel-btn"><Plus className="w-3.5 h-3.5" /></button>
+                </div>
+                {filteredChannels.map(ch => (
+                  <button key={ch.id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); trackAction('channel_visit', ch.id, ch.name); }}
+                    className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${activeChannel?.id === ch.id ? 'bg-white/15 text-white font-semibold' : 'text-white/80 hover:bg-white/10 hover:text-white'}`} data-testid={`channel-${ch.id}`}>
+                    <ChannelIcon type={ch.channel_type} /><span className="flex-1 text-sm truncate text-left">{ch.name}</span>
+                    {unreadCounts[ch.id] > 0 && <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[9px] font-bold text-white" style={{ backgroundColor: ESY.pink }} data-testid={`unread-${ch.id}`}>{unreadCounts[ch.id]}</span>}
+                  </button>
+                ))}
+
+                {discoverChannels.length > 0 && (<>
+                  <div className="flex items-center mt-3 mb-1.5"><span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Discover</span></div>
+                  {discoverChannels.map(ch => (
+                    <button key={ch.id} onClick={() => handleJoinChannel(ch)} className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-white/80 hover:bg-white/10 hover:text-white mb-0.5" data-testid={`discover-${ch.id}`}>
+                      <ChannelIcon type={ch.channel_type} /><span className="flex-1 text-sm truncate text-left">{ch.name}</span><Plus className="w-3 h-3 opacity-70" />
+                    </button>
+                  ))}
+                </>)}
+
+                <div className="flex items-center justify-between mt-3 mb-1.5">
+                  <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Direct Messages</span>
+                  <button onClick={() => setShowNewMsgPanel(true)} className="p-1 text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="new-dm-btn"><UserPlus className="w-3.5 h-3.5" /></button>
+                </div>
+                {dms.map(dm => {
+                  const partner = dm.dm_partner || {};
+                  const init = (partner.name || partner.email || '?')[0].toUpperCase();
+                  const st = presenceMap[partner.user_id] || 'offline';
+                  return (
+                    <button key={dm.id} onClick={() => { setActiveChannel(dm); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); trackAction('dm_visit', dm.id, partner.name || partner.email || 'User'); }}
+                      className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${activeChannel?.id === dm.id ? 'bg-white/15 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}`} data-testid={`dm-${dm.id}`}>
+                      <div className="relative">
+                        <div className="w-6 h-6 rounded-full bg-slate-500 flex items-center justify-center text-[9px] font-semibold text-white">{init}</div>
+                        <span className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full ring-1 ring-[#1A2332] ${STATUS_COLORS[st]}`} />
+                      </div>
+                      <span className="flex-1 text-sm truncate text-left">{partner.name || partner.email || 'User'}</span>
+                      {unreadCounts[dm.id] > 0 && <span className="min-w-[16px] h-[16px] flex items-center justify-center rounded-full text-[8px] font-bold text-white" style={{ backgroundColor: ESY.pink }} data-testid={`unread-dm-${dm.id}`}>{unreadCounts[dm.id]}</span>}
+                    </button>
+                  );
+                })}
+                {dms.length === 0 && <p className="text-[11px] text-white/80 px-2.5 py-1">No conversations yet</p>}
+
+                {/* Domain Colleagues */}
+                {domainColleagues.length > 0 && (<>
+                  <div className="flex items-center mt-3 mb-1.5">
+                    <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Company</span>
+                  </div>
+                  {domainColleagues.slice(0, 5).map(c => (
+                    <button key={c.user_id} onClick={() => handleStartDm(c.user_id)}
+                      className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-white/80 hover:bg-white/10 hover:text-white mb-0.5" data-testid={`colleague-${c.user_id}`}>
+                      <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-[9px] font-semibold text-indigo-300">
+                        {(c.name || c.email || '?')[0].toUpperCase()}
+                      </div>
+                      <span className="flex-1 text-sm truncate text-left">{c.name || c.email}</span>
+                    </button>
+                  ))}
+                </>)}
+
+                {/* Invite Button */}
+                <button onClick={() => setShowInviteModal(true)}
+                  className="w-full flex items-center gap-2 mt-3 px-2.5 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors border border-dashed border-white/10 hover:border-white/20"
+                  data-testid="invite-to-enzi-btn">
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span className="text-xs font-medium">Invite to ENZI</span>
+                </button>
+              </>
+            )}
           </div>
         </ScrollArea>
 
-        <div className="p-3 border-t border-white/10">
-          <div className="flex items-center gap-3">
+        {/* Compact Footer */}
+        <div className="border-t border-white/10">
+          {/* User profile row */}
+          <div className="px-3 py-2 flex items-center gap-2">
             <button onClick={() => setShowProfile(true)} className="relative group" data-testid="open-profile-btn" title="My Profile">
               <div className="w-8 h-8 rounded-full flex items-center justify-center group-hover:ring-2 group-hover:ring-white/30 transition-all" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}><span className="text-xs font-semibold text-white">{(user?.name || user?.email || '?')[0].toUpperCase()}</span></div>
               <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full ring-2 ring-[#1A2332] bg-emerald-500" />
             </button>
             <button onClick={() => setShowProfile(true)} className="flex-1 min-w-0 text-left hover:opacity-80 transition-opacity" data-testid="open-profile-name">
               <p className="text-sm font-medium text-white truncate">{user?.name || 'User'}</p>
-              <p className="text-[10px] text-white/80">View Profile</p>
             </button>
-            <button onClick={() => { localStorage.removeItem('token'); localStorage.removeItem('karau_user'); setUser(null); navigate('/'); }} className="p-1.5 text-white/80 hover:text-red-400 hover:bg-red-500/10 rounded-md" data-testid="lumi-logout"><LogOut className="w-3.5 h-3.5" /></button>
+            <div className="flex items-center gap-0.5">
+              <button onClick={toggleTheme} className="p-1.5 text-white/50 hover:text-white hover:bg-white/10 rounded-md transition-colors" data-testid="theme-toggle-btn" title={isDark ? 'Light Mode' : 'Dark Mode'}>
+                {isDark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+              </button>
+              <button onClick={() => setShowAdminTools(!showAdminTools)} className={`p-1.5 rounded-md transition-colors ${showAdminTools ? 'text-[#00CEC9] bg-white/10' : 'text-white/50 hover:text-white hover:bg-white/10'}`} data-testid="admin-tools-toggle" title="Admin & Tools">
+                <Settings className="w-3.5 h-3.5" />
+              </button>
+              <button onClick={() => { localStorage.removeItem('token'); localStorage.removeItem('karau_user'); setUser(null); navigate('/'); }} className="p-1.5 text-white/50 hover:text-red-400 hover:bg-red-500/10 rounded-md transition-colors" data-testid="lumi-logout" title="Logout">
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
-        </div>
 
-        {/* Compliance Widget & Quick Actions */}
-        <div className="px-3 pb-1">
-          <ComplianceWidget token={token} onClick={() => setShowCompliance(true)} />
-        </div>
-
-        <div className="px-3 pb-3 space-y-1.5">
-          <button onClick={() => setShowVisualizations(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="open-visualizations-btn">
-            <BarChart3 className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.pink }} />
-            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Visualizations</span>
-          </button>
-          <button onClick={() => setShowRetention(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="open-retention-btn">
-            <Shield className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.deepRed }} />
-            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Retention & Holds</span>
-          </button>
-          <button onClick={() => setShowAuditLog(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="open-audit-btn">
-            <ClipboardList className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.turquoise }} />
-            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Audit Log</span>
-          </button>
-          <button onClick={() => setShowCompliance(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="open-compliance-btn">
-            <Globe className="w-3.5 h-3.5 group-hover:text-white" style={{ color: '#00B894' }} />
-            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Privacy & Compliance</span>
-          </button>
-          <button onClick={() => setShowShortcuts(true)} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="open-shortcuts-btn">
-            <Keyboard className="w-3.5 h-3.5 text-white/80 group-hover:text-white" />
-            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Shortcuts</span>
-          </button>
-          <button onClick={toggleTheme} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="theme-toggle-btn">
-            {isDark ? <Sun className="w-3.5 h-3.5 text-amber-400 group-hover:text-amber-300" /> : <Moon className="w-3.5 h-3.5 text-indigo-300 group-hover:text-indigo-200" />}
-            <span className="text-xs font-semibold text-white/90 group-hover:text-white">{isDark ? 'Light Mode' : 'Dark Mode'}</span>
-          </button>
-          <button onClick={() => navigate('/karau-meet')} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="switch-to-karau-footer">
-            <Building2 className="w-3.5 h-3.5 group-hover:text-white" style={{ color: ESY.turquoise }} />
-            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Switch to AI KARAU</span>
-          </button>
-          <button onClick={() => navigate('/')} className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-white/5 hover:bg-white/15 border border-white/10 rounded-md transition-colors group" data-testid="return-to-portal">
-            <ArrowLeft className="w-3.5 h-3.5 text-white/70 group-hover:text-white" />
-            <span className="text-xs font-semibold text-white/90 group-hover:text-white">Return to Portal</span>
-          </button>
+          {/* Collapsible Admin Tools */}
+          {showAdminTools && (
+            <div className="px-3 pb-2 space-y-1 border-t border-white/5 pt-2" data-testid="admin-tools-panel">
+              <div className="grid grid-cols-2 gap-1">
+                <button onClick={() => setShowVisualizations(true)} className="flex items-center gap-1.5 px-2.5 py-2 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="open-visualizations-btn">
+                  <BarChart3 className="w-3 h-3" style={{ color: ESY.pink }} />
+                  <span className="text-[10px] text-white/80">Analytics</span>
+                </button>
+                <button onClick={() => setShowRetention(true)} className="flex items-center gap-1.5 px-2.5 py-2 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="open-retention-btn">
+                  <Shield className="w-3 h-3" style={{ color: ESY.deepRed }} />
+                  <span className="text-[10px] text-white/80">Retention</span>
+                </button>
+                <button onClick={() => setShowAuditLog(true)} className="flex items-center gap-1.5 px-2.5 py-2 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="open-audit-btn">
+                  <ClipboardList className="w-3 h-3" style={{ color: ESY.turquoise }} />
+                  <span className="text-[10px] text-white/80">Audit Log</span>
+                </button>
+                <button onClick={() => setShowCompliance(true)} className="flex items-center gap-1.5 px-2.5 py-2 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="open-compliance-btn">
+                  <Globe className="w-3 h-3" style={{ color: '#00B894' }} />
+                  <span className="text-[10px] text-white/80">Compliance</span>
+                </button>
+                <button onClick={() => setShowShortcuts(true)} className="flex items-center gap-1.5 px-2.5 py-2 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="open-shortcuts-btn">
+                  <Keyboard className="w-3 h-3 text-white/60" />
+                  <span className="text-[10px] text-white/80">Shortcuts</span>
+                </button>
+                <button onClick={() => navigate('/karau-meet')} className="flex items-center gap-1.5 px-2.5 py-2 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="switch-to-karau-footer">
+                  <Building2 className="w-3 h-3" style={{ color: ESY.turquoise }} />
+                  <span className="text-[10px] text-white/80">AI KARAU</span>
+                </button>
+              </div>
+              <button onClick={() => navigate('/')} className="w-full flex items-center justify-center gap-1.5 px-2.5 py-1.5 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="return-to-portal">
+                <ArrowLeft className="w-3 h-3 text-white/60" />
+                <span className="text-[10px] text-white/80">Return to Portal</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -1041,6 +1168,7 @@ const LumiMessenger = () => {
       {showCreateModal && <CreateChannelModal onClose={() => setShowCreateModal(false)} onCreated={(ch) => { setChannels(prev => [ch, ...prev]); setActiveChannel(ch); setShowCreateModal(false); setMobileSidebar(false); }} token={token} />}
       {showNewDmModal && <NewDmModal onClose={() => setShowNewDmModal(false)} onSelect={handleStartDm} token={token} />}
       {showInviteModal && <InviteModal onClose={() => setShowInviteModal(false)} token={token} />}
+      {showNewMsgPanel && <NewMessagePanel onClose={() => setShowNewMsgPanel(false)} onSelectUser={handleStartDm} onInvite={handleNewMsgInvite} token={token} />}
       {showProfile && <UserProfileModal onClose={() => setShowProfile(false)} token={token} onStatusChange={(s) => {}} onThemeChange={(c) => setUserAccentColor(c)} />}
       {showRetention && <RetentionPanel onClose={() => setShowRetention(false)} token={token} />}
       {showAuditLog && <AdminAuditPanel isOpen={showAuditLog} onClose={() => setShowAuditLog(false)} token={token} />}
