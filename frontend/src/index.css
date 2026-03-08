@@ -555,3 +555,61 @@ button:active::after {
 .animate-vote-flash { animation: vote-flash 0.4s ease-out; }
 .animate-pulse-ring { animation: pulse-ring 1.2s ease-out infinite; }
 .animate-sparkle { animation: sparkle 2s ease-in-out infinite; }
+
+
+/* === ENZI Kinetic Typography & Micro-interactions === */
+@keyframes stagger-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-stagger-in { animation: stagger-in 0.3s ease-out both; }
+.animate-stagger-in-1 { animation: stagger-in 0.3s ease-out 0.05s both; }
+.animate-stagger-in-2 { animation: stagger-in 0.3s ease-out 0.1s both; }
+.animate-stagger-in-3 { animation: stagger-in 0.3s ease-out 0.15s both; }
+.animate-stagger-in-4 { animation: stagger-in 0.3s ease-out 0.2s both; }
+.animate-stagger-in-5 { animation: stagger-in 0.3s ease-out 0.25s both; }
+.animate-scale-in { animation: scale-in 0.25s ease-out both; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* Hover lift effect */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Gradient shimmer text */
+.shimmer-text {
+  background: linear-gradient(90deg, #00CEC9, #6C5CE7, #E84393, #00CEC9);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Sentiment tone badges */
+.tone-positive { background: rgba(16, 185, 129, 0.1); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.2); }
+.tone-neutral { background: rgba(148, 163, 184, 0.1); color: #94A3B8; border: 1px solid rgba(148, 163, 184, 0.2); }
+.tone-urgent { background: rgba(239, 68, 68, 0.1); color: #EF4444; border: 1px solid rgba(239, 68, 68, 0.2); }
+.tone-negative { background: rgba(245, 158, 11, 0.1); color: #F59E0B; border: 1px solid rgba(245, 158, 11, 0.2); }
+
+/* Rich message styles */
+.rich-message pre { margin: 0; }
+.rich-message > *:first-child { margin-top: 0; }
+.rich-message > *:last-child { margin-bottom: 0; }

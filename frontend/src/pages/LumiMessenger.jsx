@@ -918,7 +918,7 @@ const LumiMessenger = () => {
 
               {/* Quick Actions Row */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                <button onClick={() => setShowNewDmModal(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group" data-testid="bento-new-dm">
+                <button onClick={() => setShowNewDmModal(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group hover-lift animate-stagger-in-1" data-testid="bento-new-dm">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
                     <UserPlus className="w-5 h-5 text-white" />
                   </div>
@@ -928,7 +928,7 @@ const LumiMessenger = () => {
                   </div>
                 </button>
 
-                <button onClick={() => setShowCommandBar(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group" data-testid="bento-command">
+                <button onClick={() => setShowCommandBar(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group hover-lift animate-stagger-in-2" data-testid="bento-command">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-600 to-slate-700 flex items-center justify-center shadow-lg shadow-slate-500/20">
                     <Command className="w-5 h-5 text-white" />
                   </div>
@@ -938,7 +938,7 @@ const LumiMessenger = () => {
                   </div>
                 </button>
 
-                <button onClick={() => setShowVisualizations(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group" data-testid="bento-viz">
+                <button onClick={() => setShowVisualizations(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group hover-lift animate-stagger-in-3" data-testid="bento-viz">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
                     <BarChart3 className="w-5 h-5 text-white" />
                   </div>
@@ -948,7 +948,7 @@ const LumiMessenger = () => {
                   </div>
                 </button>
 
-                <button onClick={() => setShowCreateModal(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group" data-testid="bento-create-channel">
+                <button onClick={() => setShowCreateModal(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group hover-lift animate-stagger-in-4" data-testid="bento-create-channel">
                   <div className="w-10 h-10 rounded-xl lumi-gradient flex items-center justify-center shadow-lg shadow-violet-500/20">
                     <Plus className="w-5 h-5 text-white" />
                   </div>

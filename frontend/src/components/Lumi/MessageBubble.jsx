@@ -4,6 +4,7 @@ import {
   Globe, Loader2, X, Pencil, Trash2, Check
 } from 'lucide-react';
 import { API, ESY } from './constants';
+import RichMessage from './RichMessage';
 
 const languages = [
   { code: 'en', name: 'English' }, { code: 'es', name: 'Spanish' }, { code: 'fr', name: 'French' },
@@ -100,10 +101,10 @@ export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, o
             <button onClick={handleEditCancel} className="p-1.5 rounded-md bg-slate-200 text-slate-600 hover:bg-slate-300" data-testid={`edit-cancel-${msg.id}`}><X className="w-3.5 h-3.5" /></button>
           </div>
         ) : (
-          <p className="text-sm text-slate-900 leading-relaxed break-words">
-            {msg.content}
+          <div className="text-sm text-slate-900 leading-relaxed break-words">
+            <RichMessage content={msg.content} />
             {msg.edited && prevSameSender && <span className="text-[10px] text-slate-400 italic ml-1">(edited)</span>}
-          </p>
+          </div>
         )}
 
         {msg.file && (
