@@ -141,3 +141,24 @@ async def get_active_meetings(request: Request):
     ).sort("created_at", -1).limit(10).to_list(10)
 
     return {"meetings": meetings, "count": len(meetings)}
+
+
+@router.get("/history")
+async def get_meeting_history(request: Request, limit: int = 20, skip: int = 0):
+    """Get past/completed meetings for the user"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    uid = user.get("user_id")
+    # Get all meetings (active + completed + ended) for this user
+    meetings = await db.meetings.find(
+        {"$or": [{"host_id": uid}, {"participants": uid}]},
+        {"_id": 0}
+    ).sort("created_at", -1).skip(skip).limit(limit).to_list(limit)
+
+    total = await db.meetings.count_documents(
+        {"$or": [{"host_id": uid}, {"participants": uid}]}
+    )
+
+    return {"meetings": meetings, "total": total, "count": len(meetings)}

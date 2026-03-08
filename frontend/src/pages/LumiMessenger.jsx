@@ -39,6 +39,8 @@ import ConversationSummary from '@/components/Lumi/ConversationSummary';
 import ScheduleMessageModal from '@/components/Lumi/ScheduleMessageModal';
 import NotificationSettings from '@/components/Lumi/NotificationSettings';
 import EnziMeetingModal from '@/components/Lumi/EnziMeetingModal';
+import MeetingHistoryPanel from '@/components/Lumi/MeetingHistoryPanel';
+import BotStoreModal from '@/components/Lumi/BotStoreModal';
 
 const LumiMessenger = () => {
   const navigate = useNavigate();
@@ -100,6 +102,8 @@ const LumiMessenger = () => {
   const [showNotifSettings, setShowNotifSettings] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const [showMeetingModal, setShowMeetingModal] = useState(false);
+  const [showMeetingHistory, setShowMeetingHistory] = useState(false);
+  const [showBotStore, setShowBotStore] = useState(false);
 
   const messagesEndRef = useRef(null);
   const wsRef = useRef(null);
@@ -989,6 +993,28 @@ const LumiMessenger = () => {
                 <ArrowLeft className="w-4 h-4 text-slate-600 rotate-180 group-hover:translate-x-1 transition-transform" />
               </button>
 
+              {/* Bot Store + Meeting History Row */}
+              <div className="grid grid-cols-2 gap-3">
+                <button onClick={() => setShowBotStore(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-[#00CEC9]/20 transition-all" data-testid="bento-bot-store">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #00CEC9, #0984E3)' }}>
+                    <Brain className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-semibold font-outfit">Bot Store</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">Browse & install bots</p>
+                  </div>
+                </button>
+                <button onClick={() => setShowMeetingHistory(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-[#6C5CE7]/20 transition-all" data-testid="bento-meeting-history">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #6C5CE7, #E84393)' }}>
+                    <Clock className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-semibold font-outfit">Meeting History</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">Past & scheduled meetings</p>
+                  </div>
+                </button>
+              </div>
+
               {/* Main Content Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                 {/* Recent Conversations — Channels + DMs combined */}
@@ -1201,6 +1227,8 @@ const LumiMessenger = () => {
       {showNewMsgPanel && <NewMessagePanel onClose={() => setShowNewMsgPanel(false)} onSelectUser={handleStartDm} onInvite={handleNewMsgInvite} token={token} />}
       {showScheduleModal && activeChannel && <ScheduleMessageModal channelId={activeChannel.id} channelName={activeChannel.name || ''} token={token} onClose={() => setShowScheduleModal(false)} />}
       {showMeetingModal && <EnziMeetingModal channelId={activeChannel?.id} channelName={activeChannel?.name || ''} token={token} onClose={() => setShowMeetingModal(false)} />}
+      {showMeetingHistory && <MeetingHistoryPanel token={token} onClose={() => setShowMeetingHistory(false)} onStartMeeting={() => { setShowMeetingHistory(false); setShowMeetingModal(true); }} />}
+      {showBotStore && <BotStoreModal token={token} channels={channels} onClose={() => setShowBotStore(false)} />}
       {showNotifSettings && <NotificationSettings token={token} channels={channels} onClose={() => setShowNotifSettings(false)} />}
       {showProfile && <UserProfileModal onClose={() => setShowProfile(false)} token={token} onStatusChange={(s) => {}} onThemeChange={(c) => setUserAccentColor(c)} />}
       {showRetention && <RetentionPanel onClose={() => setShowRetention(false)} token={token} />}
