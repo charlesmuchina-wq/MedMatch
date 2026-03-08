@@ -41,6 +41,7 @@ import NotificationSettings from '@/components/Lumi/NotificationSettings';
 import EnziMeetingModal from '@/components/Lumi/EnziMeetingModal';
 import MeetingHistoryPanel from '@/components/Lumi/MeetingHistoryPanel';
 import BotStoreModal from '@/components/Lumi/BotStoreModal';
+import BotActionsBar from '@/components/Lumi/BotActionsBar';
 
 const LumiMessenger = () => {
   const navigate = useNavigate();
@@ -483,6 +484,25 @@ const LumiMessenger = () => {
   const filteredChannels = channels.filter(ch => ch.name.toLowerCase().includes(searchQuery.toLowerCase()));
   const activeTyping = activeChannel ? Object.values(typingUsers[activeChannel.id] || {}).filter(n => n !== user?.name) : [];
 
+  // Predictive sorting: boost channels/DMs that appear in predictions
+  const predictedChannelIds = new Set((predictions?.channels || []).map(p => p.target_id));
+  const predictedDmIds = new Set((predictions?.dms || []).map(p => p.target_id));
+
+  const sortedChannels = [...filteredChannels].sort((a, b) => {
+    const aP = predictedChannelIds.has(a.id) ? 1 : 0;
+    const bP = predictedChannelIds.has(b.id) ? 1 : 0;
+    if (bP !== aP) return bP - aP;
+    // Secondary: unread counts
+    return (unreadCounts[b.id] || 0) - (unreadCounts[a.id] || 0);
+  });
+
+  const sortedDms = [...dms].sort((a, b) => {
+    const aP = predictedDmIds.has(a.id) ? 1 : 0;
+    const bP = predictedDmIds.has(b.id) ? 1 : 0;
+    if (bP !== aP) return bP - aP;
+    return (unreadCounts[b.id] || 0) - (unreadCounts[a.id] || 0);
+  });
+
   // Recent conversations: mix channels + DMs sorted by last activity
   const recentConversations = [
     ...channels.map(ch => ({ ...ch, _type: 'channel', _time: ch.last_activity || ch.created_at || '' })),
@@ -644,10 +664,11 @@ const LumiMessenger = () => {
                   <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Channels</span>
                   <button onClick={() => setShowCreateModal(true)} className="p-1 text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="add-channel-btn"><Plus className="w-3.5 h-3.5" /></button>
                 </div>
-                {filteredChannels.map(ch => (
+                {sortedChannels.map(ch => (
                   <button key={ch.id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); trackAction('channel_visit', ch.id, ch.name); }}
                     className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${activeChannel?.id === ch.id ? 'bg-white/15 text-white font-semibold' : 'text-white/80 hover:bg-white/10 hover:text-white'}`} data-testid={`channel-${ch.id}`}>
                     <ChannelIcon type={ch.channel_type} /><span className="flex-1 text-sm truncate text-left">{ch.name}</span>
+                    {predictedChannelIds.has(ch.id) && <Zap className="w-3 h-3 text-amber-400 flex-shrink-0" title="Predicted for you" />}
                     {unreadCounts[ch.id] > 0 && <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[9px] font-bold text-white" style={{ backgroundColor: ESY.pink }} data-testid={`unread-${ch.id}`}>{unreadCounts[ch.id]}</span>}
                   </button>
                 ))}
@@ -665,7 +686,7 @@ const LumiMessenger = () => {
                   <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Direct Messages</span>
                   <button onClick={() => setShowNewMsgPanel(true)} className="p-1 text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="new-dm-btn"><UserPlus className="w-3.5 h-3.5" /></button>
                 </div>
-                {dms.map(dm => {
+                {sortedDms.map(dm => {
                   const partner = dm.dm_partner || {};
                   const init = (partner.name || partner.email || '?')[0].toUpperCase();
                   const st = presenceMap[partner.user_id] || 'offline';
@@ -677,11 +698,12 @@ const LumiMessenger = () => {
                         <span className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full ring-1 ring-[#1A2332] ${STATUS_COLORS[st]}`} />
                       </div>
                       <span className="flex-1 text-sm truncate text-left">{partner.name || partner.email || 'User'}</span>
+                      {predictedDmIds.has(dm.id) && <Zap className="w-3 h-3 text-amber-400 flex-shrink-0" title="Predicted" />}
                       {unreadCounts[dm.id] > 0 && <span className="min-w-[16px] h-[16px] flex items-center justify-center rounded-full text-[8px] font-bold text-white" style={{ backgroundColor: ESY.pink }} data-testid={`unread-dm-${dm.id}`}>{unreadCounts[dm.id]}</span>}
                     </button>
                   );
                 })}
-                {dms.length === 0 && <p className="text-[11px] text-white/80 px-2.5 py-1">No conversations yet</p>}
+                {sortedDms.length === 0 && <p className="text-[11px] text-white/80 px-2.5 py-1">No conversations yet</p>}
 
                 {/* Domain Colleagues */}
                 {domainColleagues.length > 0 && (<>
@@ -810,6 +832,11 @@ const LumiMessenger = () => {
               <button onClick={() => setShowMembers(!showMembers)} className={`p-2 rounded-md transition-colors ${showMembers ? 'text-[#008080] bg-[#008080]/5' : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100'}`} data-testid="channel-members-btn"><Users className="w-4 h-4" /></button>
             </div>
           </div>
+
+          {/* Bot Actions Bar - quick triggers for installed bots */}
+          {activeChannel?.channel_type !== 'dm' && (
+            <BotActionsBar channelId={activeChannel?.id} token={token} />
+          )}
 
           <div className="flex flex-1 overflow-hidden">
             <div className="flex-1 flex flex-col min-w-0">

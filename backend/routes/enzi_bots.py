@@ -165,3 +165,128 @@ async def uninstall_bot(install_id: str, request: Request):
         raise HTTPException(status_code=404, detail="Installation not found")
 
     return {"status": "uninstalled"}
+
+
+class BotActionRequest(BaseModel):
+    bot_id: str
+    channel_id: str
+    action: str  # e.g. "start_poll", "set_reminder", "run_standup"
+    params: Optional[dict] = None
+
+
+BOT_ACTIONS = {
+    "standup": {
+        "actions": [
+            {"id": "run_standup", "label": "Run Standup", "icon": "clipboard"},
+        ],
+        "handler": lambda p: f"**Daily Standup**\nPlease share your update:\n- What did you do yesterday?\n- What will you do today?\n- Any blockers?"
+    },
+    "reminder": {
+        "actions": [
+            {"id": "set_reminder", "label": "Set Reminder", "icon": "bell"},
+        ],
+        "handler": lambda p: f"**Reminder Set:** {p.get('text', 'Check back later!')} at {p.get('time', 'in 15 minutes')}"
+    },
+    "poll": {
+        "actions": [
+            {"id": "start_poll", "label": "Start Poll", "icon": "bar-chart"},
+        ],
+        "handler": lambda p: f"**Poll:** {p.get('question', 'What do you think?')}\n{chr(10).join(f'- {opt}' for opt in p.get('options', ['Option A', 'Option B', 'Option C']))}\n\n_React to vote!_"
+    },
+    "meeting": {
+        "actions": [
+            {"id": "start_meeting", "label": "Quick Meeting", "icon": "video"},
+        ],
+        "handler": lambda p: f"**Meeting Starting Now**\nJoin the AI KARAU meeting to collaborate in real-time."
+    },
+    "welcome": {
+        "actions": [
+            {"id": "send_welcome", "label": "Welcome Message", "icon": "hand-wave"},
+        ],
+        "handler": lambda p: f"**Welcome to the team!** Here's how to get started:\n1. Introduce yourself in this channel\n2. Check out pinned messages\n3. Set your status and profile"
+    },
+    "summary": {
+        "actions": [
+            {"id": "run_summary", "label": "Summarize Now", "icon": "brain"},
+        ],
+        "handler": lambda p: f"**Channel Summary**\nGenerating summary of recent conversations..."
+    },
+    "translator": {
+        "actions": [
+            {"id": "translate", "label": "Translate", "icon": "globe"},
+        ],
+        "handler": lambda p: f"**Translation Bot Active**\nAuto-translating messages to {p.get('language', 'English')}."
+    },
+    "github_notify": {
+        "actions": [
+            {"id": "check_status", "label": "Check Repos", "icon": "github"},
+        ],
+        "handler": lambda p: f"**GitHub Status**\nMonitoring repositories for push, PR, and issue events."
+    },
+}
+
+
+@router.post("/action")
+async def execute_bot_action(req: BotActionRequest, request: Request):
+    """Execute a bot action in a channel"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    # Verify bot is installed in this channel
+    installed = await db.enzi_installed_bots.find_one(
+        {"bot_id": req.bot_id, "channel_id": req.channel_id, "is_active": True}
+    )
+    if not installed:
+        raise HTTPException(status_code=404, detail="Bot not installed in this channel")
+
+    bot_def = BOT_ACTIONS.get(req.bot_id)
+    if not bot_def:
+        raise HTTPException(status_code=404, detail="Bot actions not defined")
+
+    # Generate bot response message
+    content = bot_def["handler"](req.params or {})
+
+    msg_id = str(uuid.uuid4())
+    bot_info = BOT_CATALOG.get(req.bot_id, {})
+    await db.lumi_messages.insert_one({
+        "id": msg_id,
+        "channel_id": req.channel_id,
+        "content": content,
+        "sender_id": f"bot_{req.bot_id}",
+        "sender_name": f"[Bot] {bot_info.get('name', req.bot_id)}",
+        "type": "bot_action",
+        "bot_id": req.bot_id,
+        "action": req.action,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    })
+
+    return {"message_id": msg_id, "content": content, "bot_name": bot_info.get("name", req.bot_id)}
+
+
+@router.get("/channel/{channel_id}")
+async def get_channel_bots(channel_id: str, request: Request):
+    """Get installed bots for a specific channel with available actions"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    bots = await db.enzi_installed_bots.find(
+        {"channel_id": channel_id, "is_active": True},
+        {"_id": 0}
+    ).to_list(20)
+
+    result = []
+    for b in bots:
+        bot_actions = BOT_ACTIONS.get(b["bot_id"], {})
+        cat_info = BOT_CATALOG.get(b["bot_id"], {})
+        result.append({
+            "id": b["id"],
+            "bot_id": b["bot_id"],
+            "bot_name": b["bot_name"],
+            "icon": cat_info.get("icon", "brain"),
+            "actions": bot_actions.get("actions", []),
+            "config": b.get("config", {})
+        })
+
+    return {"bots": result, "count": len(result)}
