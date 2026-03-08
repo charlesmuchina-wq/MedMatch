@@ -12,7 +12,7 @@ import {
   Building2, Sparkles, Brain, AlertTriangle, Shield,
   Command, Network, Zap, TrendingDown, Bell,
   Smile, Keyboard, ClipboardList, Globe, BarChart3,
-  Sun, Moon, Share2, Clock, Edit, ChevronDown, ChevronRight, Settings, BellOff
+  Sun, Moon, Share2, Clock, Edit, ChevronDown, ChevronRight, Settings, BellOff, Crown
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -43,6 +43,8 @@ import MeetingHistoryPanel from '@/components/Lumi/MeetingHistoryPanel';
 import BotStoreModal from '@/components/Lumi/BotStoreModal';
 import BotActionsBar from '@/components/Lumi/BotActionsBar';
 import E2EEIndicator from '@/components/Lumi/E2EEIndicator';
+import PremiumModal from '@/components/Lumi/PremiumModal';
+import InsightsPanel from '@/components/Lumi/InsightsPanel';
 
 const LumiMessenger = () => {
   const navigate = useNavigate();
@@ -106,6 +108,8 @@ const LumiMessenger = () => {
   const [showMeetingModal, setShowMeetingModal] = useState(false);
   const [showMeetingHistory, setShowMeetingHistory] = useState(false);
   const [showBotStore, setShowBotStore] = useState(false);
+  const [showPremium, setShowPremium] = useState(false);
+  const [showInsights, setShowInsights] = useState(false);
 
   const messagesEndRef = useRef(null);
   const wsRef = useRef(null);
@@ -164,6 +168,27 @@ const LumiMessenger = () => {
     const savedUser = localStorage.getItem('karau_user');
     if (savedUser && token) setUser(JSON.parse(savedUser));
     setIsLoading(false);
+    // Check for payment redirect
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentStatus = urlParams.get('payment');
+    const sessionId = urlParams.get('session_id');
+    if (paymentStatus === 'success' && sessionId && token) {
+      const pollStatus = async (attempts = 0) => {
+        if (attempts >= 5) return;
+        try {
+          const res = await fetch(`${API}/api/lumi/payments/status/${sessionId}`, { headers: { Authorization: `Bearer ${token}` } });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.payment_status === 'paid') { toast.success('Payment successful! Welcome to ENZI Premium!'); window.history.replaceState({}, '', '/lumi'); return; }
+          }
+        } catch {}
+        setTimeout(() => pollStatus(attempts + 1), 2000);
+      };
+      pollStatus();
+    } else if (paymentStatus === 'cancelled') {
+      toast.info('Payment cancelled.');
+      window.history.replaceState({}, '', '/lumi');
+    }
   }, []);
 
   // Load channels
@@ -1046,6 +1071,28 @@ const LumiMessenger = () => {
                 </button>
               </div>
 
+              {/* Premium & Insights Row */}
+              <div className="grid grid-cols-2 gap-3">
+                <button onClick={() => setShowPremium(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-amber-500/20 transition-all" data-testid="bento-premium">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #FFD700, #FFA500)' }}>
+                    <Crown className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-semibold font-outfit">ENZI Premium</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">Upgrade your plan</p>
+                  </div>
+                </button>
+                <button onClick={() => setShowInsights(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-[#6C5CE7]/20 transition-all" data-testid="bento-insights">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #6C5CE7, #00CEC9)' }}>
+                    <BarChart3 className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-semibold font-outfit">Insights</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">Usage analytics & tips</p>
+                  </div>
+                </button>
+              </div>
+
               {/* Main Content Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                 {/* Recent Conversations — Channels + DMs combined */}
@@ -1260,6 +1307,8 @@ const LumiMessenger = () => {
       {showMeetingModal && <EnziMeetingModal channelId={activeChannel?.id} channelName={activeChannel?.name || ''} token={token} onClose={() => setShowMeetingModal(false)} />}
       {showMeetingHistory && <MeetingHistoryPanel token={token} onClose={() => setShowMeetingHistory(false)} onStartMeeting={() => { setShowMeetingHistory(false); setShowMeetingModal(true); }} />}
       {showBotStore && <BotStoreModal token={token} channels={channels} onClose={() => setShowBotStore(false)} />}
+      {showPremium && <PremiumModal token={token} onClose={() => setShowPremium(false)} />}
+      {showInsights && <InsightsPanel token={token} onClose={() => setShowInsights(false)} onAction={(action) => { setShowInsights(false); if (action === 'create_meeting') setShowMeetingModal(true); }} />}
       {showNotifSettings && <NotificationSettings token={token} channels={channels} onClose={() => setShowNotifSettings(false)} />}
       {showProfile && <UserProfileModal onClose={() => setShowProfile(false)} token={token} onStatusChange={(s) => {}} onThemeChange={(c) => setUserAccentColor(c)} />}
       {showRetention && <RetentionPanel onClose={() => setShowRetention(false)} token={token} />}
