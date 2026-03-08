@@ -5,75 +5,84 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "ENZI" 
 
 ## What's Been Implemented
 
-### Phase 1: AI Auto-Responses + Conversation Summaries (Completed - March 8, 2026)
-- **AI Auto-Reply Suggestions**: Smart quick replies based on message bucket category (Urgent→"I'm on it!", Action Required→"On it!", Meeting Request→"I'll join")
-- **AI Conversation Summaries**: One-click "Summarize" button generates AI summary of channel conversations (key decisions, action items, unresolved questions)
-- Backend: `POST /api/lumi/ai/auto-reply/suggestions`, `POST /api/lumi/ai/summarize`
+### Rich Message Formatting (Completed - March 8, 2026)
+- Full Markdown rendering: bold, italic, strikethrough, blockquotes, links, headings
+- Code blocks with syntax highlighting (Prism + oneDark theme) for 50+ languages
+- Tables with styled headers/cells
+- Lists (ordered + unordered)
+- Copy-to-clipboard button on code blocks
+- Packages: react-markdown, remark-gfm, react-syntax-highlighter
 
-### Phase 2: Scheduled Messages + Bot/Automation Platform (Completed - March 8, 2026)
-- **Scheduled Messages**: Schedule messages for future delivery with date/time picker, view/cancel pending messages
-- **Webhook System**: Create incoming webhooks for channels, post messages via HTTP (no auth needed for webhook send)
-- **Auto-Responders**: Keyword-triggered automatic responses per channel
-- **Background Processor**: Checks every 30 seconds for due scheduled messages and delivers them
-- Backend: `/api/lumi/automation/schedule`, `/api/lumi/automation/webhooks`, `/api/lumi/automation/auto-responders`
+### Sentiment Analysis (Completed - March 8, 2026)
+- Real-time tone detection: positive, neutral, urgent, negative
+- AI-powered via GPT-4.1-mini with keyword fallback
+- Channel mood trends (distribution of tones across recent messages)
+- CSS tone badges (.tone-positive, .tone-neutral, .tone-urgent, .tone-negative)
+- Backend: `/api/lumi/sentiment/analyze`, `/api/lumi/sentiment/channel/{id}/mood`
 
-### Phase 3: Notification Customization (Completed - March 8, 2026)
-- **Per-Channel Mute**: Set notification level per channel (All, @Mentions Only, Muted)
-- **Do Not Disturb**: Toggle DND with configurable quiet hours
-- **Keyword Alerts**: Add keywords to get alerted when they appear in any message
-- Backend: `/api/lumi/notifications/preferences`, `/channel`, `/dnd`, `/keywords`
+### Channel Templates (Completed - March 8, 2026)
+- 5 pre-built templates: Project, Sprint, Incident, Standup, General
+- Auto-create channels with description and pinned messages
+- Backend: `/api/lumi/templates/channels/list`, `/api/lumi/templates/channels/create`
 
-### Sidebar Restructure (Completed - March 8, 2026)
-- "Recent" and "New Message" quick action buttons above Channels
-- Smart Buckets in sidebar (Priority section with Urgent/Action Required/Meeting counts)
-- Collapsible Admin Tools (2x3 grid behind Settings gear)
-- Compact footer (avatar + theme + settings + logout)
+### Webhook Templates (Completed - March 8, 2026)
+- 5 pre-configured integrations: GitHub, Jira, CI/CD Pipeline, Slack-Compatible, Monitoring
+- One-click setup with webhook URL, sample payload, and curl example
+- Backend: `/api/lumi/automation/webhook-templates/list`, `/api/lumi/automation/webhook-templates/create`
 
-### Invite System with Registration-Gated Security (Completed - March 8, 2026)
-- Email/SMS/WhatsApp/LinkedIn/Instagram/Copy Link invite options
-- Registration gate: invited users MUST register before accessing ENZI
+### Kinetic Typography & Micro-interactions (Completed - March 8, 2026)
+- Stagger-in animations on dashboard bento tiles (5 delay variants)
+- Scale-in, shimmer, float CSS animations
+- Hover-lift effect on interactive cards
+- Gradient shimmer text effect
+
+### AI Auto-Responses + Conversation Summaries (Completed - March 8, 2026)
+- Smart quick replies based on bucket category
+- AI conversation summaries (key decisions, action items, unresolved questions)
+
+### Scheduled Messages + Bot/Automation (Completed - March 8, 2026)
+- Schedule future messages with date/time picker
+- Webhook system for incoming bot messages
+- Auto-responder framework with keyword triggers
+- Background processor (30s interval) for delivery
+
+### Notification Customization (Completed - March 8, 2026)
+- Per-channel mute (All, @Mentions, None)
+- DND schedule with quiet hours
+- Keyword alerts
+
+### Sidebar Restructure + Invite System (Completed - March 8, 2026)
+- Recent/New Message quick actions above Channels
+- New Message: search users → invite if not found (Email, SMS, WhatsApp, LinkedIn, Instagram)
+- Registration-gated invites (MUST register before accessing)
 - Domain-based company colleague discovery
-
-### Brand Rename: LUMI → ENZI (Completed - March 8, 2026)
-- All user-visible text updated across 15+ files
+- Collapsible admin tools, compact footer
 
 ### Core Infrastructure (Previous Sessions)
 - Full messenger with channels, DMs, WebSocket real-time messaging
 - Google SSO + Microsoft SSO + email/password + invite registration
 - AI Writing Assistant (Refine, Suggest, Translate, Voice) + Templates
 - Smart Buckets, Channel Invites, MS Calendar Sync, Predictive Nav
-- Compliance framework (HIPAA/GDPR), Dark/Light mode, Keyboard shortcuts
+- Compliance (HIPAA/GDPR), Dark/Light mode, Keyboard shortcuts
 
 ## Architecture
-- Frontend: React + Tailwind + Shadcn/UI + Outfit font
+- Frontend: React + Tailwind + Shadcn/UI + react-markdown + react-syntax-highlighter
 - Backend: FastAPI + MongoDB + emergentintegrations + msal + resend
 - Real-time: WebSocket at /api/lumi/ws/{user_id}
 - AI: GPT-4.1-mini via Emergent LLM Key
 
 ## Pending / Backlog
 ### P0
-- E2E Encryption (E2EE) — Signal Protocol or equivalent
+- E2E Encryption (E2EE) — client-side key generation, key exchange, encrypted DMs
 
 ### P1
-- Screen Sharing in Calls
-- Rich Message Formatting (code blocks with syntax highlighting, tables, collapsible sections)
-- Task-Driven Side Layout refinement
+- Screen Sharing in Calls (WebRTC)
+- Full Predictive Zero-Click Navigation (reorder UI by usage)
 
 ### P2
-- Activate Sentiment Analysis (tone badges, mood trends in channels)
-- Channel Templates (Project, Sprint, Incident Response)
-- Full Predictive Zero-Click Navigation (reorder UI by usage frequency)
-- Kinetic Typography & Micro-interactions
-
-### P3
 - Native Mobile App (React Native/Flutter)
 - Live Payment Gateway (Stripe)
 - Passkeys & Biometric Authentication
-
-## Gap Assessment
-Full report at `/app/memory/GAP_ASSESSMENT.md`
-- ENZI leads in AI (+4), onboarding (+6), UX (+1)
-- Needs E2EE, integrations, enhanced video calling
 
 ## Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
