@@ -4,7 +4,7 @@ import { toast } from 'sonner';
 import {
   Users, Shield, Sparkles, Loader2, Eye, Mic,
   Globe, Brain, Wand2, Volume2, Zap, Lock,
-  ArrowRight, ChevronRight
+  ArrowRight, ChevronRight, Fingerprint, Smartphone
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,6 +24,7 @@ const KarauMeetLogin = ({ onLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState('signin');
   const [activeFeature, setActiveFeature] = useState(0);
+  const [showMoreAuth, setShowMoreAuth] = useState(false);
 
   const AI_FEATURES = [
     { icon: Brain, labelKey: 'karauMeet.aiMeetingCoach', descKey: 'karauMeet.realtimeTips', color: 'from-purple-500 to-violet-600' },
@@ -115,6 +116,37 @@ const KarauMeetLogin = ({ onLogin }) => {
 
   const handleMicrosoftSignIn = () => {
     toast.info('Microsoft SSO is coming soon. Please use Google or email login.');
+  };
+
+  const handleAppleSignIn = async () => {
+    try {
+      const res = await fetch(`${API}/api/auth/apple/config`);
+      if (res.ok) {
+        const config = await res.json();
+        if (config.client_id) {
+          const redirectUri = `${API}/api/auth/apple/callback`;
+          const state = btoa(JSON.stringify({ redirect: '/karau-meet' }));
+          window.location.href = `https://appleid.apple.com/auth/authorize?client_id=${config.client_id}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code%20id_token&response_mode=form_post&scope=name%20email&state=${state}`;
+        } else toast.info('Apple Sign-In not configured yet.');
+      }
+    } catch { toast.info('Apple Sign-In not available.'); }
+  };
+
+  const handleGitHubSignIn = async () => {
+    try {
+      const res = await fetch(`${API}/api/auth/github/login`, { method: 'POST' });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.auth_url) {
+          if (data.mode === 'demo') toast.info('GitHub SSO in demo mode. Redirecting...');
+          window.location.href = data.auth_url;
+        }
+      } else toast.info('GitHub SSO not available.');
+    } catch { toast.info('GitHub SSO not available.'); }
+  };
+
+  const handlePasskeySignIn = () => {
+    toast.info('Passkey login is available in ENZI. Use email login for AI KARAU.');
   };
 
   return (
@@ -338,6 +370,35 @@ const KarauMeetLogin = ({ onLogin }) => {
                   {t("karauMeet.microsoft") || "Microsoft"}
                 </Button>
               </div>
+
+              {/* More Auth Options */}
+              {!showMoreAuth ? (
+                <button onClick={() => setShowMoreAuth(true)}
+                  className="w-full text-center text-xs text-slate-600 hover:text-slate-400 mt-3 py-1 transition-colors"
+                  data-testid="karau-show-more-auth">More sign-in options</button>
+              ) : (
+                <div className="mt-3 space-y-2.5 animate-in fade-in duration-300">
+                  <Button type="button" variant="outline" onClick={handleAppleSignIn}
+                    className="w-full h-10 bg-white hover:bg-slate-100 text-black border-white/20 rounded-xl transition-all"
+                    data-testid="btn-apple">
+                    <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+                    Apple
+                  </Button>
+                  <div className="grid grid-cols-2 gap-2.5">
+                    <Button type="button" variant="outline" onClick={handleGitHubSignIn}
+                      className="h-10 bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border-white/[0.08] rounded-xl transition-all"
+                      data-testid="btn-github">
+                      <svg className="w-4 h-4 mr-1.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                      GitHub
+                    </Button>
+                    <Button type="button" variant="outline" onClick={handlePasskeySignIn}
+                      className="h-10 bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border-white/[0.08] rounded-xl transition-all"
+                      data-testid="btn-passkey">
+                      <Fingerprint className="w-4 h-4 mr-1.5" />Passkey
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

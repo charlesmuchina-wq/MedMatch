@@ -1,0 +1,71 @@
+{
+  "summary": "Completed E2E testing of Auth Duplicate Credentials Iteration 198. All 12 backend tests passed (100%). All 3 portals (MedMatch, AI KARAU, ENZI) successfully tested with admin login. All auth providers present as expected. GitHub SSO MOCKED.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "MedMatch LoginPage", "issue": "GitHub button shows 'auth.github' instead of 'Sign in with GitHub' - i18n translation key not resolved", "selector": "[data-testid=github-login-btn]", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_auth_duplicate_credentials_iteration198.py",
+    "/app/test_reports/pytest/auth_duplicate_credentials_iteration198_results.xml"
+  ],
+  "action_items": [
+    "Optional: Fix i18n key 'auth.github' in MedMatch login to show proper 'Sign in with GitHub' text"
+  ],
+  "critical_code_review_comments": [
+    "LoginPage.jsx: GitHub button added correctly with data-testid=github-login-btn. Uses POST /api/auth/github/login to get auth_url.",
+    "KarauMeetLogin.jsx: Added Apple (btn-apple), GitHub (btn-github), Passkey (btn-passkey) behind 'More sign-in options' (karau-show-more-auth). Google/Microsoft visible by default.",
+    "LumiLogin.jsx: All auth providers present - Google/Microsoft default, Apple/GitHub/Phone OTP/Passkey after expanding (show-more-auth).",
+    "auth.py: Shared /api/auth/login endpoint used by all 3 portals. Admin bypass for admin@medmatch.com. GitHub SSO is MOCKED (mode: 'demo').",
+    "All portals correctly use the same backend auth API at /api/auth/login with same credentials."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_auth_duplicate_credentials_iteration198.py"
+  ],
+  "success_rate": {
+    "backend": "100% (12/12 passed)",
+    "frontend": "100% (All 3 portals tested successfully)"
+  },
+  "test_credentials": {
+    "admin": "admin@medmatch.com / Swampdrainer2026!",
+    "test_user": "test@medmatch.io / TestPassword123!"
+  },
+  "seed_data_creation": "",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Auth Duplicate Credentials verified across all 3 portals. MedMatch (/) shows: Google, Apple, ORCID, Microsoft, GitHub directly visible. AI KARAU (/karau-meet) shows: Google, Microsoft by default, then 'More sign-in options' reveals Apple, GitHub, Passkey. ENZI (/lumi) shows: Google, Microsoft by default, then 'More sign-in options' reveals Apple, GitHub, Phone OTP, Passkey. All use same /api/auth/login backend. GitHub SSO is MOCKED (demo mode).",
+  "tested_features": [
+    {"feature": "POST /api/auth/login with admin@medmatch.com / Swampdrainer2026!", "status": "PASS"},
+    {"feature": "POST /api/auth/login with test@medmatch.io / TestPassword123!", "status": "PASS"},
+    {"feature": "POST /api/auth/login rejects invalid credentials (401)", "status": "PASS"},
+    {"feature": "POST /api/auth/github/login returns auth_url (MOCKED)", "status": "PASS"},
+    {"feature": "GET /api/auth/github/config returns configured=true, mode=demo", "status": "PASS"},
+    {"feature": "POST /api/auth/microsoft/login returns 501 (not configured)", "status": "PASS"},
+    {"feature": "GET /api/auth/apple/config returns configuration", "status": "PASS"},
+    {"feature": "POST /api/auth/passkey/login/start validates email", "status": "PASS"},
+    {"feature": "POST /api/auth/passkey/login/start returns 404 for unknown email", "status": "PASS"},
+    {"feature": "GET /api/auth/me returns user with valid token", "status": "PASS"},
+    {"feature": "GET /api/auth/me returns 401 without token", "status": "PASS"},
+    {"feature": "Same credentials work for all portal contexts", "status": "PASS"},
+    {"feature": "MedMatch login shows Google, Apple, ORCID, Microsoft, GitHub buttons", "status": "PASS"},
+    {"feature": "MedMatch admin login redirects to dashboard", "status": "PASS"},
+    {"feature": "AI KARAU login shows Google, Microsoft by default", "status": "PASS"},
+    {"feature": "AI KARAU 'More sign-in options' reveals Apple, GitHub, Passkey", "status": "PASS"},
+    {"feature": "AI KARAU admin login works", "status": "PASS"},
+    {"feature": "ENZI login shows Google, Microsoft by default", "status": "PASS"},
+    {"feature": "ENZI 'More sign-in options' reveals Apple, GitHub, Phone OTP, Passkey", "status": "PASS"},
+    {"feature": "ENZI admin login shows dashboard with channels", "status": "PASS"}
+  ],
+  "mocked_apis": {
+    "GitHub SSO": "MOCKED - POST /api/auth/github/login returns mock auth_url pointing to /api/auth/github/callback",
+    "Microsoft SSO": "NOT CONFIGURED - Returns 501",
+    "Apple SSO": "CONFIGURED but not fully tested (requires Apple developer account)",
+    "Passkey/WebAuthn": "CONFIGURED - Endpoints working, requires actual WebAuthn hardware to fully test"
+  }
+}
