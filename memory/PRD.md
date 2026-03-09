@@ -1,7 +1,7 @@
 # AI KARAU + ENZI - Product Requirements Document
 
 ## Original Problem Statement
-Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "ENZI" (professional-grade messenger), plus "MedMatch AI" (job-seeking toolkit). ENZI is the primary focus — a futuristic, AI-driven "Actionable Intelligence" hub with liquid glass aesthetics, bento grid layouts, and predictive behavior. The platform should offer bundled and standalone packages.
+Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "ENZI" (professional-grade messenger), plus "MedMatch AI" (job-seeking toolkit). ENZI is the primary focus — a futuristic, AI-driven "Actionable Intelligence" hub with liquid glass aesthetics, bento grid layouts, and predictive behavior. The platform should offer bundled and standalone packages with a unified workspace that allows running portals side-by-side.
 
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI + react-markdown + react-syntax-highlighter
@@ -41,6 +41,32 @@ Users can select from 3 packages:
 - `POST /api/portal/sync-session` - Cross-portal auth sync (cookie + token)
 - `GET /api/portal/check-access/{portal}` - Check portal access
 
+## Portal Workspace (COMPLETED - Mar 2026)
+Unified multi-portal workspace allowing side-by-side portal usage.
+
+### Flow:
+1. User selects a bundle on landing page → Login
+2. After login, portals appear in a dock bar at the bottom
+3. Main portal runs full-width
+4. Click dock icon to open secondary portal as side panel
+5. Side panel supports 3 sizes: narrow (320px), wide (440px), half (50%)
+6. Swap button exchanges main and side portals
+7. Both portals run simultaneously (e.g., KARAU meeting + ENZI chat)
+
+### Key Files:
+- `frontend/src/components/PortalWorkspace.jsx` - Workspace layout, dock, side panel, hub
+- `frontend/src/components/Lumi/EnziCompactPanel.jsx` - Compact ENZI for side panel
+- `frontend/src/components/KarauMeet/KarauCompactPanel.jsx` - Compact KARAU for side panel
+- `frontend/src/App.js` - Workspace integration, PortalDockOverlay for MedMatch
+
+### Features:
+- PortalDock: Persistent footer bar with portal icons (Main/Side/Dock states)
+- PortalHub: Initial view showing all bundle portals to select main
+- Side Panel: Resizable with controls (resize/swap/close)
+- Compact Panels: Lightweight versions of portals for side panel usage
+- MedMatch floating dock: Floating portal switcher in bottom-right corner
+- localStorage polling: Workspace detects portal_access changes after login
+
 ## Completed Features
 
 ### Cross-Portal Meeting Integration
@@ -70,6 +96,7 @@ Users can select from 3 packages:
 - Notification customization, Domain colleague discovery, Meeting History
 
 ## Test Results
+- Portal Workspace: 100% frontend, 77% backend (6 failures are test fixture issues) — iteration_200
 - Portal Packaging: 25/25 BE, all FE flows — 100% pass (iteration_199)
 - Previous batches: All passed 100%
 

@@ -35,12 +35,12 @@ const KarauCompactPanel = () => {
     if (!user || !token) return;
     const load = async () => {
       try {
-        const res = await fetch(`${API}/api/karau/meetings?limit=10`, {
+        const res = await fetch(`${API}/api/karau-meet/meetings?limit=10`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (res.ok) {
           const data = await res.json();
-          setMeetings(Array.isArray(data) ? data : data.meetings || []);
+          setMeetings(data.meetings || (Array.isArray(data) ? data : []));
         }
       } catch (e) { console.error('Failed to load meetings', e); }
       setLoading(false);

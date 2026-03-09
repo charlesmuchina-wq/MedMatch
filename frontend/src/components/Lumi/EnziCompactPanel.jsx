@@ -44,7 +44,10 @@ const EnziCompactPanel = () => {
           fetch(`${API}/api/lumi/channels`, { headers: { Authorization: `Bearer ${token}` } }),
           fetch(`${API}/api/lumi/dm/list`, { headers: { Authorization: `Bearer ${token}` } }),
         ]);
-        if (chRes.ok) setChannels(await chRes.json());
+        if (chRes.ok) {
+          const chData = await chRes.json();
+          setChannels(chData.my_channels || chData || []);
+        }
         if (dmRes.ok) setDms(await dmRes.json());
       } catch (e) { console.error('Failed to load channels', e); }
       setLoading(false);
