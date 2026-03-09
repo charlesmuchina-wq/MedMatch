@@ -97,6 +97,9 @@ import GlobalLanguageSelector from "@/components/GlobalLanguageSelector";
 import NotificationCenter from "@/components/NotificationCenter";
 import LumiFooter from "@/components/LumiFooter";
 import PackageSelector from "@/components/Lumi/PackageSelector";
+import PortalWorkspace from "@/components/PortalWorkspace";
+import EnziCompactPanel from "@/components/Lumi/EnziCompactPanel";
+import KarauCompactPanel from "@/components/KarauMeet/KarauCompactPanel";
 import { I18nProvider, useTranslation } from "@/utils/i18n";
 import { OfflineBanner, OfflineIndicator } from "@/components/OfflineIndicator";
 import { offlineStorage } from "@/utils/offlineStorage";
@@ -104,6 +107,60 @@ import LanguageTour from "@/components/LanguageTour";
 import LanguageDetectionBanner from "@/components/LanguageDetectionBanner";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+
+// Floating Portal Dock for MedMatch view — allows navigation to other portals
+const PortalDockOverlay = ({ portals, currentPortal, navigate: nav }) => {
+  const [expanded, setExpanded] = useState(false);
+  const PMETA = {
+    karau: { name: 'AI KARAU', icon: Video, color: '#6C5CE7', path: '/karau-meet' },
+    enzi: { name: 'ENZI', icon: MessageCircle, color: '#00CEC9', path: '/lumi' },
+    medmatch: { name: 'MedMatch', icon: Briefcase, color: '#00B894', path: '/' },
+  };
+  const otherPortals = portals.filter(p => p !== currentPortal);
+  if (otherPortals.length === 0) return null;
+
+  return (
+    <div className="fixed bottom-4 right-4 z-[60]" data-testid="portal-dock-overlay">
+      {expanded && (
+        <div className="mb-2 bg-slate-900/95 backdrop-blur-xl border border-slate-700/40 rounded-xl shadow-2xl shadow-black/40 p-2 space-y-1">
+          {otherPortals.map(pk => {
+            const m = PMETA[pk];
+            if (!m) return null;
+            const Icon = m.icon;
+            return (
+              <button
+                key={pk}
+                onClick={() => nav(m.path)}
+                className="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-white/[0.06] w-full transition-colors"
+                data-testid={`dock-overlay-${pk}`}
+              >
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: m.color + '20' }}>
+                  <Icon className="w-3.5 h-3.5" style={{ color: m.color }} />
+                </div>
+                <span className="text-xs font-medium text-white">{m.name}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="w-12 h-12 rounded-full bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-600/40 shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+        data-testid="dock-overlay-toggle"
+        title="Switch Portal"
+      >
+        <div className="flex -space-x-1">
+          {otherPortals.slice(0, 2).map(pk => {
+            const m = PMETA[pk];
+            if (!m) return null;
+            const Icon = m.icon;
+            return <Icon key={pk} className="w-3.5 h-3.5" style={{ color: m.color }} />;
+          })}
+        </div>
+      </button>
+    </div>
+  );
+};
 
 // Theme Context
 const ThemeContext = createContext();
@@ -878,6 +935,25 @@ function AppContent({ skipPortalSelector = false }) {
   const isKarauMeetPortal = location.pathname.startsWith('/karau-meet');
   const isLumiMessenger = location.pathname.startsWith('/lumi');
 
+  // Get workspace portal list from user's package
+  const getWorkspacePortals = () => {
+    const cached = localStorage.getItem('portal_access');
+    if (cached) {
+      try { return JSON.parse(cached); } catch(e) {}
+    }
+    if (userPortals && userPortals.length > 0) return userPortals;
+    return [];
+  };
+  const workspacePortals = getWorkspacePortals();
+  const hasMultiPortal = workspacePortals.length > 1;
+
+  // Render compact portal for side panel
+  const renderSidePortal = (portalKey) => {
+    if (portalKey === 'enzi') return <EnziCompactPanel />;
+    if (portalKey === 'karau') return <KarauCompactPanel />;
+    return <div className="p-4 text-xs text-slate-400">MedMatch compact view coming soon</div>;
+  };
+
   // Show loading while checking auth (except for public routes and karau-meet)
   if (isAuthChecking && !isPublicRoute && !isKarauMeetPortal && !isLumiMessenger) {
     return (
@@ -890,30 +966,34 @@ function AppContent({ skipPortalSelector = false }) {
   // Render AI KARAU Meeting standalone portal (has its own auth)
   if (isKarauMeetPortal) {
     return (
-      <div className="min-h-screen flex flex-col">
-        <div className="flex-1">
-          <Routes>
-            <Route path="/karau-meet/*" element={<KarauMeetPortal />} />
-          </Routes>
+      <PortalWorkspace portals={workspacePortals} renderPortal={(key, isEmbedded) => renderSidePortal(key)}>
+        <div className="min-h-screen flex flex-col">
+          <div className="flex-1">
+            <Routes>
+              <Route path="/karau-meet/*" element={<KarauMeetPortal />} />
+            </Routes>
+          </div>
+          {!hasMultiPortal && <LumiFooter variant="compact" />}
+          <Toaster position="top-right" richColors theme="dark" />
         </div>
-        <LumiFooter variant="compact" />
-        <Toaster position="top-right" richColors theme="dark" />
-      </div>
+      </PortalWorkspace>
     );
   }
 
   // Render ENZI Messenger standalone
   if (isLumiMessenger) {
     return (
-      <div className="min-h-screen flex flex-col">
-        <div className="flex-1">
-          <Routes>
-            <Route path="/lumi/*" element={<LumiMessenger />} />
-          </Routes>
+      <PortalWorkspace portals={workspacePortals} renderPortal={(key, isEmbedded) => renderSidePortal(key)}>
+        <div className="min-h-screen flex flex-col">
+          <div className="flex-1">
+            <Routes>
+              <Route path="/lumi/*" element={<LumiMessenger />} />
+            </Routes>
+          </div>
+          {!hasMultiPortal && <LumiFooter variant="compact" />}
+          <Toaster position="top-right" richColors theme="dark" />
         </div>
-        <LumiFooter variant="compact" />
-        <Toaster position="top-right" richColors theme="dark" />
-      </div>
+      </PortalWorkspace>
     );
   }
 
@@ -1155,6 +1235,9 @@ function AppContent({ skipPortalSelector = false }) {
       
       {/* Language Detection Banner - shows when browser language differs */}
       <LanguageDetectionBanner />
+      
+      {/* Portal Dock for multi-portal packages */}
+      {hasMultiPortal && <PortalDockOverlay portals={workspacePortals} currentPortal="medmatch" navigate={navigate} />}
       
       <Toaster position="top-right" richColors theme={isDark ? 'dark' : 'light'} />
     </div>

@@ -36,6 +36,27 @@ export const LumiLogin = ({ onLogin }) => {
             const syncData = await syncRes.json();
             localStorage.setItem('session_token', syncData.token);
           }
+          // Handle package intent from landing page
+          const pkgIntent = localStorage.getItem('selected_package_intent');
+          if (pkgIntent) {
+            localStorage.removeItem('selected_package_intent');
+            const pkgRes = await fetch(`${API}/api/portal/set-package`, { method: 'POST', credentials: 'include', headers: { 'Authorization': `Bearer ${data.access_token}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ package_id: pkgIntent }) });
+            if (pkgRes.ok) {
+              const pkgData = await pkgRes.json();
+              localStorage.setItem('portal_package', pkgIntent);
+              localStorage.setItem('portal_access', JSON.stringify(pkgData.portals));
+            }
+          } else {
+            // Load existing portal access
+            const accRes = await fetch(`${API}/api/portal/access`, { headers: { 'Authorization': `Bearer ${data.access_token}` } });
+            if (accRes.ok) {
+              const accData = await accRes.json();
+              if (accData.portals) {
+                localStorage.setItem('portal_package', accData.package_id);
+                localStorage.setItem('portal_access', JSON.stringify(accData.portals));
+              }
+            }
+          }
         } catch(e) { /* not critical */ }
         onLogin(data.user);
         toast.success('Welcome to ENZI!');
