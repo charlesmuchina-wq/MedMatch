@@ -41,6 +41,7 @@ import NotificationSettings from '@/components/Lumi/NotificationSettings';
 import EnziMeetingModal from '@/components/Lumi/EnziMeetingModal';
 import MeetingHistoryPanel from '@/components/Lumi/MeetingHistoryPanel';
 import BotStoreModal from '@/components/Lumi/BotStoreModal';
+import ChannelToolsModal from '@/components/Lumi/ChannelToolsModal';
 import BotActionsBar from '@/components/Lumi/BotActionsBar';
 import E2EEIndicator from '@/components/Lumi/E2EEIndicator';
 import PremiumModal from '@/components/Lumi/PremiumModal';
@@ -108,6 +109,7 @@ const LumiMessenger = () => {
   const [showMeetingModal, setShowMeetingModal] = useState(false);
   const [showMeetingHistory, setShowMeetingHistory] = useState(false);
   const [showBotStore, setShowBotStore] = useState(false);
+  const [showChannelTools, setShowChannelTools] = useState(false);
   const [showPremium, setShowPremium] = useState(false);
   const [showInsights, setShowInsights] = useState(false);
 
@@ -1049,7 +1051,7 @@ const LumiMessenger = () => {
                 <ArrowLeft className="w-4 h-4 text-slate-600 rotate-180 group-hover:translate-x-1 transition-transform" />
               </button>
 
-              {/* Bot Store + Meeting History Row */}
+              {/* Bot Store + Channel Tools Row */}
               <div className="grid grid-cols-2 gap-3">
                 <button onClick={() => setShowBotStore(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-[#00CEC9]/20 transition-all" data-testid="bento-bot-store">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #00CEC9, #0984E3)' }}>
@@ -1060,6 +1062,19 @@ const LumiMessenger = () => {
                     <p className="text-slate-500 text-[11px] mt-0.5">Browse & install bots</p>
                   </div>
                 </button>
+                <button onClick={() => setShowChannelTools(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-violet-500/20 transition-all" data-testid="bento-channel-tools">
+                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #6C5CE7, #A855F7)' }}>
+                    <Settings className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-white text-sm font-semibold font-outfit">Channel Tools</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">Templates & Webhooks</p>
+                  </div>
+                </button>
+              </div>
+
+              {/* Meeting History + Premium Row */}
+              <div className="grid grid-cols-2 gap-3">
                 <button onClick={() => setShowMeetingHistory(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-[#6C5CE7]/20 transition-all" data-testid="bento-meeting-history">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #6C5CE7, #E84393)' }}>
                     <Clock className="w-5 h-5 text-white" />
@@ -1069,19 +1084,19 @@ const LumiMessenger = () => {
                     <p className="text-slate-500 text-[11px] mt-0.5">Past & scheduled meetings</p>
                   </div>
                 </button>
-              </div>
-
-              {/* Premium & Insights Row */}
-              <div className="grid grid-cols-2 gap-3">
                 <button onClick={() => setShowPremium(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-amber-500/20 transition-all" data-testid="bento-premium">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #FFD700, #FFA500)' }}>
                     <Crown className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <p className="text-white text-sm font-semibold font-outfit">ENZI Premium</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Upgrade your plan</p>
+                    <p className="text-white text-sm font-semibold font-outfit">Premium</p>
+                    <p className="text-slate-500 text-[11px] mt-0.5">Upgrade features</p>
                   </div>
                 </button>
+              </div>
+
+              {/* Insights Row */}
+              <div className="grid grid-cols-2 gap-3">
                 <button onClick={() => setShowInsights(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-[#6C5CE7]/20 transition-all" data-testid="bento-insights">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #6C5CE7, #00CEC9)' }}>
                     <BarChart3 className="w-5 h-5 text-white" />
@@ -1307,6 +1322,7 @@ const LumiMessenger = () => {
       {showMeetingModal && <EnziMeetingModal channelId={activeChannel?.id} channelName={activeChannel?.name || ''} token={token} onClose={() => setShowMeetingModal(false)} />}
       {showMeetingHistory && <MeetingHistoryPanel token={token} onClose={() => setShowMeetingHistory(false)} onStartMeeting={() => { setShowMeetingHistory(false); setShowMeetingModal(true); }} />}
       {showBotStore && <BotStoreModal token={token} channels={channels} onClose={() => setShowBotStore(false)} />}
+      {showChannelTools && <ChannelToolsModal token={token} channels={channels} onClose={() => setShowChannelTools(false)} onChannelCreated={(ch) => { setChannels(prev => [...prev, ch]); setShowChannelTools(false); }} />}
       {showPremium && <PremiumModal token={token} onClose={() => setShowPremium(false)} />}
       {showInsights && <InsightsPanel token={token} onClose={() => setShowInsights(false)} onAction={(action) => { setShowInsights(false); if (action === 'create_meeting') setShowMeetingModal(true); }} />}
       {showNotifSettings && <NotificationSettings token={token} channels={channels} onClose={() => setShowNotifSettings(false)} />}

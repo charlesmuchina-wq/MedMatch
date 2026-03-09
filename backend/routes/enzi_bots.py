@@ -167,6 +167,50 @@ async def uninstall_bot(install_id: str, request: Request):
     return {"status": "uninstalled"}
 
 
+
+class ToggleBotRequest(BaseModel):
+    is_active: bool
+
+
+@router.put("/toggle/{install_id}")
+async def toggle_bot(install_id: str, req: ToggleBotRequest, request: Request):
+    """Toggle a bot active/paused"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    result = await db.enzi_installed_bots.update_one(
+        {"id": install_id, "installed_by": user.get("user_id")},
+        {"$set": {"is_active": req.is_active}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Installation not found")
+
+    return {"status": "active" if req.is_active else "paused"}
+
+
+class ConfigureBotRequest(BaseModel):
+    config: dict
+
+
+@router.put("/configure/{install_id}")
+async def configure_bot(install_id: str, req: ConfigureBotRequest, request: Request):
+    """Update bot configuration"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    result = await db.enzi_installed_bots.update_one(
+        {"id": install_id, "installed_by": user.get("user_id")},
+        {"$set": {"config": req.config}}
+    )
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="Installation not found")
+
+    return {"status": "configured", "config": req.config}
+
+
+
 class BotActionRequest(BaseModel):
     bot_id: str
     channel_id: str
@@ -179,7 +223,7 @@ BOT_ACTIONS = {
         "actions": [
             {"id": "run_standup", "label": "Run Standup", "icon": "clipboard"},
         ],
-        "handler": lambda p: f"**Daily Standup**\nPlease share your update:\n- What did you do yesterday?\n- What will you do today?\n- Any blockers?"
+        "handler": lambda p: "**Daily Standup**\nPlease share your update:\n- What did you do yesterday?\n- What will you do today?\n- Any blockers?"
     },
     "reminder": {
         "actions": [
@@ -197,19 +241,19 @@ BOT_ACTIONS = {
         "actions": [
             {"id": "start_meeting", "label": "Quick Meeting", "icon": "video"},
         ],
-        "handler": lambda p: f"**Meeting Starting Now**\nJoin the AI KARAU meeting to collaborate in real-time."
+        "handler": lambda p: "**Meeting Starting Now**\nJoin the AI KARAU meeting to collaborate in real-time."
     },
     "welcome": {
         "actions": [
             {"id": "send_welcome", "label": "Welcome Message", "icon": "hand-wave"},
         ],
-        "handler": lambda p: f"**Welcome to the team!** Here's how to get started:\n1. Introduce yourself in this channel\n2. Check out pinned messages\n3. Set your status and profile"
+        "handler": lambda p: "**Welcome to the team!** Here's how to get started:\n1. Introduce yourself in this channel\n2. Check out pinned messages\n3. Set your status and profile"
     },
     "summary": {
         "actions": [
             {"id": "run_summary", "label": "Summarize Now", "icon": "brain"},
         ],
-        "handler": lambda p: f"**Channel Summary**\nGenerating summary of recent conversations..."
+        "handler": lambda p: "**Channel Summary**\nGenerating summary of recent conversations..."
     },
     "translator": {
         "actions": [
@@ -221,7 +265,7 @@ BOT_ACTIONS = {
         "actions": [
             {"id": "check_status", "label": "Check Repos", "icon": "github"},
         ],
-        "handler": lambda p: f"**GitHub Status**\nMonitoring repositories for push, PR, and issue events."
+        "handler": lambda p: "**GitHub Status**\nMonitoring repositories for push, PR, and issue events."
     },
 }
 

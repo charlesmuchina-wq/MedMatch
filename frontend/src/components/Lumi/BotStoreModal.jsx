@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, Loader2, Download, Trash2, Check, Search, Clipboard, Bell, BarChart3, Video, Hand, Brain, Globe, Github } from 'lucide-react';
+import { X, Loader2, Download, Trash2, Check, Search, Clipboard, Bell, BarChart3, Video, Hand, Brain, Globe, Github, Settings, Power, ChevronRight, ArrowLeft, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -22,6 +22,46 @@ const CATEGORY_COLORS = {
   DevOps: { bg: '#2D3436', light: '#2D343610' },
 };
 
+// Config field renderers
+const ConfigField = ({ fieldKey, value, onChange }) => {
+  if (typeof value === 'boolean') {
+    return (
+      <div className="flex items-center justify-between py-2">
+        <label className="text-xs text-slate-600 capitalize">{fieldKey.replace(/_/g, ' ')}</label>
+        <button
+          onClick={() => onChange(!value)}
+          className={`w-9 h-5 rounded-full transition-colors ${value ? 'bg-cyan-500' : 'bg-slate-300'}`}
+          data-testid={`config-toggle-${fieldKey}`}
+        >
+          <div className={`w-4 h-4 bg-white rounded-full shadow transition-transform ${value ? 'translate-x-4' : 'translate-x-0.5'}`} />
+        </button>
+      </div>
+    );
+  }
+  if (typeof value === 'number') {
+    return (
+      <div className="py-2">
+        <label className="text-xs text-slate-600 capitalize block mb-1">{fieldKey.replace(/_/g, ' ')}</label>
+        <Input type="number" value={value} onChange={e => onChange(Number(e.target.value))} className="h-8 text-xs" data-testid={`config-num-${fieldKey}`} />
+      </div>
+    );
+  }
+  if (Array.isArray(value)) {
+    return (
+      <div className="py-2">
+        <label className="text-xs text-slate-600 capitalize block mb-1">{fieldKey.replace(/_/g, ' ')}</label>
+        <Input value={value.join(', ')} onChange={e => onChange(e.target.value.split(',').map(s => s.trim()))} className="h-8 text-xs" data-testid={`config-arr-${fieldKey}`} />
+      </div>
+    );
+  }
+  return (
+    <div className="py-2">
+      <label className="text-xs text-slate-600 capitalize block mb-1">{fieldKey.replace(/_/g, ' ')}</label>
+      <Input value={value || ''} onChange={e => onChange(e.target.value)} className="h-8 text-xs" data-testid={`config-str-${fieldKey}`} />
+    </div>
+  );
+};
+
 const BotStoreModal = ({ token, channels, onClose }) => {
   const [catalog, setCatalog] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -32,6 +72,9 @@ const BotStoreModal = ({ token, channels, onClose }) => {
   const [tab, setTab] = useState('browse');
   const [installing, setInstalling] = useState(null);
   const [selectedChannel, setSelectedChannel] = useState('');
+  const [configBot, setConfigBot] = useState(null); // bot being configured
+  const [editConfig, setEditConfig] = useState({});
+  const [savingConfig, setSavingConfig] = useState(false);
 
   useEffect(() => { loadCatalog(); loadInstalled(); }, []);
 
@@ -72,9 +115,39 @@ const BotStoreModal = ({ token, channels, onClose }) => {
       const res = await fetch(`${API}/api/lumi/bots/uninstall/${installId}`, {
         method: 'DELETE', headers: { Authorization: `Bearer ${token}` }
       });
-      if (res.ok) { toast.success('Bot uninstalled'); loadInstalled(); }
+      if (res.ok) { toast.success('Bot uninstalled'); setConfigBot(null); loadInstalled(); }
       else toast.error('Uninstall failed');
     } catch { toast.error('Connection error'); }
+  };
+
+  const toggleBotActive = async (inst) => {
+    try {
+      const res = await fetch(`${API}/api/lumi/bots/toggle/${inst.id}`, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ is_active: !inst.is_active })
+      });
+      if (res.ok) { toast.success(inst.is_active ? 'Bot paused' : 'Bot activated'); loadInstalled(); }
+      else { toast.error('Toggle failed'); }
+    } catch { toast.error('Connection error'); }
+  };
+
+  const saveConfig = async () => {
+    if (!configBot) return;
+    setSavingConfig(true);
+    try {
+      const res = await fetch(`${API}/api/lumi/bots/configure/${configBot.id}`, {
+        method: 'PUT', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ config: editConfig })
+      });
+      if (res.ok) { toast.success('Configuration saved'); loadInstalled(); setConfigBot(null); }
+      else toast.error('Save failed');
+    } catch { toast.error('Connection error'); }
+    setSavingConfig(false);
+  };
+
+  const openConfig = (inst) => {
+    setConfigBot(inst);
+    setEditConfig(inst.config || {});
   };
 
   const filtered = catalog.filter(b => {
@@ -84,6 +157,73 @@ const BotStoreModal = ({ token, channels, onClose }) => {
   });
 
   const isInstalled = (botId, channelId) => installed.some(i => i.bot_id === botId && i.channel_id === channelId);
+  const getChannelName = (chId) => (channels || []).find(c => c.id === chId)?.name || chId?.slice(0, 10);
+
+  // Bot Config View
+  if (configBot) {
+    const Icon = BOT_ICONS[configBot.bot_id] || Brain;
+    const catInfo = catalog.find(b => b.id === configBot.bot_id);
+    const cc = CATEGORY_COLORS[catInfo?.category] || { bg: '#64748b', light: '#64748b10' };
+
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 max-h-[85vh] flex flex-col overflow-hidden" onClick={e => e.stopPropagation()} data-testid="bot-config-modal">
+          {/* Header */}
+          <div className="px-5 py-4 border-b border-slate-100 flex items-center gap-3 flex-shrink-0">
+            <button onClick={() => setConfigBot(null)} className="p-1.5 hover:bg-slate-100 rounded-lg" data-testid="back-to-installed">
+              <ArrowLeft className="w-4 h-4 text-slate-500" />
+            </button>
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center" style={{ background: cc.bg }}>
+              <Icon className="w-4 h-4 text-white" />
+            </div>
+            <div className="flex-1">
+              <h3 className="text-sm font-semibold text-slate-900">{configBot.bot_name}</h3>
+              <p className="text-[10px] text-slate-500">#{getChannelName(configBot.channel_id)}</p>
+            </div>
+            <div className="flex items-center gap-1">
+              <button onClick={() => toggleBotActive(configBot)}
+                className={`p-1.5 rounded-lg transition-colors ${configBot.is_active ? 'bg-green-50 text-green-600 hover:bg-green-100' : 'bg-slate-50 text-slate-400 hover:bg-slate-100'}`}
+                data-testid="toggle-bot-active" title={configBot.is_active ? 'Pause bot' : 'Activate bot'}>
+                <Power className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Config Fields */}
+          <ScrollArea className="flex-1 px-5 py-4">
+            <div className="space-y-1">
+              <p className="text-xs font-semibold text-slate-700 mb-3">Configuration</p>
+              {Object.entries(editConfig).map(([key, val]) => (
+                <ConfigField
+                  key={key}
+                  fieldKey={key}
+                  value={val}
+                  onChange={(newVal) => setEditConfig(prev => ({ ...prev, [key]: newVal }))}
+                />
+              ))}
+              {Object.keys(editConfig).length === 0 && (
+                <p className="text-xs text-slate-400 py-4 text-center">No configuration options for this bot</p>
+              )}
+            </div>
+          </ScrollArea>
+
+          {/* Actions */}
+          <div className="px-5 py-3 border-t border-slate-100 flex items-center gap-2 flex-shrink-0">
+            <Button size="sm" variant="outline" onClick={() => uninstallBot(configBot.id)}
+              className="text-red-500 hover:text-red-600 hover:bg-red-50 text-xs h-8" data-testid="config-uninstall">
+              <Trash2 className="w-3 h-3 mr-1" />Uninstall
+            </Button>
+            <div className="flex-1" />
+            <Button size="sm" onClick={saveConfig} disabled={savingConfig}
+              className="bg-[#00CEC9] hover:bg-[#00CEC9]/90 text-white text-xs h-8" data-testid="config-save">
+              {savingConfig ? <Loader2 className="w-3 h-3 animate-spin mr-1" /> : <Save className="w-3 h-3 mr-1" />}
+              Save Config
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
@@ -131,7 +271,6 @@ const BotStoreModal = ({ token, channels, onClose }) => {
                   {(channels || []).map(ch => <option key={ch.id} value={ch.id}>#{ch.name}</option>)}
                 </select>
               </div>
-              {/* Category filter chips */}
               <div className="flex gap-1.5 flex-wrap">
                 <button onClick={() => setActiveCategory('all')}
                   className={`px-2.5 py-1 rounded-full text-[10px] font-medium transition-all ${activeCategory === 'all' ? 'bg-slate-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
@@ -160,8 +299,7 @@ const BotStoreModal = ({ token, channels, onClose }) => {
                     return (
                       <div key={bot.id} className="p-3 rounded-xl border border-slate-100 hover:border-slate-200 transition-all group" data-testid={`bot-card-${bot.id}`}>
                         <div className="flex items-start gap-3">
-                          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
-                            style={{ background: cc.bg }}>
+                          <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: cc.bg }}>
                             <Icon className="w-5 h-5 text-white" />
                           </div>
                           <div className="flex-1 min-w-0">
@@ -202,22 +340,28 @@ const BotStoreModal = ({ token, channels, onClose }) => {
                   <p className="text-xs text-slate-400 mt-1">Browse and install bots from the catalog</p>
                 </div>
               ) : installed.map(inst => {
-                const Icon = BOT_ICONS[BOT_ICONS[inst.bot_id] ? inst.bot_id : 'brain'] || Brain;
+                const catInfo = catalog.find(b => b.id === inst.bot_id);
+                const Icon = BOT_ICONS[catInfo?.icon] || BOT_ICONS[inst.bot_id] || Brain;
+                const cc = CATEGORY_COLORS[catInfo?.category] || { bg: '#64748b', light: '#64748b10' };
                 return (
-                  <div key={inst.id} className="p-3 rounded-xl border border-slate-100 hover:border-slate-200 transition-all group" data-testid={`installed-bot-${inst.id}`}>
+                  <div key={inst.id}
+                    className="p-3 rounded-xl border border-slate-100 hover:border-slate-200 transition-all group cursor-pointer"
+                    onClick={() => openConfig(inst)}
+                    data-testid={`installed-bot-${inst.id}`}>
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0">
+                      <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: cc.bg }}>
                         <Icon className="w-4 h-4 text-white" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-slate-800">{inst.bot_name}</p>
-                        <p className="text-[10px] text-slate-500">Channel: {inst.channel_id?.slice(0, 8)}... {inst.is_active ? '(Active)' : '(Paused)'}</p>
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm font-medium text-slate-800">{inst.bot_name}</p>
+                          <span className={`w-1.5 h-1.5 rounded-full ${inst.is_active !== false ? 'bg-green-500' : 'bg-slate-300'}`} />
+                        </div>
+                        <p className="text-[10px] text-slate-500">#{getChannelName(inst.channel_id)} {inst.is_active !== false ? '' : '(Paused)'}</p>
                       </div>
-                      <Button size="sm" variant="ghost" onClick={() => uninstallBot(inst.id)}
-                        className="h-7 text-[10px] text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
-                        data-testid={`uninstall-bot-${inst.id}`}>
-                        <Trash2 className="w-3 h-3 mr-1" />Remove
-                      </Button>
+                      <div className="flex items-center gap-1">
+                        <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-slate-500 transition-colors" />
+                      </div>
                     </div>
                   </div>
                 );

@@ -9,7 +9,7 @@
  *   wide     → 440px column
  *   half     → 50/50 split
  */
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import {
   Video, MessageCircle, Briefcase, Maximize2, Minimize2,
@@ -24,6 +24,65 @@ const PORTAL_META = {
 };
 
 const SIDE_SIZES = { narrow: 320, wide: 440, half: '50%' };
+const MIN_PANEL_WIDTH = 280;
+const MAX_PANEL_RATIO = 0.65;
+
+/* ═══════════════════════════════════════════
+   DragHandle — Draggable divider between side and main
+   ═══════════════════════════════════════════ */
+const DragHandle = ({ onDrag, onDragEnd }) => {
+  const handleRef = useRef(null);
+  const [dragging, setDragging] = useState(false);
+
+  useEffect(() => {
+    if (!dragging) return;
+    const onMove = (e) => { e.preventDefault(); onDrag(e.clientX); };
+    const onUp = () => { setDragging(false); onDragEnd(); };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+  }, [dragging, onDrag, onDragEnd]);
+
+  // Touch support
+  useEffect(() => {
+    if (!dragging) return;
+    const onTouchMove = (e) => { if (e.touches[0]) onDrag(e.touches[0].clientX); };
+    const onTouchEnd = () => { setDragging(false); onDragEnd(); };
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onTouchEnd);
+    return () => {
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [dragging, onDrag, onDragEnd]);
+
+  return (
+    <div
+      ref={handleRef}
+      onMouseDown={(e) => { e.preventDefault(); setDragging(true); }}
+      onTouchStart={() => setDragging(true)}
+      className={`
+        flex-shrink-0 w-[6px] cursor-col-resize flex items-center justify-center
+        group relative transition-colors duration-150
+        ${dragging ? 'bg-cyan-500/40' : 'bg-transparent hover:bg-slate-600/40'}
+      `}
+      data-testid="drag-handle"
+      title="Drag to resize"
+    >
+      <div className={`
+        w-[3px] h-10 rounded-full transition-all duration-150
+        ${dragging ? 'bg-cyan-400 scale-y-125' : 'bg-slate-600 group-hover:bg-slate-400'}
+      `} />
+    </div>
+  );
+};
 
 /* ═══════════════════════════════════════════
    Portal Dock — Persistent footer bar
@@ -130,13 +189,14 @@ const PortalDock = ({ portals, mainPortal, sidePortal, onSelectMain, onToggleSid
 /* ═══════════════════════════════════════════
    Side Panel Controls — resize/close bar
    ═══════════════════════════════════════════ */
-const SidePanelControls = ({ portalKey, size, onResize, onClose, onSwapToMain }) => {
+const SidePanelControls = ({ portalKey, size, customWidth, onResize, onClose, onSwapToMain }) => {
   const meta = PORTAL_META[portalKey];
   if (!meta) return null;
   const Icon = meta.icon;
 
   const sizes = ['narrow', 'wide', 'half'];
   const nextSize = sizes[(sizes.indexOf(size) + 1) % sizes.length];
+  const sizeLabel = customWidth ? `${customWidth}px` : size;
 
   return (
     <div className="flex items-center justify-between px-3 py-2 border-b border-slate-700/30 bg-slate-900/80 backdrop-blur-sm flex-shrink-0">
@@ -145,7 +205,7 @@ const SidePanelControls = ({ portalKey, size, onResize, onClose, onSwapToMain })
           <Icon className="w-3 h-3" style={{ color: meta.color }} />
         </div>
         <span className="text-xs font-semibold text-white">{meta.name}</span>
-        <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-400 capitalize">{size}</span>
+        <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/5 text-slate-400 capitalize">{sizeLabel}</span>
       </div>
       <div className="flex items-center gap-1">
         <button
@@ -351,8 +411,23 @@ const PortalWorkspace = ({ portals: propPortals, children, renderPortal }) => {
   }, [mainPortal, sidePanel, navigate]);
 
   const handleResizeSide = useCallback((newSize) => {
-    setSidePanel(prev => prev ? { ...prev, size: newSize } : null);
+    setSidePanel(prev => prev ? { ...prev, size: newSize, customWidth: null } : null);
   }, []);
+
+  // Custom drag width state
+  const [customDragWidth, setCustomDragWidth] = useState(null);
+
+  const handleDrag = useCallback((clientX) => {
+    const maxW = window.innerWidth * MAX_PANEL_RATIO;
+    const w = Math.min(Math.max(clientX, MIN_PANEL_WIDTH), maxW);
+    setCustomDragWidth(Math.round(w));
+  }, []);
+
+  const handleDragEnd = useCallback(() => {
+    if (customDragWidth) {
+      setSidePanel(prev => prev ? { ...prev, size: 'custom', customWidth: customDragWidth } : null);
+    }
+  }, [customDragWidth]);
 
   // Single portal package or no portals — no workspace needed, just pass through
   if (portals.length <= 1) {
@@ -376,7 +451,9 @@ const PortalWorkspace = ({ portals: propPortals, children, renderPortal }) => {
     );
   }
 
-  const sideWidth = sidePanel ? (SIDE_SIZES[sidePanel.size] || 320) : 0;
+  const sideWidth = sidePanel
+    ? (customDragWidth || sidePanel.customWidth || SIDE_SIZES[sidePanel.size] || 320)
+    : 0;
   const sideWidthStyle = typeof sideWidth === 'string' ? sideWidth : `${sideWidth}px`;
 
   return (
@@ -386,21 +463,27 @@ const PortalWorkspace = ({ portals: propPortals, children, renderPortal }) => {
         {/* Side panel (left) */}
         {sidePanel && (
           <div
-            className="flex-shrink-0 flex flex-col border-r border-slate-700/30 bg-[#0c0d1a] overflow-hidden transition-all duration-300"
+            className={`flex-shrink-0 flex flex-col border-r border-slate-700/30 bg-[#0c0d1a] overflow-hidden ${customDragWidth ? '' : 'transition-all duration-300'}`}
             style={{ width: sideWidthStyle }}
             data-testid="side-panel"
           >
             <SidePanelControls
               portalKey={sidePanel.portal}
               size={sidePanel.size}
+              customWidth={sidePanel.customWidth || customDragWidth}
               onResize={handleResizeSide}
-              onClose={() => setSidePanel(null)}
+              onClose={() => { setSidePanel(null); setCustomDragWidth(null); }}
               onSwapToMain={() => handleSwap()}
             />
             <div className="flex-1 overflow-auto">
               {renderPortal(sidePanel.portal, true)}
             </div>
           </div>
+        )}
+
+        {/* Drag handle (between side and main) */}
+        {sidePanel && (
+          <DragHandle onDrag={handleDrag} onDragEnd={handleDragEnd} />
         )}
 
         {/* Main portal */}
