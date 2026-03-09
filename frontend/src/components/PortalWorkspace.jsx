@@ -89,6 +89,7 @@ const DragHandle = ({ onDrag, onDragEnd }) => {
    ═══════════════════════════════════════════ */
 const PortalDock = ({ portals, mainPortal, sidePortal, onSelectMain, onToggleSide, onSwap }) => {
   const [expanded, setExpanded] = useState(true);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   if (!portals || portals.length <= 1) return null;
 
@@ -97,10 +98,7 @@ const PortalDock = ({ portals, mainPortal, sidePortal, onSelectMain, onToggleSid
       className="fixed bottom-0 left-0 right-0 z-[60] flex justify-center pointer-events-none"
       data-testid="portal-dock"
     >
-      <div className={`
-        pointer-events-auto transition-all duration-300
-        ${expanded ? 'mb-3' : 'mb-0'}
-      `}>
+      <div className={`pointer-events-auto transition-all duration-300 ${expanded ? 'mb-3' : 'mb-0'}`}>
         {/* Collapse toggle */}
         <button
           onClick={() => setExpanded(!expanded)}
@@ -152,7 +150,7 @@ const PortalDock = ({ portals, mainPortal, sidePortal, onSelectMain, onToggleSid
                     <div className="hidden sm:block">
                       <p className="text-xs font-semibold text-white leading-tight">{meta.shortName}</p>
                       <p className="text-[10px] text-slate-400 leading-tight">
-                        {isMain ? 'Main' : isSide ? 'Side' : 'Dock'}
+                        {isMain ? 'Main' : isSide ? 'Side' : ''}
                       </p>
                     </div>
                   </button>
@@ -456,15 +454,21 @@ const PortalWorkspace = ({ portals: propPortals, children, renderPortal }) => {
     : 0;
   const sideWidthStyle = typeof sideWidth === 'string' ? sideWidth : `${sideWidth}px`;
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+
   return (
     <div className="h-screen flex flex-col overflow-hidden" data-testid="portal-workspace">
       {/* Main content area with optional side panel */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Side panel (left) */}
+      <div className="flex-1 flex overflow-hidden relative">
+        {/* Side panel - overlay on mobile, split on desktop */}
         {sidePanel && (
           <div
-            className={`flex-shrink-0 flex flex-col border-r border-slate-700/30 bg-[#0c0d1a] overflow-hidden ${customDragWidth ? '' : 'transition-all duration-300'}`}
-            style={{ width: sideWidthStyle }}
+            className={`
+              flex-shrink-0 flex flex-col border-r border-slate-700/30 bg-[#0c0d1a] overflow-hidden
+              ${isMobile ? 'absolute inset-0 z-30' : ''}
+              ${customDragWidth ? '' : 'transition-all duration-300'}
+            `}
+            style={isMobile ? {} : { width: sideWidthStyle }}
             data-testid="side-panel"
           >
             <SidePanelControls
@@ -481,8 +485,8 @@ const PortalWorkspace = ({ portals: propPortals, children, renderPortal }) => {
           </div>
         )}
 
-        {/* Drag handle (between side and main) */}
-        {sidePanel && (
+        {/* Drag handle (between side and main) — hidden on mobile */}
+        {sidePanel && !isMobile && (
           <DragHandle onDrag={handleDrag} onDragEnd={handleDragEnd} />
         )}
 

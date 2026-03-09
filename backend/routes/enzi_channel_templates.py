@@ -99,7 +99,13 @@ async def create_from_template(req: CreateFromTemplate, request: Request):
         "description": template["description"],
         "channel_type": template["channel_type"],
         "created_by": user.get("user_id"),
-        "members": [user.get("user_id")],
+        "members": [{
+            "user_id": user.get("user_id"),
+            "name": user.get("name", "User"),
+            "email": user.get("email", ""),
+            "role": "admin",
+            "joined_at": now
+        }],
         "is_private": False,
         "template_id": req.template_id,
         "created_at": now
