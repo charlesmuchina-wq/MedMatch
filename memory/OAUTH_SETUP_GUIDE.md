@@ -14,11 +14,11 @@ This guide covers setting up OAuth Client IDs for MedMatch across all platforms.
 **Client Secret:** `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`
 
 **Authorized JavaScript Origins:**
-- `https://predictive-comms.preview.emergentagent.com`
+- `https://ai-karau.preview.emergentagent.com`
 - `http://localhost:3000`
 
 **Authorized Redirect URIs:**
-- `https://predictive-comms.preview.emergentagent.com`
+- `https://ai-karau.preview.emergentagent.com`
 - `http://localhost:3000`
 
 ---

@@ -150,7 +150,7 @@ const PortalDock = ({ portals, mainPortal, sidePortal, onSelectMain, onToggleSid
                     <div className="hidden sm:block">
                       <p className="text-xs font-semibold text-white leading-tight">{meta.shortName}</p>
                       <p className="text-[10px] text-slate-400 leading-tight">
-                        {isMain ? 'Main' : isSide ? 'Side' : ''}
+                        {isMain ? 'Active' : isSide ? 'Side' : portalKey === 'enzi' ? 'Use Messenger' : portalKey === 'karau' ? 'Use Meetings' : 'Open'}
                       </p>
                     </div>
                   </button>

@@ -198,7 +198,7 @@ async def leave_meeting(meeting_id: str, user_id: str) -> bool:
 
 
 async def end_meeting(meeting_id: str, host_id: str) -> bool:
-    """End a meeting (host only)"""
+    """End a meeting (host only) and trigger meeting-to-channel sync"""
     meeting = await get_meeting(meeting_id)
     
     if not meeting:
@@ -214,6 +214,13 @@ async def end_meeting(meeting_id: str, host_id: str) -> bool:
         {"meeting_id": meeting_id},
         {"$set": {"status": "ended", "ended_at": meeting["ended_at"]}}
     )
+    
+    # Auto-convert meeting to ENZI channel for continued collaboration
+    try:
+        from routes.meeting_channel_sync import convert_meeting_to_channel
+        await convert_meeting_to_channel(meeting)
+    except Exception as e:
+        logger.error(f"Meeting-to-channel sync failed for {meeting_id}: {e}")
     
     # Clean up memory
     if meeting_id in active_meetings:

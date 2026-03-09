@@ -1,9 +1,11 @@
 """
 Portal Access Manager
 Manages user access across portals: MedMatch, AI KARAU, ENZI
-Package structure:
-  - Standard: AI KARAU + ENZI (bundled)
-  - Standalone: MedMatch Job Toolkit
+
+Auto-bundling rules:
+  - KARAU access → auto-includes ENZI (KARAU dominant)
+  - ENZI access → auto-includes KARAU (ENZI dominant)
+  - MedMatch → standalone by default
   - Enterprise: All 3 portals
 """
 from fastapi import APIRouter, HTTPException, Request, Response
@@ -20,7 +22,7 @@ router = APIRouter(prefix="/portal", tags=["Portal Access"])
 PACKAGES = {
     "standard": {
         "name": "AI KARAU + ENZI",
-        "description": "Communication suite — video meetings + messaging",
+        "description": "Communication suite — video meetings + messaging. KARAU and ENZI are auto-bundled.",
         "portals": ["karau", "enzi"],
         "price": 0,
         "is_default": True
@@ -39,6 +41,13 @@ PACKAGES = {
         "price": 0,
         "is_default": False
     }
+}
+
+# Auto-bundle map: accessing one portal auto-includes its companion
+AUTO_BUNDLE = {
+    "karau": {"portals": ["karau", "enzi"], "package": "standard", "dominant": "karau"},
+    "enzi": {"portals": ["karau", "enzi"], "package": "standard", "dominant": "enzi"},
+    "medmatch": {"portals": ["medmatch"], "package": "medmatch_standalone", "dominant": "medmatch"},
 }
 
 PORTAL_INFO = {
@@ -162,4 +171,58 @@ async def check_portal_access(portal: str, request: Request):
         "has_access": portal in portals,
         "portal": portal,
         "portal_info": PORTAL_INFO.get(portal, {})
+    }
+
+
+
+class AutoBundleRequest(BaseModel):
+    entry_portal: str  # which portal user entered from
+
+
+@router.post("/auto-bundle")
+async def auto_bundle(req: AutoBundleRequest, request: Request):
+    """Auto-assign portal bundle based on entry portal.
+    KARAU → auto-includes ENZI. ENZI → auto-includes KARAU.
+    """
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    portal = req.entry_portal.lower()
+    bundle = AUTO_BUNDLE.get(portal)
+    if not bundle:
+        raise HTTPException(status_code=400, detail="Invalid portal")
+
+    uid = user["user_id"]
+    existing = await db.portal_access.find_one({"user_id": uid}, {"_id": 0})
+
+    # If user already has broader access (enterprise), keep it
+    if existing and len(existing.get("portals", [])) >= len(bundle["portals"]):
+        return {
+            "package_id": existing.get("package_id", "enterprise"),
+            "portals": existing.get("portals", []),
+            "dominant": portal,
+            "auto_bundled": False
+        }
+
+    # Auto-assign the bundle
+    await db.portal_access.update_one(
+        {"user_id": uid},
+        {"$set": {
+            "user_id": uid,
+            "package_id": bundle["package"],
+            "portals": bundle["portals"],
+            "dominant": bundle["dominant"],
+            "auto_bundled": True,
+            "updated_at": datetime.now(timezone.utc).isoformat()
+        }},
+        upsert=True
+    )
+
+    return {
+        "package_id": bundle["package"],
+        "portals": bundle["portals"],
+        "dominant": portal,
+        "auto_bundled": True,
+        "companion": [p for p in bundle["portals"] if p != portal]
     }

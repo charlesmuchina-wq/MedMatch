@@ -19,33 +19,29 @@ const KarauMeetLogin = ({ onLogin }) => {
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
 
-  // Helper to sync portal access after login
+  // Helper to sync portal access after login — auto-bundles KARAU+ENZI
   const syncPortalAccess = async (accessToken) => {
     try {
+      // Sync session for cross-portal auth
       const syncRes = await fetch(`${API}/api/portal/sync-session`, { method: 'POST', credentials: 'include', headers: { 'Authorization': `Bearer ${accessToken}` } });
       if (syncRes.ok) {
         const syncData = await syncRes.json();
         localStorage.setItem('session_token', syncData.token);
       }
-      const pkgIntent = localStorage.getItem('selected_package_intent');
-      if (pkgIntent) {
-        localStorage.removeItem('selected_package_intent');
-        const pkgRes = await fetch(`${API}/api/portal/set-package`, { method: 'POST', credentials: 'include', headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ package_id: pkgIntent }) });
-        if (pkgRes.ok) {
-          const pkgData = await pkgRes.json();
-          localStorage.setItem('portal_package', pkgIntent);
-          localStorage.setItem('portal_access', JSON.stringify(pkgData.portals));
-        }
-      } else {
-        const accRes = await fetch(`${API}/api/portal/access`, { headers: { 'Authorization': `Bearer ${accessToken}` } });
-        if (accRes.ok) {
-          const accData = await accRes.json();
-          if (accData.portals) {
-            localStorage.setItem('portal_package', accData.package_id);
-            localStorage.setItem('portal_access', JSON.stringify(accData.portals));
-          }
-        }
+      // Auto-bundle: entering KARAU auto-includes ENZI
+      const bundleRes = await fetch(`${API}/api/portal/auto-bundle`, {
+        method: 'POST', credentials: 'include',
+        headers: { 'Authorization': `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ entry_portal: 'karau' })
+      });
+      if (bundleRes.ok) {
+        const bundleData = await bundleRes.json();
+        localStorage.setItem('portal_package', bundleData.package_id);
+        localStorage.setItem('portal_access', JSON.stringify(bundleData.portals));
+        localStorage.setItem('portal_dominant', 'karau');
       }
+      // Clear any old package intent
+      localStorage.removeItem('selected_package_intent');
     } catch(e) { /* not critical */ }
   };
   const [password, setPassword] = useState('');

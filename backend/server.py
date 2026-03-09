@@ -472,12 +472,14 @@ from routes.e2ee import router as e2ee_router
 from routes.enzi_payments import router as enzi_payments_router
 from routes.behavioral import router as behavioral_router
 from routes.portal_access import router as portal_access_router
+from routes.meeting_channel_sync import router as meeting_sync_router
 app.include_router(enzi_meetings_router, prefix="/api")
 app.include_router(enzi_bots_router, prefix="/api")
 app.include_router(e2ee_router, prefix="/api")
 app.include_router(enzi_payments_router, prefix="/api")
 app.include_router(behavioral_router, prefix="/api")
 app.include_router(portal_access_router, prefix="/api")
+app.include_router(meeting_sync_router, prefix="/api")
 
 app.include_router(meeting_intelligence_router, prefix="/api")
 app.include_router(lumi_files_router, prefix="/api")

@@ -42,6 +42,7 @@ import EnziMeetingModal from '@/components/Lumi/EnziMeetingModal';
 import MeetingHistoryPanel from '@/components/Lumi/MeetingHistoryPanel';
 import BotStoreModal from '@/components/Lumi/BotStoreModal';
 import ChannelToolsModal from '@/components/Lumi/ChannelToolsModal';
+import MeetingChannelBanner from '@/components/Lumi/MeetingChannelBanner';
 import BotActionsBar from '@/components/Lumi/BotActionsBar';
 import E2EEIndicator from '@/components/Lumi/E2EEIndicator';
 import PremiumModal from '@/components/Lumi/PremiumModal';
@@ -870,6 +871,15 @@ const LumiMessenger = () => {
 
           {/* E2EE Status for DMs */}
           <E2EEIndicator channelId={activeChannel?.id} token={token} isDm={activeChannel?.channel_type === 'dm'} />
+
+          {/* Meeting Follow-up Channel Banner */}
+          {activeChannel?.channel_type === 'meeting-followup' && (
+            <MeetingChannelBanner
+              channel={activeChannel}
+              token={token}
+              isAdmin={activeChannel?.members?.some(m => m.user_id === user?.user_id && m.role === 'admin')}
+            />
+          )}
 
           <div className="flex flex-1 overflow-hidden">
             <div className="flex-1 flex flex-col min-w-0">
