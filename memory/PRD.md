@@ -1,7 +1,7 @@
 # AI KARAU + ENZI - Product Requirements Document
 
 ## Original Problem Statement
-Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "ENZI" (professional-grade messenger). ENZI is the primary focus — a futuristic, AI-driven "Actionable Intelligence" hub with liquid glass aesthetics, bento grid layouts, and predictive behavior.
+Build a dual-platform communication suite: "AI KARAU" (webinar tool) and "ENZI" (professional-grade messenger), plus "MedMatch AI" (job-seeking toolkit). ENZI is the primary focus — a futuristic, AI-driven "Actionable Intelligence" hub with liquid glass aesthetics, bento grid layouts, and predictive behavior. The platform should offer bundled and standalone packages.
 
 ## Architecture
 - Frontend: React + Tailwind + Shadcn/UI + react-markdown + react-syntax-highlighter
@@ -19,7 +19,27 @@ All portals share the same `/api/auth/login` backend. Standardized auth provider
 - **Passkeys/WebAuthn** - ENZI + AI KARAU
 - **Phone OTP** - ENZI (planned)
 - **Email/Password** - All portals
+- **Cross-Portal Auth Sync** - `/api/portal/sync-session` creates both cookie + localStorage token
 - Credentials: admin@medmatch.com / Swampdrainer2026!, test@medmatch.io / TestPassword123!
+
+## Portal Packaging System (COMPLETED - Feb 2026)
+Users can select from 3 packages:
+- **Standard**: AI KARAU + ENZI (Communication Suite) — Popular
+- **Standalone**: MedMatch Job Toolkit (Career Intelligence)
+- **Enterprise**: All 3 portals (Complete Platform) — Full Access
+
+### Key Files:
+- Landing page: `frontend/src/pages/PortalSelector.jsx` (package-focused)
+- Post-login management: `frontend/src/components/Lumi/PackageSelector.jsx` (at /packages route)
+- Backend API: `backend/routes/portal_access.py`
+- Header button: "Portals" button in App.js header navigates to /packages
+
+### API Endpoints:
+- `GET /api/portal/packages` - List all packages
+- `GET /api/portal/access` - Get user's current package
+- `POST /api/portal/set-package` - Update user's package
+- `POST /api/portal/sync-session` - Cross-portal auth sync (cookie + token)
+- `GET /api/portal/check-access/{portal}` - Check portal access
 
 ## Completed Features
 
@@ -49,16 +69,19 @@ All portals share the same `/api/auth/login` backend. Standardized auth provider
 - AI Writing Assistant, Invite System, Channel/Webhook Templates, Kinetic Typography
 - Notification customization, Domain colleague discovery, Meeting History
 
-## Test Results (All 100%)
-- Auth Duplicate: 12/12 BE, all 3 portals FE
-- Batch A-C: All passed 100%
+## Test Results
+- Portal Packaging: 25/25 BE, all FE flows — 100% pass (iteration_199)
+- Previous batches: All passed 100%
 
 ## Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
 - Test: test@medmatch.io / TestPassword123!
 
-## Remaining Enhancements
-- Voice/Video improvements (noise cancellation, virtual backgrounds)
-- Advanced ML for better predictions
-- Mobile optimization
-- Team Analytics Dashboard (premium feature idea)
+## Remaining Tasks (Priority Order)
+- **P1**: Full Bot Store/Marketplace — install, configure, manage bots
+- **P2**: Webhook & Channel Templates — full implementation
+- **P2**: Refactor `LumiMessenger.jsx` — break monolith into smaller components
+- **P3**: Voice/Video improvements (noise cancellation, virtual backgrounds)
+- **P3**: Advanced ML for better predictions
+- **P3**: Mobile optimization
+- **P3**: Team Analytics Dashboard (premium feature idea)
