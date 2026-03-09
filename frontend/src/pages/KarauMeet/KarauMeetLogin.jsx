@@ -60,6 +60,14 @@ const KarauMeetLogin = ({ onLogin }) => {
               const data = await res.json();
               localStorage.setItem('token', data.access_token);
               localStorage.setItem('karau_user', JSON.stringify(data.user));
+              // Sync session for cross-portal auth
+              try {
+                const syncRes = await fetch(`${API}/api/portal/sync-session`, { method: 'POST', credentials: 'include', headers: { 'Authorization': `Bearer ${data.access_token}` } });
+                if (syncRes.ok) {
+                  const syncData = await syncRes.json();
+                  localStorage.setItem('session_token', syncData.token);
+                }
+              } catch(e) { /* not critical */ }
               onLogin(data.user);
               toast.success(t("karauMeet.welcomeToast"));
             } else {
@@ -82,12 +90,21 @@ const KarauMeetLogin = ({ onLogin }) => {
       const response = await fetch(`${API}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ email, password })
       });
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('token', data.access_token);
         localStorage.setItem('karau_user', JSON.stringify(data.user));
+        // Sync session for cross-portal auth
+        try {
+          const syncRes = await fetch(`${API}/api/portal/sync-session`, { method: 'POST', credentials: 'include', headers: { 'Authorization': `Bearer ${data.access_token}` } });
+          if (syncRes.ok) {
+            const syncData = await syncRes.json();
+            localStorage.setItem('session_token', syncData.token);
+          }
+        } catch(e) { /* not critical */ }
         onLogin(data.user);
         toast.success(t("karauMeet.welcomeToast"));
       } else {

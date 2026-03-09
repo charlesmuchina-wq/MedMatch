@@ -115,7 +115,7 @@ class TestPaymentsCheckout:
             headers={**auth_headers, "Content-Type": "application/json"},
             json={
                 "package_id": "pro_monthly",
-                "origin_url": "https://karau-enzi-nexus.preview.emergentagent.com"
+                "origin_url": "https://predictive-comms.preview.emergentagent.com"
             }
         )
         assert response.status_code == 200, f"Checkout failed: {response.text}"
@@ -136,7 +136,7 @@ class TestPaymentsCheckout:
             headers={**auth_headers, "Content-Type": "application/json"},
             json={
                 "package_id": "invalid_package",
-                "origin_url": "https://karau-enzi-nexus.preview.emergentagent.com"
+                "origin_url": "https://predictive-comms.preview.emergentagent.com"
             }
         )
         assert response.status_code == 400, f"Expected 400, got {response.status_code}"
@@ -151,7 +151,7 @@ class TestPaymentsCheckout:
             headers={"Content-Type": "application/json"},
             json={
                 "package_id": "pro_monthly",
-                "origin_url": "https://karau-enzi-nexus.preview.emergentagent.com"
+                "origin_url": "https://predictive-comms.preview.emergentagent.com"
             }
         )
         assert response.status_code == 401, f"Expected 401, got {response.status_code}"
@@ -227,7 +227,7 @@ class TestPaymentsStatus:
             headers={**auth_headers, "Content-Type": "application/json"},
             json={
                 "package_id": "pro_monthly",
-                "origin_url": "https://karau-enzi-nexus.preview.emergentagent.com"
+                "origin_url": "https://predictive-comms.preview.emergentagent.com"
             }
         )
         assert checkout_response.status_code == 200, f"Checkout failed: {checkout_response.text}"

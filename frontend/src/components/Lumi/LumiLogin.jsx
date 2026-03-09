@@ -24,11 +24,19 @@ export const LumiLogin = ({ onLogin }) => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const res = await fetch(`${API}/api/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
+      const res = await fetch(`${API}/api/auth/login`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ email, password }) });
       if (res.ok) {
         const data = await res.json();
         localStorage.setItem('token', data.access_token);
         localStorage.setItem('karau_user', JSON.stringify(data.user));
+        // Sync session for cross-portal auth
+        try {
+          const syncRes = await fetch(`${API}/api/portal/sync-session`, { method: 'POST', credentials: 'include', headers: { 'Authorization': `Bearer ${data.access_token}` } });
+          if (syncRes.ok) {
+            const syncData = await syncRes.json();
+            localStorage.setItem('session_token', syncData.token);
+          }
+        } catch(e) { /* not critical */ }
         onLogin(data.user);
         toast.success('Welcome to ENZI!');
       } else { const err = await res.json(); toast.error(err.detail || 'Login failed'); }

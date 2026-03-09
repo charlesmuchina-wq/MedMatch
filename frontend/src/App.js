@@ -5,7 +5,7 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { 
   Search, Briefcase, FileText, Bookmark, CheckSquare, 
-  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3, Users, Video, LogOut, Crown, DollarSign, MessageSquare, UserSearch, LayoutDashboard, Award, ShieldCheck, CalendarDays, Bot, Shield, Code, HelpCircle, Home, FileCheck, Languages, Database, Gavel, Scale, Globe, Zap, Loader2
+  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3, Users, Video, LogOut, Crown, DollarSign, MessageSquare, UserSearch, LayoutDashboard, Award, ShieldCheck, CalendarDays, Bot, Shield, Code, HelpCircle, Home, FileCheck, Languages, Database, Gavel, Scale, Globe, Zap, Loader2, Package
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
@@ -96,6 +96,7 @@ import KarauDragonAI, { DragonButton } from "@/components/KarauDragonAI";
 import GlobalLanguageSelector from "@/components/GlobalLanguageSelector";
 import NotificationCenter from "@/components/NotificationCenter";
 import LumiFooter from "@/components/LumiFooter";
+import PackageSelector from "@/components/Lumi/PackageSelector";
 import { I18nProvider, useTranslation } from "@/utils/i18n";
 import { OfflineBanner, OfflineIndicator } from "@/components/OfflineIndicator";
 import { offlineStorage } from "@/utils/offlineStorage";
@@ -425,6 +426,23 @@ const Header = ({ onMenuClick, resume, user, onLogout }) => {
             <span className="text-sm font-medium hidden sm:block">Help</span>
           </button>
           
+          {/* Portals / Package Switcher */}
+          {user && (
+            <button
+              onClick={() => navigate('/packages')}
+              className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all ${
+                isDark 
+                  ? 'bg-violet-900/30 text-violet-400 hover:bg-violet-900/50' 
+                  : 'bg-violet-50 text-violet-600 hover:bg-violet-100'
+              }`}
+              data-testid="portals-btn"
+              title="Switch Portal / Package"
+            >
+              <Package className="w-4 h-4" />
+              <span className="text-sm font-medium hidden sm:block">Portals</span>
+            </button>
+          )}
+          
           {/* Offline Status Indicator */}
           <OfflineIndicator compact={true} />
           
@@ -567,6 +585,8 @@ function AppContent({ skipPortalSelector = false }) {
   const [showDragonAI, setShowDragonAI] = useState(false);
   const [consentChecked, setConsentChecked] = useState(false);
   const [needsConsent, setNeedsConsent] = useState(false);
+  const [needsPackageSelection, setNeedsPackageSelection] = useState(false);
+  const [userPortals, setUserPortals] = useState(null);
   const { isDark } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
@@ -649,6 +669,11 @@ function AppContent({ skipPortalSelector = false }) {
         const response = await axios.get(`${API}/auth/me`, { withCredentials: true });
         if (response.data?.user_id) {
           setUser(response.data);
+          // Load cached portal access
+          const cached = localStorage.getItem('portal_access');
+          if (cached) {
+            try { setUserPortals(JSON.parse(cached)); } catch(e) {}
+          }
         }
       } catch (e) {
         // Not authenticated
@@ -713,6 +738,38 @@ function AppContent({ skipPortalSelector = false }) {
       localStorage.setItem("medmatch-language", userData.language);
       window.dispatchEvent(new CustomEvent('languageSync', { detail: userData.language }));
     }
+    // Check portal access / package selection
+    checkPortalAccess();
+  };
+
+  // Check and sync portal access after login
+  const checkPortalAccess = async () => {
+    try {
+      const res = await axios.get(`${API}/portal/access`, { withCredentials: true });
+      if (res.data?.portals) {
+        setUserPortals(res.data.portals);
+        localStorage.setItem('portal_package', res.data.package_id);
+        localStorage.setItem('portal_access', JSON.stringify(res.data.portals));
+      }
+      // If they came from the landing page with a package intent, save it
+      const intent = localStorage.getItem('selected_package_intent');
+      if (intent) {
+        localStorage.removeItem('selected_package_intent');
+        try {
+          await axios.post(`${API}/portal/set-package`, { package_id: intent }, { withCredentials: true });
+        } catch (e) { /* not critical */ }
+      }
+    } catch (e) {
+      // Not critical — defaults to enterprise access
+    }
+    // Sync session for cross-portal auth
+    try {
+      const syncRes = await axios.post(`${API}/portal/sync-session`, {}, { withCredentials: true });
+      if (syncRes.data?.token) {
+        localStorage.setItem('token', syncRes.data.token);
+        localStorage.setItem('session_token', syncRes.data.token);
+      }
+    } catch (e) { /* not critical */ }
   };
 
   const handleLogout = async () => {
@@ -725,6 +782,11 @@ function AppContent({ skipPortalSelector = false }) {
     setResume(null);
     setSavedJobs([]);
     setApplications([]);
+    setUserPortals(null);
+    setNeedsPackageSelection(false);
+    localStorage.removeItem('portal_package');
+    localStorage.removeItem('portal_access');
+    localStorage.removeItem('selected_package_intent');
     toast.success("Signed out successfully");
   };
 
@@ -1056,6 +1118,15 @@ function AppContent({ skipPortalSelector = false }) {
             <Route path="/report-builder" element={<ReportBuilderPage />} />
             <Route path="/platform-settings" element={<PlatformSettingsPage />} />
             <Route path="/semantic-search" element={<SemanticSearchPage />} />
+            <Route path="/packages" element={
+              <PackageSelector
+                currentPackage={localStorage.getItem('portal_package')}
+                onPackageSelected={(pkgId, portals) => {
+                  setUserPortals(portals);
+                  toast.success('Package updated!');
+                }}
+              />
+            } />
           </Routes>
         </main>
 
