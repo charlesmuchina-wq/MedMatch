@@ -62,6 +62,25 @@ When a KARAU meeting ends, an ENZI channel is auto-created for continued collabo
 - Frontend: `AdminApprovalPanel.jsx`, `MeetingChannelBanner.jsx`
 - Hook in `karau_meet.py` end_meeting_room → convert_meeting_to_channel
 
+## Domain-Aware Routing System (COMPLETED - Mar 11, 2026)
+Multi-domain routing for production deployment with registered domains:
+- `aikarau.com` / `ai.karau.com` → Full Ecosystem (all 3 portals, for recruiters)
+- `medmatch.aikarau.com` → MedMatch AI (enterprise recruitment, company focus)
+- `careers.aikarau.com` / `jobs.aikarau.com` → Job Seekers view
+- `connect.aikarau.com` / `meet.aikarau.com` → AI KARAU Meetings
+- `enzi.aikarau.com` → ENZI Messenger (subdomain)
+- `enzilink.com` → ENZI Messenger (standalone domain)
+
+Implementation:
+- `DomainConfig.js`: Source of truth for all domain→portal mappings
+- `DomainContext.js`: React context + useDomain() hook for app-wide access
+- `DomainRouter` in App.js: Detects hostname → sets portal context → routes
+- `?portal=` query param for testing in preview/staging environments
+- Portal selector shows Direct Access domain URLs per app card
+- Backend: `GET /api/portal/domain-config` returns portal config for hostname
+- CORS updated to allow all registered domains
+- Cookie domain strategy: `.aikarau.com` for subdomains, separate for `enzilink.com`
+
 ## Other Completed Features
 - End-to-End Encryption (ECDH P-256 + AES-GCM)
 - Live Stripe Payments (4 tiers, test mode)
@@ -73,21 +92,11 @@ When a KARAU meeting ends, an ENZI channel is auto-created for continued collabo
 - Advanced Behavioral Modeling with User Insights Panel
 
 ## Test Results
+- iteration_204: 100% (12/12 BE, 6/6 FE - Domain Routing)
 - iteration_203: 100% (15/15 BE, 7/7 FE - Meeting-to-Channel + Admin Approvals)
-- iteration_202: 100% (19/19 BE, 24/24 features, all FE flows)
-- iteration_201: 100% (18/18 BE)
-
-## Domain Architecture (PLANNED)
-User's registered domains:
-- `aikarau.com` / `ai.karau.com` → Full Ecosystem (all 3 portals, for recruiters)
-- `medmatch.aikarau.com` → MedMatch Job Toolkit
-- `careers.aikarau.com` / `jobs.aikarau.com` → Job Seekers view
-- `connect.aikarau.com` / `meet.aikarau.com` → AI KARAU Meetings
-- `enzi.aikarau.com` / `enzilink.com` → ENZI Messenger (standalone)
-Strategy: Single app with domain-aware routing via DomainRouter in App.js
+- iteration_202: 100% (19/19 BE, 24/24 FE features)
 
 ## Remaining Tasks
-- **P1**: Domain-aware routing system (DomainRouter) for subdomain architecture
 - **P1**: Full Bot Store/Marketplace (discover, publish, share bots)
 - **P2**: Refactor LumiMessenger.jsx (~1388 lines) into smaller components
 - **P2**: Voice/Video Call enhancements (recording, transcription)
