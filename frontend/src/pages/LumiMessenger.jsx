@@ -45,6 +45,8 @@ import ChannelToolsModal from '@/components/Lumi/ChannelToolsModal';
 import MeetingChannelBanner from '@/components/Lumi/MeetingChannelBanner';
 import AdminApprovalPanel from '@/components/Lumi/AdminApprovalPanel';
 import BotActionsBar from '@/components/Lumi/BotActionsBar';
+import EnziSidebar from '@/components/Lumi/EnziSidebar';
+import EnziDashboard from '@/components/Lumi/EnziDashboard';
 import E2EEIndicator from '@/components/Lumi/E2EEIndicator';
 import PremiumModal from '@/components/Lumi/PremiumModal';
 import InsightsPanel from '@/components/Lumi/InsightsPanel';
@@ -587,246 +589,32 @@ const LumiMessenger = () => {
       {showSplash && <EnziSplash onComplete={() => { setShowSplash(false); sessionStorage.setItem('enzi_splash_shown', '1'); }} />}
 
       {/* Sidebar */}
-      <div className={`${mobileSidebar ? 'flex' : 'hidden'} md:flex flex-col w-full md:w-[280px] bg-[#0D1117] flex-shrink-0 border-r border-white/5`}>
-        {/* Header */}
-        <div className="h-14 flex items-center justify-between px-4 border-b border-white/10">
-          <div className="flex items-center gap-2.5">
-            <LumiBrand variant="inline-dark" size="xs" showTagline />
-          </div>
-          <button onClick={() => navigate('/')} className="p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors" data-testid="back-to-karau"><ArrowLeft className="w-4 h-4" /></button>
-        </div>
-
-        {/* Quick Actions: Recent / New Message */}
-        <div className="px-3 pt-3 pb-2 flex gap-2">
-          <button onClick={() => setSidebarView('recent')}
-            className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-medium transition-all ${sidebarView === 'recent' ? 'bg-[#00CEC9]/10 text-[#00CEC9] border border-[#00CEC9]/20' : 'bg-white/5 text-white/70 hover:bg-white/10 border border-transparent'}`}
-            data-testid="sidebar-recent-btn">
-            <Clock className="w-3.5 h-3.5" />Recent
-          </button>
-          <button onClick={() => setShowNewMsgPanel(true)}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-medium bg-white/5 text-white/70 hover:bg-white/10 border border-transparent hover:border-white/10 transition-all"
-            data-testid="sidebar-new-msg-btn">
-            <Edit className="w-3.5 h-3.5" />New Message
-          </button>
-        </div>
-
-        {/* Search */}
-        <div className="px-3 pb-1">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white/50" />
-            <input value={globalSearch || searchQuery} onChange={e => { setSearchQuery(e.target.value); handleGlobalSearch(e.target.value); setSidebarView('channels'); }}
-              placeholder={t('lumi.searchChannels') || 'Search channels & people...'}
-              className="w-full pl-9 h-8 bg-white/10 border-0 rounded-md text-sm text-white placeholder:text-white/40 outline-none focus:bg-white/15 transition-colors" data-testid="search-channels" />
-            {globalSearch && <button onClick={() => { setGlobalSearch(''); setSearchQuery(''); setShowSearchResults(false); }} className="absolute right-2 top-1/2 -translate-y-1/2 text-white/60 hover:text-white"><X className="w-3.5 h-3.5" /></button>}
-          </div>
-          {showSearchResults && searchResults.length > 0 && (
-            <div className="mt-1 max-h-48 overflow-y-auto bg-[#0F1923] border border-white/10 rounded-md shadow-lg" data-testid="search-results">
-              {searchResults.map((r, i) => (
-                <button key={i} onClick={() => { const ch = channels.find(c => c.id === r.channel_id) || dms.find(d => d.id === r.channel_id); if (ch) { setActiveChannel(ch); setMobileSidebar(false); } setShowSearchResults(false); setGlobalSearch(''); setSearchQuery(''); }}
-                  className="w-full px-3 py-2 text-left hover:bg-white/10 border-b border-white/5 last:border-0" data-testid={`search-result-${i}`}>
-                  <span className="text-[10px] text-[#00CEC9] font-medium">#{r.channel_name}</span>
-                  <p className="text-xs text-white/80 truncate">{r.content}</p>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Smart Buckets (collapsible) */}
-        {(bucketCounts.urgent > 0 || bucketCounts.action_required > 0 || bucketCounts.meeting_request > 0) && (
-          <div className="px-3 pb-2">
-            <div className="bg-white/[0.02] rounded-lg border border-white/5 overflow-hidden">
-              <div className="flex items-center gap-1.5 px-2.5 py-1.5">
-                <Zap className="w-3 h-3 text-amber-400" />
-                <span className="text-[10px] font-semibold text-white/60 uppercase tracking-wider flex-1">Priority</span>
-              </div>
-              <div className="px-1 pb-1 space-y-0.5">
-                {[
-                  { key: 'urgent', label: 'Urgent', color: 'bg-red-500', textColor: 'text-red-400' },
-                  { key: 'action_required', label: 'Action Required', color: 'bg-amber-500', textColor: 'text-amber-400' },
-                  { key: 'meeting_request', label: 'Meetings', color: 'bg-blue-500', textColor: 'text-blue-400' },
-                ].filter(b => bucketCounts[b.key] > 0).map(b => (
-                  <button key={b.key} onClick={() => { openBucket(b.key); setMobileSidebar(false); }}
-                    className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-white/5 transition-colors"
-                    data-testid={`sidebar-bucket-${b.key}`}>
-                    <div className={`w-1.5 h-1.5 rounded-full ${b.color}`} />
-                    <span className="text-xs text-white/70 flex-1 text-left">{b.label}</span>
-                    <span className={`text-[10px] font-bold ${b.textColor}`}>{bucketCounts[b.key]}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        <ScrollArea className="flex-1 py-1">
-          <div className="px-3">
-            {/* RECENT VIEW */}
-            {sidebarView === 'recent' ? (
-              <>
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Recent</span>
-                  <button onClick={() => setSidebarView('channels')} className="text-[9px] text-[#00CEC9] hover:underline">All Channels</button>
-                </div>
-                {recentConversations.map(item => (
-                  <button key={item.id} onClick={() => { setActiveChannel(item); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); }}
-                    className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${activeChannel?.id === item.id ? 'bg-white/15 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}`}
-                    data-testid={`recent-${item.id}`}>
-                    {item._type === 'dm' ? (
-                      <div className="relative">
-                        <div className="w-6 h-6 rounded-full bg-slate-500 flex items-center justify-center text-[9px] font-semibold text-white">
-                          {(item.dm_partner?.name || item.dm_partner?.email || '?')[0].toUpperCase()}
-                        </div>
-                        <span className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full ring-1 ring-[#0D1117] ${STATUS_COLORS[presenceMap[item.dm_partner?.user_id] || 'offline']}`} />
-                      </div>
-                    ) : (
-                      <ChannelIcon type={item.channel_type} />
-                    )}
-                    <span className="flex-1 text-sm truncate text-left">
-                      {item._type === 'dm' ? (item.dm_partner?.name || item.dm_partner?.email || 'User') : item.name}
-                    </span>
-                    {unreadCounts[item.id] > 0 && <span className="min-w-[16px] h-[16px] flex items-center justify-center rounded-full text-[8px] font-bold text-white" style={{ backgroundColor: ESY.pink }}>{unreadCounts[item.id]}</span>}
-                  </button>
-                ))}
-                {recentConversations.length === 0 && <p className="text-[11px] text-white/50 px-2.5 py-3 text-center">No conversations yet</p>}
-              </>
-            ) : (
-              <>
-                {/* CHANNELS VIEW */}
-                <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Channels</span>
-                  <button onClick={() => setShowCreateModal(true)} className="p-1 text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="add-channel-btn"><Plus className="w-3.5 h-3.5" /></button>
-                </div>
-                {sortedChannels.map(ch => (
-                  <button key={ch.id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); trackAction('channel_visit', ch.id, ch.name); }}
-                    className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${activeChannel?.id === ch.id ? 'bg-white/15 text-white font-semibold' : 'text-white/80 hover:bg-white/10 hover:text-white'}`} data-testid={`channel-${ch.id}`}>
-                    <ChannelIcon type={ch.channel_type} /><span className="flex-1 text-sm truncate text-left">{ch.name}</span>
-                    {predictedChannelIds.has(ch.id) && <Zap className="w-3 h-3 text-amber-400 flex-shrink-0" title="Predicted for you" />}
-                    {unreadCounts[ch.id] > 0 && <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[9px] font-bold text-white" style={{ backgroundColor: ESY.pink }} data-testid={`unread-${ch.id}`}>{unreadCounts[ch.id]}</span>}
-                  </button>
-                ))}
-
-                {discoverChannels.length > 0 && (<>
-                  <div className="flex items-center mt-3 mb-1.5"><span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Discover</span></div>
-                  {discoverChannels.map(ch => (
-                    <button key={ch.id} onClick={() => handleJoinChannel(ch)} className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-white/80 hover:bg-white/10 hover:text-white mb-0.5" data-testid={`discover-${ch.id}`}>
-                      <ChannelIcon type={ch.channel_type} /><span className="flex-1 text-sm truncate text-left">{ch.name}</span><Plus className="w-3 h-3 opacity-70" />
-                    </button>
-                  ))}
-                </>)}
-
-                <div className="flex items-center justify-between mt-3 mb-1.5">
-                  <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Direct Messages</span>
-                  <button onClick={() => setShowNewMsgPanel(true)} className="p-1 text-white/80 hover:text-white hover:bg-white/10 rounded transition-colors" data-testid="new-dm-btn"><UserPlus className="w-3.5 h-3.5" /></button>
-                </div>
-                {sortedDms.map(dm => {
-                  const partner = dm.dm_partner || {};
-                  const init = (partner.name || partner.email || '?')[0].toUpperCase();
-                  const st = presenceMap[partner.user_id] || 'offline';
-                  return (
-                    <button key={dm.id} onClick={() => { setActiveChannel(dm); setMobileSidebar(false); setShowThread(null); setShowMembers(false); setShowAiPanel(false); trackAction('dm_visit', dm.id, partner.name || partner.email || 'User'); }}
-                      className={`w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md transition-colors mb-0.5 ${activeChannel?.id === dm.id ? 'bg-white/15 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'}`} data-testid={`dm-${dm.id}`}>
-                      <div className="relative">
-                        <div className="w-6 h-6 rounded-full bg-slate-500 flex items-center justify-center text-[9px] font-semibold text-white">{init}</div>
-                        <span className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full ring-1 ring-[#1A2332] ${STATUS_COLORS[st]}`} />
-                      </div>
-                      <span className="flex-1 text-sm truncate text-left">{partner.name || partner.email || 'User'}</span>
-                      {predictedDmIds.has(dm.id) && <Zap className="w-3 h-3 text-amber-400 flex-shrink-0" title="Predicted" />}
-                      {unreadCounts[dm.id] > 0 && <span className="min-w-[16px] h-[16px] flex items-center justify-center rounded-full text-[8px] font-bold text-white" style={{ backgroundColor: ESY.pink }} data-testid={`unread-dm-${dm.id}`}>{unreadCounts[dm.id]}</span>}
-                    </button>
-                  );
-                })}
-                {sortedDms.length === 0 && <p className="text-[11px] text-white/80 px-2.5 py-1">No conversations yet</p>}
-
-                {/* Domain Colleagues */}
-                {domainColleagues.length > 0 && (<>
-                  <div className="flex items-center mt-3 mb-1.5">
-                    <span className="text-[11px] font-bold text-white/90 uppercase tracking-widest">Company</span>
-                  </div>
-                  {domainColleagues.slice(0, 5).map(c => (
-                    <button key={c.user_id} onClick={() => handleStartDm(c.user_id)}
-                      className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-white/80 hover:bg-white/10 hover:text-white mb-0.5" data-testid={`colleague-${c.user_id}`}>
-                      <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-[9px] font-semibold text-indigo-300">
-                        {(c.name || c.email || '?')[0].toUpperCase()}
-                      </div>
-                      <span className="flex-1 text-sm truncate text-left">{c.name || c.email}</span>
-                    </button>
-                  ))}
-                </>)}
-
-                {/* Invite Button */}
-                <button onClick={() => setShowInviteModal(true)}
-                  className="w-full flex items-center gap-2 mt-3 px-2.5 py-2 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors border border-dashed border-white/10 hover:border-white/20"
-                  data-testid="invite-to-enzi-btn">
-                  <Share2 className="w-3.5 h-3.5" />
-                  <span className="text-xs font-medium">Invite to ENZI</span>
-                </button>
-              </>
-            )}
-          </div>
-        </ScrollArea>
-
-        {/* Compact Footer */}
-        <div className="border-t border-white/10">
-          {/* User profile row */}
-          <div className="px-3 py-2 flex items-center gap-2">
-            <button onClick={() => setShowProfile(true)} className="relative group" data-testid="open-profile-btn" title="My Profile">
-              <div className="w-8 h-8 rounded-full flex items-center justify-center group-hover:ring-2 group-hover:ring-white/30 transition-all" style={{ background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` }}><span className="text-xs font-semibold text-white">{(user?.name || user?.email || '?')[0].toUpperCase()}</span></div>
-              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full ring-2 ring-[#1A2332] bg-emerald-500" />
-            </button>
-            <button onClick={() => setShowProfile(true)} className="flex-1 min-w-0 text-left hover:opacity-80 transition-opacity" data-testid="open-profile-name">
-              <p className="text-sm font-medium text-white truncate">{user?.name || 'User'}</p>
-            </button>
-            <div className="flex items-center gap-0.5">
-              <button onClick={toggleTheme} className="p-1.5 text-white/50 hover:text-white hover:bg-white/10 rounded-md transition-colors" data-testid="theme-toggle-btn" title={isDark ? 'Light Mode' : 'Dark Mode'}>
-                {isDark ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
-              </button>
-              <button onClick={() => setShowAdminTools(!showAdminTools)} className={`p-1.5 rounded-md transition-colors ${showAdminTools ? 'text-[#00CEC9] bg-white/10' : 'text-white/50 hover:text-white hover:bg-white/10'}`} data-testid="admin-tools-toggle" title="Admin & Tools">
-                <Settings className="w-3.5 h-3.5" />
-              </button>
-              <button onClick={() => { localStorage.removeItem('token'); localStorage.removeItem('karau_user'); setUser(null); navigate('/'); }} className="p-1.5 text-white/50 hover:text-red-400 hover:bg-red-500/10 rounded-md transition-colors" data-testid="lumi-logout" title="Logout">
-                <LogOut className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-
-          {/* Collapsible Admin Tools */}
-          {showAdminTools && (
-            <div className="px-3 pb-2 space-y-1 border-t border-white/5 pt-2" data-testid="admin-tools-panel">
-              <div className="grid grid-cols-2 gap-1">
-                <button onClick={() => setShowVisualizations(true)} className="flex items-center gap-1.5 px-2.5 py-2 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="open-visualizations-btn">
-                  <BarChart3 className="w-3 h-3" style={{ color: ESY.pink }} />
-                  <span className="text-[10px] text-white/80">Analytics</span>
-                </button>
-                <button onClick={() => setShowRetention(true)} className="flex items-center gap-1.5 px-2.5 py-2 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="open-retention-btn">
-                  <Shield className="w-3 h-3" style={{ color: ESY.deepRed }} />
-                  <span className="text-[10px] text-white/80">Retention</span>
-                </button>
-                <button onClick={() => setShowAuditLog(true)} className="flex items-center gap-1.5 px-2.5 py-2 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="open-audit-btn">
-                  <ClipboardList className="w-3 h-3" style={{ color: ESY.turquoise }} />
-                  <span className="text-[10px] text-white/80">Audit Log</span>
-                </button>
-                <button onClick={() => setShowCompliance(true)} className="flex items-center gap-1.5 px-2.5 py-2 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="open-compliance-btn">
-                  <Globe className="w-3 h-3" style={{ color: '#00B894' }} />
-                  <span className="text-[10px] text-white/80">Compliance</span>
-                </button>
-                <button onClick={() => setShowShortcuts(true)} className="flex items-center gap-1.5 px-2.5 py-2 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="open-shortcuts-btn">
-                  <Keyboard className="w-3 h-3 text-white/60" />
-                  <span className="text-[10px] text-white/80">Shortcuts</span>
-                </button>
-                <button onClick={() => navigate('/karau-meet')} className="flex items-center gap-1.5 px-2.5 py-2 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="switch-to-karau-footer">
-                  <Building2 className="w-3 h-3" style={{ color: ESY.turquoise }} />
-                  <span className="text-[10px] text-white/80">AI KARAU</span>
-                </button>
-              </div>
-              <button onClick={() => navigate('/')} className="w-full flex items-center justify-center gap-1.5 px-2.5 py-1.5 bg-white/5 hover:bg-white/10 rounded-md transition-colors" data-testid="return-to-portal">
-                <ArrowLeft className="w-3 h-3 text-white/60" />
-                <span className="text-[10px] text-white/80">Return to Portal</span>
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
+      <EnziSidebar
+        mobileSidebar={mobileSidebar} sidebarView={sidebarView} setSidebarView={setSidebarView}
+        searchQuery={searchQuery} setSearchQuery={setSearchQuery}
+        globalSearch={globalSearch} setGlobalSearch={setGlobalSearch}
+        showSearchResults={showSearchResults} setShowSearchResults={setShowSearchResults}
+        searchResults={searchResults} handleGlobalSearch={handleGlobalSearch}
+        recentConversations={recentConversations} sortedChannels={sortedChannels}
+        discoverChannels={discoverChannels} dms={dms}
+        activeChannel={activeChannel} setActiveChannel={setActiveChannel}
+        setMobileSidebar={setMobileSidebar}
+        unreadCounts={unreadCounts} presenceMap={presenceMap}
+        predictedChannelIds={predictedChannelIds} bucketCounts={bucketCounts}
+        openBucket={openBucket}
+        setShowNewMsgPanel={setShowNewMsgPanel} setShowCreateModal={setShowCreateModal}
+        setShowNewDmModal={setShowNewDmModal}
+        setShowThread={setShowThread} setShowMembers={setShowMembers}
+        setShowAiPanel={setShowAiPanel}
+        showAdminTools={showAdminTools} setShowAdminTools={setShowAdminTools}
+        isDark={isDark} toggleTheme={toggleTheme} user={user} navigate={navigate}
+        channels={channels}
+        setShowVisualizations={setShowVisualizations} setShowRetention={setShowRetention}
+        setShowAuditLog={setShowAuditLog} setShowCompliance={setShowCompliance}
+        setShowShortcuts={setShowShortcuts} setShowProfile={setShowProfile}
+        handleJoinChannel={handleJoinChannel} handleStartDm={handleStartDm}
+        trackAction={trackAction}
+      />
 
       {/* Content Area */}
       {activeChannel ? (
@@ -875,7 +663,7 @@ const LumiMessenger = () => {
           <E2EEIndicator channelId={activeChannel?.id} token={token} isDm={activeChannel?.channel_type === 'dm'} />
 
           {/* Meeting Follow-up Channel Banner */}
-          {activeChannel?.channel_type === 'meeting-followup' && (
+          {activeChannel.channel_type === 'meeting-followup' && (
             <MeetingChannelBanner
               channel={activeChannel}
               token={token}
@@ -954,399 +742,25 @@ const LumiMessenger = () => {
         </>
       </div>
       ) : (
-      <div className={`${!mobileSidebar ? 'flex' : 'hidden'} md:flex flex-col flex-1 min-w-0 bg-[#0D1117] overflow-auto`}>
-          <div className="flex-1 flex flex-col">
-            {/* Enhanced Dashboard */}
-            <div className="max-w-5xl mx-auto w-full p-6 md:p-10 space-y-6">
-              {/* Hero */}
-              <div className="text-center mb-2">
-                <LumiBrand variant="inline-dark" size="md" showTagline className="justify-center" />
-                <p className="text-slate-400 text-sm mt-3 font-outfit">Your intelligent command center</p>
-              </div>
-
-              {/* Pending Invites */}
-              {pendingInvites.length > 0 && (
-                <div className="bento-tile col-span-full" data-testid="pending-invites-panel">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Bell className="w-3.5 h-3.5 text-amber-400" />
-                    <p className="text-[10px] font-semibold text-amber-400 uppercase tracking-widest font-outfit">Pending Invites ({pendingInvites.length})</p>
-                  </div>
-                  <div className="space-y-2">
-                    {pendingInvites.map(inv => (
-                      <div key={inv.id} className="flex items-center gap-3 px-3 py-2.5 rounded-xl bg-white/[0.03] border border-white/5" data-testid={`invite-${inv.id}`}>
-                        <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center flex-shrink-0">
-                          <Hash className="w-4 h-4 text-amber-400" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm text-white font-medium truncate">#{inv.channel_name}</p>
-                          <p className="text-[11px] text-slate-500">Invited by {inv.invited_by_name}</p>
-                        </div>
-                        <button onClick={() => handleInviteResponse(inv.id, 'accept')}
-                          className="px-3 py-1.5 rounded-lg bg-[#00CEC9]/10 text-[#00CEC9] text-xs font-medium hover:bg-[#00CEC9]/20 transition-colors" data-testid={`accept-invite-${inv.id}`}>
-                          Accept
-                        </button>
-                        <button onClick={() => handleInviteResponse(inv.id, 'decline')}
-                          className="px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 text-xs font-medium hover:bg-white/10 transition-colors" data-testid={`decline-invite-${inv.id}`}>
-                          Decline
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Quick Actions Row */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-                <button onClick={() => setShowNewDmModal(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group hover-lift animate-stagger-in-1" data-testid="bento-new-dm">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-teal-500 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                    <UserPlus className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold font-outfit">Direct Message</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Reach someone directly</p>
-                  </div>
-                </button>
-
-                <button onClick={() => setShowCommandBar(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group hover-lift animate-stagger-in-2" data-testid="bento-command">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-600 to-slate-700 flex items-center justify-center shadow-lg shadow-slate-500/20">
-                    <Command className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold font-outfit">Command Bar</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Ctrl+K to search</p>
-                  </div>
-                </button>
-
-                <button onClick={() => setShowVisualizations(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group hover-lift animate-stagger-in-3" data-testid="bento-viz">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-                    <BarChart3 className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold font-outfit">Analytics</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">View insights & data</p>
-                  </div>
-                </button>
-
-                <button onClick={() => setShowCreateModal(true)} className="bento-tile col-span-1 flex flex-col items-start gap-3 cursor-pointer group hover-lift animate-stagger-in-4" data-testid="bento-create-channel">
-                  <div className="w-10 h-10 rounded-xl lumi-gradient flex items-center justify-center shadow-lg shadow-violet-500/20">
-                    <Plus className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold font-outfit">New Channel</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Settings & invites</p>
-                  </div>
-                </button>
-              </div>
-
-              {/* KARAU Meeting Quick Action */}
-              <button onClick={() => setShowMeetingModal(true)} className="bento-tile w-full flex items-center gap-4 cursor-pointer group hover:border-[#6C5CE7]/20 transition-all" data-testid="bento-start-meeting">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0" style={{ background: 'linear-gradient(135deg, #6C5CE7, #00CEC9)' }}>
-                  <Video className="w-5 h-5 text-white" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-white text-sm font-semibold font-outfit">AI KARAU Meeting</p>
-                  <p className="text-slate-500 text-[11px] mt-0.5">Start an instant or scheduled meeting from ENZI</p>
-                </div>
-                <ArrowLeft className="w-4 h-4 text-slate-600 rotate-180 group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              {/* Invite to ENZI - Dashboard CTA */}
-              <button onClick={() => setShowInviteModal(true)}
-                className="bento-tile w-full flex items-center gap-4 cursor-pointer group hover:border-[#00CEC9]/20 transition-all"
-                data-testid="bento-invite">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0"
-                  style={{ background: 'linear-gradient(135deg, #00CEC9, #6C5CE7)' }}>
-                  <Share2 className="w-5 h-5 text-white" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-white text-sm font-semibold font-outfit">Invite to ENZI</p>
-                  <p className="text-slate-500 text-[11px] mt-0.5">Share via email, SMS, LinkedIn, or link. Invitees must register first.</p>
-                </div>
-                <ArrowLeft className="w-4 h-4 text-slate-600 rotate-180 group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              {/* Bot Store + Channel Tools Row */}
-              <div className="grid grid-cols-2 gap-3">
-                <button onClick={() => setShowBotStore(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-[#00CEC9]/20 transition-all" data-testid="bento-bot-store">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #00CEC9, #0984E3)' }}>
-                    <Brain className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold font-outfit">Bot Store</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Browse & install bots</p>
-                  </div>
-                </button>
-                <button onClick={() => setShowChannelTools(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-violet-500/20 transition-all" data-testid="bento-channel-tools">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #6C5CE7, #A855F7)' }}>
-                    <Settings className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold font-outfit">Channel Tools</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Templates & Webhooks</p>
-                  </div>
-                </button>
-              </div>
-
-              {/* Meeting History + Premium Row */}
-              <div className="grid grid-cols-2 gap-3">
-                <button onClick={() => setShowMeetingHistory(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-[#6C5CE7]/20 transition-all" data-testid="bento-meeting-history">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #6C5CE7, #E84393)' }}>
-                    <Clock className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold font-outfit">Meeting History</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Past & scheduled meetings</p>
-                  </div>
-                </button>
-                <button onClick={() => setShowPremium(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-amber-500/20 transition-all" data-testid="bento-premium">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #FFD700, #FFA500)' }}>
-                    <Crown className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold font-outfit">Premium</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Upgrade features</p>
-                  </div>
-                </button>
-              </div>
-
-              {/* Insights & Analytics Row */}
-              <div className="grid grid-cols-2 gap-3">
-                <button onClick={() => setShowInsights(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-[#6C5CE7]/20 transition-all" data-testid="bento-insights">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #6C5CE7, #00CEC9)' }}>
-                    <BarChart3 className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold font-outfit">Insights</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Usage analytics & tips</p>
-                  </div>
-                </button>
-                <button onClick={() => setShowTeamAnalytics(true)} className="bento-tile flex flex-col items-start gap-3 cursor-pointer group hover:border-indigo-500/20 transition-all" data-testid="bento-team-analytics">
-                  <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #4F46E5, #7C3AED)' }}>
-                    <TrendingUp className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white text-sm font-semibold font-outfit">Team Analytics</p>
-                    <p className="text-slate-500 text-[11px] mt-0.5">Activity & engagement</p>
-                  </div>
-                </button>
-              </div>
-
-              {/* Admin Approvals Tile */}
-              <button onClick={() => setShowAdminApprovals(true)} className="bento-tile w-full flex items-center gap-4 cursor-pointer group hover:border-amber-500/20 transition-all" data-testid="bento-admin-approvals">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #F59E0B, #D97706)' }}>
-                  <ShieldCheck className="w-5 h-5 text-white" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-white text-sm font-semibold font-outfit">Admin Approvals</p>
-                  <p className="text-slate-500 text-[11px] mt-0.5">Review external member requests for meeting channels</p>
-                </div>
-                <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-amber-400 transition-colors" />
-              </button>
-
-              {/* Main Content Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                {/* Recent Conversations — Channels + DMs combined */}
-                <div className="bento-tile" data-testid="recent-conversations-panel">
-                  <div className="flex items-center gap-2 mb-3">
-                    <MessageCircle className="w-3.5 h-3.5 text-cyan-400" />
-                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">Recent Conversations</p>
-                  </div>
-                  <div className="space-y-1">
-                    {/* Mix channels and DMs, sorted by recent activity */}
-                    {[
-                      ...channels.slice(0, 4).map(ch => ({ ...ch, _type: 'channel' })),
-                      ...dms.slice(0, 3).map(dm => ({ ...dm, _type: 'dm' })),
-                    ].slice(0, 6).map(item => (
-                      <button key={item.id} onClick={() => { setActiveChannel(item); setMobileSidebar(false); }}
-                        className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl hover:bg-white/5 transition-all group text-left"
-                        data-testid={`recent-conv-${item.id}`}>
-                        {item._type === 'dm' ? (
-                          <div className="relative w-7 h-7 flex-shrink-0">
-                            <div className="w-7 h-7 rounded-full bg-slate-600 flex items-center justify-center text-[10px] font-semibold text-white">
-                              {(item.dm_partner?.name || item.dm_partner?.email || '?')[0].toUpperCase()}
-                            </div>
-                            <span className={`absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full ring-1 ring-[#0D1117] ${
-                              presenceMap[item.dm_partner?.user_id] === 'online' ? 'bg-emerald-500' : 'bg-slate-600'
-                            }`} />
-                          </div>
-                        ) : (
-                          <div className="w-7 h-7 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0 group-hover:bg-white/10 transition-colors">
-                            <Hash className="w-3.5 h-3.5 text-violet-400" />
-                          </div>
-                        )}
-                        <div className="flex-1 min-w-0">
-                          <span className="text-sm text-white/80 group-hover:text-white truncate font-medium block">
-                            {item._type === 'dm' ? (item.dm_partner?.name || item.dm_partner?.email || 'User') : item.name}
-                          </span>
-                          {item.last_message && (
-                            <p className="text-[10px] text-slate-600 truncate">{typeof item.last_message === 'string' ? item.last_message : item.last_message?.content || ''}</p>
-                          )}
-                        </div>
-                        {unreadCounts[item.id] > 0 && (
-                          <span className="min-w-[18px] h-[18px] flex items-center justify-center rounded-full text-[9px] font-bold text-white" style={{ backgroundColor: ESY.pink }}>
-                            {unreadCounts[item.id]}
-                          </span>
-                        )}
-                      </button>
-                    ))}
-                    {channels.length === 0 && dms.length === 0 && (
-                      <p className="text-slate-600 text-xs py-3 text-center">No conversations yet. Start a DM or join a channel!</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Right Column: AI Status + Smart Buckets */}
-                <div className="space-y-3 md:space-y-4">
-                  {/* AI Status + Calendar Widget */}
-                  <div className="bento-tile">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">Status & Intelligence</p>
-                    </div>
-                    {/* Calendar Status */}
-                    <div className="flex items-center gap-2.5 px-2.5 py-2 rounded-xl bg-white/[0.03] mb-2" data-testid="calendar-status">
-                      <div className={`w-2.5 h-2.5 rounded-full ${
-                        calendarStatus.status === 'in_meeting' ? 'bg-red-500 animate-pulse' :
-                        calendarStatus.status === 'ooo' ? 'bg-amber-500' : 'bg-emerald-500'
-                      }`} />
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs text-white/80 font-medium capitalize">{calendarStatus.status.replace('_', ' ')}</p>
-                        {calendarStatus.calendar_event && (
-                          <p className="text-[10px] text-slate-500 truncate">{calendarStatus.calendar_event.subject}</p>
-                        )}
-                      </div>
-                      {calendarStatus.microsoft_linked && (
-                        <span className="text-[8px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400">MS Synced</span>
-                      )}
-                    </div>
-                    <div className="grid grid-cols-3 gap-2">
-                      <div className="text-center p-2 rounded-xl bg-white/[0.03]">
-                        <p className="text-lg font-bold lumi-gradient-text font-outfit">92%</p>
-                        <p className="text-[9px] text-slate-500 mt-0.5">Compliance</p>
-                      </div>
-                      <div className="text-center p-2 rounded-xl bg-white/[0.03]">
-                        <p className="text-lg font-bold text-cyan-400 font-outfit">{channels.length}</p>
-                        <p className="text-[9px] text-slate-500 mt-0.5">Channels</p>
-                      </div>
-                      <div className="text-center p-2 rounded-xl bg-white/[0.03]">
-                        <p className="text-lg font-bold text-emerald-400 font-outfit">{dms.length}</p>
-                        <p className="text-[9px] text-slate-500 mt-0.5">DMs</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Smart Buckets Preview */}
-                  <div className="bento-tile">
-                    <div className="flex items-center gap-2 mb-3">
-                      <ClipboardList className="w-3.5 h-3.5 text-pink-400" />
-                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">Smart Buckets</p>
-                    </div>
-                    <div className="space-y-1.5">
-                      {[
-                        { key: 'urgent', label: 'Urgent', color: 'bg-red-500' },
-                        { key: 'action_required', label: 'Action Required', color: 'bg-amber-500' },
-                        { key: 'meeting_request', label: 'Meeting Requests', color: 'bg-blue-500' },
-                      ].map(b => (
-                        <button key={b.key} onClick={() => openBucket(b.key)}
-                          className="w-full flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-white/5 transition-colors text-left"
-                          data-testid={`bucket-${b.key}`}>
-                          <div className={`w-2 h-2 rounded-full ${b.color}`} />
-                          <span className="text-xs text-white/70 flex-1">{b.label}</span>
-                          <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${bucketCounts[b.key] > 0 ? 'bg-white/10 text-white font-medium' : 'bg-white/5 text-slate-600'}`}>
-                            {bucketCounts[b.key] || 0}
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Predicted Suggestions */}
-              {(predictions.channels.length > 0 || predictions.dms.length > 0) && (
-                <div className="bento-tile" data-testid="predicted-suggestions">
-                  <div className="flex items-center gap-2 mb-3">
-                    <Zap className="w-3.5 h-3.5 text-amber-400" />
-                    <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">Suggested for You</p>
-                  </div>
-                  <div className="flex gap-2 overflow-x-auto pb-1">
-                    {predictions.channels.slice(0, 3).map(s => {
-                      const ch = channels.find(c => c.id === s.target_id);
-                      return ch ? (
-                        <button key={s.target_id} onClick={() => { setActiveChannel(ch); setMobileSidebar(false); trackAction('channel_visit', ch.id, ch.name); }}
-                          className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/5 transition-colors"
-                          data-testid={`suggest-${s.target_id}`}>
-                          <Hash className="w-3.5 h-3.5 text-violet-400" />
-                          <span className="text-xs text-white/80">{s.target_name}</span>
-                        </button>
-                      ) : null;
-                    })}
-                    {predictions.dms.slice(0, 3).map(s => {
-                      const dm = dms.find(d => d.id === s.target_id);
-                      return dm ? (
-                        <button key={s.target_id} onClick={() => { setActiveChannel(dm); setMobileSidebar(false); trackAction('dm_visit', dm.id, s.target_name); }}
-                          className="flex-shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/5 transition-colors"
-                          data-testid={`suggest-${s.target_id}`}>
-                          <div className="w-5 h-5 rounded-full bg-slate-600 flex items-center justify-center text-[9px] text-white font-semibold">
-                            {(s.target_name || '?')[0].toUpperCase()}
-                          </div>
-                          <span className="text-xs text-white/80">{s.target_name}</span>
-                        </button>
-                      ) : null;
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* Bucket Detail Panel */}
-              {activeBucket && (
-                <div className="bento-tile" data-testid="bucket-detail-panel">
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
-                      <div className={`w-2.5 h-2.5 rounded-full ${
-                        activeBucket === 'urgent' ? 'bg-red-500' : activeBucket === 'action_required' ? 'bg-amber-500' : 'bg-blue-500'
-                      }`} />
-                      <p className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest font-outfit">
-                        {activeBucket.replace('_', ' ')} ({bucketMessages.length})
-                      </p>
-                    </div>
-                    <button onClick={() => { setActiveBucket(null); setBucketMessages([]); }}
-                      className="p-1 hover:bg-white/10 rounded"><X className="w-3.5 h-3.5 text-slate-500" /></button>
-                  </div>
-                  {bucketLoading ? (
-                    <div className="flex justify-center py-4"><Loader2 className="w-5 h-5 text-slate-500 animate-spin" /></div>
-                  ) : bucketMessages.length === 0 ? (
-                    <p className="text-xs text-slate-600 text-center py-4">No messages in this bucket</p>
-                  ) : (
-                    <div className="space-y-2 max-h-[200px] overflow-auto">
-                      {bucketMessages.map(msg => (
-                        <div key={msg.id} className="flex items-start gap-2.5 px-2.5 py-2 rounded-lg bg-white/[0.03] border border-white/5 group">
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-1.5 mb-0.5">
-                              <span className="text-[10px] font-semibold text-white/80">{msg.sender_name}</span>
-                              <span className="text-[9px] text-slate-600">#{msg.channel_name}</span>
-                            </div>
-                            <p className="text-xs text-white/60 leading-relaxed">{msg.content}</p>
-                          </div>
-                          <button onClick={() => dismissBucketItem(activeBucket, msg.id)}
-                            className="p-1 opacity-0 group-hover:opacity-100 hover:bg-white/10 rounded transition-opacity flex-shrink-0"
-                            data-testid={`dismiss-${msg.id}`}>
-                            <X className="w-3 h-3 text-slate-500" />
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Keyboard hint */}
-              <p className="text-center text-[11px] text-slate-600 font-outfit">
-                Press <kbd className="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded text-[10px] text-slate-400 font-mono">Ctrl+K</kbd> to search anything
-              </p>
-            </div>
-          </div>
-      </div>
+        <EnziDashboard
+          mobileSidebar={mobileSidebar} user={user}
+          channels={channels} dms={dms}
+          unreadCounts={unreadCounts} presenceMap={presenceMap}
+          bucketCounts={bucketCounts} predictions={predictions}
+          calendarStatus={calendarStatus} pendingInvites={pendingInvites}
+          activeBucket={activeBucket} bucketMessages={bucketMessages}
+          bucketLoading={bucketLoading}
+          setActiveChannel={setActiveChannel} setMobileSidebar={setMobileSidebar}
+          setShowNewDmModal={setShowNewDmModal} setShowCommandBar={setShowCommandBar}
+          setShowVisualizations={setShowVisualizations} setShowCreateModal={setShowCreateModal}
+          setShowMeetingModal={setShowMeetingModal} setShowBotStore={setShowBotStore}
+          setShowChannelTools={setShowChannelTools} setShowMeetingHistory={setShowMeetingHistory}
+          setShowPremium={setShowPremium} setShowInsights={setShowInsights}
+          setShowTeamAnalytics={setShowTeamAnalytics} setShowAdminApprovals={setShowAdminApprovals}
+          openBucket={openBucket} dismissBucketItem={dismissBucketItem}
+          setActiveBucket={setActiveBucket} setBucketMessages={setBucketMessages}
+          handleInviteResponse={handleInviteResponse} trackAction={trackAction}
+        />
       )}
 
       {showCreateModal && <CreateChannelModal onClose={() => setShowCreateModal(false)} onCreated={(ch) => { setChannels(prev => [ch, ...prev]); setActiveChannel(ch); setShowCreateModal(false); setMobileSidebar(false); }} token={token} />}
