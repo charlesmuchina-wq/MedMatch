@@ -12,7 +12,7 @@ import {
   Building2, Sparkles, Brain, AlertTriangle, Shield,
   Command, Network, Zap, TrendingDown, Bell,
   Smile, Keyboard, ClipboardList, Globe, BarChart3,
-  Sun, Moon, Share2, Clock, Edit, ChevronDown, ChevronRight, Settings, BellOff, Crown, TrendingUp
+  Sun, Moon, Share2, Clock, Edit, ChevronDown, ChevronRight, Settings, BellOff, Crown, TrendingUp, ShieldCheck
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -43,6 +43,7 @@ import MeetingHistoryPanel from '@/components/Lumi/MeetingHistoryPanel';
 import BotStoreModal from '@/components/Lumi/BotStoreModal';
 import ChannelToolsModal from '@/components/Lumi/ChannelToolsModal';
 import MeetingChannelBanner from '@/components/Lumi/MeetingChannelBanner';
+import AdminApprovalPanel from '@/components/Lumi/AdminApprovalPanel';
 import BotActionsBar from '@/components/Lumi/BotActionsBar';
 import E2EEIndicator from '@/components/Lumi/E2EEIndicator';
 import PremiumModal from '@/components/Lumi/PremiumModal';
@@ -115,6 +116,7 @@ const LumiMessenger = () => {
   const [showTeamAnalytics, setShowTeamAnalytics] = useState(false);
   const [showPremium, setShowPremium] = useState(false);
   const [showInsights, setShowInsights] = useState(false);
+  const [showAdminApprovals, setShowAdminApprovals] = useState(false);
 
   const messagesEndRef = useRef(null);
   const wsRef = useRef(null);
@@ -1129,6 +1131,18 @@ const LumiMessenger = () => {
                 </button>
               </div>
 
+              {/* Admin Approvals Tile */}
+              <button onClick={() => setShowAdminApprovals(true)} className="bento-tile w-full flex items-center gap-4 cursor-pointer group hover:border-amber-500/20 transition-all" data-testid="bento-admin-approvals">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #F59E0B, #D97706)' }}>
+                  <ShieldCheck className="w-5 h-5 text-white" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-white text-sm font-semibold font-outfit">Admin Approvals</p>
+                  <p className="text-slate-500 text-[11px] mt-0.5">Review external member requests for meeting channels</p>
+                </div>
+                <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-amber-400 transition-colors" />
+              </button>
+
               {/* Main Content Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                 {/* Recent Conversations — Channels + DMs combined */}
@@ -1347,6 +1361,7 @@ const LumiMessenger = () => {
       {showTeamAnalytics && <TeamAnalyticsDashboard token={token} onClose={() => setShowTeamAnalytics(false)} />}
       {showPremium && <PremiumModal token={token} onClose={() => setShowPremium(false)} />}
       {showInsights && <InsightsPanel token={token} onClose={() => setShowInsights(false)} onAction={(action) => { setShowInsights(false); if (action === 'create_meeting') setShowMeetingModal(true); }} />}
+      {showAdminApprovals && <AdminApprovalPanel token={token} onClose={() => setShowAdminApprovals(false)} />}
       {showNotifSettings && <NotificationSettings token={token} channels={channels} onClose={() => setShowNotifSettings(false)} />}
       {showProfile && <UserProfileModal onClose={() => setShowProfile(false)} token={token} onStatusChange={(s) => {}} onThemeChange={(c) => setUserAccentColor(c)} />}
       {showRetention && <RetentionPanel onClose={() => setShowRetention(false)} token={token} />}

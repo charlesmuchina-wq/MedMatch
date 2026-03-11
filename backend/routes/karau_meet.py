@@ -39,6 +39,7 @@ from services.karau_meet import (
 )
 from services.karau_meet.webrtc_signaling import get_connection_manager
 from routes.auth import get_current_user, require_auth
+from routes.meeting_channel_sync import convert_meeting_to_channel
 
 router = APIRouter(prefix="/karau-meet", tags=["AI KARAU Meeting"])
 
@@ -519,7 +520,7 @@ async def end_meeting_room(
     meeting_id: str,
     user: dict = Depends(require_auth)
 ):
-    """End a meeting (host only)"""
+    """End a meeting (host only) and auto-create ENZI channel"""
     success = await end_meeting(meeting_id, user["user_id"])
     
     if not success:
@@ -540,7 +541,17 @@ async def end_meeting_room(
                 pass
         del connected_clients[meeting_id]
     
-    return {"success": True}
+    # Auto-create ENZI channel from meeting (meeting-to-channel conversion)
+    channel_result = None
+    try:
+        meeting_data = await get_meeting(meeting_id)
+        if meeting_data:
+            channel_result = await convert_meeting_to_channel(meeting_data)
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).warning(f"Meeting-to-channel conversion failed for {meeting_id}: {e}")
+    
+    return {"success": True, "channel_created": channel_result}
 
 
 @router.get("/meetings/{meeting_id}/participants")
