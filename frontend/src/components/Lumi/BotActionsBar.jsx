@@ -1,12 +1,22 @@
 import { useState, useEffect } from 'react';
-import { Loader2, Clipboard, Bell, BarChart3, Video, Hand, Brain, Globe, Github, ChevronDown, ChevronUp, Bot } from 'lucide-react';
+import {
+  Loader2, Clipboard, Bell, BarChart3, Video, Hand, Brain, Globe, Github,
+  ChevronDown, ChevronUp, Bot, Users, FileText, Mic, Zap, DollarSign,
+  Edit, Calendar, Search, BookOpen, MessageCircle, Shield, MonitorSmartphone,
+  Scale, AlertTriangle, CheckCircle
+} from 'lucide-react';
 import { toast } from 'sonner';
 import { API, ESY } from './constants';
 
 const ICONS = {
   clipboard: Clipboard, bell: Bell, 'bar-chart': BarChart3,
   video: Video, 'hand-wave': Hand, brain: Brain,
-  globe: Globe, github: Github,
+  globe: Globe, github: Github, 'user-search': Users,
+  'file-text': FileText, mic: Mic, zap: Zap, 'dollar-sign': DollarSign,
+  edit: Edit, calendar: Calendar, search: Search, users: Users,
+  'book-open': BookOpen, 'message-circle': MessageCircle, shield: Shield,
+  monitor: MonitorSmartphone, scale: Scale, 'alert-triangle': AlertTriangle,
+  'check-circle': CheckCircle,
 };
 
 const BotActionsBar = ({ channelId, token }) => {

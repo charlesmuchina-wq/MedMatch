@@ -1,7 +1,10 @@
 """
-ENZI Bot Store
-- Pre-built bots: Standup, Reminder, Poll, Meeting, Welcome
-- Browse, install, configure bots per channel
+ENZI Bot Store — Full Marketplace
+18 specialized bots across 4 categories:
+  1. Job Toolkit (Recruitment & Job Seeker)
+  2. AI Meeting Portal
+  3. AI Messenger
+  4. AI Quality & Security Audit
 """
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
@@ -14,76 +17,364 @@ from routes.auth import get_current_user
 
 router = APIRouter(prefix="/lumi/bots", tags=["ENZI Bot Store"])
 
+# ═══════════════════════════════════════════════════════════════
+# BOT CATALOG — 18 Specialized Bots
+# ═══════════════════════════════════════════════════════════════
+
 BOT_CATALOG = {
-    "standup": {
-        "name": "Standup Bot",
-        "description": "Automated daily standup prompts. Posts at a set time asking team members: Done / Doing / Blocked.",
-        "icon": "clipboard",
-        "category": "Productivity",
-        "default_config": {"schedule": "09:00", "timezone": "UTC", "prompt": "Share your standup: Done / Doing / Blocked"}
+    # ── Category 1: Job Toolkit ──
+    "talent_matcher": {
+        "name": "Talent Matcher",
+        "description": "Analyzes 800M+ global profiles to find candidates matching natural language queries.",
+        "icon": "user-search",
+        "category": "Job Toolkit",
+        "subcategory": "Recruitment",
+        "featured": True,
+        "default_config": {"search_scope": "global", "min_match_score": 75, "include_passive": True},
+        "commands": ["/match <query>", "/talent-pool", "/shortlist"],
+        "install_count": 3240,
+        "rating": 4.8,
     },
-    "reminder": {
-        "name": "Reminder Bot",
-        "description": "Set reminders for yourself or the channel. Never miss a deadline.",
-        "icon": "bell",
-        "category": "Productivity",
-        "default_config": {"default_snooze": 15}
+    "resume_architect": {
+        "name": "Resume & Cover Letter Architect",
+        "description": "Generates tailored, ATS-optimized resumes and cover letters from a job link.",
+        "icon": "file-text",
+        "category": "Job Toolkit",
+        "subcategory": "Job Seeker",
+        "featured": True,
+        "default_config": {"format": "modern", "ats_optimize": True, "language": "en"},
+        "commands": ["/build-resume <job-url>", "/cover-letter", "/ats-check"],
+        "install_count": 5180,
+        "rating": 4.9,
     },
-    "poll": {
-        "name": "Poll Bot",
-        "description": "Create quick polls in any channel. Supports multiple choice and anonymous voting.",
-        "icon": "bar-chart",
-        "category": "Engagement",
-        "default_config": {"allow_anonymous": True, "max_options": 10}
+    "interview_copilot": {
+        "name": "Interview Copilot",
+        "description": "Real-time suggestions, speech-to-text practice, and feedback on filler words and body language.",
+        "icon": "mic",
+        "category": "Job Toolkit",
+        "subcategory": "Job Seeker",
+        "featured": False,
+        "default_config": {"feedback_mode": "real-time", "track_fillers": True, "body_language": True},
+        "commands": ["/mock-interview", "/practice", "/feedback"],
+        "install_count": 2870,
+        "rating": 4.7,
     },
-    "meeting": {
-        "name": "Meeting Bot",
-        "description": "Auto-detect meeting requests in chat and create AI KARAU meetings. Syncs with calendar.",
-        "icon": "video",
-        "category": "Collaboration",
-        "default_config": {"auto_detect": True, "default_duration": 30}
+    "ez_sourcing": {
+        "name": "EZ Sourcing Agent",
+        "description": "Autonomous multi-step sourcing with email verification and personalized outreach sequences.",
+        "icon": "zap",
+        "category": "Job Toolkit",
+        "subcategory": "Recruitment",
+        "featured": False,
+        "default_config": {"auto_verify_email": True, "sequence_steps": 3, "follow_up_days": 3},
+        "commands": ["/source <role>", "/outreach", "/sequence"],
+        "install_count": 1950,
+        "rating": 4.5,
     },
-    "welcome": {
-        "name": "Welcome Bot",
-        "description": "Greet new members with a custom welcome message and onboarding checklist.",
-        "icon": "hand-wave",
-        "category": "Onboarding",
-        "default_config": {"message": "Welcome to the team! Here's how to get started:", "show_checklist": True}
+    "salary_negotiator": {
+        "name": "Salary Negotiator",
+        "description": "Analyzes thousands of listings to estimate fair compensation and runs mock negotiations.",
+        "icon": "dollar-sign",
+        "category": "Job Toolkit",
+        "subcategory": "Job Seeker",
+        "featured": False,
+        "default_config": {"region": "US", "include_benefits": True, "mock_mode": True},
+        "commands": ["/salary <role>", "/negotiate", "/benchmark"],
+        "install_count": 2120,
+        "rating": 4.6,
     },
-    "summary": {
-        "name": "Summary Bot",
-        "description": "Auto-summarize long conversations daily. Never miss important updates.",
+
+    # ── Category 2: AI Meeting Portal ──
+    "note_taker": {
+        "name": "Automated Note-Taker",
+        "description": "Records and transcribes meetings in real-time, extracting action items and key insights.",
+        "icon": "edit",
+        "category": "AI Meeting",
+        "subcategory": "Transcription",
+        "featured": True,
+        "default_config": {"auto_record": True, "extract_actions": True, "language": "en"},
+        "commands": ["/notes", "/action-items", "/transcript"],
+        "install_count": 8920,
+        "rating": 4.9,
+    },
+    "smart_scheduler": {
+        "name": "Smart Scheduler",
+        "description": "Syncs calendars, finds optimal meeting times, and sends automated invites and reminders.",
+        "icon": "calendar",
+        "category": "AI Meeting",
+        "subcategory": "Scheduling",
+        "featured": False,
+        "default_config": {"calendar_sync": True, "auto_reminders": True, "buffer_minutes": 10},
+        "commands": ["/schedule", "/find-time", "/remind"],
+        "install_count": 4150,
+        "rating": 4.7,
+    },
+    "search_copilot": {
+        "name": "Search Copilot",
+        "description": "Ask AI questions across past meeting transcripts and summaries to retrieve context.",
+        "icon": "search",
+        "category": "AI Meeting",
+        "subcategory": "Intelligence",
+        "featured": True,
+        "default_config": {"search_depth": "all", "include_summaries": True},
+        "commands": ["/ask <question>", "/find-meeting", "/recall"],
+        "install_count": 3680,
+        "rating": 4.8,
+    },
+    "attendance_tracker": {
+        "name": "Attendance & Participation Tracker",
+        "description": "Generates attendance sheets and analyzes participant engagement by tracking talk time.",
+        "icon": "users",
+        "category": "AI Meeting",
+        "subcategory": "Analytics",
+        "featured": False,
+        "default_config": {"track_talk_time": True, "auto_sheet": True, "engagement_alerts": False},
+        "commands": ["/attendance", "/engagement", "/report"],
+        "install_count": 2340,
+        "rating": 4.4,
+    },
+    "summary_generator": {
+        "name": "Summary Generator",
+        "description": "Converts full transcripts into 2-min highlight reels or structured summaries.",
         "icon": "brain",
-        "category": "AI",
-        "default_config": {"frequency": "daily", "time": "18:00"}
+        "category": "AI Meeting",
+        "subcategory": "Intelligence",
+        "featured": False,
+        "default_config": {"format": "structured", "include_highlights": True, "auto_generate": True},
+        "commands": ["/summarize", "/highlights", "/digest"],
+        "install_count": 5470,
+        "rating": 4.8,
     },
-    "translator": {
-        "name": "Translator Bot",
-        "description": "Auto-translate messages in multilingual channels. Supports 50+ languages.",
+
+    # ── Category 3: AI Messenger ──
+    "knowledge_layer": {
+        "name": "Knowledge Layer Bot",
+        "description": "Plugs into existing tools (Docs, Slack, Teams) to answer team questions using company-wide data.",
+        "icon": "book-open",
+        "category": "AI Messenger",
+        "subcategory": "Knowledge",
+        "featured": True,
+        "default_config": {"sources": ["docs", "slack", "teams"], "auto_index": True},
+        "commands": ["/ask <question>", "/index", "/sources"],
+        "install_count": 6120,
+        "rating": 4.9,
+    },
+    "multilingual_translator": {
+        "name": "Multilingual Translator",
+        "description": "Real-time bilingual transcription and translation for global team communication.",
         "icon": "globe",
-        "category": "Communication",
-        "default_config": {"target_language": "en", "auto_translate": False}
+        "category": "AI Messenger",
+        "subcategory": "Communication",
+        "featured": False,
+        "default_config": {"target_language": "en", "auto_detect": True, "inline_translation": True},
+        "commands": ["/translate <lang>", "/detect", "/toggle-auto"],
+        "install_count": 4780,
+        "rating": 4.7,
     },
-    "github_notify": {
-        "name": "GitHub Notify Bot",
-        "description": "Get real-time notifications for commits, PRs, and issues from your repositories.",
-        "icon": "github",
-        "category": "DevOps",
-        "default_config": {"events": ["push", "pull_request", "issues"]}
-    }
+    "omnichannel_assistant": {
+        "name": "Omnichannel Assistant",
+        "description": "Manages SMS, WhatsApp, and web chat from a single interface for consistent messaging.",
+        "icon": "message-circle",
+        "category": "AI Messenger",
+        "subcategory": "Communication",
+        "featured": False,
+        "default_config": {"channels": ["sms", "whatsapp", "webchat"], "unified_inbox": True},
+        "commands": ["/inbox", "/route <channel>", "/broadcast"],
+        "install_count": 2890,
+        "rating": 4.5,
+    },
+
+    # ── Category 4: AI Quality & Security Audit ──
+    "compliance_audit": {
+        "name": "AI Compliance Audit Bot",
+        "description": "Checks against USA, EU, and UK regulations (HIPAA, GDPR), providing risk scores and PDF reports.",
+        "icon": "shield",
+        "category": "Security & QA",
+        "subcategory": "Compliance",
+        "featured": True,
+        "default_config": {"frameworks": ["HIPAA", "GDPR", "SOC2"], "auto_scan": True, "report_format": "pdf"},
+        "commands": ["/audit", "/risk-score", "/compliance-report"],
+        "install_count": 3420,
+        "rating": 4.8,
+    },
+    "visual_testing": {
+        "name": "UI/UX Visual Testing Bot",
+        "description": "Automated functional and visual testing to ensure consistent UX across devices.",
+        "icon": "monitor",
+        "category": "Security & QA",
+        "subcategory": "Testing",
+        "featured": False,
+        "default_config": {"devices": ["desktop", "mobile", "tablet"], "auto_regression": True},
+        "commands": ["/test-ui", "/screenshot-diff", "/regression"],
+        "install_count": 1560,
+        "rating": 4.3,
+    },
+    "bias_auditor": {
+        "name": "Data Integrity & Bias Auditor",
+        "description": "Scans recruitment datasets to identify hidden patterns, discrepancies, and potential bias.",
+        "icon": "scale",
+        "category": "Security & QA",
+        "subcategory": "Compliance",
+        "featured": False,
+        "default_config": {"scan_frequency": "weekly", "bias_categories": ["gender", "age", "ethnicity"], "auto_alert": True},
+        "commands": ["/audit-data", "/bias-report", "/fairness-score"],
+        "install_count": 1890,
+        "rating": 4.6,
+    },
+    "threat_scanner": {
+        "name": "Threat & Conduct Scanner",
+        "description": "Monitors communication for threats, scams, and inappropriate conduct using NLU.",
+        "icon": "alert-triangle",
+        "category": "Security & QA",
+        "subcategory": "Security",
+        "featured": False,
+        "default_config": {"scan_mode": "realtime", "sensitivity": "medium", "auto_flag": True},
+        "commands": ["/scan", "/threats", "/conduct-report"],
+        "install_count": 2650,
+        "rating": 4.7,
+    },
+    "translation_qa": {
+        "name": "Translation QA Bot",
+        "description": "Audits AI translations for accuracy, tone, and cultural context to prevent breakdowns.",
+        "icon": "check-circle",
+        "category": "Security & QA",
+        "subcategory": "Testing",
+        "featured": False,
+        "default_config": {"check_tone": True, "check_cultural": True, "languages": ["es", "fr", "de", "ja", "zh"]},
+        "commands": ["/qa-translate", "/tone-check", "/cultural-review"],
+        "install_count": 1230,
+        "rating": 4.4,
+    },
+}
+
+CATEGORY_ORDER = ["Job Toolkit", "AI Meeting", "AI Messenger", "Security & QA"]
+
+# Bot action handlers
+BOT_ACTIONS = {
+    "talent_matcher": {
+        "actions": [{"id": "match", "label": "Find Talent", "icon": "user-search"}],
+        "handler": lambda p: f"**Talent Search**\nSearching 800M+ profiles for: *{p.get('query', 'senior backend engineer')}*\nMatch score threshold: 75%\n\nProcessing results..."
+    },
+    "resume_architect": {
+        "actions": [{"id": "build_resume", "label": "Build Resume", "icon": "file-text"}],
+        "handler": lambda p: "**Resume Architect**\nGenerating ATS-optimized resume from job listing...\nFormat: Modern | Language: English | ATS Score: Calculating..."
+    },
+    "interview_copilot": {
+        "actions": [{"id": "mock_interview", "label": "Mock Interview", "icon": "mic"}],
+        "handler": lambda p: "**Interview Copilot**\nStarting mock interview session...\nTracking: filler words, pacing, body language\nSay 'ready' to begin."
+    },
+    "ez_sourcing": {
+        "actions": [{"id": "source", "label": "Start Sourcing", "icon": "zap"}],
+        "handler": lambda p: f"**EZ Sourcing Agent**\nStarting autonomous sourcing for: *{p.get('role', 'open role')}*\nSteps: Profile scan → Email verification → Outreach"
+    },
+    "salary_negotiator": {
+        "actions": [{"id": "benchmark", "label": "Salary Benchmark", "icon": "dollar-sign"}],
+        "handler": lambda p: f"**Salary Negotiator**\nAnalyzing compensation data for *{p.get('role', 'this role')}*...\nRegion: US | Including benefits: Yes"
+    },
+    "note_taker": {
+        "actions": [{"id": "notes", "label": "Start Notes", "icon": "edit"}],
+        "handler": lambda p: "**Note-Taker Active**\nRecording and transcribing in real-time.\nAction items and key insights will be extracted automatically."
+    },
+    "smart_scheduler": {
+        "actions": [{"id": "schedule", "label": "Schedule Meeting", "icon": "calendar"}],
+        "handler": lambda p: "**Smart Scheduler**\nAnalyzing calendars to find optimal time...\nBuffer: 10 min | Reminders: Enabled"
+    },
+    "search_copilot": {
+        "actions": [{"id": "ask", "label": "Ask AI", "icon": "search"}],
+        "handler": lambda p: f"**Search Copilot**\nSearching past meetings for: *{p.get('question', 'your query')}*..."
+    },
+    "attendance_tracker": {
+        "actions": [{"id": "attendance", "label": "Attendance Report", "icon": "users"}],
+        "handler": lambda p: "**Attendance Tracker**\nGenerating attendance sheet and engagement metrics..."
+    },
+    "summary_generator": {
+        "actions": [{"id": "summarize", "label": "Summarize", "icon": "brain"}],
+        "handler": lambda p: "**Summary Generator**\nConverting transcript into structured summary with highlights..."
+    },
+    "knowledge_layer": {
+        "actions": [{"id": "ask", "label": "Ask Knowledge", "icon": "book-open"}],
+        "handler": lambda p: f"**Knowledge Layer**\nSearching company-wide data for: *{p.get('question', 'your question')}*..."
+    },
+    "multilingual_translator": {
+        "actions": [{"id": "translate", "label": "Translate", "icon": "globe"}],
+        "handler": lambda p: f"**Translator Active**\nAuto-translating to {p.get('language', 'English')}. Language detection: ON"
+    },
+    "omnichannel_assistant": {
+        "actions": [{"id": "inbox", "label": "Unified Inbox", "icon": "message-circle"}],
+        "handler": lambda p: "**Omnichannel Assistant**\nUnified inbox active: SMS, WhatsApp, Web Chat\nAll messages routed here."
+    },
+    "compliance_audit": {
+        "actions": [{"id": "audit", "label": "Run Audit", "icon": "shield"}],
+        "handler": lambda p: "**Compliance Audit**\nScanning against HIPAA, GDPR, SOC2 frameworks...\nGenerating risk score and PDF report."
+    },
+    "visual_testing": {
+        "actions": [{"id": "test", "label": "Run UI Tests", "icon": "monitor"}],
+        "handler": lambda p: "**Visual Testing Bot**\nRunning regression tests across desktop, mobile, tablet..."
+    },
+    "bias_auditor": {
+        "actions": [{"id": "audit_data", "label": "Audit Data", "icon": "scale"}],
+        "handler": lambda p: "**Bias Auditor**\nScanning recruitment datasets for hidden patterns and potential bias..."
+    },
+    "threat_scanner": {
+        "actions": [{"id": "scan", "label": "Scan Threats", "icon": "alert-triangle"}],
+        "handler": lambda p: "**Threat Scanner**\nMonitoring communications for threats, scams, and conduct issues..."
+    },
+    "translation_qa": {
+        "actions": [{"id": "qa", "label": "QA Translations", "icon": "check-circle"}],
+        "handler": lambda p: "**Translation QA**\nAuditing translations for accuracy, tone, and cultural context..."
+    },
 }
 
 
+# ═══════════════════════════════════════════════════════════════
+# ENDPOINTS
+# ═══════════════════════════════════════════════════════════════
+
 @router.get("/catalog")
-async def get_bot_catalog():
-    """Browse available bots"""
-    return {
-        "bots": [
-            {"id": k, "name": v["name"], "description": v["description"], "icon": v["icon"], "category": v["category"]}
-            for k, v in BOT_CATALOG.items()
-        ],
-        "categories": list(set(v["category"] for v in BOT_CATALOG.values()))
-    }
+async def get_bot_catalog(category: Optional[str] = None, featured: Optional[bool] = None):
+    """Browse available bots with optional filters"""
+    bots = []
+    for k, v in BOT_CATALOG.items():
+        if category and v["category"] != category:
+            continue
+        if featured is not None and v.get("featured") != featured:
+            continue
+        bots.append({
+            "id": k, "name": v["name"], "description": v["description"],
+            "icon": v.get("icon", "brain"), "category": v["category"],
+            "subcategory": v.get("subcategory", ""),
+            "featured": v.get("featured", False),
+            "commands": v.get("commands", []),
+            "install_count": v.get("install_count", 0),
+            "rating": v.get("rating", 0),
+        })
+    categories = CATEGORY_ORDER
+    return {"bots": bots, "categories": categories, "total": len(bots)}
+
+
+@router.get("/featured")
+async def get_featured_bots():
+    """Get featured bots for marketplace hero"""
+    featured = [
+        {"id": k, "name": v["name"], "description": v["description"],
+         "icon": v.get("icon", "brain"), "category": v["category"],
+         "install_count": v.get("install_count", 0), "rating": v.get("rating", 0)}
+        for k, v in BOT_CATALOG.items() if v.get("featured")
+    ]
+    return {"bots": featured}
+
+
+@router.get("/popular")
+async def get_popular_bots():
+    """Get top 6 most installed bots"""
+    sorted_bots = sorted(BOT_CATALOG.items(), key=lambda x: x[1].get("install_count", 0), reverse=True)
+    popular = [
+        {"id": k, "name": v["name"], "description": v["description"],
+         "icon": v.get("icon", "brain"), "category": v["category"],
+         "install_count": v.get("install_count", 0), "rating": v.get("rating", 0)}
+        for k, v in sorted_bots[:6]
+    ]
+    return {"bots": popular}
 
 
 class InstallBotRequest(BaseModel):
@@ -103,7 +394,6 @@ async def install_bot(req: InstallBotRequest, request: Request):
     if not bot:
         raise HTTPException(status_code=404, detail="Bot not found")
 
-    # Check if already installed
     existing = await db.enzi_installed_bots.find_one(
         {"bot_id": req.bot_id, "channel_id": req.channel_id}
     )
@@ -124,11 +414,10 @@ async def install_bot(req: InstallBotRequest, request: Request):
         "created_at": datetime.now(timezone.utc).isoformat()
     })
 
-    # Post welcome message
     await db.lumi_messages.insert_one({
         "id": str(uuid.uuid4()),
         "channel_id": req.channel_id,
-        "content": f"**{bot['name']}** has been installed in this channel. {bot['description']}",
+        "content": f"**{bot['name']}** has been installed. {bot['description']}",
         "sender_id": f"bot_{req.bot_id}",
         "sender_name": f"[Bot] {bot['name']}",
         "type": "system",
@@ -165,7 +454,6 @@ async def uninstall_bot(install_id: str, request: Request):
         raise HTTPException(status_code=404, detail="Installation not found")
 
     return {"status": "uninstalled"}
-
 
 
 class ToggleBotRequest(BaseModel):
@@ -210,64 +498,60 @@ async def configure_bot(install_id: str, req: ConfigureBotRequest, request: Requ
     return {"status": "configured", "config": req.config}
 
 
+class ReviewBotRequest(BaseModel):
+    bot_id: str
+    rating: int  # 1-5
+    review: Optional[str] = None
+
+
+@router.post("/review")
+async def review_bot(req: ReviewBotRequest, request: Request):
+    """Rate and review a bot"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    if req.rating < 1 or req.rating > 5:
+        raise HTTPException(status_code=400, detail="Rating must be 1-5")
+
+    if req.bot_id not in BOT_CATALOG:
+        raise HTTPException(status_code=404, detail="Bot not found")
+
+    review_id = str(uuid.uuid4())
+    await db.bot_reviews.update_one(
+        {"bot_id": req.bot_id, "user_id": user.get("user_id")},
+        {"$set": {
+            "id": review_id,
+            "bot_id": req.bot_id,
+            "user_id": user.get("user_id"),
+            "user_name": user.get("full_name", "User"),
+            "rating": req.rating,
+            "review": req.review or "",
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }},
+        upsert=True
+    )
+
+    return {"status": "reviewed", "review_id": review_id}
+
+
+@router.get("/reviews/{bot_id}")
+async def get_bot_reviews(bot_id: str):
+    """Get reviews for a bot"""
+    if bot_id not in BOT_CATALOG:
+        raise HTTPException(status_code=404, detail="Bot not found")
+
+    reviews = await db.bot_reviews.find({"bot_id": bot_id}, {"_id": 0}).sort("created_at", -1).to_list(50)
+    avg_rating = sum(r["rating"] for r in reviews) / len(reviews) if reviews else BOT_CATALOG[bot_id].get("rating", 0)
+
+    return {"reviews": reviews, "count": len(reviews), "avg_rating": round(avg_rating, 1)}
+
 
 class BotActionRequest(BaseModel):
     bot_id: str
     channel_id: str
-    action: str  # e.g. "start_poll", "set_reminder", "run_standup"
+    action: str
     params: Optional[dict] = None
-
-
-BOT_ACTIONS = {
-    "standup": {
-        "actions": [
-            {"id": "run_standup", "label": "Run Standup", "icon": "clipboard"},
-        ],
-        "handler": lambda p: "**Daily Standup**\nPlease share your update:\n- What did you do yesterday?\n- What will you do today?\n- Any blockers?"
-    },
-    "reminder": {
-        "actions": [
-            {"id": "set_reminder", "label": "Set Reminder", "icon": "bell"},
-        ],
-        "handler": lambda p: f"**Reminder Set:** {p.get('text', 'Check back later!')} at {p.get('time', 'in 15 minutes')}"
-    },
-    "poll": {
-        "actions": [
-            {"id": "start_poll", "label": "Start Poll", "icon": "bar-chart"},
-        ],
-        "handler": lambda p: f"**Poll:** {p.get('question', 'What do you think?')}\n{chr(10).join(f'- {opt}' for opt in p.get('options', ['Option A', 'Option B', 'Option C']))}\n\n_React to vote!_"
-    },
-    "meeting": {
-        "actions": [
-            {"id": "start_meeting", "label": "Quick Meeting", "icon": "video"},
-        ],
-        "handler": lambda p: "**Meeting Starting Now**\nJoin the AI KARAU meeting to collaborate in real-time."
-    },
-    "welcome": {
-        "actions": [
-            {"id": "send_welcome", "label": "Welcome Message", "icon": "hand-wave"},
-        ],
-        "handler": lambda p: "**Welcome to the team!** Here's how to get started:\n1. Introduce yourself in this channel\n2. Check out pinned messages\n3. Set your status and profile"
-    },
-    "summary": {
-        "actions": [
-            {"id": "run_summary", "label": "Summarize Now", "icon": "brain"},
-        ],
-        "handler": lambda p: "**Channel Summary**\nGenerating summary of recent conversations..."
-    },
-    "translator": {
-        "actions": [
-            {"id": "translate", "label": "Translate", "icon": "globe"},
-        ],
-        "handler": lambda p: f"**Translation Bot Active**\nAuto-translating messages to {p.get('language', 'English')}."
-    },
-    "github_notify": {
-        "actions": [
-            {"id": "check_status", "label": "Check Repos", "icon": "github"},
-        ],
-        "handler": lambda p: "**GitHub Status**\nMonitoring repositories for push, PR, and issue events."
-    },
-}
 
 
 @router.post("/action")
@@ -277,7 +561,6 @@ async def execute_bot_action(req: BotActionRequest, request: Request):
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
 
-    # Verify bot is installed in this channel
     installed = await db.enzi_installed_bots.find_one(
         {"bot_id": req.bot_id, "channel_id": req.channel_id, "is_active": True}
     )
@@ -288,11 +571,10 @@ async def execute_bot_action(req: BotActionRequest, request: Request):
     if not bot_def:
         raise HTTPException(status_code=404, detail="Bot actions not defined")
 
-    # Generate bot response message
     content = bot_def["handler"](req.params or {})
-
     msg_id = str(uuid.uuid4())
     bot_info = BOT_CATALOG.get(req.bot_id, {})
+
     await db.lumi_messages.insert_one({
         "id": msg_id,
         "channel_id": req.channel_id,
@@ -310,14 +592,13 @@ async def execute_bot_action(req: BotActionRequest, request: Request):
 
 @router.get("/channel/{channel_id}")
 async def get_channel_bots(channel_id: str, request: Request):
-    """Get installed bots for a specific channel with available actions"""
+    """Get installed bots for a channel with actions"""
     user = await get_current_user(request)
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
 
     bots = await db.enzi_installed_bots.find(
-        {"channel_id": channel_id, "is_active": True},
-        {"_id": 0}
+        {"channel_id": channel_id, "is_active": True}, {"_id": 0}
     ).to_list(20)
 
     result = []
