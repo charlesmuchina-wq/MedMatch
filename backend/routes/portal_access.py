@@ -226,3 +226,28 @@ async def auto_bundle(req: AutoBundleRequest, request: Request):
         "auto_bundled": True,
         "companion": [p for p in bundle["portals"] if p != portal]
     }
+
+
+# Domain configuration for frontend routing
+DOMAIN_CONFIG = {
+    "aikarau.com": {"portal": "ecosystem", "title": "MedMatch-AI KARAU", "audience": "recruiter"},
+    "ai.karau.com": {"portal": "ecosystem", "title": "AI KARAU Ecosystem", "audience": "recruiter"},
+    "medmatch.aikarau.com": {"portal": "medmatch", "title": "MedMatch AI — Enterprise Recruitment Platform", "audience": "company"},
+    "careers.aikarau.com": {"portal": "careers", "title": "AI KARAU Careers", "audience": "jobseeker"},
+    "jobs.aikarau.com": {"portal": "careers", "title": "AI KARAU Jobs", "audience": "jobseeker"},
+    "connect.aikarau.com": {"portal": "karau", "title": "AI KARAU Connect", "audience": "all"},
+    "meet.aikarau.com": {"portal": "karau", "title": "AI KARAU Meet", "audience": "all"},
+    "enzi.aikarau.com": {"portal": "enzi", "title": "ENZI Messenger", "audience": "all"},
+    "enzilink.com": {"portal": "enzi", "title": "ENZI Messenger", "audience": "all", "standalone": True},
+}
+
+@router.get("/domain-config")
+async def get_domain_config(hostname: str = None):
+    """Get portal config for a given domain/hostname"""
+    if hostname and hostname in DOMAIN_CONFIG:
+        return {"config": DOMAIN_CONFIG[hostname], "hostname": hostname}
+    return {
+        "config": {"portal": "ecosystem", "title": "MedMatch-AI KARAU"},
+        "hostname": hostname or "default",
+        "all_domains": DOMAIN_CONFIG
+    }

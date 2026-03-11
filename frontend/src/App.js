@@ -630,7 +630,7 @@ const ApplyDialog = ({ job, open, onClose, onConfirm }) => {
 };
 
 // Main App Content Component
-function AppContent({ skipPortalSelector = false }) {
+function AppContent({ skipPortalSelector = false, forcedPortal = null, domainConfig = null }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [resume, setResume] = useState(null);
   const [savedJobs, setSavedJobs] = useState([]);
@@ -932,8 +932,8 @@ function AppContent({ skipPortalSelector = false }) {
   const isPublicRoute = location.pathname.startsWith('/apply/') || location.pathname.startsWith('/track-application/');
   
   // Check if current path is AI KARAU Meeting standalone portal
-  const isKarauMeetPortal = location.pathname.startsWith('/karau-meet');
-  const isLumiMessenger = location.pathname.startsWith('/lumi');
+  const isKarauMeetPortal = location.pathname.startsWith('/karau-meet') || forcedPortal === 'karau';
+  const isLumiMessenger = location.pathname.startsWith('/lumi') || forcedPortal === 'enzi';
 
   // Get workspace portal list from user's package
   const getWorkspacePortals = () => {
@@ -965,6 +965,10 @@ function AppContent({ skipPortalSelector = false }) {
   
   // Render AI KARAU Meeting standalone portal (has its own auth)
   if (isKarauMeetPortal) {
+    // If accessed via domain (forcedPortal) and not on /karau-meet path, redirect
+    if (forcedPortal === 'karau' && !location.pathname.startsWith('/karau-meet')) {
+      return <Navigate to="/karau-meet" replace />;
+    }
     return (
       <PortalWorkspace portals={workspacePortals} renderPortal={(key, isEmbedded) => renderSidePortal(key)}>
         <div className="min-h-screen flex flex-col">
@@ -982,6 +986,10 @@ function AppContent({ skipPortalSelector = false }) {
 
   // Render ENZI Messenger standalone
   if (isLumiMessenger) {
+    // If accessed via domain (forcedPortal) and not on /lumi path, redirect
+    if (forcedPortal === 'enzi' && !location.pathname.startsWith('/lumi')) {
+      return <Navigate to="/lumi" replace />;
+    }
     return (
       <PortalWorkspace portals={workspacePortals} renderPortal={(key, isEmbedded) => renderSidePortal(key)}>
         <div className="min-h-screen flex flex-col">
@@ -1244,75 +1252,40 @@ function AppContent({ skipPortalSelector = false }) {
   );
 }
 
-// Subdomain Router - Routes to correct portal based on hostname
-const SubdomainRouter = () => {
-  const hostname = window.location.hostname;
-  
-  // Extract subdomain from hostname
-  const getSubdomain = () => {
-    // Check URL param for testing in any environment: ?portal=meet or ?portal=jobs
-    const params = new URLSearchParams(window.location.search);
-    const portalParam = params.get('portal');
-    if (portalParam) {
-      return portalParam.toLowerCase();
-    }
-    
-    // Handle localhost development
-    if (hostname === 'localhost' || hostname === '127.0.0.1') {
-      return null;
-    }
-    
-    // Handle production domains (e.g., meet.aikarau.com)
-    const parts = hostname.split('.');
-    
-    // For aikarau.com domain structure
-    // meet.aikarau.com -> ['meet', 'aikarau', 'com'] -> subdomain = 'meet'
-    // aikarau.com -> ['aikarau', 'com'] -> no subdomain
-    
-    // Check if this is our main domain (aikarau.com)
-    if (parts.includes('aikarau')) {
-      const aikarauIndex = parts.indexOf('aikarau');
-      if (aikarauIndex > 0) {
-        return parts[0].toLowerCase(); // Return the subdomain
-      }
-      return null; // Main domain, no subdomain
-    }
-    
-    // For preview/staging environments (e.g., medkonnect.preview.emergentagent.com)
-    // These don't have subdomains in the traditional sense
-    return null;
-  };
-  
-  const subdomain = getSubdomain();
-  
-  // Route based on subdomain
-  // meet.aikarau.com -> AI KARAU Meeting Portal
-  if (subdomain === 'meet') {
-    return <KarauMeetPortal />;
+import { DomainProvider, useDomain } from '@/contexts/DomainContext';
+
+// Domain-Aware Router — Routes to correct portal based on hostname or ?portal= param
+const DomainRouter = () => {
+  const domain = useDomain();
+
+  // Direct to AI KARAU Meeting portal
+  if (domain.portal === 'karau') {
+    return <AppContent skipPortalSelector={true} forcedPortal="karau" domainConfig={domain} />;
   }
-  
-  // lumi.aikarau.com -> ENZI Messenger
-  if (subdomain === 'lumi') {
-    return <LumiMessenger />;
+
+  // Direct to ENZI Messenger
+  if (domain.portal === 'enzi') {
+    return <AppContent skipPortalSelector={true} forcedPortal="enzi" domainConfig={domain} />;
   }
-  
-  // medmatch.aikarau.com, careers.aikarau.com, jobs.aikarau.com -> MedMatch Jobs (skip portal selector)
-  if (subdomain === 'medmatch' || subdomain === 'careers' || subdomain === 'jobs') {
-    // For job portal subdomains, we skip the Portal Selector and go directly to login/app
-    return <AppContent skipPortalSelector={true} />;
+
+  // MedMatch or Careers (job seeker) — skip portal selector, go to MedMatch app
+  if (domain.portal === 'medmatch' || domain.portal === 'careers') {
+    return <AppContent skipPortalSelector={true} domainConfig={domain} />;
   }
-  
-  // Main domain (aikarau.com) or unknown subdomain -> Show Portal Selector first
-  return <AppContent />;
+
+  // Ecosystem (main domain) — show portal selector
+  return <AppContent domainConfig={domain} />;
 };
 
-// Main App Component with Theme Provider
+// Main App Component with Theme Provider + Domain Provider
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
         <I18nProvider>
-          <SubdomainRouter />
+          <DomainProvider>
+            <DomainRouter />
+          </DomainProvider>
         </I18nProvider>
       </ThemeProvider>
     </BrowserRouter>

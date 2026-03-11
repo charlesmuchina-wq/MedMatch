@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Video, Briefcase, ArrowRight, Sparkles, Users, FileText, Shield, MessageCircle, Hash, Crown, ChevronDown } from 'lucide-react';
+import { Video, Briefcase, ArrowRight, Sparkles, Users, FileText, Shield, MessageCircle, Hash, Crown, ChevronDown, Globe, ExternalLink } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import GlobalLanguageSelector from '@/components/GlobalLanguageSelector';
 import { useTranslation } from "@/utils/i18n";
+import { useDomain } from '@/contexts/DomainContext';
 
 /**
  * PortalSelector — Landing page
@@ -23,6 +24,7 @@ const APPS = [
     color: '#6C5CE7',
     gradient: 'from-violet-500 to-indigo-600',
     badgeStyle: 'bg-violet-500/20 text-violet-300 border-violet-500/30',
+    domains: ['connect.aikarau.com', 'meet.aikarau.com'],
     features: [
       { icon: Video, text: 'HD Video & Audio' },
       { icon: MessageCircle, text: 'Auto-includes ENZI Messenger' },
@@ -40,6 +42,7 @@ const APPS = [
     color: '#00CEC9',
     gradient: 'from-teal-400 to-cyan-500',
     badgeStyle: 'bg-teal-500/20 text-teal-300 border-teal-500/30',
+    domains: ['enzi.aikarau.com', 'enzilink.com'],
     features: [
       { icon: Hash, text: 'Channels, DMs & Bots' },
       { icon: Video, text: 'Auto-includes AI KARAU' },
@@ -57,6 +60,7 @@ const APPS = [
     color: '#00B894',
     gradient: 'from-teal-400 to-emerald-500',
     badgeStyle: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+    domains: ['medmatch.aikarau.com', 'careers.aikarau.com', 'jobs.aikarau.com'],
     features: [
       { icon: FileText, text: 'AI Resume Parser' },
       { icon: Sparkles, text: 'Smart Job Matching' },
@@ -184,7 +188,7 @@ const PortalSelector = () => {
                   )}
 
                   {/* Features */}
-                  <div className="space-y-2 mb-6">
+                  <div className="space-y-2 mb-4">
                     {app.features.map((feat, i) => (
                       <div key={i} className="feature-item flex items-center gap-2.5 text-sm text-white/85">
                         <div className={`w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br ${app.gradient}`} style={{ opacity: 0.15 }}>
@@ -194,6 +198,23 @@ const PortalSelector = () => {
                       </div>
                     ))}
                   </div>
+
+                  {/* Domain URLs */}
+                  {app.domains && app.domains.length > 0 && (
+                    <div className="mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]">
+                      <div className="flex items-center gap-1.5 mb-1.5">
+                        <Globe className="w-3 h-3 text-slate-500" />
+                        <span className="text-[10px] text-slate-500 font-medium uppercase tracking-wider">Direct Access</span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {app.domains.map((d) => (
+                          <span key={d} className="inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono" data-testid={`domain-${d.replace(/\./g, '-')}`}>
+                            {d}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
 
                   {/* CTA */}
                   <button
