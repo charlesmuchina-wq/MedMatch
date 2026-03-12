@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AI KARAU - Outlook Functions</title>
+  <script>
+    // Office.js initialization for Outlook add-in function commands
+    if (typeof Office !== 'undefined') {
+      Office.onReady(function() {
+        console.log('AI KARAU Outlook Functions ready');
+      });
+    }
+
+    // Function to create a KARAU meeting link
+    function createKarauMeeting(event) {
+      var meetingId = 'karau-' + Date.now().toString(36);
+      var meetingUrl = 'https://ai-suite-test.preview.emergentagent.com/karau-meet/join/' + meetingId;
+      
+      if (Office && Office.context && Office.context.mailbox) {
+        Office.context.mailbox.item.body.setAsync(
+          '<p>Join AI KARAU Meeting: <a href="' + meetingUrl + '">' + meetingUrl + '</a></p>',
+          { coercionType: Office.CoercionType.Html },
+          function(result) {
+            event.completed();
+          }
+        );
+      } else {
+        event.completed();
+      }
+    }
+  </script>
+</head>
+<body>
+</body>
+</html>

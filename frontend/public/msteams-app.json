@@ -1,0 +1,134 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.17/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.17",
+  "version": "1.0.0",
+  "id": "lumi-ai-hub-1",
+  "developer": {
+    "name": "MedMatch",
+    "websiteUrl": "https://ai-suite-test.preview.emergentagent.com",
+    "privacyUrl": "https://ai-suite-test.preview.emergentagent.com/privacy",
+    "termsOfUseUrl": "https://ai-suite-test.preview.emergentagent.com/terms"
+  },
+  "name": {
+    "short": "AI Suite",
+    "full": "AI KARAU + ENZI + MedMatch"
+  },
+  "description": {
+    "short": "AI-powered video meetings, messenger, and job search",
+    "full": "AI Suite combines three powerful platforms: AI KARAU for enterprise video conferencing with AI transcription and analytics, ENZI for intelligent team messaging with bot workflows, and MedMatch for AI-powered job search. Schedule meetings, collaborate in real-time, and leverage AI-driven insights - all within Microsoft Teams."
+  },
+  "icons": {
+    "color": "color-icon.png",
+    "outline": "outline-icon.png"
+  },
+  "accentColor": "#14b8a6",
+  "staticTabs": [
+    {
+      "entityId": "enzi-messenger",
+      "name": "ENZI Messenger",
+      "contentUrl": "https://ai-suite-test.preview.emergentagent.com/enzi?teams=true",
+      "websiteUrl": "https://ai-suite-test.preview.emergentagent.com/enzi",
+      "scopes": ["personal"]
+    },
+    {
+      "entityId": "karau-meetings",
+      "name": "AI KARAU Meetings",
+      "contentUrl": "https://ai-suite-test.preview.emergentagent.com/karau-meet?teams=true",
+      "websiteUrl": "https://ai-suite-test.preview.emergentagent.com/karau-meet",
+      "scopes": ["personal"]
+    },
+    {
+      "entityId": "medmatch-dashboard",
+      "name": "MedMatch Jobs",
+      "contentUrl": "https://ai-suite-test.preview.emergentagent.com/dashboard?teams=true",
+      "websiteUrl": "https://ai-suite-test.preview.emergentagent.com/dashboard",
+      "scopes": ["personal"]
+    }
+  ],
+  "configurableTabs": [
+    {
+      "configurationUrl": "https://ai-suite-test.preview.emergentagent.com/teams-config",
+      "canUpdateConfiguration": true,
+      "scopes": ["team", "groupChat"],
+      "context": ["channelTab", "privateChatTab", "meetingChatTab", "meetingSidePanel"],
+      "supportedSharePointHosts": []
+    }
+  ],
+  "connectors": [],
+  "composeExtensions": [
+    {
+      "botId": "lumi-ai-hub-1",
+      "canUpdateConfiguration": false,
+      "commands": [
+        {
+          "id": "scheduleKarauMeeting",
+          "type": "action",
+          "title": "Schedule AI KARAU Meeting",
+          "description": "Schedule a new AI-powered video meeting",
+          "initialRun": false,
+          "parameters": [
+            {
+              "name": "title",
+              "title": "Meeting Title",
+              "description": "Name of the meeting",
+              "inputType": "text"
+            },
+            {
+              "name": "duration",
+              "title": "Duration (minutes)",
+              "description": "Meeting duration",
+              "inputType": "text"
+            }
+          ]
+        },
+        {
+          "id": "searchJobs",
+          "type": "query",
+          "title": "Search Jobs",
+          "description": "Search MedMatch job listings",
+          "initialRun": true,
+          "parameters": [
+            {
+              "name": "query",
+              "title": "Search Query",
+              "description": "Job title, skill, or location",
+              "inputType": "text"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "validDomains": [
+    "ai-suite-test.preview.emergentagent.com",
+    "aikarau.com",
+    "enzilink.com",
+    "*.aikarau.com",
+    "*.enzilink.com"
+  ],
+  "webApplicationInfo": {
+    "id": "lumi-ai-hub-1",
+    "resource": "api://ai-suite-test.preview.emergentagent.com/lumi-ai-hub-1"
+  },
+  "authorization": {
+    "permissions": {
+      "resourceSpecific": [
+        {
+          "name": "ChannelMessage.Read.Group",
+          "type": "Application"
+        },
+        {
+          "name": "TeamSettings.Read.Group",
+          "type": "Application"
+        }
+      ]
+    }
+  },
+  "showLoadingIndicator": true,
+  "isFullScreen": false,
+  "defaultBlockUntilAdminAction": false
+}

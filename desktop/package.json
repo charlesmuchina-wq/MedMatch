@@ -1,7 +1,7 @@
 {
-  "name": "medmatch-desktop",
+  "name": "ai-suite-desktop",
   "version": "1.0.0",
-  "description": "MedMatch Desktop App - AI-Powered Job Search",
+  "description": "AI Suite Desktop - KARAU Meetings + ENZI Messenger + MedMatch Jobs",
   "main": "main.js",
   "homepage": "https://github.com/charlesmuchina-wq/MedMatch",
   "author": {
@@ -30,9 +30,9 @@
     "electron-builder": "^24.9.0"
   },
   "build": {
-    "appId": "com.medmatch.desktop",
-    "productName": "MedMatch",
-    "copyright": "Copyright © 2026 MedMatch",
+    "appId": "com.aisuite.desktop",
+    "productName": "AI Suite",
+    "copyright": "Copyright \u00A9 2026 MedMatch",
     "directories": {
       "output": "dist",
       "buildResources": "assets"
@@ -110,7 +110,7 @@
       "installerHeaderIcon": "assets/icon.ico",
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "MedMatch"
+      "shortcutName": "AI Suite"
     },
     "dmg": {
       "contents": [

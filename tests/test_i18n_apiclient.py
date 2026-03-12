@@ -6,7 +6,7 @@ import pytest
 import requests
 import os
 
-BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://lumi-preview.preview.emergentagent.com')
+BASE_URL = os.environ.get('REACT_APP_BACKEND_URL', 'https://ai-suite-test.preview.emergentagent.com')
 
 class TestJobSearchAPI:
     """Tests for Job Search API endpoints used by apiClient"""

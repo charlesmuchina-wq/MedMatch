@@ -1,6 +1,6 @@
 /**
- * MedMatch Desktop App - Main Process
- * Electron wrapper for the MedMatch web application
+ * AI Suite Desktop App - Main Process
+ * Electron wrapper for AI KARAU + ENZI + MedMatch
  * Features: System tray, notifications, auto-launch, offline detection, auto-update
  */
 
@@ -28,7 +28,7 @@ const store = new Store({
 });
 
 // Configuration
-const APP_URL = process.env.MEDMATCH_URL || 'https://lumi-preview.preview.emergentagent.com';
+const APP_URL = process.env.MEDMATCH_URL || 'https://ai-suite-test.preview.emergentagent.com';
 const isDev = process.env.NODE_ENV === 'development';
 
 let mainWindow = null;
@@ -47,7 +47,7 @@ function createWindow() {
     height: bounds.height,
     minWidth: 800,
     minHeight: 600,
-    title: 'MedMatch - AI Job Search',
+    title: 'AI Suite - KARAU + ENZI + MedMatch',
     icon: path.join(__dirname, 'assets', 'icon.png'),
     webPreferences: {
       nodeIntegration: false,
@@ -104,7 +104,7 @@ function createWindow() {
     if (!isQuitting && store.get('minimizeToTray')) {
       event.preventDefault();
       mainWindow.hide();
-      showTrayNotification('MedMatch', 'App minimized to system tray. Click the icon to restore.');
+      showTrayNotification('AI Suite', 'App minimized to system tray. Click the icon to restore.');
     }
   });
 
@@ -196,7 +196,7 @@ function createTray() {
   trayIcon = trayIcon.resize({ width: 16, height: 16 });
   
   tray = new Tray(trayIcon);
-  tray.setToolTip('MedMatch - AI Job Search');
+  tray.setToolTip('AI Suite - KARAU + ENZI + MedMatch');
   updateTrayMenu();
 
   tray.on('double-click', () => {
@@ -217,7 +217,7 @@ function createDefaultIcon() {
 function updateTrayMenu() {
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: 'Open MedMatch',
+      label: 'Open AI Suite',
       click: () => {
         if (mainWindow) {
           mainWindow.show();
@@ -227,26 +227,56 @@ function updateTrayMenu() {
     },
     { type: 'separator' },
     {
-      label: 'Quick Actions',
+      label: 'AI KARAU - Meetings',
       submenu: [
         {
-          label: '🔍 Search Jobs',
+          label: 'Meeting Dashboard',
+          click: () => navigateTo('/karau-meet')
+        },
+        {
+          label: 'Schedule Meeting',
+          click: () => navigateTo('/karau-meet/schedule')
+        },
+        {
+          label: 'Settings',
+          click: () => navigateTo('/karau-meet/settings')
+        }
+      ]
+    },
+    {
+      label: 'ENZI - Messenger',
+      submenu: [
+        {
+          label: 'Open Messenger',
+          click: () => navigateTo('/enzi')
+        },
+        {
+          label: 'Bot Store',
+          click: () => navigateTo('/enzi?bots=true')
+        }
+      ]
+    },
+    {
+      label: 'MedMatch - Jobs',
+      submenu: [
+        {
+          label: 'Search Jobs',
           click: () => navigateTo('/search')
         },
         {
-          label: '📄 My Resume',
+          label: 'My Resume',
           click: () => navigateTo('/resume')
         },
         {
-          label: '📋 Applications',
+          label: 'Applications',
           click: () => navigateTo('/applications')
         },
         {
-          label: '📅 Interviews',
+          label: 'Interviews',
           click: () => navigateTo('/interview-calendar')
         },
         {
-          label: '🤖 AI Assistant',
+          label: 'AI Dashboard',
           click: () => navigateTo('/dashboard')
         }
       ]
@@ -302,7 +332,7 @@ function updateTrayMenu() {
     },
     { type: 'separator' },
     {
-      label: 'Quit MedMatch',
+      label: 'Quit AI Suite',
       click: () => {
         isQuitting = true;
         app.quit();
@@ -369,6 +399,11 @@ function createMenu() {
         },
         { type: 'separator' },
         {
+          label: 'Portal Selector',
+          accelerator: 'CmdOrCtrl+P',
+          click: () => navigateTo('/')
+        },
+        {
           label: 'Preferences',
           accelerator: 'CmdOrCtrl+,',
           click: () => navigateTo('/settings')
@@ -419,11 +454,12 @@ function createMenu() {
     {
       label: 'Navigate',
       submenu: [
-        { label: 'Dashboard', accelerator: 'CmdOrCtrl+1', click: () => navigateTo('/dashboard') },
-        { label: 'Job Search', accelerator: 'CmdOrCtrl+2', click: () => navigateTo('/search') },
-        { label: 'Applications', accelerator: 'CmdOrCtrl+3', click: () => navigateTo('/applications') },
-        { label: 'Interviews', accelerator: 'CmdOrCtrl+4', click: () => navigateTo('/interview-calendar') },
-        { label: 'AI Tools', accelerator: 'CmdOrCtrl+5', click: () => navigateTo('/interview-prep') },
+        { label: 'Portal Home', accelerator: 'CmdOrCtrl+0', click: () => navigateTo('/') },
+        { label: 'AI KARAU', accelerator: 'CmdOrCtrl+1', click: () => navigateTo('/karau-meet') },
+        { label: 'ENZI Messenger', accelerator: 'CmdOrCtrl+2', click: () => navigateTo('/enzi') },
+        { label: 'MedMatch Dashboard', accelerator: 'CmdOrCtrl+3', click: () => navigateTo('/dashboard') },
+        { label: 'Job Search', accelerator: 'CmdOrCtrl+4', click: () => navigateTo('/search') },
+        { label: 'Interviews', accelerator: 'CmdOrCtrl+5', click: () => navigateTo('/interview-calendar') },
         { type: 'separator' },
         { label: 'Back', accelerator: 'Alt+Left', click: () => mainWindow && mainWindow.webContents.goBack() },
         { label: 'Forward', accelerator: 'Alt+Right', click: () => mainWindow && mainWindow.webContents.goForward() }
@@ -483,18 +519,20 @@ function createMenu() {
 
 function showShortcutsDialog() {
   const shortcuts = `
-MedMatch Keyboard Shortcuts:
+AI Suite Keyboard Shortcuts:
 
 Navigation:
-  Ctrl+1  Dashboard
-  Ctrl+2  Job Search
-  Ctrl+3  Applications
-  Ctrl+4  Interviews
-  Ctrl+5  AI Tools
+  Ctrl+0  Portal Home
+  Ctrl+1  AI KARAU Meetings
+  Ctrl+2  ENZI Messenger
+  Ctrl+3  MedMatch Dashboard
+  Ctrl+4  Job Search
+  Ctrl+5  Interview Calendar
 
 Actions:
   Ctrl+N  New Job Search
   Ctrl+U  Upload Resume
+  Ctrl+P  Portal Selector
   Ctrl+,  Preferences
 
 Window:
@@ -516,23 +554,27 @@ Window:
 function showAboutDialog() {
   dialog.showMessageBox(mainWindow, {
     type: 'info',
-    title: 'About MedMatch',
-    message: `MedMatch Desktop v${app.getVersion()}`,
-    detail: `AI-Powered Job Search Platform
+    title: 'About AI Suite',
+    message: `AI Suite Desktop v${app.getVersion()}`,
+    detail: `AI KARAU + ENZI + MedMatch
+
+Portals:
+- AI KARAU: Enterprise video meetings with AI transcription
+- ENZI: Intelligent team messenger with bot workflows
+- MedMatch: AI-powered job search platform
 
 Features:
-• Resume parsing & AI matching
-• Multi-source job aggregation
-• AI interview preparation
-• Voice coaching & video practice
-• Real-time transcription
-• Interview calendar sync
+- AI meeting transcription & analytics
+- Bot marketplace & workflow automation
+- Resume parsing & AI job matching
+- Voice coaching & video practice
+- End-to-end encryption
 
 Platform: ${process.platform} (${process.arch})
 Electron: ${process.versions.electron}
 Chrome: ${process.versions.chrome}
 
-© 2026 MedMatch. All rights reserved.`
+\u00A9 2026 MedMatch. All rights reserved.`
   });
 }
 

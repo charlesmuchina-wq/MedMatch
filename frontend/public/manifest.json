@@ -1,12 +1,17 @@
 {
-  "name": "AI KARAU - Enterprise Video Meetings",
-  "short_name": "AI KARAU",
-  "description": "AI-powered enterprise video conferencing with breakout rooms, host controls, and enterprise-grade security.",
-  "start_url": "/karau-meet",
+  "name": "AI Suite - KARAU + ENZI + MedMatch",
+  "short_name": "AI Suite",
+  "description": "AI-powered communication suite: AI KARAU for enterprise video meetings, ENZI for intelligent team messaging, and MedMatch for AI job search. Features include AI transcription, bot workflows, breakout rooms, and predictive intelligence.",
+  "start_url": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "background_color": "#0a0f1a",
   "theme_color": "#14b8a6",
   "orientation": "any",
+  "scope": "/",
+  "id": "/",
+  "dir": "ltr",
+  "lang": "en-US",
   "icons": [
     {
       "src": "/icons/icon-72x72.png",
@@ -59,27 +64,82 @@
   ],
   "shortcuts": [
     {
-      "name": "Dashboard",
-      "short_name": "Dashboard",
-      "description": "View your meetings dashboard",
+      "name": "AI KARAU Meetings",
+      "short_name": "Meetings",
+      "description": "Open AI KARAU video meeting dashboard",
       "url": "/karau-meet",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "ENZI Messenger",
+      "short_name": "ENZI",
+      "description": "Open ENZI intelligent messenger",
+      "url": "/enzi",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "MedMatch Jobs",
+      "short_name": "Jobs",
+      "description": "Search AI-powered job listings",
+      "url": "/dashboard",
       "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     },
     {
       "name": "Schedule Meeting",
       "short_name": "Schedule",
-      "description": "Schedule a new meeting",
+      "description": "Schedule a new AI KARAU meeting",
       "url": "/karau-meet/schedule",
-      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
-    },
-    {
-      "name": "Settings",
-      "short_name": "Settings",
-      "description": "Manage your meeting settings",
-      "url": "/karau-meet/settings",
       "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     }
   ],
-  "categories": ["productivity", "business", "communication"],
-  "prefer_related_applications": false
+  "categories": ["productivity", "business", "communication", "social"],
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.medmatch.app",
+      "id": "com.medmatch.app"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/medmatch-ai-job-search/id0000000000"
+    },
+    {
+      "platform": "windows",
+      "url": "https://github.com/charlesmuchina-wq/MedMatch/releases"
+    }
+  ],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "handle_links": "preferred",
+  "edge_side_panel": {
+    "preferred_width": 480
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+karau",
+      "url": "/karau-meet/join/%s"
+    },
+    {
+      "protocol": "web+enzi",
+      "url": "/enzi/channel/%s"
+    }
+  ],
+  "share_target": {
+    "action": "/share-target",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "file",
+          "accept": ["image/*", "application/pdf", ".doc", ".docx"]
+        }
+      ]
+    }
+  }
 }

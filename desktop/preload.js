@@ -1,5 +1,5 @@
 /**
- * MedMatch Desktop - Preload Script
+ * AI Suite Desktop - Preload Script
  * Exposes safe APIs to the renderer process
  */
 
@@ -158,7 +158,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   document.body.classList.add(prefersDark ? 'system-dark' : 'system-light');
 
-  console.log('🖥️ MedMatch Desktop loaded');
+  console.log('AI Suite Desktop loaded');
   console.log(`Platform: ${process.platform}`);
   console.log('Desktop features enabled');
 });
