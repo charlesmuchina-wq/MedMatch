@@ -97,7 +97,7 @@ const InviteRegistration = ({ inviteToken, onComplete }) => {
         {/* Branding */}
         <div className="text-center mb-8">
           <div className="w-16 h-16 mx-auto mb-4">
-            <img src="/lumi-icon-only.png" alt="ENZI" className="w-full h-full object-contain" />
+            <img src="/enzi-logo-icon.png" alt="ENZI" className="w-full h-full object-contain" />
           </div>
           <h1 className="text-3xl font-black tracking-[0.15em]"
             style={{ background: 'linear-gradient(135deg, #00CEC9, #6C5CE7, #E84393)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>

@@ -19,7 +19,7 @@ const EnziSplash = ({ onComplete }) => {
         {/* Icon */}
         <div className={`transition-all duration-700 ease-out ${phase >= 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-50'}`}>
           <div className="w-20 h-20 relative">
-            <img src="/lumi-icon-only.png" alt="" className="w-full h-full object-contain" />
+            <img src="/enzi-logo-icon.png" alt="ENZI" className="w-full h-full object-contain" />
             <div className={`absolute inset-0 rounded-full transition-opacity duration-1000 ${phase >= 2 ? 'opacity-0' : 'opacity-100'}`}
               style={{ boxShadow: '0 0 40px 10px rgba(0,206,201,0.3), 0 0 80px 30px rgba(108,92,231,0.15)' }} />
           </div>

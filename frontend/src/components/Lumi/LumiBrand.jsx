@@ -6,13 +6,13 @@
 
 const GRADIENT = 'linear-gradient(135deg, #00CEC9, #6C5CE7, #E84393)';
 
-// Icon-only crops (just the chat bubble, no text)
-const ICON_DARK = '/lumi-icon-only.png';
-const ICON_LIGHT = '/lumi-icon-only-transparent.png';
+// Icon-only crops (brain-network neural icon)
+const ICON_DARK = '/enzi-logo-icon.png';
+const ICON_LIGHT = '/enzi-logo-transparent.png';
 
-// Full logos (bubble + text + tagline in one image)
-const FULL_DARK = '/lumi-logo-official.png';
-const FULL_LIGHT = '/lumi-logo-transparent.png';
+// Full logos (brain icon + text)
+const FULL_DARK = '/enzi-logo-icon.png';
+const FULL_LIGHT = '/enzi-logo-transparent.png';
 
 export const LumiBrand = ({ variant = 'icon-dark', size = 'md', className = '', showTagline = false }) => {
   const sizes = {

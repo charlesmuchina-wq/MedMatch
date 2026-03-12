@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Video, Briefcase, ArrowRight, Sparkles, Users, FileText, Shield, MessageCircle, Hash, Crown, ChevronDown, Globe, ExternalLink } from 'lucide-react';
+import { Video, Briefcase, ArrowRight, Sparkles, Users, FileText, Shield, MessageCircle, Hash, Crown, ChevronDown, Globe, ExternalLink, Download } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import GlobalLanguageSelector from '@/components/GlobalLanguageSelector';
 import { useTranslation } from "@/utils/i18n";
@@ -171,7 +171,7 @@ const PortalSelector = () => {
                     <div className="w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden shadow-lg ring-2 ring-white/10"
                          style={{ backgroundColor: app.lumiIcon ? '#0B0F1A' : undefined }}>
                       {app.lumiIcon ? (
-                        <img src="/lumi-icon-only.png" alt="ENZI" className="w-10 h-10 object-contain" />
+                        <img src="/enzi-logo-icon.png" alt="ENZI" className="w-10 h-10 object-contain" />
                       ) : app.logo ? (
                         <img src={app.logo} alt={app.name} className="w-full h-full object-cover" />
                       ) : (
@@ -242,7 +242,15 @@ const PortalSelector = () => {
         </div>
 
         {/* Footer */}
-        <div className="mt-8 md:mt-12 text-center px-4">
+        <div className="mt-8 md:mt-12 text-center px-4 space-y-3">
+          <button
+            data-testid="portal-downloads-link"
+            onClick={() => navigate('/downloads')}
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.06] border border-white/[0.1] text-sm text-slate-200 hover:bg-white/[0.1] hover:text-white transition-all duration-200"
+          >
+            <Download className="w-4 h-4" />
+            Get AI Suite on Desktop & Mobile
+          </button>
           <p className="text-xs sm:text-sm text-slate-300">
             {t('pages.portalSelector.poweredByAI')} &bull; {t('pages.portalSelector.trustedBy')}
           </p>

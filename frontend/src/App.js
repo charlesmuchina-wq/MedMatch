@@ -27,6 +27,7 @@ import ResumeProfilesPage from "@/pages/ResumeProfilesPage";
 import VideoInterviewPage from "@/pages/VideoInterviewPage";
 import LoginPage from "@/pages/LoginPage";
 import PortalSelector from "@/pages/PortalSelector";
+import PlatformDownloadsPage from "@/pages/PlatformDownloadsPage";
 import MembershipPage from "@/pages/MembershipPage";
 import RecruiterJobsPage from "@/pages/RecruiterJobsPage";
 import SalaryInsightsPage from "@/pages/SalaryInsightsPage";
@@ -929,7 +930,7 @@ function AppContent({ skipPortalSelector = false, forcedPortal = null, domainCon
   };
 
   // Check if current path is a public route (no auth required)
-  const isPublicRoute = location.pathname.startsWith('/apply/') || location.pathname.startsWith('/track-application/');
+  const isPublicRoute = location.pathname.startsWith('/apply/') || location.pathname.startsWith('/track-application/') || location.pathname === '/downloads';
   
   // Check if current path is AI KARAU Meeting standalone portal
   const isKarauMeetPortal = location.pathname.startsWith('/karau-meet') || forcedPortal === 'karau';
@@ -1013,6 +1014,7 @@ function AppContent({ skipPortalSelector = false, forcedPortal = null, domainCon
           <Routes>
             <Route path="/apply/:token" element={<PublicApplicationPage />} />
             <Route path="/track-application/:applicationId" element={<TrackApplicationPage />} />
+            <Route path="/downloads" element={<PlatformDownloadsPage />} />
           </Routes>
         </div>
         <LumiFooter variant="compact" />

@@ -144,7 +144,7 @@ const LumiMiniMessenger = ({ onUnreadChange }) => {
         <div className="p-3 border-b border-karau-border">
           <div className="flex items-center gap-2">
             <div className="w-5 h-5 flex-shrink-0">
-              <img src="/lumi-icon-only.png" alt="ENZI" className="w-full h-full object-contain" />
+              <img src="/enzi-logo-icon.png" alt="ENZI" className="w-full h-full object-contain" />
             </div>
             <span className="text-sm font-bold tracking-wide"
               style={{ background: 'linear-gradient(135deg, #00CEC9, #6C5CE7, #E84393)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
