@@ -1,25 +1,24 @@
 # ROADMAP — AI KARAU + ENZI + MedMatch AI
 
-## P0 — DONE
-- [x] ENZI Messenger stability (verified after refactoring)
-- [x] All 18 bots AI-powered with GPT-4o
-- [x] Portal logos restored
-
-## P1 — DONE
-- [x] Bot Marketplace (catalog, install, configure, actions)
-- [x] Slash commands + autocomplete
-- [x] Bot-to-Bot chaining (workflow automation)
+## Completed (All Tested & Verified)
+- [x] Three-portal suite with unified workspace
+- [x] 18 AI-powered bots (GPT-4o) with slash commands
+- [x] Bot-to-Bot workflow chains with auto-triggers
+- [x] Meeting-to-channel sync with admin approval
+- [x] Domain-aware multi-subdomain routing
+- [x] ML channel predictions
+- [x] Meeting replay: AI chapters + transcript search
 - [x] Push notifications (VAPID configured)
+- [x] Passkeys/WebAuthn (backend ready)
+- [x] Mobile bottom navigation
+- [x] Stripe payments (4 tiers)
+- [x] AI Writing Assistant (5 tools)
+- [x] E2EE, team analytics, channel templates, webhooks
+- [x] Code refactoring (LumiMessenger, KarauMeetDashboard)
 
-## P2 — Next
-- [ ] Voice/Video recording transcription UI (backend done, needs frontend polish)
-- [ ] Meeting Replay AI chapters + searchable transcript overlay
-- [ ] KarauSettingsPage.jsx refactor (861 lines)
-- [ ] BotStoreModal.jsx refactor (534 lines)
-
-## P3 — Future
-- [ ] Real-time co-editing in AI Writing Assistant (Y.js or Automerge)
-- [ ] Mobile-first UX optimization (bottom nav, swipe gestures)
-- [ ] Advanced ML channel predictions (pre-fetch)
-- [ ] Email integration (Resend — needs user API key)
-- [ ] Passkeys/WebAuthn full implementation
+## Low Priority / Nice-to-Have
+- [ ] Resend email integration (needs user RESEND_API_KEY)
+- [ ] Real-time co-editing with Y.js/Automerge (major feature)
+- [ ] KarauSettingsPage refactoring (862 lines)
+- [ ] BotStoreModal refactoring (534 lines)
+- [ ] Advanced scheduled chain triggers (cron-style)

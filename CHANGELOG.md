@@ -1,42 +1,48 @@
 # CHANGELOG
 
-## March 12, 2026 — Phases 1-4 Implementation
+## March 12, 2026 — Complete Feature Implementation
 
-### Phase 1: Code Health & Stability (DONE)
-- **EnziChatView.jsx** extracted from LumiMessenger.jsx (804 → 693 lines)
-- **AiSummaryWidget.jsx** + **KarauAnalyticsRow.jsx** extracted from KarauMeetDashboard.jsx (998 → 755 lines)
-- GitHub SSO labeled as "(Demo)" in login UI
-- All functionality preserved — 100% test pass
+### Automatic Bot Chain Triggers
+- "After Meeting" trigger: chains auto-run when meetings convert to channels
+- "On Message" trigger: chains auto-run every 10th message in a channel
+- Integrated into meeting_channel_sync.py and lumi_messenger.py
 
-### Phase 2: AI-Powered Call Enhancements (DONE)
-- AI Meeting Transcription (Whisper via Emergent LLM Key) — already built
-- AI Meeting Summary/Notes (GPT-4o) — already built
-- Push Notifications: VAPID keys generated and configured, pywebpush ready
-- In-app notification fallback system active
+### Meeting Replay AI Chapters + Transcript Search
+- POST /api/karau/replay/{id}/generate-chapters — GPT-4o generates 4-8 chapters
+- GET /api/karau/replay/{id}/search?q=term — searches transcript segments
+- Frontend: search bar + AI chapter generation button in replay sidebar
 
-### Phase 3: Collaboration Features (DONE)
-- **Bot-to-Bot Chaining**: Full workflow automation system
-  - Create named chains with 2+ bot steps
-  - Run chains — each bot output feeds as context to the next
-  - System messages announce chain start
-  - UI: "Workflows" tab in Channel Tools modal (BotChainBuilder)
-  - Backend: CRUD + execution at /api/lumi/bots/chains/*
-- AI Writing Toolbar (Phase 3.1) — already comprehensive with refine, suggest, translate, voice, templates
+### ML Channel Predictions
+- GET /api/lumi/behavior/predict-channels — predicts which channels user visits next
+- Uses 7-day message frequency + recency scoring
+- Returns time-of-day context (morning/afternoon/evening/night)
 
-### Phase 4: Polish & Growth (PARTIAL)
-- Portal logos restored on landing page
-- Mobile-responsive layout verified at 375px
+### Mobile Bottom Navigation
+- New MobileBottomNav component (< 768px)
+- Tabs: Channels, DMs, Search, AI, Me
+- Portal dock hidden on mobile to prevent z-index conflict
+
+### Push Notifications Configured
+- VAPID keys generated and stored in backend .env
+- pywebpush ready for real push subscriptions
+
+### Passkeys/WebAuthn Configured
+- WEBAUTHN_RP_ID set to preview domain
+- Backend biometric.py has full challenge/response flow (589 lines)
+
+### Phase 1 Refactoring (earlier today)
+- EnziChatView.jsx extracted from LumiMessenger (804→693 lines)
+- AiSummaryWidget + KarauAnalyticsRow extracted from KarauMeetDashboard (998→755 lines)
+- GitHub SSO labeled "(Demo)"
+
+### Phase 2-3 Bot Features (earlier today)
+- Bot-to-Bot chaining with BotChainBuilder UI
+- Workflows tab in Channel Tools modal
+- 18 AI-powered bots with real GPT-4o responses
 
 ## March 11, 2026 — Bot Marketplace + Domain Routing
-
-### P1: AI-Powered Bot Marketplace (DONE)
-- 18 bots across 4 categories with real GPT-4o AI responses
-- Quick action buttons (BotActionsBar) + Slash commands with autocomplete
-- Bot install/uninstall/configure per channel
-- Backend: generate_bot_response() with specialized system prompts
-
-### Previous Session Completed
-- Meeting-to-Channel Admin Approval
-- Domain-Aware Routing System (multi-subdomain)
-- AI KARAU tagline shortening
-- LumiMessenger initial refactor (EnziSidebar, EnziDashboard)
+- 18 bots across 4 categories with AI responses
+- Slash commands + autocomplete
+- Domain-aware multi-subdomain routing
+- Meeting-to-channel admin approval
+- LumiMessenger initial refactor

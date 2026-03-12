@@ -95,7 +95,7 @@ const PortalDock = ({ portals, mainPortal, sidePortal, onSelectMain, onToggleSid
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-[60] flex justify-center pointer-events-none"
+      className="fixed bottom-0 left-0 right-0 z-[60] hidden md:flex justify-center pointer-events-none"
       data-testid="portal-dock"
     >
       <div className={`pointer-events-auto transition-all duration-300 ${expanded ? 'mb-3' : 'mb-0'}`}>
