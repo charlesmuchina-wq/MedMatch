@@ -51,7 +51,7 @@ const BotActionsBar = ({ channelId, token }) => {
       });
       if (res.ok) {
         const d = await res.json();
-        toast.success(`${d.bot_name} executed!`);
+        toast.success(`${d.bot_name} responded!`);
       } else {
         const e = await res.json();
         toast.error(e.detail || 'Action failed');

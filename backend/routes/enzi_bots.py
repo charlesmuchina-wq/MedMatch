@@ -1,5 +1,5 @@
 """
-ENZI Bot Store — Full Marketplace
+ENZI Bot Store — Full Marketplace with AI-Powered Bot Actions
 18 specialized bots across 4 categories:
   1. Job Toolkit (Recruitment & Job Seeker)
   2. AI Meeting Portal
@@ -11,9 +11,17 @@ from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime, timezone
 import uuid
+import os
+import logging
+
+from emergentintegrations.llm.chat import LlmChat, UserMessage
 
 from utils.database import db
 from routes.auth import get_current_user
+
+logger = logging.getLogger(__name__)
+
+EMERGENT_LLM_KEY = os.environ.get("EMERGENT_LLM_KEY", "")
 
 router = APIRouter(prefix="/lumi/bots", tags=["ENZI Bot Store"])
 
@@ -249,81 +257,150 @@ BOT_CATALOG = {
 
 CATEGORY_ORDER = ["Job Toolkit", "AI Meeting", "AI Messenger", "Security & QA"]
 
-# Bot action handlers
+# Bot action definitions (UI buttons)
 BOT_ACTIONS = {
-    "talent_matcher": {
-        "actions": [{"id": "match", "label": "Find Talent", "icon": "user-search"}],
-        "handler": lambda p: f"**Talent Search**\nSearching 800M+ profiles for: *{p.get('query', 'senior backend engineer')}*\nMatch score threshold: 75%\n\nProcessing results..."
-    },
-    "resume_architect": {
-        "actions": [{"id": "build_resume", "label": "Build Resume", "icon": "file-text"}],
-        "handler": lambda p: "**Resume Architect**\nGenerating ATS-optimized resume from job listing...\nFormat: Modern | Language: English | ATS Score: Calculating..."
-    },
-    "interview_copilot": {
-        "actions": [{"id": "mock_interview", "label": "Mock Interview", "icon": "mic"}],
-        "handler": lambda p: "**Interview Copilot**\nStarting mock interview session...\nTracking: filler words, pacing, body language\nSay 'ready' to begin."
-    },
-    "ez_sourcing": {
-        "actions": [{"id": "source", "label": "Start Sourcing", "icon": "zap"}],
-        "handler": lambda p: f"**EZ Sourcing Agent**\nStarting autonomous sourcing for: *{p.get('role', 'open role')}*\nSteps: Profile scan → Email verification → Outreach"
-    },
-    "salary_negotiator": {
-        "actions": [{"id": "benchmark", "label": "Salary Benchmark", "icon": "dollar-sign"}],
-        "handler": lambda p: f"**Salary Negotiator**\nAnalyzing compensation data for *{p.get('role', 'this role')}*...\nRegion: US | Including benefits: Yes"
-    },
-    "note_taker": {
-        "actions": [{"id": "notes", "label": "Start Notes", "icon": "edit"}],
-        "handler": lambda p: "**Note-Taker Active**\nRecording and transcribing in real-time.\nAction items and key insights will be extracted automatically."
-    },
-    "smart_scheduler": {
-        "actions": [{"id": "schedule", "label": "Schedule Meeting", "icon": "calendar"}],
-        "handler": lambda p: "**Smart Scheduler**\nAnalyzing calendars to find optimal time...\nBuffer: 10 min | Reminders: Enabled"
-    },
-    "search_copilot": {
-        "actions": [{"id": "ask", "label": "Ask AI", "icon": "search"}],
-        "handler": lambda p: f"**Search Copilot**\nSearching past meetings for: *{p.get('question', 'your query')}*..."
-    },
-    "attendance_tracker": {
-        "actions": [{"id": "attendance", "label": "Attendance Report", "icon": "users"}],
-        "handler": lambda p: "**Attendance Tracker**\nGenerating attendance sheet and engagement metrics..."
-    },
-    "summary_generator": {
-        "actions": [{"id": "summarize", "label": "Summarize", "icon": "brain"}],
-        "handler": lambda p: "**Summary Generator**\nConverting transcript into structured summary with highlights..."
-    },
-    "knowledge_layer": {
-        "actions": [{"id": "ask", "label": "Ask Knowledge", "icon": "book-open"}],
-        "handler": lambda p: f"**Knowledge Layer**\nSearching company-wide data for: *{p.get('question', 'your question')}*..."
-    },
-    "multilingual_translator": {
-        "actions": [{"id": "translate", "label": "Translate", "icon": "globe"}],
-        "handler": lambda p: f"**Translator Active**\nAuto-translating to {p.get('language', 'English')}. Language detection: ON"
-    },
-    "omnichannel_assistant": {
-        "actions": [{"id": "inbox", "label": "Unified Inbox", "icon": "message-circle"}],
-        "handler": lambda p: "**Omnichannel Assistant**\nUnified inbox active: SMS, WhatsApp, Web Chat\nAll messages routed here."
-    },
-    "compliance_audit": {
-        "actions": [{"id": "audit", "label": "Run Audit", "icon": "shield"}],
-        "handler": lambda p: "**Compliance Audit**\nScanning against HIPAA, GDPR, SOC2 frameworks...\nGenerating risk score and PDF report."
-    },
-    "visual_testing": {
-        "actions": [{"id": "test", "label": "Run UI Tests", "icon": "monitor"}],
-        "handler": lambda p: "**Visual Testing Bot**\nRunning regression tests across desktop, mobile, tablet..."
-    },
-    "bias_auditor": {
-        "actions": [{"id": "audit_data", "label": "Audit Data", "icon": "scale"}],
-        "handler": lambda p: "**Bias Auditor**\nScanning recruitment datasets for hidden patterns and potential bias..."
-    },
-    "threat_scanner": {
-        "actions": [{"id": "scan", "label": "Scan Threats", "icon": "alert-triangle"}],
-        "handler": lambda p: "**Threat Scanner**\nMonitoring communications for threats, scams, and conduct issues..."
-    },
-    "translation_qa": {
-        "actions": [{"id": "qa", "label": "QA Translations", "icon": "check-circle"}],
-        "handler": lambda p: "**Translation QA**\nAuditing translations for accuracy, tone, and cultural context..."
-    },
+    "talent_matcher": {"actions": [{"id": "match", "label": "Find Talent", "icon": "user-search"}]},
+    "resume_architect": {"actions": [{"id": "build_resume", "label": "Build Resume", "icon": "file-text"}]},
+    "interview_copilot": {"actions": [{"id": "mock_interview", "label": "Mock Interview", "icon": "mic"}]},
+    "ez_sourcing": {"actions": [{"id": "source", "label": "Start Sourcing", "icon": "zap"}]},
+    "salary_negotiator": {"actions": [{"id": "benchmark", "label": "Salary Benchmark", "icon": "dollar-sign"}]},
+    "note_taker": {"actions": [{"id": "notes", "label": "Start Notes", "icon": "edit"}]},
+    "smart_scheduler": {"actions": [{"id": "schedule", "label": "Schedule Meeting", "icon": "calendar"}]},
+    "search_copilot": {"actions": [{"id": "ask", "label": "Ask AI", "icon": "search"}]},
+    "attendance_tracker": {"actions": [{"id": "attendance", "label": "Attendance Report", "icon": "users"}]},
+    "summary_generator": {"actions": [{"id": "summarize", "label": "Summarize", "icon": "brain"}]},
+    "knowledge_layer": {"actions": [{"id": "ask", "label": "Ask Knowledge", "icon": "book-open"}]},
+    "multilingual_translator": {"actions": [{"id": "translate", "label": "Translate", "icon": "globe"}]},
+    "omnichannel_assistant": {"actions": [{"id": "inbox", "label": "Unified Inbox", "icon": "message-circle"}]},
+    "compliance_audit": {"actions": [{"id": "audit", "label": "Run Audit", "icon": "shield"}]},
+    "visual_testing": {"actions": [{"id": "test", "label": "Run UI Tests", "icon": "monitor"}]},
+    "bias_auditor": {"actions": [{"id": "audit_data", "label": "Audit Data", "icon": "scale"}]},
+    "threat_scanner": {"actions": [{"id": "scan", "label": "Scan Threats", "icon": "alert-triangle"}]},
+    "translation_qa": {"actions": [{"id": "qa", "label": "QA Translations", "icon": "check-circle"}]},
 }
+
+# System prompts for each bot
+BOT_SYSTEM_PROMPTS = {
+    "talent_matcher": "You are Talent Matcher, an AI recruitment assistant. Analyze requirements and suggest ideal candidate profiles with match scores. Be specific about skills, experience levels, and sourcing strategies. Format with markdown. Keep responses concise (under 300 words).",
+    "resume_architect": "You are Resume Architect, an ATS-optimization expert. Help create tailored resumes and cover letters. Provide actionable formatting tips and keyword suggestions. Format with markdown. Keep responses concise (under 300 words).",
+    "interview_copilot": "You are Interview Copilot, a mock interview coach. Generate realistic interview questions, provide feedback on answers, and coach on communication skills. Format with markdown. Keep responses concise (under 300 words).",
+    "ez_sourcing": "You are EZ Sourcing Agent, an autonomous recruitment sourcer. Create multi-step outreach sequences, suggest sourcing channels, and draft personalized messages. Format with markdown. Keep responses concise (under 300 words).",
+    "salary_negotiator": "You are Salary Negotiator, a compensation analysis expert. Provide market benchmarks, negotiation scripts, and total compensation breakdowns. Format with markdown. Keep responses concise (under 300 words).",
+    "note_taker": "You are Automated Note-Taker. Analyze the conversation and extract key discussion points, action items, decisions made, and follow-ups needed. Format as a structured meeting notes document with markdown.",
+    "smart_scheduler": "You are Smart Scheduler. Suggest optimal meeting times, draft agendas, and create reminder schedules. Be practical and consider timezone awareness. Format with markdown. Keep responses concise.",
+    "search_copilot": "You are Search Copilot. Answer questions based on the conversation context provided. Cite specific messages when referencing past discussions. Format with markdown. Keep responses concise.",
+    "attendance_tracker": "You are Attendance & Participation Tracker. Analyze conversation participants, their activity levels, and generate engagement reports. Format with markdown tables.",
+    "summary_generator": "You are Summary Generator. Create structured summaries from conversations with sections: Key Points, Decisions, Action Items, and Next Steps. Format with markdown. Be concise but thorough.",
+    "knowledge_layer": "You are Knowledge Layer Bot. Answer questions using the conversation context as your knowledge base. If the answer isn't in the context, say so. Be precise and cite sources. Format with markdown.",
+    "multilingual_translator": "You are Multilingual Translator. Translate messages accurately while preserving tone and context. Provide the translation with a brief note about any cultural nuances. Format with markdown.",
+    "omnichannel_assistant": "You are Omnichannel Assistant. Help manage multi-channel communications. Draft responses suitable for different platforms (SMS, WhatsApp, email). Format with markdown.",
+    "compliance_audit": "You are AI Compliance Audit Bot. Analyze conversations for regulatory compliance (HIPAA, GDPR, SOC2). Identify risks, assign severity levels, and recommend remediation. Format as a structured audit report with markdown.",
+    "visual_testing": "You are UI/UX Visual Testing Bot. Generate test plans, identify potential UI issues, and suggest testing strategies. Format with markdown checklists.",
+    "bias_auditor": "You are Data Integrity & Bias Auditor. Analyze text for potential bias patterns in recruitment contexts. Identify issues and suggest fairer alternatives. Format as a structured report with markdown.",
+    "threat_scanner": "You are Threat & Conduct Scanner. Analyze messages for potential security threats, scams, phishing attempts, and inappropriate conduct. Assign risk levels. Format as a security report with markdown.",
+    "translation_qa": "You are Translation QA Bot. Review translations for accuracy, tone consistency, and cultural appropriateness. Provide quality scores and improvement suggestions. Format with markdown.",
+}
+
+# Slash command mapping: command prefix → bot_id
+SLASH_COMMANDS = {}
+for bot_id, bot_info in BOT_CATALOG.items():
+    for cmd in bot_info.get("commands", []):
+        # Extract the base command (e.g., "/match" from "/match <query>")
+        base_cmd = cmd.split(" ")[0].lower()
+        SLASH_COMMANDS[base_cmd] = bot_id
+
+
+async def get_channel_context(channel_id: str, limit: int = 15) -> str:
+    """Get recent messages from channel for context"""
+    msgs = await db.lumi_messages.find(
+        {"channel_id": channel_id, "type": {"$ne": "system"}},
+        {"_id": 0, "sender_name": 1, "content": 1, "created_at": 1}
+    ).sort("created_at", -1).limit(limit).to_list(limit)
+    if not msgs:
+        return "No recent messages in this channel."
+    msgs.reverse()
+    lines = []
+    for m in msgs:
+        lines.append(f"[{m.get('sender_name', 'Unknown')}]: {m.get('content', '')}")
+    return "\n".join(lines)
+
+
+async def generate_bot_response(bot_id: str, user_query: str, channel_id: str, config: dict = None) -> str:
+    """Generate an AI-powered bot response"""
+    if not EMERGENT_LLM_KEY:
+        return f"**{BOT_CATALOG.get(bot_id, {}).get('name', 'Bot')}** — AI key not configured. Please set EMERGENT_LLM_KEY."
+
+    system_prompt = BOT_SYSTEM_PROMPTS.get(bot_id, "You are a helpful AI bot assistant.")
+    bot_name = BOT_CATALOG.get(bot_id, {}).get("name", "Bot")
+
+    # Get channel context
+    context = await get_channel_context(channel_id)
+
+    # Build the user message with context
+    full_prompt = f"Channel conversation context:\n---\n{context}\n---\n\n"
+    if user_query:
+        full_prompt += f"User request: {user_query}"
+    else:
+        full_prompt += "The user triggered your action. Provide a helpful response based on the channel context above."
+
+    # Add config context if available
+    if config:
+        config_str = ", ".join(f"{k}={v}" for k, v in config.items() if not isinstance(v, (list, dict)))
+        full_prompt += f"\n\nBot configuration: {config_str}"
+
+    try:
+        session_id = f"bot_{bot_id}_{channel_id}_{uuid.uuid4().hex[:8]}"
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=system_prompt
+        )
+        chat.with_model("openai", "gpt-4o")
+
+        response = await chat.send_message(UserMessage(text=full_prompt))
+        return f"**{bot_name}**\n\n{response}"
+    except Exception as e:
+        logger.error(f"Bot AI error for {bot_id}: {e}")
+        return f"**{bot_name}** — I encountered an issue processing your request. Please try again."
+
+
+async def handle_slash_command(content: str, channel_id: str, user_id: str) -> dict | None:
+    """Check if a message is a slash command and handle it. Returns bot response info or None."""
+    if not content.startswith("/"):
+        return None
+
+    parts = content.split(" ", 1)
+    base_cmd = parts[0].lower()
+    query = parts[1] if len(parts) > 1 else ""
+
+    bot_id = SLASH_COMMANDS.get(base_cmd)
+    if not bot_id:
+        return None
+
+    # Check if bot is installed in this channel
+    installed = await db.enzi_installed_bots.find_one(
+        {"bot_id": bot_id, "channel_id": channel_id, "is_active": True}
+    )
+    if not installed:
+        return None
+
+    response = await generate_bot_response(bot_id, query, channel_id, installed.get("config"))
+    bot_info = BOT_CATALOG.get(bot_id, {})
+
+    msg_id = str(uuid.uuid4())
+    await db.lumi_messages.insert_one({
+        "id": msg_id,
+        "channel_id": channel_id,
+        "content": response,
+        "sender_id": f"bot_{bot_id}",
+        "sender_name": f"[Bot] {bot_info.get('name', bot_id)}",
+        "type": "bot_action",
+        "bot_id": bot_id,
+        "action": base_cmd,
+        "created_at": datetime.now(timezone.utc).isoformat()
+    })
+
+    return {"message_id": msg_id, "content": response, "bot_name": bot_info.get("name", bot_id), "bot_id": bot_id}
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -556,7 +633,7 @@ class BotActionRequest(BaseModel):
 
 @router.post("/action")
 async def execute_bot_action(req: BotActionRequest, request: Request):
-    """Execute a bot action in a channel"""
+    """Execute a bot action in a channel — AI-powered response"""
     user = await get_current_user(request)
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
@@ -567,11 +644,12 @@ async def execute_bot_action(req: BotActionRequest, request: Request):
     if not installed:
         raise HTTPException(status_code=404, detail="Bot not installed in this channel")
 
-    bot_def = BOT_ACTIONS.get(req.bot_id)
-    if not bot_def:
-        raise HTTPException(status_code=404, detail="Bot actions not defined")
+    # Build query from action + params
+    query = ""
+    if req.params:
+        query = " ".join(str(v) for v in req.params.values() if v)
 
-    content = bot_def["handler"](req.params or {})
+    content = await generate_bot_response(req.bot_id, query, req.channel_id, installed.get("config"))
     msg_id = str(uuid.uuid4())
     bot_info = BOT_CATALOG.get(req.bot_id, {})
 
@@ -615,3 +693,29 @@ async def get_channel_bots(channel_id: str, request: Request):
         })
 
     return {"bots": result, "count": len(result)}
+
+
+@router.get("/slash-commands/{channel_id}")
+async def get_available_slash_commands(channel_id: str, request: Request):
+    """Get available slash commands for a channel based on installed bots"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    installed = await db.enzi_installed_bots.find(
+        {"channel_id": channel_id, "is_active": True}, {"_id": 0}
+    ).to_list(20)
+
+    commands = []
+    for inst in installed:
+        bot = BOT_CATALOG.get(inst["bot_id"])
+        if bot:
+            for cmd in bot.get("commands", []):
+                commands.append({
+                    "command": cmd,
+                    "bot_id": inst["bot_id"],
+                    "bot_name": bot["name"],
+                    "category": bot["category"],
+                })
+
+    return {"commands": commands, "count": len(commands)}

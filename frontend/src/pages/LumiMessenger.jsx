@@ -45,6 +45,7 @@ import ChannelToolsModal from '@/components/Lumi/ChannelToolsModal';
 import MeetingChannelBanner from '@/components/Lumi/MeetingChannelBanner';
 import AdminApprovalPanel from '@/components/Lumi/AdminApprovalPanel';
 import BotActionsBar from '@/components/Lumi/BotActionsBar';
+import SlashCommandAutocomplete from '@/components/Lumi/SlashCommandAutocomplete';
 import EnziSidebar from '@/components/Lumi/EnziSidebar';
 import EnziDashboard from '@/components/Lumi/EnziDashboard';
 import E2EEIndicator from '@/components/Lumi/E2EEIndicator';
@@ -709,6 +710,7 @@ const LumiMessenger = () => {
               <div className="p-4 pt-2 border-t border-slate-100">
                 <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileShare} accept="image/*,.pdf,.doc,.docx,.txt,.csv" data-testid="file-input" />
                 <div className="relative flex items-center gap-2 border border-slate-200 rounded-lg px-4 py-2.5 focus-within:ring-2 focus-within:ring-[#008080]/20 focus-within:border-[#008080] transition-all bg-white shadow-sm">
+                  <SlashCommandAutocomplete channelId={activeChannel?.id} token={token} messageText={messageText} onSelect={(cmd) => setMessageText(cmd)} />
                   <button onClick={() => fileInputRef.current?.click()} disabled={uploading} className="p-1 text-slate-500 hover:text-[#008080] rounded transition-colors" data-testid="attach-file-btn">
                     {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Paperclip className="w-4 h-4" />}
                   </button>

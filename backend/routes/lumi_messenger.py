@@ -542,6 +542,22 @@ async def send_message(channel_id: str, data: MessageSend, request: Request):
     # Broadcast to channel via WebSocket
     await manager.send_to_channel(channel_id, {"type": "message", "data": msg})
 
+    # Check for slash commands — trigger bot if applicable
+    if content.startswith("/"):
+        try:
+            from routes.enzi_bots import handle_slash_command
+            bot_result = await handle_slash_command(content, channel_id, user["user_id"])
+            if bot_result:
+                # Broadcast bot response via WebSocket
+                bot_msg = await db.lumi_messages.find_one(
+                    {"id": bot_result["message_id"]}, {"_id": 0}
+                )
+                if bot_msg:
+                    await manager.send_to_channel(channel_id, {"type": "message", "data": bot_msg})
+        except Exception as e:
+            import logging
+            logging.getLogger(__name__).error(f"Slash command error: {e}")
+
     return msg
 
 # ============== Reactions ==============
