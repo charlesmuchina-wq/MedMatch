@@ -719,3 +719,147 @@ async def get_available_slash_commands(channel_id: str, request: Request):
                 })
 
     return {"commands": commands, "count": len(commands)}
+
+
+# ═══════════════════════════════════════════════════════════════
+# BOT CHAIN WORKFLOWS
+# ═══════════════════════════════════════════════════════════════
+
+class ChainStep(BaseModel):
+    bot_id: str
+    action: str
+    order: int
+
+class CreateChainRequest(BaseModel):
+    name: str
+    channel_id: str
+    steps: List[ChainStep]
+    trigger: str = "manual"
+
+@router.post("/chains")
+async def create_bot_chain(req: CreateChainRequest, request: Request):
+    """Create a bot-to-bot workflow chain"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    if len(req.steps) < 2:
+        raise HTTPException(status_code=400, detail="A chain needs at least 2 steps")
+
+    for step in req.steps:
+        if step.bot_id not in BOT_CATALOG:
+            raise HTTPException(status_code=400, detail=f"Unknown bot: {step.bot_id}")
+
+    chain = {
+        "id": str(uuid.uuid4()),
+        "name": req.name,
+        "channel_id": req.channel_id,
+        "created_by": user["user_id"],
+        "steps": [s.dict() for s in sorted(req.steps, key=lambda x: x.order)],
+        "trigger": req.trigger,
+        "is_active": True,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "last_run": None,
+        "run_count": 0,
+    }
+    await db.enzi_bot_chains.insert_one(chain)
+    chain.pop("_id", None)
+    return chain
+
+
+@router.get("/chains/{channel_id}")
+async def list_bot_chains(channel_id: str, request: Request):
+    """List all workflow chains for a channel"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    chains = await db.enzi_bot_chains.find(
+        {"channel_id": channel_id}, {"_id": 0}
+    ).sort("created_at", -1).to_list(50)
+
+    for chain in chains:
+        for step in chain.get("steps", []):
+            bot = BOT_CATALOG.get(step["bot_id"], {})
+            step["bot_name"] = bot.get("name", step["bot_id"])
+            step["bot_icon"] = bot.get("icon", "bot")
+
+    return {"chains": chains, "count": len(chains)}
+
+
+@router.post("/chains/{chain_id}/run")
+async def run_bot_chain(chain_id: str, request: Request):
+    """Execute a bot chain — runs each bot in sequence, feeding output as context"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    chain = await db.enzi_bot_chains.find_one({"id": chain_id}, {"_id": 0})
+    if not chain:
+        raise HTTPException(status_code=404, detail="Chain not found")
+
+    channel_id = chain["channel_id"]
+    results = []
+    accumulated_context = ""
+
+    # Post a chain-start system message
+    start_msg_id = str(uuid.uuid4())
+    step_names = " → ".join(BOT_CATALOG.get(s["bot_id"], {}).get("name", s["bot_id"]) for s in chain["steps"])
+    await db.lumi_messages.insert_one({
+        "id": start_msg_id,
+        "channel_id": channel_id,
+        "content": f"**Workflow: {chain['name']}**\nRunning chain: {step_names}",
+        "sender_id": "system",
+        "sender_name": "[System] Workflow",
+        "type": "system",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    })
+
+    for step in chain["steps"]:
+        bot_id = step["bot_id"]
+        query = accumulated_context if accumulated_context else ""
+
+        try:
+            response = await generate_bot_response(bot_id, query, channel_id)
+            bot_info = BOT_CATALOG.get(bot_id, {})
+
+            msg_id = str(uuid.uuid4())
+            await db.lumi_messages.insert_one({
+                "id": msg_id,
+                "channel_id": channel_id,
+                "content": response,
+                "sender_id": f"bot_{bot_id}",
+                "sender_name": f"[Bot] {bot_info.get('name', bot_id)}",
+                "type": "bot_action",
+                "bot_id": bot_id,
+                "action": step.get("action", "chain"),
+                "chain_id": chain_id,
+                "created_at": datetime.now(timezone.utc).isoformat()
+            })
+
+            accumulated_context += f"\n\n---\n{bot_info.get('name', bot_id)} output:\n{response}"
+            results.append({"bot_id": bot_id, "message_id": msg_id, "status": "success"})
+        except Exception as e:
+            logger.error(f"Chain step error {bot_id}: {e}")
+            results.append({"bot_id": bot_id, "status": "error", "error": str(e)})
+            break
+
+    await db.enzi_bot_chains.update_one(
+        {"id": chain_id},
+        {"$set": {"last_run": datetime.now(timezone.utc).isoformat()}, "$inc": {"run_count": 1}}
+    )
+
+    return {"chain_id": chain_id, "results": results, "steps_completed": len(results)}
+
+
+@router.delete("/chains/{chain_id}")
+async def delete_bot_chain(chain_id: str, request: Request):
+    """Delete a workflow chain"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    result = await db.enzi_bot_chains.delete_one({"id": chain_id, "created_by": user["user_id"]})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Chain not found")
+    return {"status": "deleted"}

@@ -13,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { toast } from 'sonner';
 import { API } from './constants';
+import BotChainBuilder from './BotChainBuilder';
 
 const TEMPLATE_ICONS = {
   project: FolderKanban, sprint: Timer, incident: AlertTriangle,
@@ -184,7 +185,7 @@ const ChannelToolsModal = ({ token, channels, onClose, onChannelCreated }) => {
             </div>
             <div>
               <h3 className="text-sm font-semibold text-slate-900">Channel Tools</h3>
-              <p className="text-[11px] text-slate-500">Templates & Webhooks</p>
+              <p className="text-[11px] text-slate-500">Templates, Webhooks & Workflows</p>
             </div>
           </div>
           <button onClick={onClose} className="p-1.5 hover:bg-slate-100 rounded-lg" data-testid="close-channel-tools">
@@ -195,8 +196,9 @@ const ChannelToolsModal = ({ token, channels, onClose, onChannelCreated }) => {
         {/* Tabs */}
         <div className="flex border-b border-slate-100 px-4">
           {[
-            { id: 'templates', label: 'Channel Templates' },
+            { id: 'templates', label: 'Templates' },
             { id: 'webhooks', label: 'Webhooks' },
+            { id: 'workflows', label: 'Workflows' },
           ].map(t => (
             <button key={t.id} onClick={() => setTab(t.id)}
               className={`px-4 py-2.5 text-xs font-medium transition-colors ${tab === t.id ? 'text-violet-600 border-b-2 border-violet-600' : 'text-slate-500 hover:text-slate-700'}`}
@@ -247,7 +249,7 @@ const ChannelToolsModal = ({ token, channels, onClose, onChannelCreated }) => {
               </div>
             </ScrollArea>
           </>
-        ) : (
+        ) : tab === 'webhooks' ? (
           <>
             {/* Webhook channel selector */}
             <div className="p-4 border-b border-slate-50 flex-shrink-0">
@@ -320,7 +322,11 @@ const ChannelToolsModal = ({ token, channels, onClose, onChannelCreated }) => {
               </div>
             </ScrollArea>
           </>
-        )}
+        ) : tab === 'workflows' ? (
+          <div className="p-4 flex-1 overflow-auto">
+            <BotChainBuilder channelId={channels?.[0]?.id || ''} token={token} />
+          </div>
+        ) : null}
       </div>
     </div>
   );
