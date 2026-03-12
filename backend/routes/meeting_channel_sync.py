@@ -187,6 +187,41 @@ async def convert_meeting_to_channel(meeting_data: dict) -> dict:
             })
     
     del channel["_id"]
+
+    # Auto-run any bot chains with "on_meeting_end" trigger for this channel
+    try:
+        from routes.enzi_bots import generate_bot_response, BOT_CATALOG
+        auto_chains = await db.enzi_bot_chains.find(
+            {"trigger": "on_meeting_end", "is_active": True}
+        ).to_list(10)
+
+        for chain in auto_chains:
+            accumulated_ctx = ""
+            for step in chain.get("steps", []):
+                bot_id = step["bot_id"]
+                resp = await generate_bot_response(bot_id, accumulated_ctx, channel_id)
+                bot_info = BOT_CATALOG.get(bot_id, {})
+                await db.lumi_messages.insert_one({
+                    "id": str(uuid.uuid4()),
+                    "channel_id": channel_id,
+                    "content": resp,
+                    "sender_id": f"bot_{bot_id}",
+                    "sender_name": f"[Bot] {bot_info.get('name', bot_id)}",
+                    "type": "bot_action",
+                    "bot_id": bot_id,
+                    "chain_id": chain["id"],
+                    "auto_triggered": True,
+                    "created_at": datetime.now(timezone.utc).isoformat()
+                })
+                accumulated_ctx += f"\n{resp}"
+            await db.enzi_bot_chains.update_one(
+                {"id": chain["id"]},
+                {"$set": {"last_run": datetime.now(timezone.utc).isoformat()}, "$inc": {"run_count": 1}}
+            )
+            logger.info(f"Auto-ran chain '{chain['name']}' for meeting channel {channel_id}")
+    except Exception as e:
+        logger.error(f"Auto-chain execution error: {e}")
+
     return {
         "channel_id": channel_id,
         "channel_name": channel_name,

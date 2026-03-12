@@ -58,6 +58,11 @@ export default function MeetingReplayPage() {
   const [hlStyle, setHlStyle] = useState('executive_summary');
   const [shareMarker, setShareMarker] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searching, setSearching] = useState(false);
+  const [aiChapters, setAiChapters] = useState([]);
+  const [generatingChapters, setGeneratingChapters] = useState(false);
   const timerRef = useRef(null);
   const transcriptRef = useRef(null);
   const timelineRef = useRef(null);
@@ -76,6 +81,36 @@ export default function MeetingReplayPage() {
   }, [meetingId]);
 
   useEffect(() => { fetchReplay(); }, [fetchReplay]);
+
+  const searchTranscript = async (q) => {
+    if (!q.trim() || q.length < 2) { setSearchResults([]); return; }
+    setSearching(true);
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API}/api/karau/replay/${meetingId}/search?q=${encodeURIComponent(q)}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) { const d = await res.json(); setSearchResults(d.results || []); }
+    } catch {}
+    setSearching(false);
+  };
+
+  const generateChapters = async () => {
+    setGeneratingChapters(true);
+    try {
+      const token = localStorage.getItem('token');
+      const res = await fetch(`${API}/api/karau/replay/${meetingId}/generate-chapters`, {
+        method: 'POST', headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) { const d = await res.json(); setAiChapters(d.chapters || []); toast.success(`${d.count} AI chapters generated!`); }
+      else toast.error('Failed to generate chapters');
+    } catch { toast.error('Connection error'); }
+    setGeneratingChapters(false);
+  };
+
+  useEffect(() => {
+    if (replay?.ai_chapters) setAiChapters(replay.ai_chapters);
+  }, [replay]);
 
   // Seek to shared timestamp from URL param ?t=
   useEffect(() => {
@@ -233,8 +268,47 @@ export default function MeetingReplayPage() {
         {showChapters && (
           <div className="w-56 border-r border-white/[0.04] bg-[#0a0a12] flex flex-col shrink-0 animate-fade-in-left" data-testid="chapter-sidebar">
             <div className="p-3 border-b border-white/[0.04]">
-              <h3 className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">Chapters</h3>
+              <h3 className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mb-2">Chapters</h3>
+              {/* Search bar */}
+              <div className="relative mb-2">
+                <input type="text" value={searchQuery} onChange={e => { setSearchQuery(e.target.value); searchTranscript(e.target.value); }}
+                  placeholder="Search transcript..." className="w-full text-[10px] px-2.5 py-1.5 bg-white/[0.04] border border-white/[0.06] rounded-lg text-white placeholder-slate-600 outline-none focus:border-violet-500/30"
+                  data-testid="transcript-search-input" />
+                {searching && <Loader2 className="absolute right-2 top-1.5 w-3 h-3 text-violet-400 animate-spin" />}
+              </div>
+              {/* AI Chapter Gen */}
+              <button onClick={generateChapters} disabled={generatingChapters}
+                className="w-full text-[9px] py-1.5 rounded-lg bg-violet-500/10 text-violet-300 border border-violet-500/15 hover:bg-violet-500/20 transition-colors flex items-center justify-center gap-1"
+                data-testid="generate-ai-chapters-btn">
+                {generatingChapters ? <Loader2 className="w-3 h-3 animate-spin" /> : <Sparkles className="w-3 h-3" />}
+                {generatingChapters ? 'Generating...' : 'AI Generate Chapters'}
+              </button>
             </div>
+            {/* Search results */}
+            {searchResults.length > 0 && (
+              <div className="border-b border-white/[0.04] max-h-32 overflow-y-auto" data-testid="search-results">
+                <div className="px-3 py-1"><span className="text-[9px] text-amber-400">{searchResults.length} results</span></div>
+                {searchResults.slice(0, 10).map((r, i) => (
+                  <button key={i} onClick={() => seekTo(r.ts)} className="w-full text-left px-3 py-1.5 hover:bg-white/[0.03] transition-colors" data-testid={`search-result-${i}`}>
+                    <span className="text-[9px] text-violet-400 mr-1">{formatTime(r.ts)}</span>
+                    <span className="text-[9px] text-slate-400">{r.speaker}: </span>
+                    <span className="text-[9px] text-slate-300">{r.text.slice(0, 60)}...</span>
+                  </button>
+                ))}
+              </div>
+            )}
+            {/* AI Chapters */}
+            {aiChapters.length > 0 && (
+              <div className="border-b border-white/[0.04] max-h-32 overflow-y-auto" data-testid="ai-chapters">
+                <div className="px-3 py-1"><span className="text-[9px] text-violet-400 font-semibold uppercase tracking-wider">AI Chapters</span></div>
+                {aiChapters.map((ch, i) => (
+                  <button key={i} onClick={() => seekTo(ch.start_ts)} className="w-full text-left px-3 py-2 hover:bg-white/[0.03] transition-colors" data-testid={`ai-chapter-${i}`}>
+                    <p className="text-[10px] text-white font-medium">{ch.title}</p>
+                    <p className="text-[8px] text-slate-500">{formatTime(ch.start_ts)} · {ch.summary?.slice(0, 40)}</p>
+                  </button>
+                ))}
+              </div>
+            )}
             <div className="flex-1 overflow-y-auto py-1">
               {chapters.map((ch, i) => {
                 const isActive = currentChapter?.index === i;

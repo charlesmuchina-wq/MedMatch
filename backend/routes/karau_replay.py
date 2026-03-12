@@ -479,3 +479,104 @@ def _generate_fallback_highlights(replay: dict, style: str) -> str:
         lines.append(f"[{mins:02d}:{secs:02d}] {m.get('type', '').title()}: {m.get('label', '')}")
 
     return "\n".join(lines)
+
+
+# ═══════════════════════════════════════════════════════════════
+# AI CHAPTERS & TRANSCRIPT SEARCH
+# ═══════════════════════════════════════════════════════════════
+
+@router.post("/{meeting_id}/generate-chapters")
+async def generate_ai_chapters(meeting_id: str, user=Depends(require_auth)):
+    """AI-generate searchable chapters from meeting transcript."""
+    replay = await db.meeting_replays.find_one({"meeting_id": meeting_id}, {"_id": 0})
+    if not replay:
+        replay = await _generate_replay_from_history(meeting_id)
+        if not replay:
+            raise HTTPException(404, "No replay data")
+
+    transcript = replay.get("transcript_segments", [])
+    key_moments = replay.get("key_moments", [])
+    duration = replay.get("duration_seconds", 0)
+
+    try:
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        api_key = os.environ.get("EMERGENT_LLM_KEY")
+        if not api_key:
+            raise Exception("LLM key not configured")
+
+        transcript_text = "\n".join([
+            f"[{s.get('ts', 0):.0f}s] {s.get('speaker', '?')}: {s.get('text', '')}"
+            for s in transcript[:120]
+        ])
+
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=f"chapters-{meeting_id}",
+            system_message="You generate meeting chapters from transcripts. Return valid JSON array."
+        )
+        chat.with_model("openai", "gpt-4o")
+
+        prompt = f"""Analyze this {int(duration // 60)}-minute meeting transcript and generate 4-8 chapters.
+Each chapter: {{"title": "...", "start_ts": <seconds>, "end_ts": <seconds>, "summary": "1-2 sentence summary", "type": "intro|discussion|decision|action_item|wrap_up"}}
+
+Transcript:
+{transcript_text[:4000]}
+
+Return ONLY a JSON array of chapters, no markdown."""
+
+        response = await chat.send_message(UserMessage(text=prompt))
+        resp_text = response if isinstance(response, str) else str(response)
+
+        import json as json_mod
+        # Try to parse JSON from response
+        try:
+            chapters = json_mod.loads(resp_text)
+        except json_mod.JSONDecodeError:
+            # Extract JSON array from markdown
+            import re
+            match = re.search(r'\[.*\]', resp_text, re.DOTALL)
+            chapters = json_mod.loads(match.group()) if match else []
+
+    except Exception as e:
+        logger.error(f"Chapter generation error: {e}")
+        # Fallback: generate basic chapters from key_moments
+        chapters = []
+        for i, m in enumerate(key_moments[:8]):
+            chapters.append({
+                "title": m.get("label", f"Section {i + 1}"),
+                "start_ts": m.get("ts", 0),
+                "end_ts": key_moments[i + 1]["ts"] if i + 1 < len(key_moments) else duration,
+                "summary": f"{m.get('type', '').title()} section",
+                "type": m.get("type", "discussion")
+            })
+
+    # Store chapters
+    await db.meeting_replays.update_one(
+        {"meeting_id": meeting_id},
+        {"$set": {"ai_chapters": chapters, "chapters_generated_at": datetime.now(timezone.utc).isoformat()}}
+    )
+
+    return {"meeting_id": meeting_id, "chapters": chapters, "count": len(chapters)}
+
+
+@router.get("/{meeting_id}/search")
+async def search_transcript(meeting_id: str, q: str, user=Depends(require_auth)):
+    """Search through meeting transcript segments."""
+    replay = await db.meeting_replays.find_one({"meeting_id": meeting_id}, {"_id": 0, "transcript_segments": 1})
+    if not replay:
+        raise HTTPException(404, "Replay not found")
+
+    segments = replay.get("transcript_segments", [])
+    q_lower = q.lower()
+    results = []
+    for seg in segments:
+        text = seg.get("text", "")
+        if q_lower in text.lower():
+            results.append({
+                "ts": seg.get("ts", 0),
+                "speaker": seg.get("speaker", "Unknown"),
+                "text": text,
+                "match_start": text.lower().index(q_lower),
+            })
+
+    return {"query": q, "results": results, "count": len(results)}

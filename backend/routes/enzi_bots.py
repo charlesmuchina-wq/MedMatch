@@ -734,7 +734,8 @@ class CreateChainRequest(BaseModel):
     name: str
     channel_id: str
     steps: List[ChainStep]
-    trigger: str = "manual"
+    trigger: str = "manual"  # "manual", "on_meeting_end", "on_new_message", "scheduled"
+    schedule_interval: Optional[str] = None  # "daily", "weekly" for scheduled trigger
 
 @router.post("/chains")
 async def create_bot_chain(req: CreateChainRequest, request: Request):

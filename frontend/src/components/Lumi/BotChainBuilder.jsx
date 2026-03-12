@@ -25,6 +25,7 @@ const BotChainBuilder = ({ channelId, token }) => {
   const [creating, setCreating] = useState(false);
   const [newName, setNewName] = useState('');
   const [steps, setSteps] = useState([]);
+  const [trigger, setTrigger] = useState('manual');
   const [showBotPicker, setShowBotPicker] = useState(false);
 
   useEffect(() => { loadData(); }, [channelId]);
@@ -54,13 +55,14 @@ const BotChainBuilder = ({ channelId, token }) => {
       const res = await fetch(`${API}/api/lumi/bots/chains`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ name: newName, channel_id: channelId, steps: steps.map(s => ({ bot_id: s.bot_id, action: s.action, order: s.order })) })
+        body: JSON.stringify({ name: newName, channel_id: channelId, steps: steps.map(s => ({ bot_id: s.bot_id, action: s.action, order: s.order })), trigger })
       });
       if (res.ok) {
         toast.success('Workflow created!');
         setCreating(false);
         setNewName('');
         setSteps([]);
+        setTrigger('manual');
         loadData();
       } else { toast.error((await res.json()).detail || 'Failed'); }
     } catch { toast.error('Connection error'); }
@@ -141,6 +143,24 @@ const BotChainBuilder = ({ channelId, token }) => {
             )}
           </div>
 
+          {/* Trigger selector */}
+          <div className="mb-3">
+            <span className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-1.5 block">Trigger</span>
+            <div className="flex gap-1.5 flex-wrap">
+              {[
+                { id: 'manual', label: 'Manual', icon: '▶' },
+                { id: 'on_meeting_end', label: 'After Meeting', icon: '🎬' },
+                { id: 'on_new_message', label: 'On Message', icon: '💬' },
+              ].map(t => (
+                <button key={t.id} onClick={() => setTrigger(t.id)}
+                  className={`px-2.5 py-1.5 text-[10px] rounded-lg border transition-colors ${trigger === t.id ? 'bg-[#00CEC9]/10 border-[#00CEC9]/30 text-[#00CEC9]' : 'border-white/[0.06] text-slate-500 hover:text-white hover:border-white/[0.1]'}`}
+                  data-testid={`trigger-${t.id}`}>
+                  <span className="mr-1">{t.icon}</span>{t.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Actions */}
           <div className="flex gap-2 mt-3">
             <Button onClick={() => { setCreating(false); setSteps([]); setNewName(''); }} variant="ghost" size="sm" className="text-xs text-slate-400">Cancel</Button>
@@ -164,7 +184,14 @@ const BotChainBuilder = ({ channelId, token }) => {
           {chains.map(chain => (
             <div key={chain.id} className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.1] transition-colors" data-testid={`chain-${chain.id}`}>
               <div className="flex items-center justify-between mb-2">
-                <h4 className="text-xs font-semibold text-white">{chain.name}</h4>
+                <div className="flex items-center gap-2">
+                  <h4 className="text-xs font-semibold text-white">{chain.name}</h4>
+                  {chain.trigger !== 'manual' && (
+                    <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-[#00CEC9]/10 text-[#00CEC9] border border-[#00CEC9]/20">
+                      {chain.trigger === 'on_meeting_end' ? 'Auto: After Meeting' : chain.trigger === 'on_new_message' ? 'Auto: On Message' : chain.trigger}
+                    </span>
+                  )}
+                </div>
                 <div className="flex items-center gap-1">
                   {chain.run_count > 0 && <span className="text-[9px] text-slate-500">{chain.run_count} runs</span>}
                   <Button onClick={() => runChain(chain.id)} variant="ghost" size="sm" disabled={running === chain.id}

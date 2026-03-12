@@ -229,3 +229,70 @@ async def get_usage_insights(request: Request):
             f"Attended {meeting_count} meetings" if meeting_count > 0 else "No meetings this week"
         ]
     }
+
+
+
+@router.get("/predict-channels")
+async def predict_next_channels(request: Request):
+    """ML-powered channel prediction: which channels the user will likely visit next"""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    user_id = user["user_id"]
+    now = datetime.now(timezone.utc)
+
+    # Get recent message activity per channel (last 7 days)
+    recent_msgs = await db.lumi_messages.aggregate([
+        {"$match": {
+            "sender_id": user_id,
+            "created_at": {"$gte": (now - timedelta(days=7)).isoformat()}
+        }},
+        {"$group": {
+            "_id": "$channel_id",
+            "msg_count": {"$sum": 1},
+            "last_msg": {"$max": "$created_at"}
+        }},
+        {"$sort": {"msg_count": -1}},
+        {"$limit": 10}
+    ]).to_list(10)
+
+    # Get channel details
+    predictions = []
+    for item in recent_msgs:
+        ch = await db.lumi_channels.find_one({"id": item["_id"]}, {"_id": 0, "id": 1, "name": 1, "channel_type": 1})
+        if ch:
+            # Calculate prediction score (weighted: recency + frequency)
+            recency_score = 50  # base
+            try:
+                last_ts = datetime.fromisoformat(item["last_msg"].replace("Z", "+00:00"))
+                hours_ago = (now - last_ts).total_seconds() / 3600
+                recency_score = max(10, min(95, 100 - int(hours_ago * 3)))
+            except Exception:
+                pass
+
+            freq_score = min(95, item["msg_count"] * 5)
+            combined = int(recency_score * 0.6 + freq_score * 0.4)
+
+            predictions.append({
+                "channel_id": ch["id"],
+                "channel_name": ch.get("name", "Unknown"),
+                "channel_type": ch.get("channel_type", "channel"),
+                "prediction_score": combined,
+                "msg_count_7d": item["msg_count"],
+                "reason": "High activity" if item["msg_count"] > 10 else "Recent conversation"
+            })
+
+    # Sort by prediction score
+    predictions.sort(key=lambda x: x["prediction_score"], reverse=True)
+
+    # Current hour-based context
+    hour = now.hour
+    context = "morning" if 6 <= hour < 12 else "afternoon" if 12 <= hour < 18 else "evening" if 18 <= hour < 22 else "night"
+
+    return {
+        "predictions": predictions[:5],
+        "context": context,
+        "total_active_channels": len(predictions),
+        "suggestion": f"Based on your {context} patterns, you'll likely visit #{predictions[0]['channel_name']}" if predictions else "Start a conversation to enable predictions!"
+    }

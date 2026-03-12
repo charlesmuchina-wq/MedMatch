@@ -39,6 +39,7 @@ import EnziChatView from '@/components/Lumi/EnziChatView';
 import PremiumModal from '@/components/Lumi/PremiumModal';
 import InsightsPanel from '@/components/Lumi/InsightsPanel';
 import TeamAnalyticsDashboard from '@/components/Lumi/TeamAnalyticsDashboard';
+import MobileBottomNav from '@/components/Lumi/MobileBottomNav';
 
 const LumiMessenger = () => {
   const navigate = useNavigate();
@@ -58,6 +59,7 @@ const LumiMessenger = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [typingUsers, setTypingUsers] = useState({});
   const [mobileSidebar, setMobileSidebar] = useState(true);
+  const [mobileNavTab, setMobileNavTab] = useState('channels');
   const [globalSearch, setGlobalSearch] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -686,6 +688,21 @@ const LumiMessenger = () => {
           else if (cmd === 'generate_report' || cmd === 'analyze_sentiment' || cmd === 'extract_tasks') { if (activeChannel) setShowAiPanel(true); }
           else if (cmd === 'check_anomalies') setShowAlerts(true);
         }}
+      />
+
+      {/* Mobile Bottom Navigation */}
+      <MobileBottomNav
+        activeTab={mobileNavTab}
+        onTabChange={(tab) => {
+          setMobileNavTab(tab);
+          if (tab === 'channels') { setMobileSidebar(true); setActiveChannel(null); }
+          else if (tab === 'dms') { setMobileSidebar(true); }
+          else if (tab === 'search') { setShowCommandBar(true); }
+          else if (tab === 'ai') { if (activeChannel) setShowAiChat(true); else setShowBotStore(true); }
+          else if (tab === 'profile') { setShowProfile(true); }
+        }}
+        unreadCount={Object.values(unreadCounts).reduce((a, b) => a + b, 0)}
+        user={user}
       />
     </div>
   );

@@ -548,7 +548,6 @@ async def send_message(channel_id: str, data: MessageSend, request: Request):
             from routes.enzi_bots import handle_slash_command
             bot_result = await handle_slash_command(content, channel_id, user["user_id"])
             if bot_result:
-                # Broadcast bot response via WebSocket
                 bot_msg = await db.lumi_messages.find_one(
                     {"id": bot_result["message_id"]}, {"_id": 0}
                 )
@@ -557,6 +556,40 @@ async def send_message(channel_id: str, data: MessageSend, request: Request):
         except Exception as e:
             import logging
             logging.getLogger(__name__).error(f"Slash command error: {e}")
+
+    # Auto-trigger "on_new_message" chains (limit: every 10th message to avoid spam)
+    if not content.startswith("/"):
+        try:
+            msg_count = await db.lumi_messages.count_documents({"channel_id": channel_id})
+            if msg_count % 10 == 0:
+                from routes.enzi_bots import generate_bot_response, BOT_CATALOG
+                chains = await db.enzi_bot_chains.find(
+                    {"channel_id": channel_id, "trigger": "on_new_message", "is_active": True}
+                ).to_list(3)
+                for chain in chains:
+                    acc = ""
+                    for step in chain.get("steps", []):
+                        bot_id = step["bot_id"]
+                        resp = await generate_bot_response(bot_id, acc, channel_id)
+                        bot_info = BOT_CATALOG.get(bot_id, {})
+                        bot_msg_id = str(uuid.uuid4())
+                        bot_msg_doc = {
+                            "id": bot_msg_id, "channel_id": channel_id, "content": resp,
+                            "sender_id": f"bot_{bot_id}", "sender_name": f"[Bot] {bot_info.get('name', bot_id)}",
+                            "type": "bot_action", "bot_id": bot_id, "chain_id": chain["id"],
+                            "auto_triggered": True, "created_at": datetime.now(timezone.utc).isoformat()
+                        }
+                        await db.lumi_messages.insert_one(bot_msg_doc)
+                        del bot_msg_doc["_id"]
+                        await manager.send_to_channel(channel_id, {"type": "message", "data": bot_msg_doc})
+                        acc += f"\n{resp}"
+                    await db.enzi_bot_chains.update_one(
+                        {"id": chain["id"]},
+                        {"$set": {"last_run": datetime.now(timezone.utc).isoformat()}, "$inc": {"run_count": 1}}
+                    )
+        except Exception as e:
+            import logging
+            logging.getLogger(__name__).error(f"Auto-chain trigger error: {e}")
 
     return msg
 
