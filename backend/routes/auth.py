@@ -1482,6 +1482,56 @@ async def passkey_login_finish(req: PasskeyLoginFinish, response: Response):
     }
 
 
+@router.get("/passkeys")
+async def list_passkeys(request: Request):
+    """List all passkeys for the authenticated user."""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    passkeys = await db.passkeys.find(
+        {"email": user.get("email")},
+        {"_id": 0, "public_key": 0}
+    ).to_list(length=20)
+
+    return {
+        "passkeys": [
+            {
+                "credential_id": pk.get("credential_id", ""),
+                "created_at": pk.get("created_at", ""),
+                "device_name": pk.get("device_name", "Passkey Device"),
+            }
+            for pk in passkeys
+        ]
+    }
+
+
+@router.delete("/passkeys/{credential_id}")
+async def delete_passkey(credential_id: str, request: Request):
+    """Delete a specific passkey for the authenticated user."""
+    user = await get_current_user(request)
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    result = await db.passkeys.delete_one({
+        "credential_id": credential_id,
+        "email": user.get("email")
+    })
+
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Passkey not found")
+
+    # Check if user still has any passkeys
+    remaining = await db.passkeys.count_documents({"email": user.get("email")})
+    if remaining == 0:
+        await db.users.update_one(
+            {"email": user.get("email")},
+            {"$set": {"has_passkey": False}}
+        )
+
+    return {"message": "Passkey deleted successfully"}
+
+
 # Export helper functions for use in other modules
 __all__ = [
     'router', 

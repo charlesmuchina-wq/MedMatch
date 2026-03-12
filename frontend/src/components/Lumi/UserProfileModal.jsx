@@ -11,6 +11,8 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { API, ESY, STATUS_LABELS } from './constants';
 
+import { PasskeyManager } from './PasskeyManager';
+
 const STATUS_OPTIONS = [
   { value: 'available', label: 'Available', color: 'bg-emerald-500', emoji: '🟢' },
   { value: 'busy', label: 'Busy', color: 'bg-amber-500', emoji: '🟡' },
@@ -265,6 +267,9 @@ export const UserProfileModal = ({ onClose, token, onStatusChange, onThemeChange
                   </div>
                 )}
               </div>
+
+              {/* Security & Passkeys */}
+              <PasskeyManager user={profile?.user} />
 
               {/* AI Capabilities */}
               <div>
