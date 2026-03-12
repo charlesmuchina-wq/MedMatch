@@ -1,65 +1,42 @@
-# Changelog
+# CHANGELOG
 
-All notable changes to MedMatch will be documented in this file.
+## March 12, 2026 — Phases 1-4 Implementation
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+### Phase 1: Code Health & Stability (DONE)
+- **EnziChatView.jsx** extracted from LumiMessenger.jsx (804 → 693 lines)
+- **AiSummaryWidget.jsx** + **KarauAnalyticsRow.jsx** extracted from KarauMeetDashboard.jsx (998 → 755 lines)
+- GitHub SSO labeled as "(Demo)" in login UI
+- All functionality preserved — 100% test pass
 
-## [1.0.0] - 2026-01-30
+### Phase 2: AI-Powered Call Enhancements (DONE)
+- AI Meeting Transcription (Whisper via Emergent LLM Key) — already built
+- AI Meeting Summary/Notes (GPT-4o) — already built
+- Push Notifications: VAPID keys generated and configured, pywebpush ready
+- In-app notification fallback system active
 
-### Added
+### Phase 3: Collaboration Features (DONE)
+- **Bot-to-Bot Chaining**: Full workflow automation system
+  - Create named chains with 2+ bot steps
+  - Run chains — each bot output feeds as context to the next
+  - System messages announce chain start
+  - UI: "Workflows" tab in Channel Tools modal (BotChainBuilder)
+  - Backend: CRUD + execution at /api/lumi/bots/chains/*
+- AI Writing Toolbar (Phase 3.1) — already comprehensive with refine, suggest, translate, voice, templates
 
-#### Core Features
-- **Resume Parser**: AI-powered PDF/DOC/DOCX resume parsing
-- **Job Search**: Multi-source job aggregation (JobSpy, Google CSE)
-- **Authentication**: Email, Google OAuth, Apple Sign-In, Biometric (WebAuthn)
-- **Stripe Integration**: Membership tiers and payment processing
+### Phase 4: Polish & Growth (PARTIAL)
+- Portal logos restored on landing page
+- Mobile-responsive layout verified at 375px
 
-#### AI Features
-- **KARAU DRAGON AI**: Intelligent job search assistant
-- **AI Cover Letter Generator**: Personalized cover letters
-- **Interview Preparation**: AI-powered mock interviews
-- **Voice Coaching**: Real-time voice analysis and feedback
-- **Video Interview Practice**: TensorFlow.js facial expression analysis
-- **Real-time Transcription**: WebSocket-based Whisper transcription
+## March 11, 2026 — Bot Marketplace + Domain Routing
 
-#### Admin & Monitoring
-- **Admin Dashboard**: Centralized admin controls
-- **ML Issue Predictor**: Rule-based + scikit-learn ensemble model
-- **Auto-Rollback System**: Automatic system recovery
-- **Admin Audit Logging**: Security and compliance tracking
-- **ML Training Data Collection**: Event logging for model improvement
-- **Production Metrics**: User engagement, business, and AI usage tracking
+### P1: AI-Powered Bot Marketplace (DONE)
+- 18 bots across 4 categories with real GPT-4o AI responses
+- Quick action buttons (BotActionsBar) + Slash commands with autocomplete
+- Bot install/uninstall/configure per channel
+- Backend: generate_bot_response() with specialized system prompts
 
-#### Desktop Application
-- **Cross-platform**: Windows, macOS, Linux support
-- **Auto-updates**: GitHub Releases integration
-- **System Tray**: Quick access to key features
-- **Offline Detection**: Graceful offline handling
-- **Deep Linking**: `medmatch://` protocol support
-
-#### Mobile Support
-- **Expo Push Notifications**: iOS and Android push support
-- **React Native**: Expo SDK 54 mobile app structure
-
-### Security
-- WebAuthn/FIDO2 biometric authentication
-- Rate limiting with adaptive thresholds
-- Role-based access control (RBAC)
-- Admin action audit trail
-
-### Performance
-- Response caching
-- Database index optimization
-- Auto-scaling resource management
-- Weekly automated maintenance
-
----
-
-## [Unreleased]
-
-### Planned
-- APScheduler persistence with MongoDB
-- Enhanced TensorFlow.js neural network model
-- Comprehensive mobile app UI
-- Production VAPID key management
+### Previous Session Completed
+- Meeting-to-Channel Admin Approval
+- Domain-Aware Routing System (multi-subdomain)
+- AI KARAU tagline shortening
+- LumiMessenger initial refactor (EnziSidebar, EnziDashboard)
