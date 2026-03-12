@@ -24,6 +24,7 @@ const APPS = [
     color: '#6C5CE7',
     gradient: 'from-violet-500 to-indigo-600',
     badgeStyle: 'bg-violet-500/20 text-violet-300 border-violet-500/30',
+    logo: 'https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg',
     domains: ['connect.aikarau.com', 'meet.aikarau.com'],
     features: [
       { icon: Video, text: 'HD Video & Audio' },
@@ -42,6 +43,7 @@ const APPS = [
     color: '#00CEC9',
     gradient: 'from-teal-400 to-cyan-500',
     badgeStyle: 'bg-teal-500/20 text-teal-300 border-teal-500/30',
+    lumiIcon: true,
     domains: ['enzi.aikarau.com', 'enzilink.com'],
     features: [
       { icon: Hash, text: 'Channels, DMs & Bots' },
@@ -60,6 +62,7 @@ const APPS = [
     color: '#00B894',
     gradient: 'from-teal-400 to-emerald-500',
     badgeStyle: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+    logo: 'https://customer-assets.emergentagent.com/job_f139deea-35f2-4b55-91b9-9aab4dc4c84b/artifacts/9uzkkm0w_MedMatch%20Logo%20-%201MB.png',
     domains: ['medmatch.aikarau.com', 'careers.aikarau.com', 'jobs.aikarau.com'],
     features: [
       { icon: FileText, text: 'AI Resume Parser' },
@@ -165,9 +168,17 @@ const PortalSelector = () => {
                 <div className="relative p-6 sm:p-7">
                   {/* Icon + Name */}
                   <div className="flex items-center gap-3 mb-5">
-                    <div className="w-12 h-12 rounded-xl flex items-center justify-center border border-white/[0.06]"
-                         style={{ backgroundColor: app.color + '18' }}>
-                      <Icon className="w-6 h-6" style={{ color: app.color }} />
+                    <div className="w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden shadow-lg ring-2 ring-white/10"
+                         style={{ backgroundColor: app.lumiIcon ? '#0B0F1A' : undefined }}>
+                      {app.lumiIcon ? (
+                        <img src="/lumi-icon-only.png" alt="ENZI" className="w-10 h-10 object-contain" />
+                      ) : app.logo ? (
+                        <img src={app.logo} alt={app.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className={`w-full h-full bg-gradient-to-br ${app.gradient} flex items-center justify-center`}>
+                          <Icon className="w-7 h-7 text-white" />
+                        </div>
+                      )}
                     </div>
                     <div>
                       <h2 className="text-lg sm:text-xl font-bold text-white" style={{ fontFamily: "'Manrope', sans-serif" }}>{app.name}</h2>
