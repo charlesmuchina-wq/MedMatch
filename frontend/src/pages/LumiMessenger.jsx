@@ -259,8 +259,13 @@ const LumiMessenger = () => {
   const loadPredictions = useCallback(async () => {
     if (!token) return;
     try {
-      const res = await fetch(`${API}/api/lumi/predict/suggestions`, { headers: { 'Authorization': `Bearer ${token}` } });
-      if (res.ok) setPredictions(await res.json());
+      const res = await fetch(`${API}/api/lumi/behavior/predict-channels`, { headers: { 'Authorization': `Bearer ${token}` } });
+      if (res.ok) {
+        const data = await res.json();
+        // Map predict-channels response to the format the sidebar expects
+        const channelPreds = (data.predictions || []).map(p => ({ target_id: p.channel_id, score: p.prediction_score }));
+        setPredictions({ channels: channelPreds, dms: [], suggestion: data.suggestion });
+      }
     } catch (e) {}
   }, [token]);
 

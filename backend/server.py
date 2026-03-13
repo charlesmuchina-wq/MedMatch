@@ -339,6 +339,7 @@ from routes.enzi_domain import router as enzi_domain_router
 from routes.enzi_ai import router as enzi_ai_router
 from routes.enzi_automation import router as enzi_automation_router
 from routes.enzi_notifications import router as enzi_notifications_router
+from routes.smart_apply import router as smart_apply_router
 
 # Register all routers with /api prefix
 app.include_router(auth_router, prefix="/api")
@@ -458,6 +459,7 @@ app.include_router(enzi_domain_router, prefix="/api")
 app.include_router(enzi_ai_router, prefix="/api")
 app.include_router(enzi_automation_router, prefix="/api")
 app.include_router(enzi_notifications_router, prefix="/api")
+app.include_router(smart_apply_router, prefix="/api")
 
 from routes.enzi_sentiment import router as enzi_sentiment_router
 from routes.enzi_channel_templates import router as enzi_channel_templates_router

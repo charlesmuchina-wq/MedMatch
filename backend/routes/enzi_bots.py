@@ -91,6 +91,18 @@ BOT_CATALOG = {
         "install_count": 2120,
         "rating": 4.6,
     },
+    "quick_apply": {
+        "name": "Quick Apply Bot",
+        "description": "AI auto-applies to matching jobs posted in the last 24 hours. Uploads your resume, generates tailored cover letters, and batch-applies.",
+        "icon": "zap",
+        "category": "Job Toolkit",
+        "subcategory": "Job Seeker",
+        "featured": True,
+        "default_config": {"max_jobs": 10, "auto_cover_letter": True, "freshness_hours": 24},
+        "commands": ["/quickapply <job-title>", "/apply-status", "/apply-history"],
+        "install_count": 6340,
+        "rating": 4.9,
+    },
 
     # ── Category 2: AI Meeting Portal ──
     "note_taker": {
@@ -277,6 +289,7 @@ BOT_ACTIONS = {
     "bias_auditor": {"actions": [{"id": "audit_data", "label": "Audit Data", "icon": "scale"}]},
     "threat_scanner": {"actions": [{"id": "scan", "label": "Scan Threats", "icon": "alert-triangle"}]},
     "translation_qa": {"actions": [{"id": "qa", "label": "QA Translations", "icon": "check-circle"}]},
+    "quick_apply": {"actions": [{"id": "quickapply", "label": "Quick Apply", "icon": "zap"}]},
 }
 
 # System prompts for each bot
@@ -286,6 +299,7 @@ BOT_SYSTEM_PROMPTS = {
     "interview_copilot": "You are Interview Copilot, a mock interview coach. Generate realistic interview questions, provide feedback on answers, and coach on communication skills. Format with markdown. Keep responses concise (under 300 words).",
     "ez_sourcing": "You are EZ Sourcing Agent, an autonomous recruitment sourcer. Create multi-step outreach sequences, suggest sourcing channels, and draft personalized messages. Format with markdown. Keep responses concise (under 300 words).",
     "salary_negotiator": "You are Salary Negotiator, a compensation analysis expert. Provide market benchmarks, negotiation scripts, and total compensation breakdowns. Format with markdown. Keep responses concise (under 300 words).",
+    "quick_apply": "You are Quick Apply Bot, an AI job application assistant. When given a job title, search for matching jobs posted in the last 24 hours, generate tailored cover letters, and auto-apply. Report results with job titles, companies, match scores, and application status. Format with markdown tables. Keep responses actionable and concise.",
     "note_taker": "You are Automated Note-Taker. Analyze the conversation and extract key discussion points, action items, decisions made, and follow-ups needed. Format as a structured meeting notes document with markdown.",
     "smart_scheduler": "You are Smart Scheduler. Suggest optimal meeting times, draft agendas, and create reminder schedules. Be practical and consider timezone awareness. Format with markdown. Keep responses concise.",
     "search_copilot": "You are Search Copilot. Answer questions based on the conversation context provided. Cite specific messages when referencing past discussions. Format with markdown. Keep responses concise.",

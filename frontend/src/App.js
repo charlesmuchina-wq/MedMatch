@@ -5,7 +5,7 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { 
   Search, Briefcase, FileText, Bookmark, CheckSquare, 
-  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3, Users, Video, LogOut, Crown, DollarSign, MessageSquare, UserSearch, LayoutDashboard, Award, ShieldCheck, CalendarDays, Bot, Shield, Code, HelpCircle, Home, FileCheck, Languages, Database, Gavel, Scale, Globe, Zap, Loader2, Package
+  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3, Users, Video, LogOut, Crown, DollarSign, MessageSquare, UserSearch, LayoutDashboard, Award, ShieldCheck, CalendarDays, Bot, Shield, Code, HelpCircle, Home, FileCheck, Languages, Database, Gavel, Scale, Globe, Zap, Loader2, Package, MessageCircle
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
@@ -47,6 +47,7 @@ import MeetingNotesPage from "@/pages/MeetingNotesPage";
 import InterviewCalendarPage from "@/pages/InterviewCalendarPage";
 import AnalyticsFunnelPage from "@/pages/AnalyticsFunnelPage";
 import DragonAutomatorPage from "@/pages/DragonAutomatorPage";
+import SmartApplyPage from "@/pages/SmartApplyPage";
 import TranslationQADashboard from "@/components/TranslationQADashboard";
 import AdminDashboard from "@/pages/AdminDashboard";
 import AdminDataIntegrityPage from "@/pages/AdminDataIntegrityPage";
@@ -246,6 +247,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/analytics", icon: BarChart3, labelKey: "nav.analytics" },
     { path: "/analytics-funnel", icon: BarChart3, labelKey: "nav.analyticsFunnel" },
     { path: "/dragon-automator", icon: Bot, labelKey: "nav.dragonAutomator" },
+    { path: "/smart-apply", icon: Zap, labelKey: "nav.smartApply" },
     { path: "/admin", icon: Shield, labelKey: "nav.adminDashboard", adminOnly: true },
     { path: "/companies", icon: Briefcase, labelKey: "nav.companies" },
     { path: "/messages", icon: MessageSquare, labelKey: "nav.messages" },
@@ -1158,6 +1160,9 @@ function AppContent({ skipPortalSelector = false, forcedPortal = null, domainCon
             } />
             <Route path="/dragon-automator" element={
               <DragonAutomatorPage />
+            } />
+            <Route path="/smart-apply" element={
+              <SmartApplyPage resume={resume} />
             } />
             <Route path="/qa-dashboard" element={<TranslationQADashboard />} />
             <Route path="/admin" element={
