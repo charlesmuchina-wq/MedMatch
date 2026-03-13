@@ -765,7 +765,7 @@ export const I18nProvider = ({ children }) => {
     "nav.myInterviews", "nav.interviewPrep", "nav.successPredictor", "nav.coverLetter",
     "nav.voiceCoach", "nav.analytics", "nav.companies", "nav.messages", "nav.notifications",
     "nav.membership", "nav.idVerification", "nav.salaryInsights", "nav.qaPractice", "nav.privacy",
-    "nav.locationSettings",
+    "nav.locationSettings", "nav.smartApply",
     // Dashboard stats
     "dashboard.savedJobs", "dashboard.applications", "dashboard.interviews", "dashboard.resumeScore",
     "dashboard.quickActions", "dashboard.uploadResume", "dashboard.searchJobs",
@@ -963,6 +963,7 @@ export const I18nProvider = ({ children }) => {
           "Video Practice": "nav.videoPractice",
           "Voice Coach": "nav.voiceCoach",
           "Cover Letter": "nav.coverLetter",
+          "Quick Apply": "nav.smartApply",
           "Job Alerts": "nav.jobAlerts",
           "Analytics": "nav.analytics",
           "Messages": "nav.messages",
