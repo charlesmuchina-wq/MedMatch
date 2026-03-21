@@ -12,12 +12,12 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="AI KARAU Meeting Scheduler" />
   <Description DefaultValue="Schedule AI-powered video meetings with AI KARAU directly from Outlook. Features include AI transcription, breakout rooms, and meeting analytics." />
-  <IconUrl DefaultValue="https://karau-validation.preview.emergentagent.com/icons/icon-192x192.png" />
-  <HighResolutionIconUrl DefaultValue="https://karau-validation.preview.emergentagent.com/icons/icon-512x512.png" />
-  <SupportUrl DefaultValue="https://karau-validation.preview.emergentagent.com/support" />
+  <IconUrl DefaultValue="https://medmatch-jobs-dev.preview.emergentagent.com/icons/icon-192x192.png" />
+  <HighResolutionIconUrl DefaultValue="https://medmatch-jobs-dev.preview.emergentagent.com/icons/icon-512x512.png" />
+  <SupportUrl DefaultValue="https://medmatch-jobs-dev.preview.emergentagent.com/support" />
 
   <AppDomains>
-    <AppDomain>https://karau-validation.preview.emergentagent.com</AppDomain>
+    <AppDomain>https://medmatch-jobs-dev.preview.emergentagent.com</AppDomain>
     <AppDomain>https://aikarau.com</AppDomain>
     <AppDomain>https://enzilink.com</AppDomain>
   </AppDomains>
@@ -35,13 +35,13 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://karau-validation.preview.emergentagent.com/outlook/read" />
+        <SourceLocation DefaultValue="https://medmatch-jobs-dev.preview.emergentagent.com/outlook/read" />
         <RequestedHeight>450</RequestedHeight>
       </DesktopSettings>
     </Form>
     <Form xsi:type="ItemEdit">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://karau-validation.preview.emergentagent.com/outlook/compose" />
+        <SourceLocation DefaultValue="https://medmatch-jobs-dev.preview.emergentagent.com/outlook/compose" />
         <RequestedHeight>450</RequestedHeight>
       </DesktopSettings>
     </Form>
@@ -147,15 +147,15 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="icon16" DefaultValue="https://karau-validation.preview.emergentagent.com/icons/icon-72x72.png" />
-        <bt:Image id="icon32" DefaultValue="https://karau-validation.preview.emergentagent.com/icons/icon-96x96.png" />
-        <bt:Image id="icon80" DefaultValue="https://karau-validation.preview.emergentagent.com/icons/icon-128x128.png" />
+        <bt:Image id="icon16" DefaultValue="https://medmatch-jobs-dev.preview.emergentagent.com/icons/icon-72x72.png" />
+        <bt:Image id="icon32" DefaultValue="https://medmatch-jobs-dev.preview.emergentagent.com/icons/icon-96x96.png" />
+        <bt:Image id="icon80" DefaultValue="https://medmatch-jobs-dev.preview.emergentagent.com/icons/icon-128x128.png" />
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="functionFile" DefaultValue="https://karau-validation.preview.emergentagent.com/outlook/functions.html" />
-        <bt:Url id="scheduleTaskpane" DefaultValue="https://karau-validation.preview.emergentagent.com/outlook/schedule?outlook=true" />
-        <bt:Url id="joinTaskpane" DefaultValue="https://karau-validation.preview.emergentagent.com/outlook/join?outlook=true" />
-        <bt:Url id="createFromMsgTaskpane" DefaultValue="https://karau-validation.preview.emergentagent.com/outlook/create-from-message?outlook=true" />
+        <bt:Url id="functionFile" DefaultValue="https://medmatch-jobs-dev.preview.emergentagent.com/outlook/functions.html" />
+        <bt:Url id="scheduleTaskpane" DefaultValue="https://medmatch-jobs-dev.preview.emergentagent.com/outlook/schedule?outlook=true" />
+        <bt:Url id="joinTaskpane" DefaultValue="https://medmatch-jobs-dev.preview.emergentagent.com/outlook/join?outlook=true" />
+        <bt:Url id="createFromMsgTaskpane" DefaultValue="https://medmatch-jobs-dev.preview.emergentagent.com/outlook/create-from-message?outlook=true" />
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="groupLabel" DefaultValue="AI KARAU" />

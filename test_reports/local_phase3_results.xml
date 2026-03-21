@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="35" failures="5" skipped="0" tests="41" time="1.674" timestamp="2026-03-21T21:42:59.745730+00:00" hostname="agent-env-859708fb-1bde-43cd-aa8d-71d3c88cccf5"><testcase classname="tests.test_phase3_regression.TestWave1Auth" name="test_prr_auth_01_sso_saml_login" time="0.001"><failure message="requests.exceptions.MissingSchema: Invalid URL '/api/auth/google/session': No scheme supplied. Perhaps you meant https:///api/auth/google/session?">tests/test_phase3_regression.py:59: in test_prr_auth_01_sso_saml_login
+    response = self.session.post(f"{BASE_URL}/api/auth/google/session", json={
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:637: in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/google/session': No scheme supplied. Perhaps you meant https:///api/auth/google/session?</failure></testcase><testcase classname="tests.test_phase3_regression.TestWave1Auth" name="test_prr_auth_02_role_propagation" time="0.001"><failure message="requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?">tests/test_phase3_regression.py:78: in test_prr_auth_02_role_propagation
+    login_resp = self.session.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:637: in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</failure></testcase><testcase classname="tests.test_phase3_regression.TestWave1Auth" name="test_prr_auth_03_session_expiry" time="0.001"><failure message="requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?">tests/test_phase3_regression.py:101: in test_prr_auth_03_session_expiry
+    login_resp = self.session.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:637: in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</failure></testcase><testcase classname="tests.test_phase3_regression.TestWave1Auth" name="test_prr_auth_04_cross_portal_session" time="0.001"><failure message="requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?">tests/test_phase3_regression.py:121: in test_prr_auth_04_cross_portal_session
+    login_resp = self.session.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:637: in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</failure></testcase><testcase classname="tests.test_phase3_regression.TestWave1Auth" name="test_prr_auth_05_passkey_endpoints" time="0.001"><failure message="requests.exceptions.MissingSchema: Invalid URL '/api/auth/passkey/register/start': No scheme supplied. Perhaps you meant https:///api/auth/passkey/register/start?">tests/test_phase3_regression.py:148: in test_prr_auth_05_passkey_endpoints
+    response = self.session.post(f"{BASE_URL}/api/auth/passkey/register/start", json={
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:637: in post
+    return self.request("POST", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/passkey/register/start': No scheme supplied. Perhaps you meant https:///api/auth/passkey/register/start?</failure></testcase><testcase classname="tests.test_phase3_regression.TestWave1Bridges" name="test_prr_brg_01_schedule_push" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:180: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave1Bridges" name="test_prr_brg_02_meeting_messenger_sync" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:180: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave1Bridges" name="test_prr_brg_03_video_message_meeting" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:180: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave1Bridges" name="test_prr_brg_04_bridge_reconnect" time="0.000"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:180: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave1Bridges" name="test_prr_brg_05_messenger_functional_after_bridge" time="0.000"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:180: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave1Bridges" name="test_prr_brg_07_concurrent_bridge_events" time="0.000"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:180: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave1Bridges" name="test_prr_brg_08_interview_invitation" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:180: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave1Bridges" name="test_prr_brg_09_interview_auto_meeting" time="0.000"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:180: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave1Bridges" name="test_prr_brg_11_sso_token_all_portals" time="0.000"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:180: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave1Encryption" name="test_prr_msg_04_e2ee_endpoints_active" time="0.000"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:411: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave1Encryption" name="test_prr_msg_05_key_status_accessible" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:411: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave1Encryption" name="test_prr_ai_09_threat_detection_e2ee" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:411: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave1Encryption" name="test_prr_ai_10_false_positive_rate" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:411: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave1Encryption" name="test_prr_ai_11_encryption_key_rotation" time="0.000"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:411: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave2AI" name="test_prr_ai_01_job_skill_matching" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:490: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave2AI" name="test_prr_ai_02_cv_parsing" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:490: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave2AI" name="test_prr_ai_04_interview_question_generation" time="0.000"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:490: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave2AI" name="test_prr_ai_05_assessment_auto_marking" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:490: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave2AI" name="test_prr_ai_06_meeting_transcription" time="0.000"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:490: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave2AI" name="test_prr_ai_07_smart_scheduling" time="0.000"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:490: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave2CoreFlows" name="test_prr_rec_01_job_seeker_profile" time="0.000"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:573: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave2CoreFlows" name="test_prr_rec_02_job_application" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:573: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave2CoreFlows" name="test_prr_rec_04_admin_audit_log" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:573: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave2CoreFlows" name="test_prr_rec_05_assessment_delivery" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:573: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave3Meetings" name="test_prr_mtg_01_create_join_instant" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:626: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave3Meetings" name="test_prr_mtg_02_scheduled_meeting" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:626: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave3Meetings" name="test_prr_mtg_04_participant_management" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:626: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave3Messenger" name="test_prr_msg_01_send_receive_1to1" time="0.000"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:691: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave3Messenger" name="test_prr_msg_02_group_message_delivery" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:691: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave3Messenger" name="test_prr_msg_08_push_notification" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:691: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave3SmartApply" name="test_smart_apply_config" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:744: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave3SmartApply" name="test_smart_apply_run" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:744: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave3SmartApply" name="test_smart_apply_history" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:744: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave3BotStore" name="test_bot_catalog" time="0.001"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:788: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave3BotStore" name="test_bot_featured" time="0.000"><error message="failed on setup with &quot;requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?&quot;">tests/test_phase3_regression.py:788: in setup
+    self.token = get_auth_token()
+                 ^^^^^^^^^^^^^^^^
+tests/test_phase3_regression.py:37: in get_auth_token
+    response = requests.post(f"{BASE_URL}/api/auth/login", json={
+/root/.venv/lib/python3.11/site-packages/requests/api.py:115: in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/api.py:59: in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:575: in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/root/.venv/lib/python3.11/site-packages/requests/sessions.py:484: in prepare_request
+    p.prepare(
+/root/.venv/lib/python3.11/site-packages/requests/models.py:367: in prepare
+    self.prepare_url(url, params)
+/root/.venv/lib/python3.11/site-packages/requests/models.py:438: in prepare_url
+    raise MissingSchema(
+E   requests.exceptions.MissingSchema: Invalid URL '/api/auth/login': No scheme supplied. Perhaps you meant https:///api/auth/login?</error></testcase><testcase classname="tests.test_phase3_regression.TestWave4Summary" name="test_phase3_regression_summary" time="0.000" /></testsuite></testsuites>

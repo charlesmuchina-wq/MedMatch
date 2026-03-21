@@ -5,9 +5,9 @@
   "id": "lumi-ai-hub-1",
   "developer": {
     "name": "MedMatch",
-    "websiteUrl": "https://karau-validation.preview.emergentagent.com",
-    "privacyUrl": "https://karau-validation.preview.emergentagent.com/privacy",
-    "termsOfUseUrl": "https://karau-validation.preview.emergentagent.com/terms"
+    "websiteUrl": "https://medmatch-jobs-dev.preview.emergentagent.com",
+    "privacyUrl": "https://medmatch-jobs-dev.preview.emergentagent.com/privacy",
+    "termsOfUseUrl": "https://medmatch-jobs-dev.preview.emergentagent.com/terms"
   },
   "name": {
     "short": "AI Suite",
@@ -26,28 +26,28 @@
     {
       "entityId": "enzi-messenger",
       "name": "ENZI Messenger",
-      "contentUrl": "https://karau-validation.preview.emergentagent.com/enzi?teams=true",
-      "websiteUrl": "https://karau-validation.preview.emergentagent.com/enzi",
+      "contentUrl": "https://medmatch-jobs-dev.preview.emergentagent.com/enzi?teams=true",
+      "websiteUrl": "https://medmatch-jobs-dev.preview.emergentagent.com/enzi",
       "scopes": ["personal"]
     },
     {
       "entityId": "karau-meetings",
       "name": "AI KARAU Meetings",
-      "contentUrl": "https://karau-validation.preview.emergentagent.com/karau-meet?teams=true",
-      "websiteUrl": "https://karau-validation.preview.emergentagent.com/karau-meet",
+      "contentUrl": "https://medmatch-jobs-dev.preview.emergentagent.com/karau-meet?teams=true",
+      "websiteUrl": "https://medmatch-jobs-dev.preview.emergentagent.com/karau-meet",
       "scopes": ["personal"]
     },
     {
       "entityId": "medmatch-dashboard",
       "name": "MedMatch Jobs",
-      "contentUrl": "https://karau-validation.preview.emergentagent.com/dashboard?teams=true",
-      "websiteUrl": "https://karau-validation.preview.emergentagent.com/dashboard",
+      "contentUrl": "https://medmatch-jobs-dev.preview.emergentagent.com/dashboard?teams=true",
+      "websiteUrl": "https://medmatch-jobs-dev.preview.emergentagent.com/dashboard",
       "scopes": ["personal"]
     }
   ],
   "configurableTabs": [
     {
-      "configurationUrl": "https://karau-validation.preview.emergentagent.com/teams-config",
+      "configurationUrl": "https://medmatch-jobs-dev.preview.emergentagent.com/teams-config",
       "canUpdateConfiguration": true,
       "scopes": ["team", "groupChat"],
       "context": ["channelTab", "privateChatTab", "meetingChatTab", "meetingSidePanel"],

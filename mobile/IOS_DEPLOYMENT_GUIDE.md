@@ -59,7 +59,7 @@ cat app.json | python3 -c "import sys,json; d=json.load(sys.stdin)['expo']; prin
 
 All build profiles in `eas.json` use:
 ```
-EXPO_PUBLIC_API_URL=https://karau-validation.preview.emergentagent.com
+EXPO_PUBLIC_API_URL=https://medmatch-jobs-dev.preview.emergentagent.com
 ```
 
 Update this to your production URL before App Store submission.

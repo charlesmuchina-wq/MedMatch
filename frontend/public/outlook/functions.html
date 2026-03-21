@@ -13,7 +13,7 @@
     // Function to create a KARAU meeting link
     function createKarauMeeting(event) {
       var meetingId = 'karau-' + Date.now().toString(36);
-      var meetingUrl = 'https://karau-validation.preview.emergentagent.com/karau-meet/join/' + meetingId;
+      var meetingUrl = 'https://medmatch-jobs-dev.preview.emergentagent.com/karau-meet/join/' + meetingId;
       
       if (Office && Office.context && Office.context.mailbox) {
         Office.context.mailbox.item.body.setAsync(
