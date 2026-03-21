@@ -9,7 +9,7 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://ai-suite-test.preview.emergentagent.com"
+        "EXPO_PUBLIC_API_URL": "https://karau-validation.preview.emergentagent.com"
       },
       "ios": {
         "resourceClass": "m-medium",
@@ -24,7 +24,7 @@
     "preview": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://ai-suite-test.preview.emergentagent.com"
+        "EXPO_PUBLIC_API_URL": "https://karau-validation.preview.emergentagent.com"
       },
       "ios": {
         "resourceClass": "m-medium",
@@ -38,7 +38,7 @@
     "preview-simulator": {
       "distribution": "internal",
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://ai-suite-test.preview.emergentagent.com"
+        "EXPO_PUBLIC_API_URL": "https://karau-validation.preview.emergentagent.com"
       },
       "ios": {
         "resourceClass": "m-medium",
@@ -47,7 +47,7 @@
     },
     "production": {
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://ai-suite-test.preview.emergentagent.com"
+        "EXPO_PUBLIC_API_URL": "https://karau-validation.preview.emergentagent.com"
       },
       "ios": {
         "resourceClass": "m-medium",
