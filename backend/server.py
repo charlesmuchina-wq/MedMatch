@@ -487,6 +487,9 @@ app.include_router(meeting_intelligence_router, prefix="/api")
 app.include_router(lumi_files_router, prefix="/api")
 app.include_router(ai_productivity_router, prefix="/api")
 
+from routes.email_settings import router as email_settings_router
+app.include_router(email_settings_router, prefix="/api")
+
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
 videos_dir = Path("/app/videos")

@@ -1,0 +1,103 @@
+name: AI Suite Testing Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+env:
+  REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
+  MONGO_URL: ${{ secrets.MONGO_URL }}
+  DB_NAME: ${{ secrets.DB_NAME }}
+
+jobs:
+  phase1-functional:
+    name: "Phase 1: Functional Testing (Gate G1)"
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r backend/requirements.txt
+          pip install pytest pytest-html
+
+      - name: Run Phase 1 Functional Tests
+        run: |
+          cd backend
+          python -m pytest tests/test_phase1_functional.py \
+            -v --tb=short \
+            --html=../test_reports/phase1_report.html \
+            --junitxml=../test_reports/phase1_results.xml \
+            -x
+        env:
+          REACT_APP_BACKEND_URL: ${{ env.REACT_APP_BACKEND_URL }}
+
+      - name: Upload Phase 1 Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase1-results
+          path: test_reports/
+
+  phase3-regression:
+    name: "Phase 3: Post-Reliability Regression (Gate G3)"
+    needs: phase1-functional
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r backend/requirements.txt
+          pip install pytest pytest-html
+
+      - name: Run Phase 3 Regression Tests
+        run: |
+          cd backend
+          python -m pytest tests/test_phase3_regression.py \
+            -v --tb=short \
+            --html=../test_reports/phase3_report.html \
+            --junitxml=../test_reports/phase3_results.xml \
+            -x
+        env:
+          REACT_APP_BACKEND_URL: ${{ env.REACT_APP_BACKEND_URL }}
+
+      - name: Upload Phase 3 Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase3-results
+          path: test_reports/
+
+  gate-summary:
+    name: "Gate Summary"
+    needs: [phase1-functional, phase3-regression]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Check Gate Status
+        run: |
+          echo "=== AI Suite Testing Pipeline Summary ==="
+          echo "Phase 1 (Functional - G1): ${{ needs.phase1-functional.result }}"
+          echo "Phase 3 (Regression - G3): ${{ needs.phase3-regression.result }}"
+          if [ "${{ needs.phase1-functional.result }}" = "success" ] && [ "${{ needs.phase3-regression.result }}" = "success" ]; then
+            echo "ALL GATES PASSED - Ready for deployment"
+          else
+            echo "GATE FAILURE - Fix issues before deploying"
+            exit 1
+          fi
