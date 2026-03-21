@@ -2322,7 +2322,8 @@
     "rankNewcomer": "Newcomer",
     "rankRegular": "Regular",
     "rankExpert": "Expert",
-    "rankChampion": "Champion"
+    "rankChampion": "Champion",
+    "tabTSR": "TSR Reports"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "예: 프로덕션 ATS 웹훅",

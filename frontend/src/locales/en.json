@@ -2399,7 +2399,8 @@
     "rankNewcomer": "Newcomer",
     "rankRegular": "Regular",
     "rankExpert": "Expert",
-    "rankChampion": "Champion"
+    "rankChampion": "Champion",
+    "tabTSR": "TSR Reports"
   },
   "location": {
     "selectLocationPlaceholder": "Select your location..."

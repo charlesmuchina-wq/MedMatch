@@ -2696,7 +2696,8 @@
     "rankNewcomer": "Newcomer",
     "rankRegular": "Regular",
     "rankExpert": "Expert",
-    "rankChampion": "Champion"
+    "rankChampion": "Champion",
+    "tabTSR": "TSR Reports"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "مثال: Webhook لنظام ATS - الإنتاج",

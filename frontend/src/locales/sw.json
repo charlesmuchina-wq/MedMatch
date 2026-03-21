@@ -2360,7 +2360,8 @@
     "rankNewcomer": "Mpya",
     "rankRegular": "Kawaida",
     "rankExpert": "Mtaalamu",
-    "rankChampion": "Bingwa"
+    "rankChampion": "Bingwa",
+    "tabTSR": "TSR Reports"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "mfano, webhook ya ATS ya Uzalishaji",

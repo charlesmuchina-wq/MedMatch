@@ -2335,7 +2335,8 @@
     "rankNewcomer": "Newcomer",
     "rankRegular": "Regular",
     "rankExpert": "Expert",
-    "rankChampion": "Champion"
+    "rankChampion": "Champion",
+    "tabTSR": "TSR Reports"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "例如：生产环境 ATS Webhook",

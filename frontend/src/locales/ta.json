@@ -2300,7 +2300,8 @@
     "rankNewcomer": "Newcomer",
     "rankRegular": "Regular",
     "rankExpert": "Expert",
-    "rankChampion": "Champion"
+    "rankChampion": "Champion",
+    "tabTSR": "TSR Reports"
   },
   "location": {
     "selectLocationPlaceholder": "உங்கள் இடத்தைத் தேர்ந்தெடுக்கவும்..."

@@ -2300,7 +2300,8 @@
     "rankNewcomer": "Newcomer",
     "rankRegular": "Regular",
     "rankExpert": "Expert",
-    "rankChampion": "Champion"
+    "rankChampion": "Champion",
+    "tabTSR": "TSR Reports"
   },
   "location": {
     "selectLocationPlaceholder": "আপনার অবস্থান নির্বাচন করুন..."

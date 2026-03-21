@@ -2379,7 +2379,8 @@
     "rankNewcomer": "Newcomer",
     "rankRegular": "Regular",
     "rankExpert": "Expert",
-    "rankChampion": "Champion"
+    "rankChampion": "Champion",
+    "tabTSR": "TSR Reports"
   },
   "enterpriseAPI": {
     "webhookDescPlaceholder": "ex.: Webhook ATS de produção",
