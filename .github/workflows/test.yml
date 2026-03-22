@@ -38,7 +38,7 @@ jobs:
           python -c "
           import pymongo, bcrypt
           client = pymongo.MongoClient('mongodb://localhost:27017')
-          db = client['medmatch_db']
+          db = client['MedMatch']
           hashed = bcrypt.hashpw('Swampdrainer2026!'.encode(), bcrypt.gensalt()).decode()
           db.users.update_one(
             {'email': 'admin@medmatch.com'},
@@ -66,7 +66,7 @@ jobs:
           "
         env:
           MONGO_URL: mongodb://localhost:27017
-          DB_NAME: medmatch_db
+          DB_NAME: MedMatch
 
       - name: Start backend server
         run: |
@@ -83,7 +83,7 @@ jobs:
           curl -s http://localhost:8001/api/health || (echo "Backend failed to start" && exit 1)
         env:
           MONGO_URL: mongodb://localhost:27017
-          DB_NAME: medmatch_db
+          DB_NAME: MedMatch
           EMERGENT_API_KEY: ${{ secrets.EMERGENT_API_KEY }}
 
       - name: Run Phase 1 Functional Tests
@@ -97,7 +97,7 @@ jobs:
         env:
           REACT_APP_BACKEND_URL: http://localhost:8001
           MONGO_URL: mongodb://localhost:27017
-          DB_NAME: medmatch_db
+          DB_NAME: MedMatch
 
       - name: Upload Phase 1 Results
         if: always()
@@ -137,7 +137,7 @@ jobs:
           python -c "
           import pymongo, bcrypt
           client = pymongo.MongoClient('mongodb://localhost:27017')
-          db = client['medmatch_db']
+          db = client['MedMatch']
           hashed = bcrypt.hashpw('Swampdrainer2026!'.encode(), bcrypt.gensalt()).decode()
           db.users.update_one(
             {'email': 'admin@medmatch.com'},
@@ -165,7 +165,7 @@ jobs:
           "
         env:
           MONGO_URL: mongodb://localhost:27017
-          DB_NAME: medmatch_db
+          DB_NAME: MedMatch
 
       - name: Start backend server
         run: |
@@ -182,7 +182,7 @@ jobs:
           curl -s http://localhost:8001/api/health || (echo "Backend failed to start" && exit 1)
         env:
           MONGO_URL: mongodb://localhost:27017
-          DB_NAME: medmatch_db
+          DB_NAME: MedMatch
           EMERGENT_API_KEY: ${{ secrets.EMERGENT_API_KEY }}
 
       - name: Run Phase 3 Regression Tests
@@ -196,7 +196,7 @@ jobs:
         env:
           REACT_APP_BACKEND_URL: http://localhost:8001
           MONGO_URL: mongodb://localhost:27017
-          DB_NAME: medmatch_db
+          DB_NAME: MedMatch
 
       - name: Upload Phase 3 Results
         if: always()

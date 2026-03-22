@@ -175,7 +175,7 @@ async def lifespan(app: FastAPI):
     logger.info("🐉 KARAU DRAGON Scheduler started - Weekly maintenance Sundays 1:00 AM PST")
     
     # Initialize ML Data Collector
-    await ml_collector.initialize(mongo_url, os.environ.get('DB_NAME', 'medmatch'))
+    await ml_collector.initialize(mongo_url, os.environ.get('DB_NAME', 'MedMatch'))
     logger.info("ML Data Collector initialized - Training data collection active")
     
     # Initialize Object Storage

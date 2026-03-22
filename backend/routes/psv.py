@@ -25,7 +25,7 @@ router = APIRouter(prefix="/psv", tags=["Primary Source Verification"])
 
 # MongoDB connection
 MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
-DB_NAME = os.environ.get("DB_NAME", "medmatch")
+DB_NAME = os.environ.get("DB_NAME", "MedMatch")
 
 from motor.motor_asyncio import AsyncIOMotorClient
 client = AsyncIOMotorClient(MONGO_URL)

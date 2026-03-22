@@ -12,7 +12,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from routes.auth import get_current_user
 
 MONGO_URL = os.environ.get("MONGO_URL")
-DB_NAME = os.environ.get("DB_NAME", "medmatch")
+DB_NAME = os.environ.get("DB_NAME", "MedMatch")
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
 
