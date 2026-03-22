@@ -27,15 +27,23 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libcairo2-dev libpango1.0-dev libgdk-pixbuf-2.0-dev \
+            libffi-dev shared-mime-info poppler-utils ffmpeg \
+            libjq-dev pkg-config
+
       - name: Install backend dependencies
         run: |
-          pip install -r backend/requirements.txt --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/
-          pip install pytest pytest-html
+          pip install --no-deps -r backend/requirements.txt --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/ 2>&1 || true
+          pip install pytest pytest-html requests pymongo bcrypt motor fastapi uvicorn python-dotenv pydantic starlette --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/
 
       - name: Seed test users
         run: |
           cd backend
-          python -c "
+          python3 -c "
           import pymongo, bcrypt
           client = pymongo.MongoClient('mongodb://localhost:27017')
           db = client['MedMatch']
@@ -80,11 +88,12 @@ jobs:
             fi
             sleep 1
           done
-          curl -s http://localhost:8001/api/health || (echo "Backend failed to start" && exit 1)
+          curl -s http://localhost:8001/api/health || (echo "Backend failed to start" && cat nohup.out 2>/dev/null && exit 1)
         env:
           MONGO_URL: mongodb://localhost:27017
           DB_NAME: MedMatch
-          EMERGENT_API_KEY: ${{ secrets.EMERGENT_API_KEY }}
+          EMERGENT_LLM_KEY: ${{ secrets.EMERGENT_API_KEY }}
+          JWT_SECRET_KEY: ci_test_jwt_secret_key_2026
 
       - name: Run Phase 1 Functional Tests
         run: |
@@ -126,15 +135,23 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libcairo2-dev libpango1.0-dev libgdk-pixbuf-2.0-dev \
+            libffi-dev shared-mime-info poppler-utils ffmpeg \
+            libjq-dev pkg-config
+
       - name: Install backend dependencies
         run: |
-          pip install -r backend/requirements.txt --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/
-          pip install pytest pytest-html
+          pip install --no-deps -r backend/requirements.txt --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/ 2>&1 || true
+          pip install pytest pytest-html requests pymongo bcrypt motor fastapi uvicorn python-dotenv pydantic starlette --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/
 
       - name: Seed test users
         run: |
           cd backend
-          python -c "
+          python3 -c "
           import pymongo, bcrypt
           client = pymongo.MongoClient('mongodb://localhost:27017')
           db = client['MedMatch']
@@ -179,11 +196,12 @@ jobs:
             fi
             sleep 1
           done
-          curl -s http://localhost:8001/api/health || (echo "Backend failed to start" && exit 1)
+          curl -s http://localhost:8001/api/health || (echo "Backend failed to start" && cat nohup.out 2>/dev/null && exit 1)
         env:
           MONGO_URL: mongodb://localhost:27017
           DB_NAME: MedMatch
-          EMERGENT_API_KEY: ${{ secrets.EMERGENT_API_KEY }}
+          EMERGENT_LLM_KEY: ${{ secrets.EMERGENT_API_KEY }}
+          JWT_SECRET_KEY: ci_test_jwt_secret_key_2026
 
       - name: Run Phase 3 Regression Tests
         run: |
