@@ -7,16 +7,18 @@ on:
     branches: [main, develop]
   workflow_dispatch:
 
-env:
-  REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
-  MONGO_URL: ${{ secrets.MONGO_URL }}
-  DB_NAME: ${{ secrets.DB_NAME }}
-
 jobs:
   phase1-functional:
     name: "Phase 1: Functional Testing (Gate G1)"
     runs-on: ubuntu-latest
     timeout-minutes: 15
+
+    services:
+      mongodb:
+        image: mongo:7
+        ports:
+          - 27017:27017
+
     steps:
       - uses: actions/checkout@v4
 
@@ -25,10 +27,64 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install backend dependencies
         run: |
-          pip install -r backend/requirements.txt
+          pip install -r backend/requirements.txt --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/
           pip install pytest pytest-html
+
+      - name: Seed test users
+        run: |
+          cd backend
+          python -c "
+          import pymongo, bcrypt
+          client = pymongo.MongoClient('mongodb://localhost:27017')
+          db = client['medmatch_db']
+          hashed = bcrypt.hashpw('Swampdrainer2026!'.encode(), bcrypt.gensalt()).decode()
+          db.users.update_one(
+            {'email': 'admin@medmatch.com'},
+            {'\$set': {
+              'email': 'admin@medmatch.com',
+              'password': hashed,
+              'name': 'Admin User',
+              'is_admin': True,
+              'role': 'admin'
+            }},
+            upsert=True
+          )
+          hashed2 = bcrypt.hashpw('TestPassword123!'.encode(), bcrypt.gensalt()).decode()
+          db.users.update_one(
+            {'email': 'test@medmatch.io'},
+            {'\$set': {
+              'email': 'test@medmatch.io',
+              'password': hashed2,
+              'name': 'Test User',
+              'role': 'recruiter'
+            }},
+            upsert=True
+          )
+          print('Admin and test users seeded successfully')
+          "
+        env:
+          MONGO_URL: mongodb://localhost:27017
+          DB_NAME: medmatch_db
+
+      - name: Start backend server
+        run: |
+          cd backend
+          nohup python -m uvicorn server:app --host 0.0.0.0 --port 8001 &
+          echo "Waiting for backend to start..."
+          for i in $(seq 1 30); do
+            if curl -s http://localhost:8001/api/health > /dev/null 2>&1; then
+              echo "Backend is ready!"
+              break
+            fi
+            sleep 1
+          done
+          curl -s http://localhost:8001/api/health || (echo "Backend failed to start" && exit 1)
+        env:
+          MONGO_URL: mongodb://localhost:27017
+          DB_NAME: medmatch_db
+          EMERGENT_API_KEY: ${{ secrets.EMERGENT_API_KEY }}
 
       - name: Run Phase 1 Functional Tests
         run: |
@@ -39,7 +95,9 @@ jobs:
             --junitxml=../test_reports/phase1_results.xml \
             -x
         env:
-          REACT_APP_BACKEND_URL: ${{ env.REACT_APP_BACKEND_URL }}
+          REACT_APP_BACKEND_URL: http://localhost:8001
+          MONGO_URL: mongodb://localhost:27017
+          DB_NAME: medmatch_db
 
       - name: Upload Phase 1 Results
         if: always()
@@ -53,6 +111,13 @@ jobs:
     needs: phase1-functional
     runs-on: ubuntu-latest
     timeout-minutes: 15
+
+    services:
+      mongodb:
+        image: mongo:7
+        ports:
+          - 27017:27017
+
     steps:
       - uses: actions/checkout@v4
 
@@ -61,10 +126,64 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install backend dependencies
         run: |
-          pip install -r backend/requirements.txt
+          pip install -r backend/requirements.txt --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/
           pip install pytest pytest-html
+
+      - name: Seed test users
+        run: |
+          cd backend
+          python -c "
+          import pymongo, bcrypt
+          client = pymongo.MongoClient('mongodb://localhost:27017')
+          db = client['medmatch_db']
+          hashed = bcrypt.hashpw('Swampdrainer2026!'.encode(), bcrypt.gensalt()).decode()
+          db.users.update_one(
+            {'email': 'admin@medmatch.com'},
+            {'\$set': {
+              'email': 'admin@medmatch.com',
+              'password': hashed,
+              'name': 'Admin User',
+              'is_admin': True,
+              'role': 'admin'
+            }},
+            upsert=True
+          )
+          hashed2 = bcrypt.hashpw('TestPassword123!'.encode(), bcrypt.gensalt()).decode()
+          db.users.update_one(
+            {'email': 'test@medmatch.io'},
+            {'\$set': {
+              'email': 'test@medmatch.io',
+              'password': hashed2,
+              'name': 'Test User',
+              'role': 'recruiter'
+            }},
+            upsert=True
+          )
+          print('Admin and test users seeded successfully')
+          "
+        env:
+          MONGO_URL: mongodb://localhost:27017
+          DB_NAME: medmatch_db
+
+      - name: Start backend server
+        run: |
+          cd backend
+          nohup python -m uvicorn server:app --host 0.0.0.0 --port 8001 &
+          echo "Waiting for backend to start..."
+          for i in $(seq 1 30); do
+            if curl -s http://localhost:8001/api/health > /dev/null 2>&1; then
+              echo "Backend is ready!"
+              break
+            fi
+            sleep 1
+          done
+          curl -s http://localhost:8001/api/health || (echo "Backend failed to start" && exit 1)
+        env:
+          MONGO_URL: mongodb://localhost:27017
+          DB_NAME: medmatch_db
+          EMERGENT_API_KEY: ${{ secrets.EMERGENT_API_KEY }}
 
       - name: Run Phase 3 Regression Tests
         run: |
@@ -75,7 +194,9 @@ jobs:
             --junitxml=../test_reports/phase3_results.xml \
             -x
         env:
-          REACT_APP_BACKEND_URL: ${{ env.REACT_APP_BACKEND_URL }}
+          REACT_APP_BACKEND_URL: http://localhost:8001
+          MONGO_URL: mongodb://localhost:27017
+          DB_NAME: medmatch_db
 
       - name: Upload Phase 3 Results
         if: always()
