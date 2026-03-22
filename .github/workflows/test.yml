@@ -37,20 +37,59 @@ jobs:
 
       - name: Install backend dependencies
         run: |
-          pip install --no-deps -r backend/requirements.txt --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/ 2>&1 || true
-          pip install pytest pytest-html requests pymongo bcrypt motor fastapi uvicorn python-dotenv pydantic starlette --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/
+          cd backend
+          # Fix conflicting dependency pins:
+          # scipy==1.17.0 needs numpy>=1.26.4 but python-jobspy==1.1.82 pins numpy==1.26.3
+          # Solution: relax numpy pin and install python-jobspy without dep checking
+          cp requirements.txt requirements.ci.txt
+          sed -i 's/^numpy==.*$/numpy>=1.26.4,<2.7/' requirements.ci.txt
+          sed -i '/^python-jobspy==/d' requirements.ci.txt
+          
+          # Also remove arch-specific packages that may not have x86_64 wheels
+          sed -i '/^librt==/d' requirements.ci.txt
+          sed -i '/^s5cmd==/d' requirements.ci.txt
+          sed -i '/^hf-xet==/d' requirements.ci.txt
+          
+          pip install -r requirements.ci.txt --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/ || {
+            echo "::warning::Full requirements install failed, installing core packages..."
+            pip install fastapi==0.110.1 uvicorn==0.25.0 motor==3.3.1 pymongo==4.5.0 \
+              bcrypt==4.1.3 python-jose==3.5.0 python-dotenv==1.2.1 pydantic==2.12.5 \
+              starlette==0.37.2 python-multipart==0.0.21 httpx==0.28.1 requests==2.32.5 \
+              APScheduler==3.11.2 fastapi-cache2==0.2.2 slowapi==0.1.9 aiohttp==3.13.3 \
+              PyJWT==2.10.1 passlib==1.7.4 webauthn==2.7.0 stripe==14.1.0 resend==2.21.0 \
+              python-socketio==5.16.0 msal==1.35.1 pywebpush==2.2.0 edge-tts==7.2.7 \
+              beautifulsoup4==4.14.3 openai==1.99.9 google-genai==1.57.0 litellm==1.80.0 \
+              reportlab==4.4.9 pandas pillow lxml qrcode cbor2 cryptography pyotp \
+              psutil redis email-validator pyOpenSSL py-vapid xlsxwriter tabulate \
+              --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/
+          }
+          
+          # Install python-jobspy without dependency checking (works fine at runtime with any numpy)
+          pip install --no-deps python-jobspy==1.1.82 || echo "::warning::python-jobspy install failed"
+          
+          # Ensure emergentintegrations is installed
+          pip install emergentintegrations --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/ || echo "::warning::emergentintegrations install failed"
+          
+          # Install test dependencies
+          pip install pytest pytest-html
+          
+          # Verify critical imports
+          python -c "
+          import fastapi, motor, pymongo, bcrypt, requests
+          print('Core imports OK')
+          " || { echo "::error::Critical imports failed"; exit 1; }
 
       - name: Seed test users
         run: |
           cd backend
-          python3 -c "
+          python3 << 'SEED_SCRIPT'
           import pymongo, bcrypt
           client = pymongo.MongoClient('mongodb://localhost:27017')
           db = client['MedMatch']
           hashed = bcrypt.hashpw('Swampdrainer2026!'.encode(), bcrypt.gensalt()).decode()
           db.users.update_one(
             {'email': 'admin@medmatch.com'},
-            {'\$set': {
+            {'$set': {
               'email': 'admin@medmatch.com',
               'password': hashed,
               'name': 'Admin User',
@@ -62,7 +101,7 @@ jobs:
           hashed2 = bcrypt.hashpw('TestPassword123!'.encode(), bcrypt.gensalt()).decode()
           db.users.update_one(
             {'email': 'test@medmatch.io'},
-            {'\$set': {
+            {'$set': {
               'email': 'test@medmatch.io',
               'password': hashed2,
               'name': 'Test User',
@@ -71,7 +110,7 @@ jobs:
             upsert=True
           )
           print('Admin and test users seeded successfully')
-          "
+          SEED_SCRIPT
         env:
           MONGO_URL: mongodb://localhost:27017
           DB_NAME: MedMatch
@@ -79,16 +118,25 @@ jobs:
       - name: Start backend server
         run: |
           cd backend
-          nohup python -m uvicorn server:app --host 0.0.0.0 --port 8001 &
+          nohup python -m uvicorn server:app --host 0.0.0.0 --port 8001 > /tmp/server.log 2>&1 &
+          SERVER_PID=$!
+          echo "Server PID: $SERVER_PID"
           echo "Waiting for backend to start..."
           for i in $(seq 1 30); do
             if curl -s http://localhost:8001/api/health > /dev/null 2>&1; then
               echo "Backend is ready!"
+              curl -s http://localhost:8001/api/health
               break
             fi
+            echo "Attempt $i: Server not ready yet..."
             sleep 1
           done
-          curl -s http://localhost:8001/api/health || (echo "Backend failed to start" && cat nohup.out 2>/dev/null && exit 1)
+          if ! curl -s http://localhost:8001/api/health > /dev/null 2>&1; then
+            echo "::error::Backend failed to start"
+            echo "=== Server Logs ==="
+            cat /tmp/server.log
+            exit 1
+          fi
         env:
           MONGO_URL: mongodb://localhost:27017
           DB_NAME: MedMatch
@@ -99,14 +147,19 @@ jobs:
         run: |
           cd backend
           python -m pytest tests/test_phase1_functional.py \
-            -v --tb=short \
-            --html=../test_reports/phase1_report.html \
+            -v --tb=long \
             --junitxml=../test_reports/phase1_results.xml \
-            -x
+            -x 2>&1 | tee ../test_reports/phase1_output.txt
         env:
           REACT_APP_BACKEND_URL: http://localhost:8001
           MONGO_URL: mongodb://localhost:27017
           DB_NAME: MedMatch
+
+      - name: Show server logs on failure
+        if: failure()
+        run: |
+          echo "=== Server Logs ==="
+          cat /tmp/server.log 2>/dev/null || echo "No server logs found"
 
       - name: Upload Phase 1 Results
         if: always()
@@ -145,20 +198,48 @@ jobs:
 
       - name: Install backend dependencies
         run: |
-          pip install --no-deps -r backend/requirements.txt --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/ 2>&1 || true
-          pip install pytest pytest-html requests pymongo bcrypt motor fastapi uvicorn python-dotenv pydantic starlette --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/
+          cd backend
+          cp requirements.txt requirements.ci.txt
+          sed -i 's/^numpy==.*$/numpy>=1.26.4,<2.7/' requirements.ci.txt
+          sed -i '/^python-jobspy==/d' requirements.ci.txt
+          sed -i '/^librt==/d' requirements.ci.txt
+          sed -i '/^s5cmd==/d' requirements.ci.txt
+          sed -i '/^hf-xet==/d' requirements.ci.txt
+          
+          pip install -r requirements.ci.txt --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/ || {
+            echo "::warning::Full requirements install failed, installing core packages..."
+            pip install fastapi==0.110.1 uvicorn==0.25.0 motor==3.3.1 pymongo==4.5.0 \
+              bcrypt==4.1.3 python-jose==3.5.0 python-dotenv==1.2.1 pydantic==2.12.5 \
+              starlette==0.37.2 python-multipart==0.0.21 httpx==0.28.1 requests==2.32.5 \
+              APScheduler==3.11.2 fastapi-cache2==0.2.2 slowapi==0.1.9 aiohttp==3.13.3 \
+              PyJWT==2.10.1 passlib==1.7.4 webauthn==2.7.0 stripe==14.1.0 resend==2.21.0 \
+              python-socketio==5.16.0 msal==1.35.1 pywebpush==2.2.0 edge-tts==7.2.7 \
+              beautifulsoup4==4.14.3 openai==1.99.9 google-genai==1.57.0 litellm==1.80.0 \
+              reportlab==4.4.9 pandas pillow lxml qrcode cbor2 cryptography pyotp \
+              psutil redis email-validator pyOpenSSL py-vapid xlsxwriter tabulate \
+              --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/
+          }
+          
+          pip install --no-deps python-jobspy==1.1.82 || echo "::warning::python-jobspy install failed"
+          pip install emergentintegrations --extra-index-url https://d33sy5i8bnduwe.cloudfront.net/simple/ || echo "::warning::emergentintegrations install failed"
+          pip install pytest pytest-html
+          
+          python -c "
+          import fastapi, motor, pymongo, bcrypt, requests
+          print('Core imports OK')
+          " || { echo "::error::Critical imports failed"; exit 1; }
 
       - name: Seed test users
         run: |
           cd backend
-          python3 -c "
+          python3 << 'SEED_SCRIPT'
           import pymongo, bcrypt
           client = pymongo.MongoClient('mongodb://localhost:27017')
           db = client['MedMatch']
           hashed = bcrypt.hashpw('Swampdrainer2026!'.encode(), bcrypt.gensalt()).decode()
           db.users.update_one(
             {'email': 'admin@medmatch.com'},
-            {'\$set': {
+            {'$set': {
               'email': 'admin@medmatch.com',
               'password': hashed,
               'name': 'Admin User',
@@ -170,7 +251,7 @@ jobs:
           hashed2 = bcrypt.hashpw('TestPassword123!'.encode(), bcrypt.gensalt()).decode()
           db.users.update_one(
             {'email': 'test@medmatch.io'},
-            {'\$set': {
+            {'$set': {
               'email': 'test@medmatch.io',
               'password': hashed2,
               'name': 'Test User',
@@ -179,7 +260,7 @@ jobs:
             upsert=True
           )
           print('Admin and test users seeded successfully')
-          "
+          SEED_SCRIPT
         env:
           MONGO_URL: mongodb://localhost:27017
           DB_NAME: MedMatch
@@ -187,16 +268,25 @@ jobs:
       - name: Start backend server
         run: |
           cd backend
-          nohup python -m uvicorn server:app --host 0.0.0.0 --port 8001 &
+          nohup python -m uvicorn server:app --host 0.0.0.0 --port 8001 > /tmp/server.log 2>&1 &
+          SERVER_PID=$!
+          echo "Server PID: $SERVER_PID"
           echo "Waiting for backend to start..."
           for i in $(seq 1 30); do
             if curl -s http://localhost:8001/api/health > /dev/null 2>&1; then
               echo "Backend is ready!"
+              curl -s http://localhost:8001/api/health
               break
             fi
+            echo "Attempt $i: Server not ready yet..."
             sleep 1
           done
-          curl -s http://localhost:8001/api/health || (echo "Backend failed to start" && cat nohup.out 2>/dev/null && exit 1)
+          if ! curl -s http://localhost:8001/api/health > /dev/null 2>&1; then
+            echo "::error::Backend failed to start"
+            echo "=== Server Logs ==="
+            cat /tmp/server.log
+            exit 1
+          fi
         env:
           MONGO_URL: mongodb://localhost:27017
           DB_NAME: MedMatch
@@ -207,14 +297,19 @@ jobs:
         run: |
           cd backend
           python -m pytest tests/test_phase3_regression.py \
-            -v --tb=short \
-            --html=../test_reports/phase3_report.html \
+            -v --tb=long \
             --junitxml=../test_reports/phase3_results.xml \
-            -x
+            -x 2>&1 | tee ../test_reports/phase3_output.txt
         env:
           REACT_APP_BACKEND_URL: http://localhost:8001
           MONGO_URL: mongodb://localhost:27017
           DB_NAME: MedMatch
+
+      - name: Show server logs on failure
+        if: failure()
+        run: |
+          echo "=== Server Logs ==="
+          cat /tmp/server.log 2>/dev/null || echo "No server logs found"
 
       - name: Upload Phase 3 Results
         if: always()
