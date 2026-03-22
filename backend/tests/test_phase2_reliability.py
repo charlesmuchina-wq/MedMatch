@@ -205,6 +205,8 @@ class TestPerformance:
     
     def test_bot_catalog_p95(self):
         """Bot catalog P95 response time < 500ms"""
+        # Warmup request to eliminate cold-start artifacts
+        requests.get(f"{BASE_URL}/api/lumi/bots/catalog", headers=self.headers)
         times = []
         for i in range(20):
             start = time.time()
