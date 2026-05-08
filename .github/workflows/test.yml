@@ -22,6 +22,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Symlink /app to workspace (fix hardcoded paths)
+        run: |
+          # Application code uses hardcoded /app/... paths (capa, ai_qa, videos, static assets).
+          # Symlink /app -> $GITHUB_WORKSPACE so all hardcoded paths resolve to the checkout.
+          sudo rm -rf /app 2>/dev/null || true
+          sudo ln -s "$GITHUB_WORKSPACE" /app
+          ls -la /app | head -5
+          echo "Symlink created: /app -> $GITHUB_WORKSPACE"
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -182,6 +191,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Symlink /app to workspace (fix hardcoded paths)
+        run: |
+          sudo rm -rf /app 2>/dev/null || true
+          sudo ln -s "$GITHUB_WORKSPACE" /app
+          echo "Symlink created: /app -> $GITHUB_WORKSPACE"
 
       - name: Set up Python
         uses: actions/setup-python@v5
