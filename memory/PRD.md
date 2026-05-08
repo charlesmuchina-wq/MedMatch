@@ -4,16 +4,22 @@
 Build a dual-platform communication suite: "AI KARAU" (webinar tool), "ENZI" (professional-grade AI messenger), and "MedMatch AI" (job-seeking toolkit). ENZI is the primary focus -- a futuristic, AI-driven "Actionable Intelligence" hub with liquid glass aesthetics, bento grid layouts, and predictive behavior.
 
 ## Architecture
-- Frontend: React + Tailwind + Shadcn/UI + react-markdown
-- Backend: FastAPI + MongoDB + emergentintegrations
+- Frontend: React 19 + Tailwind CSS 3.4 + Shadcn/UI + react-markdown
+- Backend: FastAPI 0.110.1 + MongoDB 7.0 + emergentintegrations
 - Real-time: WebSocket at /api/lumi/ws/{user_id}
-- AI: GPT-4o via Emergent LLM Key
-- Payments: Stripe via emergentintegrations (test mode)
-- Auth: Email/password, Google SSO, Microsoft SSO, Apple, GitHub, Passkeys/WebAuthn
+- AI: GPT-4o via Emergent LLM Key (LiteLLM multi-provider routing)
+- Payments: Stripe + PayPal (both in test/sandbox mode)
+- Auth: Email/password, Google SSO, Microsoft SSO, Apple, GitHub, ORCID, Passkeys/WebAuthn
 - Desktop: Electron (Win/Mac/Linux)
 - Mobile: Expo SDK 54 + React Native 0.81 (iOS/Android)
-- Microsoft: Teams App + Outlook Add-in
+- Microsoft: Teams App + Outlook Add-in (pending Azure AD)
 - CI/CD: GitHub Actions + Local runner (Phase 1 + Phase 3 gates)
+
+## Codebase Metrics
+- Backend: 228 Python files, 96,680 LOC, 131 route modules, 71 services
+- Frontend: 324 source files, 89,801 LOC, 92 pages, 161 components
+- Database: 173 MongoDB collections
+- Dependencies: 212 backend packages, 71 frontend packages
 
 ## Credentials
 - Admin: admin@medmatch.com / Swampdrainer2026!
@@ -32,35 +38,33 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool), "ENZI" (pr
 ## All Features (Implemented & Tested)
 1-29: See CHANGELOG.md for complete list
 
+## Completed This Session (March 22, 2026)
+- CI/CD Pipeline Fix v2: Resolved `numpy` version conflict (scipy vs python-jobspy), fixed shell escaping in seed script (heredoc), added system dependencies and diagnostic output
+- System Requirements Audit Document: `/app/docs/SYSTEM_REQUIREMENTS_AUDIT.md`
+- File Inventory Audit Document: `/app/docs/FILE_INVENTORY_AUDIT.md`
+- Development Analyst Report: `/app/docs/DEVELOPMENT_ANALYST_REPORT_22_03_2026.md`
+
 ## Next Action Items (Detailed playbook: /app/docs/PRODUCTION_LAUNCH_PLAYBOOK.md)
 
-### Task 1 — Submit Platform Builds per Wave Deployment Schedule
-Prerequisites: release branch, signing certs (Apple + Android Keystore), store access
-1. Confirm wave schedule alignment (map versions to waves, lock freeze dates 5+ days before)
-2. Build & sign artifacts (iOS .ipa via Xcode, Android .aab via Gradle)
-3. Internal testing (TestFlight + Play Console Internal track, 24-48hr validation)
-4. Submit to store review (App Store Connect + Play Console, staged rollout)
-5. Monitor & promote per wave (phased release, crash rate monitoring)
+### P0 — CI/CD Pipeline Verification
+- User must "Save to GitHub" to trigger the fixed pipeline
+- Pipeline includes system deps, sed-based numpy conflict resolution, heredoc seed script, diagnostic output
 
 ### Task 2 — Register Azure AD for Teams/Outlook
 Prerequisites: Azure sub with Global Admin role, redirect URIs, tenant ID
-1. Create app registration (Azure AD → App registrations → New)
-2. Configure Graph API permissions (User.Read, Mail.*, Calendars.*, ChannelMessage.*, Chat.*, TeamsActivity.*)
-3. Grant admin consent (Global Admin required)
-4. Create client secret or certificate (store in Key Vault)
-5. Configure MSAL authentication flows (OAuth2 authorization code)
-6. Validate Teams messages + Outlook mail sending end-to-end
+- User status: "No to Azure / not sure"
 
 ### Task 3 — Obtain CISO Security Sign-Off (Gate G5)
 Prerequisites: threat model, pen test report, SAST/DAST results, data flow diagrams, incident response plan
-1. Assemble security evidence pack (STRIDE threat model, SonarQube/Checkmarx SAST, OWASP ZAP DAST, dependency scan)
-2. Remediate all Critical/High findings (Medium = plan + timeline, Low = risk acknowledgment)
-3. Complete risk assessment (residual risks, compensating controls, risk acceptance forms)
-4. Prepare G5 submission document (executive summary, finding tracker, residual risk register, policy compliance)
-5. Schedule G5 review meeting (5+ business days lead time for CISO document review)
-6. Obtain signed sign-off (hard prerequisite — no production deployment without it)
 
-**Key Dependency:** G5 (Task 3) + Azure AD (Task 2) must complete BEFORE Wave 1 submission (Task 1)
+### Task 1 — Submit Platform Builds (blocked by Tasks 2 & 3)
+Prerequisites: release branch, signing certs, store access
+
+## Future/Backlog
+- P1: Real-time Deployment Dashboard
+- P2: Production Monitoring & CRS Dashboard
+- P2: Chrome Extension
+- P3: Enterprise Customer Onboarding
 
 ## Deployment Gate Status
 | Gate | Status |
@@ -70,3 +74,14 @@ Prerequisites: threat model, pen test report, SAST/DAST results, data flow diagr
 | G3 Regression | PASSED |
 | G4 Platform Cert | Prerequisites Met (store submissions pending) |
 | G5 Security | Prerequisites Met (CISO review pending) |
+
+## Audit Documents
+| Document | Path |
+|----------|------|
+| System Requirements | `/app/docs/SYSTEM_REQUIREMENTS_AUDIT.md` |
+| File Inventory | `/app/docs/FILE_INVENTORY_AUDIT.md` |
+| Development Analyst Report | `/app/docs/DEVELOPMENT_ANALYST_REPORT_22_03_2026.md` |
+| Production Launch Playbook | `/app/docs/PRODUCTION_LAUNCH_PLAYBOOK.md` |
+| Gap Assessment | `/app/docs/GAP_ASSESSMENT.md` |
+| Testing Strategy | `/app/docs/TESTING_STRATEGY_RESULTS.md` |
+| Deployment Readiness | `/app/docs/DEPLOYMENT_READINESS.md` |
