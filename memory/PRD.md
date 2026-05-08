@@ -82,6 +82,7 @@ Prerequisites: release branch, signing certs, store access
 | File Inventory | `/app/docs/FILE_INVENTORY_AUDIT.md` |
 | Technical SWOT Audit | `/app/docs/TECHNICAL_SWOT_AUDIT_22_03_2026.md` |
 | Execution Framework | `/app/docs/EXECUTION_FRAMEWORK_22_03_2026.md` |
+| RICE Cadence Roadmap | `/app/docs/CADENCE_ROADMAP_22_03_2026.md` |
 | Development Analyst Report | `/app/docs/DEVELOPMENT_ANALYST_REPORT_22_03_2026.md` |
 | Production Launch Playbook | `/app/docs/PRODUCTION_LAUNCH_PLAYBOOK.md` |
 | Gap Assessment | `/app/docs/GAP_ASSESSMENT.md` |
