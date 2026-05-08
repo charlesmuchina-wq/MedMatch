@@ -277,12 +277,15 @@ async def upload_resume_to_profile(file: UploadFile = File(...), profile_name: s
 # ============== Helper Functions ==============
 
 def extract_text_from_pdf(file_content: bytes) -> str:
-    """Extract text from PDF content"""
-    pdf_reader = PdfReader(io.BytesIO(file_content))
-    text = ""
-    for page in pdf_reader.pages:
-        text += page.extract_text() or ""
-    return text
+    """Extract text from PDF content. Raises HTTPException(400) on malformed PDF."""
+    try:
+        pdf_reader = PdfReader(io.BytesIO(file_content))
+        text = ""
+        for page in pdf_reader.pages:
+            text += page.extract_text() or ""
+        return text
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Invalid or corrupted PDF file: {str(e)[:120]}")
 
 async def parse_resume_with_ai(raw_text: str) -> dict:
     """Parse resume text using AI"""
