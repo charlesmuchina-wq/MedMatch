@@ -59,6 +59,15 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool), "ENZI" (pr
   - **Fixes applied**: WCAG-02 SkipNav (`/components/a11y/SkipNav.jsx` + `App.js` `<main id="main-content" tabIndex={-1}>`), WCAG-01 LoginPage password-toggle aria-label/aria-pressed/24px target, WCAG-06 contrast (Tabs `text-slate-700` inactive, Submit `bg-teal-700`, Sign Up `text-teal-700`)
   - Populated tracker at `/app/docs/security/WCAG_REMEDIATION_TRACKER_DAY1.md`
   - **Score estimate: ~25/100 → ~70/100** (target 85+/100 in remaining sprint)
+- **WCAG 2.2 AA Sprint-1 Day 2 (Feb 8) — All sprint exit criteria met ✅**:
+  - **Phase 4 accessibility CI gate** added to `.github/workflows/test.yml` (Node 20 + Playwright Chromium, fails build on critical/serious, posts PR comment, uploads artifact)
+  - `wcag_audit.cjs` upgraded with CLI single-URL mode + permanent `#emergent-badge` exclude (documented inline)
+  - **WCAG-08 Live region announcer** infrastructure: `frontend/src/utils/announcer.js` + global `<div id="toast-announcer" role="status" aria-live="polite" aria-atomic="true" className="sr-only" />` mounted at App root
+  - **WCAG-10 KARAU controls**: `MeetingRoom.jsx` controls bar wrapped in `role="toolbar"` with `aria-pressed` toggle states + `aria-label` on mute/video/screen/leave, all icons `aria-hidden`
+  - **WCAG-11 ENZI messenger**: `EnziChatView.jsx` thread wrapped in `role="log" aria-live="polite" aria-relevant="additions"`, compose is now real `<form>` with hidden `<label htmlFor>` + `aria-describedby` Enter-to-send hint
+  - **WCAG-04 Skipped** — Shadcn Dialog uses Radix Primitive which natively provides focus trap; adding `focus-trap-react` would be redundant. Documented rationale.
+  - **ACC-01..05 G1 gate tests** added to `test_phase1_functional.py` — all 5 PASS. **G1 = 64/64 ✅**
+  - Final tracker at `/app/docs/security/WCAG_REMEDIATION_TRACKER_DAY2.md`. **Score estimate: ~85/100** ✅
 - System Requirements / File Inventory / SWOT / Execution Framework / RICE Cadence audit docs (March 22)
 
 ## Next Action Items (Detailed playbook: /app/docs/PRODUCTION_LAUNCH_PLAYBOOK.md)

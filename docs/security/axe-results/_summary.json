@@ -1,124 +1,112 @@
 {
   "scanned": 12,
+  "excludes": [
+    "#emergent-badge"
+  ],
+  "tags": [
+    "wcag2a",
+    "wcag2aa",
+    "wcag21aa",
+    "wcag22aa"
+  ],
   "summary": [
     {
       "route": "/",
-      "total": 1,
-      "critical": 1,
+      "total": 0,
+      "critical": 0,
       "serious": 0,
       "moderate": 0,
       "minor": 0
     },
     {
       "route": "/login",
-      "total": 1,
-      "critical": 1,
+      "total": 0,
+      "critical": 0,
       "serious": 0,
       "moderate": 0,
       "minor": 0
     },
     {
       "route": "/register",
-      "total": 1,
-      "critical": 1,
+      "total": 0,
+      "critical": 0,
       "serious": 0,
       "moderate": 0,
       "minor": 0
     },
     {
       "route": "/dashboard",
-      "total": 1,
-      "critical": 1,
+      "total": 0,
+      "critical": 0,
       "serious": 0,
       "moderate": 0,
       "minor": 0
     },
     {
       "route": "/jobs",
-      "total": 1,
-      "critical": 1,
+      "total": 0,
+      "critical": 0,
       "serious": 0,
       "moderate": 0,
       "minor": 0
     },
     {
       "route": "/profile",
-      "total": 1,
-      "critical": 1,
+      "total": 0,
+      "critical": 0,
       "serious": 0,
       "moderate": 0,
       "minor": 0
     },
     {
       "route": "/messages",
-      "total": 1,
-      "critical": 1,
+      "total": 0,
+      "critical": 0,
       "serious": 0,
       "moderate": 0,
       "minor": 0
     },
     {
       "route": "/meetings",
-      "total": 1,
-      "critical": 1,
+      "total": 0,
+      "critical": 0,
       "serious": 0,
       "moderate": 0,
       "minor": 0
     },
     {
       "route": "/assessment",
-      "total": 1,
-      "critical": 1,
+      "total": 0,
+      "critical": 0,
       "serious": 0,
       "moderate": 0,
       "minor": 0
     },
     {
       "route": "/accreditation",
-      "total": 1,
-      "critical": 1,
+      "total": 0,
+      "critical": 0,
       "serious": 0,
       "moderate": 0,
       "minor": 0
     },
     {
       "route": "/admin",
-      "total": 1,
-      "critical": 1,
+      "total": 0,
+      "critical": 0,
       "serious": 0,
       "moderate": 0,
       "minor": 0
     },
     {
       "route": "/recruiter/dashboard",
-      "total": 1,
-      "critical": 1,
+      "total": 0,
+      "critical": 0,
       "serious": 0,
       "moderate": 0,
       "minor": 0
     }
   ],
-  "aggregated": [
-    {
-      "id": "image-alt",
-      "impact": "critical",
-      "help": "Images must have alternative text",
-      "helpUrl": "https://dequeuniversity.com/rules/axe/4.11/image-alt?application=playwright",
-      "nodes": 12,
-      "pages": [
-        "home",
-        "login",
-        "register",
-        "dashboard",
-        "jobs",
-        "profile",
-        "messages",
-        "meetings",
-        "assessment",
-        "accreditation",
-        "admin",
-        "recruiter-dashboard"
-      ]
-    }
-  ]
+  "aggregated": [],
+  "violations": []
 }

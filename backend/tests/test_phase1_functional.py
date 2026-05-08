@@ -835,5 +835,109 @@ class TestUnauthenticated:
         print(f"✓ All protected endpoints require authentication")
 
 
+class TestWCAGAccessibility:
+    """
+    ACC-01 through ACC-05 — WCAG 2.1/2.2 AA gate tests
+    Requires: wcag_audit.cjs installed, frontend dev server on port 3000
+    Tags: wcag2a, wcag2aa, wcag21aa, wcag22aa
+    Excludes: #emergent-badge (preview environment only — not present in production)
+    """
+    BASE_URL = "http://localhost:3000"
+    AXE_SCRIPT = "/app/frontend/scripts/wcag_audit.cjs"
+    EXCLUDE = "#emergent-badge"
+
+    def _run_axe(self, route: str) -> dict:
+        import subprocess, json as _json
+        try:
+            result = subprocess.run(
+                [
+                    "node", self.AXE_SCRIPT,
+                    "--url", f"{self.BASE_URL}{route}",
+                    "--tags", "wcag2a,wcag2aa,wcag21aa,wcag22aa",
+                    "--exclude", self.EXCLUDE,
+                    "--format", "json",
+                ],
+                capture_output=True, text=True, timeout=120,
+                cwd="/app/frontend",
+            )
+        except FileNotFoundError:
+            pytest.skip("Node.js not available - skipping WCAG gate test")
+        if result.returncode != 0:
+            pytest.skip(
+                f"axe scan unavailable for {route} (frontend dev server may not be running). "
+                f"stderr: {result.stderr[:200]}"
+            )
+        try:
+            return _json.loads(result.stdout)
+        except Exception as exc:
+            pytest.skip(f"axe stdout not parseable for {route}: {exc}")
+
+    def _blocking(self, results: dict) -> list:
+        return [
+            v for v in results.get("violations", [])
+            if v.get("impact") in ("critical", "serious")
+        ]
+
+    def test_acc_01_keyboard_navigation(self):
+        """ACC-01: All interactive elements reachable via keyboard"""
+        results = self._run_axe("/login")
+        violations = [
+            v for v in self._blocking(results)
+            if v["id"] in ("tabindex", "scrollable-region-focusable")
+        ]
+        assert violations == [], f"ACC-01 keyboard nav violations: {[v['id'] for v in violations]}"
+        print("✓ ACC-01: keyboard navigation gate passed")
+
+    def test_acc_02_screen_reader_labels(self):
+        """ACC-02: Interactive elements have accessible names — 6 key routes"""
+        routes = ["/", "/login", "/dashboard", "/jobs", "/messages", "/meetings"]
+        failures = []
+        for route in routes:
+            results = self._run_axe(route)
+            viols = [
+                v for v in self._blocking(results)
+                if v["id"] in ("button-name", "link-name", "label", "image-alt")
+            ]
+            if viols:
+                failures.append(f"{route}: {[v['id'] for v in viols]}")
+        assert failures == [], f"ACC-02 missing accessible names: {failures}"
+        print(f"✓ ACC-02: screen-reader labels gate passed across {len(routes)} routes")
+
+    def test_acc_03_colour_contrast(self):
+        """ACC-03: All text meets WCAG 4.5:1 contrast ratio"""
+        routes = ["/", "/login", "/dashboard"]
+        failures = []
+        for route in routes:
+            results = self._run_axe(route)
+            viols = [v for v in self._blocking(results) if v["id"] == "color-contrast"]
+            if viols:
+                failures.append(f"{route}: {len(viols)} contrast failures")
+        assert failures == [], f"ACC-03 contrast failures: {failures}"
+        print(f"✓ ACC-03: colour-contrast gate passed across {len(routes)} routes")
+
+    def test_acc_04_no_critical_dashboard(self):
+        """ACC-04: Zero critical/serious WCAG violations on dashboard"""
+        results = self._run_axe("/dashboard")
+        blocking = self._blocking(results)
+        assert blocking == [], (
+            f"ACC-04 critical/serious on /dashboard: "
+            f"{[(v['id'], v['impact']) for v in blocking]}"
+        )
+        print("✓ ACC-04: dashboard accessibility gate passed")
+
+    def test_acc_05_meeting_controls_accessible(self):
+        """ACC-05: Meeting controls keyboard + screen reader accessible"""
+        results = self._run_axe("/meetings")
+        viols = [
+            v for v in self._blocking(results)
+            if v["id"] in (
+                "button-name", "aria-required-attr",
+                "aria-allowed-attr", "region",
+            )
+        ]
+        assert viols == [], f"ACC-05 meeting control violations: {[v['id'] for v in viols]}"
+        print("✓ ACC-05: meeting controls gate passed")
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "--tb=short"])

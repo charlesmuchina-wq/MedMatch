@@ -1295,6 +1295,17 @@ function App() {
         <I18nProvider>
           <DomainProvider>
             <DomainRouter />
+            {/* WCAG 4.1.3 Status Messages — global screen-reader announcer.
+                Hooked by /app/frontend/src/utils/announcer.js to broadcast
+                toast / status / error messages to assistive technology. */}
+            <div
+              id="toast-announcer"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              className="sr-only"
+              data-testid="sr-announcer"
+            />
           </DomainProvider>
         </I18nProvider>
       </ThemeProvider>

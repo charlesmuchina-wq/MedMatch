@@ -1907,30 +1907,40 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         </div>
 
         {/* Center: All Controls */}
-        <div className="flex items-center gap-1 md:gap-1.5">
+        <div
+          role="toolbar"
+          aria-label="Meeting controls"
+          className="flex items-center gap-1 md:gap-1.5"
+        >
           {/* Media Controls */}
           <button
             onClick={toggleAudio}
             className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${!isAudioEnabled ? 'bg-red-500/90 text-white hover:bg-red-600' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="control-audio"
+            aria-label={isAudioEnabled ? 'Mute microphone' : 'Unmute microphone'}
+            aria-pressed={!isAudioEnabled}
             title={isAudioEnabled ? 'Mute' : 'Unmute'}
           >
-            {isAudioEnabled ? <Mic className="w-[18px] h-[18px]" /> : <MicOff className="w-[18px] h-[18px]" />}
+            {isAudioEnabled ? <Mic className="w-[18px] h-[18px]" aria-hidden="true" /> : <MicOff className="w-[18px] h-[18px]" aria-hidden="true" />}
           </button>
 
           <button
             onClick={toggleVideo}
             className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${!isVideoEnabled ? 'bg-red-500/90 text-white hover:bg-red-600' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="control-video"
+            aria-label={isVideoEnabled ? 'Turn off camera' : 'Turn on camera'}
+            aria-pressed={!isVideoEnabled}
             title={isVideoEnabled ? 'Turn off camera' : 'Turn on camera'}
           >
-            {isVideoEnabled ? <Video className="w-[18px] h-[18px]" /> : <VideoOff className="w-[18px] h-[18px]" />}
+            {isVideoEnabled ? <Video className="w-[18px] h-[18px]" aria-hidden="true" /> : <VideoOff className="w-[18px] h-[18px]" aria-hidden="true" />}
           </button>
 
           <button
             onClick={toggleScreenShare}
             className={`flex items-center justify-center w-10 h-10 md:w-11 md:h-11 rounded-xl transition-all duration-200 ${isScreenSharing ? 'bg-emerald-500 text-white hover:bg-emerald-600' : 'bg-karau-surface text-slate-300 hover:bg-slate-600'}`}
             data-testid="control-screen-share"
+            aria-label={isScreenSharing ? 'Stop screen sharing' : 'Share screen'}
+            aria-pressed={isScreenSharing}
             title={isScreenSharing ? 'Stop sharing' : 'Share screen'}
           >
             {isScreenSharing ? <MonitorOff className="w-[18px] h-[18px]" /> : <Monitor className="w-[18px] h-[18px]" />}
@@ -2105,8 +2115,9 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
             onClick={leaveMeeting}
             className="flex items-center gap-1.5 h-10 px-3 md:px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-sm font-medium transition-all duration-200"
             data-testid="control-leave"
+            aria-label="Leave meeting"
           >
-            <PhoneOff className="w-4 h-4" />
+            <PhoneOff className="w-4 h-4" aria-hidden="true" />
             <span className="hidden sm:inline">Leave</span>
           </button>
         </div>

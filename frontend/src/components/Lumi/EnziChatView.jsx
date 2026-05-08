@@ -112,6 +112,13 @@ const EnziChatView = ({
 
           {/* Messages */}
           <ScrollArea className="flex-1 py-3">
+            <div
+              role="log"
+              aria-live="polite"
+              aria-relevant="additions"
+              aria-label={`Conversation with ${activeChannel?.channel_type === 'dm' ? activeChannel?.dm_partner?.name || 'contact' : '#' + (activeChannel?.name || 'channel')}`}
+              data-testid="message-thread"
+            >
             {messages.length === 0 && (
               <div className="flex flex-col items-center justify-center h-full text-center px-6">
                 <LumiBrand variant="text-light" size="md" className="mb-4" />
@@ -123,6 +130,7 @@ const EnziChatView = ({
               return <MessageBubble key={msg.id} msg={msg} isOwn={msg.sender_id === user?.user_id} prevSameSender={prevSameSender} onReact={handleReact} onThread={(id) => setShowThread(id)} onEdit={handleEditMessage} onDelete={handleDeleteMessage} token={token} />;
             })}
             <div ref={messagesEndRef} />
+            </div>
           </ScrollArea>
 
           {/* Typing indicator */}
@@ -141,26 +149,46 @@ const EnziChatView = ({
 
           {/* Message Input */}
           <div className="p-4 pt-2 border-t border-slate-100">
-            <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileShare} accept="image/*,.pdf,.doc,.docx,.txt,.csv" data-testid="file-input" />
-            <div className="relative flex items-center gap-2 border border-slate-200 rounded-lg px-4 py-2.5 focus-within:ring-2 focus-within:ring-[#008080]/20 focus-within:border-[#008080] transition-all bg-white shadow-sm">
+            <input type="file" ref={fileInputRef} className="hidden" onChange={handleFileShare} accept="image/*,.pdf,.doc,.docx,.txt,.csv" data-testid="file-input" aria-label="Attach file to message" />
+            <form
+              role="form"
+              aria-label={`Send message in ${activeChannel?.channel_type === 'dm' ? activeChannel?.dm_partner?.name || 'conversation' : '#' + (activeChannel?.name || 'channel')}`}
+              onSubmit={(e) => { e.preventDefault(); if (messageText.trim() && !sending) handleSend(); }}
+              className="relative flex items-center gap-2 border border-slate-200 rounded-lg px-4 py-2.5 focus-within:ring-2 focus-within:ring-[#008080]/20 focus-within:border-[#008080] transition-all bg-white shadow-sm"
+            >
               <SlashCommandAutocomplete channelId={activeChannel?.id} token={token} messageText={messageText} onSelect={(cmd) => setMessageText(cmd)} />
-              <button onClick={() => fileInputRef.current?.click()} disabled={uploading} className="p-1 text-slate-500 hover:text-[#008080] rounded transition-colors" data-testid="attach-file-btn">
-                {uploading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Paperclip className="w-4 h-4" />}
+              <button type="button" onClick={() => fileInputRef.current?.click()} disabled={uploading} className="p-1 text-slate-500 hover:text-[#008080] rounded transition-colors" data-testid="attach-file-btn" aria-label="Attach a file">
+                {uploading ? <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" /> : <Paperclip className="w-4 h-4" aria-hidden="true" />}
               </button>
               <div className="relative">
-                <button onClick={() => setShowEmojiPicker(!showEmojiPicker)} className={`p-1 rounded transition-colors ${showEmojiPicker ? 'text-[#008080] bg-[#008080]/10' : 'text-slate-500 hover:text-[#008080]'}`} data-testid="emoji-picker-btn">
-                  <Smile className="w-4 h-4" />
+                <button type="button" onClick={() => setShowEmojiPicker(!showEmojiPicker)} className={`p-1 rounded transition-colors ${showEmojiPicker ? 'text-[#008080] bg-[#008080]/10' : 'text-slate-500 hover:text-[#008080]'}`} data-testid="emoji-picker-btn" aria-label="Insert emoji" aria-expanded={showEmojiPicker} aria-haspopup="dialog">
+                  <Smile className="w-4 h-4" aria-hidden="true" />
                 </button>
                 <EmojiPicker isOpen={showEmojiPicker} onClose={() => setShowEmojiPicker(false)} onSelect={handleEmojiSelect} position="above" />
               </div>
-              <input value={messageText} onChange={e => { setMessageText(e.target.value); handleTyping(); }} onKeyDown={handleKeyDown}
+              <label htmlFor="message-input" className="sr-only">
+                Message {activeChannel?.channel_type === 'dm' ? activeChannel?.dm_partner?.name || '' : '#' + (activeChannel?.name || '')}
+              </label>
+              <input
+                id="message-input"
+                value={messageText}
+                onChange={e => { setMessageText(e.target.value); handleTyping(); }}
+                onKeyDown={handleKeyDown}
                 placeholder={`Message ${activeChannel.channel_type === 'dm' ? activeChannel.dm_partner?.name || '' : '#' + activeChannel.name}`}
-                className="flex-1 text-sm bg-transparent outline-none text-slate-900 placeholder:text-slate-500" data-testid="message-input" />
-              <button onClick={handleSend} disabled={!messageText.trim() || sending}
+                className="flex-1 text-sm bg-transparent outline-none text-slate-900 placeholder:text-slate-500"
+                data-testid="message-input"
+                aria-describedby="message-input-hint"
+              />
+              <span id="message-input-hint" className="sr-only">
+                Press Enter to send. Shift+Enter to insert a new line.
+              </span>
+              <button type="submit" onClick={handleSend} disabled={!messageText.trim() || sending}
                 className={`p-2 rounded-md transition-colors ${messageText.trim() ? 'text-white hover:opacity-90' : 'text-slate-400'}`}
                 style={messageText.trim() ? { background: `linear-gradient(135deg, ${ESY.turquoise}, ${ESY.pink})` } : {}}
-                data-testid="send-message-btn"><Send className="w-4 h-4" /></button>
-            </div>
+                data-testid="send-message-btn"
+                aria-label="Send message"
+              ><Send className="w-4 h-4" aria-hidden="true" /></button>
+            </form>
           </div>
         </div>
 

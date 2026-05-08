@@ -333,9 +333,120 @@ jobs:
           name: phase3-results
           path: test_reports/
 
+  phase4-accessibility:
+    name: "Phase 4 - Accessibility Gate (WCAG 2.1/2.2 AA)"
+    runs-on: ubuntu-latest
+    needs: [phase1-functional]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Symlink /app to workspace (fix hardcoded paths)
+        run: |
+          sudo rm -rf /app 2>/dev/null || true
+          sudo ln -s "$GITHUB_WORKSPACE" /app
+
+      - name: Set up Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install frontend deps
+        run: cd frontend && yarn install --frozen-lockfile --network-timeout 600000
+
+      - name: Install Playwright Chromium
+        run: cd frontend && npx playwright install chromium --with-deps
+
+      - name: Start dev server (background)
+        run: |
+          cd frontend
+          nohup yarn start > /tmp/frontend.log 2>&1 &
+          echo $! > /tmp/frontend.pid
+        env:
+          CI: "false"
+          BROWSER: "none"
+          PORT: "3000"
+
+      - name: Wait for dev server
+        run: |
+          npx --yes wait-on http://localhost:3000 --timeout 180000 || \
+            (echo "=== frontend.log ===" && tail -100 /tmp/frontend.log && exit 1)
+
+      - name: Run axe accessibility scan
+        id: axe
+        run: |
+          cd frontend
+          mkdir -p axe-results
+          AXE_BASE_URL=http://localhost:3000 node scripts/wcag_audit.cjs
+          # Persist a CI-stamped copy of the summary for artifact upload
+          cp /app/docs/security/axe-results/_summary.json \
+            "axe-results/ci-scan-$(date +%Y%m%d-%H%M%S).json"
+
+      - name: Check for blocking violations (critical+serious)
+        run: |
+          cd frontend
+          node -e "
+            const fs = require('fs');
+            const summary = JSON.parse(fs.readFileSync('/app/docs/security/axe-results/_summary.json'));
+            const blocking = (summary.aggregated || []).filter(
+              v => v.impact === 'critical' || v.impact === 'serious'
+            );
+            if (blocking.length > 0) {
+              console.error('WCAG gate FAILED: ' + blocking.length + ' blocking rule(s):');
+              blocking.forEach(v => console.error('  -', v.id, '|', v.impact, '|', v.nodes, 'node(s) on', v.pages.length, 'page(s):', v.help));
+              process.exit(1);
+            }
+            console.log('WCAG gate passed - 0 critical/serious violations');
+          "
+
+      - name: Post violation summary as PR comment
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const summary = JSON.parse(
+              fs.readFileSync('/app/docs/security/axe-results/_summary.json', 'utf8')
+            );
+            const aggregated = summary.aggregated || [];
+            const blocking = aggregated.filter(v => v.impact === 'critical' || v.impact === 'serious');
+            const total = aggregated.reduce((acc, v) => acc + v.nodes, 0);
+            let body;
+            if (total === 0) {
+              body = '✅ **WCAG 2.2 AA gate passed** — 0 violations across ' + summary.scanned + ' routes\n\n' +
+                '_Excludes: `' + (summary.excludes || []).join(', ') + '`_';
+            } else if (blocking.length === 0) {
+              body = '🟢 **WCAG 2.2 AA gate passed** — 0 critical/serious; ' + total + ' moderate/minor advisories\n\n' +
+                aggregated.map(v => '- `' + v.id + '` (' + v.impact + '): ' + v.nodes + ' node(s) — ' + v.help).join('\n');
+            } else {
+              body = '⚠️ **WCAG 2.2 AA gate FAILED** — ' + blocking.length + ' blocking rule(s):\n\n' +
+                blocking.map(v => '- `' + v.id + '` (' + v.impact + '): ' + v.nodes + ' node(s) — ' + v.help).join('\n') +
+                '\n\nFull report uploaded as `phase4-accessibility-results` artifact.';
+            }
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
+
+      - name: Show frontend log on failure
+        if: failure()
+        run: |
+          echo "=== frontend dev-server log ==="
+          tail -200 /tmp/frontend.log 2>/dev/null || true
+
+      - name: Upload axe results artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: phase4-accessibility-results
+          path: |
+            frontend/axe-results/
+            /app/docs/security/axe-results/
+
   gate-summary:
     name: "Gate Summary"
-    needs: [phase1-functional, phase3-regression]
+    needs: [phase1-functional, phase3-regression, phase4-accessibility]
     runs-on: ubuntu-latest
     if: always()
     steps:
@@ -344,7 +455,10 @@ jobs:
           echo "=== AI Suite Testing Pipeline Summary ==="
           echo "Phase 1 (Functional - G1): ${{ needs.phase1-functional.result }}"
           echo "Phase 3 (Regression - G3): ${{ needs.phase3-regression.result }}"
-          if [ "${{ needs.phase1-functional.result }}" = "success" ] && [ "${{ needs.phase3-regression.result }}" = "success" ]; then
+          echo "Phase 4 (Accessibility - WCAG 2.2 AA): ${{ needs.phase4-accessibility.result }}"
+          if [ "${{ needs.phase1-functional.result }}" = "success" ] && \
+             [ "${{ needs.phase3-regression.result }}" = "success" ] && \
+             [ "${{ needs.phase4-accessibility.result }}" = "success" ]; then
             echo "ALL GATES PASSED - Ready for deployment"
           else
             echo "GATE FAILURE - Fix issues before deploying"
