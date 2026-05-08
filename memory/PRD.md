@@ -38,11 +38,19 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool), "ENZI" (pr
 ## All Features (Implemented & Tested)
 1-29: See CHANGELOG.md for complete list
 
-## Completed This Session (March 22, 2026)
+## Completed This Session (March 22, 2026 + Feb 8, 2026)
 - CI/CD Pipeline Fix v2: Resolved `numpy` version conflict (scipy vs python-jobspy), fixed shell escaping in seed script (heredoc), added system dependencies and diagnostic output
-- System Requirements Audit Document: `/app/docs/SYSTEM_REQUIREMENTS_AUDIT.md`
-- File Inventory Audit Document: `/app/docs/FILE_INVENTORY_AUDIT.md`
-- Development Analyst Report: `/app/docs/DEVELOPMENT_ANALYST_REPORT_22_03_2026.md`
+- **CI/CD Pipeline Fix v3 (Feb 8)**: Added `/app` symlink-to-workspace step in both Phase 1 and Phase 3 jobs of `.github/workflows/test.yml` to fix `PermissionError: '/app'` from hardcoded paths in `capa_service.py`, `ai_qa/*`, `video_*.py`, and `server.py`
+- **G5 CISO Security Evidence Pack (Feb 8)** — under `/app/docs/security/`:
+  - `G5_CISO_EVIDENCE_PACK.md` — SAST/DAST baseline (Bandit + ESLint Security)
+  - `G5_DELTA_REPORT.md` — Post-remediation: 0 HIGH (Bandit), 0 ERROR (ESLint security)
+  - `SEC003_DEPENDENCY_AUDIT.md` — pip-audit + yarn audit (242 CVEs identified)
+  - `SEC003_SPRINT1_DELTA.md` — Post-Sprint-1: 1 CRITICAL → 0, 65 CVEs eliminated
+- **Security Patches Applied**:
+  - SEC-001: `usedforsecurity=False` on 10× hashlib calls (digest, dragon_automator, server, edge_tts, job_sources, video_asset_manager, web_job_crawler)
+  - SEC-002: ReDoS hardening — bounded regexes in `KarauDragonAI.jsx` (lines 211, 269)
+  - SEC-003 Sprint-1: Backend pkgs aiohttp 3.13.5 / cryptography 46.0.7 / PyJWT 2.12.0 / pymongo 4.6.3 / lxml 6.1.0 / python-multipart 0.0.27 / pillow 12.2.0 / litellm 1.83.7. Frontend pkgs jspdf 4.2.1 / axios 1.16.0 / react-router-dom 7.15.0 (+ transitive dompurify 3.4.2)
+- System Requirements / File Inventory / SWOT / Execution Framework / RICE Cadence audit docs (March 22)
 
 ## Next Action Items (Detailed playbook: /app/docs/PRODUCTION_LAUNCH_PLAYBOOK.md)
 
@@ -73,7 +81,7 @@ Prerequisites: release branch, signing certs, store access
 | G2 Reliability | PASSED |
 | G3 Regression | PASSED |
 | G4 Platform Cert | Prerequisites Met (store submissions pending) |
-| G5 Security | Prerequisites Met (CISO review pending) |
+| G5 Security | **Conditional GO** — SAST/DAST clean (0 HIGH, 0 ERROR), CRITICAL CVE closed, 23 backend + 153 frontend low/transitive CVEs in Sprint-2 backlog |
 
 ## Audit Documents
 | Document | Path |
