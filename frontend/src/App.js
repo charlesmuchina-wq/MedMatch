@@ -107,6 +107,7 @@ import { OfflineBanner, OfflineIndicator } from "@/components/OfflineIndicator";
 import { offlineStorage } from "@/utils/offlineStorage";
 import LanguageTour from "@/components/LanguageTour";
 import LanguageDetectionBanner from "@/components/LanguageDetectionBanner";
+import { SkipNav } from "@/components/a11y/SkipNav";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -1045,9 +1046,10 @@ function AppContent({ skipPortalSelector = false, forcedPortal = null, domainCon
   if (!user && (isLoginPage || window.location.hash.includes('session_id') || skipPortalSelector)) {
     return (
       <div className="min-h-screen flex flex-col">
-        <div className="flex-1">
+        <SkipNav />
+        <main id="main-content" tabIndex={-1} className="flex-1">
           <LoginPage onAuthSuccess={handleAuthSuccess} />
-        </div>
+        </main>
         <LumiFooter />
         <Toaster position="top-right" richColors theme={isDark ? 'dark' : 'light'} />
       </div>
@@ -1056,6 +1058,7 @@ function AppContent({ skipPortalSelector = false, forcedPortal = null, domainCon
 
   return (
     <div className={`min-h-screen flex overflow-x-hidden ${isDark ? 'bg-batik-black text-white' : 'bg-slate-50'}`}>
+      <SkipNav />
       {/* Offline Banner - shows when user goes offline/online */}
       <OfflineBanner />
       
@@ -1067,7 +1070,7 @@ function AppContent({ skipPortalSelector = false, forcedPortal = null, domainCon
         {/* Upgrade Banner for trial/expired users */}
         <UpgradeBanner membership={membership} />
         
-        <main className="flex-1">
+        <main id="main-content" tabIndex={-1} className="flex-1">
           <Routes>
             <Route path="/" element={<Dashboard resume={resume} savedJobs={savedJobs} applications={applications} onNavigate={navigate} user={user} />} />
             <Route path="/login" element={<LoginPage onAuthSuccess={handleAuthSuccess} />} />

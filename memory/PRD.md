@@ -40,7 +40,7 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool), "ENZI" (pr
 
 ## Completed This Session (March 22, 2026 + Feb 8, 2026)
 - CI/CD Pipeline Fix v2: Resolved `numpy` version conflict (scipy vs python-jobspy), fixed shell escaping in seed script (heredoc), added system dependencies and diagnostic output
-- **CI/CD Pipeline Fix v3 (Feb 8)**: Added `/app` symlink-to-workspace step in both Phase 1 and Phase 3 jobs of `.github/workflows/test.yml` to fix `PermissionError: '/app'` from hardcoded paths in `capa_service.py`, `ai_qa/*`, `video_*.py`, and `server.py`
+- **CI/CD Pipeline Fix v3 (Feb 8) — VALIDATED GREEN ✅**: Added `/app` symlink-to-workspace step in both Phase 1 and Phase 3 jobs of `.github/workflows/test.yml` to fix `PermissionError: '/app'` from hardcoded paths in `capa_service.py`, `ai_qa/*`, `video_*.py`, and `server.py`. User confirmed run #11 passing.
 - **G5 CISO Security Evidence Pack (Feb 8)** — under `/app/docs/security/`:
   - `G5_CISO_EVIDENCE_PACK.md` — SAST/DAST baseline (Bandit + ESLint Security)
   - `G5_DELTA_REPORT.md` — Post-remediation: 0 HIGH (Bandit), 0 ERROR (ESLint security)
@@ -50,6 +50,15 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool), "ENZI" (pr
   - SEC-001: `usedforsecurity=False` on 10× hashlib calls (digest, dragon_automator, server, edge_tts, job_sources, video_asset_manager, web_job_crawler)
   - SEC-002: ReDoS hardening — bounded regexes in `KarauDragonAI.jsx` (lines 211, 269)
   - SEC-003 Sprint-1: Backend pkgs aiohttp 3.13.5 / cryptography 46.0.7 / PyJWT 2.12.0 / pymongo 4.6.3 / lxml 6.1.0 / python-multipart 0.0.27 / pillow 12.2.0 / litellm 1.83.7. Frontend pkgs jspdf 4.2.1 / axios 1.16.0 / react-router-dom 7.15.0 (+ transitive dompurify 3.4.2)
+- **Regression Validation (Feb 8) — 104/104 PASS ✅** via `testing_agent_v3_fork`: existing baselines (`test_phase1_functional.py` 59/59, `test_phase3_regression.py` 41/41) + multipart spot-check 4/4. Zero regressions from SEC-003. Bonus fix: `routes/resume.py:279` malformed-PDF now returns HTTP 400 (was 500). Full report at `/app/test_reports/iteration_regression_post_sec003.json`.
+- **WCAG 2.2 AA Sprint-1 Day 1 (Feb 8) — Public-route in-codebase findings: 0 critical, 0 serious ✅**:
+  - Plan canonicalized at `/app/docs/WCAG_AUDIT_REMEDIATION_PLAN.md` (12 items + 5 G1 tests)
+  - axe-core 4.11 + Playwright scanner: `/app/frontend/scripts/wcag_audit.cjs` + `wcag_audit_auth.cjs`
+  - Public scan: 13C/6S → **0C/0S** (in-codebase). Remaining 12 critical = single external Emergent platform badge `<img>` (production-deploy removes it).
+  - Authenticated scan: token-injection bypass via API login (admin@medmatch.com)
+  - **Fixes applied**: WCAG-02 SkipNav (`/components/a11y/SkipNav.jsx` + `App.js` `<main id="main-content" tabIndex={-1}>`), WCAG-01 LoginPage password-toggle aria-label/aria-pressed/24px target, WCAG-06 contrast (Tabs `text-slate-700` inactive, Submit `bg-teal-700`, Sign Up `text-teal-700`)
+  - Populated tracker at `/app/docs/security/WCAG_REMEDIATION_TRACKER_DAY1.md`
+  - **Score estimate: ~25/100 → ~70/100** (target 85+/100 in remaining sprint)
 - System Requirements / File Inventory / SWOT / Execution Framework / RICE Cadence audit docs (March 22)
 
 ## Next Action Items (Detailed playbook: /app/docs/PRODUCTION_LAUNCH_PLAYBOOK.md)

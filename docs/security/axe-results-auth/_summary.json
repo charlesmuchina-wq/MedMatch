@@ -1,0 +1,85 @@
+{
+  "scanned": 7,
+  "summary": [
+    {
+      "route": "/dashboard",
+      "total": 1,
+      "critical": 1,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0,
+      "finalUrl": "http://localhost:3000/dashboard"
+    },
+    {
+      "route": "/jobs",
+      "total": 1,
+      "critical": 1,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0,
+      "finalUrl": "http://localhost:3000/jobs"
+    },
+    {
+      "route": "/profile",
+      "total": 1,
+      "critical": 1,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0,
+      "finalUrl": "http://localhost:3000/profile"
+    },
+    {
+      "route": "/messages",
+      "total": 1,
+      "critical": 1,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0,
+      "finalUrl": "http://localhost:3000/messages"
+    },
+    {
+      "route": "/meetings",
+      "total": 1,
+      "critical": 1,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0,
+      "finalUrl": "http://localhost:3000/meetings"
+    },
+    {
+      "route": "/admin",
+      "total": 1,
+      "critical": 1,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0,
+      "finalUrl": "http://localhost:3000/admin"
+    },
+    {
+      "route": "/recruiter/dashboard",
+      "total": 1,
+      "critical": 1,
+      "serious": 0,
+      "moderate": 0,
+      "minor": 0,
+      "finalUrl": "http://localhost:3000/recruiter/dashboard"
+    }
+  ],
+  "aggregated": [
+    {
+      "id": "image-alt",
+      "impact": "critical",
+      "help": "Images must have alternative text",
+      "nodes": 7,
+      "pages": [
+        "dashboard",
+        "jobs",
+        "profile",
+        "messages",
+        "meetings",
+        "admin",
+        "recruiter-dashboard"
+      ]
+    }
+  ]
+}

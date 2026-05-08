@@ -461,14 +461,14 @@ const LoginPage = ({ onAuthSuccess }) => {
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-3 mb-4">
-              <TabsTrigger value="email" className="flex items-center gap-2">
-                <Mail className="w-4 h-4" /> {t("auth.email")}
+              <TabsTrigger value="email" className="flex items-center gap-2 data-[state=inactive]:text-slate-700 dark:data-[state=inactive]:text-slate-300">
+                <Mail className="w-4 h-4" aria-hidden="true" /> {t("auth.email")}
               </TabsTrigger>
-              <TabsTrigger value="phone" className="flex items-center gap-2">
-                <Smartphone className="w-4 h-4" /> {t("auth.phone")}
+              <TabsTrigger value="phone" className="flex items-center gap-2 data-[state=inactive]:text-slate-700 dark:data-[state=inactive]:text-slate-300">
+                <Smartphone className="w-4 h-4" aria-hidden="true" /> {t("auth.phone")}
               </TabsTrigger>
-              <TabsTrigger value="biometric" className="flex items-center gap-2" data-testid="biometric-tab">
-                <Fingerprint className="w-4 h-4" /> {t("auth.biometric")}
+              <TabsTrigger value="biometric" className="flex items-center gap-2 data-[state=inactive]:text-slate-700 dark:data-[state=inactive]:text-slate-300" data-testid="biometric-tab">
+                <Fingerprint className="w-4 h-4" aria-hidden="true" /> {t("auth.biometric")}
               </TabsTrigger>
             </TabsList>
 
@@ -575,17 +575,19 @@ const LoginPage = ({ onAuthSuccess }) => {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-3 text-slate-400 hover:text-slate-600"
+                      className="absolute right-2 top-2 p-2 text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100 rounded-md focus:outline-none focus:ring-2 focus:ring-turquoise"
+                      aria-label={showPassword ? "Hide password" : "Show password"}
+                      aria-pressed={showPassword}
+                      data-testid="toggle-password-visibility"
                     >
-                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      {showPassword ? <EyeOff className="h-4 w-4" aria-hidden="true" /> : <Eye className="h-4 w-4" aria-hidden="true" />}
                     </button>
                   </div>
                 </div>
                 
                 <Button 
                   type="submit" 
-                  className="w-full h-11 bg-turquoise hover:bg-turquoise-light text-white font-semibold"
-                  style={{ backgroundColor: '#20b2aa' }}
+                  className="w-full h-11 bg-teal-700 hover:bg-teal-800 text-white font-semibold"
                   disabled={isLoading}
                   data-testid="email-submit-btn"
                 >
@@ -604,7 +606,7 @@ const LoginPage = ({ onAuthSuccess }) => {
                   <button
                     type="button"
                     onClick={() => setIsRegister(!isRegister)}
-                    className="text-turquoise hover:underline font-medium"
+                    className="text-teal-700 hover:text-teal-800 hover:underline font-medium"
                   >
                     {isRegister ? t("auth.signIn") : t("auth.signUp")}
                   </button>
@@ -750,7 +752,7 @@ const LoginPage = ({ onAuthSuccess }) => {
                   <button
                     type="button"
                     onClick={() => setIsRegister(!isRegister)}
-                    className="text-turquoise hover:underline font-medium"
+                    className="text-teal-700 hover:text-teal-800 hover:underline font-medium"
                   >
                     {isRegister ? "Sign in" : "Register biometrics"}
                   </button>
