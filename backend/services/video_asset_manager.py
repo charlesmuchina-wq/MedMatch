@@ -220,7 +220,7 @@ class VideoAssetManager:
         This ensures we can detect if any component changes.
         """
         content = f"{language_code}|{avatar_url}|{voice_id}|{script}"
-        return hashlib.md5(content.encode()).hexdigest()[:12]
+        return hashlib.md5(content.encode(), usedforsecurity=False).hexdigest()[:12]
     
     def get_language_config(self, language_code: str) -> Dict[str, Any]:
         """Get complete configuration for a language."""

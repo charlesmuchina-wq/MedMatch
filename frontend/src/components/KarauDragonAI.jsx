@@ -208,7 +208,7 @@ const KarauDragonAI = ({ user, isOpen, onClose }) => {
     
     // Cover letter intents
     if (cmd.includes("cover letter") || cmd.includes("write a letter")) {
-      const companyMatch = cmd.match(/for\s+(\w+(?:\s+\w+)?)/i);
+      const companyMatch = cmd.match(/for\s(\w{1,40}\s\w{1,40}|\w{1,40})/i);
       const roleMatch = cmd.match(/(supplier quality|quality engineer|engineer|manager|developer)/i);
       
       return {
@@ -266,7 +266,7 @@ const KarauDragonAI = ({ user, isOpen, onClose }) => {
     
     // Company research
     if (cmd.includes("company") || cmd.includes("companies") || cmd.includes("research")) {
-      const companyMatch = cmd.match(/about\s+(\w+(?:\s+\w+)?)/i);
+      const companyMatch = cmd.match(/about\s(\w{1,40}\s\w{1,40}|\w{1,40})/i);
       
       return {
         intent: "companies",

@@ -157,7 +157,7 @@ class WebJobCrawler:
             snippet = html.unescape(snippet)
             
             return {
-                "id": hashlib.md5(link.encode()).hexdigest()[:12],
+                "id": hashlib.md5(link.encode(), usedforsecurity=False).hexdigest()[:12],
                 "title": job_title[:100],
                 "company": company[:50] if company else "Unknown",
                 "description": snippet[:500],
@@ -293,7 +293,7 @@ class WebJobCrawler:
                             company = parts[1]
                     
                     jobs.append({
-                        "id": hashlib.md5(link.encode()).hexdigest()[:12],
+                        "id": hashlib.md5(link.encode(), usedforsecurity=False).hexdigest()[:12],
                         "title": title[:100],
                         "company": company[:50] if company else "Unknown",
                         "description": description,

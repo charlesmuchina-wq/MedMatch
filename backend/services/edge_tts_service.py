@@ -908,7 +908,7 @@ async def generate_tutorial_audio(video_id: str, language: str) -> Dict[str, Any
         
         # Generate unique filename
         hash_input = f"{video_id}_{language}_{script[:50]}"
-        file_hash = hashlib.md5(hash_input.encode()).hexdigest()[:8]
+        file_hash = hashlib.md5(hash_input.encode(), usedforsecurity=False).hexdigest()[:8]
         filename = f"{video_id}_{language}_{file_hash}.mp3"
         filepath = AUDIO_DIR / filename
         

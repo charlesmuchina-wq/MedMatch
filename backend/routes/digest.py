@@ -179,7 +179,7 @@ async def trigger_digest_now(background_tasks: BackgroundTasks, request: Request
 
 def get_job_key(title: str, company: str) -> str:
     """Generate unique key for a job"""
-    return hashlib.md5(f"{title.lower()}:{company.lower()}".encode()).hexdigest()
+    return hashlib.md5(f"{title.lower()}:{company.lower()}".encode(), usedforsecurity=False).hexdigest()
 
 async def was_job_emailed(job_key: str, email: str) -> bool:
     """Check if a job was already emailed to user"""

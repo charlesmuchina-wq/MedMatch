@@ -485,7 +485,7 @@ class RollbackManager:
     async def create_snapshot(reason: str = "manual") -> Dict[str, Any]:
         """Create a snapshot of current system state for potential rollback"""
         snapshot = {
-            "snapshot_id": hashlib.md5(f"{datetime.now().isoformat()}{reason}".encode()).hexdigest()[:16],
+            "snapshot_id": hashlib.md5(f"{datetime.now().isoformat()}{reason}".encode(), usedforsecurity=False).hexdigest()[:16],
             "created_at": datetime.now(timezone.utc).isoformat(),
             "reason": reason,
             "system_state": {
@@ -800,7 +800,7 @@ async def run_full_diagnostics(request: Request, background_tasks: BackgroundTas
     
     # Generate diagnostic report
     report = {
-        "id": hashlib.md5(datetime.now(timezone.utc).isoformat().encode()).hexdigest()[:12],
+        "id": hashlib.md5(datetime.now(timezone.utc).isoformat().encode(), usedforsecurity=False).hexdigest()[:12],
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "user_id": user["user_id"],
         "diagnostics": {
@@ -1041,7 +1041,7 @@ async def analyze_and_auto_fix(request: Request, background_tasks: BackgroundTas
     
     # Phase 4: Generate report
     report = {
-        "id": hashlib.md5(datetime.now(timezone.utc).isoformat().encode()).hexdigest()[:12],
+        "id": hashlib.md5(datetime.now(timezone.utc).isoformat().encode(), usedforsecurity=False).hexdigest()[:12],
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "phases": {
             "diagnostics": {

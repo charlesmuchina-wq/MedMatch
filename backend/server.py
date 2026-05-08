@@ -85,7 +85,7 @@ class ResponseCache:
     
     def _make_key(self, path: str, params: dict = None) -> str:
         key_data = f"{path}:{json.dumps(params or {}, sort_keys=True)}"
-        return hashlib.md5(key_data.encode()).hexdigest()
+        return hashlib.md5(key_data.encode(), usedforsecurity=False).hexdigest()
     
     def get(self, path: str, params: dict = None, ttl: int = 300) -> Optional[dict]:
         key = self._make_key(path, params)

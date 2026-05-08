@@ -167,7 +167,7 @@ class JobSourcesService:
     
     def _generate_job_id(self, url: str) -> str:
         """Generate unique job ID from URL"""
-        return hashlib.md5(url.encode()).hexdigest()[:12]
+        return hashlib.md5(url.encode(), usedforsecurity=False).hexdigest()[:12]
     
     def _calculate_freshness(self, posted_date: str) -> Dict:
         """Calculate job freshness and return badge info"""
