@@ -1,16 +1,26 @@
 import { useState } from "react";
-import { useParticipants } from "@livekit/components-react";
+import { useParticipants, useDataChannel } from "@livekit/components-react";
 import { toast } from "sonner";
-import { Users, UserPlus, UserMinus, Loader2, ChevronDown } from "lucide-react";
+import { Users, UserPlus, UserMinus, Loader2, ChevronDown, Hand } from "lucide-react";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
 // Host-only panel (rendered inside <LiveKitRoom>) to promote attendees to panelist
 // or move panelists back to audience — flips can_publish live via the LiveKit server API.
+// Also surfaces raised hands received over the data channel.
 export default function WebinarHostControls({ meetingId }) {
   const participants = useParticipants();
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(null);
+  const [hands, setHands] = useState({}); // identity -> raised(bool)
+
+  useDataChannel("handraise", (msg) => {
+    try {
+      const data = JSON.parse(new TextDecoder().decode(msg.payload));
+      const id = msg.from?.identity;
+      if (id) setHands((prev) => ({ ...prev, [id]: !!data.raised }));
+    } catch { /* ignore malformed */ }
+  });
 
   const setRole = async (identity, can_publish) => {
     setBusy(identity);
@@ -23,6 +33,7 @@ export default function WebinarHostControls({ meetingId }) {
         { method: "POST", headers, credentials: "include", body: JSON.stringify({ can_publish }) }
       );
       if (!res.ok) throw new Error();
+      if (can_publish) setHands((prev) => ({ ...prev, [identity]: false })); // lower hand on promote
       toast.success(can_publish ? "Promoted to panelist" : "Moved to audience");
     } catch {
       toast.error("Action failed");
@@ -31,16 +42,24 @@ export default function WebinarHostControls({ meetingId }) {
     }
   };
 
-  const remote = participants.filter((p) => !p.isLocal);
+  const remote = participants
+    .filter((p) => !p.isLocal)
+    .sort((a, b) => (hands[b.identity] ? 1 : 0) - (hands[a.identity] ? 1 : 0));
+  const raisedCount = remote.filter((p) => hands[p.identity]).length;
 
   return (
     <div className="absolute top-3 right-3 z-50">
       <button
         onClick={() => setOpen(!open)}
         data-testid="host-controls-toggle"
-        className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-medium shadow-lg"
+        className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-purple-600 hover:bg-purple-700 text-white text-xs font-medium shadow-lg"
       >
         <Users className="w-3.5 h-3.5" /> Manage ({remote.length})
+        {raisedCount > 0 && (
+          <span data-testid="raised-hands-badge" className="flex items-center gap-0.5 ml-1 px-1.5 py-0.5 rounded-full bg-amber-400 text-amber-950 text-[10px] font-bold">
+            <Hand className="w-2.5 h-2.5" />{raisedCount}
+          </span>
+        )}
         <ChevronDown className={`w-3.5 h-3.5 transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
       {open && (
@@ -55,10 +74,13 @@ export default function WebinarHostControls({ meetingId }) {
               const canPublish = !!p.permissions?.canPublish;
               return (
                 <div key={p.identity} className="flex items-center gap-2 px-2 py-2 rounded-lg hover:bg-white/5" data-testid={`host-participant-${p.identity}`}>
+                  {hands[p.identity] && (
+                    <Hand className="w-4 h-4 text-amber-400 animate-bounce flex-shrink-0" data-testid={`hand-${p.identity}`} />
+                  )}
                   <div className="flex-1 min-w-0">
                     <div className="text-sm text-slate-100 truncate">{p.name || p.identity}</div>
-                    <div className={`text-[10px] ${canPublish ? "text-emerald-400" : "text-slate-500"}`}>
-                      {canPublish ? "Panelist" : "Audience"}
+                    <div className={`text-[10px] ${canPublish ? "text-emerald-400" : hands[p.identity] ? "text-amber-400" : "text-slate-500"}`}>
+                      {canPublish ? "Panelist" : hands[p.identity] ? "Hand raised" : "Audience"}
                     </div>
                   </div>
                   {canPublish ? (

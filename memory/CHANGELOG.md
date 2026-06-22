@@ -231,3 +231,9 @@ See `/app/docs/GAP_ASSESSMENT.md` for full competitive benchmarking.
 - Backend (karau_meet.py): GET /meetings/{id}/livekit-participants (host-only) lists live SFU participants + can_publish; POST /meetings/{id}/participants/{identity}/role flips can_publish live via LiveKit RoomService update_participant. Helper get_lk_api() in livekit_spike.py. Clean handling: empty list when no session, 404 when participant gone, 403 non-host.
 - Frontend: WebinarHostControls.jsx (uses useParticipants, rendered inside LiveKitRoom when webinar && is_host) — "Manage (N)" panel with Promote/Audience toggle per participant. LiveKitMeetingRoom captures is_host from token.
 - Verified end-to-end (2 browser contexts): host promotes a connected guest -> "Promoted to panelist" toast, role flips Audience->Panelist live; attendee gains publish rights via LiveKit server API.
+
+## 2026-06-22 — Webinar "raise hand" (attendee -> host) over LiveKit data channel
+- RaiseHandButton.jsx (attendee, webinar): toggles raise/lower via useDataChannel("handraise"); re-broadcasts every 4s while raised so late-joining hosts still receive it.
+- WebinarHostControls.jsx: listens on the data channel, shows amber hand badge + count on "Manage" button, ✋ + "Hand raised" per row, sorts raised to top, auto-lowers on promote. No backend/storage needed.
+- Rendered in LiveKitMeetingRoom: RaiseHandButton for webinar attendees, WebinarHostControls for webinar host.
+- Verified end-to-end (2 contexts): attendee raises -> host badge "✋1" + panel "Guest · Hand raised" + Promote.
