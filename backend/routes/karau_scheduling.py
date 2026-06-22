@@ -86,14 +86,14 @@ async def schedule_meeting(
                 description=request.description,
                 start_time=meeting["start_time"],
                 end_time=meeting["end_time"],
-                join_url=f"https://enzi-workspace.preview.emergentagent.com{meeting['join_url']}"
+                join_url=f"https://liquid-glass-hub-4.preview.emergentagent.com{meeting['join_url']}"
             ),
             "outlook": generate_outlook_calendar_link(
                 title=request.title,
                 description=request.description,
                 start_time=meeting["start_time"],
                 end_time=meeting["end_time"],
-                join_url=f"https://enzi-workspace.preview.emergentagent.com{meeting['join_url']}"
+                join_url=f"https://liquid-glass-hub-4.preview.emergentagent.com{meeting['join_url']}"
             )
         }
     
@@ -141,14 +141,14 @@ async def get_scheduled_meeting(
                 description=meeting.get("description", ""),
                 start_time=meeting["start_time"],
                 end_time=meeting["end_time"],
-                join_url=f"https://enzi-workspace.preview.emergentagent.com{meeting['join_url']}"
+                join_url=f"https://liquid-glass-hub-4.preview.emergentagent.com{meeting['join_url']}"
             ),
             "outlook": generate_outlook_calendar_link(
                 title=meeting["title"],
                 description=meeting.get("description", ""),
                 start_time=meeting["start_time"],
                 end_time=meeting["end_time"],
-                join_url=f"https://enzi-workspace.preview.emergentagent.com{meeting['join_url']}"
+                join_url=f"https://liquid-glass-hub-4.preview.emergentagent.com{meeting['join_url']}"
             )
         }
     
@@ -271,7 +271,7 @@ async def download_ics(
         end_time=meeting["end_time"],
         host_name=meeting["host_name"],
         host_email=meeting.get("host_email", ""),
-        join_url=f"https://enzi-workspace.preview.emergentagent.com{meeting['join_url']}"
+        join_url=f"https://liquid-glass-hub-4.preview.emergentagent.com{meeting['join_url']}"
     )
     
     return Response(

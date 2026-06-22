@@ -39,7 +39,7 @@ yarn build
 ### TWA (Trusted Web Activity) for Android
 The enhanced `manifest.json` supports TWA wrapping. To create a TWA:
 1. Use [Bubblewrap](https://github.com/nicholasgasior/nicholasgasior.github.io/issues/24) or [PWABuilder](https://www.pwabuilder.com/)
-2. Point to `https://enzi-workspace.preview.emergentagent.com`
+2. Point to `https://liquid-glass-hub-4.preview.emergentagent.com`
 3. The manifest includes `related_applications` for Play Store listing
 
 ### Deployment
@@ -257,7 +257,7 @@ npx eas submit --platform ios --latest
 
 | Variable | Current (Preview) | Production |
 |----------|-------------------|------------|
-| `REACT_APP_BACKEND_URL` | `https://enzi-workspace.preview.emergentagent.com` | Your production URL |
+| `REACT_APP_BACKEND_URL` | `https://liquid-glass-hub-4.preview.emergentagent.com` | Your production URL |
 | `EXPO_PUBLIC_API_URL` | Same as above | Your production URL |
 | `APP_URL` (Electron) | Same as above | Your production URL |
 | `CORS_ORIGINS` | Includes preview URL | Update to production domains |

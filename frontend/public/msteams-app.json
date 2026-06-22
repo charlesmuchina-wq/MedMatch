@@ -5,9 +5,9 @@
   "id": "lumi-ai-hub-1",
   "developer": {
     "name": "MedMatch",
-    "websiteUrl": "https://enzi-workspace.preview.emergentagent.com",
-    "privacyUrl": "https://enzi-workspace.preview.emergentagent.com/privacy",
-    "termsOfUseUrl": "https://enzi-workspace.preview.emergentagent.com/terms"
+    "websiteUrl": "https://liquid-glass-hub-4.preview.emergentagent.com",
+    "privacyUrl": "https://liquid-glass-hub-4.preview.emergentagent.com/privacy",
+    "termsOfUseUrl": "https://liquid-glass-hub-4.preview.emergentagent.com/terms"
   },
   "name": {
     "short": "AI Suite",
@@ -26,28 +26,28 @@
     {
       "entityId": "enzi-messenger",
       "name": "ENZI Messenger",
-      "contentUrl": "https://enzi-workspace.preview.emergentagent.com/enzi?teams=true",
-      "websiteUrl": "https://enzi-workspace.preview.emergentagent.com/enzi",
+      "contentUrl": "https://liquid-glass-hub-4.preview.emergentagent.com/enzi?teams=true",
+      "websiteUrl": "https://liquid-glass-hub-4.preview.emergentagent.com/enzi",
       "scopes": ["personal"]
     },
     {
       "entityId": "karau-meetings",
       "name": "AI KARAU Meetings",
-      "contentUrl": "https://enzi-workspace.preview.emergentagent.com/karau-meet?teams=true",
-      "websiteUrl": "https://enzi-workspace.preview.emergentagent.com/karau-meet",
+      "contentUrl": "https://liquid-glass-hub-4.preview.emergentagent.com/karau-meet?teams=true",
+      "websiteUrl": "https://liquid-glass-hub-4.preview.emergentagent.com/karau-meet",
       "scopes": ["personal"]
     },
     {
       "entityId": "medmatch-dashboard",
       "name": "MedMatch Jobs",
-      "contentUrl": "https://enzi-workspace.preview.emergentagent.com/dashboard?teams=true",
-      "websiteUrl": "https://enzi-workspace.preview.emergentagent.com/dashboard",
+      "contentUrl": "https://liquid-glass-hub-4.preview.emergentagent.com/dashboard?teams=true",
+      "websiteUrl": "https://liquid-glass-hub-4.preview.emergentagent.com/dashboard",
       "scopes": ["personal"]
     }
   ],
   "configurableTabs": [
     {
-      "configurationUrl": "https://enzi-workspace.preview.emergentagent.com/teams-config",
+      "configurationUrl": "https://liquid-glass-hub-4.preview.emergentagent.com/teams-config",
       "canUpdateConfiguration": true,
       "scopes": ["team", "groupChat"],
       "context": ["channelTab", "privateChatTab", "meetingChatTab", "meetingSidePanel"],

@@ -19,7 +19,7 @@ Webhooks allow Stripe to notify your application about events in real-time, such
 1. Click **"Add endpoint"**
 2. Enter your webhook URL:
    ```
-   https://enzi-workspace.preview.emergentagent.com/api/payments/webhook/stripe
+   https://liquid-glass-hub-4.preview.emergentagent.com/api/payments/webhook/stripe
    ```
 3. Select events to listen to (see Step 3)
 4. Click **"Add endpoint"**
