@@ -182,3 +182,9 @@ See `/app/docs/GAP_ASSESSMENT.md` for full competitive benchmarking.
 - Frontend pages/AgentsPage.jsx (route /agents + nav "AI Agents"): Worklist / Extract / Agent chat / Agents-builder tabs, theme-aware, full data-testids.
 - Reuses Whisper transcription, send_email service, require_auth. Tool-use implemented as ReAct JSON protocol (LlmChat has no native function-calling).
 - Tested: testing_agent iteration_221 — backend 8/8, frontend 100% flows, 0 issues.
+
+## 2026-06-22 — P0/P1 docs + P2 (Sentry + Vite decision)
+- P0: LiveKit SFU migration design doc — /app/docs/architecture/LIVEKIT_SFU_MIGRATION.md (replaces mesh P2P ~4-cap; token endpoint, webhooks, egress->Whisper->agents, phased rollout).
+- P1: Microsoft 365 Publisher Attestation evidence package — /app/docs/compliance/M365_PUBLISHER_ATTESTATION.md (scopes justification, data handling, security, submission steps; lists inputs still needed).
+- P2 Sentry APM: wired gated (no-op without DSN) on backend (server.py, sentry-sdk[fastapi,pymongo]) + frontend (index.js, @sentry/react + ErrorBoundary). Needs SENTRY_DSN + REACT_APP_SENTRY_DSN to activate.
+- P2 Vite: RECOMMEND DEFER — conflicts with Emergent craco visual-edits plugin + 135 files on protected REACT_APP_* vars; CVE/build drivers already mitigated. Doc: /app/docs/architecture/P2_TOOLING_OBSERVABILITY.md.

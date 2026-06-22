@@ -47,6 +47,21 @@ from services.ml_data_collector import ml_collector
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
+# ============== Sentry APM (no-op unless SENTRY_DSN is set) ==============
+SENTRY_DSN = os.environ.get("SENTRY_DSN")
+if SENTRY_DSN:
+    import sentry_sdk
+    from sentry_sdk.integrations.fastapi import FastApiIntegration
+    from sentry_sdk.integrations.pymongo import PyMongoIntegration
+    _SENTRY_ENV = os.environ.get("ENVIRONMENT", "development")
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        environment=_SENTRY_ENV,
+        integrations=[FastApiIntegration(), PyMongoIntegration()],
+        traces_sample_rate=0.1 if _SENTRY_ENV == "production" else 1.0,
+        profiles_sample_rate=0.1 if _SENTRY_ENV == "production" else 1.0,
+    )
+
 # ============== Production Configuration (1M Users) ==============
 MONGO_POOL_SIZE = int(os.environ.get('MONGO_POOL_SIZE', '100'))
 MONGO_MIN_POOL_SIZE = int(os.environ.get('MONGO_MIN_POOL_SIZE', '20'))
