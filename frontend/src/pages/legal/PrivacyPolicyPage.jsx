@@ -77,15 +77,15 @@ export default function PrivacyPolicyPage() {
         <Section title="7. Your rights">
           <p>
             Depending on your location (e.g. GDPR), you may access, correct, export, or delete your data, and
-            withdraw consent. To exercise these rights, contact us at <strong>privacy@aikarau.com</strong>.
+            withdraw consent. To exercise these rights, contact us at <strong>info@charstan.com</strong>.
             You can manage in-app consent in your account privacy settings.
           </p>
         </Section>
 
         <Section title="8. Contact">
           <p>
-            Questions about this policy: <strong>privacy@aikarau.com</strong>. Security concerns:{" "}
-            <strong>security@aikarau.com</strong>.
+            Questions about this policy: <strong>info@charstan.com</strong>. Security concerns:{" "}
+            <strong>info@charstan.com</strong>.
           </p>
         </Section>
 

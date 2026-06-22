@@ -21,7 +21,7 @@ Most of the package is now drafted; only the org-identity fields remain. Provide
    `frontend/src/pages/legal/PrivacyPolicyPage.jsx`).
 3. ~~Terms of Use URL~~ ✅ **Drafted & hosted in-app** at `{APP_ORIGIN}/legal/terms`
    (replace placeholders in `frontend/src/pages/legal/TermsPage.jsx`).
-4. **Support URL / support email** (e.g. `support@aikarau.com`).
+4. **Support URL / support email** — currently `info@charstan.com` (update if you add a dedicated support address).
 5. **Company legal entity**, HQ address, primary contact, security contact email
    (these fill the `[Legal Entity Name]` / `[security@...]` placeholders in the legal pages too).
 6. Hosting region(s) / data residency commitment (Azure/other, which regions).

@@ -87,7 +87,7 @@ export default function TermsPage() {
         <Section title="9. Changes & contact">
           <p>
             We may update these Terms; material changes will be posted here. Questions:{" "}
-            <strong>support@aikarau.com</strong>.
+            <strong>info@charstan.com</strong>.
           </p>
         </Section>
 
