@@ -215,3 +215,9 @@ See `/app/docs/GAP_ASSESSMENT.md` for full competitive benchmarking.
 - Frontend: WebinarLiveSwitch.jsx routes /karau-meet/webinar/{id}/live -> LiveKitMeetingRoom (webinar=true, attendee view-only) when livekit, else legacy WebinarLiveRoom. LiveKitMeetingRoom takes `webinar` prop + shows "Webinar · view-only" badge.
 - Verified: host token role=host/publish; guest attendee role=attendee/can_publish=false; webinar /live renders LiveKit with NO mic/cam publish controls (only Chat/Leave/Start Audio).
 - Load test: use `lk load-test` CLI (documented in LIVEKIT_SFU_MIGRATION.md). Phase 2 HLS egress + egress recording->Whisper->agents BLOCKED on S3-compatible storage creds.
+
+## 2026-06-22 — P1 foundation: public legal pages (Privacy + Terms)
+- Created public, no-auth pages: /legal/privacy (PrivacyPolicyPage.jsx) and /legal/terms (TermsPage.jsx); added to isPublicRoute + public Routes block in App.js.
+- Content drafted from actual data handling (account/content/MS+Google consent data, AI processing, sharing, retention, GDPR rights). Placeholders: [Legal Entity Name], [Hosting Region], [privacy@/security@/support@your-domain] for user to fill.
+- M365 attestation doc updated: Privacy/Terms now hosted in-app; remaining inputs = Partner ID, legal entity + contacts, support email, hosting region, prod Entra client ID/redirect URIs.
+- Verified: both pages render without login (testids present).

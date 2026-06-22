@@ -54,6 +54,8 @@ import AdminDashboard from "@/pages/AdminDashboard";
 import AdminDataIntegrityPage from "@/pages/AdminDataIntegrityPage";
 import AdminErrorsPage from "@/pages/AdminErrorsPage";
 import LiveKitSpikePage from "@/pages/LiveKitSpikePage";
+import PrivacyPolicyPage from "@/pages/legal/PrivacyPolicyPage";
+import TermsPage from "@/pages/legal/TermsPage";
 import AdminAICompliancePage from "@/pages/AdminAICompliancePage";
 import AdminTranslationCoveragePage from "@/pages/AdminTranslationCoveragePage";
 import GlobalCompliancePage from "@/pages/GlobalCompliancePage";
@@ -939,7 +941,7 @@ function AppContent({ skipPortalSelector = false, forcedPortal = null, domainCon
   };
 
   // Check if current path is a public route (no auth required)
-  const isPublicRoute = location.pathname.startsWith('/apply/') || location.pathname.startsWith('/track-application/') || location.pathname === '/downloads';
+  const isPublicRoute = location.pathname.startsWith('/apply/') || location.pathname.startsWith('/track-application/') || location.pathname === '/downloads' || location.pathname.startsWith('/legal/');
   
   // Check if current path is AI KARAU Meeting standalone portal
   const isKarauMeetPortal = location.pathname.startsWith('/karau-meet') || forcedPortal === 'karau';
@@ -1024,6 +1026,8 @@ function AppContent({ skipPortalSelector = false, forcedPortal = null, domainCon
             <Route path="/apply/:token" element={<PublicApplicationPage />} />
             <Route path="/track-application/:applicationId" element={<TrackApplicationPage />} />
             <Route path="/downloads" element={<PlatformDownloadsPage />} />
+            <Route path="/legal/privacy" element={<PrivacyPolicyPage />} />
+            <Route path="/legal/terms" element={<TermsPage />} />
           </Routes>
         </div>
         <LumiFooter variant="compact" />

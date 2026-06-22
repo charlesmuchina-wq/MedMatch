@@ -13,14 +13,20 @@ Microsoft Cloud App Security / Microsoft 365 App Compliance Program).
 ---
 
 ## 0. Inputs still required before submission (ACTION)
-These are the only items not derivable from the codebase — provide to finalize:
+Most of the package is now drafted; only the org-identity fields remain. Provide to finalize:
 1. **Publisher (Partner) ID** from Microsoft Partner Center (publisher must be verified).
-2. Public **Privacy Policy URL** (hosted).
-3. Public **Terms of Use URL** (hosted).
+2. ~~Privacy Policy URL~~ ✅ **Drafted & hosted in-app** at `{APP_ORIGIN}/legal/privacy`
+   (content derived from actual data handling; replace the `[Legal Entity Name]`,
+   `[Hosting Region]`, and `[privacy@/security@your-domain]` placeholders in
+   `frontend/src/pages/legal/PrivacyPolicyPage.jsx`).
+3. ~~Terms of Use URL~~ ✅ **Drafted & hosted in-app** at `{APP_ORIGIN}/legal/terms`
+   (replace placeholders in `frontend/src/pages/legal/TermsPage.jsx`).
 4. **Support URL / support email** (e.g. `support@aikarau.com`).
-5. **Company legal entity**, HQ address, primary contact, security contact email.
+5. **Company legal entity**, HQ address, primary contact, security contact email
+   (these fill the `[Legal Entity Name]` / `[security@...]` placeholders in the legal pages too).
 6. Hosting region(s) / data residency commitment (Azure/other, which regions).
 7. The production **Entra App (client) ID** + redirect URIs registered.
+   (Codebase currently has `AZURE_CLIENT_ID` in `backend/.env` — confirm it is the production app.)
 
 ---
 
