@@ -337,6 +337,10 @@ jobs:
     name: "Phase 4 - Accessibility Gate (WCAG 2.1/2.2 AA)"
     runs-on: ubuntu-latest
     needs: [phase1-functional]
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
     steps:
       - uses: actions/checkout@v4
 
@@ -368,8 +372,8 @@ jobs:
 
       - name: Wait for dev server
         run: |
-          npx --yes wait-on http://localhost:3000 --timeout 180000 || \
-            (echo "=== frontend.log ===" && tail -100 /tmp/frontend.log && exit 1)
+          npx --yes wait-on http://localhost:3000 --timeout 240000 || \
+            (echo "=== frontend.log (tail) ===" && tail -200 /tmp/frontend.log && exit 1)
 
       - name: Run axe accessibility scan
         id: axe
@@ -377,16 +381,19 @@ jobs:
           cd frontend
           mkdir -p axe-results
           AXE_BASE_URL=http://localhost:3000 node scripts/wcag_audit.cjs
-          # Persist a CI-stamped copy of the summary for artifact upload
+          # Persist a CI-stamped copy of the summary for artifact upload (uses env stamp, no shell subst inside js literals)
+          STAMP="$(date +%Y%m%d-%H%M%S)"
           cp /app/docs/security/axe-results/_summary.json \
-            "axe-results/ci-scan-$(date +%Y%m%d-%H%M%S).json"
+            "axe-results/ci-scan-${STAMP}.json"
+          # Mirror summary into a stable path inside the checkout (avoids /app symlink in artifact upload)
+          mkdir -p ../axe-results
+          cp /app/docs/security/axe-results/_summary.json ../axe-results/_summary.json
 
       - name: Check for blocking violations (critical+serious)
         run: |
-          cd frontend
           node -e "
             const fs = require('fs');
-            const summary = JSON.parse(fs.readFileSync('/app/docs/security/axe-results/_summary.json'));
+            const summary = JSON.parse(fs.readFileSync('axe-results/_summary.json'));
             const blocking = (summary.aggregated || []).filter(
               v => v.impact === 'critical' || v.impact === 'serious'
             );
@@ -400,12 +407,13 @@ jobs:
 
       - name: Post violation summary as PR comment
         if: github.event_name == 'pull_request'
+        continue-on-error: true
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
             const summary = JSON.parse(
-              fs.readFileSync('/app/docs/security/axe-results/_summary.json', 'utf8')
+              fs.readFileSync('axe-results/_summary.json', 'utf8')
             );
             const aggregated = summary.aggregated || [];
             const blocking = aggregated.filter(v => v.impact === 'critical' || v.impact === 'serious');
@@ -441,8 +449,9 @@ jobs:
         with:
           name: phase4-accessibility-results
           path: |
+            axe-results/
             frontend/axe-results/
-            /app/docs/security/axe-results/
+          if-no-files-found: warn
 
   gate-summary:
     name: "Gate Summary"
