@@ -226,3 +226,8 @@ See `/app/docs/GAP_ASSESSMENT.md` for full competitive benchmarking.
 - Filled legal-page placeholders with brand defaults: operator "AI KARAU", contacts privacy@/security@/support@aikarau.com; hosting-region claim softened.
 - Added Privacy/Terms links: LumiFooter (app-wide footer) + LoginPage ("By continuing you agree to our Terms and Privacy Policy"). Verified rendering.
 - Reviewer-friendly (Microsoft/app-store look for these). Remaining M365 blocker: Partner Center account + prod Entra IDs (user-side only).
+
+## 2026-06-22 — Mid-webinar "promote attendee to panelist" host control
+- Backend (karau_meet.py): GET /meetings/{id}/livekit-participants (host-only) lists live SFU participants + can_publish; POST /meetings/{id}/participants/{identity}/role flips can_publish live via LiveKit RoomService update_participant. Helper get_lk_api() in livekit_spike.py. Clean handling: empty list when no session, 404 when participant gone, 403 non-host.
+- Frontend: WebinarHostControls.jsx (uses useParticipants, rendered inside LiveKitRoom when webinar && is_host) — "Manage (N)" panel with Promote/Audience toggle per participant. LiveKitMeetingRoom captures is_host from token.
+- Verified end-to-end (2 browser contexts): host promotes a connected guest -> "Promoted to panelist" toast, role flips Audience->Panelist live; attendee gains publish rights via LiveKit server API.

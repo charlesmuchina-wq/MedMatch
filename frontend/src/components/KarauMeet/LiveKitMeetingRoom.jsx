@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LiveKitRoom, VideoConference, RoomAudioRenderer } from "@livekit/components-react";
 import "@livekit/components-styles";
 import { Loader2, AlertTriangle } from "lucide-react";
+import WebinarHostControls from "@/components/KarauMeet/WebinarHostControls";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
@@ -11,6 +12,7 @@ export default function LiveKitMeetingRoom({ user, meetingId, webinar = false })
   const [token, setToken] = useState("");
   const [serverUrl, setServerUrl] = useState("");
   const [role, setRole] = useState("");
+  const [isHost, setIsHost] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -31,6 +33,7 @@ export default function LiveKitMeetingRoom({ user, meetingId, webinar = false })
         if (cancelled) return;
         setServerUrl(d.url);
         setRole(d.role || "");
+        setIsHost(!!d.is_host);
         setToken(d.token);
       } catch (e) {
         if (!cancelled) setError("Could not connect to the meeting (LiveKit).");
@@ -79,6 +82,7 @@ export default function LiveKitMeetingRoom({ user, meetingId, webinar = false })
       >
         <VideoConference />
         <RoomAudioRenderer />
+        {webinar && isHost && <WebinarHostControls meetingId={meetingId} />}
       </LiveKitRoom>
     </div>
   );

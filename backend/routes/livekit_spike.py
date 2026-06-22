@@ -58,6 +58,14 @@ def create_access_token(room: str, identity: str, name: str, can_publish: bool =
     )
 
 
+def get_lk_api():
+    """Return a LiveKit server API client (https endpoint)."""
+    if not (LIVEKIT_API_KEY and LIVEKIT_API_SECRET and LIVEKIT_URL):
+        raise HTTPException(status_code=503, detail="LiveKit is not configured")
+    http_url = LIVEKIT_URL.replace("wss://", "https://").replace("ws://", "http://")
+    return api.LiveKitAPI(http_url, LIVEKIT_API_KEY, LIVEKIT_API_SECRET)
+
+
 @router.post("/token")
 async def mint_token(body: TokenRequest, request: Request):
     user = await require_auth(request)

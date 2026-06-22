@@ -474,6 +474,71 @@ async def get_meeting_livekit_token(meeting_id: str, request: Request):
     }
 
 
+class RoleBody(BaseModel):
+    can_publish: bool
+
+
+async def _require_host(meeting_id: str, request: Request):
+    user = await require_auth(request)
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+    if meeting.get("host_id") != user.get("user_id"):
+        raise HTTPException(status_code=403, detail="Only the host can manage participants")
+    return user, meeting
+
+
+@router.get("/meetings/{meeting_id}/livekit-participants")
+async def list_livekit_participants(meeting_id: str, request: Request):
+    """Host-only: list live SFU participants with their publish permission."""
+    await _require_host(meeting_id, request)
+    from livekit import api as lkapi
+    from livekit.api.twirp_client import TwirpError
+    from routes.livekit_spike import get_lk_api
+    lk = get_lk_api()
+    try:
+        res = await lk.room.list_participants(lkapi.ListParticipantsRequest(room=meeting_id))
+        parts = [{
+            "identity": p.identity,
+            "name": p.name,
+            "can_publish": bool(p.permission.can_publish) if p.permission else False,
+            "is_publishing": len(p.tracks) > 0,
+        } for p in res.participants]
+    except TwirpError as e:
+        if e.code == "not_found":
+            parts = []  # room has no active session yet
+        else:
+            raise HTTPException(status_code=502, detail=f"LiveKit error: {e.message}")
+    finally:
+        await lk.aclose()
+    return {"participants": parts}
+
+
+@router.post("/meetings/{meeting_id}/participants/{identity}/role")
+async def set_participant_role(meeting_id: str, identity: str, body: RoleBody, request: Request):
+    """Host-only: promote an attendee to panelist (can_publish=True) or demote, live."""
+    await _require_host(meeting_id, request)
+    from livekit import api as lkapi
+    from livekit.api.twirp_client import TwirpError
+    from routes.livekit_spike import get_lk_api
+    lk = get_lk_api()
+    try:
+        await lk.room.update_participant(lkapi.UpdateParticipantRequest(
+            room=meeting_id,
+            identity=identity,
+            permission=lkapi.ParticipantPermission(
+                can_publish=body.can_publish, can_subscribe=True, can_publish_data=True,
+            ),
+        ))
+    except TwirpError as e:
+        if e.code == "not_found":
+            raise HTTPException(status_code=404, detail="Participant is no longer in the room")
+        raise HTTPException(status_code=502, detail=f"LiveKit error: {e.message}")
+    finally:
+        await lk.aclose()
+    return {"identity": identity, "can_publish": body.can_publish}
+
+
 @router.get("/meetings/{meeting_id}")
 async def get_meeting_details(
     meeting_id: str,
