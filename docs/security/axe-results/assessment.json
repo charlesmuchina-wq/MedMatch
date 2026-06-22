@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "landscape-primary"
   },
-  "timestamp": "2026-06-22T18:11:10.521Z",
-  "url": "http://localhost:3000/assessment",
+  "timestamp": "2026-06-22T18:22:33.044Z",
+  "url": "http://localhost:5055/assessment",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -874,7 +874,7 @@
             }
           ],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -940,7 +940,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -976,7 +976,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -1012,7 +1012,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -1048,7 +1048,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -1138,9 +1138,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<svg xmlns=\"http://www.w3.org/20...\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-globe ...\" aria-hidden=\"true\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"375\" ...>",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-globe w-4 h-4\" aria-hidden=\"true\">",
           "target": [
-            "svg[x-line-number=\"375\"]"
+            ".lucide-globe.w-4.h-4"
           ]
         },
         {
@@ -1298,9 +1298,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<svg xmlns=\"http://www.w3.org/20...\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-globe ...\" aria-hidden=\"true\" x-file-name=\"PortalSelector\" x-line-number=\"217\" x-dynamic=\"true\" ...>",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-globe w-3 h-3 text-slate-500\" aria-hidden=\"true\">",
           "target": [
-            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"] > .mb-1\\.5[x-line-number=\"216\"][x-id=\"PortalSelector_216\"] > .lucide-globe[x-line-number=\"217\"][x-id=\"PortalSelector_217\"]"
+            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg > .mb-1\\.5.gap-1\\.5.flex > .lucide-globe.w-3.h-3"
           ]
         },
         {
@@ -1458,9 +1458,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<svg xmlns=\"http://www.w3.org/20...\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-globe ...\" aria-hidden=\"true\" x-file-name=\"PortalSelector\" x-line-number=\"217\" x-dynamic=\"true\" ...>",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-globe w-3 h-3 text-slate-500\" aria-hidden=\"true\">",
           "target": [
-            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"] > .mb-1\\.5[x-line-number=\"216\"][x-id=\"PortalSelector_216\"] > .lucide-globe[x-line-number=\"217\"][x-id=\"PortalSelector_217\"]"
+            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg > .mb-1\\.5.gap-1\\.5.flex > .lucide-globe.w-3.h-3"
           ]
         },
         {
@@ -1618,9 +1618,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<svg xmlns=\"http://www.w3.org/20...\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-globe ...\" aria-hidden=\"true\" x-file-name=\"PortalSelector\" x-line-number=\"217\" x-dynamic=\"true\" ...>",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-globe w-3 h-3 text-slate-500\" aria-hidden=\"true\">",
           "target": [
-            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"] > .mb-1\\.5[x-line-number=\"216\"][x-id=\"PortalSelector_216\"] > .lucide-globe[x-line-number=\"217\"][x-id=\"PortalSelector_217\"]"
+            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg > .mb-1\\.5.gap-1\\.5.flex > .lucide-globe.w-3.h-3"
           ]
         },
         {
@@ -1682,7 +1682,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<svg xmlns=\"http://www.w3.org/20...\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-downlo...\" aria-hidden=\"true\" x-file-name=\"PortalSelector\" x-line-number=\"251\" x-dynamic=\"false\" ...>",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-download w-4 h-4\" aria-hidden=\"true\">",
           "target": [
             ".lucide-download"
           ]
@@ -1718,7 +1718,7 @@
             }
           ],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -1754,7 +1754,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -1790,7 +1790,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -1840,7 +1840,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -1890,7 +1890,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -1954,7 +1954,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -1990,7 +1990,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -2026,7 +2026,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -2075,7 +2075,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"absolute top-1/4 left-1/4 w-72 md:w-96 h-72 md:h-96 bg-violet-500/8 rounded-full blur-3xl animate-pulse\" x-file-name=\"PortalSelector\" x-line-number=\"122\" x-component=\"div\" x-id=\"PortalSelector_122\" x-dynamic=\"false\" style=\"animation-duration: 4s;\"></div>",
+          "html": "<div class=\"absolute top-1/4 left-1/4 w-72 md:w-96 h-72 md:h-96 bg-violet-500/8 rounded-full blur-3xl animate-pulse\" style=\"animation-duration: 4s;\"></div>",
           "target": [
             ".top-1\\/4"
           ]
@@ -2107,7 +2107,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"absolute bottom-1/4 right-1/4 w-72 md:w-96 h-72 md:h-96 bg-teal-500/8 rounded-full blur-3xl animate-pulse\" x-file-name=\"PortalSelector\" x-line-number=\"123\" x-component=\"div\" x-id=\"PortalSelector_123\" x-dynamic=\"false\" style=\"animation-duration: 5s; animation-delay: 1s;\"></div>",
+          "html": "<div class=\"absolute bottom-1/4 right-1/4 w-72 md:w-96 h-72 md:h-96 bg-teal-500/8 rounded-full blur-3xl animate-pulse\" style=\"animation-duration: 5s; animation-delay: 1s;\"></div>",
           "target": [
             ".bottom-1\\/4"
           ]
@@ -2139,9 +2139,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"text-transparent bg-clip-text\" x-file-name=\"PortalSelector\" x-line-number=\"132\" x-component=\"span\" x-id=\"PortalSelector_132\" x-dynamic=\"true\" style=\"background-image: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147));\">MedMatch-AI KARAU</span>",
+          "html": "<span class=\"text-transparent bg-clip-text\" style=\"background-image: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147));\">MedMatch-AI KARAU</span>",
           "target": [
-            "span[x-line-number=\"132\"]"
+            "h1 > .text-transparent.bg-clip-text"
           ]
         },
         {
@@ -2171,9 +2171,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" x-file-name=\"PortalSelector\" x-line-number=\"184\" x-component=\"h2\" x-id=\"PortalSelector_184\" x-dynamic=\"true\" style=\"font-family: Manrope, sans-serif;\">AI KARAU</h2>",
+          "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" style=\"font-family: Manrope, sans-serif;\">AI KARAU</h2>",
           "target": [
-            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > h2"
+            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .gap-3.mb-5.flex > div:nth-child(2) > h2"
           ]
         },
         {
@@ -2203,7 +2203,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-violet-500 to-indigo-600\" x-file-name=\"PortalSelector\" x-line-number=\"205\" x-component=\"div\" x-id=\"PortalSelector_205\" x-dynamic=\"true\" style=\"opacity: 0.15;\">",
+          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-violet-500 to-indigo-600\" style=\"opacity: 0.15;\">",
           "target": [
             ".feature-item.gap-2\\.5.text-white\\/85:nth-child(1) > .from-violet-500.to-indigo-600.w-6"
           ]
@@ -2235,7 +2235,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-violet-500 to-indigo-600\" x-file-name=\"PortalSelector\" x-line-number=\"205\" x-component=\"div\" x-id=\"PortalSelector_205\" x-dynamic=\"true\" style=\"opacity: 0.15;\">",
+          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-violet-500 to-indigo-600\" style=\"opacity: 0.15;\">",
           "target": [
             ".feature-item.gap-2\\.5.text-white\\/85:nth-child(2) > .from-violet-500.to-indigo-600.w-6"
           ]
@@ -2267,7 +2267,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-violet-500 to-indigo-600\" x-file-name=\"PortalSelector\" x-line-number=\"205\" x-component=\"div\" x-id=\"PortalSelector_205\" x-dynamic=\"true\" style=\"opacity: 0.15;\">",
+          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-violet-500 to-indigo-600\" style=\"opacity: 0.15;\">",
           "target": [
             ".feature-item.gap-2\\.5.text-white\\/85:nth-child(3) > .from-violet-500.to-indigo-600.w-6"
           ]
@@ -2299,9 +2299,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden shadow-lg ring-2 ring-white/10\" x-file-name=\"PortalSelector\" x-line-number=\"171\" x-component=\"div\" x-id=\"PortalSelector_171\" x-dynamic=\"true\" style=\"background-color: rgb(11, 15, 26);\">",
+          "html": "<div class=\"w-14 h-14 rounded-xl flex items-center justify-center overflow-hidden shadow-lg ring-2 ring-white/10\" style=\"background-color: rgb(11, 15, 26);\"><img alt=\"ENZI\" class=\"w-10 h-10 object-contain\" src=\"/enzi-logo-icon.png\"></div>",
           "target": [
-            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > .w-14.h-14.shadow-lg"
+            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .gap-3.mb-5.flex > .w-14.h-14.shadow-lg"
           ]
         },
         {
@@ -2331,9 +2331,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" x-file-name=\"PortalSelector\" x-line-number=\"184\" x-component=\"h2\" x-id=\"PortalSelector_184\" x-dynamic=\"true\" style=\"font-family: Manrope, sans-serif;\">ENZI</h2>",
+          "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" style=\"font-family: Manrope, sans-serif;\">ENZI</h2>",
           "target": [
-            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > h2"
+            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .gap-3.mb-5.flex > div:nth-child(2) > h2"
           ]
         },
         {
@@ -2363,7 +2363,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-teal-400 to-cyan-500\" x-file-name=\"PortalSelector\" x-line-number=\"205\" x-component=\"div\" x-id=\"PortalSelector_205\" x-dynamic=\"true\" style=\"opacity: 0.15;\">",
+          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-teal-400 to-cyan-500\" style=\"opacity: 0.15;\">",
           "target": [
             ".feature-item.gap-2\\.5.text-white\\/85:nth-child(1) > .to-cyan-500.w-6.h-6"
           ]
@@ -2395,7 +2395,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-teal-400 to-cyan-500\" x-file-name=\"PortalSelector\" x-line-number=\"205\" x-component=\"div\" x-id=\"PortalSelector_205\" x-dynamic=\"true\" style=\"opacity: 0.15;\">",
+          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-teal-400 to-cyan-500\" style=\"opacity: 0.15;\">",
           "target": [
             ".feature-item.gap-2\\.5.text-white\\/85:nth-child(2) > .to-cyan-500.w-6.h-6"
           ]
@@ -2427,7 +2427,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-teal-400 to-cyan-500\" x-file-name=\"PortalSelector\" x-line-number=\"205\" x-component=\"div\" x-id=\"PortalSelector_205\" x-dynamic=\"true\" style=\"opacity: 0.15;\">",
+          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-teal-400 to-cyan-500\" style=\"opacity: 0.15;\">",
           "target": [
             ".feature-item.gap-2\\.5.text-white\\/85:nth-child(3) > .to-cyan-500.w-6.h-6"
           ]
@@ -2459,9 +2459,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" x-file-name=\"PortalSelector\" x-line-number=\"184\" x-component=\"h2\" x-id=\"PortalSelector_184\" x-dynamic=\"true\" style=\"font-family: Manrope, sans-serif;\">MedMatch AI</h2>",
+          "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" style=\"font-family: Manrope, sans-serif;\">MedMatch AI</h2>",
           "target": [
-            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > h2"
+            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7.relative > .gap-3.mb-5.flex > div:nth-child(2) > h2"
           ]
         },
         {
@@ -2491,7 +2491,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-teal-400 to-emerald-500\" x-file-name=\"PortalSelector\" x-line-number=\"205\" x-component=\"div\" x-id=\"PortalSelector_205\" x-dynamic=\"true\" style=\"opacity: 0.15;\">",
+          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-teal-400 to-emerald-500\" style=\"opacity: 0.15;\">",
           "target": [
             ".feature-item.gap-2\\.5.text-white\\/85:nth-child(1) > .to-emerald-500.w-6.h-6"
           ]
@@ -2523,7 +2523,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-teal-400 to-emerald-500\" x-file-name=\"PortalSelector\" x-line-number=\"205\" x-component=\"div\" x-id=\"PortalSelector_205\" x-dynamic=\"true\" style=\"opacity: 0.15;\">",
+          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-teal-400 to-emerald-500\" style=\"opacity: 0.15;\">",
           "target": [
             ".feature-item.gap-2\\.5.text-white\\/85:nth-child(2) > .to-emerald-500.w-6.h-6"
           ]
@@ -2555,7 +2555,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-teal-400 to-emerald-500\" x-file-name=\"PortalSelector\" x-line-number=\"205\" x-component=\"div\" x-id=\"PortalSelector_205\" x-dynamic=\"true\" style=\"opacity: 0.15;\">",
+          "html": "<div class=\"w-6 h-6 rounded-md flex items-center justify-center bg-gradient-to-br from-teal-400 to-emerald-500\" style=\"opacity: 0.15;\">",
           "target": [
             ".feature-item.gap-2\\.5.text-white\\/85:nth-child(3) > .to-emerald-500.w-6.h-6"
           ]
@@ -2587,7 +2587,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<footer class=\"flex-shrink-0 border-t py-3 px-6 bg-inherit\" data-testid=\"lumi-footer\" x-file-name=\"LumiFooter\" x-line-number=\"20\" x-component=\"footer\" x-id=\"LumiFooter_20\" x-dynamic=\"false\" style=\"border-color: rgba(148, 163, 184, 0.15);\">",
+          "html": "<footer class=\"flex-shrink-0 border-t py-3 px-6 bg-inherit\" data-testid=\"lumi-footer\" style=\"border-color: rgba(148, 163, 184, 0.15);\">",
           "target": [
             "footer"
           ]
@@ -2619,7 +2619,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"font-semibold tracki...\" data-testid=\"lumi-footer-tagline\" x-file-name=\"LumiFooter\" x-line-number=\"29\" x-component=\"span\" x-id=\"LumiFooter_29\" x-dynamic=\"false\" style=\"background: linear-g...\">",
+          "html": "<span class=\"font-semibold tracking-wide text-[10px]\" data-testid=\"lumi-footer-tagline\" style=\"background: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147)) text; -webkit-text-fill-color: transparent;\">Intelligence in Every Conversation</span>",
           "target": [
             ".tracking-wide"
           ]
@@ -2660,7 +2660,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -2678,7 +2678,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button data-testid=\"open-karau-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+          "html": "<button data-testid=\"open-karau-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-violet-500 to-indigo-600 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
           "target": [
             "button[data-testid=\"open-karau-btn\"]"
           ]
@@ -2696,7 +2696,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button data-testid=\"open-enzi-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+          "html": "<button data-testid=\"open-enzi-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-teal-400 to-cyan-500 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
           "target": [
             "button[data-testid=\"open-enzi-btn\"]"
           ]
@@ -2714,7 +2714,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button data-testid=\"open-medmatch-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+          "html": "<button data-testid=\"open-medmatch-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-teal-400 to-emerald-500 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
           "target": [
             "button[data-testid=\"open-medmatch-btn\"]"
           ]
@@ -2732,7 +2732,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button data-testid=\"portal-downloads-lin...\" class=\"inline-flex items-ce...\" x-file-name=\"PortalSelector\" x-line-number=\"246\" x-component=\"button\" x-id=\"PortalSelector_246\" x-dynamic=\"false\">",
+          "html": "<button data-testid=\"portal-downloads-link\" class=\"inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.06] border border-white/[0.1] text-sm text-slate-200 hover:bg-white/[0.1] hover:text-white transition-all duration-200\">",
           "target": [
             ".bg-white\\/\\[0\\.06\\]"
           ]
@@ -2766,27 +2766,27 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<h1 class=\"text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3\" x-file-name=\"PortalSelector\" x-line-number=\"130\" x-component=\"h1\" x-id=\"PortalSelector_130\" x-dynamic=\"true\">",
+                  "html": "<h1 class=\"text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3\">Welcome to <span class=\"text-transparent bg-clip-text\" style=\"background-image: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147));\">MedMatch-AI KARAU</span></h1>",
                   "target": [
                     "h1"
                   ]
                 },
                 {
-                  "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" x-file-name=\"PortalSelector\" x-line-number=\"184\" x-component=\"h2\" x-id=\"PortalSelector_184\" x-dynamic=\"true\" style=\"font-family: Manrope, sans-serif;\">AI KARAU</h2>",
+                  "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" style=\"font-family: Manrope, sans-serif;\">AI KARAU</h2>",
                   "target": [
-                    "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > h2"
+                    "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .gap-3.mb-5.flex > div:nth-child(2) > h2"
                   ]
                 },
                 {
-                  "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" x-file-name=\"PortalSelector\" x-line-number=\"184\" x-component=\"h2\" x-id=\"PortalSelector_184\" x-dynamic=\"true\" style=\"font-family: Manrope, sans-serif;\">ENZI</h2>",
+                  "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" style=\"font-family: Manrope, sans-serif;\">ENZI</h2>",
                   "target": [
-                    "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > h2"
+                    "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .gap-3.mb-5.flex > div:nth-child(2) > h2"
                   ]
                 },
                 {
-                  "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" x-file-name=\"PortalSelector\" x-line-number=\"184\" x-component=\"h2\" x-id=\"PortalSelector_184\" x-dynamic=\"true\" style=\"font-family: Manrope, sans-serif;\">MedMatch AI</h2>",
+                  "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" style=\"font-family: Manrope, sans-serif;\">MedMatch AI</h2>",
                   "target": [
-                    "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > h2"
+                    "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7.relative > .gap-3.mb-5.flex > div:nth-child(2) > h2"
                   ]
                 }
               ],
@@ -2964,7 +2964,7 @@
             }
           ],
           "impact": null,
-          "html": "<img alt=\"AI KARAU\" class=\"w-full h-full object-cover\" x-file-name=\"PortalSelector\" x-line-number=\"176\" x-component=\"img\" x-id=\"PortalSelector_176\" x-dynamic=\"true\" src=\"https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg\">",
+          "html": "<img alt=\"AI KARAU\" class=\"w-full h-full object-cover\" src=\"https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg\">",
           "target": [
             "img[alt=\"AI KARAU\"]"
           ]
@@ -2990,7 +2990,7 @@
             }
           ],
           "impact": null,
-          "html": "<img alt=\"ENZI\" class=\"w-10 h-10 object-contain\" x-file-name=\"PortalSelector\" x-line-number=\"174\" x-component=\"img\" x-id=\"PortalSelector_174\" x-dynamic=\"true\" src=\"/enzi-logo-icon.png\">",
+          "html": "<img alt=\"ENZI\" class=\"w-10 h-10 object-contain\" src=\"/enzi-logo-icon.png\">",
           "target": [
             ".w-10"
           ]
@@ -3016,7 +3016,7 @@
             }
           ],
           "impact": null,
-          "html": "<img alt=\"MedMatch AI\" class=\"w-full h-full object...\" x-file-name=\"PortalSelector\" x-line-number=\"176\" x-component=\"img\" x-id=\"PortalSelector_176\" x-dynamic=\"true\" src=\"https://customer-ass...\">",
+          "html": "<img alt=\"MedMatch AI\" class=\"w-full h-full object-cover\" src=\"https://customer-assets.emergentagent.com/job_f139deea-35f2-4b55-91b9-9aab4dc4c84b/artifacts/9uzkkm0w_MedMatch%20Logo%20-%201MB.png\">",
           "target": [
             "img[alt=\"MedMatch AI\"]"
           ]
@@ -3042,9 +3042,9 @@
             }
           ],
           "impact": null,
-          "html": "<img alt=\"ENZI\" class=\"w-5 h-5 object-contain\" x-file-name=\"LumiFooter\" x-line-number=\"26\" x-component=\"img\" x-id=\"LumiFooter_26\" x-dynamic=\"false\" src=\"/enzi-logo-icon.png\">",
+          "html": "<img alt=\"ENZI\" class=\"w-5 h-5 object-contain\" src=\"/enzi-logo-icon.png\">",
           "target": [
-            "img[x-line-number=\"26\"]"
+            ".w-5.h-5.object-contain"
           ]
         }
       ]
@@ -3079,7 +3079,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+          "html": "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">",
           "target": [
             "meta[name=\"viewport\"]"
           ]
@@ -3117,7 +3117,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -3135,7 +3135,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<img alt=\"AI KARAU\" class=\"w-full h-full object-cover\" x-file-name=\"PortalSelector\" x-line-number=\"176\" x-component=\"img\" x-id=\"PortalSelector_176\" x-dynamic=\"true\" src=\"https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg\">",
+          "html": "<img alt=\"AI KARAU\" class=\"w-full h-full object-cover\" src=\"https://customer-assets.emergentagent.com/job_1fba32e3-e5a1-4174-b642-d1cd092309b3/artifacts/a7nojb8x_IMG_8477.jpeg\">",
           "target": [
             "img[alt=\"AI KARAU\"]"
           ]
@@ -3153,7 +3153,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button data-testid=\"open-karau-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+          "html": "<button data-testid=\"open-karau-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-violet-500 to-indigo-600 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
           "target": [
             "button[data-testid=\"open-karau-btn\"]"
           ]
@@ -3171,7 +3171,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<img alt=\"ENZI\" class=\"w-10 h-10 object-contain\" x-file-name=\"PortalSelector\" x-line-number=\"174\" x-component=\"img\" x-id=\"PortalSelector_174\" x-dynamic=\"true\" src=\"/enzi-logo-icon.png\">",
+          "html": "<img alt=\"ENZI\" class=\"w-10 h-10 object-contain\" src=\"/enzi-logo-icon.png\">",
           "target": [
             ".w-10"
           ]
@@ -3189,7 +3189,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button data-testid=\"open-enzi-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+          "html": "<button data-testid=\"open-enzi-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-teal-400 to-cyan-500 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
           "target": [
             "button[data-testid=\"open-enzi-btn\"]"
           ]
@@ -3207,7 +3207,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<img alt=\"MedMatch AI\" class=\"w-full h-full object...\" x-file-name=\"PortalSelector\" x-line-number=\"176\" x-component=\"img\" x-id=\"PortalSelector_176\" x-dynamic=\"true\" src=\"https://customer-ass...\">",
+          "html": "<img alt=\"MedMatch AI\" class=\"w-full h-full object-cover\" src=\"https://customer-assets.emergentagent.com/job_f139deea-35f2-4b55-91b9-9aab4dc4c84b/artifacts/9uzkkm0w_MedMatch%20Logo%20-%201MB.png\">",
           "target": [
             "img[alt=\"MedMatch AI\"]"
           ]
@@ -3225,7 +3225,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button data-testid=\"open-medmatch-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+          "html": "<button data-testid=\"open-medmatch-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-teal-400 to-emerald-500 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
           "target": [
             "button[data-testid=\"open-medmatch-btn\"]"
           ]
@@ -3243,7 +3243,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button data-testid=\"portal-downloads-lin...\" class=\"inline-flex items-ce...\" x-file-name=\"PortalSelector\" x-line-number=\"246\" x-component=\"button\" x-id=\"PortalSelector_246\" x-dynamic=\"false\">",
+          "html": "<button data-testid=\"portal-downloads-link\" class=\"inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.06] border border-white/[0.1] text-sm text-slate-200 hover:bg-white/[0.1] hover:text-white transition-all duration-200\">",
           "target": [
             ".bg-white\\/\\[0\\.06\\]"
           ]
@@ -3261,9 +3261,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<img alt=\"ENZI\" class=\"w-5 h-5 object-contain\" x-file-name=\"LumiFooter\" x-line-number=\"26\" x-component=\"img\" x-id=\"LumiFooter_26\" x-dynamic=\"false\" src=\"/enzi-logo-icon.png\">",
+          "html": "<img alt=\"ENZI\" class=\"w-5 h-5 object-contain\" src=\"/enzi-logo-icon.png\">",
           "target": [
-            "img[x-line-number=\"26\"]"
+            ".w-5.h-5.object-contain"
           ]
         }
       ]
@@ -3307,7 +3307,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -3339,7 +3339,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button data-testid=\"open-karau-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+          "html": "<button data-testid=\"open-karau-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-violet-500 to-indigo-600 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
           "target": [
             "button[data-testid=\"open-karau-btn\"]"
           ]
@@ -3371,7 +3371,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button data-testid=\"open-enzi-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+          "html": "<button data-testid=\"open-enzi-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-teal-400 to-cyan-500 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
           "target": [
             "button[data-testid=\"open-enzi-btn\"]"
           ]
@@ -3403,7 +3403,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button data-testid=\"open-medmatch-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+          "html": "<button data-testid=\"open-medmatch-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-teal-400 to-emerald-500 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
           "target": [
             "button[data-testid=\"open-medmatch-btn\"]"
           ]
@@ -3435,7 +3435,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button data-testid=\"portal-downloads-lin...\" class=\"inline-flex items-ce...\" x-file-name=\"PortalSelector\" x-line-number=\"246\" x-component=\"button\" x-id=\"PortalSelector_246\" x-dynamic=\"false\">",
+          "html": "<button data-testid=\"portal-downloads-link\" class=\"inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.06] border border-white/[0.1] text-sm text-slate-200 hover:bg-white/[0.1] hover:text-white transition-all duration-200\">",
           "target": [
             ".bg-white\\/\\[0\\.06\\]"
           ]
@@ -3476,7 +3476,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -3489,7 +3489,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"hidden sm:inline\" x-file-name=\"GlobalLanguageSelector\" x-line-number=\"377\" x-component=\"span\" x-id=\"GlobalLanguageSelector_377\" x-dynamic=\"true\">🇺🇸 English (US)</span>",
+          "html": "<span class=\"hidden sm:inline\">🇺🇸 English (US)</span>",
           "target": [
             ".hidden"
           ],
@@ -3508,7 +3508,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -3521,7 +3521,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<h1 class=\"text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3\" x-file-name=\"PortalSelector\" x-line-number=\"130\" x-component=\"h1\" x-id=\"PortalSelector_130\" x-dynamic=\"true\">",
+          "html": "<h1 class=\"text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3\">Welcome to <span class=\"text-transparent bg-clip-text\" style=\"background-image: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147));\">MedMatch-AI KARAU</span></h1>",
           "target": [
             "h1"
           ],
@@ -3540,9 +3540,9 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<span class=\"text-transparent bg-clip-text\" x-file-name=\"PortalSelector\" x-line-number=\"132\" x-component=\"span\" x-id=\"PortalSelector_132\" x-dynamic=\"true\" style=\"background-image: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147));\">MedMatch-AI KARAU</span>",
+                  "html": "<span class=\"text-transparent bg-clip-text\" style=\"background-image: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147));\">MedMatch-AI KARAU</span>",
                   "target": [
-                    "span[x-line-number=\"132\"]"
+                    "h1 > .text-transparent.bg-clip-text"
                   ]
                 }
               ],
@@ -3553,9 +3553,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"text-transparent bg-clip-text\" x-file-name=\"PortalSelector\" x-line-number=\"132\" x-component=\"span\" x-id=\"PortalSelector_132\" x-dynamic=\"true\" style=\"background-image: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147));\">MedMatch-AI KARAU</span>",
+          "html": "<span class=\"text-transparent bg-clip-text\" style=\"background-image: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147));\">MedMatch-AI KARAU</span>",
           "target": [
-            "span[x-line-number=\"132\"]"
+            "h1 > .text-transparent.bg-clip-text"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -3572,7 +3572,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -3585,7 +3585,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<p class=\"text-base sm:text-lg text-slate-200 max-w-xl mx-auto px-4\" x-file-name=\"PortalSelector\" x-line-number=\"136\" x-component=\"p\" x-id=\"PortalSelector_136\" x-dynamic=\"false\">Choose your app. KARAU and ENZI are auto-bundled — open one, get both.</p>",
+          "html": "<p class=\"text-base sm:text-lg text-slate-200 max-w-xl mx-auto px-4\">Choose your app. KARAU and ENZI are auto-bundled — open one, get both.</p>",
           "target": [
             ".text-base"
           ],
@@ -3604,19 +3604,19 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<span class=\"inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold border bg-violet-500/20 text-violet-300 border-violet-500/30\" x-file-name=\"PortalSelector\" x-line-number=\"162\" x-component=\"span\" x-id=\"PortalSelector_162\" x-dynamic=\"true\">Auto-bundled</span>",
+                  "html": "<span class=\"inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold border bg-violet-500/20 text-violet-300 border-violet-500/30\">Auto-bundled</span>",
                   "target": [
                     ".bg-violet-500\\/20"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-karau\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-karau\">",
                   "target": [
                     "div[data-testid=\"portal-karau\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -3629,7 +3629,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold border bg-violet-500/20 text-violet-300 border-violet-500/30\" x-file-name=\"PortalSelector\" x-line-number=\"162\" x-component=\"span\" x-id=\"PortalSelector_162\" x-dynamic=\"true\">Auto-bundled</span>",
+          "html": "<span class=\"inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold border bg-violet-500/20 text-violet-300 border-violet-500/30\">Auto-bundled</span>",
           "target": [
             ".bg-violet-500\\/20"
           ],
@@ -3648,13 +3648,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-karau\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-karau\">",
                   "target": [
                     "div[data-testid=\"portal-karau\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -3667,9 +3667,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" x-file-name=\"PortalSelector\" x-line-number=\"184\" x-component=\"h2\" x-id=\"PortalSelector_184\" x-dynamic=\"true\" style=\"font-family: Manrope, sans-serif;\">AI KARAU</h2>",
+          "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" style=\"font-family: Manrope, sans-serif;\">AI KARAU</h2>",
           "target": [
-            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > h2"
+            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .gap-3.mb-5.flex > div:nth-child(2) > h2"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -3686,9 +3686,9 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<p class=\"text-sm font-medium bg-gradient-to-r from-violet-500 to-indigo-600 bg-clip-text text-transparent\" x-file-name=\"PortalSelector\" x-line-number=\"185\" x-component=\"p\" x-id=\"PortalSelector_185\" x-dynamic=\"true\">Meetings &amp; Webinars</p>",
+                  "html": "<p class=\"text-sm font-medium bg-gradient-to-r from-violet-500 to-indigo-600 bg-clip-text text-transparent\">Meetings &amp; Webinars</p>",
                   "target": [
-                    "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > .bg-clip-text[x-line-number=\"185\"][x-id=\"PortalSelector_185\"]"
+                    ".bg-clip-text.text-transparent.from-violet-500"
                   ]
                 }
               ],
@@ -3699,9 +3699,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<p class=\"text-sm font-medium bg-gradient-to-r from-violet-500 to-indigo-600 bg-clip-text text-transparent\" x-file-name=\"PortalSelector\" x-line-number=\"185\" x-component=\"p\" x-id=\"PortalSelector_185\" x-dynamic=\"true\">Meetings &amp; Webinars</p>",
+          "html": "<p class=\"text-sm font-medium bg-gradient-to-r from-violet-500 to-indigo-600 bg-clip-text text-transparent\">Meetings &amp; Webinars</p>",
           "target": [
-            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > .bg-clip-text[x-line-number=\"185\"][x-id=\"PortalSelector_185\"]"
+            ".bg-clip-text.text-transparent.from-violet-500"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -3724,9 +3724,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<p class=\"text-sm text-white/80 mb-4 leading-relaxed min-h-[44px]\" x-file-name=\"PortalSelector\" x-line-number=\"190\" x-component=\"p\" x-id=\"PortalSelector_190\" x-dynamic=\"true\">HD video meetings with AI transcription, screen sharing, and real-time collaboration.</p>",
+          "html": "<p class=\"text-sm text-white/80 mb-4 leading-relaxed min-h-[44px]\">HD video meetings with AI transcription, screen sharing, and real-time collaboration.</p>",
           "target": [
-            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .text-white\\/80.leading-relaxed.min-h-\\[44px\\]"
+            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .text-white\\/80.leading-relaxed.min-h-\\[44px\\]"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
         },
@@ -3743,19 +3743,19 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"mb-4 px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06]\" x-file-name=\"PortalSelector\" x-line-number=\"196\" x-component=\"div\" x-id=\"PortalSelector_196\" x-dynamic=\"true\">",
+                  "html": "<div class=\"mb-4 px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06]\"><p class=\"text-[11px] text-cyan-300/80 font-medium\">ENZI Messenger included</p></div>",
                   "target": [
-                    "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.03\\].border-white\\/\\[0\\.06\\][x-line-number=\"196\"]"
+                    "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.03\\].border-white\\/\\[0\\.06\\].rounded-lg"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-karau\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-karau\">",
                   "target": [
                     "div[data-testid=\"portal-karau\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -3768,9 +3768,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<p class=\"text-[11px] text-cyan-300/80 font-medium\" x-file-name=\"PortalSelector\" x-line-number=\"197\" x-component=\"p\" x-id=\"PortalSelector_197\" x-dynamic=\"true\">ENZI Messenger included</p>",
+          "html": "<p class=\"text-[11px] text-cyan-300/80 font-medium\">ENZI Messenger included</p>",
           "target": [
-            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.03\\].border-white\\/\\[0\\.06\\][x-line-number=\"196\"] > .text-\\[11px\\].text-cyan-300\\/80[x-line-number=\"197\"]"
+            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.03\\].border-white\\/\\[0\\.06\\].rounded-lg > .text-\\[11px\\].text-cyan-300\\/80.font-medium"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -3787,13 +3787,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-karau\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-karau\">",
                   "target": [
                     "div[data-testid=\"portal-karau\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -3806,9 +3806,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span x-file-name=\"PortalSelector\" x-line-number=\"208\" x-component=\"span\" x-id=\"PortalSelector_208\" x-dynamic=\"true\">HD Video &amp; Audio</span>",
+          "html": "<span>HD Video &amp; Audio</span>",
           "target": [
-            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .space-y-2[x-line-number=\"202\"][x-id=\"PortalSelector_202\"] > .feature-item.gap-2\\.5.text-white\\/85:nth-child(1) > span[x-line-number=\"208\"][x-id=\"PortalSelector_208\"]"
+            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .space-y-2.mb-4 > .feature-item.gap-2\\.5.text-white\\/85:nth-child(1) > span"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -3825,13 +3825,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-karau\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-karau\">",
                   "target": [
                     "div[data-testid=\"portal-karau\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -3844,9 +3844,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span x-file-name=\"PortalSelector\" x-line-number=\"208\" x-component=\"span\" x-id=\"PortalSelector_208\" x-dynamic=\"true\">Auto-includes ENZI Messenger</span>",
+          "html": "<span>Auto-includes ENZI Messenger</span>",
           "target": [
-            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .space-y-2[x-line-number=\"202\"][x-id=\"PortalSelector_202\"] > .feature-item.gap-2\\.5.text-white\\/85:nth-child(2) > span[x-line-number=\"208\"][x-id=\"PortalSelector_208\"]"
+            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .space-y-2.mb-4 > .feature-item.gap-2\\.5.text-white\\/85:nth-child(2) > span"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -3863,13 +3863,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-karau\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-karau\">",
                   "target": [
                     "div[data-testid=\"portal-karau\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -3882,9 +3882,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span x-file-name=\"PortalSelector\" x-line-number=\"208\" x-component=\"span\" x-id=\"PortalSelector_208\" x-dynamic=\"true\">Meeting-to-Channel Sync</span>",
+          "html": "<span>Meeting-to-Channel Sync</span>",
           "target": [
-            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .space-y-2[x-line-number=\"202\"][x-id=\"PortalSelector_202\"] > .feature-item.gap-2\\.5.text-white\\/85:nth-child(3) > span[x-line-number=\"208\"][x-id=\"PortalSelector_208\"]"
+            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .space-y-2.mb-4 > .feature-item.gap-2\\.5.text-white\\/85:nth-child(3) > span"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -3901,19 +3901,19 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\" x-file-name=\"PortalSelector\" x-line-number=\"215\" x-component=\"div\" x-id=\"PortalSelector_215\" x-dynamic=\"true\">",
+                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\">",
                   "target": [
-                    "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"]"
+                    "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-karau\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-karau\">",
                   "target": [
                     "div[data-testid=\"portal-karau\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -3926,9 +3926,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"text-[10px] text-slate-500 font-medium uppercase tracking-wider\" x-file-name=\"PortalSelector\" x-line-number=\"218\" x-component=\"span\" x-id=\"PortalSelector_218\" x-dynamic=\"true\">Direct Access</span>",
+          "html": "<span class=\"text-[10px] text-slate-500 font-medium uppercase tracking-wider\">Direct Access</span>",
           "target": [
-            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"] > .mb-1\\.5[x-line-number=\"216\"][x-id=\"PortalSelector_216\"] > .uppercase.tracking-wider[x-line-number=\"218\"]"
+            "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg > .mb-1\\.5.gap-1\\.5.flex > .uppercase.tracking-wider.text-slate-500"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -3945,25 +3945,25 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-connect-aikarau-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">connect.aikarau.com</span>",
+                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-connect-aikarau-com\">connect.aikarau.com</span>",
                   "target": [
                     "span[data-testid=\"domain-connect-aikarau-com\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\" x-file-name=\"PortalSelector\" x-line-number=\"215\" x-component=\"div\" x-id=\"PortalSelector_215\" x-dynamic=\"true\">",
+                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\">",
                   "target": [
-                    "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"]"
+                    "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-karau\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-karau\">",
                   "target": [
                     "div[data-testid=\"portal-karau\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -3976,7 +3976,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-connect-aikarau-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">connect.aikarau.com</span>",
+          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-connect-aikarau-com\">connect.aikarau.com</span>",
           "target": [
             "span[data-testid=\"domain-connect-aikarau-com\"]"
           ],
@@ -3995,25 +3995,25 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-meet-aikarau-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">meet.aikarau.com</span>",
+                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-meet-aikarau-com\">meet.aikarau.com</span>",
                   "target": [
                     "span[data-testid=\"domain-meet-aikarau-com\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\" x-file-name=\"PortalSelector\" x-line-number=\"215\" x-component=\"div\" x-id=\"PortalSelector_215\" x-dynamic=\"true\">",
+                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\">",
                   "target": [
-                    "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"]"
+                    "div[data-testid=\"portal-karau\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-karau\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-karau\">",
                   "target": [
                     "div[data-testid=\"portal-karau\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4026,7 +4026,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-meet-aikarau-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">meet.aikarau.com</span>",
+          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-meet-aikarau-com\">meet.aikarau.com</span>",
           "target": [
             "span[data-testid=\"domain-meet-aikarau-com\"]"
           ],
@@ -4044,7 +4044,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<button data-testid=\"open-karau-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+                  "html": "<button data-testid=\"open-karau-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-violet-500 to-indigo-600 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
                   "target": [
                     "button[data-testid=\"open-karau-btn\"]"
                   ]
@@ -4057,7 +4057,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<button data-testid=\"open-karau-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+          "html": "<button data-testid=\"open-karau-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-violet-500 to-indigo-600 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
           "target": [
             "button[data-testid=\"open-karau-btn\"]"
           ],
@@ -4076,19 +4076,19 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<span class=\"inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold border bg-teal-500/20 text-teal-300 border-teal-500/30\" x-file-name=\"PortalSelector\" x-line-number=\"162\" x-component=\"span\" x-id=\"PortalSelector_162\" x-dynamic=\"true\">Auto-bundled</span>",
+                  "html": "<span class=\"inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold border bg-teal-500/20 text-teal-300 border-teal-500/30\">Auto-bundled</span>",
                   "target": [
                     ".bg-teal-500\\/20"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-enzi\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-enzi\">",
                   "target": [
                     "div[data-testid=\"portal-enzi\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4101,7 +4101,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold border bg-teal-500/20 text-teal-300 border-teal-500/30\" x-file-name=\"PortalSelector\" x-line-number=\"162\" x-component=\"span\" x-id=\"PortalSelector_162\" x-dynamic=\"true\">Auto-bundled</span>",
+          "html": "<span class=\"inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-semibold border bg-teal-500/20 text-teal-300 border-teal-500/30\">Auto-bundled</span>",
           "target": [
             ".bg-teal-500\\/20"
           ],
@@ -4120,13 +4120,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-enzi\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-enzi\">",
                   "target": [
                     "div[data-testid=\"portal-enzi\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4139,9 +4139,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" x-file-name=\"PortalSelector\" x-line-number=\"184\" x-component=\"h2\" x-id=\"PortalSelector_184\" x-dynamic=\"true\" style=\"font-family: Manrope, sans-serif;\">ENZI</h2>",
+          "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" style=\"font-family: Manrope, sans-serif;\">ENZI</h2>",
           "target": [
-            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > h2"
+            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .gap-3.mb-5.flex > div:nth-child(2) > h2"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -4164,9 +4164,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<p class=\"text-sm font-medium bg-gradient-to-r from-teal-400 to-cyan-500 bg-clip-text text-transparent\" x-file-name=\"PortalSelector\" x-line-number=\"185\" x-component=\"p\" x-id=\"PortalSelector_185\" x-dynamic=\"true\">Actionable Intelligence Messenger</p>",
+          "html": "<p class=\"text-sm font-medium bg-gradient-to-r from-teal-400 to-cyan-500 bg-clip-text text-transparent\">Actionable Intelligence Messenger</p>",
           "target": [
-            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > .bg-clip-text[x-line-number=\"185\"][x-id=\"PortalSelector_185\"]"
+            ".bg-clip-text.text-transparent.to-cyan-500"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
         },
@@ -4189,9 +4189,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<p class=\"text-sm text-white/80 mb-4 leading-relaxed min-h-[44px]\" x-file-name=\"PortalSelector\" x-line-number=\"190\" x-component=\"p\" x-id=\"PortalSelector_190\" x-dynamic=\"true\">Team messaging with channels, bots, AI writing tools, and end-to-end encryption.</p>",
+          "html": "<p class=\"text-sm text-white/80 mb-4 leading-relaxed min-h-[44px]\">Team messaging with channels, bots, AI writing tools, and end-to-end encryption.</p>",
           "target": [
-            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .text-white\\/80.leading-relaxed.min-h-\\[44px\\]"
+            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .text-white\\/80.leading-relaxed.min-h-\\[44px\\]"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements"
         },
@@ -4208,19 +4208,19 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"mb-4 px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06]\" x-file-name=\"PortalSelector\" x-line-number=\"196\" x-component=\"div\" x-id=\"PortalSelector_196\" x-dynamic=\"true\">",
+                  "html": "<div class=\"mb-4 px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06]\"><p class=\"text-[11px] text-cyan-300/80 font-medium\">AI KARAU Meetings included</p></div>",
                   "target": [
-                    "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.03\\].border-white\\/\\[0\\.06\\][x-line-number=\"196\"]"
+                    "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.03\\].border-white\\/\\[0\\.06\\].rounded-lg"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-enzi\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-enzi\">",
                   "target": [
                     "div[data-testid=\"portal-enzi\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4233,9 +4233,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<p class=\"text-[11px] text-cyan-300/80 font-medium\" x-file-name=\"PortalSelector\" x-line-number=\"197\" x-component=\"p\" x-id=\"PortalSelector_197\" x-dynamic=\"true\">AI KARAU Meetings included</p>",
+          "html": "<p class=\"text-[11px] text-cyan-300/80 font-medium\">AI KARAU Meetings included</p>",
           "target": [
-            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.03\\].border-white\\/\\[0\\.06\\][x-line-number=\"196\"] > .text-\\[11px\\].text-cyan-300\\/80[x-line-number=\"197\"]"
+            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.03\\].border-white\\/\\[0\\.06\\].rounded-lg > .text-\\[11px\\].text-cyan-300\\/80.font-medium"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -4252,13 +4252,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-enzi\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-enzi\">",
                   "target": [
                     "div[data-testid=\"portal-enzi\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4271,9 +4271,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span x-file-name=\"PortalSelector\" x-line-number=\"208\" x-component=\"span\" x-id=\"PortalSelector_208\" x-dynamic=\"true\">Channels, DMs &amp; Bots</span>",
+          "html": "<span>Channels, DMs &amp; Bots</span>",
           "target": [
-            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .space-y-2[x-line-number=\"202\"][x-id=\"PortalSelector_202\"] > .feature-item.gap-2\\.5.text-white\\/85:nth-child(1) > span[x-line-number=\"208\"][x-id=\"PortalSelector_208\"]"
+            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .space-y-2.mb-4 > .feature-item.gap-2\\.5.text-white\\/85:nth-child(1) > span"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -4290,13 +4290,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-enzi\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-enzi\">",
                   "target": [
                     "div[data-testid=\"portal-enzi\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4309,9 +4309,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span x-file-name=\"PortalSelector\" x-line-number=\"208\" x-component=\"span\" x-id=\"PortalSelector_208\" x-dynamic=\"true\">Auto-includes AI KARAU</span>",
+          "html": "<span>Auto-includes AI KARAU</span>",
           "target": [
-            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .space-y-2[x-line-number=\"202\"][x-id=\"PortalSelector_202\"] > .feature-item.gap-2\\.5.text-white\\/85:nth-child(2) > span[x-line-number=\"208\"][x-id=\"PortalSelector_208\"]"
+            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .space-y-2.mb-4 > .feature-item.gap-2\\.5.text-white\\/85:nth-child(2) > span"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -4328,13 +4328,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-enzi\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-enzi\">",
                   "target": [
                     "div[data-testid=\"portal-enzi\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4347,9 +4347,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span x-file-name=\"PortalSelector\" x-line-number=\"208\" x-component=\"span\" x-id=\"PortalSelector_208\" x-dynamic=\"true\">AI-Powered Collaboration</span>",
+          "html": "<span>AI-Powered Collaboration</span>",
           "target": [
-            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .space-y-2[x-line-number=\"202\"][x-id=\"PortalSelector_202\"] > .feature-item.gap-2\\.5.text-white\\/85:nth-child(3) > span[x-line-number=\"208\"][x-id=\"PortalSelector_208\"]"
+            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .space-y-2.mb-4 > .feature-item.gap-2\\.5.text-white\\/85:nth-child(3) > span"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -4366,19 +4366,19 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\" x-file-name=\"PortalSelector\" x-line-number=\"215\" x-component=\"div\" x-id=\"PortalSelector_215\" x-dynamic=\"true\">",
+                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\">",
                   "target": [
-                    "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"]"
+                    "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-enzi\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-enzi\">",
                   "target": [
                     "div[data-testid=\"portal-enzi\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4391,9 +4391,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"text-[10px] text-slate-500 font-medium uppercase tracking-wider\" x-file-name=\"PortalSelector\" x-line-number=\"218\" x-component=\"span\" x-id=\"PortalSelector_218\" x-dynamic=\"true\">Direct Access</span>",
+          "html": "<span class=\"text-[10px] text-slate-500 font-medium uppercase tracking-wider\">Direct Access</span>",
           "target": [
-            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"] > .mb-1\\.5[x-line-number=\"216\"][x-id=\"PortalSelector_216\"] > .uppercase.tracking-wider[x-line-number=\"218\"]"
+            "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg > .mb-1\\.5.gap-1\\.5.flex > .uppercase.tracking-wider.text-slate-500"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -4410,25 +4410,25 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-enzi-aikarau-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">enzi.aikarau.com</span>",
+                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-enzi-aikarau-com\">enzi.aikarau.com</span>",
                   "target": [
                     "span[data-testid=\"domain-enzi-aikarau-com\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\" x-file-name=\"PortalSelector\" x-line-number=\"215\" x-component=\"div\" x-id=\"PortalSelector_215\" x-dynamic=\"true\">",
+                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\">",
                   "target": [
-                    "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"]"
+                    "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-enzi\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-enzi\">",
                   "target": [
                     "div[data-testid=\"portal-enzi\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4441,7 +4441,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-enzi-aikarau-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">enzi.aikarau.com</span>",
+          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-enzi-aikarau-com\">enzi.aikarau.com</span>",
           "target": [
             "span[data-testid=\"domain-enzi-aikarau-com\"]"
           ],
@@ -4460,25 +4460,25 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-enzilink-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">enzilink.com</span>",
+                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-enzilink-com\">enzilink.com</span>",
                   "target": [
                     "span[data-testid=\"domain-enzilink-com\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\" x-file-name=\"PortalSelector\" x-line-number=\"215\" x-component=\"div\" x-id=\"PortalSelector_215\" x-dynamic=\"true\">",
+                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\">",
                   "target": [
-                    "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"]"
+                    "div[data-testid=\"portal-enzi\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-enzi\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-enzi\">",
                   "target": [
                     "div[data-testid=\"portal-enzi\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4491,7 +4491,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-enzilink-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">enzilink.com</span>",
+          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-enzilink-com\">enzilink.com</span>",
           "target": [
             "span[data-testid=\"domain-enzilink-com\"]"
           ],
@@ -4509,7 +4509,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<button data-testid=\"open-enzi-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+                  "html": "<button data-testid=\"open-enzi-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-teal-400 to-cyan-500 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
                   "target": [
                     "button[data-testid=\"open-enzi-btn\"]"
                   ]
@@ -4522,7 +4522,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<button data-testid=\"open-enzi-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+          "html": "<button data-testid=\"open-enzi-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-teal-400 to-cyan-500 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
           "target": [
             "button[data-testid=\"open-enzi-btn\"]"
           ],
@@ -4541,13 +4541,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-medmatch\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-medmatch\">",
                   "target": [
                     "div[data-testid=\"portal-medmatch\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4560,9 +4560,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" x-file-name=\"PortalSelector\" x-line-number=\"184\" x-component=\"h2\" x-id=\"PortalSelector_184\" x-dynamic=\"true\" style=\"font-family: Manrope, sans-serif;\">MedMatch AI</h2>",
+          "html": "<h2 class=\"text-lg sm:text-xl font-bold text-white\" style=\"font-family: Manrope, sans-serif;\">MedMatch AI</h2>",
           "target": [
-            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > h2"
+            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7.relative > .gap-3.mb-5.flex > div:nth-child(2) > h2"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -4579,9 +4579,9 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<p class=\"text-sm font-medium bg-gradient-to-r from-teal-400 to-emerald-500 bg-clip-text text-transparent\" x-file-name=\"PortalSelector\" x-line-number=\"185\" x-component=\"p\" x-id=\"PortalSelector_185\" x-dynamic=\"true\">Career Intelligence Toolkit</p>",
+                  "html": "<p class=\"text-sm font-medium bg-gradient-to-r from-teal-400 to-emerald-500 bg-clip-text text-transparent\">Career Intelligence Toolkit</p>",
                   "target": [
-                    "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > .bg-clip-text[x-line-number=\"185\"][x-id=\"PortalSelector_185\"]"
+                    ".bg-clip-text.text-transparent.to-emerald-500"
                   ]
                 }
               ],
@@ -4592,9 +4592,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<p class=\"text-sm font-medium bg-gradient-to-r from-teal-400 to-emerald-500 bg-clip-text text-transparent\" x-file-name=\"PortalSelector\" x-line-number=\"185\" x-component=\"p\" x-id=\"PortalSelector_185\" x-dynamic=\"true\">Career Intelligence Toolkit</p>",
+          "html": "<p class=\"text-sm font-medium bg-gradient-to-r from-teal-400 to-emerald-500 bg-clip-text text-transparent\">Career Intelligence Toolkit</p>",
           "target": [
-            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .gap-3[x-line-number=\"170\"][x-id=\"PortalSelector_170\"] > div[x-line-number=\"183\"][x-id=\"PortalSelector_183\"][x-component=\"div\"] > .bg-clip-text[x-line-number=\"185\"][x-id=\"PortalSelector_185\"]"
+            ".bg-clip-text.text-transparent.to-emerald-500"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -4611,13 +4611,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-medmatch\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-medmatch\">",
                   "target": [
                     "div[data-testid=\"portal-medmatch\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4630,9 +4630,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<p class=\"text-sm text-white/80 mb-4 leading-relaxed min-h-[44px]\" x-file-name=\"PortalSelector\" x-line-number=\"190\" x-component=\"p\" x-id=\"PortalSelector_190\" x-dynamic=\"true\">AI-powered job search, resume builder, and interview preparation — your complete career toolkit.</p>",
+          "html": "<p class=\"text-sm text-white/80 mb-4 leading-relaxed min-h-[44px]\">AI-powered job search, resume builder, and interview preparation — your complete career toolkit.</p>",
           "target": [
-            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .text-white\\/80.leading-relaxed.min-h-\\[44px\\]"
+            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7.relative > .text-white\\/80.leading-relaxed.min-h-\\[44px\\]"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -4649,13 +4649,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-medmatch\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-medmatch\">",
                   "target": [
                     "div[data-testid=\"portal-medmatch\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4668,9 +4668,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span x-file-name=\"PortalSelector\" x-line-number=\"208\" x-component=\"span\" x-id=\"PortalSelector_208\" x-dynamic=\"true\">AI Resume Parser</span>",
+          "html": "<span>AI Resume Parser</span>",
           "target": [
-            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .space-y-2[x-line-number=\"202\"][x-id=\"PortalSelector_202\"] > .feature-item.gap-2\\.5.text-white\\/85:nth-child(1) > span[x-line-number=\"208\"][x-id=\"PortalSelector_208\"]"
+            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7.relative > .space-y-2.mb-4 > .feature-item.gap-2\\.5.text-white\\/85:nth-child(1) > span"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -4687,13 +4687,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-medmatch\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-medmatch\">",
                   "target": [
                     "div[data-testid=\"portal-medmatch\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4706,9 +4706,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span x-file-name=\"PortalSelector\" x-line-number=\"208\" x-component=\"span\" x-id=\"PortalSelector_208\" x-dynamic=\"true\">Smart Job Matching</span>",
+          "html": "<span>Smart Job Matching</span>",
           "target": [
-            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .space-y-2[x-line-number=\"202\"][x-id=\"PortalSelector_202\"] > .feature-item.gap-2\\.5.text-white\\/85:nth-child(2) > span[x-line-number=\"208\"][x-id=\"PortalSelector_208\"]"
+            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7.relative > .space-y-2.mb-4 > .feature-item.gap-2\\.5.text-white\\/85:nth-child(2) > span"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -4725,13 +4725,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-medmatch\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-medmatch\">",
                   "target": [
                     "div[data-testid=\"portal-medmatch\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4744,9 +4744,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span x-file-name=\"PortalSelector\" x-line-number=\"208\" x-component=\"span\" x-id=\"PortalSelector_208\" x-dynamic=\"true\">Recruiter Network</span>",
+          "html": "<span>Recruiter Network</span>",
           "target": [
-            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .space-y-2[x-line-number=\"202\"][x-id=\"PortalSelector_202\"] > .feature-item.gap-2\\.5.text-white\\/85:nth-child(3) > span[x-line-number=\"208\"][x-id=\"PortalSelector_208\"]"
+            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7.relative > .space-y-2.mb-4 > .feature-item.gap-2\\.5.text-white\\/85:nth-child(3) > span"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -4763,19 +4763,19 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\" x-file-name=\"PortalSelector\" x-line-number=\"215\" x-component=\"div\" x-id=\"PortalSelector_215\" x-dynamic=\"true\">",
+                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\">",
                   "target": [
-                    "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"]"
+                    "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-medmatch\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-medmatch\">",
                   "target": [
                     "div[data-testid=\"portal-medmatch\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4788,9 +4788,9 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"text-[10px] text-slate-500 font-medium uppercase tracking-wider\" x-file-name=\"PortalSelector\" x-line-number=\"218\" x-component=\"span\" x-id=\"PortalSelector_218\" x-dynamic=\"true\">Direct Access</span>",
+          "html": "<span class=\"text-[10px] text-slate-500 font-medium uppercase tracking-wider\">Direct Access</span>",
           "target": [
-            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"] > .mb-1\\.5[x-line-number=\"216\"][x-id=\"PortalSelector_216\"] > .uppercase.tracking-wider[x-line-number=\"218\"]"
+            "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg > .mb-1\\.5.gap-1\\.5.flex > .uppercase.tracking-wider.text-slate-500"
           ],
           "failureSummary": "Fix any of the following:\n  Element's background color could not be determined due to a background gradient"
         },
@@ -4807,25 +4807,25 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-medmatch-aikarau-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">",
+                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-medmatch-aikarau-com\">medmatch.aikarau.com</span>",
                   "target": [
                     "span[data-testid=\"domain-medmatch-aikarau-com\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\" x-file-name=\"PortalSelector\" x-line-number=\"215\" x-component=\"div\" x-id=\"PortalSelector_215\" x-dynamic=\"true\">",
+                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\">",
                   "target": [
-                    "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"]"
+                    "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-medmatch\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-medmatch\">",
                   "target": [
                     "div[data-testid=\"portal-medmatch\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4838,7 +4838,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-medmatch-aikarau-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">",
+          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-medmatch-aikarau-com\">medmatch.aikarau.com</span>",
           "target": [
             "span[data-testid=\"domain-medmatch-aikarau-com\"]"
           ],
@@ -4857,25 +4857,25 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-careers-aikarau-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">careers.aikarau.com</span>",
+                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-careers-aikarau-com\">careers.aikarau.com</span>",
                   "target": [
                     "span[data-testid=\"domain-careers-aikarau-com\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\" x-file-name=\"PortalSelector\" x-line-number=\"215\" x-component=\"div\" x-id=\"PortalSelector_215\" x-dynamic=\"true\">",
+                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\">",
                   "target": [
-                    "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"]"
+                    "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-medmatch\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-medmatch\">",
                   "target": [
                     "div[data-testid=\"portal-medmatch\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4888,7 +4888,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-careers-aikarau-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">careers.aikarau.com</span>",
+          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-careers-aikarau-com\">careers.aikarau.com</span>",
           "target": [
             "span[data-testid=\"domain-careers-aikarau-com\"]"
           ],
@@ -4907,25 +4907,25 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-jobs-aikarau-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">jobs.aikarau.com</span>",
+                  "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-jobs-aikarau-com\">jobs.aikarau.com</span>",
                   "target": [
                     "span[data-testid=\"domain-jobs-aikarau-com\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\" x-file-name=\"PortalSelector\" x-line-number=\"215\" x-component=\"div\" x-id=\"PortalSelector_215\" x-dynamic=\"true\">",
+                  "html": "<div class=\"mb-5 px-3 py-2 rounded-lg bg-white/[0.02] border border-white/[0.05]\">",
                   "target": [
-                    "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7[x-line-number=\"168\"] > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\][x-line-number=\"215\"]"
+                    "div[data-testid=\"portal-medmatch\"] > .p-6.sm\\:p-7.relative > .bg-white\\/\\[0\\.02\\].border-white\\/\\[0\\.05\\].rounded-lg"
                   ]
                 },
                 {
-                  "html": "<div class=\"rounded-xl border te...\" x-file-name=\"PortalSelector\" x-line-number=\"148\" x-component=\"Card\" x-id=\"PortalSelector_148\" x-dynamic=\"true\" data-testid=\"portal-medmatch\">",
+                  "html": "<div class=\"rounded-xl border text-card-foreground shadow app-card relative overflow-hidden cursor-pointer bg-slate-800/60 border-slate-700/50 backdrop-blur-md hover:border-slate-500/50 active:scale-[0.98]\" data-testid=\"portal-medmatch\">",
                   "target": [
                     "div[data-testid=\"portal-medmatch\"]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -4938,7 +4938,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-jobs-aikarau-com\" x-file-name=\"PortalSelector\" x-line-number=\"222\" x-component=\"span\" x-id=\"PortalSelector_222\" x-dynamic=\"true\">jobs.aikarau.com</span>",
+          "html": "<span class=\"inline-flex items-center gap-1 text-[10px] text-slate-400 bg-white/[0.04] px-2 py-0.5 rounded-md font-mono\" data-testid=\"domain-jobs-aikarau-com\">jobs.aikarau.com</span>",
           "target": [
             "span[data-testid=\"domain-jobs-aikarau-com\"]"
           ],
@@ -4956,7 +4956,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<button data-testid=\"open-medmatch-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+                  "html": "<button data-testid=\"open-medmatch-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-teal-400 to-emerald-500 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
                   "target": [
                     "button[data-testid=\"open-medmatch-btn\"]"
                   ]
@@ -4969,7 +4969,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<button data-testid=\"open-medmatch-btn\" class=\"cta-btn w-full py-3 ...\" x-file-name=\"PortalSelector\" x-line-number=\"231\" x-component=\"button\" x-id=\"PortalSelector_231\" x-dynamic=\"true\">",
+          "html": "<button data-testid=\"open-medmatch-btn\" class=\"cta-btn w-full py-3 px-5 rounded-xl font-semibold text-white text-sm bg-gradient-to-r from-teal-400 to-emerald-500 flex items-center justify-center gap-2 transition-all duration-300 hover:shadow-lg hover:gap-3 active:scale-[0.98]\">",
           "target": [
             "button[data-testid=\"open-medmatch-btn\"]"
           ],
@@ -4988,13 +4988,13 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<button data-testid=\"portal-downloads-lin...\" class=\"inline-flex items-ce...\" x-file-name=\"PortalSelector\" x-line-number=\"246\" x-component=\"button\" x-id=\"PortalSelector_246\" x-dynamic=\"false\">",
+                  "html": "<button data-testid=\"portal-downloads-link\" class=\"inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.06] border border-white/[0.1] text-sm text-slate-200 hover:bg-white/[0.1] hover:text-white transition-all duration-200\">",
                   "target": [
                     ".bg-white\\/\\[0\\.06\\]"
                   ]
                 },
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -5007,7 +5007,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<button data-testid=\"portal-downloads-lin...\" class=\"inline-flex items-ce...\" x-file-name=\"PortalSelector\" x-line-number=\"246\" x-component=\"button\" x-id=\"PortalSelector_246\" x-dynamic=\"false\">",
+          "html": "<button data-testid=\"portal-downloads-link\" class=\"inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.06] border border-white/[0.1] text-sm text-slate-200 hover:bg-white/[0.1] hover:text-white transition-all duration-200\">",
           "target": [
             ".bg-white\\/\\[0\\.06\\]"
           ],
@@ -5026,7 +5026,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\" x-file-name=\"PortalSelector\" x-line-number=\"81\" x-component=\"div\" x-id=\"PortalSelector_81\" x-dynamic=\"false\">",
+                  "html": "<div class=\"min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 flex flex-col\">",
                   "target": [
                     ".from-slate-900"
                   ]
@@ -5039,7 +5039,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<p class=\"text-xs sm:text-sm text-slate-300\" x-file-name=\"PortalSelector\" x-line-number=\"254\" x-component=\"p\" x-id=\"PortalSelector_254\" x-dynamic=\"true\">Powered by AI • Trusted by Life Sciences Professionals</p>",
+          "html": "<p class=\"text-xs sm:text-sm text-slate-300\">Powered by AI • Trusted by Life Sciences Professionals</p>",
           "target": [
             ".sm\\:text-sm"
           ],
@@ -5058,7 +5058,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<span class=\"font-semibold tracki...\" data-testid=\"lumi-footer-tagline\" x-file-name=\"LumiFooter\" x-line-number=\"29\" x-component=\"span\" x-id=\"LumiFooter_29\" x-dynamic=\"false\" style=\"background: linear-g...\">",
+                  "html": "<span class=\"font-semibold tracking-wide text-[10px]\" data-testid=\"lumi-footer-tagline\" style=\"background: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147)) text; -webkit-text-fill-color: transparent;\">Intelligence in Every Conversation</span>",
                   "target": [
                     ".tracking-wide"
                   ]
@@ -5071,7 +5071,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"font-semibold tracki...\" data-testid=\"lumi-footer-tagline\" x-file-name=\"LumiFooter\" x-line-number=\"29\" x-component=\"span\" x-id=\"LumiFooter_29\" x-dynamic=\"false\" style=\"background: linear-g...\">",
+          "html": "<span class=\"font-semibold tracking-wide text-[10px]\" data-testid=\"lumi-footer-tagline\" style=\"background: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147)) text; -webkit-text-fill-color: transparent;\">Intelligence in Every Conversation</span>",
           "target": [
             ".tracking-wide"
           ],

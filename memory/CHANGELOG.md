@@ -168,3 +168,10 @@
 
 ## Prior History
 See `/app/docs/GAP_ASSESSMENT.md` for full competitive benchmarking.
+
+## 2026-06-22 — Phase 4 CI Accessibility Gate RCA & CAPA
+- RCA: Phase 4 (only Node job) failed after Node bump 20→22; craco+react-scripts5+React19 needs Node 20.
+- Corrective: pinned `phase4-accessibility` to Node 20 in `.github/workflows/test.yml`.
+- Preventive: scan a production build (`yarn build` + `serve -s build`) instead of CRA dev server; CI=false on build (craco treats warnings as errors when CI=true); gate reads canonical summary path with guard.
+- Verified locally: build 46s, served build scan = 0 critical/serious across 12 routes. Final green run requires user push (runner-only validation).
+- Doc: `/app/docs/security/PHASE4_CI_RCA_CAPA.md`

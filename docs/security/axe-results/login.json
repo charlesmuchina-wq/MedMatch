@@ -13,8 +13,8 @@
     "orientationAngle": 0,
     "orientationType": "landscape-primary"
   },
-  "timestamp": "2026-06-22T18:10:52.802Z",
-  "url": "http://localhost:3000/login",
+  "timestamp": "2026-06-22T18:22:16.786Z",
+  "url": "http://localhost:5055/login",
   "toolOptions": {
     "runOnly": {
       "type": "tag",
@@ -758,7 +758,7 @@
             }
           ],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -791,7 +791,7 @@
             }
           ],
           "impact": null,
-          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center jus...\" x-file-name=\"LoginPage\" x-line-number=\"463\" x-component=\"TabsList\" x-id=\"LoginPage_463\" x-dynamic=\"true\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
+          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground grid w-full grid-cols-3 mb-4\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
           "target": [
             ".bg-muted"
           ]
@@ -824,7 +824,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ]
@@ -857,7 +857,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -890,7 +890,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -923,7 +923,7 @@
             }
           ],
           "impact": null,
-          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" x-file-name=\"LoginPage\" x-line-number=\"476\" x-component=\"TabsContent\" x-id=\"LoginPage_476\" x-dynamic=\"true\" ...>",
+          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" style=\"\">",
           "target": [
             "#radix-_r_2_-content-email"
           ]
@@ -956,7 +956,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" class=\"absolute right-2 top...\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visi...\" x-file-name=\"LoginPage\" x-line-number=\"575\" x-component=\"button\" x-id=\"LoginPage_575\" x-dynamic=\"true\">",
+          "html": "<button type=\"button\" class=\"absolute right-2 top-2 p-2 text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100 rounded-md focus:outline-none focus:ring-2 focus:ring-turquoise\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visibility\">",
           "target": [
             ".right-2"
           ]
@@ -1022,7 +1022,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -1058,7 +1058,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -1076,7 +1076,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center jus...\" x-file-name=\"LoginPage\" x-line-number=\"463\" x-component=\"TabsList\" x-id=\"LoginPage_463\" x-dynamic=\"true\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
+          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground grid w-full grid-cols-3 mb-4\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
           "target": [
             ".bg-muted"
           ]
@@ -1094,7 +1094,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ]
@@ -1112,7 +1112,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -1130,7 +1130,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -1148,7 +1148,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" x-file-name=\"LoginPage\" x-line-number=\"476\" x-component=\"TabsContent\" x-id=\"LoginPage_476\" x-dynamic=\"true\" ...>",
+          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" style=\"\">",
           "target": [
             "#radix-_r_2_-content-email"
           ]
@@ -1166,7 +1166,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"absolute right-2 top...\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visi...\" x-file-name=\"LoginPage\" x-line-number=\"575\" x-component=\"button\" x-id=\"LoginPage_575\" x-dynamic=\"true\">",
+          "html": "<button type=\"button\" class=\"absolute right-2 top-2 p-2 text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100 rounded-md focus:outline-none focus:ring-2 focus:ring-turquoise\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visibility\">",
           "target": [
             ".right-2"
           ]
@@ -1202,7 +1202,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -1238,7 +1238,7 @@
             }
           ],
           "impact": null,
-          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center jus...\" x-file-name=\"LoginPage\" x-line-number=\"463\" x-component=\"TabsList\" x-id=\"LoginPage_463\" x-dynamic=\"true\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
+          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground grid w-full grid-cols-3 mb-4\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
           "target": [
             ".bg-muted"
           ]
@@ -1256,7 +1256,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ]
@@ -1274,7 +1274,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -1292,7 +1292,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -1310,7 +1310,7 @@
             }
           ],
           "impact": null,
-          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" x-file-name=\"LoginPage\" x-line-number=\"476\" x-component=\"TabsContent\" x-id=\"LoginPage_476\" x-dynamic=\"true\" ...>",
+          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" style=\"\">",
           "target": [
             "#radix-_r_2_-content-email"
           ]
@@ -1328,7 +1328,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -1418,7 +1418,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<svg xmlns=\"http://www.w3.org/20...\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-globe ...\" aria-hidden=\"true\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"375\" ...>",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-globe w-4 h-4\" aria-hidden=\"true\">",
           "target": [
             ".lucide-globe"
           ]
@@ -1482,9 +1482,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<svg xmlns=\"http://www.w3.org/20...\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-mail w...\" aria-hidden=\"true\" x-file-name=\"LoginPage\" x-line-number=\"465\" x-component=\"Mail\" ...>",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-mail w-4 h-4\" aria-hidden=\"true\">",
           "target": [
-            "svg[x-line-number=\"465\"]"
+            "#radix-_r_2_-trigger-email > .lucide-mail.w-4.h-4"
           ]
         },
         {
@@ -1514,7 +1514,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<svg xmlns=\"http://www.w3.org/20...\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-smartp...\" aria-hidden=\"true\" x-file-name=\"LoginPage\" x-line-number=\"468\" x-id=\"LoginPage_468\" ...>",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-smartphone w-4 h-4\" aria-hidden=\"true\">",
           "target": [
             ".lucide-smartphone"
           ]
@@ -1546,7 +1546,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<svg xmlns=\"http://www.w3.org/20...\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-finger...\" aria-hidden=\"true\" x-file-name=\"LoginPage\" x-line-number=\"471\" x-id=\"LoginPage_471\" ...>",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-fingerprint w-4 h-4\" aria-hidden=\"true\">",
           "target": [
             ".lucide-fingerprint"
           ]
@@ -1578,9 +1578,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<svg xmlns=\"http://www.w3.org/20...\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-mail a...\" aria-hidden=\"true\" x-file-name=\"LoginPage\" x-line-number=\"547\" x-component=\"Mail\" ...>",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-mail absolute left-3 top-3 h-4 w-4 text-slate-400\" aria-hidden=\"true\">",
           "target": [
-            "svg[x-line-number=\"547\"]"
+            ".lucide-mail.left-3.top-3"
           ]
         },
         {
@@ -1610,7 +1610,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<svg xmlns=\"http://www.w3.org/20...\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-lock a...\" aria-hidden=\"true\" x-file-name=\"LoginPage\" x-line-number=\"564\" x-component=\"Lock\" ...>",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-lock absolute left-3 top-3 h-4 w-4 text-slate-400\" aria-hidden=\"true\">",
           "target": [
             ".lucide-lock"
           ]
@@ -1642,7 +1642,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<svg xmlns=\"http://www.w3.org/20...\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-eye h-...\" aria-hidden=\"true\" x-file-name=\"LoginPage\" x-line-number=\"583\" x-component=\"Eye\" ...>",
+          "html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-eye h-4 w-4\" aria-hidden=\"true\">",
           "target": [
             ".lucide-eye"
           ]
@@ -1710,7 +1710,7 @@
             }
           ],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -1728,7 +1728,7 @@
             }
           ],
           "impact": null,
-          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center jus...\" x-file-name=\"LoginPage\" x-line-number=\"463\" x-component=\"TabsList\" x-id=\"LoginPage_463\" x-dynamic=\"true\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
+          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground grid w-full grid-cols-3 mb-4\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
           "target": [
             ".bg-muted"
           ]
@@ -1746,7 +1746,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ]
@@ -1764,7 +1764,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -1782,7 +1782,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -1800,7 +1800,7 @@
             }
           ],
           "impact": null,
-          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" x-file-name=\"LoginPage\" x-line-number=\"476\" x-component=\"TabsContent\" x-id=\"LoginPage_476\" x-dynamic=\"true\" ...>",
+          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" style=\"\">",
           "target": [
             "#radix-_r_2_-content-email"
           ]
@@ -1818,7 +1818,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" class=\"absolute right-2 top...\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visi...\" x-file-name=\"LoginPage\" x-line-number=\"575\" x-component=\"button\" x-id=\"LoginPage_575\" x-dynamic=\"true\">",
+          "html": "<button type=\"button\" class=\"absolute right-2 top-2 p-2 text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100 rounded-md focus:outline-none focus:ring-2 focus:ring-turquoise\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visibility\">",
           "target": [
             ".right-2"
           ]
@@ -1854,7 +1854,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -1890,7 +1890,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center jus...\" x-file-name=\"LoginPage\" x-line-number=\"463\" x-component=\"TabsList\" x-id=\"LoginPage_463\" x-dynamic=\"true\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
+          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground grid w-full grid-cols-3 mb-4\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
           "target": [
             ".bg-muted"
           ]
@@ -1908,7 +1908,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ]
@@ -1926,7 +1926,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -1944,7 +1944,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -1962,7 +1962,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" x-file-name=\"LoginPage\" x-line-number=\"476\" x-component=\"TabsContent\" x-id=\"LoginPage_476\" x-dynamic=\"true\" ...>",
+          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" style=\"\">",
           "target": [
             "#radix-_r_2_-content-email"
           ]
@@ -1980,7 +1980,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -2016,7 +2016,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center jus...\" x-file-name=\"LoginPage\" x-line-number=\"463\" x-component=\"TabsList\" x-id=\"LoginPage_463\" x-dynamic=\"true\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
+          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground grid w-full grid-cols-3 mb-4\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
           "target": [
             ".bg-muted"
           ]
@@ -2052,7 +2052,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ]
@@ -2070,7 +2070,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -2088,7 +2088,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -2138,7 +2138,7 @@
             }
           ],
           "impact": null,
-          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center jus...\" x-file-name=\"LoginPage\" x-line-number=\"463\" x-component=\"TabsList\" x-id=\"LoginPage_463\" x-dynamic=\"true\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
+          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground grid w-full grid-cols-3 mb-4\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
           "target": [
             ".bg-muted"
           ]
@@ -2170,7 +2170,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ]
@@ -2202,7 +2202,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -2234,7 +2234,7 @@
             }
           ],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -2266,7 +2266,7 @@
             }
           ],
           "impact": null,
-          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" x-file-name=\"LoginPage\" x-line-number=\"476\" x-component=\"TabsContent\" x-id=\"LoginPage_476\" x-dynamic=\"true\" ...>",
+          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" style=\"\">",
           "target": [
             "#radix-_r_2_-content-email"
           ]
@@ -2298,7 +2298,7 @@
             }
           ],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -2348,7 +2348,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -2380,7 +2380,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center jus...\" x-file-name=\"LoginPage\" x-line-number=\"463\" x-component=\"TabsList\" x-id=\"LoginPage_463\" x-dynamic=\"true\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
+          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground grid w-full grid-cols-3 mb-4\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
           "target": [
             ".bg-muted"
           ]
@@ -2412,7 +2412,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ]
@@ -2444,7 +2444,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -2476,7 +2476,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -2508,7 +2508,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" x-file-name=\"LoginPage\" x-line-number=\"476\" x-component=\"TabsContent\" x-id=\"LoginPage_476\" x-dynamic=\"true\" ...>",
+          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" style=\"\">",
           "target": [
             "#radix-_r_2_-content-email"
           ]
@@ -2540,7 +2540,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"absolute right-2 top...\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visi...\" x-file-name=\"LoginPage\" x-line-number=\"575\" x-component=\"button\" x-id=\"LoginPage_575\" x-dynamic=\"true\">",
+          "html": "<button type=\"button\" class=\"absolute right-2 top-2 p-2 text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100 rounded-md focus:outline-none focus:ring-2 focus:ring-turquoise\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visibility\">",
           "target": [
             ".right-2"
           ]
@@ -2604,7 +2604,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -2640,7 +2640,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -2658,7 +2658,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center jus...\" x-file-name=\"LoginPage\" x-line-number=\"463\" x-component=\"TabsList\" x-id=\"LoginPage_463\" x-dynamic=\"true\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
+          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground grid w-full grid-cols-3 mb-4\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
           "target": [
             ".bg-muted"
           ]
@@ -2676,7 +2676,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ]
@@ -2694,7 +2694,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -2712,7 +2712,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -2730,7 +2730,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" x-file-name=\"LoginPage\" x-line-number=\"476\" x-component=\"TabsContent\" x-id=\"LoginPage_476\" x-dynamic=\"true\" ...>",
+          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" style=\"\">",
           "target": [
             "#radix-_r_2_-content-email"
           ]
@@ -2748,7 +2748,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"absolute right-2 top...\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visi...\" x-file-name=\"LoginPage\" x-line-number=\"575\" x-component=\"button\" x-id=\"LoginPage_575\" x-dynamic=\"true\">",
+          "html": "<button type=\"button\" class=\"absolute right-2 top-2 p-2 text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100 rounded-md focus:outline-none focus:ring-2 focus:ring-turquoise\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visibility\">",
           "target": [
             ".right-2"
           ]
@@ -2784,7 +2784,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\" x-file-name=\"App\" x-line-number=\"1301\" x-component=\"div\" x-id=\"App_1301\" x-dynamic=\"false\"></div>",
+          "html": "<div id=\"toast-announcer\" role=\"status\" aria-live=\"polite\" aria-atomic=\"true\" class=\"sr-only\" data-testid=\"sr-announcer\"></div>",
           "target": [
             "#toast-announcer"
           ]
@@ -2833,7 +2833,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"absolute inset-0 opa...\" x-file-name=\"LoginPage\" x-line-number=\"317\" x-component=\"div\" x-id=\"LoginPage_317\" x-dynamic=\"false\" style=\"background-image: ur...\">",
+          "html": "<div class=\"absolute inset-0 opa...\" style=\"background-image: ur...\">",
           "target": [
             ".opacity-5"
           ]
@@ -2865,7 +2865,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div class=\"tracking-tight text-2xl font-bold text-slate-900 dark:text-slate-100\" x-file-name=\"LoginPage\" x-line-number=\"331\" x-component=\"CardTitle\" x-id=\"LoginPage_331\" x-dynamic=\"true\" style=\"font-family: &quot;IBM Plex Sans&quot;;\">Sign In - MedMatch-AI KARAU</div>",
+          "html": "<div class=\"tracking-tight text-2xl font-bold text-slate-900 dark:text-slate-100\" style=\"font-family: &quot;IBM Plex Sans&quot;;\">Sign In - MedMatch-AI KARAU</div>",
           "target": [
             ".tracking-tight"
           ]
@@ -2897,7 +2897,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<button class=\"w-full h-12 flex ite...\" data-testid=\"apple-login-btn\" x-file-name=\"LoginPage\" x-line-number=\"359\" x-component=\"button\" x-id=\"LoginPage_359\" x-dynamic=\"false\" style=\"min-width: 140px; mi...\">",
+          "html": "<button class=\"w-full h-12 flex items-center justify-center gap-3 rounded-lg font-medium transition-colors bg-black text-white hover:bg-gray-900\" data-testid=\"apple-login-btn\" style=\"min-width: 140px; min-height: 30px;\">",
           "target": [
             ".gap-3"
           ]
@@ -2929,9 +2929,9 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span x-file-name=\"LoginPage\" x-line-number=\"378\" x-component=\"span\" x-id=\"LoginPage_378\" x-dynamic=\"true\" style=\"font-family: -apple-system, BlinkMacSystemFont, &quot;SF Pro Text&quot;, &quot;Helvetica Neue&quot;, sans-serif;\">Apple</span>",
+          "html": "<span style=\"font-family: -apple-system, BlinkMacSystemFont, &quot;SF Pro Text&quot;, &quot;Helvetica Neue&quot;, sans-serif;\">Apple</span>",
           "target": [
-            "span[x-id=\"LoginPage_378\"]"
+            ".gap-3 > span"
           ]
         },
         {
@@ -2961,7 +2961,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center jus...\" x-file-name=\"LoginPage\" x-line-number=\"463\" x-component=\"TabsList\" x-id=\"LoginPage_463\" x-dynamic=\"true\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
+          "html": "<div role=\"tablist\" aria-orientation=\"horizontal\" class=\"h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground grid w-full grid-cols-3 mb-4\" tabindex=\"0\" data-orientation=\"horizontal\" style=\"outline: none;\">",
           "target": [
             ".bg-muted"
           ]
@@ -2993,7 +2993,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" x-file-name=\"LoginPage\" x-line-number=\"476\" x-component=\"TabsContent\" x-id=\"LoginPage_476\" x-dynamic=\"true\" ...>",
+          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" style=\"\">",
           "target": [
             "#radix-_r_2_-content-email"
           ]
@@ -3025,7 +3025,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<footer class=\"flex-shrink-0 border-t py-3 px-6 bg-inherit\" data-testid=\"lumi-footer\" x-file-name=\"LumiFooter\" x-line-number=\"20\" x-component=\"footer\" x-id=\"LumiFooter_20\" x-dynamic=\"false\" style=\"border-color: rgba(148, 163, 184, 0.15);\">",
+          "html": "<footer class=\"flex-shrink-0 border-t py-3 px-6 bg-inherit\" data-testid=\"lumi-footer\" style=\"border-color: rgba(148, 163, 184, 0.15);\">",
           "target": [
             "footer"
           ]
@@ -3057,7 +3057,7 @@
           ],
           "none": [],
           "impact": null,
-          "html": "<span class=\"font-semibold tracki...\" data-testid=\"lumi-footer-tagline\" x-file-name=\"LumiFooter\" x-line-number=\"29\" x-component=\"span\" x-id=\"LumiFooter_29\" x-dynamic=\"false\" style=\"background: linear-g...\">",
+          "html": "<span class=\"font-semibold tracking-wide text-[10px]\" data-testid=\"lumi-footer-tagline\" style=\"background: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147)) text; -webkit-text-fill-color: transparent;\">Intelligence in Every Conversation</span>",
           "target": [
             ".tracking-wide"
           ]
@@ -3098,7 +3098,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -3116,9 +3116,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"342\" x-component=\"Button\" x-id=\"LoginPage_342\" x-dynamic=\"true\" data-testid=\"google-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"google-login-btn\">",
           "target": [
-            "button[x-line-number=\"342\"]"
+            "button[data-testid=\"google-login-btn\"]"
           ]
         },
         {
@@ -3134,7 +3134,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"w-full h-12 flex ite...\" data-testid=\"apple-login-btn\" x-file-name=\"LoginPage\" x-line-number=\"359\" x-component=\"button\" x-id=\"LoginPage_359\" x-dynamic=\"false\" style=\"min-width: 140px; mi...\">",
+          "html": "<button class=\"w-full h-12 flex items-center justify-center gap-3 rounded-lg font-medium transition-colors bg-black text-white hover:bg-gray-900\" data-testid=\"apple-login-btn\" style=\"min-width: 140px; min-height: 30px;\">",
           "target": [
             ".gap-3"
           ]
@@ -3152,7 +3152,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"384\" x-component=\"Button\" x-id=\"LoginPage_384\" x-dynamic=\"true\" data-testid=\"orcid-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"orcid-login-btn\">",
           "target": [
             ".border-\\[\\#A6CE39\\]"
           ]
@@ -3170,9 +3170,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"403\" x-component=\"Button\" x-id=\"LoginPage_403\" x-dynamic=\"true\" data-testid=\"microsoft-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"microsoft-login-btn\">",
           "target": [
-            "button[x-line-number=\"403\"]"
+            "button[data-testid=\"microsoft-login-btn\"]"
           ]
         },
         {
@@ -3188,9 +3188,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"420\" x-component=\"Button\" x-id=\"LoginPage_420\" x-dynamic=\"true\" data-testid=\"github-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"github-login-btn\">",
           "target": [
-            "button[x-line-number=\"420\"]"
+            "button[data-testid=\"github-login-btn\"]"
           ]
         },
         {
@@ -3206,7 +3206,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"w-full text-center text-sm text-slate-500 hover:text-turquoise transition-colors\" x-file-name=\"LoginPage\" x-line-number=\"445\" x-component=\"button\" x-id=\"LoginPage_445\" x-dynamic=\"true\">← Back to Portal Selection</button>",
+          "html": "<button class=\"w-full text-center text-sm text-slate-500 hover:text-turquoise transition-colors\">← Back to Portal Selection</button>",
           "target": [
             ".hover\\:text-turquoise"
           ]
@@ -3224,7 +3224,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ]
@@ -3242,7 +3242,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -3260,7 +3260,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -3278,7 +3278,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"absolute right-2 top...\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visi...\" x-file-name=\"LoginPage\" x-line-number=\"575\" x-component=\"button\" x-id=\"LoginPage_575\" x-dynamic=\"true\">",
+          "html": "<button type=\"button\" class=\"absolute right-2 top-2 p-2 text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100 rounded-md focus:outline-none focus:ring-2 focus:ring-turquoise\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visibility\">",
           "target": [
             ".right-2"
           ]
@@ -3296,7 +3296,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"588\" x-component=\"Button\" x-id=\"LoginPage_588\" x-dynamic=\"true\" type=\"submit\" data-testid=\"email-submit-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" type=\"submit\" data-testid=\"email-submit-btn\">",
           "target": [
             ".shadow"
           ]
@@ -3314,7 +3314,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"text-teal-700 hover:text-teal-800 hover:underline font-medium\" x-file-name=\"LoginPage\" x-line-number=\"606\" x-component=\"button\" x-id=\"LoginPage_606\" x-dynamic=\"true\">Sign Up</button>",
+          "html": "<button type=\"button\" class=\"text-teal-700 hover:text-teal-800 hover:underline font-medium\">Sign Up</button>",
           "target": [
             ".text-teal-700"
           ]
@@ -3355,7 +3355,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<main id=\"main-content\" tabindex=\"-1\" class=\"flex-1\" x-file-name=\"App\" x-line-number=\"1050\" x-component=\"main\" x-id=\"App_1050\" x-dynamic=\"false\">",
+                  "html": "<main id=\"main-content\" tabindex=\"-1\" class=\"flex-1\">",
                   "target": [
                     "#main-content"
                   ]
@@ -3414,7 +3414,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"tracking-tight text-2xl font-bold text-slate-900 dark:text-slate-100\" x-file-name=\"LoginPage\" x-line-number=\"331\" x-component=\"CardTitle\" x-id=\"LoginPage_331\" x-dynamic=\"true\" style=\"font-family: &quot;IBM Plex Sans&quot;;\">Sign In - MedMatch-AI KARAU</div>",
+          "html": "<div class=\"tracking-tight text-2xl font-bold text-slate-900 dark:text-slate-100\" style=\"font-family: &quot;IBM Plex Sans&quot;;\">Sign In - MedMatch-AI KARAU</div>",
           "target": [
             ".tracking-tight"
           ]
@@ -3439,9 +3439,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div class=\"text-sm text-muted-foreground\" x-file-name=\"LoginPage\" x-line-number=\"334\" x-component=\"CardDescription\" x-id=\"LoginPage_334\" x-dynamic=\"true\">AI-powered job search for life sciences careers</div>",
+          "html": "<div class=\"text-sm text-muted-foreground\">AI-powered job search for life sciences careers</div>",
           "target": [
-            "div[x-line-number=\"334\"]"
+            ".text-muted-foreground.text-sm"
           ]
         },
         {
@@ -3464,9 +3464,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"342\" x-component=\"Button\" x-id=\"LoginPage_342\" x-dynamic=\"true\" data-testid=\"google-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"google-login-btn\">",
           "target": [
-            "button[x-line-number=\"342\"]"
+            "button[data-testid=\"google-login-btn\"]"
           ]
         },
         {
@@ -3489,9 +3489,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span x-file-name=\"LoginPage\" x-line-number=\"378\" x-component=\"span\" x-id=\"LoginPage_378\" x-dynamic=\"true\" style=\"font-family: -apple-system, BlinkMacSystemFont, &quot;SF Pro Text&quot;, &quot;Helvetica Neue&quot;, sans-serif;\">Apple</span>",
+          "html": "<span style=\"font-family: -apple-system, BlinkMacSystemFont, &quot;SF Pro Text&quot;, &quot;Helvetica Neue&quot;, sans-serif;\">Apple</span>",
           "target": [
-            "span[x-id=\"LoginPage_378\"]"
+            ".gap-3 > span"
           ]
         },
         {
@@ -3514,7 +3514,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"384\" x-component=\"Button\" x-id=\"LoginPage_384\" x-dynamic=\"true\" data-testid=\"orcid-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"orcid-login-btn\">",
           "target": [
             ".border-\\[\\#A6CE39\\]"
           ]
@@ -3539,9 +3539,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"403\" x-component=\"Button\" x-id=\"LoginPage_403\" x-dynamic=\"true\" data-testid=\"microsoft-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"microsoft-login-btn\">",
           "target": [
-            "button[x-line-number=\"403\"]"
+            "button[data-testid=\"microsoft-login-btn\"]"
           ]
         },
         {
@@ -3564,9 +3564,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"420\" x-component=\"Button\" x-id=\"LoginPage_420\" x-dynamic=\"true\" data-testid=\"github-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"github-login-btn\">",
           "target": [
-            "button[x-line-number=\"420\"]"
+            "button[data-testid=\"github-login-btn\"]"
           ]
         },
         {
@@ -3589,7 +3589,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"w-full text-center text-sm text-slate-500 hover:text-turquoise transition-colors\" x-file-name=\"LoginPage\" x-line-number=\"445\" x-component=\"button\" x-id=\"LoginPage_445\" x-dynamic=\"true\">← Back to Portal Selection</button>",
+          "html": "<button class=\"w-full text-center text-sm text-slate-500 hover:text-turquoise transition-colors\">← Back to Portal Selection</button>",
           "target": [
             ".hover\\:text-turquoise"
           ]
@@ -3614,7 +3614,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<span class=\"bg-white dark:bg-slate-900 px-2 text-slate-500\" x-file-name=\"LoginPage\" x-line-number=\"458\" x-component=\"span\" x-id=\"LoginPage_458\" x-dynamic=\"true\">Or continue with</span>",
+          "html": "<span class=\"bg-white dark:bg-slate-900 px-2 text-slate-500\">Or continue with</span>",
           "target": [
             ".bg-white"
           ]
@@ -3639,7 +3639,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -3664,7 +3664,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -3689,7 +3689,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label class=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\" for=\"email\" x-file-name=\"LoginPage\" x-line-number=\"545\" x-component=\"Label\" x-id=\"LoginPage_545\" x-dynamic=\"true\">Email</label>",
+          "html": "<label class=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\" for=\"email\">Email</label>",
           "target": [
             "label[for=\"email\"]"
           ]
@@ -3714,7 +3714,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input class=\"flex h-9 w-full roun...\" x-file-name=\"LoginPage\" x-line-number=\"548\" x-component=\"Input\" x-id=\"LoginPage_548\" x-dynamic=\"true\" id=\"email\" placeholder=\"you@example.com\" required=\"\" data-testid=\"email-input\" type=\"email\" value=\"\">",
+          "html": "<input class=\"flex h-9 w-full roun...\" id=\"email\" placeholder=\"you@example.com\" required=\"\" data-testid=\"email-input\" type=\"email\" value=\"\">",
           "target": [
             "#email"
           ]
@@ -3739,7 +3739,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<label class=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\" for=\"password\" x-file-name=\"LoginPage\" x-line-number=\"562\" x-component=\"Label\" x-id=\"LoginPage_562\" x-dynamic=\"true\">Password</label>",
+          "html": "<label class=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\" for=\"password\">Password</label>",
           "target": [
             "label[for=\"password\"]"
           ]
@@ -3764,7 +3764,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input class=\"flex h-9 w-full roun...\" x-file-name=\"LoginPage\" x-line-number=\"565\" x-component=\"Input\" x-id=\"LoginPage_565\" x-dynamic=\"true\" id=\"password\" placeholder=\"••••••••\" required=\"\" data-testid=\"password-input\" type=\"password\" value=\"\">",
+          "html": "<input class=\"flex h-9 w-full roun...\" id=\"password\" placeholder=\"••••••••\" required=\"\" data-testid=\"password-input\" type=\"password\" value=\"\">",
           "target": [
             "#password"
           ]
@@ -3789,7 +3789,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"588\" x-component=\"Button\" x-id=\"LoginPage_588\" x-dynamic=\"true\" type=\"submit\" data-testid=\"email-submit-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" type=\"submit\" data-testid=\"email-submit-btn\">",
           "target": [
             ".shadow"
           ]
@@ -3814,9 +3814,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<p class=\"text-center text-sm text-slate-500\" x-file-name=\"LoginPage\" x-line-number=\"604\" x-component=\"p\" x-id=\"LoginPage_604\" x-dynamic=\"true\">",
+          "html": "<p class=\"text-center text-sm text-slate-500\">Don't have an account? <button type=\"button\" class=\"text-teal-700 hover:text-teal-800 hover:underline font-medium\">Sign Up</button></p>",
           "target": [
-            "p[x-line-number=\"604\"]"
+            "form > p"
           ]
         },
         {
@@ -3839,7 +3839,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"text-teal-700 hover:text-teal-800 hover:underline font-medium\" x-file-name=\"LoginPage\" x-line-number=\"606\" x-component=\"button\" x-id=\"LoginPage_606\" x-dynamic=\"true\">Sign Up</button>",
+          "html": "<button type=\"button\" class=\"text-teal-700 hover:text-teal-800 hover:underline font-medium\">Sign Up</button>",
           "target": [
             ".text-teal-700"
           ]
@@ -3914,7 +3914,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ]
@@ -3932,7 +3932,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -3950,7 +3950,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -3968,7 +3968,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" x-file-name=\"LoginPage\" x-line-number=\"476\" x-component=\"TabsContent\" x-id=\"LoginPage_476\" x-dynamic=\"true\" ...>",
+          "html": "<div data-state=\"active\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" style=\"\">",
           "target": [
             "#radix-_r_2_-content-email"
           ]
@@ -3986,7 +3986,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input class=\"flex h-9 w-full roun...\" x-file-name=\"LoginPage\" x-line-number=\"548\" x-component=\"Input\" x-id=\"LoginPage_548\" x-dynamic=\"true\" id=\"email\" placeholder=\"you@example.com\" required=\"\" data-testid=\"email-input\" type=\"email\" value=\"\">",
+          "html": "<input class=\"flex h-9 w-full roun...\" id=\"email\" placeholder=\"you@example.com\" required=\"\" data-testid=\"email-input\" type=\"email\" value=\"\">",
           "target": [
             "#email"
           ]
@@ -4004,7 +4004,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input class=\"flex h-9 w-full roun...\" x-file-name=\"LoginPage\" x-line-number=\"565\" x-component=\"Input\" x-id=\"LoginPage_565\" x-dynamic=\"true\" id=\"password\" placeholder=\"••••••••\" required=\"\" data-testid=\"password-input\" type=\"password\" value=\"\">",
+          "html": "<input class=\"flex h-9 w-full roun...\" id=\"password\" placeholder=\"••••••••\" required=\"\" data-testid=\"password-input\" type=\"password\" value=\"\">",
           "target": [
             "#password"
           ]
@@ -4022,7 +4022,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div data-state=\"inactive\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" hidden=\"\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" x-file-name=\"LoginPage\" x-line-number=\"618\" x-component=\"TabsContent\" x-id=\"LoginPage_618\" ...>",
+          "html": "<div data-state=\"inactive\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" hidden=\"\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\">",
           "target": [
             "#radix-_r_2_-content-phone"
           ]
@@ -4040,7 +4040,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<div data-state=\"inactive\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" hidden=\"\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\" x-file-name=\"LoginPage\" x-line-number=\"694\" x-component=\"TabsContent\" x-id=\"LoginPage_694\" ...>",
+          "html": "<div data-state=\"inactive\" data-orientation=\"horizontal\" role=\"tabpanel\" aria-labelledby=\"radix-_r_2_-trigger-...\" hidden=\"\" id=\"radix-_r_2_-content-...\" tabindex=\"0\" class=\"mt-2 ring-offset-bac...\">",
           "target": [
             "#radix-_r_2_-content-biometric"
           ]
@@ -4074,7 +4074,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<label class=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\" for=\"email\" x-file-name=\"LoginPage\" x-line-number=\"545\" x-component=\"Label\" x-id=\"LoginPage_545\" x-dynamic=\"true\">Email</label>",
+                  "html": "<label class=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\" for=\"email\">Email</label>",
                   "target": [
                     "label[for=\"email\"]"
                   ]
@@ -4085,7 +4085,7 @@
             }
           ],
           "impact": null,
-          "html": "<input class=\"flex h-9 w-full roun...\" x-file-name=\"LoginPage\" x-line-number=\"548\" x-component=\"Input\" x-id=\"LoginPage_548\" x-dynamic=\"true\" id=\"email\" placeholder=\"you@example.com\" required=\"\" data-testid=\"email-input\" type=\"email\" value=\"\">",
+          "html": "<input class=\"flex h-9 w-full roun...\" id=\"email\" placeholder=\"you@example.com\" required=\"\" data-testid=\"email-input\" type=\"email\" value=\"\">",
           "target": [
             "#email"
           ]
@@ -4099,7 +4099,7 @@
               "data": null,
               "relatedNodes": [
                 {
-                  "html": "<label class=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\" for=\"password\" x-file-name=\"LoginPage\" x-line-number=\"562\" x-component=\"Label\" x-id=\"LoginPage_562\" x-dynamic=\"true\">Password</label>",
+                  "html": "<label class=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\" for=\"password\">Password</label>",
                   "target": [
                     "label[for=\"password\"]"
                   ]
@@ -4110,7 +4110,7 @@
             }
           ],
           "impact": null,
-          "html": "<input class=\"flex h-9 w-full roun...\" x-file-name=\"LoginPage\" x-line-number=\"565\" x-component=\"Input\" x-id=\"LoginPage_565\" x-dynamic=\"true\" id=\"password\" placeholder=\"••••••••\" required=\"\" data-testid=\"password-input\" type=\"password\" value=\"\">",
+          "html": "<input class=\"flex h-9 w-full roun...\" id=\"password\" placeholder=\"••••••••\" required=\"\" data-testid=\"password-input\" type=\"password\" value=\"\">",
           "target": [
             "#password"
           ]
@@ -4238,7 +4238,7 @@
             }
           ],
           "impact": null,
-          "html": "<img alt=\"MedMatch-AI KARAU Logo\" class=\"w-16 h-16 object-contain mx-auto mb-4 rounded-2xl\" data-testid=\"login-logo\" x-file-name=\"LoginPage\" x-line-number=\"325\" x-component=\"img\" x-id=\"LoginPage_325\" x-dynamic=\"false\" src=\"/logo.png\">",
+          "html": "<img alt=\"MedMatch-AI KARAU Logo\" class=\"w-16 h-16 object-contain mx-auto mb-4 rounded-2xl\" data-testid=\"login-logo\" src=\"/logo.png\">",
           "target": [
             ".w-16"
           ]
@@ -4264,7 +4264,7 @@
             }
           ],
           "impact": null,
-          "html": "<img alt=\"ENZI\" class=\"w-5 h-5 object-contain\" x-file-name=\"LumiFooter\" x-line-number=\"26\" x-component=\"img\" x-id=\"LumiFooter_26\" x-dynamic=\"false\" src=\"/enzi-logo-icon.png\">",
+          "html": "<img alt=\"ENZI\" class=\"w-5 h-5 object-contain\" src=\"/enzi-logo-icon.png\">",
           "target": [
             "img[alt=\"ENZI\"]"
           ]
@@ -4301,7 +4301,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<label class=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\" for=\"email\" x-file-name=\"LoginPage\" x-line-number=\"545\" x-component=\"Label\" x-id=\"LoginPage_545\" x-dynamic=\"true\">Email</label>",
+                  "html": "<label class=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\" for=\"email\">Email</label>",
                   "target": [
                     "label[for=\"email\"]"
                   ]
@@ -4329,7 +4329,7 @@
             }
           ],
           "impact": null,
-          "html": "<input class=\"flex h-9 w-full roun...\" x-file-name=\"LoginPage\" x-line-number=\"548\" x-component=\"Input\" x-id=\"LoginPage_548\" x-dynamic=\"true\" id=\"email\" placeholder=\"you@example.com\" required=\"\" data-testid=\"email-input\" type=\"email\" value=\"\">",
+          "html": "<input class=\"flex h-9 w-full roun...\" id=\"email\" placeholder=\"you@example.com\" required=\"\" data-testid=\"email-input\" type=\"email\" value=\"\">",
           "target": [
             "#email"
           ]
@@ -4343,7 +4343,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<label class=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\" for=\"password\" x-file-name=\"LoginPage\" x-line-number=\"562\" x-component=\"Label\" x-id=\"LoginPage_562\" x-dynamic=\"true\">Password</label>",
+                  "html": "<label class=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\" for=\"password\">Password</label>",
                   "target": [
                     "label[for=\"password\"]"
                   ]
@@ -4371,7 +4371,7 @@
             }
           ],
           "impact": null,
-          "html": "<input class=\"flex h-9 w-full roun...\" x-file-name=\"LoginPage\" x-line-number=\"565\" x-component=\"Input\" x-id=\"LoginPage_565\" x-dynamic=\"true\" id=\"password\" placeholder=\"••••••••\" required=\"\" data-testid=\"password-input\" type=\"password\" value=\"\">",
+          "html": "<input class=\"flex h-9 w-full roun...\" id=\"password\" placeholder=\"••••••••\" required=\"\" data-testid=\"password-input\" type=\"password\" value=\"\">",
           "target": [
             "#password"
           ]
@@ -4422,7 +4422,7 @@
             }
           ],
           "impact": null,
-          "html": "<a href=\"#main-content\" class=\"sr-only focus:not-sr...\" data-testid=\"skip-nav-link\" x-file-name=\"SkipNav\" x-line-number=\"9\" x-component=\"a\" x-id=\"SkipNav_9\" x-dynamic=\"false\">",
+          "html": "<a href=\"#main-content\" class=\"sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-blue-700 focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:shadow-lg\" data-testid=\"skip-nav-link\">",
           "target": [
             ".focus\\:not-sr-only"
           ]
@@ -4459,7 +4459,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+          "html": "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">",
           "target": [
             "meta[name=\"viewport\"]"
           ]
@@ -4497,7 +4497,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -4515,7 +4515,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<img alt=\"MedMatch-AI KARAU Logo\" class=\"w-16 h-16 object-contain mx-auto mb-4 rounded-2xl\" data-testid=\"login-logo\" x-file-name=\"LoginPage\" x-line-number=\"325\" x-component=\"img\" x-id=\"LoginPage_325\" x-dynamic=\"false\" src=\"/logo.png\">",
+          "html": "<img alt=\"MedMatch-AI KARAU Logo\" class=\"w-16 h-16 object-contain mx-auto mb-4 rounded-2xl\" data-testid=\"login-logo\" src=\"/logo.png\">",
           "target": [
             ".w-16"
           ]
@@ -4533,9 +4533,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"342\" x-component=\"Button\" x-id=\"LoginPage_342\" x-dynamic=\"true\" data-testid=\"google-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"google-login-btn\">",
           "target": [
-            "button[x-line-number=\"342\"]"
+            "button[data-testid=\"google-login-btn\"]"
           ]
         },
         {
@@ -4551,7 +4551,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"w-full h-12 flex ite...\" data-testid=\"apple-login-btn\" x-file-name=\"LoginPage\" x-line-number=\"359\" x-component=\"button\" x-id=\"LoginPage_359\" x-dynamic=\"false\" style=\"min-width: 140px; mi...\">",
+          "html": "<button class=\"w-full h-12 flex items-center justify-center gap-3 rounded-lg font-medium transition-colors bg-black text-white hover:bg-gray-900\" data-testid=\"apple-login-btn\" style=\"min-width: 140px; min-height: 30px;\">",
           "target": [
             ".gap-3"
           ]
@@ -4569,7 +4569,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"384\" x-component=\"Button\" x-id=\"LoginPage_384\" x-dynamic=\"true\" data-testid=\"orcid-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"orcid-login-btn\">",
           "target": [
             ".border-\\[\\#A6CE39\\]"
           ]
@@ -4587,9 +4587,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"403\" x-component=\"Button\" x-id=\"LoginPage_403\" x-dynamic=\"true\" data-testid=\"microsoft-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"microsoft-login-btn\">",
           "target": [
-            "button[x-line-number=\"403\"]"
+            "button[data-testid=\"microsoft-login-btn\"]"
           ]
         },
         {
@@ -4605,9 +4605,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"420\" x-component=\"Button\" x-id=\"LoginPage_420\" x-dynamic=\"true\" data-testid=\"github-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"github-login-btn\">",
           "target": [
-            "button[x-line-number=\"420\"]"
+            "button[data-testid=\"github-login-btn\"]"
           ]
         },
         {
@@ -4623,7 +4623,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"w-full text-center text-sm text-slate-500 hover:text-turquoise transition-colors\" x-file-name=\"LoginPage\" x-line-number=\"445\" x-component=\"button\" x-id=\"LoginPage_445\" x-dynamic=\"true\">← Back to Portal Selection</button>",
+          "html": "<button class=\"w-full text-center text-sm text-slate-500 hover:text-turquoise transition-colors\">← Back to Portal Selection</button>",
           "target": [
             ".hover\\:text-turquoise"
           ]
@@ -4641,7 +4641,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ]
@@ -4659,7 +4659,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -4677,7 +4677,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -4695,7 +4695,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"absolute right-2 top...\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visi...\" x-file-name=\"LoginPage\" x-line-number=\"575\" x-component=\"button\" x-id=\"LoginPage_575\" x-dynamic=\"true\">",
+          "html": "<button type=\"button\" class=\"absolute right-2 top-2 p-2 text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100 rounded-md focus:outline-none focus:ring-2 focus:ring-turquoise\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visibility\">",
           "target": [
             ".right-2"
           ]
@@ -4713,7 +4713,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"588\" x-component=\"Button\" x-id=\"LoginPage_588\" x-dynamic=\"true\" type=\"submit\" data-testid=\"email-submit-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" type=\"submit\" data-testid=\"email-submit-btn\">",
           "target": [
             ".shadow"
           ]
@@ -4731,7 +4731,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"text-teal-700 hover:text-teal-800 hover:underline font-medium\" x-file-name=\"LoginPage\" x-line-number=\"606\" x-component=\"button\" x-id=\"LoginPage_606\" x-dynamic=\"true\">Sign Up</button>",
+          "html": "<button type=\"button\" class=\"text-teal-700 hover:text-teal-800 hover:underline font-medium\">Sign Up</button>",
           "target": [
             ".text-teal-700"
           ]
@@ -4749,7 +4749,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<img alt=\"ENZI\" class=\"w-5 h-5 object-contain\" x-file-name=\"LumiFooter\" x-line-number=\"26\" x-component=\"img\" x-id=\"LumiFooter_26\" x-dynamic=\"false\" src=\"/enzi-logo-icon.png\">",
+          "html": "<img alt=\"ENZI\" class=\"w-5 h-5 object-contain\" src=\"/enzi-logo-icon.png\">",
           "target": [
             "img[alt=\"ENZI\"]"
           ]
@@ -4784,7 +4784,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<a href=\"#main-content\" class=\"sr-only focus:not-sr...\" data-testid=\"skip-nav-link\" x-file-name=\"SkipNav\" x-line-number=\"9\" x-component=\"a\" x-id=\"SkipNav_9\" x-dynamic=\"false\">",
+          "html": "<a href=\"#main-content\" class=\"sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-blue-700 focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:shadow-lg\" data-testid=\"skip-nav-link\">",
           "target": [
             ".focus\\:not-sr-only"
           ]
@@ -4816,7 +4816,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"GlobalLanguageSelect...\" x-line-number=\"367\" x-component=\"Button\" x-id=\"GlobalLanguageSelect...\" x-dynamic=\"true\" data-testid=\"language-selector\" x-excluded=\"true\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" ...>",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"language-selector\" type=\"button\" id=\"radix-_r_0_\" aria-haspopup=\"menu\" aria-expanded=\"false\" data-state=\"closed\">",
           "target": [
             "#radix-_r_0_"
           ]
@@ -4848,9 +4848,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"342\" x-component=\"Button\" x-id=\"LoginPage_342\" x-dynamic=\"true\" data-testid=\"google-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"google-login-btn\">",
           "target": [
-            "button[x-line-number=\"342\"]"
+            "button[data-testid=\"google-login-btn\"]"
           ]
         },
         {
@@ -4880,7 +4880,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"w-full h-12 flex ite...\" data-testid=\"apple-login-btn\" x-file-name=\"LoginPage\" x-line-number=\"359\" x-component=\"button\" x-id=\"LoginPage_359\" x-dynamic=\"false\" style=\"min-width: 140px; mi...\">",
+          "html": "<button class=\"w-full h-12 flex items-center justify-center gap-3 rounded-lg font-medium transition-colors bg-black text-white hover:bg-gray-900\" data-testid=\"apple-login-btn\" style=\"min-width: 140px; min-height: 30px;\">",
           "target": [
             ".gap-3"
           ]
@@ -4912,7 +4912,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"384\" x-component=\"Button\" x-id=\"LoginPage_384\" x-dynamic=\"true\" data-testid=\"orcid-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"orcid-login-btn\">",
           "target": [
             ".border-\\[\\#A6CE39\\]"
           ]
@@ -4944,9 +4944,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"403\" x-component=\"Button\" x-id=\"LoginPage_403\" x-dynamic=\"true\" data-testid=\"microsoft-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"microsoft-login-btn\">",
           "target": [
-            "button[x-line-number=\"403\"]"
+            "button[data-testid=\"microsoft-login-btn\"]"
           ]
         },
         {
@@ -4976,9 +4976,9 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"420\" x-component=\"Button\" x-id=\"LoginPage_420\" x-dynamic=\"true\" data-testid=\"github-login-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" data-testid=\"github-login-btn\">",
           "target": [
-            "button[x-line-number=\"420\"]"
+            "button[data-testid=\"github-login-btn\"]"
           ]
         },
         {
@@ -4997,7 +4997,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"w-full text-center text-sm text-slate-500 hover:text-turquoise transition-colors\" x-file-name=\"LoginPage\" x-line-number=\"445\" x-component=\"button\" x-id=\"LoginPage_445\" x-dynamic=\"true\">← Back to Portal Selection</button>",
+          "html": "<button class=\"w-full text-center text-sm text-slate-500 hover:text-turquoise transition-colors\">← Back to Portal Selection</button>",
           "target": [
             ".hover\\:text-turquoise"
           ]
@@ -5029,7 +5029,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ]
@@ -5061,7 +5061,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"467\" x-component=\"TabsTrigger\" x-id=\"LoginPage_467\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-phone"
           ]
@@ -5093,7 +5093,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" x-file-name=\"LoginPage\" x-line-number=\"470\" x-component=\"TabsTrigger\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"false\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"inactive\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" data-testid=\"biometric-tab\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-biometric"
           ]
@@ -5125,7 +5125,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input class=\"flex h-9 w-full roun...\" x-file-name=\"LoginPage\" x-line-number=\"548\" x-component=\"Input\" x-id=\"LoginPage_548\" x-dynamic=\"true\" id=\"email\" placeholder=\"you@example.com\" required=\"\" data-testid=\"email-input\" type=\"email\" value=\"\">",
+          "html": "<input class=\"flex h-9 w-full roun...\" id=\"email\" placeholder=\"you@example.com\" required=\"\" data-testid=\"email-input\" type=\"email\" value=\"\">",
           "target": [
             "#email"
           ]
@@ -5141,7 +5141,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<button type=\"button\" class=\"absolute right-2 top...\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visi...\" x-file-name=\"LoginPage\" x-line-number=\"575\" x-component=\"button\" x-id=\"LoginPage_575\" x-dynamic=\"true\">",
+                  "html": "<button type=\"button\" class=\"absolute right-2 top-2 p-2 text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100 rounded-md focus:outline-none focus:ring-2 focus:ring-turquoise\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visibility\">",
                   "target": [
                     ".right-2"
                   ]
@@ -5154,7 +5154,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<input class=\"flex h-9 w-full roun...\" x-file-name=\"LoginPage\" x-line-number=\"565\" x-component=\"Input\" x-id=\"LoginPage_565\" x-dynamic=\"true\" id=\"password\" placeholder=\"••••••••\" required=\"\" data-testid=\"password-input\" type=\"password\" value=\"\">",
+          "html": "<input class=\"flex h-9 w-full roun...\" id=\"password\" placeholder=\"••••••••\" required=\"\" data-testid=\"password-input\" type=\"password\" value=\"\">",
           "target": [
             "#password"
           ]
@@ -5186,7 +5186,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button type=\"button\" class=\"absolute right-2 top...\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visi...\" x-file-name=\"LoginPage\" x-line-number=\"575\" x-component=\"button\" x-id=\"LoginPage_575\" x-dynamic=\"true\">",
+          "html": "<button type=\"button\" class=\"absolute right-2 top-2 p-2 text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-100 rounded-md focus:outline-none focus:ring-2 focus:ring-turquoise\" aria-label=\"Show password\" aria-pressed=\"false\" data-testid=\"toggle-password-visibility\">",
           "target": [
             ".right-2"
           ]
@@ -5218,7 +5218,7 @@
           "all": [],
           "none": [],
           "impact": null,
-          "html": "<button class=\"inline-flex items-ce...\" x-file-name=\"LoginPage\" x-line-number=\"588\" x-component=\"Button\" x-id=\"LoginPage_588\" x-dynamic=\"true\" type=\"submit\" data-testid=\"email-submit-btn\">",
+          "html": "<button class=\"inline-flex items-ce...\" type=\"submit\" data-testid=\"email-submit-btn\">",
           "target": [
             ".shadow"
           ]
@@ -5259,7 +5259,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<div class=\"absolute inset-0 opa...\" x-file-name=\"LoginPage\" x-line-number=\"317\" x-component=\"div\" x-id=\"LoginPage_317\" x-dynamic=\"false\" style=\"background-image: ur...\">",
+                  "html": "<div class=\"absolute inset-0 opa...\" style=\"background-image: ur...\">",
                   "target": [
                     ".opacity-5"
                   ]
@@ -5272,7 +5272,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"hidden sm:inline\" x-file-name=\"GlobalLanguageSelector\" x-line-number=\"377\" x-component=\"span\" x-id=\"GlobalLanguageSelector_377\" x-dynamic=\"true\">🇺🇸 English (US)</span>",
+          "html": "<span class=\"hidden sm:inline\">🇺🇸 English (US)</span>",
           "target": [
             ".hidden"
           ],
@@ -5291,7 +5291,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+                  "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
                   "target": [
                     "#radix-_r_2_-trigger-email"
                   ]
@@ -5304,7 +5304,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" x-file-name=\"LoginPage\" x-line-number=\"464\" x-component=\"TabsTrigger\" x-id=\"LoginPage_464\" x-dynamic=\"true\" ...>",
+          "html": "<button type=\"button\" role=\"tab\" aria-selected=\"true\" aria-controls=\"radix-_r_2_-content-...\" data-state=\"active\" id=\"radix-_r_2_-trigger-...\" class=\"justify-center white...\" tabindex=\"-1\" data-orientation=\"horizontal\" data-radix-collectio...=\"\">",
           "target": [
             "#radix-_r_2_-trigger-email"
           ],
@@ -5323,7 +5323,7 @@
               },
               "relatedNodes": [
                 {
-                  "html": "<span class=\"font-semibold tracki...\" data-testid=\"lumi-footer-tagline\" x-file-name=\"LumiFooter\" x-line-number=\"29\" x-component=\"span\" x-id=\"LumiFooter_29\" x-dynamic=\"false\" style=\"background: linear-g...\">",
+                  "html": "<span class=\"font-semibold tracking-wide text-[10px]\" data-testid=\"lumi-footer-tagline\" style=\"background: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147)) text; -webkit-text-fill-color: transparent;\">Intelligence in Every Conversation</span>",
                   "target": [
                     ".tracking-wide"
                   ]
@@ -5336,7 +5336,7 @@
           "all": [],
           "none": [],
           "impact": "serious",
-          "html": "<span class=\"font-semibold tracki...\" data-testid=\"lumi-footer-tagline\" x-file-name=\"LumiFooter\" x-line-number=\"29\" x-component=\"span\" x-id=\"LumiFooter_29\" x-dynamic=\"false\" style=\"background: linear-g...\">",
+          "html": "<span class=\"font-semibold tracking-wide text-[10px]\" data-testid=\"lumi-footer-tagline\" style=\"background: linear-gradient(135deg, rgb(0, 206, 201), rgb(108, 92, 231), rgb(232, 67, 147)) text; -webkit-text-fill-color: transparent;\">Intelligence in Every Conversation</span>",
           "target": [
             ".tracking-wide"
           ],

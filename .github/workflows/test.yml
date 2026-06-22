@@ -349,10 +349,12 @@ jobs:
           sudo rm -rf /app 2>/dev/null || true
           sudo ln -s "$GITHUB_WORKSPACE" /app
 
-      - name: Set up Node 22
+      # RCA: Phase 4 is the only Node job; it began failing after Node was bumped to 22.
+      # craco + react-scripts 5 + React 19 is validated on Node 20 (matches preview/prod env).
+      - name: Set up Node 20
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '20'
 
       - name: Install frontend deps
         run: cd frontend && yarn install --network-timeout 600000
@@ -360,40 +362,48 @@ jobs:
       - name: Install Playwright Chromium
         run: cd frontend && npx playwright install chromium --with-deps
 
-      - name: Start dev server (background)
-        run: |
-          cd frontend
-          nohup yarn start > /tmp/frontend.log 2>&1 &
-          echo $! > /tmp/frontend.pid
+      # Preventive: scan a deterministic production build instead of the CRA dev server
+      # (no HMR/websocket/Node-quirk flakiness). CI=false so craco does not treat
+      # ESLint warnings as build-breaking errors.
+      - name: Build production bundle
+        run: cd frontend && yarn build
         env:
           CI: "false"
-          BROWSER: "none"
-          PORT: "3000"
+          DISABLE_ESLINT_PLUGIN: "true"
+          GENERATE_SOURCEMAP: "false"
 
-      - name: Wait for dev server
+      - name: Serve production build (background)
         run: |
-          npx --yes wait-on http://localhost:3000 --timeout 240000 || \
+          cd frontend
+          nohup npx --yes serve -s build -l 3000 > /tmp/frontend.log 2>&1 &
+          echo $! > /tmp/frontend.pid
+
+      - name: Wait for server
+        run: |
+          npx --yes wait-on http://localhost:3000 --timeout 120000 || \
             (echo "=== frontend.log (tail) ===" && tail -200 /tmp/frontend.log && exit 1)
 
       - name: Run axe accessibility scan
         id: axe
         run: |
           cd frontend
-          mkdir -p axe-results
           AXE_BASE_URL=http://localhost:3000 node scripts/wcag_audit.cjs
-          # Persist a CI-stamped copy of the summary for artifact upload (uses env stamp, no shell subst inside js literals)
-          STAMP="$(date +%Y%m%d-%H%M%S)"
-          cp /app/docs/security/axe-results/_summary.json \
-            "axe-results/ci-scan-${STAMP}.json"
-          # Mirror summary into a stable path inside the checkout (avoids /app symlink in artifact upload)
+          # Mirror canonical summary into the checkout for artifact upload + PR comment.
           mkdir -p ../axe-results
           cp /app/docs/security/axe-results/_summary.json ../axe-results/_summary.json
+          STAMP="$(date +%Y%m%d-%H%M%S)"
+          cp /app/docs/security/axe-results/_summary.json "../axe-results/ci-scan-${STAMP}.json"
 
       - name: Check for blocking violations (critical+serious)
         run: |
           node -e "
             const fs = require('fs');
-            const summary = JSON.parse(fs.readFileSync('axe-results/_summary.json'));
+            const p = '/app/docs/security/axe-results/_summary.json';
+            if (!fs.existsSync(p)) {
+              console.error('::error::axe summary not found at ' + p + ' (scan did not complete)');
+              process.exit(1);
+            }
+            const summary = JSON.parse(fs.readFileSync(p));
             const blocking = (summary.aggregated || []).filter(
               v => v.impact === 'critical' || v.impact === 'serious'
             );
@@ -402,7 +412,7 @@ jobs:
               blocking.forEach(v => console.error('  -', v.id, '|', v.impact, '|', v.nodes, 'node(s) on', v.pages.length, 'page(s):', v.help));
               process.exit(1);
             }
-            console.log('WCAG gate passed - 0 critical/serious violations');
+            console.log('WCAG gate passed - 0 critical/serious violations across ' + summary.scanned + ' routes');
           "
 
       - name: Post violation summary as PR comment
@@ -450,7 +460,7 @@ jobs:
           name: phase4-accessibility-results
           path: |
             axe-results/
-            frontend/axe-results/
+            docs/security/axe-results/
           if-no-files-found: warn
 
   gate-summary:
