@@ -175,3 +175,10 @@ See `/app/docs/GAP_ASSESSMENT.md` for full competitive benchmarking.
 - Preventive: scan a production build (`yarn build` + `serve -s build`) instead of CRA dev server; CI=false on build (craco treats warnings as errors when CI=true); gate reads canonical summary path with guard.
 - Verified locally: build 46s, served build scan = 0 critical/serious across 12 routes. Final green run requires user push (runner-only validation).
 - Doc: `/app/docs/security/PHASE4_CI_RCA_CAPA.md`
+
+## 2026-06-22 — Managed Agents (Claude) MVP
+- New module: Claude-powered (claude-sonnet-4-6 via Emergent key) "Managed Agents".
+- Backend routes/managed_agents.py (/api/agents): trackable worklist task CRUD + stats; extract-worklist (transcript->tasks); agent definitions (3 admin templates + client custom); conversational agent with JSON tool-loop (tools: create_task/update_task/list_tasks/send_followup_email). Registered in server.py.
+- Frontend pages/AgentsPage.jsx (route /agents + nav "AI Agents"): Worklist / Extract / Agent chat / Agents-builder tabs, theme-aware, full data-testids.
+- Reuses Whisper transcription, send_email service, require_auth. Tool-use implemented as ReAct JSON protocol (LlmChat has no native function-calling).
+- Tested: testing_agent iteration_221 — backend 8/8, frontend 100% flows, 0 issues.
