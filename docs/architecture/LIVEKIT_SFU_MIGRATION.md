@@ -146,7 +146,7 @@ ICE handlers, per-peer `addTrack`). Replace with the LiveKit client SDK.
 
 | Phase | Scope | Exit criteria |
 |------|-------|---------------|
-| **0. Spike** | LiveKit Cloud project; token endpoint; throwaway page connects 2 clients | Two browsers see/hear each other via SFU |
+| **0. Spike** | LiveKit Cloud project; token endpoint; throwaway page connects 2 clients | ✅ **DONE (2026-06-22)** — `routes/livekit_spike.py` (`/api/livekit/token` + `/webhook` + `/status`); `pages/LiveKitSpikePage.jsx` at `/livekit-spike` (nav "Video (LiveKit)") using `@livekit/components-react`. Verified: token mint with correct grants, LiveKit Cloud reachable, client connects to SFU and renders `<VideoConference>`. |
 | **1. Dual-stack behind flag** | `media_backend` per room; new rooms → LiveKit, old → P2P; SDK swap in `MeetingRoom.jsx` gated by flag | 10–20 participant meeting stable; recording→transcript works |
 | **2. Webinar mode** | Attendee `canPublish=false`; optional HLS egress | 200+ attendee webinar stable |
 | **3. Default + cleanup** | LiveKit default for all; remove mesh code + Xirsys path | Mesh code deleted; 0 regressions |

@@ -195,3 +195,10 @@ See `/app/docs/GAP_ASSESSMENT.md` for full competitive benchmarking.
 - Admin UI pages/AdminErrorsPage.jsx at /admin/errors (nav "Error Logs"): stats, filters, stack traces, resolve/delete.
 - Sentry SDK retained as Sentry-compatible GlitchTip client (free self-host) — activate by setting SENTRY_DSN / REACT_APP_SENTRY_DSN to a GlitchTip DSN. Sentry hosted = 14-day trial only.
 - Verified via curl (capture/list/stats/401) + screenshot (admin page renders with captured error).
+
+## 2026-06-22 — P0 LiveKit Phase 0 spike (SFU PoC) — DONE
+- Backend routes/livekit_spike.py: POST /api/livekit/token (auth, VideoGrants, 2h TTL), POST /api/livekit/webhook (raw-body signature verify), GET /api/livekit/status. livekit-api==1.1.0.
+- Frontend pages/LiveKitSpikePage.jsx at /livekit-spike (nav "Video (LiveKit)") using @livekit/components-react <LiveKitRoom>/<VideoConference>; invite link via ?room=.
+- Env: backend LIVEKIT_URL/LIVEKIT_API_KEY/LIVEKIT_API_SECRET; frontend REACT_APP_LIVEKIT_URL (provided by user; medmatch-5zieh7od.livekit.cloud).
+- Verified: token grants correct + 2h exp; LiveKit Cloud reachable (room.list_rooms); client connects to SFU and renders VideoConference with controls.
+- Optional next: register webhook URL in LiveKit dashboard; Phase 1 dual-stack flag in MeetingRoom.jsx.

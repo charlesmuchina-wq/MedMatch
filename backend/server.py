@@ -511,6 +511,9 @@ app.include_router(managed_agents_router, prefix="/api")
 from routes.observability import router as observability_router
 app.include_router(observability_router, prefix="/api")
 
+from routes.livekit_spike import router as livekit_router
+app.include_router(livekit_router, prefix="/api")
+
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
 videos_dir = Path("/app/videos")

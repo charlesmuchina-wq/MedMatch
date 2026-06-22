@@ -53,6 +53,7 @@ import TranslationQADashboard from "@/components/TranslationQADashboard";
 import AdminDashboard from "@/pages/AdminDashboard";
 import AdminDataIntegrityPage from "@/pages/AdminDataIntegrityPage";
 import AdminErrorsPage from "@/pages/AdminErrorsPage";
+import LiveKitSpikePage from "@/pages/LiveKitSpikePage";
 import AdminAICompliancePage from "@/pages/AdminAICompliancePage";
 import AdminTranslationCoveragePage from "@/pages/AdminTranslationCoveragePage";
 import GlobalCompliancePage from "@/pages/GlobalCompliancePage";
@@ -297,6 +298,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/admin/recruiters", icon: Users, labelKey: "nav.recruiterVerification" },
     { path: "/admin/reviews", icon: FileText, labelKey: "nav.reviewModeration" },
     { path: "/admin/errors", icon: Bug, labelKey: "nav.errorLogs" },
+    { path: "/livekit-spike", icon: Video, labelKey: "nav.livekitSpike" },
     { path: "/admin/translation-coverage", icon: Languages, labelKey: "nav.translationCoverage" },
     { path: "/tutorials", icon: HelpCircle, labelKey: "nav.helpTutorials" },
     { path: "/qa-dashboard", icon: Languages, labelKey: "nav.translationQA" },
@@ -1179,6 +1181,7 @@ function AppContent({ skipPortalSelector = false, forcedPortal = null, domainCon
             <Route path="/admin/errors" element={
               <AdminErrorsPage />
             } />
+            <Route path="/livekit-spike" element={<LiveKitSpikePage />} />
             <Route path="/admin/metrics" element={
               <ProductionMetricsPage />
             } />
