@@ -209,3 +209,9 @@ See `/app/docs/GAP_ASSESSMENT.md` for full competitive benchmarking.
 - Verified: meeting with settings.media_backend=livekit -> info shows livekit; token mints for host (is_host true) and guest; /room/{id} renders LiveKit SFU room (VideoConference, connected as Guest). Default meetings unchanged (p2p).
 - Enable globally: set KARAU_MEDIA_BACKEND=livekit in backend/.env. Per-meeting: settings.media_backend="livekit".
 - Remaining: webinar /live path (separate WebinarLiveRoom), load test, egress recording->Whisper->agents.
+
+## 2026-06-22 — P0 LiveKit Phase 1 finish: webinar mode (attendee canPublish=false)
+- Backend: /meetings/{id}/livekit-token now role-based — host/panelist can_publish=true, webinar attendee can_publish=false; webinar detected via body {webinar:true} or settings.is_webinar/mode; panelists via settings.panelists. Returns role + can_publish.
+- Frontend: WebinarLiveSwitch.jsx routes /karau-meet/webinar/{id}/live -> LiveKitMeetingRoom (webinar=true, attendee view-only) when livekit, else legacy WebinarLiveRoom. LiveKitMeetingRoom takes `webinar` prop + shows "Webinar · view-only" badge.
+- Verified: host token role=host/publish; guest attendee role=attendee/can_publish=false; webinar /live renders LiveKit with NO mic/cam publish controls (only Chat/Leave/Start Audio).
+- Load test: use `lk load-test` CLI (documented in LIVEKIT_SFU_MIGRATION.md). Phase 2 HLS egress + egress recording->Whisper->agents BLOCKED on S3-compatible storage creds.

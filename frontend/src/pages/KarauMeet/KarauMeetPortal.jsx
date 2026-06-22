@@ -29,6 +29,7 @@ import MeetingReplayPage from './MeetingReplayPage';
 
 import MeetingRoom from '@/components/KarauMeet/MeetingRoom';
 import MeetingRoomSwitch from '@/components/KarauMeet/MeetingRoomSwitch';
+import WebinarLiveSwitch from '@/components/KarauMeet/WebinarLiveSwitch';
 import MeetingLobby from '@/components/KarauMeet/MeetingLobby';
 
 const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsCollapsed }) => {
@@ -372,7 +373,7 @@ const KarauMeetPortal = () => {
       <div className="min-h-screen bg-[#0c0d1a]">
         <Toaster position="top-right" theme="dark" />
         <Routes>
-          <Route path="webinar/:webinarId/live" element={<WebinarLiveRoom />} />
+          <Route path="webinar/:webinarId/live" element={<WebinarLiveSwitch />} />
         </Routes>
       </div>
     );

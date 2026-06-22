@@ -427,23 +427,50 @@ async def get_meeting_public_info(meeting_id: str):
 
 @router.post("/meetings/{meeting_id}/livekit-token")
 async def get_meeting_livekit_token(meeting_id: str, request: Request):
-    """Mint a LiveKit SFU token scoped to this meeting (works for members and guests)."""
+    """Mint a LiveKit SFU token scoped to this meeting.
+
+    Role-based publishing: hosts and panelists publish; webinar attendees are
+    subscribe-only (can_publish=False). Works for members and guests.
+    """
     from routes.livekit_spike import create_access_token, LIVEKIT_URL
     meeting = await get_meeting(meeting_id)
     if not meeting:
         raise HTTPException(status_code=404, detail="Meeting not found")
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
     user = await get_current_user(request)
     if user:
         identity = user["user_id"]
         name = user.get("name") or user.get("email") or "Participant"
+        email = user.get("email")
     else:
         identity = f"guest_{uuid.uuid4().hex[:10]}"
         name = "Guest"
+        email = None
+
+    settings = meeting.get("settings") or {}
+    panelists = settings.get("panelists") or []
     is_host = bool(user and meeting.get("host_id") == user.get("user_id"))
-    token = create_access_token(meeting_id, identity, name, can_publish=True)
+    is_webinar = bool(body.get("webinar")) or bool(settings.get("is_webinar")) or settings.get("mode") == "webinar"
+    is_panelist = identity in panelists or (email and email in panelists)
+    # Attendees in a webinar are subscribe-only; everyone publishes in a regular meeting.
+    can_publish = is_host or is_panelist or (not is_webinar)
+    if is_host:
+        role = "host"
+    elif is_panelist:
+        role = "panelist"
+    elif is_webinar:
+        role = "attendee"
+    else:
+        role = "participant"
+
+    token = create_access_token(meeting_id, identity, name, can_publish=can_publish)
     return {
         "token": token, "url": LIVEKIT_URL, "room": meeting_id,
         "identity": identity, "name": name, "is_host": is_host,
+        "can_publish": can_publish, "role": role,
     }
 
 

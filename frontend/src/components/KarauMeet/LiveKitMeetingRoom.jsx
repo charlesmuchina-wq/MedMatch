@@ -6,10 +6,11 @@ import { Loader2, AlertTriangle } from "lucide-react";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
-export default function LiveKitMeetingRoom({ user, meetingId }) {
+export default function LiveKitMeetingRoom({ user, meetingId, webinar = false }) {
   const navigate = useNavigate();
   const [token, setToken] = useState("");
   const [serverUrl, setServerUrl] = useState("");
+  const [role, setRole] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -23,18 +24,20 @@ export default function LiveKitMeetingRoom({ user, meetingId }) {
           method: "POST",
           headers,
           credentials: "include",
+          body: JSON.stringify({ webinar }),
         });
         if (!res.ok) throw new Error("token");
         const d = await res.json();
         if (cancelled) return;
         setServerUrl(d.url);
+        setRole(d.role || "");
         setToken(d.token);
       } catch (e) {
         if (!cancelled) setError("Could not connect to the meeting (LiveKit).");
       }
     })();
     return () => { cancelled = true; };
-  }, [meetingId]);
+  }, [meetingId, webinar]);
 
   if (error) {
     return (
@@ -60,6 +63,11 @@ export default function LiveKitMeetingRoom({ user, meetingId }) {
 
   return (
     <div className="h-screen w-full bg-[#0c0d1a]" data-testid="livekit-meeting-room" data-lk-theme="default">
+      {webinar && role === "attendee" && (
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 z-50 px-3 py-1 rounded-full bg-purple-600/80 text-white text-xs" data-testid="webinar-attendee-badge">
+          Webinar · view-only
+        </div>
+      )}
       <LiveKitRoom
         video={true}
         audio={true}
