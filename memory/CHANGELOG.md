@@ -221,3 +221,8 @@ See `/app/docs/GAP_ASSESSMENT.md` for full competitive benchmarking.
 - Content drafted from actual data handling (account/content/MS+Google consent data, AI processing, sharing, retention, GDPR rights). Placeholders: [Legal Entity Name], [Hosting Region], [privacy@/security@/support@your-domain] for user to fill.
 - M365 attestation doc updated: Privacy/Terms now hosted in-app; remaining inputs = Partner ID, legal entity + contacts, support email, hosting region, prod Entra client ID/redirect URIs.
 - Verified: both pages render without login (testids present).
+
+## 2026-06-22 — Legal pages finalized + discoverability
+- Filled legal-page placeholders with brand defaults: operator "AI KARAU", contacts privacy@/security@/support@aikarau.com; hosting-region claim softened.
+- Added Privacy/Terms links: LumiFooter (app-wide footer) + LoginPage ("By continuing you agree to our Terms and Privacy Policy"). Verified rendering.
+- Reviewer-friendly (Microsoft/app-store look for these). Remaining M365 blocker: Partner Center account + prod Entra IDs (user-side only).

@@ -307,7 +307,7 @@ const LoginPage = ({ onAuthSuccess }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800" data-testid="login-page">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800" data-testid="login-page">
       {/* Language Selector in top right */}
       <div className="absolute top-4 right-4 z-20">
         <GlobalLanguageSelector compact={false} />
@@ -762,6 +762,11 @@ const LoginPage = ({ onAuthSuccess }) => {
           </Tabs>
         </CardContent>
       </Card>
+      <p className="text-center text-xs text-slate-400 mt-4" data-testid="login-legal-links">
+        By continuing you agree to our{" "}
+        <a href="/legal/terms" className="underline hover:text-slate-600">Terms</a>{" "}and{" "}
+        <a href="/legal/privacy" className="underline hover:text-slate-600">Privacy Policy</a>.
+      </p>
     </div>
   );
 };

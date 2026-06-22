@@ -32,6 +32,11 @@ const LumiFooter = ({ variant = 'default' }) => {
           Intelligence in Every Conversation
         </span>
       </div>
+      <div className="flex items-center justify-center gap-3 mt-1">
+        <a href="/legal/privacy" className="text-[10px] text-slate-400 hover:text-slate-600 transition-colors" data-testid="footer-privacy-link">Privacy</a>
+        <span className="text-[10px] text-slate-300">·</span>
+        <a href="/legal/terms" className="text-[10px] text-slate-400 hover:text-slate-600 transition-colors" data-testid="footer-terms-link">Terms</a>
+      </div>
     </footer>
   );
 };
