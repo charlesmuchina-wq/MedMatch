@@ -25,7 +25,7 @@ export default function TermsPage() {
         <Section title="1. Acceptance of terms">
           <p>
             By accessing or using the AI KARAU suite — AI KARAU, ENZI, and MedMatch AI (the “Service”),
-            operated by <strong>[Legal Entity Name]</strong> — you agree to these Terms of Use. If you do not
+            operated by <strong>AI KARAU</strong> — you agree to these Terms of Use. If you do not
             agree, do not use the Service.
           </p>
         </Section>
@@ -87,7 +87,7 @@ export default function TermsPage() {
         <Section title="9. Changes & contact">
           <p>
             We may update these Terms; material changes will be posted here. Questions:{" "}
-            <strong>[support@your-domain]</strong>.
+            <strong>support@aikarau.com</strong>.
           </p>
         </Section>
 

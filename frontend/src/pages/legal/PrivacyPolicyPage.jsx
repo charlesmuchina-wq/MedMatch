@@ -27,7 +27,7 @@ export default function PrivacyPolicyPage() {
             This Privacy Policy describes how the AI KARAU suite — including AI KARAU (webinars/meetings),
             ENZI (messaging), and MedMatch AI (career tools) (collectively, the “Service”) — collects,
             uses, and protects your information. The Service is operated by{" "}
-            <strong>[Legal Entity Name]</strong> (“we”, “us”).
+            <strong>AI KARAU</strong> (“we”, “us”).
           </p>
         </Section>
 
@@ -70,22 +70,22 @@ export default function PrivacyPolicyPage() {
           <p>
             We retain account and content data while your account is active and delete it on request. Data is
             encrypted in transit (TLS) and protected by access controls, security testing, and monitoring.
-            Hosting region: <strong>[Hosting Region]</strong>.
+            Data is hosted on secure cloud infrastructure; specific data-residency details are available on request.
           </p>
         </Section>
 
         <Section title="7. Your rights">
           <p>
             Depending on your location (e.g. GDPR), you may access, correct, export, or delete your data, and
-            withdraw consent. To exercise these rights, contact us at <strong>[privacy@your-domain]</strong>.
+            withdraw consent. To exercise these rights, contact us at <strong>privacy@aikarau.com</strong>.
             You can manage in-app consent in your account privacy settings.
           </p>
         </Section>
 
         <Section title="8. Contact">
           <p>
-            Questions about this policy: <strong>[privacy@your-domain]</strong>. Security concerns:{" "}
-            <strong>[security@your-domain]</strong>.
+            Questions about this policy: <strong>privacy@aikarau.com</strong>. Security concerns:{" "}
+            <strong>security@aikarau.com</strong>.
           </p>
         </Section>
 
