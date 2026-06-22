@@ -188,3 +188,10 @@ See `/app/docs/GAP_ASSESSMENT.md` for full competitive benchmarking.
 - P1: Microsoft 365 Publisher Attestation evidence package — /app/docs/compliance/M365_PUBLISHER_ATTESTATION.md (scopes justification, data handling, security, submission steps; lists inputs still needed).
 - P2 Sentry APM: wired gated (no-op without DSN) on backend (server.py, sentry-sdk[fastapi,pymongo]) + frontend (index.js, @sentry/react + ErrorBoundary). Needs SENTRY_DSN + REACT_APP_SENTRY_DSN to activate.
 - P2 Vite: RECOMMEND DEFER — conflicts with Emergent craco visual-edits plugin + 135 files on protected REACT_APP_* vars; CVE/build drivers already mitigated. Doc: /app/docs/architecture/P2_TOOLING_OBSERVABILITY.md.
+
+## 2026-06-22 — Zero-cost in-house error tracking (replaces paid Sentry)
+- Backend routes/observability.py: /api/observability/error (capture, optional auth), /errors, /errors/stats, PATCH/DELETE /errors/{id} (admin); server.py middleware captures unhandled 5xx to Mongo error_logs.
+- Frontend utils/errorReporter.js (window.onerror + unhandledrejection) wired in index.js; Sentry ErrorBoundary onError also reports.
+- Admin UI pages/AdminErrorsPage.jsx at /admin/errors (nav "Error Logs"): stats, filters, stack traces, resolve/delete.
+- Sentry SDK retained as Sentry-compatible GlitchTip client (free self-host) — activate by setting SENTRY_DSN / REACT_APP_SENTRY_DSN to a GlitchTip DSN. Sentry hosted = 14-day trial only.
+- Verified via curl (capture/list/stats/401) + screenshot (admin page renders with captured error).

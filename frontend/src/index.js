@@ -5,6 +5,10 @@ import * as Sentry from "@sentry/react";
 import "@/index.css";
 import "@/styles/animations.css";
 import App from "@/App";
+import { reportError, installGlobalErrorHandlers } from "@/utils/errorReporter";
+
+// Always-on in-house error capture (zero-cost, no third party)
+installGlobalErrorHandlers();
 
 // Sentry APM — no-op unless REACT_APP_SENTRY_DSN is set
 const SENTRY_DSN = process.env.REACT_APP_SENTRY_DSN;
@@ -39,7 +43,10 @@ if ('serviceWorker' in navigator) {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Sentry.ErrorBoundary fallback={<p style={{padding: 24}}>An unexpected error occurred. Our team has been notified.</p>}>
+    <Sentry.ErrorBoundary
+      fallback={<p style={{padding: 24}}>An unexpected error occurred. Our team has been notified.</p>}
+      onError={(error, componentStack) => reportError(error, { componentStack })}
+    >
       <App />
     </Sentry.ErrorBoundary>
   </React.StrictMode>,

@@ -4,26 +4,27 @@
 
 ---
 
-## A. Sentry APM — IMPLEMENTED (gated, no-op until DSNs added)
+## A. Error Tracking & APM
 
-**What was wired**
-- Backend (`backend/server.py`): `sentry_sdk.init` with `FastApiIntegration` +
-  `PyMongoIntegration`, gated on `SENTRY_DSN`. `traces_sample_rate`/`profiles_sample_rate`
-  = 0.1 in production, 1.0 otherwise. Dependency: `sentry-sdk[fastapi,pymongo]` (in requirements.txt).
-- Frontend (`frontend/src/index.js`): `Sentry.init` with browser tracing + session
-  replay, gated on `REACT_APP_SENTRY_DSN`; `<App>` wrapped in `Sentry.ErrorBoundary`.
-  Dependency: `@sentry/react`.
+### A1. In-house zero-cost tracker — IMPLEMENTED & VERIFIED (default, always-on)
+No third-party service, no cost, no data leaves the stack (good for G5/CISO).
+- Backend: `routes/observability.py` (`/api/observability/error` capture [auth optional];
+  `/errors`, `/errors/stats`, PATCH/DELETE `/errors/{id}` [admin-only]) + an exception
+  middleware in `server.py` that records unhandled 5xx into Mongo `error_logs`.
+- Frontend: `utils/errorReporter.js` (global `window.onerror` + `unhandledrejection`
+  handlers, posts to our endpoint) wired in `index.js`; Sentry `ErrorBoundary` also
+  reports via `onError`.
+- Admin UI: `pages/AdminErrorsPage.jsx` at `/admin/errors` (nav "Error Logs") — stats,
+  source/status filters, stack traces, resolve/delete.
+- Verified: frontend error capture, admin list/stats, 401 without auth, page renders.
 
-**To activate (ACTION — needs your DSNs)**
-1. Create **two** Sentry projects: one **React** (frontend), one **FastAPI** (backend).
-2. Add env vars:
-   - `backend/.env`: `SENTRY_DSN=...` and `ENVIRONMENT=production` (on the deployed env).
-   - `frontend/.env`: `REACT_APP_SENTRY_DSN=...` and `REACT_APP_ENV=production`.
-3. In the Sentry React project → Security & Privacy → **Allowed Domains**: add the prod domain.
-4. (CI) Upload source maps via `@sentry/webpack-plugin` so prod stack traces de-minify.
-5. Ensure CORS exposes `sentry-trace` + `baggage` headers (current CORS allows all headers).
-
-Until DSNs are set, Sentry is a **complete no-op** — zero runtime impact.
+### A2. Sentry SDK retained → point at free GlitchTip (optional, richer)
+The wired `@sentry/react` + `sentry-sdk` code is **Sentry-protocol compatible**, so it
+also works with **GlitchTip** (open-source, free self-host) by setting the DSN to a
+GlitchTip instance. Sentry's own hosted plan is only free for a 14-day trial, so prefer
+GlitchTip if you want session-replay/perf-tracing without ongoing cost. Set
+`SENTRY_DSN` / `REACT_APP_SENTRY_DSN` to the GlitchTip DSN to activate; leave unset to
+rely solely on the in-house tracker (A1).
 
 ---
 

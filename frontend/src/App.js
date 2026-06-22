@@ -5,7 +5,7 @@ import axios from "axios";
 import { Toaster, toast } from "sonner";
 import { 
   Search, Briefcase, FileText, Bookmark, CheckSquare, 
-  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3, Users, Video, LogOut, Crown, DollarSign, MessageSquare, UserSearch, LayoutDashboard, Award, ShieldCheck, CalendarDays, Bot, Shield, Code, HelpCircle, Home, FileCheck, Languages, Database, Gavel, Scale, Globe, Zap, Loader2, Package, MessageCircle
+  Menu, X, TrendingUp, Bell, PenTool, Target, Mic, Moon, Sun, Volume2, BarChart3, Users, Video, LogOut, Crown, DollarSign, MessageSquare, UserSearch, LayoutDashboard, Award, ShieldCheck, CalendarDays, Bot, Shield, Code, HelpCircle, Home, FileCheck, Languages, Database, Gavel, Scale, Globe, Zap, Loader2, Package, MessageCircle, Bug
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
@@ -52,6 +52,7 @@ import SmartApplyPage from "@/pages/SmartApplyPage";
 import TranslationQADashboard from "@/components/TranslationQADashboard";
 import AdminDashboard from "@/pages/AdminDashboard";
 import AdminDataIntegrityPage from "@/pages/AdminDataIntegrityPage";
+import AdminErrorsPage from "@/pages/AdminErrorsPage";
 import AdminAICompliancePage from "@/pages/AdminAICompliancePage";
 import AdminTranslationCoveragePage from "@/pages/AdminTranslationCoveragePage";
 import GlobalCompliancePage from "@/pages/GlobalCompliancePage";
@@ -295,6 +296,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/admin/global-compliance", icon: Globe, labelKey: "nav.globalCompliance" },
     { path: "/admin/recruiters", icon: Users, labelKey: "nav.recruiterVerification" },
     { path: "/admin/reviews", icon: FileText, labelKey: "nav.reviewModeration" },
+    { path: "/admin/errors", icon: Bug, labelKey: "nav.errorLogs" },
     { path: "/admin/translation-coverage", icon: Languages, labelKey: "nav.translationCoverage" },
     { path: "/tutorials", icon: HelpCircle, labelKey: "nav.helpTutorials" },
     { path: "/qa-dashboard", icon: Languages, labelKey: "nav.translationQA" },
@@ -1173,6 +1175,9 @@ function AppContent({ skipPortalSelector = false, forcedPortal = null, domainCon
             <Route path="/qa-dashboard" element={<TranslationQADashboard />} />
             <Route path="/admin" element={
               <AdminDashboard />
+            } />
+            <Route path="/admin/errors" element={
+              <AdminErrorsPage />
             } />
             <Route path="/admin/metrics" element={
               <ProductionMetricsPage />

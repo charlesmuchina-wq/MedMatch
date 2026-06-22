@@ -508,6 +508,9 @@ app.include_router(email_settings_router, prefix="/api")
 from routes.managed_agents import router as managed_agents_router
 app.include_router(managed_agents_router, prefix="/api")
 
+from routes.observability import router as observability_router
+app.include_router(observability_router, prefix="/api")
+
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
 videos_dir = Path("/app/videos")
@@ -645,6 +648,28 @@ async def overload_protection(request: Request, call_next):
     return await call_next(request)
 
 # ============== Root Endpoint ==============
+@app.middleware("http")
+async def capture_unhandled_exceptions(request: Request, call_next):
+    """Capture unhandled 5xx exceptions into error_logs (in-house observability)."""
+    try:
+        return await call_next(request)
+    except Exception as e:
+        try:
+            import traceback as _tb
+            from routes.observability import store_error
+            await store_error({
+                "message": f"{type(e).__name__}: {e}",
+                "stack": _tb.format_exc(),
+                "url": str(request.url.path),
+                "level": "error",
+                "source": "backend",
+                "context": {"method": request.method},
+                "environment": os.environ.get("ENVIRONMENT", "development"),
+            })
+        except Exception:
+            pass
+        raise
+
 @app.get("/")
 async def root():
     """Root endpoint - redirect to API docs"""
