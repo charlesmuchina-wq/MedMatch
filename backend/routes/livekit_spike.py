@@ -39,34 +39,34 @@ async def livekit_status():
     }
 
 
+def create_access_token(room: str, identity: str, name: str, can_publish: bool = True, ttl_hours: int = 2) -> str:
+    """Mint a LiveKit access token. Raises HTTPException if unconfigured."""
+    if not (LIVEKIT_API_KEY and LIVEKIT_API_SECRET and LIVEKIT_URL):
+        raise HTTPException(status_code=503, detail="LiveKit is not configured")
+    import datetime as _dt
+    grants = api.VideoGrants(
+        room_join=True, room=room,
+        can_publish=can_publish, can_subscribe=True, can_publish_data=True,
+    )
+    return (
+        api.AccessToken(LIVEKIT_API_KEY, LIVEKIT_API_SECRET)
+        .with_identity(identity)
+        .with_name(name)
+        .with_grants(grants)
+        .with_ttl(_dt.timedelta(hours=ttl_hours))
+        .to_jwt()
+    )
+
+
 @router.post("/token")
 async def mint_token(body: TokenRequest, request: Request):
     user = await require_auth(request)
-    if not (LIVEKIT_API_KEY and LIVEKIT_API_SECRET and LIVEKIT_URL):
-        raise HTTPException(status_code=503, detail="LiveKit is not configured")
     room = (body.room_name or "").strip()
     if not room:
         raise HTTPException(status_code=400, detail="room_name is required")
-
-    # Unique identity per session to avoid LiveKit kicking duplicate identities.
     identity = f"{user['user_id']}"
     display = user.get("name") or user.get("email") or identity
-
-    grants = api.VideoGrants(
-        room_join=True,
-        room=room,
-        can_publish=body.can_publish,
-        can_subscribe=True,
-        can_publish_data=True,
-    )
-    token = (
-        api.AccessToken(LIVEKIT_API_KEY, LIVEKIT_API_SECRET)
-        .with_identity(identity)
-        .with_name(display)
-        .with_grants(grants)
-        .with_ttl(__import__("datetime").timedelta(hours=2))
-        .to_jwt()
-    )
+    token = create_access_token(room, identity, display, body.can_publish)
     return {"token": token, "url": LIVEKIT_URL, "room": room, "identity": identity}
 
 

@@ -202,3 +202,10 @@ See `/app/docs/GAP_ASSESSMENT.md` for full competitive benchmarking.
 - Env: backend LIVEKIT_URL/LIVEKIT_API_KEY/LIVEKIT_API_SECRET; frontend REACT_APP_LIVEKIT_URL (provided by user; medmatch-5zieh7od.livekit.cloud).
 - Verified: token grants correct + 2h exp; LiveKit Cloud reachable (room.list_rooms); client connects to SFU and renders VideoConference with controls.
 - Optional next: register webhook URL in LiveKit dashboard; Phase 1 dual-stack flag in MeetingRoom.jsx.
+
+## 2026-06-22 — P0 LiveKit Phase 1 dual-stack (flag) — STARTED & verified
+- Backend karau_meet.py: KARAU_MEDIA_BACKEND env (default "p2p") + per-meeting settings.media_backend override; resolve_media_backend(); /meetings/{id}/info now returns media_backend; new POST /meetings/{id}/livekit-token (authed host or guest). Shared create_access_token() in livekit_spike.py.
+- Frontend: MeetingRoomSwitch.jsx (routes /karau-meet/room/{id}) -> LiveKitMeetingRoom.jsx (SFU) when livekit, else untouched P2P MeetingRoom (fallback intact). KarauMeetPortal uses the switch.
+- Verified: meeting with settings.media_backend=livekit -> info shows livekit; token mints for host (is_host true) and guest; /room/{id} renders LiveKit SFU room (VideoConference, connected as Guest). Default meetings unchanged (p2p).
+- Enable globally: set KARAU_MEDIA_BACKEND=livekit in backend/.env. Per-meeting: settings.media_backend="livekit".
+- Remaining: webinar /live path (separate WebinarLiveRoom), load test, egress recording->Whisper->agents.

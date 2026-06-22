@@ -3,10 +3,12 @@ AI KARAU Meeting API Routes
 WebRTC signaling and meeting management
 """
 
-from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect, Depends
+from fastapi import APIRouter, HTTPException, WebSocket, WebSocketDisconnect, Depends, Request
 from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 import json
+import os
+import uuid
 import asyncio
 from datetime import datetime, timezone
 
@@ -42,6 +44,18 @@ from routes.auth import get_current_user, require_auth
 from routes.meeting_channel_sync import convert_meeting_to_channel
 
 router = APIRouter(prefix="/karau-meet", tags=["AI KARAU Meeting"])
+
+# Dual-stack media backend: "p2p" (legacy mesh) or "livekit" (SFU).
+# Global default via env; per-meeting override via meeting settings.media_backend.
+KARAU_MEDIA_BACKEND = os.environ.get("KARAU_MEDIA_BACKEND", "p2p")
+
+
+def resolve_media_backend(meeting: dict) -> str:
+    if meeting:
+        override = (meeting.get("settings") or {}).get("media_backend")
+        if override in ("p2p", "livekit"):
+            return override
+    return KARAU_MEDIA_BACKEND if KARAU_MEDIA_BACKEND in ("p2p", "livekit") else "p2p"
 
 # WebSocket connections storage
 connected_clients: Dict[str, Dict[str, WebSocket]] = {}  # meeting_id -> {user_id: websocket}
@@ -407,6 +421,29 @@ async def get_meeting_public_info(meeting_id: str):
         "status": meeting.get("status", "active"),
         "host_name": meeting.get("host_name", "Host"),
         "created_at": meeting.get("created_at", ""),
+        "media_backend": resolve_media_backend(meeting),
+    }
+
+
+@router.post("/meetings/{meeting_id}/livekit-token")
+async def get_meeting_livekit_token(meeting_id: str, request: Request):
+    """Mint a LiveKit SFU token scoped to this meeting (works for members and guests)."""
+    from routes.livekit_spike import create_access_token, LIVEKIT_URL
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+    user = await get_current_user(request)
+    if user:
+        identity = user["user_id"]
+        name = user.get("name") or user.get("email") or "Participant"
+    else:
+        identity = f"guest_{uuid.uuid4().hex[:10]}"
+        name = "Guest"
+    is_host = bool(user and meeting.get("host_id") == user.get("user_id"))
+    token = create_access_token(meeting_id, identity, name, can_publish=True)
+    return {
+        "token": token, "url": LIVEKIT_URL, "room": meeting_id,
+        "identity": identity, "name": name, "is_host": is_host,
     }
 
 

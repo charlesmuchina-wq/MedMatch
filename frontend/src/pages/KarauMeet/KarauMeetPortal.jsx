@@ -28,6 +28,7 @@ import WebinarLiveRoom from './WebinarLiveRoom';
 import MeetingReplayPage from './MeetingReplayPage';
 
 import MeetingRoom from '@/components/KarauMeet/MeetingRoom';
+import MeetingRoomSwitch from '@/components/KarauMeet/MeetingRoomSwitch';
 import MeetingLobby from '@/components/KarauMeet/MeetingLobby';
 
 const KarauMeetSidebar = ({ user, currentPath, onLogout, isCollapsed, setIsCollapsed }) => {
@@ -338,7 +339,7 @@ const KarauMeetPortal = () => {
     }
     const guestData = localStorage.getItem('karau_guest');
     const meetingUser = user || (guestData ? JSON.parse(guestData) : { user_id: `guest_${Date.now()}`, name: 'Guest', email: 'guest@meeting.local', is_guest: true });
-    return <MeetingRoom user={meetingUser} meetingIdProp={meetingId} />;
+    return <MeetingRoomSwitch user={meetingUser} meetingId={meetingId} />;
   }
 
   if (!user && !isWebinarRegisterPage) {
