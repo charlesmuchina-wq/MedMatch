@@ -44,6 +44,7 @@ import NotificationsPage from "@/pages/NotificationsPage";
 import IDVerificationPage from "@/pages/IDVerificationPage";
 import RealTimeSTTPage from "@/pages/RealTimeSTTPage";
 import MeetingNotesPage from "@/pages/MeetingNotesPage";
+import AgentsPage from "@/pages/AgentsPage";
 import InterviewCalendarPage from "@/pages/InterviewCalendarPage";
 import AnalyticsFunnelPage from "@/pages/AnalyticsFunnelPage";
 import DragonAutomatorPage from "@/pages/DragonAutomatorPage";
@@ -240,6 +241,7 @@ const Sidebar = ({ isOpen, setIsOpen, user }) => {
     { path: "/voice-coach", icon: Volume2, labelKey: "nav.voiceCoach" },
     { path: "/realtime-stt", icon: Mic, labelKey: "nav.realtimeSTT" },
     { path: "/meeting-notes", icon: FileText, labelKey: "nav.meetingNotes" },
+    { path: "/agents", icon: Bot, labelKey: "nav.agents" },
     { path: "/cover-letter", icon: PenTool, labelKey: "nav.coverLetter" },
     { path: "/alerts", icon: Bell, labelKey: "nav.jobAlerts" },
     { path: "/notifications", icon: Bell, labelKey: "nav.notifications" },
@@ -1151,6 +1153,7 @@ function AppContent({ skipPortalSelector = false, forcedPortal = null, domainCon
                 <MeetingNotesPage />
               </PremiumGate>
             } />
+            <Route path="/agents" element={<AgentsPage />} />
             <Route path="/interview-calendar" element={
               <PremiumGate feature="voice_coach">
                 <InterviewCalendarPage />

@@ -490,6 +490,9 @@ app.include_router(ai_productivity_router, prefix="/api")
 from routes.email_settings import router as email_settings_router
 app.include_router(email_settings_router, prefix="/api")
 
+from routes.managed_agents import router as managed_agents_router
+app.include_router(managed_agents_router, prefix="/api")
+
 # ============== Static Files for Videos ==============
 # Mount the videos directory for serving tutorial videos
 videos_dir = Path("/app/videos")
