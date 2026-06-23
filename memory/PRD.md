@@ -35,6 +35,16 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool), "ENZI" (pr
 | Iteration 220 | CI/CD + Email + Refactoring + Triggers | 19/19 PASS |
 | **Grand Total** | | **204/204 PASS** |
 
+## Functional Assessment — Iteration 222 (June 23, 2026)
+Scope: core flows of all three portals + last-shipped webinar speaker queue. Report: `/app/test_reports/iteration_222.json`.
+- **Backend: 100% (10/10 PASS)** — admin auth, karau-meet meeting CRUD, LiveKit token mint, /api/livekit/token + /status, ENZI /api/lumi/channels, observability error list+stats.
+- **Frontend: ~85% → improved** — Portal selector renders all 3 apps; admin login OK; MedMatch (/resume, /agents, /meeting-notes) load clean; KARAU /webinars (WebinarManagementPage) + /karau-meet load; ENZI /lumi has its own separate "Sign in to ENZI" auth (by design); /admin/errors observability works end-to-end.
+- **Findings & fixes:**
+  - FIXED: `/karau-meet/webinar/{id}/live` was unreachable for guests — the `!user` login gate in `KarauMeetPortal.jsx` ran before the webinar-live check, bouncing lobby-routed guests to KARAU login. Adjusted gate to allow `isWebinarLiveRoom`. This also unblocks in-app verification of the speaker-queue feature.
+  - NOTE (by design): KARAU and ENZI use their own portal auth, separate from MedMatch `access_token`. Tester's "fallback to landing" was the KARAU login page, not a routing defect.
+  - Speaker queue (raise hand → host queue → Promote next) is code-complete and now reachable; full live 2-participant LiveKit verification still pending a real livekit-mode webinar room.
+  - LOW/cosmetic (open): Google Identity Services bootstrap console error on /resume (page renders fine); webinar card description overflow already mitigated with line-clamp-2.
+
 ## All Features (Implemented & Tested)
 1-29: See CHANGELOG.md for complete list
 

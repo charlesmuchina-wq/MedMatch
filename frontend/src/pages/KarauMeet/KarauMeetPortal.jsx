@@ -343,7 +343,7 @@ const KarauMeetPortal = () => {
     return <MeetingRoomSwitch user={meetingUser} meetingId={meetingId} />;
   }
 
-  if (!user && !isWebinarRegisterPage) {
+  if (!user && !isWebinarRegisterPage && !isWebinarLiveRoom) {
     return <KarauMeetLogin onLogin={handleLogin} />;
   }
   
