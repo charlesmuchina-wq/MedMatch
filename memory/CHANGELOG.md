@@ -237,3 +237,8 @@ See `/app/docs/GAP_ASSESSMENT.md` for full competitive benchmarking.
 - WebinarHostControls.jsx: listens on the data channel, shows amber hand badge + count on "Manage" button, ✋ + "Hand raised" per row, sorts raised to top, auto-lowers on promote. No backend/storage needed.
 - Rendered in LiveKitMeetingRoom: RaiseHandButton for webinar attendees, WebinarHostControls for webinar host.
 - Verified end-to-end (2 contexts): attendee raises -> host badge "✋1" + panel "Guest · Hand raised" + Promote.
+
+## 2026-06-22 — Raise-hand polish (host toast+chime, attendee confirmation)
+- WebinarHostControls: first-time hand-up fires a sonner toast ("✋ {name} raised their hand") + Web Audio chime; deduped via prevHands ref so the 4s rebroadcasts don't re-notify; promote clears the dedup state.
+- RaiseHandButton: toast on raise/lower + persistent "Hand raised · host notified" badge on the attendee's own screen.
+- Verified (2 contexts): attendee badge True + host sonner toast True with correct text. No backend/storage needed.

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDataChannel } from "@livekit/components-react";
+import { toast } from "sonner";
 import { Hand } from "lucide-react";
 
 const enc = (obj) => new TextEncoder().encode(JSON.stringify(obj));
@@ -14,6 +15,8 @@ export default function RaiseHandButton() {
     const next = !raised;
     setRaised(next);
     try { send(enc({ raised: next }), { reliable: true }); } catch {}
+    if (next) toast.success("✋ Hand raised — the host has been notified");
+    else toast("Hand lowered");
   };
 
   useEffect(() => {
@@ -25,15 +28,26 @@ export default function RaiseHandButton() {
   }, [raised, send]);
 
   return (
-    <button
-      onClick={toggle}
-      data-testid="raise-hand-btn"
-      className={`absolute bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium shadow-lg transition-colors ${
-        raised ? "bg-amber-500 text-white" : "bg-white/10 text-white hover:bg-white/20 backdrop-blur"
-      }`}
-    >
-      <Hand className={`w-4 h-4 ${raised ? "animate-bounce" : ""}`} />
-      {raised ? "Lower hand" : "Raise hand"}
-    </button>
+    <>
+      {raised && (
+        <div
+          data-testid="hand-raised-confirmation"
+          className="absolute bottom-36 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/90 text-white text-xs shadow"
+        >
+          <Hand className="w-3.5 h-3.5" /> Hand raised · host notified
+        </div>
+      )}
+      <button
+        onClick={toggle}
+        data-testid="raise-hand-btn"
+        className={`absolute bottom-24 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium shadow-lg transition-colors ${
+          raised ? "bg-amber-500 text-white" : "bg-white/10 text-white hover:bg-white/20 backdrop-blur"
+        }`}
+      >
+        <Hand className={`w-4 h-4 ${raised ? "animate-bounce" : ""}`} />
+        {raised ? "Lower hand" : "Raise hand"}
+      </button>
+    </>
   );
 }
+
