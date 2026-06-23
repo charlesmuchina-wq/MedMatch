@@ -30,17 +30,24 @@ export default function WebinarHostControls({ meetingId }) {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(null);
   const [hands, setHands] = useState({});       // identity -> raised(bool)
+  const [queue, setQueue] = useState([]);       // ordered identities (1st-in-line first)
   const prevHands = useRef({});                 // dedup notifications
   const handOrder = useRef({});                 // identity -> first-raise timestamp
   const { send: sendQueue } = useDataChannel("handqueue");
   const { send: sendControl } = useDataChannel("handcontrol");
 
+  const orderedIds = () => Object.entries(handOrder.current)
+    .sort((a, b) => a[1] - b[1])
+    .map(([id]) => id);
+
   const broadcastQueue = useCallback(() => {
-    const ordered = Object.entries(handOrder.current)
-      .sort((a, b) => a[1] - b[1])
-      .map(([id]) => id);
-    try { sendQueue(enc({ queue: ordered }), { reliable: true }); } catch {}
+    try { sendQueue(enc({ queue: orderedIds() }), { reliable: true }); } catch {}
   }, [sendQueue]);
+
+  const syncQueue = useCallback(() => {
+    setQueue(orderedIds());
+    broadcastQueue();
+  }, [broadcastQueue]);
 
   useDataChannel("handraise", (msg) => {
     try {
@@ -59,7 +66,7 @@ export default function WebinarHostControls({ meetingId }) {
       }
       prevHands.current[id] = raised;
       setHands((prev) => ({ ...prev, [id]: raised }));
-      broadcastQueue();
+      syncQueue();
     } catch { /* ignore malformed */ }
   });
 
@@ -84,7 +91,7 @@ export default function WebinarHostControls({ meetingId }) {
         prevHands.current[identity] = false;
         delete handOrder.current[identity];
         setHands((prev) => ({ ...prev, [identity]: false }));
-        broadcastQueue();
+        syncQueue();
       }
       toast.success(can_publish ? "Promoted to panelist" : "Moved to audience");
     } catch {
@@ -99,7 +106,7 @@ export default function WebinarHostControls({ meetingId }) {
     handOrder.current = {};
     prevHands.current = {};
     setHands({});
-    broadcastQueue();
+    syncQueue();
     toast("All hands lowered");
   };
 
@@ -107,6 +114,8 @@ export default function WebinarHostControls({ meetingId }) {
     .filter((p) => !p.isLocal)
     .sort((a, b) => (hands[b.identity] ? 1 : 0) - (hands[a.identity] ? 1 : 0));
   const raisedCount = remote.filter((p) => hands[p.identity]).length;
+  const nameOf = (id) => participants.find((p) => p.identity === id)?.name || "Guest";
+  const promoteNext = () => { if (queue[0]) setRole(queue[0], true); };
 
   return (
     <div className="absolute top-3 right-3 z-50">
@@ -128,6 +137,30 @@ export default function WebinarHostControls({ meetingId }) {
           data-testid="host-controls-panel"
           className="mt-2 w-72 max-h-80 overflow-y-auto rounded-xl bg-slate-900/95 border border-white/10 backdrop-blur p-2 shadow-2xl"
         >
+          {queue.length > 0 && (
+            <div className="mb-2 p-2 rounded-lg bg-amber-500/10 border border-amber-500/20" data-testid="speaker-queue">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-[11px] font-semibold text-amber-300">Speaker queue ({queue.length})</span>
+                <button
+                  onClick={promoteNext}
+                  disabled={busy === queue[0]}
+                  data-testid="promote-next-btn"
+                  className="flex items-center gap-1 text-[11px] px-2 py-1 rounded-md bg-purple-600 text-white hover:bg-purple-700"
+                >
+                  {busy === queue[0] ? <Loader2 className="w-3 h-3 animate-spin" /> : <UserPlus className="w-3 h-3" />}
+                  Promote next
+                </button>
+              </div>
+              <ol className="space-y-0.5">
+                {queue.map((id, i) => (
+                  <li key={id} className="flex items-center gap-1.5 text-[11px] text-slate-200" data-testid={`queue-item-${i}`}>
+                    <span className="w-4 text-amber-400 font-bold">{i + 1}</span>
+                    <span className="truncate">{nameOf(id)}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
           {raisedCount > 0 && (
             <button
               onClick={lowerAllHands}

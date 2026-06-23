@@ -1,0 +1,54 @@
+{
+  "summary": "Iteration 222 — Functional assessment of the three-portal suite (AI KARAU, ENZI, MedMatch AI). Backend smoke test (10/10 passed) covering admin auth, karau-meet meeting CRUD + LiveKit token, generic /api/livekit/token, /api/livekit/status, ENZI /api/lumi/channels, observability errors list+stats. Frontend: portal selector renders all 3 cards with 3 Open buttons; admin login at /login succeeds and stores access_token; MedMatch /resume, /agents, /meeting-notes all load with proper headings and no critical JS errors; KARAU /webinars renders the WebinarPage with full webinar list (live + scheduled) and 'New Webinar' button; KARAU /karau-meet landing renders correctly; ENZI /lumi loads its own 'Sign in to ENZI' page (separate ENZI auth — by design); /admin/errors loads the Error Logs page showing 3 unresolved errors with full traces (observability working end-to-end).",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "GET /api/karau-meet/meetings", "issue": "Returns object {meetings:[...]} not a bare list — confirm OpenAPI matches; not a defect, just shape note."},
+      {"endpoint": "POST /api/livekit/token", "issue": "Body schema requires `room_name` (not `room`); 422 if wrong field — documented."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "WebinarPage (/webinars)", "issue": "React warning: 'Each child in a list should have a unique \"key\" prop.' in render method of WebinarPage. Missing key on mapped webinar list items.", "selector": "list of webinar cards", "priority": "LOW"},
+      {"component": "KarauMeetPortal sub-routes", "issue": "/karau-meet/webinars and /karau-meet/webinar/{id}/live fall back to the KARAU landing hero ('Meet. Connect. Collaborate.') instead of rendering the webinar list or the LiveKit live room. The top-level /webinars route works, so this is a sub-route wiring gap inside KarauMeetPortal.", "selector": "n/a", "priority": "MEDIUM"},
+      {"component": "ResumePage (/resume)", "issue": "Console error 'Failed to load Google APIs: TypeError: Cannot read properties of undefined (reading load)' from Google Identity Services bootstrapping. Page still renders fine — cosmetic SDK init race.", "selector": "n/a", "priority": "LOW"}
+    ],
+    "integration_issues": [
+      {"flow": "Webinar host speaker queue (raise hand → host queue → Promote next)", "issue": "Could not exercise live UI in the test env: the WebinarHostControls + RaiseHandButton components are mounted inside LiveKitRoom only after a successful LiveKit cloud connection. /karau-meet/webinar/{id}/live did not enter the room (sub-route fell back to landing — see UI bug above). Static review confirms: WebinarHostControls.jsx uses useParticipants/useDataChannel('handqueue','handcontrol'), maintains ordered handOrder map, exposes a Promote-next via /api/karau-meet/meetings/{id}/participants/{identity}/role; RaiseHandButton broadcasts handcontrol data channel events. Backend /participants/{identity}/role endpoint is wired (host-only, calls LiveKit UpdateParticipant). End-to-end LIVE verification of the queue advance requires a real LiveKit room with two participants and is blocked by the routing fallback above.", "affected_selectors": ["[data-testid=\"livekit-meeting-room\"]", "[data-testid=\"livekit-meeting-loading\"]"]}
+    ],
+    "design_issues": [
+      {"screen": "/webinars list", "issues": ["Some cards (e.g., 'Distance Zero: Next-Gen Communication') extend description text past the card border; consider line-clamp-2 for the description."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration222_portals.py",
+    "/app/test_reports/pytest/iteration222_results.xml"
+  ],
+  "action_items": [
+    "Fix React 'key' prop warning in WebinarPage's webinar list .map() — add a stable id key.",
+    "Wire /karau-meet/webinars and /karau-meet/webinar/{id}/live sub-routes inside KarauMeetPortal so they render the WebinarPage / MeetingRoomSwitch instead of falling back to the KARAU landing page.",
+    "Verify that /api/karau-meet/meetings/{id}/livekit-token issues a host token when the caller is the meeting owner (today's test created a meeting and then requested a token successfully — confirm in product that is_host flag is set so WebinarHostControls actually mounts).",
+    "Optional: harden the Google Identity Services bootstrap on /resume to avoid the 'Cannot read load of undefined' console error."
+  ],
+  "critical_code_review_comments": [
+    "LiveKitMeetingRoom only renders WebinarHostControls when both `webinar` prop and `isHost` are true; ensure the parent (MeetingRoomSwitch) passes webinar=true for webinar-type meetings — otherwise the speaker-queue feature is invisible even to hosts.",
+    "WebinarHostControls uses useDataChannel('handqueue','handcontrol') reliably=true — good. handOrder is a useRef map keyed by identity which preserves FIFO across re-renders. Good.",
+    "/api/karau-meet/meetings/{meeting_id}/participants/{identity}/role uses async LiveKit UpdateParticipant and properly catches TwirpError 'not_found' — good defensive coding.",
+    "Observability page already filters out _id correctly (page renders cleanly) — good MongoDB hygiene.",
+    "Frontend admin layout reads admin@medmatch.com from auth/me and renders the dashboard correctly; token stored as 'access_token' in localStorage — consistent with backend response."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration222_portals.py"
+  ],
+  "success_rate": {
+    "backend": "100% (10/10)",
+    "frontend": "~85% — all primary portal flows reachable; 1 sub-route fallback issue and 1 React key warning"
+  },
+  "test_credentials": "admin@medmatch.com / Swampdrainer2026! (from /app/memory/test_credentials.md)",
+  "seed_data_creation": "Created one TEST_iter222_meeting via /api/karau-meet/meetings during backend test (left in DB, non-blocking; admin-owned).",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Use /app/backend/tests/test_iteration222_portals.py as regression. The speaker-queue LIVE verification still needs a real LiveKit-connected webinar room with 2 sessions (host + attendee) — the test env can issue tokens but the /karau-meet/webinar/{id}/live sub-route currently falls back to the KARAU landing page, so the LiveKitRoom never mounts in-app. After main agent fixes the sub-route wiring (KarauMeetPortal Routes), re-test: (1) navigate as admin to /karau-meet/webinar/<a real webinar id>/live (2) confirm [data-testid=livekit-meeting-room] mounts (3) open a second incognito session as a non-host attendee and click RaiseHandButton (4) verify host sees the entry in the queue panel and 'Promote next' POSTs to /api/karau-meet/meetings/{id}/participants/{identity}/role.",
+  "rca of the issue": "The /karau-meet/webinar/{id}/live route falls back to landing because the inner <Routes> tree in KarauMeetPortal.jsx (line 31 imports MeetingRoomSwitch and line 343 returns it) is gated by location-based conditionals that aren't matching the URL pattern shape, so the default landing renders. The top-level /webinars route renders WebinarPage correctly (proving the page itself works), confirming the regression is inside KarauMeetPortal's path-matching, not in MeetingRoomSwitch or LiveKitMeetingRoom."
+}
