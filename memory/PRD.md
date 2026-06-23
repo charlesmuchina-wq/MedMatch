@@ -35,6 +35,13 @@ Build a dual-platform communication suite: "AI KARAU" (webinar tool), "ENZI" (pr
 | Iteration 220 | CI/CD + Email + Refactoring + Triggers | 19/19 PASS |
 | **Grand Total** | | **204/204 PASS** |
 
+## God-File Refactor + LiveKit Queue — Iteration 223 (June 23, 2026)
+- **P3 Backend God-file refactor — DONE & VERIFIED (11/11 PASS):** Split into packages preserving exact code & full route parity:
+  - `routes/translation/` → `_common.py` + `core.py`(14) + `memory.py`(9) + `quality.py`(3) + `analytics.py`(2) = **28 routes**, `SUPPORTED_LANGUAGES` re-exported.
+  - `routes/lumi_messenger/` → `_common.py` + `core.py`(27) + `admin.py`(20) + `voice.py`(7) + `dm_domain.py`(6) + `ws.py`(1) = **61 routes**, `manager` singleton re-exported.
+  - Each `__init__.py` rebuilds the original `APIRouter(prefix=...)` and includes group sub-routers, so `server.py` imports are unchanged. Auth guards survived; no endpoints broke. Regression suite: `/app/backend/tests/test_iteration223_refactor_regression.py`.
+- **LiveKit Webinar Speaker Queue — FULLY VERIFIED end-to-end (2 concurrent browser contexts):** Host (`info@charstan.com`) + attendee (`admin@medmatch.com`) both connect to LiveKit cloud; attendee raises hand → host sees it in the ordered `speaker-queue` (`queue-item-0`) + `raised-hands-badge` → host clicks `promote-next-btn` → attendee removed from queue (promoted). Test webinar `meeting_id=6EEC4A83` (livekit mode). Report: `/app/test_reports/iteration_223.json`.
+
 ## Functional Assessment — Iteration 222 (June 23, 2026)
 Scope: core flows of all three portals + last-shipped webinar speaker queue. Report: `/app/test_reports/iteration_222.json`.
 - **Backend: 100% (10/10 PASS)** — admin auth, karau-meet meeting CRUD, LiveKit token mint, /api/livekit/token + /status, ENZI /api/lumi/channels, observability error list+stats.
