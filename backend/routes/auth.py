@@ -86,6 +86,37 @@ async def create_session(user_id: str, session_token: str):
         "expires_at": (datetime.now(timezone.utc) + timedelta(days=7)).isoformat()
     })
 
+async def seed_admin_account():
+    """Idempotently seed the configured admin account (is_admin=True).
+    Driven by ADMIN_EMAIL / ADMIN_PASSWORD in backend/.env so the password is not
+    hardcoded in source. Works across all three portals (MedMatch/KARAU/ENZI) since
+    they all authenticate through /api/auth/login."""
+    admin_email = os.environ.get("ADMIN_EMAIL")
+    admin_password = os.environ.get("ADMIN_PASSWORD")
+    if not admin_email or not admin_password:
+        return
+    admin_email = admin_email.lower().strip()
+    existing = await db.users.find_one({"email": admin_email})
+    if existing is None:
+        await db.users.insert_one({
+            "user_id": f"user_{uuid.uuid4().hex[:12]}",
+            "email": admin_email,
+            "name": "Admin",
+            "auth_method": "email",
+            "password_hash": hash_password(admin_password),
+            "role": "recruiter",
+            "is_admin": True,
+            "membership_status": "admin",
+            "created_at": datetime.now(timezone.utc).isoformat(),
+        })
+        logging.info(f"Seeded admin account: {admin_email}")
+    else:
+        update = {"is_admin": True, "role": "recruiter"}
+        if not existing.get("password_hash") or not verify_password(admin_password, existing["password_hash"]):
+            update["password_hash"] = hash_password(admin_password)
+        await db.users.update_one({"email": admin_email}, {"$set": update})
+
+
 async def get_or_create_user(email: str, name: str = "", auth_method: str = "email", profile_picture: str = ""):
     """Get existing user or create new one"""
     user = await db.users.find_one({"email": email}, {"_id": 0})
@@ -326,6 +357,7 @@ async def login_user(login_data: UserLogin, response: Response):
             "name": user.get("name", ""),
             "auth_method": user.get("auth_method", "email"),
             "role": user.get("role", "job_seeker"),
+            "is_admin": user.get("is_admin", False) or user.get("role") == "admin",
             "membership_status": check_membership_status(user),
             "trial_ends_at": user.get("trial_ends_at"),
             "created_at": user.get("created_at", ""),

@@ -207,6 +207,14 @@ async def lifespan(app: FastAPI):
     _asyncio.create_task(process_scheduled_messages())
     logger.info("ENZI scheduled messages processor started")
 
+    # Seed configured admin account (idempotent)
+    try:
+        from routes.auth import seed_admin_account
+        await seed_admin_account()
+        logger.info("Admin account seed checked")
+    except Exception as e:
+        logger.warning(f"Admin seed deferred: {e}")
+
     logger.info("MedMatch-AI KARAU API server started successfully - Ready for 1M+ users!")
     
     yield
