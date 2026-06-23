@@ -1,22 +1,29 @@
 import { useState, useEffect } from "react";
-import { useDataChannel } from "@livekit/components-react";
+import { useDataChannel, useLocalParticipant } from "@livekit/components-react";
 import { toast } from "sonner";
 import { Hand } from "lucide-react";
 
 const enc = (obj) => new TextEncoder().encode(JSON.stringify(obj));
+const ordinal = (n) => {
+  const s = ["th", "st", "nd", "rd"], v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+};
 
-// Attendee-facing button: broadcasts a raise/lower-hand signal over the LiveKit
-// data channel. Re-broadcasts while raised so a host who joins later still sees it.
+// Attendee-facing raise-hand control. Broadcasts raise/lower over the data channel
+// (re-broadcasts every 4s so late-joining hosts sync), shows the attendee's queue
+// position, and auto-lowers when the host triggers "lower all hands".
 export default function RaiseHandButton() {
   const { send } = useDataChannel("handraise");
+  const { localParticipant } = useLocalParticipant();
   const [raised, setRaised] = useState(false);
+  const [queuePos, setQueuePos] = useState(0);
 
   const toggle = () => {
     const next = !raised;
     setRaised(next);
     try { send(enc({ raised: next }), { reliable: true }); } catch {}
     if (next) toast.success("✋ Hand raised — the host has been notified");
-    else toast("Hand lowered");
+    else { toast("Hand lowered"); setQueuePos(0); }
   };
 
   useEffect(() => {
@@ -27,6 +34,27 @@ export default function RaiseHandButton() {
     return () => clearInterval(id);
   }, [raised, send]);
 
+  // Receive the host's ordered queue → compute my position.
+  useDataChannel("handqueue", (msg) => {
+    try {
+      const data = JSON.parse(new TextDecoder().decode(msg.payload));
+      const idx = (data.queue || []).indexOf(localParticipant?.identity);
+      setQueuePos(idx >= 0 ? idx + 1 : 0);
+    } catch {}
+  });
+
+  // Host "lower all hands" command.
+  useDataChannel("handcontrol", (msg) => {
+    try {
+      const data = JSON.parse(new TextDecoder().decode(msg.payload));
+      if (data.lowerAll && raised) {
+        setRaised(false);
+        setQueuePos(0);
+        toast("The host lowered all hands");
+      }
+    } catch {}
+  });
+
   return (
     <>
       {raised && (
@@ -34,7 +62,8 @@ export default function RaiseHandButton() {
           data-testid="hand-raised-confirmation"
           className="absolute bottom-36 left-1/2 -translate-x-1/2 z-50 flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/90 text-white text-xs shadow"
         >
-          <Hand className="w-3.5 h-3.5" /> Hand raised · host notified
+          <Hand className="w-3.5 h-3.5" />
+          {queuePos > 0 ? `Hand raised · ${ordinal(queuePos)} in line` : "Hand raised · host notified"}
         </div>
       )}
       <button
@@ -50,4 +79,3 @@ export default function RaiseHandButton() {
     </>
   );
 }
-

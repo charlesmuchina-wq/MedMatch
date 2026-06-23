@@ -1,9 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useParticipants, useDataChannel } from "@livekit/components-react";
 import { toast } from "sonner";
-import { Users, UserPlus, UserMinus, Loader2, ChevronDown, Hand } from "lucide-react";
+import { Users, UserPlus, UserMinus, Loader2, ChevronDown, Hand, HandMetal } from "lucide-react";
 
 const API = process.env.REACT_APP_BACKEND_URL;
+const enc = (obj) => new TextEncoder().encode(JSON.stringify(obj));
 
 function playChime() {
   try {
@@ -21,16 +22,25 @@ function playChime() {
   } catch { /* audio not available */ }
 }
 
-// Host-only panel (rendered inside <LiveKitRoom>) to promote attendees to panelist
-// or move panelists back to audience — flips can_publish live via the LiveKit server API.
-// Also surfaces raised hands received over the data channel, with a toast + chime
-// the first time each hand goes up (deduped against the 4s rebroadcast).
+// Host-only panel: promote/demote attendees (live can_publish via LiveKit server API),
+// surface raised hands (toast + chime, deduped), broadcast the ordered hand-raise queue,
+// and lower all hands in one click.
 export default function WebinarHostControls({ meetingId }) {
   const participants = useParticipants();
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(null);
-  const [hands, setHands] = useState({}); // identity -> raised(bool)
-  const prevHands = useRef({});
+  const [hands, setHands] = useState({});       // identity -> raised(bool)
+  const prevHands = useRef({});                 // dedup notifications
+  const handOrder = useRef({});                 // identity -> first-raise timestamp
+  const { send: sendQueue } = useDataChannel("handqueue");
+  const { send: sendControl } = useDataChannel("handcontrol");
+
+  const broadcastQueue = useCallback(() => {
+    const ordered = Object.entries(handOrder.current)
+      .sort((a, b) => a[1] - b[1])
+      .map(([id]) => id);
+    try { sendQueue(enc({ queue: ordered }), { reliable: true }); } catch {}
+  }, [sendQueue]);
 
   useDataChannel("handraise", (msg) => {
     try {
@@ -42,11 +52,22 @@ export default function WebinarHostControls({ meetingId }) {
       if (raised && !prevHands.current[id]) {
         toast(`✋ ${name} raised their hand`, { description: "Open Manage to bring them on stage." });
         playChime();
+        handOrder.current[id] = Date.now();
+      }
+      if (!raised && prevHands.current[id]) {
+        delete handOrder.current[id];
       }
       prevHands.current[id] = raised;
       setHands((prev) => ({ ...prev, [id]: raised }));
+      broadcastQueue();
     } catch { /* ignore malformed */ }
   });
+
+  // Periodically rebroadcast the queue so late-joining attendees sync their position.
+  useEffect(() => {
+    const t = setInterval(broadcastQueue, 3000);
+    return () => clearInterval(t);
+  }, [broadcastQueue]);
 
   const setRole = async (identity, can_publish) => {
     setBusy(identity);
@@ -61,7 +82,9 @@ export default function WebinarHostControls({ meetingId }) {
       if (!res.ok) throw new Error();
       if (can_publish) {
         prevHands.current[identity] = false;
-        setHands((prev) => ({ ...prev, [identity]: false })); // lower hand on promote
+        delete handOrder.current[identity];
+        setHands((prev) => ({ ...prev, [identity]: false }));
+        broadcastQueue();
       }
       toast.success(can_publish ? "Promoted to panelist" : "Moved to audience");
     } catch {
@@ -69,6 +92,15 @@ export default function WebinarHostControls({ meetingId }) {
     } finally {
       setBusy(null);
     }
+  };
+
+  const lowerAllHands = () => {
+    try { sendControl(enc({ lowerAll: true }), { reliable: true }); } catch {}
+    handOrder.current = {};
+    prevHands.current = {};
+    setHands({});
+    broadcastQueue();
+    toast("All hands lowered");
   };
 
   const remote = participants
@@ -96,6 +128,15 @@ export default function WebinarHostControls({ meetingId }) {
           data-testid="host-controls-panel"
           className="mt-2 w-72 max-h-80 overflow-y-auto rounded-xl bg-slate-900/95 border border-white/10 backdrop-blur p-2 shadow-2xl"
         >
+          {raisedCount > 0 && (
+            <button
+              onClick={lowerAllHands}
+              data-testid="lower-all-hands-btn"
+              className="w-full mb-2 flex items-center justify-center gap-1.5 text-[11px] px-2 py-1.5 rounded-md bg-amber-500/20 text-amber-300 hover:bg-amber-500/30"
+            >
+              <HandMetal className="w-3.5 h-3.5" /> Lower all hands ({raisedCount})
+            </button>
+          )}
           {remote.length === 0 ? (
             <p className="text-xs text-slate-400 text-center py-6">No other participants yet.</p>
           ) : (

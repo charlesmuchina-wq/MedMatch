@@ -242,3 +242,8 @@ See `/app/docs/GAP_ASSESSMENT.md` for full competitive benchmarking.
 - WebinarHostControls: first-time hand-up fires a sonner toast ("✋ {name} raised their hand") + Web Audio chime; deduped via prevHands ref so the 4s rebroadcasts don't re-notify; promote clears the dedup state.
 - RaiseHandButton: toast on raise/lower + persistent "Hand raised · host notified" badge on the attendee's own screen.
 - Verified (2 contexts): attendee badge True + host sonner toast True with correct text. No backend/storage needed.
+
+## 2026-06-22 — Raise-hand: queue position + lower-all
+- Host (WebinarHostControls): tracks first-raise timestamps (handOrder ref), broadcasts ordered queue on "handqueue" topic (+ every 3s for late joiners); "Lower all hands" button sends "handcontrol" {lowerAll} and clears local state. Promote/lower remove from queue.
+- Attendee (RaiseHandButton): listens "handqueue" -> shows "Nth in line" (ordinal) in confirmation badge via useLocalParticipant identity; listens "handcontrol" -> auto-lowers on lowerAll with toast.
+- Verified (2 contexts): attendee saw "Hand raised · 1st in line"; host "Lower all hands" -> "All hands lowered" toast + attendee auto-lowered (button back to "Raise hand"). Pure data channel, no storage.
