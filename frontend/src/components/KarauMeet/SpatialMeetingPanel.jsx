@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Glasses, Box, Users, RotateCcw, Maximize } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import PreviewBadge from '@/components/KarauMeet/PreviewBadge';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
@@ -67,6 +68,7 @@ export default function SpatialMeetingPanel({ meetingId }) {
             <h3 className="text-xs font-semibold text-white">WebXR Spatial</h3>
             <p className="text-[9px] text-slate-500">Vision Pro / Quest 3 ready</p>
           </div>
+          <PreviewBadge className="ml-auto" />
         </div>
       </div>
 

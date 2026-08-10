@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Camera, User, Disc, Target, ZoomIn } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import PreviewBadge from '@/components/KarauMeet/PreviewBadge';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
@@ -41,6 +42,7 @@ export default function PanoramicFramingPanel({ meetingId }) {
             <h3 className="text-xs font-semibold text-white">360 Multi-Focus</h3>
             <p className="text-[9px] text-slate-500">AI headshot extraction from panoramic</p>
           </div>
+          <PreviewBadge className="ml-auto" />
           {tracking.target && (
             <Badge className="text-[7px] bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
               <Target className="w-2 h-2 mr-0.5" />{tracking.target.split(' ')[0]}
