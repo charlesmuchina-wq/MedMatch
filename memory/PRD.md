@@ -129,5 +129,6 @@ Prerequisites: release branch, signing certs, store access
 | Development Analyst Report | `/app/docs/DEVELOPMENT_ANALYST_REPORT_22_03_2026.md` |
 | Production Launch Playbook | `/app/docs/PRODUCTION_LAUNCH_PLAYBOOK.md` |
 | Gap Assessment | `/app/docs/GAP_ASSESSMENT.md` |
+| SOTA Benchmark & Gap Assessment (June 23, 2026) | `/app/docs/SOTA_GAP_ASSESSMENT_23_06_2026.md` |
 | Testing Strategy | `/app/docs/TESTING_STRATEGY_RESULTS.md` |
 | Deployment Readiness | `/app/docs/DEPLOYMENT_READINESS.md` |
