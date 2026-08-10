@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Loader2, Shield } from 'lucide-react';
+import { MEETING_E2EE_ENABLED } from '@/config/features';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -99,7 +100,10 @@ export const SecurityTab = ({ securityStatus, setSecurityStatus }) => {
         <CardContent>
           <div className="grid gap-3">
             {[
-              { label: t("karauMeet.endToEndEncryptionLabel"), enabled: true, description: t("karauMeet.encryptionDesc") },
+              // Gated: meeting-media E2EE is not implemented yet (see config/features.js).
+              ...(MEETING_E2EE_ENABLED
+                ? [{ label: t("karauMeet.endToEndEncryptionLabel"), enabled: true, description: t("karauMeet.encryptionDesc") }]
+                : []),
               { label: t("karauMeet.waitingRoom"), enabled: true, description: t("karauMeet.waitingRoomDesc") },
               { label: t("karauMeet.meetingLock"), enabled: true, description: t("karauMeet.meetingLockDesc") },
               { label: t("karauMeet.recordingConsentLabel"), enabled: true, description: t("karauMeet.recordingConsentDesc") }
