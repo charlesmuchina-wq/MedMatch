@@ -89,3 +89,69 @@ Therefore:
 16. Default branch is `main`. **Develop on your designated feature branch**,
     commit with clear messages, and push with `git push -u origin <branch>`.
 17. **Do not open a pull request unless explicitly asked.**
+
+## Auto-merge & merge-once-approved
+
+A PR can only merge automatically — via GitHub **auto-merge** or a
+**merge-once-approved** flow — after **all** required checks are green. Those
+checks are the CI gates in `.github/workflows/test.yml`, run on every PR to
+`main`/`develop`:
+
+- **Phase 1 — Functional (G1)**
+- **Phase 3 — Regression (G3)**
+- **Phase 4 — Accessibility (WCAG 2.2 AA)** — 0 critical/serious violations
+- **Gate Summary**
+
+So the developer "must-do" to be eligible for automatic merge is simply: satisfy
+the [Quick checklist](#quick-checklist-before-you-push) so those four gates pass,
+then obtain the required approval. Using it on a PR (once the config below is in
+place):
+
+- **Auto-merge:** on the PR choose **Enable auto-merge** (squash). GitHub merges
+  it the moment the required checks pass and the approval requirement is met.
+- **Merge once approved:** a required-review rule keeps the PR blocked until it
+  has an approving review; auto-merge then completes it.
+
+## Branch protection (makes the gates enforced, not advisory)
+
+Without branch protection the CI gates are **advisory** — a red PR can still be
+merged. To enforce them, a repo **admin** must configure protection on `main`
+(Settings → Branches → Add branch ruleset/rule, or via the API). Recommended:
+
+- **Require status checks to pass before merging**, marking these as required
+  (names must match the job names exactly):
+  - `Phase 1: Functional Testing (Gate G1)`
+  - `Phase 3: Post-Reliability Regression (Gate G3)`
+  - `Phase 4 - Accessibility Gate (WCAG 2.1/2.2 AA)`
+  - `Gate Summary`
+- **Require branches to be up to date before merging** (strict).
+- **Require a pull request before merging** with **≥ 1 approving review** — this
+  is what enables "merge once approved".
+- **Allow auto-merge** (Settings → General) so PRs can be queued to merge on green.
+
+Equivalent one-shot API call (run by an admin with a repo-admin token):
+
+```bash
+gh api -X PUT repos/charlesmuchina-wq/MedMatch/branches/main/protection \
+  --input - <<'JSON'
+{
+  "required_status_checks": {
+    "strict": true,
+    "contexts": [
+      "Phase 1: Functional Testing (Gate G1)",
+      "Phase 3: Post-Reliability Regression (Gate G3)",
+      "Phase 4 - Accessibility Gate (WCAG 2.1/2.2 AA)",
+      "Gate Summary"
+    ]
+  },
+  "required_pull_request_reviews": { "required_approving_review_count": 1 },
+  "enforce_admins": false,
+  "restrictions": null
+}
+JSON
+```
+
+> Notes: on a solo-maintainer repo a required review means you need a second
+> account to approve; `enforce_admins: false` (above) still lets an admin merge
+> in a pinch — set it to `true` to hold admins to the same rules. The `contexts`
+> strings must match the check-run names GitHub reports for the workflow jobs.
