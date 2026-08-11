@@ -162,6 +162,10 @@ WCAG violations will block merge.
 
 ## Working agreements for changes
 
+> **The mandatory "must-do" rules live in [`CONTRIBUTING.md`](./CONTRIBUTING.md)**
+> (a quick pre-push checklist + the details). The points below are the same
+> agreements in brief.
+
 - Keep the `/api` prefix and the `routes/` + `server.py` registration pattern.
 - Match existing style: FastAPI async routes with Motor; React function
   components with Tailwind + shadcn/ui; `@/`-aliased imports on the frontend.
