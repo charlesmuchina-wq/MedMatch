@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import { Scan, MapPin, Sun, Maximize2, RotateCcw, Wifi, WifiOff, Crosshair, Loader2, Zap, AlertTriangle } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import PreviewBadge from '@/components/KarauMeet/PreviewBadge';
 import { toast } from 'sonner';
 
 const API = process.env.REACT_APP_BACKEND_URL;
@@ -62,6 +63,7 @@ export default function SpatialTrackingPanel({ meetingId }) {
             <h3 className="text-xs font-semibold text-white">SLAM Tracking</h3>
             <p className="text-[9px] text-slate-500">3D room mapping & auto-framing</p>
           </div>
+          <PreviewBadge className="ml-auto" />
           <Badge className={`text-[7px] ${connected ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-slate-500/10 text-slate-400 border-slate-500/20'}`}>
             {connected ? <><Wifi className="w-2 h-2 mr-0.5" />Live</> : <><WifiOff className="w-2 h-2 mr-0.5" />Off</>}
           </Badge>

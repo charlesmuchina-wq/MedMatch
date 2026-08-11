@@ -6,6 +6,12 @@ from fastapi import APIRouter, HTTPException, Request
 from datetime import datetime, timezone
 import logging
 
+from analytics_utils import (
+    gender_parity_index,
+    simpson_diversity_index,
+    composite_dei_score,
+)
+
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/dei-analytics", tags=["DEI Analytics"])
 
@@ -45,6 +51,18 @@ async def get_dei_metrics(request: Request):
         ]).to_list(20)
         roles = {(r["_id"] or "Not specified"): r["count"] for r in role_pipeline}
 
+        # Full location distribution for the diversity index (the display list
+        # above is capped at the top 10, which would understate diversity).
+        loc_full_rows = await db.users.aggregate([
+            {"$group": {"_id": "$location", "count": {"$sum": 1}}}
+        ]).to_list(1000)
+        loc_full = {(l["_id"] or "Not specified"): l["count"] for l in loc_full_rows}
+
+        # Computed indices (None where there isn't enough data to judge).
+        gender_parity = gender_parity_index(gender_dist)
+        geo_diversity = simpson_diversity_index(loc_full)
+        dei_score = composite_dei_score(gender_parity, geo_diversity)
+
         return {
             "total_applicants": total_apps,
             "total_users": total_users,
@@ -52,17 +70,17 @@ async def get_dei_metrics(request: Request):
             "geographic_diversity": locations,
             "pipeline_by_stage": stages,
             "role_distribution": roles,
-            "dei_score": 72,
+            "dei_score": dei_score,
             "benchmarks": {
-                "gender_parity_index": 0.85,
-                "geographic_diversity_index": 0.68,
-                "pipeline_equity_ratio": 0.91
+                "gender_parity_index": gender_parity,
+                "geographic_diversity_index": geo_diversity,
+                # Requires demographic-tagged pipeline data, which is not
+                # collected — left null rather than fabricated.
+                "pipeline_equity_ratio": None,
             },
-            "trends": {
-                "gender_parity_change": "+3%",
-                "diversity_hires_change": "+8%",
-                "inclusion_score_change": "+5"
-            },
+            # Trend deltas need historical snapshots that aren't stored yet, so
+            # they are intentionally empty rather than invented.
+            "trends": {},
             "generated_at": datetime.now(timezone.utc).isoformat()
         }
     except Exception as e:

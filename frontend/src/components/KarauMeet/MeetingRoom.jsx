@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { MEETING_E2EE_ENABLED } from '@/config/features';
 import { toast } from 'sonner';
 import { Shield, Copy, Calendar, Loader2, Circle,
   Check, X, AlertTriangle, Image as ImageIcon,
@@ -252,7 +253,7 @@ const MeetingHeader = ({ meeting, meetingId, isRecording, onAddToCalendar, onCop
       </Badge>
       <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
         <Shield className="w-3 h-3 mr-0.5 md:mr-1" />
-        <span className="hidden xs:inline">E2E </span>Encrypted
+        {MEETING_E2EE_ENABLED && <span className="hidden xs:inline">E2E </span>}Encrypted
       </Badge>
       {isRecording && (
         <Badge className="bg-red-500/20 text-red-400 border-red-500/30 animate-pulse text-xs">
@@ -1774,9 +1775,11 @@ const MeetingRoom = ({ user, meetingIdProp }) => {
         <div className="flex items-center gap-2.5">
           <Shield className="w-4 h-4 text-purple-400" />
           <span className="text-white font-medium text-sm truncate max-w-[200px]">{meeting?.title || 'AI KARAU Meeting'}</span>
-          <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px] hidden sm:flex gap-0.5 items-center">
-            <Shield className="w-2.5 h-2.5" />E2E
-          </Badge>
+          {MEETING_E2EE_ENABLED && (
+            <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[10px] hidden sm:flex gap-0.5 items-center">
+              <Shield className="w-2.5 h-2.5" />E2E
+            </Badge>
+          )}
           {isRecording && (
             <Badge className="bg-red-500 text-white border-0 text-[10px] animate-pulse flex gap-0.5 items-center">
               <Circle className="w-2 h-2 fill-current" />REC

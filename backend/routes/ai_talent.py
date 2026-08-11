@@ -225,29 +225,61 @@ async def get_scorecards(job_id: str, candidate_id: str, request: Request):
 
 @router.get("/hiring-metrics")
 async def get_hiring_metrics(request: Request):
-    """Get time-to-hire and other recruitment metrics"""
+    """Get time-to-hire and other recruitment metrics, computed from data.
+
+    Status handling is case-insensitive and tolerant of the several status
+    vocabularies the ``applications`` collection is written with (candidate
+    self-apply writes "Applied", ATS intake writes "received", recruiters write
+    "hired"/"rejected"/...). ``avg_cost_per_hire`` is never fabricated — it is
+    surfaced only if an operator has configured it in ``recruiting_settings``.
+    """
     try:
         from server import db
-        
-        # Get application statistics
+        from analytics_utils import tally_statuses, average_time_to_hire, source_effectiveness
+
         total_apps = await db.applications.count_documents({})
-        hired = await db.applications.count_documents({"status": "hired"})
-        rejected = await db.applications.count_documents({"status": "rejected"})
-        in_progress = await db.applications.count_documents({"status": {"$in": ["applied", "interview", "review"]}})
-        
-        # Get job statistics
+
+        # Status breakdown (case-insensitive; merges "Applied"/"applied" etc.)
+        status_rows = await db.applications.aggregate([
+            {"$group": {"_id": {"$toLower": "$status"}, "count": {"$sum": 1}}}
+        ]).to_list(100)
+        counts_by_status = {(r["_id"] or "unknown"): r["count"] for r in status_rows}
+        tallied = tally_statuses(counts_by_status)
+        hired = tallied["hired"]
+        rejected = tallied["rejected"]
+        in_progress = tallied["in_progress"]
+        pipeline_dict = tallied["pipeline"]
+
+        # Job statistics
         total_jobs = await db.jobs.count_documents({})
         active_jobs = await db.jobs.count_documents({"status": "active"})
-        
-        # Calculate metrics
+
         hire_rate = round((hired / total_apps * 100), 1) if total_apps > 0 else 0
-        
-        # Pipeline breakdown
-        pipeline = await db.applications.aggregate([
-            {"$group": {"_id": "$status", "count": {"$sum": 1}}}
-        ]).to_list(20)
-        pipeline_dict = {p["_id"]: p["count"] for p in pipeline if p["_id"]}
-        
+
+        # Real time-to-hire from hired applications' timestamps (bounded fetch).
+        hired_apps = await db.applications.find(
+            {"status": {"$regex": "^hired$", "$options": "i"}},
+            {"_id": 0, "applied_at": 1, "created_at": 1, "submitted_at": 1,
+             "updated_at": 1, "status_updated_at": 1, "hired_at": 1,
+             "source": 1, "job.source": 1},
+        ).to_list(5000)
+        avg_time_to_hire_days = average_time_to_hire(hired_apps)
+
+        # Source effectiveness: share of hires by source, falling back to share
+        # of all applications by source when there are no hires yet.
+        if hired_apps:
+            source_eff = source_effectiveness(hired_apps)
+        else:
+            all_apps = await db.applications.find(
+                {}, {"_id": 0, "source": 1, "job.source": 1}
+            ).to_list(5000)
+            source_eff = source_effectiveness(all_apps)
+
+        # Cost-per-hire has no source data in the app; expose it only when an
+        # operator has configured it. Never fabricated.
+        cost_setting = await db.recruiting_settings.find_one({"key": "cost_per_hire"})
+        avg_cost_per_hire = cost_setting.get("value") if cost_setting else None
+
         return {
             "total_applications": total_apps,
             "hired": hired,
@@ -257,14 +289,9 @@ async def get_hiring_metrics(request: Request):
             "total_jobs": total_jobs,
             "active_jobs": active_jobs,
             "pipeline": pipeline_dict,
-            "avg_time_to_hire_days": 14,
-            "avg_cost_per_hire": 4250,
-            "source_effectiveness": {
-                "direct": 35,
-                "referral": 28,
-                "job_board": 22,
-                "social": 15
-            }
+            "avg_time_to_hire_days": avg_time_to_hire_days,
+            "avg_cost_per_hire": avg_cost_per_hire,
+            "source_effectiveness": source_eff,
         }
     except Exception as e:
         logger.error(f"Metrics error: {e}")
@@ -272,6 +299,6 @@ async def get_hiring_metrics(request: Request):
             "total_applications": 0, "hired": 0, "rejected": 0,
             "in_progress": 0, "hire_rate": 0, "total_jobs": 0,
             "active_jobs": 0, "pipeline": {},
-            "avg_time_to_hire_days": 0, "avg_cost_per_hire": 0,
+            "avg_time_to_hire_days": 0, "avg_cost_per_hire": None,
             "source_effectiveness": {}
         }
