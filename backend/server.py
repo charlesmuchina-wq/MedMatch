@@ -215,6 +215,14 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.warning(f"Admin seed deferred: {e}")
 
+    # Task reminder loop: nudge owners of stale meeting action items in ENZI
+    try:
+        from services.task_reminder_service import task_reminder_loop
+        _asyncio.create_task(task_reminder_loop())
+        logger.info("Task reminder loop started")
+    except Exception as e:
+        logger.warning(f"Task reminder loop not started: {e}")
+
     logger.info("MedMatch-AI KARAU API server started successfully - Ready for 1M+ users!")
     
     yield

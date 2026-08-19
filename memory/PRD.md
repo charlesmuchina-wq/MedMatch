@@ -1,5 +1,9 @@
 # AI KARAU + ENZI - Product Requirements Document
 
+## Task Reminders — June 23, 2026 (late night)
+- **DONE & VERIFIED:** services/task_reminder_service.py — background loop (started in server.py lifespan, first run 60s, every 6h) finds meeting-sourced tasks open/in_progress for 2+ days (last_reminded_at guard, re-nudge only after another 2 days) and DMs the owner in ENZI from "ENZI AI" (auto-created dm channel dm_key=user_enzi_ai, ai_assistant message + WS push). Owner resolution: assignee name match in db.users, fallback task creator. Manual trigger: POST /api/agents/tasks/run-reminders.
+- Verified: backdated tasks → 16 reminded / 1 recipient; second run 0 (idempotent); ENZI AI DM renders in sidebar with badge, bulleted tasks + source labels (message lists max 10 bullets).
+
 ## Summary Email + Transcript Tasks — June 23, 2026 (night)
 - **Summary Email — DONE & VERIFIED (real delivery limited by Resend testing mode):** On webinar end (POST /api/karau/webinar/{id}/end) a background task emails the AI summary + transcript PDF (base64 attachment) to all registered attendees; manual host trigger POST /{id}/send-summary. email_service.send_email now supports attachments; FROM_EMAIL falls back to SENDER_EMAIL; EMAIL_PROVIDER=resend added to backend/.env. Verified: 1 real email delivered to the Resend account owner's inbox. **LIMITATION: Resend account has no verified domain (testing mode) — can only deliver to the account owner's email until user verifies a domain at resend.com/domains.** Failures per recipient are counted and stored on webinar.summary_email.
 - **Transcript Tasks — DONE & VERIFIED:** "Extract Tasks" on TranscriptPage → reuses POST /api/agents/extract-worklist → creates real tasks in db.agent_tasks (visible in Agents worklist) with assignee/priority; in-page checklist with done/open toggle (PATCH /api/agents/tasks/{id}). Verified: 3 tasks extracted with correct owners (@Sarah/@Mark) and toggle works.

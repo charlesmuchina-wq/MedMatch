@@ -381,6 +381,14 @@ async def delete_task(task_id: str, request: Request):
     return {"deleted": True}
 
 
+@router.post("/tasks/run-reminders")
+async def run_reminders_now(request: Request):
+    """Manually trigger the overdue meeting-task reminder cycle."""
+    await require_auth(request)
+    from services.task_reminder_service import run_task_reminders
+    return await run_task_reminders()
+
+
 @router.get("/tasks-stats")
 async def task_stats(request: Request):
     user = await require_auth(request)
