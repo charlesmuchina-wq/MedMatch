@@ -1,5 +1,10 @@
 # AI KARAU + ENZI - Product Requirements Document
 
+## Done From Chat + Daily Digest — June 23, 2026 (final)
+- **Done From Chat — DONE & VERIFIED:** Replies in the ENZI-AI DM are processed (hook in lumi core send_message when channel.dm_key contains enzi_ai → handle_ai_dm_reply): "done" completes all reminded tasks, "done 2" by list index (reminder bullets now numbered, created_at-asc stable order), "done <words>" by title fragment; non-done replies get a help message. Confirmations posted with strikethrough titles + remaining count. Verified: "done 1" marked 1/16, "done" marked remaining 15.
+- **Daily Digest — DONE & VERIFIED:** run_daily_digest sends each eligible lumi user (once/day, guard db.enzi_daily_digests, skipped when empty) a morning ENZI-AI DM: open tasks (top 5, high=🔴), upcoming meetings (top 3), unread messages (total + top 3 channels). Hourly loop fires at 07:00 UTC (daily_digest_loop, started in server.py lifespan). Manual: POST /api/agents/digest/run (self, forced). Verified via API + UI screenshot.
+- send_ai_dm_message helper extracted in services/task_reminder_service.py (shared by reminders, done-replies, digests).
+
 ## Task Reminders — June 23, 2026 (late night)
 - **DONE & VERIFIED:** services/task_reminder_service.py — background loop (started in server.py lifespan, first run 60s, every 6h) finds meeting-sourced tasks open/in_progress for 2+ days (last_reminded_at guard, re-nudge only after another 2 days) and DMs the owner in ENZI from "ENZI AI" (auto-created dm channel dm_key=user_enzi_ai, ai_assistant message + WS push). Owner resolution: assignee name match in db.users, fallback task creator. Manual trigger: POST /api/agents/tasks/run-reminders.
 - Verified: backdated tasks → 16 reminded / 1 recipient; second run 0 (idempotent); ENZI AI DM renders in sidebar with badge, bulleted tasks + source labels (message lists max 10 bullets).

@@ -389,6 +389,14 @@ async def run_reminders_now(request: Request):
     return await run_task_reminders()
 
 
+@router.post("/digest/run")
+async def run_digest_now(request: Request):
+    """Send the daily digest to the requesting user immediately."""
+    user = await require_auth(request)
+    from services.task_reminder_service import run_daily_digest
+    return await run_daily_digest(only_user_id=user["user_id"], force=True)
+
+
 @router.get("/tasks-stats")
 async def task_stats(request: Request):
     user = await require_auth(request)

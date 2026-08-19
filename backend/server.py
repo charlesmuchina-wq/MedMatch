@@ -217,9 +217,10 @@ async def lifespan(app: FastAPI):
 
     # Task reminder loop: nudge owners of stale meeting action items in ENZI
     try:
-        from services.task_reminder_service import task_reminder_loop
+        from services.task_reminder_service import task_reminder_loop, daily_digest_loop
         _asyncio.create_task(task_reminder_loop())
-        logger.info("Task reminder loop started")
+        _asyncio.create_task(daily_digest_loop())
+        logger.info("Task reminder + daily digest loops started")
     except Exception as e:
         logger.warning(f"Task reminder loop not started: {e}")
 

@@ -412,6 +412,15 @@ async def send_message(channel_id: str, data: MessageSend, request: Request):
     # Broadcast to channel via WebSocket
     await manager.send_to_channel(channel_id, {"type": "message", "data": msg})
 
+    # ENZI AI DM: process "done" replies against reminded tasks
+    if "enzi_ai" in (channel.get("dm_key") or ""):
+        try:
+            import asyncio as _asyncio
+            from services.task_reminder_service import handle_ai_dm_reply
+            _asyncio.create_task(handle_ai_dm_reply(dict(user), content))
+        except Exception:
+            pass
+
     # Check for slash commands — trigger bot if applicable
     if content.startswith("/"):
         try:
