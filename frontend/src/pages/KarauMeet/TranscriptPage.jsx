@@ -1,10 +1,18 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Search, Loader2, FileText } from 'lucide-react';
+import { toast } from 'sonner';
+import { ArrowLeft, Search, Loader2, FileText, Sparkles, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 const API = process.env.REACT_APP_BACKEND_URL;
+
+const authHeaders = () => {
+  const h = {};
+  const t = localStorage.getItem('access_token');
+  if (t) h['Authorization'] = `Bearer ${t}`;
+  return h;
+};
 
 export default function TranscriptPage() {
   const { meetingId } = useParams();
@@ -12,15 +20,15 @@ export default function TranscriptPage() {
   const [lines, setLines] = useState([]);
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(true);
+  const [summary, setSummary] = useState('');
+  const [summarizing, setSummarizing] = useState(false);
+  const [exporting, setExporting] = useState(false);
 
   const load = useCallback(async (q = '') => {
     setLoading(true);
-    const headers = {};
-    const t = localStorage.getItem('access_token');
-    if (t) headers['Authorization'] = `Bearer ${t}`;
     try {
       const res = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/captions?q=${encodeURIComponent(q)}`, {
-        headers, credentials: 'include',
+        headers: authHeaders(), credentials: 'include',
       });
       if (res.ok) {
         const d = await res.json();
@@ -37,6 +45,37 @@ export default function TranscriptPage() {
     return () => clearTimeout(id);
   }, [query, load]);
 
+  const generateSummary = async () => {
+    setSummarizing(true);
+    try {
+      const res = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/captions/summary`, {
+        method: 'POST', headers: authHeaders(), credentials: 'include',
+      });
+      const d = await res.json();
+      if (res.ok) setSummary(d.summary);
+      else toast.error(d.detail || 'Summary failed');
+    } catch { toast.error('Summary failed'); }
+    setSummarizing(false);
+  };
+
+  const exportPdf = async () => {
+    setExporting(true);
+    try {
+      const res = await fetch(`${API}/api/karau-meet/meetings/${meetingId}/captions/export.pdf`, {
+        headers: authHeaders(), credentials: 'include',
+      });
+      if (!res.ok) { const d = await res.json().catch(() => ({})); toast.error(d.detail || 'Export failed'); }
+      else {
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = `transcript_${meetingId}.pdf`; a.click();
+        URL.revokeObjectURL(url);
+      }
+    } catch { toast.error('Export failed'); }
+    setExporting(false);
+  };
+
   return (
     <div className="max-w-3xl mx-auto px-6 py-8" data-testid="transcript-page">
       <div className="flex items-center gap-3 mb-6">
@@ -44,11 +83,30 @@ export default function TranscriptPage() {
           <ArrowLeft className="w-4 h-4" />
         </Button>
         <FileText className="w-5 h-5 text-purple-400" />
-        <div>
+        <div className="flex-1">
           <h1 className="text-lg font-semibold text-white">Meeting Transcript</h1>
           <p className="text-xs text-slate-500">Live captions saved from meeting {meetingId}</p>
         </div>
+        <Button size="sm" onClick={generateSummary} disabled={summarizing || lines.length === 0}
+          className="bg-gradient-to-r from-purple-600 to-violet-600 rounded-xl text-xs" data-testid="transcript-summary-btn">
+          {summarizing ? <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5 mr-1.5" />}
+          AI Summary
+        </Button>
+        <Button size="sm" variant="outline" onClick={exportPdf} disabled={exporting || lines.length === 0}
+          className="border-white/10 text-slate-300 hover:bg-white/5 rounded-xl text-xs" data-testid="transcript-export-btn">
+          {exporting ? <Loader2 className="w-3.5 h-3.5 mr-1.5 animate-spin" /> : <Download className="w-3.5 h-3.5 mr-1.5" />}
+          PDF
+        </Button>
       </div>
+      {summary && (
+        <div className="mb-6 p-4 rounded-2xl bg-purple-500/10 border border-purple-500/20" data-testid="transcript-summary-panel">
+          <div className="flex items-center gap-2 mb-2">
+            <Sparkles className="w-4 h-4 text-purple-400" />
+            <span className="text-sm font-semibold text-purple-300">AI Summary</span>
+          </div>
+          <div className="text-sm text-slate-200 whitespace-pre-wrap">{summary.replace(/\*\*/g, '')}</div>
+        </div>
+      )}
       <div className="relative mb-5">
         <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
         <Input

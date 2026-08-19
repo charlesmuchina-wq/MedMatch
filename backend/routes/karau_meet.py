@@ -519,6 +519,81 @@ async def get_caption_transcript(meeting_id: str, request: Request, q: str = "",
     return {"meeting_id": meeting_id, "count": len(lines), "query": q, "lines": lines}
 
 
+@router.post("/meetings/{meeting_id}/captions/summary")
+async def summarize_caption_transcript(meeting_id: str, request: Request):
+    """One-click AI summary + action items from the saved caption transcript."""
+    from utils.database import db
+    await require_auth(request)
+    lines = await db.karau_caption_transcripts.find(
+        {"meeting_id": meeting_id}, {"_id": 0, "speaker": 1, "text": 1}
+    ).sort("ts", 1).to_list(length=1000)
+    if not lines:
+        raise HTTPException(status_code=404, detail="No captions saved for this meeting yet")
+    key = os.environ.get("EMERGENT_LLM_KEY")
+    if not key:
+        raise HTTPException(status_code=500, detail="AI key not configured")
+    transcript = "\n".join(f"{l['speaker']}: {l['text']}" for l in lines)[:24000]
+    from emergentintegrations.llm.chat import LlmChat, UserMessage
+    chat = LlmChat(
+        api_key=key,
+        session_id=f"transcript-{meeting_id}-{uuid.uuid4().hex[:6]}",
+        system_message="You summarize meeting transcripts. Output markdown with sections: **Summary** (max 120 words), **Key Decisions** (bullets, omit if none), **Action Items** (checklist '- [ ] task — owner' when identifiable, or 'None identified').",
+    ).with_model("openai", "gpt-4.1-mini")
+    try:
+        result = str(await chat.send_message(UserMessage(text=f"Meeting transcript:\n{transcript}")))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Summary generation failed: {str(e)}")
+    doc = {"meeting_id": meeting_id, "summary": result, "line_count": len(lines),
+           "generated_at": datetime.now(timezone.utc).isoformat()}
+    await db.karau_transcript_summaries.update_one(
+        {"meeting_id": meeting_id}, {"$set": doc}, upsert=True)
+    return doc
+
+
+@router.get("/meetings/{meeting_id}/captions/export.pdf")
+async def export_caption_transcript_pdf(meeting_id: str, request: Request):
+    """Download the saved caption transcript (and latest AI summary) as a PDF."""
+    import io
+    from fastapi.responses import StreamingResponse
+    from utils.database import db
+    await require_auth(request)
+    lines = await db.karau_caption_transcripts.find(
+        {"meeting_id": meeting_id}, {"_id": 0}
+    ).sort("ts", 1).to_list(length=1000)
+    if not lines:
+        raise HTTPException(status_code=404, detail="No captions saved for this meeting yet")
+    summary_doc = await db.karau_transcript_summaries.find_one({"meeting_id": meeting_id}, {"_id": 0})
+
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import mm
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+    from xml.sax.saxutils import escape
+
+    buf = io.BytesIO()
+    pdf = SimpleDocTemplate(buf, pagesize=A4, leftMargin=18 * mm, rightMargin=18 * mm,
+                            topMargin=18 * mm, bottomMargin=18 * mm, title=f"Transcript {meeting_id}")
+    styles = getSampleStyleSheet()
+    line_style = ParagraphStyle("line", parent=styles["Normal"], fontSize=9.5, leading=13)
+    story = [Paragraph(f"Meeting Transcript — {escape(meeting_id)}", styles["Title"]),
+             Paragraph(f"{len(lines)} caption lines · exported {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}", styles["Normal"]),
+             Spacer(1, 8)]
+    if summary_doc and summary_doc.get("summary"):
+        story.append(Paragraph("AI Summary", styles["Heading2"]))
+        for para in summary_doc["summary"].replace("**", "").split("\n"):
+            if para.strip():
+                story.append(Paragraph(escape(para.strip()), line_style))
+        story.append(Spacer(1, 10))
+    story.append(Paragraph("Transcript", styles["Heading2"]))
+    for l in lines:
+        ts = (l.get("ts") or "")[11:16]
+        story.append(Paragraph(f"<font color='#555555'>{escape(ts)}</font> <b>{escape(l.get('speaker', 'Speaker'))}</b>: {escape(l.get('text', ''))}", line_style))
+    pdf.build(story)
+    buf.seek(0)
+    return StreamingResponse(buf, media_type="application/pdf",
+                             headers={"Content-Disposition": f"attachment; filename=transcript_{meeting_id}.pdf"})
+
+
 class RoleBody(BaseModel):
     can_publish: bool
 

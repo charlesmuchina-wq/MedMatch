@@ -1,5 +1,9 @@
 # AI KARAU + ENZI - Product Requirements Document
 
+## Transcript AI Summary + PDF Export — June 23, 2026 (evening)
+- **AI Summary — DONE & VERIFIED:** POST /api/karau-meet/meetings/{id}/captions/summary (gpt-4.1-mini → Summary / Key Decisions / Action Items markdown, cached in db.karau_transcript_summaries). One-click "AI Summary" button on TranscriptPage renders the panel. 404 for empty meetings.
+- **PDF Export — DONE & VERIFIED:** GET /api/karau-meet/meetings/{id}/captions/export.pdf (reportlab, includes latest AI summary + timestamped lines, auth required/401). "PDF" button downloads transcript_{id}.pdf — verified via curl (valid %PDF) and browser download.
+
 ## AI Rate Limit + Caption Transcripts — June 23, 2026 (later)
 - **@AI rate limit — DONE & VERIFIED:** 10 requests/user/hour on POST /api/lumi/channels/{id}/ai (db.enzi_ai_usage); 11th call returns 429 with friendly detail, surfaced in composer toast. Verified: 10×200 then 429.
 - **Caption transcript save & search — DONE & VERIFIED:** POST/GET /api/karau-meet/meetings/{id}/captions (auth, db.karau_caption_transcripts, ?q= case-insensitive search). LiveKitCaptions auto-saves each spoken line (meetingId prop). New page /karau-meet/transcript/:meetingId (TranscriptPage.jsx) with debounced search; FileText button per webinar card in WebinarManagementPage. Verified via curl (save/list/search/401) + screenshot (2 lines render, search filters to 1).
