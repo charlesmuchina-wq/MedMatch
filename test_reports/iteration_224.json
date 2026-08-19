@@ -1,0 +1,51 @@
+{
+  "summary": "Iteration 224: tested new ENZI @AI in-channel assistant (POST /api/lumi/channels/{id}/ai) and LiveKit live-captions UI. Backend: 12/12 pytest passed (auth 401, non-member 403, empty-query 400, summarize + actions intents return ENZI AI ai_assistant messages that persist, /api/translate/languages returns 60+ langs, /api/realtime-stt/status available=true, /api/lumi/ai/translate ok, LUMI channels/messages regression ok, iteration223 refactor suite 11/11 passed). A dedicated websocket test proves the backend DOES broadcast the AI reply over /api/lumi/ws/{user_id}. Frontend KARAU captions UI fully works (CC toggle, 61 options incl. 'Original (no translation)', French selection, select hides on CC off, no crash). Frontend ENZI has 2 real bugs: (1) the ENZI AI reply never renders live — only after page reload; (2) all markdown in AI replies (bold headings, bullet lists, task checkboxes) is rendered with white text on a white background, i.e. invisible.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/lumi/channels/{id}/ai", "issue": "Non-existent channel id returns 403 'Not a member of this channel' instead of 404 — acceptable (no info leak) but semantically ambiguous."},
+      {"endpoint": "/api/lumi/channels/{id}/ai", "issue": "No rate limiting / concurrency guard: a user can spam @AI and trigger unbounded gpt-4.1-mini calls."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Lumi/RichMessage.jsx", "issue": "Markdown palette is hard-coded for a dark surface (li = text-white/80, strong = text-white, td/th = text-white/*) but MessageBubble renders on an effective rgb(255,255,255) background (verified by walking computed background chain). Result: ENZI AI summaries/action-item checklists appear as large blank gaps — only plain paragraphs (text-slate-900 inherited) are readable. Contrast ratio ~1:1.", "selector": ".rich-message li, .rich-message strong", "priority": "HIGH"},
+      {"component": "KarauMeet/LiveKitCaptions.jsx", "issue": "Caption language picker uses a native <select> (browser default picker) rather than the shadcn Select used elsewhere; also no visual 'listening/transcribing' indicator so a host cannot tell captions are actually capturing.", "selector": "[data-testid=captions-language-select]", "priority": "LOW"}
+    ],
+    "integration_issues": [
+      {"flow": "ENZI @AI reply delivery", "issue": "After sending '@AI summarize this conversation' the user's own message renders live and POST /ai returns 200, but the ENZI AI reply NEVER appears in the open thread (waited 30s+, twice, for both 'summarize' and 'extract action items'). It only shows after a page reload (verified: 4 ai-assistant badges + correct content after reload). Backend is innocent — /app/backend/tests/test_iteration224_ws_broadcast.py proves the AI frame IS pushed over the LUMI websocket to a single stable socket. RCA: LumiMessenger.jsx opens duplicate websockets (3 WS OPEN observed for the same user in one session) because the WS useEffect depends on loadChannels/loadDms/loadUnreadCounts, and every incoming 'message' frame calls loadChannels()/loadDms()/loadUnreadCounts() -> callbacks re-created -> effect teardown closes the socket and reconnects. Backend ConnectionManager.disconnect(user_id) pops the entry by user_id regardless of which socket closed, so the surviving client socket is removed from active_connections and receives no further broadcasts. The first (user) message arrives before the churn; the AI reply 5-15s later is dropped.", "affected_selectors": ["[data-testid=message-thread]", "[data-testid=ai-assistant-badge]", "[data-testid=ai-assistant-avatar]"]},
+      {"flow": "ENZI channel WS routing", "issue": "ws.onmessage appends every 'message' frame to the open thread without checking msg.data.channel_id === activeChannel.id — messages from other channels can leak into the currently open thread.", "affected_selectors": ["[data-testid=message-thread]"]}
+    ],
+    "design_issues": [
+      {"screen": "ENZI channel thread (AI replies)", "issues": ["ENZI AI markdown content invisible (white on white)", "Because content is invisible, AI messages occupy tall empty vertical gaps (~400px) making the thread look broken", "GFM task-list checkboxes render as bare unlabelled checkboxes"]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration224_enzi_ai_captions.py",
+    "/app/backend/tests/test_iteration224_ws_broadcast.py",
+    "/app/test_reports/pytest/iteration224_results.xml"
+  ],
+  "action_items": [
+    "FIX (HIGH): make RichMessage.jsx theme-aware (or use slate-800/slate-900 text on the light ENZI bubble surface) so AI markdown headings/lists/tables/checkboxes are visible.",
+    "FIX (HIGH): stabilise the LUMI websocket in LumiMessenger.jsx — remove loadChannels/loadDms/loadUnreadCounts from the WS useEffect deps (use refs), guard against duplicate sockets, and/or make backend ConnectionManager.disconnect only remove the socket instance that actually closed. Verify the ENZI AI reply lands in the open thread without reload.",
+    "FIX (MED): filter incoming WS 'message' frames by channel_id before appending to the active thread.",
+    "CONSIDER: per-user rate limit on POST /api/lumi/channels/{id}/ai."
+  ],
+  "critical_code_review_comments": [
+    "ai_agent.py is clean: excludes _id, validates empty query, 401/403/400/500 paths, uses env EMERGENT_LLM_KEY, sorts last 30 messages and excludes prior AI turns from context.",
+    "LumiMessenger.jsx handleSend fires the /ai POST without awaiting and only toasts on failure — no optimistic 'thinking' placeholder message, so a dropped WS frame is completely silent to the user.",
+    "ConnectionManager.disconnect(user_id) is not socket-scoped — a stale duplicate connection closing evicts the live one (systemic realtime bug, not only for AI messages).",
+    "LiveKitCaptions.jsx swallows every error with empty catch blocks (fetch/getUserMedia/transcribe) — mic-permission or Whisper failures give the user zero feedback while 'CC on' stays lit."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration224_enzi_ai_captions.py",
+    "/app/backend/tests/test_iteration224_ws_broadcast.py"
+  ],
+  "success_rate": {"backend": "100%", "frontend": "60%"},
+  "seed_data_creation": "Posted @AI messages + ENZI AI replies into existing channel ch_5204a3057c (msg-test-9c5157) via API and UI; no new channels/users created.",
+  "should_call_test_agent_after_fix": true,
+  "should_main_agent_self_test": false,
+  "test_credentials": "admin@medmatch.com / Swampdrainer2026! (works for /login and ENZI /lumi login)",
+  "context_for_next_testing_agent": "Backend AI endpoint + captions dependencies are fully green: rerun /app/backend/tests/test_iteration224_enzi_ai_captions.py (12 tests) and test_iteration224_ws_broadcast.py. ENZI channels list API returns {\"my_channels\": [...]} (not a bare list). /api/realtime-stt/status requires auth. Captions UI verified as attendee (canSpeak=false path still shows CC button + 61 languages). Remaining retest after fixes: (a) AI reply renders live in the open thread without reload, (b) AI markdown text visible (check computed color vs white bg via getComputedStyle, screenshots of ENZI look colour-inverted in the automation tool so rely on computed styles, not the image).",
+  "rca_of_the_issue": "Live AI reply missing: frontend opens multiple LUMI websockets because the WS useEffect depends on unstable useCallback identities that change on every incoming message (which itself triggers loadChannels/loadDms/loadUnreadCounts). React cleanup closes a socket; the backend ConnectionManager.disconnect(user_id) removes the user's entry from active_connections irrespective of which socket closed, so the still-open client socket stops receiving send_to_channel broadcasts. Since the ENZI AI answer arrives 5-15s after the user's message (LLM latency), it lands in that dead window and is lost; a reload re-fetches messages and shows it. Invisible AI text: RichMessage.jsx hard-codes a dark-surface palette while MessageBubble's effective background is white (verified rgb(255,255,255) via computed background chain)."
+}

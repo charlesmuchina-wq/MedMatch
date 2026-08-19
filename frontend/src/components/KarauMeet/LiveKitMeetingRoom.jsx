@@ -5,6 +5,7 @@ import "@livekit/components-styles";
 import { Loader2, AlertTriangle } from "lucide-react";
 import WebinarHostControls from "@/components/KarauMeet/WebinarHostControls";
 import RaiseHandButton from "@/components/KarauMeet/RaiseHandButton";
+import LiveKitCaptions from "@/components/KarauMeet/LiveKitCaptions";
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
@@ -83,6 +84,7 @@ export default function LiveKitMeetingRoom({ user, meetingId, webinar = false })
       >
         <VideoConference />
         <RoomAudioRenderer />
+        <LiveKitCaptions canSpeak={!webinar || isHost} />
         {webinar && isHost && <WebinarHostControls meetingId={meetingId} />}
         {webinar && !isHost && role === "attendee" && <RaiseHandButton />}
       </LiveKitRoom>

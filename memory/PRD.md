@@ -1,5 +1,16 @@
 # AI KARAU + ENZI - Product Requirements Document
 
+## Live Captions + Agentic Chat — Iterations 224-225 (June 23, 2026)
+- **ENZI @AI in-channel assistant — DONE & VERIFIED:** `POST /api/lumi/channels/{id}/ai` (routes/lumi_messenger/ai_agent.py, LUMI route count now 62). Intents: summarize / action items / translate to X / free-form Q&A (gpt-4.1-mini, last 30 msgs context). Reply posted in-channel as sender "ENZI AI" (type=ai_assistant, AI badge + sparkles avatar in MessageBubble) and broadcast over LUMI WS. Frontend: '@AI <request>' prefix in composer (LumiMessenger.jsx handleSend).
+- **LiveKit Live Captions — DONE & UI VERIFIED:** LiveKitCaptions.jsx (mounted in LiveKitMeetingRoom): speaker mic → 4s webm chunks → /api/realtime-stt/transcribe-base64 (Whisper) → 'captions' data channel broadcast; each viewer picks caption language (60 langs via /api/translate/languages, translated per-viewer via /api/lumi/ai/translate) or Original. Mic→speech path untestable headlessly; UI + all backend deps verified. NOTE: legacy P2P LiveCaptions.jsx untouched (used by MeetingRoom.jsx).
+- **Realtime bug fixes (found by testing agent, all verified in iteration_225):**
+  1. LUMI WS churn: WS useEffect now depends only on [user]; loaders via wsLoadersRef; cleanup nulls onclose (no zombie reconnects). Backend ConnectionManager.disconnect now socket-scoped (_common.py + ws.py). AI replies now render live without reload.
+  2. WS 'message' frames filtered by channel_id (activeChannelRef) — no cross-channel leak.
+  3. RichMessage.jsx markdown palette converted to light theme (was white-on-white).
+  4. MessageBubble hover toolbar re-anchored to message row (was rendering under sidebar, unclickable) — reactions verified working.
+- Test reports: /app/test_reports/iteration_224.json (backend 12/12), iteration_225.json (all fixes pass). Suites: tests/test_iteration224_enzi_ai_captions.py, test_iteration224_ws_broadcast.py.
+- Known minor (backlog): no rate limit on @AI endpoint; native <select> for caption language; LiveKitCaptions errors silently swallowed.
+
 ## Original Problem Statement
 Build a dual-platform communication suite: "AI KARAU" (webinar tool), "ENZI" (professional-grade AI messenger), and "MedMatch AI" (job-seeking toolkit). ENZI is the primary focus -- a futuristic, AI-driven "Actionable Intelligence" hub with liquid glass aesthetics, bento grid layouts, and predictive behavior.
 
@@ -104,6 +115,9 @@ Prerequisites: threat model, pen test report, SAST/DAST results, data flow diagr
 Prerequisites: release branch, signing certs, store access
 
 ## Future/Backlog
+- P1: Microsoft 365 Publisher Attestation (user confirmed will provide Partner ID + Entra client ID — awaiting values)
+- P2: LiveKit HLS egress/recording (user setting up Cloudflare R2 — instructions provided June 23)
+- P2: Rate limit on POST /api/lumi/channels/{id}/ai
 - P1: Real-time Deployment Dashboard
 - P2: Production Monitoring & CRS Dashboard
 - P2: Chrome Extension

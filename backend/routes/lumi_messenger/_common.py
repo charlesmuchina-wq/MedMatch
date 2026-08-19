@@ -101,7 +101,10 @@ class ConnectionManager:
             upsert=True
         )
 
-    def disconnect(self, user_id: str):
+    def disconnect(self, user_id: str, websocket: WebSocket = None):
+        current = self.active_connections.get(user_id)
+        if websocket is not None and current is not None and current is not websocket:
+            return
         self.active_connections.pop(user_id, None)
         asyncio.create_task(self._set_offline(user_id))
 

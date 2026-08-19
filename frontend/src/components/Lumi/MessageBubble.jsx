@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import {
   Smile, MessageSquare, FileText, Download,
-  Globe, Loader2, X, Pencil, Trash2, Check
+  Globe, Loader2, X, Pencil, Trash2, Check, Sparkles
 } from 'lucide-react';
 import { API, ESY } from './constants';
 import RichMessage from './RichMessage';
@@ -71,10 +71,14 @@ export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, o
   const profilePic = msg.sender_profile_picture;
 
   return (
-    <div className={`group flex gap-3 px-5 py-1 hover:bg-slate-50/50 ${!prevSameSender ? 'mt-4' : 'mt-0.5'}`} data-testid={`msg-${msg.id}`}>
+    <div className={`group relative flex gap-3 px-5 py-1 hover:bg-slate-50/50 ${!prevSameSender ? 'mt-4' : 'mt-0.5'}`} data-testid={`msg-${msg.id}`}>
       <div className="w-9 flex-shrink-0">
         {!prevSameSender && (
-          profilePic ? (
+          msg.type === 'ai_assistant' ? (
+            <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #00CEC9, #E84393)' }} data-testid="ai-assistant-avatar">
+              <Sparkles className="w-4 h-4 text-white" aria-hidden="true" />
+            </div>
+          ) : profilePic ? (
             <img src={profilePic} alt="" className="w-9 h-9 rounded-full object-cover" />
           ) : (
             <div className={`w-9 h-9 rounded-full ${colors[ci]} flex items-center justify-center`}>
@@ -87,6 +91,9 @@ export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, o
         {!prevSameSender && (
           <div className="flex items-baseline gap-2 mb-0.5">
             <span className="text-sm font-bold text-slate-900">{msg.sender_name}</span>
+            {msg.type === 'ai_assistant' && (
+              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-teal-50 text-teal-700 border border-teal-200" data-testid="ai-assistant-badge">AI</span>
+            )}
             <span className="text-[11px] text-slate-500">{time}</span>
             {msg.edited && <span className="text-[10px] text-slate-400 italic">(edited)</span>}
           </div>
@@ -154,8 +161,7 @@ export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, o
           </div>
         )}
 
-        <div className="relative inline-flex">
-          <div className="opacity-0 group-hover:opacity-100 absolute -top-7 right-0 flex items-center gap-0.5 bg-white border border-slate-200 rounded-md shadow-sm p-0.5 z-10">
+        <div className="opacity-0 group-hover:opacity-100 absolute -top-3 right-5 flex items-center gap-0.5 bg-white border border-slate-200 rounded-md shadow-sm p-0.5 z-10">
             <button onClick={() => setShowReact(!showReact)} className="p-1 hover:bg-slate-100 rounded" data-testid={`react-btn-${msg.id}`}>
               <Smile className="w-3.5 h-3.5 text-slate-500" />
             </button>
@@ -176,14 +182,13 @@ export const MessageBubble = ({ msg, isOwn, prevSameSender, onReact, onThread, o
               </>
             )}
           </div>
-          {showReact && (
-            <div className="absolute -top-12 right-0 flex items-center gap-0.5 px-1.5 py-1 bg-white border border-slate-200 rounded-lg shadow-lg z-20" data-testid={`react-picker-${msg.id}`}>
-              {quickEmojis.map(e => (
-                <button key={e} onClick={() => { onReact?.(msg.id, e); setShowReact(false); }} className="p-1 hover:bg-slate-100 rounded text-sm">{e}</button>
-              ))}
-            </div>
-          )}
-        </div>
+        {showReact && (
+          <div className="absolute -top-10 right-5 flex items-center gap-0.5 px-1.5 py-1 bg-white border border-slate-200 rounded-lg shadow-lg z-20" data-testid={`react-picker-${msg.id}`}>
+            {quickEmojis.map(e => (
+              <button key={e} onClick={() => { onReact?.(msg.id, e); setShowReact(false); }} className="p-1 hover:bg-slate-100 rounded text-sm">{e}</button>
+            ))}
+          </div>
+        )}
 
         {showLangPicker && (
           <div className="mt-1 inline-block w-48 max-h-56 overflow-auto bg-white border border-slate-200 rounded-lg shadow-xl z-20 py-1" data-testid={`lang-picker-${msg.id}`}>

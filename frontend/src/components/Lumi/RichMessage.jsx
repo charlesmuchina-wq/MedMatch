@@ -47,29 +47,29 @@ const RichMessage = ({ content }) => {
                 </div>
               );
             }
-            return <code className="px-1.5 py-0.5 rounded bg-white/10 text-[#e06c75] text-[12px] font-mono" {...props}>{children}</code>;
+            return <code className="px-1.5 py-0.5 rounded bg-slate-100 text-rose-600 text-[12px] font-mono" {...props}>{children}</code>;
           },
           blockquote({ children }) {
-            return <blockquote className="border-l-2 border-[#00CEC9]/50 pl-3 my-1.5 text-white/60 italic">{children}</blockquote>;
+            return <blockquote className="border-l-2 border-[#008080]/50 pl-3 my-1.5 text-slate-600 italic">{children}</blockquote>;
           },
           table({ children }) {
-            return <div className="overflow-x-auto my-2"><table className="min-w-full text-xs border border-white/10 rounded-lg overflow-hidden">{children}</table></div>;
+            return <div className="overflow-x-auto my-2"><table className="min-w-full text-xs border border-slate-200 rounded-lg overflow-hidden">{children}</table></div>;
           },
-          thead({ children }) { return <thead className="bg-white/5">{children}</thead>; },
-          th({ children }) { return <th className="px-3 py-1.5 text-left text-white/70 font-semibold border-b border-white/10">{children}</th>; },
-          td({ children }) { return <td className="px-3 py-1.5 border-b border-white/5 text-white/80">{children}</td>; },
-          a({ href, children }) { return <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#00CEC9] hover:underline">{children}</a>; },
+          thead({ children }) { return <thead className="bg-slate-50">{children}</thead>; },
+          th({ children }) { return <th className="px-3 py-1.5 text-left text-slate-700 font-semibold border-b border-slate-200">{children}</th>; },
+          td({ children }) { return <td className="px-3 py-1.5 border-b border-slate-100 text-slate-700">{children}</td>; },
+          a({ href, children }) { return <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#008080] hover:underline">{children}</a>; },
           ul({ children }) { return <ul className="list-disc list-inside my-1 space-y-0.5">{children}</ul>; },
           ol({ children }) { return <ol className="list-decimal list-inside my-1 space-y-0.5">{children}</ol>; },
-          li({ children }) { return <li className="text-white/80">{children}</li>; },
+          li({ children }) { return <li className="text-slate-800">{children}</li>; },
           p({ children }) { return <p className="my-0.5">{children}</p>; },
-          strong({ children }) { return <strong className="font-bold text-white">{children}</strong>; },
-          em({ children }) { return <em className="italic text-white/90">{children}</em>; },
-          del({ children }) { return <del className="line-through text-white/50">{children}</del>; },
-          hr() { return <hr className="border-white/10 my-2" />; },
-          h1({ children }) { return <h1 className="text-lg font-bold text-white mt-2 mb-1">{children}</h1>; },
-          h2({ children }) { return <h2 className="text-base font-bold text-white mt-2 mb-1">{children}</h2>; },
-          h3({ children }) { return <h3 className="text-sm font-bold text-white mt-1.5 mb-0.5">{children}</h3>; },
+          strong({ children }) { return <strong className="font-bold text-slate-900">{children}</strong>; },
+          em({ children }) { return <em className="italic text-slate-800">{children}</em>; },
+          del({ children }) { return <del className="line-through text-slate-400">{children}</del>; },
+          hr() { return <hr className="border-slate-200 my-2" />; },
+          h1({ children }) { return <h1 className="text-lg font-bold text-slate-900 mt-2 mb-1">{children}</h1>; },
+          h2({ children }) { return <h2 className="text-base font-bold text-slate-900 mt-2 mb-1">{children}</h2>; },
+          h3({ children }) { return <h3 className="text-sm font-bold text-slate-900 mt-1.5 mb-0.5">{children}</h3>; },
         }}
       >
         {content}

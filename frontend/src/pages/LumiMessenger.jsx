@@ -316,17 +316,26 @@ const LumiMessenger = () => {
       .then(() => setUnreadCounts(prev => { const n = { ...prev }; delete n[activeChannel.id]; return n; }));
   }, [activeChannel, token]);
 
-  // WebSocket
+  // WebSocket (stable: loaders via refs so the socket never churns on state updates)
+  const activeChannelRef = useRef(null);
+  useEffect(() => { activeChannelRef.current = activeChannel; }, [activeChannel]);
+  const wsLoadersRef = useRef({});
+  useEffect(() => { wsLoadersRef.current = { loadChannels, loadDms, loadUnreadCounts }; });
   useEffect(() => {
     if (!user) return;
+    let disposed = false;
     const connectWs = () => {
+      if (disposed) return;
       const ws = new WebSocket(`${WS_URL}/api/lumi/ws/${user.user_id}`);
       wsRef.current = ws;
       ws.onmessage = (event) => {
         const msg = JSON.parse(event.data);
         if (msg.type === 'message') {
-          setMessages(prev => prev.some(m => m.id === msg.data.id) ? prev : [...prev, msg.data]);
-          loadChannels(); loadDms(); loadUnreadCounts();
+          if (msg.data.channel_id === activeChannelRef.current?.id) {
+            setMessages(prev => prev.some(m => m.id === msg.data.id) ? prev : [...prev, msg.data]);
+          }
+          const { loadChannels: lc, loadDms: ld, loadUnreadCounts: lu } = wsLoadersRef.current;
+          lc?.(); ld?.(); lu?.();
         } else if (msg.type === 'reaction') {
           setMessages(prev => prev.map(m => m.id === msg.data.message_id ? { ...m, reactions: msg.data.reactions } : m));
         } else if (msg.type === 'thread_reply') {
@@ -336,7 +345,7 @@ const LumiMessenger = () => {
         } else if (msg.type === 'message_deleted') {
           setMessages(prev => prev.filter(m => m.id !== msg.data.message_id));
         } else if (msg.type === 'dm_created') {
-          loadDms();
+          wsLoadersRef.current.loadDms?.();
         } else if (msg.type === 'presence_change') {
           setPresenceMap(prev => ({ ...prev, [msg.data.user_id]: msg.data.status }));
         } else if (msg.type === 'typing') {
@@ -344,11 +353,11 @@ const LumiMessenger = () => {
           setTimeout(() => setTypingUsers(prev => { const ch = { ...(prev[msg.data.channel_id] || {}) }; delete ch[msg.data.user_id]; return { ...prev, [msg.data.channel_id]: ch }; }), 3000);
         }
       };
-      ws.onclose = () => setTimeout(connectWs, 3000);
+      ws.onclose = () => { if (!disposed) setTimeout(connectWs, 3000); };
     };
     connectWs();
-    return () => { if (wsRef.current) wsRef.current.close(); };
-  }, [user, loadChannels, loadDms, loadUnreadCounts]);
+    return () => { disposed = true; const ws = wsRef.current; if (ws) { ws.onclose = null; ws.close(); } };
+  }, [user]);
 
   // Load messages
   useEffect(() => {
@@ -390,7 +399,16 @@ const LumiMessenger = () => {
   const handleSend = async () => {
     if (!messageText.trim() || !activeChannel || sending) return;
     const text = messageText.trim(); setMessageText(''); setSending(true);
-    try { await fetch(`${API}/api/lumi/channels/${activeChannel.id}/messages`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ content: text }) }); } catch (e) { toast.error('Failed'); setMessageText(text); }
+    try {
+      await fetch(`${API}/api/lumi/channels/${activeChannel.id}/messages`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ content: text }) });
+      const aiMatch = text.match(/^@ai\s+(.+)/is);
+      if (aiMatch) {
+        toast('✨ ENZI AI is thinking…');
+        fetch(`${API}/api/lumi/channels/${activeChannel.id}/ai`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ query: aiMatch[1].trim() }) })
+          .then(r => { if (!r.ok) toast.error('ENZI AI could not respond'); })
+          .catch(() => toast.error('ENZI AI could not respond'));
+      }
+    } catch (e) { toast.error('Failed'); setMessageText(text); }
     setSending(false);
   };
 

@@ -1,0 +1,33 @@
+{
+  "summary": "Iteration 225 (frontend only): re-verified the three iteration-224 fixes on ENZI /lumi with admin@medmatch.com. ALL THREE FIXES PASS: (1) ENZI AI reply now renders LIVE in the open thread — after sending '@AI summarize this conversation' the ai-assistant-badge count went 4 -> 5 in ~3s with NO page reload; only ONE websocket was opened for the session (no zombie reconnects/churn observed). (2) AI markdown is now visible — computed styles on 60 .rich-message elements: strong = rgb(15,23,42), li = rgb(30,41,59), on background rgb(255,255,255) (contrast fine). (3) No cross-channel leak — posted a message via API to a different channel (ch_50330ae57e) while ch_5204a3057c was open; it did NOT appear in the thread and did not re-render into it after 5s. Regression: normal (non-@AI) message renders live in the open thread. NEW BUG FOUND (blocks the reaction regression check): the per-message hover action toolbar (react/thread/translate/edit/delete) renders UNDER the left sidebar and is unclickable.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Lumi/MessageBubble.jsx (hover action toolbar, line ~164-165)", "issue": "The hover toolbar is absolutely positioned with `-top-7 right-0` inside a zero-width `relative inline-flex` wrapper placed at the LEFT edge of the message content, so it extends leftwards and its buttons land at viewport x≈165-285 — i.e. inside the fixed 280px-wide dark sidebar (`md:w-[280px]`). Measured: react-btn rect x=227 w=22; document.elementFromPoint at its centre returns the EnziSidebar channel <span>, and Playwright normal clicks are intercepted by the sidebar subtree (no horizontal document overflow: scrollWidth==clientWidth==1920, scrollLeft=0). Consequence: react / thread / translate / edit / delete are NOT clickable on desktop, and clicking there actually switches the active channel (the click hits the sidebar channel button underneath). Same problem for the emoji quick-picker (`-top-12 right-0`, measured x=181). Fix: anchor the toolbar to the right side of the message row (e.g. absolute right-4 top-0 on the row) or use `left-0`/`translate` so it never crosses x<300, and raise z-index above the sidebar.", "selector": "[data-testid^=\"react-btn-\"], [data-testid^=\"react-picker-\"]", "priority": "HIGH"}
+    ],
+    "integration_issues": [
+      {"flow": "Message reactions (spot-check)", "issue": "Could not verify reaction add/remove through the UI because the react button/emoji picker are pointer-intercepted by the sidebar (see ui_bug). A forced click on the emoji produced 0 reaction chips ([data-testid^=reaction-] count = 0), so reaction persistence via UI remains UNVERIFIED — needs retest after the toolbar positioning fix (backend /messages/{id}/react was green in earlier iterations).", "affected_selectors": ["[data-testid^=\"react-btn-\"]", "[data-testid^=\"reaction-\"]"]}
+    ],
+    "design_issues": [
+      {"screen": "ENZI channel thread", "issues": ["AI markdown now legible (dark slate on white) — previous white-on-white issue resolved", "Hover action toolbar visually sits on top of / behind the dark sidebar instead of over the message row", "AI summaries still render GFM task-list checkboxes as bare unlabelled checkboxes (cosmetic, from iteration 224)"]}
+    ]
+  },
+  "test_report_links": ["/app/test_reports/iteration_225.json"],
+  "action_items": [
+    "FIX (HIGH): reposition the MessageBubble hover action toolbar and emoji quick-picker so they render within the message column (not under the 280px sidebar) and are clickable; then retest reactions/edit/delete/translate/thread buttons.",
+    "No further action needed for the 3 iteration-224 fixes (AI live render, markdown palette, channel_id filtering) — all verified PASS."
+  ],
+  "critical_code_review_comments": [
+    "LumiMessenger.jsx WS effect is now correctly scoped to [user] with wsLoadersRef + activeChannelRef and nulls ws.onclose before close — single stable socket observed in the browser; good.",
+    "MessageBubble.jsx: absolute-positioned overlays anchored with right-0 inside a zero-width inline-flex wrapper is fragile; all hover overlays (toolbar, react picker, lang picker) should be anchored to the message row container instead.",
+    "handleSend still fires the /ai POST without an optimistic 'thinking' placeholder message in the thread (only a toast); acceptable now that WS delivery is reliable, but a placeholder would make LLM latency clearer."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "not tested (per request)", "frontend": "80% (4/5 checks pass; reaction check blocked by toolbar overlay bug)"},
+  "seed_data_creation": "Posted TEST_regression_*, TEST_react_* and '@AI summarize this conversation' messages into existing channel ch_5204a3057c, plus one TEST_leak_* message into ch_50330ae57e. No new channels/users.",
+  "should_call_test_agent_after_fix": true,
+  "should_main_agent_self_test": false,
+  "test_credentials": "admin@medmatch.com / Swampdrainer2026! (works on /lumi login: [data-testid=lumi-email], lumi-password, lumi-login-btn)",
+  "context_for_next_testing_agent": "Login at /lumi via lumi-email/lumi-password/lumi-login-btn, then click [data-testid=channel-ch_5204a3057c]; composer = [data-testid=message-input] + [data-testid=send-message-btn]. ENZI AI reply arrives over WS in ~3-10s and adds [data-testid=ai-assistant-badge]. Verified live-render, light markdown palette (computed colors, screenshots of ENZI look colour-inverted in the tool), and channel_id filtering — all fixed. Remaining open item: MessageBubble hover toolbar/emoji picker render under the left sidebar (x<280) making react/edit/delete/translate/thread unclickable; after the fix, verify a reaction chip [data-testid=reaction-{emoji}-{msgId}] appears and persists. LiveKit captions UI intentionally skipped (passed in 224).",
+  "rca_of_the_issue": "Reaction/hover-toolbar unclickable: MessageBubble renders the action toolbar as `absolute -top-7 right-0` inside a `relative inline-flex` wrapper that has zero width and sits at the left edge of the message content column (~x=285). With right-0 the ~120px-wide toolbar therefore extends leftwards to x≈165-285, overlapping the 280px fixed sidebar which has a later/higher stacking context, so document.elementFromPoint at the buttons returns sidebar nodes and clicks are swallowed (and switch channels). Not a test-script issue — reproduced with plain elementFromPoint measurement at scrollLeft=0."
+}

@@ -180,7 +180,7 @@ const EnziChatView = ({
                 aria-describedby="message-input-hint"
               />
               <span id="message-input-hint" className="sr-only">
-                Press Enter to send. Shift+Enter to insert a new line.
+                Press Enter to send. Shift+Enter to insert a new line. Start with @AI to ask the channel assistant to summarize, extract action items, translate, or answer questions.
               </span>
               <button type="submit" onClick={handleSend} disabled={!messageText.trim() || sending}
                 className={`p-2 rounded-md transition-colors ${messageText.trim() ? 'text-white hover:opacity-90' : 'text-slate-400'}`}
