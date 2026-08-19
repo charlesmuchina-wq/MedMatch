@@ -1,0 +1,40 @@
+{
+  "summary": "Tested the new aikarau.com landing page (PortalSelector rewrite) + public webinar API. Backend: 10/10 pytest passing for GET /api/karau/webinar/public/upcoming (no-auth 200, correct shape, no _id, no 'test' titles, limit clamping 6/12, ascending sort, /{webinar_id} detail route still resolves after the new static route, 404 for unknown id) plus admin login regression. Frontend (logged out at '/'): hero, spotlight card (real live webinar 'Distance Zero'), 6 upcoming cards with 2 LIVE NOW badges, 6 register buttons all render. Interactions verified: caption language chip switch updates preview text (Kiswahili), transcript search 'revenue' filters to 1 line + empty state, nav anchor smooth scroll (scrollY 811 -> 2455), nav-sign-in-btn -> /login, nav-downloads-link -> /downloads, all 3 portal cards + Open buttons navigate to /karau-meet, /lumi, /login, footer privacy/terms render real legal pages. Register navigation works from both spotlight and grid cards to /karau-meet/webinar/{id}/register, and full conversion submit succeeded ('You're Registered!'). Mobile 390px: no horizontal overflow, hero+spotlight visible. Auth regression: admin@medmatch.com login lands on MedMatch dashboard and '/' shows the dashboard (never the landing) when authenticated.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/karau/webinar/public/upcoming", "issue": "Seed/QA data leaks to the public landing page: 'WebRTC Demo Webinar' (description 'Testing coordinator role') passes the title-only 'test' regex filter. Filter is title-only; consider also filtering description/host or tagging real webinars with an is_public flag."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "App.js line 1049 + PortalSelector footer", "issue": "Duplicate data-testid on landing page: App.js renders <LumiFooter /> below PortalSelector, so the page has TWO footers and duplicated data-testid values (footer-privacy-link x2, footer-terms-link x2). Playwright strict-mode fails on these selectors. Landing should render its own footer only (skip LumiFooter for the '/' unauthenticated route).", "selector": "[data-testid=\"footer-privacy-link\"], [data-testid=\"footer-terms-link\"]", "priority": "MEDIUM"},
+      {"component": "Public webinar registration page", "issue": "No data-testid attributes on the registration form (name/email/organization inputs, 'Register Now' button, success state). Tests had to fall back to positional input locators.", "selector": "input (positional)", "priority": "MEDIUM"},
+      {"component": "Public webinar registration page", "issue": "After a successful registration the attendee counter still shows the stale pre-registration value (3/1000) — count is not refreshed/incremented in the success state.", "selector": "n/a", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Landing '/' (logged out)", "issues": ["Double footer stacked at the bottom (landing footer + LumiFooter compact) — visually redundant on a conversion landing page", "Dark theme, Manrope headings, contrast and spacing all check out; mobile 390px has zero horizontal overflow"]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/test_iteration226_landing.py", "/app/test_reports/pytest/iteration226.xml"],
+  "action_items": [
+    "Remove/skip <LumiFooter /> for the unauthenticated '/' PortalSelector branch in App.js (~line 1049) to fix duplicate footers and duplicate data-testids",
+    "Add data-testid attributes to the public webinar registration form inputs, submit button and success state",
+    "Tighten the public webinar filter so seed/QA webinars like 'WebRTC Demo Webinar' (description 'Testing coordinator role') don't appear on the landing page",
+    "Refresh registered_count in the registration success state"
+  ],
+  "critical_code_review_comments": [
+    "GET /public/upcoming is correctly declared before /{webinar_id} — verified the detail route still resolves (regression test added).",
+    "PortalSelector.jsx (380 lines) is fine size-wise but has no error/empty UI state for a failed public webinar fetch: on fetch failure it silently falls back to a single hard-coded 'demo' card; consider surfacing a retry.",
+    "The public endpoint's 'test' title regex is a brittle content filter; prefer an explicit is_public/visibility field on webinars."
+  ],
+  "updated_files": ["/app/backend/tests/test_iteration226_landing.py", "/app/test_reports/iteration_226.json"],
+  "success_rate": {"backend": "100%", "frontend": "95%"},
+  "seed_data_creation": "Registered one attendee 'TEST_QA Landing' / test_qa_landing_226@example.com on webinar WEB-E8ADB10C to validate the conversion flow (no delete endpoint available to clean up).",
+  "should_call_test_agent_after_fix": false,
+  "should_main_agent_self_test": true,
+  "test_credentials": "admin@medmatch.com / Swampdrainer2026! (worked, lands on MedMatch dashboard)",
+  "context_for_next_testing_agent": "Landing page at '/' only renders when logged out; clear cookies+localStorage first. Public webinar API returns 6 clean webinars. When asserting footer links on the landing page use button[data-testid=\"footer-privacy-link\"] (or .first) because LumiFooter duplicates those testids. All landing interactions (demos, nav, portals, register nav, registration submit) verified working in iteration 226.",
+  "rca_of_the_issue": "Duplicate footer testids: App.js wraps <PortalSelector /> and additionally mounts <LumiFooter /> (line 1049); LumiFooter.jsx lines 36/38 use the same data-testid values as PortalSelector's own footer buttons (lines 369/370), producing two matching nodes per testid."
+}

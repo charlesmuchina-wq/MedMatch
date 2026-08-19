@@ -1046,7 +1046,6 @@ function AppContent({ skipPortalSelector = false, forcedPortal = null, domainCon
         <div className="flex-1">
           <PortalSelector />
         </div>
-        <LumiFooter />
         <Toaster position="top-right" richColors theme="dark" />
       </div>
     );

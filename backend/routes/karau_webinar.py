@@ -219,6 +219,23 @@ async def get_supported_languages():
     return {"languages": SUPPORTED_LANGUAGES}
 
 
+@router.get("/public/upcoming")
+async def public_upcoming_webinars(limit: int = 6):
+    """Public: upcoming & live webinars for the landing page (no auth)."""
+    webinars = await db.webinars.find(
+        {"status": {"$in": ["scheduled", "live"]},
+         "webinar_id": {"$exists": True, "$ne": None},
+         "title": {"$not": {"$regex": "test", "$options": "i"}},
+         "description": {"$not": {"$regex": "test", "$options": "i"}}},
+        {"_id": 0, "webinar_id": 1, "title": 1, "description": 1, "host_name": 1,
+         "scheduled_time": 1, "status": 1, "max_attendees": 1, "registrations": 1}
+    ).sort("scheduled_time", 1).limit(min(limit, 12)).to_list(length=min(limit, 12))
+    for w in webinars:
+        w["registered_count"] = len(w.pop("registrations", []) or [])
+        w["description"] = (w.get("description") or "")[:180]
+    return {"webinars": webinars, "count": len(webinars)}
+
+
 @router.get("/{webinar_id}")
 async def get_webinar(webinar_id: str):
     """Get webinar details (public for registration page)."""

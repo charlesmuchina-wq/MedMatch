@@ -50,6 +50,7 @@ export const WebinarRegistrationPage = () => {
       if (res.ok && data.success) {
         setRegistered(true);
         setJoinUrl(data.join_url);
+        fetchWebinar();
         toast.success(t("karauMeet.registrationSuccess") || "Successfully registered!");
       } else {
         toast.error(data.detail || 'Registration failed');
