@@ -1,5 +1,9 @@
 # AI KARAU + ENZI - Product Requirements Document
 
+## Digest Timezone + Snooze — June 23, 2026 (final 2)
+- **Per-user digest schedule — DONE & VERIFIED:** db.enzi_digest_prefs {hour, timezone}. GET/PUT /api/agents/digest/preferences (partial update, IANA tz validated via zoneinfo, invalid → 400). daily_digest_loop now runs hourly and sends when the user's LOCAL hour matches their pref (default 07:00 UTC); per-local-date sent guard. Chat command in ENZI-AI DM: "digest at 8am / 18:00" sets hour. LumiMessenger auto-syncs browser timezone (Intl resolvedOptions) via PUT on load. Verified: defaults, PUT Nairobi+8, chat set 6am, browser sync overwrote tz keeping hour.
+- **Snooze Reminders — DONE & VERIFIED:** "snooze" (default 3d), "snooze N" (cap 30), "snooze N <task words>" set agent_tasks.snoozed_until; reminder query excludes snoozed tasks. Verified: snooze 2 → 5 tasks snoozed until Aug 21, reminder run → 0. Nudge/help/digest texts updated to advertise done/snooze/digest commands.
+
 ## Done From Chat + Daily Digest — June 23, 2026 (final)
 - **Done From Chat — DONE & VERIFIED:** Replies in the ENZI-AI DM are processed (hook in lumi core send_message when channel.dm_key contains enzi_ai → handle_ai_dm_reply): "done" completes all reminded tasks, "done 2" by list index (reminder bullets now numbered, created_at-asc stable order), "done <words>" by title fragment; non-done replies get a help message. Confirmations posted with strikethrough titles + remaining count. Verified: "done 1" marked 1/16, "done" marked remaining 15.
 - **Daily Digest — DONE & VERIFIED:** run_daily_digest sends each eligible lumi user (once/day, guard db.enzi_daily_digests, skipped when empty) a morning ENZI-AI DM: open tasks (top 5, high=🔴), upcoming meetings (top 3), unread messages (total + top 3 channels). Hourly loop fires at 07:00 UTC (daily_digest_loop, started in server.py lifespan). Manual: POST /api/agents/digest/run (self, forced). Verified via API + UI screenshot.

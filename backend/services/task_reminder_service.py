@@ -102,7 +102,10 @@ async def run_task_reminders() -> dict:
         "$or": [{"source": "transcript"}, {"source": {"$regex": "^meeting"}},
                 {"source_label": {"$regex": "^Meeting"}}],
         "created_at": {"$lte": cutoff},
-        "$and": [{"$or": [{"last_reminded_at": {"$exists": False}}, {"last_reminded_at": {"$lte": cutoff}}]}],
+        "$and": [
+            {"$or": [{"last_reminded_at": {"$exists": False}}, {"last_reminded_at": {"$lte": cutoff}}]},
+            {"$or": [{"snoozed_until": {"$exists": False}}, {"snoozed_until": {"$lte": now.isoformat()}}]},
+        ],
     }, {"_id": 0}).sort("created_at", 1).to_list(200)
 
     if not tasks:
@@ -122,7 +125,8 @@ async def run_task_reminders() -> dict:
         plural = "s" if len(items) != 1 else ""
         content = (f"Friendly nudge: you have {len(items)} meeting action item{plural} still open after "
                    f"{REMIND_AFTER_DAYS}+ days:\n{bullets}\n\n"
-                   f"Reply **done** to complete them all, **done 2** for a specific one, or **done <task words>**.")
+                   f"Reply **done** to complete them all, **done 2** for a specific one, "
+                   f"or **snooze 3** to pause nudges for 3 days.")
         await send_ai_dm_message(rid, content, "task_reminder")
 
     task_ids = [t["id"] for t in tasks]
@@ -143,14 +147,63 @@ async def _user_open_reminded_tasks(user: dict) -> list:
 
 
 async def handle_ai_dm_reply(user: dict, content: str):
-    """Process replies in the ENZI-AI DM: 'done', 'done 2', 'done <task words>'."""
+    """Process replies in the ENZI-AI DM: done / snooze / digest-time commands."""
     text = (content or "").strip()
     low = text.lower()
+
+    m_digest = re.match(r"^digest\s+(?:at\s+)?(\d{1,2})(?::\d{2})?\s*(am|pm)?$", low)
+    if m_digest:
+        hour = int(m_digest.group(1))
+        ampm = m_digest.group(2)
+        if ampm == "pm" and hour < 12:
+            hour += 12
+        if ampm == "am" and hour == 12:
+            hour = 0
+        if hour > 23:
+            await send_ai_dm_message(user["user_id"], "Please pick an hour between 0 and 23, e.g. **digest at 8am**.", "digest_prefs")
+            return
+        prefs = await db.enzi_digest_prefs.find_one({"user_id": user["user_id"]}, {"_id": 0}) or {}
+        tz = prefs.get("timezone", "UTC")
+        await db.enzi_digest_prefs.update_one(
+            {"user_id": user["user_id"]},
+            {"$set": {"user_id": user["user_id"], "hour": hour,
+                      "updated_at": datetime.now(timezone.utc).isoformat()}},
+            upsert=True)
+        await send_ai_dm_message(
+            user["user_id"],
+            f"⏰ Got it — your daily digest will now arrive around **{hour:02d}:00** ({tz}).",
+            "digest_prefs")
+        return
+
+    m_snooze = re.match(r"^snooze(?:\s+(\d{1,2}))?(?:\s+(\D.*))?$", low)
+    if m_snooze:
+        days = min(int(m_snooze.group(1) or 3), 30)
+        frag = (m_snooze.group(2) or "").strip()
+        tasks = await _user_open_reminded_tasks(user)
+        targets = [t for t in tasks if frag in t["title"].lower()] if frag else tasks
+        if not targets:
+            await send_ai_dm_message(user["user_id"],
+                "Nothing to snooze — no open reminded tasks matched." if frag else "Nothing to snooze — you have no open reminded tasks.",
+                "task_snooze")
+            return
+        until = datetime.now(timezone.utc) + timedelta(days=days)
+        await db.agent_tasks.update_many(
+            {"id": {"$in": [t["id"] for t in targets]}},
+            {"$set": {"snoozed_until": until.isoformat(), "updated_at": datetime.now(timezone.utc).isoformat()}})
+        titles = "\n".join(f"- {t['title']}" for t in targets[:10])
+        await send_ai_dm_message(
+            user["user_id"],
+            f"😴 Snoozed {len(targets)} task{'s' if len(targets) != 1 else ''} until **{until.strftime('%b %d')}** ({days} day{'s' if days != 1 else ''}):\n{titles}",
+            "task_snooze")
+        return
+
     if "done" not in low:
         await send_ai_dm_message(
             user["user_id"],
-            "I track your task reminders here. Reply **done** to complete all reminded tasks, "
-            "**done 2** for a specific one, or **done <task words>**.",
+            "I track your task reminders here. You can reply:\n"
+            "- **done** — complete all reminded tasks (**done 2** for one, **done <task words>** to match)\n"
+            "- **snooze 3** — pause nudges for 3 days (**snooze 5 <task words>** for one task)\n"
+            "- **digest at 8am** — change your daily digest time",
             "task_reply_help")
         return
 
@@ -243,22 +296,35 @@ async def _build_digest(user: dict) -> str:
         top = sorted(unread.items(), key=lambda kv: -kv[1])[:3]
         parts.append(f"\n**Unread messages ({total})**")
         parts += [f"- #{ch_names.get(cid, 'channel')}: {n} unread" for cid, n in top]
-    parts.append("\nReply **done** here anytime to close out reminded tasks.")
+    parts.append("\nReply **done** to close reminded tasks, **snooze 3** to pause nudges, or **digest at 8am** to change this time.")
     return "\n".join(parts)
 
 
 async def run_daily_digest(only_user_id: str = None, force: bool = False) -> dict:
-    """Send the morning digest to eligible users (once per day, skipped when empty)."""
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    """Send the morning digest to users whose local time matches their preferred hour."""
+    from zoneinfo import ZoneInfo
+    now = datetime.now(timezone.utc)
     if only_user_id:
         user_ids = [only_user_id]
     else:
         user_ids = [u for u in await db.lumi_channels.distinct("members.user_id") if u != "enzi_ai"]
     sent = skipped = 0
     for uid in user_ids:
-        if not force and await db.enzi_daily_digests.find_one({"user_id": uid, "date": today}):
-            skipped += 1
-            continue
+        prefs = await db.enzi_digest_prefs.find_one({"user_id": uid}, {"_id": 0}) or {}
+        hour = prefs.get("hour", DIGEST_HOUR_UTC)
+        tz_name = prefs.get("timezone", "UTC")
+        try:
+            local = now.astimezone(ZoneInfo(tz_name))
+        except Exception:
+            local = now
+        local_date = local.strftime("%Y-%m-%d")
+        if not force:
+            if local.hour != hour:
+                skipped += 1
+                continue
+            if await db.enzi_daily_digests.find_one({"user_id": uid, "date": local_date}):
+                skipped += 1
+                continue
         user = await db.users.find_one({"user_id": uid}, {"_id": 0, "user_id": 1, "name": 1})
         if not user:
             continue
@@ -268,21 +334,20 @@ async def run_daily_digest(only_user_id: str = None, force: bool = False) -> dic
             continue
         await send_ai_dm_message(uid, digest, "daily_digest")
         await db.enzi_daily_digests.update_one(
-            {"user_id": uid, "date": today},
-            {"$set": {"user_id": uid, "date": today, "sent_at": datetime.now(timezone.utc).isoformat()}},
+            {"user_id": uid, "date": local_date},
+            {"$set": {"user_id": uid, "date": local_date, "sent_at": now.isoformat()}},
             upsert=True)
         sent += 1
-    return {"sent": sent, "skipped": skipped, "date": today}
+    return {"sent": sent, "skipped": skipped, "date": now.strftime("%Y-%m-%d")}
 
 
 async def daily_digest_loop():
     await asyncio.sleep(120)
     while True:
         try:
-            if datetime.now(timezone.utc).hour == DIGEST_HOUR_UTC:
-                result = await run_daily_digest()
-                if result["sent"]:
-                    logger.info(f"Daily digests sent: {result}")
+            result = await run_daily_digest()
+            if result["sent"]:
+                logger.info(f"Daily digests sent: {result}")
         except Exception as e:
             logger.error(f"Daily digest cycle failed: {e}")
         await asyncio.sleep(3600)

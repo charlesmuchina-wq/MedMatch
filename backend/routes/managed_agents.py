@@ -397,6 +397,43 @@ async def run_digest_now(request: Request):
     return await run_daily_digest(only_user_id=user["user_id"], force=True)
 
 
+class DigestPrefs(BaseModel):
+    hour: Optional[int] = None
+    timezone: Optional[str] = None
+
+
+@router.get("/digest/preferences")
+async def get_digest_preferences(request: Request):
+    user = await require_auth(request)
+    prefs = await db.enzi_digest_prefs.find_one({"user_id": user["user_id"]}, {"_id": 0}) or {}
+    return {"hour": prefs.get("hour", 7), "timezone": prefs.get("timezone", "UTC")}
+
+
+@router.put("/digest/preferences")
+async def update_digest_preferences(body: DigestPrefs, request: Request):
+    user = await require_auth(request)
+    update = {}
+    if body.hour is not None:
+        if not 0 <= body.hour <= 23:
+            raise HTTPException(status_code=400, detail="hour must be 0-23")
+        update["hour"] = body.hour
+    if body.timezone is not None:
+        from zoneinfo import ZoneInfo
+        try:
+            ZoneInfo(body.timezone)
+        except Exception:
+            raise HTTPException(status_code=400, detail="Invalid IANA timezone")
+        update["timezone"] = body.timezone
+    if not update:
+        raise HTTPException(status_code=400, detail="Provide hour and/or timezone")
+    update["updated_at"] = datetime.now(timezone.utc).isoformat()
+    await db.enzi_digest_prefs.update_one(
+        {"user_id": user["user_id"]},
+        {"$set": {"user_id": user["user_id"], **update}}, upsert=True)
+    prefs = await db.enzi_digest_prefs.find_one({"user_id": user["user_id"]}, {"_id": 0})
+    return {"hour": prefs.get("hour", 7), "timezone": prefs.get("timezone", "UTC")}
+
+
 @router.get("/tasks-stats")
 async def task_stats(request: Request):
     user = await require_auth(request)

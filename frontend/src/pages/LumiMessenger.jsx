@@ -316,6 +316,19 @@ const LumiMessenger = () => {
       .then(() => setUnreadCounts(prev => { const n = { ...prev }; delete n[activeChannel.id]; return n; }));
   }, [activeChannel, token]);
 
+  // Sync browser timezone for the daily digest schedule
+  useEffect(() => {
+    if (!user) return;
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (tz) {
+      fetch(`${API}/api/agents/digest/preferences`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ timezone: tz }),
+      }).catch(() => {});
+    }
+  }, [user]);
+
   // WebSocket (stable: loaders via refs so the socket never churns on state updates)
   const activeChannelRef = useRef(null);
   useEffect(() => { activeChannelRef.current = activeChannel; }, [activeChannel]);
