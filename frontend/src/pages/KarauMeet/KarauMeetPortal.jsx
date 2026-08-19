@@ -26,6 +26,7 @@ import { WebinarRegistrationPage } from './WebinarPage';
 import WebinarManagementPage from './WebinarManagementPage';
 import WebinarLiveRoom from './WebinarLiveRoom';
 import MeetingReplayPage from './MeetingReplayPage';
+import TranscriptPage from './TranscriptPage';
 
 import MeetingRoom from '@/components/KarauMeet/MeetingRoom';
 import MeetingRoomSwitch from '@/components/KarauMeet/MeetingRoomSwitch';
@@ -399,6 +400,7 @@ const KarauMeetPortal = () => {
           <Route path="replay/:meetingId" element={<MeetingReplayPage />} />
           <Route path="webinars" element={<WebinarManagementPage />} />
           <Route path="notes" element={<NotesPage />} />
+          <Route path="transcript/:meetingId" element={<TranscriptPage />} />
           <Route path="guide" element={<KarauMeetGuidePage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="settings" element={<KarauSettingsPage />} />

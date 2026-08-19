@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import {
   Radio, Plus, Users, Calendar, Clock, BarChart3,
-  Loader2, ExternalLink, Copy, Check, Trash2, Play, Square, Video
+  Loader2, ExternalLink, Copy, Check, Trash2, Play, Square, Video, FileText
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -191,6 +191,10 @@ const WebinarManagementPage = () => {
                   <Button size="sm" variant="ghost" onClick={() => setAnalyticsWebinarId(w.webinar_id)}
                     className="h-7 px-2 text-[11px] text-purple-400 hover:text-purple-300 hover:bg-purple-500/10" data-testid={`analytics-${w.webinar_id}`}>
                     <BarChart3 className="w-3 h-3" />
+                  </Button>
+                  <Button size="sm" variant="ghost" onClick={() => navigate(`/karau-meet/transcript/${w.webinar_id}`)}
+                    className="h-7 px-2 text-[11px] text-teal-400 hover:text-teal-300 hover:bg-teal-500/10" title="View transcript" data-testid={`transcript-${w.webinar_id}`}>
+                    <FileText className="w-3 h-3" />
                   </Button>
                 </div>
               </CardContent>

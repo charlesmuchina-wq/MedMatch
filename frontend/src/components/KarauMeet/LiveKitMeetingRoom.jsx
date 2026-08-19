@@ -84,7 +84,7 @@ export default function LiveKitMeetingRoom({ user, meetingId, webinar = false })
       >
         <VideoConference />
         <RoomAudioRenderer />
-        <LiveKitCaptions canSpeak={!webinar || isHost} />
+        <LiveKitCaptions canSpeak={!webinar || isHost} meetingId={meetingId} />
         {webinar && isHost && <WebinarHostControls meetingId={meetingId} />}
         {webinar && !isHost && role === "attendee" && <RaiseHandButton />}
       </LiveKitRoom>

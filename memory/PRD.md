@@ -1,5 +1,9 @@
 # AI KARAU + ENZI - Product Requirements Document
 
+## AI Rate Limit + Caption Transcripts — June 23, 2026 (later)
+- **@AI rate limit — DONE & VERIFIED:** 10 requests/user/hour on POST /api/lumi/channels/{id}/ai (db.enzi_ai_usage); 11th call returns 429 with friendly detail, surfaced in composer toast. Verified: 10×200 then 429.
+- **Caption transcript save & search — DONE & VERIFIED:** POST/GET /api/karau-meet/meetings/{id}/captions (auth, db.karau_caption_transcripts, ?q= case-insensitive search). LiveKitCaptions auto-saves each spoken line (meetingId prop). New page /karau-meet/transcript/:meetingId (TranscriptPage.jsx) with debounced search; FileText button per webinar card in WebinarManagementPage. Verified via curl (save/list/search/401) + screenshot (2 lines render, search filters to 1).
+
 ## Live Captions + Agentic Chat — Iterations 224-225 (June 23, 2026)
 - **ENZI @AI in-channel assistant — DONE & VERIFIED:** `POST /api/lumi/channels/{id}/ai` (routes/lumi_messenger/ai_agent.py, LUMI route count now 62). Intents: summarize / action items / translate to X / free-form Q&A (gpt-4.1-mini, last 30 msgs context). Reply posted in-channel as sender "ENZI AI" (type=ai_assistant, AI badge + sparkles avatar in MessageBubble) and broadcast over LUMI WS. Frontend: '@AI <request>' prefix in composer (LumiMessenger.jsx handleSend).
 - **LiveKit Live Captions — DONE & UI VERIFIED:** LiveKitCaptions.jsx (mounted in LiveKitMeetingRoom): speaker mic → 4s webm chunks → /api/realtime-stt/transcribe-base64 (Whisper) → 'captions' data channel broadcast; each viewer picks caption language (60 langs via /api/translate/languages, translated per-viewer via /api/lumi/ai/translate) or Original. Mic→speech path untestable headlessly; UI + all backend deps verified. NOTE: legacy P2P LiveCaptions.jsx untouched (used by MeetingRoom.jsx).
@@ -117,7 +121,7 @@ Prerequisites: release branch, signing certs, store access
 ## Future/Backlog
 - P1: Microsoft 365 Publisher Attestation (user confirmed will provide Partner ID + Entra client ID — awaiting values)
 - P2: LiveKit HLS egress/recording (user setting up Cloudflare R2 — instructions provided June 23)
-- P2: Rate limit on POST /api/lumi/channels/{id}/ai
+- P2: Rate limit on POST /api/lumi/channels/{id}/ai — DONE June 23
 - P1: Real-time Deployment Dashboard
 - P2: Production Monitoring & CRS Dashboard
 - P2: Chrome Extension

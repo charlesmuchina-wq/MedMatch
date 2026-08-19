@@ -15,7 +15,7 @@ const blobToBase64 = (blob) =>
 // LiveKit live captions: speakers transcribe their own mic via Whisper and broadcast
 // text over the "captions" data channel; every viewer renders it translated (or
 // original) in their chosen language via the translation engine.
-export default function LiveKitCaptions({ canSpeak = true }) {
+export default function LiveKitCaptions({ canSpeak = true, meetingId = "" }) {
   const [enabled, setEnabled] = useState(false);
   const [lang, setLang] = useState("original");
   const [languages, setLanguages] = useState([]);
@@ -83,8 +83,16 @@ export default function LiveKitCaptions({ canSpeak = true }) {
       const speaker = localParticipant?.name || localParticipant?.identity || "Me";
       try { send(enc({ speaker, text }), { reliable: true }); } catch {}
       showCaption(speaker, text);
+      if (meetingId) {
+        fetch(`${API}/api/karau-meet/meetings/${meetingId}/captions`, {
+          method: "POST",
+          headers,
+          credentials: "include",
+          body: JSON.stringify({ speaker, text }),
+        }).catch(() => {});
+      }
     } catch {}
-  }, [localParticipant, send, showCaption]);
+  }, [localParticipant, send, showCaption, meetingId]);
 
   // Mic recorder cycle: 4s standalone webm blobs → Whisper.
   useEffect(() => {

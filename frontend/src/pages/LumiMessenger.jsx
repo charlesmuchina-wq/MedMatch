@@ -405,7 +405,7 @@ const LumiMessenger = () => {
       if (aiMatch) {
         toast('✨ ENZI AI is thinking…');
         fetch(`${API}/api/lumi/channels/${activeChannel.id}/ai`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }, body: JSON.stringify({ query: aiMatch[1].trim() }) })
-          .then(r => { if (!r.ok) toast.error('ENZI AI could not respond'); })
+          .then(async r => { if (!r.ok) { const err = await r.json().catch(() => ({})); toast.error(err.detail || 'ENZI AI could not respond'); } })
           .catch(() => toast.error('ENZI AI could not respond'));
       }
     } catch (e) { toast.error('Failed'); setMessageText(text); }

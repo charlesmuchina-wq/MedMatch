@@ -2,7 +2,7 @@
 import os
 import re
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel
@@ -14,6 +14,7 @@ from ._common import manager
 router = APIRouter()
 
 EMERGENT_KEY = os.environ.get("EMERGENT_LLM_KEY")
+AI_HOURLY_LIMIT = 10
 
 
 class AICommand(BaseModel):
@@ -60,6 +61,11 @@ async def channel_ai_assistant(channel_id: str, data: AICommand, request: Reques
 
     intent, target_lang = _parse_intent(query)
 
+    hour_ago = (datetime.now(timezone.utc) - timedelta(hours=1)).isoformat()
+    used = await db.enzi_ai_usage.count_documents({"user_id": user["user_id"], "ts": {"$gte": hour_ago}})
+    if used >= AI_HOURLY_LIMIT:
+        raise HTTPException(status_code=429, detail=f"AI request limit reached ({AI_HOURLY_LIMIT}/hour). Please try again later.")
+
     cursor = db.lumi_messages.find(
         {"channel_id": channel_id, "sender_id": {"$ne": "enzi_ai"}},
         {"_id": 0, "sender_name": 1, "content": 1},
@@ -86,6 +92,8 @@ async def channel_ai_assistant(channel_id: str, data: AICommand, request: Reques
         response = await chat.send_message(UserMessage(text=prompt))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"ENZI AI failed: {str(e)}")
+
+    await db.enzi_ai_usage.insert_one({"user_id": user["user_id"], "ts": datetime.now(timezone.utc).isoformat()})
 
     ai_msg = {
         "id": f"msg_{uuid.uuid4().hex[:10]}",

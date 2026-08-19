@@ -474,6 +474,51 @@ async def get_meeting_livekit_token(meeting_id: str, request: Request):
     }
 
 
+class CaptionLine(BaseModel):
+    speaker: str
+    text: str
+    language: Optional[str] = None
+
+
+@router.post("/meetings/{meeting_id}/captions")
+async def save_caption_line(meeting_id: str, data: CaptionLine, request: Request):
+    """Persist a live-caption line into the meeting's searchable transcript."""
+    from utils.database import db
+    user = await require_auth(request)
+    meeting = await get_meeting(meeting_id)
+    if not meeting:
+        raise HTTPException(status_code=404, detail="Meeting not found")
+    text = (data.text or "").strip()[:2000]
+    if not text:
+        raise HTTPException(status_code=400, detail="Caption text is required")
+    line = {
+        "id": f"cap_{uuid.uuid4().hex[:10]}",
+        "meeting_id": meeting_id,
+        "speaker": (data.speaker or "Speaker")[:120],
+        "text": text,
+        "language": data.language,
+        "user_id": user.get("user_id"),
+        "ts": datetime.now(timezone.utc).isoformat(),
+    }
+    await db.karau_caption_transcripts.insert_one(line)
+    line.pop("_id", None)
+    return line
+
+
+@router.get("/meetings/{meeting_id}/captions")
+async def get_caption_transcript(meeting_id: str, request: Request, q: str = "", limit: int = 500):
+    """Full transcript of saved live captions for a meeting, with text search (?q=)."""
+    import re as _re
+    from utils.database import db
+    await require_auth(request)
+    query = {"meeting_id": meeting_id}
+    if q.strip():
+        query["text"] = {"$regex": _re.escape(q.strip()), "$options": "i"}
+    cursor = db.karau_caption_transcripts.find(query, {"_id": 0}).sort("ts", 1).limit(min(limit, 1000))
+    lines = await cursor.to_list(length=min(limit, 1000))
+    return {"meeting_id": meeting_id, "count": len(lines), "query": q, "lines": lines}
+
+
 class RoleBody(BaseModel):
     can_publish: bool
 
