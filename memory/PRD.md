@@ -1,5 +1,11 @@
 # AI KARAU + ENZI - Product Requirements Document
 
+## Summary Email + Transcript Tasks — June 23, 2026 (night)
+- **Summary Email — DONE & VERIFIED (real delivery limited by Resend testing mode):** On webinar end (POST /api/karau/webinar/{id}/end) a background task emails the AI summary + transcript PDF (base64 attachment) to all registered attendees; manual host trigger POST /{id}/send-summary. email_service.send_email now supports attachments; FROM_EMAIL falls back to SENDER_EMAIL; EMAIL_PROVIDER=resend added to backend/.env. Verified: 1 real email delivered to the Resend account owner's inbox. **LIMITATION: Resend account has no verified domain (testing mode) — can only deliver to the account owner's email until user verifies a domain at resend.com/domains.** Failures per recipient are counted and stored on webinar.summary_email.
+- **Transcript Tasks — DONE & VERIFIED:** "Extract Tasks" on TranscriptPage → reuses POST /api/agents/extract-worklist → creates real tasks in db.agent_tasks (visible in Agents worklist) with assignee/priority; in-page checklist with done/open toggle (PATCH /api/agents/tasks/{id}). Verified: 3 tasks extracted with correct owners (@Sarah/@Mark) and toggle works.
+- Fix: caption save endpoint now accepts webinar ids from db.webinars as well as karau_meetings (both webinar systems supported).
+- Fix: TranscriptPage syntax error (exportPdf closing brace eaten by edit) — caught by compile screen, fixed, page verified.
+
 ## Transcript AI Summary + PDF Export — June 23, 2026 (evening)
 - **AI Summary — DONE & VERIFIED:** POST /api/karau-meet/meetings/{id}/captions/summary (gpt-4.1-mini → Summary / Key Decisions / Action Items markdown, cached in db.karau_transcript_summaries). One-click "AI Summary" button on TranscriptPage renders the panel. 404 for empty meetings.
 - **PDF Export — DONE & VERIFIED:** GET /api/karau-meet/meetings/{id}/captions/export.pdf (reportlab, includes latest AI summary + timestamped lines, auth required/401). "PDF" button downloads transcript_{id}.pdf — verified via curl (valid %PDF) and browser download.

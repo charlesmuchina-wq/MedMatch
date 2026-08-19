@@ -7,6 +7,9 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Dict
 from datetime import datetime, timezone
 import uuid
+import asyncio
+import base64
+import logging
 
 from utils.database import db
 from routes.auth import get_current_user
@@ -294,6 +297,52 @@ async def start_webinar(webinar_id: str, user=Depends(get_current_user)):
     return {"success": True, "status": "live"}
 
 
+async def _send_summary_emails(webinar_id: str) -> dict:
+    """Email the AI summary + transcript PDF to all registered attendees."""
+    from routes.karau_meet import generate_transcript_summary, build_transcript_pdf
+    from services.email_service import send_email
+    webinar = await db.webinars.find_one(
+        {"webinar_id": webinar_id}, {"_id": 0, "title": 1, "registrations": 1})
+    if not webinar:
+        return {"sent": 0, "failed": 0, "reason": "webinar not found"}
+    regs = [r for r in webinar.get("registrations", []) if r.get("email")]
+    if not regs:
+        return {"sent": 0, "failed": 0, "reason": "no registered attendees"}
+    if not await db.karau_caption_transcripts.count_documents({"meeting_id": webinar_id}):
+        return {"sent": 0, "failed": 0, "reason": "no captions saved for this webinar"}
+
+    cached = await db.karau_transcript_summaries.find_one({"meeting_id": webinar_id}, {"_id": 0})
+    summary = cached["summary"] if cached else (await generate_transcript_summary(webinar_id))["summary"]
+    pdf_b64 = base64.b64encode(await build_transcript_pdf(webinar_id)).decode()
+
+    title = webinar.get("title") or f"Webinar {webinar_id}"
+    plain = summary.replace("**", "")
+    text = f"Thanks for attending {title}.\n\nAI Summary:\n{plain}\n\nThe full transcript is attached as a PDF."
+    html = (f"<h2>Thanks for attending {title}</h2><h3>AI Summary</h3>"
+            f"<div style='white-space:pre-wrap;font-family:sans-serif'>{plain}</div>"
+            f"<p>The full transcript is attached as a PDF.</p>")
+    attachments = [{"filename": f"transcript_{webinar_id}.pdf", "content": pdf_b64}]
+
+    sent = failed = 0
+    for r in regs:
+        res = await send_email(r["email"], f"Summary & transcript — {title}", html, text, attachments=attachments)
+        if res.get("success"):
+            sent += 1
+        else:
+            failed += 1
+    result = {"sent": sent, "failed": failed, "recipients": len(regs),
+              "at": datetime.now(timezone.utc).isoformat()}
+    await db.webinars.update_one({"webinar_id": webinar_id}, {"$set": {"summary_email": result}})
+    return result
+
+
+async def _send_summary_emails_safe(webinar_id: str):
+    try:
+        await _send_summary_emails(webinar_id)
+    except Exception as e:
+        logging.getLogger(__name__).error(f"summary email for {webinar_id} failed: {e}")
+
+
 @router.post("/{webinar_id}/end")
 async def end_webinar(webinar_id: str, user=Depends(get_current_user)):
     """End the webinar (host only). Auto-expires all guest permissions."""
@@ -305,7 +354,18 @@ async def end_webinar(webinar_id: str, user=Depends(get_current_user)):
             "guest_permissions": {}  # Clear all guest permissions on end
         }}
     )
-    return {"success": True, "status": "ended"}
+    asyncio.create_task(_send_summary_emails_safe(webinar_id))
+    return {"success": True, "status": "ended", "summary_email": "scheduled"}
+
+
+@router.post("/{webinar_id}/send-summary")
+async def send_summary_now(webinar_id: str, user=Depends(get_current_user)):
+    """Host: send the AI summary + transcript PDF email to all registered attendees now."""
+    webinar = await db.webinars.find_one(
+        {"webinar_id": webinar_id, "host_id": user["user_id"]}, {"_id": 0, "webinar_id": 1})
+    if not webinar:
+        raise HTTPException(404, "Webinar not found or not authorized")
+    return await _send_summary_emails(webinar_id)
 
 
 # --- Q&A System ---

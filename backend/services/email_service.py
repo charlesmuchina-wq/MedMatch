@@ -20,7 +20,7 @@ SMTP_HOST = os.environ.get("SMTP_HOST")
 SMTP_PORT = os.environ.get("SMTP_PORT", "587")
 SMTP_USER = os.environ.get("SMTP_USER")
 SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD")
-FROM_EMAIL = os.environ.get("FROM_EMAIL", "noreply@medmatch.com")
+FROM_EMAIL = os.environ.get("FROM_EMAIL") or os.environ.get("SENDER_EMAIL", "noreply@medmatch.com")
 FROM_NAME = os.environ.get("FROM_NAME", "MedMatch")
 
 # Application status configurations
@@ -245,7 +245,8 @@ async def send_email(
     to_email: str,
     subject: str,
     html_content: str,
-    text_content: str
+    text_content: str,
+    attachments: Optional[list] = None
 ) -> Dict[str, Any]:
     """
     Send email using configured provider
@@ -295,13 +296,16 @@ async def send_email(
             import resend
             resend.api_key = RESEND_API_KEY
             
-            response = resend.Emails.send({
+            payload = {
                 "from": f"{FROM_NAME} <{FROM_EMAIL}>",
                 "to": [to_email],
                 "subject": subject,
                 "html": html_content,
                 "text": text_content
-            })
+            }
+            if attachments:
+                payload["attachments"] = attachments
+            response = resend.Emails.send(payload)
             result["success"] = True
             result["email_id"] = response.get("id")
             

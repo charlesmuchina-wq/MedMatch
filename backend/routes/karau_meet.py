@@ -487,6 +487,8 @@ async def save_caption_line(meeting_id: str, data: CaptionLine, request: Request
     user = await require_auth(request)
     meeting = await get_meeting(meeting_id)
     if not meeting:
+        meeting = await db.webinars.find_one({"webinar_id": meeting_id}, {"_id": 0, "webinar_id": 1})
+    if not meeting:
         raise HTTPException(status_code=404, detail="Meeting not found")
     text = (data.text or "").strip()[:2000]
     if not text:
@@ -519,11 +521,9 @@ async def get_caption_transcript(meeting_id: str, request: Request, q: str = "",
     return {"meeting_id": meeting_id, "count": len(lines), "query": q, "lines": lines}
 
 
-@router.post("/meetings/{meeting_id}/captions/summary")
-async def summarize_caption_transcript(meeting_id: str, request: Request):
-    """One-click AI summary + action items from the saved caption transcript."""
+async def generate_transcript_summary(meeting_id: str) -> dict:
+    """Generate + cache an AI summary from the saved caption transcript."""
     from utils.database import db
-    await require_auth(request)
     lines = await db.karau_caption_transcripts.find(
         {"meeting_id": meeting_id}, {"_id": 0, "speaker": 1, "text": 1}
     ).sort("ts", 1).to_list(length=1000)
@@ -550,13 +550,10 @@ async def summarize_caption_transcript(meeting_id: str, request: Request):
     return doc
 
 
-@router.get("/meetings/{meeting_id}/captions/export.pdf")
-async def export_caption_transcript_pdf(meeting_id: str, request: Request):
-    """Download the saved caption transcript (and latest AI summary) as a PDF."""
+async def build_transcript_pdf(meeting_id: str) -> bytes:
+    """Render the saved caption transcript (+ latest AI summary) into PDF bytes."""
     import io
-    from fastapi.responses import StreamingResponse
     from utils.database import db
-    await require_auth(request)
     lines = await db.karau_caption_transcripts.find(
         {"meeting_id": meeting_id}, {"_id": 0}
     ).sort("ts", 1).to_list(length=1000)
@@ -589,8 +586,24 @@ async def export_caption_transcript_pdf(meeting_id: str, request: Request):
         ts = (l.get("ts") or "")[11:16]
         story.append(Paragraph(f"<font color='#555555'>{escape(ts)}</font> <b>{escape(l.get('speaker', 'Speaker'))}</b>: {escape(l.get('text', ''))}", line_style))
     pdf.build(story)
-    buf.seek(0)
-    return StreamingResponse(buf, media_type="application/pdf",
+    return buf.getvalue()
+
+
+@router.post("/meetings/{meeting_id}/captions/summary")
+async def summarize_caption_transcript(meeting_id: str, request: Request):
+    """One-click AI summary + action items from the saved caption transcript."""
+    await require_auth(request)
+    return await generate_transcript_summary(meeting_id)
+
+
+@router.get("/meetings/{meeting_id}/captions/export.pdf")
+async def export_caption_transcript_pdf(meeting_id: str, request: Request):
+    """Download the saved caption transcript (and latest AI summary) as a PDF."""
+    import io
+    from fastapi.responses import StreamingResponse
+    await require_auth(request)
+    pdf_bytes = await build_transcript_pdf(meeting_id)
+    return StreamingResponse(io.BytesIO(pdf_bytes), media_type="application/pdf",
                              headers={"Content-Disposition": f"attachment; filename=transcript_{meeting_id}.pdf"})
 
 
