@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { MEETING_E2EE_ENABLED, SOC2_CERTIFIED } from '@/config/features';
 import { toast } from 'sonner';
 import {
   Users, Shield, Sparkles, Loader2, Eye, Mic,
@@ -248,8 +249,12 @@ const KarauMeetLogin = ({ onLogin }) => {
 
         {/* Bottom trust badges */}
         <div className="relative z-10 flex items-center gap-6 text-xs text-slate-600">
-          <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> {t("karauMeet.e2eEncrypted")}</span>
-          <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> {t("karauMeet.soc2Compliant")}</span>
+          {MEETING_E2EE_ENABLED && (
+            <span className="flex items-center gap-1.5"><Lock className="w-3.5 h-3.5" /> {t("karauMeet.e2eEncrypted")}</span>
+          )}
+          {SOC2_CERTIFIED && (
+            <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> {t("karauMeet.soc2Compliant")}</span>
+          )}
           <span className="flex items-center gap-1.5"><Globe className="w-3.5 h-3.5" /> {t("karauMeet.fortyPlusLanguages")}</span>
         </div>
       </div>
@@ -481,8 +486,8 @@ const KarauMeetLogin = ({ onLogin }) => {
           {/* Footer */}
           <div className="mt-8 pt-6 border-t border-white/[0.04] flex items-center justify-between">
             <div className="flex items-center gap-3 text-xs text-slate-600">
-              <Shield className="w-3.5 h-3.5 text-teal-500/50" />
-              <span>{t("karauMeet.e2eEncrypted")}</span>
+              {MEETING_E2EE_ENABLED && <Shield className="w-3.5 h-3.5 text-teal-500/50" />}
+              {MEETING_E2EE_ENABLED && <span>{t("karauMeet.e2eEncrypted")}</span>}
               <Sparkles className="w-3.5 h-3.5 text-purple-500/50" />
               <span>{t("karauMeet.aiPowered")}</span>
             </div>

@@ -102,7 +102,7 @@ const GUIDE_SECTIONS = [
       { title: 'Organization Setup', content: 'Create your organization from the Enterprise panel. Configure company name, domain(s) for automatic user association, default meeting settings, and branding (logo, colors for meeting rooms and recordings).' },
       { title: 'SSO / SAML Integration', content: 'Configure Single Sign-On via SAML 2.0. Supports major identity providers. Once configured, users from your domain are automatically authenticated without separate AI KARAU credentials.' },
       { title: 'User Management', content: 'Manage users, assign roles (admin, host, member), set department groups, and control permissions. Bulk import users via CSV. View usage analytics per user.' },
-      { title: 'Compliance & Security', content: 'E2E encryption for all meetings. Configure data retention policies, audit logs, and regional data storage. SOC 2 compliant infrastructure with regular security audits.' },
+      { title: 'Compliance & Security', content: 'Meetings are encrypted in transit (DTLS-SRTP). Configure data retention policies, audit logs, and regional data storage. Security controls are aligned to SOC 2 (certification in progress).' },
       { title: 'Meeting Policies', content: 'Set organization-wide defaults: require recording consent, enforce waiting rooms, set maximum meeting duration, restrict guest access, and configure auto-lock timers.' },
       { title: 'Analytics & Reporting', content: 'Enterprise-wide dashboards showing meeting volume, average duration, AI feature adoption, engagement scores, and cost metrics. Export reports for stakeholders.' },
     ]

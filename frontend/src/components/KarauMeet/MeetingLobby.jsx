@@ -4,6 +4,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import { MEETING_E2EE_ENABLED } from '@/config/features';
 import {
   Shield, Mic, MicOff, Video, VideoOff, Settings2,
   Monitor, Loader2, UserCheck, Clock,
@@ -467,7 +468,9 @@ const MeetingLobby = ({ meetingId, user, isGuest = false, onJoinMeeting }) => {
                 {isJoining ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t("karauMeet.joining")}</> : t("karauMeet.joinNow")}
               </Button>
               <div className="flex items-center justify-center gap-5 text-xs text-slate-600">
-                <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> {t("karauMeet.e2eEncrypted")}</span>
+                {MEETING_E2EE_ENABLED && (
+                  <span className="flex items-center gap-1.5"><Shield className="w-3.5 h-3.5" /> {t("karauMeet.e2eEncrypted")}</span>
+                )}
                 <span className="flex items-center gap-1.5"><Monitor className="w-3.5 h-3.5" /> {t("karauMeet.hdVideo")}</span>
               </div>
             </div>
