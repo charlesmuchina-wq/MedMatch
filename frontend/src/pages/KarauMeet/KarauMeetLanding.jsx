@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { MEETING_E2EE_ENABLED } from '@/config/features';
 import { toast } from 'sonner';
 import {
   Video, Plus, Calendar, Users, Clock, Shield,
@@ -164,7 +165,10 @@ const KarauMeetLanding = ({ user }) => {
         {/* Features */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {[
-            { icon: Shield, label: t("karauMeet.endToEndEncrypted"), color: 'text-green-400' },
+            // Gated: end-to-end encryption is not implemented for meeting media yet.
+            ...(MEETING_E2EE_ENABLED
+              ? [{ icon: Shield, label: t("karauMeet.endToEndEncrypted"), color: 'text-green-400' }]
+              : []),
             { icon: Sparkles, label: t("karauMeet.aiNotesTranscription"), color: 'text-purple-400' },
             { icon: MonitorPlay, label: t("karauMeet.screenSharing"), color: 'text-blue-400' },
             { icon: Users, label: t("karauMeet.breakoutRooms"), color: 'text-violet-400' }

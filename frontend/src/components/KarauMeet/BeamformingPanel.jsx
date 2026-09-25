@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Radio, Volume2 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import PreviewBadge from '@/components/KarauMeet/PreviewBadge';
 
 const API = process.env.REACT_APP_BACKEND_URL;
 
@@ -70,6 +71,7 @@ export default function BeamformingPanel({ meetingId }) {
             <h3 className="text-xs font-semibold text-white">Beamforming Audio</h3>
             <p className="text-[9px] text-slate-500">Directional audio & noise filtering</p>
           </div>
+          <PreviewBadge className="ml-auto" />
           {activeSpeaker && (
             <Badge className="text-[7px] bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
               <Volume2 className="w-2 h-2 mr-0.5" />{activeSpeaker.split(' ')[0]}
